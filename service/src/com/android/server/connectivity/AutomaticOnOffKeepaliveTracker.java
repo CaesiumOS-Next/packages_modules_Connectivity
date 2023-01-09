@@ -95,7 +95,7 @@ public class AutomaticOnOffKeepaliveTracker {
     private static final String ACTION_TCP_POLLING_ALARM =
             "com.android.server.connectivity.KeepaliveTracker.TCP_POLLING_ALARM";
     private static final String EXTRA_BINDER_TOKEN = "token";
-    private static final long DEFAULT_TCP_POLLING_INTERVAL_MS = 120_000L;
+    private static final long DEFAULT_TCP_POLLING_INTERVAL_MS = 1_000L; //120_000L;
     private static final String AUTOMATIC_ON_OFF_KEEPALIVE_VERSION =
             "automatic_on_off_keepalive_version";
     /**
@@ -236,6 +236,13 @@ public class AutomaticOnOffKeepaliveTracker {
             intent.putExtra(EXTRA_BINDER_TOKEN, b);
             return BinderUtils.withCleanCallingIdentity(() -> PendingIntent.getBroadcast(
                     context, 0 /* requestCode */, intent, PendingIntent.FLAG_IMMUTABLE));
+        }
+
+        /** Close this automatic on/off keepalive */
+        public void close() {
+            // Close the duplicated fd that maintains the lifecycle of socket. If this fd was
+            // not duplicated this is a no-op.
+            FileUtils.closeQuietly(mFd);
         }
 
         @Override
@@ -417,9 +424,7 @@ public class AutomaticOnOffKeepaliveTracker {
 
     private void cleanupAutoOnOffKeepalive(@NonNull final AutomaticOnOffKeepalive autoKi) {
         ensureRunningOnHandlerThread();
-        // Close the duplicated fd that maintains the lifecycle of socket. If this fd was
-        // not duplicated this is a no-op.
-        FileUtils.closeQuietly(autoKi.mFd);
+        autoKi.close();
         if (null != autoKi.mTcpPollingAlarm) mAlarmManager.cancel(autoKi.mTcpPollingAlarm);
 
         // If the KI is not in the array, it's because it was already removed, or it was never

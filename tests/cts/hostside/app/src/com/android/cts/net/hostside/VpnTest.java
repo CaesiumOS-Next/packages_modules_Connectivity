@@ -18,6 +18,8 @@ package com.android.cts.net.hostside;
 
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.Manifest.permission.READ_DEVICE_CONFIG;
+import static android.Manifest.permission.WRITE_DEVICE_CONFIG;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
 import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.net.ConnectivityManager.TYPE_VPN;
@@ -36,6 +38,12 @@ import static android.test.MoreAsserts.assertNotEqual;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
+import static com.android.cts.net.hostside.VpnTest.TestSocketKeepaliveCallback.CallbackType.ON_DATA_RECEIVED;
+import static com.android.cts.net.hostside.VpnTest.TestSocketKeepaliveCallback.CallbackType.ON_ERROR;
+import static com.android.cts.net.hostside.VpnTest.TestSocketKeepaliveCallback.CallbackType.ON_PAUSED;
+import static com.android.cts.net.hostside.VpnTest.TestSocketKeepaliveCallback.CallbackType.ON_RESUMED;
+import static com.android.cts.net.hostside.VpnTest.TestSocketKeepaliveCallback.CallbackType.ON_STARTED;
+import static com.android.cts.net.hostside.VpnTest.TestSocketKeepaliveCallback.CallbackType.ON_STOPPED;
 import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_LOCKDOWN_VPN;
 import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_NONE;
 import static com.android.networkstack.apishim.ConstantsShim.RECEIVER_EXPORTED;
@@ -63,6 +71,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.net.IpSecManager;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
@@ -70,6 +79,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.Proxy;
 import android.net.ProxyInfo;
+import android.net.SocketKeepalive;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
 import android.net.TransportInfo;
@@ -78,6 +88,7 @@ import android.net.VpnManager;
 import android.net.VpnService;
 import android.net.VpnTransportInfo;
 import android.net.cts.util.CtsNetUtils;
+import android.net.util.KeepaliveUtils;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
@@ -86,6 +97,7 @@ import android.os.ParcelFileDescriptor;
 import android.os.Process;
 import android.os.SystemProperties;
 import android.os.UserHandle;
+import android.provider.DeviceConfig;
 import android.provider.Settings;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
@@ -94,7 +106,6 @@ import android.system.ErrnoException;
 import android.system.Os;
 import android.system.OsConstants;
 import android.system.StructPollfd;
-import android.telephony.TelephonyManager;
 import android.test.MoreAsserts;
 import android.text.TextUtils;
 import android.util.ArraySet;
@@ -105,6 +116,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.android.compatibility.common.util.BlockingBroadcastReceiver;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.ArrayTrackRecord;
+import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.PacketBuilder;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
@@ -141,6 +154,7 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -190,6 +204,11 @@ public class VpnTest {
     public static int SOCKET_TIMEOUT_MS = 100;
     public static String TEST_HOST = "connectivitycheck.gstatic.com";
 
+    private static final String AUTOMATIC_ON_OFF_KEEPALIVE_VERSION =
+            "automatic_on_off_keepalive_version";
+    // Enabled since version 1 means it's always enabled because the version is always above 1
+    private static final String AUTOMATIC_ON_OFF_KEEPALIVE_ENABLED = "1";
+
     private UiDevice mDevice;
     private MyActivity mActivity;
     private String mPackageName;
@@ -198,8 +217,8 @@ public class VpnTest {
     private RemoteSocketFactoryClient mRemoteSocketFactoryClient;
     private CtsNetUtils mCtsNetUtils;
     private PackageManager mPackageManager;
-    private TelephonyManager mTelephonyManager;
-
+    private Context mTestContext;
+    private Context mTargetContext;
     Network mNetwork;
     NetworkCallback mCallback;
     final Object mLock = new Object();
@@ -229,21 +248,19 @@ public class VpnTest {
     public void setUp() throws Exception {
         mNetwork = null;
         mCallback = null;
+        mTestContext = getInstrumentation().getContext();
+        mTargetContext = getInstrumentation().getTargetContext();
         storePrivateDnsSetting();
-
         mDevice = UiDevice.getInstance(getInstrumentation());
-        mActivity = launchActivity(getInstrumentation().getTargetContext().getPackageName(),
-                MyActivity.class);
+        mActivity = launchActivity(mTargetContext.getPackageName(), MyActivity.class);
         mPackageName = mActivity.getPackageName();
         mCM = (ConnectivityManager) mActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
         mWifiManager = (WifiManager) mActivity.getSystemService(Context.WIFI_SERVICE);
         mRemoteSocketFactoryClient = new RemoteSocketFactoryClient(mActivity);
         mRemoteSocketFactoryClient.bind();
         mDevice.waitForIdle();
-        mCtsNetUtils = new CtsNetUtils(getInstrumentation().getContext());
-        mPackageManager = getInstrumentation().getContext().getPackageManager();
-        mTelephonyManager =
-                getInstrumentation().getContext().getSystemService(TelephonyManager.class);
+        mCtsNetUtils = new CtsNetUtils(mTestContext);
+        mPackageManager = mTestContext.getPackageManager();
     }
 
     @After
@@ -742,7 +759,7 @@ public class VpnTest {
     }
 
     private ContentResolver getContentResolver() {
-        return getInstrumentation().getContext().getContentResolver();
+        return mTestContext.getContentResolver();
     }
 
     private boolean isPrivateDnsInStrictMode() {
@@ -791,7 +808,7 @@ public class VpnTest {
     }
 
     private void setAndVerifyPrivateDns(boolean strictMode) throws Exception {
-        final ContentResolver cr = getInstrumentation().getContext().getContentResolver();
+        final ContentResolver cr = mTestContext.getContentResolver();
         String privateDnsHostname;
 
         if (strictMode) {
@@ -929,7 +946,7 @@ public class VpnTest {
         }
 
         final BlockingBroadcastReceiver receiver = new BlockingBroadcastReceiver(
-                getInstrumentation().getTargetContext(), MyVpnService.ACTION_ESTABLISHED);
+                mTargetContext, MyVpnService.ACTION_ESTABLISHED);
         receiver.register();
 
         // Test the behaviour of a variety of types of network callbacks.
@@ -1024,6 +1041,166 @@ public class VpnTest {
         maybeExpectVpnTransportInfo(mCM.getActiveNetwork());
 
         checkStrictModePrivateDns();
+    }
+
+    private int getSupportedKeepalivesForNet(Network network) throws Exception {
+        final NetworkCapabilities nc = mCM.getNetworkCapabilities(network);
+        // Get number of supported concurrent keepalives for testing network.
+        final int[] keepalivesPerTransport = KeepaliveUtils.getSupportedKeepalives(
+                mTargetContext);
+        return KeepaliveUtils.getSupportedKeepalivesForNetworkCapabilities(
+                keepalivesPerTransport, nc);
+    }
+
+    // This class can't be private, otherwise the constants can't be static imported.
+    static class TestSocketKeepaliveCallback extends SocketKeepalive.Callback {
+        // This must be larger than the alarm delay in AutomaticOnOffKeepaliveTracker.
+        // TODO : Make this smaller to make the test faster, e.g. by using DeviceConfig
+        // to set this value.
+        private static final int KEEPALIVE_TIMEOUT_MS = 150_000;
+        public enum CallbackType {
+            ON_STARTED,
+            ON_RESUMED,
+            ON_STOPPED,
+            ON_PAUSED,
+            ON_ERROR,
+            ON_DATA_RECEIVED
+        }
+        private ArrayTrackRecord<CallbackType> mHistory = new ArrayTrackRecord<>();
+        private ArrayTrackRecord<CallbackType>.ReadHead mEvents = mHistory.newReadHead();
+
+        @Override
+        public void onStarted() {
+            mHistory.add(ON_STARTED);
+        }
+
+        @Override
+        public void onResumed() {
+            mHistory.add(ON_RESUMED);
+        }
+
+        @Override
+        public void onStopped() {
+            mHistory.add(ON_STOPPED);
+        }
+
+        @Override
+        public void onPaused() {
+            mHistory.add(ON_PAUSED);
+        }
+
+        @Override
+        public void onError(final int error) {
+            mHistory.add(ON_ERROR);
+        }
+
+        @Override
+        public void onDataReceived() {
+            mHistory.add(ON_DATA_RECEIVED);
+        }
+
+        public CallbackType poll() {
+            return mEvents.poll(KEEPALIVE_TIMEOUT_MS, it -> true);
+        }
+    }
+
+    private InetAddress getV4AddrByName(final String hostname) throws Exception {
+        final InetAddress[] allAddrs = InetAddress.getAllByName(hostname);
+        for (InetAddress addr : allAddrs) {
+            if (addr instanceof Inet4Address) return addr;
+        }
+        return null;
+    }
+
+    @Test
+    public void testAutomaticOnOffKeepaliveModeNoClose() throws Exception {
+        doTestAutomaticOnOffKeepaliveMode(false);
+    }
+
+    @Test
+    public void testAutomaticOnOffKeepaliveModeClose() throws Exception {
+        doTestAutomaticOnOffKeepaliveMode(true);
+    }
+
+    private void doTestAutomaticOnOffKeepaliveMode(final boolean closeSocket) throws Exception {
+        assumeTrue(supportedHardware());
+
+        // Get current default network first before starting VPN
+        final Network defaultNetwork = mCtsNetUtils.connectSomeDefaultNetwork();
+        final TestableNetworkCallback cb = new TestableNetworkCallback();
+        mCM.registerDefaultNetworkCallback(cb);
+        cb.expect(CallbackEntry.AVAILABLE, defaultNetwork);
+        cb.expect(CallbackEntry.NETWORK_CAPS_UPDATED, defaultNetwork).getCaps();
+        final LinkProperties lp =
+                cb.expect(CallbackEntry.LINK_PROPERTIES_CHANGED, defaultNetwork).getLp();
+        cb.expect(CallbackEntry.BLOCKED_STATUS, defaultNetwork);
+        assertNotNull("Test requires a working internet network", defaultNetwork);
+
+        // Setup VPN
+        final FileDescriptor fd = openSocketFdInOtherApp(TEST_HOST, 80, TIMEOUT_MS);
+        // Shell app must not be put in here or it would kill the ADB-over-network use case
+        final String allowedApps = mRemoteSocketFactoryClient.getPackageName() + "," + mPackageName;
+        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
+                new String[] {"192.0.2.0/24", "2001:db8::/32"},
+                allowedApps, "", null, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        assertSocketClosed(fd, TEST_HOST);
+
+        // Setup keepalive
+        final int supported = getSupportedKeepalivesForNet(defaultNetwork);
+        assumeTrue("Network " + defaultNetwork + " does not support keepalive", supported != 0);
+        final InetAddress srcAddr = CollectionUtils.findFirst(lp.getAddresses(),
+                it -> it instanceof Inet4Address);
+        assumeTrue("This test requires native IPv4", srcAddr != null);
+
+        final TestSocketKeepaliveCallback callback = new TestSocketKeepaliveCallback();
+
+        final String origMode = runWithShellPermissionIdentity(() -> {
+            final String mode = DeviceConfig.getProperty(
+                    DeviceConfig.NAMESPACE_CONNECTIVITY, AUTOMATIC_ON_OFF_KEEPALIVE_VERSION);
+            DeviceConfig.setProperty(DeviceConfig.NAMESPACE_CONNECTIVITY,
+                    AUTOMATIC_ON_OFF_KEEPALIVE_VERSION,
+                    AUTOMATIC_ON_OFF_KEEPALIVE_ENABLED, false /* makeDefault */);
+            return mode;
+        }, READ_DEVICE_CONFIG, WRITE_DEVICE_CONFIG);
+        final IpSecManager ipSec = mTargetContext.getSystemService(IpSecManager.class);
+        SocketKeepalive kp = null;
+        try (IpSecManager.UdpEncapsulationSocket nattSocket = ipSec.openUdpEncapsulationSocket()) {
+            final InetAddress dstAddr = getV4AddrByName(TEST_HOST);
+            assertNotNull(dstAddr);
+
+            // Start keepalive with dynamic keepalive mode enabled.
+            final Executor executor = mTargetContext.getMainExecutor();
+            kp = mCM.createSocketKeepalive(defaultNetwork, nattSocket,
+                    srcAddr, dstAddr, executor, callback);
+            kp.start(10 /* intervalSec */, SocketKeepalive.FLAG_AUTOMATIC_ON_OFF);
+
+            // Verify callback status.
+            assertEquals(ON_STARTED, callback.poll());
+
+            // All the sockets should be blocked in VPN network. ON_TEMP_DISABLED should be
+            // triggered in the first TCP polling.
+            assertEquals(ON_PAUSED, callback.poll());
+
+            final Socket s = new Socket();
+            mNetwork.bindSocket(s);
+            s.connect(new InetSocketAddress(dstAddr, 80));
+            assertEquals(ON_RESUMED, callback.poll());
+
+            if (closeSocket) {
+                s.close();
+                assertEquals(ON_PAUSED, callback.poll());
+            }
+
+            kp.stop();
+            assertEquals(ON_STOPPED, callback.poll());
+        } finally {
+            if (kp != null) kp.stop();
+            runWithShellPermissionIdentity(() -> DeviceConfig.setProperty(
+                            DeviceConfig.NAMESPACE_CONNECTIVITY,
+                            AUTOMATIC_ON_OFF_KEEPALIVE_VERSION,
+                            origMode, false),
+                    WRITE_DEVICE_CONFIG);
+        }
     }
 
     @Test
@@ -1525,7 +1702,7 @@ public class VpnTest {
         private boolean received;
 
         public ProxyChangeBroadcastReceiver() {
-            super(getInstrumentation().getContext(), Proxy.PROXY_CHANGE_ACTION);
+            super(mTestContext, Proxy.PROXY_CHANGE_ACTION);
             received = false;
         }
 
@@ -1555,12 +1732,11 @@ public class VpnTest {
                 "" /* allowedApps */, "com.android.providers.downloads", null /* proxyInfo */,
                 null /* underlyingNetworks */, false /* isAlwaysMetered */);
 
-        final Context context = getInstrumentation().getContext();
-        final DownloadManager dm = context.getSystemService(DownloadManager.class);
+        final DownloadManager dm = mTestContext.getSystemService(DownloadManager.class);
         final DownloadCompleteReceiver receiver = new DownloadCompleteReceiver();
         try {
             final int flags = SdkLevel.isAtLeastT() ? RECEIVER_EXPORTED : 0;
-            context.registerReceiver(receiver,
+            mTestContext.registerReceiver(receiver,
                     new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), flags);
 
             // Enqueue a request and check only one download.
@@ -1578,7 +1754,7 @@ public class VpnTest {
             assertEquals(1, dm.remove(id));
             assertEquals(0, getTotalNumberDownloads(dm, new Query()));
         } finally {
-            context.unregisterReceiver(receiver);
+            mTestContext.unregisterReceiver(receiver);
         }
     }
 
@@ -1615,8 +1791,7 @@ public class VpnTest {
 
         // Create a TUN interface
         final FileDescriptor tunFd = runWithShellPermissionIdentity(() -> {
-            final TestNetworkManager tnm = getInstrumentation().getContext().getSystemService(
-                    TestNetworkManager.class);
+            final TestNetworkManager tnm = mTestContext.getSystemService(TestNetworkManager.class);
             final TestNetworkInterface iface = tnm.createTunInterface(List.of(
                     TEST_IP4_DST_ADDR, TEST_IP6_DST_ADDR));
             return iface.getFileDescriptor().getFileDescriptor();
