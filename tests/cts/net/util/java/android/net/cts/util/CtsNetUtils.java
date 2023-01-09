@@ -17,8 +17,11 @@
 package android.net.cts.util;
 
 import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
+import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
 import static com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;
@@ -99,6 +102,7 @@ public final class CtsNetUtils {
     private final ContentResolver mCR;
     private final WifiManager mWifiManager;
     private TestNetworkCallback mCellNetworkCallback;
+    private TestNetworkCallback mEthernetNetworkCallback;
     private int mOldPrivateDnsMode = 0;
     private String mOldPrivateDnsSpecifier;
 
@@ -370,20 +374,17 @@ public final class CtsNetUtils {
         return network;
     }
 
-    public Network connectToCell() throws InterruptedException {
-        if (cellConnectAttempted()) {
-            mCm.unregisterNetworkCallback(mCellNetworkCallback);
-        }
-        NetworkRequest cellRequest = new NetworkRequest.Builder()
-                .addTransportType(TRANSPORT_CELLULAR)
+    public Network connectToTransport(@NonNull final String humanReadableType, final int transport,
+            @NonNull final TestNetworkCallback callback) throws InterruptedException {
+        final NetworkRequest request = new NetworkRequest.Builder()
+                .addTransportType(transport)
                 .addCapability(NET_CAPABILITY_INTERNET)
                 .build();
-        mCellNetworkCallback = new TestNetworkCallback();
-        mCm.requestNetwork(cellRequest, mCellNetworkCallback);
-        final Network cellNetwork = mCellNetworkCallback.waitForAvailable();
-        assertNotNull("Cell network not available. " +
-                "Please ensure the device has working mobile data.", cellNetwork);
-        return cellNetwork;
+        mCm.requestNetwork(request, callback);
+        final Network network = callback.waitForAvailable();
+        assertNotNull(humanReadableType + " network not available. "
+                + "Please ensure the device has working " + humanReadableType + " data.", network);
+        return network;
     }
 
     public void disconnectFromCell() {
@@ -398,9 +399,47 @@ public final class CtsNetUtils {
         return mCellNetworkCallback != null;
     }
 
-    public void tearDown() {
+    public Network connectToCell() throws Exception {
         if (cellConnectAttempted()) {
-            disconnectFromCell();
+            mCm.unregisterNetworkCallback(mCellNetworkCallback);
+        }
+        mCellNetworkCallback = new TestNetworkCallback();
+        return connectToTransport("Cell", TRANSPORT_CELLULAR, mCellNetworkCallback);
+    }
+
+    public Network connectToEthernet() throws Exception {
+        if (ethernetConnectAttempted()) {
+            mCm.unregisterNetworkCallback(mEthernetNetworkCallback);
+        }
+        mEthernetNetworkCallback = new TestNetworkCallback();
+        return connectToTransport("Ethernet", TRANSPORT_ETHERNET, mEthernetNetworkCallback);
+    }
+
+    public void disconnectFromEthernet() {
+        if (!ethernetConnectAttempted()) {
+            throw new IllegalStateException("Ethernet connection not attempted");
+        }
+        mCm.unregisterNetworkCallback(mEthernetNetworkCallback);
+        mEthernetNetworkCallback = null;
+    }
+
+    public boolean ethernetConnectAttempted() {
+        return mEthernetNetworkCallback != null;
+    }
+
+    public void tearDown() {
+        if (cellConnectAttempted()) disconnectFromCell();
+        if (ethernetConnectAttempted()) disconnectFromEthernet();
+    }
+
+    public Network connectSomeDefaultNetwork() throws Exception {
+        final PackageManager pm = mContext.getPackageManager();
+        if (pm.hasSystemFeature(FEATURE_WIFI)) {
+            return connectToWifi();
+        } else if (pm.hasSystemFeature(FEATURE_TELEPHONY)) {
+            return connectToCell();
+        } else {
+            return connectToEthernet();
         }
     }
 
