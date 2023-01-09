@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5353ee1_0836168b",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T07:14:15Z",
+      "side": 1,
+      "message": "I think MdnsMultinetworkSocketClient can add a callback to notify MdnsDiscoveryManager that socket is ready. Then start sending and receiving. File a bug b/264634275 to follow up.",
+      "parentUuid": "ec8c1069_30b13d4a",
+      "revId": "fe335a5a7b2b2abfc2566cd7205faec0d7d27e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c11f4113_8015613c",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
         "patchSetId": 10
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-05T08:00:50Z",
       "side": 1,
       "message": "I think the \"Network\" value is never used, so this could just be an ArraySet\u003cMdnsInterfaceSocket\u003e ?",
+      "revId": "fe335a5a7b2b2abfc2566cd7205faec0d7d27e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bf95be0_5a380661",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T07:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c11f4113_8015613c",
       "revId": "fe335a5a7b2b2abfc2566cd7205faec0d7d27e90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2023-01-05T08:00:50Z",
       "side": 1,
       "message": "If the ReadPacketHandler was already created for this socket, would this add it as duplicate ?\n\nIt would be useful to have a comment to explain in which cases ReadPacketHandler was already created (handler !\u003d null in the check above). IIUC it\u0027s when onSocketCreated is called multiple times for different MdnsServiceBrowserListener requests ?",
+      "revId": "fe335a5a7b2b2abfc2566cd7205faec0d7d27e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31942b50_6fc1adcf",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T07:14:15Z",
+      "side": 1,
+      "message": "\u003e If the ReadPacketHandler was already created for this socket, would this add it as duplicate ?\n\nNo. mPacketHandlers is a set in MulticastPacketReader, it should not have duplicate elements. Also add some comments to explain the behavior above.",
+      "parentUuid": "618acf0d_624d6bce",
       "revId": "fe335a5a7b2b2abfc2566cd7205faec0d7d27e90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -75,6 +129,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "055226a2_01f8d2f4",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T07:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f4eed1d_62c65d95",
+      "range": {
+        "startLine": 90,
+        "startChar": 15,
+        "endLine": 90,
+        "endChar": 16
+      },
+      "revId": "fe335a5a7b2b2abfc2566cd7205faec0d7d27e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3390ddb6_bc72d705",
@@ -88,6 +166,24 @@
       "writtenOn": "2023-01-05T08:00:50Z",
       "side": 1,
       "message": "This will send to all the sockets in this MdnsMultinetworkSocketClient, even though the packet may be from a discovery request on only a subset of the sockets.\n\nMaybe you could have sendMulticastPacket take a Network as argument, which would be propagated from MdnsSocketTypeClient SearchOptions ? Or some other solution to avoid sending on all sockets ?",
+      "revId": "fe335a5a7b2b2abfc2566cd7205faec0d7d27e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ae4ab5d_83a4af39",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T07:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3390ddb6_bc72d705",
       "revId": "fe335a5a7b2b2abfc2566cd7205faec0d7d27e90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
