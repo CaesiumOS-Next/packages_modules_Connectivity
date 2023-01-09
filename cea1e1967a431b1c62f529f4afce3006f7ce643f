@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f415242_52085889",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T01:52:11Z",
+      "side": 1,
+      "message": "No use, remove it?",
+      "range": {
+        "startLine": 127,
+        "startChar": 30,
+        "endLine": 127,
+        "endChar": 47
+      },
+      "revId": "cea1e1967a431b1c62f529f4afce3006f7ce643f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e41c56c5_c3744846",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T01:52:11Z",
+      "side": 1,
+      "message": "Can we use interface name for all networks?",
+      "range": {
+        "startLine": 201,
+        "startChar": 24,
+        "endLine": 202,
+        "endChar": 57
+      },
+      "revId": "cea1e1967a431b1c62f529f4afce3006f7ce643f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9d46156_d3008d99",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T01:52:11Z",
+      "side": 1,
+      "message": "I think the network in pending registration should match the socket created network here then the service can add to right advertiser. Or you plan to add this check in advertiser side?",
+      "range": {
+        "startLine": 210,
+        "startChar": 20,
+        "endLine": 211,
+        "endChar": 79
+      },
+      "revId": "cea1e1967a431b1c62f529f4afce3006f7ce643f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "258d192d_970dfff3",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T01:52:11Z",
+      "side": 1,
+      "message": "I\u0027m not sure why we need to do this because it change the service name which is different with user configuration. Does this follow up the spec?",
+      "range": {
+        "startLine": 247,
+        "startChar": 31,
+        "endLine": 247,
+        "endChar": 48
+      },
+      "revId": "cea1e1967a431b1c62f529f4afce3006f7ce643f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f27c2b55_e9cee5ac",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T01:52:11Z",
+      "side": 1,
+      "message": "Don\u0027t we need callback for unregistration?",
+      "range": {
+        "startLine": 295,
+        "startChar": 4,
+        "endLine": 295,
+        "endChar": 5
+      },
+      "revId": "cea1e1967a431b1c62f529f4afce3006f7ce643f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba418010_afb42e0d",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T01:52:11Z",
+      "side": 1,
+      "message": "I think we should have more error codes for different failed cases. Something like this, it\u0027s confusing to the client about internal error and they don\u0027t know how to recover it. But we have used this error for registration currently, maybe file a bug first and resolve it later for U.",
+      "range": {
+        "startLine": 326,
+        "startChar": 55,
+        "endLine": 326,
+        "endChar": 77
+      },
+      "revId": "cea1e1967a431b1c62f529f4afce3006f7ce643f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c237b7d_d2bb5406",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T01:52:11Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 344,
+        "startChar": 55,
+        "endLine": 344,
+        "endChar": 77
+      },
+      "revId": "cea1e1967a431b1c62f529f4afce3006f7ce643f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00097007_d9066d79",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T01:52:11Z",
+      "side": 1,
+      "message": "Nit: ALL_NETWORKS_SERVICE.getNetwork()",
+      "range": {
+        "startLine": 126,
+        "startChar": 48,
+        "endLine": 126,
+        "endChar": 52
+      },
+      "revId": "cea1e1967a431b1c62f529f4afce3006f7ce643f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e6fcc56_a22edea0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-09T01:52:11Z",
+      "side": 1,
+      "message": "Maybe set netid to test network and verify it here instead of null.",
+      "range": {
+        "startLine": 134,
+        "startChar": 40,
+        "endLine": 134,
+        "endChar": 48
+      },
+      "revId": "cea1e1967a431b1c62f529f4afce3006f7ce643f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
