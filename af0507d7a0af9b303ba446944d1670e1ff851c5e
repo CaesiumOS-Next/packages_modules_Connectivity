@@ -16,6 +16,24 @@
       "message": "This should be removed by aosp/2375257",
       "revId": "af0507d7a0af9b303ba446944d1670e1ff851c5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afa9cfd2_970f8282",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-09T09:30:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58d55057_3390d835",
+      "revId": "af0507d7a0af9b303ba446944d1670e1ff851c5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
