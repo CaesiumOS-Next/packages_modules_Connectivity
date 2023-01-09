@@ -89,6 +89,11 @@ public class HostsideVpnTests extends HostsideNetworkTestCase {
                 TEST_PKG, TEST_PKG + ".VpnTest", "testAlwaysMeteredVpnWithNullUnderlyingNetwork");
     }
 
+    public void testDynamicKeepaliveMode() throws Exception {
+        runDeviceTests(
+                TEST_PKG, TEST_PKG + ".VpnTest", "testDynamicKeepaliveMode");
+    }
+
     public void testAlwaysMeteredVpnWithNonNullUnderlyingNetwork() throws Exception {
         runDeviceTests(
                 TEST_PKG,
