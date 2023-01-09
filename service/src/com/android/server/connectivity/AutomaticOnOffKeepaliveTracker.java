@@ -94,7 +94,7 @@ public class AutomaticOnOffKeepaliveTracker {
             "com.android.server.connectivity.KeepaliveTracker.TCP_POLLING_ALARM";
     private static final String EXTRA_NETWORK = "network_id";
     private static final String EXTRA_SLOT = "slot";
-    private static final long DEFAULT_TCP_POLLING_INTERVAL_MS = 120_000L;
+    private static final long DEFAULT_TCP_POLLING_INTERVAL_MS = 1_000L; //120_000L;
     private static final String AUTOMATIC_ON_OFF_KEEPALIVE_VERSION =
             "automatic_on_off_keepalive_version";
     /**
@@ -232,6 +232,11 @@ public class AutomaticOnOffKeepaliveTracker {
             intent.putExtra(EXTRA_SLOT, slot);
             return PendingIntent.getBroadcast(
                     context, 0 /* requestCode */, intent, PendingIntent.FLAG_IMMUTABLE);
+        }
+
+        /** Close this automatic on/off keepalive */
+        public void close() {
+            FileUtils.closeQuietly(mFd);
         }
 
         @Override
@@ -385,14 +390,15 @@ public class AutomaticOnOffKeepaliveTracker {
         // Add automatic on/off request into list to track its life cycle.
         mAutomaticOnOffKeepalives.add(autoKi);
         if (STATE_ALWAYS_ON != autoKi.mAutomaticOnOffState) {
-            startTcpPollingAlarm(autoKi.mTcpPollingAlarm);
             try {
                 autoKi.mKi.mCallback.asBinder().linkToDeath(autoKi, 0);
             } catch (RemoteException e) {
                 // The underlying keepalive performs its own cleanup
-                autoKi.binderDied();
+                autoKi.close();
                 return;
             }
+            mAutomaticOnOffKeepalives.add(autoKi);
+            startTcpPollingAlarm(autoKi.mTcpPollingAlarm);
         }
     }
 
@@ -434,8 +440,7 @@ public class AutomaticOnOffKeepaliveTracker {
         if (!mAutomaticOnOffKeepalives.remove(autoKi)) return;
 
         if (null != autoKi.mTcpPollingAlarm) mAlarmManager.cancel(autoKi.mTcpPollingAlarm);
-        // Close the duplicated fd that maintains the lifecycle of socket.
-        FileUtils.closeQuietly(autoKi.mFd);
+        autoKi.close();
         autoKi.mKi.mCallback.asBinder().unlinkToDeath(autoKi, 0);
     }
 
