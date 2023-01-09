@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e0ddd45_9788442f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-09T10:11:35Z",
+      "side": 1,
+      "message": "Thanks for suggested wording.",
+      "parentUuid": "811bf64b_9f5dfeec",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 75
+      },
+      "revId": "c0e330450df1335090ce45b35b44054f4a7540dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7fcfea6_a99303a8",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-12-27T09:17:05Z",
       "side": 1,
       "message": "This disagrees with a constraint that you you built into SyncSM. At the very least, it breaks a degree of freedom ; at worst it doesn\u0027t work.\n\nSyncSM can be created either on the current thread, or on a thread that\u0027s not started yet. But IIRC `Handler.getLooper()` returns null if the thread is not started yet (because you can\u0027t make a `Looper` except by calling `prepare()`, which uses the current thread). That means this code forbids the second way of creating the sync SM.\n\nSo if it\u0027s impossible to pass a looper for a thread that\u0027s not started yet, that means this constructor must run on the same thread that\u0027s passed. So that means this must run on the thread of the passed handler, or it will throw.\n\nConsidering you\u0027ll want to use this shim for both the state machines in tethering, I think you do need to have both styles possible (or you wouldn\u0027t have created both styles in SyncSM – if you don\u0027t need both of them, then we should go back and remove the one you don\u0027t need).",
+      "range": {
+        "startLine": 41,
+        "startChar": 49,
+        "endLine": 41,
+        "endChar": 80
+      },
+      "revId": "c0e330450df1335090ce45b35b44054f4a7540dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a4f598f_220d675c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-09T10:11:35Z",
+      "side": 1,
+      "message": "This construtor is for IpServer only which is running under tethering thread. For mainSM, it will have different constructor in follow up change.\n\nSince I take your suggested below to remove getHandler, changing the handler parameter to looper and add both two variant construtor at the same time to avoid confusion.",
+      "parentUuid": "c7fcfea6_a99303a8",
       "range": {
         "startLine": 41,
         "startChar": 49,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e090d375_47fe7939",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-09T10:11:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20e19546_d4684223",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 29
+      },
+      "revId": "c0e330450df1335090ce45b35b44054f4a7540dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d358c666_28afe929",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dd349f1_e16628ee",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-09T10:11:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d358c666_28afe929",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 24
+      },
+      "revId": "c0e330450df1335090ce45b35b44054f4a7540dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16aeb413_d12ee8ee",
@@ -123,6 +219,30 @@
       "writtenOn": "2022-12-27T09:17:05Z",
       "side": 1,
       "message": "This looks extremely dangerous and racy. Can we not just call `mSyncSM.start()` here and require this is called on the thread of the state machine ?",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 54
+      },
+      "revId": "c0e330450df1335090ce45b35b44054f4a7540dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86dc8a52_49661e2d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-09T10:11:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16aeb413_d12ee8ee",
       "range": {
         "startLine": 62,
         "startChar": 8,
@@ -179,6 +299,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52852650_8f2c12d2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-09T10:11:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f99259a8_1911c4ac",
+      "range": {
+        "startLine": 105,
+        "startChar": 38,
+        "endLine": 105,
+        "endChar": 43
+      },
+      "revId": "c0e330450df1335090ce45b35b44054f4a7540dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55b40454_b187c3bd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-09T10:11:35Z",
+      "side": 1,
+      "message": "Oops, this comment is outdated. I miss to update this commnet.",
+      "parentUuid": "76fe8821_afdb7bd4",
+      "range": {
+        "startLine": 105,
+        "startChar": 58,
+        "endLine": 105,
+        "endChar": 63
+      },
+      "revId": "c0e330450df1335090ce45b35b44054f4a7540dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "836ed1fc_0aebb270",
@@ -192,6 +360,30 @@
       "writtenOn": "2022-12-27T09:17:05Z",
       "side": 1,
       "message": "This is asynchronous and violates the contract of the entire work we\u0027re doing. If you can do this, we might as well trash this project. I think you need to remove sendMessageDelayed.",
+      "range": {
+        "startLine": 118,
+        "startChar": 12,
+        "endLine": 118,
+        "endChar": 71
+      },
+      "revId": "c0e330450df1335090ce45b35b44054f4a7540dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61719f5f_f6b073d3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-09T10:11:35Z",
+      "side": 1,
+      "message": "This is needed for asyncSM. Limit the usage for asyncSM and rename to  sendMessageDelayedForAsyncSM,",
+      "parentUuid": "836ed1fc_0aebb270",
       "range": {
         "startLine": 118,
         "startChar": 12,
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90a16312_c442995a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-09T10:11:35Z",
+      "side": 1,
+      "message": "StateMachine only have protected construtor, this is why I need to have AsyncStateMachine class extends StateMachine and provide public construtor. Or there is a way allow to call protected construtor directly outside ?",
+      "parentUuid": "ef04de32_442676cf",
+      "range": {
+        "startLine": 124,
+        "startChar": 18,
+        "endLine": 124,
+        "endChar": 35
+      },
+      "revId": "c0e330450df1335090ce45b35b44054f4a7540dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a7bba60_689bb9f7",
@@ -238,6 +454,30 @@
       "writtenOn": "2022-12-27T09:17:05Z",
       "side": 1,
       "message": "No objection to this but um, why in this change ?",
+      "range": {
+        "startLine": 22,
+        "startChar": 41,
+        "endLine": 22,
+        "endChar": 43
+      },
+      "revId": "c0e330450df1335090ce45b35b44054f4a7540dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b7ae36_d4ded1fd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/TetheringMessageBase.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-09T10:11:35Z",
+      "side": 1,
+      "message": "Oops, this belong to part of previous patchset which add new message base in TetheringMessageBase but no longer needed now.",
+      "parentUuid": "1a7bba60_689bb9f7",
       "range": {
         "startLine": 22,
         "startChar": 41,
