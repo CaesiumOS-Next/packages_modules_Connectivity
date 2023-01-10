@@ -18,6 +18,7 @@ package com.android.server;
 
 import android.content.Context;
 import android.net.TrafficStats;
+import android.os.Build;
 import android.util.Log;
 
 import com.android.modules.utils.build.SdkLevel;
@@ -46,6 +47,11 @@ public final class NetworkStatsServiceInitializer extends SystemService {
                     /* allowIsolated= */ false);
             TrafficStats.init(getContext());
         }
+
+        if (SdkLevel.isAtLeastU() && (Build.TYPE.equals("userdebug") || Build.TYPE.equals("eng"))) {
+            Log.i(TAG, "Initializing network tracing hooks");
+            nativeInitNetworkTracing();
+        }
     }
 
     @Override
@@ -65,4 +71,6 @@ public final class NetworkStatsServiceInitializer extends SystemService {
 
         return NetworkStatsService.create(context);
     }
+
+    private static native void nativeInitNetworkTracing();
 }

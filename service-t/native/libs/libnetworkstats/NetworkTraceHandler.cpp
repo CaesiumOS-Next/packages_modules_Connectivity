@@ -25,6 +25,7 @@
 #include <perfetto/trace/android/network_trace.pbzero.h>
 #include <perfetto/trace/profiling/profile_packet.pbzero.h>
 #include <perfetto/tracing/platform.h>
+#include <perfetto/tracing/tracing.h>
 
 PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS(android::bpf::NetworkTraceHandler);
 
@@ -41,6 +42,14 @@ void NetworkTraceHandler::RegisterDataSource() {
   perfetto::DataSourceDescriptor dsd;
   dsd.set_name("android.network_packets");
   NetworkTraceHandler::Register(dsd);
+}
+
+// static
+void NetworkTraceHandler::InitPerfettoTracing() {
+  perfetto::TracingInitArgs args = {};
+  args.backends |= perfetto::kSystemBackend;
+  perfetto::Tracing::Initialize(args);
+  android::bpf::NetworkTraceHandler::RegisterDataSource();
 }
 
 NetworkTraceHandler::NetworkTraceHandler()
