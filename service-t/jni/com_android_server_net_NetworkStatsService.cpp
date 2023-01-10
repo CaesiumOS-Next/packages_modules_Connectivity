@@ -30,6 +30,7 @@
 
 #include "bpf/BpfUtils.h"
 #include "netdbpf/BpfNetworkStats.h"
+#include "netdbpf/NetworkTraceHandler.h"
 
 using android::bpf::bpfGetUidStats;
 using android::bpf::bpfGetIfaceStats;
@@ -102,10 +103,15 @@ static jlong getUidStat(JNIEnv* env, jclass clazz, jint uid, jint type) {
     }
 }
 
+static void nativeInitNetworkTracing(JNIEnv* env, jclass clazz) {
+  android::bpf::NetworkTraceHandler::InitPerfettoTracing();
+}
+
 static const JNINativeMethod gMethods[] = {
         {"nativeGetTotalStat", "(I)J", (void*)getTotalStat},
         {"nativeGetIfaceStat", "(Ljava/lang/String;I)J", (void*)getIfaceStat},
         {"nativeGetUidStat", "(II)J", (void*)getUidStat},
+        {"nativeInitNetworkTracing", "()V", (void*)nativeInitNetworkTracing},
 };
 
 int register_android_server_net_NetworkStatsService(JNIEnv* env) {
