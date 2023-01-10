@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e3725c4_9d7e6848",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 4371,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-10T10:01:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0df1f6fb_fc2d1db2",
+      "range": {
+        "startLine": 4371,
+        "startChar": 8,
+        "endLine": 4371,
+        "endChar": 36
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a3c4b2e_61d36e9a",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 7
@@ -71,6 +95,30 @@
       "writtenOn": "2023-01-10T08:02:48Z",
       "side": 1,
       "message": "Will this not be done by handleSetProfileNetworkPreference ?",
+      "range": {
+        "startLine": 6187,
+        "startChar": 0,
+        "endLine": 6189,
+        "endChar": 9
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb7ba2ab_23036fa4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6189,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-10T10:01:37Z",
+      "side": 1,
+      "message": "Yes, thanks for catching this.\nwill update coverage for user add/remove in follow-up.",
+      "parentUuid": "1a3c4b2e_61d36e9a",
       "range": {
         "startLine": 6187,
         "startChar": 0,
@@ -104,6 +152,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea4e23fd_774dec69",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8715,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-10T10:01:37Z",
+      "side": 1,
+      "message": "Nah, it\u0027s in the oppsite way but yes, simplified.",
+      "parentUuid": "5e726018_590cbf41",
+      "range": {
+        "startLine": 8715,
+        "startChar": 12,
+        "endLine": 8715,
+        "endChar": 15
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "190697d0_b513445f",
@@ -127,6 +199,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cfb1248_ec8b96e3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8717,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-10T10:01:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "190697d0_b513445f",
+      "range": {
+        "startLine": 8717,
+        "startChar": 16,
+        "endLine": 8717,
+        "endChar": 19
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0de2e054_b855c7af",
@@ -140,6 +236,30 @@
       "writtenOn": "2023-01-10T08:02:48Z",
       "side": 1,
       "message": "nit : you could remove the boolean by having a label for l.8711 and saying `continue` with that label.",
+      "range": {
+        "startLine": 8719,
+        "startChar": 0,
+        "endLine": 8720,
+        "endChar": 30
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "576afc12_bbc0316d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8720,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-10T10:01:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0de2e054_b855c7af",
       "range": {
         "startLine": 8719,
         "startChar": 0,
@@ -198,6 +318,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5116ead8_1dc78c9c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8741,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-10T10:01:37Z",
+      "side": 1,
+      "message": "Yeah keep this open for tracking in follow-up.",
+      "parentUuid": "a5a01210_2d164b11",
+      "range": {
+        "startLine": 8741,
+        "startChar": 25,
+        "endLine": 8741,
+        "endChar": 41
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63a7bc30_4b3667dd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8741,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-10T10:01:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ae2ba61_41b98816",
+      "range": {
+        "startLine": 8741,
+        "startChar": 76,
+        "endLine": 8741,
+        "endChar": 80
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e025e9c_61ae4211",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 7
@@ -209,6 +377,30 @@
       "writtenOn": "2023-01-10T08:02:48Z",
       "side": 1,
       "message": "Is it okay to only do this when mPreference is not empty ?",
+      "range": {
+        "startLine": 9405,
+        "startChar": 12,
+        "endLine": 9405,
+        "endChar": 40
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ce58642_208d9738",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 9405,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-10T10:01:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9e025e9c_61ae4211",
       "range": {
         "startLine": 9405,
         "startChar": 12,
@@ -266,6 +458,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "912a7130_10b87f7c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 15781,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-10T10:01:37Z",
+      "side": 1,
+      "message": "Ack, will be done in the follow-up.",
+      "parentUuid": "72c050e7_5a14267e",
+      "range": {
+        "startLine": 15780,
+        "startChar": 8,
+        "endLine": 15781,
+        "endChar": 66
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f56703fe_227d79f5",
@@ -279,6 +495,30 @@
       "writtenOn": "2023-01-10T08:02:48Z",
       "side": 1,
       "message": "Haha that\u0027s because it\u0027s an arrayset, whose order is implementation-defined. We should make it order insensitive, but a TODO like you\u0027ve done here is fine.",
+      "range": {
+        "startLine": 15895,
+        "startChar": 17,
+        "endLine": 15895,
+        "endChar": 92
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba98f786_105ddc47",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 15895,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-10T10:01:37Z",
+      "side": 1,
+      "message": "Done because it causes flaky.",
+      "parentUuid": "f56703fe_227d79f5",
       "range": {
         "startLine": 15895,
         "startChar": 17,
