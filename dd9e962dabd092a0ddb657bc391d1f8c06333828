@@ -1,0 +1,227 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "615ce9c9_e697b5ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-10T09:09:34Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed (here or separately)",
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8d89164_042d773a",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-10T09:09:34Z",
+      "side": 1,
+      "message": "Nit: it\u0027s a bit weird to assume that it will be MdnsSocketClient if the feature support flag is off (so to use the feature you must both set the flag and use the right socket client, otherwise there\u0027s a ClassCastException). You could use instanceof to only base the decision on the type of the socket client ?\n\n    if (requestSender instanceof MdnsMultinetworkSocketClient) {\n        // Cast to MdnsMultinetworkSocketClient and send\n    } else if (requestSender instanceof MdnsSocketClient) {\n        // Old code\n    } else {\n        throw new IOException(\"Unknown socket client type: \" + \n            requestSender.getClass());\n    }",
+      "range": {
+        "startLine": 143,
+        "startChar": 49,
+        "endLine": 143,
+        "endChar": 65
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66ce39c1_251b8503",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-10T09:09:34Z",
+      "side": 1,
+      "message": "Nit: Also mention that if the handler is already set, this is a no-op",
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90845e29_e1a6c768",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-10T09:09:34Z",
+      "side": 1,
+      "message": "I think a single MdnsServiceBrowserListener could be registered twice to discover 2 different service types, which won\u0027t work anymore here (unregisterListener takes both the type and the listener as argument).\n\nThe easiest fix may be to just throw an IllegalArgumentException (or similar) if the listener is already used, so we can be sure this won\u0027t happen. To support it I think you\u0027d need to key by something else, like the [Type, listener] pair, which may be awkward.",
+      "range": {
+        "startLine": 128,
+        "startChar": 31,
+        "endLine": 128,
+        "endChar": 39
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "890bcab2_b07effba",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-10T09:09:34Z",
+      "side": 1,
+      "message": "As per the linter, add parenthesis. The current code is probably buggy as \"\u0026\u0026\" has precedence over \"||\", so I think this actually does ipv6 || (ipv4 \u0026\u0026 isNetworkMatch)",
+      "range": {
+        "startLine": 153,
+        "startChar": 20,
+        "endLine": 153,
+        "endChar": 22
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42a16fd9_636f56e1",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-10T09:09:34Z",
+      "side": 1,
+      "message": "Nit: as per linter, use ArrayList",
+      "range": {
+        "startLine": 167,
+        "startChar": 49,
+        "endLine": 167,
+        "endChar": 59
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "621366fb_05aad0aa",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-10T09:09:34Z",
+      "side": 1,
+      "message": "This would also cancel other requests using other networks for the same service type; meaning you can\u0027t discover one service type on 2 networks (IIUC this comes from a limitation where you can\u0027t discover one service type with 2 different MdnsSearchOptions ?).\n\nThinking about it I think MdnsServiceTypeClient needs to be Network-specific, e.g. have Network in the constructor. Otherwise the instanceNameToResponse cache would be incorrect too: the service attributes may be different on different networks, so there needs to be a different instance of the cache.\n\nSo maybe you\u0027d need something like `Map\u003cString, Map\u003cNetwork, MdnsServiceTypeClient\u003e\u003e serviceTypeClients` in MdnsDiscoveryManager, or `Map\u003cPair\u003cString, Network\u003e, MdnsServiceTypeClient\u003e`.",
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "381d9f3f_c8ec1dbd",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-10T09:09:34Z",
+      "side": 1,
+      "message": "Nit: private would be consistent with the other members (linter would complain that it\u0027s not mNetwork but keeping local style should be prioritized).\n\nAlso @Nullable since this is on the constructor parameter already",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 327,
+        "endChar": 13
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcc0d5c9_84e9e150",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketClientBase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-10T09:09:34Z",
+      "side": 1,
+      "message": "Nit: maybe throw that this socket client doesn\u0027t support per-network sending, instead ? It would be harder to diagnose if it just does nothing",
+      "range": {
+        "startLine": 48,
+        "startChar": 97,
+        "endLine": 48,
+        "endChar": 98
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebbc0263_ef51fa2d",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MulticastPacketReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-10T09:09:34Z",
+      "side": 1,
+      "message": "Nit: Also mention that if the handler is already set, this is a no-op",
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f939570e_8fe367bb",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-10T09:09:34Z",
+      "side": 1,
+      "message": "There should be some more multinetwork tests, for example testing that the packet gets sent to 2 sockets when sending to all networks, and that it gets sent to only one of the sockets when sending on one specific network. Similarly for receiving.\n\nThis could be added separately to avoid making this change too big though.",
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
