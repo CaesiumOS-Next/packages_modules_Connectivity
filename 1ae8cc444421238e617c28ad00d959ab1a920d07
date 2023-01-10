@@ -22,6 +22,30 @@
       },
       "revId": "1ae8cc444421238e617c28ad00d959ab1a920d07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6417b14_0ea833b8",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-01-10T16:12:17Z",
+      "side": 1,
+      "message": "Yes. Give me a moment",
+      "parentUuid": "d117ea1b_fb146909",
+      "range": {
+        "startLine": 384,
+        "startChar": 21,
+        "endLine": 387,
+        "endChar": 37
+      },
+      "revId": "1ae8cc444421238e617c28ad00d959ab1a920d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
