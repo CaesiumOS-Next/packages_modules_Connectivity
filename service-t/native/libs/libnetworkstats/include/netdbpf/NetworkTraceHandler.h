@@ -34,6 +34,9 @@ class NetworkTraceHandler : public perfetto::DataSource<NetworkTraceHandler> {
   // Registers this DataSource.
   static void RegisterDataSource();
 
+  // Connects to the system Perfetto daemon and registers the trace handler.
+  static void InitPerfettoTracing();
+
   // Initialize with the default Perfetto callback.
   NetworkTraceHandler();
 

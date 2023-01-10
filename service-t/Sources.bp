@@ -31,6 +31,7 @@ filegroup {
     srcs: [
         "jni/com_android_server_net_NetworkStatsFactory.cpp",
         "jni/com_android_server_net_NetworkStatsService.cpp",
+        "jni/com_android_server_NetworkStatsServiceInitializer.cpp",
     ],
     path: "jni",
     visibility: [
