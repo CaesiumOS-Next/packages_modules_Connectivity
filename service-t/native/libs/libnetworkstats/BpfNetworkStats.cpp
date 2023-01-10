@@ -21,6 +21,7 @@
 
 #include <utils/Log.h>
 #include <utils/misc.h>
+#include <perfetto/tracing/tracing.h>
 
 #include "android-base/file.h"
 #include "android-base/strings.h"
@@ -28,6 +29,7 @@
 #include "bpf/BpfMap.h"
 #include "netd.h"
 #include "netdbpf/BpfNetworkStats.h"
+#include "netdbpf/NetworkTraceHandler.h"
 
 #ifdef LOG_TAG
 #undef LOG_TAG
@@ -312,6 +314,13 @@ stats_line& stats_line::operator+=(const stats_line& rhs) {
     rxBytes += rhs.rxBytes;
     txBytes += rhs.txBytes;
     return *this;
+}
+
+void initNetworkTracing() {
+    perfetto::TracingInitArgs args;
+    args.backends |= perfetto::kSystemBackend;
+    perfetto::Tracing::Initialize(args);
+    android::bpf::NetworkTraceHandler::RegisterDataSource();
 }
 
 }  // namespace bpf

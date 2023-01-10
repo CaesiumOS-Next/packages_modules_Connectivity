@@ -120,6 +120,11 @@ int parseBpfNetworkStatsDetail(std::vector<stats_line>* lines,
 int parseBpfNetworkStatsDev(std::vector<stats_line>* lines);
 void groupNetworkStats(std::vector<stats_line>* lines);
 int cleanStatsMap();
+
+// Enables network tracing integration with Perfetto. Should only be called in
+// userdebug or eng builds on Android U or later.
+void initNetworkTracing();
+
 }  // namespace bpf
 }  // namespace android
 
