@@ -70,6 +70,30 @@
       },
       "revId": "47da40780fa7c1906810bb2508cbf8a971d3f328",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5eef06d_0dc2be0a",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-10T12:18:13Z",
+      "side": 1,
+      "message": "We talked about this last Thursday. This is the plan for jarjar\u0027ing the code: https://docs.google.com/document/d/1MtdnW6SB_Y4qKZOXSO5A9fPVv5h1WR6cjkdh1OasCdA/edit?resourcekey\u003d0-NtqDc0La-KBXNKXF9__75g",
+      "parentUuid": "feac0e9b_21618b6f",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 47
+      },
+      "revId": "47da40780fa7c1906810bb2508cbf8a971d3f328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
