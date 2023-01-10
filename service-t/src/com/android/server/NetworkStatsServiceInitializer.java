@@ -18,6 +18,7 @@ package com.android.server;
 
 import android.content.Context;
 import android.net.TrafficStats;
+import android.os.Build;
 import android.util.Log;
 
 import com.android.modules.utils.build.SdkLevel;
@@ -45,6 +46,11 @@ public final class NetworkStatsServiceInitializer extends SystemService {
             publishBinderService(Context.NETWORK_STATS_SERVICE, mStatsService,
                     /* allowIsolated= */ false);
             TrafficStats.init(getContext());
+        }
+
+        if (SdkLevel.isAtLeastU() && !Build.TYPE.equals("user")) {
+            Log.i(TAG, "Initializing network tracing hooks");
+            NetworkStatsService.initializeTraceHandler();
         }
     }
 

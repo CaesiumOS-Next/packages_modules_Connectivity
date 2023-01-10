@@ -567,6 +567,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return service;
     }
 
+    /** Initializes (but does not start) the Perfetto network trace handler */
+    public static void initializeTraceHandler() {
+        nativeInitNetworkTracing();
+    }
+
     // This must not be called outside of tests, even within the same package, as this constructor
     // does not register the local service. Use the create() helper above.
     @VisibleForTesting
@@ -3269,4 +3274,5 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private static native long nativeGetTotalStat(int type);
     private static native long nativeGetIfaceStat(String iface, int type);
     private static native long nativeGetUidStat(int uid, int type);
+    private static native void nativeInitNetworkTracing();
 }

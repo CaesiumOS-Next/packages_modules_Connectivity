@@ -38,6 +38,9 @@ cc_library {
         "libperfetto_client_experimental",
     ],
     export_include_dirs: ["include"],
+    export_static_lib_headers: [
+        "libperfetto_client_experimental",
+    ],
     cflags: [
         "-Wall",
         "-Werror",
