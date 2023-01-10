@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "976359cb_842f8c3e",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-10T04:33:53Z",
+      "side": 1,
+      "message": "Nit: this reads as if the transform is applied to addresses matching this interface. But the transform is applied to the tunnel interface. Maybe say:\n\n    *    \u003cli\u003eApply the new IpSecTransform(s) to this IpSecTunnelInterface. These\n    *        can be new {@link IpSecTransform}s with matching addresses, or\n    *        {@link IpSecTransform}s that have started migration (see\n    *        {@link IpSecManager#startTunnelModeTransformMigration}).",
+      "range": {
+        "startLine": 836,
+        "startChar": 66,
+        "endLine": 836,
+        "endChar": 87
+      },
+      "revId": "83f0e1182b46c28162ba3922c9628b5f2a5d17ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
