@@ -851,6 +851,12 @@ public class VpnTest {
                 entry -> entry.getCaps().hasTransport(TRANSPORT_VPN));
     }
 
+    private void expectNonVpnNetwork(TestableNetworkCallback callback) {
+        callback.eventuallyExpect(RecorderCallback.CallbackEntry.NETWORK_CAPS_UPDATED,
+                NETWORK_CALLBACK_TIMEOUT_MS,
+                entry -> !entry.getCaps().hasTransport(TRANSPORT_VPN));
+    }
+
     @Test @IgnoreUpTo(SC_V2) // TODO: Use to Build.VERSION_CODES.SC_V2 when available
     public void testChangeUnderlyingNetworks() throws Exception {
         assumeTrue(supportedHardware());
@@ -1714,11 +1720,10 @@ public class VpnTest {
                 runWithShellPermissionIdentity(() -> {
                     mCM.setVpnDefaultForUids(session, new ArraySet<>());
                 }, NETWORK_SETTINGS);
-                // The default network of the app will be changed back to wifi when the VPN network
-                // preference feature is disabled.
-                defaultNetworkCallback.eventuallyExpect(CallbackEntry.AVAILABLE,
-                        NETWORK_CALLBACK_TIMEOUT_MS,
-                        entry -> defaultNetwork.equals(entry.getNetwork()));
+                // Since the default network might be changed during the test(see b/263740052),
+                // checking the default network is not VPN instead of checking if the default
+                // network is the same as the original one.
+                expectNonVpnNetwork(defaultNetworkCallback);
             }, /* cleanup */ () -> {
                 mCM.unregisterNetworkCallback(defaultNetworkCallback);
             });
