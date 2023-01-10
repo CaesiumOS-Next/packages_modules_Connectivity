@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "852be945_29bec37b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T06:18:16Z",
+      "side": 1,
+      "message": "Please don\u0027t bother respinning to address the tiny nit.",
+      "revId": "2453a3ada20c41875a860398060f8c0fc514fe80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d5a2de5_5df4c935",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 3079,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T06:18:16Z",
+      "side": 1,
+      "message": "go/avoidwe",
+      "range": {
+        "startLine": 3079,
+        "startChar": 27,
+        "endLine": 3079,
+        "endChar": 29
+      },
+      "revId": "2453a3ada20c41875a860398060f8c0fc514fe80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
