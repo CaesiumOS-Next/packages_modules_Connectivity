@@ -46,6 +46,30 @@
       },
       "revId": "1ae8cc444421238e617c28ad00d959ab1a920d07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a68e7da_59611cef",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-01-10T16:43:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6417b14_0ea833b8",
+      "range": {
+        "startLine": 384,
+        "startChar": 21,
+        "endLine": 387,
+        "endChar": 37
+      },
+      "revId": "1ae8cc444421238e617c28ad00d959ab1a920d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
