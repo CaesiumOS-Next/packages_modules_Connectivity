@@ -46,6 +46,30 @@
       },
       "revId": "47da40780fa7c1906810bb2508cbf8a971d3f328",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feac0e9b_21618b6f",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-01-10T12:06:50Z",
+      "side": 1,
+      "message": "Isn\u0027t `cronet_aml_java` what we\u0027re gonna add to the already existing tethering jar[1]?\n\nAFAIU, we only need to jarjar what we statically bundle in the impl jar (the thing that will end up in the bootclasspath), which should be what I\u0027m doing here. If some of the dependencies are going to be resolved at runtime, there should be no need to jarjar them, as we\u0027re going to get the ones already available to others?\n\n(We should discuss this offline as it\u0027s faster)\n\n\n[1] http://aosp/2376235",
+      "parentUuid": "a6e87d03_1aee34e7",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 47
+      },
+      "revId": "47da40780fa7c1906810bb2508cbf8a971d3f328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
