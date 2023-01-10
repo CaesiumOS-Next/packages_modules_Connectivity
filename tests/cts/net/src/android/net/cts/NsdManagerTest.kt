@@ -86,6 +86,9 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
+import android.net.LocalSocket
+import android.net.LocalSocketAddress
+import java.io.IOException
 
 private const val TAG = "NsdManagerTest"
 private const val TIMEOUT_MS = 2000L
@@ -737,6 +740,35 @@ class NsdManagerTest {
         // Note that before T the compat constant had a different int value.
         assertFalse(CompatChanges.isChangeEnabled(
                 NsdManager.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER))
+    }
+
+    @Test
+    fun testCannotConnectSocketToMdnsd() {
+        val discoveryRecord = NsdDiscoveryRecord()
+        tryTest {
+            // Discover any service from NsdManager to enforce NsdService to start the mdnsd.
+            nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, discoveryRecord)
+            discoveryRecord.expectCallback<DiscoveryStarted>()
+
+            // Ensure the /dev/socket/mdnsd is created.
+            val socket = File("/dev/socket/mdnsd")
+            val timeout = System.currentTimeMillis() + TIMEOUT_MS
+            while (!socket.exists() && System.currentTimeMillis() < timeout) {
+                Thread.sleep(10)
+            }
+            assertTrue("$socket was not found after $TIMEOUT_MS ms", socket.exists())
+
+            // Create a LocalSocket and try to connect to mdnsd.
+            val localSocket = LocalSocket()
+            assertFalse("LocalSocket is connected.", localSocket.isConnected)
+            val address = LocalSocketAddress("mdnsd", LocalSocketAddress.Namespace.RESERVED)
+            assertFailsWith<IOException>("Expect fail but socket connected") {
+                localSocket.connect(address)
+            }
+        } cleanup {
+            nsdManager.stopServiceDiscovery(discoveryRecord)
+            discoveryRecord.expectCallback<DiscoveryStopped>()
+        }
     }
 
     /**
