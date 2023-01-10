@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d117ea1b_fb146909",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-10T15:46:37Z",
+      "side": 1,
+      "message": "Can you manually add these changes to the external/cronet/Android.bp and put it in the same topic?",
+      "range": {
+        "startLine": 384,
+        "startChar": 21,
+        "endLine": 387,
+        "endChar": 37
+      },
+      "revId": "1ae8cc444421238e617c28ad00d959ab1a920d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
