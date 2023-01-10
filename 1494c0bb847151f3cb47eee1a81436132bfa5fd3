@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bfebd5d_ad3298bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-01-10T06:02:00Z",
+      "side": 1,
+      "message": "LGTM. See comment in the test.",
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15a1eed2_5c713ef3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 15781,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-01-10T06:02:00Z",
+      "side": 1,
+      "message": "It looks like the allowed UID ranges will be set for all networks even if the PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING is unused. This means that netd pays the cost of uid comparisons in most use cases. Will it better to have a simple check in updateProfileAllowedNetworks which calls mNetd.setNetworkAllowlist with an empty array and returns early when the PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING is not selected by any user?",
+      "range": {
+        "startLine": 15780,
+        "startChar": 8,
+        "endLine": 15781,
+        "endChar": 66
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
