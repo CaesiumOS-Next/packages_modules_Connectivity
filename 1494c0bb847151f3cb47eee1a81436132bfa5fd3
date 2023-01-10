@@ -18,6 +18,207 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cc4a549_864a4cbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T08:02:48Z",
+      "side": 1,
+      "message": "I think this works as is, so you can take the comments as followup items if you prefer.",
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0df1f6fb_fc2d1db2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 4371,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T08:02:48Z",
+      "side": 1,
+      "message": "Can we do this only if mPreferences is not empty ?",
+      "range": {
+        "startLine": 4371,
+        "startChar": 8,
+        "endLine": 4371,
+        "endChar": 36
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a3c4b2e_61d36e9a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6189,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T08:02:48Z",
+      "side": 1,
+      "message": "Will this not be done by handleSetProfileNetworkPreference ?",
+      "range": {
+        "startLine": 6187,
+        "startChar": 0,
+        "endLine": 6189,
+        "endChar": 9
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e726018_590cbf41",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8715,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T08:02:48Z",
+      "side": 1,
+      "message": "Probably easier to understand if you continue early.\n\n    if (!nai.networkCapabilities.hasCapability(NET_CAPABILITY_ENTERPRISE)) {\n      continue;\n    }",
+      "range": {
+        "startLine": 8715,
+        "startChar": 12,
+        "endLine": 8715,
+        "endChar": 15
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "190697d0_b513445f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8717,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T08:02:48Z",
+      "side": 1,
+      "message": "Maybe you can leverage `NetworkCapabilities#satisfiedByEnterpriseCapabilitiesId` here (making it public) or have your own method in networkCapabilities. After all, all you need here is that `this.mEnterpriseIds \u0026 that.mEnterpriseIds !\u003d 0`.\n\nAnother thing you can do, which might be simpler, is to exploit the fact that in the preference you know for sure there can only be one enterprise ID. You know that for sure because the public object `ProfileNetworkPreference` has only one enterprise ID. So you could say something like :\n\n    // The NC is built from a `ProfileNetworkPreference` which has only one\n    // enterprise ID, so it\u0027s guaranteed to have exactly one.\n    final int prefId \u003d pref.capabilities.getEnterpriseIds()[0];\n    if (nai.networkCapabilities.hasEnterpriseId(prefId)) {\n     ...\n    }",
+      "range": {
+        "startLine": 8717,
+        "startChar": 16,
+        "endLine": 8717,
+        "endChar": 19
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0de2e054_b855c7af",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8720,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T08:02:48Z",
+      "side": 1,
+      "message": "nit : you could remove the boolean by having a label for l.8711 and saying `continue` with that label.",
+      "range": {
+        "startLine": 8719,
+        "startChar": 0,
+        "endLine": 8720,
+        "endChar": 30
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ae2ba61_41b98816",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8741,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T08:02:48Z",
+      "side": 1,
+      "message": "/* excludeDying */",
+      "range": {
+        "startLine": 8741,
+        "startChar": 76,
+        "endLine": 8741,
+        "endChar": 80
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5a01210_2d164b11",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8741,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T08:02:48Z",
+      "side": 1,
+      "message": "This is probably fine, but another thing you could do is, keep the max UID in a member and update it in onUserAdded. That would be much cheaper.\n\nOr, even cheaper/simpler might be to just always have the max UID Integer.MAX_VALUE ?\n\nWe\u0027re starting to really need a good class for UID ranges... \u003e_\u003c",
+      "range": {
+        "startLine": 8741,
+        "startChar": 25,
+        "endLine": 8741,
+        "endChar": 41
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e025e9c_61ae4211",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 9405,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T08:02:48Z",
+      "side": 1,
+      "message": "Is it okay to only do this when mPreference is not empty ?",
+      "range": {
+        "startLine": 9405,
+        "startChar": 12,
+        "endLine": 9405,
+        "endChar": 40
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15a1eed2_5c713ef3",
@@ -36,6 +237,53 @@
         "startChar": 8,
         "endLine": 15781,
         "endChar": 66
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72c050e7_5a14267e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 15781,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T08:02:48Z",
+      "side": 1,
+      "message": "+1 in principle. But note that because it\u0027s only one UID range, the check itself is cheap, because it will always match the first range. It means the difference is between one null check vs two int checks, so it\u0027s not really significant. I don\u0027t think it\u0027s essential.\n\nIn any case, we could handle that as an optimization to go in a followup patch. We\u0027re a little bit on the clock on this.",
+      "parentUuid": "15a1eed2_5c713ef3",
+      "range": {
+        "startLine": 15780,
+        "startChar": 8,
+        "endLine": 15781,
+        "endChar": 66
+      },
+      "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f56703fe_227d79f5",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 15895,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-10T08:02:48Z",
+      "side": 1,
+      "message": "Haha that\u0027s because it\u0027s an arrayset, whose order is implementation-defined. We should make it order insensitive, but a TODO like you\u0027ve done here is fine.",
+      "range": {
+        "startLine": 15895,
+        "startChar": 17,
+        "endLine": 15895,
+        "endChar": 92
       },
       "revId": "1494c0bb847151f3cb47eee1a81436132bfa5fd3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
