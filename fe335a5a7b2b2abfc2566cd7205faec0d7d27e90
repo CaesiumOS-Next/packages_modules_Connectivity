@@ -71,6 +71,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0c73cd5_9ec5dcc6",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-10T06:38:19Z",
+      "side": 1,
+      "message": "Sending packet needs to check network now, so I need to store the network object now.",
+      "parentUuid": "3bf95be0_5a380661",
+      "revId": "fe335a5a7b2b2abfc2566cd7205faec0d7d27e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "618acf0d_624d6bce",
