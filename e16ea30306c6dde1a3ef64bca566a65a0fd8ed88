@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09fd624f_7d22c124",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-10T09:39:44Z",
+      "side": 1,
+      "message": "actually, can you also add Android.bp.swp by running ./update_results.sh?",
+      "revId": "e16ea30306c6dde1a3ef64bca566a65a0fd8ed88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
