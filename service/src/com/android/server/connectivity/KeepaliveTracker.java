@@ -34,6 +34,7 @@ import static android.net.SocketKeepalive.MIN_INTERVAL_SEC;
 import static android.net.SocketKeepalive.NO_KEEPALIVE;
 import static android.net.SocketKeepalive.SUCCESS;
 import static android.net.SocketKeepalive.TEMP_DISABLED;
+import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
 import static android.system.OsConstants.SOL_SOCKET;
@@ -85,6 +86,7 @@ import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.HexDump;
 import com.android.net.module.util.IpUtils;
 import com.android.net.module.util.SocketUtils;
@@ -125,6 +127,11 @@ public class KeepaliveTracker {
     @VisibleForTesting
     static final String EXTRA_SLOT = "slot";
     private static final long DEFAULT_TCP_POLLING_INTERVAL_MS = 120_000L;
+    @VisibleForTesting
+    static final String DYNAMIC_KEEPALIVE_MODE = "dynamic_keepalive_mode";
+    private static final int DYNAMIC_KEEPALIVE_MODE_DISABLED = 0;
+    @VisibleForTesting
+    static final int DYNAMIC_KEEPALIVE_MODE_ENABLED = 1;
 
     /** Keeps track of keepalive requests. */
     private final HashMap <NetworkAgentInfo, HashMap<Integer, KeepaliveInfo>> mKeepalives =
@@ -248,7 +255,11 @@ public class KeepaliveTracker {
             mPacket = packet;
             mInterval = interval;
             mType = type;
-            mDynamicKeepaliveMode = dynamicKeepaliveMode;
+            mDynamicKeepaliveMode = dynamicKeepaliveMode
+                    && (mDependencies.getDeviceConfigPropertyInt(
+                    NAMESPACE_CONNECTIVITY, DYNAMIC_KEEPALIVE_MODE,
+                    DYNAMIC_KEEPALIVE_MODE_ENABLED)
+                    != DYNAMIC_KEEPALIVE_MODE_DISABLED);
 
             // For SocketKeepalive, a dup of fd is kept in mFd so the source port from which the
             // keepalives are sent cannot be reused by another app even if the fd gets closed by
@@ -813,6 +824,7 @@ public class KeepaliveTracker {
 
     private void handleStartTcpPollingAlarm(Network network, int slot) {
         final KeepaliveInfo info = findDynamicKeepalives(network, slot);
+        Log.d(TAG, "[DBG] ] handleStartTcpPollingAlarm ki=" + info);
         if (info != null) {
             info.mTcpPollingAlarm = createTcpPollingAlarmIntent(network, slot);
 
@@ -1035,6 +1047,19 @@ public class KeepaliveTracker {
          */
         public long getTcpPollingInterval() {
             return DEFAULT_TCP_POLLING_INTERVAL_MS;
+        }
+
+        /**
+         * Look up the value of a property in DeviceConfig.
+         * @param namespace The namespace containing the property to look up.
+         * @param name The name of the property to look up.
+         * @param defaultValue The value to return if the property does not exist or has no non-null
+         *                     value.
+         * @return the corresponding value, or defaultValue if none exists.
+         */
+        public int getDeviceConfigPropertyInt(@NonNull String namespace, @NonNull String name,
+                int defaultValue) {
+            return DeviceConfigUtils.getDeviceConfigPropertyInt(namespace, name, defaultValue);
         }
     }
 
