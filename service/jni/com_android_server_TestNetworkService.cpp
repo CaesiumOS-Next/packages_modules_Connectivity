@@ -41,6 +41,10 @@
 #include <nativehelper/JNIHelp.h>
 #include <nativehelper/ScopedUtfChars.h>
 
+#ifndef IFF_NO_CARRIER
+#define IFF_NO_CARRIER 0x0040
+#endif
+
 namespace android {
 
 //------------------------------------------------------------------------------
@@ -66,13 +70,26 @@ static int createTunTapImpl(JNIEnv* env, bool isTun, bool hasCarrier, bool setIf
 
     // Allocate interface.
     ifr.ifr_flags = (isTun ? IFF_TUN : IFF_TAP) | IFF_NO_PI;
+    if (!hasCarrier) {
+        // Using IFF_NO_CARRIER is supported starting in kernel version >= 6.0
+        // Up until then, unsupported flags are ignored.
+        ifr.ifr_flags |= IFF_NO_CARRIER;
+    }
     strlcpy(ifr.ifr_name, iface, IFNAMSIZ);
     if (ioctl(tun.get(), TUNSETIFF, &ifr)) {
         throwException(env, errno, "allocating", ifr.ifr_name);
         return -1;
     }
 
+    // TODO: remove this once IFF_NO_CARRIER is universally supported.
+    // Alternatively, only run tests that depend on this functionality on
+    // kernels that have IFF_NO_CARRIER. EthernetManagerTest has pretty much
+    // stopped using this functionality anyways, as the tests were highly
+    // unreliable.
     if (!hasCarrier) {
+        // WARNING: if IFF_NO_CARRIER is not supported, this execution path is
+        // racy (and otherwise, it's a noop) if the interface is brought up
+        // outside of TestNetworkService (as is the case for ethernet tests).
         // disable carrier before setting IFF_UP
         setTunTapCarrierEnabledImpl(env, iface, tun.get(), hasCarrier);
     }
