@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eefdf11_e8f07b26",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T08:46:34Z",
+      "side": 1,
+      "message": "Good point. Replace flag to instanceof",
+      "parentUuid": "d8d89164_042d773a",
+      "range": {
+        "startLine": 143,
+        "startChar": 49,
+        "endLine": 143,
+        "endChar": 65
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66ce39c1_251b8503",
@@ -58,6 +82,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11b58d6f_3fd667b4",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T08:46:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66ce39c1_251b8503",
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90845e29_e1a6c768",
@@ -71,6 +113,30 @@
       "writtenOn": "2023-01-10T09:09:34Z",
       "side": 1,
       "message": "I think a single MdnsServiceBrowserListener could be registered twice to discover 2 different service types, which won\u0027t work anymore here (unregisterListener takes both the type and the listener as argument).\n\nThe easiest fix may be to just throw an IllegalArgumentException (or similar) if the listener is already used, so we can be sure this won\u0027t happen. To support it I think you\u0027d need to key by something else, like the [Type, listener] pair, which may be awkward.",
+      "range": {
+        "startLine": 128,
+        "startChar": 31,
+        "endLine": 128,
+        "endChar": 39
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e2465c8_5a4bfef8",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T08:46:34Z",
+      "side": 1,
+      "message": "Ideally, each service type request should have a different listener. So throwing an IllegalArgumentException should be a wanted solution.",
+      "parentUuid": "90845e29_e1a6c768",
       "range": {
         "startLine": 128,
         "startChar": 31,
@@ -106,6 +172,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1b49fd6_b0faa2b3",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T08:46:34Z",
+      "side": 1,
+      "message": "Oops. Should be (ipv4 || ipv6) \u0026\u0026 isNetworkMatch",
+      "parentUuid": "890bcab2_b07effba",
+      "range": {
+        "startLine": 153,
+        "startChar": 20,
+        "endLine": 153,
+        "endChar": 22
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42a16fd9_636f56e1",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
         "patchSetId": 12
@@ -117,6 +207,30 @@
       "writtenOn": "2023-01-10T09:09:34Z",
       "side": 1,
       "message": "Nit: as per linter, use ArrayList",
+      "range": {
+        "startLine": 167,
+        "startChar": 49,
+        "endLine": 167,
+        "endChar": 59
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b9572ec_a9bfa778",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T08:46:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a16fd9_636f56e1",
       "range": {
         "startLine": 167,
         "startChar": 49,
@@ -146,6 +260,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54b4a3fe_828de578",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T08:46:34Z",
+      "side": 1,
+      "message": "Will address this in seperate commit.",
+      "parentUuid": "621366fb_05aad0aa",
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "381d9f3f_c8ec1dbd",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 12
@@ -157,6 +289,30 @@
       "writtenOn": "2023-01-10T09:09:34Z",
       "side": 1,
       "message": "Nit: private would be consistent with the other members (linter would complain that it\u0027s not mNetwork but keeping local style should be prioritized).\n\nAlso @Nullable since this is on the constructor parameter already",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 327,
+        "endChar": 13
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c662443e_6ef56657",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T08:46:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "381d9f3f_c8ec1dbd",
       "range": {
         "startLine": 327,
         "startChar": 8,
@@ -190,6 +346,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bb69a0a_319cfb9c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketClientBase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T08:46:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcc0d5c9_84e9e150",
+      "range": {
+        "startLine": 48,
+        "startChar": 97,
+        "endLine": 48,
+        "endChar": 98
+      },
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebbc0263_ef51fa2d",
@@ -207,6 +387,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aaf2590_62b07e16",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MulticastPacketReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T08:46:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebbc0263_ef51fa2d",
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f939570e_8fe367bb",
@@ -220,6 +418,24 @@
       "writtenOn": "2023-01-10T09:09:34Z",
       "side": 1,
       "message": "There should be some more multinetwork tests, for example testing that the packet gets sent to 2 sockets when sending to all networks, and that it gets sent to only one of the sockets when sending on one specific network. Similarly for receiving.\n\nThis could be added separately to avoid making this change too big though.",
+      "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c712c68_f961ad27",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T08:46:34Z",
+      "side": 1,
+      "message": "Will add it in separate commit.",
+      "parentUuid": "f939570e_8fe367bb",
       "revId": "dd9e962dabd092a0ddb657bc391d1f8c06333828",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
