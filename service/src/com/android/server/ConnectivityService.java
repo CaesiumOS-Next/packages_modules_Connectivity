@@ -10943,6 +10943,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     }
                     break;
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING:
+                    if (!mFlags.supportBlockNonEnterprise()) {
+                        throw new IllegalArgumentException(
+                                "Unsupported preference in setProfileNetworkPreferences");
+                    }
                     blockingNonEnterprise = true;
                     // continue to process the enterprise preference.
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK:
