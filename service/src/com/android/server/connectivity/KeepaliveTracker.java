@@ -63,6 +63,7 @@ import android.net.MarkMaskParcel;
 import android.net.NattKeepalivePacketData;
 import android.net.Network;
 import android.net.NetworkAgent;
+import android.net.NetworkCapabilities;
 import android.net.SocketKeepalive.InvalidSocketException;
 import android.net.TcpKeepalivePacketData;
 import android.net.util.KeepaliveUtils;
@@ -121,7 +122,8 @@ public class KeepaliveTracker {
     private static final String ACTION_TCP_POLLING_ALARM =
             "com.android.server.connectivity.KeepaliveTracker.TCP_POLLING_ALARM";
     private static final String EXTRA_NETWORK = "network_id";
-    private static final String EXTRA_SLOT = "slot";
+    @VisibleForTesting
+    static final String EXTRA_SLOT = "slot";
     private static final long DEFAULT_TCP_POLLING_INTERVAL_MS = 120_000L;
 
     /** Keeps track of keepalive requests. */
@@ -254,7 +256,7 @@ public class KeepaliveTracker {
             // API.
             try {
                 if (fd != null) {
-                    mFd = Os.dup(fd);
+                    mFd = mDependencies.dupFileDescriptor(fd);
                 }  else {
                     Log.d(TAG, toString() + " calls with null fd");
                     if (!mPrivileged) {
@@ -350,8 +352,7 @@ public class KeepaliveTracker {
             }
 
             if (mPrivileged) return SUCCESS;
-
-            final int supported = KeepaliveUtils.getSupportedKeepalivesForNetworkCapabilities(
+            final int supported = mDependencies.getSupportedKeepalivesForNetworkCapabilities(
                     mSupportedKeepalives, mNai.networkCapabilities);
 
             int takenUnprivilegedSlots = 0;
@@ -382,7 +383,7 @@ public class KeepaliveTracker {
             if (networkKeepalives == null) {
                 return ERROR_INVALID_NETWORK;
             }
-            final int supported = KeepaliveUtils.getSupportedKeepalivesForNetworkCapabilities(
+            final int supported = mDependencies.getSupportedKeepalivesForNetworkCapabilities(
                     mSupportedKeepalives, mNai.networkCapabilities);
             if (supported == 0) return ERROR_UNSUPPORTED;
             if (networkKeepalives.size() > supported) return ERROR_INSUFFICIENT_RESOURCES;
@@ -606,7 +607,6 @@ public class KeepaliveTracker {
         if (networkKeepalives.isEmpty()) {
             mKeepalives.remove(nai);
         }
-
         // Notify app that the keepalive is stopped.
         final int reason = ki.mStopReason;
         if (reason == SUCCESS) {
@@ -813,12 +813,11 @@ public class KeepaliveTracker {
 
     private void handleStartTcpPollingAlarm(Network network, int slot) {
         final KeepaliveInfo info = findDynamicKeepalives(network, slot);
-
         if (info != null) {
             info.mTcpPollingAlarm = createTcpPollingAlarmIntent(network, slot);
 
             final long triggerAtMillis =
-                    SystemClock.elapsedRealtime() + DEFAULT_TCP_POLLING_INTERVAL_MS;
+                    SystemClock.elapsedRealtime() + mDependencies.getTcpPollingInterval();
             // Setup a non-wake up alarm
             mAlarmManager.setExact(AlarmManager.ELAPSED_REALTIME, triggerAtMillis,
                     info.mTcpPollingAlarm);
@@ -1013,6 +1012,29 @@ public class KeepaliveTracker {
         public Resources newConnectivityResources() {
             final ConnectivityResources resources = new ConnectivityResources(mContext);
             return resources.get();
+        }
+
+        /**
+         * Duplicate a file descriptor.
+         */
+        public FileDescriptor dupFileDescriptor(FileDescriptor fd) throws ErrnoException {
+            return Os.dup(fd);
+        }
+
+        /**
+         * Get supported keepalive count for the given {@link NetworkCapabilities}.
+         */
+        public int getSupportedKeepalivesForNetworkCapabilities(
+                int[] supportedKeepalives, NetworkCapabilities cap) {
+            return KeepaliveUtils.getSupportedKeepalivesForNetworkCapabilities(
+                    supportedKeepalives, cap);
+        }
+
+        /**
+         * Get the TCP polling interval for dynamic keepalive mode.
+         */
+        public long getTcpPollingInterval() {
+            return DEFAULT_TCP_POLLING_INTERVAL_MS;
         }
     }
 
