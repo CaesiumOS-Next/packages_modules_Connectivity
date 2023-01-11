@@ -378,6 +378,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int DEFAULT_LINGER_DELAY_MS = 30_000;
     private static final int DEFAULT_NASCENT_DELAY_MS = 5_000;
 
+    // Retry interval of deferring message before system ready.
+    private static final int DEFFER_MESSAGE_RETRY_INTERVAL_MS = 5 * 1000;
+
     // Delimiter used when creating the broadcast delivery group for sending
     // CONNECTIVITY_ACTION broadcast.
     private static final char DELIVERY_GROUP_KEY_DELIMITER = ';';
@@ -817,6 +820,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @VisibleForTesting
     final NetworkRanker mNetworkRanker;
 
+    @GuardedBy("this")
     private boolean mSystemReady;
     private Intent mInitialBroadcast;
 
@@ -5577,6 +5581,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 }
                 case EVENT_SET_PROFILE_NETWORK_PREFERENCE: {
+                    // The blocking non-enterprise network feature will reference to DeviceConfig,
+                    // which is not available until system ready. Defer the message processing
+                    // until system ready.
+                    synchronized (ConnectivityService.this) {
+                        if (!mSystemReady) {
+                            mHandler.sendMessageDelayed(msg, DEFFER_MESSAGE_RETRY_INTERVAL_MS);
+                            break;
+                        }
+                    }
                     final Pair<List<ProfileNetworkPreferenceInfo>, IOnCompleteListener> arg =
                             (Pair<List<ProfileNetworkPreferenceInfo>, IOnCompleteListener>) msg.obj;
                     handleSetProfileNetworkPreference(arg.first, arg.second);
@@ -8753,7 +8766,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             @NonNull NetworkAgentInfo nai, @NonNull UserHandle user) {
         final ArraySet<UidRange> restrictedUidRanges = new ArraySet<>();
         for (final ProfileNetworkPreferenceInfo pref : mProfileNetworkPreferences) {
-            if (!pref.user.equals(user) || !pref.blockingNonEnterprise) continue;
+            if (!pref.user.equals(user) || !pref.blockingNonEnterprise
+                    || pref.blockingNonEnterprise && !mFlags.supportBlockNonEnterprise()) {
+                continue;
+            }
 
             if (nai.networkCapabilities.hasCapability(NET_CAPABILITY_ENTERPRISE)) {
                 // The NC is built from a `ProfileNetworkPreference` which has only one
@@ -11031,6 +11047,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 throw new IllegalArgumentException(
                         "Default profile preference should not be set along with other preference");
             }
+        }
+        // New API call should replace all previous invocations, remove if any.
+        if (mHandler.hasMessages(EVENT_SET_PROFILE_NETWORK_PREFERENCE)) {
+            mHandler.removeMessages(EVENT_SET_PROFILE_NETWORK_PREFERENCE);
         }
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_PROFILE_NETWORK_PREFERENCE,
                 new Pair<>(preferenceList, listener)));

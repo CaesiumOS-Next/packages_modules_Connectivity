@@ -33,7 +33,14 @@ public final class ConnectivityFlags {
     public static final String NO_REMATCH_ALL_REQUESTS_ON_REGISTER =
             "no_rematch_all_requests_on_register";
 
+    @VisibleForTesting
+    public static final String SUPPORT_BLOCKING_NONENTERPRISE =
+            "support_blocking_nonenterprise";
+
     private boolean mNoRematchAllRequestsOnRegister;
+    // The flag would be accessed from arbitrary binder thread, synchronization is needed to
+    // make sure its value can be seen by other threads after the initialization in systemReady.
+    private volatile boolean mSupportBlockNonEnterprise;
 
     /**
      * Whether ConnectivityService should avoid avoid rematching all requests when a network
@@ -56,11 +63,32 @@ public final class ConnectivityFlags {
     }
 
     /**
+     * Whether ConnectivityService supports block non-enterprise network for
+     * {@link android.net.ConnectivityManager#PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING}
+     * preferences.
+     *
+     * This flag is enabled by default.
+     *
+     * IMPORTANT NOTE: This flag is true by default and will only be loaded in ConnectivityService
+     * systemReady. However, any
+     * {@link android.net.ConnectivityManager#setProfileNetworkPreferences} calls
+     * prior to systemReady will get false. Hence, processing of the preferences should be
+     * deferred until system ready is true.
+     * Also, the flag can be accessed from arbitrary binder thread. Thus,
+     * synchronization is needed to make sure its value can be seen by other threads after
+     * the initialization in systemReady.
+     *
+     */
+    public boolean supportBlockNonEnterprise() { return mSupportBlockNonEnterprise; }
+
+    /**
      * Load flag values. Should only be called once, and can only be called once PackageManager is
      * ready.
      */
     public void loadFlags(ConnectivityService.Dependencies deps, Context ctx) {
         mNoRematchAllRequestsOnRegister = deps.isFeatureEnabled(
                 ctx, NO_REMATCH_ALL_REQUESTS_ON_REGISTER, false /* defaultEnabled */);
+        mSupportBlockNonEnterprise = deps.isFeatureEnabled(ctx, SUPPORT_BLOCKING_NONENTERPRISE,
+                true /* defaultEnabled */);
     }
 }
