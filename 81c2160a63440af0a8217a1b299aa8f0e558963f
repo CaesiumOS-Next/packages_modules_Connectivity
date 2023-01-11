@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3c193de_bd401dfa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-01-11T18:52:43Z",
+      "side": 1,
+      "message": "There are three failed tests and all of them failed due to existing bugs:b/262007794 which blocks dependency CLs merging from mirror-aosp-master to tm-mainline-prod.\n\nmainline_modules_sdks-userdebug on git_tm-mainline-prod\nmainline_modules_x86_64-userdebug on git_tm-mainline-prod\ntest_suites_x86_64 on git_tm-mainline-prod",
+      "revId": "81c2160a63440af0a8217a1b299aa8f0e558963f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
