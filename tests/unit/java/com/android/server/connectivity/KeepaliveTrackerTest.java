@@ -18,7 +18,10 @@ package com.android.server.connectivity;
 
 import static android.Manifest.permission.GET_INTENT_SENDER_INTENT;
 import static android.net.NattSocketKeepalive.NATT_PORT;
+import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 
+import static com.android.server.connectivity.KeepaliveTracker.DYNAMIC_KEEPALIVE_MODE;
+import static com.android.server.connectivity.KeepaliveTracker.DYNAMIC_KEEPALIVE_MODE_ENABLED;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
@@ -242,6 +245,8 @@ public class KeepaliveTrackerTest {
         doReturn(mResources).when(mDependencies).newConnectivityResources();
         mockResource();
         doNothing().when(mDependencies).sendPollingRequest(any(), any());
+        doReturn(DYNAMIC_KEEPALIVE_MODE_ENABLED).when(mDependencies).getDeviceConfigPropertyInt(
+                NAMESPACE_CONNECTIVITY, DYNAMIC_KEEPALIVE_MODE, DYNAMIC_KEEPALIVE_MODE_ENABLED);
 
         final UserHandle userHandle = UserHandle.of(SYSTEM_USER.id);
         doReturn(userHandle).when(mCtx).getUser();
