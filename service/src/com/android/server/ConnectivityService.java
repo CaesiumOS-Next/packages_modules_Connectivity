@@ -10976,7 +10976,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         final List<ProfileNetworkPreferenceInfo> preferenceList = new ArrayList<>();
         boolean hasDefaultPreference = false;
-        for (final ProfileNetworkPreference preference : preferences) {
+        prefs: for (final ProfileNetworkPreference preference : preferences) {
             final NetworkCapabilities nc;
             boolean allowFallback = true;
             boolean blockingNonEnterprise = false;
@@ -10990,8 +10990,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     }
                     break;
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING:
-                    blockingNonEnterprise = true;
-                    // continue to process the enterprise preference.
+                    // If the feature is disabled, skip this preference.
+                    if (!mFlags.supportBlockNonEnterprise()) {
+                        continue prefs;
+                    }
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK:
                     allowFallback = false;
                     // continue to process the enterprise preference.
