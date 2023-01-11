@@ -41,6 +41,10 @@
 #include <nativehelper/JNIHelp.h>
 #include <nativehelper/ScopedUtfChars.h>
 
+#ifndef IFF_NO_CARRIER
+#define IFF_NO_CARRIER 0x0040
+#endif
+
 namespace android {
 
 //------------------------------------------------------------------------------
@@ -66,15 +70,15 @@ static int createTunTapImpl(JNIEnv* env, bool isTun, bool hasCarrier, bool setIf
 
     // Allocate interface.
     ifr.ifr_flags = (isTun ? IFF_TUN : IFF_TAP) | IFF_NO_PI;
+    if (!hasCarrier) {
+        // Using IFF_NO_CARRIER is supported starting in kernel version >= 6.0
+        // Up until then, unsupported flags are ignored.
+        ifr.ifr_flags |= IFF_NO_CARRIER;
+    }
     strlcpy(ifr.ifr_name, iface, IFNAMSIZ);
     if (ioctl(tun.get(), TUNSETIFF, &ifr)) {
         throwException(env, errno, "allocating", ifr.ifr_name);
         return -1;
-    }
-
-    if (!hasCarrier) {
-        // disable carrier before setting IFF_UP
-        setTunTapCarrierEnabledImpl(env, iface, tun.get(), hasCarrier);
     }
 
     // Mark some TAP interfaces as supporting multicast
