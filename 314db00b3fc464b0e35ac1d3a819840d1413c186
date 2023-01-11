@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7ee243b_745a84c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T02:47:20Z",
+      "side": 1,
+      "message": "LGTM. You can adress nits in the follow up commit.",
+      "revId": "314db00b3fc464b0e35ac1d3a819840d1413c186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7039929_e4f9515d",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T02:47:20Z",
+      "side": 1,
+      "message": "Nit: Maybe move this removal to l.400 and try to get Registration from id. If it\u0027s null, the removeService() can be ignored to reudce unnecessary actions.",
+      "range": {
+        "startLine": 405,
+        "startChar": 8,
+        "endLine": 405,
+        "endChar": 34
+      },
+      "revId": "314db00b3fc464b0e35ac1d3a819840d1413c186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9cace12_c58d4242",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-11T02:47:20Z",
+      "side": 1,
+      "message": "Nit: I think we need tests to verify onRegisterServiceFailed callback. You can add it in follow up commit.",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 5
+      },
+      "revId": "314db00b3fc464b0e35ac1d3a819840d1413c186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
