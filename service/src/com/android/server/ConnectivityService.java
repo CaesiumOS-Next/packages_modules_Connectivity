@@ -10943,8 +10943,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     }
                     break;
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING:
-                    blockingNonEnterprise = true;
-                    // continue to process the enterprise preference.
+                    // If the feature is disabled, treat this preference as if it is no fallback.
+                    if (mFlags.supportBlockNonEnterprise()) {
+                        blockingNonEnterprise = true;
+                        // continue to process the enterprise preference.
+                    }
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK:
                     allowFallback = false;
                     // continue to process the enterprise preference.
