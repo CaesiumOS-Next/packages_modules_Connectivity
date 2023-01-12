@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1aeb0d8_23d4ef5c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T01:39:35Z",
+      "side": 1,
+      "message": "Nit: duplicate line",
+      "revId": "637d9833f808da1c046888207729a6a884752be3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bccd6b2_36a9fe24",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T01:39:35Z",
+      "side": 1,
+      "message": "This is pretty ugly, sorry it\u0027s needed with my change to return the NetworkInterface instead of just its ID.\n\nMaybe this can be avoided by having getInterfaceName and getInterfaceId, instead of getInterface in the socket class ? I can make a separate change for that.",
+      "revId": "637d9833f808da1c046888207729a6a884752be3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

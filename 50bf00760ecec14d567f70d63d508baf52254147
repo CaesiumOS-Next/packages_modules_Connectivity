@@ -100,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "574a22b8_bb0bb4c4",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T01:39:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8580a639_b5076500",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6395e77_87b06650",
@@ -225,6 +243,24 @@
         "endLine": 188,
         "endChar": 49
       },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13a3dd3b_344de017",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T01:39:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fd2fe782_a066cfc1",
       "revId": "50bf00760ecec14d567f70d63d508baf52254147",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
