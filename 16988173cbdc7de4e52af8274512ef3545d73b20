@@ -420,6 +420,30 @@
       },
       "revId": "16988173cbdc7de4e52af8274512ef3545d73b20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e22ba106_5ad6f102",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T13:08:06Z",
+      "side": 1,
+      "message": "Regenerated the snapshot to reflect said changes.",
+      "parentUuid": "ab65291a_c62bee57",
+      "range": {
+        "startLine": 20,
+        "startChar": 24,
+        "endLine": 20,
+        "endChar": 30
+      },
+      "revId": "16988173cbdc7de4e52af8274512ef3545d73b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
