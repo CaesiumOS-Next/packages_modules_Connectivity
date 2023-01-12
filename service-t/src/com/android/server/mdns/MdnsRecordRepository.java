@@ -21,18 +21,26 @@ import android.annotation.Nullable;
 import android.net.LinkAddress;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Looper;
+import android.util.ArraySet;
 import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.CollectionUtils;
+import com.android.net.module.util.HexDump;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -60,6 +68,8 @@ public class MdnsRecordRepository {
     // Map of service unique ID -> records for service
     @NonNull
     private final SparseArray<ServiceRegistration> mServices = new SparseArray<>();
+    @NonNull
+    private final List<RecordInfo<?>> mGeneralRecords = new ArrayList<>();
     @NonNull
     private final Looper mLooper;
     @NonNull
@@ -221,7 +231,29 @@ public class MdnsRecordRepository {
      * Inform the repository of the latest interface addresses.
      */
     public void updateAddresses(@NonNull List<LinkAddress> newAddresses) {
-        // TODO: implement to update addresses in records
+        mGeneralRecords.clear();
+        for (LinkAddress addr : newAddresses) {
+            final String[] revDnsAddr = getReverseDnsAddress(addr.getAddress());
+            mGeneralRecords.add(new RecordInfo<>(
+                    null /* serviceInfo */,
+                    new MdnsPointerRecord(
+                            revDnsAddr,
+                            0L /* receiptTimeMillis */,
+                            true /* cacheFlush */,
+                            NAME_RECORDS_TTL_MILLIS,
+                            mDeviceHostname),
+                    false /* sharedName */, false /* probing */));
+
+            mGeneralRecords.add(new RecordInfo<>(
+                    null /* serviceInfo */,
+                    new MdnsInetAddressRecord(
+                            mDeviceHostname,
+                            0L /* receiptTimeMillis */,
+                            true /* cacheFlush */,
+                            NAME_RECORDS_TTL_MILLIS,
+                            addr.getAddress()),
+                    false /* sharedName */, false /* probing */));
+        }
     }
 
     /**
@@ -338,14 +370,106 @@ public class MdnsRecordRepository {
     }
 
     /**
+     * Add NSEC records indicating that the response records are unique.
+     *
+     * Following RFC6762 6.1:
+     * "On receipt of a question for a particular name, rrtype, and rrclass, for which a responder
+     * does have one or more unique answers, the responder MAY also include an NSEC record in the
+     * Additional Record Section indicating the nonexistence of other rrtypes for that name and
+     * rrclass."
+     * @param destinationList List to add the NSEC records to.
+     * @param answerRecords Lists of answered records based on which to add NSEC records (typically
+     *                      answer and additionalAnswer sections)
+     */
+    @SafeVarargs
+    private static void addNsecRecordsForUniqueNames(
+            List<MdnsRecord> destinationList,
+            Iterator<RecordInfo<?>>... answerRecords) {
+        // Group unique records by name. Use a TreeMap with comparator as arrays don't implement
+        // equals / hashCode.
+        final Map<String[], List<MdnsRecord>> nsecByName = new TreeMap<>(Arrays::compare);
+        // But keep the list of names in added order, otherwise records would be sorted in
+        // alphabetical order instead of the order of the original records, which would look like
+        // inconsistent behavior depending on service name.
+        final List<String[]> namesInAddedOrder = new ArrayList<>();
+        for (Iterator<RecordInfo<?>> answers : answerRecords) {
+            addNonSharedRecordsToMap(answers, nsecByName, namesInAddedOrder);
+        }
+
+        for (String[] nsecName : namesInAddedOrder) {
+            final List<MdnsRecord> entryRecords = nsecByName.get(nsecName);
+            long minTtl = Long.MAX_VALUE;
+            final Set<Integer> types = new ArraySet<>(entryRecords.size());
+            for (MdnsRecord record : entryRecords) {
+                if (minTtl > record.getTtl()) minTtl = record.getTtl();
+                types.add(record.getType());
+            }
+
+            destinationList.add(new MdnsNsecRecord(
+                    nsecName,
+                    0L /* receiptTimeMillis */,
+                    true /* cacheFlush */,
+                    minTtl,
+                    nsecName,
+                    CollectionUtils.toIntArray(types)));
+        }
+    }
+
+    /**
+     * Add non-shared records to a map listing them by record name, and to a list of names that
+     * remembers the adding order.
+     * @param records Records to scan.
+     * @param dest Map to add the records to.
+     * @param namesInAddedOrder List of names to add the names in order, keeping the first
+     *                          occurrence of each name.
+     */
+    private static void addNonSharedRecordsToMap(
+            Iterator<RecordInfo<?>> records,
+            Map<String[], List<MdnsRecord>> dest,
+            List<String[]> namesInAddedOrder) {
+        while (records.hasNext()) {
+            final RecordInfo<?> record = records.next();
+            if (record.isSharedName) continue;
+            final List<MdnsRecord> recordsForName = dest.computeIfAbsent(record.record.name,
+                    key -> {
+                        namesInAddedOrder.add(key);
+                        return new ArrayList<>();
+                    });
+            recordsForName.add(record.record);
+        }
+    }
+
+    /**
      * Called to indicate that probing succeeded for a service.
      * @param probeSuccessInfo The successful probing info.
      * @return The {@link MdnsAnnouncer.AnnouncementInfo} to send, now that probing has succeeded.
      */
     public MdnsAnnouncer.AnnouncementInfo onProbingSucceeded(
-            MdnsProber.ProbingInfo probeSuccessInfo) throws IOException {
-        // TODO: implement: set service as not probing anymore and generate announcements
-        throw new IOException("Announcements not implemented");
+            MdnsProber.ProbingInfo probeSuccessInfo)
+            throws IOException {
+
+        final ServiceRegistration registration = mServices.get(probeSuccessInfo.getServiceId());
+        if (registration == null) throw new IOException(
+                "Service is not registered: " + probeSuccessInfo.getServiceId());
+        registration.setProbing(false);
+
+        final ArrayList<MdnsRecord> answers = new ArrayList<>();
+        final ArrayList<MdnsRecord> additionalAnswers = new ArrayList<>();
+
+        // Interface address records in general records
+        for (RecordInfo<?> record : mGeneralRecords) {
+            answers.add(record.record);
+        }
+
+        // All service records
+        for (RecordInfo<?> info : registration.allRecords) {
+            answers.add(info.record);
+        }
+
+        addNsecRecordsForUniqueNames(additionalAnswers,
+                mGeneralRecords.iterator(), registration.allRecords.iterator());
+
+        return new MdnsAnnouncer.AnnouncementInfo(answers, additionalAnswers);
     }
 
     /**
@@ -369,6 +493,30 @@ public class MdnsRecordRepository {
         if (registration == null) return false;
 
         return registration.srvRecord.isProbing;
+    }
+
+    private static String[] getReverseDnsAddress(InetAddress addr) {
+        // xxx.xxx.xxx.xxx.in-addr.arpa (up to 28 characters)
+        // or 32 hex characters separated by dots + .ip6.arpa
+        final byte[] addrBytes = addr.getAddress();
+        final List<String> out = new ArrayList<>();
+        if (addr instanceof Inet4Address) {
+            for (int i = addrBytes.length - 1; i >= 0; i--) {
+                out.add(String.valueOf(Byte.toUnsignedInt(addrBytes[i])));
+            }
+            out.add("in-addr");
+        } else {
+            final String hexAddr = HexDump.toHexString(addrBytes);
+
+            for (int i = hexAddr.length() - 1; i >= 0; i--) {
+                out.add(String.valueOf(hexAddr.charAt(i)));
+            }
+            out.add("ip6");
+        }
+        out.add("arpa");
+
+        final String[] outArr = new String[out.size()];
+        return out.toArray(outArr);
     }
 
     private static String[] splitFullyQualifiedName(
