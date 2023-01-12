@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8045a9a_797591c5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 8762,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T04:23:06Z",
+      "side": 1,
+      "message": "will cause\n\nIf it\u0027s only \"usually\" then it would imply we need to do something in the remaining cases.",
+      "range": {
+        "startLine": 8762,
+        "startChar": 31,
+        "endLine": 8762,
+        "endChar": 46
+      },
+      "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3f5e996_2791c96f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 15909,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T04:23:06Z",
+      "side": 1,
+      "message": "Did you want assertSameElements ? This doesn\u0027t catch the case where the argument contains more than these two configs.\n\nReally what we would want is add a custom matcher to MiscAsserts.kt that extends `ArgumentMatcher\u003cCollection\u003e` and matches in any order. That would make your life much easier.",
+      "range": {
+        "startLine": 15909,
+        "startChar": 8,
+        "endLine": 15909,
+        "endChar": 25
+      },
+      "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
