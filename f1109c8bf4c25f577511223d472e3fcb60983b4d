@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5df7c9b7_632d9b6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T15:22:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47259237_41fe8641",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "f1109c8bf4c25f577511223d472e3fcb60983b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5af6a67b_3b61cbc9",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ace01364_c2609e21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T15:22:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5af6a67b_3b61cbc9",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 60
+      },
+      "revId": "f1109c8bf4c25f577511223d472e3fcb60983b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f787df2_3c6b6925",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-12T14:00:25Z",
       "side": 1,
       "message": "suggest having something like (this will also make framework-tethering-lib redundant):\n```\njava_defaults {\n    name: \"framework-tethering-defaults\",\n    min_sdk_version: \"30\",\n    defaults: [\"framework-module-defaults\"],\n    srcs: [\":framework-tethering-srcs\"],\n    libs: [\"framework-connectivity.stubs.module_lib\"],\n    aidl: {\n        include_dirs: [\n            \"packages/modules/Connectivity/framework/aidl-export\",\n        ],\n    },\n    apex_available: [\"com.android.tethering\"],\n}\n```",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 23
+      },
+      "revId": "f1109c8bf4c25f577511223d472e3fcb60983b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46e0a8a3_952cb0ff",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T15:22:55Z",
+      "side": 1,
+      "message": "I see you really don\u0027t like the idea of having a standalone lib target :).\n\nDone.",
+      "parentUuid": "2f787df2_3c6b6925",
       "range": {
         "startLine": 86,
         "startChar": 0,
