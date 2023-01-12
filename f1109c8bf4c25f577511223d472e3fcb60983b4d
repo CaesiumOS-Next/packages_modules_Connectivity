@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47259237_41fe8641",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-12T14:00:25Z",
+      "side": 1,
+      "message": "Can you put this in the same relation chain as aosp/2384137, so they won\u0027t conflict once one of them is merged (and so we can run TreeHugger against one and both).",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "f1109c8bf4c25f577511223d472e3fcb60983b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5af6a67b_3b61cbc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-12T14:00:25Z",
+      "side": 1,
+      "message": "maybe add another line along the lines of:\nThis does not affect existing classes in framework-tethering.jar as everything inside android.net is excluded from being jarjar\u0027ed. It is a preparatory step to adding cronet to the framework-tethering.jar which will use jarjar.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 60
+      },
+      "revId": "f1109c8bf4c25f577511223d472e3fcb60983b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f787df2_3c6b6925",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-12T14:00:25Z",
+      "side": 1,
+      "message": "suggest having something like (this will also make framework-tethering-lib redundant):\n```\njava_defaults {\n    name: \"framework-tethering-defaults\",\n    min_sdk_version: \"30\",\n    defaults: [\"framework-module-defaults\"],\n    srcs: [\":framework-tethering-srcs\"],\n    libs: [\"framework-connectivity.stubs.module_lib\"],\n    aidl: {\n        include_dirs: [\n            \"packages/modules/Connectivity/framework/aidl-export\",\n        ],\n    },\n    apex_available: [\"com.android.tethering\"],\n}\n```",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 23
+      },
+      "revId": "f1109c8bf4c25f577511223d472e3fcb60983b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
