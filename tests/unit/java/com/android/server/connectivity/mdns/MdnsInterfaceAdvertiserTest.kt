@@ -21,6 +21,7 @@ import android.net.LinkAddress
 import android.net.nsd.NsdServiceInfo
 import android.os.Build
 import android.os.HandlerThread
+import com.android.net.module.util.HexDump
 import com.android.server.connectivity.mdns.MdnsAnnouncer.AnnouncementInfo
 import com.android.server.connectivity.mdns.MdnsAnnouncer.BaseAnnouncementInfo
 import com.android.server.connectivity.mdns.MdnsAnnouncer.ExitAnnouncementInfo
@@ -30,6 +31,10 @@ import com.android.server.connectivity.mdns.MdnsProber.ProbingInfo
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.waitForIdle
+import java.net.InetSocketAddress
+import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -39,6 +44,7 @@ import org.mockito.Mockito.any
 import org.mockito.Mockito.anyInt
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
+import org.mockito.Mockito.eq
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
@@ -66,13 +72,18 @@ class MdnsInterfaceAdvertiserTest {
     private val replySender = mock(MdnsReplySender::class.java)
     private val announcer = mock(MdnsAnnouncer::class.java)
     private val prober = mock(MdnsProber::class.java)
+    @Suppress("UNCHECKED_CAST")
     private val probeCbCaptor = ArgumentCaptor.forClass(PacketRepeaterCallback::class.java)
             as ArgumentCaptor<PacketRepeaterCallback<ProbingInfo>>
+    @Suppress("UNCHECKED_CAST")
     private val announceCbCaptor = ArgumentCaptor.forClass(PacketRepeaterCallback::class.java)
             as ArgumentCaptor<PacketRepeaterCallback<BaseAnnouncementInfo>>
+    private val packetHandlerCaptor = ArgumentCaptor.forClass(
+            MulticastPacketReader.PacketHandler::class.java)
 
     private val probeCb get() = probeCbCaptor.value
     private val announceCb get() = announceCbCaptor.value
+    private val packetHandler get() = packetHandlerCaptor.value
 
     private val advertiser by lazy {
         MdnsInterfaceAdvertiser(LOG_TAG, socket, TEST_ADDRS, thread.looper, TEST_BUFFER, cb, deps)
@@ -81,7 +92,7 @@ class MdnsInterfaceAdvertiserTest {
     @Before
     fun setUp() {
         doReturn(repository).`when`(deps).makeRecordRepository(any())
-        doReturn(replySender).`when`(deps).makeReplySender(any(), any(), any())
+        doReturn(replySender).`when`(deps).makeReplySender(any(), any(), any(), any())
         doReturn(announcer).`when`(deps).makeMdnsAnnouncer(any(), any(), any(), any())
         doReturn(prober).`when`(deps).makeMdnsProber(any(), any(), any(), any())
 
@@ -102,6 +113,7 @@ class MdnsInterfaceAdvertiserTest {
         thread.start()
         advertiser.start()
 
+        verify(socket).addPacketHandler(packetHandlerCaptor.capture())
         verify(deps).makeMdnsProber(any(), any(), any(), probeCbCaptor.capture())
         verify(deps).makeMdnsAnnouncer(any(), any(), any(), announceCbCaptor.capture())
     }
@@ -113,19 +125,7 @@ class MdnsInterfaceAdvertiserTest {
 
     @Test
     fun testAddRemoveService() {
-        val testProbingInfo = mock(ProbingInfo::class.java)
-        doReturn(TEST_SERVICE_ID_1).`when`(testProbingInfo).serviceId
-        doReturn(testProbingInfo).`when`(repository).setServiceProbing(TEST_SERVICE_ID_1)
-
-        advertiser.addService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
-        verify(repository).addService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
-        verify(prober).startProbing(testProbingInfo)
-
-        // Simulate probing success: continues to announcing
-        val testAnnouncementInfo = mock(AnnouncementInfo::class.java)
-        doReturn(testAnnouncementInfo).`when`(repository).onProbingSucceeded(testProbingInfo)
-        probeCb.onFinished(testProbingInfo)
-
+        val testAnnouncementInfo = addServiceAndFinishProbing(TEST_SERVICE_ID_1, TEST_SERVICE_1)
         verify(announcer).startSending(TEST_SERVICE_ID_1, testAnnouncementInfo,
                 0L /* initialDelayMs */)
 
@@ -145,5 +145,55 @@ class MdnsInterfaceAdvertiserTest {
         announceCb.onFinished(testExitInfo)
         thread.waitForIdle(TIMEOUT_MS)
         verify(cb).onDestroyed(socket)
+    }
+
+    @Test
+    fun testReplyToQuery() {
+        addServiceAndFinishProbing(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+
+        val mockReply = mock(MdnsRecordRepository.ReplyInfo::class.java)
+        doReturn(mockReply).`when`(repository).getReply(any(), any())
+
+        // Query obtained with:
+        // scapy.raw(scapy.DNS(
+        //  qd = scapy.DNSQR(qtype='PTR', qname='_testservice._tcp.local'))
+        // ).hex().upper()
+        val query = HexDump.hexStringToByteArray(
+                "0000010000010000000000000C5F7465737473657276696365045F746370056C6F63616C00000C0001"
+        )
+        val src = InetSocketAddress(parseNumericAddress("2001:db8::456"), MdnsConstants.MDNS_PORT)
+        packetHandler.handlePacket(query, query.size, src)
+
+        val packetCaptor = ArgumentCaptor.forClass(MdnsPacket::class.java)
+        verify(repository).getReply(packetCaptor.capture(), eq(src))
+
+        packetCaptor.value.let {
+            assertEquals(1, it.questions.size)
+            assertEquals(0, it.answers.size)
+            assertEquals(0, it.authorityRecords.size)
+            assertEquals(0, it.additionalRecords.size)
+
+            assertTrue(it.questions[0] is MdnsPointerRecord)
+            assertContentEquals(arrayOf("_testservice", "_tcp", "local"), it.questions[0].name)
+        }
+
+        verify(replySender).queueReply(mockReply)
+    }
+
+    private fun addServiceAndFinishProbing(serviceId: Int, serviceInfo: NsdServiceInfo):
+            AnnouncementInfo {
+        val testProbingInfo = mock(ProbingInfo::class.java)
+        doReturn(serviceId).`when`(testProbingInfo).serviceId
+        doReturn(testProbingInfo).`when`(repository).setServiceProbing(serviceId)
+
+        advertiser.addService(serviceId, serviceInfo)
+        verify(repository).addService(serviceId, serviceInfo)
+        verify(prober).startProbing(testProbingInfo)
+
+        // Simulate probing success: continues to announcing
+        val testAnnouncementInfo = mock(AnnouncementInfo::class.java)
+        doReturn(testAnnouncementInfo).`when`(repository).onProbingSucceeded(testProbingInfo)
+        probeCb.onFinished(testProbingInfo)
+        return testAnnouncementInfo
     }
 }
