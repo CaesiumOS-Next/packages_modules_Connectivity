@@ -25,8 +25,6 @@ import com.android.server.connectivity.mdns.MdnsAnnouncer.AnnouncementInfo
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import java.net.DatagramPacket
-import java.net.Inet6Address
-import java.net.InetAddress
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import org.junit.After
@@ -266,14 +264,4 @@ class MdnsAnnouncerTest {
             assertEquals(expected, HexDump.toHexString(it.data))
         }
     }
-}
-
-/**
- * Compute 2001:db8::1 --> 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.B.D.1.0.0.2.ip6.arpa
- */
-private fun getReverseV6AddressName(addr: InetAddress): Array<String> {
-    assertTrue(addr is Inet6Address)
-    return addr.address.flatMapTo(mutableListOf("arpa", "ip6")) {
-        HexDump.toHexString(it).toCharArray().map(Char::toString)
-    }.reversed().toTypedArray()
 }
