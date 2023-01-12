@@ -64,6 +64,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "faff357f_e9581b40",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2760,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-12T02:31:42Z",
+      "side": 1,
+      "message": "Fixed in aosp/2382006",
+      "parentUuid": "3f4a706c_5185ecab",
+      "range": {
+        "startLine": 2760,
+        "startChar": 0,
+        "endLine": 2760,
+        "endChar": 34
+      },
+      "revId": "e6120b409f71c485033fddbddd30924639c817bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "639516c0_165d22cc",
