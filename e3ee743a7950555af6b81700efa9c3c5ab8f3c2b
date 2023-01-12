@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d09335a3_5853f426",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-12T15:49:23Z",
+      "side": 1,
+      "message": "The error may happen in random place. I am afraid that first 50 bytes and last 50 bytes may not be able to know how to parse the message. E.g. The byte array is composed by `int+int+byte+int ..` or `byte + byte + byte + ...`. \n\nI updated to dump the information before the exception position. I think this would help though it may still possibly dump almost all the message.",
+      "parentUuid": "04c737c7_3b51d1bf",
+      "range": {
+        "startLine": 925,
+        "startChar": 61,
+        "endLine": 925,
+        "endChar": 74
+      },
+      "revId": "e3ee743a7950555af6b81700efa9c3c5ab8f3c2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "69142da6_b9d151b7",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 14
