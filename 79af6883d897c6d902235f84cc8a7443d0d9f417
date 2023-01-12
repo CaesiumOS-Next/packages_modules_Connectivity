@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "183d8674_e6345e6e",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-12T10:09:44Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 4
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9529e9d3_f255bc67",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-12T10:09:44Z",
+      "side": 1,
+      "message": "Nit: I think you don\u0027t need this null check since mProber is marked @NonNull.",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 28
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d3d7677_e0f4741e",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-12T10:09:44Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 31
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aad264ae_fa95b1bc",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-12T10:09:44Z",
+      "side": 1,
+      "message": "If registration is exiting, then we should not remove the sevice here, right?",
+      "range": {
+        "startLine": 179,
+        "startChar": 12,
+        "endLine": 179,
+        "endChar": 48
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b78f959_6aeade50",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-12T10:09:44Z",
+      "side": 1,
+      "message": "Should be DNS_SD_SERVICE_`TYPE`? Also add a comment to explain this is necessary for service type enumeration.",
+      "range": {
+        "startLine": 53,
+        "startChar": 34,
+        "endLine": 53,
+        "endChar": 53
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29e5e626_d9ffec1e",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-12T10:09:44Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b2323d9_e282bb26",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-12T10:09:44Z",
+      "side": 1,
+      "message": "Is that possible `serviceId \u003d\u003d existing`? If so, we will lose this service.",
+      "range": {
+        "startLine": 244,
+        "startChar": 25,
+        "endLine": 244,
+        "endChar": 33
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61817000_59c3360c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-12T10:09:44Z",
+      "side": 1,
+      "message": "Question: I don\u0027t see `srvRecord.isProbing` set to `false`. This part haven\u0027t been implemented yet?",
+      "range": {
+        "startLine": 361,
+        "startChar": 38,
+        "endLine": 361,
+        "endChar": 47
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c06a5ac_b93d25d7",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-12T10:09:44Z",
+      "side": 1,
+      "message": "Maybe add comment to explain this is the local domain name.",
+      "range": {
+        "startLine": 379,
+        "startChar": 8,
+        "endLine": 379,
+        "endChar": 37
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
