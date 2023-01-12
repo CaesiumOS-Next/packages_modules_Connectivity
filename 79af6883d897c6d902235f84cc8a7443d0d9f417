@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07a32cab_794eff42",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T11:45:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "183d8674_e6345e6e",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 4
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9529e9d3_f255bc67",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-12T10:09:44Z",
       "side": 1,
       "message": "Nit: I think you don\u0027t need this null check since mProber is marked @NonNull.",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 28
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d95cf85_fce50b2e",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T11:45:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9529e9d3_f255bc67",
       "range": {
         "startLine": 166,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a730e02d_86bec280",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T11:45:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d3d7677_e0f4741e",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 31
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aad264ae_fa95b1bc",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-01-12T10:09:44Z",
       "side": 1,
       "message": "If registration is exiting, then we should not remove the sevice here, right?",
+      "range": {
+        "startLine": 179,
+        "startChar": 12,
+        "endLine": 179,
+        "endChar": 48
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdea15e4_dad73f30",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T11:45:44Z",
+      "side": 1,
+      "message": "Yes; but that branch is for the \"no exitInfo\" (no exit announcement) case. Added a comment.",
+      "parentUuid": "aad264ae_fa95b1bc",
       "range": {
         "startLine": 179,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89d8fbe1_647ec6d4",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T11:45:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b78f959_6aeade50",
+      "range": {
+        "startLine": 53,
+        "startChar": 34,
+        "endLine": 53,
+        "endChar": 53
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29e5e626_d9ffec1e",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-01-12T10:09:44Z",
       "side": 1,
       "message": "@NonNull",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37510a68_bd82b9ce",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T11:45:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29e5e626_d9ffec1e",
       "range": {
         "startLine": 133,
         "startChar": 8,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db5db128_8dc6777d",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T11:45:44Z",
+      "side": 1,
+      "message": "Good point, reusing the service ID shouldn\u0027t be done (it\u0027s supposed to be a unique ID; the one generated by NsdService for every request). Added a check that the service ID isn\u0027t in use.",
+      "parentUuid": "3b2323d9_e282bb26",
+      "range": {
+        "startLine": 244,
+        "startChar": 25,
+        "endLine": 244,
+        "endChar": 33
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61817000_59c3360c",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44e01759_4df9445e",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T11:45:44Z",
+      "side": 1,
+      "message": "Yes, as you guessed it\u0027s in aosp/2383988 (onProbingSucceeded).\n\nNote that if probing fails this will be reported up to MdnsAdvertiser, which will choose a new name and have the MdnsInterfaceAdvertisers recreate the registration (with renameServiceForConflict); that part is for a future CL.",
+      "parentUuid": "61817000_59c3360c",
+      "range": {
+        "startLine": 361,
+        "startChar": 38,
+        "endLine": 361,
+        "endChar": 47
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c06a5ac_b93d25d7",
@@ -198,6 +390,30 @@
       "writtenOn": "2023-01-12T10:09:44Z",
       "side": 1,
       "message": "Maybe add comment to explain this is the local domain name.",
+      "range": {
+        "startLine": 379,
+        "startChar": 8,
+        "endLine": 379,
+        "endChar": 37
+      },
+      "revId": "79af6883d897c6d902235f84cc8a7443d0d9f417",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e1cd930_6f5e0725",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-12T11:45:44Z",
+      "side": 1,
+      "message": "Added constant with a comment",
+      "parentUuid": "5c06a5ac_b93d25d7",
       "range": {
         "startLine": 379,
         "startChar": 8,
