@@ -236,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd0b5e84_f15ffc45",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T15:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21951e39_b5a8682b",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 6
+      },
+      "revId": "16988173cbdc7de4e52af8274512ef3545d73b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7b578b5_be80f95c",
@@ -306,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cc8b1e4_e2cf56b0",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T15:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dffdac7_70168bde",
+      "range": {
+        "startLine": 102,
+        "startChar": 2,
+        "endLine": 103,
+        "endChar": 24
+      },
+      "revId": "16988173cbdc7de4e52af8274512ef3545d73b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d7647a9_8ca4fcdc",
@@ -343,6 +391,30 @@
       "side": 1,
       "message": "It doesn\u0027t make any difference in this case - all framework-tethering stubs are under android.net and those are excluded by jarjar-excludes. If you prefer I can add the API stubs parameter as well.",
       "parentUuid": "3d7647a9_8ca4fcdc",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 47
+      },
+      "revId": "16988173cbdc7de4e52af8274512ef3545d73b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58cc5dbe_530d8888",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T15:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b01a6c3_493747a1",
       "range": {
         "startLine": 118,
         "startChar": 8,
