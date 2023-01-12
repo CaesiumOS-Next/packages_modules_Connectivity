@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7566cac2_e53da02d",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "Because this is only called from the system server inside the system server I don\u0027t think you need to protect it. Instead you just check that the sender was the system server.",
+      "range": {
+        "startLine": 47,
+        "startChar": 5,
+        "endLine": 47,
+        "endChar": 109
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2c5c386_103e1dc8",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "Please document what this means. \"dynamic\" just means it changes with time, which is not enough context for someone reading this code to understand what it does.\n\nSuggest renaming to `automaticOnOffKeepalives`, but that\u0027s still not clear enough without a comment explaining that if this is true the system will skip sending keepalives when there are no TCP connections open over the VPN to save battery, and if this is false it will always send the keepalives.\n\nAlso you need to specify the relationship between the pfd/network and the VPN.",
+      "range": {
+        "startLine": 51,
+        "startChar": 54,
+        "endLine": 51,
+        "endChar": 74
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04e56b9c_7570f681",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "Please give more context here : why do we do this, in what conditions do we do this",
+      "range": {
+        "startLine": 487,
+        "startChar": 57,
+        "endLine": 487,
+        "endChar": 58
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e158ea2_9f4a139e",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "temporarily",
+      "range": {
+        "startLine": 61,
+        "startChar": 91,
+        "endLine": 61,
+        "endChar": 100
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df2d31da_a0554aad",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "missing verb ?",
+      "range": {
+        "startLine": 61,
+        "startChar": 46,
+        "endLine": 61,
+        "endChar": 47
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82f6d898_df97c48b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1793,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "Is this not always used on the connectivity service handler thread ? If so you don\u0027t need to lock and you should call `ensureRunningOnConnectivityServiceThread`.\n\nAlso `getVpn()` is really not specific enough in the context of ConnectivityService. This is finding any VPN at all among the connected network agents, so you could call it `getAnyConnectedVpnNAI`. But see my comment below about how resolving the TODO should make you find the list of VPNs using a given network as their underlying network, so you\u0027d eventually change this and call it something like `findVpnWithUnderlyingNetwork(Network)`",
+      "range": {
+        "startLine": 1793,
+        "startChar": 8,
+        "endLine": 1793,
+        "endChar": 20
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e3a2960_f062ae8b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1795,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "Why not just use mNetworkAgentInfos ? That seems more direct.",
+      "range": {
+        "startLine": 1795,
+        "startChar": 45,
+        "endLine": 1795,
+        "endChar": 61
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a8d309_be9d57b1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 5513,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "I think it\u0027s pretty clear : you need to do this for all VPNs using this network as their underlying network.\n\nIt\u0027s okay to do this in a followup and just keep the TODO here",
+      "range": {
+        "startLine": 5513,
+        "startChar": 50,
+        "endLine": 5513,
+        "endChar": 72
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76f50192_bb434ee9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 9693,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "...because ?",
+      "range": {
+        "startLine": 9693,
+        "startChar": 68,
+        "endLine": 9693,
+        "endChar": 69
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0583d7d_d0cf25da",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "How many of these do we think we\u0027ll be keeping ?\n\nA HashMap of HashMaps seems extremely expensive, especially considering you\u0027ll almost always have at most one of these, and the keys are Network (which is a glorified integer) and Integer.\n\nLook at comments below as I\u0027m not sure you\u0027ll need this at all, but you could just add a boolean to `KeepaliveInfo` and just use the map above ? Or if you really need a different data structure, it could just be an ArrayList\u003c\u003e of a struct with Network, int and KeepaliveInfo, and perform linear search ? That will likely be much faster than a hashmap of hashmaps.",
+      "range": {
+        "startLine": 131,
+        "startChar": 18,
+        "endLine": 131,
+        "endChar": 42
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cda45266_0c279b3b",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "why is this not final ?",
+      "range": {
+        "startLine": 230,
+        "startChar": 8,
+        "endLine": 230,
+        "endChar": 15
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aca3414b_5631da1e",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "This is a random binder thread isn\u0027t it ? You can\u0027t just write to a random member on random threads. l.451 is clear that stop() can be re-entered, so it\u0027s entirely possible that one thread will pass through l.446 and find mTcpPollingAlarm non-null, then be pre-empted and some other thread will set it to null, and when the first thread resumes it calls mAlarmManager.cancel(null) which will crash the system with NPE.",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 40
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15da9070_3b2f6881",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "Are you fundamentally changing the semantics of `mStopReason` here ?\n\nKeepaliveTracker is written like a state machine with the state stored in mStartedState with the following state graph :\nNOT_STARTED 🠊 STARTING 🠊 STARTED 🠊 STOPPING 🠊 NOT_STARTED. A fair bit of code is written to handle the various transitions (e.g. the STOPPING 🠊 NOT_STARTED transition will call `unlinkDeathRecipient` because at that point there is nothing left to clean up if the caller dies). Once a keepalive is stopped, it can\u0027t be restarted and the stop reason is latched.\n\nIt seems to me like your patch is changing this by making the sum of `mStartedState+mStopReason` the new state, so you\u0027re adding a large number of states ; for example, a keepalive can now be in `STOPPING+TEMP_DISABLED` state. This is fairly confusing.\n\nI think you need to do one of two things :\n• Change the state machine in this file, and to comment very carefully what the new state machine looks like.\n• Do not change the state machine in this file, and handle the additional state elsewhere (e.g. in ConnectivityService).\n\nTo me the latter seems a little bit wiser considering your current code – since disabling temporarily seems to be using the entire start/stop machinery, including linking and unlinking the death recipient and closing the FD for example, it sounds to me like having an independent piece of state is less dangerous than having all these tests to skip part of the logic if TEMP_DISABLED.",
+      "range": {
+        "startLine": 457,
+        "startChar": 66,
+        "endLine": 457,
+        "endChar": 94
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c21503f9_3e013d5b",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T09:09:55Z",
+      "side": 1,
+      "message": "What if it\u0027s STARTING or STOPPING ?",
+      "range": {
+        "startLine": 783,
+        "startChar": 50,
+        "endLine": 783,
+        "endChar": 57
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
