@@ -149,7 +149,7 @@ class MdnsAnnouncerTest {
         val v4Addr = parseNumericAddress("192.0.2.123")
         val v6Addr1 = parseNumericAddress("2001:DB8::123")
         val v6Addr2 = parseNumericAddress("2001:DB8::456")
-        val v4AddrRev = arrayOf("123", "0", "2", "192", "in-addr", "arpa")
+        val v4AddrRev = getReverseDnsAddress(v4Addr)
         val v6Addr1Rev = getReverseDnsAddress(v6Addr1)
         val v6Addr2Rev = getReverseDnsAddress(v6Addr2)
 
