@@ -58,8 +58,14 @@ java_sdk_library {
         "//packages/modules/Wifi/service/tests/wifitests",
     ],
 
-    srcs: [":framework-tethering-srcs"],
-    libs: ["framework-connectivity.stubs.module_lib"],
+    srcs: [
+      ":framework-tethering-srcs",
+      ":cronet_aml_api_sources",
+    ],
+    libs: [
+      "framework-connectivity.stubs.module_lib",
+      "androidx.annotation_annotation",
+    ],
     stub_only_libs: ["framework-connectivity.stubs.module_lib"],
     aidl: {
         include_dirs: [
@@ -67,14 +73,71 @@ java_sdk_library {
         ],
     },
 
-    jarjar_rules: "jarjar-rules.txt",
+    impl_only_static_libs: [
+      "cronet_aml_java",
+    ],
+
+    jarjar_rules: ":framework-tethering-jarjar-rules",
     installable: true,
 
     hostdex: true, // for hiddenapi check
     apex_available: ["com.android.tethering"],
     permitted_packages: ["android.net"],
     min_sdk_version: "30",
-    lint: { strict_updatability_linting: true },
+
+    api_lint: {
+      enabled: false,
+    },
+}
+
+java_library {
+  name: "framework-tethering-pre-jarjar",
+  defaults: ["framework-module-defaults"],
+  static_libs: [
+    "framework-tethering-lib",
+    "cronet_aml_api_java",
+    "cronet_aml_java"
+  ],
+  visibility: ["//packages/modules/Connectivity:__subpackages__"],
+  apex_available: ["com.android.tethering"],
+  min_sdk_version: "30",
+}
+
+java_genrule {
+    name: "framework-tethering-jarjar-rules",
+    tool_files: [
+        ":framework-tethering-pre-jarjar{.jar}",
+        "jarjar-excludes.txt",
+    ],
+    tools: [
+        "jarjar-rules-generator",
+    ],
+    out: ["framework_tethering_jarjar_rules.txt"],
+    cmd: "$(location jarjar-rules-generator) " +
+        "$(location :framework-tethering-pre-jarjar{.jar}) " +
+        "--prefix android.net.http.internal " +
+        "--excludes $(location jarjar-excludes.txt) " +
+        "--output $(out)",
+    visibility: [
+        "//packages/modules/Connectivity/Cronet:__subpackages__",
+    ],
+}
+
+java_library {
+    name: "framework-tethering-lib",
+    defaults: ["framework-module-defaults"],
+    srcs: [
+      ":framework-tethering-srcs"
+    ],
+    libs: ["framework-connectivity.stubs.module_lib"],
+    visibility: ["//packages/modules/Connectivity:__subpackages__"],
+    aidl: {
+        include_dirs: [
+            "packages/modules/Connectivity/framework/aidl-export",
+        ],
+    },
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
 }
 
 filegroup {
