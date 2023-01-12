@@ -114,9 +114,45 @@ class MdnsRecordRepositoryTest {
     }
 
     @Test
+    fun testExitAnnouncements() {
+        val repository = MdnsRecordRepository(thread.looper, deps)
+        repository.updateAddresses(TEST_ADDRESSES)
+
+        repository.addService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        val probingInfo = repository.setServiceProbing(TEST_SERVICE_ID_1)
+        repository.onProbingSucceeded(probingInfo)
+        repository.onAdvertisementSent(TEST_SERVICE_ID_1)
+
+        val exitAnnouncement = repository.exitService(TEST_SERVICE_ID_1)
+        assertNotNull(exitAnnouncement)
+        assertEquals(1, repository.servicesCount)
+        val packet = exitAnnouncement.getPacket(0)
+
+        assertEquals(0x8400 /* response, authoritative */, packet.flags)
+        assertEquals(0, packet.questions.size)
+        assertEquals(0, packet.authorityRecords.size)
+        assertEquals(0, packet.additionalRecords.size)
+
+        assertContentEquals(listOf(
+                MdnsPointerRecord(
+                        arrayOf("_testservice", "_tcp", "local"),
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        0L /* ttlMillis */,
+                        arrayOf("MyTestService", "_testservice", "_tcp", "local"))
+        ), packet.answers)
+
+        repository.removeService(TEST_SERVICE_ID_1)
+        assertEquals(0, repository.servicesCount)
+    }
+
+    @Test
     fun testExitingServiceReAdded() {
         val repository = MdnsRecordRepository(thread.looper, deps)
         repository.addService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        val probingInfo = repository.setServiceProbing(TEST_SERVICE_ID_1)
+        repository.onProbingSucceeded(probingInfo)
+        repository.onAdvertisementSent(TEST_SERVICE_ID_1)
         repository.exitService(TEST_SERVICE_ID_1)
 
         assertEquals(TEST_SERVICE_ID_1, repository.addService(TEST_SERVICE_ID_2, TEST_SERVICE_1))

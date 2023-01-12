@@ -22,6 +22,8 @@ import android.net.nsd.NsdServiceInfo
 import android.os.Build
 import android.os.HandlerThread
 import com.android.server.connectivity.mdns.MdnsAnnouncer.AnnouncementInfo
+import com.android.server.connectivity.mdns.MdnsAnnouncer.BaseAnnouncementInfo
+import com.android.server.connectivity.mdns.MdnsAnnouncer.ExitAnnouncementInfo
 import com.android.server.connectivity.mdns.MdnsInterfaceAdvertiser.EXIT_ANNOUNCEMENT_DELAY_MS
 import com.android.server.connectivity.mdns.MdnsPacketRepeater.PacketRepeaterCallback
 import com.android.server.connectivity.mdns.MdnsProber.ProbingInfo
@@ -35,6 +37,7 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.any
 import org.mockito.Mockito.anyInt
+import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
@@ -66,7 +69,7 @@ class MdnsInterfaceAdvertiserTest {
     private val probeCbCaptor = ArgumentCaptor.forClass(PacketRepeaterCallback::class.java)
             as ArgumentCaptor<PacketRepeaterCallback<ProbingInfo>>
     private val announceCbCaptor = ArgumentCaptor.forClass(PacketRepeaterCallback::class.java)
-            as ArgumentCaptor<PacketRepeaterCallback<AnnouncementInfo>>
+            as ArgumentCaptor<PacketRepeaterCallback<BaseAnnouncementInfo>>
 
     private val probeCb get() = probeCbCaptor.value
     private val announceCb get() = announceCbCaptor.value
@@ -81,6 +84,19 @@ class MdnsInterfaceAdvertiserTest {
         doReturn(replySender).`when`(deps).makeReplySender(any(), any(), any())
         doReturn(announcer).`when`(deps).makeMdnsAnnouncer(any(), any(), any(), any())
         doReturn(prober).`when`(deps).makeMdnsProber(any(), any(), any(), any())
+
+        val knownServices = mutableSetOf<Int>()
+        doAnswer { inv ->
+            knownServices.add(inv.getArgument(0))
+            -1
+        }.`when`(repository).addService(anyInt(), any())
+        doAnswer { inv ->
+            knownServices.remove(inv.getArgument(0))
+            null
+        }.`when`(repository).removeService(anyInt())
+        doAnswer {
+            knownServices.toIntArray().also { knownServices.clear() }
+        }.`when`(repository).clearServices()
 
         doReturn(-1).`when`(repository).addService(anyInt(), any())
         thread.start()
@@ -117,13 +133,15 @@ class MdnsInterfaceAdvertiserTest {
         verify(cb).onRegisterServiceSucceeded(advertiser, TEST_SERVICE_ID_1)
 
         // Remove the service: expect exit announcements
-        val testExitInfo = mock(AnnouncementInfo::class.java)
+        val testExitInfo = mock(ExitAnnouncementInfo::class.java)
         doReturn(testExitInfo).`when`(repository).exitService(TEST_SERVICE_ID_1)
         advertiser.removeService(TEST_SERVICE_ID_1)
 
         verify(announcer).startSending(TEST_SERVICE_ID_1, testExitInfo, EXIT_ANNOUNCEMENT_DELAY_MS)
 
-        // TODO: after exit announcements are implemented, verify that announceCb.onFinished causes
-        // cb.onDestroyed to be called.
+        // Exit announcements finish: the advertiser has no left service and destroys itself
+        announceCb.onFinished(testExitInfo)
+        thread.waitForIdle(TIMEOUT_MS)
+        verify(cb).onDestroyed(socket)
     }
 }
