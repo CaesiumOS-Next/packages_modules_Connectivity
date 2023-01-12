@@ -67,7 +67,7 @@ java_sdk_library {
         ],
     },
 
-    jarjar_rules: "jarjar-rules.txt",
+    jarjar_rules: ":framework-tethering-jarjar-rules",
     installable: true,
 
     hostdex: true, // for hiddenapi check
@@ -75,6 +75,51 @@ java_sdk_library {
     permitted_packages: ["android.net"],
     min_sdk_version: "30",
     lint: { strict_updatability_linting: true },
+}
+
+java_library {
+  name: "framework-tethering-pre-jarjar",
+  defaults: ["framework-module-defaults"],
+  static_libs: [
+    "framework-tethering-lib",
+  ],
+  apex_available: ["com.android.tethering"],
+  min_sdk_version: "30",
+}
+
+java_genrule {
+    name: "framework-tethering-jarjar-rules",
+    tool_files: [
+        ":framework-tethering-pre-jarjar{.jar}",
+        ":framework-tethering.stubs.module_lib{.jar}",
+        "jarjar-excludes.txt",
+    ],
+    tools: [
+        "jarjar-rules-generator",
+    ],
+    out: ["framework_tethering_jarjar_rules.txt"],
+    cmd: "$(location jarjar-rules-generator) " +
+        "$(location :framework-tethering-pre-jarjar{.jar}) " +
+        "--apistubs $(location :framework-tethering.stubs.module_lib{.jar}) " + 
+        "--prefix android.net.http.internal " +
+        "--excludes $(location jarjar-excludes.txt) " +
+        "--output $(out)",
+}
+
+java_library {
+    name: "framework-tethering-lib",
+    defaults: ["framework-module-defaults"],
+    srcs: [
+      ":framework-tethering-srcs"
+    ],
+    libs: ["framework-connectivity.stubs.module_lib"],
+    aidl: {
+        include_dirs: [
+            "packages/modules/Connectivity/framework/aidl-export",
+        ],
+    },
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
 }
 
 filegroup {
