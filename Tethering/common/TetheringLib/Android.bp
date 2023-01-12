@@ -17,8 +17,6 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-// TODO: This is currently not used, but is being merged early, so Cronet can be disabled in
-// tm-mainline-prod.
 // Both cronet_java_defaults and cronet_java_prejarjar_defaults can be used to
 // specify a java_defaults target that either enables or disables Cronet. This
 // is used to disable Cronet on tm-mainline-prod.
@@ -31,7 +29,9 @@ cronet_java_prejarjar_defaults = "CronetJavaPrejarjarDefaultsEnabled"
 
 java_sdk_library {
     name: "framework-tethering",
-    defaults: ["framework-module-defaults"],
+    defaults: [
+        "CronetJavaDefaults",
+    ],
     impl_library_visibility: [
         "//packages/modules/Connectivity/Tethering:__subpackages__",
         "//packages/modules/Connectivity/framework",
@@ -58,8 +58,12 @@ java_sdk_library {
         "//packages/modules/Wifi/service/tests/wifitests",
     ],
 
-    srcs: [":framework-tethering-srcs"],
-    libs: ["framework-connectivity.stubs.module_lib"],
+    srcs: [
+      ":framework-tethering-srcs",
+    ],
+    libs: [
+      "framework-connectivity.stubs.module_lib",
+    ],
     stub_only_libs: ["framework-connectivity.stubs.module_lib"],
     aidl: {
         include_dirs: [
@@ -67,14 +71,105 @@ java_sdk_library {
         ],
     },
 
-    jarjar_rules: "jarjar-rules.txt",
+    jarjar_rules: ":framework-tethering-jarjar-rules",
     installable: true,
 
     hostdex: true, // for hiddenapi check
     apex_available: ["com.android.tethering"],
     permitted_packages: ["android.net"],
     min_sdk_version: "30",
-    lint: { strict_updatability_linting: true },
+
+    api_lint: {
+      enabled: false,
+    },
+}
+
+java_defaults {
+    name: "CronetJavaDefaults",
+    defaults: [cronet_java_defaults],
+}
+
+java_defaults {
+    name: "CronetJavaDefaultsEnabled",
+    defaults: ["framework-module-defaults"],
+    srcs: [
+        ":cronet_aml_api_sources",
+    ],
+    libs: [
+        "androidx.annotation_annotation",
+    ],
+    impl_only_static_libs: [
+        "cronet_aml_java",
+    ],
+}
+
+java_defaults {
+  name: "CronetJavaDefaultsDisabled",
+  defaults: ["framework-module-defaults"],
+}
+
+java_library {
+  name: "framework-tethering-pre-jarjar",
+  defaults: [
+    "CronetJavaPrejarjarDefaults",
+  ],
+  static_libs: [
+    "framework-tethering-lib",
+  ],
+  apex_available: ["com.android.tethering"],
+  min_sdk_version: "30",
+}
+
+java_defaults {
+  name: "CronetJavaPrejarjarDefaults",
+  defaults: [cronet_java_prejarjar_defaults],
+}
+
+java_defaults {
+  name: "CronetJavaPrejarjarDefaultsDisabled",
+  defaults: ["framework-module-defaults"],
+}
+
+java_defaults {
+  name: "CronetJavaPrejarjarDefaultsEnabled",
+  defaults: ["framework-module-defaults"],
+  static_libs: [
+    "cronet_aml_api_java",
+    "cronet_aml_java"
+  ],
+}
+
+java_genrule {
+    name: "framework-tethering-jarjar-rules",
+    tool_files: [
+        ":framework-tethering-pre-jarjar{.jar}",
+        "jarjar-excludes.txt",
+    ],
+    tools: [
+        "jarjar-rules-generator",
+    ],
+    out: ["framework_tethering_jarjar_rules.txt"],
+    cmd: "$(location jarjar-rules-generator) " +
+        "$(location :framework-tethering-pre-jarjar{.jar}) " +
+        "--prefix android.net.http.internal " +
+        "--excludes $(location jarjar-excludes.txt) " +
+        "--output $(out)",
+}
+
+java_library {
+    name: "framework-tethering-lib",
+    defaults: ["framework-module-defaults"],
+    srcs: [
+      ":framework-tethering-srcs"
+    ],
+    libs: ["framework-connectivity.stubs.module_lib"],
+    aidl: {
+        include_dirs: [
+            "packages/modules/Connectivity/framework/aidl-export",
+        ],
+    },
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
 }
 
 filegroup {
