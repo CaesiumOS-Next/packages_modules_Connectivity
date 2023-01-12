@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbb20ae5_b13e5558",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1792,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T05:25:08Z",
+      "side": 1,
+      "message": "Integer.valueOf(expectedStatus)",
+      "range": {
+        "startLine": 1792,
+        "startChar": 25,
+        "endLine": 1792,
+        "endChar": 52
+      },
+      "revId": "04fefb9d9930be8903bf89f72c782d951ebde6a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a0c70a5_ff825185",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1887,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T05:25:08Z",
+      "side": 1,
+      "message": "Also fixing these ?",
+      "range": {
+        "startLine": 1883,
+        "startChar": 0,
+        "endLine": 1887,
+        "endChar": 78
+      },
+      "revId": "04fefb9d9930be8903bf89f72c782d951ebde6a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
