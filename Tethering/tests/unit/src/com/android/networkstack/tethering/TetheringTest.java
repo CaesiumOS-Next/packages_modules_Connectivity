@@ -1442,7 +1442,7 @@ public class TetheringTest {
                 captor.capture());
         final NetworkCallback dunNetworkCallback1 = captor.getValue();
 
-        // Pretend cellular connected and expect the upstream to be set.
+        // Pretend cellular connected and expect the upstream to be not set.
         mobile.fakeConnect();
         mCm.makeDefaultNetwork(mobile, BROADCAST_FIRST);
         mLooper.dispatchAll();
