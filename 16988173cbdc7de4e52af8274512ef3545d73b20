@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cffbf6c2_7c63ec58",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T11:28:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c077b1c_7d448d04",
+      "range": {
+        "startLine": 208,
+        "startChar": 12,
+        "endLine": 209,
+        "endChar": 40
+      },
+      "revId": "16988173cbdc7de4e52af8274512ef3545d73b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78e22fe4_1db0f676",
@@ -139,6 +163,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f2ca58f_d85aaaff",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T11:28:07Z",
+      "side": 1,
+      "message": "No - removed.",
+      "parentUuid": "f7b578b5_be80f95c",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 12
+      },
+      "revId": "16988173cbdc7de4e52af8274512ef3545d73b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dffdac7_70168bde",
@@ -187,6 +235,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b01a6c3_493747a1",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T11:28:07Z",
+      "side": 1,
+      "message": "It doesn\u0027t make any difference in this case - all framework-tethering stubs are under android.net and those are excluded by jarjar-excludes. If you prefer I can add the API stubs parameter as well.",
+      "parentUuid": "3d7647a9_8ca4fcdc",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 47
+      },
+      "revId": "16988173cbdc7de4e52af8274512ef3545d73b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "988fb46f_e2afabb3",
         "filename": "Tethering/common/TetheringLib/Android.bp",
         "patchSetId": 1
@@ -198,6 +270,30 @@
       "writtenOn": "2023-01-12T10:48:07Z",
       "side": 1,
       "message": "is this required?",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 121,
+        "endChar": 14
+      },
+      "revId": "16988173cbdc7de4e52af8274512ef3545d73b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50b5cf63_bb5eb48d",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T11:28:07Z",
+      "side": 1,
+      "message": "No, looks like a copypaste remnant from Stefano\u0027s CL. Removed.",
+      "parentUuid": "988fb46f_e2afabb3",
       "range": {
         "startLine": 121,
         "startChar": 4,
@@ -231,6 +327,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67fcc26b_6b679550",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T11:28:07Z",
+      "side": 1,
+      "message": "This feeds into the pre-jarjar lib above. I find it more manageable to have it built separately (like it did before) and merge it with Cronet in the pre jarjar library (which just includes all as static_libs) rather than mixing up everything in one target.",
+      "parentUuid": "dda4066b_dfd0bc75",
+      "range": {
+        "startLine": 127,
+        "startChar": 11,
+        "endLine": 127,
+        "endChar": 34
+      },
+      "revId": "16988173cbdc7de4e52af8274512ef3545d73b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66f89f22_0344507c",
@@ -244,6 +364,30 @@
       "writtenOn": "2023-01-12T10:48:07Z",
       "side": 1,
       "message": "wait, I thought we renamed these? Has this not been merged yet?",
+      "range": {
+        "startLine": 20,
+        "startChar": 24,
+        "endLine": 20,
+        "endChar": 30
+      },
+      "revId": "16988173cbdc7de4e52af8274512ef3545d73b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab65291a_c62bee57",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-12T11:28:07Z",
+      "side": 1,
+      "message": "That\u0027s https://r.android.com/2384114 which is waiting for the dependencies to get merged first (also mentioning it in the DNS in the CL message).",
+      "parentUuid": "66f89f22_0344507c",
       "range": {
         "startLine": 20,
         "startChar": 24,
