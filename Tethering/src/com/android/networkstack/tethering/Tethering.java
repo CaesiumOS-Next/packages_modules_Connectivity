@@ -1853,7 +1853,6 @@ public class Tethering {
             final Network newUpstream = (ns != null) ? ns.network : null;
             if (mTetherUpstream != newUpstream) {
                 mTetherUpstream = newUpstream;
-                mUpstreamNetworkMonitor.setCurrentUpstream(mTetherUpstream);
                 reportUpstreamChanged(ns);
             }
         }
