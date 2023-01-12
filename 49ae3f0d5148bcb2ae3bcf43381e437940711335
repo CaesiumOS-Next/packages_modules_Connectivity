@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5837d4c_1c7f4bb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-12T13:30:35Z",
+      "side": 1,
+      "message": "LGTM. Feel free to ignore the nits.",
+      "revId": "49ae3f0d5148bcb2ae3bcf43381e437940711335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ac24ac4_a55796b5",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsPacketRepeater.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-12T13:30:35Z",
+      "side": 1,
+      "message": "Nit: It\u0027s same as MdnsSocket#MULTICAST_IPV4_ADDRESS and that is public. Maybe use same definition to avoid duplication.",
+      "range": {
+        "startLine": 36,
+        "startChar": 12,
+        "endLine": 36,
+        "endChar": 73
+      },
+      "revId": "49ae3f0d5148bcb2ae3bcf43381e437940711335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
