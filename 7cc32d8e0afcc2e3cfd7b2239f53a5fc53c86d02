@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a5d46d9_d614105e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T10:11:19Z",
+      "side": 1,
+      "message": "I like the direction this is going – it addresses one of my big comments on the previous patch, where I was commenting that the caller should be able to distinguish between temp disabling and actual stop. Maybe you want to make this a formal API ?",
+      "revId": "7cc32d8e0afcc2e3cfd7b2239f53a5fc53c86d02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeddd621_5aeb006f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2332,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T10:11:19Z",
+      "side": 1,
+      "message": "Should it though ? It sounds like it is important for the caller to distinguish between this and `onStopped()`.",
+      "range": {
+        "startLine": 2332,
+        "startChar": 50,
+        "endLine": 2332,
+        "endChar": 57
+      },
+      "revId": "7cc32d8e0afcc2e3cfd7b2239f53a5fc53c86d02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8696e2b3_4d196472",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-12T10:11:19Z",
+      "side": 1,
+      "message": "This seems like the right function to do this, but not the right place in the function – observe how all the callbacks depend on the reason in l.629+. Also observe how that code is only reading from the member once and then using the local. Why do you think that is ?",
+      "range": {
+        "startLine": 611,
+        "startChar": 19,
+        "endLine": 611,
+        "endChar": 28
+      },
+      "revId": "7cc32d8e0afcc2e3cfd7b2239f53a5fc53c86d02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
