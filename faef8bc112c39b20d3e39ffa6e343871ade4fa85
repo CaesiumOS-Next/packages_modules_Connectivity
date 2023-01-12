@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b04c487_d12dcd44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-12T04:02:41Z",
+      "side": 1,
+      "message": "I think Android.bp.swp is also updated by this change.",
+      "revId": "faef8bc112c39b20d3e39ffa6e343871ade4fa85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
