@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96133ef2_190a9cf5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1524,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T08:47:29Z",
+      "side": 0,
+      "message": "Tethering is mainline module, so the change will also push to R, S and T devices. Changing TETHERING_WIFI (localonly) to TETHERING_LOCAL_HOTSPOT in the field is risky.\n\nWe can backward compatible that use TETHERING_WIFI if no startTethering(TETHERING_LOCAL_HOTSPOT).\n\n    if (ipServingMode \u003d\u003d IpServer.STATE_LOCAL_ONLY mActiveTetheringRequests.contains(TETHERING_LOCAL_HOTSPOT)) {\n        type \u003d TETHERING_LOCAL_HOTSPOT;\n    } else {\n        type \u003d SdkLevel.isAtLeastT() ? TETHERING_WIFI : ifaceNameToType(ifname);\n    }",
+      "range": {
+        "startLine": 1522,
+        "startChar": 0,
+        "endLine": 1524,
+        "endChar": 90
+      },
+      "revId": "ea23c52b7fddbf68d92a6915c1cb88e762869d48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

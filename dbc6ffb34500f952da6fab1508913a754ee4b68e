@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0739ee23_47aac1fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T08:47:29Z",
+      "side": 1,
+      "message": "Could you add the test to verify the change ?",
+      "parentUuid": "8d997d90_2545a223",
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39b20167_03f24901",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 2
@@ -102,6 +120,30 @@
       "side": 1,
       "message": "If this event is handled for WiFi, ipServer will be started for TYPE_WIFI all the time. In LOHS + SAP, this will lead to issues where both the ifaces will be assigned same ip.",
       "parentUuid": "04b31c98_0725cf4d",
+      "range": {
+        "startLine": 634,
+        "startChar": 41,
+        "endLine": 634,
+        "endChar": 66
+      },
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d13a9e21_b64889ec",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T08:47:29Z",
+      "side": 1,
+      "message": "As my previous comment, ignore interface state change netd event for softap is our goal but just doing it without enough testing or experiment is risky.\n\nIf this feature is target for U+, you can just\n\n    + if ((type \u003d\u003d TETHERING_WIFI || type \u003d\u003d TETHERING_LOCAL_HOTSPOT) \u0026\u0026 SdkLevel.isAtLeast()) return;\n\nIf you also want to apply this feature to U- device, you can have a feature flag to flag this off by default, then we enable it by flag roll out. Below is a example code for the flag of wearTethering.\n\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java;l\u003d582;drc\u003d74efcad11b756dc26354eebb7dcbf24415279c27?q\u003dshouldEnableWearTethering\n\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java;l\u003d332;drc\u003d74efcad11b756dc26354eebb7dcbf24415279c27?q\u003dshouldEnableWearTethering",
+      "parentUuid": "5b88a0b3_0ce2707a",
       "range": {
         "startLine": 634,
         "startChar": 41,

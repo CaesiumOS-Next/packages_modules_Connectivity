@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50583832_3cbc0e20",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T08:47:29Z",
+      "side": 1,
+      "message": "s/setWifiTethering/setLoHsTethering/ ?",
+      "range": {
+        "startLine": 616,
+        "startChar": 34,
+        "endLine": 616,
+        "endChar": 50
+      },
+      "revId": "313a9f1283414f6d3cab58489089a66ff803119d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67f28838_d3a2d685",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T08:47:29Z",
+      "side": 1,
+      "message": "s/setWifiTethering/setLoHsTethering/ ?",
+      "range": {
+        "startLine": 622,
+        "startChar": 34,
+        "endLine": 622,
+        "endChar": 50
+      },
+      "revId": "313a9f1283414f6d3cab58489089a66ff803119d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d742054d_0ebf10fd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T08:47:29Z",
+      "side": 1,
+      "message": "Remove this because you never return TETHER_ERROR_INTERNAL_ERROR ?",
+      "range": {
+        "startLine": 807,
+        "startChar": 8,
+        "endLine": 807,
+        "endChar": 46
+      },
+      "revId": "313a9f1283414f6d3cab58489089a66ff803119d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec3105eb_c735eed4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T08:47:29Z",
+      "side": 1,
+      "message": "s/setWifiTethering/setLoHsTethering/ ?",
+      "range": {
+        "startLine": 811,
+        "startChar": 20,
+        "endLine": 811,
+        "endChar": 36
+      },
+      "revId": "313a9f1283414f6d3cab58489089a66ff803119d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c825122_db396bb8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T08:47:29Z",
+      "side": 1,
+      "message": "return TETHER_ERROR_SERVICE_UNAVAIL",
+      "range": {
+        "startLine": 812,
+        "startChar": 12,
+        "endLine": 813,
+        "endChar": 23
+      },
+      "revId": "313a9f1283414f6d3cab58489089a66ff803119d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd517c3_87105835",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T08:47:29Z",
+      "side": 1,
+      "message": "return TETHER_ERROR_NO_ERROR",
+      "range": {
+        "startLine": 825,
+        "startChar": 8,
+        "endLine": 826,
+        "endChar": 19
+      },
+      "revId": "313a9f1283414f6d3cab58489089a66ff803119d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27b7f79d_fa11fcf1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1529,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-12T08:47:29Z",
+      "side": 1,
+      "message": "Can this \u0026\u0026 SdkLevel.isAtLeastU() ? Previous no matter localonly or tethered mode, mWifiTetherRequested all reset to false. This change the behavior and I think it is hard to evaluate the impact. Actually I think mWifiTetherRequested is useless. Maybe we can try to separate it by separated change.",
+      "range": {
+        "startLine": 1529,
+        "startChar": 8,
+        "endLine": 1529,
+        "endChar": 49
+      },
+      "revId": "313a9f1283414f6d3cab58489089a66ff803119d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
