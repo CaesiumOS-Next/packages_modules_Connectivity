@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d59acf7_57055ac7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T06:42:12Z",
+      "side": 1,
+      "message": "Happy with this as is, but IIRC the patch on which this is based, the code on which you\u0027ll base this will be pretty different",
+      "revId": "5a4231fa3fc0fedb9161eea11a8f3cdc379f13d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
