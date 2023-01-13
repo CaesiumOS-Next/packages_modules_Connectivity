@@ -16,6 +16,24 @@
       "message": "Nit: could you actually call this every time regardless of the library ?",
       "revId": "03a51d567486f94a74b0209d7fb65018358ffbd3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75033e08_6b7a0107",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-13T12:32:55Z",
+      "side": 1,
+      "message": "I think so. But I prefer to add doCallRealMethod() into mockService() which can avoid same problem in the future. Will address it in follow up commit.",
+      "parentUuid": "c0b570dd_5fcbdefa",
+      "revId": "03a51d567486f94a74b0209d7fb65018358ffbd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
