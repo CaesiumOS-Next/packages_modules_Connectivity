@@ -33,6 +33,29 @@
       "message": "I\u0027m okay with code being imperfect, and resulting in flakes.\nSure it\u0027s not desirable, but it\u0027s acceptable.\n\nI\u0027m not okay with code simply not working.\nEven if there\u0027s comments to that effect.\n\nSo...\n\nI think this has to do one of:\n\n(a) disable carrier both ways, so it is always off when function returns\n\n(b) check if carrier is on, and disable it if it is\n\n(c) check if carrier is on, and throw if it is\n\n(d) throw if called on kernel \u003c 6.0",
       "revId": "cd0f2e4ef97d05ffd2bf19421ca6e792ce62937c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d1eda02_3a193731",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T16:42:31Z",
+      "side": 1,
+      "message": "for example:\n\nif (!bpf::isAtLeastKernel(6,0,0)) {\n  throwException(...);\n  return -1;\n}",
+      "range": {
+        "startLine": 74,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 9
+      },
+      "revId": "cd0f2e4ef97d05ffd2bf19421ca6e792ce62937c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
