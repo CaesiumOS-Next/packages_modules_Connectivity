@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8472de3e_01abcc13",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-13T06:35:02Z",
+      "side": 1,
+      "message": "Added check that the registration exists at the beginning, since SparseArray.remove doesn\u0027t return the Registration (in another change).",
+      "parentUuid": "e7039929_e4f9515d",
+      "range": {
+        "startLine": 405,
+        "startChar": 8,
+        "endLine": 405,
+        "endChar": 34
+      },
+      "revId": "314db00b3fc464b0e35ac1d3a819840d1413c186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9cace12_c58d4242",
