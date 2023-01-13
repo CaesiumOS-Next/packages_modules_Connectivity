@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "610b89ab_9698466d",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:53:48Z",
+      "side": 1,
+      "message": "should this also be named set* given it doesn\u0027t take the bool as a parameter? Same for other similar methods.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 85
+      },
+      "revId": "dd2d8e148d9b3584d63b4319e2fef561b58a3737",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
