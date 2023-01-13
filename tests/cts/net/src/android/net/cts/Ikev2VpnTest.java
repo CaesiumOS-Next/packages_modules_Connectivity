@@ -24,6 +24,7 @@ import static android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+import static com.android.testutils.RecorderCallback.CallbackEntry.NETWORK_CAPS_UPDATED;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -529,11 +530,11 @@ public class Ikev2VpnTest {
             assertFalse(profileState.isLockdownEnabled());
         }
 
-        cb.expectCapabilitiesThat(vpnNetwork, TIMEOUT_MS,
-                caps -> caps.hasTransport(TRANSPORT_VPN)
-                && caps.hasCapability(NET_CAPABILITY_INTERNET)
-                && !caps.hasCapability(NET_CAPABILITY_VALIDATED)
-                && Process.myUid() == caps.getOwnerUid());
+        cb.expect(NETWORK_CAPS_UPDATED, vpnNetwork, TIMEOUT_MS,
+                c -> c.getCaps().hasTransport(TRANSPORT_VPN)
+                        && c.getCaps().hasCapability(NET_CAPABILITY_INTERNET)
+                        && !c.getCaps().hasCapability(NET_CAPABILITY_VALIDATED)
+                        && Process.myUid() == c.getCaps().getOwnerUid());
         cb.expect(CallbackEntry.LINK_PROPERTIES_CHANGED, vpnNetwork);
         cb.expect(CallbackEntry.BLOCKED_STATUS, vpnNetwork);
 
