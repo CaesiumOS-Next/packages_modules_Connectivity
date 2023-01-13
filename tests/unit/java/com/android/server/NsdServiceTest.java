@@ -596,7 +596,7 @@ public class NsdServiceTest {
         verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStarted(SERVICE_TYPE);
 
         final MdnsServiceBrowserListener listener = listenerCaptor.getValue();
-        final MdnsServiceInfo mdnsServiceInfo = new MdnsServiceInfo(
+        final MdnsServiceInfo foundInfo = new MdnsServiceInfo(
                 SERVICE_NAME, /* serviceInstanceName */
                 serviceTypeWithLocalDomain.split("\\."), /* serviceType */
                 List.of(), /* subtypes */
@@ -608,9 +608,29 @@ public class NsdServiceTest {
                 List.of(), /* textEntries */
                 1234, /* interfaceIndex */
                 network);
-        // Verify onServiceNameFound callback
-        listener.onServiceNameDiscovered(mdnsServiceInfo);
+
+        // Verify onServiceNameDiscovered callback
+        listener.onServiceNameDiscovered(foundInfo);
         verify(discListener, timeout(TIMEOUT_MS)).onServiceFound(argThat(info ->
+                info.getServiceName().equals(SERVICE_NAME)
+                        && info.getServiceType().equals(SERVICE_TYPE)
+                        && info.getNetwork().equals(network)));
+
+        final MdnsServiceInfo removedInfo = new MdnsServiceInfo(
+                SERVICE_NAME, /* serviceInstanceName */
+                serviceTypeWithLocalDomain.split("\\."), /* serviceType */
+                null, /* subtypes */
+                null, /* hostName */
+                0, /* port */
+                null, /* ipv4Address */
+                null, /* ipv6Address */
+                null, /* textStrings */
+                null, /* textEntries */
+                1234, /* interfaceIndex */
+                network);
+        // Verify onServiceNameRemoved callback
+        listener.onServiceNameRemoved(removedInfo);
+        verify(discListener, timeout(TIMEOUT_MS)).onServiceLost(argThat(info ->
                 info.getServiceName().equals(SERVICE_NAME)
                         && info.getServiceType().equals(SERVICE_TYPE)
                         && info.getNetwork().equals(network)));
