@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "112b1ad0_259ac8f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:30:36Z",
+      "side": 1,
+      "message": "cursory glance to try to unblock you a bit",
+      "revId": "37ce0a6b1be2b02b2b66f463cc9e62588eec250b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9824d9f_63f21ca2",
+        "filename": "service-t/Sources.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:30:36Z",
+      "side": 1,
+      "message": "no net_ ?",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 34
+      },
+      "revId": "37ce0a6b1be2b02b2b66f463cc9e62588eec250b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9c7c84a_79ec4387",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:30:36Z",
+      "side": 1,
+      "message": "\u003d{} ?\n\nor even \u003d { .backends \u003d ..., }",
+      "range": {
+        "startLine": 320,
+        "startChar": 34,
+        "endLine": 320,
+        "endChar": 35
+      },
+      "revId": "37ce0a6b1be2b02b2b66f463cc9e62588eec250b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8eeab1e_64e080d8",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:30:36Z",
+      "side": 1,
+      "message": "Not following why this is here instead of in\nservice-t/jni/com_android_server_NetworkStatsServiceInitializer.cpp\n\nexplain?",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 324,
+        "endChar": 1
+      },
+      "revId": "37ce0a6b1be2b02b2b66f463cc9e62588eec250b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c85f928d_a8527255",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/BpfNetworkStats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:30:36Z",
+      "side": 1,
+      "message": "I\u0027m not 100% certain, but I think most of the code in this file is scheduled for deletion (motomuman@ would know) and replacement by Java use of BpfMap java class instead of jni.\n\nIt might not be a good idea to add more stuff here.\n\nIs this code here purely because it seemed like a good place? Or is it using some critical functionality from this file?",
+      "revId": "37ce0a6b1be2b02b2b66f463cc9e62588eec250b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
