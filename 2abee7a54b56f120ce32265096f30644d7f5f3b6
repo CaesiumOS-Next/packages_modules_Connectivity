@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d64e0e5f_0686bd5a",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:40:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "82fdbd26_bf12b3d4",
+      "range": {
+        "startLine": 47,
+        "startChar": 5,
+        "endLine": 47,
+        "endChar": 109
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2c5c386_103e1dc8",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "updated",
       "parentUuid": "04e56b9c_7570f681",
+      "range": {
+        "startLine": 487,
+        "startChar": 57,
+        "endLine": 487,
+        "endChar": 58
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dac2109d_56a3de65",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:40:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6ec52e4e_b4f9a0a1",
       "range": {
         "startLine": 487,
         "startChar": 57,
@@ -414,6 +462,30 @@
       "side": 1,
       "message": "updated",
       "parentUuid": "76f50192_bb434ee9",
+      "range": {
+        "startLine": 9693,
+        "startChar": 68,
+        "endLine": 9693,
+        "endChar": 69
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1469440_7f575eaa",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 9693,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:40:19Z",
+      "side": 1,
+      "message": "No I meant, you\u0027re building a way to do it with the new API. Why don\u0027t we need a way to do it with the old one ?",
+      "parentUuid": "e8ed39b5_f661da33",
       "range": {
         "startLine": 9693,
         "startChar": 68,

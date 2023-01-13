@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8781d0a_26749cbf",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:40:19Z",
+      "side": 1,
+      "message": "allow the system to disable sending keepalive packets",
+      "range": {
+        "startLine": 54,
+        "startChar": 64,
+        "endLine": 54,
+        "endChar": 85
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c402256_cd3b82e8",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:40:19Z",
+      "side": 1,
+      "message": "and restart sending them as soon as any TCP connection is opened over the VPN network.",
+      "range": {
+        "startLine": 55,
+        "startChar": 60,
+        "endLine": 55,
+        "endChar": 97
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a19a96b_2d2cf2c8",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:40:19Z",
+      "side": 1,
+      "message": "Interesting ; how does the caller know what \"the VPN network\" is in this context ?",
+      "range": {
+        "startLine": 56,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 25
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "727f9198_3537f8ea",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:40:19Z",
+      "side": 1,
+      "message": "I think this is lacking a large amount of context here. `mPfd` is a protected member of the superclass and I don\u0027t think someone reading this comment is supposed to understand the entire dynamic around that fd (and it\u0027s very far from trivial, since it\u0027s duplicated and managed by this object).\n\nI think the comment should not rely on technical details that it doesn\u0027t explain. That means you can reword this in one of two ways :\n• Either you can explain everything about the lifecycle of `mPfd`\n• Or you can have a general explanation of what this *does* without mentioning `mPfd` at all\nI think the latter is likely preferable because it will be both easier to understand and much shorter.",
+      "range": {
+        "startLine": 58,
+        "startChar": 7,
+        "endLine": 58,
+        "endChar": 43
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91748dfc_afd55ed0",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:40:19Z",
+      "side": 1,
+      "message": "The method returns void ; can you make this accurate ?",
+      "range": {
+        "startLine": 65,
+        "startChar": 66,
+        "endLine": 65,
+        "endChar": 74
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dff65e5e_f600810e",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:40:19Z",
+      "side": 1,
+      "message": "I think your comment is good now but you can improve it by clarifying it is the trigger for reevaluation. Example wording\n  \n    * Sent by KeepaliveTracker periodically (when relevant) to trigger polling TCP socket status.\n    * NATT keepalives have an automatic mode where the system only sends keepalive packets when\n    * TCP sockets are open over a VPN. The system will check periodically for presence of\n    * such open sockets, and this message is what triggers the re-evaluation.\n    *\n    * arg1 \u003d hardware slot number of the keepalive\n    * obj \u003d {@link Network} to check for open TCP sockets",
+      "range": {
+        "startLine": 490,
+        "startChar": 33,
+        "endLine": 490,
+        "endChar": 34
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "276e6af2_831e5eb8",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:40:19Z",
+      "side": 1,
+      "message": "This is exactly what I meant in my comment :\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2334604/11..12/service/src/com/android/server/connectivity/KeepaliveTracker.java#b457\n\nThis is fundamentally changing the semantics of mStopReason, which is now no longer latched, and becomes part of the state of the finite state automaton represented by this class. That means you are multiplying the complexity of this state machine by a large factor.\n\nSo, your new patchset does not address the comment ; I continue to think you have two options\n• Change the state machine in this file, and to comment very carefully what the new state machine looks like. Typically you will need to have handling of the entire state in all places that manage a state transition, and if some place doesn\u0027t need to look at part of the state, you\u0027ll need comments.\n• Do not change the state machine in this file, and handle the additional state elsewhere (e.g. in ConnectivityService).",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 459,
+        "endChar": 62
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
