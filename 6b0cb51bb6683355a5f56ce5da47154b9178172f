@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07aab365_f7e1fdd3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:15:14Z",
+      "side": 1,
+      "message": "I think you mean something like\n\n    The default receiving buffer size should be small enough that it is always\n    processed within the {@link NetlinkUtils#IO_TIMEOUT_MS} timeout.",
+      "range": {
+        "startLine": 861,
+        "startChar": 10,
+        "endLine": 861,
+        "endChar": 70
+      },
+      "revId": "6b0cb51bb6683355a5f56ce5da47154b9178172f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ea27ff5_dac2e676",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:15:14Z",
+      "side": 1,
+      "message": "I do not think this is actually true. It is true of the pointer to the `byte[]`s that are written to this SparseArray, but not of the contents of these `byte[]`s.\n\nExample of one thing that doesn\u0027t work :\n■ Thread 1 is called with family \u003d INET6. mSockDiagMsg.get(family) is null, therefore it will call buildInetDiagReqForAliveTcpSockets, which returns a byte array. The pointer to that byte array is stored in the SparseArray. The next line correctly sends the message to the fd\n■ Later, Thread 2 is called with family \u003d INET6.\n　• If Thread 2 finds null in the SparseArray, then your reasoning is correct. It will simply build a new message and it\u0027s fine.\n　• But Thread 2 may find non-null in the SparseArray, and when it follows the pointer to the byte array, it sees the memory pointed to being full of 0 because there was no thread barrier (or, it may see only the start of the array). In that case, the message sent to the kernel is incorrect.",
+      "parentUuid": "611e3312_06f0322c",
+      "range": {
+        "startLine": 135,
+        "startChar": 38,
+        "endLine": 135,
+        "endChar": 50
+      },
+      "revId": "25ba541cc7dceec7c8fc03e93d3716d5fa94fb88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b89d908_14281506",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 17
@@ -144,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4923800_f2b9533c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:15:14Z",
+      "side": 1,
+      "message": "No I don\u0027t understand this any better. Look at the implementation :\n\n    Os.write(fd, msg, 0 /* byteOffset */, msg.length);\n\nSuppose I call :\n\n    sendRequestToKernel(FileDescriptor.out, \"foobar\".getBytes());\n\nThis will happily write \"foobar\" on the standard output. Does that not strike you as odd for a method named `sendRequestToKernel` ? The documentation only says `fd` is a `FileDescriptor`, so the usage above is completely legit, and still it does nothing like what the method name says.",
+      "parentUuid": "bd78f3e1_e456dd04",
+      "range": {
+        "startLine": 828,
+        "startChar": 24,
+        "endLine": 828,
+        "endChar": 31
+      },
+      "revId": "25ba541cc7dceec7c8fc03e93d3716d5fa94fb88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f80f79e2_9e4d7d2b",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 17
@@ -179,6 +227,30 @@
       "side": 1,
       "message": "Updated. See if it looks clearer.",
       "parentUuid": "f80f79e2_9e4d7d2b",
+      "range": {
+        "startLine": 842,
+        "startChar": 23,
+        "endLine": 842,
+        "endChar": 50
+      },
+      "revId": "25ba541cc7dceec7c8fc03e93d3716d5fa94fb88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7098b4e_a25b1920",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T04:15:14Z",
+      "side": 1,
+      "message": "Fair enough, yes.",
+      "parentUuid": "2a2e7690_6683e88f",
       "range": {
         "startLine": 842,
         "startChar": 23,
