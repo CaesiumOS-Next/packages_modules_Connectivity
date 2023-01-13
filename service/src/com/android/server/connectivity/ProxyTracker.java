@@ -249,6 +249,8 @@ public class ProxyTracker {
         final ProxyInfo defaultProxy = getDefaultProxy();
         final ProxyInfo proxyInfo = null != defaultProxy ?
                 defaultProxy : ProxyInfo.buildDirectProxy("", 0, Collections.emptyList());
+
+        Log.e(TAG, "defaultProxy=" + defaultProxy + ", proxyInfo=" + proxyInfo);
         mPacProxyManager.setCurrentProxyScriptUrl(proxyInfo);
 
         if (!shouldSendBroadcast(proxyInfo)) {
@@ -329,6 +331,8 @@ public class ProxyTracker {
      */
     public void setDefaultProxy(@Nullable ProxyInfo proxyInfo) {
         synchronized (mProxyLock) {
+            Log.e(TAG, "Proxy=" + proxyInfo + ", mDefaultProxy=" + mDefaultProxy
+                    + ", mGlobalProxy=" + mGlobalProxy);
             if (Objects.equals(mDefaultProxy, proxyInfo)) return;
             if (proxyInfo != null &&  !proxyInfo.isValid()) {
                 if (DBG) Log.d(TAG, "Invalid proxy properties, ignoring: " + proxyInfo);
@@ -344,13 +348,16 @@ public class ProxyTracker {
                     && (!Uri.EMPTY.equals(proxyInfo.getPacFileUrl()))
                     && proxyInfo.getPacFileUrl().equals(mGlobalProxy.getPacFileUrl())) {
                 mGlobalProxy = proxyInfo;
+                Log.e(TAG, "sendProxyBroadcast (1)");
                 sendProxyBroadcast();
                 return;
             }
             mDefaultProxy = proxyInfo;
+            Log.e(TAG, "mDefaultProxy=" + mDefaultProxy);
 
             if (mGlobalProxy != null) return;
             if (mDefaultProxyEnabled) {
+                Log.e(TAG, "sendProxyBroadcast (2)");
                 sendProxyBroadcast();
             }
         }

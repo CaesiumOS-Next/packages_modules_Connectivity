@@ -3547,7 +3547,9 @@ public class ConnectivityManager {
      */
     @Nullable
     public ProxyInfo getDefaultProxy() {
-        return getProxyForNetwork(getBoundNetworkForProcess());
+        final ProxyInfo proxy = getProxyForNetwork(getBoundNetworkForProcess());
+        Log.e(TAG, "getDefaultProxy=" + proxy);
+        return proxy;
     }
 
     /**

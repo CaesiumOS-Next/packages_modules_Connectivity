@@ -5463,6 +5463,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
                 case EVENT_PROXY_HAS_CHANGED: {
                     final Pair<Network, ProxyInfo> arg = (Pair<Network, ProxyInfo>) msg.obj;
+                    Log.e(TAG, "process EVENT_PROXY_HAS_CHANGED message.");
                     handleApplyDefaultProxy(arg.second);
                     break;
                 }
@@ -5876,10 +5877,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void handleApplyDefaultProxy(@Nullable ProxyInfo proxy) {
+        Log.e(TAG, "handleApplyDefaultProxy, ProxyInfo=" + proxy);
         if (proxy != null && TextUtils.isEmpty(proxy.getHost())
                 && Uri.EMPTY.equals(proxy.getPacFileUrl())) {
             proxy = null;
         }
+        Log.e(TAG, "set default proxy");
         mProxyTracker.setDefaultProxy(proxy);
     }
 
@@ -5891,7 +5894,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ProxyInfo newProxyInfo = newLp.getHttpProxy();
         ProxyInfo oldProxyInfo = oldLp == null ? null : oldLp.getHttpProxy();
 
+        Log.e(TAG, "updateProxy, newProxy=" + newProxyInfo + ", oldProxy=" + oldProxyInfo);
         if (!ProxyTracker.proxyInfoEqual(newProxyInfo, oldProxyInfo)) {
+            Log.e(TAG, "updateProxy, sendProxyBroadcast().");
             mProxyTracker.sendProxyBroadcast();
         }
     }
@@ -7653,6 +7658,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mDnsManager.updatePrivateDnsStatus(netId, newLp);
 
         if (isDefaultNetwork(networkAgent)) {
+            Log.e(TAG, "set proxy");
             handleApplyDefaultProxy(newLp.getHttpProxy());
         } else {
             updateProxy(newLp, oldLp);
@@ -8703,6 +8709,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mLingerMonitor.noteLingerDefaultNetwork(oldDefaultNetwork, newDefaultNetwork);
         }
         mNetworkActivityTracker.updateDataActivityTracking(newDefaultNetwork, oldDefaultNetwork);
+        Log.e(TAG, "makeDefault");
         handleApplyDefaultProxy(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getHttpProxy() : null);
         updateTcpBufferSizes(null != newDefaultNetwork
