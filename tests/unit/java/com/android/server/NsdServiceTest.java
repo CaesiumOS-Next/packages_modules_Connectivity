@@ -23,9 +23,11 @@ import static com.android.testutils.ContextUtils.mockService;
 import static libcore.junit.util.compat.CoreCompatChangeRule.DisableCompatChanges;
 import static libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
@@ -91,6 +93,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -111,6 +115,8 @@ public class NsdServiceTest {
     private static final String DOMAIN_NAME = "mytestdevice.local";
     private static final int PORT = 2201;
     private static final int IFACE_IDX_ANY = 0;
+    private static final String IPV4_ADDRESS = "192.0.2.0";
+    private static final String IPV6_ADDRESS = "2001:db8::";
 
     // Records INsdManagerCallback created when NsdService#connect is called.
     // Only accessed on the test thread, since NsdService#connect is called by the NsdManager
@@ -602,8 +608,8 @@ public class NsdServiceTest {
                 List.of(), /* subtypes */
                 new String[] {"android", "local"}, /* hostName */
                 12345, /* port */
-                "192.0.2.0", /* ipv4Address */
-                "2001:db8::", /* ipv6Address */
+                IPV4_ADDRESS,
+                IPV6_ADDRESS,
                 List.of(), /* textStrings */
                 List.of(), /* textEntries */
                 1234, /* interfaceIndex */
@@ -639,6 +645,61 @@ public class NsdServiceTest {
         waitForIdle();
         verify(mDiscoveryManager).unregisterListener(eq(serviceTypeWithLocalDomain), any());
         verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStopped(SERVICE_TYPE);
+        verify(mSocketProvider, timeout(CLEANUP_DELAY_MS + TIMEOUT_MS)).stopMonitoringSockets();
+    }
+
+    @Test
+    public void testResolutionWithMdnsDiscoveryManager() throws UnknownHostException {
+        doReturn(true).when(mDeps).isMdnsDiscoveryManagerEnabled(any(Context.class));
+        doReturn(mDiscoveryManager).when(mDeps).makeMdnsDiscoveryManager(any(), any());
+        doReturn(mSocketProvider).when(mDeps).makeMdnsSocketProvider(any(), any());
+
+        mService = makeService();
+        final NsdManager client = connectClient(mService);
+        final ResolveListener resolveListener = mock(ResolveListener.class);
+        final Network network = new Network(999);
+        final String serviceTypeWithLocalDomain = SERVICE_TYPE + ".local";
+        final ArgumentCaptor<MdnsServiceBrowserListener> listenerCaptor =
+                ArgumentCaptor.forClass(MdnsServiceBrowserListener.class);
+        final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
+        request.setNetwork(network);
+        client.resolveService(request, resolveListener);
+        waitForIdle();
+        verify(mSocketProvider).startMonitoringSockets();
+        verify(mDiscoveryManager).registerListener(eq(serviceTypeWithLocalDomain),
+                listenerCaptor.capture(), argThat(options -> network.equals(options.getNetwork())));
+
+        final MdnsServiceBrowserListener listener = listenerCaptor.getValue();
+        final MdnsServiceInfo mdnsServiceInfo = new MdnsServiceInfo(
+                SERVICE_NAME,
+                SERVICE_TYPE.split("\\."),
+                List.of(), /* subtypes */
+                new String[] {"android", "local"}, /* hostName */
+                PORT,
+                IPV4_ADDRESS,
+                IPV6_ADDRESS,
+                List.of() /* textStrings */,
+                List.of(MdnsServiceInfo.TextEntry.fromBytes(new byte[] {
+                        'k', 'e', 'y', '=', (byte) 0xFF, (byte) 0xFE})) /* textEntries */,
+                1234,
+                network);
+
+        // Verify onServiceFound callback
+        listener.onServiceFound(mdnsServiceInfo);
+        final ArgumentCaptor<NsdServiceInfo> infoCaptor =
+                ArgumentCaptor.forClass(NsdServiceInfo.class);
+        verify(resolveListener, timeout(TIMEOUT_MS)).onServiceResolved(infoCaptor.capture());
+        final NsdServiceInfo info = infoCaptor.getValue();
+        assertEquals(SERVICE_NAME, info.getServiceName());
+        assertEquals("." + SERVICE_TYPE, info.getServiceType());
+        assertEquals(PORT, info.getPort());
+        assertTrue(info.getAttributes().containsKey("key"));
+        assertArrayEquals(new byte[] {(byte) 0xFF, (byte) 0xFE}, info.getAttributes().get("key"));
+        assertEquals(InetAddress.getByName(IPV4_ADDRESS), info.getHost());
+        assertEquals(network, info.getNetwork());
+
+        // Verify the listener has been unregistered.
+        verify(mDiscoveryManager).unregisterListener(eq(serviceTypeWithLocalDomain), any());
         verify(mSocketProvider, timeout(CLEANUP_DELAY_MS + TIMEOUT_MS)).stopMonitoringSockets();
     }
 
