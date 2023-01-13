@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d99484c7_50973012",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T06:34:54Z",
+      "side": 1,
+      "message": "Please get in the habit of documenting any code that\u0027s not obvious. For example, here you have helper methods that are named like tests with arguments with sibylline names and no documentation whatsoever.",
+      "revId": "9b0a3a5a9aa4f18b01914b4cb8f0b79af3727bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e39233c_18bf969b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1966,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T06:34:54Z",
+      "side": 1,
+      "message": "This is named after a testing convention with testXXX_case, and that makes the calls to these methods (e.g. in l.1943) very confusing. Since this method is not going to be a top-level testing method it should use a more general naming convention of just being called after what it does.",
+      "range": {
+        "startLine": 1966,
+        "startChar": 17,
+        "endLine": 1966,
+        "endChar": 21
+      },
+      "revId": "9b0a3a5a9aa4f18b01914b4cb8f0b79af3727bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b655e6f0_fe934442",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1998,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T06:34:54Z",
+      "side": 1,
+      "message": "Does this actually \"setup\" \"keepalive\" ? It looks to me like it\u0027s mocking some settings instead.",
+      "range": {
+        "startLine": 1998,
+        "startChar": 17,
+        "endLine": 1998,
+        "endChar": 31
+      },
+      "revId": "9b0a3a5a9aa4f18b01914b4cb8f0b79af3727bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57cfcad6_0be8db93",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1998,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T06:34:54Z",
+      "side": 1,
+      "message": "Please have javadoc documenting the arguments.",
+      "range": {
+        "startLine": 1998,
+        "startChar": 36,
+        "endLine": 1998,
+        "endChar": 45
+      },
+      "revId": "9b0a3a5a9aa4f18b01914b4cb8f0b79af3727bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
