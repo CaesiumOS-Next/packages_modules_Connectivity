@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d596decd_168eb806",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:22:18Z",
+      "side": 1,
+      "message": "My preference would be to say \u0027may be racy on \u003c6.0 kernels without patch \u0027X\u0027\u0027\n\nDid you ever ask for LTS backports of the patch?",
+      "revId": "cd0f2e4ef97d05ffd2bf19421ca6e792ce62937c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
