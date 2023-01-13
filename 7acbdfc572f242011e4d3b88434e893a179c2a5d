@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c24ef82f_2f56a073",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "IP4_OFFSET(protocol)",
+      "range": {
+        "startLine": 53,
+        "startChar": 20,
+        "endLine": 53,
+        "endChar": 53
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8f948db_048872bf",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "IP6_OFFSET(nexthdr)\n\nor maybe just prefix this CL with an addition of the following to bpf_net_headers and elimination of these 2 #defines in favour of just directly using IP4_OFFSET(protocol) and IP6_OFFSET(nexthdr)",
+      "range": {
+        "startLine": 54,
+        "startChar": 23,
+        "endLine": 54,
+        "endChar": 31
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0c9dd81_0217c3d1",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "these should probably go to bpf_net_helpers.h ?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 0
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d65d9296_8a2e6bc9",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "confused, I thought _EXT macros required the final 3 ignore booleans to be specified...",
+      "range": {
+        "startLine": 112,
+        "startChar": 80,
+        "endLine": 112,
+        "endChar": 81
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dda5d868_f62837b4",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "should have inline comments\n/* ignore_on_x */ false",
+      "range": {
+        "startLine": 118,
+        "startChar": 72,
+        "endLine": 118,
+        "endChar": 90
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7abba303_ad70e477",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "add more consts",
+      "range": {
+        "startLine": 247,
+        "startChar": 53,
+        "endLine": 249,
+        "endChar": 51
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1c25add_e60d41c8",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "let\u0027s try to keep kver last (stylistic)",
+      "range": {
+        "startLine": 249,
+        "startChar": 23,
+        "endLine": 249,
+        "endChar": 27
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04247d48_9bc4d240",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "split to 2 if\u0027s - easier to reason about",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 56
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b409df6_228f98c2",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "split to 2 if\u0027s - easier to read/process",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 50
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0378fa4f_d6c68fa6",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "heh, you\u0027re already doing it ;-)",
+      "range": {
+        "startLine": 262,
+        "startChar": 42,
+        "endLine": 262,
+        "endChar": 62
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7185a353_6c1565a3",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "add comment with discussion on what happens on errors here?",
+      "range": {
+        "startLine": 262,
+        "startChar": 8,
+        "endLine": 262,
+        "endChar": 9
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebd49065_69ae77ea",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "you shouldn\u0027t need this, if you just fill in all fields, it\u0027s not free...\nand it seems like you would never have fields you don\u0027t fill in right?",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 43
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91b16d9f_28d8bf16",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "this should be in userspace.  ie. map should store in network order",
+      "range": {
+        "startLine": 288,
+        "startChar": 21,
+        "endLine": 288,
+        "endChar": 26
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ded131b7_090ba82d",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "please break this out 8+4+4 + 4+4 + 2+2 + 1+1+1+1",
+      "range": {
+        "startLine": 88,
+        "startChar": 24,
+        "endLine": 88,
+        "endChar": 26
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b4c1b25_f5fb1edd",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "ugh, yeah, there\u0027s some outstanding aosp CL to fix up this mess, that should probably be found and merged first (it\u0027s pre rename to netd.h though)",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 92
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "760b1650_5c7c3717",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T12:41:27Z",
+      "side": 1,
+      "message": "what actually needs read / write access to these?\n\nnetd? system server? just netd? just system server? anything else?",
+      "range": {
+        "startLine": 168,
+        "startChar": 29,
+        "endLine": 168,
+        "endChar": 42
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
