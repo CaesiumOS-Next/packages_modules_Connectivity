@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c27eb8d0_f35fee7f",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:27:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8bde812_d04b1a14",
+      "range": {
+        "startLine": 9,
+        "startChar": 77,
+        "endLine": 9,
+        "endChar": 84
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df37e65f_3b76e228",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-13T09:59:11Z",
       "side": 1,
       "message": "Android convention for boolean setters is set/get. Amont other things, it makes kotlin\u0027s automatic property syntax work. Also elsewhere.\n\nThat said - there\u0027s an argument here for consistency with the Cronet API surface, which is already used by 1000s of apps. Helping those apps migrate to android.net.http also seems like a worthy goal. Maybe that\u0027s worth breaking with convention here?\n\nFor set/get methods like this, is it feasible to add such methods to the cronet API, on the grounds that it makes it easier for kotlin callers to use cronet?",
+      "range": {
+        "startLine": 16,
+        "startChar": 70,
+        "endLine": 16,
+        "endChar": 99
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "460d826f_cf7eb695",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:27:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df37e65f_3b76e228",
       "range": {
         "startLine": 16,
         "startChar": 70,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aad85cc_47e23093",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:27:30Z",
+      "side": 1,
+      "message": "Hidden for now to address the immediate concern about this particular config option. The access to hidden methods to enable the org.chromium.net implementation backed by AOSP will need more work.",
+      "parentUuid": "786d6f94_43275e3d",
+      "range": {
+        "startLine": 31,
+        "startChar": 54,
+        "endLine": 31,
+        "endChar": 75
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "691c8f8b_15f743c4",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-01-13T09:59:11Z",
       "side": 1,
       "message": "Given there\u0027s already a builder, @hide?",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18c1dff0_3496d2a7",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:27:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "691c8f8b_15f743c4",
       "range": {
         "startLine": 35,
         "startChar": 16,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "965aafa8_36347d31",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:27:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c41a784_251d183f",
+      "range": {
+        "startLine": 48,
+        "startChar": 54,
+        "endLine": 48,
+        "endChar": 66
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef1a1ca0_7fa2d94c",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6c09164_888aa87d",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:27:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef1a1ca0_7fa2d94c",
+      "range": {
+        "startLine": 55,
+        "startChar": 101,
+        "endLine": 55,
+        "endChar": 135
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "392335af_f8cb739f",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-01-13T09:59:11Z",
       "side": 1,
       "message": "Why protected? If the purpose of this class is that apps need to be able to construct these exceptions for unit tests, then maybe it should be public?",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 69,
+        "endChar": 18
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a91fb529_c90111c2",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:27:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "392335af_f8cb739f",
       "range": {
         "startLine": 69,
         "startChar": 9,
@@ -187,6 +355,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80e05c2b_9afa5361",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:27:30Z",
+      "side": 1,
+      "message": "I\u0027m on the fence here about how useful it is to get access to and interpret the error code programatically. Most of the errors are fairly low level and I\u0027m not convinced that committing to them for eternity is desirable (at least for the first iteration of the API). I\u0027m tempted to just @hide this method.",
+      "parentUuid": "8aba1485_c06c3a10",
+      "range": {
+        "startLine": 95,
+        "startChar": 27,
+        "endLine": 95,
+        "endChar": 30
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f281fe37_38785659",
         "filename": "Tethering/common/TetheringLib/api/current.txt",
         "patchSetId": 6
@@ -198,6 +390,30 @@
       "writtenOn": "2023-01-13T09:59:11Z",
       "side": 1,
       "message": "There\u0027s a builder, @hide?",
+      "range": {
+        "startLine": 129,
+        "startChar": 9,
+        "endLine": 129,
+        "endChar": 15
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58c3cd17_84feeb6d",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:27:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f281fe37_38785659",
       "range": {
         "startLine": 129,
         "startChar": 9,
@@ -231,6 +447,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f4b31a2_55ca2545",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:27:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65d115e2_f95c2393",
+      "range": {
+        "startLine": 139,
+        "startChar": 34,
+        "endLine": 139,
+        "endChar": 36
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e30e75bc_2237c312",
@@ -244,6 +484,30 @@
       "writtenOn": "2023-01-13T09:59:11Z",
       "side": 1,
       "message": "The presence of this request object suggests that the intended usage (or one of the intended usages) of this API is to have one callback object that can be used for multiple requests.\n\nBut for that to be useful, calling equals() on the request passed in to this method and the original request built by the builder (and available to the app) should return true. If not, then that\u0027s really confusing.\n\nIf the expected usage is that there will always be one callback for each request, then why not make it the app\u0027s responsibility to keep track of what request corresponds to what callback, and remve this UrlRequest argument altogether?",
+      "range": {
+        "startLine": 156,
+        "startChar": 34,
+        "endLine": 156,
+        "endChar": 61
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d321d861_48ee5ea5",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T11:27:30Z",
+      "side": 1,
+      "message": "\u003e The presence of this request object suggests that the intended usage (or one of the intended usages) of this API is to have one callback object that can be used for multiple requests.\n\nCronet doesn\u0027t make any assumptions about whether the callback is used for one or multiple requests. If the same object is being reused it\u0027s the application\u0027s responsibility to make sure their implementation is thread safe in one way or the other.\n\n\u003e But for that to be useful, calling equals() on the request passed in to this method and the original request built by the builder (and available to the app) should return true. If not, then that\u0027s really confusing.\n\nThe callback always gets the same UrlRequest instance that was used to start() the execution. Sorry I confused it with the UrlResponseInfo whose instances do change across method calls even if just one request is involved.\n\n\u003e If the expected usage is that there will always be one callback for each request, then why not make it the app\u0027s responsibility to keep track of what request corresponds to what callback, and remve this UrlRequest argument altogether?\n\nThe request is still needed in onReadCompleted() and onResponseStarted() to start and continue reading the body bytes, which is done using the read() method on UrlRequest. You need to have the callback ready for CronetEngine.newUrlRequestBuilder() but if your custom implementation needs it as a constructor parameter you have a cyclical dependency so you\u0027d need to have an extra setter parameter and set the request inbetween build() and start(). All in all this makes for a convoluted developer experience without any actual benefits to Cronet, so I err to keep this as-is.",
+      "parentUuid": "e30e75bc_2237c312",
       "range": {
         "startLine": 156,
         "startChar": 34,
