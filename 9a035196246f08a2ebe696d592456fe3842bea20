@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bce6f9f7_9027dd1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T06:46:45Z",
+      "side": 1,
+      "message": "iwlan",
+      "range": {
+        "startLine": 13,
+        "startChar": 27,
+        "endLine": 13,
+        "endChar": 31
+      },
+      "revId": "9a035196246f08a2ebe696d592456fe3842bea20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "436fefb5_a9a56ad1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T06:46:45Z",
+      "side": 1,
+      "message": "Is this the right design for this feature ?\n\nIt seems to me that what you want to do is run the monitoring on any network that underlies any VPN and on which a keepalive is started.\n\nInstead, what this does is start from a network, find some VPN, and return if the network doesn\u0027t underly the VPN.\n\nI guess you want to be keepalive-major, so it may make sense that you start from a network, but then... you just want to see if that network underlies any VPN I think ? If so, this patch is a very contrived way to write it.",
+      "revId": "9a035196246f08a2ebe696d592456fe3842bea20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0a37ee2_6c33e548",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T06:46:45Z",
+      "side": 1,
+      "message": "Underlying",
+      "range": {
+        "startLine": 777,
+        "startChar": 29,
+        "endLine": 777,
+        "endChar": 36
+      },
+      "revId": "9a035196246f08a2ebe696d592456fe3842bea20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
