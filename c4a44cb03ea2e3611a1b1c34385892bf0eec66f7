@@ -377,6 +377,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b1dc2bf_067cac48",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T19:38:46Z",
+      "side": 1,
+      "message": "Hid it for now, we can always revisit later.",
+      "parentUuid": "80e05c2b_9afa5361",
+      "range": {
+        "startLine": 95,
+        "startChar": 27,
+        "endLine": 95,
+        "endChar": 30
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f281fe37_38785659",
@@ -437,6 +461,30 @@
       "writtenOn": "2023-01-13T14:05:09Z",
       "side": 1,
       "message": "Per discussion, might want to say in the javadoc that this is used to know what a request is doing before the first callback is invoked.",
+      "range": {
+        "startLine": 132,
+        "startChar": 32,
+        "endLine": 132,
+        "endChar": 41
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30965591_89eb48eb",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T19:38:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b7f42a9_7a9621d9",
       "range": {
         "startLine": 132,
         "startChar": 32,
@@ -564,6 +612,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "016959a1_b8d9781e",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T19:38:46Z",
+      "side": 1,
+      "message": "Done.\n\nThe values are stable and mapped between Cronet APIs and Chromium internals here: https://source.chromium.org/chromium/chromium/src/+/main:components/cronet/android/java/src/org/chromium/net/impl/UrlRequestBase.java;l\u003d73;drc\u003d6af9fead5307eb28f0655cb094376ecbc522ddcf;bpv\u003d1;bpt\u003d1",
+      "parentUuid": "e3f38514_3eb9f021",
+      "range": {
+        "startLine": 164,
+        "startChar": 33,
+        "endLine": 164,
+        "endChar": 39
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1091f15d_81cf8c7a",
@@ -577,6 +649,30 @@
       "writtenOn": "2023-01-13T14:05:09Z",
       "side": 1,
       "message": "Per discussion, if the format of this string is not easy to parse, or is not stable, then it probably shouldn\u0027t be in the API surface.",
+      "range": {
+        "startLine": 194,
+        "startChar": 34,
+        "endLine": 194,
+        "endChar": 55
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96d61300_2a111798",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T19:38:46Z",
+      "side": 1,
+      "message": "Turns out I was wrong - this can only return an item from a fixed set of values: https://source.chromium.org/chromium/chromium/src/+/main:net/http/http_response_info.cc;l\u003d569\n\nThe actual reason this is a string is, AFAICT, the possibility of extending the set of returnable values (which may change with QUICHE rolls) without the need to modify the API.",
+      "parentUuid": "1091f15d_81cf8c7a",
       "range": {
         "startLine": 194,
         "startChar": 34,
@@ -647,6 +743,30 @@
       "writtenOn": "2023-01-13T14:05:09Z",
       "side": 1,
       "message": "How does the caller know for sure that any given URL is going to be a JSON object? The callback has to be declared and passed to the request builder *before* the headers are read, so the caller does not know the mime type of the resource.\n\nAlso I think JSON is not recommended in Android platform APIs.",
+      "range": {
+        "startLine": 281,
+        "startChar": 66,
+        "endLine": 281,
+        "endChar": 77
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44de1701_8ed23e01",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-13T19:38:46Z",
+      "side": 1,
+      "message": "Acknowledged, we\u0027re removing the entire suite of helpers for the time being.",
+      "parentUuid": "56eeffb6_cde325a6",
       "range": {
         "startLine": 281,
         "startChar": 66,
