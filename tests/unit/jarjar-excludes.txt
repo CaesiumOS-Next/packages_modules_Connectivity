@@ -1,0 +1,15 @@
+# Exclude some test prefixes because their dependecies library can't
+# find the class after jarjared
+android\.compat\..+
+androidx\.test\..+
+com\.android\.frameworks\.tests\..+
+com\.android\.testutils\..+
+com\.android\.dx\..+
+com\.android\.internal\.compat\..+
+com\.android\.internal\.org\..+
+kotlin\..+
+org\..+
+
+# Auto-jarjar-gen can't handle kotlin object expression, exluce the tests which
+# using object expression. TODO: remove this after fixing Auto-jarjar-gen
+com\.android\.net\.module\.util\.TrackRecord.*

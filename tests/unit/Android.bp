@@ -69,6 +69,7 @@ filegroup {
         "java/com/android/server/VpnManagerServiceTest.java",
         "java/com/android/server/connectivity/IpConnectivityEventBuilderTest.java",
         "java/com/android/server/connectivity/IpConnectivityMetricsTest.java",
+        "java/com/android/server/connectivity/MetricsTestUtil.java",
         "java/com/android/server/connectivity/MultipathPolicyTrackerTest.java",
         "java/com/android/server/connectivity/NetdEventListenerServiceTest.java",
         "java/com/android/server/connectivity/VpnTest.java",
@@ -137,6 +138,35 @@ android_library {
     visibility: ["//packages/modules/Connectivity/tests:__subpackages__"],
 }
 
+genrule {
+    name: "frameworks-net-tests-extend-jarjar-rules",
+    defaults: ["jarjar-rules-combine-defaults"],
+    srcs: [
+        ":frameworks-net-tests-jarjar-gen",
+        ":connectivity-jarjar-rules",
+    ],
+    out: ["connectivity-test-jarjar-rules.txt"],
+    visibility: ["//visibility:private"],
+}
+
+java_genrule {
+    name: "frameworks-net-tests-jarjar-gen",
+    tool_files: [
+        ":FrameworksNetTestsLib{.jar}",
+        "jarjar-excludes.txt",
+    ],
+    tools: [
+        "jarjar-rules-generator",
+    ],
+    out: ["frameworks-net-tests-jarjar-rules.txt"],
+    cmd: "$(location jarjar-rules-generator) " +
+        "$(location :FrameworksNetTestsLib{.jar}) " +
+        "--prefix android.net.connectivity " +
+        "--excludes $(location jarjar-excludes.txt) " +
+        "--output $(out)",
+    visibility: ["//packages/modules/Connectivity/tests:__subpackages__"],
+}
+
 android_test {
     name: "FrameworksNetTests",
     enabled: enable_frameworks_net_tests,
@@ -144,7 +174,7 @@ android_test {
         "FrameworksNetTestsDefaults",
         "FrameworksNetTests-jni-defaults",
     ],
-    jarjar_rules: ":connectivity-jarjar-rules",
+    jarjar_rules: ":frameworks-net-tests-extend-jarjar-rules",
     test_suites: ["device-tests"],
     static_libs: [
         "services.core",
