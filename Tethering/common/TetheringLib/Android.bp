@@ -91,6 +91,7 @@ java_defaults {
     api_lint: {
         enabled: false,
     },
+    api_dir: "cronet_enabled",
 }
 
 java_defaults {
