@@ -22,6 +22,30 @@
       },
       "revId": "6b0cb51bb6683355a5f56ce5da47154b9178172f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "229135c9_fb1169e5",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-13T06:38:04Z",
+      "side": 1,
+      "message": "Thanks for the sugguestion. Updated",
+      "parentUuid": "07aab365_f7e1fdd3",
+      "range": {
+        "startLine": 861,
+        "startChar": 10,
+        "endLine": 861,
+        "endChar": 70
+      },
+      "revId": "6b0cb51bb6683355a5f56ce5da47154b9178172f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

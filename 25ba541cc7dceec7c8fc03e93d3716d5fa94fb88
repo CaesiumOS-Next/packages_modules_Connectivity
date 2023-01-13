@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "595c62c9_0f94f1d2",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-13T06:38:04Z",
+      "side": 1,
+      "message": "Thanks for your example. I got your point.\n\nI update the comment to note that this should be accessed in handler thread and add the the thread check.",
+      "parentUuid": "5ea27ff5_dac2e676",
+      "range": {
+        "startLine": 135,
+        "startChar": 38,
+        "endLine": 135,
+        "endChar": 50
+      },
+      "revId": "25ba541cc7dceec7c8fc03e93d3716d5fa94fb88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b89d908_14281506",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 17
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "No I don\u0027t understand this any better. Look at the implementation :\n\n    Os.write(fd, msg, 0 /* byteOffset */, msg.length);\n\nSuppose I call :\n\n    sendRequestToKernel(FileDescriptor.out, \"foobar\".getBytes());\n\nThis will happily write \"foobar\" on the standard output. Does that not strike you as odd for a method named `sendRequestToKernel` ? The documentation only says `fd` is a `FileDescriptor`, so the usage above is completely legit, and still it does nothing like what the method name says.",
       "parentUuid": "bd78f3e1_e456dd04",
+      "range": {
+        "startLine": 828,
+        "startChar": 24,
+        "endLine": 828,
+        "endChar": 31
+      },
+      "revId": "25ba541cc7dceec7c8fc03e93d3716d5fa94fb88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adccba09_f3e1e199",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-13T06:38:04Z",
+      "side": 1,
+      "message": "Sorry that I did not specify it clearly. I update the doc and the method name. Is it clearer?",
+      "parentUuid": "a4923800_f2b9533c",
       "range": {
         "startLine": 828,
         "startChar": 24,
