@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44da6993_356d409f",
+        "filename": "service-t/Sources.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:57:45Z",
+      "side": 1,
+      "message": "Yeah, the associated java seems to be up one directory from the others:\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
+      "parentUuid": "a9824d9f_63f21ca2",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 34
+      },
+      "revId": "37ce0a6b1be2b02b2b66f463cc9e62588eec250b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9c7c84a_79ec4387",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-13T12:30:36Z",
       "side": 1,
       "message": "\u003d{} ?\n\nor even \u003d { .backends \u003d ..., }",
+      "range": {
+        "startLine": 320,
+        "startChar": 34,
+        "endLine": 320,
+        "endChar": 35
+      },
+      "revId": "37ce0a6b1be2b02b2b66f463cc9e62588eec250b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f9b4edf_ea9289fa",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:57:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9c7c84a_79ec4387",
       "range": {
         "startLine": 320,
         "startChar": 34,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce63bd62_c11d09dc",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:57:45Z",
+      "side": 1,
+      "message": "I\u0027ll admit I don\u0027t 100% follow how JNI code is linked.\n\nMy understand is that there are two important targets:\n\n- libservice-connectivity\n  - srcs the JNI files ([here](https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/service/Android.bp;drc\u003d03a51d567486f94a74b0209d7fb65018358ffbd3;l\u003d106) using [filegroup](https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/service-t/Sources.bp;drc\u003d6fa4682315f69447736d563e835fac7963e6b042;l\u003d30))\n  - links to libnetworkstats as shared lib\n\n- libnetworkstats\n  - srcs this file (and NetworkTraceHandler)\n  - links to perfetto as a static lib\n  \nI think putting the initialization in the JNI would mean `libservice-connectivity` needs to statically link to Perfetto. Since `libnetworkstats` already needs to statically link it for `NetworkTraceHandler`, I made sure this initialization was in the same shared library to cut down on binary size.\n\nHowever, I now realize there\u0027s no reason to put this in `libnetworkstats/BpfNetworkStats.cpp` rather than `libnetworkstats/NetworkTraceHandler.cpp`, so I\u0027ve moved it.",
+      "parentUuid": "a8eeab1e_64e080d8",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 324,
+        "endChar": 1
+      },
+      "revId": "37ce0a6b1be2b02b2b66f463cc9e62588eec250b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c85f928d_a8527255",
         "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/BpfNetworkStats.h",
         "patchSetId": 1
@@ -100,6 +172,24 @@
       "writtenOn": "2023-01-13T12:30:36Z",
       "side": 1,
       "message": "I\u0027m not 100% certain, but I think most of the code in this file is scheduled for deletion (motomuman@ would know) and replacement by Java use of BpfMap java class instead of jni.\n\nIt might not be a good idea to add more stuff here.\n\nIs this code here purely because it seemed like a good place? Or is it using some critical functionality from this file?",
+      "revId": "37ce0a6b1be2b02b2b66f463cc9e62588eec250b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe63a7fa_28cb1075",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/BpfNetworkStats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:57:45Z",
+      "side": 1,
+      "message": "Ack - it just seemed like a good place but as you point out it\u0027s not necessary.\n\nHowever, prior to this change, this file was the only thing in libnetworkstats, so if it was scheduled for deletion, I presume libnetworkstats would be too. Let me sync with motomuman about what to do.",
+      "parentUuid": "c85f928d_a8527255",
       "revId": "37ce0a6b1be2b02b2b66f463cc9e62588eec250b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
