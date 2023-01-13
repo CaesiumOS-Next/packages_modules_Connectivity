@@ -419,7 +419,7 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
     abstract static class CallbackType {
         final int mQosCallbackId;
 
-        protected CallbackType(final int qosCallbackId) {
+        CallbackType(final int qosCallbackId) {
             mQosCallbackId = qosCallbackId;
         }
 
@@ -445,7 +445,7 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
             }
         }
 
-        static class OnQosCallbackUnregister extends CallbackType {
+        public static class OnQosCallbackUnregister extends CallbackType {
             OnQosCallbackUnregister(final int qosCallbackId) {
                 super(qosCallbackId);
             }
