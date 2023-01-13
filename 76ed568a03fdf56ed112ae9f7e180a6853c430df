@@ -70,6 +70,30 @@
       },
       "revId": "76ed568a03fdf56ed112ae9f7e180a6853c430df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f69d2341_620455ae",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-13T13:19:40Z",
+      "side": 0,
+      "message": "I don\u0027t think backporting this via LTS will help at all. I can\u0027t write any reliable tests without the patch, so I was not planning on running any of them on a kernel \u003c 6.0 (https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2384592/1/tests/cts/net/src/android/net/cts/EthernetManagerTest.kt#398).\nI am hoping cuttlefish starts using 6.1 soon (which I think is one of the U release kernels, right?), so these tests can run in presubmit (which is mostly what I care about).",
+      "parentUuid": "081840e0_56305fc3",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 5
+      },
+      "revId": "76ed568a03fdf56ed112ae9f7e180a6853c430df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
