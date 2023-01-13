@@ -22,6 +22,30 @@
       },
       "revId": "76ed568a03fdf56ed112ae9f7e180a6853c430df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21571edc_1f155f60",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-13T13:14:40Z",
+      "side": 0,
+      "message": "I debated leaving this here, but:\n- tests can\u0027t reliably use this because it makes them flaky.\n- it\u0027s only been used in EthernetManagerTest. No tests that use this functionality were merged in T. The follow up CL fixes the tests in U.\n- it\u0027s a test-only API.\n\nSo I think it should be okay to raise the bar and require a kernel \u003e 6.0, right?",
+      "parentUuid": "5474f325_f9fecaa8",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 5
+      },
+      "revId": "76ed568a03fdf56ed112ae9f7e180a6853c430df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
