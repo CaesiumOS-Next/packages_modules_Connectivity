@@ -22,6 +22,30 @@
       },
       "revId": "1adc0d19b84c8fd6a35ff1e25393bf8e1c2527a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "964ada74_b80b7474",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityFlags.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-13T08:04:34Z",
+      "side": 1,
+      "message": "Done, but not sure if there is a case where the caller calls CS before systemReady is returned.\nIf not, I think this is safe.\nIf yes, the option would be silently not working for that case, and we treat it as if it is PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK. And maybe we need javadoc for that.\nWDYT?",
+      "parentUuid": "2273f41b_e55444ed",
+      "range": {
+        "startLine": 56,
+        "startChar": 88,
+        "endLine": 57,
+        "endChar": 68
+      },
+      "revId": "1adc0d19b84c8fd6a35ff1e25393bf8e1c2527a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
