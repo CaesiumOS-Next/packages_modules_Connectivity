@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0da4ce91_ca3f4f71",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Ack, went with suggestion below.",
+      "parentUuid": "c24ef82f_2f56a073",
+      "range": {
+        "startLine": 53,
+        "startChar": 20,
+        "endLine": 53,
+        "endChar": 53
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8f948db_048872bf",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "166da678_b58c6fcd",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8f948db_048872bf",
+      "range": {
+        "startLine": 54,
+        "startChar": 23,
+        "endLine": 54,
+        "endChar": 31
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0c9dd81_0217c3d1",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-13T12:41:27Z",
       "side": 1,
       "message": "these should probably go to bpf_net_helpers.h ?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 0
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d75b38f_d4f92ab3",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0c9dd81_0217c3d1",
       "range": {
         "startLine": 55,
         "startChar": 0,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4b08e6e_035778a1",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "I only made that change for programs and ring buffers... I should probably do it for maps too..",
+      "parentUuid": "d65d9296_8a2e6bc9",
+      "range": {
+        "startLine": 112,
+        "startChar": 80,
+        "endLine": 112,
+        "endChar": 81
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dda5d868_f62837b4",
         "filename": "bpf_progs/netd.c",
         "patchSetId": 4
@@ -106,6 +202,30 @@
       "writtenOn": "2023-01-13T12:41:27Z",
       "side": 1,
       "message": "should have inline comments\n/* ignore_on_x */ false",
+      "range": {
+        "startLine": 118,
+        "startChar": 72,
+        "endLine": 118,
+        "endChar": 90
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2558ebbe_7eef1006",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dda5d868_f62837b4",
       "range": {
         "startLine": 118,
         "startChar": 72,
@@ -162,6 +282,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40c746c4_2e40966b",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1c25add_e60d41c8",
+      "range": {
+        "startLine": 249,
+        "startChar": 23,
+        "endLine": 249,
+        "endChar": 27
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c66cb956_9891efa9",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7abba303_ad70e477",
+      "range": {
+        "startLine": 247,
+        "startChar": 53,
+        "endLine": 249,
+        "endChar": 51
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04247d48_9bc4d240",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86c1219d_21e31510",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04247d48_9bc4d240",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 56
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b409df6_228f98c2",
@@ -198,6 +390,30 @@
       "writtenOn": "2023-01-13T12:41:27Z",
       "side": 1,
       "message": "split to 2 if\u0027s - easier to read/process",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 50
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aa62467_6a4486e3",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b409df6_228f98c2",
       "range": {
         "startLine": 254,
         "startChar": 0,
@@ -256,6 +472,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7a7a4a8b_3eae9b01",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Done. Right now things are just zero on error. For port numbers, zero shouldn\u0027t be reported here. For proto, zero is HOPOPT which I haven\u0027t heard of, not sure how often it\u0027s used. For flags, zero is actually common.. maybe I could set it to 0xff as a better sentinel which I don\u0027t think would ever happen in practice?\n\nI also added a check for l4_off below so we don\u0027t accidentally read proto,sport,dport wrong and think \"it\u0027s non-zero, must be right\".",
+      "parentUuid": "7185a353_6c1565a3",
+      "range": {
+        "startLine": 262,
+        "startChar": 8,
+        "endLine": 262,
+        "endChar": 9
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebd49065_69ae77ea",
         "filename": "bpf_progs/netd.c",
         "patchSetId": 4
@@ -267,6 +507,30 @@
       "writtenOn": "2023-01-13T12:41:27Z",
       "side": 1,
       "message": "you shouldn\u0027t need this, if you just fill in all fields, it\u0027s not free...\nand it seems like you would never have fields you don\u0027t fill in right?",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 43
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3ad08c4_2954415b",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "I was running into an issue before with padding (e.g. a 31 byte struct was padded to 32 bytes, and verifier wanted that last byte initialized). However, the pad byte is explicit now and there is a static assert on size so I can do that manually.",
+      "parentUuid": "ebd49065_69ae77ea",
       "range": {
         "startLine": 281,
         "startChar": 0,
@@ -300,6 +564,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3d0fd35_fe623f7b",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Done. Does the same matter for tcpFlags? It\u0027s a single word so I maybe not?",
+      "parentUuid": "91b16d9f_28d8bf16",
+      "range": {
+        "startLine": 288,
+        "startChar": 21,
+        "endLine": 288,
+        "endChar": 26
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ded131b7_090ba82d",
@@ -313,6 +601,30 @@
       "writtenOn": "2023-01-13T12:41:27Z",
       "side": 1,
       "message": "please break this out 8+4+4 + 4+4 + 2+2 + 1+1+1+1",
+      "range": {
+        "startLine": 88,
+        "startChar": 24,
+        "endLine": 88,
+        "endChar": 26
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e787a067_c396730d",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ded131b7_090ba82d",
       "range": {
         "startLine": 88,
         "startChar": 24,
@@ -359,6 +671,30 @@
       "writtenOn": "2023-01-13T12:41:27Z",
       "side": 1,
       "message": "what actually needs read / write access to these?\n\nnetd? system server? just netd? just system server? anything else?",
+      "range": {
+        "startLine": 168,
+        "startChar": 29,
+        "endLine": 168,
+        "endChar": 42
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5913a457_1a35779f",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-13T19:55:59Z",
+      "side": 1,
+      "message": "Just system server",
+      "parentUuid": "760b1650_5c7c3717",
       "range": {
         "startLine": 168,
         "startChar": 29,
