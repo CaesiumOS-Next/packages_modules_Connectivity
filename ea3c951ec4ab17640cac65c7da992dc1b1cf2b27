@@ -158,6 +158,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a611000_ec51acf6",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T06:40:42Z",
+      "side": 1,
+      "message": "This is verbose ; can\u0027t you just use argThat ? You can have a helper method to get the int extra from the pending intent using runAsShell, that would make the call to argThat reasonably terse.",
+      "range": {
+        "startLine": 551,
+        "startChar": 55,
+        "endLine": 551,
+        "endChar": 62
+      },
+      "revId": "ea3c951ec4ab17640cac65c7da992dc1b1cf2b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6916a65_76dddb9d",
         "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
         "patchSetId": 2
