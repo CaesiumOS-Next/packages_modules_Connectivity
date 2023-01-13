@@ -1,0 +1,308 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "805311b9_13b7140f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "It would be useful to have a comment to explain which context this is",
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f5daf47_be9b3858",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "will fit on one line",
+      "range": {
+        "startLine": 247,
+        "startChar": 33,
+        "endLine": 247,
+        "endChar": 34
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7178a11_5532c248",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "This is not the same context as before ; this is the target context, when before it was the test context.",
+      "range": {
+        "startLine": 254,
+        "startChar": 39,
+        "endLine": 254,
+        "endChar": 47
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2ea6e3a_5faae3ad",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 1049,
+        "startChar": 8,
+        "endLine": 1049,
+        "endChar": 22
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855bf1ee_82cd1d24",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "return CollectionUtils.findFirst(linkProperties.getAddresses(), it -\u003e it instanceof Inet4Address);\n\n?",
+      "range": {
+        "startLine": 1050,
+        "startChar": 9,
+        "endLine": 1054,
+        "endChar": 9
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19315fa6_c5dcc10c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "If there was an InterruptedException then this is really not what happened.\n\nCan `pollCallback` just throw InterruptedException and then the caller throws Exception and it just fails with a clearer message ? This seems to just obfuscate what happened.",
+      "range": {
+        "startLine": 1079,
+        "startChar": 21,
+        "endLine": 1079,
+        "endChar": 44
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fec817ab_34c86ddb",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "This looks like it will be flaky – how can you know this network will not disconnect immediately (e.g. it\u0027s a leftover from the previous test) ? Generally our tests use `connectToCell` or `ensureWifiConnected` or similar.",
+      "range": {
+        "startLine": 1098,
+        "startChar": 43,
+        "endLine": 1098,
+        "endChar": 59
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72808566_39def8b5",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 1104,
+        "startChar": 8,
+        "endLine": 1104,
+        "endChar": 15
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b97ba091_9638c29f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "Can you use runWithShellIdentity ? If you can\u0027t, please add a comment to explain what permissions you need this for.",
+      "range": {
+        "startLine": 1121,
+        "startChar": 22,
+        "endLine": 1121,
+        "endChar": 50
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "075b5bd2_3be55635",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "This should be moved out of the try{} block",
+      "range": {
+        "startLine": 1124,
+        "startChar": 36,
+        "endLine": 1124,
+        "endChar": 47
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "487a8a96_ab319d0e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "style : m is reserved for members. Also this can go outside of the try{} block",
+      "range": {
+        "startLine": 1130,
+        "startChar": 31,
+        "endLine": 1130,
+        "endChar": 37
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdbe1667_c883d47d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "You should be able to use try-with-resources to close this",
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a15365ad_af01b067",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "Final or inline",
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2706efa_be019e12",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-13T05:39:05Z",
+      "side": 1,
+      "message": "So here you\u0027ve verified that no sockets open mean the keepalive is temp disabled, but you haven\u0027t yet checked that opening a socket will restart keepalive",
+      "range": {
+        "startLine": 1149,
+        "startChar": 91,
+        "endLine": 1149,
+        "endChar": 92
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
