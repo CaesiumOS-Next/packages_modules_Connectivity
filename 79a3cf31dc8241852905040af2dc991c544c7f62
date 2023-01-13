@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5c124be_6cb9d0c9",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-13T11:36:32Z",
+      "side": 1,
+      "message": "nits: I thought setting `mTetheringInterfaceState \u003d STATE_ABSENT` is consistent with the initial state.",
+      "revId": "79a3cf31dc8241852905040af2dc991c544c7f62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
