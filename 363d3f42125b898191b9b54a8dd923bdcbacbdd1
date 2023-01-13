@@ -22,6 +22,30 @@
       },
       "revId": "363d3f42125b898191b9b54a8dd923bdcbacbdd1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a74bedf0_4453f6f1",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-13T04:05:14Z",
+      "side": 1,
+      "message": "Yes, but this annotation means that it is public because it is used in tests (otherwise it would be private). It\u0027s to indicate that the public visibility should only be used for tests.",
+      "parentUuid": "13366ee3_46383a90",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 22
+      },
+      "revId": "363d3f42125b898191b9b54a8dd923bdcbacbdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
