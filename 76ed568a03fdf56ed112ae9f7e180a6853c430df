@@ -46,6 +46,30 @@
       },
       "revId": "76ed568a03fdf56ed112ae9f7e180a6853c430df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "081840e0_56305fc3",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T13:15:54Z",
+      "side": 0,
+      "message": "I\u0027m not sure... what are the LTS plans for the patch?\n\nHow do you use this correctly if it ends up backported to older kernels via LTS?",
+      "parentUuid": "21571edc_1f155f60",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 5
+      },
+      "revId": "76ed568a03fdf56ed112ae9f7e180a6853c430df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
