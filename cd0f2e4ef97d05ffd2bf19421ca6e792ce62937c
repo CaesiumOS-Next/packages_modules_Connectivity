@@ -16,6 +16,23 @@
       "message": "My preference would be to say \u0027may be racy on \u003c6.0 kernels without patch \u0027X\u0027\u0027\n\nDid you ever ask for LTS backports of the patch?",
       "revId": "cd0f2e4ef97d05ffd2bf19421ca6e792ce62937c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e9703b2_a1d5bcf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-13T16:40:47Z",
+      "side": 1,
+      "message": "I\u0027m okay with code being imperfect, and resulting in flakes.\nSure it\u0027s not desirable, but it\u0027s acceptable.\n\nI\u0027m not okay with code simply not working.\nEven if there\u0027s comments to that effect.\n\nSo...\n\nI think this has to do one of:\n\n(a) disable carrier both ways, so it is always off when function returns\n\n(b) check if carrier is on, and disable it if it is\n\n(c) check if carrier is on, and throw if it is\n\n(d) throw if called on kernel \u003c 6.0",
+      "revId": "cd0f2e4ef97d05ffd2bf19421ca6e792ce62937c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
