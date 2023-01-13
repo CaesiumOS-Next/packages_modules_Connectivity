@@ -278,14 +278,21 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
      * Reset a service to the probing state due to a conflict found on the network.
      */
     public void restartProbingForConflict(int serviceId) {
-        // TODO: implement
+        final MdnsProber.ProbingInfo probingInfo = mRecordRepository.setServiceProbing(serviceId);
+        if (probingInfo == null) return;
+
+        mProber.restartForConflict(probingInfo);
     }
 
     /**
      * Rename a service following a conflict found on the network, and restart probing.
      */
     public void renameServiceForConflict(int serviceId, NsdServiceInfo newInfo) {
-        // TODO: implement
+        final MdnsProber.ProbingInfo probingInfo = mRecordRepository.renameServiceForConflict(
+                serviceId, newInfo);
+        if (probingInfo == null) return;
+
+        mProber.restartForConflict(probingInfo);
     }
 
     /**
@@ -317,6 +324,10 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
                             + packet.answers.size() + " answers, "
                             + packet.authorityRecords.size() + " authority, "
                             + packet.additionalRecords.size() + " additional from " + src);
+        }
+
+        for (int conflictServiceId : mRecordRepository.getConflictingServices(packet)) {
+            mCbHandler.post(() -> mCb.onServiceConflict(this, conflictServiceId));
         }
 
         final MdnsRecordRepository.ReplyInfo answers =

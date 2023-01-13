@@ -721,6 +721,57 @@ public class MdnsRecordRepository {
     }
 
     /**
+     * Get the service IDs of services conflicting with a received packet.
+     */
+    public Set<Integer> getConflictingServices(MdnsPacket packet) {
+        // Avoid allocating a new set for each incoming packet: use an empty set by default.
+        Set<Integer> conflicting = Collections.emptySet();
+        for (MdnsRecord record : packet.answers) {
+            for (int i = 0; i < mServices.size(); i++) {
+                final ServiceRegistration registration = mServices.valueAt(i);
+                if (registration.exiting) continue;
+
+                // Only look for conflicts in service name, as a different service name can be used
+                // if there is a conflict, but there is nothing actionable if any other conflict
+                // happens. In fact probing is only done for the service name in the SRV record.
+                // This means only SRV and TXT records need to be checked.
+                final RecordInfo<MdnsServiceRecord> srvRecord = registration.srvRecord;
+                if (!Arrays.equals(record.getName(), srvRecord.record.getName())) continue;
+
+                // As per RFC6762 9., it's fine if the "conflict" is an identical record with same
+                // data.
+                if (record instanceof MdnsServiceRecord) {
+                    final MdnsServiceRecord local = srvRecord.record;
+                    final MdnsServiceRecord other = (MdnsServiceRecord) record;
+                    if (other.getServicePriority() == local.getServicePriority()
+                            && other.getServiceWeight() == local.getServiceWeight()
+                            && other.getServicePort() == local.getServicePort()
+                            && Arrays.equals(other.getServiceHost(), local.getServiceHost())) {
+                        continue;
+                    }
+                }
+
+                if (record instanceof MdnsTextRecord) {
+                    final MdnsTextRecord local = registration.txtRecord.record;
+                    final MdnsTextRecord other = (MdnsTextRecord) record;
+                    if (other.getEntries().equals(local.getEntries())) {
+                        continue;
+                    }
+                }
+
+                if (conflicting.size() == 0) {
+                    // Conflict was found: use a mutable set
+                    conflicting = new ArraySet<>();
+                }
+                final int serviceId = mServices.keyAt(i);
+                conflicting.add(serviceId);
+            }
+        }
+
+        return conflicting;
+    }
+
+    /**
      * (Re)set a service to the probing state.
      * @return The {@link MdnsProber.ProbingInfo} to send for probing.
      */
@@ -751,6 +802,20 @@ public class MdnsRecordRepository {
         if (registration == null) return false;
 
         return !registration.exiting;
+    }
+
+    /**
+     * Rename a service to the newly provided info, following a conflict.
+     */
+    @Nullable
+    public MdnsProber.ProbingInfo renameServiceForConflict(int serviceId, NsdServiceInfo newInfo) {
+        final ServiceRegistration registration = mServices.get(serviceId);
+        if (registration == null) return null;
+
+        final ServiceRegistration newService = new ServiceRegistration(
+                mDeviceHostname, newInfo);
+        mServices.put(serviceId, newService);
+        return makeProbingInfo(serviceId, newService.srvRecord.record);
     }
 
     /**
