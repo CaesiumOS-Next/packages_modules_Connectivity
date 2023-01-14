@@ -90,7 +90,6 @@ public class NsdService extends INsdManager.Stub {
     private static final String TAG = "NsdService";
     private static final String MDNS_TAG = "mDnsConnector";
     private static final String MDNS_DISCOVERY_MANAGER_VERSION = "mdns_discovery_manager_version";
-    private static final String LOCAL_DOMAIN_NAME = "local";
 
     private static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
     private static final long CLEANUP_DELAY_MS = 10000;
@@ -148,6 +147,19 @@ public class NsdService extends INsdManager.Stub {
             return mListenedServiceType;
         }
 
+        public boolean isRequiredMdnsServiceInfo(@NonNull MdnsServiceInfo serviceInfo) {
+            final Network requestNetwork = mReqServiceInfo.getNetwork();
+            // Accept all mdns service info if no given network.
+            if (requestNetwork == null) return true;
+
+            // Check whether the response network is required.
+            final Network responseNetwork = serviceInfo.getNetwork();
+            if (requestNetwork.equals(responseNetwork)) {
+                return true;
+            }
+            return false;
+        }
+
         @Override
         public void onServiceFound(@NonNull MdnsServiceInfo serviceInfo) { }
 
@@ -185,6 +197,10 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void onServiceNameDiscovered(@NonNull MdnsServiceInfo serviceInfo) {
+            // Ignore the callback that is not required for client.
+            if (!isRequiredMdnsServiceInfo(serviceInfo)) {
+                return;
+            }
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.SERVICE_FOUND,
                     new MdnsEvent(mClientId, mReqServiceInfo.getServiceType(), serviceInfo));
@@ -192,6 +208,10 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void onServiceNameRemoved(@NonNull MdnsServiceInfo serviceInfo) {
+            // Ignore the callback that is not required for client.
+            if (!isRequiredMdnsServiceInfo(serviceInfo)) {
+                return;
+            }
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.SERVICE_LOST,
                     new MdnsEvent(mClientId, mReqServiceInfo.getServiceType(), serviceInfo));
@@ -206,7 +226,11 @@ public class NsdService extends INsdManager.Stub {
         }
 
         @Override
-        public void onServiceFound(MdnsServiceInfo serviceInfo) {
+        public void onServiceFound(@NonNull MdnsServiceInfo serviceInfo) {
+            // Ignore the callback that is not required for client.
+            if (!isRequiredMdnsServiceInfo(serviceInfo)) {
+                return;
+            }
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.RESOLVE_SERVICE_SUCCEEDED,
                     new MdnsEvent(mClientId, mReqServiceInfo.getServiceType(), serviceInfo));

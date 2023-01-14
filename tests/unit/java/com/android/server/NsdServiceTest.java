@@ -655,7 +655,7 @@ public class NsdServiceTest {
         waitForIdle();
         verify(mDiscoveryManager).unregisterListener(eq(serviceTypeWithLocalDomain), any());
         verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStopped(SERVICE_TYPE);
-        verify(mSocketProvider, timeout(CLEANUP_DELAY_MS + TIMEOUT_MS)).stopMonitoringSockets();
+        verify(mSocketProvider, timeout(TIMEOUT_MS)).stopMonitoringSockets();
     }
 
     @Test
@@ -739,7 +739,113 @@ public class NsdServiceTest {
         // Verify the listener has been unregistered.
         verify(mDiscoveryManager, timeout(TIMEOUT_MS))
                 .unregisterListener(eq(constructedServiceType), any());
-        verify(mSocketProvider, timeout(CLEANUP_DELAY_MS + TIMEOUT_MS)).stopMonitoringSockets();
+        verify(mSocketProvider, timeout(TIMEOUT_MS)).stopMonitoringSockets();
+    }
+
+    public MdnsServiceInfo makeMdnsServiceInfo(
+            String serviceName, String serviceType, Network network) {
+        return new MdnsServiceInfo(
+                serviceName, /* serviceInstanceName */
+                serviceType.split("\\."), /* serviceType */
+                List.of(), /* subtypes */
+                new String[] {"android", "local"}, /* hostName */
+                0, /* port */
+                IPV4_ADDRESS,
+                IPV6_ADDRESS,
+                List.of(), /* textStrings */
+                List.of(), /* textEntries */
+                1234, /* interfaceIndex */
+                network);
+    }
+
+    @Test
+    public void testDiscovery_IgnoreCallbacks() {
+        makeServiceWithMdnsDiscoveryManagerEnabled();
+
+        final NsdManager client = connectClient(mService);
+        final DiscoveryListener discListener = mock(DiscoveryListener.class);
+        final Network network = new Network(999);
+        final String serviceTypeWithLocalDomain = SERVICE_TYPE + ".local";
+        final ArgumentCaptor<MdnsServiceBrowserListener> listenerCaptor =
+                ArgumentCaptor.forClass(MdnsServiceBrowserListener.class);
+        client.discoverServices(SERVICE_TYPE, PROTOCOL, network, r -> r.run(), discListener);
+        waitForIdle();
+        verify(mSocketProvider).startMonitoringSockets();
+        verify(mDiscoveryManager).registerListener(eq(serviceTypeWithLocalDomain),
+                listenerCaptor.capture(), argThat(options -> network.equals(options.getNetwork())));
+        verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStarted(SERVICE_TYPE);
+
+        final MdnsServiceBrowserListener listener = listenerCaptor.getValue();
+        // Make a MdnsServiceInfo with not required network.
+        final MdnsServiceInfo info1 = makeMdnsServiceInfo(
+                SERVICE_NAME, serviceTypeWithLocalDomain, new Network(1000));
+        // Verify onServiceNameDiscovered callback never be called.
+        listener.onServiceNameDiscovered(info1);
+        verify(discListener, never()).onServiceFound(any());
+        // Verify onServiceNameRemoved callback never be called.
+        listener.onServiceNameRemoved(info1);
+        verify(discListener, never()).onServiceLost(any());
+
+        // Make a MdnsServiceInfo with null network.
+        final MdnsServiceInfo info2 = makeMdnsServiceInfo(
+                SERVICE_NAME, serviceTypeWithLocalDomain, null);
+        // Verify onServiceNameDiscovered callback never be called.
+        listener.onServiceNameDiscovered(info2);
+        verify(discListener, never()).onServiceFound(any());
+        // Verify onServiceNameRemoved callback never be called.
+        listener.onServiceNameRemoved(info2);
+        verify(discListener, never()).onServiceLost(any());
+
+        // Make a MdnsServiceInfo with required network. The callbacks should be received.
+        final MdnsServiceInfo info3 = makeMdnsServiceInfo(
+                SERVICE_NAME, serviceTypeWithLocalDomain, network);
+        listener.onServiceNameDiscovered(info3);
+        verify(discListener, timeout(TIMEOUT_MS))
+                .onServiceFound(argThat(info -> info.getNetwork().equals(network)));
+        listener.onServiceNameRemoved(info3);
+        verify(discListener, timeout(TIMEOUT_MS))
+                .onServiceLost(argThat(info -> info.getNetwork().equals(network)));
+    }
+
+    @Test
+    public void testResolution_IgnoreCallbacks() {
+        makeServiceWithMdnsDiscoveryManagerEnabled();
+
+        final NsdManager client = connectClient(mService);
+        final ResolveListener resolveListener = mock(ResolveListener.class);
+        final Network network = new Network(999);
+        final String serviceType = "_nsd._service._tcp";
+        final String constructedServiceType = "_nsd._sub._service._tcp.local";
+        final ArgumentCaptor<MdnsServiceBrowserListener> listenerCaptor =
+                ArgumentCaptor.forClass(MdnsServiceBrowserListener.class);
+        final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, serviceType);
+        request.setNetwork(network);
+        client.resolveService(request, resolveListener);
+        waitForIdle();
+        verify(mSocketProvider).startMonitoringSockets();
+        verify(mDiscoveryManager).registerListener(eq(constructedServiceType),
+                listenerCaptor.capture(), argThat(options -> network.equals(options.getNetwork())));
+
+        final MdnsServiceBrowserListener listener = listenerCaptor.getValue();
+        // Make a MdnsServiceInfo with not required network.
+        final MdnsServiceInfo info1 = makeMdnsServiceInfo(
+                SERVICE_NAME, constructedServiceType, new Network(1000));
+        // Verify onServiceFound callback never be called.
+        listener.onServiceFound(info1);
+        verify(resolveListener, never()).onServiceResolved(any());
+        // Verify the listener is not unregistered.
+        verify(mDiscoveryManager, never()).unregisterListener(eq(SERVICE_TYPE), any());
+
+        // Make a MdnsServiceInfo with required network. The callbacks should be received.
+        final MdnsServiceInfo info2 = makeMdnsServiceInfo(
+                SERVICE_NAME, constructedServiceType, network);
+        listener.onServiceFound(info2);
+        verify(resolveListener, timeout(TIMEOUT_MS))
+                .onServiceResolved(argThat(info -> info.getNetwork().equals(network)));
+        // Verify the listener is unregistered after service is resolved.
+        verify(mDiscoveryManager, timeout(TIMEOUT_MS))
+                .unregisterListener(eq(constructedServiceType), any());
+        verify(mSocketProvider, timeout(TIMEOUT_MS)).stopMonitoringSockets();
     }
 
     private void waitForIdle() {
