@@ -135,6 +135,15 @@ public class NsdService extends INsdManager.Stub {
             return mReqServiceInfo.getServiceType();
         }
 
+        public boolean isRequiredMdnsServiceInfo(MdnsServiceInfo serviceInfo) {
+            final Network requestNetwork = mReqServiceInfo.getNetwork();
+            final Network responseNetwork = serviceInfo.getNetwork();
+            if (requestNetwork != null && !requestNetwork.equals(responseNetwork)) {
+                return false;
+            }
+            return true;
+        }
+
         @Override
         public void onServiceFound(MdnsServiceInfo serviceInfo) { }
 
@@ -171,12 +180,21 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void onServiceNameDiscovered(MdnsServiceInfo serviceInfo) {
+            // Ignore the callback that is not required for client.
+            if (!isRequiredMdnsServiceInfo(serviceInfo)) {
+                return;
+            }
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.SERVICE_FOUND, new MdnsEvent(mClientId, serviceInfo));
         }
 
         @Override
+
         public void onServiceNameRemoved(MdnsServiceInfo serviceInfo) {
+            // Ignore the callback that is not required for client.
+            if (!isRequiredMdnsServiceInfo(serviceInfo)) {
+                return;
+            }
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.SERVICE_LOST, new MdnsEvent(mClientId, serviceInfo));
         }
@@ -190,6 +208,10 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void onServiceFound(MdnsServiceInfo serviceInfo) {
+            // Ignore the callback that is not required for client.
+            if (!isRequiredMdnsServiceInfo(serviceInfo)) {
+                return;
+            }
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.RESOLVE_SERVICE_SUCCEEDED, new MdnsEvent(mClientId, serviceInfo));
         }
