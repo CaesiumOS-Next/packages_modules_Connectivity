@@ -498,6 +498,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a68d3807_871a4424",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 9693,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-14T10:55:04Z",
+      "side": 1,
+      "message": "This is called from ConnectivityManager.startNattKeepalive() which is not in the API surface and no caller from code search. If we do not modify the one one, there is no way to take this parameter. I think we do not need to modify the old one since it\u0027s marked as deprecated. I think it is simply because we do not have plan to update the old method and the one method is unable to take the parameter.\n\nI slightly update the comment. See if the reply and comment address your concern here.",
+      "parentUuid": "f1469440_7f575eaa",
+      "range": {
+        "startLine": 9693,
+        "startChar": 68,
+        "endLine": 9693,
+        "endChar": 69
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a0583d7d_d0cf25da",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 11

@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "317a853f_5ca6deb8",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-14T10:55:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8781d0a_26749cbf",
+      "range": {
+        "startLine": 54,
+        "startChar": 64,
+        "endLine": 54,
+        "endChar": 85
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c402256_cd3b82e8",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-13T04:40:19Z",
       "side": 1,
       "message": "and restart sending them as soon as any TCP connection is opened over the VPN network.",
+      "range": {
+        "startLine": 55,
+        "startChar": 60,
+        "endLine": 55,
+        "endChar": 97
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fa37658_b715845a",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-14T10:55:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c402256_cd3b82e8",
       "range": {
         "startLine": 55,
         "startChar": 60,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "afb3956b_9f27642b",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-14T10:55:04Z",
+      "side": 1,
+      "message": "Caller does not need to know the VPN network. NATTSocketKeepalive is not in the API surface. I think this doc explain what this will going to do if automatic keepalive is enabled. or this should not be documented here?\n\nThis is related to a follow up patch(aosp/2379728). When the design is ready in connectivity side, I think the next would switch to new API with automatic on/off enabled. It\u0027s called from IPSec module which is not decided by the process using IPSec. It means that it may be probably default enabled. However, iWLan may not want this to be enabled since they may care the UDP connections. This may probably enable for VPN only, but it could not be controlled by the user of IPSec. So I think it need to be control here. Otherwise, we may need other mechanism to let the user of IPSec to control wether they need to enable automatic keepalive. \n\nDo you have any sugguestion on this?",
+      "parentUuid": "4a19a96b_2d2cf2c8",
+      "range": {
+        "startLine": 56,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 25
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "727f9198_3537f8ea",
         "filename": "framework/src/android/net/NattSocketKeepalive.java",
         "patchSetId": 12
@@ -83,6 +155,30 @@
       "writtenOn": "2023-01-13T04:40:19Z",
       "side": 1,
       "message": "I think this is lacking a large amount of context here. `mPfd` is a protected member of the superclass and I don\u0027t think someone reading this comment is supposed to understand the entire dynamic around that fd (and it\u0027s very far from trivial, since it\u0027s duplicated and managed by this object).\n\nI think the comment should not rely on technical details that it doesn\u0027t explain. That means you can reword this in one of two ways :\n• Either you can explain everything about the lifecycle of `mPfd`\n• Or you can have a general explanation of what this *does* without mentioning `mPfd` at all\nI think the latter is likely preferable because it will be both easier to understand and much shorter.",
+      "range": {
+        "startLine": 58,
+        "startChar": 7,
+        "endLine": 58,
+        "endChar": 43
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8b8551e_26e5bc72",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-14T10:55:04Z",
+      "side": 1,
+      "message": "Update to mention only the socket fd. Is this what you mean here?",
+      "parentUuid": "727f9198_3537f8ea",
       "range": {
         "startLine": 58,
         "startChar": 7,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1fbf275_10112345",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-14T10:55:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91748dfc_afd55ed0",
+      "range": {
+        "startLine": 65,
+        "startChar": 66,
+        "endLine": 65,
+        "endChar": 74
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dff65e5e_f600810e",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51b692af_2e624873",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-14T10:55:04Z",
+      "side": 1,
+      "message": "Updated but the object should be the network that the keepalive is started on, not the network to check for open TCP sockets(this should be the VPN network I think?).",
+      "parentUuid": "dff65e5e_f600810e",
+      "range": {
+        "startLine": 490,
+        "startChar": 33,
+        "endLine": 490,
+        "endChar": 34
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "276e6af2_831e5eb8",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-01-13T04:40:19Z",
       "side": 1,
       "message": "This is exactly what I meant in my comment :\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2334604/11..12/service/src/com/android/server/connectivity/KeepaliveTracker.java#b457\n\nThis is fundamentally changing the semantics of mStopReason, which is now no longer latched, and becomes part of the state of the finite state automaton represented by this class. That means you are multiplying the complexity of this state machine by a large factor.\n\nSo, your new patchset does not address the comment ; I continue to think you have two options\n• Change the state machine in this file, and to comment very carefully what the new state machine looks like. Typically you will need to have handling of the entire state in all places that manage a state transition, and if some place doesn\u0027t need to look at part of the state, you\u0027ll need comments.\n• Do not change the state machine in this file, and handle the additional state elsewhere (e.g. in ConnectivityService).",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 459,
+        "endChar": 62
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "390fadba_8d3d5eb3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-14T10:55:04Z",
+      "side": 1,
+      "message": "ok, I think what we need here is a new KeepaliveInfo as a normal caller, then the flow will work the same as it is. No particular member of original design is reset now(The idea is similar here but I think it should be easily to understand(I hope)).\n\nDoes new patchset address the comment?",
+      "parentUuid": "276e6af2_831e5eb8",
       "range": {
         "startLine": 453,
         "startChar": 0,
