@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d9807c5_1dc0fe7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:08:42Z",
+      "side": 1,
+      "message": "Generally LGTM",
+      "revId": "da88ecd0dac828dc6e027c90c5bce73a82c38e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5478e07_c5e31041",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:08:42Z",
+      "side": 1,
+      "message": "Nit: this is only valid for \"discovered\" events, since only the name and type are in the returned info, so it\u0027s not for generic MdnsEvent.\n\nConsidering that I\u0027d name it something like \"buildServiceInfoFromDiscoveredEvent\" or similar (in particular this should not be used in the \"resolved\" event)",
+      "range": {
+        "startLine": 789,
+        "startChar": 35,
+        "endLine": 789,
+        "endChar": 67
+      },
+      "revId": "da88ecd0dac828dc6e027c90c5bce73a82c38e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9387308_b535a7ed",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:08:42Z",
+      "side": 1,
+      "message": "This should not replace \".local\" if it\u0027s in the middle, only if at the end. It may not be a valid type in that case (doesn\u0027t start with an underscore), but this is not an obvious restriction.\n\nMaybe (serviceType.endsWith(\".local\")\n    ? serviceType.substring(0, serviceType.length - 6)\n    : serviceType)",
+      "range": {
+        "startLine": 794,
+        "startChar": 68,
+        "endLine": 794,
+        "endChar": 75
+      },
+      "revId": "da88ecd0dac828dc6e027c90c5bce73a82c38e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28766a3c_cb08e3c2",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:08:42Z",
+      "side": 1,
+      "message": "This is marked @Nullable, so there should be a null check (although I *think* it\u0027s not supposed to happen when using MdnsMultinetworkSocketClient ? You could Log.wtf in that case)",
+      "range": {
+        "startLine": 796,
+        "startChar": 46,
+        "endLine": 796,
+        "endChar": 56
+      },
+      "revId": "da88ecd0dac828dc6e027c90c5bce73a82c38e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
