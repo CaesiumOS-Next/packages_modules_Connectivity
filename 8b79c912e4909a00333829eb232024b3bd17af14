@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc7a13f9_246a9898",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T14:03:22Z",
+      "side": 1,
+      "message": "Removed. This CL has been around for a long time and this referred to changes like cleaning up mentions of Cronet.",
+      "parentUuid": "388a7be6_29af6b45",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f070cfb_dc03d037",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6efdc2d3_4b44ecbf",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T14:03:22Z",
+      "side": 1,
+      "message": "You\u0027re right, this is the safer option. Flipped it to disabled which will temporarily break using Cronet from the platform at head in runtime but that shouldn\u0027t be a big issue as long as another CL follows suit to include the .so again.",
+      "parentUuid": "1f070cfb_dc03d037",
+      "range": {
+        "startLine": 57,
+        "startChar": 24,
+        "endLine": 57,
+        "endChar": 50
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "710cea97_a77ba6ca",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-16T12:28:21Z",
       "side": 1,
       "message": "Instead of _ here, maybe something more readable? Could these be CronetInTetheringApexDefaults and CronetInTetheringApexDefaultsEnabled or something?",
+      "range": {
+        "startLine": 63,
+        "startChar": 29,
+        "endLine": 63,
+        "endChar": 30
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b9434a2_cbf581ce",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T14:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "710cea97_a77ba6ca",
       "range": {
         "startLine": 63,
         "startChar": 29,
@@ -106,6 +178,30 @@
       "writtenOn": "2023-01-16T12:28:21Z",
       "side": 1,
       "message": "I notice that gerrit does not require API review for this file, though it should. Is this because it\u0027s in cronet_enabled/current.txt? Perhaps it should be in cronet_enabled/api/current.txt?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 24
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa00c715_559a1b8d",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/current.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T14:03:22Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c791c078_a2a1787b",
       "range": {
         "startLine": 1,
         "startChar": 0,

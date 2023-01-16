@@ -22,6 +22,30 @@
       },
       "revId": "dd2d8e148d9b3584d63b4319e2fef561b58a3737",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6f9749d_1af9b632",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T14:03:22Z",
+      "side": 1,
+      "message": "Let\u0027s leave this to \"fix the linter warnings\" step.",
+      "parentUuid": "610b89ab_9698466d",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 85
+      },
+      "revId": "dd2d8e148d9b3584d63b4319e2fef561b58a3737",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -589,6 +589,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b248e366_3c16ff46",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T14:03:22Z",
+      "side": 1,
+      "message": "Resolving.",
+      "parentUuid": "d321d861_48ee5ea5",
+      "range": {
+        "startLine": 156,
+        "startChar": 34,
+        "endLine": 156,
+        "endChar": 61
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3f38514_3eb9f021",
@@ -673,6 +697,30 @@
       "side": 1,
       "message": "Turns out I was wrong - this can only return an item from a fixed set of values: https://source.chromium.org/chromium/chromium/src/+/main:net/http/http_response_info.cc;l\u003d569\n\nThe actual reason this is a string is, AFAICT, the possibility of extending the set of returnable values (which may change with QUICHE rolls) without the need to modify the API.",
       "parentUuid": "1091f15d_81cf8c7a",
+      "range": {
+        "startLine": 194,
+        "startChar": 34,
+        "endLine": 194,
+        "endChar": 55
+      },
+      "revId": "c4a44cb03ea2e3611a1b1c34385892bf0eec66f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d4b4727_cef39971",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T14:03:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "96d61300_2a111798",
       "range": {
         "startLine": 194,
         "startChar": 34,
