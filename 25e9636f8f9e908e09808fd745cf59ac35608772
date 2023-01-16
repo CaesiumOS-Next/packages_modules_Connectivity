@@ -67,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1456ea74_7bec440e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T16:31:01Z",
+      "side": 1,
+      "message": "The latest design doesn\u0027t hold multicast locks now.",
+      "parentUuid": "55da2941_4b47fb4b",
+      "revId": "25e9636f8f9e908e09808fd745cf59ac35608772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12f9d0d5_bba11159",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 4

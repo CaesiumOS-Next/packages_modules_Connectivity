@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "535b258d_4562d576",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T16:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e0140a3_d931c996",
+      "revId": "34a35dea246ea3a1ba37a65b54123a66405239b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9dbc851_cc103963",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-16T02:06:13Z",
       "side": 1,
       "message": "Nit: don\u0027t necessarily need a variable, can just use mMdnsDiscoveryManager !\u003d null (this would avoid possible inconsistent state like mMdnsDiscoveryManager non-null and this false)",
+      "revId": "34a35dea246ea3a1ba37a65b54123a66405239b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db5e070a_cbb5dd4b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T16:31:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a9dbc851_cc103963",
       "revId": "34a35dea246ea3a1ba37a65b54123a66405239b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b59d6f65_b9f8a3a9",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T16:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfd60e6b_c132cad9",
+      "revId": "34a35dea246ea3a1ba37a65b54123a66405239b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc3b2232_c1deca84",
@@ -65,6 +119,30 @@
       "writtenOn": "2023-01-16T02:06:13Z",
       "side": 1,
       "message": "Nit: mdns_discovery_manager_version, since the value is going to be a version code",
+      "range": {
+        "startLine": 703,
+        "startChar": 20,
+        "endLine": 703,
+        "endChar": 42
+      },
+      "revId": "34a35dea246ea3a1ba37a65b54123a66405239b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d52777f8_b3a2e311",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T16:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc3b2232_c1deca84",
       "range": {
         "startLine": 703,
         "startChar": 20,
