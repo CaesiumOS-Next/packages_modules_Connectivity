@@ -1177,6 +1177,20 @@ cc_library_static {
             local_include_dirs: [
                 "third_party/android_ndk/sources/android/cpufeatures/",
             ],
+            generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers",
+                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_debugging_buildflags",
+                "cronet_aml_base_logging_buildflags",
+                "cronet_aml_build_chromeos_buildflags",
+            ],
+            export_generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers",
+                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_debugging_buildflags",
+                "cronet_aml_base_logging_buildflags",
+                "cronet_aml_build_chromeos_buildflags",
+            ],
         },
         android_arm64: {
             srcs: [
@@ -1261,6 +1275,20 @@ cc_library_static {
             ],
             local_include_dirs: [
                 "third_party/android_ndk/sources/android/cpufeatures/",
+            ],
+            generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers",
+                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_debugging_buildflags",
+                "cronet_aml_base_logging_buildflags",
+                "cronet_aml_build_chromeos_buildflags",
+            ],
+            export_generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers",
+                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_debugging_buildflags",
+                "cronet_aml_base_logging_buildflags",
+                "cronet_aml_build_chromeos_buildflags",
             ],
         },
         android_x86: {
@@ -1348,6 +1376,20 @@ cc_library_static {
             local_include_dirs: [
                 "third_party/android_ndk/sources/android/cpufeatures/",
             ],
+            generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers",
+                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_debugging_buildflags",
+                "cronet_aml_base_logging_buildflags",
+                "cronet_aml_build_chromeos_buildflags",
+            ],
+            export_generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers",
+                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_debugging_buildflags",
+                "cronet_aml_base_logging_buildflags",
+                "cronet_aml_build_chromeos_buildflags",
+            ],
         },
         android_x86_64: {
             srcs: [
@@ -1433,6 +1475,20 @@ cc_library_static {
             ],
             local_include_dirs: [
                 "third_party/android_ndk/sources/android/cpufeatures/",
+            ],
+            generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers",
+                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_debugging_buildflags",
+                "cronet_aml_base_logging_buildflags",
+                "cronet_aml_build_chromeos_buildflags",
+            ],
+            export_generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers",
+                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_debugging_buildflags",
+                "cronet_aml_base_logging_buildflags",
+                "cronet_aml_build_chromeos_buildflags",
             ],
         },
         host: {
@@ -5867,6 +5923,14 @@ cc_library_static {
             local_include_dirs: [
                 "build/linux/debian_bullseye_amd64-sysroot/usr/include/nspr",
                 "build/linux/debian_bullseye_amd64-sysroot/usr/include/nss",
+            ],
+            generated_headers: [
+                "cronet_aml_build_chromeos_buildflags",
+                "cronet_aml_components_nacl_common_buildflags",
+            ],
+            export_generated_headers: [
+                "cronet_aml_build_chromeos_buildflags",
+                "cronet_aml_components_nacl_common_buildflags",
             ],
         },
     },
