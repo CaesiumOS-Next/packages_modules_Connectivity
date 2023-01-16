@@ -29,6 +29,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_DUN;
 import static android.net.ConnectivityManager.TYPE_WIFI;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
@@ -2685,6 +2686,18 @@ public class TetheringTest {
         mTetheringEventCallback.expectUpstreamChanged(upstreamState.network);
         verify(mNotificationUpdater)
                 .onUpstreamCapabilitiesChanged(upstreamState.networkCapabilities);
+
+        // Set the same upstream with different capability.
+        // Bug: duplicated upstream change event because network ID is not changed.
+        final UpstreamNetworkState upstreamState2 = buildMobileIPv4UpstreamState();
+        // Expect that capability is changed.
+        assertFalse(upstreamState.networkCapabilities.hasCapability(NET_CAPABILITY_VALIDATED));
+        upstreamState2.networkCapabilities.addCapability(NET_CAPABILITY_VALIDATED);
+        initTetheringUpstream(upstreamState2);
+        stateMachine.chooseUpstreamType(true);
+        mTetheringEventCallback.expectUpstreamChanged(upstreamState2.network);
+        verify(mNotificationUpdater)
+                .onUpstreamCapabilitiesChanged(upstreamState2.networkCapabilities);
 
         // Lose upstream.
         initTetheringUpstream(null);
