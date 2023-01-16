@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7b9a696_bd7193e1",
+        "filename": "service-t/src/com/android/server/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T13:41:15Z",
+      "side": 1,
+      "message": "Duplicated check with l.199?",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 13
+      },
+      "revId": "93336fc969009726a2b69c4a50672eb00804d615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb7df6dc_23536024",
+        "filename": "service-t/src/com/android/server/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T13:41:15Z",
+      "side": 1,
+      "message": "IIUC the old code doesn\u0027t add question record. I think we should keep the same design here. See l.146.",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 45
+      },
+      "revId": "93336fc969009726a2b69c4a50672eb00804d615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
