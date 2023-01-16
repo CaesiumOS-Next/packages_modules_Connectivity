@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "047c999e_a06164ec",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/util/TestStatusListener.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-16T14:43:09Z",
+      "side": 1,
+      "message": "nit: maybe just \"status\". onX sounds like a callback method rather than a class member.",
+      "range": {
+        "startLine": 29,
+        "startChar": 16,
+        "endLine": 29,
+        "endChar": 18
+      },
+      "revId": "cd419cf004379e9608e81e4402e01f04432eb0ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
