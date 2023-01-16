@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54570dfb_8091df41",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:21:06Z",
+      "side": 1,
+      "message": "Problem: if an app does discover, stop discover, resolve, at this point the DiscoveryListener was unregistered, so the MdnsServiceTypeClient was deleted, and the service is gone from cache. So this will actually restart discovery without returning previous results from cache.\n\nI think this needs to be considered together with my previous comment in https://r.android.com/c/platform/packages/modules/Connectivity/+/2278027/12..14/service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java#b163, and maybe also b/264634275 (\"registerListener should wait for a socket to be created before sending packets\").\n\nMaybe instanceNameToResponse should be moved out of MdnsServiceTypeClient into its own class (MdnsServiceCache ?). The cache could be queried with something like `List\u003cMdnsResponse\u003e getCachedServices(@NonNull String serviceType, @NonNull Network network)` and `MdnsResponse getCachedService(@NonNull String serviceName, @NonNull String serviceType, @NonNull Network network)`; and it would be kept even when MdnsServiceTypeClient is unregistered. MdnsServiceCache would also take care of removing entries (and sending notifications) when services expire.\n\nIn that case maybe MdnsServiceTypeClient wouldn\u0027t need to be per-Network, if the \"cancel previous task\" bug in startSendAndReceive is fixed.\n\nCan you file a bug for that ?",
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba2c2916_458923ea",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:21:06Z",
+      "side": 1,
+      "message": "Nit: aligns with historical behavior (since it will always be current behavior once merged)",
+      "range": {
+        "startLine": 856,
+        "startChar": 76,
+        "endLine": 856,
+        "endChar": 83
+      },
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0e036b0_a9684966",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:21:06Z",
+      "side": 1,
+      "message": "Can you add a comment to explain behavior here ? Why is null and empty string ignored ?",
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2addacab_db1638ca",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:21:06Z",
+      "side": 1,
+      "message": "InetAddresses.parseNumericAddress (getByName can do DNS resolution)",
+      "range": {
+        "startLine": 870,
+        "startChar": 45,
+        "endLine": 870,
+        "endChar": 66
+      },
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5900d40f_32500fcf",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:21:06Z",
+      "side": 1,
+      "message": "IllegalArgumentException for parseNumericAddress",
+      "range": {
+        "startLine": 875,
+        "startChar": 33,
+        "endLine": 875,
+        "endChar": 53
+      },
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dec6804_61019a95",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:21:06Z",
+      "side": 1,
+      "message": "Nit: should also check there is no other attribute",
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29d9e796_085ec729",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:21:06Z",
+      "side": 1,
+      "message": "InetAddresses.parseNumericAddress",
+      "range": {
+        "startLine": 698,
+        "startChar": 21,
+        "endLine": 698,
+        "endChar": 42
+      },
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cade073b_b5799786",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:21:06Z",
+      "side": 1,
+      "message": "Technically onServiceResolved is called before unregisterListener, so this should probably use timeout(TIMEOUT_MS) as it\u0027s not guaranteed that it\u0027s been called already",
+      "range": {
+        "startLine": 702,
+        "startChar": 34,
+        "endLine": 702,
+        "endChar": 52
+      },
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
