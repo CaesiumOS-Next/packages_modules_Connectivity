@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8449a330_ca30c1d3",
+        "filename": "service-t/src/com/android/server/mdns/MdnsNsecRecord.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T10:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46c396eb_4e6066f7",
+      "range": {
+        "startLine": 147,
+        "startChar": 38,
+        "endLine": 147,
+        "endChar": 66
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "330fcd61_0cc252b7",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-16T04:32:40Z",
       "side": 1,
       "message": "Question: Should we make a new annoucement for new addressess?",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 5
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7530e7a_7098f351",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T10:22:45Z",
+      "side": 1,
+      "message": "Yes, there\u0027s actually a TODO in MdnsInterfaceAdvertiser#updateAddresses \"restart advertising, but figure out what exit messages need to be sent for the previous addresses\"",
+      "parentUuid": "330fcd61_0cc252b7",
       "range": {
         "startLine": 260,
         "startChar": 4,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c38169_8d6fcd1d",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T10:22:45Z",
+      "side": 1,
+      "message": "Discussed in chat; added comment in javadoc to explain that this method groups the records by name, and the lists have different records that share the name.",
+      "parentUuid": "4800d2ed_2aa30da3",
+      "range": {
+        "startLine": 441,
+        "startChar": 12,
+        "endLine": 441,
+        "endChar": 46
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80e4cf62_f388ff36",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-01-16T04:32:40Z",
       "side": 1,
       "message": "Nit: Maybe make this method to be public then `MdnsTestUtls.getReverseV6AddressName` is unnecessary.",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 501,
+        "endChar": 11
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdffde7b_569fabde",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T10:22:45Z",
+      "side": 1,
+      "message": "Done - also added a test, as MdnsTestUtils.getReverseV6AddressName was useful to verify that it output the right values (which wouldn\u0027t be checked anymore if the same method is used in code and test).",
+      "parentUuid": "80e4cf62_f388ff36",
       "range": {
         "startLine": 501,
         "startChar": 4,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a01139fc_f442598b",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T10:22:45Z",
+      "side": 1,
+      "message": "toArray() returns Object[], which can\u0027t be cast to String[].\n\nActually out.toArray(new String[0]) is more simple so changed to that. On desktop JVM it\u0027s even significantly faster, but on Android (ART) it doesn\u0027t actually make a difference (b/183484607).",
+      "parentUuid": "a16a7952_ebc58251",
+      "range": {
+        "startLine": 522,
+        "startChar": 15,
+        "endLine": 522,
+        "endChar": 34
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d71ee55_71feaa69",
@@ -156,6 +276,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f483bacc_a6ca6d7f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T10:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d71ee55_71feaa69",
+      "range": {
+        "startLine": 160,
+        "startChar": 24,
+        "endLine": 160,
+        "endChar": 74
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9771cbd6_8773c926",
@@ -169,6 +313,30 @@
       "writtenOn": "2023-01-16T04:32:40Z",
       "side": 1,
       "message": "Nit: As I commented on , this is similar with `MdnsRecordRepository.getReverseDnsAddress()` but this method can use on V6 address only.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96d12ef8_6685cf05",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsTestUtils.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T10:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9771cbd6_8773c926",
       "range": {
         "startLine": 27,
         "startChar": 4,
