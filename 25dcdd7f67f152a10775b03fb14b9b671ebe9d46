@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0056b3fc_d9f543d3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 10426,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T07:24:38Z",
+      "side": 1,
+      "message": "That\u0027s because you didn\u0027t wait for LinkProperties, I think. You should :\n• wifiCallback.expectAvailableCallbacksDoubleValidated (or some variant of expectAvailableCallbacks*)\n• THEN wifiCallback.expect(LINK_PROPERTIES_CHANGED, mWifiNetworkAgent)\n\nThe problem here is that if you only expect AVAILABLE, you\u0027re unblocking immediately after the `connect` event has gone through, but not for link properties. If you said `eventuallyExpect(LINK_PROPERTIES_CHANGED...`, then you matched the first one, so you also unblock before the change is effective.",
+      "parentUuid": "3fcfbca4_5cafcced",
+      "range": {
+        "startLine": 10426,
+        "startChar": 8,
+        "endLine": 10426,
+        "endChar": 19
+      },
+      "revId": "25dcdd7f67f152a10775b03fb14b9b671ebe9d46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32067680_1c532d06",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 7
