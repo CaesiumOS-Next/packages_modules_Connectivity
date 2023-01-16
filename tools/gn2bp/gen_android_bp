@@ -63,6 +63,7 @@ DEFAULT_TEST_SRCS = {
   "testing/android/native_test/java/src/org/chromium/native_test/NativeUnitTestNativeActivity.java",
   "testing/android/reporter/java/src/org/chromium/test/reporter/TestStatusReporter.java",
   "base/test/android/javatests/src/org/chromium/base/test/util/UrlUtils.java",
+  "base/test/android/java/src/org/chromium/base/multidex/ChromiumMultiDexInstaller.java",
 }
 
 # Defines a custom init_rc argument to be applied to the corresponding output
@@ -420,6 +421,8 @@ class Module(object):
     self.license_kinds = set()
     self.license_text = set()
     self.default_applicable_licenses = set()
+    self.manifest = ""
+    self.jni_libs = set()
 
   def to_string(self, output):
     if self.comment:
@@ -479,6 +482,8 @@ class Module(object):
     self._output_field(output, 'license_kinds')
     self._output_field(output, 'license_text')
     self._output_field(output, 'default_applicable_licenses')
+    self._output_field(output, 'manifest')
+    self._output_field(output, 'jni_libs')
     if self.rtti:
       self._output_field(output, 'rtti')
 
@@ -1594,6 +1599,22 @@ def get_api_java_sources(gn):
 def get_api_java_actions(gn):
   return get_java_actions(gn, lambda name: name == java_api_target_name)
 
+def create_test_helper_module(blueprint, gn):
+  bp_module_name = module_prefix + "tester_app"
+  module = Module('android_test_helper_app', bp_module_name, '')
+  module.srcs.update(DEFAULT_TEST_SRCS)
+  module.stem = "cronet_tester_app"
+  module.manifest = 'test_runner/AndroidManifest.xml'
+  # It's fine to depend on androidx core here as those tests are never shipped to user.
+  module.static_libs.update({
+    "android-support-multidex",
+    "androidx.annotation_annotation",
+    "junit",
+  })
+  module.jni_libs = [label_to_module_name(test_target) for test_target in DEFAULT_TESTS]
+  blueprint.add_module(module)
+  return module
+
 def create_java_module(blueprint, gn):
   bp_module_name = module_prefix + 'java'
   module = Module('java_library', bp_module_name, '//gn:java')
@@ -1607,7 +1628,6 @@ def create_java_module(blueprint, gn):
     "framework-tethering.stubs.module_lib",
     "framework-wifi.stubs.module_lib",
     "framework-mediaprovider.stubs.module_lib",
-    "junit", # Needed to compile android test sources.
   }
   module.static_libs = {
     "modules-utils-build_system",
@@ -1714,6 +1734,8 @@ def create_blueprint_for_targets(gn, targets):
   java_api_module = create_java_api_module(blueprint, gn)
   java_module = create_java_module(blueprint, gn)
   java_module.libs.add(java_api_module.name)
+  test_helper_module = create_test_helper_module(blueprint, gn)
+  test_helper_module.static_libs.add(java_module.name)
   for module in blueprint.modules.values():
     if 'cronet_jni_registration' in module.name:
       update_jni_registration_module(module, gn)
