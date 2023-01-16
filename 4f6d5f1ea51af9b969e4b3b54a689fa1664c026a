@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e5f8d1d_e6631c38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T04:32:40Z",
+      "side": 1,
+      "message": "LGTM but have some questions and nit. You can address them in the follow up commit.",
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46c396eb_4e6066f7",
+        "filename": "service-t/src/com/android/server/mdns/MdnsNsecRecord.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T04:32:40Z",
+      "side": 1,
+      "message": "Nit: Using `TextUtils.join(\".\", mNextDomain)` should be more readable.\n\n[nextdomain, android, com] vs nextdomain.android.com",
+      "range": {
+        "startLine": 147,
+        "startChar": 38,
+        "endLine": 147,
+        "endChar": 66
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "330fcd61_0cc252b7",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T04:32:40Z",
+      "side": 1,
+      "message": "Question: Should we make a new annoucement for new addressess?",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 5
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4800d2ed_2aa30da3",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T04:32:40Z",
+      "side": 1,
+      "message": "Question: Not quite sure the usage for the key mapping case. If the key is mapped, the list should contain the record. Why do we need to add the record again?",
+      "range": {
+        "startLine": 441,
+        "startChar": 12,
+        "endLine": 441,
+        "endChar": 46
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e4cf62_f388ff36",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T04:32:40Z",
+      "side": 1,
+      "message": "Nit: Maybe make this method to be public then `MdnsTestUtls.getReverseV6AddressName` is unnecessary.",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 501,
+        "endChar": 11
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a16a7952_ebc58251",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T04:32:40Z",
+      "side": 1,
+      "message": "Nit: outArr has same size of out, so the result of `out.toArray(outArr)` should be same as `out.toArray()`. Is there a reason to use `out.toArray(outArr)`?",
+      "range": {
+        "startLine": 522,
+        "startChar": 15,
+        "endLine": 522,
+        "endChar": 34
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d71ee55_71feaa69",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T04:32:40Z",
+      "side": 1,
+      "message": "Nit: If `MdnsRecordRepository.getReverseDnsAddress()` is public, we can use that method to get v4 reverse address instead of hard code here.",
+      "range": {
+        "startLine": 160,
+        "startChar": 24,
+        "endLine": 160,
+        "endChar": 74
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9771cbd6_8773c926",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsTestUtils.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T04:32:40Z",
+      "side": 1,
+      "message": "Nit: As I commented on , this is similar with `MdnsRecordRepository.getReverseDnsAddress()` but this method can use on V6 address only.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "4f6d5f1ea51af9b969e4b3b54a689fa1664c026a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
