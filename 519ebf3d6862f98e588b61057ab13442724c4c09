@@ -328,6 +328,30 @@
       },
       "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93fe9f41_ecdfcb5c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T01:34:52Z",
+      "side": 1,
+      "message": "No, it does not. Let me try and clarify : as long as you have any code like `if (mStopReason !\u003d TEMP_DISABLED \u0026\u0026 ...` in this file, the comment will not be addressed.\n\nThe problem fundamentally is that you are making `mStopReason` part of the state of the automaton and therefore multiplying the complexity of the transitions by the number of possible values it has. An example of one thing that I find unmanageable complexity is the fact that the fd is closed or not depending on what the stop reason was when it stopped. The concrete problem is that the lifecycle of this member, which used to be very clear according to the state transition diagram, is now horribly hard to grasp ; we\u0027ll be fixing bugs for months adding and removing conditions in the transition code depending on the value of the stop reason.",
+      "parentUuid": "390fadba_8d3d5eb3",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 459,
+        "endChar": 62
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
