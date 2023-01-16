@@ -411,6 +411,7 @@ class Module(object):
     self.processor_class = None
     self.sdk_version = None
     self.javacflags = set()
+    self.ldflags = set()
 
   def to_string(self, output):
     if self.comment:
@@ -466,6 +467,7 @@ class Module(object):
     self._output_field(output, 'processor_class')
     self._output_field(output, 'sdk_version')
     self._output_field(output, 'javacflags')
+    self._output_field(output, 'ldflags')
     if self.rtti:
       self._output_field(output, 'rtti')
 
@@ -1284,6 +1286,9 @@ def _get_cflags(cflags, defines):
   cflags |= set("-D%s" % define.replace("\"", "\\\"") for define in defines)
   return cflags
 
+def _set_module_ldflags(module, ldflags):
+  module.ldflags = {flag for flag in ldflags if flag.startswith("-Wl,-wrap,")}
+
 def set_module_flags(module, cflags, defines):
   module.cflags.update(_get_cflags(cflags, defines))
   # TODO: implement proper cflag parsing.
@@ -1377,6 +1382,9 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
   module.rtti = target.rtti
 
   if target.type in gn_utils.LINKER_UNIT_TYPES:
+    if module.type != 'cc_object':
+      # cc_objects are only compiled and not linked so they cant have linker flags.
+      _set_module_ldflags(module, target.ldflags)
     set_module_flags(module, target.cflags, target.defines)
     set_module_include_dirs(module, target.cflags, target.include_dirs)
     # TODO: set_module_xxx is confusing, apply similar function to module and target in better way.
