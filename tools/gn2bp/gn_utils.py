@@ -46,12 +46,24 @@ ODR_VIOLATION_IGNORE_TARGETS = {
 }
 ARCH_REGEX = r'(android_x86_64|android_x86|android_arm|android_arm64|host)'
 RESPONSE_FILE = '{{response_file_name}}'
-
+AIDL_INCLUDE_DIRS_REGEX = r'--includes=\[(.*)\]'
 def repo_root():
   """Returns an absolute path to the repository root."""
   return os.path.join(
       os.path.realpath(os.path.dirname(__file__)), os.path.pardir)
 
+
+def _clean_string(str):
+  return str.replace('\\', '').replace('../../', '').replace('"', '').strip()
+
+
+def _extract_includes_from_aidl_args(args):
+  for arg in args:
+    is_match = re.match(AIDL_INCLUDE_DIRS_REGEX, arg)
+    if is_match:
+      local_includes = is_match.group(1).split(",")
+      return [_clean_string(local_include) for local_include in local_includes]
+  return []
 
 def label_to_path(label):
   """Turn a GN output label (e.g., //some_dir/file.cc) into a path."""
@@ -263,6 +275,7 @@ class GnParser(object):
     self.actions = {}
     self.proto_libs = {}
     self.java_sources = collections.defaultdict(set)
+    self.aidl_local_include_dirs = set()
     self.java_actions = collections.defaultdict(set)
 
   def _get_response_file_contents(self, action_desc):
@@ -457,11 +470,12 @@ class GnParser(object):
             # We only need a specific set of java sources which are hardcoded in gen_android_bp
             self.java_sources[java_group_name].update(java_srcs)
       if dep.type in ["action"] and target.type == "java_group":
-        # //base:base_java_aidl generates srcjar from .aidl files. But java_library in soong can
-        # directly have .aidl files in srcs. So adding .aidl files to the java_sources.
+        # GN uses an action to compile aidl files. However, this is not needed in soong
+        # as soong can directly have .aidl files in srcs. So adding .aidl files to the java_sources.
         # TODO: Find a better way/place to do this.
-        if dep.name == '//base:base_java_aidl':
+        if dep.name.endswith('_aidl'):
           self.java_sources[java_group_name].update(dep.arch[arch].sources)
+          self.aidl_local_include_dirs.update(_extract_includes_from_aidl_args(dep.arch[arch].args))
         else:
           self.java_actions[java_group_name].add(dep.name)
     return target
