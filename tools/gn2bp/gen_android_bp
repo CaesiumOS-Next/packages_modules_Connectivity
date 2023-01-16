@@ -1555,6 +1555,7 @@ def create_java_module(blueprint, gn):
     "framework-tethering.stubs.module_lib",
     "framework-wifi.stubs.module_lib",
     "framework-mediaprovider.stubs.module_lib",
+    "junit", # Needed to compile android test sources.
   }
   module.static_libs = {
     "modules-utils-build_system",
