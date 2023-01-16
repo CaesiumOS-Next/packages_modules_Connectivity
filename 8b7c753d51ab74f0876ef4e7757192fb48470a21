@@ -1,0 +1,320 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62d85acd_1ceccd6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "I continue to find this really difficult to follow. In particular the lifecycle of the automatic keepalive is really not clear.\n\nIIUC, the general architecture here is that you want to have the AutomaticOnOffKeepalive object as something higher-level that manages the lifecycle of the underlying KeepaliveInfo. In principle I think this is a pretty good idea, but the way it\u0027s implemented in the latest patchset makes it really hard to understand.\n\nOne thing you could do is extract the AutomaticOnOffKeepalive class as a separate class, which would have methods to manage its own lifecycle. It would own a KI, it would know if automatic is on or off for that KI, if off it would behave like before, and if on, it would turn on the alarm as it starts and turn off the alarm as it stops, and then you have the temp stop event completely separate at the level above KeepaliveInfo, and you would need essentially no changes at all in KeepaliveInfo (you would no longer have the TEMP_DISABLED reason, because it would be a the upper level). I think it\u0027s probably not too hard to get there from what you have here.",
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bd9369f_9cecd5db",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 5512,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "Can you please update this comment to reflect our previous discussion ?",
+      "range": {
+        "startLine": 5512,
+        "startChar": 19,
+        "endLine": 5512,
+        "endChar": 72
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfb15e29_cf6b4375",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 11
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8ef4ef0_c8490543",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "turned",
+      "range": {
+        "startLine": 178,
+        "startChar": 63,
+        "endLine": 178,
+        "endChar": 71
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a97c99a_b26283c5",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "static",
+      "range": {
+        "startLine": 180,
+        "startChar": 12,
+        "endLine": 180,
+        "endChar": 17
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "187cb7b4_aa3b59cb",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "double space",
+      "range": {
+        "startLine": 187,
+        "startChar": 76,
+        "endLine": 187,
+        "endChar": 78
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fed0b0cd_4a29a93f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "Let\u0027s say `Objects.requireNonNull` here and in l.189",
+      "range": {
+        "startLine": 191,
+        "startChar": 22,
+        "endLine": 191,
+        "endChar": 24
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf8cd542_1d5d6c28",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "Is this duped with the presence of a AutomaticOnOffKeepalive object ? If it\u0027s the same, you could remove this boolean and always lookup in the list of automatic keepalives",
+      "range": {
+        "startLine": 264,
+        "startChar": 30,
+        "endLine": 264,
+        "endChar": 45
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86252439_6a2f328e",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "It would be a bit simpler if you had a helper method in AutomaticOnOffKeepalive for this",
+      "range": {
+        "startLine": 592,
+        "startChar": 43,
+        "endLine": 592,
+        "endChar": 45
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e762598f_11ea1eb3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "...and you\u0027d reuse that method here",
+      "range": {
+        "startLine": 599,
+        "startChar": 16,
+        "endLine": 599,
+        "endChar": 61
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c80696a3_c35b0266",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "You should have a comment to say when this happens. I can think of at least one case : the keepalive can be removed by the app, and the alarm can fire at the same time, so it\u0027s technically possible that this is called after it\u0027s removed. Are there other cases ?",
+      "range": {
+        "startLine": 818,
+        "startChar": 8,
+        "endLine": 818,
+        "endChar": 34
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50dae961_b7777e60",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "impossible",
+      "range": {
+        "startLine": 821,
+        "startChar": 8,
+        "endLine": 821,
+        "endChar": 31
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9db822d_1e417dc5",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "So what if it\u0027s STARTING or STOPPING ?\n\nAt the very least you need a comment to explain that to future maintainers. But for what it\u0027s worth I think it\u0027s really dangerous to just say that this is wrong but will be fixed in 2 seconds when the next alarm fires, because in the next 2 seconds any number of events can happen. If the state left here is inconsistent, then these events won\u0027t work as expected.",
+      "range": {
+        "startLine": 832,
+        "startChar": 12,
+        "endLine": 832,
+        "endChar": 60
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d505a57_b0eb7fa2",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T05:54:39Z",
+      "side": 1,
+      "message": "This must never happen, since `ki` is @NonNull",
+      "range": {
+        "startLine": 875,
+        "startChar": 25,
+        "endLine": 875,
+        "endChar": 45
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
