@@ -49,6 +49,22 @@ DEFAULT_TESTS = [
   '//components/cronet/android:cronet_unittests_android__library',
 ]
 
+DEFAULT_TEST_SRCS = {
+  # Those srcs are not reachable through the default test targets without weird hacks and hoops.
+  # So it's better to hardcoding them here.
+  "build/android/gtest_apk/java/src/org/chromium/build/gtest_apk/NativeTestInstrumentationTestRunner.java",
+  "build/android/gtest_apk/java/src/org/chromium/build/gtest_apk/NativeTestIntent.java",
+  "build/android/gtest_apk/java/src/org/chromium/build/gtest_apk/TestStatusIntent.java",
+  "build/android/gtest_apk/java/src/org/chromium/build/gtest_apk/TestStatusReceiver.java",
+  "testing/android/native_test/java/src/org/chromium/native_test/NativeTest.java",
+  "testing/android/native_test/java/src/org/chromium/native_test/NativeTestApplication.java",
+  "testing/android/native_test/java/src/org/chromium/native_test/NativeUnitTest.java",
+  "testing/android/native_test/java/src/org/chromium/native_test/NativeUnitTestActivity.java",
+  "testing/android/native_test/java/src/org/chromium/native_test/NativeUnitTestNativeActivity.java",
+  "testing/android/reporter/java/src/org/chromium/test/reporter/TestStatusReporter.java",
+  "base/test/android/javatests/src/org/chromium/base/test/util/UrlUtils.java",
+}
+
 # Defines a custom init_rc argument to be applied to the corresponding output
 # blueprint target.
 target_initrc = {
@@ -1548,6 +1564,7 @@ def create_java_module(blueprint, gn):
       module.srcs.add(':' + create_gcc_preprocess_modules(blueprint, target).name)
     else:
       module.srcs.add(':' + create_action_module(blueprint, target, 'java_genrule').name)
+  module.srcs.update(DEFAULT_TEST_SRCS)
   preprocessor_module = create_java_jni_preprocessor(blueprint)
   module.plugins.add(preprocessor_module.name)
   blueprint.add_module(module)
