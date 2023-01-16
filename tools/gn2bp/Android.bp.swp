@@ -11663,11 +11663,14 @@ cc_object {
 // GN: //net/http:transport_security_state_unittest_data_default
 cc_genrule {
     name: "cronet_aml_net_http_transport_security_state_unittest_data_default",
-    cmd: "$(location build/gn_run_binary.py) clang_x64/transport_security_state_generator " +
-         "../../net/http/transport_security_state_static_unittest_default.json " +
-         "../../net/http/transport_security_state_static_unittest_default.pins " +
-         "../../net/http/transport_security_state_static_unittest.template " +
-         "gen/net/http/transport_security_state_static_unittest_default.h",
+    tools: [
+        "cronet_aml_net_tools_transport_security_state_generator_transport_security_state_generator__testing",
+    ],
+    cmd: "$(location cronet_aml_net_tools_transport_security_state_generator_transport_security_state_generator__testing) " +
+         "$(location net/http/transport_security_state_static_unittest_default.json) " +
+         "$(location net/http/transport_security_state_static_unittest_default.pins) " +
+         "$(location net/http/transport_security_state_static_unittest.template) " +
+         "$(location net/http/transport_security_state_static_unittest_default.h)",
     out: [
         "net/http/transport_security_state_static_unittest_default.h",
     ],
