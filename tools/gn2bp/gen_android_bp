@@ -40,9 +40,13 @@ import gn_utils
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Default targets to translate to the blueprint file.
-default_targets = [
+DEFAULT_TARGETS = [
     '//components/cronet/android:cronet',
     '//components/cronet/android:cronet_android_mainline',
+]
+
+DEFAULT_TESTS = [
+  '//components/cronet/android:cronet_unittests_android__library',
 ]
 
 # Defines a custom init_rc argument to be applied to the corresponding output
@@ -1657,6 +1661,7 @@ def create_blueprint_for_targets(gn, targets):
       '-UANDROID',
   ]
   defaults.stl = 'none'
+  defaults.cpp_std = 'c++17'
   defaults.min_sdk_version = 29
   defaults.apex_available.add(tethering_apex)
   blueprint.add_module(defaults)
@@ -1777,7 +1782,7 @@ def main():
   if args.verbose:
     log.basicConfig(format='%(levelname)s:%(funcName)s:%(message)s', level=log.DEBUG)
 
-  targets = args.targets or default_targets
+  targets = args.targets or DEFAULT_TARGETS + DEFAULT_TESTS
   gn = gn_utils.GnParser(builtin_deps)
   for desc_file in args.desc:
     with open(desc_file) as f:
