@@ -1081,6 +1081,7 @@ cc_library_static {
         "libgtest_prod_headers",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -2188,6 +2189,7 @@ cc_library_static {
         "third_party/icu/source/i18n/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -2718,6 +2720,7 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -2956,6 +2959,7 @@ cc_library_static {
         "third_party/libxml/src/include/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -4802,6 +4806,7 @@ cc_library_shared {
         "third_party/protobuf/src/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -5629,6 +5634,7 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -5798,6 +5804,7 @@ cc_library_static {
         "third_party/icu/source/i18n/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -5973,6 +5980,7 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -7097,6 +7105,7 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -7903,6 +7912,7 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -8320,6 +8330,7 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -8756,6 +8767,7 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -9276,6 +9288,7 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -9398,6 +9411,7 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -9804,6 +9818,7 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -10166,6 +10181,7 @@ cc_library_static {
         "third_party/googletest/src/googletest/include/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -16424,6 +16440,7 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",

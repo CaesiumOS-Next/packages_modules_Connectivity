@@ -1302,6 +1302,10 @@ def _get_cflags(cflags, defines):
 def _set_module_ldflags(module, ldflags):
   module.ldflags = {flag for flag in ldflags if flag.startswith("-Wl,-wrap,")}
 
+def _set_linker_script(module, libs):
+  if "//base/android/library_loader/anchor_functions.lds" in libs:
+    module.ldflags.add(get_linker_script_ldflag("base/android/library_loader/anchor_functions.lds"))
+
 def set_module_flags(module, cflags, defines):
   module.cflags.update(_get_cflags(cflags, defines))
   # TODO: implement proper cflag parsing.
@@ -1396,6 +1400,7 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
     if module.type != 'cc_object':
       # cc_objects are only compiled and not linked so they cant have linker flags.
       _set_module_ldflags(module, target.ldflags)
+      _set_linker_script(module, target.libs)
     set_module_flags(module, target.cflags, target.defines)
     set_module_include_dirs(module, target.cflags, target.include_dirs)
     # TODO: set_module_xxx is confusing, apply similar function to module and target in better way.
