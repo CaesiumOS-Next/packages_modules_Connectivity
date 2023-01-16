@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf4eccef_fec6f09b",
+        "filename": "service-t/src/com/android/server/mdns/MdnsPacket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:06:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f21c4d87_fb0fb11a",
+      "range": {
+        "startLine": 36,
+        "startChar": 16,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "8aed07b75fa0820c37a75ae3d19b0f12a78c27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be339036_3ff8ed61",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6c2b161_edfb27c5",
+        "filename": "service-t/src/com/android/server/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:06:55Z",
+      "side": 1,
+      "message": "Good point, changed to keeping the flag parsing here, and having parseRecordsSection factored out",
+      "parentUuid": "be339036_3ff8ed61",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 50
+      },
+      "revId": "8aed07b75fa0820c37a75ae3d19b0f12a78c27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e80b3702_b39f9b1a",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-16T08:40:09Z",
       "side": 1,
       "message": "Duplicated line with l.46.",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 53
+      },
+      "revId": "8aed07b75fa0820c37a75ae3d19b0f12a78c27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93c4ec0f_0ba4cb0e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsPacketTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T11:06:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e80b3702_b39f9b1a",
       "range": {
         "startLine": 55,
         "startChar": 8,
