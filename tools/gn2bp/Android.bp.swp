@@ -1084,6 +1084,9 @@ cc_library_static {
     header_libs: [
         "libgtest_prod_headers",
     ],
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -2186,6 +2189,9 @@ cc_library_static {
         "third_party/icu/source/i18n/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -2634,6 +2640,9 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -2871,6 +2880,9 @@ cc_library_static {
         "third_party/libxml/src/include/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -4705,6 +4717,9 @@ cc_library_shared {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -5524,6 +5539,9 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -5692,6 +5710,9 @@ cc_library_static {
         "third_party/icu/source/i18n/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -5864,6 +5885,9 @@ cc_library_static {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
+    ],
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
     ],
     ldflags: [
         "-Wl,-wrap,asprintf",
@@ -6983,6 +7007,9 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -7787,6 +7814,9 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -8201,6 +8231,9 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -8634,6 +8667,9 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -9153,6 +9189,9 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -9274,6 +9313,9 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -9671,6 +9713,9 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -10030,6 +10075,9 @@ cc_library_static {
         "third_party/googletest/src/googletest/include/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
@@ -16171,6 +16219,9 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     cpp_std: "c++17",
+    linker_scripts: [
+        "base/android/library_loader/anchor_functions.lds",
+    ],
     ldflags: [
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
