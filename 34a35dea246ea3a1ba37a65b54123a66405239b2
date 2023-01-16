@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e0140a3_d931c996",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T02:06:13Z",
+      "side": 1,
+      "message": "Nit: @Nullable on each",
+      "revId": "34a35dea246ea3a1ba37a65b54123a66405239b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9dbc851_cc103963",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T02:06:13Z",
+      "side": 1,
+      "message": "Nit: don\u0027t necessarily need a variable, can just use mMdnsDiscoveryManager !\u003d null (this would avoid possible inconsistent state like mMdnsDiscoveryManager non-null and this false)",
+      "revId": "34a35dea246ea3a1ba37a65b54123a66405239b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc3b2232_c1deca84",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T02:06:13Z",
+      "side": 1,
+      "message": "Nit: mdns_discovery_manager_version, since the value is going to be a version code",
+      "range": {
+        "startLine": 703,
+        "startChar": 20,
+        "endLine": 703,
+        "endChar": 42
+      },
+      "revId": "34a35dea246ea3a1ba37a65b54123a66405239b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5f5bdc0_7ce0b0e8",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T02:06:13Z",
+      "side": 1,
+      "message": "This needs some testing for what happens when the flag is on/off but I see that\u0027s in aosp/2240395",
+      "revId": "34a35dea246ea3a1ba37a65b54123a66405239b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
