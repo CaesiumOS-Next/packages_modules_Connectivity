@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d60ce988_d5278301",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": "The linter says @Code with a capital C is an invalid tag. Chiachang: it\u0027s good practive review your CLs on gerrit and fix this sort of issue so the reviewers don\u0027t have to see and comment on them.",
+      "range": {
+        "startLine": 135,
+        "startChar": 13,
+        "endLine": 135,
+        "endChar": 17
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ff53ee2_87d5d22d",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": "It seems better to initialize the two types of messages at construction time so they can be private final, or even better, static final. I doubt that we\u0027ll need to add another family to this code for the next few decades so you could just have two static final members (sIpv4SockDiagReq, sIpv6SockDiagReq) that are constant for the life of this code.\n\nThese should be called *Req instead of *Msg because they\u0027re StructInetDiagReqV2 objects, not InetDiagMessage objects.",
+      "range": {
+        "startLine": 142,
+        "startChar": 38,
+        "endLine": 142,
+        "endChar": 50
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06a61a62_a0a8ce88",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": "createConnectedNetlinkSocket",
+      "range": {
+        "startLine": 821,
+        "startChar": 30,
+        "endLine": 821,
+        "endChar": 58
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1716e465_694f3f4d",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": "Not in this file, but the name \"connectSocketToNetlink\" is incorrect - the method does not connect the socket to netlink. The method takes a netlink socket and connects it to the kernel. It should be called connectToKernel.",
+      "range": {
+        "startLine": 824,
+        "startChar": 25,
+        "endLine": 824,
+        "endChar": 47
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f024570_60580ea3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": "Does it really make sense to set the SNDTIMEO option on a netlink socket connected to the kernel? On such a socket, sends will never time out, will they?",
+      "range": {
+        "startLine": 825,
+        "startChar": 49,
+        "endLine": 825,
+        "endChar": 60
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a07145e_126da763",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": "This method doesn\u0027t is not specific to the kernel. It just writes to the socket. Maybe call it sendRequest or writeRequest or something?",
+      "range": {
+        "startLine": 839,
+        "startChar": 20,
+        "endLine": 839,
+        "endChar": 46
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b78d459_8368d897",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": "Fix lint error.",
+      "range": {
+        "startLine": 850,
+        "startChar": 20,
+        "endLine": 850,
+        "endChar": 56
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "746f502d_87180c79",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": ": \" + e",
+      "range": {
+        "startLine": 915,
+        "startChar": 59,
+        "endLine": 915,
+        "endChar": 64
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b52566e9_18454377",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": "Why do we need to protect against infinite loops? Wouldn\u0027t any such loop be a bug in the kernel? Or are you trying to protect against a bug in this parsing code? Or...?",
+      "range": {
+        "startLine": 932,
+        "startChar": 66,
+        "endLine": 932,
+        "endChar": 80
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37cd37f0_687603da",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": "Isn\u0027t this just:\n\n    StructNlMsgHdr hdr \u003d StructNlMsgHdr.parse(bytes);\n    InetDiagMessage.parse(hdr, bytes);\n\n? Then you don\u0027t need the bytes.position() call. The length will be available as hdr.nlmsg_len and the type as hdr.nlmsg_type.\n\n\nIn fact, why write this code at all? Can\u0027t you just use the classes other code uses? I think it would be something like:\n\n    NetlinkMessage nlMsg \u003d (InetDiagMessage) NetlinkMessage.parse(buffer, NETLINK_INET_DIAG);\n    if (!(nlMsg instanceof InetDiagMessage)) {\n        // Log error...\n        return false;\n    }\n    InetDiagMessage inetDiagMsg \u003d (InetDiagMessage) msg;\n\n\nThat by itself wouldn\u0027t get you the attributes, which you need. But I think you could do that by adding them to InetDiagMessage, maybe something like this:\n\n     public class InetDiagMessage extends NetlinkMessage {\n         public StructInetDiagMsg inetDiagMsg;\n    +    public ByteBuffer nlAttrs;\n    \n\n         /**\n          * Parse an inet_diag_req_v2 message from buffer.\n          */\n         @Nullable\n         public static InetDiagMessage parse(@NonNull StructNlMsgHdr header,\n                 @NonNull ByteBuffer byteBuffer) {\n             final InetDiagMessage msg \u003d new InetDiagMessage(header);\n             msg.inetDiagMsg \u003d StructInetDiagMsg.parse(byteBuffer);\n             if (msg.inetDiagMsg \u003d\u003d null) {\n                 return null;\n    +        nlAttrs \u003d byteBuffer.slice()\n         }\n         return msg;\n     }\n\n\nThen you can parse the attributes (e.g., the mark) from inside msg.nlAttrs without worrying about changing the position of the netlink message. When NetlinkMessage#parse() returns, the bytebuffer will be at the correct position to read the new netlink message, if any.",
+      "range": {
+        "startLine": 947,
+        "startChar": 0,
+        "endLine": 948,
+        "endChar": 56
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9a01115_974e9777",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": "Use com.android.net.module.util.HexDump#dumpHexString(byte[], int, int) instead?",
+      "range": {
+        "startLine": 963,
+        "startChar": 0,
+        "endLine": 967,
+        "endChar": 17
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "226368aa_b3a131ab",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:37:57Z",
+      "side": 1,
+      "message": "I think this is incorrect if nlmsgLen is not aligned on a 4-byte boundary. nlmsgLen is the length of the message header plus payload, but the message is padded, such that the next message, if any, is aligned on a 4-byte boundery. Just use NetlinkMessage.parse, that will take care of that for you.",
+      "range": {
+        "startLine": 987,
+        "startChar": 51,
+        "endLine": 987,
+        "endChar": 61
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
