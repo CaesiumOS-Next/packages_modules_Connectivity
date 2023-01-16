@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f21c4d87_fb0fb11a",
+        "filename": "service-t/src/com/android/server/mdns/MdnsPacket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T08:40:09Z",
+      "side": 1,
+      "message": "Nit: Mark all these records as @NonNull",
+      "range": {
+        "startLine": 36,
+        "startChar": 16,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "8aed07b75fa0820c37a75ae3d19b0f12a78c27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be339036_3ff8ed61",
+        "filename": "service-t/src/com/android/server/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T08:40:09Z",
+      "side": 1,
+      "message": "We do the parsing for non-response packet now. If it gets an exceptions during parsing, the error code would change after this change.\n\n```\nERROR_NOT_RESPONSE_MESSAGE -\u003e ERROR_READING_PTR_RDATA\n```",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 50
+      },
+      "revId": "8aed07b75fa0820c37a75ae3d19b0f12a78c27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e80b3702_b39f9b1a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsPacketTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T08:40:09Z",
+      "side": 1,
+      "message": "Duplicated line with l.46.",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 53
+      },
+      "revId": "8aed07b75fa0820c37a75ae3d19b0f12a78c27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27eea82b_e15170aa",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsPacketTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T08:40:09Z",
+      "side": 1,
+      "message": "I think we need to test skiping the record with unknown type. You can add it in follow up commit.",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "8aed07b75fa0820c37a75ae3d19b0f12a78c27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
