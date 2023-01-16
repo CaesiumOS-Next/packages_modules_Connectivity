@@ -54,7 +54,7 @@ enable_tethering_next_apex = true
 // enables or disables inclusion of Cronet in the Tethering apex. This is used to disable Cronet
 // on tm-mainline-prod. Note: in order for Cronet APIs to work Cronet must also be enabled
 // by the cronet_java_*_defaults in common/TetheringLib/Android.bp.
-cronet_in_tethering_apex_defaults = "CronetInTetheringApexDefaultsEnabled"
+cronet_in_tethering_apex_defaults = "CronetInTetheringApexDefaultsDisabled"
 // This is a placeholder comment to avoid merge conflicts
 // as cronet_apex_defaults may have different values
 // depending on the branch
@@ -192,6 +192,7 @@ bootclasspath_fragment {
             "android.app.usage",
             "android.nearby",
             "android.net",
+            "android.net.http",
             "android.net.netstats",
             "android.net.util",
         ],
@@ -206,6 +207,8 @@ bootclasspath_fragment {
             "android.nearby.aidl",
             "android.net.apf",
             "android.net.connectivity",
+            "android.net.http.apihelpers",
+            "android.net.http.internal",
             "android.net.netstats.provider",
             "android.net.nsd",
             "android.net.wear",
