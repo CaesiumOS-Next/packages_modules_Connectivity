@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3d73280_0fa0dd89",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityFlags.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T06:20:43Z",
+      "side": 1,
+      "message": "I do not think this is acceptable. It\u0027s a violation of the API.",
+      "range": {
+        "startLine": 75,
+        "startChar": 44,
+        "endLine": 78,
+        "endChar": 96
+      },
+      "revId": "08b81582842eb7ad72f8ef04b8951f095ab11594",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
