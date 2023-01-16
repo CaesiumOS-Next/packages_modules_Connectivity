@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c58b21cd_94a956a7",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T13:06:26Z",
+      "side": 1,
+      "message": "Nit: This can use getReveseDnsAddress(v4Addr) too.",
+      "range": {
+        "startLine": 151,
+        "startChar": 24,
+        "endLine": 151,
+        "endChar": 74
+      },
+      "revId": "bdc2d50c49e0ce71f17654476c355b5d2a523148",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
