@@ -45,6 +45,10 @@ default_targets = [
     '//components/cronet/android:cronet_android_mainline',
 ]
 
+DEFAULT_TESTS = [
+  '//components/cronet/android:cronet_unittests_android__library',
+]
+
 # Defines a custom init_rc argument to be applied to the corresponding output
 # blueprint target.
 target_initrc = {
@@ -1755,7 +1759,7 @@ def main():
   if args.verbose:
     log.basicConfig(format='%(levelname)s:%(funcName)s:%(message)s', level=log.DEBUG)
 
-  targets = args.targets or default_targets
+  targets = args.targets or default_targets + DEFAULT_TESTS
   gn = gn_utils.GnParser(builtin_deps)
   for desc_file in args.desc:
     with open(desc_file) as f:
