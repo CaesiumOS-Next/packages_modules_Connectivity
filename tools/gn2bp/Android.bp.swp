@@ -4834,6 +4834,7 @@ cc_library_shared {
         "-Wl,-wrap,valloc",
         "-Wl,-wrap,vasprintf",
     ],
+    stem: "libcronet_aml_components_cronet_android_cronet_unittests_android__library",
     target: {
         android_x86: {
             cflags: [
