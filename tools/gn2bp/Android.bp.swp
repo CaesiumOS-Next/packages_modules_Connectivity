@@ -2214,6 +2214,20 @@ cc_library_static {
             local_include_dirs: [
                 "third_party/android_ndk/sources/android/cpufeatures/",
             ],
+            generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers__testing__testing",
+                "cronet_aml_base_base_jni_headers__testing__testing",
+                "cronet_aml_base_debugging_buildflags__testing",
+                "cronet_aml_base_logging_buildflags__testing",
+                "cronet_aml_build_chromeos_buildflags__testing",
+            ],
+            export_generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers__testing__testing",
+                "cronet_aml_base_base_jni_headers__testing__testing",
+                "cronet_aml_base_debugging_buildflags__testing",
+                "cronet_aml_base_logging_buildflags__testing",
+                "cronet_aml_build_chromeos_buildflags__testing",
+            ],
         },
         android_arm64: {
             srcs: [
@@ -2302,6 +2316,20 @@ cc_library_static {
             local_include_dirs: [
                 "third_party/android_ndk/sources/android/cpufeatures/",
             ],
+            generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers__testing__testing",
+                "cronet_aml_base_base_jni_headers__testing__testing",
+                "cronet_aml_base_debugging_buildflags__testing",
+                "cronet_aml_base_logging_buildflags__testing",
+                "cronet_aml_build_chromeos_buildflags__testing",
+            ],
+            export_generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers__testing__testing",
+                "cronet_aml_base_base_jni_headers__testing__testing",
+                "cronet_aml_base_debugging_buildflags__testing",
+                "cronet_aml_base_logging_buildflags__testing",
+                "cronet_aml_build_chromeos_buildflags__testing",
+            ],
         },
         android_x86: {
             srcs: [
@@ -2387,6 +2415,20 @@ cc_library_static {
             ],
             local_include_dirs: [
                 "third_party/android_ndk/sources/android/cpufeatures/",
+            ],
+            generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers__testing__testing",
+                "cronet_aml_base_base_jni_headers__testing__testing",
+                "cronet_aml_base_debugging_buildflags__testing",
+                "cronet_aml_base_logging_buildflags__testing",
+                "cronet_aml_build_chromeos_buildflags__testing",
+            ],
+            export_generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers__testing__testing",
+                "cronet_aml_base_base_jni_headers__testing__testing",
+                "cronet_aml_base_debugging_buildflags__testing",
+                "cronet_aml_base_logging_buildflags__testing",
+                "cronet_aml_build_chromeos_buildflags__testing",
             ],
         },
         android_x86_64: {
@@ -2474,6 +2516,20 @@ cc_library_static {
             ],
             local_include_dirs: [
                 "third_party/android_ndk/sources/android/cpufeatures/",
+            ],
+            generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers__testing__testing",
+                "cronet_aml_base_base_jni_headers__testing__testing",
+                "cronet_aml_base_debugging_buildflags__testing",
+                "cronet_aml_base_logging_buildflags__testing",
+                "cronet_aml_build_chromeos_buildflags__testing",
+            ],
+            export_generated_headers: [
+                "cronet_aml_base_android_runtime_jni_headers__testing__testing",
+                "cronet_aml_base_base_jni_headers__testing__testing",
+                "cronet_aml_base_debugging_buildflags__testing",
+                "cronet_aml_base_logging_buildflags__testing",
+                "cronet_aml_build_chromeos_buildflags__testing",
             ],
         },
         host: {
