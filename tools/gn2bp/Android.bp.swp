@@ -2405,36 +2405,6 @@ cc_genrule {
     ],
 }
 
-// GN: //base:process_launcher_aidl
-java_genrule {
-    name: "cronet_aml_base_process_launcher_aidl",
-    cmd: "$(location build/android/gyp/aidl.py) --aidl-path " +
-         "../../third_party/android_sdk/public/build-tools/33.0.0/aidl " +
-         "--imports " +
-         "[\"../../third_party/android_sdk/public/platforms/android-33/framework.aidl\"] " +
-         "--srcjar " +
-         "gen/base/process_launcher_aidl.srcjar " +
-         "--depfile " +
-         "gen/base/process_launcher_aidl.d " +
-         "--includes " +
-         "[\"../../base/android/java/src\"] " +
-         "../../base/android/java/src/org/chromium/base/process_launcher/IChildProcessService.aidl " +
-         "../../base/android/java/src/org/chromium/base/process_launcher/IParentProcess.aidl",
-    out: [
-        "base/process_launcher_aidl.srcjar",
-    ],
-    tool_files: [
-        "base/android/java/src/org/chromium/base/process_launcher/IChildProcessService.aidl",
-        "base/android/java/src/org/chromium/base/process_launcher/IParentProcess.aidl",
-        "build/android/gyp/aidl.py",
-        "build/android/gyp/util/__init__.py",
-        "build/android/gyp/util/build_utils.py",
-        "build/gn_helpers.py",
-        "third_party/android_sdk/public/build-tools/33.0.0/aidl",
-        "third_party/android_sdk/public/platforms/android-33/framework.aidl",
-    ],
-}
-
 // GN: //base:profiler_buildflags
 cc_genrule {
     name: "cronet_aml_base_profiler_buildflags",
@@ -2890,36 +2860,6 @@ cc_library_static {
             ],
         },
     },
-}
-
-// GN: //base/test:test_support_java_aidl
-java_genrule {
-    name: "cronet_aml_base_test_test_support_java_aidl",
-    cmd: "$(location build/android/gyp/aidl.py) --aidl-path " +
-         "../../third_party/android_sdk/public/build-tools/33.0.0/aidl " +
-         "--imports " +
-         "[\"../../third_party/android_sdk/public/platforms/android-33/framework.aidl\"] " +
-         "--srcjar " +
-         "gen/base/test/test_support_java_aidl.srcjar " +
-         "--depfile " +
-         "gen/base/test/test_support_java_aidl.d " +
-         "--includes " +
-         "[\"../../base/test/android/java/src\", \"../../base/android/java/src\"] " +
-         "../../base/test/android/java/src/org/chromium/base/ITestCallback.aidl " +
-         "../../base/test/android/java/src/org/chromium/base/ITestController.aidl",
-    out: [
-        "base/test/test_support_java_aidl.srcjar",
-    ],
-    tool_files: [
-        "base/test/android/java/src/org/chromium/base/ITestCallback.aidl",
-        "base/test/android/java/src/org/chromium/base/ITestController.aidl",
-        "build/android/gyp/aidl.py",
-        "build/android/gyp/util/__init__.py",
-        "build/android/gyp/util/build_utils.py",
-        "build/gn_helpers.py",
-        "third_party/android_sdk/public/build-tools/33.0.0/aidl",
-        "third_party/android_sdk/public/platforms/android-33/framework.aidl",
-    ],
 }
 
 // GN: //base/test:test_support_jni_headers
@@ -5958,8 +5898,6 @@ java_library {
         ":cronet_aml_base_base_android_java_enums_srcjar",
         ":cronet_aml_base_java_features_srcjar",
         ":cronet_aml_base_java_switches_srcjar",
-        ":cronet_aml_base_process_launcher_aidl",
-        ":cronet_aml_base_test_test_support_java_aidl",
         ":cronet_aml_build_android_build_config_gen",
         ":cronet_aml_build_android_native_libraries_gen",
         ":cronet_aml_components_cronet_android_cronet_jni_registration__java",
@@ -6096,6 +6034,8 @@ java_library {
         "base/android/java/src/org/chromium/base/metrics/TimingMetric.java",
         "base/android/java/src/org/chromium/base/metrics/UmaRecorder.java",
         "base/android/java/src/org/chromium/base/metrics/UmaRecorderHolder.java",
+        "base/android/java/src/org/chromium/base/process_launcher/IChildProcessService.aidl",
+        "base/android/java/src/org/chromium/base/process_launcher/IParentProcess.aidl",
         "base/android/java/src/org/chromium/base/supplier/BooleanSupplier.java",
         "base/android/java/src/org/chromium/base/supplier/DestroyableObservableSupplier.java",
         "base/android/java/src/org/chromium/base/supplier/ObservableSupplier.java",
@@ -6122,6 +6062,8 @@ java_library {
         "base/android/java/src/org/chromium/base/task/TaskRunnerImpl.java",
         "base/android/java/src/org/chromium/base/task/TaskTraits.java",
         "base/android/java/src/org/chromium/base/task/TaskTraitsExtensionDescriptor.java",
+        "base/test/android/java/src/org/chromium/base/ITestCallback.aidl",
+        "base/test/android/java/src/org/chromium/base/ITestController.aidl",
         "build/android/java/src/org/chromium/build/annotations/AlwaysInline.java",
         "build/android/java/src/org/chromium/build/annotations/CheckDiscard.java",
         "build/android/java/src/org/chromium/build/annotations/DoNotClassMerge.java",
@@ -6212,7 +6154,8 @@ java_library {
             "frameworks/base/core/java/",
         ],
         local_include_dirs: [
-            "base/android/java/src/",
+            "base/android/java/src",
+            "base/test/android/java/src",
         ],
     },
     plugins: [
