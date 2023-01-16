@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68b423f7_512599fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T10:10:53Z",
+      "side": 1,
+      "message": "This work has been merged into https://r.android.com/2384137",
+      "revId": "5df5f26c9711030bbc91268e3a8d9f86860d3538",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
