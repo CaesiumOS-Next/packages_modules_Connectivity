@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45974f76_0a09b2fd",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T06:04:11Z",
+      "side": 1,
+      "message": "If this is destined to be public eventually (and I think it probably should), then I think onPaused() + onResume() is probably better.",
+      "range": {
+        "startLine": 405,
+        "startChar": 20,
+        "endLine": 405,
+        "endChar": 34
+      },
+      "revId": "7cc32d8e0afcc2e3cfd7b2239f53a5fc53c86d02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8696e2b3_4d196472",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 7
