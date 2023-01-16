@@ -17,7 +17,6 @@
 package android.net.http.cts;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
@@ -25,6 +24,7 @@ import android.net.ConnectivityManager;
 import android.net.http.cts.util.CronetCtsTestServer;
 import android.net.http.cts.util.TestUrlRequestCallback;
 import android.net.http.cts.util.TestUrlRequestCallback.ResponseStep;
+import android.net.http.cts.util.TestUtilsKt;
 
 import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -49,7 +49,7 @@ public class CronetUrlRequestTest {
     @Before
     public void setUp() throws Exception {
         Context context = InstrumentationRegistry.getInstrumentation().getContext();
-        mCm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        TestUtilsKt.skipIfNoInternetConnection(context);
         CronetEngine.Builder builder = new CronetEngine.Builder(context);
         builder.enableHttpCache(CronetEngine.Builder.HTTP_CACHE_IN_MEMORY, 100 * 1024)
                 .enableHttp2(true)
@@ -69,13 +69,8 @@ public class CronetUrlRequestTest {
         assertTrue(msg + " Excepted " + first + " to be greater than " + second, first > second);
     }
 
-    private void assertHasTestableNetworks() {
-        assertNotNull("This test requires a working Internet connection", mCm.getActiveNetwork());
-    }
-
     @Test
     public void testUrlRequestGet_CompletesSuccessfully() throws Exception {
-        assertHasTestableNetworks();
         String url = mTestServer.getSuccessUrl();
         TestUrlRequestCallback callback = new TestUrlRequestCallback();
         UrlRequest.Builder builder =
