@@ -1074,6 +1074,23 @@ cc_library_static {
     header_libs: [
         "libgtest_prod_headers",
     ],
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android: {
             shared_libs: [
@@ -2159,6 +2176,23 @@ cc_library_static {
         "third_party/icu/source/i18n/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -2590,6 +2624,23 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -2810,6 +2861,23 @@ cc_library_static {
         "third_party/libxml/src/include/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -3799,6 +3867,21 @@ cc_library_shared {
     cpp_std: "c++17",
     ldflags: [
         "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
     ],
     stem: "libcronet.108.0.5359.128",
     target: {
@@ -4610,6 +4693,23 @@ cc_library_shared {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -5412,6 +5512,23 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -5563,6 +5680,23 @@ cc_library_static {
         "third_party/icu/source/i18n/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -5718,6 +5852,23 @@ cc_library_static {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
+    ],
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
     ],
     target: {
         android: {
@@ -6820,6 +6971,23 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -7607,6 +7775,23 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_arm: {
             srcs: [
@@ -8004,6 +8189,23 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -8420,6 +8622,23 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -8922,6 +9141,23 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -9026,6 +9262,23 @@ cc_library_static {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -9406,6 +9659,23 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -9748,6 +10018,23 @@ cc_library_static {
         "third_party/googletest/src/googletest/include/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
@@ -15872,6 +16159,23 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     cpp_std: "c++17",
+    ldflags: [
+        "-Wl,-wrap,asprintf",
+        "-Wl,-wrap,calloc",
+        "-Wl,-wrap,free",
+        "-Wl,-wrap,getcwd",
+        "-Wl,-wrap,malloc",
+        "-Wl,-wrap,malloc_usable_size",
+        "-Wl,-wrap,memalign",
+        "-Wl,-wrap,posix_memalign",
+        "-Wl,-wrap,pvalloc",
+        "-Wl,-wrap,realloc",
+        "-Wl,-wrap,realpath",
+        "-Wl,-wrap,strdup",
+        "-Wl,-wrap,strndup",
+        "-Wl,-wrap,valloc",
+        "-Wl,-wrap,vasprintf",
+    ],
     target: {
         android_x86: {
             cflags: [
