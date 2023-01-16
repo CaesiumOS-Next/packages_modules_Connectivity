@@ -1075,6 +1075,7 @@ cc_library_static {
         "libgtest_prod_headers",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -2177,6 +2178,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -2625,6 +2627,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -2862,6 +2865,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -4694,6 +4698,7 @@ cc_library_shared {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -5513,6 +5518,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -5681,6 +5687,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -5854,6 +5861,7 @@ cc_library_static {
         "third_party/boringssl/src/include/",
     ],
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -6972,6 +6980,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -7776,6 +7785,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -8190,6 +8200,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -8623,6 +8634,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -9142,6 +9154,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -9263,6 +9276,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -9660,6 +9674,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -10019,6 +10034,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
@@ -16160,6 +16176,7 @@ cc_library_static {
     ],
     cpp_std: "c++17",
     ldflags: [
+        "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
         "-Wl,-wrap,calloc",
         "-Wl,-wrap,free",
