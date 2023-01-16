@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "961f1ad5_5a36ce13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T06:35:19Z",
+      "side": 1,
+      "message": "Generally LGTM with easy-to-fix comments",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa22d4a4_6e89514e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T06:35:19Z",
+      "side": 1,
+      "message": "static",
+      "range": {
+        "startLine": 121,
+        "startChar": 11,
+        "endLine": 121,
+        "endChar": 12
+      },
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9a34659_c95eb68b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T06:35:19Z",
+      "side": 1,
+      "message": "Nit: @NonNull (also on other places in this class)",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3efcd8fa_b1369d3b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T06:35:19Z",
+      "side": 1,
+      "message": "Why not do it immediately (maybeStopMonitoringSockets) ? Right now clients only disconnect on binderDied, meaning that NsdManager was destroyed in the app, which I think is only done on app death (when the Context cache is cleared). So it won\u0027t be used by this app anymore.",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd90fc49_053c690c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T06:35:19Z",
+      "side": 1,
+      "message": "Also check for serviceType \u003d\u003d null: the ServiceInfo is provided by the app, so they could crash the NsdService thread if enough validation is not done.\n\nAlso max length:",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "046cfc45_59caa5fd",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T06:35:19Z",
+      "side": 1,
+      "message": "There\u0027s a bit more validation to do here I think; the original implementation used ConstructServiceName: http://go/aocs/android/platform/superproject/+/master:external/mdnsresponder/mDNSCore/mDNS.c;drc\u003d9f75a97cc42ff34708ea59ba7904164739deca91;l\u003d8763\n\nFrom what read of that function, I think the type must match the regex:\n\n    ^(_[a-zA-Z0-9-_]{1,62}[a-zA-Z0-9]\\.)?(_[a-zA-Z0-9-_]{1,62}[a-zA-Z0-9]\\._(?:tcp|udp))$\n\n(optional subtype, then type, then _tcp or _udp. Types and subtype must be 1-63 characters with a leading underscore, and must not end with dashes or underscores).\n\nAnd if the first capture group matches something, it should actually discover for match.group(1) + \"_sub.\" + match.group(2)\n\nI\u0027ve written a test in aosp/2388109 to help validate",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60162a6a_70bcbe66",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T06:35:19Z",
+      "side": 1,
+      "message": "Typo ? (serviceType)",
+      "range": {
+        "startLine": 771,
+        "startChar": 48,
+        "endLine": 771,
+        "endChar": 54
+      },
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d4d734e_981b8449",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T06:35:19Z",
+      "side": 1,
+      "message": "Also a test to verify(mDeps, never()).makeMdnsDiscoveryManager(...) when the flag is off would be useful",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2abad61_7a46ad4d",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T06:35:19Z",
+      "side": 1,
+      "message": "Nit: this should probably be a separate test case",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

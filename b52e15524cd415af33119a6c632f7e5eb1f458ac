@@ -67,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf66f66c_1dacc3c8",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T06:35:19Z",
+      "side": 1,
+      "message": "Maybe file a bug for this one ?",
+      "parentUuid": "5353a725_e030cf24",
+      "revId": "b52e15524cd415af33119a6c632f7e5eb1f458ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20c2f0e2_4b157613",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 3
@@ -102,6 +120,30 @@
       "side": 1,
       "message": "Per disccusion, I have to call this because registration is still using requests.",
       "parentUuid": "20c2f0e2_4b157613",
+      "range": {
+        "startLine": 249,
+        "startChar": 34,
+        "endLine": 249,
+        "endChar": 52
+      },
+      "revId": "b52e15524cd415af33119a6c632f7e5eb1f458ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "200eb3cd_f70404cf",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-16T06:35:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8f21cd2f_88d287c9",
       "range": {
         "startLine": 249,
         "startChar": 34,
