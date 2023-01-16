@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "969e1860_1ec9d795",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 23
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T18:52:15Z",
+      "side": 1,
+      "message": "Yes I know, thanks for flagging, there\u0027s a bunch things that merged incorrectly in this file. I\u0027m letting TH finish the presubmit run before uploading the new revision.",
+      "parentUuid": "3586ba0d_6a790968",
+      "range": {
+        "startLine": 57,
+        "startChar": 37,
+        "endLine": 57,
+        "endChar": 74
+      },
+      "revId": "a82626d63f54690422aa29adb2d0af0fe9e32902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "163446a2_a2254d70",
         "filename": "Tethering/apex/Android.bp",
         "patchSetId": 23
