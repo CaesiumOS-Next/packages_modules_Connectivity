@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "388a7be6_29af6b45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T12:28:21Z",
+      "side": 1,
+      "message": "Is there a need for this DO NOT SUBMIT comment? If the thing blocking submit is API review, then we should probably just leave that to the API review bit.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f070cfb_dc03d037",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T12:28:21Z",
+      "side": 1,
+      "message": "Should this var and the defaults be merged first, so that the automerger will bring them to tm-mainline-prod?",
+      "range": {
+        "startLine": 57,
+        "startChar": 24,
+        "endLine": 57,
+        "endChar": 50
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "710cea97_a77ba6ca",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T12:28:21Z",
+      "side": 1,
+      "message": "Instead of _ here, maybe something more readable? Could these be CronetInTetheringApexDefaults and CronetInTetheringApexDefaultsEnabled or something?",
+      "range": {
+        "startLine": 63,
+        "startChar": 29,
+        "endLine": 63,
+        "endChar": 30
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c791c078_a2a1787b",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/current.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T12:28:21Z",
+      "side": 1,
+      "message": "I notice that gerrit does not require API review for this file, though it should. Is this because it\u0027s in cronet_enabled/current.txt? Perhaps it should be in cronet_enabled/api/current.txt?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 24
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
