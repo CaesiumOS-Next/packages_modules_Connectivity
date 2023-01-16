@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06e7535e_d3cb1b57",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/CronetUrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-16T15:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3882ce40_0f26c162",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 44
+      },
+      "revId": "6a5b5c62462921c295b71cbc308a1e4fea3bade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3d513f1_2f1b8935",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-09T19:02:36Z",
       "side": 1,
       "message": "Maybe add a helper for this and consider making TestUrlRequestCallback a field (though only if it can be reused for multiple requests -- which I am not sure is the case).\n```\npublic UrlRequest getUrlRequest(String url, TestUrlRequestCallback cb) {\n    mCronetEngine.newUrlRequestBuilder(url, cb, cb.getExecutor()).build();\n}\n```",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 33
+      },
+      "revId": "6a5b5c62462921c295b71cbc308a1e4fea3bade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "717ce280_654ef9fb",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/CronetUrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-16T15:51:37Z",
+      "side": 1,
+      "message": "Done.\n\nAlso moved the initiatialization of callback to the setup",
+      "parentUuid": "b3d513f1_2f1b8935",
       "range": {
         "startLine": 97,
         "startChar": 8,
