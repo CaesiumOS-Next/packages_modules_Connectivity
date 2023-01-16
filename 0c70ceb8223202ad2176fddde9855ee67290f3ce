@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b5ffe29_91d898ab",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 19
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-16T14:38:45Z",
+      "side": 1,
+      "message": "incorporated in aosp/2388902",
+      "parentUuid": "5f863735_e69e3e94",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 28
+      },
+      "revId": "0c70ceb8223202ad2176fddde9855ee67290f3ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d65a674c_d258bc3d",
         "filename": "Tethering/apex/Android.bp",
         "patchSetId": 19
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-16T14:29:11Z",
       "side": 1,
       "message": "by the",
+      "range": {
+        "startLine": 56,
+        "startChar": 3,
+        "endLine": 56,
+        "endChar": 6
+      },
+      "revId": "0c70ceb8223202ad2176fddde9855ee67290f3ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81edcb2e_a37a2124",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-16T14:38:45Z",
+      "side": 1,
+      "message": "fixed in aosp/2388902",
+      "parentUuid": "d65a674c_d258bc3d",
       "range": {
         "startLine": 56,
         "startChar": 3,
