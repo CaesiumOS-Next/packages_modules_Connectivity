@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5c8f50a_c5b4f8d6",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T07:28:59Z",
+      "side": 1,
+      "message": "Per offline discussion : the recorder here has been created so it can be passed to existing OEM migration code, which may need to run its side effects, so its contents depend on what the migration code put there. Mutating it after the fact is not a great idea.\n\nIt\u0027s probably better to avoid running this for dev, like this code does then. However I think we should test for the recorder in one of two ways\n- `migration.recorder \u003d\u003d devRecorder`, to check that it\u0027s the same object\n- `PREFIX_DEV.equals(migration.recorder.getCookie())` because normally you check strings with `equals`",
+      "parentUuid": "1c36be5c_d1dbb9e0",
+      "range": {
+        "startLine": 1079,
+        "startChar": 17,
+        "endLine": 1079,
+        "endChar": 75
+      },
+      "revId": "059db61202b595356476317bf96b678a30d05c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a127fd0e_8c172aec",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 5
