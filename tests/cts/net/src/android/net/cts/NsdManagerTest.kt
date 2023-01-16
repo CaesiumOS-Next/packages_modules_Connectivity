@@ -66,15 +66,6 @@ import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk30
 import com.android.testutils.runAsShell
 import com.android.testutils.tryTest
 import com.android.testutils.waitForIdle
-import org.junit.After
-import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Assume.assumeTrue
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
 import java.io.File
 import java.net.ServerSocket
 import java.nio.charset.StandardCharsets
@@ -86,6 +77,15 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
+import org.junit.After
+import org.junit.Assert.assertArrayEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Assume.assumeTrue
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 
 private const val TAG = "NsdManagerTest"
 private const val TIMEOUT_MS = 2000L
@@ -182,10 +182,10 @@ class NsdManagerTest {
                 val errorCode: Int
             ) : RegistrationEvent()
 
-            data class ServiceRegistered(override val serviceInfo: NsdServiceInfo)
-                : RegistrationEvent()
-            data class ServiceUnregistered(override val serviceInfo: NsdServiceInfo)
-                : RegistrationEvent()
+            data class ServiceRegistered(override val serviceInfo: NsdServiceInfo) :
+                    RegistrationEvent()
+            data class ServiceUnregistered(override val serviceInfo: NsdServiceInfo) :
+                    RegistrationEvent()
         }
 
         override fun onRegistrationFailed(si: NsdServiceInfo, err: Int) {
@@ -208,11 +208,11 @@ class NsdManagerTest {
     private class NsdDiscoveryRecord(expectedThreadId: Int? = null) :
             DiscoveryListener, NsdRecord<NsdDiscoveryRecord.DiscoveryEvent>(expectedThreadId) {
         sealed class DiscoveryEvent : NsdEvent {
-            data class StartDiscoveryFailed(val serviceType: String, val errorCode: Int)
-                : DiscoveryEvent()
+            data class StartDiscoveryFailed(val serviceType: String, val errorCode: Int) :
+                    DiscoveryEvent()
 
-            data class StopDiscoveryFailed(val serviceType: String, val errorCode: Int)
-                : DiscoveryEvent()
+            data class StopDiscoveryFailed(val serviceType: String, val errorCode: Int) :
+                    DiscoveryEvent()
 
             data class DiscoveryStarted(val serviceType: String) : DiscoveryEvent()
             data class DiscoveryStopped(val serviceType: String) : DiscoveryEvent()
@@ -259,8 +259,8 @@ class NsdManagerTest {
     private class NsdResolveRecord : ResolveListener,
             NsdRecord<NsdResolveRecord.ResolveEvent>() {
         sealed class ResolveEvent : NsdEvent {
-            data class ResolveFailed(val serviceInfo: NsdServiceInfo, val errorCode: Int)
-                : ResolveEvent()
+            data class ResolveFailed(val serviceInfo: NsdServiceInfo, val errorCode: Int) :
+                    ResolveEvent()
 
             data class ServiceResolved(val serviceInfo: NsdServiceInfo) : ResolveEvent()
         }
@@ -483,6 +483,46 @@ class NsdManagerTest {
             }, "The service should not be found on this network")
         } cleanup {
             nsdManager.unregisterService(registrationRecord)
+        }
+    }
+
+    @Test
+    fun testValidDiscoverTypes() {
+        // This test requires shims supporting T+ APIs (discovering on specific network)
+        assumeTrue(TestUtils.shouldTestTApis())
+        listOf(
+                "_a._tcp",
+                "_testsubtype._mytestservice._tcp",
+                "_" + "a".repeat(62) + "._" + "b".repeat(62) + "._tcp",
+                "_" + "a".repeat(62) + "._tcp"
+                ).forEach { testType ->
+            val discoveryRecord = NsdDiscoveryRecord()
+            tryTest {
+                nsdShim.discoverServices(nsdManager, testType, NsdManager.PROTOCOL_DNS_SD,
+                        testNetwork1.network, Executor { it.run() }, discoveryRecord)
+                discoveryRecord.expectCallback<DiscoveryStarted>()
+            } cleanup {
+                nsdManager.stopServiceDiscovery(discoveryRecord)
+            }
+        }
+    }
+
+    @Test
+    fun testInvalidDiscoverTypes() {
+        listOf(
+                "_._tcp",
+                "_toomany._types._mytestservice._tcp",
+                "_invalidchar!._tcp",
+                "nounderscore._tcp",
+                "_nottcpudp._aaa",
+                "_" + "a".repeat(63) + "._tcp",
+                "_" + "a".repeat(63) + "._mytestservice._tcp",
+                "_subtype" + "._" + "a".repeat(63) + "._tcp",
+                ).forEach { testType ->
+            val discoveryRecord = NsdDiscoveryRecord()
+            nsdShim.discoverServices(nsdManager, testType, NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, discoveryRecord)
+            discoveryRecord.expectCallback<StartDiscoveryFailed>()
         }
     }
 
