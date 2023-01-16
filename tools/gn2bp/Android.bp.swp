@@ -4822,6 +4822,7 @@ cc_library_shared {
         "third_party/protobuf/src/",
     ],
     cpp_std: "c++17",
+    stem: "libcronet_aml_components_cronet_android_cronet_unittests_android__library",
     ldflags: [
         "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
         "-Wl,-wrap,asprintf",
