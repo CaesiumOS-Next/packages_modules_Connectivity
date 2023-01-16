@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64d27b6b_ce65ef09",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 23
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T21:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76cf6119_5dc30084",
+      "range": {
+        "startLine": 57,
+        "startChar": 37,
+        "endLine": 57,
+        "endChar": 74
+      },
+      "revId": "a82626d63f54690422aa29adb2d0af0fe9e32902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "163446a2_a2254d70",
@@ -85,6 +109,30 @@
       "writtenOn": "2023-01-16T18:51:47Z",
       "side": 1,
       "message": "just noticed, were the defaults removed?",
+      "range": {
+        "startLine": 60,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 6
+      },
+      "revId": "a82626d63f54690422aa29adb2d0af0fe9e32902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85e62a28_e8071fe8",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 23
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T21:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "163446a2_a2254d70",
       "range": {
         "startLine": 60,
         "startChar": 1,
