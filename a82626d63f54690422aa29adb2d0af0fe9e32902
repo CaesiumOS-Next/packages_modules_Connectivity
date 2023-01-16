@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76cf6119_5dc30084",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 23
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-16T18:53:04Z",
+      "side": 1,
+      "message": "👍 got it, thanks.",
+      "parentUuid": "969e1860_1ec9d795",
+      "range": {
+        "startLine": 57,
+        "startChar": 37,
+        "endLine": 57,
+        "endChar": 74
+      },
+      "revId": "a82626d63f54690422aa29adb2d0af0fe9e32902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "163446a2_a2254d70",
         "filename": "Tethering/apex/Android.bp",
         "patchSetId": 23
