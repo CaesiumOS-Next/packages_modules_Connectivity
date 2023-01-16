@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f863735_e69e3e94",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 19
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T14:29:11Z",
+      "side": 1,
+      "message": "cronet_in_tethering_apex_defaults",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 28
+      },
+      "revId": "0c70ceb8223202ad2176fddde9855ee67290f3ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d65a674c_d258bc3d",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T14:29:11Z",
+      "side": 1,
+      "message": "by the",
+      "range": {
+        "startLine": 56,
+        "startChar": 3,
+        "endLine": 56,
+        "endChar": 6
+      },
+      "revId": "0c70ceb8223202ad2176fddde9855ee67290f3ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
