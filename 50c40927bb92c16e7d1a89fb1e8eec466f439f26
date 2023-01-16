@@ -345,6 +345,30 @@
       },
       "revId": "50c40927bb92c16e7d1a89fb1e8eec466f439f26",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d85ab2a_028ae715",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T08:43:03Z",
+      "side": 1,
+      "message": "Okay, thanks for the explanation.\n\nIf `RemoteException` it\u0027s the netd process that crashed, right ? In that case the system is restarting. We don\u0027t have to send a callback at all, the device is rebooting immediately anyway.\n\nIf resolution wasn\u0027t in progress, then yes your suggestion makes sense. Ideally, you\u0027d have three different errors :\nFAILURE_RESOLUTION_NOT_STARTED\nFAILURE_RESOLUTION_ALREADY_SUCCEEDED\nFAILURE_RESOLUTION_ALREADY_STOPPED\n\nBut if you can\u0027t distinguish, then RESOLUTION_NOT_RUNNING is fine for all three cases.",
+      "parentUuid": "5f36c732_02c027f5",
+      "range": {
+        "startLine": 463,
+        "startChar": 57,
+        "endLine": 463,
+        "endChar": 79
+      },
+      "revId": "50c40927bb92c16e7d1a89fb1e8eec466f439f26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

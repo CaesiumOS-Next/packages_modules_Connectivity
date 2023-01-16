@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4995155a_e5d72bac",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T08:43:03Z",
+      "side": 1,
+      "message": "Is there any way we can remove this at all ? It\u0027s really not useful – as a dev, you can\u0027t do anything with INTERNAL_ERROR.",
+      "range": {
+        "startLine": 643,
+        "startChar": 12,
+        "endLine": 643,
+        "endChar": 34
+      },
+      "revId": "264b23744f9e14dc9c000111efa8f02795b8e87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62ff953e_0fb71291",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T08:43:03Z",
+      "side": 1,
+      "message": "We should have a different intdef if the list of possible failures is different. stop can\u0027t fail with ALREADY_ACTIVE or with MAX_LIMIT, so it doesn\u0027t make a lot of sense to reuse this.",
+      "range": {
+        "startLine": 655,
+        "startChar": 63,
+        "endLine": 655,
+        "endChar": 83
+      },
+      "revId": "264b23744f9e14dc9c000111efa8f02795b8e87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b813f6e4_c144e34a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T08:43:03Z",
+      "side": 1,
+      "message": "s/`that brings up from`/`passed to`/ ?",
+      "range": {
+        "startLine": 687,
+        "startChar": 66,
+        "endLine": 687,
+        "endChar": 85
+      },
+      "revId": "264b23744f9e14dc9c000111efa8f02795b8e87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ebd4506_45b3fd30",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T08:43:03Z",
+      "side": 1,
+      "message": "Not exactly ; IIUC, the code will either call `onServiceResolved` exactly once or `onResolveFailed` exactly once. Can you clarify this ?\n\nLikewise with `onResolveStopped` and `onStopResolutionFailed`.",
+      "range": {
+        "startLine": 687,
+        "startChar": 18,
+        "endLine": 687,
+        "endChar": 22
+      },
+      "revId": "264b23744f9e14dc9c000111efa8f02795b8e87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1282c5ce_713c2ed6",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T08:43:03Z",
+      "side": 1,
+      "message": "s/the stop/that stopping/",
+      "range": {
+        "startLine": 706,
+        "startChar": 55,
+        "endLine": 706,
+        "endChar": 63
+      },
+      "revId": "264b23744f9e14dc9c000111efa8f02795b8e87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eed9fd09_edacc89e",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T08:43:03Z",
+      "side": 1,
+      "message": "s/was //",
+      "range": {
+        "startLine": 706,
+        "startChar": 75,
+        "endLine": 706,
+        "endChar": 78
+      },
+      "revId": "264b23744f9e14dc9c000111efa8f02795b8e87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9394686_430189d2",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T08:43:03Z",
+      "side": 1,
+      "message": "s/to //",
+      "range": {
+        "startLine": 1149,
+        "startChar": 7,
+        "endLine": 1149,
+        "endChar": 10
+      },
+      "revId": "264b23744f9e14dc9c000111efa8f02795b8e87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec71e978_7e50c5e8",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-16T08:43:03Z",
+      "side": 1,
+      "message": "See my comments on the other file. I think we should never send this.",
+      "range": {
+        "startLine": 1153,
+        "startChar": 67,
+        "endLine": 1153,
+        "endChar": 89
+      },
+      "revId": "264b23744f9e14dc9c000111efa8f02795b8e87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
