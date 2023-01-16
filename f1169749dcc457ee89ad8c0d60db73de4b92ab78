@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8001be5e_e4732fb6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:48:44Z",
+      "side": 1,
+      "message": "Mind adding a note here that in order to keep the code identical between AOSP and tm-mainline-prod, while maintaining tm-mainline-prod shippable, we\u0027re using two API directories.\n\nOtherwise, API council might get confused since this CL appears to be adding tethering APIs that already shipped in R.",
+      "range": {
+        "startLine": 7,
+        "startChar": 32,
+        "endLine": 7,
+        "endChar": 33
+      },
+      "revId": "f1169749dcc457ee89ad8c0d60db73de4b92ab78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82cc2ae1_933d476f",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/system-current.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-16T15:48:44Z",
+      "side": 1,
+      "message": "Note to API council: these are not new APIs. These were all shipped in R. They look new in this CL because in order to keep the code identical between AOSP master and tm-mainline-prod, we are using two API directories, one (TetheringLib/api/) containing shipping APIs, and one (TetheringLib/cronet_enabled/api) for in-progress APIs that will ship in U.\n\nThis file is identical to TetheringLib/api/system-current.txt, which tracks APIs that were shipped in R.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 24
+      },
+      "revId": "f1169749dcc457ee89ad8c0d60db73de4b92ab78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
