@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3586ba0d_6a790968",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 23
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-16T18:50:56Z",
+      "side": 1,
+      "message": "this should stay enabled",
+      "range": {
+        "startLine": 57,
+        "startChar": 37,
+        "endLine": 57,
+        "endChar": 74
+      },
+      "revId": "a82626d63f54690422aa29adb2d0af0fe9e32902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
