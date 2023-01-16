@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "806bd412_bb0afaa9",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/TestStatusListener.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-16T14:40:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f4a92e5_50067fd3",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 5
+      },
+      "revId": "36da5e39c232015b31e2d76cf2e1047dbbfee5c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfa1d7bf_95cdc147",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-09T18:43:15Z",
       "side": 1,
       "message": "nit: for Kotlin properties, the convention is to drop the \"m\". So this should just be \"status\".",
+      "range": {
+        "startLine": 30,
+        "startChar": 16,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "36da5e39c232015b31e2d76cf2e1047dbbfee5c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3396174c_e39e5c48",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/TestStatusListener.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-16T14:40:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfa1d7bf_95cdc147",
       "range": {
         "startLine": 30,
         "startChar": 16,
