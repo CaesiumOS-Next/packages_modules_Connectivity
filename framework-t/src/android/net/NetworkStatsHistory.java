@@ -44,6 +44,7 @@ import android.os.Parcelable;
 import android.service.NetworkStatsHistoryBucketProto;
 import android.service.NetworkStatsHistoryProto;
 import android.util.IndentingPrintWriter;
+import android.util.Log;
 import android.util.proto.ProtoOutputStream;
 
 import com.android.net.module.util.CollectionUtils;
@@ -76,6 +77,7 @@ import java.util.TreeMap;
  */
 @SystemApi(client = MODULE_LIBRARIES)
 public final class NetworkStatsHistory implements Parcelable {
+    static final String TAG = NetworkStatsHistory.class.getSimpleName();;
     private static final int VERSION_INIT = 1;
     private static final int VERSION_ADD_PACKETS = 2;
     private static final int VERSION_ADD_ACTIVE = 3;
@@ -899,6 +901,33 @@ public final class NetworkStatsHistory implements Parcelable {
         if (dataStart >= start && dataStart <= end) return true;
         if (dataEnd >= start && dataEnd <= end) return true;
         return false;
+    }
+
+    /** @hide */
+    public void dump() {
+        Log.e(TAG, "NetworkStatsHistory: bucketDuration="
+                + bucketDuration / SECOND_IN_MILLIS);
+
+        for (int i = 0; i < bucketCount; i++) {
+            final StringBuilder builder = new StringBuilder("st=");
+            builder.append(bucketStart[i] / SECOND_IN_MILLIS);
+            if (rxBytes != null) {
+                builder.append(" rb=").append(rxBytes[i]);
+            }
+            if (rxPackets != null) {
+                builder.append(" rp=").append(rxPackets[i]);
+            }
+            if (txBytes != null) {
+                builder.append(" tb=").append(txBytes[i]);
+            }
+            if (txPackets != null) {
+                builder.append(" tp=").append(txPackets[i]);
+            }
+            if (operations != null) {
+                builder.append(" op=").append(operations[i]);
+            }
+            Log.e(TAG, builder.toString());
+        }
     }
 
     /** @hide */

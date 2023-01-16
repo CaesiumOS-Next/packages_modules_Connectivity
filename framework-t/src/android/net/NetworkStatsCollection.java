@@ -739,6 +739,19 @@ public class NetworkStatsCollection implements FileRotator.Reader, FileRotator.W
     }
 
     /** @hide */
+    public void dump() {
+        Log.e(TAG, "dump");
+        for (Key key : getSortedKeys()) {
+            Log.e(TAG, "ident=" + key.ident.toString()
+                    + " uid=" + key.uid
+                    + " set=" + NetworkStats.setToString(key.set)
+                    + " tag=" + NetworkStats.tagToString(key.tag));
+            final NetworkStatsHistory history = mStats.get(key);
+            history.dump();
+        }
+    }
+
+    /** @hide */
     public void dump(IndentingPrintWriter pw) {
         for (Key key : getSortedKeys()) {
             pw.print("ident="); pw.print(key.ident.toString());
@@ -992,6 +1005,17 @@ public class NetworkStatsCollection implements FileRotator.Reader, FileRotator.W
                 res = Integer.compare(left.tag, right.tag);
             }
             return res;
+        }
+
+        @Override
+        public String toString() {
+            final StringBuilder builder = new StringBuilder("{");
+            builder.append("ident=").append(ident);
+            builder.append(", uid=").append(uid);
+            builder.append(", set=").append(set);
+            builder.append(", tag=").append(tag);
+            builder.append("}");
+            return builder.toString();
         }
     }
 }
