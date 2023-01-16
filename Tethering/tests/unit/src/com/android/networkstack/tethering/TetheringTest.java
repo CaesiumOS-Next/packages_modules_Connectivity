@@ -2679,31 +2679,32 @@ public class TetheringTest {
     public void testUpstreamNetworkChanged() {
         final Tethering.TetherMainSM stateMachine = (Tethering.TetherMainSM)
                 mTetheringDependencies.mUpstreamNetworkMonitorSM;
+        final InOrder inOrder = inOrder(mNotificationUpdater);
+
         // Gain upstream.
         final UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
         initTetheringUpstream(upstreamState);
         stateMachine.chooseUpstreamType(true);
         mTetheringEventCallback.expectUpstreamChanged(upstreamState.network);
-        verify(mNotificationUpdater)
-                .onUpstreamCapabilitiesChanged(upstreamState.networkCapabilities);
+        inOrder.verify(mNotificationUpdater)
+                 .onUpstreamCapabilitiesChanged(upstreamState.networkCapabilities);
 
-        // Set the same upstream with different capability.
-        // Bug: duplicated upstream change event because network ID is not changed.
+        // Set the same upstream with different capability. Expect that no upstream change event.
         final UpstreamNetworkState upstreamState2 = buildMobileIPv4UpstreamState();
-        // Expect that capability is changed.
+        // Make sure that the test upstream state |upstreamState2| generated from
+        // buildMobileIPv4UpstreamState() has a changed capability from |upstreamState|.
         assertFalse(upstreamState.networkCapabilities.hasCapability(NET_CAPABILITY_VALIDATED));
         upstreamState2.networkCapabilities.addCapability(NET_CAPABILITY_VALIDATED);
         initTetheringUpstream(upstreamState2);
         stateMachine.chooseUpstreamType(true);
-        mTetheringEventCallback.expectUpstreamChanged(upstreamState2.network);
-        verify(mNotificationUpdater)
-                .onUpstreamCapabilitiesChanged(upstreamState2.networkCapabilities);
+        mTetheringEventCallback.assertNoUpstreamChangeCallback();
+        inOrder.verify(mNotificationUpdater, never()).onUpstreamCapabilitiesChanged(any());
 
         // Lose upstream.
         initTetheringUpstream(null);
         stateMachine.chooseUpstreamType(true);
         mTetheringEventCallback.expectUpstreamChanged(NULL_NETWORK);
-        verify(mNotificationUpdater).onUpstreamCapabilitiesChanged(null);
+        inOrder.verify(mNotificationUpdater).onUpstreamCapabilitiesChanged(null);
     }
 
     @Test
