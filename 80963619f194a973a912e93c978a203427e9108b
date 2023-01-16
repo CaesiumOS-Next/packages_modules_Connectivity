@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4592d58e_c1681c89",
+        "filename": "service/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-01-16T02:49:34Z",
+      "side": 1,
+      "message": "@lorenzo@google.com We need to update DnsResolver.aidl in aosp/2368970 to keep the TRANSPORT_* consistent with NetworkCapabilities. This in turn requires us to create a new frozen DnsResolver API version (V11) and use it here, according to https://g3doc.corp.google.com/company/teams/android-core-networking/misc/stableaidls.md#how-to-update-andor-freeze-a-stable-aidl-interface.\n\nDoes this look good to you?",
+      "range": {
+        "startLine": 174,
+        "startChar": 36,
+        "endLine": 174,
+        "endChar": 39
+      },
+      "revId": "80963619f194a973a912e93c978a203427e9108b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
