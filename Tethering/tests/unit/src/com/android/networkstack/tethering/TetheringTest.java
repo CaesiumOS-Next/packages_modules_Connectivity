@@ -2700,32 +2700,31 @@ public class TetheringTest {
         final TestTetheringEventCallback callback = registerEventCallbackBeforeStartingTethering();
         final Tethering.TetherMainSM stateMachine = (Tethering.TetherMainSM)
                 mTetheringDependencies.mUpstreamNetworkMonitorSM;
+        final InOrder inOrder = inOrder(mNotificationUpdater);
 
         // Set upstream.
         final UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
         initTetheringUpstream(upstreamState);
         stateMachine.chooseUpstreamType(true);
         callback.expectUpstreamChanged(upstreamState.network);
-        verify(mNotificationUpdater)
+        inOrder.verify(mNotificationUpdater)
                 .onUpstreamCapabilitiesChanged(upstreamState.networkCapabilities);
 
-        // Set the same upstream with different capability.
-        // Bug: duplicated upstream change event because network ID is not changed.
+        // Set the same upstream with different capability. Expect that no upstream change event.
         final UpstreamNetworkState upstreamState2 = buildMobileIPv4UpstreamState();
         // Expect that capability is changed.
         assertFalse(upstreamState.networkCapabilities.hasCapability(NET_CAPABILITY_VALIDATED));
         upstreamState2.networkCapabilities.addCapability(NET_CAPABILITY_VALIDATED);
         initTetheringUpstream(upstreamState2);
         stateMachine.chooseUpstreamType(true);
-        callback.expectUpstreamChanged(upstreamState2.network);
-        verify(mNotificationUpdater)
-                .onUpstreamCapabilitiesChanged(upstreamState2.networkCapabilities);
+        callback.assertNoUpstreamChangeCallback();
+        inOrder.verify(mNotificationUpdater, never()).onUpstreamCapabilitiesChanged(any());
 
         // Lose upstream.
         initTetheringUpstream(null);
         stateMachine.chooseUpstreamType(true);
         callback.expectUpstreamChanged(NULL_NETWORK);
-        verify(mNotificationUpdater).onUpstreamCapabilitiesChanged(null);
+        inOrder.verify(mNotificationUpdater).onUpstreamCapabilitiesChanged(null);
     }
 
     @Test
