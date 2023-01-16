@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce9d9d03_e413af82",
+        "filename": "service-t/src/com/android/server/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T15:36:29Z",
+      "side": 1,
+      "message": "Nit: ParseException is more precisely.",
+      "range": {
+        "startLine": 304,
+        "startChar": 17,
+        "endLine": 304,
+        "endChar": 28
+      },
+      "revId": "ffd22d19fbf3cee3ae913bd287a16954c4873ecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17826078_669b3bb3",
+        "filename": "service-t/src/com/android/server/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T15:36:29Z",
+      "side": 1,
+      "message": "Nit: mReplySender is non-null.",
+      "range": {
+        "startLine": 325,
+        "startChar": 8,
+        "endLine": 325,
+        "endChar": 33
+      },
+      "revId": "ffd22d19fbf3cee3ae913bd287a16954c4873ecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd253c2e_51395cdf",
+        "filename": "service-t/src/com/android/server/mdns/MdnsReplySender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T15:36:29Z",
+      "side": 1,
+      "message": "Check calling from looper thread?",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 9
+      },
+      "revId": "ffd22d19fbf3cee3ae913bd287a16954c4873ecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6324aa7f_e2fbc413",
+        "filename": "service-t/src/com/android/server/mdns/MdnsReplySender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T15:36:29Z",
+      "side": 1,
+      "message": "cancelAll",
+      "range": {
+        "startLine": 125,
+        "startChar": 45,
+        "endLine": 125,
+        "endChar": 49
+      },
+      "revId": "ffd22d19fbf3cee3ae913bd287a16954c4873ecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df727734_d3bdf2e4",
+        "filename": "service-t/src/com/android/server/mdns/MulticastPacketReader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T15:36:29Z",
+      "side": 1,
+      "message": "Add ensureRunningOnHandlerThread(mHandler).",
+      "range": {
+        "startLine": 116,
+        "startChar": 7,
+        "endLine": 116,
+        "endChar": 8
+      },
+      "revId": "ffd22d19fbf3cee3ae913bd287a16954c4873ecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

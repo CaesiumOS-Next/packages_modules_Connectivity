@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8197f24_c5acaff9",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T15:36:29Z",
+      "side": 1,
+      "message": "Nit: anyString()",
+      "range": {
+        "startLine": 96,
+        "startChar": 59,
+        "endLine": 96,
+        "endChar": 64
+      },
+      "revId": "080853baad8e6e2edc052139da65c8cc44db76cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09819384_bcaed419",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T15:36:29Z",
+      "side": 1,
+      "message": "Nit: Maybe make a function for these code because they are using in many testes.",
+      "range": {
+        "startLine": 329,
+        "startChar": 8,
+        "endLine": 331,
+        "endChar": 64
+      },
+      "revId": "080853baad8e6e2edc052139da65c8cc44db76cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
