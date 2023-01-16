@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6f94bca_fcd50d2a",
+        "filename": "service-t/src/com/android/server/mdns/MdnsAnnouncer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T07:13:00Z",
+      "side": 1,
+      "message": "Nit: /* additionalRecords */",
+      "range": {
+        "startLine": 94,
+        "startChar": 69,
+        "endLine": 94,
+        "endChar": 70
+      },
+      "revId": "676848d8aedfea5137c3d18ca71c658a88ae2d4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b7beaf9_50ac727c",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-16T07:13:00Z",
+      "side": 1,
+      "message": "If `MdnsInterfaceAdvertiser.removeService` is called twice with same service id, the first call to send exit announcement would be canceled but second call would not re-sent exit announcement and remove the service immediately. Is this a expected behavior?",
+      "range": {
+        "startLine": 346,
+        "startChar": 8,
+        "endLine": 346,
+        "endChar": 46
+      },
+      "revId": "676848d8aedfea5137c3d18ca71c658a88ae2d4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
