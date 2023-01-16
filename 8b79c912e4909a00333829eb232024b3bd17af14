@@ -252,6 +252,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5486e647_d7c1dbcd",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/current.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T15:15:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "622939df_a1567664",
+      "range": {
+        "startLine": 45,
+        "startChar": 54,
+        "endLine": 45,
+        "endChar": 100
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04bcc966_96445cb9",
@@ -265,6 +289,30 @@
       "writtenOn": "2023-01-16T14:13:15Z",
       "side": 1,
       "message": "Why protected? Can this constructor be public like the one for HttpException?",
+      "range": {
+        "startLine": 71,
+        "startChar": 9,
+        "endLine": 71,
+        "endChar": 18
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a853b546_12d0f3d6",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/current.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T15:15:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04bcc966_96445cb9",
       "range": {
         "startLine": 71,
         "startChar": 9,
@@ -298,6 +346,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3be31ca3_b4830f0a",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/current.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T15:15:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4330be65_225e7ad4",
+      "range": {
+        "startLine": 73,
+        "startChar": 35,
+        "endLine": 73,
+        "endChar": 55
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "226b97f9_0ca0a764",
@@ -321,6 +393,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc806614_10f81aba",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/current.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T15:15:40Z",
+      "side": 1,
+      "message": "\u003e These configs are created by cronet automatically based on server interactions, right? \n\nYes, they\u0027re created internally by Cronet as it discovers new server properties worth remembering for a later time.",
+      "parentUuid": "226b97f9_0ca0a764",
+      "range": {
+        "startLine": 102,
+        "startChar": 55,
+        "endLine": 102,
+        "endChar": 88
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b4c3abf_7209c315",
@@ -334,6 +430,30 @@
       "writtenOn": "2023-01-16T14:13:15Z",
       "side": 1,
       "message": "This should be @hide. You want something like:\n\n    /** @hide */\n    @Retention(RetentionPolicy.SOURCE)\n    @IntDef(value \u003d {\n            Status.INVALID,\n            ...\n    })\n    public @interface UrlRequestStatus {}",
+      "range": {
+        "startLine": 179,
+        "startChar": 3,
+        "endLine": 179,
+        "endChar": 9
+      },
+      "revId": "8b79c912e4909a00333829eb232024b3bd17af14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa5f8da8_81a7afa7",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/current.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-16T15:15:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b4c3abf_7209c315",
       "range": {
         "startLine": 179,
         "startChar": 3,
