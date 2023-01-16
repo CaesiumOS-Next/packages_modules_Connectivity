@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cafc737_9e7d3b39",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2833,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-16T07:54:09Z",
+      "side": 1,
+      "message": "netd.c access app_uid_stats_map.\nCurrently, netd.c code doesn\u0027t delete the entry from app_uid_stats_map so this would not actually happen.\nI added null check as a safe guard.\n\nCurrently, map dump is done by BpfDump#dumpMap.\nSo, we don\u0027t have null check specific for app_uid_stats_map\nhttp://cs/aosp-master/frameworks/libs/net/common/device/com/android/net/module/util/BpfDump.java;l\u003d94;rcl\u003d9f75a97cc42ff34708ea59ba7904164739deca91",
+      "parentUuid": "7a35b757_60100af9",
+      "range": {
+        "startLine": 2833,
+        "startChar": 39,
+        "endLine": 2833,
+        "endChar": 79
+      },
+      "revId": "b8dd98e4d19d2f7c4a904a2564c95016bf9d251c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4951209_f0dfefe8",
