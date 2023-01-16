@@ -16,9 +16,11 @@
 
 package android.net.http.cts;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static android.net.http.cts.util.TestUtilsKt.assertOKStatusCode;
+import static android.net.http.cts.util.TestUtilsKt.skipIfNoInternetConnection;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -27,7 +29,6 @@ import android.net.http.cts.util.TestStatusListener;
 import android.net.http.cts.util.TestUrlRequestCallback;
 import android.net.http.cts.util.TestUrlRequestCallback.ResponseStep;
 
-import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -42,22 +43,16 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 public class CronetUrlRequestTest {
-    private static final String TAG = CronetUrlRequestTest.class.getSimpleName();
-
-    @NonNull private CronetEngine mCronetEngine;
-    @NonNull private TestUrlRequestCallback mCallback;
-    @NonNull private ConnectivityManager mCm;
-    @NonNull private CronetCtsTestServer mTestServer;
+    private TestUrlRequestCallback mCallback;
+    private CronetCtsTestServer mTestServer;
+    private CronetEngine mCronetEngine;
+    private ConnectivityManager mCm;
 
     @Before
     public void setUp() throws Exception {
         Context context = InstrumentationRegistry.getInstrumentation().getContext();
-        mCm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        skipIfNoInternetConnection(context);
         CronetEngine.Builder builder = new CronetEngine.Builder(context);
-        builder.enableHttpCache(CronetEngine.Builder.HTTP_CACHE_IN_MEMORY, 100 * 1024)
-                .enableHttp2(true)
-                // .enableBrotli(true)
-                .enableQuic(true);
         mCronetEngine = builder.build();
         mCallback = new TestUrlRequestCallback();
         mTestServer = new CronetCtsTestServer(context);
@@ -65,16 +60,12 @@ public class CronetUrlRequestTest {
 
     @After
     public void tearDown() throws Exception {
-        mCronetEngine.shutdown();
-        mTestServer.shutdown();
-    }
-
-    private static void assertGreaterThan(String msg, int first, int second) {
-        assertTrue(msg + " Excepted " + first + " to be greater than " + second, first > second);
-    }
-
-    private void assertHasTestableNetworks() {
-        assertNotNull("This test requires a working Internet connection", mCm.getActiveNetwork());
+        if (mCronetEngine != null) {
+            mCronetEngine.shutdown();
+        }
+        if (mTestServer != null) {
+            mTestServer.shutdown();
+        }
     }
 
     private UrlRequest buildUrlRequest(String url) {
@@ -83,18 +74,15 @@ public class CronetUrlRequestTest {
 
     @Test
     public void testUrlRequestGet_CompletesSuccessfully() throws Exception {
-        assertHasTestableNetworks();
         String url = mTestServer.getSuccessUrl();
-        UrlRequest request = buildUrlRequest(url);
-        request.start();
-
-        mCallback.expectCallback(ResponseStep.ON_SUCCEEDED);
-
-        UrlResponseInfo info = mCallback.mResponseInfo;
-        assertEquals(
-                "Unexpected http status code from " + url + ".", 200, info.getHttpStatusCode());
-        assertGreaterThan(
-                "Received byte from " + url + " is 0.", (int) info.getReceivedByteCount(), 0);
+        TestUrlRequestCallback callback = new TestUrlRequestCallback();
+        UrlRequest.Builder builder =
+                mCronetEngine.newUrlRequestBuilder(url, callback, callback.getExecutor());
+        builder.build().start();
+        callback.expectCallback(ResponseStep.ON_SUCCEEDED);
+        UrlResponseInfo info = callback.mResponseInfo;
+        assertOKStatusCode(info);
+        assertThat("Received byte count must be > 0", info.getReceivedByteCount(), greaterThan(0L));
     }
 
     @Test
