@@ -70,6 +70,30 @@
       },
       "revId": "841643a95eb406bb51ca06bd48c89c6f97d7ca33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f514b5ea_b3de9063",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-17T06:58:51Z",
+      "side": 1,
+      "message": "Interesting, I definitely had mine complain about cronet_aml_java at some point.",
+      "parentUuid": "49f1113a_7dbca586",
+      "range": {
+        "startLine": 35,
+        "startChar": 39,
+        "endLine": 35,
+        "endChar": 61
+      },
+      "revId": "841643a95eb406bb51ca06bd48c89c6f97d7ca33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
