@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b141fbad_5609382d",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-17T13:41:25Z",
+      "side": 1,
+      "message": "when we discussed about this, we agreed to keep the tests in Java to make things easier and to meet deadlines, we were also under the assumption that I would be writing the tests alone.\n\nHowever since we know we have till March at least and I\u0027m not writing alone, writing in Kotlin makes sense but shouldn\u0027t be mandatory though.",
+      "parentUuid": "a4650144_46a9470b",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 31
+      },
+      "revId": "a0751aa04af0b4c5f6999b888d8d0135870292df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7d95b58_3743e238",
         "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
         "patchSetId": 6
