@@ -22,6 +22,30 @@
       },
       "revId": "841643a95eb406bb51ca06bd48c89c6f97d7ca33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1820bab0_a0f8f36b",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-17T06:39:27Z",
+      "side": 1,
+      "message": "It does complain about all those targets indeed.",
+      "parentUuid": "df8b0eb9_8629dda3",
+      "range": {
+        "startLine": 35,
+        "startChar": 39,
+        "endLine": 35,
+        "endChar": 61
+      },
+      "revId": "841643a95eb406bb51ca06bd48c89c6f97d7ca33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
