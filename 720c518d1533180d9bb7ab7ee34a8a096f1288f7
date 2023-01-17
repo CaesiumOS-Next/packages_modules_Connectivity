@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b5f0329_dfc091a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-17T12:39:59Z",
+      "side": 1,
+      "message": "We could also consider using ConnectivityCheckTargetPreparer for these tests.",
+      "revId": "720c518d1533180d9bb7ab7ee34a8a096f1288f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9cac9b8e_cc9587a9",
         "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetUrlRequestTest.java",
         "patchSetId": 2
