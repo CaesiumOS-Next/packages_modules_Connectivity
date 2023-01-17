@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3d3c4e1_dde2b4a9",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T07:28:29Z",
+      "side": 1,
+      "message": "So this would call maybeStopMonitoringSockets to destroy sockets after the timeout, even if requests are active right ? Is this necessary ?\n\nMonitoring is already stopped immediately when there are no requests, shouldn\u0027t that be enough ?",
+      "revId": "8cf43509761e5e7e9c5c96b8f2bda95e236ebd00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da118760_20df6e52",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 10
