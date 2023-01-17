@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5311542_64031668",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T13:30:36Z",
+      "side": 1,
+      "message": "Nit: unused (never sent) now",
+      "revId": "23fa202478d4a124503dea1111901cf83e53af53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46edcc6c_1ba44b6e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T13:30:36Z",
+      "side": 1,
+      "message": "Sorry, actually I think it\u0027s \"_sub.\" instead of \"._sub\" (the first group has the dot at the end)",
+      "range": {
+        "startLine": 452,
+        "startChar": 46,
+        "endLine": 452,
+        "endChar": 51
+      },
+      "revId": "23fa202478d4a124503dea1111901cf83e53af53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
