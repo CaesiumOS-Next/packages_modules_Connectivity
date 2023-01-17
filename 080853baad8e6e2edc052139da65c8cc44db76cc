@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "141d4b9f_780883ff",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T06:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8197f24_c5acaff9",
+      "range": {
+        "startLine": 96,
+        "startChar": 59,
+        "endLine": 96,
+        "endChar": 64
+      },
+      "revId": "080853baad8e6e2edc052139da65c8cc44db76cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09819384_bcaed419",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-16T15:36:29Z",
       "side": 1,
       "message": "Nit: Maybe make a function for these code because they are using in many testes.",
+      "range": {
+        "startLine": 329,
+        "startChar": 8,
+        "endLine": 331,
+        "endChar": 64
+      },
+      "revId": "080853baad8e6e2edc052139da65c8cc44db76cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1deb1576_9f7ba7d2",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T06:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09819384_bcaed419",
       "range": {
         "startLine": 329,
         "startChar": 8,
