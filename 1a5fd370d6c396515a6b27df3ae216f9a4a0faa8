@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9711aaf_70b30e81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T02:05:24Z",
+      "side": 1,
+      "message": "I re-order the commit order so the test file is removed. I will add the test back in DK2-1",
+      "revId": "1a5fd370d6c396515a6b27df3ae216f9a4a0faa8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
