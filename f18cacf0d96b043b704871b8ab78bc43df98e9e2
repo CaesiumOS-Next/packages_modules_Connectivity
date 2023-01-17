@@ -16,6 +16,29 @@
       "message": "Ping Patrick",
       "revId": "f18cacf0d96b043b704871b8ab78bc43df98e9e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f96e257_32e84fd6",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetUrlRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-17T14:27:56Z",
+      "side": 1,
+      "message": "these should both be final",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 26
+      },
+      "revId": "f18cacf0d96b043b704871b8ab78bc43df98e9e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
