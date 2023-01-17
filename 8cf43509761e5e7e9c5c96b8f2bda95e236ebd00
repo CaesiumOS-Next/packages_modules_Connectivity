@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da118760_20df6e52",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T06:39:14Z",
+      "side": 1,
+      "message": "Nit: also detail what the check is: each label is up to 63 characters and must start with an underscore; they are alphanumerical characters or dashes or underscore, except the last one that is just alphanumerical.\nThere are 2 labels, or 3 if the query is for a subtype (_subtype._sub._maintype._tcp, RFC6763 7.1). The last label must be _tcp or _udp.\n\nAlso you can cite RFC1034 and RFC1123",
+      "revId": "8cf43509761e5e7e9c5c96b8f2bda95e236ebd00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71c731fd_00844a2e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T06:39:14Z",
+      "side": 1,
+      "message": "Note that if the first capture group matches, there\u0027s a subtype, so you should actually discover for group(1) + \"._sub\" + group(2).\n\nFor example, _subtype._type._tcp --\u003e _subtype._sub._type._tcp\n\nSee: http://go/aocs/android/platform/superproject/+/master:external/mdnsresponder/mDNSCore/DNSCommon.c;drc\u003d47e4cebad7397422144bb03a21f3f7682c062c4a;l\u003d699\n\nThis should be easy with:\n\n    final Pattern serviceTypePattern \u003d Pattern.compile(\"...regex\");\n    final Matcher matcher \u003d serviceTypePattern.matcher(serviceType);\n    if (!matcher.matches()) return null;\n    return matcher.group(1) \u003d\u003d null\n        ? serviceType + \".local\";\n        : matcher.group(1) + \"._sub\" + matcher.group(2) + \".local\";\n\n(which also replaces addLocalDomain).\n\nYou could put the actual discovery type as a member in MdnsListener, so you don\u0027t have to recalculate it in STOP_DISCOVERY (right now it calls addLocalDomain in both STOP_DISCOVERY and DISCOVER_SERVICES)",
+      "revId": "8cf43509761e5e7e9c5c96b8f2bda95e236ebd00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a333e3_6a12c749",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T06:39:14Z",
+      "side": 1,
+      "message": "This can\u0027t happen, since the regex checks that it ends with _tcp or _udp",
+      "revId": "8cf43509761e5e7e9c5c96b8f2bda95e236ebd00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
