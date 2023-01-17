@@ -39,6 +39,23 @@
       },
       "revId": "23fa202478d4a124503dea1111901cf83e53af53",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb9ead3c_31112d67",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T13:31:45Z",
+      "side": 1,
+      "message": "A test for the case where _sub gets added would be useful too (can be in another CL)",
+      "revId": "23fa202478d4a124503dea1111901cf83e53af53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
