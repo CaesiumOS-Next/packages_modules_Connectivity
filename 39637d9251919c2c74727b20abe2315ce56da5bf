@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "921f8736_ca2c26d5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T02:38:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa22d4a4_6e89514e",
+      "range": {
+        "startLine": 121,
+        "startChar": 11,
+        "endLine": 121,
+        "endChar": 12
+      },
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9a34659_c95eb68b",
@@ -54,6 +78,24 @@
       "writtenOn": "2023-01-16T06:35:19Z",
       "side": 1,
       "message": "Nit: @NonNull (also on other places in this class)",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "477dafdb_53bcb68c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T02:38:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9a34659_c95eb68b",
       "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -77,6 +119,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "036b3795_71d67b43",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T02:38:06Z",
+      "side": 1,
+      "message": "Because other clients may be still acive and need socket for them. So we can\u0027t stop monitoring socket immediately. maybeScheduleStopMonitoringSockets will check whether there is an active request.",
+      "parentUuid": "3efcd8fa_b1369d3b",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd90fc49_053c690c",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 8
@@ -94,6 +154,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3738a6ac_e6d53c88",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T02:38:06Z",
+      "side": 1,
+      "message": "Add empty check.\nPer offline sycn, the max length check should include in regex.",
+      "parentUuid": "fd90fc49_053c690c",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "046cfc45_59caa5fd",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 8
@@ -105,6 +183,24 @@
       "writtenOn": "2023-01-16T06:35:19Z",
       "side": 1,
       "message": "There\u0027s a bit more validation to do here I think; the original implementation used ConstructServiceName: http://go/aocs/android/platform/superproject/+/master:external/mdnsresponder/mDNSCore/mDNS.c;drc\u003d9f75a97cc42ff34708ea59ba7904164739deca91;l\u003d8763\n\nFrom what read of that function, I think the type must match the regex:\n\n    ^(_[a-zA-Z0-9-_]{1,62}[a-zA-Z0-9]\\.)?(_[a-zA-Z0-9-_]{1,62}[a-zA-Z0-9]\\._(?:tcp|udp))$\n\n(optional subtype, then type, then _tcp or _udp. Types and subtype must be 1-63 characters with a leading underscore, and must not end with dashes or underscores).\n\nAnd if the first capture group matches something, it should actually discover for match.group(1) + \"_sub.\" + match.group(2)\n\nI\u0027ve written a test in aosp/2388109 to help validate",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efc381ab_a0978674",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T02:38:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "046cfc45_59caa5fd",
       "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -132,6 +228,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b14a5170_f2623e3f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T02:38:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60162a6a_70bcbe66",
+      "range": {
+        "startLine": 771,
+        "startChar": 48,
+        "endLine": 771,
+        "endChar": 54
+      },
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d4d734e_981b8449",
@@ -149,6 +269,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25175646_3656c4e2",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T02:38:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d4d734e_981b8449",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2abad61_7a46ad4d",
@@ -162,6 +300,24 @@
       "writtenOn": "2023-01-16T06:35:19Z",
       "side": 1,
       "message": "Nit: this should probably be a separate test case",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b9ac6f2_e7268a7c",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T02:38:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2abad61_7a46ad4d",
       "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
