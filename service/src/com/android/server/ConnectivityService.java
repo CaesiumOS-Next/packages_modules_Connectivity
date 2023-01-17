@@ -263,6 +263,7 @@ import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.TcUtils;
 import com.android.net.module.util.netlink.InetDiagMessage;
 import com.android.server.connectivity.AutodestructReference;
+import com.android.server.connectivity.AutomaticOnOffKeepaliveTracker;
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator;
 import com.android.server.connectivity.ClatCoordinator;
 import com.android.server.connectivity.ConnectivityFlags;
@@ -833,7 +834,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private final LocationPermissionChecker mLocationPermissionChecker;
 
-    private final KeepaliveTracker mKeepaliveTracker;
+    private final AutomaticOnOffKeepaliveTracker mKeepaliveTracker;
     private final QosCallbackTracker mQosCallbackTracker;
     private final NetworkNotificationManager mNotifier;
     private final LingerMonitor mLingerMonitor;
@@ -1545,7 +1546,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mSettingsObserver = new SettingsObserver(mContext, mHandler);
         registerSettingsCallbacks();
 
-        mKeepaliveTracker = new KeepaliveTracker(mContext, mHandler);
+        mKeepaliveTracker = new AutomaticOnOffKeepaliveTracker(mContext, mHandler);
         mNotifier = new NetworkNotificationManager(mContext, mTelephonyManager);
         mQosCallbackTracker = new QosCallbackTracker(mHandler, mNetworkRequestCounter);
 
