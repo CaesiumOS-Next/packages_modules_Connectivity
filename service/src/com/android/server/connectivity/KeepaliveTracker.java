@@ -33,6 +33,7 @@ import static android.net.SocketKeepalive.MAX_INTERVAL_SEC;
 import static android.net.SocketKeepalive.MIN_INTERVAL_SEC;
 import static android.net.SocketKeepalive.NO_KEEPALIVE;
 import static android.net.SocketKeepalive.SUCCESS;
+import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
 import static android.system.OsConstants.SOL_SOCKET;
@@ -85,6 +86,7 @@ import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.HexDump;
 import com.android.net.module.util.IpUtils;
 import com.android.net.module.util.SocketUtils;
@@ -131,6 +133,9 @@ public class KeepaliveTracker {
     private static final int STATE_DISABLED = 0;
     private static final int STATE_ENABLED = 1;
     private static final int STATE_SUSPENDED = 2;
+    private static final String AUTOMATIC_ON_OFF_KEEPALIVE_MODE = "automatic_on_off_keepalive_mode";
+    private static final int AUTOMATIC_ON_OFF_KEEPALIVE_MODE_DISABLED = 0;
+    private static final int AUTOMATIC_ON_OFF_KEEPALIVE_MODE_ENABLED = 1;
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(prefix = { "STATE_" }, value = {
@@ -549,7 +554,10 @@ public class KeepaliveTracker {
         ki.start(slot);
 
         // Add automatic on/off request into list to track its life cycle.
-        final boolean automaticOnOff = message.arg1 != 0;
+        final boolean automaticOnOff = message.arg1 != 0
+                && (mDependencies.getDeviceConfigPropertyInt(NAMESPACE_CONNECTIVITY,
+                AUTOMATIC_ON_OFF_KEEPALIVE_MODE, AUTOMATIC_ON_OFF_KEEPALIVE_MODE_ENABLED)
+                != AUTOMATIC_ON_OFF_KEEPALIVE_MODE_DISABLED);
         if (automaticOnOff) {
             try {
                 addOrReplaceAutomaticOnOffKeepalive(new AutomaticOnOffKeepalive(
@@ -956,6 +964,19 @@ public class KeepaliveTracker {
         public Resources newConnectivityResources() {
             final ConnectivityResources resources = new ConnectivityResources(mContext);
             return resources.get();
+        }
+
+        /**
+         * Look up the value of a property in DeviceConfig.
+         * @param namespace The namespace containing the property to look up.
+         * @param name The name of the property to look up.
+         * @param defaultValue The value to return if the property does not exist or has no non-null
+         *                     value.
+         * @return the corresponding value, or defaultValue if none exists.
+         */
+        public int getDeviceConfigPropertyInt(@NonNull String namespace, @NonNull String name,
+                int defaultValue) {
+            return DeviceConfigUtils.getDeviceConfigPropertyInt(namespace, name, defaultValue);
         }
     }
 
