@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2089a0b4_5fc91f91",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T08:10:37Z",
+      "side": 1,
+      "message": "I think you could do much simpler by simply computing the 4-bytes aligned value of nlmsgLen : considering bytes.position() - SOCKDIAG_MSG_HEADER_SIZE should be the start of a message, you could say that the size in memory of this message is ((nlmsgLen + 1) \u0026 ~3), then use your old code.\n\nMoot if you use Lorenzo\u0027s advice and solve the todo.",
+      "revId": "6a9f0db983ed87cfd66396b9fed86535fd458965",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
