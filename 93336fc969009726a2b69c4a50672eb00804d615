@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae5c3fd1_2e96fa86",
+        "filename": "service-t/src/com/android/server/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T06:53:09Z",
+      "side": 1,
+      "message": "Oops - removed",
+      "parentUuid": "a7b9a696_bd7193e1",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 13
+      },
+      "revId": "93336fc969009726a2b69c4a50672eb00804d615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb7df6dc_23536024",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-16T13:41:15Z",
       "side": 1,
       "message": "IIUC the old code doesn\u0027t add question record. I think we should keep the same design here. See l.146.",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 45
+      },
+      "revId": "93336fc969009726a2b69c4a50672eb00804d615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8472d66f_92b562d0",
+        "filename": "service-t/src/com/android/server/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T06:53:09Z",
+      "side": 1,
+      "message": "Oh good point, questions shouldn\u0027t be there. Actually I think the old code would try to parse them and fail if there were here; removed.",
+      "parentUuid": "bb7df6dc_23536024",
       "range": {
         "startLine": 143,
         "startChar": 8,
