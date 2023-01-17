@@ -2508,36 +2508,6 @@ cc_genrule {
     ],
 }
 
-// GN: //base:process_launcher_aidl
-java_genrule {
-    name: "cronet_aml_base_process_launcher_aidl",
-    cmd: "$(location build/android/gyp/aidl.py) --aidl-path " +
-         "../../third_party/android_sdk/public/build-tools/33.0.0/aidl " +
-         "--imports " +
-         "[\"../../third_party/android_sdk/public/platforms/android-33/framework.aidl\"] " +
-         "--srcjar " +
-         "gen/base/process_launcher_aidl.srcjar " +
-         "--depfile " +
-         "gen/base/process_launcher_aidl.d " +
-         "--includes " +
-         "[\"../../base/android/java/src\"] " +
-         "../../base/android/java/src/org/chromium/base/process_launcher/IChildProcessService.aidl " +
-         "../../base/android/java/src/org/chromium/base/process_launcher/IParentProcess.aidl",
-    out: [
-        "base/process_launcher_aidl.srcjar",
-    ],
-    tool_files: [
-        "base/android/java/src/org/chromium/base/process_launcher/IChildProcessService.aidl",
-        "base/android/java/src/org/chromium/base/process_launcher/IParentProcess.aidl",
-        "build/android/gyp/aidl.py",
-        "build/android/gyp/util/__init__.py",
-        "build/android/gyp/util/build_utils.py",
-        "build/gn_helpers.py",
-        "third_party/android_sdk/public/build-tools/33.0.0/aidl",
-        "third_party/android_sdk/public/platforms/android-33/framework.aidl",
-    ],
-}
-
 // GN: //base:profiler_buildflags
 cc_genrule {
     name: "cronet_aml_base_profiler_buildflags",
@@ -3049,36 +3019,6 @@ cc_library_static {
             ],
         },
     },
-}
-
-// GN: //base/test:test_support_java_aidl
-java_genrule {
-    name: "cronet_aml_base_test_test_support_java_aidl",
-    cmd: "$(location build/android/gyp/aidl.py) --aidl-path " +
-         "../../third_party/android_sdk/public/build-tools/33.0.0/aidl " +
-         "--imports " +
-         "[\"../../third_party/android_sdk/public/platforms/android-33/framework.aidl\"] " +
-         "--srcjar " +
-         "gen/base/test/test_support_java_aidl.srcjar " +
-         "--depfile " +
-         "gen/base/test/test_support_java_aidl.d " +
-         "--includes " +
-         "[\"../../base/test/android/java/src\", \"../../base/android/java/src\"] " +
-         "../../base/test/android/java/src/org/chromium/base/ITestCallback.aidl " +
-         "../../base/test/android/java/src/org/chromium/base/ITestController.aidl",
-    out: [
-        "base/test/test_support_java_aidl.srcjar",
-    ],
-    tool_files: [
-        "base/test/android/java/src/org/chromium/base/ITestCallback.aidl",
-        "base/test/android/java/src/org/chromium/base/ITestController.aidl",
-        "build/android/gyp/aidl.py",
-        "build/android/gyp/util/__init__.py",
-        "build/android/gyp/util/build_utils.py",
-        "build/gn_helpers.py",
-        "third_party/android_sdk/public/build-tools/33.0.0/aidl",
-        "third_party/android_sdk/public/platforms/android-33/framework.aidl",
-    ],
 }
 
 // GN: //base/test:test_support_jni_headers
@@ -4417,18 +4357,6 @@ cc_genrule {
         "base/android/java/src/org/chromium/base/metrics/TimingMetric.java",
         "base/android/java/src/org/chromium/base/metrics/UmaRecorder.java",
         "base/android/java/src/org/chromium/base/metrics/UmaRecorderHolder.java",
-        "base/android/java/src/org/chromium/base/process_launcher/BindService.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildConnectionAllocator.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessConnection.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessConstants.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessLauncher.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessService.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessServiceDelegate.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnection.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnectionDelegate.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnectionFactory.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnectionImpl.java",
-        "base/android/java/src/org/chromium/base/process_launcher/FileDescriptorInfo.java",
         "base/android/java/src/org/chromium/base/supplier/BooleanSupplier.java",
         "base/android/java/src/org/chromium/base/supplier/DestroyableObservableSupplier.java",
         "base/android/java/src/org/chromium/base/supplier/ObservableSupplier.java",
@@ -4455,21 +4383,6 @@ cc_genrule {
         "base/android/java/src/org/chromium/base/task/TaskRunnerImpl.java",
         "base/android/java/src/org/chromium/base/task/TaskTraits.java",
         "base/android/java/src/org/chromium/base/task/TaskTraitsExtensionDescriptor.java",
-        "base/test/android/java/src/org/chromium/base/GarbageCollectionTestUtils.java",
-        "base/test/android/java/src/org/chromium/base/MainReturnCodeResult.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientLauncher.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService0.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService1.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService2.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService3.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService4.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService5.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService6.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService7.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService8.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService9.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientServiceDelegate.java",
         "build/android/java/src/org/chromium/build/annotations/AlwaysInline.java",
         "build/android/java/src/org/chromium/build/annotations/CheckDiscard.java",
         "build/android/java/src/org/chromium/build/annotations/DoNotClassMerge.java",
@@ -4535,8 +4448,6 @@ cc_genrule {
         "net/android/java/src/org/chromium/net/RegistrationPolicyApplicationStatus.java",
         "net/android/java/src/org/chromium/net/ThreadStatsUid.java",
         "net/android/java/src/org/chromium/net/X509Util.java",
-        "testing/android/native_test/java/src/org/chromium/native_test/MainRunner.java",
-        "third_party/android_deps/local_modifications/preconditions/java/androidx/core/util/Preconditions.java",
         "url/android/java/src/org/chromium/url/IDNStringUtil.java",
     ],
     cmd: "current_dir=`basename \\`pwd\\``; " +
@@ -4699,18 +4610,6 @@ java_genrule {
         "base/android/java/src/org/chromium/base/metrics/TimingMetric.java",
         "base/android/java/src/org/chromium/base/metrics/UmaRecorder.java",
         "base/android/java/src/org/chromium/base/metrics/UmaRecorderHolder.java",
-        "base/android/java/src/org/chromium/base/process_launcher/BindService.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildConnectionAllocator.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessConnection.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessConstants.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessLauncher.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessService.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessServiceDelegate.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnection.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnectionDelegate.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnectionFactory.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnectionImpl.java",
-        "base/android/java/src/org/chromium/base/process_launcher/FileDescriptorInfo.java",
         "base/android/java/src/org/chromium/base/supplier/BooleanSupplier.java",
         "base/android/java/src/org/chromium/base/supplier/DestroyableObservableSupplier.java",
         "base/android/java/src/org/chromium/base/supplier/ObservableSupplier.java",
@@ -4737,21 +4636,6 @@ java_genrule {
         "base/android/java/src/org/chromium/base/task/TaskRunnerImpl.java",
         "base/android/java/src/org/chromium/base/task/TaskTraits.java",
         "base/android/java/src/org/chromium/base/task/TaskTraitsExtensionDescriptor.java",
-        "base/test/android/java/src/org/chromium/base/GarbageCollectionTestUtils.java",
-        "base/test/android/java/src/org/chromium/base/MainReturnCodeResult.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientLauncher.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService0.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService1.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService2.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService3.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService4.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService5.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService6.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService7.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService8.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService9.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientServiceDelegate.java",
         "build/android/java/src/org/chromium/build/annotations/AlwaysInline.java",
         "build/android/java/src/org/chromium/build/annotations/CheckDiscard.java",
         "build/android/java/src/org/chromium/build/annotations/DoNotClassMerge.java",
@@ -4817,8 +4701,6 @@ java_genrule {
         "net/android/java/src/org/chromium/net/RegistrationPolicyApplicationStatus.java",
         "net/android/java/src/org/chromium/net/ThreadStatsUid.java",
         "net/android/java/src/org/chromium/net/X509Util.java",
-        "testing/android/native_test/java/src/org/chromium/native_test/MainRunner.java",
-        "third_party/android_deps/local_modifications/preconditions/java/androidx/core/util/Preconditions.java",
         "url/android/java/src/org/chromium/url/IDNStringUtil.java",
     ],
     cmd: "current_dir=`basename \\`pwd\\``; " +
@@ -6461,8 +6343,6 @@ java_library {
         ":cronet_aml_base_base_android_java_enums_srcjar",
         ":cronet_aml_base_java_features_srcjar",
         ":cronet_aml_base_java_switches_srcjar",
-        ":cronet_aml_base_process_launcher_aidl",
-        ":cronet_aml_base_test_test_support_java_aidl",
         ":cronet_aml_build_android_build_config_gen",
         ":cronet_aml_build_android_native_libraries_gen",
         ":cronet_aml_components_cronet_android_cronet_jni_registration__java",
@@ -6599,18 +6479,6 @@ java_library {
         "base/android/java/src/org/chromium/base/metrics/TimingMetric.java",
         "base/android/java/src/org/chromium/base/metrics/UmaRecorder.java",
         "base/android/java/src/org/chromium/base/metrics/UmaRecorderHolder.java",
-        "base/android/java/src/org/chromium/base/process_launcher/BindService.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildConnectionAllocator.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessConnection.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessConstants.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessLauncher.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessService.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessServiceDelegate.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnection.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnectionDelegate.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnectionFactory.java",
-        "base/android/java/src/org/chromium/base/process_launcher/ChildServiceConnectionImpl.java",
-        "base/android/java/src/org/chromium/base/process_launcher/FileDescriptorInfo.java",
         "base/android/java/src/org/chromium/base/supplier/BooleanSupplier.java",
         "base/android/java/src/org/chromium/base/supplier/DestroyableObservableSupplier.java",
         "base/android/java/src/org/chromium/base/supplier/ObservableSupplier.java",
@@ -6637,21 +6505,6 @@ java_library {
         "base/android/java/src/org/chromium/base/task/TaskRunnerImpl.java",
         "base/android/java/src/org/chromium/base/task/TaskTraits.java",
         "base/android/java/src/org/chromium/base/task/TaskTraitsExtensionDescriptor.java",
-        "base/test/android/java/src/org/chromium/base/GarbageCollectionTestUtils.java",
-        "base/test/android/java/src/org/chromium/base/MainReturnCodeResult.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientLauncher.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService0.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService1.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService2.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService3.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService4.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService5.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService6.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService7.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService8.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientService9.java",
-        "base/test/android/java/src/org/chromium/base/MultiprocessTestClientServiceDelegate.java",
         "build/android/java/src/org/chromium/build/annotations/AlwaysInline.java",
         "build/android/java/src/org/chromium/build/annotations/CheckDiscard.java",
         "build/android/java/src/org/chromium/build/annotations/DoNotClassMerge.java",
@@ -6717,8 +6570,6 @@ java_library {
         "net/android/java/src/org/chromium/net/RegistrationPolicyApplicationStatus.java",
         "net/android/java/src/org/chromium/net/ThreadStatsUid.java",
         "net/android/java/src/org/chromium/net/X509Util.java",
-        "testing/android/native_test/java/src/org/chromium/native_test/MainRunner.java",
-        "third_party/android_deps/local_modifications/preconditions/java/androidx/core/util/Preconditions.java",
         "url/android/java/src/org/chromium/url/IDNStringUtil.java",
     ],
     static_libs: [
