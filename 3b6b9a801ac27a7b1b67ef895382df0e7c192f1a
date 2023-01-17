@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9238881d_dd0a9b2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-17T03:41:35Z",
+      "side": 1,
+      "message": "Yeah it is well known that wifi agent is wifi network agent in the context of CS I think.",
+      "revId": "3b6b9a801ac27a7b1b67ef895382df0e7c192f1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
