@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9cfe0fd7_829f2d73",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T12:10:13Z",
+      "side": 1,
+      "message": "I use it for all events include lost and resolution because it just builds some common info that every events should have that. So I prefer to keep current name.",
+      "parentUuid": "d5478e07_c5e31041",
+      "range": {
+        "startLine": 789,
+        "startChar": 35,
+        "endLine": 789,
+        "endChar": 67
+      },
+      "revId": "da88ecd0dac828dc6e027c90c5bce73a82c38e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9387308_b535a7ed",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 8
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-16T11:08:42Z",
       "side": 1,
       "message": "This should not replace \".local\" if it\u0027s in the middle, only if at the end. It may not be a valid type in that case (doesn\u0027t start with an underscore), but this is not an obvious restriction.\n\nMaybe (serviceType.endsWith(\".local\")\n    ? serviceType.substring(0, serviceType.length - 6)\n    : serviceType)",
+      "range": {
+        "startLine": 794,
+        "startChar": 68,
+        "endLine": 794,
+        "endChar": 75
+      },
+      "revId": "da88ecd0dac828dc6e027c90c5bce73a82c38e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adfbf656_f9b27f0a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T12:10:13Z",
+      "side": 1,
+      "message": "Use the requested serivce type instead since we are contruct it to a valid type for discovery. Changing the service type back takes lots of effort than just use requested one.",
+      "parentUuid": "b9387308_b535a7ed",
       "range": {
         "startLine": 794,
         "startChar": 68,
@@ -77,6 +125,30 @@
       "writtenOn": "2023-01-16T11:08:42Z",
       "side": 1,
       "message": "This is marked @Nullable, so there should be a null check (although I *think* it\u0027s not supposed to happen when using MdnsMultinetworkSocketClient ? You could Log.wtf in that case)",
+      "range": {
+        "startLine": 796,
+        "startChar": 46,
+        "endLine": 796,
+        "endChar": 56
+      },
+      "revId": "da88ecd0dac828dc6e027c90c5bce73a82c38e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d999c0e_679b5658",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T12:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28766a3c_cb08e3c2",
       "range": {
         "startLine": 796,
         "startChar": 46,
