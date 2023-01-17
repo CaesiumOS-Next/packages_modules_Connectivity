@@ -39,6 +39,30 @@
       },
       "revId": "f18cacf0d96b043b704871b8ab78bc43df98e9e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "306f4824_12c54680",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetUrlRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-17T16:03:41Z",
+      "side": 1,
+      "message": "I\u0027d rather not use final for local variables in tests since the scope is always small and it would clutter rather provide value.\n\ncc: go/java-practices/final#params_locals",
+      "parentUuid": "8f96e257_32e84fd6",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 26
+      },
+      "revId": "f18cacf0d96b043b704871b8ab78bc43df98e9e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
