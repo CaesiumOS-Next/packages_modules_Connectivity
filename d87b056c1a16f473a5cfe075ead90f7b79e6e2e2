@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dd37609_fa611017",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-17T15:52:58Z",
+      "side": 1,
+      "message": "I\u0027d suggest {} to match the next one",
+      "range": {
+        "startLine": 395,
+        "startChar": 49,
+        "endLine": 395,
+        "endChar": 50
+      },
+      "revId": "d87b056c1a16f473a5cfe075ead90f7b79e6e2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40667d6f_05989282",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-17T15:52:58Z",
+      "side": 1,
+      "message": "maybe insert an empty line here",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 4
+      },
+      "revId": "d87b056c1a16f473a5cfe075ead90f7b79e6e2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f02fbe0_7e5a8793",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-17T15:52:58Z",
+      "side": 1,
+      "message": "I guess this is now a no-op, since this is 5.0+ when the previous one is 6.0+\n- should it be removed?",
+      "range": {
+        "startLine": 801,
+        "startChar": 8,
+        "endLine": 801,
+        "endChar": 38
+      },
+      "revId": "d87b056c1a16f473a5cfe075ead90f7b79e6e2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
