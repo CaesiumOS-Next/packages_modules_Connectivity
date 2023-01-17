@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39923153_c9087cc9",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-17T12:52:06Z",
+      "side": 1,
+      "message": "Consider making this a global static variable.\n\n`private static String URL \u003d ...`",
+      "revId": "a0751aa04af0b4c5f6999b888d8d0135870292df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cbd38fd_5e35fbfa",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-17T12:52:06Z",
+      "side": 1,
+      "message": "nit: since engine config is different for each test, it makes more since to declare and initialize it locally only ie remove the global engine declaration.",
+      "revId": "a0751aa04af0b4c5f6999b888d8d0135870292df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42406ac5_06459ae3",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-17T12:52:06Z",
+      "side": 1,
+      "message": "this is a bit tricky. are we granted to get a quic connection with the `addQuicHint`? It will lead to flakiness if not.",
+      "revId": "a0751aa04af0b4c5f6999b888d8d0135870292df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
