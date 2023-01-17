@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1f8097b_2a08ef87",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T03:27:55Z",
+      "side": 1,
+      "message": "Yes, but creating them here means the constructor must be running on the same thread where they\u0027re going to be used because the contents are `byte[]` which are necessarily mutable. That means the constructor would need to run on the same thread as the reading code, which is not the case today.\n\nSo the current patchset creates the messages on demand and always on the correct thread, which is still easy to understand, but doesn\u0027t have the issue.",
+      "parentUuid": "2ff53ee2_87d5d22d",
+      "range": {
+        "startLine": 142,
+        "startChar": 38,
+        "endLine": 142,
+        "endChar": 50
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06a61a62_a0a8ce88",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 19
@@ -164,6 +188,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e449596a_b899a560",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T03:27:55Z",
+      "side": 1,
+      "message": "Not possible : there isn\u0027t a netd class to pass",
+      "parentUuid": "9b78d459_8368d897",
+      "range": {
+        "startLine": 850,
+        "startChar": 20,
+        "endLine": 850,
+        "endChar": 56
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "746f502d_87180c79",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 19
@@ -187,6 +235,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3bc4973a_e83eb6ea",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T03:27:55Z",
+      "side": 1,
+      "message": "I don\u0027t understand why – the third argument is how you usually pass the exception, and this results in better logging, which is why it\u0027s recommended practice to do `\", e` instead of `\" + e`.",
+      "parentUuid": "746f502d_87180c79",
+      "range": {
+        "startLine": 915,
+        "startChar": 59,
+        "endLine": 915,
+        "endChar": 64
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b52566e9_18454377",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 19
@@ -198,6 +270,30 @@
       "writtenOn": "2023-01-16T15:37:57Z",
       "side": 1,
       "message": "Why do we need to protect against infinite loops? Wouldn\u0027t any such loop be a bug in the kernel? Or are you trying to protect against a bug in this parsing code? Or...?",
+      "range": {
+        "startLine": 932,
+        "startChar": 66,
+        "endLine": 932,
+        "endChar": 80
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62bbbc0a_b81cfebc",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T03:27:55Z",
+      "side": 1,
+      "message": "Yeah it\u0027s to protect against a bug in this parsing code.",
+      "parentUuid": "b52566e9_18454377",
       "range": {
         "startLine": 932,
         "startChar": 66,
