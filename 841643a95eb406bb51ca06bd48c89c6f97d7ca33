@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df8b0eb9_8629dda3",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-17T06:38:04Z",
+      "side": 1,
+      "message": "Are the sources the only issue? Won\u0027t it also complain about the missing cronet_aml_java, cronet_aml_api_java, and cronet_aml_components_cronet_android_cronet modules?",
+      "range": {
+        "startLine": 35,
+        "startChar": 39,
+        "endLine": 35,
+        "endChar": 61
+      },
+      "revId": "841643a95eb406bb51ca06bd48c89c6f97d7ca33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
