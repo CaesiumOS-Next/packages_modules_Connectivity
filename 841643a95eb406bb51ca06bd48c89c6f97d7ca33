@@ -46,6 +46,30 @@
       },
       "revId": "841643a95eb406bb51ca06bd48c89c6f97d7ca33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49f1113a_7dbca586",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-17T06:44:14Z",
+      "side": 1,
+      "message": "TH in aosp/2384137 only complains `cronet_aml_api_sources`.\nAnd I could pass generating ninja file stage with tm-mainline-prod with `cronet_java_defaults_enabled_srcs\u003d[]`\nMaybe the availability check logic is different between srcs and other fields?",
+      "parentUuid": "df8b0eb9_8629dda3",
+      "range": {
+        "startLine": 35,
+        "startChar": 39,
+        "endLine": 35,
+        "endChar": 61
+      },
+      "revId": "841643a95eb406bb51ca06bd48c89c6f97d7ca33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
