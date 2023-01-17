@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bd547f3_cc4f6aab",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-17T17:07:18Z",
+      "side": 1,
+      "message": "This functions seems suggest to always be called at the beginning of test. Just have mCallback global variable, then registerTetheringEventCallback at setup (maybe just right after l.671 \"mTethering \u003d makeTethering();\") or move this function into makeTethering(). If so, you don\u0027t need to call this function from each test cases. \n\nmCallback \u003d new TestTetheringEventCallback();",
+      "range": {
+        "startLine": 915,
+        "startChar": 39,
+        "endLine": 915,
+        "endChar": 83
+      },
+      "revId": "4d77432724bad5c49cb7673ca5d3f3292e1f826a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
