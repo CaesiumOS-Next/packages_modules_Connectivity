@@ -1,0 +1,435 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7095c248_67b167a5",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "I thought we decided we wanted consistency with the older APIs ? I remember we discussed CancellationSignal, and that\u0027s what we\u0027d do for a new API, but ISTM that consistency with discoverServices/stopServiceDiscovery and resolveService/stopServiceResolution is more important.",
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "777ada18_1450ed3d",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "This would suggest this API subscribes a service to something. It\u0027s not what it does.\n\nInstead, let\u0027s call this registerServiceCallback and unregisterServiceCallback.",
+      "range": {
+        "startLine": 199,
+        "startChar": 23,
+        "endLine": 199,
+        "endChar": 39
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "423dd545_f941a404",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "This has multiple methods so it should be called *Callback.\n\nWith the methods named registerServiceCallback/unregisterServiceCallback, this should just be called ServiceCallback.",
+      "range": {
+        "startLine": 234,
+        "startChar": 46,
+        "endLine": 234,
+        "endChar": 54
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fc4159a_d1c539ab",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "The methods should not have a default implementation because it\u0027s a new callback.",
+      "range": {
+        "startLine": 722,
+        "startChar": 8,
+        "endLine": 722,
+        "endChar": 15
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24e2c9fc_3f792982",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "You must have an @IntDef for the error codes.\n\nYou must only send errors that are actionable for the app (if you\u0027re a developer and you see an error you should know what to do). In particular that means you must never send something like INTERNAL_ERROR, because there is nothing the app can do about it.",
+      "range": {
+        "startLine": 722,
+        "startChar": 76,
+        "endLine": 722,
+        "endChar": 79
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5bd7acd_f24c5180",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "@IntDef.\n\nAlso, do we really need this ? It\u0027s very counter-intuitive that stopping listening might fail. What are legitimate cases of failures for this ?",
+      "range": {
+        "startLine": 732,
+        "startChar": 16,
+        "endLine": 732,
+        "endChar": 19
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a22b1538_f0e1d71a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "So it seems to me like you want to deprecate this method and the one below, because the returned data might go stale any moment. Suggest\n\n    * @Deprecated the returned ServiceInfo may get stale at any time after\n    *             resolution, including immediately after the callback is\n    *             called. Prefer using {@link registerServiceCallback}, which will\n    *             keep the application up-to-date with the state of the service.",
+      "range": {
+        "startLine": 1166,
+        "startChar": 16,
+        "endLine": 1166,
+        "endChar": 30
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53d330b1_da8b397e",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1209,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "Javadoc format must be :\n\n    /**\n     * One-line description\n     *\n     * Detailed discussion\n     * ...",
+      "range": {
+        "startLine": 1209,
+        "startChar": 4,
+        "endLine": 1209,
+        "endChar": 6
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "019cec29_06148889",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "This is not understandable English (one subscribes X to Y). As noted on the current.txt file, let\u0027s call this registerServiceCallback, and have javadoc like\n\n    * Register a callback to listen for updates to a service.\n    *\n    * An application can subscribe to updates of a service to continuously monitor\n    * availability of said service. The callback methods will be called on the \n    * passed executor.\n    * \u003cexplanation about what guarantees you give for which callback methods\n    * will be called and when\u003e",
+      "range": {
+        "startLine": 1210,
+        "startChar": 7,
+        "endLine": 1210,
+        "endChar": 37
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b293a7c_b0956e4a",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "the entire list of addresses",
+      "range": {
+        "startLine": 96,
+        "startChar": 58,
+        "endLine": 96,
+        "endChar": 74
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1809a4bc_d7649120",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "You could add here that the port is valid for all addresses ({@see getHostAddresses})",
+      "range": {
+        "startLine": 113,
+        "startChar": 72,
+        "endLine": 113,
+        "endChar": 73
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a05f792_c8e5bea5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "I don\u0027t think this is acceptable. We should never send \"INTERNAL_ERROR\" to a client because it has no way to know what to do. The same is true on line 236. If this happens sometimes, please fix the bug instead of sending this to the client.",
+      "range": {
+        "startLine": 243,
+        "startChar": 57,
+        "endLine": 243,
+        "endChar": 79
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9bcbcbf_717f1742",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "Likewise. This is not an acceptable error to return to a client",
+      "range": {
+        "startLine": 513,
+        "startChar": 57,
+        "endLine": 513,
+        "endChar": 79
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "212950b5_420259a6",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "As with the other patch, catching NPE is very bad form. Can we do better, e.g. fix the bugs ?",
+      "range": {
+        "startLine": 530,
+        "startChar": 33,
+        "endLine": 530,
+        "endChar": 55
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "351aaa99_f8d409f9",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 532,
+        "startChar": 57,
+        "endLine": 532,
+        "endChar": 79
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cc7974f_804364cc",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 540,
+        "startChar": 57,
+        "endLine": 540,
+        "endChar": 79
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6b8489b_6e69e5ac",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "Will fit on one line",
+      "range": {
+        "startLine": 559,
+        "startChar": 44,
+        "endLine": 559,
+        "endChar": 45
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d62c33a_3bf9de0f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 563,
+        "startChar": 49,
+        "endLine": 563,
+        "endChar": 71
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "917d4e3d_2acdc079",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "I think this will fit on one line",
+      "range": {
+        "startLine": 563,
+        "startChar": 72,
+        "endLine": 563,
+        "endChar": 73
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

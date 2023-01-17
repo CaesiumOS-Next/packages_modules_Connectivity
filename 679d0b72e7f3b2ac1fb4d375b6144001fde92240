@@ -273,6 +273,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c51e10c_59a3e1d7",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-17T09:47:05Z",
+      "side": 1,
+      "message": "Discussed with Rémi : all addresses must use the same port. We should mention this in the javadoc.\n\n    /**\n     * Get the host addresses.\n     *\n     * All host addresses are valid for the resolved service. All addresses share\n     * the same port ({@see getPort()}).",
+      "parentUuid": "6cb35728_1090866f",
+      "range": {
+        "startLine": 115,
+        "startChar": 29,
+        "endLine": 115,
+        "endChar": 45
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3aead158_d9ccdaa4",
         "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
         "patchSetId": 1
