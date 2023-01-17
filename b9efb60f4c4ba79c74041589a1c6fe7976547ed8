@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99cf6845_4d3d9ce1",
+        "filename": "service-t/src/com/android/server/mdns/MdnsAdvertiser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T14:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0579403d_4167f6fb",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 13
+      },
+      "revId": "b9efb60f4c4ba79c74041589a1c6fe7976547ed8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a685583b_cead3427",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-17T08:11:27Z",
       "side": 1,
       "message": "No returning value for this method. I think you want to annotate `makeNewServiceInfoForConflict` not this.",
+      "range": {
+        "startLine": 311,
+        "startChar": 8,
+        "endLine": 311,
+        "endChar": 16
+      },
+      "revId": "b9efb60f4c4ba79c74041589a1c6fe7976547ed8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47b2c1d0_5d16b0b6",
+        "filename": "service-t/src/com/android/server/mdns/MdnsAdvertiser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T14:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a685583b_cead3427",
       "range": {
         "startLine": 311,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7466762d_82fa365e",
+        "filename": "service-t/src/com/android/server/mdns/MdnsAdvertiser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T14:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75eab6ec_7d0ff90b",
+      "range": {
+        "startLine": 420,
+        "startChar": 12,
+        "endLine": 420,
+        "endChar": 32
+      },
+      "revId": "b9efb60f4c4ba79c74041589a1c6fe7976547ed8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ead2adb8_0e0d84b6",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e4c2df6_44564787",
+        "filename": "service-t/src/com/android/server/mdns/MdnsAdvertiser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T14:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ead2adb8_0e0d84b6",
+      "range": {
+        "startLine": 426,
+        "startChar": 63,
+        "endLine": 426,
+        "endChar": 83
+      },
+      "revId": "b9efb60f4c4ba79c74041589a1c6fe7976547ed8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f175a362_c08da95a",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-01-17T08:11:27Z",
       "side": 1,
       "message": "`socket` as mAllAdvertisers is `ArrayMap\u003cMdnsInterfaceSocket, MdnsInterfaceAdvertiser\u003e`",
+      "range": {
+        "startLine": 468,
+        "startChar": 30,
+        "endLine": 468,
+        "endChar": 37
+      },
+      "revId": "b9efb60f4c4ba79c74041589a1c6fe7976547ed8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ee0ca4f_184a59eb",
+        "filename": "service-t/src/com/android/server/mdns/MdnsAdvertiser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-17T14:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f175a362_c08da95a",
       "range": {
         "startLine": 468,
         "startChar": 30,
