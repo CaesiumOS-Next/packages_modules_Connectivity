@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb86a924_9822548f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T11:19:03Z",
+      "side": 1,
+      "message": "The delay messgage would be remove immediately after start monitoring by discovery or resolution request, so it\u0027s not necessary. Removed.",
+      "parentUuid": "a3d3c4e1_dde2b4a9",
+      "revId": "8cf43509761e5e7e9c5c96b8f2bda95e236ebd00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da118760_20df6e52",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-17T06:39:14Z",
       "side": 1,
       "message": "Nit: also detail what the check is: each label is up to 63 characters and must start with an underscore; they are alphanumerical characters or dashes or underscore, except the last one that is just alphanumerical.\nThere are 2 labels, or 3 if the query is for a subtype (_subtype._sub._maintype._tcp, RFC6763 7.1). The last label must be _tcp or _udp.\n\nAlso you can cite RFC1034 and RFC1123",
+      "revId": "8cf43509761e5e7e9c5c96b8f2bda95e236ebd00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51785308_daeffac3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T11:19:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "da118760_20df6e52",
       "revId": "8cf43509761e5e7e9c5c96b8f2bda95e236ebd00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf6c0010_8f838b80",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T11:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71c731fd_00844a2e",
+      "revId": "8cf43509761e5e7e9c5c96b8f2bda95e236ebd00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1a333e3_6a12c749",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-01-17T06:39:14Z",
       "side": 1,
       "message": "This can\u0027t happen, since the regex checks that it ends with _tcp or _udp",
+      "revId": "8cf43509761e5e7e9c5c96b8f2bda95e236ebd00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2150f500_7380e051",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T11:19:03Z",
+      "side": 1,
+      "message": "Oh right. Removed.",
+      "parentUuid": "b1a333e3_6a12c749",
       "revId": "8cf43509761e5e7e9c5c96b8f2bda95e236ebd00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
