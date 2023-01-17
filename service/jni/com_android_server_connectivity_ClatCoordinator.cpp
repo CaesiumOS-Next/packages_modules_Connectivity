@@ -184,6 +184,11 @@ static jint com_android_server_connectivity_ClatCoordinator_openPacketSocket(JNI
         throwIOException(env, "packet socket failed", errno);
         return -1;
     }
+    int on = 1;
+    if (setsockopt(sock, SOL_PACKET, PACKET_AUXDATA, &on, sizeof(on))) {
+        throwIOException(env, "packet socket auxdata enablement failed", errno);
+        return -1;
+    }
     return sock;
 }
 
