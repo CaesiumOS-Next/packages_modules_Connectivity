@@ -135,6 +135,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "446db141_85c66e81",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T03:22:42Z",
+      "side": 1,
+      "message": "Per offline discussed, stop the monitoring if there is no active request.",
+      "parentUuid": "036b3795_71d67b43",
+      "revId": "39637d9251919c2c74727b20abe2315ce56da5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd90fc49_053c690c",
