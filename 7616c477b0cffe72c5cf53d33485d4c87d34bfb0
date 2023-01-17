@@ -210,6 +210,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e0f2f9a_a0d279e0",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-17T03:42:10Z",
+      "side": 1,
+      "message": "Ack. Do you know if there\u0027s a way to suppress the lint error?",
+      "parentUuid": "e449596a_b899a560",
+      "range": {
+        "startLine": 850,
+        "startChar": 20,
+        "endLine": 850,
+        "endChar": 56
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "746f502d_87180c79",
@@ -247,6 +271,30 @@
       "side": 1,
       "message": "I don\u0027t understand why – the third argument is how you usually pass the exception, and this results in better logging, which is why it\u0027s recommended practice to do `\", e` instead of `\" + e`.",
       "parentUuid": "746f502d_87180c79",
+      "range": {
+        "startLine": 915,
+        "startChar": 59,
+        "endLine": 915,
+        "endChar": 64
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1ed4fa9_173600c7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-17T03:42:10Z",
+      "side": 1,
+      "message": "\", e will log the full stack trace to the logs, + e won\u0027t. In this case I was thinking that the stack trace probably wouldn\u0027t be very interesting because it would always be the same.",
+      "parentUuid": "3bc4973a_e83eb6ea",
       "range": {
         "startLine": 915,
         "startChar": 59,
