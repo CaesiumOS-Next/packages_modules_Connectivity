@@ -94,6 +94,30 @@
       },
       "revId": "841643a95eb406bb51ca06bd48c89c6f97d7ca33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cd80d14_af591dc3",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-17T15:02:02Z",
+      "side": 1,
+      "message": "Tested this locally and it seems to work (which definitely surprised me!)",
+      "parentUuid": "f514b5ea_b3de9063",
+      "range": {
+        "startLine": 35,
+        "startChar": 39,
+        "endLine": 35,
+        "endChar": 61
+      },
+      "revId": "841643a95eb406bb51ca06bd48c89c6f97d7ca33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
