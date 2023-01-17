@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80205a39_50032be1",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T07:27:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d60ce988_d5278301",
+      "range": {
+        "startLine": 135,
+        "startChar": 13,
+        "endLine": 135,
+        "endChar": 17
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ff53ee2_87d5d22d",
@@ -94,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d5a40c6_afa6995f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T07:27:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06a61a62_a0a8ce88",
+      "range": {
+        "startLine": 821,
+        "startChar": 30,
+        "endLine": 821,
+        "endChar": 58
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1716e465_694f3f4d",
@@ -107,6 +155,30 @@
       "writtenOn": "2023-01-16T15:37:57Z",
       "side": 1,
       "message": "Not in this file, but the name \"connectSocketToNetlink\" is incorrect - the method does not connect the socket to netlink. The method takes a netlink socket and connects it to the kernel. It should be called connectToKernel.",
+      "range": {
+        "startLine": 824,
+        "startChar": 25,
+        "endLine": 824,
+        "endChar": 47
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fd14f3c_79353b0d",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T07:27:28Z",
+      "side": 1,
+      "message": "will update in a follow up",
+      "parentUuid": "1716e465_694f3f4d",
       "range": {
         "startLine": 824,
         "startChar": 25,
@@ -140,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da0867cb_7acf61d4",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T07:27:28Z",
+      "side": 1,
+      "message": "I expect this should time out after IO_TIMEOUT_MS.",
+      "parentUuid": "9f024570_60580ea3",
+      "range": {
+        "startLine": 825,
+        "startChar": 49,
+        "endLine": 825,
+        "endChar": 60
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a07145e_126da763",
@@ -153,6 +249,30 @@
       "writtenOn": "2023-01-16T15:37:57Z",
       "side": 1,
       "message": "This method doesn\u0027t is not specific to the kernel. It just writes to the socket. Maybe call it sendRequest or writeRequest or something?",
+      "range": {
+        "startLine": 839,
+        "startChar": 20,
+        "endLine": 839,
+        "endChar": 46
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0b8659c_8744c2c0",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T07:27:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a07145e_126da763",
       "range": {
         "startLine": 839,
         "startChar": 20,
@@ -224,6 +344,30 @@
       "side": 1,
       "message": "Ack. Do you know if there\u0027s a way to suppress the lint error?",
       "parentUuid": "e449596a_b899a560",
+      "range": {
+        "startLine": 850,
+        "startChar": 20,
+        "endLine": 850,
+        "endChar": 56
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e37caef6_4e295df7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T07:27:28Z",
+      "side": 1,
+      "message": "What we want is netd_service, not IBinder. The warning does not look workable here.",
+      "parentUuid": "9b78d459_8368d897",
       "range": {
         "startLine": 850,
         "startChar": 20,
@@ -398,6 +542,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b3780b1_e245caf6",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T07:27:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9a01115_974e9777",
+      "range": {
+        "startLine": 963,
+        "startChar": 0,
+        "endLine": 967,
+        "endChar": 17
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "226368aa_b3a131ab",
@@ -411,6 +579,30 @@
       "writtenOn": "2023-01-16T15:37:57Z",
       "side": 1,
       "message": "I think this is incorrect if nlmsgLen is not aligned on a 4-byte boundary. nlmsgLen is the length of the message header plus payload, but the message is padded, such that the next message, if any, is aligned on a 4-byte boundery. Just use NetlinkMessage.parse, that will take care of that for you.",
+      "range": {
+        "startLine": 987,
+        "startChar": 51,
+        "endLine": 987,
+        "endChar": 61
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8dbe9a4_29cf1df5",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T07:27:28Z",
+      "side": 1,
+      "message": "Updated. There is no such method for this now. I use StructNlAttr.parse() to go through the message and leave a TODO here to create a method to support this kind of usage.",
+      "parentUuid": "226368aa_b3a131ab",
       "range": {
         "startLine": 987,
         "startChar": 51,
