@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7e0b3c0_9719d40d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 5512,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bd9369f_9cecd5db",
+      "range": {
+        "startLine": 5512,
+        "startChar": 19,
+        "endLine": 5512,
+        "endChar": 72
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfb15e29_cf6b4375",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-16T05:54:39Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 11
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f4e3cee_b8b97462",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfb15e29_cf6b4375",
       "range": {
         "startLine": 132,
         "startChar": 4,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b977fc_81c1ba2c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8ef4ef0_c8490543",
+      "range": {
+        "startLine": 178,
+        "startChar": 63,
+        "endLine": 178,
+        "endChar": 71
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a97c99a_b26283c5",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-01-16T05:54:39Z",
       "side": 1,
       "message": "static",
+      "range": {
+        "startLine": 180,
+        "startChar": 12,
+        "endLine": 180,
+        "endChar": 17
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "434541b8_2b071e36",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "The updated class will need to call to internal method. Cannot be static.",
+      "parentUuid": "5a97c99a_b26283c5",
       "range": {
         "startLine": 180,
         "startChar": 12,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78e70ed9_ba965c2e",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "187cb7b4_aa3b59cb",
+      "range": {
+        "startLine": 187,
+        "startChar": 76,
+        "endLine": 187,
+        "endChar": 78
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fed0b0cd_4a29a93f",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-01-16T05:54:39Z",
       "side": 1,
       "message": "Let\u0027s say `Objects.requireNonNull` here and in l.189",
+      "range": {
+        "startLine": 191,
+        "startChar": 22,
+        "endLine": 191,
+        "endChar": 24
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bb008be_3d7be9ff",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fed0b0cd_4a29a93f",
       "range": {
         "startLine": 191,
         "startChar": 22,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5d08cf3_d49a37bc",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "cf8cd542_1d5d6c28",
+      "range": {
+        "startLine": 264,
+        "startChar": 30,
+        "endLine": 264,
+        "endChar": 45
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86252439_6a2f328e",
@@ -192,6 +360,30 @@
       "writtenOn": "2023-01-16T05:54:39Z",
       "side": 1,
       "message": "It would be a bit simpler if you had a helper method in AutomaticOnOffKeepalive for this",
+      "range": {
+        "startLine": 592,
+        "startChar": 43,
+        "endLine": 592,
+        "endChar": 45
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27363e1e_195020de",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86252439_6a2f328e",
       "range": {
         "startLine": 592,
         "startChar": 43,
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77778379_8e0ceb33",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e762598f_11ea1eb3",
+      "range": {
+        "startLine": 599,
+        "startChar": 16,
+        "endLine": 599,
+        "endChar": 61
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c80696a3_c35b0266",
@@ -238,6 +454,30 @@
       "writtenOn": "2023-01-16T05:54:39Z",
       "side": 1,
       "message": "You should have a comment to say when this happens. I can think of at least one case : the keepalive can be removed by the app, and the alarm can fire at the same time, so it\u0027s technically possible that this is called after it\u0027s removed. Are there other cases ?",
+      "range": {
+        "startLine": 818,
+        "startChar": 8,
+        "endLine": 818,
+        "endChar": 34
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2b491b3_45562716",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c80696a3_c35b0266",
       "range": {
         "startLine": 818,
         "startChar": 8,
@@ -271,6 +511,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c165d195_a9f2a68a",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50dae961_b7777e60",
+      "range": {
+        "startLine": 821,
+        "startChar": 8,
+        "endLine": 821,
+        "endChar": 31
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9db822d_1e417dc5",
@@ -294,6 +558,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c5d3cc9_bbe82fdd",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "Design updated to remove this check",
+      "parentUuid": "c9db822d_1e417dc5",
+      "range": {
+        "startLine": 832,
+        "startChar": 12,
+        "endLine": 832,
+        "endChar": 60
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d505a57_b0eb7fa2",
@@ -307,6 +595,30 @@
       "writtenOn": "2023-01-16T05:54:39Z",
       "side": 1,
       "message": "This must never happen, since `ki` is @NonNull",
+      "range": {
+        "startLine": 875,
+        "startChar": 25,
+        "endLine": 875,
+        "endChar": 45
+      },
+      "revId": "8b7c753d51ab74f0876ef4e7757192fb48470a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fe3f94e_b91accd3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-17T01:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d505a57_b0eb7fa2",
       "range": {
         "startLine": 875,
         "startChar": 25,
