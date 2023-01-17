@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2878503f_65b5ce42",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 6048,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-17T07:48:42Z",
+      "side": 1,
+      "message": "We dropped them in aosp/2384115 to remove dependency on Androidx.\nI think we can not build them without androidx.",
+      "revId": "e1b6b0fce5b36debf32c2b91ea021506dca94849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
