@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4650144_46a9470b",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-17T12:52:56Z",
+      "side": 1,
+      "message": "Why not write this test in Kotlin?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 31
+      },
+      "revId": "a0751aa04af0b4c5f6999b888d8d0135870292df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7d95b58_3743e238",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-17T12:52:56Z",
+      "side": 1,
+      "message": "This seems to be unused as of now.",
+      "range": {
+        "startLine": 41,
+        "startChar": 32,
+        "endLine": 41,
+        "endChar": 35
+      },
+      "revId": "a0751aa04af0b4c5f6999b888d8d0135870292df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a2e4fcd_1bbc0b55",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-17T12:52:56Z",
+      "side": 1,
+      "message": "nit: I am not a big fan of nullability annotations, especially in tests. I find that they tend to just clutter up the code.\n\nMore broadly, I think @Nullable annotations make sense (they indicate that a null check must be performed) while @NonNull should just be implied (since no special handling is required).",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 12
+      },
+      "revId": "a0751aa04af0b4c5f6999b888d8d0135870292df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39923153_c9087cc9",
         "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
         "patchSetId": 6
@@ -20,6 +89,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d28035d_ebdc0a35",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-17T12:52:56Z",
+      "side": 1,
+      "message": "This is used in every test, just make it a static field of the class",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 56
+      },
+      "revId": "a0751aa04af0b4c5f6999b888d8d0135870292df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3cbd38fd_5e35fbfa",
         "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
         "patchSetId": 6
@@ -31,6 +123,52 @@
       "writtenOn": "2023-01-17T12:52:06Z",
       "side": 1,
       "message": "nit: since engine config is different for each test, it makes more since to declare and initialize it locally only ie remove the global engine declaration.",
+      "revId": "a0751aa04af0b4c5f6999b888d8d0135870292df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a56d2f54_4d59e51f",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-17T12:52:56Z",
+      "side": 1,
+      "message": "nit: Consider just making this a member if it\u0027s used in every test.",
+      "range": {
+        "startLine": 64,
+        "startChar": 31,
+        "endLine": 64,
+        "endChar": 39
+      },
+      "revId": "a0751aa04af0b4c5f6999b888d8d0135870292df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e45dfa17_b9f0b8cd",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetEngineTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-17T12:52:56Z",
+      "side": 1,
+      "message": "this might be overkill, but maybe add a \"assertHttpOk(UrlResponseInfo info)\" method to make this a little easier to read.",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 20
+      },
       "revId": "a0751aa04af0b4c5f6999b888d8d0135870292df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
