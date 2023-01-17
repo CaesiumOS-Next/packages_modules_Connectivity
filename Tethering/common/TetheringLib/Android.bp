@@ -25,6 +25,7 @@ package {
 // Note: they must either both be enabled or disabled.
 cronet_java_defaults = "CronetJavaDefaultsEnabled"
 cronet_java_prejarjar_defaults = "CronetJavaPrejarjarDefaultsEnabled"
+cronet_java_defaults_enabled_srcs = [":cronet_aml_api_sources"]
 // This is a placeholder comment to avoid merge conflicts
 // as cronet_defaults may have different values
 // depending on the branch
