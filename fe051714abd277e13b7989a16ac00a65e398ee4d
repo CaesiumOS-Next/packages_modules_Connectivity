@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b13f9db_e4a6d856",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T16:17:17Z",
+      "side": 1,
+      "message": "File a bug b/265787401 to track this.",
+      "parentUuid": "54570dfb_8091df41",
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba2c2916_458923ea",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 8
@@ -31,6 +49,30 @@
       "writtenOn": "2023-01-16T11:21:06Z",
       "side": 1,
       "message": "Nit: aligns with historical behavior (since it will always be current behavior once merged)",
+      "range": {
+        "startLine": 856,
+        "startChar": 76,
+        "endLine": 856,
+        "endChar": 83
+      },
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1f8ba58_329167e6",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T16:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba2c2916_458923ea",
       "range": {
         "startLine": 856,
         "startChar": 76,
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "906de4bf_f8f71526",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T16:17:17Z",
+      "side": 1,
+      "message": "Look at current design of setting txt records `NsdServiceInfo.setTxtRecords`, the empty key would throw an exception then ignore this attribute. So I should follow up this design. Remove the empty check here but catch the exception to ignore invalid attribute.",
+      "parentUuid": "e0e036b0_a9684966",
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2addacab_db1638ca",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-01-16T11:21:06Z",
       "side": 1,
       "message": "InetAddresses.parseNumericAddress (getByName can do DNS resolution)",
+      "range": {
+        "startLine": 870,
+        "startChar": 45,
+        "endLine": 870,
+        "endChar": 66
+      },
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c84ebf3_500c8625",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T16:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2addacab_db1638ca",
       "range": {
         "startLine": 870,
         "startChar": 45,
@@ -104,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb72dee3_a3568e59",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T16:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5900d40f_32500fcf",
+      "range": {
+        "startLine": 875,
+        "startChar": 33,
+        "endLine": 875,
+        "endChar": 53
+      },
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8dec6804_61019a95",
@@ -117,6 +225,24 @@
       "writtenOn": "2023-01-16T11:21:06Z",
       "side": 1,
       "message": "Nit: should also check there is no other attribute",
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00d229c1_bfbdb532",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T16:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dec6804_61019a95",
       "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -144,6 +270,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bf7e39b_0edafc5b",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T16:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29d9e796_085ec729",
+      "range": {
+        "startLine": 698,
+        "startChar": 21,
+        "endLine": 698,
+        "endChar": 42
+      },
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cade073b_b5799786",
@@ -157,6 +307,30 @@
       "writtenOn": "2023-01-16T11:21:06Z",
       "side": 1,
       "message": "Technically onServiceResolved is called before unregisterListener, so this should probably use timeout(TIMEOUT_MS) as it\u0027s not guaranteed that it\u0027s been called already",
+      "range": {
+        "startLine": 702,
+        "startChar": 34,
+        "endLine": 702,
+        "endChar": 52
+      },
+      "revId": "fe051714abd277e13b7989a16ac00a65e398ee4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e789aec6_a400c589",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T16:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cade073b_b5799786",
       "range": {
         "startLine": 702,
         "startChar": 34,

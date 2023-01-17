@@ -22,6 +22,30 @@
       },
       "revId": "a1ac9ca49ff0753eda40ec3ac83b3dd75ab09044",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02e7bae4_7dfa3465",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-17T16:17:17Z",
+      "side": 1,
+      "message": "This comment is removed.",
+      "parentUuid": "65697f59_9b0dbc60",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 20
+      },
+      "revId": "a1ac9ca49ff0753eda40ec3ac83b3dd75ab09044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
