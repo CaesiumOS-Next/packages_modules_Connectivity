@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4736ba5c_008c3c9e",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-18T12:33:44Z",
+      "side": 1,
+      "message": "note: this acts on all of framework-tethering, not just the cronet jar, which may not be a good idea.",
+      "range": {
+        "startLine": 102,
+        "startChar": 33,
+        "endLine": 102,
+        "endChar": 56
+      },
+      "revId": "14534b771173153ea5e3dd95ed262411a3e568e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
