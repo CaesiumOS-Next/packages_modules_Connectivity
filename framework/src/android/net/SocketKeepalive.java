@@ -16,6 +16,8 @@
 
 package android.net;
 
+import static android.annotation.SystemApi.Client.PRIVILEGED_APPS;
+
 import android.annotation.IntDef;
 import android.annotation.IntRange;
 import android.annotation.NonNull;
@@ -308,11 +310,35 @@ public abstract class SocketKeepalive implements AutoCloseable {
      */
     public final void start(@IntRange(from = MIN_INTERVAL_SEC, to = MAX_INTERVAL_SEC)
             int intervalSec) {
-        startImpl(intervalSec);
+        startImpl(intervalSec, false /* automaticOnOffKeepalives */);
+    }
+
+    /**
+     * Request that keepalive be started with the given {@code intervalSec}.
+     * See {@link SocketKeepalive}. If the remote binder dies, or the binder call throws an
+     * exception when invoking start or stop of the {@link SocketKeepalive}, a
+     * {@link RemoteException} will be thrown into the {@link Executor}. This is typically not
+     * important to catch because the remote party is the system, so if it is not in shape to
+     * communicate through binder the system is probably going down anyway. If the caller cares
+     * regardless, it can use a custom {@link Executor} to catch the {@link RemoteException}.
+     *
+     * @param intervalSec The target interval in seconds between keepalive packet transmissions.
+     *                    The interval should be between 10 seconds and 3600 seconds. Otherwise,
+     *                    it will result in a callback with {@link #ERROR_INVALID_INTERVAL}.
+     * @param automaticOnOffKeepalives A boolean indicating if the keepalive will be automatically
+     *                                 enabled or disabled based on whether there are any TCP
+     *                                 sockets alive on the VPN network. This only works with
+     *                                 {@link NattSocketKeepalive}.
+     * @hide
+     */
+    @SystemApi(client = PRIVILEGED_APPS)
+    public final void start(@IntRange(from = MIN_INTERVAL_SEC, to = MAX_INTERVAL_SEC)
+            int intervalSec, boolean automaticOnOffKeepalives) {
+        startImpl(intervalSec, automaticOnOffKeepalives);
     }
 
     /** @hide */
-    protected abstract void startImpl(int intervalSec);
+    protected abstract void startImpl(int intervalSec, boolean automaticOnOffKeepalives);
 
     /**
      * Requests that keepalive be stopped. The application must wait for {@link Callback#onStopped}
