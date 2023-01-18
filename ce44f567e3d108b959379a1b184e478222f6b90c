@@ -1,0 +1,337 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1495f1cd_2b5310c4",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "Nit: has",
+      "range": {
+        "startLine": 691,
+        "startChar": 34,
+        "endLine": 691,
+        "endChar": 36
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "862ae9b3_726f2e38",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "Nit: \"listen to service info updates\"",
+      "range": {
+        "startLine": 787,
+        "startChar": 82,
+        "endLine": 787,
+        "endChar": 85
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "229f1412_a64e8d5b",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "Nit: on the executor (also below)",
+      "range": {
+        "startLine": 793,
+        "startChar": 18,
+        "endLine": 793,
+        "endChar": 34
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1419c4d4_d504209f",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "Nit: suggest \"service updates are sent with continuous calls to onServiceUpdated\"",
+      "range": {
+        "startLine": 1309,
+        "startChar": 67,
+        "endLine": 1310,
+        "endChar": 24
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dd4be36_f8de53f9",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "Nit: \"which provides one shot service information\"",
+      "range": {
+        "startLine": 1312,
+        "startChar": 54,
+        "endLine": 1312,
+        "endChar": 98
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a8af891_1194b594",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "Nit: registering",
+      "range": {
+        "startLine": 1315,
+        "startChar": 14,
+        "endLine": 1315,
+        "endChar": 22
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "589c23d7_f99852f6",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "Nit: suggest \"the service to receive updates for\"",
+      "range": {
+        "startLine": 1320,
+        "startChar": 38,
+        "endLine": 1320,
+        "endChar": 73
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48bc1538_e3c70cfc",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "Nit: \"upon service update\" or \"when the service is updated\"",
+      "range": {
+        "startLine": 1322,
+        "startChar": 42,
+        "endLine": 1322,
+        "endChar": 63
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9665c7b7_c7d3777c",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "Nit: could this be removed to use the first element of mHostAddresses instead ?",
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bc5a611_722bb6aa",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "In practice, REGISTER_SERVICE_CALLBACK will always be handled in EnabledState, and NsdService is never in DefaultState, so this is dead code. So BAD_PARAMETERS sounds fine here.",
+      "range": {
+        "startLine": 399,
+        "startChar": 57,
+        "endLine": 399,
+        "endChar": 87
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd6a46d4_8f02e3e3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "This should still be FAILURE_INTERNAL_ERROR for the legacy resolve API, otherwise it\u0027s a behavior change",
+      "range": {
+        "startLine": 924,
+        "startChar": 47,
+        "endLine": 924,
+        "endChar": 77
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d726f3a_9739b060",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "This is a behavior change of the previous resolution API; I think it should still return FAILURE_INTERNAL_ERROR if !isListenedToUpdates\n\nSo maybe:\n\n    // Keep backwards compatibility with resolve API returning INTERNAL_ERROR\n    isListenedToUpdates ? FAILURE_BAD_PARAMETERS : FAILURE_INTERNAL_ERROR",
+      "range": {
+        "startLine": 934,
+        "startChar": 65,
+        "endLine": 934,
+        "endChar": 95
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f51203c_f8ee341b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "Same as above: this would change API behavior for resolveService",
+      "range": {
+        "startLine": 942,
+        "startChar": 65,
+        "endLine": 942,
+        "endChar": 95
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8aad071_a6c28022",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "But how about removing addresses ? Is that actually reported by mdnsresponder ?\nAlso currently this will report changes of addresses, but not of the TXT record, since SERVICE_RESOLVED is still one-off.\nMaybe file a bug for that ?\n\nI guess this could be fixed when migrating this to DiscoveryManager, if not enabling the API when using mdnsresponder.",
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24196ddb_c6ed5303",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "Should this not be stopGetAddrInfo as before ?",
+      "range": {
+        "startLine": 987,
+        "startChar": 28,
+        "endLine": 987,
+        "endChar": 46
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

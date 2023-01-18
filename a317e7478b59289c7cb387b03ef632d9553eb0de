@@ -320,6 +320,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f6206b3_11f6a080",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:17:19Z",
+      "side": 1,
+      "message": "I\u0027d agree there\u0027s still a use-case for one-off resolveService, as the race between \"service info received\" and \"connect to service host/port\" is there in any case and apps can also retry the whole process in case of failure there. But we might still want to deprecate resolveService (this overload doesn\u0027t have an Executor, and currently doesn\u0027t support receiving multiple service addresses; although that could be fixed). In any case I think this should be in a separate change though.",
+      "parentUuid": "d6619f9f_a105d799",
+      "range": {
+        "startLine": 1166,
+        "startChar": 16,
+        "endLine": 1166,
+        "endChar": 30
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53d330b1_da8b397e",
         "filename": "framework-t/src/android/net/nsd/NsdManager.java",
         "patchSetId": 2
