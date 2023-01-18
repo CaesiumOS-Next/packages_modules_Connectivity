@@ -70,6 +70,30 @@
       },
       "revId": "14534b771173153ea5e3dd95ed262411a3e568e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85d47e84_2243bc73",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-18T15:08:31Z",
+      "side": 1,
+      "message": "except that now soong isn\u0027t happy with it in tm-mainline-prod anymore. It looks like we\u0027ll have to get tm-mainline-prod in order until we do anything else 😞",
+      "parentUuid": "e38aa74a_87bcab06",
+      "range": {
+        "startLine": 102,
+        "startChar": 33,
+        "endLine": 102,
+        "endChar": 56
+      },
+      "revId": "14534b771173153ea5e3dd95ed262411a3e568e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
