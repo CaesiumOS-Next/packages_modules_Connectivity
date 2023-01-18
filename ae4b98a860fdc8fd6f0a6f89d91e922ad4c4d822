@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c05cd9ff_a423458a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:28:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71df8b65_36081ee8",
+      "range": {
+        "startLine": 368,
+        "startChar": 28,
+        "endLine": 368,
+        "endChar": 57
+      },
+      "revId": "ae4b98a860fdc8fd6f0a6f89d91e922ad4c4d822",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "caa4c768_05c0096b",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-18T13:26:52Z",
       "side": 1,
       "message": "Nit: discoveryManagerEnabled",
+      "range": {
+        "startLine": 1091,
+        "startChar": 12,
+        "endLine": 1091,
+        "endChar": 51
+      },
+      "revId": "ae4b98a860fdc8fd6f0a6f89d91e922ad4c4d822",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "112e78ed_b743cdfb",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:28:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caa4c768_05c0096b",
       "range": {
         "startLine": 1091,
         "startChar": 12,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd18b093_f83340e0",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1221,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:28:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f3323c4_ba29848a",
+      "range": {
+        "startLine": 1221,
+        "startChar": 78,
+        "endLine": 1221,
+        "endChar": 79
+      },
+      "revId": "ae4b98a860fdc8fd6f0a6f89d91e922ad4c4d822",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1067d8f5_5bd84935",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-01-18T13:26:52Z",
       "side": 1,
       "message": "Nit: We don\u0027t send delay message to stop socket monitoring, so this delay is unnecessary I think.",
+      "range": {
+        "startLine": 794,
+        "startChar": 40,
+        "endLine": 794,
+        "endChar": 56
+      },
+      "revId": "ae4b98a860fdc8fd6f0a6f89d91e922ad4c4d822",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "322aa9e3_21cd7215",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T14:28:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1067d8f5_5bd84935",
       "range": {
         "startLine": 794,
         "startChar": 40,
