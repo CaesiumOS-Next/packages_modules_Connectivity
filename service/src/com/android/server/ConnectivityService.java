@@ -1788,6 +1788,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    @Nullable
+    private NetworkAgentInfo getAnyConnectedVpnNAI() {
+        ensureRunningOnConnectivityServiceThread();
+
+        for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+            if (nai.isVPN() && nai.everConnected()) {
+                return nai;
+            }
+        }
+        return null;
+    }
+
     // TODO: determine what to do when more than one VPN applies to |uid|.
     @Nullable
     private NetworkAgentInfo getVpnForUid(int uid) {
@@ -5492,6 +5504,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // Sent by KeepaliveTracker to process an app request on the state machine thread.
                 case NetworkAgent.CMD_START_SOCKET_KEEPALIVE: {
                     mKeepaliveTracker.handleStartKeepalive(msg);
+                    break;
+                }
+                case NetworkAgent.CMD_MONITOR_AUTOMATIC_KEEPALIVE: {
+                    final Network network = (Network) msg.obj;
+                    final int slot = msg.arg1;
+                    // TODO: check if the keepalive is started at the VPN underlying network
+                    //  when more than one VPN
+                    final NetworkAgentInfo vpnNai = getAnyConnectedVpnNAI();
+                    final int vpnNetId = (vpnNai != null) ? vpnNai.network().netId : -1;
+
+                    // If the network that the keepalive is started on is not the underlying
+                    // networks of VPN netowrk, the keepalive will be considered as unnecessary
+                    // and stopped.
+                    final List<Network> underlyingNetworks = (vpnNai != null)
+                            ? vpnNai.networkCapabilities.getUnderlyingNetworks() : null;
+                    final boolean isValid = underlyingNetworks != null
+                            && underlyingNetworks.contains(network);
+                    mKeepaliveTracker.handleMonitorAutomaticKeepalive(
+                            network, slot, vpnNetId, isValid);
                     break;
                 }
                 // Sent by KeepaliveTracker to process an app request on the state machine thread.
@@ -9666,20 +9697,23 @@ public class ConnectivityService extends IConnectivityManager.Stub
         enforceKeepalivePermission();
         mKeepaliveTracker.startNattKeepalive(
                 getNetworkAgentInfoForNetwork(network), null /* fd */,
-                intervalSeconds, cb,
-                srcAddr, srcPort, dstAddr, NattSocketKeepalive.NATT_PORT);
+                intervalSeconds, cb, srcAddr, srcPort, dstAddr, NattSocketKeepalive.NATT_PORT,
+                // Keep behavior of the deprecated method as it is. Set automaticOnOffKeepalives to
+                // false because there is no way and no plan to configure automaticOnOffKeepalives
+                // in this deprecated method.
+                false /* automaticOnOffKeepalives */);
     }
 
     @Override
     public void startNattKeepaliveWithFd(Network network, ParcelFileDescriptor pfd, int resourceId,
             int intervalSeconds, ISocketKeepaliveCallback cb, String srcAddr,
-            String dstAddr) {
+            String dstAddr, boolean automaticOnOffKeepalives) {
         try {
             final FileDescriptor fd = pfd.getFileDescriptor();
             mKeepaliveTracker.startNattKeepalive(
                     getNetworkAgentInfoForNetwork(network), fd, resourceId,
                     intervalSeconds, cb,
-                    srcAddr, dstAddr, NattSocketKeepalive.NATT_PORT);
+                    srcAddr, dstAddr, NattSocketKeepalive.NATT_PORT, automaticOnOffKeepalives);
         } finally {
             // FileDescriptors coming from AIDL calls must be manually closed to prevent leaks.
             // startNattKeepalive calls Os.dup(fd) before returning, so we can close immediately.
