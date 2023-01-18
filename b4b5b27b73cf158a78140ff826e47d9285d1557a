@@ -16,6 +16,24 @@
       "message": "Cronet/tests/cts/AndroidManifests.xml needs to be updated as well, I think.",
       "revId": "b4b5b27b73cf158a78140ff826e47d9285d1557a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24fb6570_d80dc7d4",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-18T09:06:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85cdae70_239f545d",
+      "revId": "b4b5b27b73cf158a78140ff826e47d9285d1557a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
