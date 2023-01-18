@@ -130,20 +130,20 @@ public class KeepaliveTracker {
      */
     class KeepaliveInfo implements IBinder.DeathRecipient {
         // Bookkeeping data.
-        private final ISocketKeepaliveCallback mCallback;
+        public final ISocketKeepaliveCallback mCallback;
         private final int mUid;
         private final int mPid;
         private final boolean mPrivileged;
-        private final NetworkAgentInfo mNai;
+        public final NetworkAgentInfo mNai;
         private final int mType;
-        private final FileDescriptor mFd;
+        public final FileDescriptor mFd;
 
         public static final int TYPE_NATT = 1;
         public static final int TYPE_TCP = 2;
 
         // Keepalive slot. A small integer that identifies this keepalive among the ones handled
         // by this network.
-        private int mSlot = NO_KEEPALIVE;
+        public int mSlot = NO_KEEPALIVE;
 
         // Packet data.
         private final KeepalivePacketData mPacket;
@@ -445,6 +445,9 @@ public class KeepaliveTracker {
         return slot;
     }
 
+    /**
+     * Handle start keepalives with the message.
+     */
     public void handleStartKeepalive(Message message) {
         KeepaliveInfo ki = (KeepaliveInfo) message.obj;
         NetworkAgentInfo nai = ki.getNai();
@@ -612,7 +615,7 @@ public class KeepaliveTracker {
             @NonNull String srcAddrString,
             int srcPort,
             @NonNull String dstAddrString,
-            int dstPort) {
+            int dstPort, boolean automaticOnOffKeepalives) {
         if (nai == null) {
             notifyErrorCallback(cb, ERROR_INVALID_NETWORK);
             return;
@@ -645,12 +648,14 @@ public class KeepaliveTracker {
             return;
         }
         Log.d(TAG, "Created keepalive: " + ki.toString());
-        mConnectivityServiceHandler.obtainMessage(
-                NetworkAgent.CMD_START_SOCKET_KEEPALIVE, ki).sendToTarget();
+        mConnectivityServiceHandler.obtainMessage(NetworkAgent.CMD_START_SOCKET_KEEPALIVE,
+                automaticOnOffKeepalives ? 1 : 0,
+                0, ki).sendToTarget();
     }
 
     /**
-     * Called by ConnectivityService to start TCP keepalive on a file descriptor.
+     * Called by ConnectivityService via AutomaticOnOffKeepaliveTracker to start TCP keepalive on
+     * a file descriptor.
      *
      * In order to offload keepalive for application correctly, sequence number, ack number and
      * other fields are needed to form the keepalive packet. Thus, this function synchronously
@@ -705,7 +710,8 @@ public class KeepaliveTracker {
             @NonNull ISocketKeepaliveCallback cb,
             @NonNull String srcAddrString,
             @NonNull String dstAddrString,
-            int dstPort) {
+            int dstPort,
+            boolean automaticOnOffKeepalives) {
         // Ensure that the socket is created by IpSecService.
         if (!isNattKeepaliveSocketValid(fd, resourceId)) {
             notifyErrorCallback(cb, ERROR_INVALID_SOCKET);
@@ -722,7 +728,7 @@ public class KeepaliveTracker {
 
         // Forward request to old API.
         startNattKeepalive(nai, fd, intervalSeconds, cb, srcAddrString, srcPort,
-                dstAddrString, dstPort);
+                dstAddrString, dstPort, automaticOnOffKeepalives);
     }
 
     /**
@@ -759,5 +765,13 @@ public class KeepaliveTracker {
             pw.decreaseIndent();
         }
         pw.decreaseIndent();
+    }
+
+    /**
+     * Construct a new KeepaliveInfo from existing KeepaliveInfo with a new fd.
+     */
+    public KeepaliveInfo createNewKeepaliveWithNewFd(@NonNull KeepaliveInfo ki,
+            @NonNull FileDescriptor fd) throws InvalidSocketException {
+        return new KeepaliveInfo(ki.mCallback, ki.mNai, ki.mPacket, ki.mInterval, ki.mType, fd);
     }
 }
