@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d375947_7255e8bc",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "7ea396ea_9a5b3ac6",
+      "range": {
+        "startLine": 163,
+        "startChar": 50,
+        "endLine": 163,
+        "endChar": 54
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3e21d0a_2115b4f6",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-27T09:49:41Z",
       "side": 1,
       "message": "remove",
+      "range": {
+        "startLine": 165,
+        "startChar": 58,
+        "endLine": 165,
+        "endChar": 65
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "589651c1_185f36d0",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "c3e21d0a_2115b4f6",
       "range": {
         "startLine": 165,
         "startChar": 58,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fa8ef7f_80fa0509",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "Decide to use new API.",
+      "parentUuid": "95867161_c26e3d98",
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d8f6ba4_27ffc33d",
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e251d1f0_08c0a485",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "6d8f6ba4_27ffc33d",
+      "range": {
+        "startLine": 171,
+        "startChar": 29,
+        "endLine": 171,
+        "endChar": 75
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a71a6c0_62cb6796",
@@ -100,6 +190,30 @@
       "writtenOn": "2022-12-27T09:49:41Z",
       "side": 1,
       "message": "Called when",
+      "range": {
+        "startLine": 696,
+        "startChar": 11,
+        "endLine": 696,
+        "endChar": 17
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3a04c6f_c93934a7",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "1a71a6c0_62cb6796",
       "range": {
         "startLine": 696,
         "startChar": 11,
@@ -156,6 +270,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8adfad7_bd3541d8",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "42c8f0c8_0c1807b7",
+      "range": {
+        "startLine": 699,
+        "startChar": 61,
+        "endLine": 699,
+        "endChar": 71
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a799e8d_0e8d69aa",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "bcbfdc9f_117aeb00",
+      "range": {
+        "startLine": 699,
+        "startChar": 39,
+        "endLine": 699,
+        "endChar": 43
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc0369c3_704d7e0f",
@@ -169,6 +331,30 @@
       "writtenOn": "2022-12-27T09:49:41Z",
       "side": 1,
       "message": "is called",
+      "range": {
+        "startLine": 700,
+        "startChar": 84,
+        "endLine": 700,
+        "endChar": 89
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7b2e6b9_4433dd73",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "fc0369c3_704d7e0f",
       "range": {
         "startLine": 700,
         "startChar": 84,
@@ -202,6 +388,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cf5eaa9_15370b27",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "1f7c6255_3e2c69be",
+      "range": {
+        "startLine": 701,
+        "startChar": 11,
+        "endLine": 701,
+        "endChar": 15
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa311cfd_0d7e612a",
@@ -225,6 +435,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c68c16a_d8e8b9f8",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "aa311cfd_0d7e612a",
+      "range": {
+        "startLine": 702,
+        "startChar": 9,
+        "endLine": 702,
+        "endChar": 11
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc13d4de_097b8adc",
@@ -238,6 +472,30 @@
       "writtenOn": "2022-12-27T09:49:41Z",
       "side": 1,
       "message": "Is there a meaningful difference between this and `onServiceResolved` ? Could we just call `onServiceResolved` multiple times ?",
+      "range": {
+        "startLine": 703,
+        "startChar": 21,
+        "endLine": 703,
+        "endChar": 51
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c41d93d_554e18fd",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "No, that would change the current behavior.",
+      "parentUuid": "fc13d4de_097b8adc",
       "range": {
         "startLine": 703,
         "startChar": 21,
@@ -295,6 +553,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b09f084d_b1847688",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c51e10c_59a3e1d7",
+      "range": {
+        "startLine": 115,
+        "startChar": 29,
+        "endLine": 115,
+        "endChar": 45
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3aead158_d9ccdaa4",
@@ -308,6 +590,30 @@
       "writtenOn": "2022-12-27T09:49:41Z",
       "side": 1,
       "message": "Well too bad, you\u0027re modifying the underlying list in setHostAddress. Example code :\n\n    final NsdServiceInfo nsi \u003d ...\n    final List\u003cInetAddress\u003e prevAddresses \u003d nsi.getHostAddresses();\n    // prevAddresses.add(linkAddress); // would crash, good\n    nsi.setHostAddresses(listOf(linkAddress));\n    final List\u003cInetAddress\u003e newAddresses \u003d nsi.getHostAddresses();\n\nAfter this code, newAddresses and prevAddresses have the same content : the one that was set. This is because `unmodifiableList` doesn\u0027t return a copy ; it returns a wrapper over the existing list. So when you mutate the underlying list in l.121, you\u0027re also mutating what was returned before.\n\nThe only defense against this is defensive copies. Either you make a copy in getHostAddresses, or you make the field mutable and make a copy in setHostAddresses.",
+      "range": {
+        "startLine": 116,
+        "startChar": 27,
+        "endLine": 116,
+        "endChar": 43
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "759d2145_f2e427a9",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T12:35:29Z",
+      "side": 1,
+      "message": "Use a new ArrayList instead.",
+      "parentUuid": "3aead158_d9ccdaa4",
       "range": {
         "startLine": 116,
         "startChar": 27,
