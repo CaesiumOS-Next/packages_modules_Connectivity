@@ -22,6 +22,30 @@
       },
       "revId": "4d77432724bad5c49cb7673ca5d3f3292e1f826a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5df6cf0d_fbee5328",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-01-18T08:47:45Z",
+      "side": 1,
+      "message": "Done. Use:\n```\nmTetheringEventCallback \u003d registerTetheringEventCallback();\n```\n\nThanks for your advice.",
+      "parentUuid": "8bd547f3_cc4f6aab",
+      "range": {
+        "startLine": 915,
+        "startChar": 39,
+        "endLine": 915,
+        "endChar": 83
+      },
+      "revId": "4d77432724bad5c49cb7673ca5d3f3292e1f826a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
