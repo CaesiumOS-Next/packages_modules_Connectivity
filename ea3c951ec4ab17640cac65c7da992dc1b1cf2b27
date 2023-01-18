@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "02e28a77_66246978",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-18T15:31:13Z",
+      "side": 1,
+      "message": "Update to use actual fd",
+      "parentUuid": "47df1b00_f94a84df",
+      "range": {
+        "startLine": 240,
+        "startChar": 46,
+        "endLine": 240,
+        "endChar": 63
+      },
+      "revId": "ea3c951ec4ab17640cac65c7da992dc1b1cf2b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d58decf7_eb8563d7",
         "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
         "patchSetId": 2
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b4229db_47c9892d",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-18T15:31:13Z",
+      "side": 1,
+      "message": "It\u0027s removed",
+      "parentUuid": "891e9df0_39cda7b6",
+      "range": {
+        "startLine": 340,
+        "startChar": 25,
+        "endLine": 340,
+        "endChar": 41
+      },
+      "revId": "ea3c951ec4ab17640cac65c7da992dc1b1cf2b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f0b3f0d_82a505cf",
@@ -83,6 +131,30 @@
       "writtenOn": "2023-01-12T09:27:16Z",
       "side": 1,
       "message": "Is this copy-pasted from VpnTest ? Please don\u0027t just copy-paste code without even a TODO to unify. If you have use for this code, move it to a common place.",
+      "range": {
+        "startLine": 467,
+        "startChar": 17,
+        "endLine": 467,
+        "endChar": 34
+      },
+      "revId": "ea3c951ec4ab17640cac65c7da992dc1b1cf2b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "662744b9_c55be0d3",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-18T15:31:13Z",
+      "side": 1,
+      "message": "It\u0027s removed",
+      "parentUuid": "3f0b3f0d_82a505cf",
       "range": {
         "startLine": 467,
         "startChar": 17,
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0ed96a1_fefafd0b",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-18T15:31:13Z",
+      "side": 1,
+      "message": "It\u0027s removed",
+      "parentUuid": "cc88009a_027d6cbd",
+      "range": {
+        "startLine": 480,
+        "startChar": 21,
+        "endLine": 480,
+        "endChar": 32
+      },
+      "revId": "ea3c951ec4ab17640cac65c7da992dc1b1cf2b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd46ab35_23bd6d95",
@@ -129,6 +225,30 @@
       "writtenOn": "2023-01-12T09:27:16Z",
       "side": 1,
       "message": "What\u0027s the point in calling this ? This has been dead code for 2 years.",
+      "range": {
+        "startLine": 500,
+        "startChar": 43,
+        "endLine": 500,
+        "endChar": 55
+      },
+      "revId": "ea3c951ec4ab17640cac65c7da992dc1b1cf2b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7322196_d718346e",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-18T15:31:13Z",
+      "side": 1,
+      "message": "It\u0027s removed",
+      "parentUuid": "bd46ab35_23bd6d95",
       "range": {
         "startLine": 500,
         "startChar": 43,
@@ -156,6 +276,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97b47d2a_530b7490",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-18T15:31:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3799b8c2_eb4e3046",
+      "revId": "ea3c951ec4ab17640cac65c7da992dc1b1cf2b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a611000_ec51acf6",
@@ -169,6 +307,30 @@
       "writtenOn": "2023-01-13T06:40:42Z",
       "side": 1,
       "message": "This is verbose ; can\u0027t you just use argThat ? You can have a helper method to get the int extra from the pending intent using runAsShell, that would make the call to argThat reasonably terse.",
+      "range": {
+        "startLine": 551,
+        "startChar": 55,
+        "endLine": 551,
+        "endChar": 62
+      },
+      "revId": "ea3c951ec4ab17640cac65c7da992dc1b1cf2b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14ca9883_f5b685ca",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-18T15:31:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a611000_ec51acf6",
       "range": {
         "startLine": 551,
         "startChar": 55,
@@ -202,6 +364,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cd023ee_489f6071",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-18T15:31:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6916a65_76dddb9d",
+      "range": {
+        "startLine": 555,
+        "startChar": 12,
+        "endLine": 555,
+        "endChar": 25
+      },
+      "revId": "ea3c951ec4ab17640cac65c7da992dc1b1cf2b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8695cbf1_0e282ed5",
@@ -215,6 +401,30 @@
       "writtenOn": "2023-01-12T09:27:16Z",
       "side": 1,
       "message": "How does the agent know whether keepalive was stopped automatically because of this feature or because it stopped it ? When somebody wants to stop the keepalive and receives the onStop event, how do they know it was because they asked for it or because there was no TCP socket open ?",
+      "range": {
+        "startLine": 575,
+        "startChar": 55,
+        "endLine": 575,
+        "endChar": 72
+      },
+      "revId": "ea3c951ec4ab17640cac65c7da992dc1b1cf2b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "141b53be_7f6e6b14",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-18T15:31:13Z",
+      "side": 1,
+      "message": "It\u0027s removed.",
+      "parentUuid": "8695cbf1_0e282ed5",
       "range": {
         "startLine": 575,
         "startChar": 55,
