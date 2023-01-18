@@ -19,6 +19,7 @@ import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.app.compat.CompatChanges
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
+import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.Network
 import android.net.NetworkAgentConfig
@@ -52,30 +53,25 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Process.myTid
 import android.platform.test.annotations.AppModeFull
+import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+import com.android.compatibility.common.util.PollingCheck
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
 import com.android.networkstack.apishim.NsdShimImpl
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
+import com.android.testutils.DeviceConfigRule
 import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk30
 import com.android.testutils.runAsShell
 import com.android.testutils.tryTest
 import com.android.testutils.waitForIdle
-import org.junit.After
-import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Assume.assumeTrue
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
 import java.io.File
+import java.net.NetworkInterface
 import java.net.ServerSocket
 import java.nio.charset.StandardCharsets
 import java.util.Random
@@ -86,6 +82,15 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
+import org.junit.After
+import org.junit.Assert.assertArrayEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Assume.assumeTrue
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 
 private const val TAG = "NsdManagerTest"
 private const val TIMEOUT_MS = 2000L
@@ -105,6 +110,9 @@ class NsdManagerTest {
     // Rule used to filter CtsNetTestCasesMaxTargetSdkXX
     @get:Rule
     val ignoreRule = DevSdkIgnoreRule()
+
+    @get:Rule
+    val deviceConfigRule = DeviceConfigRule()
 
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val nsdManager by lazy { context.getSystemService(NsdManager::class.java) }
@@ -144,6 +152,7 @@ class NsdManagerTest {
             if (expectedThreadId != null) {
                 assertEquals(expectedThreadId, myTid(), "Callback is running on the wrong thread")
             }
+            Log.i(TAG, "Received $e on ${this.javaClass.simpleName}")
             return history.add(e)
         }
 
@@ -182,10 +191,10 @@ class NsdManagerTest {
                 val errorCode: Int
             ) : RegistrationEvent()
 
-            data class ServiceRegistered(override val serviceInfo: NsdServiceInfo)
-                : RegistrationEvent()
-            data class ServiceUnregistered(override val serviceInfo: NsdServiceInfo)
-                : RegistrationEvent()
+            data class ServiceRegistered(override val serviceInfo: NsdServiceInfo) :
+                    RegistrationEvent()
+            data class ServiceUnregistered(override val serviceInfo: NsdServiceInfo) :
+                    RegistrationEvent()
         }
 
         override fun onRegistrationFailed(si: NsdServiceInfo, err: Int) {
@@ -208,11 +217,11 @@ class NsdManagerTest {
     private class NsdDiscoveryRecord(expectedThreadId: Int? = null) :
             DiscoveryListener, NsdRecord<NsdDiscoveryRecord.DiscoveryEvent>(expectedThreadId) {
         sealed class DiscoveryEvent : NsdEvent {
-            data class StartDiscoveryFailed(val serviceType: String, val errorCode: Int)
-                : DiscoveryEvent()
+            data class StartDiscoveryFailed(val serviceType: String, val errorCode: Int) :
+                    DiscoveryEvent()
 
-            data class StopDiscoveryFailed(val serviceType: String, val errorCode: Int)
-                : DiscoveryEvent()
+            data class StopDiscoveryFailed(val serviceType: String, val errorCode: Int) :
+                    DiscoveryEvent()
 
             data class DiscoveryStarted(val serviceType: String) : DiscoveryEvent()
             data class DiscoveryStopped(val serviceType: String) : DiscoveryEvent()
@@ -259,8 +268,8 @@ class NsdManagerTest {
     private class NsdResolveRecord : ResolveListener,
             NsdRecord<NsdResolveRecord.ResolveEvent>() {
         sealed class ResolveEvent : NsdEvent {
-            data class ResolveFailed(val serviceInfo: NsdServiceInfo, val errorCode: Int)
-                : ResolveEvent()
+            data class ResolveFailed(val serviceInfo: NsdServiceInfo, val errorCode: Int) :
+                    ResolveEvent()
 
             data class ServiceResolved(val serviceInfo: NsdServiceInfo) : ResolveEvent()
         }
@@ -304,6 +313,10 @@ class NsdManagerTest {
     }
 
     private fun registerTestNetworkAgent(ifaceName: String): TestableNetworkAgent {
+        PollingCheck.check("The test interface had no v6 address within timeout", TIMEOUT_MS) {
+            !NetworkInterface.getByName(ifaceName).interfaceAddresses.isEmpty()
+        }
+
         val agent = TestableNetworkAgent(context, handlerThread.looper,
                 NetworkCapabilities().apply {
                     removeCapability(NET_CAPABILITY_TRUSTED)
@@ -312,6 +325,9 @@ class NsdManagerTest {
                 },
                 LinkProperties().apply {
                     interfaceName = ifaceName
+                    setLinkAddresses(NetworkInterface.getByName(ifaceName).interfaceAddresses.map {
+                        LinkAddress(it.address, it.networkPrefixLength.toInt())
+                    })
                 },
                 NetworkAgentConfig.Builder().build())
         agent.register()
@@ -711,6 +727,55 @@ class NsdManagerTest {
         } cleanupStep {
             nsdManager.unregisterService(registrationRecord)
         } cleanup {
+            registrationRecord.expectCallback<ServiceUnregistered>()
+        }
+    }
+
+    @Test
+    fun testJavaImplementation() {
+        assumeTrue(TestUtils.shouldTestTApis())
+        // Set min enable version to 1 to force-enable for testing
+        deviceConfigRule.setConfig(NAMESPACE_CONNECTIVITY, "mdns_advertiser_version", "1")
+        deviceConfigRule.setConfig(NAMESPACE_CONNECTIVITY, "mdns_discovery_manager_version", "1")
+
+        val si = NsdServiceInfo()
+        si.serviceType = serviceType
+        si.serviceName = this.serviceName
+        si.network = testNetwork1.network
+        si.port = 12345 // Test won't try to connect so port does not matter
+        si.setAttribute("testkey", "testvalue")
+
+        // Register service on testNetwork1
+        val registrationRecord = NsdRegistrationRecord()
+        val registeredInfo = registerService(registrationRecord, si)
+        val discoveryRecord = NsdDiscoveryRecord()
+
+        tryTest {
+            // Discover service on testNetwork1.
+            nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, discoveryRecord)
+            // Expect that service is found on testNetwork1
+            val foundInfo = discoveryRecord.waitForServiceDiscovered(
+                    serviceName, testNetwork1.network)
+            assertEquals(testNetwork1.network, nsdShim.getNetwork(foundInfo))
+
+            // Resolve the service
+            val resolveRecord = NsdResolveRecord()
+            nsdManager.resolveService(foundInfo, resolveRecord)
+            val resolvedCb = resolveRecord.expectCallback<ServiceResolved>()
+
+            val resolvedInfo = resolvedCb.serviceInfo
+            assertEquals(registeredInfo.serviceName, resolvedInfo.serviceName)
+            // Resolved service type has leading dot
+            assertEquals(".$serviceType", resolvedInfo.serviceType)
+            assertEquals(si.port, resolvedInfo.port)
+            assertEquals(1, resolvedInfo.attributes.size)
+            assertEquals("testvalue", resolvedInfo.attributes["testkey"].utf8ToString())
+        } cleanupStep {
+            nsdManager.stopServiceDiscovery(discoveryRecord)
+            discoveryRecord.expectCallback<DiscoveryStopped>()
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
             registrationRecord.expectCallback<ServiceUnregistered>()
         }
     }
