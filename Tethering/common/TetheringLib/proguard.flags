@@ -1,0 +1,10 @@
+# Exclude all tethering-related classes from being jarjar'ed.
+-keep class android.net.Tethering**,android.net.I*,android.net.wear.** {
+    *;
+}
+
+# Exclude Http API classes.
+-keep class android.net.http.* {
+    *;
+}
+
