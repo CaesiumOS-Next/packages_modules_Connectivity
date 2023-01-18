@@ -16,22 +16,65 @@
 
 package com.android.server.connectivity;
 
+import static android.Manifest.permission.GET_INTENT_SENDER_INTENT;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static android.net.NattSocketKeepalive.NATT_PORT;
+import static android.net.SocketKeepalive.SUCCESS;
+import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
+import static android.system.OsConstants.AF_INET;
+import static android.system.OsConstants.IPPROTO_UDP;
+import static android.system.OsConstants.SOCK_DGRAM;
+
+import static com.android.server.connectivity.AutomaticOnOffKeepaliveTracker.AUTOMATIC_ON_OFF_KEEPALIVE_MODE;
+import static com.android.server.connectivity.AutomaticOnOffKeepaliveTracker.AUTOMATIC_ON_OFF_KEEPALIVE_MODE_ENABLED;
+import static com.android.server.connectivity.AutomaticOnOffKeepaliveTracker.EXTRA_SLOT;
+import static com.android.testutils.ContextUtils.mockService;
+import static com.android.testutils.TestPermissionUtil.runAsShell;
+
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.UserInfo;
 import android.net.INetd;
+import android.net.ISocketKeepaliveCallback;
+import android.net.KeepalivePacketData;
 import android.net.MarkMaskParcel;
+import android.net.NattKeepalivePacketData;
+import android.net.Network;
+import android.net.NetworkAgent;
 import android.os.Build;
+import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Process;
+import android.os.UserHandle;
+import android.system.Os;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
+import com.android.testutils.HandlerUtils;
 
 import libcore.util.HexEncoding;
 
@@ -41,6 +84,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.FileDescriptor;
+import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -51,15 +96,23 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     private static final int TEST_NETID = 0xA85;
     private static final int TEST_NETID_FWMARK = 0x0A85;
     private static final int OTHER_NETID = 0x1A85;
+    private static final int UNDERLY_NETID = 0xB85;
     private static final int NETID_MASK = 0xffff;
+    private static final String TEST_SRC_ADDR = "192.0.2.139";
+    private static final UserInfo SYSTEM_USER = new UserInfo(0, "system", UserInfo.FLAG_PRIMARY);
+    private static final int HANDLER_TIMEOUT_MS = 1000;
     private AutomaticOnOffKeepaliveTracker mAOOKeepaliveTracker;
-    private HandlerThread mHandlerThread;
+    private Handler mHandler;
 
     @Mock INetd mNetd;
     @Mock AutomaticOnOffKeepaliveTracker.Dependencies mDependencies;
     @Mock Context mCtx;
     @Mock KeepaliveTracker mKeepaliveTracker;
-
+    @Mock PackageManager mPackageManager;
+    @Mock AlarmManager mAlarmManager;
+    @Mock NetworkAgentInfo mNai;
+    @Mock ISocketKeepaliveCallback mKeepaliveCallback;
+    @Mock IBinder mBinder;
     // Hexadecimal representation of a SOCK_DIAG response with tcp info.
     private static final String SOCK_DIAG_TCP_INET_HEX =
             // struct nlmsghdr.
@@ -161,18 +214,33 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
 
+        mockService(mCtx, AlarmManager.class, Context.ALARM_SERVICE, mAlarmManager);
         doReturn(mNetd).when(mDependencies).getNetd();
         doReturn(makeMarkMaskParcel(NETID_MASK, TEST_NETID_FWMARK)).when(mNetd)
                 .getFwmarkForNetwork(TEST_NETID);
-
         doNothing().when(mDependencies).sendRequest(any(), any());
+        doNothing().when(mKeepaliveTracker).handleStartKeepalive(any());
+        // For creating KeepaliveInfo.
+        doReturn(mBinder).when(mKeepaliveCallback).asBinder();
+        doNothing().when(mBinder).linkToDeath(any(), anyInt());
+        doReturn(PERMISSION_GRANTED).when(mCtx).checkPermission(anyString(), anyInt(), anyInt());
 
-        mHandlerThread = new HandlerThread("KeepaliveTrackerTest");
-        mHandlerThread.start();
-        doReturn(mKeepaliveTracker).when(mDependencies).newKeepaliveTracker(
-                mCtx, mHandlerThread.getThreadHandler());
-        mAOOKeepaliveTracker = new AutomaticOnOffKeepaliveTracker(
-                mCtx, mHandlerThread.getThreadHandler(), mDependencies);
+        doReturn(AUTOMATIC_ON_OFF_KEEPALIVE_MODE_ENABLED).when(mDependencies)
+                .getDeviceConfigPropertyInt(
+                        eq(NAMESPACE_CONNECTIVITY), eq(AUTOMATIC_ON_OFF_KEEPALIVE_MODE), anyInt());
+
+        // Mocking for pending intent.
+        doReturn(Process.myProcessName()).when(mCtx).getPackageName();
+        final UserHandle userHandle = UserHandle.of(SYSTEM_USER.id);
+        doReturn(userHandle).when(mCtx).getUser();
+        doReturn(UserHandle.getUid(SYSTEM_USER.id, Process.myUid()))
+                .when(mPackageManager).getPackageUidAsUser(anyString(), anyInt());
+
+        final HandlerThread handlerThread = new HandlerThread("KeepaliveTrackerTest");
+        handlerThread.start();
+        mHandler = handlerThread.getThreadHandler();
+        doReturn(mKeepaliveTracker).when(mDependencies).newKeepaliveTracker(mCtx, mHandler);
+        mAOOKeepaliveTracker = new AutomaticOnOffKeepaliveTracker(mCtx, mHandler, mDependencies);
     }
 
     @Test
@@ -185,22 +253,19 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @Test
     public void testIsAnyTcpSocketConnected_withTargetNetId() throws Exception {
         setupResponseWithSocketExisting();
-        mHandlerThread.getThreadHandler().post(
-                () -> assertTrue(mAOOKeepaliveTracker.isAnyTcpSocketConnected(TEST_NETID)));
+        mHandler.post(() -> assertTrue(mAOOKeepaliveTracker.isAnyTcpSocketConnected(TEST_NETID)));
     }
 
     @Test
     public void testIsAnyTcpSocketConnected_withIncorrectNetId() throws Exception {
         setupResponseWithSocketExisting();
-        mHandlerThread.getThreadHandler().post(
-                () -> assertFalse(mAOOKeepaliveTracker.isAnyTcpSocketConnected(OTHER_NETID)));
+        mHandler.post(() -> assertFalse(mAOOKeepaliveTracker.isAnyTcpSocketConnected(OTHER_NETID)));
     }
 
     @Test
     public void testIsAnyTcpSocketConnected_noSocketExists() throws Exception {
         setupResponseWithoutSocketExisting();
-        mHandlerThread.getThreadHandler().post(
-                () -> assertFalse(mAOOKeepaliveTracker.isAnyTcpSocketConnected(TEST_NETID)));
+        mHandler.post(() -> assertFalse(mAOOKeepaliveTracker.isAnyTcpSocketConnected(TEST_NETID)));
     }
 
     private void setupResponseWithSocketExisting() throws Exception {
@@ -226,5 +291,111 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         final ByteBuffer buffer = ByteBuffer.wrap(bytes);
         buffer.order(ByteOrder.nativeOrder());
         return buffer;
+    }
+
+    private KeepaliveTracker.KeepaliveInfo buildTestKeepaliveInfo(int slot) throws Exception {
+        final KeepalivePacketData packet = NattKeepalivePacketData.nattKeepalivePacket(
+                InetAddress.getByName(TEST_SRC_ADDR), 1234 /* srcPort */,
+                InetAddress.getByName("8.8.8.8"), NATT_PORT);
+        final FileDescriptor fd = Os.socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+        final KeepaliveTracker.KeepaliveInfo ki = mKeepaliveTracker.new KeepaliveInfo(mCtx,
+                mKeepaliveCallback, mNai, packet, 2000 /* intervalSeconds */,
+                KeepaliveTracker.KeepaliveInfo.TYPE_NATT, fd);
+        doReturn(new Network(UNDERLY_NETID)).when(mNai).network();
+        doReturn(ki).when(mKeepaliveTracker).createNewKeepaliveWithNewFd(any(), any());
+        ki.mSlot = slot;
+        return ki;
+    }
+
+    @Test
+    public void testAutomaticOnOffKeepaliveEnabled() throws Exception {
+        testAutomaticOnOffKeepalive(true, true);
+    }
+
+    @Test
+    public void testAutomaticOnOffKeepaliveDisabled() throws Exception {
+        testAutomaticOnOffKeepalive(false, true);
+    }
+
+    @Test
+    public void testAutomaticOnOffKeepaliveEnabled_noVpnNetwork() throws Exception {
+        testAutomaticOnOffKeepalive(true, false);
+    }
+
+    public void testAutomaticOnOffKeepalive(boolean automaticOnOff, boolean isAnyVpnNetwork)
+            throws Exception {
+        final int slot = 3;
+        final KeepaliveTracker.KeepaliveInfo ki = buildTestKeepaliveInfo(slot);
+
+        // Lower the polling interval so that the alarm will be fired soon.
+        doReturn(100L).when(mDependencies).getTcpPollingInterval();
+
+        // Start keepalive
+        final Message msg = Message.obtain(mHandler,
+                NetworkAgent.CMD_START_SOCKET_KEEPALIVE, automaticOnOff ? 1 : 0, 0 , ki);
+        mHandler.post(()-> mAOOKeepaliveTracker.handleStartKeepalive(msg));
+        HandlerUtils.waitForIdle(mHandler, HANDLER_TIMEOUT_MS);
+
+        verify(mKeepaliveTracker).handleStartKeepalive(msg);
+        // Verify alarm being received.
+        if (automaticOnOff) {
+            verify(mAlarmManager, timeout(1000)).setExact(
+                    anyInt(), anyLong(), argThat(intent -> getSlot(intent) == ki.mSlot));
+
+            // TCP sockets connected on the VPN network, so keepalive stays in started.
+            reset(mAlarmManager);
+            setupResponseWithSocketExisting();
+            mHandler.post(() ->
+                    mAOOKeepaliveTracker.handleMonitorAutomaticKeepalive(
+                            new Network(UNDERLY_NETID), slot, TEST_NETID, isAnyVpnNetwork));
+            HandlerUtils.waitForIdle(mHandler, HANDLER_TIMEOUT_MS);
+
+            if (!isAnyVpnNetwork) {
+                // Keepalive should be stop if there is no VPN network.
+                verify(mKeepaliveTracker).handleStopKeepalive(mNai, slot, SUCCESS);
+                verify(mAlarmManager, never()).setExact(anyInt(), anyLong(), any());
+            } else {
+                // Trigger next alarm.
+                verify(mAlarmManager, timeout(1000)).setExact(
+                        anyInt(), anyLong(), argThat(intent -> getSlot(intent) == ki.mSlot));
+
+                // No TCP socket on the VPN network. Keepalive will be suspeneded.
+                setupResponseWithoutSocketExisting();
+                // Reset it because only one VerificationMode is allowed.
+                reset(mAlarmManager);
+                mHandler.post(() ->
+                        mAOOKeepaliveTracker.handleMonitorAutomaticKeepalive(
+                                new Network(UNDERLY_NETID), slot, TEST_NETID, isAnyVpnNetwork));
+                HandlerUtils.waitForIdle(mHandler, HANDLER_TIMEOUT_MS);
+                // Keepalive should be suspended
+                verify(mKeepaliveTracker).handleStopKeepalive(mNai, slot, SUCCESS);
+                // Trigger next alarm.
+                verify(mAlarmManager, timeout(1000)).setExact(
+                        anyInt(), anyLong(), argThat(intent -> getSlot(intent) == ki.mSlot));
+
+                // TCP sockets connected on the VPN network, so keepalive is resumed.
+                setupResponseWithSocketExisting();
+                reset(mAlarmManager);
+                mHandler.post(() ->
+                        mAOOKeepaliveTracker.handleMonitorAutomaticKeepalive(
+                                new Network(UNDERLY_NETID), slot, TEST_NETID, isAnyVpnNetwork));
+                HandlerUtils.waitForIdle(mHandler, HANDLER_TIMEOUT_MS);
+                // Keepalive should be resumed to trigger another handleStartKeepalive.
+                // Keepalive is re-created, so verify the interaction only with specifying the
+                // message.
+                verify(mKeepaliveTracker, times(2)).handleStartKeepalive(any());
+                // Trigger next alarm.
+                verify(mAlarmManager, timeout(1000)).setExact(
+                        anyInt(), anyLong(), argThat(intent -> getSlot(intent) == ki.mSlot));
+            }
+        } else {
+            verify(mAlarmManager, never()).setExact(anyInt(), anyLong(), any());
+        }
+    }
+
+    private int getSlot(PendingIntent pi) {
+        final Intent alarmIntent = runAsShell(GET_INTENT_SENDER_INTENT, () -> pi.getIntent());
+        assertNotNull(alarmIntent);
+        return alarmIntent.getIntExtra(EXTRA_SLOT, -1);
     }
 }
