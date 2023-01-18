@@ -44,6 +44,11 @@ import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ResolveFaile
 import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ResolveStopped
 import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ServiceResolved
 import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.StopResolutionFailed
+import android.net.cts.NsdManagerTest.NsdServiceCallbackRecord.ServiceCallbackEvent.RegisterCallbackFailed
+import android.net.cts.NsdManagerTest.NsdServiceCallbackRecord.ServiceCallbackEvent.ServiceUpdated
+import android.net.cts.NsdManagerTest.NsdServiceCallbackRecord.ServiceCallbackEvent.UnregisterCallbackFailed
+import android.net.cts.NsdManagerTest.NsdServiceCallbackRecord.ServiceCallbackEvent.UnregisterCallbackSucceeded
+import android.net.cts.util.CtsNetUtils
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdManager.DiscoveryListener
 import android.net.nsd.NsdManager.RegistrationListener
@@ -60,6 +65,7 @@ import androidx.test.runner.AndroidJUnit4
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
 import com.android.networkstack.apishim.NsdShimImpl
+import com.android.networkstack.apishim.common.NsdShim
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.TestableNetworkAgent
@@ -115,6 +121,7 @@ class NsdManagerTest {
     private val serviceName = "NsdTest%09d".format(Random().nextInt(1_000_000_000))
     private val serviceType = "_nmt%09d._tcp".format(Random().nextInt(1_000_000_000))
     private val handlerThread = HandlerThread(NsdManagerTest::class.java.simpleName)
+    private val ctsNetUtils by lazy{ CtsNetUtils(context) }
 
     private lateinit var testNetwork1: TestTapNetwork
     private lateinit var testNetwork2: TestTapNetwork
@@ -284,6 +291,37 @@ class NsdManagerTest {
 
         override fun onStopResolutionFailed(si: NsdServiceInfo, err: Int) {
             add(StopResolutionFailed(si, err))
+        }
+    }
+
+    private class NsdServiceCallbackRecord : NsdShim.ServiceCallbackShim,
+            NsdRecord<NsdServiceCallbackRecord.ServiceCallbackEvent>() {
+        sealed class ServiceCallbackEvent : NsdEvent {
+            data class RegisterCallbackFailed(val serviceInfo: NsdServiceInfo, val errorCode: Int) :
+                    ServiceCallbackEvent()
+            data class ServiceUpdated(val serviceInfo: NsdServiceInfo) : ServiceCallbackEvent()
+            data class UnregisterCallbackFailed(
+                val serviceInfo: NsdServiceInfo,
+                val errorCode: Int
+            ) : ServiceCallbackEvent()
+            data class UnregisterCallbackSucceeded(val serviceInfo: NsdServiceInfo) :
+                    ServiceCallbackEvent()
+        }
+
+        override fun onRegisterServiceCallbackFailed(si: NsdServiceInfo, err: Int) {
+            add(RegisterCallbackFailed(si, err))
+        }
+
+        override fun onServiceUpdated(si: NsdServiceInfo) {
+            add(ServiceUpdated(si))
+        }
+
+        override fun onUnregisterServiceCallbackSucceeded(si: NsdServiceInfo) {
+            add(UnregisterCallbackSucceeded(si))
+        }
+
+        override fun onUnregisterServiceCallbackFailed(si: NsdServiceInfo, err: Int) {
+            add(UnregisterCallbackFailed(si, err))
         }
     }
 
@@ -770,6 +808,60 @@ class NsdManagerTest {
         val stoppedCb = resolveRecord.expectCallback<ResolveStopped>()
         assertEquals(si.serviceName, stoppedCb.serviceInfo.serviceName)
         assertEquals(si.serviceType, stoppedCb.serviceInfo.serviceType)
+    }
+
+    @Test
+    fun testRegisterServiceCallback() {
+        // This test requires shims supporting U+ APIs (NsdManager.subscribeService)
+        assumeTrue(TestUtils.shouldTestUApis())
+
+        // Ensure Wi-Fi network connected and get addresses
+        val wifiNetwork = ctsNetUtils.ensureWifiConnected()
+        val lp = cm.getLinkProperties(wifiNetwork)
+        assertNotNull(lp)
+        val addresses = lp.allAddresses
+        assertFalse(addresses.isEmpty())
+
+        val si = NsdServiceInfo().apply {
+            serviceType = this@NsdManagerTest.serviceType
+            serviceName = this@NsdManagerTest.serviceName
+            network = wifiNetwork
+            port = 12345 // Test won't try to connect so port does not matter
+        }
+
+        // Register service on Wi-Fi network
+        val registrationRecord = NsdRegistrationRecord()
+        registerService(registrationRecord, si)
+
+        tryTest {
+            // Discover service on Wi-Fi network.
+            val discoveryRecord = NsdDiscoveryRecord()
+            nsdShim.discoverServices(nsdManager, serviceType, NsdManager.PROTOCOL_DNS_SD,
+                    wifiNetwork, Executor { it.run() }, discoveryRecord)
+            val foundInfo = discoveryRecord.waitForServiceDiscovered(
+                    serviceName, wifiNetwork)
+
+            // Subscribe to service and check the addresses are the same as Wi-Fi addresses
+            val cbRecord = NsdServiceCallbackRecord()
+            nsdShim.registerServiceCallback(nsdManager, foundInfo, { it.run() }, cbRecord)
+            for (i in addresses.indices) {
+                val subscribeCb = cbRecord.expectCallback<ServiceUpdated>()
+                assertEquals(foundInfo.serviceName, subscribeCb.serviceInfo.serviceName)
+                val hostAddresses = subscribeCb.serviceInfo.hostAddresses
+                assertEquals(i + 1, hostAddresses.size)
+                for (hostAddress in hostAddresses) {
+                    assertTrue(addresses.contains(hostAddress))
+                }
+            }
+
+            // Cancel subscription and check stop callback received.
+            nsdShim.unregisterServiceCallback(nsdManager, cbRecord)
+            cbRecord.expectCallback<UnregisterCallbackSucceeded>()
+        } cleanupStep {
+            nsdManager.unregisterService(registrationRecord)
+        } cleanup {
+            registrationRecord.expectCallback<ServiceUnregistered>()
+        }
     }
 
     /**
