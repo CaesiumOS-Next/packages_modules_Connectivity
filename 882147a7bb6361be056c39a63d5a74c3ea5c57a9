@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6faead9_3b2435bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T14:56:19Z",
+      "side": 1,
+      "message": "LGTM only nits. Free to address them with a follow up commit.",
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "131b6be0_acd207f3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T14:56:19Z",
+      "side": 1,
+      "message": "Nit: Rename to storeDiscoveryManagerRequestMap?",
+      "range": {
+        "startLine": 479,
+        "startChar": 25,
+        "endLine": 479,
+        "endChar": 41
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2932cfa_a4d0eabf",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T14:56:19Z",
+      "side": 1,
+      "message": "Nit: `globalId` to align other store methods. Sorry for making a different name here.",
+      "range": {
+        "startLine": 479,
+        "startChar": 60,
+        "endLine": 479,
+        "endChar": 73
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f730a1a_a8a12c5e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T14:56:19Z",
+      "side": 1,
+      "message": "Nit: This can be null now probably. Maybe have null check above and stop discovery if it\u0027s null?",
+      "range": {
+        "startLine": 612,
+        "startChar": 29,
+        "endLine": 612,
+        "endChar": 36
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b07c6ee9_654ff166",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T14:56:19Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 694,
+        "startChar": 29,
+        "endLine": 694,
+        "endChar": 36
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a07c2c5_3bbae294",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1512,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T14:56:19Z",
+      "side": 1,
+      "message": "Nit: The log content is changed, it\u0027s nice to have before/after logs comparison in the commit message.",
+      "range": {
+        "startLine": 1512,
+        "startChar": 24,
+        "endLine": 1512,
+        "endChar": 87
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe8fb608_a6c7b9c1",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1574,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T14:56:19Z",
+      "side": 1,
+      "message": "Nit: requests",
+      "range": {
+        "startLine": 1574,
+        "startChar": 58,
+        "endLine": 1574,
+        "endChar": 71
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
