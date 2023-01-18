@@ -19,6 +19,7 @@ package com.android.server.connectivity;
 import static android.net.NetworkAgent.CMD_START_SOCKET_KEEPALIVE;
 import static android.net.SocketKeepalive.ERROR_INVALID_SOCKET;
 import static android.net.SocketKeepalive.SUCCESS;
+import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
 import static android.system.OsConstants.SOL_SOCKET;
@@ -60,6 +61,7 @@ import android.util.SparseArray;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.HexDump;
 import com.android.net.module.util.SocketUtils;
 import com.android.net.module.util.netlink.InetDiagMessage;
@@ -94,6 +96,9 @@ public class AutomaticOnOffKeepaliveTracker {
     private static final String EXTRA_NETWORK = "network_id";
     private static final String EXTRA_SLOT = "slot";
     private static final long DEFAULT_TCP_POLLING_INTERVAL_MS = 120_000L;
+    private static final String AUTOMATIC_ON_OFF_KEEPALIVE_MODE = "automatic_on_off_keepalive_mode";
+    private static final int AUTOMATIC_ON_OFF_KEEPALIVE_MODE_DISABLED = 0;
+    private static final int AUTOMATIC_ON_OFF_KEEPALIVE_MODE_ENABLED = 1;
     /**
      * States for {@code #AutomaticOnOffKeepalive}.
      *
@@ -348,7 +353,10 @@ public class AutomaticOnOffKeepaliveTracker {
         mKeepaliveTracker.handleStartKeepalive(message);
 
         // Add automatic on/off request into list to track its life cycle.
-        final boolean automaticOnOff = message.arg1 != 0;
+        final boolean automaticOnOff = message.arg1 != 0
+                && (mDependencies.getDeviceConfigPropertyInt(NAMESPACE_CONNECTIVITY,
+                AUTOMATIC_ON_OFF_KEEPALIVE_MODE, AUTOMATIC_ON_OFF_KEEPALIVE_MODE_ENABLED)
+                != AUTOMATIC_ON_OFF_KEEPALIVE_MODE_DISABLED);
         if (automaticOnOff) {
             final KeepaliveTracker.KeepaliveInfo ki = (KeepaliveTracker.KeepaliveInfo) message.obj;
             AutomaticOnOffKeepalive autoKi;
@@ -673,6 +681,19 @@ public class AutomaticOnOffKeepaliveTracker {
         public KeepaliveTracker newKeepaliveTracker(@NonNull Context context,
                 @NonNull Handler connectivityserviceHander) {
             return new KeepaliveTracker(mContext, connectivityserviceHander);
+        }
+
+        /**
+         * Look up the value of a property in DeviceConfig.
+         * @param namespace The namespace containing the property to look up.
+         * @param name The name of the property to look up.
+         * @param defaultValue The value to return if the property does not exist or has no non-null
+         *                     value.
+         * @return the corresponding value, or defaultValue if none exists.
+         */
+        public int getDeviceConfigPropertyInt(@NonNull String namespace, @NonNull String name,
+                int defaultValue) {
+            return DeviceConfigUtils.getDeviceConfigPropertyInt(namespace, name, defaultValue);
         }
     }
 }
