@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c09f3742_8932a078",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "Rename to mDownstreamStartTime ?",
+      "range": {
+        "startLine": 82,
+        "startChar": 36,
+        "endLine": 82,
+        "endChar": 49
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad56fa37_8c66c8f0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "Since you already have mCurrentUpstream, you can also have mStartTime then you don\u0027t need to add not-ready RecordUpstreamEvent to the list. You can make a contract that all the event in the list is ready to use.",
+      "range": {
+        "startLine": 84,
+        "startChar": 25,
+        "endLine": 84,
+        "endChar": 41
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d84d1b2_13d57402",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "If you take above suggestion, you can make mStopTime final.",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 20
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b456f708_eb8baa4e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "Since this is private inner class, it never can be used outside of TetheringMetrices.java. Thus, you can just remove these getter because TetheringMetrices can access private filed of its inner class.\n\nOr you can just make the fileds \"public final\".",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 9
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f4244ff_8340212d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "Add the comment why need to create RecordUpstreamEvent only if mUpstreamEventList is empty ?",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 45
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe1ccb85_7ca245cf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "if (mUpstreamEventList.isEmpty())",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 45
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cd1b3d3_e739de7c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "If you take above suggestion, you can simply the code:\n\n    mUpstreamEventList.add(new RecordUpstreamEvent(mStartTime, currentTime, upstream));\n    mCurrentUpstream \u003d upstream;\n    mStartTime \u003d currentTime;",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 36
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab07f3de_171f2efd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "You can just create the UpstreamEvent builder inside this function.\n\n    public void updateUpstreamEvents(final UpstreamEvents.Builder upstreamEventsBuilder, final RecordUpstreamEvent event) { \n        final UpstreamEvent.Builder upstreamEventBuilder \u003d UpstreamEvent.newBuilder();\n        upstreamEventBuilder.setUpstreamType(event.upstream)\n                            .setDurationMillis(event.stopTime - event.startTime);\n        upstreamEventsBuilder.addUpstreamEvent(upstreamEventBuilder);\n    }",
+      "range": {
+        "startLine": 172,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 5
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9b52765_56797f97",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "Rename to downstreamStartTime ?",
+      "range": {
+        "startLine": 185,
+        "startChar": 31,
+        "endLine": 185,
+        "endChar": 40
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b68f40dc_eab32215",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "for (RecordUpstreamEvent event : mUpstreamEventList) {",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 72
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d87dbf59_6207cf03",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "Simpy the code like this ?\n\n    for (RecordUpstreamEvent event : mUpstreamEventList) {\n        if (startTime \u003e event.startTime) continue;\n\n        updateUpstreamEvents(upstreamEventsBuilder, event);\n    }\n\n    updateUpstreamEvents(upstreamEventsBuilder, new RecordUpstreamEvent(mStartTime, stopTime, mCurrentUpstream));",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 211,
+        "endChar": 9
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48cfed27_6f4297bf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "Can this fit in one time ?",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 229,
+        "endChar": 51
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05f7a631_ffab356f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-18T15:40:58Z",
+      "side": 1,
+      "message": "Clean the map inside sendReport is very hacky. Could you let Tethering reset the map and mCurrentUpstream ?\n\nMaybe inside TetherModeAliveState#exit()",
+      "range": {
+        "startLine": 234,
+        "startChar": 8,
+        "endLine": 237,
+        "endChar": 9
+      },
+      "revId": "45aea22b4fb40a3b6693e1f19a65c4b408c5b6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
