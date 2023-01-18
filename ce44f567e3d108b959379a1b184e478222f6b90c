@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "750a54ad_b43358f5",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1495f1cd_2b5310c4",
+      "range": {
+        "startLine": 691,
+        "startChar": 34,
+        "endLine": 691,
+        "endChar": 36
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "862ae9b3_726f2e38",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-18T14:17:19Z",
       "side": 1,
       "message": "Nit: \"listen to service info updates\"",
+      "range": {
+        "startLine": 787,
+        "startChar": 82,
+        "endLine": 787,
+        "endChar": 85
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea498f91_059d61f0",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "862ae9b3_726f2e38",
       "range": {
         "startLine": 787,
         "startChar": 82,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c00ca9f9_e1fea297",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "229f1412_a64e8d5b",
+      "range": {
+        "startLine": 793,
+        "startChar": 18,
+        "endLine": 793,
+        "endChar": 34
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1419c4d4_d504209f",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-01-18T14:17:19Z",
       "side": 1,
       "message": "Nit: suggest \"service updates are sent with continuous calls to onServiceUpdated\"",
+      "range": {
+        "startLine": 1309,
+        "startChar": 67,
+        "endLine": 1310,
+        "endChar": 24
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2616df36_5993a76a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1419c4d4_d504209f",
       "range": {
         "startLine": 1309,
         "startChar": 67,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2033e27_db7fc2c5",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dd4be36_f8de53f9",
+      "range": {
+        "startLine": 1312,
+        "startChar": 54,
+        "endLine": 1312,
+        "endChar": 98
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a8af891_1194b594",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-01-18T14:17:19Z",
       "side": 1,
       "message": "Nit: registering",
+      "range": {
+        "startLine": 1315,
+        "startChar": 14,
+        "endLine": 1315,
+        "endChar": 22
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb556f41_f3cc352e",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a8af891_1194b594",
       "range": {
         "startLine": 1315,
         "startChar": 14,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abcc2863_f2137ccc",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "589c23d7_f99852f6",
+      "range": {
+        "startLine": 1320,
+        "startChar": 38,
+        "endLine": 1320,
+        "endChar": 73
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48bc1538_e3c70cfc",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8121518a_4561d1ff",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48bc1538_e3c70cfc",
+      "range": {
+        "startLine": 1322,
+        "startChar": 42,
+        "endLine": 1322,
+        "endChar": 63
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9665c7b7_c7d3777c",
@@ -198,6 +390,24 @@
       "writtenOn": "2023-01-18T14:17:19Z",
       "side": 1,
       "message": "Nit: could this be removed to use the first element of mHostAddresses instead ?",
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bf6ce28_dfd6a78f",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9665c7b7_c7d3777c",
       "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -250,6 +460,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6864ebfb_9eb0208c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "You can refer to l.814, the legacy resolve API uses FAILURE_INTERNAL_ERROR always. So the behavior won\u0027t change for legacy resolve API here. Add comment to notifyResolveFailedResult().",
+      "parentUuid": "cd6a46d4_8f02e3e3",
+      "range": {
+        "startLine": 924,
+        "startChar": 47,
+        "endLine": 924,
+        "endChar": 77
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d726f3a_9739b060",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 4
@@ -273,6 +507,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19adc5bb_6bd44c5c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Same as above comment. The legacy resolve API uses FAILURE_INTERNAL_ERROR always.",
+      "parentUuid": "7d726f3a_9739b060",
+      "range": {
+        "startLine": 934,
+        "startChar": 65,
+        "endLine": 934,
+        "endChar": 95
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f51203c_f8ee341b",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 4
@@ -284,6 +542,30 @@
       "writtenOn": "2023-01-18T14:17:19Z",
       "side": 1,
       "message": "Same as above: this would change API behavior for resolveService",
+      "range": {
+        "startLine": 942,
+        "startChar": 65,
+        "endLine": 942,
+        "endChar": 95
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49f195ef_619a97f5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Like above comment.",
+      "parentUuid": "7f51203c_f8ee341b",
       "range": {
         "startLine": 942,
         "startChar": 65,
@@ -324,6 +606,30 @@
       "writtenOn": "2023-01-18T14:17:19Z",
       "side": 1,
       "message": "Should this not be stopGetAddrInfo as before ?",
+      "range": {
+        "startLine": 987,
+        "startChar": 28,
+        "endLine": 987,
+        "endChar": 46
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90131b5d_15c5dcd9",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T17:43:00Z",
+      "side": 1,
+      "message": "Oops, change to `stopGetAddrInfo`. But they are the same with different method name actually. ^^",
+      "parentUuid": "24196ddb_c6ed5303",
       "range": {
         "startLine": 987,
         "startChar": 28,
