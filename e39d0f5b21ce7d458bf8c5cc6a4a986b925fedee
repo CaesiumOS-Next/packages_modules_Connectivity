@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18bdc50a_ad983f8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T05:46:17Z",
+      "side": 1,
+      "message": "LTGM assume comments addressed.",
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "062e462a_245d9892",
+        "filename": "service-t/src/com/android/server/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T05:46:17Z",
+      "side": 1,
+      "message": "As I commented on MdnsRecordRepository, `renameServiceForConflict` would not return null object. So this is unnecessary.",
+      "range": {
+        "startLine": 293,
+        "startChar": 8,
+        "endLine": 293,
+        "endChar": 40
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb90cd6b_c8a11633",
+        "filename": "service-t/src/com/android/server/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T05:46:17Z",
+      "side": 1,
+      "message": "Question: Does the reply still need to prepare if the conflict is happened? Or it\u0027s just some of services not all, so the reply is prepared for remaining services?",
+      "range": {
+        "startLine": 331,
+        "startChar": 8,
+        "endLine": 331,
+        "endChar": 9
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78df750f_e203238b",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T05:46:17Z",
+      "side": 1,
+      "message": "Nit: You can use the `equals()` of MdnsServiceRecord",
+      "range": {
+        "startLine": 746,
+        "startChar": 24,
+        "endLine": 749,
+        "endChar": 91
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5244d949_3bd88e11",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T05:46:17Z",
+      "side": 1,
+      "message": "Nit: I think the name of two MdnsTextRecord should be same, right? If so, this can replace with `equals()` as well.",
+      "range": {
+        "startLine": 757,
+        "startChar": 24,
+        "endLine": 757,
+        "endChar": 68
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6739b4c3_51107e28",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T05:46:17Z",
+      "side": 1,
+      "message": "If the null check for registration is removed below, this should be @NonNull.",
+      "range": {
+        "startLine": 810,
+        "startChar": 4,
+        "endLine": 810,
+        "endChar": 13
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "416e9d9a_36c73ee0",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T05:46:17Z",
+      "side": 1,
+      "message": "registration is not used. Removed?",
+      "range": {
+        "startLine": 812,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 46
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99e15a87_ed3ad6e1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T05:46:17Z",
+      "side": 1,
+      "message": "Nit: Also verify the replySender is queued a reply.",
+      "range": {
+        "startLine": 236,
+        "startChar": 4,
+        "endLine": 236,
+        "endChar": 5
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
