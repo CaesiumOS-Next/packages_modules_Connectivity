@@ -98,6 +98,9 @@ java_defaults {
         enabled: false,
     },
     api_dir: "cronet_enabled/api",
+    optimize: {
+        proguard_flags_files: [":cronet_aml_proguard_cfg"],
+    },
 }
 
 java_defaults {
