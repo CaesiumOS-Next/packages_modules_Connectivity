@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e7e1867_251c8a0c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1851,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-01-18T07:33:35Z",
+      "side": 1,
+      "message": "keep chooseUpstreamType() behavior as it. just separate onUpstreamCapabilitiesChanged from reportUpstreamChanged",
+      "parentUuid": "c8eb8827_a743346e",
+      "range": {
+        "startLine": 1851,
+        "startChar": 37,
+        "endLine": 1851,
+        "endChar": 66
+      },
+      "revId": "4766be70738a564508bf7e585b238d7c950d238c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40d16dde_f55afbdb",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "i see. this is just moved from reportUpstreamChange.\n\nadded a test aosp/2388108 for testing this TetherModeAliveState#exit case.\ncurrent tests doesn\u0027t cover this case once onUpstreamCapabilitiesChanged is moved out of reportUpstreamChange",
       "parentUuid": "40d16dde_f55afbdb",
+      "range": {
+        "startLine": 2075,
+        "startChar": 41,
+        "endLine": 2075,
+        "endChar": 70
+      },
+      "revId": "4766be70738a564508bf7e585b238d7c950d238c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c8d2b91_f5adbc85",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-01-18T07:33:35Z",
+      "side": 1,
+      "message": "keep exit() behavior as it. just separate onUpstreamCapabilitiesChanged from reportUpstreamChanged",
+      "parentUuid": "3512f116_81e9fd19",
       "range": {
         "startLine": 2075,
         "startChar": 41,
