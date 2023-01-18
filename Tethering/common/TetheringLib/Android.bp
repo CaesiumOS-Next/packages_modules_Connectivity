@@ -80,6 +80,18 @@ java_defaults {
     defaults: [cronet_java_defaults],
 }
 
+java_library {
+    name: "cronet_aml_java_optimized",
+    static_libs: ["cronet_aml_java"],
+    optimize: {
+        enabled: true,
+        proguard_flags_files: [":cronet_aml_proguard_cfg"],
+    },
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
+    sdk_version: "module_current",
+}
+
 java_defaults {
     name: "CronetJavaDefaultsEnabled",
     srcs: cronet_java_defaults_enabled_srcs,
@@ -87,7 +99,7 @@ java_defaults {
         "androidx.annotation_annotation",
     ],
     impl_only_static_libs: [
-        "cronet_aml_java",
+        "cronet_aml_java_optimized",
     ],
     // STOPSHIP(b/265674359): fix all Cronet lint warnings and re-enable lint
     // directly in framework-tethering
@@ -118,7 +130,7 @@ java_defaults {
   name: "CronetJavaPrejarjarDefaultsEnabled",
   static_libs: [
     "cronet_aml_api_java",
-    "cronet_aml_java"
+    "cronet_aml_java_optimized"
   ],
 }
 
