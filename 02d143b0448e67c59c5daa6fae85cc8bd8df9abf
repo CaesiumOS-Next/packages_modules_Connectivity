@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e26b2c7a_6f6069c5",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T16:19:52Z",
+      "side": 1,
+      "message": "nsdShim",
+      "range": {
+        "startLine": 755,
+        "startChar": 12,
+        "endLine": 755,
+        "endChar": 22
+      },
+      "revId": "02d143b0448e67c59c5daa6fae85cc8bd8df9abf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d338ebb_8ca0df23",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T16:19:52Z",
+      "side": 1,
+      "message": "Use `nsdShim.resolveService()` or `resolveService()` below?",
+      "range": {
+        "startLine": 764,
+        "startChar": 12,
+        "endLine": 764,
+        "endChar": 37
+      },
+      "revId": "02d143b0448e67c59c5daa6fae85cc8bd8df9abf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
