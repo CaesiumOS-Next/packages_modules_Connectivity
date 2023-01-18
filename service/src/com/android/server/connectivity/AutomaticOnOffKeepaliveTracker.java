@@ -92,11 +92,14 @@ public class AutomaticOnOffKeepaliveTracker {
     private static final String ACTION_TCP_POLLING_ALARM =
             "com.android.server.connectivity.KeepaliveTracker.TCP_POLLING_ALARM";
     private static final String EXTRA_NETWORK = "network_id";
-    private static final String EXTRA_SLOT = "slot";
+    @VisibleForTesting
+    static final String EXTRA_SLOT = "slot";
     private static final long DEFAULT_TCP_POLLING_INTERVAL_MS = 120_000L;
-    private static final String AUTOMATIC_ON_OFF_KEEPALIVE_MODE = "automatic_on_off_keepalive_mode";
+    @VisibleForTesting
+    static final String AUTOMATIC_ON_OFF_KEEPALIVE_MODE = "automatic_on_off_keepalive_mode";
     private static final int AUTOMATIC_ON_OFF_KEEPALIVE_MODE_DISABLED = 0;
-    private static final int AUTOMATIC_ON_OFF_KEEPALIVE_MODE_ENABLED = 1;
+    @VisibleForTesting
+    static final int AUTOMATIC_ON_OFF_KEEPALIVE_MODE_ENABLED = 1;
     /**
      * States for {@code #AutomaticOnOffKeepalive}.
      *
@@ -233,7 +236,7 @@ public class AutomaticOnOffKeepaliveTracker {
 
     private void startTcpPollingAlarm(@NonNull PendingIntent alarm) {
         final long triggerAtMillis =
-                SystemClock.elapsedRealtime() + DEFAULT_TCP_POLLING_INTERVAL_MS;
+                SystemClock.elapsedRealtime() + mDependencies.getTcpPollingInterval();
         // Setup a non-wake up alarm.
         mAlarmManager.setExact(AlarmManager.ELAPSED_REALTIME, triggerAtMillis, alarm);
     }
@@ -699,6 +702,13 @@ public class AutomaticOnOffKeepaliveTracker {
         public int getDeviceConfigPropertyInt(@NonNull String namespace, @NonNull String name,
                 int defaultValue) {
             return DeviceConfigUtils.getDeviceConfigPropertyInt(namespace, name, defaultValue);
+        }
+
+        /**
+         * Get the TCP polling interval for dynamic keepalive mode.
+         */
+        public long getTcpPollingInterval() {
+            return DEFAULT_TCP_POLLING_INTERVAL_MS;
         }
     }
 }

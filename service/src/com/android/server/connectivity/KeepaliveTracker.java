@@ -59,6 +59,7 @@ import android.util.Log;
 import android.util.Pair;
 
 import com.android.connectivity.resources.R;
+import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.net.module.util.HexDump;
 import com.android.net.module.util.IpUtils;
@@ -128,7 +129,8 @@ public class KeepaliveTracker {
      * All information about this keepalive is known at construction time except the slot number,
      * which is only returned when the hardware has successfully started the keepalive.
      */
-    class KeepaliveInfo implements IBinder.DeathRecipient {
+    @VisibleForTesting
+    public class KeepaliveInfo implements IBinder.DeathRecipient {
         // Bookkeeping data.
         public final ISocketKeepaliveCallback mCallback;
         private final int mUid;
@@ -157,7 +159,7 @@ public class KeepaliveTracker {
         private int mStartedState = NOT_STARTED;
         private int mStopReason = ERROR_STOP_REASON_UNINITIALIZED;
 
-        KeepaliveInfo(@NonNull ISocketKeepaliveCallback callback,
+        KeepaliveInfo(@NonNull Context context, @NonNull ISocketKeepaliveCallback callback,
                 @NonNull NetworkAgentInfo nai,
                 @NonNull KeepalivePacketData packet,
                 int interval,
@@ -166,7 +168,7 @@ public class KeepaliveTracker {
             mCallback = callback;
             mPid = Binder.getCallingPid();
             mUid = Binder.getCallingUid();
-            mPrivileged = (PERMISSION_GRANTED == mContext.checkPermission(PERMISSION, mPid, mUid));
+            mPrivileged = (PERMISSION_GRANTED == context.checkPermission(PERMISSION, mPid, mUid));
 
             mNai = nai;
             mPacket = packet;
@@ -640,7 +642,7 @@ public class KeepaliveTracker {
         }
         KeepaliveInfo ki = null;
         try {
-            ki = new KeepaliveInfo(cb, nai, packet, intervalSeconds,
+            ki = new KeepaliveInfo(mContext, cb, nai, packet, intervalSeconds,
                     KeepaliveInfo.TYPE_NATT, fd);
         } catch (InvalidSocketException | IllegalArgumentException | SecurityException e) {
             Log.e(TAG, "Fail to construct keepalive", e);
@@ -685,7 +687,7 @@ public class KeepaliveTracker {
         }
         KeepaliveInfo ki = null;
         try {
-            ki = new KeepaliveInfo(cb, nai, packet, intervalSeconds,
+            ki = new KeepaliveInfo(mContext, cb, nai, packet, intervalSeconds,
                     KeepaliveInfo.TYPE_TCP, fd);
         } catch (InvalidSocketException | IllegalArgumentException | SecurityException e) {
             Log.e(TAG, "Fail to construct keepalive e=" + e);
@@ -772,6 +774,7 @@ public class KeepaliveTracker {
      */
     public KeepaliveInfo createNewKeepaliveWithNewFd(@NonNull KeepaliveInfo ki,
             @NonNull FileDescriptor fd) throws InvalidSocketException {
-        return new KeepaliveInfo(ki.mCallback, ki.mNai, ki.mPacket, ki.mInterval, ki.mType, fd);
+        return new KeepaliveInfo(mContext, ki.mCallback, ki.mNai, ki.mPacket, ki.mInterval,
+                ki.mType, fd);
     }
 }
