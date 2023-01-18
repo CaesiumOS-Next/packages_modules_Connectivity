@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5a9d7d2_c53a663d",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T10:17:43Z",
+      "side": 1,
+      "message": "As disucssed in the meeting, rename it to more common name FAILURE_OPERATION_NOT_RUNNING for all stop operations",
+      "parentUuid": "86295694_f0cadf53",
+      "range": {
+        "startLine": 208,
+        "startChar": 34,
+        "endLine": 208,
+        "endChar": 56
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e18ad98b_7ba768da",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3938d1d_b459a5d3",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T10:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e18ad98b_7ba768da",
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff884fbc_209795df",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-01-18T07:39:13Z",
       "side": 1,
       "message": "Maybe remove this \"once\" ? As per previous comment thread it\u0027s not always called, and this is already explained in the next paragraph (also for other methods here)",
+      "range": {
+        "startLine": 691,
+        "startChar": 18,
+        "endLine": 691,
+        "endChar": 22
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "031f34f4_88952291",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T10:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff884fbc_209795df",
       "range": {
         "startLine": 691,
         "startChar": 18,
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "500ba80c_9e079f9c",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T10:17:43Z",
+      "side": 1,
+      "message": "Oops, the comment is not correct and forgot to add this comment to onStopResolutionFailed. Fix the comment.",
+      "parentUuid": "dff5df55_3042b776",
+      "range": {
+        "startLine": 712,
+        "startChar": 0,
+        "endLine": 713,
+        "endChar": 31
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8de2050e_5ad19d8d",
@@ -100,6 +190,30 @@
       "writtenOn": "2023-01-18T07:39:13Z",
       "side": 1,
       "message": "Nit: \"for example if resolution is done or the requester stops resolution repeatedly, the application is notified...\"",
+      "range": {
+        "startLine": 1165,
+        "startChar": 51,
+        "endLine": 1166,
+        "endChar": 53
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a51d83_e30d442e",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T10:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8de2050e_5ad19d8d",
       "range": {
         "startLine": 1165,
         "startChar": 51,
@@ -133,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f07018d5_a74e57c2",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T10:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d384dd4b_8e2974f1",
+      "range": {
+        "startLine": 1171,
+        "startChar": 56,
+        "endLine": 1171,
+        "endChar": 61
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "035ef89d_b0cc8c3d",
@@ -146,6 +284,30 @@
       "writtenOn": "2023-01-18T07:39:13Z",
       "side": 1,
       "message": "Nit: is this necessary ? I think this unit test could run on T too ?",
+      "range": {
+        "startLine": 577,
+        "startChar": 10,
+        "endLine": 577,
+        "endChar": 68
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d465f59f_07d4ba01",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T10:17:43Z",
+      "side": 1,
+      "message": "I think so. Removed.",
+      "parentUuid": "035ef89d_b0cc8c3d",
       "range": {
         "startLine": 577,
         "startChar": 10,
