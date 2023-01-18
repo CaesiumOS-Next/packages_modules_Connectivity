@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86295694_f0cadf53",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T07:39:13Z",
+      "side": 1,
+      "message": "Should this be FAILURE_RESOLUTION_NOT_RUNNING ? Otherwise it\u0027s not easy to see it\u0027s one of the failure codes (Jean also wrote \"INTERNAL_ERROR\" in his comments so I\u0027m thinking he\u0027s just omitting the \"FAILURE_\" prefix to make it short)",
+      "range": {
+        "startLine": 208,
+        "startChar": 34,
+        "endLine": 208,
+        "endChar": 56
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e18ad98b_7ba768da",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T07:39:13Z",
+      "side": 1,
+      "message": "Also STOP_RESOLUTION ? I see RESOLVE_SERVICE, UNREGISTER_SERVICE, REGISTER_SERVICE etc. are there",
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff884fbc_209795df",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T07:39:13Z",
+      "side": 1,
+      "message": "Maybe remove this \"once\" ? As per previous comment thread it\u0027s not always called, and this is already explained in the next paragraph (also for other methods here)",
+      "range": {
+        "startLine": 691,
+        "startChar": 18,
+        "endLine": 691,
+        "endChar": 22
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dff5df55_3042b776",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T07:39:13Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem right, the stop resolution operation will call onResolveStopped or onStopResolutionFailed right ?\n\nIf this comment is included here, it should probably be on onStopResolutionFailed too (like what is done for onResolveFailed / onServiceResolved)",
+      "range": {
+        "startLine": 712,
+        "startChar": 0,
+        "endLine": 713,
+        "endChar": 31
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8de2050e_5ad19d8d",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T07:39:13Z",
+      "side": 1,
+      "message": "Nit: \"for example if resolution is done or the requester stops resolution repeatedly, the application is notified...\"",
+      "range": {
+        "startLine": 1165,
+        "startChar": 51,
+        "endLine": 1166,
+        "endChar": 53
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d384dd4b_8e2974f1",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T07:39:13Z",
+      "side": 1,
+      "message": "Nit: Throws (or \"The method will throw IllegalArgumentException if...\")",
+      "range": {
+        "startLine": 1171,
+        "startChar": 56,
+        "endLine": 1171,
+        "endChar": 61
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "035ef89d_b0cc8c3d",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T07:39:13Z",
+      "side": 1,
+      "message": "Nit: is this necessary ? I think this unit test could run on T too ?",
+      "range": {
+        "startLine": 577,
+        "startChar": 10,
+        "endLine": 577,
+        "endChar": 68
+      },
+      "revId": "7d4b22399712cabe50ebc6d3f155586f0105f0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

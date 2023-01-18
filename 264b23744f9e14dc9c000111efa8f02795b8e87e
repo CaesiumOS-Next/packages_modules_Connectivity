@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04be1d99_c1b7184d",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-18T07:39:13Z",
+      "side": 1,
+      "message": "This is removed from StopResolutionFailureCode now so I think this is addressed for this API at least",
+      "parentUuid": "162ca3c8_f249d2dd",
+      "range": {
+        "startLine": 643,
+        "startChar": 12,
+        "endLine": 643,
+        "endChar": 34
+      },
+      "revId": "264b23744f9e14dc9c000111efa8f02795b8e87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62ff953e_0fb71291",
