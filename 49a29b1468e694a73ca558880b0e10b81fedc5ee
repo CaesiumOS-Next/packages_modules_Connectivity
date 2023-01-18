@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0759d60f_dfe96c7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T15:11:45Z",
+      "side": 1,
+      "message": "LGTM only nits. Free to address them with a follow up commit.",
+      "revId": "49a29b1468e694a73ca558880b0e10b81fedc5ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13caf6a7_5e0a061c",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T15:11:45Z",
+      "side": 1,
+      "message": "Nit: Also check `mDiscoveryManager.unregisterListener` is never called here.",
+      "range": {
+        "startLine": 615,
+        "startChar": 67,
+        "endLine": 615,
+        "endChar": 68
+      },
+      "revId": "49a29b1468e694a73ca558880b0e10b81fedc5ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8f9aff0_42a56e90",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-18T15:11:45Z",
+      "side": 1,
+      "message": "Nit: Also check `mAdvertiser.removeService` is never called here.",
+      "range": {
+        "startLine": 799,
+        "startChar": 67,
+        "endLine": 799,
+        "endChar": 68
+      },
+      "revId": "49a29b1468e694a73ca558880b0e10b81fedc5ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
