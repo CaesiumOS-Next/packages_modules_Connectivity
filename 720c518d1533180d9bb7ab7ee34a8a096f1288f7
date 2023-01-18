@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f4d0c8c_e7b481e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-01-18T14:07:53Z",
+      "side": 1,
+      "message": "I think as of now, given the simplicity of our check, it might be overkill. Though, as things start to become more complicated we should really consider that.",
+      "parentUuid": "2b5f0329_dfc091a9",
+      "revId": "720c518d1533180d9bb7ab7ee34a8a096f1288f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cac9b8e_cc9587a9",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-01-17T12:23:46Z",
       "side": 1,
       "message": "If @Before is invoked, @After is guaranteed to be run as well. This means that if you encounter an assumption failure in setUp(), mCronetEngine.shutdown() will throw an NPE. Suggest either moving the assumption check to the end of setUp() or add null checks in tearDown().",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 21
+      },
+      "revId": "720c518d1533180d9bb7ab7ee34a8a096f1288f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c026308_0b39c360",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetUrlRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-01-18T14:07:53Z",
+      "side": 1,
+      "message": "Yep, good catch. Done.",
+      "parentUuid": "9cac9b8e_cc9587a9",
       "range": {
         "startLine": 64,
         "startChar": 8,
