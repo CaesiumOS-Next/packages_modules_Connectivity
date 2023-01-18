@@ -1,0 +1,5 @@
+# Exclude all tethering-related code from being jarjar'ed.
+-keep class android.net.Tethering**,android.net.I*,android.net.wear.** {
+    *;
+}
+

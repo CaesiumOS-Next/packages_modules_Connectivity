@@ -73,6 +73,16 @@ java_sdk_library {
 
     hostdex: true, // for hiddenapi check
     permitted_packages: ["android.net"],
+
+    optimize: {
+        enabled: true,
+        shrink: true,
+        proguard_compatibility: false,
+        proguard_flags_files: [
+            ":cronet_aml_proguard_cfg",
+            "proguard.flags",
+        ],
+    },
 }
 
 java_defaults {
