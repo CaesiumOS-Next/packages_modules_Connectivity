@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85cdae70_239f545d",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-18T08:56:09Z",
+      "side": 1,
+      "message": "Cronet/tests/cts/AndroidManifests.xml needs to be updated as well, I think.",
+      "revId": "b4b5b27b73cf158a78140ff826e47d9285d1557a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
