@@ -9879,6 +9879,7 @@ android_test_helper_app {
     jni_libs: [
         "cronet_aml_components_cronet_android_cronet_unittests_android__library",
     ],
+    jarjar_rules: ":cronet-testing-jarjar-rules",
 }
 
 // GN: 

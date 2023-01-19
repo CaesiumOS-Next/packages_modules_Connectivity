@@ -424,6 +424,7 @@ class Module(object):
     self.default_applicable_licenses = set()
     self.manifest = ""
     self.jni_libs = set()
+    self.jarjar_rules = ""
 
   def to_string(self, output):
     if self.comment:
@@ -486,6 +487,7 @@ class Module(object):
     self._output_field(output, 'default_applicable_licenses')
     self._output_field(output, 'manifest')
     self._output_field(output, 'jni_libs')
+    self._output_field(output, 'jarjar_rules')
     if self.rtti:
       self._output_field(output, 'rtti')
 
@@ -1611,7 +1613,7 @@ def create_test_helper_prejarjar_module(blueprint):
   blueprint.add_module(module)
   return module
 
-def create_test_helper_module(blueprint, gn):
+def create_test_helper_module(blueprint):
   bp_module_name = module_prefix + "tester_app"
   module = Module('android_test_helper_app', bp_module_name, '')
   module.srcs.update(DEFAULT_TEST_SRCS)
@@ -1623,6 +1625,8 @@ def create_test_helper_module(blueprint, gn):
     "androidx.annotation_annotation",
     "junit",
   })
+  # Find this target under test_runner/Android.bp
+  module.jarjar_rules = ":cronet-testing-jarjar-rules"
   module.jni_libs = [label_to_module_name(test_target) for test_target in DEFAULT_TESTS]
   blueprint.add_module(module)
   return module
@@ -1748,8 +1752,7 @@ def create_blueprint_for_targets(gn, targets):
   java_api_module = create_java_api_module(blueprint, gn)
   java_module = create_java_module(blueprint, gn)
   java_module.libs.add(java_api_module.name)
-  test_helper_module = create_test_helper_module(blueprint, gn)
-  test_helper_module.libs.add(java_module.name)
+  create_test_helper_module(blueprint).libs.add(java_module.name)
   create_test_helper_prejarjar_module(blueprint).static_libs.add(java_module.name)
   for module in blueprint.modules.values():
     if 'cronet_jni_registration' in module.name:
