@@ -22,6 +22,30 @@
       },
       "revId": "7c2ea6667486f2d4d82297c4017442ba78cf38e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "252ca375_9870230f",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/CronetUrlRequestTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-01-19T13:56:11Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "0ea79d82_acf36951",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 92
+      },
+      "revId": "7c2ea6667486f2d4d82297c4017442ba78cf38e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
