@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "902e0fe7_003fc3f3",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:03:38Z",
+      "side": 1,
+      "message": "onServiceInfoCallbackUnregistered",
+      "range": {
+        "startLine": 240,
+        "startChar": 23,
+        "endLine": 240,
+        "endChar": 63
+      },
+      "revId": "1203a51712e7b6152fbbbc972e771b10c9a9f27f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e73776ee_b358a80c",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:03:38Z",
+      "side": 1,
+      "message": "Can you please clarify this wording (in particular, please word it in a way that expresses what guarantees the system provides around calling the app back)\n\nAlso please document expected usage. Specifically I think an app developer would want guidance around how to know there isn\u0027t such a service on the network right now – do they need to have their own timeouts ?",
+      "range": {
+        "startLine": 792,
+        "startChar": 35,
+        "endLine": 792,
+        "endChar": 40
+      },
+      "revId": "1203a51712e7b6152fbbbc972e771b10c9a9f27f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee5b2027_3faa44f1",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:03:38Z",
+      "side": 1,
+      "message": "Please clarify how the app should know the service no longer exists. Per offline discussion, we probably want a new onServiceLost() callback in this class.",
+      "range": {
+        "startLine": 803,
+        "startChar": 9,
+        "endLine": 803,
+        "endChar": 11
+      },
+      "revId": "1203a51712e7b6152fbbbc972e771b10c9a9f27f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07715e48_78ab96da",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1334,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:03:38Z",
+      "side": 1,
+      "message": "registered ?",
+      "range": {
+        "startLine": 1334,
+        "startChar": 29,
+        "endLine": 1334,
+        "endChar": 38
+      },
+      "revId": "1203a51712e7b6152fbbbc972e771b10c9a9f27f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
