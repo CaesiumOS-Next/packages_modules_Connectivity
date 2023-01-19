@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db075aff_646e3396",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T14:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fecf9ed_cd9acda2",
+      "range": {
+        "startLine": 179,
+        "startChar": 86,
+        "endLine": 179,
+        "endChar": 98
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b525aac5_28f9618f",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-19T11:56:19Z",
       "side": 1,
       "message": "Nit: just forwards the requests to KeepaliveTracker ?",
+      "range": {
+        "startLine": 82,
+        "startChar": 79,
+        "endLine": 83,
+        "endChar": 31
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c2823a4_4ce1ca0d",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T14:17:11Z",
+      "side": 1,
+      "message": "Done, and changed the \"call through\" to \"forward\" as this is better.",
+      "parentUuid": "b525aac5_28f9618f",
       "range": {
         "startLine": 82,
         "startChar": 79,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b80a0de_8224bdc9",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T14:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27c03fb4_f736126d",
+      "range": {
+        "startLine": 254,
+        "startChar": 63,
+        "endLine": 254,
+        "endChar": 78
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f210494_a67fef6a",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-01-19T11:56:19Z",
       "side": 1,
       "message": "Nit: in the ?",
+      "range": {
+        "startLine": 282,
+        "startChar": 64,
+        "endLine": 282,
+        "endChar": 66
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44111a67_04c7476b",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T14:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f210494_a67fef6a",
       "range": {
         "startLine": 282,
         "startChar": 64,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82a40e89_5f42ebde",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T14:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14c8f031_1aa25d0a",
+      "range": {
+        "startLine": 321,
+        "startChar": 7,
+        "endLine": 321,
+        "endChar": 13
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87503c12_f9b5927a",
@@ -146,6 +266,24 @@
       "writtenOn": "2023-01-19T11:56:19Z",
       "side": 1,
       "message": "Will this cause a ConcurrentModificationException ?",
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bacd93a7_07139aed",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T14:17:11Z",
+      "side": 1,
+      "message": "Ouch yes. And also this will remove all automatic keepalives instead of only the ones matching the nai.",
+      "parentUuid": "87503c12_f9b5927a",
       "revId": "69f2f2d556b940473611d091a1881304989dee86",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -173,6 +311,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eca2420_461ce508",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T14:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0134320a_58750d33",
+      "range": {
+        "startLine": 353,
+        "startChar": 28,
+        "endLine": 353,
+        "endChar": 29
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f37db22_7da32f8f",
@@ -186,6 +348,24 @@
       "writtenOn": "2023-01-19T11:56:19Z",
       "side": 1,
       "message": "If this was already called because suspended, I think KeepaliveTracker.handleStopKeepalive will Log.e",
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09c67f27_fb345423",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T14:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f37db22_7da32f8f",
       "revId": "69f2f2d556b940473611d091a1881304989dee86",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -213,6 +393,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "257ac3b1_fe051704",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T14:17:11Z",
+      "side": 1,
+      "message": "Yes – in fact, this should have been done in the preliminary refactor. It completes what I was asking for but I was kind of burnt on this change for having reviewed it so many times.\n\nThanks for pointing this out. The code is much better now.",
+      "parentUuid": "912795d8_224ad108",
+      "range": {
+        "startLine": 416,
+        "startChar": 49,
+        "endLine": 416,
+        "endChar": 73
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f686f58_40f99958",
@@ -226,6 +430,24 @@
       "writtenOn": "2023-01-19T11:56:19Z",
       "side": 1,
       "message": "Nit:\nSimilarly here, I think this could be\n\n    KeepaliveTracker.makeTcpKeepaliveInfo(...)\n    mConnectivityServiceHandler.obtainMessage(...).sendToTarget(...)\n\nAnd KeepaliveTracker won\u0027t need a ref to mConnectivityServiceHandler anymore",
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38dcf23a_87cfba15",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T14:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f686f58_40f99958",
       "revId": "69f2f2d556b940473611d091a1881304989dee86",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
