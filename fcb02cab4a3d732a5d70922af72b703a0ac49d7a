@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dec11c92_9efdd074",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 26
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T05:27:58Z",
+      "side": 1,
+      "message": "If your reasoning was correct then this manifest would be useless, wouldn\u0027t it ? I think it\u0027s probably merged with the manifest of the system server.",
+      "parentUuid": "30336290_52342df6",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c0f921b_e203882a",
         "filename": "framework/api/system-current.txt",
         "patchSetId": 26
@@ -36,6 +54,29 @@
         "startChar": 70,
         "endLine": 473,
         "endChar": 77
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6e72125_0ed0c14b",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T05:27:58Z",
+      "side": 1,
+      "message": "Javadoc format is :\n\n    /**\n     * One line description\n     *\n     * Detailed discussion",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 35
       },
       "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -66,6 +107,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "045c4372_c15340ca",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T05:27:58Z",
+      "side": 1,
+      "message": "Please respect the javadoc format",
+      "range": {
+        "startLine": 316,
+        "startChar": 3,
+        "endLine": 316,
+        "endChar": 7
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ea9faa1_4ef98177",
         "filename": "framework/src/android/net/SocketKeepalive.java",
         "patchSetId": 26
@@ -82,6 +146,52 @@
         "startChar": 77,
         "endLine": 320,
         "endChar": 72
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61c74043_53024ccf",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T05:27:58Z",
+      "side": 1,
+      "message": "Isn\u0027t MODULE_LIBRARIES sufficient ? I think it\u0027s only VPN that needs to call this ?",
+      "range": {
+        "startLine": 334,
+        "startChar": 24,
+        "endLine": 334,
+        "endChar": 39
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "498883b3_a3322992",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 5519,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T05:27:58Z",
+      "side": 1,
+      "message": "Wait, no ? If an app starts a keepalive on a network that\u0027s not the underlying network of a VPN, then we should certainly not stop it.",
+      "range": {
+        "startLine": 5517,
+        "startChar": 0,
+        "endLine": 5519,
+        "endChar": 35
       },
       "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -112,6 +222,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93df60b3_968ad02d",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T05:27:58Z",
+      "side": 1,
+      "message": "So STATE_DISABLED is a transient state ? Do we need it ?",
+      "range": {
+        "startLine": 104,
+        "startChar": 39,
+        "endLine": 105,
+        "endChar": 30
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "587a9a49_67d2825a",
         "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
         "patchSetId": 26
@@ -135,6 +268,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c746df8_204eff20",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T05:27:58Z",
+      "side": 1,
+      "message": "It looks very bizarre to me that you\u0027d pass an argument to have this method do something completely different. Why would a method named `handleMonitor...` stop the keepalive under any circumstance ?\n\nInstead this should just be another method.",
+      "range": {
+        "startLine": 242,
+        "startChar": 13,
+        "endLine": 242,
+        "endChar": 29
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "960cff31_a9a88430",
         "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
         "patchSetId": 26
@@ -151,6 +307,29 @@
         "startChar": 35,
         "endLine": 245,
         "endChar": 44
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2973d97b_f10ec065",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T05:27:58Z",
+      "side": 1,
+      "message": "Should we not cancel the alarm ?",
+      "range": {
+        "startLine": 258,
+        "startChar": 23,
+        "endLine": 258,
+        "endChar": 38
       },
       "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -236,6 +415,29 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b70e8a1c_246a51de",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T05:27:58Z",
+      "side": 1,
+      "message": "Call through (\"bypass\" means that you don\u0027t do it)",
+      "range": {
+        "startLine": 427,
+        "startChar": 7,
+        "endLine": 427,
+        "endChar": 13
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "79349346_5fd60bc3",
@@ -272,6 +474,29 @@
       "writtenOn": "2023-01-19T04:27:57Z",
       "side": 1,
       "message": "Since this is not final, maybe a getter would be better than setting this public",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "865cdea4_3ee69e73",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T05:27:58Z",
+      "side": 1,
+      "message": "encodeBoolean ?",
+      "range": {
+        "startLine": 652,
+        "startChar": 16,
+        "endLine": 652,
+        "endChar": 40
+      },
       "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
