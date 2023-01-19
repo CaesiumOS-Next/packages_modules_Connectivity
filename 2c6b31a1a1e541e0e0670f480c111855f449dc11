@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e0534bf_458d142a",
+        "filename": "service-t/native/libs/libnetworkstats/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-19T19:57:00Z",
+      "side": 1,
+      "message": "this doesn\u0027t really seem to belong in libnetworkstats, but I guess OK, it\u0027s sort of network stats if you look and squint right?",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 28
+      },
+      "revId": "2c6b31a1a1e541e0e0670f480c111855f449dc11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33234d19_d63d9935",
+        "filename": "service-t/native/libs/libnetworkstats/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-19T19:57:00Z",
+      "side": 1,
+      "message": "what makes this needed?",
+      "range": {
+        "startLine": 73,
+        "startChar": 9,
+        "endLine": 73,
+        "endChar": 23
+      },
+      "revId": "2c6b31a1a1e541e0e0670f480c111855f449dc11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
