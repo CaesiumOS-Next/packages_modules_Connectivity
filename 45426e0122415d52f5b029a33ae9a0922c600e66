@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa13f8f7_3992dbf6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-19T14:32:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c162f7a_20f81ab9",
+      "revId": "45426e0122415d52f5b029a33ae9a0922c600e66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "948aa471_aff3a99c",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-01-18T10:48:52Z",
       "side": 1,
       "message": "I wonder what we should do about tm-mainline-prod. framework-tethering will never include http APIs in that branch, so this will never succeed. One option is to just disable the target via \"enabled: false\", but I am not sure how TEST_MAPPING reacts to that. I believe TEST_MAPPING validation only runs on git_master, so it might be okay?",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 28
+      },
+      "revId": "45426e0122415d52f5b029a33ae9a0922c600e66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cca5430_c1882cb2",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-19T14:32:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "948aa471_aff3a99c",
       "range": {
         "startLine": 42,
         "startChar": 9,
