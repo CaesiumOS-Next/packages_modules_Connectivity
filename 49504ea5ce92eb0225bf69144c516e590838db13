@@ -69,6 +69,30 @@
       },
       "revId": "49504ea5ce92eb0225bf69144c516e590838db13",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed89f8b9_b6372c20",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T12:36:23Z",
+      "side": 1,
+      "message": "Moot",
+      "parentUuid": "2b4ea0e7_431ddf64",
+      "range": {
+        "startLine": 249,
+        "startChar": 64,
+        "endLine": 249,
+        "endChar": 94
+      },
+      "revId": "49504ea5ce92eb0225bf69144c516e590838db13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
