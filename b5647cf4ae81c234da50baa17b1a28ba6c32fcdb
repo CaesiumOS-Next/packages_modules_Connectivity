@@ -22,6 +22,54 @@
       },
       "revId": "b5647cf4ae81c234da50baa17b1a28ba6c32fcdb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eaa97c0_0867e5fc",
+        "filename": "service-t/native/libs/libnetworkstats/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-19T20:58:49Z",
+      "side": 1,
+      "message": "+1\n\nAlso, do we have a read on the size impact of this feature? What\u0027s the APEX size increase?",
+      "parentUuid": "6b0ceb40_630b2ac2",
+      "range": {
+        "startLine": 35,
+        "startChar": 9,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "b5647cf4ae81c234da50baa17b1a28ba6c32fcdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1bc1274_5ae0e181",
+        "filename": "service-t/native/libs/libnetworkstats/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-19T20:58:49Z",
+      "side": 1,
+      "message": "I think the reason is that this code will never be called on user builds? Might want to make that clear in comments.",
+      "parentUuid": "6b0ceb40_630b2ac2",
+      "range": {
+        "startLine": 35,
+        "startChar": 9,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "b5647cf4ae81c234da50baa17b1a28ba6c32fcdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
