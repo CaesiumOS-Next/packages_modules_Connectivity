@@ -1695,6 +1695,10 @@ def update_jni_registration_module(module, gn):
   module.srcs.update([gn_utils.label_to_path(source)
                       for source in get_non_api_java_sources(gn)
                       if source.endswith('.java')])
+  if module.name.endswith("__java"):
+    # The Java jni registration MUST include every single java classes that uses JNI to guarantee its
+    # correctness. However, this does not apply to the C++ header file generated.
+    module.srcs.update(DEFAULT_TEST_SRCS)
 
 def create_blueprint_for_targets(gn, targets):
   """Generate a blueprint for a list of GN targets."""
