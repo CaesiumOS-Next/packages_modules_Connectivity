@@ -52,6 +52,24 @@
       "parentUuid": "b19474d4_376351ac",
       "revId": "c65b4512894eeb1b863b20f56a3920f1bdebba60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "568363be_18aa1d2c",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-01-19T14:55:06Z",
+      "side": 0,
+      "message": "How does the script not handle target-specific cpp_std version? I can\u0027t see the problem here, forgive me.",
+      "parentUuid": "6110fd82_8c8fa373",
+      "revId": "c65b4512894eeb1b863b20f56a3920f1bdebba60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
