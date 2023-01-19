@@ -56,6 +56,30 @@
       },
       "revId": "318df6624d8aa540b9d011a109f28d2879224bb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4842eb00_7605689c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T06:41:08Z",
+      "side": 1,
+      "message": "Changed to just use \"addresses\". The new NSD implementation uses getLinkAddresses (not getAllLinkAddresses), so stacked addresses would not be advertised. The old one was based on interface (wlan0, not v4-wlan0) so I expect it wouldn\u0027t advertise them either.",
+      "parentUuid": "df42f3e6_1047f9f8",
+      "range": {
+        "startLine": 822,
+        "startChar": 27,
+        "endLine": 822,
+        "endChar": 39
+      },
+      "revId": "318df6624d8aa540b9d011a109f28d2879224bb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
