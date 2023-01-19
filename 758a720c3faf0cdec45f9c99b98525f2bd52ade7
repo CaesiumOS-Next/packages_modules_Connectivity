@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5769f06_360c9dd9",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-19T19:55:50Z",
+      "side": 1,
+      "message": "should this even exist on user builds?\n\nshould this be a uint32_t -\u003e bool map?\n\nor do we have a use for other values?",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 100,
+        "endChar": 37
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20646b16_8023060e",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-19T19:55:50Z",
+      "side": 1,
+      "message": "this doesn\u0027t feel right, shouldn\u0027t this be fs_bpf_net_shared if only system server needs access?  (ditto above)\n\nsee DEFINE_BPF_MAP_NO_NETD",
+      "range": {
+        "startLine": 106,
+        "startChar": 52,
+        "endLine": 106,
+        "endChar": 72
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47c0dde3_c2914560",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-19T19:55:50Z",
+      "side": 1,
+      "message": "no, actually the kernel helpers explicitly zero out on the dst buffer on any error\n\nthis actually means the \u0027\u003d 0\u0027 down below are spurious and confusing, because \u003d 1 would not work",
+      "range": {
+        "startLine": 251,
+        "startChar": 67,
+        "endLine": 252,
+        "endChar": 14
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974389a1_80ad9ed6",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-19T19:55:50Z",
+      "side": 1,
+      "message": "L4 to make it not look quite so much like 14",
+      "range": {
+        "startLine": 256,
+        "startChar": 12,
+        "endLine": 256,
+        "endChar": 14
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccbd400f_4919ec25",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-19T19:55:50Z",
+      "side": 1,
+      "message": "should we check in 0x45..0x4F first?",
+      "range": {
+        "startLine": 260,
+        "startChar": 8,
+        "endLine": 260,
+        "endChar": 14
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ade7694e_ffce358c",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-19T19:55:50Z",
+      "side": 1,
+      "message": "I\u0027d recommend simply reading just 1 byte (u8) from the right offset in the first place.\n\nyeah I didn\u0027t do that (down below) because I didn\u0027t want to define new flags constants...",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 39
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b5d411c_1a7e8004",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-19T19:55:50Z",
+      "side": 1,
+      "message": "these should now be __be16\nsee packages/modules/Connectivity/bpf_progs/dscpPolicy.h",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 10
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
