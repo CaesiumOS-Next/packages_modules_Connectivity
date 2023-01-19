@@ -70,6 +70,30 @@
       },
       "revId": "b5647cf4ae81c234da50baa17b1a28ba6c32fcdb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f43bca38_5be1e669",
+        "filename": "service-t/native/libs/libnetworkstats/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-19T21:46:37Z",
+      "side": 1,
+      "message": "I spoke with the Perfetto folks: the \"experimental\" is because this isn\u0027t the library\u0027s final form. The final form will be the C shared library with stable ABI. The library itself is stable and is used heavily within Perfetto and other production apps, the only issue is API (which is why we must statically link it).\n\nOn size: the APEX size increase is 450KB. This is after 300KB of savings I\u0027ve found and submitted to Perfetto. It\u0027s still a lot, but we\u0027ve got consent from mainline.",
+      "parentUuid": "e1bc1274_5ae0e181",
+      "range": {
+        "startLine": 35,
+        "startChar": 9,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "b5647cf4ae81c234da50baa17b1a28ba6c32fcdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
