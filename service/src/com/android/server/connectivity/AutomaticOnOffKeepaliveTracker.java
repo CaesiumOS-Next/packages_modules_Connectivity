@@ -336,6 +336,9 @@ public class AutomaticOnOffKeepaliveTracker {
      */
     public void handleStopAllKeepalives(NetworkAgentInfo nai, int reason) {
         mKeepaliveTracker.handleStopAllKeepalives(nai, reason);
+        for (final AutomaticOnOffKeepalive autoKi : mAutomaticOnOffKeepalives) {
+            cleanupAutoOnOffKeepalive(autoKi);
+        }
     }
 
     /**
@@ -392,6 +395,11 @@ public class AutomaticOnOffKeepaliveTracker {
         // Not an AutomaticOnOffKeepalive.
         if (autoKi == null) return;
 
+        cleanupAutoOnOffKeepalive(autoKi);
+    }
+
+    private void cleanupAutoOnOffKeepalive(@NonNull final AutomaticOnOffKeepalive autoKi) {
+        ensureRunningOnHandlerThread();
         mAlarmManager.cancel(autoKi.mTcpPollingAlarm);
         // Close the duplicated fd that maintains the lifecycle of socket.
         FileUtils.closeQuietly(autoKi.mFd);
