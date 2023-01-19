@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f630c0fa_9d575461",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T08:08:28Z",
+      "side": 1,
+      "message": "LGTM as reviewed by Jean with no changes since Chiachang\u0027s patch",
+      "revId": "3d60bacfa031e9778742741f383279e99e636a88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
