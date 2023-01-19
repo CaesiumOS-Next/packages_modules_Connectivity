@@ -18,7 +18,7 @@ package com.android.server.connectivity;
 
 import static android.net.NetworkAgent.CMD_START_SOCKET_KEEPALIVE;
 import static android.net.SocketKeepalive.ERROR_INVALID_SOCKET;
-import static android.net.SocketKeepalive.SUCCESS;
+import static android.net.SocketKeepalive.SUCCESS_PAUSED;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
@@ -180,7 +180,7 @@ public class AutomaticOnOffKeepaliveTracker {
      *                     resumed if a TCP socket is open on the VPN.
      * See the documentation for the states for more detail.
      */
-    public class AutomaticOnOffKeepalive {
+    public class AutomaticOnOffKeepalive implements IBinder.DeathRecipient {
         @NonNull
         private final KeepaliveTracker.KeepaliveInfo mKi;
         @Nullable
@@ -225,13 +225,18 @@ public class AutomaticOnOffKeepaliveTracker {
             return mKi.getNai().network().equals(network) && mKi.getSlot() == slot;
         }
 
-        private static PendingIntent createTcpPollingAlarmIntent(@NonNull Context context,
+        private PendingIntent createTcpPollingAlarmIntent(@NonNull Context context,
                 @NonNull Network network, int slot) {
             final Intent intent = new Intent(ACTION_TCP_POLLING_ALARM);
             intent.putExtra(EXTRA_NETWORK, network);
             intent.putExtra(EXTRA_SLOT, slot);
             return PendingIntent.getBroadcast(
                     context, 0 /* requestCode */, intent, PendingIntent.FLAG_IMMUTABLE);
+        }
+
+        @Override
+        public void binderDied() {
+            mConnectivityServiceHandler.post(() -> cleanupAutoOnOffKeepalive(this));
         }
     }
 
@@ -291,7 +296,7 @@ public class AutomaticOnOffKeepaliveTracker {
             // SUSPENDED.
             if (ki.mAutomaticOnOffState == STATE_ENABLED) {
                 ki.mAutomaticOnOffState = STATE_SUSPENDED;
-                handleSuspendKeepalive(ki.mKi);
+                handlePauseKeepalive(ki.mKi);
             }
         } else {
             handleMaybeResumeKeepalive(ki);
@@ -381,6 +386,13 @@ public class AutomaticOnOffKeepaliveTracker {
         mAutomaticOnOffKeepalives.add(autoKi);
         if (STATE_ALWAYS_ON != autoKi.mAutomaticOnOffState) {
             startTcpPollingAlarm(autoKi.mTcpPollingAlarm);
+            try {
+                autoKi.mKi.mCallback.asBinder().linkToDeath(autoKi, 0);
+            } catch (RemoteException e) {
+                // The underlying keepalive performs its own cleanup
+                autoKi.binderDied();
+                return;
+            }
         }
     }
 
@@ -388,10 +400,9 @@ public class AutomaticOnOffKeepaliveTracker {
         mKeepaliveTracker.handleStartKeepalive(ki);
     }
 
-    private void handleSuspendKeepalive(@NonNull final KeepaliveTracker.KeepaliveInfo ki) {
+    private void handlePauseKeepalive(@NonNull final KeepaliveTracker.KeepaliveInfo ki) {
         // TODO : mKT.handleStopKeepalive should take a KeepaliveInfo instead
-        // TODO : create a separate success code for suspend
-        mKeepaliveTracker.handleStopKeepalive(ki.getNai(), ki.getSlot(), SUCCESS);
+        mKeepaliveTracker.handleStopKeepalive(ki.getNai(), ki.getSlot(), SUCCESS_PAUSED);
     }
 
     /**
@@ -408,6 +419,8 @@ public class AutomaticOnOffKeepaliveTracker {
         // but enabled, and the case where it's unmanaged.
         if (autoKi.mAutomaticOnOffState != STATE_SUSPENDED) {
             mKeepaliveTracker.handleStopKeepalive(nai, slot, reason);
+        } else {
+            mKeepaliveTracker.finalizePausedKeepalive(autoKi.mKi);
         }
 
         cleanupAutoOnOffKeepalive(autoKi);
@@ -415,10 +428,15 @@ public class AutomaticOnOffKeepaliveTracker {
 
     private void cleanupAutoOnOffKeepalive(@NonNull final AutomaticOnOffKeepalive autoKi) {
         ensureRunningOnHandlerThread();
+        // If the KI is not in the array, it's because it was already removed ; the only way
+        // this can happen concretely is if the keepalive is stopped by the app and the app
+        // dies immediately.
+        if (!mAutomaticOnOffKeepalives.remove(autoKi)) return;
+
         if (null != autoKi.mTcpPollingAlarm) mAlarmManager.cancel(autoKi.mTcpPollingAlarm);
         // Close the duplicated fd that maintains the lifecycle of socket.
         FileUtils.closeQuietly(autoKi.mFd);
-        mAutomaticOnOffKeepalives.remove(autoKi);
+        autoKi.mKi.mCallback.asBinder().unlinkToDeath(autoKi, 0);
     }
 
     /**
