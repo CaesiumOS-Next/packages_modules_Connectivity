@@ -344,6 +344,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a61d78e9_05f40273",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T02:23:41Z",
+      "side": 1,
+      "message": "Deprecation should depend on whether we think apps should still use the old method. My understanding of this is : no, we think apps should no longer use the old method ; they should use the new one and be told of any change. Yes, there is still a race, but you\u0027ll be told about it immediately. I do not see a use case where you want to know about a service but you don\u0027t care that it changes.\n\nIf we\u0027re going to deprecate this my preference is to deprecate it in this patch, because it\u0027s a lot clearer for reviewers why and how we\u0027re doing this. I\u0027m willing to approve the deprecation as a followup if that\u0027s not realistic though.",
+      "parentUuid": "1f6206b3_11f6a080",
+      "range": {
+        "startLine": 1166,
+        "startChar": 16,
+        "endLine": 1166,
+        "endChar": 30
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53d330b1_da8b397e",
         "filename": "framework-t/src/android/net/nsd/NsdManager.java",
         "patchSetId": 2
