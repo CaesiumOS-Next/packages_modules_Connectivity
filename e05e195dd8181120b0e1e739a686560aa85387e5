@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a05f7da8_e5e1e4a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T04:16:27Z",
+      "side": 1,
+      "message": "Patch itself LGTM but architecturally this depends on the next patch, so immediately reserving judgement until I\u0027ve looked at the next patch.",
+      "revId": "e05e195dd8181120b0e1e739a686560aa85387e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b1dd9af_9e96fef8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T04:16:27Z",
+      "side": 1,
+      "message": "I strongly think we should not import this, because \"PERMISSION\" is not enough context about this in ConnectivityService.java.",
+      "range": {
+        "startLine": 104,
+        "startChar": 63,
+        "endLine": 104,
+        "endChar": 73
+      },
+      "revId": "e05e195dd8181120b0e1e739a686560aa85387e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
