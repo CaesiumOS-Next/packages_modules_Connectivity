@@ -18,7 +18,7 @@ package com.android.server.connectivity;
 
 import static android.net.NetworkAgent.CMD_START_SOCKET_KEEPALIVE;
 import static android.net.SocketKeepalive.ERROR_INVALID_SOCKET;
-import static android.net.SocketKeepalive.SUCCESS;
+import static android.net.SocketKeepalive.SUCCESS_PAUSED;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
@@ -165,7 +165,7 @@ public class AutomaticOnOffKeepaliveTracker {
         }
     };
 
-    private static class AutomaticOnOffKeepalive {
+    private class AutomaticOnOffKeepalive implements IBinder.DeathRecipient {
         @NonNull
         private final KeepaliveTracker.KeepaliveInfo mKi;
         @NonNull
@@ -201,13 +201,18 @@ public class AutomaticOnOffKeepaliveTracker {
             return this.mKi.getNai().network().equals(network) && this.mSlot == slot;
         }
 
-        private static PendingIntent createTcpPollingAlarmIntent(@NonNull Context context,
+        private PendingIntent createTcpPollingAlarmIntent(@NonNull Context context,
                 @NonNull Network network, int slot) {
             final Intent intent = new Intent(ACTION_TCP_POLLING_ALARM);
             intent.putExtra(EXTRA_NETWORK, network);
             intent.putExtra(EXTRA_SLOT, slot);
             return PendingIntent.getBroadcast(
                     context, 0 /* requestCode */, intent, PendingIntent.FLAG_IMMUTABLE);
+        }
+
+        @Override
+        public void binderDied() {
+            mConnectivityServiceHandler.post(() -> cleanupAutoOnOffKeepalive(this));
         }
     }
 
@@ -260,7 +265,7 @@ public class AutomaticOnOffKeepaliveTracker {
             // SUSPENDED.
             if (ki.mAutomaticOnOffState == STATE_ENABLED) {
                 ki.mAutomaticOnOffState = STATE_SUSPENDED;
-                handleSuspendKeepalive(ki.mKi.mNai, ki.mSlot, SUCCESS);
+                handlePauseKeepalive(ki.mKi.mNai, ki.mSlot);
             }
         } else {
             handleMaybeResumeKeepalive(ki);
@@ -368,6 +373,8 @@ public class AutomaticOnOffKeepaliveTracker {
                 mKeepaliveTracker.notifyErrorCallback(ki.mCallback, ERROR_INVALID_SOCKET);
                 return;
             }
+
+            autoKi.mKi.mCallback.asBinder().linkToDeath(autoKi, 0);
             mAutomaticOnOffKeepalives.add(autoKi);
             startTcpPollingAlarm(autoKi.mTcpPollingAlarm);
         }
@@ -377,8 +384,8 @@ public class AutomaticOnOffKeepaliveTracker {
         mKeepaliveTracker.handleStartKeepalive(message);
     }
 
-    private void handleSuspendKeepalive(NetworkAgentInfo nai, int slot, int reason) {
-        mKeepaliveTracker.handleStopKeepalive(nai, slot, reason);
+    private void handlePauseKeepalive(NetworkAgentInfo nai, int slot) {
+        mKeepaliveTracker.handleStopKeepalive(nai, slot, SUCCESS_PAUSED);
     }
 
     /**
@@ -391,6 +398,8 @@ public class AutomaticOnOffKeepaliveTracker {
         // automatic keepalive.
         if (autoKi == null || autoKi.mAutomaticOnOffState == STATE_ENABLED) {
             mKeepaliveTracker.handleStopKeepalive(nai, slot, reason);
+        } else {
+            mKeepaliveTracker.finalizePausedKeepalive(autoKi.mKi);
         }
 
         // Not an AutomaticOnOffKeepalive.
@@ -404,7 +413,9 @@ public class AutomaticOnOffKeepaliveTracker {
         mAlarmManager.cancel(autoKi.mTcpPollingAlarm);
         // Close the duplicated fd that maintains the lifecycle of socket.
         FileUtils.closeQuietly(autoKi.mFd);
-        mAutomaticOnOffKeepalives.remove(autoKi);
+        if (mAutomaticOnOffKeepalives.remove(autoKi)) {
+            autoKi.mKi.mCallback.asBinder().unlinkToDeath(autoKi, 0);
+        }
     }
 
     /**
