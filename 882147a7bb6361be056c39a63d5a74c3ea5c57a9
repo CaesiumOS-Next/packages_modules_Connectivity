@@ -64,6 +64,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "538a7240_7aa888de",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T02:55:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2932cfa_a4d0eabf",
+      "range": {
+        "startLine": 479,
+        "startChar": 60,
+        "endLine": 479,
+        "endChar": 73
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acc1d134_423f46c3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T02:55:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "131b6be0_acd207f3",
+      "range": {
+        "startLine": 479,
+        "startChar": 25,
+        "endLine": 479,
+        "endChar": 41
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f730a1a_a8a12c5e",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-01-18T14:56:19Z",
       "side": 1,
       "message": "Nit: This can be null now probably. Maybe have null check above and stop discovery if it\u0027s null?",
+      "range": {
+        "startLine": 612,
+        "startChar": 29,
+        "endLine": 612,
+        "endChar": 36
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3082bad_09fad547",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T02:55:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f730a1a_a8a12c5e",
       "range": {
         "startLine": 612,
         "startChar": 29,
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a25ac728_d8421069",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T02:55:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b07c6ee9_654ff166",
+      "range": {
+        "startLine": 694,
+        "startChar": 29,
+        "endLine": 694,
+        "endChar": 36
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a07c2c5_3bbae294",
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29db3f82_366a884e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1512,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T02:55:25Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "9a07c2c5_3bbae294",
+      "range": {
+        "startLine": 1512,
+        "startChar": 24,
+        "endLine": 1512,
+        "endChar": 87
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe8fb608_a6c7b9c1",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-01-18T14:56:19Z",
       "side": 1,
       "message": "Nit: requests",
+      "range": {
+        "startLine": 1574,
+        "startChar": 58,
+        "endLine": 1574,
+        "endChar": 71
+      },
+      "revId": "882147a7bb6361be056c39a63d5a74c3ea5c57a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bea53ed9_b2a33ce6",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1574,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T02:55:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe8fb608_a6c7b9c1",
       "range": {
         "startLine": 1574,
         "startChar": 58,
