@@ -18,7 +18,7 @@ package com.android.server.connectivity;
 
 import static android.net.NetworkAgent.CMD_START_SOCKET_KEEPALIVE;
 import static android.net.SocketKeepalive.ERROR_INVALID_SOCKET;
-import static android.net.SocketKeepalive.SUCCESS;
+import static android.net.SocketKeepalive.SUCCESS_PAUSED;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
@@ -259,7 +259,7 @@ public class AutomaticOnOffKeepaliveTracker {
             // SUSPENDED.
             if (ki.mAutomaticOnOffState == STATE_ENABLED) {
                 ki.mAutomaticOnOffState = STATE_SUSPENDED;
-                handleSuspendKeepalive(ki.mKi.mNai, ki.mSlot, SUCCESS);
+                handlePauseKeepalive(ki.mKi.mNai, ki.mSlot);
             }
         } else {
             handleMaybeResumeKeepalive(ki);
@@ -379,8 +379,8 @@ public class AutomaticOnOffKeepaliveTracker {
         mKeepaliveTracker.handleStartKeepalive(message);
     }
 
-    private void handleSuspendKeepalive(NetworkAgentInfo nai, int slot, int reason) {
-        mKeepaliveTracker.handleStopKeepalive(nai, slot, reason);
+    private void handlePauseKeepalive(NetworkAgentInfo nai, int slot) {
+        mKeepaliveTracker.handleStopKeepalive(nai, slot, SUCCESS_PAUSED);
     }
 
     /**
@@ -393,6 +393,12 @@ public class AutomaticOnOffKeepaliveTracker {
         // automatic keepalive.
         if (autoKi == null || autoKi.mAutomaticOnOffState == STATE_ENABLED) {
             mKeepaliveTracker.handleStopKeepalive(nai, slot, reason);
+        } else {
+            try {
+                autoKi.mKi.mCallback.onStopped();
+            } catch (RemoteException e) {
+                Log.w(TAG, "Discarded onStopped callback: " + reason);
+            }
         }
 
         // Not an AutomaticOnOffKeepalive.
