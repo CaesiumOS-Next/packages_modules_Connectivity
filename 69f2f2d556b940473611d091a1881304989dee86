@@ -1,0 +1,233 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a70a1b0f_1b97d84a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "LGTM assuming non-nit comments addressed",
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fecf9ed_cd9acda2",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "Nit: open on the VPN ?",
+      "range": {
+        "startLine": 179,
+        "startChar": 86,
+        "endLine": 179,
+        "endChar": 98
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b525aac5_28f9618f",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "Nit: just forwards the requests to KeepaliveTracker ?",
+      "range": {
+        "startLine": 82,
+        "startChar": 79,
+        "endLine": 83,
+        "endChar": 31
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27c03fb4_f736126d",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "Nit: DISABLED state isn\u0027t defined anymore",
+      "range": {
+        "startLine": 254,
+        "startChar": 63,
+        "endLine": 254,
+        "endChar": 78
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f210494_a67fef6a",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "Nit: in the ?",
+      "range": {
+        "startLine": 282,
+        "startChar": 64,
+        "endLine": 282,
+        "endChar": 66
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14c8f031_1aa25d0a",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "Nit: I think you had a comment to update to \"Call through\"",
+      "range": {
+        "startLine": 321,
+        "startChar": 7,
+        "endLine": 321,
+        "endChar": 13
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87503c12_f9b5927a",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "Will this cause a ConcurrentModificationException ?",
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0134320a_58750d33",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "Nit: KeepaliveTracker.handleStartKeepalive (this method is also called handleStartKeepalive)",
+      "range": {
+        "startLine": 353,
+        "startChar": 28,
+        "endLine": 353,
+        "endChar": 29
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f37db22_7da32f8f",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "If this was already called because suspended, I think KeepaliveTracker.handleStopKeepalive will Log.e",
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "912795d8_224ad108",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "Nit:\nIIUC the idea is to have AutomaticOnOffKeepaliveTracker wrap KeepaliveTracker to do the auto on-off; and KeepaliveTracker shouldn\u0027t need to care about on-off behavior. AutomaticOnOffKeepaliveTracker is the class that controls the global start/stop state now.\n\nPassing down automaticOnOffKeepalives to KeepaliveTracker kind of breaks this design. And it\u0027s also weird if you consider that it\u0027s only used to build a message to ConnectivityService to be sent back to this AutomaticOnOffKeepaliveTracker.\n\nActually it looks like KeepaliveTracker.startNattKeepalive could just be `KeepaliveInfo makeNattKeepaliveInfo` now (could even be static with a few adjustments to KeepaliveInfo to make it static), as I think it doesn\u0027t change any state, it just builds a KeepaliveInfo to be sent to ConnectivityService.\n\nThen you could move mConnectivityServiceHandler.obtainMessage(...).sendToTarget() here, which I think would look better as it\u0027s AutomaticOnOffKeepaliveTracker\u0027s job to manage when CMD_START_SOCKET_KEEPALIVE gets sent (it also does it in handleMaybeResumeKeepalive).\n\nCould be refactored in another CL if that makes sense",
+      "range": {
+        "startLine": 416,
+        "startChar": 49,
+        "endLine": 416,
+        "endChar": 73
+      },
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f686f58_40f99958",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "Nit:\nSimilarly here, I think this could be\n\n    KeepaliveTracker.makeTcpKeepaliveInfo(...)\n    mConnectivityServiceHandler.obtainMessage(...).sendToTarget(...)\n\nAnd KeepaliveTracker won\u0027t need a ref to mConnectivityServiceHandler anymore",
+      "revId": "69f2f2d556b940473611d091a1881304989dee86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

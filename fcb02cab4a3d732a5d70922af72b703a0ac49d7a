@@ -336,6 +336,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "219f0e11_67f3d20c",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T11:56:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4466bf79_b04c1e70",
+      "range": {
+        "startLine": 334,
+        "startChar": 24,
+        "endLine": 334,
+        "endChar": 39
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "498883b3_a3322992",
