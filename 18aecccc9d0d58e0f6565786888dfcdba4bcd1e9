@@ -16,6 +16,23 @@
       "message": "Tests are in aosp/2392835",
       "revId": "18aecccc9d0d58e0f6565786888dfcdba4bcd1e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d1f0403_4da17c63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T15:24:33Z",
+      "side": 1,
+      "message": "Errorprone build stuck, but passed in previous attempt (P48101051)",
+      "revId": "18aecccc9d0d58e0f6565786888dfcdba4bcd1e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
