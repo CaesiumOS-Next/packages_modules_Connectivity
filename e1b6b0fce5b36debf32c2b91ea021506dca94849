@@ -16,6 +16,24 @@
       "message": "We dropped them in aosp/2384115 to remove dependency on Androidx.\nI think we can not build them without androidx.",
       "revId": "e1b6b0fce5b36debf32c2b91ea021506dca94849",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e7cabba_7d97e911",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 6048,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-01-19T14:36:59Z",
+      "side": 1,
+      "message": "I\u0027ve dropped the dependency on the process_launcher as they\u0027re not needed at all for the C++ tests.",
+      "parentUuid": "2878503f_65b5ce42",
+      "revId": "e1b6b0fce5b36debf32c2b91ea021506dca94849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "It seems cpp_std field disappear since cpp_std is not in the target.",
       "revId": "c65b4512894eeb1b863b20f56a3920f1bdebba60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b19474d4_376351ac",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-01-19T14:36:59Z",
+      "side": 0,
+      "message": "Can you elaborate more on this one?",
+      "parentUuid": "6a0cab31_23346ed7",
+      "revId": "c65b4512894eeb1b863b20f56a3920f1bdebba60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
