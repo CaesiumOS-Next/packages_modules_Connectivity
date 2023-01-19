@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e4e551c_9a141ecb",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 26
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "This manifest would not be useless – it\u0027s about Tethering, which runs in the network stack process. But likely the list of protected broadcasts is merged somewhere.\n\nThere may be a better place than here – maybe the Connectivity Resources manifest ? It\u0027s not a great place either. Ideally we\u0027d have a manifest for Connectivity but there can\u0027t be one as there is no APK for that.\n\nFor now let\u0027s keep it here.",
+      "parentUuid": "dec11c92_9efdd074",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c0f921b_e203882a",
@@ -49,6 +67,30 @@
       "writtenOn": "2023-01-19T04:27:57Z",
       "side": 1,
       "message": "Could it be useful to have this be \"int flags\" with FLAG_AUTO_TOGGLE ?",
+      "range": {
+        "startLine": 473,
+        "startChar": 70,
+        "endLine": 473,
+        "endChar": 77
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35818ed7_a8d638b2",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c0f921b_e203882a",
       "range": {
         "startLine": 473,
         "startChar": 70,
@@ -82,6 +124,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7649f383_f4a1f515",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6e72125_0ed0c14b",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 35
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7c8b002_bf6cb908",
@@ -95,6 +161,30 @@
       "writtenOn": "2023-01-19T04:27:57Z",
       "side": 1,
       "message": "I don\u0027t understand what this means; does it mean that the fd will also not be closed if the Network is a VPN, and it went away ? But how can the keepalive be \"renewed\" in that case, since AFAIK a Network that disconnected won\u0027t come back with the same netid ?",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 63,
+        "endChar": 23
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f82e94d5_979654da",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "I think this paragraph should be removed. It explains some implementation detail that the caller of this method has no good reason to know or care about, so it\u0027s more confusing than useful. Removed.",
+      "parentUuid": "a7c8b002_bf6cb908",
       "range": {
         "startLine": 62,
         "startChar": 28,
@@ -128,6 +218,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81aa4bd3_d93a15b4",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "045c4372_c15340ca",
+      "range": {
+        "startLine": 316,
+        "startChar": 3,
+        "endLine": 316,
+        "endChar": 7
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ea9faa1_4ef98177",
@@ -141,6 +255,30 @@
       "writtenOn": "2023-01-19T04:27:57Z",
       "side": 1,
       "message": "From my read of startImpl in TcpSocketKeepalive, it actually throws a RuntimeException; so I guess in many cases it crashes the Executor thread (depending on how the Executor is implemented ?).\n\nI\u0027m not sure this paragraph is actually super useful to document, as generally behavior when the system server died is not something apps or other processes can do much about anyway (just as is said here), and trying to catch exceptions in that case is probably a hard-to-test bad idea anyway.",
+      "range": {
+        "startLine": 319,
+        "startChar": 77,
+        "endLine": 320,
+        "endChar": 72
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a8d655b_f9f455f2",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "This is copied from above. I amended the paragraph to address the inaccuracies that you pointed out.\n\nI agree this is probably not very useful, but I think it\u0027s not harmful and the documentation clarifies that you probably don\u0027t want to do this ; I suspect this was written because there was such a use case known at the time, so I\u0027d prefer we don\u0027t remove it seeing how it\u0027s not harmful.",
+      "parentUuid": "4ea9faa1_4ef98177",
       "range": {
         "startLine": 319,
         "startChar": 77,
@@ -197,6 +335,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb857072_a63ba65e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 5519,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "498883b3_a3322992",
+      "range": {
+        "startLine": 5517,
+        "startChar": 0,
+        "endLine": 5519,
+        "endChar": 35
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e400843_61ea1cad",
@@ -210,6 +372,30 @@
       "writtenOn": "2023-01-19T04:27:57Z",
       "side": 1,
       "message": "Typo: keepalive",
+      "range": {
+        "startLine": 99,
+        "startChar": 55,
+        "endLine": 99,
+        "endChar": 64
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97a9f50d_3ae242f4",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e400843_61ea1cad",
       "range": {
         "startLine": 99,
         "startChar": 55,
@@ -243,6 +429,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbb6d164_82c6cb54",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "STATE_DISABLED was never used.",
+      "parentUuid": "93df60b3_968ad02d",
+      "range": {
+        "startLine": 104,
+        "startChar": 39,
+        "endLine": 105,
+        "endChar": 30
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "587a9a49_67d2825a",
@@ -256,6 +466,30 @@
       "writtenOn": "2023-01-19T04:27:57Z",
       "side": 1,
       "message": "Nit: static ?",
+      "range": {
+        "startLine": 194,
+        "startChar": 15,
+        "endLine": 194,
+        "endChar": 16
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99eab9df_89b91833",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "587a9a49_67d2825a",
       "range": {
         "startLine": 194,
         "startChar": 15,
@@ -289,6 +523,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa5dcc3a_65a78e46",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c746df8_204eff20",
+      "range": {
+        "startLine": 242,
+        "startChar": 13,
+        "endLine": 242,
+        "endChar": 29
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "960cff31_a9a88430",
@@ -302,6 +560,30 @@
       "writtenOn": "2023-01-19T04:27:57Z",
       "side": 1,
       "message": "Typo: keepalive",
+      "range": {
+        "startLine": 245,
+        "startChar": 35,
+        "endLine": 245,
+        "endChar": 44
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a7b3d30_48fb0e80",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "960cff31_a9a88430",
       "range": {
         "startLine": 245,
         "startChar": 35,
@@ -335,6 +617,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff6e7f81_f06b3bfa",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Moot",
+      "parentUuid": "2973d97b_f10ec065",
+      "range": {
+        "startLine": 258,
+        "startChar": 23,
+        "endLine": 258,
+        "endChar": 38
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7fe6083_6ea644cb",
@@ -348,6 +654,30 @@
       "writtenOn": "2023-01-19T04:27:57Z",
       "side": 1,
       "message": "Should handleResumeKeepalive be called in case of STATE_DISABLED too ? It feels like it should just be for STATE_SUSPENDED.\n\nIn that case this method could return early in any case if status is STATE_DISABLED",
+      "range": {
+        "startLine": 287,
+        "startChar": 40,
+        "endLine": 287,
+        "endChar": 56
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7ffd7fe_f53c726d",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "STATE_DISABLED was never used and has been removed.",
+      "parentUuid": "a7fe6083_6ea644cb",
       "range": {
         "startLine": 287,
         "startChar": 40,
@@ -375,6 +705,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "451ab062_d655f4f5",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Removed this method, and removed this code path. This is dead code because in the only call site, the slot is computed immediately before this is called by taking the first free slot for this NAI.",
+      "parentUuid": "9373e50e_68ac19a5",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c710151_7d5f027d",
@@ -392,6 +740,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "012bc455_0b95ab43",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Inlined this, then the caller is only used once so inlined it too, and this let me simplify the code substantially (including addressing your concern).",
+      "parentUuid": "7c710151_7d5f027d",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cc46c73_d5ac0034",
@@ -405,6 +771,30 @@
       "writtenOn": "2023-01-19T04:27:57Z",
       "side": 1,
       "message": "Typo: keepalive",
+      "range": {
+        "startLine": 405,
+        "startChar": 79,
+        "endLine": 405,
+        "endChar": 88
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dabdead2_36b34041",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cc46c73_d5ac0034",
       "range": {
         "startLine": 405,
         "startChar": 79,
@@ -440,6 +830,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4a58cd0b_75a18749",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b70e8a1c_246a51de",
+      "range": {
+        "startLine": 427,
+        "startChar": 7,
+        "endLine": 427,
+        "endChar": 13
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "79349346_5fd60bc3",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 26
@@ -451,6 +865,30 @@
       "writtenOn": "2023-01-19T04:27:57Z",
       "side": 1,
       "message": "Technically I think this shouldn\u0027t start with \"m\" if public; but refactoring this now may make the patch more confusing than it should be. Better do it separately I guess.",
+      "range": {
+        "startLine": 133,
+        "startChar": 46,
+        "endLine": 133,
+        "endChar": 55
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b21b3340_a5c8b662",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "I don\u0027t think this is accurate. It is indeed in the guidelines for public APIs : for public stuff, any public member should be final and not have the `m` prefix. But even for those, we prefer getters.\n\nThis here is internal code though, and the guidelines for public APIs do not generally apply. I\u0027m not sure there is a guideline about this for private code, but it\u0027s consistent with most usage in this code.",
+      "parentUuid": "79349346_5fd60bc3",
       "range": {
         "startLine": 133,
         "startChar": 46,
@@ -478,6 +916,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f26edc3d_5b9b7c97",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60cf40e5_31f99d33",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "865cdea4_3ee69e73",
@@ -501,6 +957,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d533d2d_9266a247",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "It\u0027s a private method in ConnectivityService, so added a TODO instead.",
+      "parentUuid": "865cdea4_3ee69e73",
+      "range": {
+        "startLine": 652,
+        "startChar": 16,
+        "endLine": 652,
+        "endChar": 40
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd30194f_f81e63ef",
@@ -514,6 +994,24 @@
       "writtenOn": "2023-01-19T04:27:57Z",
       "side": 1,
       "message": "Suggest moving this to a method in KeepaliveInfo, so it\u0027s easier to see what needs to be updated if more state is added to KeepaliveInfo",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67f9c79d_336fdaa0",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd30194f_f81e63ef",
       "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

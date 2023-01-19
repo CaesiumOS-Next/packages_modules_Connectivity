@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "678dbde2_434e7de4",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "Your new doc is much better yes. It\u0027s still an implementation detail though ; I\u0027m not sure there is good reason to even mention that.",
+      "parentUuid": "e8b8551e_26e5bc72",
+      "range": {
+        "startLine": 58,
+        "startChar": 7,
+        "endLine": 58,
+        "endChar": 43
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91748dfc_afd55ed0",
@@ -368,6 +392,30 @@
       "side": 1,
       "message": "In new patchset, I removed the reference for the fd.close() thing. There are two remaining places referring to the reason now. These two are used for cleaning the variable used for only automaticOnOff mode. I think they do not affect the flow in KeepaliveTracker. Does this work to you?",
       "parentUuid": "93fe9f41_ecdfcb5c",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 459,
+        "endChar": 62
+      },
+      "revId": "519ebf3d6862f98e588b61057ab13442724c4c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e754db65_6adf70fb",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:05:35Z",
+      "side": 1,
+      "message": "PS26 is fine – there are no remaining references at all and the separation is a lot cleaner. Thanks.",
+      "parentUuid": "2caaeeae_c927189b",
       "range": {
         "startLine": 453,
         "startChar": 0,
