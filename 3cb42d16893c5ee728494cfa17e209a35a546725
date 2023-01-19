@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77b07281_48da4f5e",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T09:24:20Z",
+      "side": 1,
+      "message": "This is not useful is it ? A callback is specific to one service, and it\u0027s unclear what would be passed here – the one originally registered ? The latest info sent to onServiceUpdated ?\n\nSame comment with onRegisterServiceInfoCallbackFailed.",
+      "range": {
+        "startLine": 240,
+        "startChar": 57,
+        "endLine": 240,
+        "endChar": 96
+      },
+      "revId": "3cb42d16893c5ee728494cfa17e209a35a546725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e4b8804_dc92b20b",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T09:24:20Z",
+      "side": 1,
+      "message": "listened ? eg\n\n    Reports when the service that this callbacks listens to becomes unavailable",
+      "range": {
+        "startLine": 815,
+        "startChar": 36,
+        "endLine": 815,
+        "endChar": 46
+      },
+      "revId": "3cb42d16893c5ee728494cfa17e209a35a546725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67f711ea_86dfbf06",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T09:24:20Z",
+      "side": 1,
+      "message": "After this, the callback may be reused.\n\n(since that\u0027s the entire point of having this callback no ?)",
+      "range": {
+        "startLine": 819,
+        "startChar": 17,
+        "endLine": 819,
+        "endChar": 18
+      },
+      "revId": "3cb42d16893c5ee728494cfa17e209a35a546725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2db5e02a_e00dcf45",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1706,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T09:24:20Z",
+      "side": 1,
+      "message": "Do you want to have a TODO to do this right, not just when there is an outstanding discovery ?",
+      "revId": "3cb42d16893c5ee728494cfa17e209a35a546725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
