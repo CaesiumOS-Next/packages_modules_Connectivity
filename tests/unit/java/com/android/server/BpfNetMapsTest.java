@@ -690,6 +690,77 @@ public final class BpfNetMapsTest {
                 mBpfNetMaps.setUidRule(FIREWALL_CHAIN_DOZABLE, TEST_UID, FIREWALL_RULE_ALLOW));
     }
 
+    private void doTestIsUidChainEnabled(final List<Integer> enableChains) throws Exception {
+        mUidOwnerMap.updateEntry(new S32(TEST_UID), new UidOwnerValue(0, getMatch(enableChains)));
+
+        for (final int chain: FIREWALL_CHAINS) {
+            final String testCase = "EnabledChains: " + enableChains + " CheckedChain: " + chain;
+            if (enableChains.contains(chain)) {
+                assertTrue("Expected isUidChainEnabled returns True, " + testCase,
+                        mBpfNetMaps.isUidChainEnabled(chain, TEST_UID));
+            } else {
+                assertFalse("Expected isUidChainEnabled returns False, " + testCase,
+                        mBpfNetMaps.isUidChainEnabled(chain, TEST_UID));
+            }
+        }
+    }
+
+    private void doTestIsUidChainEnabled(final int enableChain) throws Exception {
+        doTestIsUidChainEnabled(List.of(enableChain));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testIsUidChainEnabled() throws Exception {
+        doTestIsUidChainEnabled(FIREWALL_CHAIN_DOZABLE);
+        doTestIsUidChainEnabled(FIREWALL_CHAIN_STANDBY);
+        doTestIsUidChainEnabled(FIREWALL_CHAIN_POWERSAVE);
+        doTestIsUidChainEnabled(FIREWALL_CHAIN_RESTRICTED);
+        doTestIsUidChainEnabled(FIREWALL_CHAIN_LOW_POWER_STANDBY);
+        doTestIsUidChainEnabled(FIREWALL_CHAIN_OEM_DENY_1);
+        doTestIsUidChainEnabled(FIREWALL_CHAIN_OEM_DENY_2);
+        doTestIsUidChainEnabled(FIREWALL_CHAIN_OEM_DENY_3);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testIsUidChainEnabledMultipleChainEnabled() throws Exception {
+        doTestIsUidChainEnabled(List.of(
+                FIREWALL_CHAIN_DOZABLE,
+                FIREWALL_CHAIN_STANDBY));
+        doTestIsUidChainEnabled(List.of(
+                FIREWALL_CHAIN_DOZABLE,
+                FIREWALL_CHAIN_STANDBY,
+                FIREWALL_CHAIN_POWERSAVE,
+                FIREWALL_CHAIN_RESTRICTED));
+        doTestIsUidChainEnabled(FIREWALL_CHAINS);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testIsUidChainEnabledNoEntry() throws Exception {
+        mUidOwnerMap.clear();
+        for (final int chain: FIREWALL_CHAINS) {
+            assertFalse(mBpfNetMaps.isUidChainEnabled(chain, TEST_UID));
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testIsUidChainEnabledInvalidChain() {
+        final Class<ServiceSpecificException> expected = ServiceSpecificException.class;
+        assertThrows(expected, () -> mBpfNetMaps.isUidChainEnabled(-1 /* childChain */, TEST_UID));
+        assertThrows(expected,
+                () -> mBpfNetMaps.isUidChainEnabled(1000 /* childChain */, TEST_UID));
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.S_V2)
+    public void testIsUidChainEnabledBeforeT() {
+        assertThrows(UnsupportedOperationException.class,
+                () -> mBpfNetMaps.isUidChainEnabled(FIREWALL_CHAIN_DOZABLE, TEST_UID));
+    }
+
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testReplaceUidChain() throws Exception {
