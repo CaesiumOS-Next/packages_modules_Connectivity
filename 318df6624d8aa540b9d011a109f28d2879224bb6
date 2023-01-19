@@ -16,6 +16,46 @@
       "message": "Note this goes together with shims in aosp/2369213",
       "revId": "318df6624d8aa540b9d011a109f28d2879224bb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49300be0_a0728dc7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-19T02:01:33Z",
+      "side": 1,
+      "message": "LGTM assuming comment addressed.\n\nIf this works on networks with 464xlat, then I think that\u0027s a bug that we need to fix, but such a bug should not block this CL.",
+      "revId": "318df6624d8aa540b9d011a109f28d2879224bb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df42f3e6_1047f9f8",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-19T02:01:33Z",
+      "side": 1,
+      "message": "On a network with 464xlat, this will include the clat IPv4 address (in the stacked LinkProperties), but that one probably won\u0027t support MDNS properly since it\u0027s not a real address. Does this test pass on such a network? It probably shouldn\u0027t since sending MDNS packets from a source address of 192.0.0.4 seems incorrect.\n\nCan you just use addresses instead of allAddresses?",
+      "range": {
+        "startLine": 822,
+        "startChar": 27,
+        "endLine": 822,
+        "endChar": 39
+      },
+      "revId": "318df6624d8aa540b9d011a109f28d2879224bb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
