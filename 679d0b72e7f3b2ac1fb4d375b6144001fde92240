@@ -506,6 +506,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ad6d8c_aa8b4245",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T06:35:07Z",
+      "side": 1,
+      "message": "Discussed this offline, I think we agreed to use a different callback class; one reason is that \"onServiceResolved\" is a bit confusing for something that will be called multiple times.",
+      "parentUuid": "9c41d93d_554e18fd",
+      "range": {
+        "startLine": 703,
+        "startChar": 21,
+        "endLine": 703,
+        "endChar": 51
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cb35728_1090866f",

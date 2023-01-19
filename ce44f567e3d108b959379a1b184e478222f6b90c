@@ -482,6 +482,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68fc1423_4b783a5d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T06:35:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6864ebfb_9eb0208c",
+      "range": {
+        "startLine": 924,
+        "startChar": 47,
+        "endLine": 924,
+        "endChar": 77
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d726f3a_9739b060",
@@ -519,6 +543,30 @@
       "side": 1,
       "message": "Same as above comment. The legacy resolve API uses FAILURE_INTERNAL_ERROR always.",
       "parentUuid": "7d726f3a_9739b060",
+      "range": {
+        "startLine": 934,
+        "startChar": 65,
+        "endLine": 934,
+        "endChar": 95
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab78907_85d50f25",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T06:35:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "19adc5bb_6bd44c5c",
       "range": {
         "startLine": 934,
         "startChar": 65,
@@ -576,6 +624,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebbb70d9_e6f70213",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T06:35:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "49f195ef_619a97f5",
+      "range": {
+        "startLine": 942,
+        "startChar": 65,
+        "endLine": 942,
+        "endChar": 95
+      },
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8aad071_a6c28022",
@@ -589,6 +661,24 @@
       "writtenOn": "2023-01-18T14:17:19Z",
       "side": 1,
       "message": "But how about removing addresses ? Is that actually reported by mdnsresponder ?\nAlso currently this will report changes of addresses, but not of the TXT record, since SERVICE_RESOLVED is still one-off.\nMaybe file a bug for that ?\n\nI guess this could be fixed when migrating this to DiscoveryManager, if not enabling the API when using mdnsresponder.",
+      "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15e1d514_42bc61eb",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T06:35:07Z",
+      "side": 1,
+      "message": "Filed b/266030646",
+      "parentUuid": "e8aad071_a6c28022",
       "revId": "ce44f567e3d108b959379a1b184e478222f6b90c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },

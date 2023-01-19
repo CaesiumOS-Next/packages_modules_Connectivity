@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e00e623_450acca8",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T06:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4080c024_8e4e5ebc",
+      "range": {
+        "startLine": 195,
+        "startChar": 23,
+        "endLine": 195,
+        "endChar": 46
+      },
+      "revId": "2d55a391cd67c1e577f612520957b716b92ba921",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00483cfb_418a7c19",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a25f4aab_13037964",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T06:35:07Z",
+      "side": 1,
+      "message": "Removed and documented that IllegalArgumentException is thrown on unregistration if not registered. This was already checked in NsdManager.",
+      "parentUuid": "00483cfb_418a7c19",
+      "range": {
+        "startLine": 240,
+        "startChar": 23,
+        "endLine": 240,
+        "endChar": 56
+      },
+      "revId": "2d55a391cd67c1e577f612520957b716b92ba921",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26cfd281_2063f696",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-19T02:23:41Z",
       "side": 1,
       "message": "Can\u0027t we do better than this ?",
+      "range": {
+        "startLine": 397,
+        "startChar": 43,
+        "endLine": 397,
+        "endChar": 65
+      },
+      "revId": "2d55a391cd67c1e577f612520957b716b92ba921",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf2b352a_0f1870d2",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T06:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26cfd281_2063f696",
       "range": {
         "startLine": 397,
         "startChar": 43,

@@ -366,6 +366,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90864fa8_dd57b102",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T06:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a61d78e9_05f40273",
+      "range": {
+        "startLine": 1166,
+        "startChar": 16,
+        "endLine": 1166,
+        "endChar": 30
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53d330b1_da8b397e",
@@ -920,6 +944,30 @@
       "side": 1,
       "message": "Well, it\u0027s current design.",
       "parentUuid": "4d62c33a_3bf9de0f",
+      "range": {
+        "startLine": 563,
+        "startChar": 49,
+        "endLine": 563,
+        "endChar": 71
+      },
+      "revId": "a317e7478b59289c7cb387b03ef632d9553eb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0b5ddf8_6c4c8033",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T06:35:07Z",
+      "side": 1,
+      "message": "(resolved)",
+      "parentUuid": "dce7cdca_fc034142",
       "range": {
         "startLine": 563,
         "startChar": 49,
