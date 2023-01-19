@@ -721,6 +721,28 @@ public class BpfNetMaps {
     }
 
     /**
+     * Get the specified firewall chain's status of specified uid.
+     *
+     * @param childChain target chain
+     * @param uid        target uid
+     * @throws UnsupportedOperationException if called on pre-T devices.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    public boolean isUidChainEnabled(final int childChain, final int uid) {
+        throwIfPreT("isUidChainEnabled is not available on pre-T devices");
+
+        final long match = getMatchByFirewallChain(childChain);
+        try {
+            final UidOwnerValue uidMatch = sUidOwnerMap.getValue(new S32(uid));
+            return uidMatch != null && (uidMatch.rule & match) != 0;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to get uid rule status: " + Os.strerror(e.errno));
+        }
+    }
+
+    /**
      * Add ingress interface filtering rules to a list of UIDs
      *
      * For a given uid, once a filtering rule is added, the kernel will only allow packets from the
