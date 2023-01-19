@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9e42e5d_013ff596",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-19T05:43:33Z",
+      "side": 1,
+      "message": "LGTM, assuming the Log.i arg error is solved.",
+      "revId": "b34aac5a65c057f3a3b73ec69d9b1a94f29b0bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
