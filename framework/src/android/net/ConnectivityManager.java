@@ -5997,6 +5997,29 @@ public class ConnectivityManager {
     }
 
     /**
+     * Get the specified firewall chain's status of specified uid
+     *
+     * @param chain target chain.
+     * @param uid   target uid
+     * @throws UnsupportedOperationException if called on pre-T devices.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     * @hide
+     */
+    @RequiresPermission(anyOf = {
+            android.Manifest.permission.NETWORK_SETTINGS,
+            android.Manifest.permission.NETWORK_STACK,
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK
+    })
+    public boolean isUidFirewallChainEnabled(@FirewallChain final int chain, final int uid) {
+        try {
+            return mService.isUidFirewallChainEnabled(chain, uid);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Enables or disables the specified firewall chain.
      *
      * @param chain target chain.
