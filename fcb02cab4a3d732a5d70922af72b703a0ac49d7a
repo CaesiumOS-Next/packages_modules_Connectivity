@@ -314,6 +314,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4466bf79_b04c1e70",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:46:50Z",
+      "side": 1,
+      "message": "No – we want to call this from the IPSec module, so it must be privileged apps IIUC.",
+      "parentUuid": "61c74043_53024ccf",
+      "range": {
+        "startLine": 334,
+        "startChar": 24,
+        "endLine": 334,
+        "endChar": 39
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "498883b3_a3322992",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 26

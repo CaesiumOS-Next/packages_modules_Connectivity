@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd1c78e8_90bf70a3",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-19T08:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5e45f6_23a14402",
+      "range": {
+        "startLine": 51,
+        "startChar": 54,
+        "endLine": 51,
+        "endChar": 74
+      },
+      "revId": "2abee7a54b56f120ce32265096f30644d7f5f3b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04e56b9c_7570f681",
