@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41d9f13d_0be361ee",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T09:54:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b07281_48da4f5e",
+      "range": {
+        "startLine": 240,
+        "startChar": 57,
+        "endLine": 240,
+        "endChar": 96
+      },
+      "revId": "3cb42d16893c5ee728494cfa17e209a35a546725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e4b8804_dc92b20b",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-19T09:24:20Z",
       "side": 1,
       "message": "listened ? eg\n\n    Reports when the service that this callbacks listens to becomes unavailable",
+      "range": {
+        "startLine": 815,
+        "startChar": 36,
+        "endLine": 815,
+        "endChar": 46
+      },
+      "revId": "3cb42d16893c5ee728494cfa17e209a35a546725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3f55d64_89fd18f0",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T09:54:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e4b8804_dc92b20b",
       "range": {
         "startLine": 815,
         "startChar": 36,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be07637d_4744fe70",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T09:54:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67f711ea_86dfbf06",
+      "range": {
+        "startLine": 819,
+        "startChar": 17,
+        "endLine": 819,
+        "endChar": 18
+      },
+      "revId": "3cb42d16893c5ee728494cfa17e209a35a546725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2db5e02a_e00dcf45",
@@ -83,6 +155,24 @@
       "writtenOn": "2023-01-19T09:24:20Z",
       "side": 1,
       "message": "Do you want to have a TODO to do this right, not just when there is an outstanding discovery ?",
+      "revId": "3cb42d16893c5ee728494cfa17e209a35a546725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab4c29ac_42212b99",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1706,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T09:54:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2db5e02a_e00dcf45",
       "revId": "3cb42d16893c5ee728494cfa17e209a35a546725",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
