@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89c9bb48_65fa3f5a",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T09:15:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "902e0fe7_003fc3f3",
+      "range": {
+        "startLine": 240,
+        "startChar": 23,
+        "endLine": 240,
+        "endChar": 63
+      },
+      "revId": "1203a51712e7b6152fbbbc972e771b10c9a9f27f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e73776ee_b358a80c",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-19T08:03:38Z",
       "side": 1,
       "message": "Can you please clarify this wording (in particular, please word it in a way that expresses what guarantees the system provides around calling the app back)\n\nAlso please document expected usage. Specifically I think an app developer would want guidance around how to know there isn\u0027t such a service on the network right now – do they need to have their own timeouts ?",
+      "range": {
+        "startLine": 792,
+        "startChar": 35,
+        "endLine": 792,
+        "endChar": 40
+      },
+      "revId": "1203a51712e7b6152fbbbc972e771b10c9a9f27f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d46062a_a918fac3",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T09:15:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e73776ee_b358a80c",
       "range": {
         "startLine": 792,
         "startChar": 35,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6c65a53_3772c55b",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T09:15:02Z",
+      "side": 1,
+      "message": "Added onServiceLost",
+      "parentUuid": "ee5b2027_3faa44f1",
+      "range": {
+        "startLine": 803,
+        "startChar": 9,
+        "endLine": 803,
+        "endChar": 11
+      },
+      "revId": "1203a51712e7b6152fbbbc972e771b10c9a9f27f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07715e48_78ab96da",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-01-19T08:03:38Z",
       "side": 1,
       "message": "registered ?",
+      "range": {
+        "startLine": 1334,
+        "startChar": 29,
+        "endLine": 1334,
+        "endChar": 38
+      },
+      "revId": "1203a51712e7b6152fbbbc972e771b10c9a9f27f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee8ae299_fc458d39",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1334,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T09:15:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07715e48_78ab96da",
       "range": {
         "startLine": 1334,
         "startChar": 29,
