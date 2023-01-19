@@ -1,0 +1,296 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30336290_52342df6",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 26
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "I don\u0027t really understand how that helps, this is the manifest of the Tethering APK in the com.android.networkstack.process; not the system_server process that holds KeepaliveTracker. AFAIK Tethering doesn\u0027t back or use the keepalives so it should be unrelated.\n\nFrom discussion with Jean, Chiachang tested without and had trouble, and it works with it. Adding this shouldn\u0027t be harmful so not necessarily a blocker but we should have a bug to clarify and cleanup.",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c0f921b_e203882a",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "Could it be useful to have this be \"int flags\" with FLAG_AUTO_TOGGLE ?",
+      "range": {
+        "startLine": 473,
+        "startChar": 70,
+        "endLine": 473,
+        "endChar": 77
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7c8b002_bf6cb908",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "I don\u0027t understand what this means; does it mean that the fd will also not be closed if the Network is a VPN, and it went away ? But how can the keepalive be \"renewed\" in that case, since AFAIK a Network that disconnected won\u0027t come back with the same netid ?",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 63,
+        "endChar": 23
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ea9faa1_4ef98177",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "From my read of startImpl in TcpSocketKeepalive, it actually throws a RuntimeException; so I guess in many cases it crashes the Executor thread (depending on how the Executor is implemented ?).\n\nI\u0027m not sure this paragraph is actually super useful to document, as generally behavior when the system server died is not something apps or other processes can do much about anyway (just as is said here), and trying to catch exceptions in that case is probably a hard-to-test bad idea anyway.",
+      "range": {
+        "startLine": 319,
+        "startChar": 77,
+        "endLine": 320,
+        "endChar": 72
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e400843_61ea1cad",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "Typo: keepalive",
+      "range": {
+        "startLine": 99,
+        "startChar": 55,
+        "endLine": 99,
+        "endChar": 64
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "587a9a49_67d2825a",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "Nit: static ?",
+      "range": {
+        "startLine": 194,
+        "startChar": 15,
+        "endLine": 194,
+        "endChar": 16
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "960cff31_a9a88430",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "Typo: keepalive",
+      "range": {
+        "startLine": 245,
+        "startChar": 35,
+        "endLine": 245,
+        "endChar": 44
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7fe6083_6ea644cb",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "Should handleResumeKeepalive be called in case of STATE_DISABLED too ? It feels like it should just be for STATE_SUSPENDED.\n\nIn that case this method could return early in any case if status is STATE_DISABLED",
+      "range": {
+        "startLine": 287,
+        "startChar": 40,
+        "endLine": 287,
+        "endChar": 56
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9373e50e_68ac19a5",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "Doesn\u0027t the current keepalive potentially need cleanup (like cleanMatchedAutomaticOnOffKeepalive) ?",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c710151_7d5f027d",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "This is only used in cleanMatchedAutomaticOnOffKeepalive, and is a bit confusing because the name is similar but it doesn\u0027t do the same thing.\n\nAlso it does a linear search on mAutomaticOnOffKeepalives even though its caller already did it.\n\nMaybe remove this, and use findAutomaticOnOffKeepaliveIndex + mAutomaticOnOffKeepalives.remove in cleanMatchedAutomaticOnOffKeepalive ?",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cc46c73_d5ac0034",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "Typo: keepalive",
+      "range": {
+        "startLine": 405,
+        "startChar": 79,
+        "endLine": 405,
+        "endChar": 88
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79349346_5fd60bc3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "Technically I think this shouldn\u0027t start with \"m\" if public; but refactoring this now may make the patch more confusing than it should be. Better do it separately I guess.",
+      "range": {
+        "startLine": 133,
+        "startChar": 46,
+        "endLine": 133,
+        "endChar": 55
+      },
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60cf40e5_31f99d33",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "Since this is not final, maybe a getter would be better than setting this public",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd30194f_f81e63ef",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-19T04:27:57Z",
+      "side": 1,
+      "message": "Suggest moving this to a method in KeepaliveInfo, so it\u0027s easier to see what needs to be updated if more state is added to KeepaliveInfo",
+      "revId": "fcb02cab4a3d732a5d70922af72b703a0ac49d7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
