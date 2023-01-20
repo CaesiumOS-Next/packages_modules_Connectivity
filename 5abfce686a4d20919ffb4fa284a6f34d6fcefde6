@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9609b22_6e9260cd",
+        "filename": "service-t/native/libs/libnetworkstats/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:49:49Z",
+      "side": 1,
+      "message": "size impact? care to add to commit message?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dbe920d_51d6f617",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:49:49Z",
+      "side": 1,
+      "message": "can this be \u0026\n\nI\u0027m not sure how much of this is forced by perfetto api, but if you can guarantee non-null, then const\u0026 or \u0026 seems better",
+      "range": {
+        "startLine": 47,
+        "startChar": 43,
+        "endLine": 47,
+        "endChar": 44
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97f59bfa_9714b521",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:49:49Z",
+      "side": 1,
+      "message": "seems like it could just be in the next line directly",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 49
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c77026e2_c07a5500",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:49:49Z",
+      "side": 1,
+      "message": "SLOGI vs ALOGI ?? never seen SLOG before?",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 9
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea744024_c29dc9c1",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:49:49Z",
+      "side": 1,
+      "message": "presumably you\u0027d need the EGRESS/INGRESS swap here if sport/dport get used",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 2
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d409d1d8_8b2de250",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:49:49Z",
+      "side": 1,
+      "message": "not \u0026 ?",
+      "range": {
+        "startLine": 55,
+        "startChar": 28,
+        "endLine": 55,
+        "endChar": 29
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4dd7d9f_bd73c47f",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:49:49Z",
+      "side": 1,
+      "message": "\u0026 ?",
+      "range": {
+        "startLine": 56,
+        "startChar": 51,
+        "endLine": 56,
+        "endChar": 52
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "023af2f0_6ef0306e",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:49:49Z",
+      "side": 1,
+      "message": "oh wow - subtle",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
