@@ -22,7 +22,6 @@ import static android.net.cts.PacketUtils.IPPROTO_ESP;
 import static android.net.cts.PacketUtils.UDP_HDRLEN;
 import static android.system.OsConstants.IPPROTO_UDP;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import android.os.ParcelFileDescriptor;
@@ -32,6 +31,7 @@ import com.android.net.module.util.CollectionUtils;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,6 +49,7 @@ public class TunUtils {
 
     private static final int DATA_BUFFER_LEN = 4096;
     private static final int TIMEOUT = 2000;
+    private static final int PACKET_SIZE_SKIP_VERIFICATION = -1;
 
     private final List<byte[]> mPackets = new ArrayList<>();
     private final ParcelFileDescriptor mTunFd;
@@ -139,25 +140,32 @@ public class TunUtils {
 
     public byte[] awaitEspPacketNoPlaintext(
             int spi, byte[] plaintext, boolean useEncap, int expectedPacketSize) throws Exception {
-        final byte[] espPkt = awaitPacket(
-                (pkt) -> isEspFailIfSpecifiedPlaintextFound(pkt, spi, useEncap, plaintext));
-
-        // Validate packet size
-        assertEquals(expectedPacketSize, espPkt.length);
+        final byte[] espPkt =
+                awaitPacket(
+                        (pkt) ->
+                                isEspFailIfSpecifiedPlaintextFound(
+                                        pkt, spi, expectedPacketSize, useEncap, plaintext));
 
         return espPkt; // We've found the packet we're looking for.
     }
 
     public byte[] awaitEspPacket(int spi, boolean useEncap) throws Exception {
-        return awaitPacket((pkt) -> isEsp(pkt, spi, useEncap));
+        return awaitPacket((pkt) -> isEsp(pkt, spi, PACKET_SIZE_SKIP_VERIFICATION, useEncap));
     }
 
-    private static boolean isSpiEqual(byte[] pkt, int espOffset, int spi) {
-        // Check SPI byte by byte.
-        return pkt[espOffset] == (byte) ((spi >>> 24) & 0xff)
-                && pkt[espOffset + 1] == (byte) ((spi >>> 16) & 0xff)
-                && pkt[espOffset + 2] == (byte) ((spi >>> 8) & 0xff)
-                && pkt[espOffset + 3] == (byte) (spi & 0xff);
+    private static boolean checkExpectedSpiAndPktSize(
+            byte[] pkt, int espOffset, int spi, int packetSize) {
+        if (packetSize != PACKET_SIZE_SKIP_VERIFICATION && packetSize != pkt.length) {
+            return false;
+        }
+
+        ByteBuffer buffer = ByteBuffer.wrap(pkt);
+        buffer.get(new byte[espOffset]); // Skip IP, UDP header
+
+        int actualSpi = buffer.getInt();
+        int actualSeqNum = buffer.getInt();
+
+        return actualSpi == spi;
     }
 
     /**
@@ -170,25 +178,34 @@ public class TunUtils {
      *     the provided packet.
      */
     private static boolean isEspFailIfSpecifiedPlaintextFound(
-            byte[] pkt, int spi, boolean encap, byte[] plaintext) {
+            byte[] pkt, int spi, int packetSize, boolean encap, byte[] plaintext) {
         if (CollectionUtils.indexOfSubArray(pkt, plaintext) != -1) {
             fail("Banned plaintext packet found");
         }
 
-        return isEsp(pkt, spi, encap);
+        return isEsp(pkt, spi, packetSize, encap);
     }
 
-    private static boolean isEsp(byte[] pkt, int spi, boolean encap) {
+    private static boolean isEsp(byte[] pkt, int spi, int packetSize, boolean encap) {
         if (isIpv6(pkt)) {
-            // IPv6 UDP encap not supported by kernels; assume non-encap.
-            return pkt[IP6_PROTO_OFFSET] == IPPROTO_ESP && isSpiEqual(pkt, IP6_HDRLEN, spi);
+            if (encap) {
+                return pkt[IP6_PROTO_OFFSET] == IPPROTO_UDP
+                        && checkExpectedSpiAndPktSize(
+                                pkt, IP6_HDRLEN + UDP_HDRLEN, spi, packetSize);
+            } else {
+                return pkt[IP6_PROTO_OFFSET] == IPPROTO_ESP
+                        && checkExpectedSpiAndPktSize(pkt, IP6_HDRLEN, spi, packetSize);
+            }
+
         } else {
             // Use default IPv4 header length (assuming no options)
             if (encap) {
                 return pkt[IP4_PROTO_OFFSET] == IPPROTO_UDP
-                        && isSpiEqual(pkt, IP4_HDRLEN + UDP_HDRLEN, spi);
+                        && checkExpectedSpiAndPktSize(
+                                pkt, IP4_HDRLEN + UDP_HDRLEN, spi, packetSize);
             } else {
-                return pkt[IP4_PROTO_OFFSET] == IPPROTO_ESP && isSpiEqual(pkt, IP4_HDRLEN, spi);
+                return pkt[IP4_PROTO_OFFSET] == IPPROTO_ESP
+                        && checkExpectedSpiAndPktSize(pkt, IP4_HDRLEN, spi, packetSize);
             }
         }
     }
