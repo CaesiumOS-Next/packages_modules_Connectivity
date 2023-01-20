@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3c91d1b_8e119e1a",
+        "filename": "service-t/src/com/android/server/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-20T04:08:34Z",
+      "side": 1,
+      "message": "Actually it\u0027s necessary to do nothing if the service wasn\u0027t registered; added javadoc",
+      "parentUuid": "062e462a_245d9892",
+      "range": {
+        "startLine": 293,
+        "startChar": 8,
+        "endLine": 293,
+        "endChar": 40
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb90cd6b_c8a11633",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-18T05:46:17Z",
       "side": 1,
       "message": "Question: Does the reply still need to prepare if the conflict is happened? Or it\u0027s just some of services not all, so the reply is prepared for remaining services?",
+      "range": {
+        "startLine": 331,
+        "startChar": 8,
+        "endLine": 331,
+        "endChar": 9
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e38cdf55_3be652bd",
+        "filename": "service-t/src/com/android/server/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-20T04:08:34Z",
+      "side": 1,
+      "message": "Right, the reply still needs to be prepared for other services. Generally though, a conflict here would be if the incoming packet has answer records (not a question), so there will be nothing to answer. The incoming packet can also be a question in case of simultaneous probe tiebreaking (rfc6762 8.2, not implemented in this commit), in which case the conflicting service is still probing and won\u0027t reply either.\n\nAdded a comment.",
+      "parentUuid": "cb90cd6b_c8a11633",
       "range": {
         "startLine": 331,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "717d49f9_685a3ec2",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-20T04:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78df750f_e203238b",
+      "range": {
+        "startLine": 746,
+        "startChar": 24,
+        "endLine": 749,
+        "endChar": 91
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5244d949_3bd88e11",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-01-18T05:46:17Z",
       "side": 1,
       "message": "Nit: I think the name of two MdnsTextRecord should be same, right? If so, this can replace with `equals()` as well.",
+      "range": {
+        "startLine": 757,
+        "startChar": 24,
+        "endLine": 757,
+        "endChar": 68
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5f821dd_d217e54e",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-20T04:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5244d949_3bd88e11",
       "range": {
         "startLine": 757,
         "startChar": 24,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4e48b6c_c69e746f",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-20T04:08:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6739b4c3_51107e28",
+      "range": {
+        "startLine": 810,
+        "startChar": 4,
+        "endLine": 810,
+        "endChar": 13
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "416e9d9a_36c73ee0",
@@ -156,6 +276,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbf71d7e_8834ecec",
+        "filename": "service-t/src/com/android/server/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-20T04:08:34Z",
+      "side": 1,
+      "message": "Removed but it is intended that this returns null if the service did not exist (MdnsInterfaceAdvertiser relies on that so it can tell whether a rename is necessary). Added javadoc.",
+      "parentUuid": "416e9d9a_36c73ee0",
+      "range": {
+        "startLine": 812,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 46
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99e15a87_ed3ad6e1",
@@ -169,6 +313,30 @@
       "writtenOn": "2023-01-18T05:46:17Z",
       "side": 1,
       "message": "Nit: Also verify the replySender is queued a reply.",
+      "range": {
+        "startLine": 236,
+        "startChar": 4,
+        "endLine": 236,
+        "endChar": 5
+      },
+      "revId": "e39d0f5b21ce7d458bf8c5cc6a4a986b925fedee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "633d6b0d_18c0f0e8",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-20T04:08:34Z",
+      "side": 1,
+      "message": "In this case there\u0027s no reply that replySender would queue (there\u0027s no question); do you mean adding a test for a packet that has both conflicting records and questions ?",
+      "parentUuid": "99e15a87_ed3ad6e1",
       "range": {
         "startLine": 236,
         "startChar": 4,
