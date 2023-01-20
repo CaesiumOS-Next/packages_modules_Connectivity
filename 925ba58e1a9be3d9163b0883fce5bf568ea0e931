@@ -298,6 +298,29 @@
       },
       "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd8d7219_d7f35ed3",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:48:27Z",
+      "side": 1,
+      "message": "ipVersion (0 vs 4 vs 6) would be free",
+      "range": {
+        "startLine": 86,
+        "startChar": 10,
+        "endLine": 86,
+        "endChar": 13
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
