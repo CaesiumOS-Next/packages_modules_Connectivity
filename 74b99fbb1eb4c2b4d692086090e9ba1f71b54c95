@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "509bfcdd_34a4aee4",
+        "filename": "service-t/jni/com_android_server_NetworkStatsServiceInitializer.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:46:15Z",
+      "side": 1,
+      "message": "I was under the impression that NetworkStatsService.cpp would be going away in favor of Java-based BpfMap code. Let me sync with motomuman@.",
+      "parentUuid": "b50610a8_1b92182b",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 35
+      },
+      "revId": "74b99fbb1eb4c2b4d692086090e9ba1f71b54c95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3effdc4a_0d6098a1",
         "filename": "service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-19T20:54:13Z",
       "side": 1,
       "message": "Why not Build.isDebuggable() ?",
+      "range": {
+        "startLine": 51,
+        "startChar": 38,
+        "endLine": 51,
+        "endChar": 97
+      },
+      "revId": "74b99fbb1eb4c2b4d692086090e9ba1f71b54c95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fb28b59_dcdac47c",
+        "filename": "service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:46:15Z",
+      "side": 1,
+      "message": "system_server (where this is hosted) is only allowed to write to Perfetto on userdebug and eng builds:\nhttps://cs.android.com/android/platform/superproject/+/master:system/sepolicy/private/system_server.te;drc\u003d98e20da831e1d9467cd93f20cc307561724c4939;l\u003d424\n\nI\u0027d love to see that changed, but I\u0027d rather this land in eng/userdebug first.",
+      "parentUuid": "3effdc4a_0d6098a1",
       "range": {
         "startLine": 51,
         "startChar": 38,
