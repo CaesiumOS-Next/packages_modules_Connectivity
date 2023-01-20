@@ -16,6 +16,24 @@
       "message": "ag/20258662 and aosp/2248673 need to be submitted before this CL.\nCould you take a look at ag/20258662?",
       "revId": "04a633ab05b4e547c026c9a568364f87e4019e24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffb71f60_e7104257",
+        "filename": "Cronet/apex/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-20T02:59:22Z",
+      "side": 0,
+      "message": "Thanks for your review and adding proper reviewer.\nSorry that I always got confused who is a proper reviewer in tm-mainline-prod.",
+      "parentUuid": "3d3b4893_6d154249",
+      "revId": "04a633ab05b4e547c026c9a568364f87e4019e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
