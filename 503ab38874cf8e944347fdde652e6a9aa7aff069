@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4a70e7c_834a8682",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-20T10:55:56Z",
+      "side": 1,
+      "message": "Reaching deep into the autoKi.mKi.mCallback here looks really ugly, and it\u0027s strange to have 2 components register the death notification, considering that one will also try to stop the other when they both get notified.\n\nAs we discussed this would likely be a large refactor, maybe file a bug for that to clean it up ?",
+      "revId": "503ab38874cf8e944347fdde652e6a9aa7aff069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba10e45c_e446fe28",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-20T10:55:56Z",
+      "side": 1,
+      "message": "I think this would call unlinkToDeath, which would likely crash as it has not been registered",
+      "revId": "503ab38874cf8e944347fdde652e6a9aa7aff069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
