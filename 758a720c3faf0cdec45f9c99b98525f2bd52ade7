@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7dbbd1a_5da307ca",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "07e273c5_39fe77f3",
+      "range": {
+        "startLine": 251,
+        "startChar": 67,
+        "endLine": 252,
+        "endChar": 14
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "974389a1_80ad9ed6",
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "I was trying to be consistent with `skip_owner_match`, I\u0027m okay either way.",
       "parentUuid": "ccbd400f_4919ec25",
+      "range": {
+        "startLine": 260,
+        "startChar": 8,
+        "endLine": 260,
+        "endChar": 14
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04425ba4_28eef3b0",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c6669cd4_4058af45",
       "range": {
         "startLine": 260,
         "startChar": 8,

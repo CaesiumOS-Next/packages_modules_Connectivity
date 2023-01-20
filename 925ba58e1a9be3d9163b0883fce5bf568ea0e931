@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95e384b9_a076056b",
+        "filename": "bpf_progs/bpf_net_helpers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "this change / refactor really deserves to be in a precursor commit",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 1
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a4ae9ec_fb6bab46",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "isn\u0027t this spurious now?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 22
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c5528cd_eb4180a2",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "convention seems to be to suffix _map\n\nwould packet_trace_enable_map be better?",
+      "range": {
+        "startLine": 104,
+        "startChar": 19,
+        "endLine": 104,
+        "endChar": 37
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6d090d7_8512be00",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "suggest _ringbuf or _ringbufmap suffix\n\nwould packet_trace_ringbufmap be better?",
+      "range": {
+        "startLine": 111,
+        "startChar": 23,
+        "endLine": 111,
+        "endChar": 34
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db64fd32_460555f0",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "probably const*const",
+      "range": {
+        "startLine": 244,
+        "startChar": 24,
+        "endLine": 244,
+        "endChar": 25
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7378165_23c09e76",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "would PacketTrace or PacketTraceInfo be a better name?",
+      "range": {
+        "startLine": 254,
+        "startChar": 4,
+        "endLine": 254,
+        "endChar": 14
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22358421_ae780079",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "__be16",
+      "range": {
+        "startLine": 273,
+        "startChar": 4,
+        "endLine": 273,
+        "endChar": 12
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1e3175b_58f76fc0",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "\u003e 0 is spurious, but perhaps \u003e\u003d 20 would make sense?",
+      "range": {
+        "startLine": 274,
+        "startChar": 38,
+        "endLine": 274,
+        "endChar": 42
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2666d13_c8e04c22",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "note that all these already guarantee kver\u003e\u003d5.8 so could use the _relative helper directly...",
+      "range": {
+        "startLine": 276,
+        "startChar": 14,
+        "endLine": 276,
+        "endChar": 36
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f5c795c_045d6ba1",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "hmm looking at this now, I\u0027d suggest renaming the field names to \u0027sport dport\u0027 and getting rid of the egress?: \n\nThe reordering is trivial to do in userspace based on egress field, while if statements in bpf are painful (the bpf verifier is very fragile, and runtime complexity of verification is basically exponential in the number of ifs)",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 291,
+        "endChar": 0
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e78141af_910fc44e",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "you could add v4 vs v6 vs other as well since you have the space\n\npkt-\u003eipversion \u003d ipversion;",
+      "range": {
+        "startLine": 295,
+        "startChar": 9,
+        "endLine": 295,
+        "endChar": 16
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb1a851e_366edf6d",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "more consts",
+      "range": {
+        "startLine": 393,
+        "startChar": 75,
+        "endLine": 393,
+        "endChar": 79
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2290ac0_df00d375",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T16:47:29Z",
+      "side": 1,
+      "message": "please put this before KVER, add comment /*enable_tracing*/ or something\n\nor perhaps replace true/false with TRACE_ON/TRACE_OFF constants like EGRESS/INGRESS",
+      "range": {
+        "startLine": 464,
+        "startChar": 60,
+        "endLine": 464,
+        "endChar": 64
+      },
+      "revId": "925ba58e1a9be3d9163b0883fce5bf568ea0e931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
