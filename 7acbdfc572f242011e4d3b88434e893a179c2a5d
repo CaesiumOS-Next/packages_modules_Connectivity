@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23d2f0aa_8da06cee",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:29:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4b08e6e_035778a1",
+      "range": {
+        "startLine": 112,
+        "startChar": 80,
+        "endLine": 112,
+        "endChar": 81
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dda5d868_f62837b4",
@@ -494,6 +518,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2817239_bb853f44",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:29:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a7a4a8b_3eae9b01",
+      "range": {
+        "startLine": 262,
+        "startChar": 8,
+        "endLine": 262,
+        "endChar": 9
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebd49065_69ae77ea",
@@ -695,6 +743,30 @@
       "side": 1,
       "message": "Just system server",
       "parentUuid": "760b1650_5c7c3717",
+      "range": {
+        "startLine": 168,
+        "startChar": 29,
+        "endLine": 168,
+        "endChar": 42
+      },
+      "revId": "7acbdfc572f242011e4d3b88434e893a179c2a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f919ca5_28b88dfd",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:29:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5913a457_1a35779f",
       "range": {
         "startLine": 168,
         "startChar": 29,

@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc1afee7_86087883",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:29:46Z",
+      "side": 1,
+      "message": "Updated MAP_EXT to support ignore on and removed this from user builds.\n\nUpdate to ue uint32_t -\u003e bool\n\nWe could have use in the future for other features, but no need now and I don\u0027t think we\u0027re locked in since we\u0027re the only readers.",
+      "parentUuid": "a5769f06_360c9dd9",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 100,
+        "endChar": 37
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20646b16_8023060e",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-19T19:55:50Z",
       "side": 1,
       "message": "this doesn\u0027t feel right, shouldn\u0027t this be fs_bpf_net_shared if only system server needs access?  (ditto above)\n\nsee DEFINE_BPF_MAP_NO_NETD",
+      "range": {
+        "startLine": 106,
+        "startChar": 52,
+        "endLine": 106,
+        "endChar": 72
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc7d29e_0e7a060c",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:29:46Z",
+      "side": 1,
+      "message": "Ah, I see. Done.",
+      "parentUuid": "20646b16_8023060e",
       "range": {
         "startLine": 106,
         "startChar": 52,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07e273c5_39fe77f3",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:29:46Z",
+      "side": 1,
+      "message": "Ack, updated the wording.\n\nRegarding \u0027\u003d 0\u0027, they aren\u0027t entirely spurious since they\u0027re necessary if neither condition matches (e.g. non tcp/udp traffic). I\u0027ve added a comment, alternatively I could leave them uninitialized and add an explicit `else` to fill them in.",
+      "parentUuid": "47c0dde3_c2914560",
+      "range": {
+        "startLine": 251,
+        "startChar": 67,
+        "endLine": 252,
+        "endChar": 14
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "974389a1_80ad9ed6",
         "filename": "bpf_progs/netd.c",
         "patchSetId": 5
@@ -83,6 +155,30 @@
       "writtenOn": "2023-01-19T19:55:50Z",
       "side": 1,
       "message": "L4 to make it not look quite so much like 14",
+      "range": {
+        "startLine": 256,
+        "startChar": 12,
+        "endLine": 256,
+        "endChar": 14
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25fd396c_485e5671",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:29:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "974389a1_80ad9ed6",
       "range": {
         "startLine": 256,
         "startChar": 12,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6669cd4_4058af45",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:29:46Z",
+      "side": 1,
+      "message": "I was trying to be consistent with `skip_owner_match`, I\u0027m okay either way.",
+      "parentUuid": "ccbd400f_4919ec25",
+      "range": {
+        "startLine": 260,
+        "startChar": 8,
+        "endLine": 260,
+        "endChar": 14
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ade7694e_ffce358c",
         "filename": "bpf_progs/netd.c",
         "patchSetId": 5
@@ -129,6 +249,30 @@
       "writtenOn": "2023-01-19T19:55:50Z",
       "side": 1,
       "message": "I\u0027d recommend simply reading just 1 byte (u8) from the right offset in the first place.\n\nyeah I didn\u0027t do that (down below) because I didn\u0027t want to define new flags constants...",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 39
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35813bb9_d1cc4e10",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:29:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ade7694e_ffce358c",
       "range": {
         "startLine": 288,
         "startChar": 0,
@@ -152,6 +296,30 @@
       "writtenOn": "2023-01-19T19:55:50Z",
       "side": 1,
       "message": "these should now be __be16\nsee packages/modules/Connectivity/bpf_progs/dscpPolicy.h",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 10
+      },
+      "revId": "758a720c3faf0cdec45f9c99b98525f2bd52ade7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3801a32a_8a4a22bc",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-20T01:29:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b5d411c_1a7e8004",
       "range": {
         "startLine": 80,
         "startChar": 2,
