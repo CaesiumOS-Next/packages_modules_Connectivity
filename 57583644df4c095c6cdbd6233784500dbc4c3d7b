@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8905bb3_d7012707",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T10:01:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08de99da_1ae0669b",
+      "revId": "57583644df4c095c6cdbd6233784500dbc4c3d7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ead3bf0_623f529f",
@@ -70,6 +88,30 @@
         "id": 1288034
       },
       "writtenOn": "2023-01-20T07:22:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ead3bf0_623f529f",
+      "range": {
+        "startLine": 334,
+        "startChar": 12,
+        "endLine": 334,
+        "endChar": 37
+      },
+      "revId": "57583644df4c095c6cdbd6233784500dbc4c3d7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57fbef81_91b75070",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T10:01:13Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "9ead3bf0_623f529f",
