@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80a73607_a1120eda",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "805311b9_13b7140f",
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f5daf47_be9b3858",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-01-13T05:39:05Z",
       "side": 1,
       "message": "will fit on one line",
+      "range": {
+        "startLine": 247,
+        "startChar": 33,
+        "endLine": 247,
+        "endChar": 34
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "318dc45d_ea4844ea",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f5daf47_be9b3858",
       "range": {
         "startLine": 247,
         "startChar": 33,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24592e8c_87bae020",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7178a11_5532c248",
+      "range": {
+        "startLine": 254,
+        "startChar": 39,
+        "endLine": 254,
+        "endChar": 47
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2ea6e3a_5faae3ad",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-01-13T05:39:05Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 1049,
+        "startChar": 8,
+        "endLine": 1049,
+        "endChar": 22
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6376841a_c91b72cb",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Moot",
+      "parentUuid": "a2ea6e3a_5faae3ad",
       "range": {
         "startLine": 1049,
         "startChar": 8,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f938eb3e_4dca4638",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "855bf1ee_82cd1d24",
+      "range": {
+        "startLine": 1050,
+        "startChar": 9,
+        "endLine": 1054,
+        "endChar": 9
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19315fa6_c5dcc10c",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-01-13T05:39:05Z",
       "side": 1,
       "message": "If there was an InterruptedException then this is really not what happened.\n\nCan `pollCallback` just throw InterruptedException and then the caller throws Exception and it just fails with a clearer message ? This seems to just obfuscate what happened.",
+      "range": {
+        "startLine": 1079,
+        "startChar": 21,
+        "endLine": 1079,
+        "endChar": 44
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "102ed786_43c64143",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19315fa6_c5dcc10c",
       "range": {
         "startLine": 1079,
         "startChar": 21,
@@ -156,6 +294,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0021ddb2_f57db8f2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fec817ab_34c86ddb",
+      "range": {
+        "startLine": 1098,
+        "startChar": 43,
+        "endLine": 1098,
+        "endChar": 59
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72808566_39def8b5",
@@ -169,6 +331,30 @@
       "writtenOn": "2023-01-13T05:39:05Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 1104,
+        "startChar": 8,
+        "endLine": 1104,
+        "endChar": 15
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b388c924_c51a12cf",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72808566_39def8b5",
       "range": {
         "startLine": 1104,
         "startChar": 8,
@@ -202,6 +388,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dd821dc_2449c469",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b97ba091_9638c29f",
+      "range": {
+        "startLine": 1121,
+        "startChar": 22,
+        "endLine": 1121,
+        "endChar": 50
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "075b5bd2_3be55635",
@@ -215,6 +425,30 @@
       "writtenOn": "2023-01-13T05:39:05Z",
       "side": 1,
       "message": "This should be moved out of the try{} block",
+      "range": {
+        "startLine": 1124,
+        "startChar": 36,
+        "endLine": 1124,
+        "endChar": 47
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f730ca91_b0d97e56",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "075b5bd2_3be55635",
       "range": {
         "startLine": 1124,
         "startChar": 36,
@@ -248,6 +482,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d53fbb2b_0a1a5f66",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "487a8a96_ab319d0e",
+      "range": {
+        "startLine": 1130,
+        "startChar": 31,
+        "endLine": 1130,
+        "endChar": 37
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdbe1667_c883d47d",
@@ -261,6 +519,24 @@
       "writtenOn": "2023-01-13T05:39:05Z",
       "side": 1,
       "message": "You should be able to use try-with-resources to close this",
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6822df54_70600404",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdbe1667_c883d47d",
       "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -282,6 +558,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c3eb441_f987c762",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a15365ad_af01b067",
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2706efa_be019e12",
@@ -295,6 +589,30 @@
       "writtenOn": "2023-01-13T05:39:05Z",
       "side": 1,
       "message": "So here you\u0027ve verified that no sockets open mean the keepalive is temp disabled, but you haven\u0027t yet checked that opening a socket will restart keepalive",
+      "range": {
+        "startLine": 1149,
+        "startChar": 91,
+        "endLine": 1149,
+        "endChar": 92
+      },
+      "revId": "e61a34fbb5bfda1ed2d9d6a827b6b38c8d62901a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3641a04_74c3afe8",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2706efa_be019e12",
       "range": {
         "startLine": 1149,
         "startChar": 91,
