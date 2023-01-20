@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4404fd48_7e6de103",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-20T05:00:29Z",
+      "side": 1,
+      "message": "I\u0027d rather use DeviceConfigUtils.isFeatureEnabled(namespace, name). It\u0027s not that important for flags that only affect S+ where flags are cleared on rollback (although the timing of that is unclear), but it\u0027s better to have consistency between all of our flags; especially if the intent is to do a flag push, as our server-side configs generally use that style of flags. In that case the flag should be named automatic_on_off_keepalive_version.\n\nAlso it avoids having to define 0\u003dENABLED, 1\u003dDISABLED manually :)",
+      "revId": "457ce1c13bed6b87c9d4cfb228c248b6c3af73de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
