@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5ee1897_7e4c1d83",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "I\u0027d actually recommend going with the abort()-ing methods and just not instantiating the class on inappropriate configs.\n\nI just had a bug filed by a vendor on me today, where the maps are missing because of weird stuff they did to bpfloader...\n\nI far prefer stuff failing hard, it\u0027s less likely to ever ship...",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 2
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3548514_1bb796d7",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "probably should ntohs here instead of at caller",
+      "range": {
+        "startLine": 49,
+        "startChar": 13,
+        "endLine": 49,
+        "endChar": 17
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f8a2732_3ebfeccb",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "can\u0027t this just bind to port 0 and getsockname() the port number it bound to?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 1
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ab7f96f_59099e10",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "probably should be static constexpr inline, or something like that",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 7
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e530e3b_d66fa395",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "do we have __be32 types available for annotations?",
+      "range": {
+        "startLine": 59,
+        "startChar": 19,
+        "endLine": 59,
+        "endChar": 27
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2bb8331_392d5731",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "kTcpFlagNames perhaps? also I think capitals for flags",
+      "range": {
+        "startLine": 66,
+        "startChar": 24,
+        "endLine": 66,
+        "endChar": 33
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e53afc97_c74659ce",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 70,
+        "startChar": 9,
+        "endLine": 70,
+        "endChar": 19
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d92ab30_f5764ca1",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "seems like this might be long.\nmaybe ifindex -\u003e if or ifi\nlength -\u003e len, ipProto -\u003e proto",
+      "range": {
+        "startLine": 71,
+        "startChar": 14,
+        "endLine": 71,
+        "endChar": 22
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "794434eb_08d31968",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "seems weird this doesn\u0027t end with a newline, but I guess I see the logic",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 14
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6f0fbf9_36181a33",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "technically spurious",
+      "range": {
+        "startLine": 91,
+        "startChar": 42,
+        "endLine": 91,
+        "endChar": 47
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73399aa1_13bd629f",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "is this actually even useful?\n\nare we doing memory locking anywhere?\n\nwe\u0027re not loading any bpf code...\n\nor does the ring mmap() operation need it?\nmaybe comment?",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 37
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f89c84e_2d28ab37",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "server_port perhaps",
+      "range": {
+        "startLine": 110,
+        "startChar": 11,
+        "endLine": 110,
+        "endChar": 15
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84a47691_494ba6d9",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "do we have an endianness bug here atm?\n\noh I see we don\u0027t but port should be __be16 not uint16_t",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 62
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1acd7d65_56aba7fd",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "should this be ConsumeAll()?\n\nPollOnce would seem to imply it will handle only a single packet\nor add comment?",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 15
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f58cd04_efb965e7",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "we should perhaps add some sort of\n\nBpfConfig\u003cbool\u003e(path) class wrapper around BpfMap\u003cuint32_t, bool\u003e which just accesses index 0.\n\nbut that can be a follow up\n\n(we should switch the other two config entries to something similar)",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 57
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

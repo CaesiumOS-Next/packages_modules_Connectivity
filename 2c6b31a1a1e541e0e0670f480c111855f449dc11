@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa4aed40_363702a1",
+        "filename": "service-t/native/libs/libnetworkstats/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-20T20:44:25Z",
+      "side": 1,
+      "message": "Let\u0027s leave it as is for now... it\u0027s mainline can always refactor later.",
+      "parentUuid": "fb3afad0_7b216439",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 28
+      },
+      "revId": "2c6b31a1a1e541e0e0670f480c111855f449dc11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33234d19_d63d9935",
