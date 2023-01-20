@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "313ac07d_2d2ed25a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2334,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T10:21:44Z",
+      "side": 1,
+      "message": "Yeah it\u0027s completely useless but let\u0027s not do this here. Filed b/266176876",
+      "parentUuid": "d3b65804_0e98fc42",
+      "revId": "c12fcad78e781aef7a58d7d9b7e84d29ccaa3c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f063307_808d1077",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-20T05:29:43Z",
       "side": 1,
       "message": "It looks like there is a bug here where if the remote binder dies, the keepalive will be stopped but AutomaticOnOffKeepalive is still ENABLED ?\n\nIn general having KeepaliveTracker manage the callback and tie its lifetime to it seems wrong, especially considering that it needs to know the state kept by the upper layer (mResumed) to know which callback actually needs to be sent.\n\nTo fix this, I think you could define a normal, non-binder callback interface for KeepaliveTracker with start/stop/error/dataReceived (*not* paused). Then when calling makeNattKeepaliveInfo, AutomaticOnOffKeepaliveTracker would create one of these to send as argument. When receiving callbacks from KeepaliveTracker, AutomaticOnOffKeepaliveTracker relays the right callback to the ISocketKeepaliveCallback. And AutomaticOnOffKeepaliveTracker would register the binder death notification so it can stop and cleanup state properly.",
+      "revId": "c12fcad78e781aef7a58d7d9b7e84d29ccaa3c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1891bc9_59713a55",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-20T10:21:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f063307_808d1077",
       "revId": "c12fcad78e781aef7a58d7d9b7e84d29ccaa3c72",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
