@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a544b7bf_f1a2a758",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-20T08:33:42Z",
+      "side": 1,
+      "message": "Nit: automatic_on_off_keepalive_version (generally that\u0027s how the version-based flags should be based, and would be a bit more consistent in the service-side config).\n\nProbably also update the constant name",
+      "range": {
+        "startLine": 99,
+        "startChar": 67,
+        "endLine": 99,
+        "endChar": 98
+      },
+      "revId": "b256dd64a76ab3b8b045f8e59b63cebcc7f3dc55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
