@@ -89,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b32e4ec_3f2e088d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 10426,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-22T15:31:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0056b3fc_d9f543d3",
+      "range": {
+        "startLine": 10426,
+        "startChar": 8,
+        "endLine": 10426,
+        "endChar": 19
+      },
+      "revId": "25dcdd7f67f152a10775b03fb14b9b671ebe9d46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32067680_1c532d06",
@@ -102,6 +126,30 @@
       "writtenOn": "2022-10-31T07:32:38Z",
       "side": 1,
       "message": "Likewise (and also below)",
+      "range": {
+        "startLine": 10443,
+        "startChar": 8,
+        "endLine": 10443,
+        "endChar": 19
+      },
+      "revId": "25dcdd7f67f152a10775b03fb14b9b671ebe9d46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ced252a_12130d54",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 10443,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-22T15:31:10Z",
+      "side": 1,
+      "message": "Done, and the onLinkProperties callback should be received after the bug is fixed.",
+      "parentUuid": "32067680_1c532d06",
       "range": {
         "startLine": 10443,
         "startChar": 8,
