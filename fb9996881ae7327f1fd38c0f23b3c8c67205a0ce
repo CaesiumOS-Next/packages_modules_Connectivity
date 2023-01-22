@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "383082c5_91befa1e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5745,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-22T15:45:15Z",
+      "side": 1,
+      "message": "Latest patch, revert the part of checking if the passed network is a default network.",
+      "parentUuid": "45a93103_71a0d0fb",
+      "range": {
+        "startLine": 5744,
+        "startChar": 68,
+        "endLine": 5745,
+        "endChar": 67
+      },
+      "revId": "fb9996881ae7327f1fd38c0f23b3c8c67205a0ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "62d71d4e_8ee5a4ad",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 8
