@@ -16,6 +16,24 @@
       "message": "Good luck with tm-mainline-prod TH issues, like:\n\nerror: packages/modules/Connectivity/Tethering/apex/Android.bp:82:1: module \"com.android.tethering\" variant \"android_common_cfi_com.android.tethering_image\": \"libnetworkstats\" requires \"libperfetto_client_experimental\" that doesn\u0027t list the APEX under \u0027apex_available\u0027.\n\nMy guess is you\u0027ll need to get some stuff cherrypicked from aosp/master to internal/tm-mainline-prod in non-auto-merged git repos.  That in turn will probably require +2 from someone on mainline team, since only they have CR+2 rights on many of the git repos.",
       "revId": "5adc63834ed5f802aaa35aeaa5b683788f26a5e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d14132d_3916cfde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T22:18:13Z",
+      "side": 1,
+      "message": "Yes, I already have the cherry-picks pending but hadn\u0027t realized the CR+2 restriction. Thanks for the heads up.",
+      "parentUuid": "dc042e71_27490a96",
+      "revId": "5adc63834ed5f802aaa35aeaa5b683788f26a5e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
