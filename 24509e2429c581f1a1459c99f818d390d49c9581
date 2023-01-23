@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bb51197_4e5f3c97",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-01-23T10:02:28Z",
+      "side": 1,
+      "message": "This is actually needed for more than just `cronet_aml_components_cronet_android_cronet`. So I would suggest generalizing this to every module that has a linker script.\n\nSee https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2389543/4",
+      "range": {
+        "startLine": 135,
+        "startChar": 7,
+        "endLine": 139,
+        "endChar": 11
+      },
+      "revId": "24509e2429c581f1a1459c99f818d390d49c9581",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
