@@ -134,6 +134,30 @@
       },
       "revId": "74b99fbb1eb4c2b4d692086090e9ba1f71b54c95",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3455cfd3_3df5154c",
+        "filename": "service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-23T17:16:13Z",
+      "side": 1,
+      "message": "Right. Why not use Build.isDebuggable() to determine this?",
+      "parentUuid": "6fb28b59_dcdac47c",
+      "range": {
+        "startLine": 51,
+        "startChar": 38,
+        "endLine": 51,
+        "endChar": 97
+      },
+      "revId": "74b99fbb1eb4c2b4d692086090e9ba1f71b54c95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
