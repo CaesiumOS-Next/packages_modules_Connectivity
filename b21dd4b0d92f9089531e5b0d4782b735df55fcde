@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e7ad549_16895ff4",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:55:24Z",
+      "side": 1,
+      "message": "It doesn\u0027t seem to work. It appears this macro is actually defining static state for a **perfetto** object of type `perfetto::DataSource\u003cT\u003e` where `T` is `android::bpf::NetworkTraceHandler`. So it\u0027s not within android::bpf as it would lead you to believe. This is a bit confusing, so I\u0027ve added a comment.",
+      "parentUuid": "fda43a0f_4791b311",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 42
+      },
+      "revId": "b21dd4b0d92f9089531e5b0d4782b735df55fcde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4de237e2_3283050c",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f307ec94_951f8eb4",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:55:24Z",
+      "side": 1,
+      "message": "You\u0027re right, removed it.",
+      "parentUuid": "4de237e2_3283050c",
+      "range": {
+        "startLine": 62,
+        "startChar": 22,
+        "endLine": 62,
+        "endChar": 23
+      },
+      "revId": "b21dd4b0d92f9089531e5b0d4782b735df55fcde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42c0c9c4_168d07ae",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-23T19:54:26Z",
       "side": 1,
       "message": "spurious right?",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 16
+      },
+      "revId": "b21dd4b0d92f9089531e5b0d4782b735df55fcde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af6cbca3_84bbb840",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:55:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42c0c9c4_168d07ae",
       "range": {
         "startLine": 71,
         "startChar": 2,
