@@ -19,15 +19,18 @@ import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.app.compat.CompatChanges
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
+import android.net.InetAddresses.parseNumericAddress
 import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.LocalSocket
 import android.net.LocalSocketAddress
+import android.net.MacAddress
 import android.net.Network
 import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
 import android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED
+import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.net.NetworkCapabilities.TRANSPORT_TEST
 import android.net.NetworkRequest
 import android.net.TestNetworkInterface
@@ -64,19 +67,38 @@ import android.os.HandlerThread
 import android.os.Process.myTid
 import android.platform.test.annotations.AppModeFull
 import android.provider.DeviceConfig.NAMESPACE_TETHERING
+import android.system.ErrnoException
+import android.system.Os
+import android.system.OsConstants.AF_INET6
+import android.system.OsConstants.ENETUNREACH
+import android.system.OsConstants.ETH_P_IPV6
+import android.system.OsConstants.IPPROTO_IPV6
+import android.system.OsConstants.IPPROTO_UDP
+import android.system.OsConstants.SOCK_DGRAM
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.android.compatibility.common.util.PollingCheck
 import com.android.compatibility.common.util.PropertyUtil
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.DnsPacket
+import com.android.net.module.util.HexDump
+import com.android.net.module.util.NetworkStackConstants.ETHER_HEADER_LEN
+import com.android.net.module.util.NetworkStackConstants.IPV6_HEADER_LEN
+import com.android.net.module.util.NetworkStackConstants.UDP_HEADER_LEN
+import com.android.net.module.util.PacketBuilder
 import com.android.net.module.util.TrackRecord
 import com.android.networkstack.apishim.NsdShimImpl
 import com.android.networkstack.apishim.common.NsdShim
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DeviceConfigRule
+import com.android.testutils.IPv6UdpFilter
+import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
+import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
+import com.android.testutils.TapPacketReader
 import com.android.testutils.TestableNetworkAgent
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk30
 import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk33
@@ -85,8 +107,10 @@ import com.android.testutils.tryTest
 import com.android.testutils.waitForIdle
 import java.io.File
 import java.io.IOException
+import java.net.Inet6Address
 import java.net.NetworkInterface
 import java.net.ServerSocket
+import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
 import java.util.Random
 import java.util.concurrent.Executor
@@ -180,8 +204,8 @@ class NsdManagerTest {
 
         inline fun <reified V : NsdEvent> expectCallback(timeoutMs: Long = TIMEOUT_MS): V {
             val nextEvent = nextEvents.poll(timeoutMs)
-            assertNotNull(nextEvent, "No callback received after $timeoutMs ms, expected " +
-                    "${V::class.java.simpleName}")
+            assertNotNull(nextEvent, "No callback received after $timeoutMs ms, " +
+                    "expected ${V::class.java.simpleName}")
             assertTrue(nextEvent is V, "Expected ${V::class.java.simpleName} but got " +
                     nextEvent.javaClass.simpleName)
             return nextEvent
@@ -361,31 +385,53 @@ class NsdManagerTest {
                 .build(), cb)
         val agent = registerTestNetworkAgent(iface.interfaceName)
         val network = agent.network ?: fail("Registered agent should have a network")
+        cb.eventuallyExpect<LinkPropertiesChanged>(TIMEOUT_MS) {
+            it.lp.linkAddresses.isNotEmpty()
+        }
         // The network has no INTERNET capability, so will be marked validated immediately
-        cb.expectAvailableThenValidatedCallbacks(network, TIMEOUT_MS)
+        // It does not matter if validated capabilities come before/after the link addresses change
+        cb.eventuallyExpect<CapabilitiesChanged>(TIMEOUT_MS, from = 0) {
+            it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
+        }
         return TestTapNetwork(iface, cb, agent, network)
     }
 
     private fun registerTestNetworkAgent(ifaceName: String): TestableNetworkAgent {
-        PollingCheck.check("The test interface had no v6 address within timeout", TIMEOUT_MS) {
-            !NetworkInterface.getByName(ifaceName).interfaceAddresses.isEmpty()
+        val lp = LinkProperties().apply {
+            interfaceName = ifaceName
         }
-
         val agent = TestableNetworkAgent(context, handlerThread.looper,
                 NetworkCapabilities().apply {
                     removeCapability(NET_CAPABILITY_TRUSTED)
                     addTransportType(TRANSPORT_TEST)
                     setNetworkSpecifier(TestNetworkSpecifier(ifaceName))
-                },
-                LinkProperties().apply {
-                    interfaceName = ifaceName
-                    setLinkAddresses(NetworkInterface.getByName(ifaceName).interfaceAddresses.map {
-                        LinkAddress(it.address, it.networkPrefixLength.toInt())
-                    })
-                },
-                NetworkAgentConfig.Builder().build())
-        agent.register()
+                }, lp, NetworkAgentConfig.Builder().build())
+        val network = agent.register()
         agent.markConnected()
+        agent.expectCallback<OnNetworkCreated>()
+
+        // Wait until the link-local address can be used. Address flags are not available without
+        // elevated permissions, so check that bindSocket works.
+        PollingCheck.check("No usable v6 address on interface after $TIMEOUT_MS ms", TIMEOUT_MS) {
+            val sock = Os.socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP)
+            tryTest {
+                network.bindSocket(sock)
+                Os.connect(sock, parseNumericAddress("ff02::fb%$ifaceName"), 12345)
+                true
+            }.catch<ErrnoException> {
+                if (it.errno != ENETUNREACH) {
+                    throw it
+                }
+                false
+            } cleanup {
+                Os.close(sock)
+            }
+        }
+
+        lp.setLinkAddresses(NetworkInterface.getByName(ifaceName).interfaceAddresses.map {
+            LinkAddress(it.address, it.networkPrefixLength.toInt())
+        })
+        agent.sendLinkProperties(lp)
         return agent
     }
 
@@ -994,6 +1040,162 @@ class NsdManagerTest {
         }
     }
 
+    @Test
+    fun testRegisterWithConflictDuringProbing() {
+        // This test requires shims supporting T+ APIs (NsdServiceInfo.network)
+        assumeTrue(TestUtils.shouldTestTApis())
+
+        val si = NsdServiceInfo()
+        si.serviceType = serviceType
+        si.serviceName = serviceName
+        si.network = testNetwork1.network
+        si.port = 12345 // Test won't try to connect so port does not matter
+
+        val packetReader = TapPacketReader(Handler(handlerThread.looper),
+                testNetwork1.iface.fileDescriptor.fileDescriptor, 1500 /* maxPacketSize */)
+        packetReader.startAsyncForTest()
+        handlerThread.waitForIdle(TIMEOUT_MS)
+
+        // Register service on testNetwork1
+        val registrationRecord = NsdRegistrationRecord()
+        nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, Executor { it.run() },
+                registrationRecord)
+
+        tryTest {
+            assertNotNull(packetReader.pollForProbe(serviceName, serviceType),
+                    "Did not find a probe for the service")
+            packetReader.sendResponse(buildConflictingAnnouncement())
+
+            // Registration must use an updated name to avoid the conflict
+            val cb = registrationRecord.expectCallback<ServiceRegistered>(REGISTRATION_TIMEOUT_MS)
+            cb.serviceInfo.serviceName.let {
+                assertTrue("Unexpected registered name: $it",
+                        it.startsWith(serviceName) && it != serviceName)
+            }
+        } cleanup {
+            packetReader.handler.post { packetReader.stop() }
+            handlerThread.waitForIdle(TIMEOUT_MS)
+        }
+    }
+
+    @Test
+    fun testRegisterWithConflictAfterProbing() {
+        // This test requires shims supporting T+ APIs (NsdServiceInfo.network)
+        assumeTrue(TestUtils.shouldTestTApis())
+
+        val si = NsdServiceInfo()
+        si.serviceType = serviceType
+        si.serviceName = serviceName
+        si.network = testNetwork1.network
+        si.port = 12345 // Test won't try to connect so port does not matter
+
+        // Register service on testNetwork1
+        val registrationRecord = NsdRegistrationRecord()
+        val discoveryRecord = NsdDiscoveryRecord()
+        val registeredService = registerService(registrationRecord, si)
+        val packetReader = TapPacketReader(Handler(handlerThread.looper),
+                testNetwork1.iface.fileDescriptor.fileDescriptor, 1500 /* maxPacketSize */)
+        packetReader.startAsyncForTest()
+        handlerThread.waitForIdle(TIMEOUT_MS)
+
+        tryTest {
+            assertNotNull(packetReader.pollForReply(serviceName, serviceType),
+                    "No announcements sent after initial probing")
+
+            assertEquals(si.serviceName, registeredService.serviceName)
+
+            nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, discoveryRecord)
+            discoveryRecord.waitForServiceDiscovered(si.serviceName)
+
+            // Send a conflicting announcement
+            val conflictingAnnouncement = buildConflictingAnnouncement()
+            packetReader.sendResponse(conflictingAnnouncement)
+
+            // Expect to see probes (RFC6762 9., service is reset to probing state)
+            assertNotNull(packetReader.pollForProbe(serviceName, serviceType),
+                    "Probe not received within timeout after conflict")
+
+            // Send the conflicting packet again to reply to the probe
+            packetReader.sendResponse(conflictingAnnouncement)
+
+            // An exit announcement should be sent
+            val lostCb = discoveryRecord.expectCallback<ServiceLost>()
+            assertEquals(si.serviceName, lostCb.serviceInfo.serviceName)
+
+            // Note that before sending the following ServiceRegistered callback for the renamed
+            // service, the legacy mdnsresponder-based implementation would first send a
+            // Service*Registered* callback for the original service name being *unregistered*; it
+            // should probably have been a ServiceUnregistered callback instead.
+            val newRegistration = registrationRecord.expectCallbackEventually<ServiceRegistered>(
+                    REGISTRATION_TIMEOUT_MS) {
+                it.serviceInfo.serviceName.startsWith(serviceName) &&
+                        it.serviceInfo.serviceName != serviceName
+            }
+
+            discoveryRecord.expectCallbackEventually<ServiceFound> {
+                it.serviceInfo.serviceName == newRegistration.serviceInfo.serviceName
+            }
+        } cleanupStep {
+            nsdManager.stopServiceDiscovery(discoveryRecord)
+            discoveryRecord.expectCallback<DiscoveryStopped>()
+        } cleanupStep {
+            nsdManager.unregisterService(registrationRecord)
+            registrationRecord.expectCallback<ServiceUnregistered>()
+        } cleanup {
+            packetReader.handler.post { packetReader.stop() }
+            handlerThread.waitForIdle(TIMEOUT_MS)
+        }
+    }
+
+    private fun buildConflictingAnnouncement(): ByteBuffer {
+        /*
+        Generated with:
+        scapy.raw(scapy.DNS(rd=0, qr=1, aa=1, qd = None, an =
+                scapy.DNSRRSRV(rrname='NsdTest123456789._nmt123456789._tcp.local',
+                    rclass=0x8001, port=31234, target='conflict.local', ttl=120)
+        )).hex()
+         */
+        val mdnsPayload = HexDump.hexStringToByteArray("000084000000000100000000104e736454657" +
+                "3743132333435363738390d5f6e6d74313233343536373839045f746370056c6f63616c00002" +
+                "18001000000780016000000007a0208636f6e666c696374056c6f63616c00")
+        val packetBuffer = ByteBuffer.wrap(mdnsPayload)
+        // Replace service name and types in the packet with the random ones used in the test.
+        // Test service name and types have consistent length and are always ASCII
+        val testPacketName = "NsdTest123456789"
+        val testPacketTypePrefix = "_nmt123456789"
+        val typePrefix = serviceType.split('.')[0]
+        assertEquals(testPacketName.length, serviceName.length)
+        assertEquals(testPacketTypePrefix.length, typePrefix.length)
+        packetBuffer.position(mdnsPayload.indexOf(testPacketName.encodeToByteArray()))
+        packetBuffer.put(serviceName.encodeToByteArray())
+        packetBuffer.position(mdnsPayload.indexOf(testPacketTypePrefix.encodeToByteArray()))
+        packetBuffer.put(typePrefix.encodeToByteArray())
+
+        return buildMdnsPacket(mdnsPayload)
+    }
+
+    private fun buildMdnsPacket(mdnsPayload: ByteArray): ByteBuffer {
+        val packetBuffer = PacketBuilder.allocate(true /* hasEther */, IPPROTO_IPV6,
+                IPPROTO_UDP, mdnsPayload.size)
+        val packetBuilder = PacketBuilder(packetBuffer)
+        // Multicast ethernet address for IPv6 to ff02::fb
+        val multicastEthAddr = MacAddress.fromBytes(
+                byteArrayOf(0x33, 0x33, 0, 0, 0, 0xfb.toByte()))
+        packetBuilder.writeL2Header(
+                MacAddress.fromBytes(byteArrayOf(1, 2, 3, 4, 5, 6)) /* srcMac */,
+                multicastEthAddr,
+                ETH_P_IPV6.toShort())
+        packetBuilder.writeIpv6Header(
+                0x60000000, // version=6, traffic class=0x0, flowlabel=0x0
+                IPPROTO_UDP.toByte(),
+                64 /* hop limit */,
+                parseNumericAddress("2001:db8::123") as Inet6Address /* srcIp */,
+                parseNumericAddress("ff02::fb") as Inet6Address /* dstIp */)
+        packetBuilder.writeUdpHeader(5353 /* srcPort */, 5353 /* dstPort */)
+        packetBuffer.put(mdnsPayload)
+        return packetBuilder.finalizePacket()
+    }
+
     /**
      * Register a service and return its registration record.
      */
@@ -1019,7 +1221,65 @@ class NsdManagerTest {
     }
 }
 
+private fun TapPacketReader.pollForMdnsPacket(
+    timeoutMs: Long = REGISTRATION_TIMEOUT_MS,
+    predicate: (TestDnsPacket) -> Boolean
+): ByteArray? {
+    val mdnsProbeFilter = IPv6UdpFilter(srcPort = 5353, dstPort = 5353).and {
+        val mdnsPayload = it.copyOfRange(
+                ETHER_HEADER_LEN + IPV6_HEADER_LEN + UDP_HEADER_LEN, it.size)
+        try {
+            predicate(TestDnsPacket(mdnsPayload))
+        } catch (e: DnsPacket.ParseException) {
+            false
+        }
+    }
+    return poll(timeoutMs, mdnsProbeFilter)
+}
+
+private fun TapPacketReader.pollForProbe(
+    serviceName: String,
+    serviceType: String,
+    timeoutMs: Long = REGISTRATION_TIMEOUT_MS
+): ByteArray? = pollForMdnsPacket(timeoutMs) { it.isProbeFor("$serviceName.$serviceType.local") }
+
+private fun TapPacketReader.pollForReply(
+    serviceName: String,
+    serviceType: String,
+    timeoutMs: Long = REGISTRATION_TIMEOUT_MS
+): ByteArray? = pollForMdnsPacket(timeoutMs) { it.isReplyFor("$serviceName.$serviceType.local") }
+
+private class TestDnsPacket(data: ByteArray) : DnsPacket(data) {
+    fun isProbeFor(name: String): Boolean = mRecords[QDSECTION].any {
+        it.dName == name && it.nsType == 0xff /* ANY */
+    }
+
+    fun isReplyFor(name: String): Boolean = mRecords[ANSECTION].any {
+        it.dName == name && it.nsType == 0x21 /* SRV */
+    }
+}
+
 private fun ByteArray?.utf8ToString(): String {
     if (this == null) return ""
     return String(this, StandardCharsets.UTF_8)
+}
+
+private fun ByteArray.indexOf(sub: ByteArray): Int {
+    var subIndex = 0
+    forEachIndexed { i, b ->
+        when (b) {
+            // Still matching: continue comparing with next byte
+            sub[subIndex] -> {
+                subIndex++
+                if (subIndex == sub.size) {
+                    return i - sub.size + 1
+                }
+            }
+            // Not matching next byte but matches first byte: continue comparing with 2nd byte
+            sub[0] -> subIndex = 1
+            // No matches: continue comparing from first byte
+            else -> subIndex = 0
+        }
+    }
+    return -1
 }
