@@ -22,6 +22,7 @@ import android.util.ArraySet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -220,5 +221,97 @@ public final class UidRangeUtils {
         }
 
         return false;
+    }
+
+    /**
+     * Given any collection of UID ranges, return the canonical set of UID ranges.
+     *
+     * The canonical set has the minimum possible number of sets and no overlaps.
+     *
+     * @param ranges the ranges
+     * @return the canonical set
+     */
+    public static Set<UidRange> canonicalize(@NonNull final Collection<UidRange> ranges) {
+        int size = ranges.size();
+        // Starts and ends are sorted arrays. They contain the start and end of each range at
+        // matching indices.
+        final int[] starts = new int[size]; // max possible size for this array
+        final int[] ends = new int[size]; // max possible size for this array
+        size = 0; // no ranges added yet
+        for (UidRange range : ranges) {
+            if (range.stop <= range.start) continue;
+            int insertionPoint = Arrays.binarySearch(starts, 0, size, range.start);
+            // Get insertion point whether |range.start| is in the array or not.
+            if (insertionPoint < 0) insertionPoint = -(insertionPoint - 1);
+            if (insertionPoint > size) {
+                // The range starts after the last start.
+                if (size <= 0 || ends[size - 1] < range.start - 1) {
+                    // The range starts after the last end, or the arrays are empty. Add the
+                    // range at the end.
+                    starts[insertionPoint] = range.start;
+                    ends[insertionPoint] = range.stop;
+                    size += 1;
+                } else if (range.stop > ends[size - 1]) {
+                    // The range starts in the middle of the last range, and it extends past the
+                    // end of the last range in the arrays. Extend the last range in the arrays.
+                    ends[insertionPoint] = range.stop;
+                }
+                // Else this range was entirely contained in the last range, do nothing.
+            } else if (range.stop < starts[insertionPoint] - 1) {
+                // Whole range is before the insertion point. Insert this range here.
+                System.arraycopy(starts, insertionPoint, starts, insertionPoint + 1,
+                        size - insertionPoint);
+                System.arraycopy(ends, insertionPoint, starts, insertionPoint + 1,
+                        size - insertionPoint);
+                starts[insertionPoint] = range.start;
+                ends[insertionPoint] = range.stop;
+                size += 1;
+            } else {
+                // This range starts before the one at the insertion point, but extends into
+                // it. Maybe it ends in the middle of it, or it extends past its end. Either way,
+                // enlarge the range at the insertion point to start at the start of this range.
+                starts[insertionPoint] = range.start;
+                if (range.stop <= ends[insertionPoint]) {
+                    // Partial overlap with the range at the insertion point. The range at the
+                    // insertion point has already been enlarged, nothing left to do.
+                    continue;
+                } else if (insertionPoint >= size || range.stop < starts[insertionPoint + 1] - 1) {
+                    // The range at the insertion point was the last range, or this range stops
+                    // before the start of the range after the insertion point. Extend the end of
+                    // the range at the insertion point to cover this whole range.
+                    ends[insertionPoint] = range.stop;
+                } else {
+                    // This range starts before the one at the insertion point, and it ends
+                    // past the start of the next one. Find the range inside which this range
+                    // ends.
+                    int extent = Arrays.binarySearch(ends, insertionPoint, size, range.stop);
+                    // Get insertion point whether |range.stop| is in the array or not.
+                    if (extent < 0) extent = -(extent - 1);
+                    if (extent >= size) {
+                        // This range extends past the size of the last range. Set the end
+                        // of the range at the insertion point and truncate.
+                        ends[insertionPoint] = range.stop;
+                        size = insertionPoint + 1;
+                    } else if (range.stop < starts[extent] - 1) {
+                        // This range extends up to the range at |extent|, but ends before
+                        // its start.
+                        ends[insertionPoint] = range.stop;
+                        System.arraycopy(starts, extent, starts, insertionPoint, size - extent + 1);
+                        System.arraycopy(ends, extent, ends, insertionPoint, size - extent + 1);
+                        size -= extent - insertionPoint;
+                    } else {
+                        // This range lands in the middle of the range at |extent|
+                        System.arraycopy(starts, extent, starts, insertionPoint + 1, size - extent);
+                        System.arraycopy(ends, extent, ends, insertionPoint, size - extent + 1);
+                        size -= extent - insertionPoint;
+                    }
+                }
+            }
+        }
+        final ArraySet<UidRange> result = new ArraySet<>();
+        for (int i = 0; i < size; ++i) {
+            result.add(new UidRange(starts[i], ends[i]));
+        }
+        return result;
     }
 }

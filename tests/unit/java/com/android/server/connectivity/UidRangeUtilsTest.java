@@ -425,4 +425,9 @@ public class UidRangeUtilsTest {
         assertTrue(UidRangeUtils.sortedRangesContainOverlap(overlapRanges2));
         assertFalse(UidRangeUtils.sortedRangesContainOverlap(notOverlapRanges));
     }
+
+    @Test
+    public void testCanonicalize() throws Exception {
+
+    }
 }
