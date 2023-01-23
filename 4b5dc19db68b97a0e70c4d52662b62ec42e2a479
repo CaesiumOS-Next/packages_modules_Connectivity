@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddf0bdb9_bde9dd29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d72f6cd3_f0c4f957",
+      "range": {
+        "startLine": 7,
+        "startChar": 46,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1190392_947cf62b",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbf51546_dbc26d7e",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "It won\u0027t get here. In user builds, we don\u0027t register this with Perfetto, so none of the code in this file will run.",
+      "parentUuid": "c1190392_947cf62b",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 9
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de25ca84_4617504f",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-23T19:24:43Z",
       "side": 1,
       "message": "I guess why couldn\u0027t this just be\n\nmRingBuffer.Init(PATH)",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 71
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85e89455_5164fc0c",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "Right now it\u0027s protected. More detail above.",
+      "parentUuid": "de25ca84_4617504f",
       "range": {
         "startLine": 36,
         "startChar": 0,
@@ -118,6 +190,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a602cc0_0459a517",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "Calling ConsumeAll outside Start/Stop is probably a bug in code. I was tempted to use ALOGE, but given it is a non-vital service went with warning. What do you think?",
+      "parentUuid": "22569f40_da03d3e6",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 9
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12be1866_a8612a24",
         "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
         "patchSetId": 7
@@ -129,6 +225,30 @@
       "writtenOn": "2023-01-23T19:24:43Z",
       "side": 1,
       "message": "add new line",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 2
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9750af8_0fb9e104",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12be1866_a8612a24",
       "range": {
         "startLine": 78,
         "startChar": 0,
@@ -162,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38392e4f_b07a2271",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee3f06ad_c94fb187",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 8
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98ae05ad_116f095b",
@@ -175,6 +319,30 @@
       "writtenOn": "2023-01-23T19:24:43Z",
       "side": 1,
       "message": "I wonder if this could be a const \u0026, or const*const",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 27
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45f00215_72add3f0",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98ae05ad_116f095b",
       "range": {
         "startLine": 62,
         "startChar": 26,
@@ -208,6 +376,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6d0f477_83794354",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8417a68a_7a311d79",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 39
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3026340_7f24d197",
@@ -221,6 +413,30 @@
       "writtenOn": "2023-01-23T19:24:43Z",
       "side": 1,
       "message": "ip\u003d",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 6
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da6c8506_f7024a61",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3026340_7f24d197",
       "range": {
         "startLine": 76,
         "startChar": 0,
@@ -277,6 +493,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7113ae63_0c0cc822",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "It pushes a copy. I\u0027m not sure I understand what you mean by \"query\"?",
+      "parentUuid": "39bfec9e_87830cad",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 29
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5d0ba40_0bdc1f41",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99602133_fee684a5",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 0
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "595e709d_bc1c0887",
@@ -290,6 +554,30 @@
       "writtenOn": "2023-01-23T19:24:43Z",
       "side": 1,
       "message": "this is only for the PacketTrace struct def right? mention it please",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0c2c69f_9efebd14",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "595e709d_bc1c0887",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -325,6 +613,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ce959f8_32767fc4",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "In BpfRingbuf, `Init` is protected. The only way to create an instance is with the constructor (which aborts) or `Create` (which returns `unique_ptr`). The nice part is that you won\u0027t ever have an uninitialized or failed-initialized instance. However, I suppose that does diverge from what BpfMap does...\n\nSo with the code today, using `unique_ptr` allows using `Create` and defer initialization until OnStart. Had this use the abort constructor instead, it would be harder to test and need to be initialized upon registration, shortly after boot.\n\nMaking `Init` public would allow deferring initialization as well, but I typically use this pattern based on the advice in https://abseil.io/tips/42. If you want it consistent with BpfMap, I can go add that.",
+      "parentUuid": "cf56a653_70999042",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 18
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6f90743_43bcc7b3",
         "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
         "patchSetId": 7
@@ -336,6 +648,30 @@
       "writtenOn": "2023-01-23T19:24:43Z",
       "side": 1,
       "message": "this is spurious since we\u0027re in android::bpf:: right?",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 16
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "912d4c40_f0e55119",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T21:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6f90743_43bcc7b3",
       "range": {
         "startLine": 48,
         "startChar": 2,
