@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15096dcb_848f919a",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-01-23T04:30:29Z",
+      "side": 1,
+      "message": "+1, sounds like it is a place for using Shim?",
+      "parentUuid": "e26b2c7a_6f6069c5",
+      "range": {
+        "startLine": 755,
+        "startChar": 12,
+        "endLine": 755,
+        "endChar": 22
+      },
+      "revId": "02d143b0448e67c59c5daa6fae85cc8bd8df9abf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d338ebb_8ca0df23",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 2

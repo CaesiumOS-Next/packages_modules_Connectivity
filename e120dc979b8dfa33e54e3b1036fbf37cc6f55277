@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8583c150_96dff320",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-01-23T04:30:29Z",
+      "side": 1,
+      "message": "Do we add this log on purpose? Or we just forget the clean it up?",
+      "revId": "e120dc979b8dfa33e54e3b1036fbf37cc6f55277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "995d4e60_9083d23c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-01-23T04:30:29Z",
+      "side": 1,
+      "message": "I don\u0027t think the test name here is meaningful...",
+      "revId": "e120dc979b8dfa33e54e3b1036fbf37cc6f55277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
