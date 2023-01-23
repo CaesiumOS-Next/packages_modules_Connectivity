@@ -203,7 +203,6 @@ def enable_modp_b64(module, arch):
     module.static_libs.add('libmodpb64')
   else:
     module.arch[arch].static_libs.add('libmodpb64')
-
 def enable_zlib(module, arch):
   # Requires crrev/c/4109079
   if arch is None:
@@ -220,8 +219,23 @@ builtin_deps = {
         lambda m, a: None,
     '//net/tools/root_store_tool:root_store_tool':
         lambda m, a: None,
+    '//base/third_party/xdg_mime:xdg_mime':
+    # The licensing of xdg_mime is restricted as it's a dual license of AFL-2.0 and LGPL-2.0
+    # See https://cs.android.com/android/platform/superproject/+/master:build/soong/licenses/Android.bp;l=62
+    # and https://cs.android.com/android/platform/superproject/+/master:build/soong/licenses/Android.bp;l=846
+    # xdg_mime is only used in the host code calls so it can be safely removed for cronet.
+      lambda m, a: None,
     '//third_party/zlib:zlib':
         enable_zlib,
+}
+
+def remove_xdg_mime_reference(module):
+    if 'host' in module.target:
+        module.target['host'].srcs.remove('base/nix/mime_util_xdg.cc')
+
+PROCESSING_POST_MODULE_CREATION = {
+    '//base:base':
+      remove_xdg_mime_reference,
 }
 
 experimental_android_deps = {
@@ -1548,6 +1562,8 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
       else:
         raise Error('Unsupported arch-specific dependency %s of target %s with type %s' %
                     (dep_module.name, target.name, dep_module.type))
+  if gn_target_name in PROCESSING_POST_MODULE_CREATION:
+      PROCESSING_POST_MODULE_CREATION[gn_target_name](module)
   return module
 
 def create_java_jni_preprocessor(blueprint):
