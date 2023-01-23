@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a98bffc_f5d4df31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T18:16:10Z",
+      "side": 1,
+      "message": "Note on build failure: I have pending cherry-picks to tm-mainline-prod for the Perfetto changes. I\u0027ll wait until those are submitted to submit this.",
+      "revId": "be4e185b42215b2fde35f0f8a9b6974874c99e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
