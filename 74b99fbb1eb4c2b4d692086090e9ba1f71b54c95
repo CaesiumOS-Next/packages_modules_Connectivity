@@ -158,6 +158,30 @@
       },
       "revId": "74b99fbb1eb4c2b4d692086090e9ba1f71b54c95",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "553a1592_a8080a31",
+        "filename": "service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T17:21:33Z",
+      "side": 1,
+      "message": "Also: should this more closely match the logic in bpfloader - where stuff doesn\u0027t load on USER... ie. !Build.TYPE.equals(\"user\")",
+      "parentUuid": "3455cfd3_3df5154c",
+      "range": {
+        "startLine": 51,
+        "startChar": 38,
+        "endLine": 51,
+        "endChar": 97
+      },
+      "revId": "74b99fbb1eb4c2b4d692086090e9ba1f71b54c95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
