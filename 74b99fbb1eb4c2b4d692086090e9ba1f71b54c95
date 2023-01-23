@@ -89,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31a1a527_7ce12bc7",
+        "filename": "service-t/jni/com_android_server_NetworkStatsServiceInitializer.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:57:31Z",
+      "side": 1,
+      "message": "I had though the separation was better, but I\u0027ve moved it to the existing NetworkStatsService JNI/java.",
+      "parentUuid": "a221c484_e7d938df",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 35
+      },
+      "revId": "74b99fbb1eb4c2b4d692086090e9ba1f71b54c95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3effdc4a_0d6098a1",
@@ -173,6 +197,30 @@
       "writtenOn": "2023-01-23T17:21:33Z",
       "side": 1,
       "message": "Also: should this more closely match the logic in bpfloader - where stuff doesn\u0027t load on USER... ie. !Build.TYPE.equals(\"user\")",
+      "parentUuid": "3455cfd3_3df5154c",
+      "range": {
+        "startLine": 51,
+        "startChar": 38,
+        "endLine": 51,
+        "endChar": 97
+      },
+      "revId": "74b99fbb1eb4c2b4d692086090e9ba1f71b54c95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af85cb61_895ccca2",
+        "filename": "service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:57:31Z",
+      "side": 1,
+      "message": "`Build.isDebuggable()` is based on `ro.debuggable` which can be true for `user` builds when flashing with \"force debuggable\". The selinux rules are based on the build type, and do not allow `user` builds, even if debuggable.\n\nI\u0027ll change it to `type !\u003d \"user\"` to better match the bpfloader logic.",
       "parentUuid": "3455cfd3_3df5154c",
       "range": {
         "startLine": 51,
