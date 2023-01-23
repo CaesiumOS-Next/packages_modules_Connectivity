@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "519778c4_aa87435e",
+        "filename": "service-t/native/libs/libnetworkstats/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9609b22_6e9260cd",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7dbe920d_51d6f617",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-20T20:49:49Z",
       "side": 1,
       "message": "can this be \u0026\n\nI\u0027m not sure how much of this is forced by perfetto api, but if you can guarantee non-null, then const\u0026 or \u0026 seems better",
+      "range": {
+        "startLine": 47,
+        "startChar": 43,
+        "endLine": 47,
+        "endChar": 44
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36751f04_cb3b71e0",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7dbe920d_51d6f617",
       "range": {
         "startLine": 47,
         "startChar": 43,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60e95d68_8235d317",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97f59bfa_9714b521",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 49
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c77026e2_c07a5500",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-01-20T20:49:49Z",
       "side": 1,
       "message": "SLOGI vs ALOGI ?? never seen SLOG before?",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 9
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f9ad3ee_6650ce4b",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c77026e2_c07a5500",
       "range": {
         "startLine": 61,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4939ff20_98093c9e",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea744024_c29dc9c1",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 2
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d409d1d8_8b2de250",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbbf984c_65254e3f",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d409d1d8_8b2de250",
+      "range": {
+        "startLine": 55,
+        "startChar": 28,
+        "endLine": 55,
+        "endChar": 29
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4dd7d9f_bd73c47f",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-01-20T20:49:49Z",
       "side": 1,
       "message": "\u0026 ?",
+      "range": {
+        "startLine": 56,
+        "startChar": 51,
+        "endLine": 56,
+        "endChar": 52
+      },
+      "revId": "5abfce686a4d20919ffb4fa284a6f34d6fcefde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "609774c3_5c595793",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4dd7d9f_bd73c47f",
       "range": {
         "startLine": 56,
         "startChar": 51,
