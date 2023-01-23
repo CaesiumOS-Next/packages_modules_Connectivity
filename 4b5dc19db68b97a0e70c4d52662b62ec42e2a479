@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d72f6cd3_f0c4f957",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "ConsumeAll",
+      "range": {
+        "startLine": 7,
+        "startChar": 46,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1190392_947cf62b",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "considering this is expected on USER builds.. should this be only ALOGI or do you expect user builds to not even get here?",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 9
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de25ca84_4617504f",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "I guess why couldn\u0027t this just be\n\nmRingBuffer.Init(PATH)",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 71
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00d48c34_c16ff80e",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "probably should make BPF_ANY the default value in BpfMap.h",
+      "range": {
+        "startLine": 44,
+        "startChar": 51,
+        "endLine": 44,
+        "endChar": 58
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22569f40_da03d3e6",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "is this ALOGW worthy? not ALOGI or ALOGD?",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 9
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12be1866_a8612a24",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "add new line",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 2
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee3f06ad_c94fb187",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "__be16",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 8
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98ae05ad_116f095b",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "I wonder if this could be a const \u0026, or const*const",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 27
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8417a68a_7a311d79",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "does this print 0 for ingress and 1 for ingress?\n\nshould it simply print ingress / egress as text instead?",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 39
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3026340_7f24d197",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "ip\u003d",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 6
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99602133_fee684a5",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "imho it\u0027s just as long but slightly more readible:\n\nif (pkt.uid !\u003d getuid() continue\nif (pkt.sport !\u003d server_port \u0026\u0026 dport !\u003d ) continue\npackets.push_back(pkt)",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 0
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39bfec9e_87830cad",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "query? does this push a copy of pkt? or a pointer/ref to pkt?\ncause the latter would be incorrect.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 29
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "595e709d_bc1c0887",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "this is only for the PacketTrace struct def right? mention it please",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf56a653_70999042",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "I don\u0027t actually understand why this is a pointer and not just a member.\nCare to enlighten me?",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 18
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6f90743_43bcc7b3",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:24:43Z",
+      "side": 1,
+      "message": "this is spurious since we\u0027re in android::bpf:: right?",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 16
+      },
+      "revId": "4b5dc19db68b97a0e70c4d52662b62ec42e2a479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
