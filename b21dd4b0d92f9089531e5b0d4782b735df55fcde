@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fda43a0f_4791b311",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:54:26Z",
+      "side": 1,
+      "message": "can this be inside the namespace and thus without the android::bpf:: prefix?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 42
+      },
+      "revId": "b21dd4b0d92f9089531e5b0d4782b735df55fcde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4de237e2_3283050c",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:54:26Z",
+      "side": 1,
+      "message": "should this default to the 100 minimum below?\nor not have a value here at all?",
+      "range": {
+        "startLine": 62,
+        "startChar": 22,
+        "endLine": 62,
+        "endChar": 23
+      },
+      "revId": "b21dd4b0d92f9089531e5b0d4782b735df55fcde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42c0c9c4_168d07ae",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-23T19:54:26Z",
+      "side": 1,
+      "message": "spurious right?",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 16
+      },
+      "revId": "b21dd4b0d92f9089531e5b0d4782b735df55fcde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
