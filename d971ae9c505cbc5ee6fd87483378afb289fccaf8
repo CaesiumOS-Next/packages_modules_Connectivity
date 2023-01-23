@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75f972f8_42bbd250",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Since these are primarily for tests, how about I keep the false return here to make it easy to test, and abort in the Perfetto handler to reduce the chance of shipping bad code?",
+      "parentUuid": "e5ee1897_7e4c1d83",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 2
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f3548514_1bb796d7",
         "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
         "patchSetId": 6
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-20T20:44:25Z",
       "side": 1,
       "message": "probably should ntohs here instead of at caller",
+      "range": {
+        "startLine": 49,
+        "startChar": 13,
+        "endLine": 49,
+        "endChar": 17
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e5c1047_de263399",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3548514_1bb796d7",
       "range": {
         "startLine": 49,
         "startChar": 13,
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-20T20:44:25Z",
       "side": 1,
       "message": "can\u0027t this just bind to port 0 and getsockname() the port number it bound to?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 1
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f72d1d1f_85425328",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f8a2732_3ebfeccb",
       "range": {
         "startLine": 43,
         "startChar": 0,
@@ -116,6 +188,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b8079ac_406b5f05",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e530e3b_d66fa395",
+      "range": {
+        "startLine": 59,
+        "startChar": 19,
+        "endLine": 59,
+        "endChar": 27
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15ba5891_e798d68a",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ab7f96f_59099e10",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 7
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2bb8331_392d5731",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-01-20T20:44:25Z",
       "side": 1,
       "message": "kTcpFlagNames perhaps? also I think capitals for flags",
+      "range": {
+        "startLine": 66,
+        "startChar": 24,
+        "endLine": 66,
+        "endChar": 33
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e821ad1b_69e35d13",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2bb8331_392d5731",
       "range": {
         "startLine": 66,
         "startChar": 24,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caccc51e_9153f722",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e53afc97_c74659ce",
+      "range": {
+        "startLine": 70,
+        "startChar": 9,
+        "endLine": 70,
+        "endChar": 19
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d92ab30_f5764ca1",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-01-20T20:44:25Z",
       "side": 1,
       "message": "seems like this might be long.\nmaybe ifindex -\u003e if or ifi\nlength -\u003e len, ipProto -\u003e proto",
+      "range": {
+        "startLine": 71,
+        "startChar": 14,
+        "endLine": 71,
+        "endChar": 22
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02ea3431_429d0410",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d92ab30_f5764ca1",
       "range": {
         "startLine": 71,
         "startChar": 14,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2200aa6e_d0a46755",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Yeah, gtest adds their own newlines so it\u0027s not needed here.",
+      "parentUuid": "794434eb_08d31968",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 14
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6f0fbf9_36181a33",
@@ -221,6 +437,30 @@
       "writtenOn": "2023-01-20T20:44:25Z",
       "side": 1,
       "message": "technically spurious",
+      "range": {
+        "startLine": 91,
+        "startChar": 42,
+        "endLine": 91,
+        "endChar": 47
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94750ece_425d4886",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6f0fbf9_36181a33",
       "range": {
         "startLine": 91,
         "startChar": 42,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b5ef179_89e8fc2c",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "I had added it to be cautious but it doesn\u0027t seem necessary on the platforms I\u0027ve tested.",
+      "parentUuid": "73399aa1_13bd629f",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 37
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f89c84e_2d28ab37",
@@ -267,6 +531,30 @@
       "writtenOn": "2023-01-20T20:44:25Z",
       "side": 1,
       "message": "server_port perhaps",
+      "range": {
+        "startLine": 110,
+        "startChar": 11,
+        "endLine": 110,
+        "endChar": 15
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6b4968d_a15aa551",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f89c84e_2d28ab37",
       "range": {
         "startLine": 110,
         "startChar": 11,
@@ -300,6 +588,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de62b22d_78e44531",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84a47691_494ba6d9",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 62
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1acd7d65_56aba7fd",
@@ -313,6 +625,30 @@
       "writtenOn": "2023-01-20T20:44:25Z",
       "side": 1,
       "message": "should this be ConsumeAll()?\n\nPollOnce would seem to imply it will handle only a single packet\nor add comment?",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 15
+      },
+      "revId": "d971ae9c505cbc5ee6fd87483378afb289fccaf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccd27427_8001821e",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-23T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1acd7d65_56aba7fd",
       "range": {
         "startLine": 38,
         "startChar": 7,
