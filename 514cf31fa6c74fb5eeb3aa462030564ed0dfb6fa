@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a392dcc5_50e194cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-24T00:01:02Z",
+      "side": 1,
+      "message": "Do you need to update CtsNetUtils as well?",
+      "revId": "514cf31fa6c74fb5eeb3aa462030564ed0dfb6fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
