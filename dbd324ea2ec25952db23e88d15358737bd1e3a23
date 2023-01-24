@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7fee6f5_1f80a941",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-24T15:04:24Z",
+      "side": 1,
+      "message": "Can you remove xdg_mime from BUILD.gn instead and regenerate the Android.bp?",
+      "revId": "dbd324ea2ec25952db23e88d15358737bd1e3a23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
