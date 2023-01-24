@@ -577,8 +577,8 @@ public class TetheringConfigurationTest {
         when(mResources.getBoolean(R.bool.config_tether_upstream_automatic))
                 .thenReturn(false);
         setTetherForceUpstreamAutomaticFlagVersion(TEST_PACKAGE_VERSION - 1);
-        assertTrue(DeviceConfigUtils.isFeatureEnabled(mMockContext, NAMESPACE_CONNECTIVITY,
-                TetheringConfiguration.TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION, APEX_NAME, false));
+        assertTrue(new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID)
+                .isForceTetheringUpstreamFlagEnabled());
 
         assertChooseUpstreamAutomaticallyIs(true);
 
@@ -605,8 +605,8 @@ public class TetheringConfigurationTest {
         when(mResources.getBoolean(R.bool.config_tether_upstream_automatic))
                 .thenReturn(false);
         setTetherForceUpstreamAutomaticFlagVersion(TEST_PACKAGE_VERSION - 1);
-        assertTrue(DeviceConfigUtils.isFeatureEnabled(mMockContext, NAMESPACE_CONNECTIVITY,
-                TetheringConfiguration.TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION, APEX_NAME, false));
+        assertTrue(new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID)
+                .isForceTetheringUpstreamFlagEnabled());
 
         assertChooseUpstreamAutomaticallyIs(true);
 

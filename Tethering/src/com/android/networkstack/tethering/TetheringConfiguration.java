@@ -22,9 +22,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE;
 import static android.net.ConnectivityManager.TYPE_MOBILE_DUN;
 import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
-import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
-import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
 
 import android.content.ContentResolver;
@@ -109,9 +107,10 @@ public class TetheringConfiguration {
      * via resource overlays, and later noticed issues. To that end, it overrides
      * config_tether_upstream_automatic when set to true.
      *
-     * This flag is enabled if !=0 and less than the module APEX version: see
-     * {@link DeviceConfigUtils#isFeatureEnabled}. It is also ignored after R, as later devices
-     * should just set config_tether_upstream_automatic to true instead.
+     * This flag was wrongly configured on the "connectivity" namespace, see
+     * {@link #isForceTetheringUpstreamFlagEnabled()}, so no other flags should follow its example. It
+     * is also ignored after R, as later devices should just set config_tether_upstream_automatic to
+     * true instead.
      */
     public static final String TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION =
             "tether_force_upstream_automatic_version";
@@ -209,7 +208,7 @@ public class TetheringConfiguration {
         // - S, T: can be enabled/disabled by resource config_tether_upstream_automatic.
         // - U+  : automatic mode only.
         final boolean forceAutomaticUpstream = SdkLevel.isAtLeastU() || (!SdkLevel.isAtLeastS()
-                && isConnectivityFeatureEnabled(ctx, TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION));
+                && isForceTetheringUpstreamFlagEnabled());
         chooseUpstreamAutomatically = forceAutomaticUpstream || getResourceBoolean(
                 res, R.bool.config_tether_upstream_automatic, false /** defaultValue */);
         preferredUpstreamIfaceTypes = getUpstreamIfaceTypes(res, isDunRequired);
@@ -596,24 +595,25 @@ public class TetheringConfiguration {
         return DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY, name);
     }
 
-    /**
-     * This is deprecated because connectivity namespace already be used for NetworkStack mainline
-     * module. Tethering should use its own namespace to roll out the feature flag.
-     * @deprecated new caller should use isTetheringFeatureEnabled instead.
-     */
-    @Deprecated
-    private boolean isConnectivityFeatureEnabled(Context ctx, String featureVersionFlag) {
-        return isFeatureEnabled(ctx, NAMESPACE_CONNECTIVITY, featureVersionFlag);
-    }
-
-    private boolean isTetheringFeatureEnabled(Context ctx, String featureVersionFlag) {
-        return isFeatureEnabled(ctx, NAMESPACE_TETHERING, featureVersionFlag);
+    @VisibleForTesting
+    protected boolean isForceTetheringUpstreamFlagEnabled() {
+        // DO NOT use code similar to the below to check whether a feature is enabled.
+        // This does manual comparisons and uses NAMESPACE_CONNECTIVITY which is not correct for
+        // the tethering module, but TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION was implemented
+        // before namespace usage had to be separated between modules, so it uses unusual logic.
+        final int flagValue = DeviceConfigUtils.getDeviceConfigPropertyInt(
+                NAMESPACE_CONNECTIVITY, TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION, 0);
+        // Features must use DeviceConfigUtils to check enable/disable status which will compare
+        // the flag value with module version to avoid unexpected behavior on rollback.
+        // TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION cannot use the utils as it uses a wrong
+        // namespace for tethering. Rolled out flag values are all much lower than module version,
+        // so just checking if the flag is >0 is enough to maintain the same behavior.
+        return flagValue > 0;
     }
 
     @VisibleForTesting
-    protected boolean isFeatureEnabled(Context ctx, String namespace, String featureVersionFlag) {
-        return DeviceConfigUtils.isFeatureEnabled(ctx, namespace, featureVersionFlag,
-                TETHERING_MODULE_NAME, false /* defaultEnabled */);
+    protected boolean isTetheringFeatureEnabled(Context ctx, String featureVersionFlag) {
+        return DeviceConfigUtils.isConnectivityFeatureEnabled(ctx, featureVersionFlag);
     }
 
     private Resources getResources(Context ctx, int subId) {
