@@ -1567,10 +1567,20 @@ public class ConnectivityManagerTest {
             }
 
             @Override
-            public boolean equals(Object o) {
-                return o.getClass() == this.getClass()
-                        && this.callbackType == ((CallbackValue) o).callbackType
-                        && this.error == ((CallbackValue) o).error;
+            public boolean equals(final Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                final CallbackValue that = (CallbackValue) o;
+
+                if (error != that.error) return false;
+                return callbackType == that.callbackType;
+            }
+
+            @Override
+            public int hashCode() {
+                // This is a perfect hash until there are 256 callbacks or 2^24 errors
+                return (callbackType.ordinal() << 24) + error;
             }
 
             @Override

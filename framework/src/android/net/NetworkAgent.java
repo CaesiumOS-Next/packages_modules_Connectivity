@@ -281,7 +281,7 @@ public abstract class NetworkAgent {
      *
      *   arg1 = the hardware slot number of the keepalive to start
      *   arg2 = interval in seconds
-     *   obj = KeepalivePacketData object describing the data to be sent
+     *   obj = AutomaticKeepaliveInfo object
      *
      * Also used internally by ConnectivityService / KeepaliveTracker, with different semantics.
      * @hide
