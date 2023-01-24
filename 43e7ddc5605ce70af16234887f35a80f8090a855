@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "542064df_ba87f733",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-24T20:34:12Z",
+      "side": 1,
+      "message": "Hi Remi, re: the conversation of the tests failing and requiring me to update the device build id, Lorenzo mentioned that we shouldn\u0027t need to do update build ids for the tests to run with the correct module code. The test should be able to install the module. I did a little research and found this[1] which I think solves the problem. Let me know if you agree.\n\nThanks.\n\n[1] go/test-mapping-mainline-user-guide#2-configure-mainline-modules-to-the-test-modules-configuration",
+      "revId": "43e7ddc5605ce70af16234887f35a80f8090a855",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
