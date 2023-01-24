@@ -42,7 +42,6 @@ import android.content.Context;
 import android.net.INetd;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
-import android.provider.DeviceConfig;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.util.ArraySet;
@@ -280,10 +279,8 @@ public class BpfNetMaps {
         if (sInitialized) return;
         if (sEnableJavaBpfMap == null) {
             sEnableJavaBpfMap = SdkLevel.isAtLeastU() ||
-                    DeviceConfigUtils.isFeatureEnabled(context,
-                    DeviceConfig.NAMESPACE_TETHERING, BPF_NET_MAPS_ENABLE_JAVA_BPF_MAP,
-                    DeviceConfigUtils.TETHERING_MODULE_NAME,
-                    false /* defaultValue */);
+                    DeviceConfigUtils.isConnectivityFeatureEnabled(context,
+                            BPF_NET_MAPS_ENABLE_JAVA_BPF_MAP);
         }
         Log.d(TAG, "BpfNetMaps is initialized with sEnableJavaBpfMap=" + sEnableJavaBpfMap);
 

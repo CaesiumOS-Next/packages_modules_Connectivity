@@ -19,7 +19,6 @@ package com.android.server;
 import static android.net.ConnectivityManager.NETID_UNSET;
 import static android.net.nsd.NsdManager.MDNS_DISCOVERY_MANAGER_EVENT;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
-import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -1256,9 +1255,8 @@ public class NsdService extends INsdManager.Stub {
          * @return true if the MdnsDiscoveryManager feature is enabled.
          */
         public boolean isMdnsDiscoveryManagerEnabled(Context context) {
-            return DeviceConfigUtils.isFeatureEnabled(context, NAMESPACE_TETHERING,
-                    MDNS_DISCOVERY_MANAGER_VERSION, DeviceConfigUtils.TETHERING_MODULE_NAME,
-                    false /* defaultEnabled */);
+            return DeviceConfigUtils.isConnectivityFeatureEnabled(context,
+                    MDNS_DISCOVERY_MANAGER_VERSION);
         }
 
         /**
@@ -1268,9 +1266,7 @@ public class NsdService extends INsdManager.Stub {
          * @return true if the MdnsAdvertiser feature is enabled.
          */
         public boolean isMdnsAdvertiserEnabled(Context context) {
-            return DeviceConfigUtils.isFeatureEnabled(context, NAMESPACE_TETHERING,
-                    MDNS_ADVERTISER_VERSION, DeviceConfigUtils.TETHERING_MODULE_NAME,
-                    false /* defaultEnabled */);
+            return DeviceConfigUtils.isConnectivityFeatureEnabled(context, MDNS_ADVERTISER_VERSION);
         }
 
         /**
