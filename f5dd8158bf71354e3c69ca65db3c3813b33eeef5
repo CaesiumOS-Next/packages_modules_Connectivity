@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fbbc967_d52cf3a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-24T09:08:34Z",
+      "side": 1,
+      "message": "is this true?",
+      "range": {
+        "startLine": 15,
+        "startChar": 19,
+        "endLine": 15,
+        "endChar": 68
+      },
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "52e2cb61_444cd789",
@@ -32,6 +55,121 @@
       "side": 1,
       "message": "I hadn\u0027t realized how late it was getting, let me try to hop on around 1-2PM EU tomorrow so there\u0027s some time to resolve comments without keeping you all evening.",
       "parentUuid": "52e2cb61_444cd789",
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "830e0c04_991cd3c6",
+        "filename": "service-t/jni/com_android_server_net_NetworkStatsService.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-24T09:08:34Z",
+      "side": 1,
+      "message": "I think android:: is likely spurious here,\nnot sure if that\u0027s a good reason to remove it though.",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 11
+      },
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60abf7c5_b6c11aeb",
+        "filename": "service-t/jni/com_android_server_net_NetworkStatsService.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-24T09:08:34Z",
+      "side": 1,
+      "message": "should really add native... prefix to these 3 method names too",
+      "range": {
+        "startLine": 113,
+        "startChar": 45,
+        "endLine": 113,
+        "endChar": 55
+      },
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e33c1728_b42113f2",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-24T09:08:34Z",
+      "side": 1,
+      "message": "spurious a::b::",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 16
+      },
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92587ec0_edebc54e",
+        "filename": "service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-24T09:08:34Z",
+      "side": 1,
+      "message": "Are you saying this is currently false on aosp/master?\nwhat about on tm-qpr-dev-plus-aosp?\n\nI\u0027d *much* prefer we had a test here that was only false up to tm-qpr-dev, but passed on tm-qpr-dev-plus-aosp (what I use for test/dev work) \u0026 aosp itself.\n\nI guess the logic could be: (U+ \u0026\u0026 !user_) || \u0027bpf map exists\u0027\n\nHowever...\n\naosp-master$ buildz\ngeneric/aosp_cf_x86_phone/vsoc_x86:UpsideDownCake/AOSP.MASTER.c7295f99/eng.maze.20230123.094632:userdebug/test-keys\n\naosp-master$ adbz shell getprop ro.build.version.codename\nUpsideDownCake\n\ntm-qpr-dev-plus-aosp$ buildz\ngoogle/bluejay/bluejay:UpsideDownCake/TM/eng.maze.20221212.172459:userdebug/dev-keys\n\ntm-qpr-dev-plus-aosp$ adbz shell getprop ro.build.version.codename\nUpsideDownCake\n\nLeads me to believe that the isAtLeastU() check will pass on both those branches already...\n\nhttps://source.corp.google.com/aosp-master/frameworks/libs/modules-utils/java/com/android/modules/utils/build/SdkLevel.java;rcl\u003dccda343c4e6d0337c4156ed85c93bb6758c268f9;l\u003d65\n\nhttps://source.corp.google.com/aosp-master/frameworks/libs/modules-utils/build/include/android-modules-utils/sdk_level.h;l\u003d57",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 33
+      },
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abc9747c_e8804379",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 3277,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-24T09:08:34Z",
+      "side": 1,
+      "message": "this could simply be public...",
+      "range": {
+        "startLine": 3277,
+        "startChar": 4,
+        "endLine": 3277,
+        "endChar": 11
+      },
       "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
