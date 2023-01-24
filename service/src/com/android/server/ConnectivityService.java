@@ -197,6 +197,7 @@ import android.net.VpnManager;
 import android.net.VpnTransportInfo;
 import android.net.metrics.IpConnectivityLog;
 import android.net.metrics.NetworkEvent;
+import android.net.metrics.WakeupEventParcel;
 import android.net.netd.aidl.NativeUidRangeConfig;
 import android.net.networkstack.ModuleNetworkStackClient;
 import android.net.networkstack.NetworkStackClientBase;
@@ -336,6 +337,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final String NETWORK_ARG = "networks";
     private static final String REQUEST_ARG = "requests";
     private static final String TRAFFICCONTROLLER_ARG = "trafficcontroller";
+
+    private static final String NFLOG_WAKEUP_PREFIX = WakeupEventParcel.IFACE_PREFIX;
 
     private static final boolean DBG = true;
     private static final boolean DDBG = Log.isLoggable(TAG, Log.DEBUG);
@@ -7754,7 +7757,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return;
         }
 
-        final String prefix = "iface:" + iface;
+        final String prefix = NFLOG_WAKEUP_PREFIX + iface;
         try {
             if (add) {
                 mNetd.wakeupAddInterface(iface, prefix, mark, mask);
