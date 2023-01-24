@@ -33,6 +33,9 @@
     <!-- Only run CtsNetHttpTestCases in MTS if the Tethering Mainline module is installed. -->
     <object type="module_controller"
             class="com.android.tradefed.testtype.suite.module.MainlineTestModuleController">
+        <!-- Tethering Module (internal version). -->
         <option name="mainline-module-package-name" value="com.google.android.tethering" />
+        <!-- Tethering Module (AOSP version). -->
+        <option name="mainline-module-package-name" value="com.android.tethering" />
     </object>
 </configuration>

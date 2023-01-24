@@ -86,6 +86,10 @@
     },
     {
       "name": "FrameworksNetIntegrationTests"
+    },
+    // Runs both NetHttpTests and CtsNetHttpTestCases
+    {
+      "name": "NetHttpCoverageTests"
     }
   ],
   "postsubmit": [
@@ -102,11 +106,6 @@
     },
     {
       "name": "FrameworksNetDeflakeTest"
-    },
-    // Run in postsubmit to confirm test passes continously since this is a new test setup
-    // TODO: move tests to presubmit
-    {
-      "name": "NetHttpTests"
     }
   ],
   "mainline-presubmit": [
@@ -191,6 +190,9 @@
     },
     {
       "name": "libnetworkstats_test[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
+    },
+    {
+      "name": "NetHttpCoverageTests[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
     }
   ],
   "mainline-postsubmit": [
