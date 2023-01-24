@@ -17,7 +17,7 @@
 package com.android.server.connectivity;
 
 import android.net.ConnectivityMetricsEvent;
-import android.os.Bundle;
+import android.net.metrics.WakeupEventParcel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -41,6 +41,24 @@ abstract public class MetricsTestUtil {
         }
         p.setDataPosition(0);
         return ev(p.readParcelable(ClassLoader.getSystemClassLoader()));
+    }
+
+    static WakeupEventParcel createWakeupEventParcel(String tag, int uid, int ether,
+            int ip, byte[] mac, String srcIp, String dstIp, int sport, int dport, long now,
+            long netHandle) {
+        WakeupEventParcel parcel = new WakeupEventParcel();
+        parcel.tag = tag;
+        parcel.uid = uid;
+        parcel.ethertype = ether;
+        parcel.ipNextHeader = ip;
+        parcel.dstHw = mac;
+        parcel.srcIp = srcIp;
+        parcel.dstIp = dstIp;
+        parcel.srcPort = sport;
+        parcel.dstPort = dport;
+        parcel.timestampNs = now;
+        parcel.netHandle = netHandle;
+        return parcel;
     }
 
     static Consumer<Parcel> aType(Class<?> c) {
