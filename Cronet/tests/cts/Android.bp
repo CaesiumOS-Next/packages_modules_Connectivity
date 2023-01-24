@@ -44,6 +44,7 @@ java_defaults {
 android_library {
     name: "CtsNetHttpTestsLib",
     sdk_version: "test_current",
+    min_sdk_version: "30",
     srcs: [
         "src/**/*.java",
         "src/**/*.kt",

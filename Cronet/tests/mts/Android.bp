@@ -20,6 +20,7 @@ package {
 android_library {
     name: "NetHttpTestsLibPreJarJar",
     srcs: [":cronet_aml_javatests_sources"],
+    min_sdk_version: "30",
     static_libs: [
         "androidx.test.ext.junit",
         "androidx.test.rules",
