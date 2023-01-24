@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d8be4f11_00817c09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-24T14:53:57Z",
+      "side": 1,
+      "message": "Removed, see below.",
+      "parentUuid": "7fbbc967_d52cf3a0",
+      "range": {
+        "startLine": 15,
+        "startChar": 19,
+        "endLine": 15,
+        "endChar": 68
+      },
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "52e2cb61_444cd789",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 9
@@ -82,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3358497f_b48fe33a",
+        "filename": "service-t/jni/com_android_server_net_NetworkStatsService.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-24T14:53:57Z",
+      "side": 1,
+      "message": "Let me add a `using` like other `android::bpf` symbols here.",
+      "parentUuid": "830e0c04_991cd3c6",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 11
+      },
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60abf7c5_b6c11aeb",
@@ -95,6 +143,30 @@
       "writtenOn": "2023-01-24T09:08:34Z",
       "side": 1,
       "message": "should really add native... prefix to these 3 method names too",
+      "range": {
+        "startLine": 113,
+        "startChar": 45,
+        "endLine": 113,
+        "endChar": 55
+      },
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f45d7730_08398e2f",
+        "filename": "service-t/jni/com_android_server_net_NetworkStatsService.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-24T14:53:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60abf7c5_b6c11aeb",
       "range": {
         "startLine": 113,
         "startChar": 45,
@@ -128,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a424fff7_92291e2b",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-24T14:53:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e33c1728_b42113f2",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 16
+      },
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92587ec0_edebc54e",
@@ -151,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0c77997_fa854231",
+        "filename": "service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-24T14:53:57Z",
+      "side": 1,
+      "message": "You\u0027re right, I see that isAtLeastU is passing in aosp now. I had originally tested this in November and recall needing to downgrade the check to isAtLeastT but perhaps I was wrong, or that it changed since then.",
+      "parentUuid": "92587ec0_edebc54e",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 33
+      },
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abc9747c_e8804379",
@@ -164,6 +284,30 @@
       "writtenOn": "2023-01-24T09:08:34Z",
       "side": 1,
       "message": "this could simply be public...",
+      "range": {
+        "startLine": 3277,
+        "startChar": 4,
+        "endLine": 3277,
+        "endChar": 11
+      },
+      "revId": "f5dd8158bf71354e3c69ca65db3c3813b33eeef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33ea5757_08a8b87b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 3277,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-01-24T14:53:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abc9747c_e8804379",
       "range": {
         "startLine": 3277,
         "startChar": 4,
