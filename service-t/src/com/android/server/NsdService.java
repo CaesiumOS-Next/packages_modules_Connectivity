@@ -1251,7 +1251,7 @@ public class NsdService extends INsdManager.Stub {
          */
         public boolean isMdnsDiscoveryManagerEnabled(Context context) {
             return DeviceConfigUtils.isFeatureEnabled(context, NAMESPACE_CONNECTIVITY,
-                    MDNS_DISCOVERY_MANAGER_VERSION, false /* defaultEnabled */);
+                    MDNS_DISCOVERY_MANAGER_VERSION, DeviceConfigUtils.TETHERING_MODULE_NAME);
         }
 
         /**
@@ -1262,7 +1262,7 @@ public class NsdService extends INsdManager.Stub {
          */
         public boolean isMdnsAdvertiserEnabled(Context context) {
             return DeviceConfigUtils.isFeatureEnabled(context, NAMESPACE_CONNECTIVITY,
-                    MDNS_ADVERTISER_VERSION, false /* defaultEnabled */);
+                    MDNS_ADVERTISER_VERSION, DeviceConfigUtils.TETHERING_MODULE_NAME);
         }
 
         /**

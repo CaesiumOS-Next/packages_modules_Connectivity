@@ -1350,9 +1350,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         /**
          * @see DeviceConfigUtils#isFeatureEnabled
          */
-        public boolean isFeatureEnabled(Context context, String name, boolean defaultEnabled) {
+        public boolean isFeatureEnabled(Context context, String name) {
             return DeviceConfigUtils.isFeatureEnabled(context, NAMESPACE_CONNECTIVITY, name,
-                    TETHERING_MODULE_NAME, defaultEnabled);
+                    TETHERING_MODULE_NAME);
         }
 
         /**
