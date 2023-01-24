@@ -98,8 +98,8 @@ public class MultinetworkPolicyTracker {
             // CONFIG_ACTIVELY_PREFER_BAD_WIFI is not a feature to be rolled out, but an override
             // for tests and an emergency kill switch (which could force the behavior on OR off).
             // As such it uses a -1/null/1 scheme, but features should use
-            // DeviceConfigUtils#isFeatureEnabled instead, to make sure rollbacks disable the
-            // feature before it's ready on R and before.
+            // DeviceConfigUtils#isConnectivityFeatureEnabled instead, to make sure rollbacks
+            // disable the feature before it's ready on R and before.
             return DeviceConfig.getInt(DeviceConfig.NAMESPACE_CONNECTIVITY,
                     CONFIG_ACTIVELY_PREFER_BAD_WIFI, 0);
         }

@@ -91,12 +91,10 @@ import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY;
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.VPN_UID;
-import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
-import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
@@ -1348,11 +1346,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         /**
-         * @see DeviceConfigUtils#isFeatureEnabled
+         * @see DeviceConfigUtils#isConnectivityFeatureEnabled
          */
-        public boolean isFeatureEnabled(Context context, String name, boolean defaultEnabled) {
-            return DeviceConfigUtils.isFeatureEnabled(context, NAMESPACE_CONNECTIVITY, name,
-                    TETHERING_MODULE_NAME, defaultEnabled);
+        public boolean isFeatureEnabled(Context context, String name) {
+            return DeviceConfigUtils.isConnectivityFeatureEnabled(context, name);
         }
 
         /**

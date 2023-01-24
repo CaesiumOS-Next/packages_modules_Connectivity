@@ -259,6 +259,9 @@ public class MdnsAdvertiser {
                 @NonNull List<LinkAddress> addresses) {
             MdnsInterfaceAdvertiser advertiser = mAllAdvertisers.get(socket);
             if (advertiser == null) {
+                if (DBG) {
+                    Log.i(TAG, "Creating MdnsInterfaceAdvertiser for network " + network);
+                }
                 advertiser = mDeps.makeAdvertiser(socket, addresses, mLooper, mPacketCreationBuffer,
                         mInterfaceAdvertiserCb);
                 mAllAdvertisers.put(socket, advertiser);
