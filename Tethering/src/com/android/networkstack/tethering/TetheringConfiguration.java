@@ -613,7 +613,7 @@ public class TetheringConfiguration {
     @VisibleForTesting
     protected boolean isFeatureEnabled(Context ctx, String namespace, String featureVersionFlag) {
         return DeviceConfigUtils.isFeatureEnabled(ctx, namespace, featureVersionFlag,
-                TETHERING_MODULE_NAME, false /* defaultEnabled */);
+                TETHERING_MODULE_NAME);
     }
 
     private Resources getResources(Context ctx, int subId) {
