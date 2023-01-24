@@ -16,6 +16,41 @@
       "message": "Do you need to update CtsNetUtils as well?",
       "revId": "514cf31fa6c74fb5eeb3aa462030564ed0dfb6fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4d64227_f072848d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1294681
+      },
+      "writtenOn": "2023-01-24T00:07:59Z",
+      "side": 1,
+      "message": "I checked CtsNetUtils; the receivers in that class are only registering for protected-broadcasts, so a flag is not required for those registrations.",
+      "parentUuid": "a392dcc5_50e194cf",
+      "revId": "514cf31fa6c74fb5eeb3aa462030564ed0dfb6fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "581d8e5a_adda3cf3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1294681
+      },
+      "writtenOn": "2023-01-24T00:07:59Z",
+      "side": 1,
+      "message": "Thanks for the review!",
+      "revId": "514cf31fa6c74fb5eeb3aa462030564ed0dfb6fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
