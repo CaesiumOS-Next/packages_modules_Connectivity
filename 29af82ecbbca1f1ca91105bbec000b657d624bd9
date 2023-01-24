@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76cb46dd_31917fc1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1664259
+      },
+      "writtenOn": "2023-01-24T17:16:51Z",
+      "side": 1,
+      "message": "As per the latest AIDL patch setHandle is handled in initOffload AIDL API . This needs to be removed and add it in initOffload call . Please check\n \nRef  : https://android-review.googlesource.com/c/platform/hardware/interfaces/+/2329897/19/tetheroffload/aidl/aidl_api/android.hardware.tetheroffload/current/android/hardware/tetheroffload/IOffload.aidl#37",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 12
+      },
+      "revId": "29af82ecbbca1f1ca91105bbec000b657d624bd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
