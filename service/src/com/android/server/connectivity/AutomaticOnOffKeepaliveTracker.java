@@ -685,7 +685,8 @@ public class AutomaticOnOffKeepaliveTracker {
          * @return whether the feature is enabled
          */
         public boolean isFeatureEnabled(@NonNull final String name) {
-            return DeviceConfigUtils.isFeatureEnabled(mContext, NAMESPACE_CONNECTIVITY, name);
+            return DeviceConfigUtils.isFeatureEnabled(mContext, NAMESPACE_CONNECTIVITY, name,
+                    DeviceConfigUtils.TETHERING_MODULE_NAME);
         }
     }
 }
