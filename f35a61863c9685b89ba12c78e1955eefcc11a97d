@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca47f199_3eb6ea59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-24T08:59:11Z",
+      "side": 1,
+      "message": "Maybe add a bit more details, saying that when called from the system server, the overload with the module name must be used, otherwise the automatically detected package name will be \"android\".\n\nMaybe also mention that all the affected features are still unused, except for NO_REMATCH_ALL_REQUESTS_ON_REGISTER which will be turned down",
+      "revId": "f35a61863c9685b89ba12c78e1955eefcc11a97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
