@@ -19,6 +19,8 @@ package com.android.server.connectivity;
 import static android.net.metrics.INetdEventListener.EVENT_GETADDRINFO;
 import static android.net.metrics.INetdEventListener.EVENT_GETHOSTBYNAME;
 
+import static com.android.server.connectivity.MetricsTestUtil.createWakeupEventParcel;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
@@ -77,6 +79,7 @@ public class IpConnectivityMetricsTest {
 
     private static final String EXAMPLE_IPV4 = "192.0.2.1";
     private static final String EXAMPLE_IPV6 = "2001:db8:1200::2:1";
+    private static final long FAKE_NET_HANDLE = new Network(2314).getNetworkHandle();
 
     private static final byte[] MAC_ADDR =
             {(byte)0x84, (byte)0xc9, (byte)0xb2, (byte)0x6a, (byte)0xed, (byte)0x4b};
@@ -606,9 +609,11 @@ public class IpConnectivityMetricsTest {
     }
 
     void wakeupEvent(String iface, int uid, int ether, int ip, byte[] mac, String srcIp,
-            String dstIp, int sport, int dport, long now) throws Exception {
-        String prefix = NetdEventListenerService.WAKEUP_EVENT_IFACE_PREFIX + iface;
-        mNetdListener.onWakeupEvent(prefix, uid, ether, ip, mac, srcIp, dstIp, sport, dport, now);
+            String dstIp, int sport, int dport, long now) {
+        String tag = NetdEventListenerService.WAKEUP_EVENT_IFACE_PREFIX + iface;
+        mNetdListener.onWakeupEventParcel(
+                createWakeupEventParcel(tag, uid, ether, ip, mac, srcIp, dstIp, sport, dport, now,
+                        FAKE_NET_HANDLE));
     }
 
     NetworkAgentInfo makeNai(int netId, boolean ipv4, boolean ipv6, long transports) {
