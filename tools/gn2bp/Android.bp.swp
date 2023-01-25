@@ -1518,7 +1518,6 @@ cc_library_static {
                 "base/files/scoped_file_linux.cc",
                 "base/memory/platform_shared_memory_mapper_posix.cc",
                 "base/memory/platform_shared_memory_region_posix.cc",
-                "base/nix/mime_util_xdg.cc",
                 "base/nix/xdg_util.cc",
                 "base/power_monitor/power_monitor_device_source_stub.cc",
                 "base/process/process_linux.cc",
@@ -1528,7 +1527,6 @@ cc_library_static {
             ],
             static_libs: [
                 "cronet_aml_base_third_party_symbolize_symbolize",
-                "cronet_aml_base_third_party_xdg_mime_xdg_mime",
                 "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs",
             ],
             cflags: [
@@ -3233,53 +3231,6 @@ cc_library_static {
         "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=0",
         "-DGLOG_EXPORT=",
-        "-DNDEBUG",
-        "-DNO_UNWIND_TABLES",
-        "-DNVALGRIND",
-        "-DOFFICIAL_BUILD",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
-        "-D_FILE_OFFSET_BITS=64",
-        "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
-        "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-msse3",
-    ],
-    local_include_dirs: [
-        "./",
-        "buildtools/third_party/libc++/",
-        "buildtools/third_party/libc++/trunk/include",
-        "buildtools/third_party/libc++abi/trunk/include",
-    ],
-    cpp_std: "c++20",
-}
-
-// GN: //base/third_party/xdg_mime:xdg_mime
-cc_library_static {
-    name: "cronet_aml_base_third_party_xdg_mime_xdg_mime",
-    srcs: [
-        "base/third_party/xdg_mime/xdgmime.c",
-        "base/third_party/xdg_mime/xdgmimealias.c",
-        "base/third_party/xdg_mime/xdgmimecache.c",
-        "base/third_party/xdg_mime/xdgmimeglob.c",
-        "base/third_party/xdg_mime/xdgmimeicon.c",
-        "base/third_party/xdg_mime/xdgmimeint.c",
-        "base/third_party/xdg_mime/xdgmimemagic.c",
-        "base/third_party/xdg_mime/xdgmimeparent.c",
-    ],
-    host_supported: true,
-    device_supported: false,
-    defaults: [
-        "cronet_aml_defaults",
-    ],
-    cflags: [
-        "-DCR_CLANG_REVISION=\"llvmorg-16-init-6578-g0d30e92f-2\"",
-        "-DCR_LIBCXX_REVISION=64d36e572d3f9719c5d75011a718f33f11126851",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
-        "-DDYNAMIC_ANNOTATIONS_ENABLED=0",
         "-DNDEBUG",
         "-DNO_UNWIND_TABLES",
         "-DNVALGRIND",
@@ -5986,7 +5937,6 @@ cc_library_static {
         host: {
             static_libs: [
                 "cronet_aml_base_third_party_symbolize_symbolize",
-                "cronet_aml_base_third_party_xdg_mime_xdg_mime",
                 "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs",
             ],
             cflags: [
@@ -9403,7 +9353,6 @@ cc_object {
         "cronet_aml_base_third_party_double_conversion_double_conversion",
         "cronet_aml_base_third_party_dynamic_annotations_dynamic_annotations",
         "cronet_aml_base_third_party_symbolize_symbolize",
-        "cronet_aml_base_third_party_xdg_mime_xdg_mime",
         "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs",
         "cronet_aml_third_party_boringssl_boringssl",
         "cronet_aml_third_party_icu_icui18n",
@@ -9533,7 +9482,6 @@ cc_binary {
         "cronet_aml_base_third_party_double_conversion_double_conversion",
         "cronet_aml_base_third_party_dynamic_annotations_dynamic_annotations",
         "cronet_aml_base_third_party_symbolize_symbolize",
-        "cronet_aml_base_third_party_xdg_mime_xdg_mime",
         "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs",
         "cronet_aml_crypto_crypto",
         "cronet_aml_third_party_boringssl_boringssl",
@@ -9600,7 +9548,6 @@ cc_object {
         "cronet_aml_base_third_party_double_conversion_double_conversion",
         "cronet_aml_base_third_party_dynamic_annotations_dynamic_annotations",
         "cronet_aml_base_third_party_symbolize_symbolize",
-        "cronet_aml_base_third_party_xdg_mime_xdg_mime",
         "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs",
         "cronet_aml_third_party_boringssl_boringssl",
         "cronet_aml_third_party_icu_icui18n",
