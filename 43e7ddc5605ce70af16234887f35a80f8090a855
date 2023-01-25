@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "78d7979f_5f7c9311",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-25T06:57:59Z",
+      "side": 1,
+      "message": "I don\u0027t think this is really what this does; MainlineTestModuleController is only used to skip the test if the module is not installed, so the change there actually allows running the test on AOSP builds that have com.android.tethering (it would already run on non-AOSP builds).\n\nAnd the config-descriptor:metadata change allows adding the test to mainline test mapping.\n\nIs that actually what you are trying to solve ? The problems with the test not passing on the release branh is fixed at this point right ?",
+      "revId": "43e7ddc5605ce70af16234887f35a80f8090a855",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "542064df_ba87f733",
@@ -14,6 +31,40 @@
       "writtenOn": "2023-01-24T20:34:12Z",
       "side": 1,
       "message": "Hi Remi, re: the conversation of the tests failing and requiring me to update the device build id, Lorenzo mentioned that we shouldn\u0027t need to do update build ids for the tests to run with the correct module code. The test should be able to install the module. I did a little research and found this[1] which I think solves the problem. Let me know if you agree.\n\nThanks.\n\n[1] go/test-mapping-mainline-user-guide#2-configure-mainline-modules-to-the-test-modules-configuration",
+      "revId": "43e7ddc5605ce70af16234887f35a80f8090a855",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eb301a2_a8917fb2",
+        "filename": "Cronet/tests/cts/AndroidTest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-25T06:57:59Z",
+      "side": 1,
+      "message": "I think this is only useful for test mapping; you should also add the cronet tests in test mapping.\n\nI think you\u0027d want to add:\n\n```\nCtsNetHttpTestCases[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]\n```\n    \nto packages/modules/Connectivity/TEST_MAPPING in the mainline-presubmit section (like CtsNetTestCasesLatestSdk).",
+      "revId": "43e7ddc5605ce70af16234887f35a80f8090a855",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eac426e0_8bc1e4c9",
+        "filename": "Cronet/tests/cts/AndroidTest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-25T06:57:59Z",
+      "side": 1,
+      "message": "It would probably be a good idea to also have a line to allow testing tethering+other connectivity modules, like:\n\n```\n\u003coption name\u003d\"config-descriptor:metadata\" key\u003d\"mainline-param\" value\u003d\"CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex\" /\u003e\n```\n    \nSee: http://go/aocs/android/platform/superproject/+/master:packages/modules/Connectivity/tests/cts/net/AndroidTestTemplate.xml;drc\u003d9e61b824042ea65f25e683ccc9faaa016742a412;l\u003d23\n\nFor example I can expect that Cronet could depend on new behavior of the dnsresolver module, so also testing with both installed would be useful.",
       "revId": "43e7ddc5605ce70af16234887f35a80f8090a855",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
