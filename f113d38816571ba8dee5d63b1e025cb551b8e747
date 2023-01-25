@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f1c2c41_edc6c39d",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-25T06:55:06Z",
+      "side": 1,
+      "message": "declare as local",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 12
+      },
+      "revId": "f113d38816571ba8dee5d63b1e025cb551b8e747",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20f7097c_a3ca5a5c",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-25T06:55:06Z",
+      "side": 1,
+      "message": "The style guide recommends brace-delimiting and quoting variables:\n```\nlocal patch_root\u003d\"${ANDROID_BUILD_TOP}/external/cronet/patches\"\n```\n\nSee go/shell-style#variable-expansion and go/shell-style#quoting.",
+      "range": {
+        "startLine": 14,
+        "startChar": 13,
+        "endLine": 14,
+        "endChar": 55
+      },
+      "revId": "f113d38816571ba8dee5d63b1e025cb551b8e747",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccddd404_7788a68e",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-25T06:55:06Z",
+      "side": 1,
+      "message": "$() syntax is preferred over `` for command substitution: go/shell-style#command-substitution.",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 49
+      },
+      "revId": "f113d38816571ba8dee5d63b1e025cb551b8e747",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77b886c2_a6a336b5",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-25T06:55:06Z",
+      "side": 1,
+      "message": "The style guide recommends declaring loop variables inside functions as locals as well: go/shell-style#control-flow.",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "f113d38816571ba8dee5d63b1e025cb551b8e747",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
