@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "596a0c42_864080ca",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-25T21:43:30Z",
+      "side": 1,
+      "message": "Care to address this TODO while you\u0027re at it? If you want to merge this CL ASAP, no need to do it in this CL, doing it in a follow-up CL is fine.",
+      "range": {
+        "startLine": 1184,
+        "startChar": 0,
+        "endLine": 1185,
+        "endChar": 90
+      },
+      "revId": "3f5018f969f977c98b012cb28be6acc42d7d7de4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
