@@ -22,6 +22,30 @@
       },
       "revId": "eb19dca3ef72231d64eaef34344e1c0e4042e7df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d7ef5eb_4cedd088",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-25T08:43:03Z",
+      "side": 1,
+      "message": "When I added double quote, linter complains\n```\nSince you double quoted this, it will not word split, and the loop will only run once.\nSee https://github.com/koalaman/shellcheck/wiki/SC2066\n```",
+      "parentUuid": "e1445953_838ab5e3",
+      "range": {
+        "startLine": 21,
+        "startChar": 15,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "eb19dca3ef72231d64eaef34344e1c0e4042e7df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
