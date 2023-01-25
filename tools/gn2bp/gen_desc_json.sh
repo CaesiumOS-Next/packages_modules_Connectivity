@@ -54,6 +54,7 @@ function gn_desc() {
     "treat_warnings_as_errors = false"
     "enable_base_tracing = false"
     "is_cronet_build = true"
+    "use_nss_certs = false"
   )
   gn_args+=("target_cpu = \"${1}\"")
 
