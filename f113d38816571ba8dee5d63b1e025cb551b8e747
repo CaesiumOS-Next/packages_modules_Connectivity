@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb74087a_7689009c",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-25T08:16:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20f7097c_a3ca5a5c",
+      "range": {
+        "startLine": 14,
+        "startChar": 13,
+        "endLine": 14,
+        "endChar": 55
+      },
+      "revId": "f113d38816571ba8dee5d63b1e025cb551b8e747",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90fbef14_b84c3ebf",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-25T08:16:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f1c2c41_edc6c39d",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 12
+      },
+      "revId": "f113d38816571ba8dee5d63b1e025cb551b8e747",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccddd404_7788a68e",
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3376b350_dd42295a",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-25T08:16:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccddd404_7788a68e",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 49
+      },
+      "revId": "f113d38816571ba8dee5d63b1e025cb551b8e747",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77b886c2_a6a336b5",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-01-25T06:55:06Z",
       "side": 1,
       "message": "The style guide recommends declaring loop variables inside functions as locals as well: go/shell-style#control-flow.",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "f113d38816571ba8dee5d63b1e025cb551b8e747",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "196f4568_525872b9",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-25T08:16:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b886c2_a6a336b5",
       "range": {
         "startLine": 17,
         "startChar": 6,
