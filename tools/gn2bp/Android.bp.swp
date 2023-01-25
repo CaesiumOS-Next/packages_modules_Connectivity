@@ -372,6 +372,7 @@ cc_library_static {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -1542,6 +1543,7 @@ cc_library_static {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -1933,6 +1935,7 @@ cc_library_static {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -2424,6 +2427,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -3134,6 +3138,7 @@ cc_library_static {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -3209,6 +3214,7 @@ cc_library_static {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -3701,6 +3707,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -3814,6 +3821,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -5950,6 +5958,7 @@ cc_library_static {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -5992,6 +6001,7 @@ cc_defaults {
             cflags: [
                 "-UANDROID",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -10249,6 +10259,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -10326,6 +10337,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -10403,6 +10415,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -10480,6 +10493,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -10557,6 +10571,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -10634,6 +10649,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -10711,6 +10727,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -10789,6 +10806,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -10866,6 +10884,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -10945,6 +10964,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11022,6 +11042,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11099,6 +11120,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11176,6 +11198,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11253,6 +11276,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11330,6 +11354,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11407,6 +11432,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11484,6 +11510,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11561,6 +11588,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11638,6 +11666,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11715,6 +11744,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11793,6 +11823,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11873,6 +11904,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -11953,6 +11985,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12033,6 +12066,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12113,6 +12147,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12193,6 +12228,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12273,6 +12309,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12350,6 +12387,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12427,6 +12465,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12507,6 +12546,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12585,6 +12625,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12662,6 +12703,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12741,6 +12783,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12824,6 +12867,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12901,6 +12945,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -12978,6 +13023,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -13055,6 +13101,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -13134,6 +13181,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -13216,6 +13264,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -13305,6 +13354,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -13382,6 +13432,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -13465,6 +13516,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -13542,6 +13594,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -13627,6 +13680,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -13708,6 +13762,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -13785,6 +13840,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -13862,6 +13918,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -14300,6 +14357,7 @@ cc_library_static {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -14465,6 +14523,7 @@ cc_object {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -15113,6 +15172,7 @@ cc_library_static {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -15402,6 +15462,7 @@ cc_library_static {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -15506,6 +15567,7 @@ cc_library_static {
             local_include_dirs: [
                 "third_party/libevent/linux/",
             ],
+            compile_multilib: "64",
         },
     },
 }
@@ -15949,6 +16011,7 @@ cc_library_static {
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
             ],
+            compile_multilib: "64",
         },
     },
 }
