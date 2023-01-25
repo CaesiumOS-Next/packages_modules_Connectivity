@@ -22,6 +22,30 @@
       },
       "revId": "3f5018f969f977c98b012cb28be6acc42d7d7de4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "541f36a5_06776ffc",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1879319
+      },
+      "writtenOn": "2023-01-25T22:00:15Z",
+      "side": 1,
+      "message": "Thank you for the review! I\u0027ll address the TODO in the follow-up CL.",
+      "parentUuid": "596a0c42_864080ca",
+      "range": {
+        "startLine": 1184,
+        "startChar": 0,
+        "endLine": 1185,
+        "endChar": 90
+      },
+      "revId": "3f5018f969f977c98b012cb28be6acc42d7d7de4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
