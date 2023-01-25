@@ -318,6 +318,9 @@ class Target(object):
     self.generated_headers = set()
     self.export_generated_headers = set()
     self.cpp_std = None
+    self.compile_multilib = None
+    if name == 'host':
+      self.compile_multilib = '64'
 
   def to_string(self, output):
     nested_out = []
@@ -338,6 +341,9 @@ class Target(object):
     self._output_field(nested_out, 'cpp_std')
 
     if nested_out:
+      # This is added here to make sure it doesn't add a `host` arch-specific module just for
+      # `compile_multilib` flag.
+      self._output_field(nested_out, 'compile_multilib')
       output.append('    %s: {' % self.name)
       for line in nested_out:
         output.append('    %s' % line)
