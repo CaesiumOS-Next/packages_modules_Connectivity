@@ -1943,7 +1943,7 @@ cc_library_static {
 cc_genrule {
     name: "cronet_aml_base_build_date",
     cmd: "$(location build/write_build_date_header.py) $(out) " +
-         "1674804594",
+         "1670872261",
     host_supported: true,
     out: [
         "base/generated_build_date.h",
@@ -5513,31 +5513,6 @@ cc_object {
     },
 }
 
-// GN: //components/nacl/common:buildflags
-cc_genrule {
-    name: "cronet_aml_components_nacl_common_buildflags",
-    cmd: "echo '--flags ENABLE_NACL=\"true\" IS_MINIMAL_TOOLCHAIN=\"false\"' | " +
-         "$(location build/write_buildflag_header.py) --output " +
-         "$(out) " +
-         "--rulename " +
-         "//components/nacl/common:buildflags " +
-         "--gen-dir " +
-         ". " +
-         "--definitions " +
-         "/dev/stdin",
-    host_supported: true,
-    device_supported: false,
-    out: [
-        "components/nacl/common/buildflags.h",
-    ],
-    tool_files: [
-        "build/write_buildflag_header.py",
-    ],
-    apex_available: [
-        "com.android.tethering",
-    ],
-}
-
 // GN: //components/prefs/android:jni_headers
 cc_genrule {
     name: "cronet_aml_components_prefs_android_jni_headers",
@@ -5862,9 +5837,7 @@ cc_library_static {
 // GN: //crypto:buildflags
 cc_genrule {
     name: "cronet_aml_crypto_buildflags",
-    cmd: "if [[ ( $$CC_ARCH == 'x86_64' && $$CC_OS == 'android' ) ]]; " +
-         "then " +
-         "echo '--flags USE_NSS_CERTS=\"false\"' | " +
+    cmd: "echo '--flags USE_NSS_CERTS=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -5872,56 +5845,7 @@ cc_genrule {
          "--gen-dir " +
          ". " +
          "--definitions " +
-         "/dev/stdin; " +
-         "fi; " +
-         "if [[ $$CC_OS != 'android' ]]; " +
-         "then " +
-         "echo '--flags USE_NSS_CERTS=\"true\"' | " +
-         "$(location build/write_buildflag_header.py) --output " +
-         "$(out) " +
-         "--rulename " +
-         "//crypto:buildflags " +
-         "--gen-dir " +
-         ". " +
-         "--definitions " +
-         "/dev/stdin; " +
-         "fi; " +
-         "if [[ ( $$CC_ARCH == 'x86' && $$CC_OS == 'android' ) ]]; " +
-         "then " +
-         "echo '--flags USE_NSS_CERTS=\"false\"' | " +
-         "$(location build/write_buildflag_header.py) --output " +
-         "$(out) " +
-         "--rulename " +
-         "//crypto:buildflags " +
-         "--gen-dir " +
-         ". " +
-         "--definitions " +
-         "/dev/stdin; " +
-         "fi; " +
-         "if [[ ( $$CC_ARCH == 'arm' && $$CC_OS == 'android' ) ]]; " +
-         "then " +
-         "echo '--flags USE_NSS_CERTS=\"false\"' | " +
-         "$(location build/write_buildflag_header.py) --output " +
-         "$(out) " +
-         "--rulename " +
-         "//crypto:buildflags " +
-         "--gen-dir " +
-         ". " +
-         "--definitions " +
-         "/dev/stdin; " +
-         "fi; " +
-         "if [[ ( $$CC_ARCH == 'arm64' && $$CC_OS == 'android' ) ]]; " +
-         "then " +
-         "echo '--flags USE_NSS_CERTS=\"false\"' | " +
-         "$(location build/write_buildflag_header.py) --output " +
-         "$(out) " +
-         "--rulename " +
-         "//crypto:buildflags " +
-         "--gen-dir " +
-         ". " +
-         "--definitions " +
-         "/dev/stdin; " +
-         "fi;",
+         "/dev/stdin",
     host_supported: true,
     out: [
         "crypto/crypto_buildflags.h",
@@ -6060,10 +5984,6 @@ cc_library_static {
             ],
         },
         host: {
-            srcs: [
-                "crypto/nss_key_util.cc",
-                "crypto/nss_util.cc",
-            ],
             static_libs: [
                 "cronet_aml_base_third_party_symbolize_symbolize",
                 "cronet_aml_base_third_party_xdg_mime_xdg_mime",
@@ -6079,18 +5999,6 @@ cc_library_static {
                 "-D_LARGEFILE64_SOURCE",
                 "-D_LARGEFILE_SOURCE",
                 "-msse3",
-            ],
-            local_include_dirs: [
-                "build/linux/debian_bullseye_amd64-sysroot/usr/include/nspr",
-                "build/linux/debian_bullseye_amd64-sysroot/usr/include/nss",
-            ],
-            generated_headers: [
-                "cronet_aml_build_chromeos_buildflags",
-                "cronet_aml_components_nacl_common_buildflags",
-            ],
-            export_generated_headers: [
-                "cronet_aml_build_chromeos_buildflags",
-                "cronet_aml_components_nacl_common_buildflags",
             ],
         },
     },
