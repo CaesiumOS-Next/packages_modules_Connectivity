@@ -85,10 +85,6 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         MockitoAnnotations.initMocks(this);
         mTestProc = TestIoUtils.createTemporaryDirectory("proc");
 
-        // The libandroid_servers which have the native method is not available to
-        // applications. So in order to have a test support native library, the native code
-        // related to networkStatsFactory is compiled to a minimal native library and loaded here.
-        System.loadLibrary("networkstatsfactorytestjni");
         doReturn(mBpfNetMaps).when(mDeps).createBpfNetMaps(any());
 
         mFactory = new NetworkStatsFactory(mContext, mDeps);

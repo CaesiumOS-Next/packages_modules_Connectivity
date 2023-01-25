@@ -97,7 +97,6 @@ android_test {
     defaults: [
         "ConnectivityTestsLatestSdkDefaults",
         "framework-connectivity-internal-test-defaults",
-        "FrameworksNetTests-jni-defaults",
         "libnetworkstackutilsjni_deps",
     ],
     manifest: "AndroidManifest_coverage.xml",

@@ -4,31 +4,6 @@ package {
 }
 
 cc_library_shared {
-    name: "libnetworkstatsfactorytestjni",
-
-    cflags: [
-        "-Wall",
-        "-Werror",
-        "-Wno-unused-parameter",
-        "-Wthread-safety",
-    ],
-
-    header_libs: ["bpf_connectivity_headers"],
-
-    srcs: [
-        ":lib_networkStatsFactory_native",
-        "test_onload.cpp",
-    ],
-
-    shared_libs: [
-        "liblog",
-        "libnativehelper",
-        "libnetdutils",
-        "libnetworkstats",
-    ],
-}
-
-cc_library_shared {
     name: "libandroid_net_frameworktests_util_jni",
     cflags: [
         "-Wall",

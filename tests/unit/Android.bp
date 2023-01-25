@@ -19,42 +19,6 @@ enable_frameworks_net_tests = true
 // may have different values depending on the branch
 // Placeholder
 
-java_defaults {
-    name: "FrameworksNetTests-jni-defaults",
-    jni_libs: [
-        "ld-android",
-        "libandroid_net_frameworktests_util_jni",
-        "libbase",
-        "libbinder",
-        "libbpf_bcc",
-        "libc++",
-        "libcrypto",
-        "libcutils",
-        "libdl_android",
-        "libhidl-gen-utils",
-        "libhidlbase",
-        "libjsoncpp",
-        "liblog",
-        "liblzma",
-        "libnativehelper",
-        "libnetdutils",
-        "libnetworkstats",
-        "libnetworkstatsfactorytestjni",
-        "libpackagelistparser",
-        "libpcre2",
-        "libselinux",
-        "libtinyxml2",
-        "libui",
-        "libunwindstack",
-        "libutils",
-        "libutilscallstack",
-        "libvndksupport",
-        "libziparchive",
-        "libz",
-        "netd_aidl_interface-V5-cpp",
-    ],
-}
-
 filegroup {
     name: "non-connectivity-module-test",
     srcs: [
@@ -140,7 +104,6 @@ android_test {
     enabled: enable_frameworks_net_tests,
     defaults: [
         "FrameworksNetTestsDefaults",
-        "FrameworksNetTests-jni-defaults",
     ],
     jarjar_rules: ":connectivity-jarjar-rules",
     test_suites: ["device-tests"],
