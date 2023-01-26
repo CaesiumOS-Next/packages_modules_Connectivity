@@ -257,8 +257,11 @@ public class MdnsRecordRepository {
 
     /**
      * Inform the repository of the latest interface addresses.
+     *
+     * @return A list of {@link MdnsAnnouncer.AnnouncementInfo} to be sent for the update.
      */
-    public void updateAddresses(@NonNull List<LinkAddress> newAddresses) {
+    public List<MdnsAnnouncer.AnnouncementInfo> updateAddresses(
+            @NonNull List<LinkAddress> newAddresses) {
         mGeneralRecords.clear();
         for (LinkAddress addr : newAddresses) {
             final String[] revDnsAddr = getReverseDnsAddress(addr.getAddress());
@@ -282,6 +285,15 @@ public class MdnsRecordRepository {
                             addr.getAddress()),
                     false /* sharedName */, false /* probing */));
         }
+        final ArrayList<MdnsAnnouncer.AnnouncementInfo> ret = new ArrayList<>(mServices.size());
+        for (int i = 0; i < mServices.size(); i++) {
+            final ServiceRegistration registration = mServices.valueAt(i);
+            // Re-announce every service that is responding
+            if (registration.exiting || registration.srvRecord.isProbing) continue;
+
+            ret.add(makeAnnouncementInfo(mServices.keyAt(i), mServices.valueAt(i)));
+        }
+        return ret;
     }
 
     /**
@@ -701,6 +713,11 @@ public class MdnsRecordRepository {
                 "Service is not registered: " + probeSuccessInfo.getServiceId());
         registration.setProbing(false);
 
+        return makeAnnouncementInfo(probeSuccessInfo.getServiceId(), registration);
+    }
+
+    private MdnsAnnouncer.AnnouncementInfo makeAnnouncementInfo(
+            int serviceId, ServiceRegistration registration) {
         final ArrayList<MdnsRecord> answers = new ArrayList<>();
         final ArrayList<MdnsRecord> additionalAnswers = new ArrayList<>();
 
@@ -717,8 +734,7 @@ public class MdnsRecordRepository {
         addNsecRecordsForUniqueNames(additionalAnswers,
                 mGeneralRecords.iterator(), registration.allRecords.iterator());
 
-        return new MdnsAnnouncer.AnnouncementInfo(probeSuccessInfo.getServiceId(),
-                answers, additionalAnswers);
+        return new MdnsAnnouncer.AnnouncementInfo(serviceId, answers, additionalAnswers);
     }
 
     /**

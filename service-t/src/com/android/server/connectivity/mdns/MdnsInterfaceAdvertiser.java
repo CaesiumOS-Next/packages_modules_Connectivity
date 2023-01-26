@@ -251,12 +251,22 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
     /**
      * Update interface addresses used to advertise.
      *
-     * This causes new address records to be announced.
+     * This causes services to be re-announced with new address records; see RFC 6762 8.4.
+     * Technically only the address records need to be re-announced, but some resolvers (for example
+     * the upstream implementation of MdnsDiscoveryManager) only look at replies that include their
+     * queried service type.
+     *
+     * Resolvers can determine that previous addresses have expired by looking at the NSEC record in
+     * the announcements, which indicates that there is no other A/AAAA record.
+     * TODO(266777103): investigate whether that is enough for most resolvers.
      */
     public void updateAddresses(@NonNull List<LinkAddress> newAddresses) {
-        mRecordRepository.updateAddresses(newAddresses);
-        // TODO: restart advertising, but figure out what exit messages need to be sent for the
-        // previous addresses
+        for (MdnsAnnouncer.AnnouncementInfo announcement :
+                mRecordRepository.updateAddresses(newAddresses)) {
+            mAnnouncer.stop(announcement.getServiceId());
+            mAnnouncer.startSending(announcement.getServiceId(), announcement,
+                    0L /* initialDelayMs */);
+        }
     }
 
     /**
