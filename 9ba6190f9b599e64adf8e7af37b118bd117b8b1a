@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59811ec0_82d50ef0",
+        "filename": "tests/unit/jni/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-26T10:56:21Z",
+      "side": 0,
+      "message": "nits: It seems lib_networkStatsFactory_native are not used in other places, we can remove.",
+      "revId": "9ba6190f9b599e64adf8e7af37b118bd117b8b1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
