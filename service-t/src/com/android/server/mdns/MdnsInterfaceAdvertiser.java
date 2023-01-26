@@ -52,7 +52,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
     private final Callback mCb;
     // Callbacks are on the same looper thread, but posted to the next handler loop
     @NonNull
-    private final Handler mCbHandler;
+    private final Handler mHandler;
     @NonNull
     private final MdnsInterfaceSocket mSocket;
     @NonNull
@@ -82,8 +82,9 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         /**
          * Called by the advertiser when it destroyed itself.
          *
-         * This can happen after a call to {@link #destroyNow()}, or after all services were
-         * unregistered and the advertiser finished sending exit announcements.
+         * This will happen after all services were unregistered and the advertiser finished sending
+         * exit announcements. This is called on the advertiser looper (which must be used to
+         * add/remove services), and during the call the advertiser has no active service.
          */
         void onDestroyed(@NonNull MdnsInterfaceSocket socket);
     }
@@ -99,7 +100,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
             if (DBG) {
                 Log.v(mTag, "Probing finished for service " + info.getServiceId());
             }
-            mCbHandler.post(() -> mCb.onRegisterServiceSucceeded(
+            mHandler.post(() -> mCb.onRegisterServiceSucceeded(
                     MdnsInterfaceAdvertiser.this, info.getServiceId()));
             try {
                 announcementInfo = mRecordRepository.onProbingSucceeded(info);
@@ -126,10 +127,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         public void onFinished(@NonNull BaseAnnouncementInfo info) {
             if (info instanceof MdnsAnnouncer.ExitAnnouncementInfo) {
                 mRecordRepository.removeService(info.getServiceId());
-
-                if (mRecordRepository.getServicesCount() == 0) {
-                    destroyNow();
-                }
+                postDestroyIfEmpty();
             }
         }
     }
@@ -183,7 +181,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         mRecordRepository.updateAddresses(initialAddresses);
         mSocket = socket;
         mCb = cb;
-        mCbHandler = new Handler(looper);
+        mHandler = new Handler(looper);
         mReplySender = deps.makeReplySender(logTag, looper, socket, packetCreationBuffer);
         mAnnouncer = deps.makeMdnsAnnouncer(logTag, looper, mReplySender,
                 mAnnouncingCallback);
@@ -231,7 +229,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         mAnnouncer.stop(id);
         final MdnsAnnouncer.ExitAnnouncementInfo exitInfo = mRecordRepository.exitService(id);
         if (exitInfo != null) {
-            // This effectively schedules destroyNow(), as it is to be called when the exit
+            // This effectively schedules postDestroyIfEmpty(), as it is to be called when the exit
             // announcement finishes if there is no service left.
             // A non-zero exit announcement delay follows legacy mdnsresponder behavior, and is
             // also useful to ensure that when a host receives the exit announcement, the service
@@ -242,9 +240,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         } else {
             // No exit announcement necessary: remove the service immediately.
             mRecordRepository.removeService(id);
-            if (mRecordRepository.getServicesCount() == 0) {
-                destroyNow();
-            }
+            postDestroyIfEmpty();
         }
     }
 
@@ -262,7 +258,8 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
     /**
      * Destroy the advertiser immediately, not sending any exit announcement.
      *
-     * <p>Useful when the underlying network went away. This will trigger an onDestroyed callback.
+     * <p>Useful when the underlying network went away.
+     * {@link Callback#onDestroyed(MdnsInterfaceSocket)} will not be called.
      */
     public void destroyNow() {
         for (int serviceId : mRecordRepository.clearServices()) {
@@ -271,7 +268,14 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         }
         mReplySender.cancelAll();
         mSocket.removePacketHandler(this);
-        mCbHandler.post(() -> mCb.onDestroyed(mSocket));
+    }
+
+    private void postDestroyIfEmpty() {
+        mHandler.post(() -> {
+            if (mRecordRepository.getServicesCount() > 0) return;
+            destroyNow();
+            mCb.onDestroyed(mSocket);
+        });
     }
 
     /**
@@ -329,7 +333,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         }
 
         for (int conflictServiceId : mRecordRepository.getConflictingServices(packet)) {
-            mCbHandler.post(() -> mCb.onServiceConflict(this, conflictServiceId));
+            mHandler.post(() -> mCb.onServiceConflict(this, conflictServiceId));
         }
 
         // Even in case of conflict, add replies for other services. But in general conflicts would
