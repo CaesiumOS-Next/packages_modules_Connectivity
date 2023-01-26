@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49c1848d_8bd1351d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-26T03:40:01Z",
+      "side": 1,
+      "message": "nits: newline?",
+      "range": {
+        "startLine": 111,
+        "startChar": 99,
+        "endLine": 111,
+        "endChar": 100
+      },
+      "revId": "dc14b3266277555b3923e831ccd5841ce97a874e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cccdad94_e9a22a8a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-26T03:40:01Z",
+      "side": 1,
+      "message": "This changed the namespace from NAMESPACE_CONNECTIVITY to NAMESPACE_TETHERING but this is on purpose, right?",
+      "revId": "dc14b3266277555b3923e831ccd5841ce97a874e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a6013b9_31f11fe4",
+        "filename": "service-t/src/com/android/server/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-26T03:40:01Z",
+      "side": 1,
+      "message": "Looks unrelated to this CL.",
+      "revId": "dc14b3266277555b3923e831ccd5841ce97a874e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a2a9077_4eb52a14",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1352,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-26T03:40:01Z",
+      "side": 1,
+      "message": "This changed the namespace from NAMESPACE_CONNECTIVITY to NAMESPACE_TETHERING.\nnot sure if it\u0027s on purpose.",
+      "revId": "dc14b3266277555b3923e831ccd5841ce97a874e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4435efc4_55b835fa",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-26T03:40:01Z",
+      "side": 1,
+      "message": "This changed the namespace from NAMESPACE_CONNECTIVITY to NAMESPACE_TETHERING.\nnot sure if it\u0027s on purpose.",
+      "revId": "dc14b3266277555b3923e831ccd5841ce97a874e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
