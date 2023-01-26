@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8fd4146_af91ea3d",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-26T13:10:08Z",
+      "side": 1,
+      "message": "Use the `buildUrlRequest` method. It\u0027s in UrlRequestTest, consider exporting to utils.",
+      "revId": "44563b5e9c3c85deeb10a001a4657893bf9d5499",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
