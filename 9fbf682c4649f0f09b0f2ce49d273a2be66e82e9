@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a72ce870_af11c609",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-26T02:32:51Z",
+      "side": 1,
+      "message": "Nit: maybe this would make it simpler to see what\u0027s happening in each case ?\n\n    if (autoOnOff) {\n        mAutomaticOnOffState \u003d STATE_DISABLED;\n        mFd \u003d null; // See suggestion below\n        mTcpPollingAlarm \u003d null;\n        \n        // Maybe not necessary anymore ?\n        if (ki.mFd \u003d\u003d null) throw...\n        \n        return;\n    }\n\n    mAutomaticOnOffState \u003d STATE_ENABLED;\n    [...]",
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5ae9bce_da19b5a8",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-26T02:32:51Z",
+      "side": 1,
+      "message": "Nit: suggest inverting the condition so the comment above is closer to the code that handles that case",
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa1229e_f7df856c",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-26T02:32:51Z",
+      "side": 1,
+      "message": "Can this be avoided when autoOnOff \u003d\u003d false ? This would help ensure that there is no change in keepalive code when the feature is not used, and avoid the unnecessary dup. The polling alarm is already set to null when disabled.",
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af65347b_ceb5eae9",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-26T02:32:51Z",
+      "side": 1,
+      "message": "Similarly to the case above where autoKi is null, is it possible that a keepalive gets removed and another re-added with the same slot ? In that case it could be a non-auto one ?\n\nSimilarly to what you are doing with CMD_START_SOCKET_KEEPALIVE, maybe CMD_MONITOR_AUTOMATIC_KEEPALIVE should take an AutomaticOnOffKeepalive as msg.obj too. Then when receiving the message, do mAutomaticOnOffKeepalives.contains to make sure it wasn\u0027t removed in the meantime, for example.",
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f714bcf7_697991d1",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-26T02:32:51Z",
+      "side": 1,
+      "message": "How about forcing the state to DISABLED when the feature is disabled instead ? I think this would avoid potential confusion where it\u0027s ENABLED but not actually active because the feature is not; instead it would make it the same as if the caller did not set the flag (a well-known code path)",
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "027e5e80_24471b4c",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-26T02:32:51Z",
+      "side": 1,
+      "message": "Supernit: suggest making this take a KeepaliveInfo instead, to mirror handleResumeKeepalive",
+      "range": {
+        "startLine": 381,
+        "startChar": 55,
+        "endLine": 381,
+        "endChar": 78
+      },
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efbc417a_d731e168",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-26T02:32:51Z",
+      "side": 1,
+      "message": "Not really a problem with this change, but by the time this method is called, the AutomaticOnOffKeepalive could be using a different slot from the one the app knew about when it called stop() right ?\n\nThere\u0027s a TODO in SocketKeepalive.java saying: \"TODO: remove slot since mCallback could be used to identify which keepalive to stop.\"\n\nIn general, in the presence of changing slots this findAutomaticOnOffKeepalive(network, slot) method seems evil (see also comment on handleMonitorAutomaticKeepalive). I think some refactoring to ultimately remove it would avoid bugs.",
+      "range": {
+        "startLine": 391,
+        "startChar": 47,
+        "endLine": 391,
+        "endChar": 74
+      },
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deead90b_7012baf9",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-26T02:32:51Z",
+      "side": 1,
+      "message": "Should this not stop if the state is STATE_DISABLED too ? (for non-auto keepalives)\n\nThis makes me think that STATE_DISABLED is a bit confusing as it sounds like keepalives are disabled in general (which was the case in older patches I think ?). Maybe STATE_NO_AUTO_ONOFF or something else ?",
+      "range": {
+        "startLine": 398,
+        "startChar": 43,
+        "endLine": 398,
+        "endChar": 58
+      },
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad8aaa23_76de372b",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-26T02:32:51Z",
+      "side": 1,
+      "message": "Nit: you could consider adding an AutomaticOnOffKeepalive.destroy() method or similar, and calling mAutomaticOnOffKeepalives.remove after calling it. This would make it easier to track what needs to be cleaned up in AutomaticOnOffKeepalive",
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efbdd73d_aa73a758",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-26T02:32:51Z",
+      "side": 1,
+      "message": "Nit: suggest returning early if null",
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
