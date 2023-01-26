@@ -34,6 +34,24 @@
       "parentUuid": "969b5f3d_759cc349",
       "revId": "7a5ed21079d83fc9b3271e7fd6040f90ffd45ca6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb8f1f82_37168f3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-01-26T16:23:58Z",
+      "side": 1,
+      "message": "It doesn\u0027t compile on mainline_prod. Look at this https://android-build.googleplex.com/builds/pending/P48550892/test_suites_x86_64/latest/view/logs/build_error.log\n\nFrom this CL https://android-review.git.corp.google.com/c/platform/external/cronet/+/2395712/7?checksRunsSelected\u003dtest_suites_x86_64:git_tm-mainline-prod\u0026tab\u003dchecks",
+      "parentUuid": "969b5f3d_759cc349",
+      "revId": "7a5ed21079d83fc9b3271e7fd6040f90ffd45ca6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
