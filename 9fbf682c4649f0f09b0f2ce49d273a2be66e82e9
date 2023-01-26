@@ -176,6 +176,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "044b3c9b_0f8aed1b",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-26T11:59:08Z",
+      "side": 1,
+      "message": "Made it an inner class instead, which is what I was going to do anyway. Not sure if it eventually stays this way, but it will be for a while.",
+      "parentUuid": "87415402_eb70b40d",
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "027e5e80_24471b4c",
@@ -307,6 +325,30 @@
       "side": 1,
       "message": "Yes it should and it does (STATE_DISABLED !\u003d STATE_SUSPENDED)\n\nRenamed STATE_DISABLED into STATE_UNMANAGED and added a comment here.",
       "parentUuid": "deead90b_7012baf9",
+      "range": {
+        "startLine": 398,
+        "startChar": 43,
+        "endLine": 398,
+        "endChar": 58
+      },
+      "revId": "9fbf682c4649f0f09b0f2ce49d273a2be66e82e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e75a15fa_19481a25",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-26T11:59:08Z",
+      "side": 1,
+      "message": "Decided to rename to STATE_ALWAYS_ON instead of UNMANAGED, because this class still manages it",
+      "parentUuid": "6ab50aa3_a04bc05a",
       "range": {
         "startLine": 398,
         "startChar": 43,
