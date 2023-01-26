@@ -36,6 +36,7 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
+import kotlin.test.fail
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -43,6 +44,8 @@ import org.junit.runner.RunWith
 
 private const val TEST_SERVICE_ID_1 = 42
 private const val TEST_SERVICE_ID_2 = 43
+private const val TEST_SERVICE_ID_3 = 44
+private const val TEST_SERVICE_ID_4 = 45
 private const val TEST_PORT = 12345
 private val TEST_HOSTNAME = arrayOf("Android_000102030405060708090A0B0C0D0E0F", "local")
 private val TEST_ADDRESSES = listOf(
@@ -59,6 +62,18 @@ private val TEST_SERVICE_1 = NsdServiceInfo().apply {
 private val TEST_SERVICE_2 = NsdServiceInfo().apply {
     serviceType = "_testservice._tcp"
     serviceName = "MyOtherTestService"
+    port = TEST_PORT
+}
+
+private val TEST_SERVICE_3 = NsdServiceInfo().apply {
+    serviceType = "_testservice._tcp"
+    serviceName = "MyThirdTestService"
+    port = TEST_PORT
+}
+
+private val TEST_SERVICE_4 = NsdServiceInfo().apply {
+    serviceType = "_testservice._tcp"
+    serviceName = "MyFourthTestService"
     port = TEST_PORT
 }
 
@@ -457,6 +472,67 @@ class MdnsRecordRepositoryTest {
 
         // Above records are identical to the actual registrations: no conflict
         assertEquals(emptySet(), repository.getConflictingServices(packet))
+    }
+
+    @Test
+    fun testUpdateAddresses() {
+        val repository = MdnsRecordRepository(thread.looper, deps)
+        repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        // Keep as probing
+        repository.addService(TEST_SERVICE_ID_2, TEST_SERVICE_2)
+        repository.setServiceProbing(TEST_SERVICE_ID_2)
+
+        // Set as exiting
+        repository.addService(TEST_SERVICE_ID_3, TEST_SERVICE_3)
+        val probingInfo3 = repository.setServiceProbing(TEST_SERVICE_ID_3)
+        repository.onProbingSucceeded(probingInfo3)
+        repository.exitService(TEST_SERVICE_ID_3)
+
+        // Set active (like TEST_SERVICE_1)
+        repository.addService(TEST_SERVICE_ID_4, TEST_SERVICE_4)
+        val probingInfo4 = repository.setServiceProbing(TEST_SERVICE_ID_4)
+        repository.onProbingSucceeded(probingInfo4)
+
+        val newAddresses = listOf(
+                LinkAddress(parseNumericAddress("192.0.2.111"), 24),
+                LinkAddress(parseNumericAddress("2001:db8::333"), 64))
+        val announcements = repository.updateAddresses(newAddresses)
+
+        assertEquals(2, announcements.size)
+        val service1Announcements = announcements.find { it.serviceId == TEST_SERVICE_ID_1 }
+                ?: fail("Missing announcements for service 1")
+        assertTrue(service1Announcements.getPacket(0).answers.any {
+            it.name.contentEquals(
+                    arrayOf("MyTestService", "_testservice", "_tcp", "local")) &&
+                    it.type == MdnsRecord.TYPE_SRV
+        })
+        val service4Announcements = announcements.find { it.serviceId == TEST_SERVICE_ID_4 }
+                ?: fail("Missing announcements for service 4")
+        assertTrue(service4Announcements.getPacket(0).answers.any {
+            it.name.contentEquals(
+                    arrayOf("MyFourthTestService", "_testservice", "_tcp", "local")) &&
+                    it.type == MdnsRecord.TYPE_SRV
+        })
+
+        announcements.forEach { a ->
+            val packet = a.getPacket(0)
+            val aRecords = packet.answers.filter { it.type == MdnsRecord.TYPE_A }
+            assertEquals(1, aRecords.size)
+            val aaaaRecords = packet.answers.filter { it.type == MdnsRecord.TYPE_AAAA }
+            assertEquals(1, aaaaRecords.size)
+
+            assertEquals(MdnsInetAddressRecord(TEST_HOSTNAME,
+                    0L /* receiptTimeMillis */,
+                    true /* cacheFlush */,
+                    120000L /* ttlMillis */,
+                    newAddresses[0].address), aRecords[0])
+
+            assertEquals(MdnsInetAddressRecord(TEST_HOSTNAME,
+                    0L /* receiptTimeMillis */,
+                    true /* cacheFlush */,
+                    120000L /* ttlMillis */,
+                    newAddresses[1].address), aaaaRecords[0])
+        }
     }
 }
 

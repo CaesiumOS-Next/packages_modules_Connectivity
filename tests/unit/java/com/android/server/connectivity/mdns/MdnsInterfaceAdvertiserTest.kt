@@ -47,6 +47,7 @@ import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.eq
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.never
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 
@@ -254,6 +255,22 @@ class MdnsInterfaceAdvertiserTest {
         advertiser.renameServiceForConflict(TEST_SERVICE_ID_1, TEST_SERVICE_1)
 
         verify(prober).restartForConflict(mockProbingInfo)
+    }
+
+    @Test
+    fun testUpdateAddresses() {
+        addServiceAndFinishProbing(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        val announcementInfo = AnnouncementInfo(TEST_SERVICE_ID_1,
+                emptyList() /* announcedRecords */, emptyList() /* additionalRecords */)
+        val newAddresses = listOf(LinkAddress(parseNumericAddress("192.0.2.123"), 24))
+        doReturn(listOf(announcementInfo)).`when`(repository).updateAddresses(newAddresses)
+
+        verify(announcer, never()).stop(anyInt())
+
+        advertiser.updateAddresses(newAddresses)
+
+        verify(announcer).stop(TEST_SERVICE_ID_1)
+        verify(announcer).startSending(TEST_SERVICE_ID_1, announcementInfo, 0L)
     }
 
     private fun addServiceAndFinishProbing(serviceId: Int, serviceInfo: NsdServiceInfo):
