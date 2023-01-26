@@ -137,14 +137,18 @@ public class MdnsAdvertiser {
 
         @Override
         public void onDestroyed(@NonNull MdnsInterfaceSocket socket) {
-            for (int i = mAdvertiserRequests.size() - 1; i >= 0; i--) {
-                if (mAdvertiserRequests.valueAt(i).onAdvertiserDestroyed(socket)) {
-                    mAdvertiserRequests.removeAt(i);
-                }
-            }
-            mAllAdvertisers.remove(socket);
+            handleAdvertiserDestroyed(socket);
         }
     };
+
+    private void handleAdvertiserDestroyed(@NonNull MdnsInterfaceSocket socket) {
+        for (int i = mAdvertiserRequests.size() - 1; i >= 0; i--) {
+            if (mAdvertiserRequests.valueAt(i).onAdvertiserDestroyed(socket)) {
+                mAdvertiserRequests.removeAt(i);
+            }
+        }
+        mAllAdvertisers.remove(socket);
+    }
 
     private boolean hasAnyConflict(
             @NonNull BiPredicate<Network, InterfaceAdvertiserRequest> applicableAdvertiserFilter,
@@ -279,7 +283,10 @@ public class MdnsAdvertiser {
         public void onInterfaceDestroyed(@NonNull Network network,
                 @NonNull MdnsInterfaceSocket socket) {
             final MdnsInterfaceAdvertiser advertiser = mAdvertisers.get(socket);
-            if (advertiser != null) advertiser.destroyNow();
+            if (advertiser != null) {
+                advertiser.destroyNow();
+                handleAdvertiserDestroyed(socket);
+            }
         }
 
         @Override

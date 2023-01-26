@@ -20,6 +20,7 @@ import android.net.InetAddresses.parseNumericAddress
 import android.net.LinkAddress
 import android.net.nsd.NsdServiceInfo
 import android.os.Build
+import android.os.Handler
 import android.os.HandlerThread
 import com.android.net.module.util.HexDump
 import com.android.server.connectivity.mdns.MdnsAnnouncer.AnnouncementInfo
@@ -47,6 +48,7 @@ import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.eq
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.never
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 
@@ -91,6 +93,8 @@ class MdnsInterfaceAdvertiserTest {
         MdnsInterfaceAdvertiser(LOG_TAG, socket, TEST_ADDRS, thread.looper, TEST_BUFFER, cb, deps)
     }
 
+    private val handler by lazy { Handler(thread.looper) }
+
     @Before
     fun setUp() {
         doReturn(repository).`when`(deps).makeRecordRepository(any())
@@ -113,8 +117,14 @@ class MdnsInterfaceAdvertiserTest {
         doAnswer { inv ->
             knownServices.contains(inv.getArgument(0))
         }.`when`(repository).hasActiveService(anyInt())
+        doAnswer {
+            knownServices.size
+        }.`when`(repository).servicesCount
+
         thread.start()
-        advertiser.start()
+        postSync {
+            advertiser.start()
+        }
 
         verify(socket).addPacketHandler(packetHandlerCaptor.capture())
         verify(deps).makeMdnsProber(any(), any(), any(), probeCbCaptor.capture())
@@ -132,39 +142,73 @@ class MdnsInterfaceAdvertiserTest {
 
         verify(announcer).startSending(TEST_SERVICE_ID_1, testAnnouncementInfo,
                 0L /* initialDelayMs */)
-
-        thread.waitForIdle(TIMEOUT_MS)
         verify(cb).onRegisterServiceSucceeded(advertiser, TEST_SERVICE_ID_1)
 
         // Remove the service: expect exit announcements
-        val testExitInfo = mock(ExitAnnouncementInfo::class.java)
+        val testExitInfo = ExitAnnouncementInfo(TEST_SERVICE_ID_1,
+                emptyList() /* announcedRecords */)
         doReturn(testExitInfo).`when`(repository).exitService(TEST_SERVICE_ID_1)
-        advertiser.removeService(TEST_SERVICE_ID_1)
+        postSync { advertiser.removeService(TEST_SERVICE_ID_1) }
 
         verify(prober).stop(TEST_SERVICE_ID_1)
         verify(announcer).stop(TEST_SERVICE_ID_1)
         verify(announcer).startSending(TEST_SERVICE_ID_1, testExitInfo, EXIT_ANNOUNCEMENT_DELAY_MS)
 
         // Exit announcements finish: the advertiser has no left service and destroys itself
-        announceCb.onFinished(testExitInfo)
+        postSync { announceCb.onFinished(testExitInfo) }
+        // Wait for callbacks posted in the last handler loop to be delivered
         thread.waitForIdle(TIMEOUT_MS)
         verify(cb).onDestroyed(socket)
+    }
+
+    @Test
+    fun testRemoveDuringProbing() {
+        val testProbingInfo = mock(ProbingInfo::class.java)
+        doReturn(TEST_SERVICE_ID_1).`when`(testProbingInfo).serviceId
+        doReturn(testProbingInfo).`when`(repository).setServiceProbing(TEST_SERVICE_ID_1)
+
+        postSync {
+            advertiser.addService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+            advertiser.removeService(TEST_SERVICE_ID_1)
+        }
+        // Wait for callbacks posted in the last handler loop to be delivered
+        thread.waitForIdle(TIMEOUT_MS)
+        verify(cb).onDestroyed(socket)
+    }
+
+    @Test
+    fun testAddAfterLastRemove() {
+        val testProbingInfo = mock(ProbingInfo::class.java)
+        doReturn(TEST_SERVICE_ID_1).`when`(testProbingInfo).serviceId
+        doReturn(testProbingInfo).`when`(repository).setServiceProbing(TEST_SERVICE_ID_1)
+
+        postSync {
+            advertiser.addService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+            advertiser.removeService(TEST_SERVICE_ID_1)
+            // Advertiser is empty at this point. Re-add a service
+            advertiser.addService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        }
+
+        // Wait for callbacks posted in the last handler loop to be delivered
+        thread.waitForIdle(TIMEOUT_MS)
+        verify(cb, never()).onDestroyed(socket)
     }
 
     @Test
     fun testDoubleRemove() {
         addServiceAndFinishProbing(TEST_SERVICE_ID_1, TEST_SERVICE_1)
 
-        val testExitInfo = mock(ExitAnnouncementInfo::class.java)
+        val testExitInfo = ExitAnnouncementInfo(TEST_SERVICE_ID_1,
+                emptyList() /* announcedRecords */)
         doReturn(testExitInfo).`when`(repository).exitService(TEST_SERVICE_ID_1)
-        advertiser.removeService(TEST_SERVICE_ID_1)
+        postSync { advertiser.removeService(TEST_SERVICE_ID_1) }
 
         verify(prober).stop(TEST_SERVICE_ID_1)
         verify(announcer).stop(TEST_SERVICE_ID_1)
         verify(announcer).startSending(TEST_SERVICE_ID_1, testExitInfo, EXIT_ANNOUNCEMENT_DELAY_MS)
 
         doReturn(false).`when`(repository).hasActiveService(TEST_SERVICE_ID_1)
-        advertiser.removeService(TEST_SERVICE_ID_1)
+        postSync { advertiser.removeService(TEST_SERVICE_ID_1) }
         // Prober, announcer were still stopped only one time
         verify(prober, times(1)).stop(TEST_SERVICE_ID_1)
         verify(announcer, times(1)).stop(TEST_SERVICE_ID_1)
@@ -185,7 +229,7 @@ class MdnsInterfaceAdvertiserTest {
                 "0000010000010000000000000C5F7465737473657276696365045F746370056C6F63616C00000C0001"
         )
         val src = InetSocketAddress(parseNumericAddress("2001:db8::456"), MdnsConstants.MDNS_PORT)
-        packetHandler.handlePacket(query, query.size, src)
+        postSync { packetHandler.handlePacket(query, query.size, src) }
 
         val packetCaptor = ArgumentCaptor.forClass(MdnsPacket::class.java)
         verify(repository).getReply(packetCaptor.capture(), eq(src))
@@ -216,7 +260,7 @@ class MdnsInterfaceAdvertiserTest {
         val query = HexDump.hexStringToByteArray("0000010000000001000000000C5F7465737473657276696" +
                 "365045F746370056C6F63616C0000100001000000000000")
         val src = InetSocketAddress(parseNumericAddress("2001:db8::456"), MdnsConstants.MDNS_PORT)
-        packetHandler.handlePacket(query, query.size, src)
+        postSync { packetHandler.handlePacket(query, query.size, src) }
 
         val packetCaptor = ArgumentCaptor.forClass(MdnsPacket::class.java)
         verify(repository).getConflictingServices(packetCaptor.capture())
@@ -231,7 +275,6 @@ class MdnsInterfaceAdvertiserTest {
             assertContentEquals(arrayOf("_testservice", "_tcp", "local"), it.answers[0].name)
         }
 
-        thread.waitForIdle(TIMEOUT_MS)
         verify(cb).onServiceConflict(advertiser, TEST_SERVICE_ID_1)
     }
 
@@ -240,7 +283,7 @@ class MdnsInterfaceAdvertiserTest {
         val mockProbingInfo = mock(ProbingInfo::class.java)
         doReturn(mockProbingInfo).`when`(repository).setServiceProbing(TEST_SERVICE_ID_1)
 
-        advertiser.restartProbingForConflict(TEST_SERVICE_ID_1)
+        postSync { advertiser.restartProbingForConflict(TEST_SERVICE_ID_1) }
 
         verify(prober).restartForConflict(mockProbingInfo)
     }
@@ -251,7 +294,7 @@ class MdnsInterfaceAdvertiserTest {
         doReturn(mockProbingInfo).`when`(repository).renameServiceForConflict(
                 TEST_SERVICE_ID_1, TEST_SERVICE_1)
 
-        advertiser.renameServiceForConflict(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        postSync { advertiser.renameServiceForConflict(TEST_SERVICE_ID_1, TEST_SERVICE_1) }
 
         verify(prober).restartForConflict(mockProbingInfo)
     }
@@ -262,14 +305,19 @@ class MdnsInterfaceAdvertiserTest {
         doReturn(serviceId).`when`(testProbingInfo).serviceId
         doReturn(testProbingInfo).`when`(repository).setServiceProbing(serviceId)
 
-        advertiser.addService(serviceId, serviceInfo)
+        postSync { advertiser.addService(serviceId, serviceInfo) }
         verify(repository).addService(serviceId, serviceInfo)
         verify(prober).startProbing(testProbingInfo)
 
         // Simulate probing success: continues to announcing
         val testAnnouncementInfo = mock(AnnouncementInfo::class.java)
         doReturn(testAnnouncementInfo).`when`(repository).onProbingSucceeded(testProbingInfo)
-        probeCb.onFinished(testProbingInfo)
+        postSync { probeCb.onFinished(testProbingInfo) }
         return testAnnouncementInfo
+    }
+
+    private fun postSync(r: () -> Unit) {
+        handler.post(r)
+        handler.waitForIdle(TIMEOUT_MS)
     }
 }
