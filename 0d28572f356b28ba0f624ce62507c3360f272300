@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "697b0afa_f6064b6d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-01-27T15:17:57Z",
+      "side": 1,
+      "message": "It seems I cannot find stop() function, was this CL depends on other one?",
+      "revId": "0d28572f356b28ba0f624ce62507c3360f272300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
