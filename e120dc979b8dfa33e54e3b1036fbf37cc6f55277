@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a889d8f5_f4e4d382",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-27T11:04:15Z",
+      "side": 1,
+      "message": "No that\u0027s on purpose, it\u0027s actually very useful when debugging test failures and flakes, as every actual callback gets logged.\n\nAdded a mention in the commit message.",
+      "parentUuid": "8583c150_96dff320",
+      "revId": "e120dc979b8dfa33e54e3b1036fbf37cc6f55277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "995d4e60_9083d23c",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-23T04:30:29Z",
       "side": 1,
       "message": "I don\u0027t think the test name here is meaningful...",
+      "revId": "e120dc979b8dfa33e54e3b1036fbf37cc6f55277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20947cdc_4c1befe1",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-27T11:04:15Z",
+      "side": 1,
+      "message": "Good point, that was a bit vague (that meant the new Java implementation as opposed to using the legacy mdnsresponder native implementation), changed to a bit more descriptive.",
+      "parentUuid": "995d4e60_9083d23c",
       "revId": "e120dc979b8dfa33e54e3b1036fbf37cc6f55277",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
