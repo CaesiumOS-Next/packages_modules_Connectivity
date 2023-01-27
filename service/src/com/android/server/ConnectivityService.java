@@ -120,6 +120,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.XmlResourceParser;
 import android.database.ContentObserver;
 import android.net.CaptivePortal;
 import android.net.CaptivePortalData;
@@ -6901,8 +6902,47 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 asUid, requests, nr, msgr, binder, callbackFlags, callingAttributionTag);
     }
 
+    private void enforceNetworkSlicePermission(String callerPackageName,
+            NetworkCapabilities networkCapabilities) {
+        ApplicationNetworkSliceCapabilities applicationNetworkCapabilities;
+        try {
+            PackageManager packageManager = mContext.getPackageManager();
+            PackageManager.Property networkSliceProperty = packageManager.getProperty(
+                    PackageManager.PROPERTY_NETWORK_SLICE_DECLARATIONS, callerPackageName
+            );
+            XmlResourceParser parser = packageManager.getResourcesForApplication(callerPackageName)
+                    .getXml(networkSliceProperty.getResourceId());
+            applicationNetworkCapabilities =
+                    ApplicationNetworkSliceCapabilities.createFromXml(parser);
+        } catch (PackageManager.NameNotFoundException ne) {
+            throw new SecurityException(
+                    "Miss " + PackageManager.PROPERTY_NETWORK_SLICE_DECLARATIONS
+                            + " property declaration");
+        } catch (Exception e) {
+            throw new SecurityException(
+                    "Network slice declaration parse failed: " + e.getMessage(), e);
+        }
+        if (networkCapabilities.hasCapability(
+                NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+                && !applicationNetworkCapabilities.isNetCapabilityPrioritizeBandwidth()) {
+            throw new SecurityException(
+                    "Miss " + ApplicationNetworkSliceCapabilities.PRIORITIZE_BANDWIDTH
+                            + " declaration");
+        }
+        if (networkCapabilities.hasCapability(
+                NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+                && !applicationNetworkCapabilities.isNetCapabilityPrioritizeLatency()) {
+            throw new SecurityException(
+                    "Miss " + ApplicationNetworkSliceCapabilities.PRIORITIZE_LATENCY
+                            + " declaration");
+        }
+    }
     private void enforceNetworkRequestPermissions(NetworkCapabilities networkCapabilities,
             String callingPackageName, String callingAttributionTag, final int callingUid) {
+        if (isTargetSdkAtleast(Build.VERSION_CODES.UPSIDE_DOWN_CAKE, callingUid,
+                callingPackageName)) {
+            enforceNetworkSlicePermission(callingPackageName, networkCapabilities);
+        }
         if (networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED) == false) {
             // For T+ devices, callers with carrier privilege could request with CBS capabilities.
             if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)
