@@ -35,6 +35,9 @@ java_test_host {
         "sts"
     ],
     data: [
+        ":CtsHostsideNetworkCapTestsAppWithoutProperty",
+        ":CtsHostsideNetworkCapTestsAppWithProperty",
+        ":CtsHostsideNetworkCapTestsAppSdk33",
         ":CtsHostsideNetworkTestsApp",
         ":CtsHostsideNetworkTestsApp2",
         ":CtsHostsideNetworkTestsAppNext",
