@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e04e2993_82b769ac",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-27T06:35:02Z",
+      "side": 1,
+      "message": "I added a todo asking to remove it from KeepaliveInfo and keep it here instead. Immediately I don\u0027t think this is too bad, seeing how we already have plenty of accesses to this member in this file, and how multiple links to death are an intended use case of them.",
+      "parentUuid": "a4a70e7c_834a8682",
+      "revId": "503ab38874cf8e944347fdde652e6a9aa7aff069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba10e45c_e446fe28",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-20T10:55:56Z",
       "side": 1,
       "message": "I think this would call unlinkToDeath, which would likely crash as it has not been registered",
+      "revId": "503ab38874cf8e944347fdde652e6a9aa7aff069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d86cc9cb_cf7f1160",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-27T06:35:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba10e45c_e446fe28",
       "revId": "503ab38874cf8e944347fdde652e6a9aa7aff069",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
