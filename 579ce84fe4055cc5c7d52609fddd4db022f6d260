@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32fcf4bb_3b96c955",
+        "filename": "service-t/src/com/android/server/mdns/MdnsAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-01-27T15:30:12Z",
+      "side": 1,
+      "message": "I am not 100% sure, if this method will always be called in same thread? Do we need synchronized statement here?",
+      "revId": "579ce84fe4055cc5c7d52609fddd4db022f6d260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
