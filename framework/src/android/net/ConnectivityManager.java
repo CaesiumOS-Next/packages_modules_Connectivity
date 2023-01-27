@@ -37,6 +37,8 @@ import android.annotation.SystemApi;
 import android.annotation.SystemService;
 import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
+import android.compat.annotation.ChangeId;
+import android.compat.annotation.EnabledAfter;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.content.ComponentName;
 import android.content.Context;
@@ -114,6 +116,19 @@ import java.util.concurrent.RejectedExecutionException;
 public class ConnectivityManager {
     private static final String TAG = "ConnectivityManager";
     private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
+
+    /**
+     * The self certified capabilities check should be enabled after android 14.
+     *
+     * <p> Checks
+     * {@link android.content.pm.PackageManager#PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES}
+     * and {@link android.net.NetworkCapabilities} for more details.
+     *
+     * @hide
+     */
+    @ChangeId
+    @EnabledAfter(targetSdkVersion = VERSION_CODES.TIRAMISU)
+    public static final long ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION = 266524688;
 
     /**
      * A change in network connectivity has occurred. A default connection has either

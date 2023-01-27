@@ -49,6 +49,8 @@
     <uses-permission android:name="android.permission.NETWORK_FACTORY" />
     <uses-permission android:name="android.permission.NETWORK_STATS_PROVIDER" />
     <uses-permission android:name="android.permission.CONTROL_OEM_PAID_NETWORK_PREFERENCE" />
+    <uses-permission android:name="android.permission.LOG_COMPAT_CHANGE" />
+    <uses-permission android:name="android.permission.READ_COMPAT_CHANGE_CONFIG" />
 
     <!-- Declare the intent that the test intends to query. This is necessary for
          UiDevice.getLauncherPackageName which is used in NetworkNotificationManagerTest

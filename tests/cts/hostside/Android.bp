@@ -38,6 +38,9 @@ java_test_host {
         ":CtsHostsideNetworkTestsApp",
         ":CtsHostsideNetworkTestsApp2",
         ":CtsHostsideNetworkTestsAppNext",
+        ":CtsHostsideNetworkCapTestsAppWithoutProperty",
+        ":CtsHostsideNetworkCapTestsAppWithProperty",
+        ":CtsHostsideNetworkCapTestsAppSdk33",
     ],
     per_testcase_directory: true,
 }

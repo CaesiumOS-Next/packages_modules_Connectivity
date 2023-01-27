@@ -34,6 +34,7 @@ import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
 import static android.net.ConnectivityManager.BLOCKED_REASON_LOCKDOWN_VPN;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
+import static android.net.ConnectivityManager.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
@@ -112,6 +113,7 @@ import android.app.AppOpsManager;
 import android.app.BroadcastOptions;
 import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
+import android.app.compat.CompatChanges;
 import android.app.usage.NetworkStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -120,6 +122,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.XmlResourceParser;
 import android.database.ContentObserver;
 import android.net.CaptivePortal;
 import android.net.CaptivePortalData;
@@ -298,6 +301,8 @@ import com.android.server.connectivity.VpnNetworkPreferenceInfo;
 import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
 
 import libcore.io.IoUtils;
+
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -889,6 +894,23 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // ConnectivitySettingsManager#INGRESS_RATE_LIMIT_BYTES_PER_SECOND}
     // Only the handler thread is allowed to access this field.
     private long mIngressRateLimit = -1;
+
+    private CompatChangesFactory mCompatChangesFactory;
+
+    /**
+     * Interface for checking compatibility of apps.
+     *
+     */
+    public interface CompatChangesFactory {
+        /**
+         * @param changeId    The ID of the compatibility change in question.
+         * @param packageName The package name of the app in question.
+         * @param user        The user that the operation is done for.
+         * @return {@code true} if the change is enabled for the current app.
+         */
+        boolean isChangeEnabled(long changeId, @NonNull String packageName,
+                @NonNull UserHandle user);
+    }
 
     /**
      * Implements support for the legacy "one network per network type" model.
@@ -1622,6 +1644,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else {
             mCdmps = null;
         }
+
+        setCompatChangesFactory(CompatChanges::isChangeEnabled);
     }
 
     /**
@@ -1715,6 +1739,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @VisibleForTesting
     void updateIngressRateLimit() {
         mHandler.sendEmptyMessage(EVENT_INGRESS_RATE_LIMIT_CHANGED);
+    }
+
+    @VisibleForTesting
+    void setCompatChangesFactory(CompatChangesFactory factory) {
+        mCompatChangesFactory = factory;
     }
 
     private void handleAlwaysOnNetworkRequest(
@@ -6901,8 +6930,55 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 asUid, requests, nr, msgr, binder, callbackFlags, callingAttributionTag);
     }
 
+    private boolean shouldCheckCapabilitiesDeclaration(
+            @NonNull final NetworkCapabilities networkCapabilities, final int callingUid,
+            @NonNull final String callingPackageName) {
+        final UserHandle user = UserHandle.getUserHandleForUid(callingUid);
+        if (!mCompatChangesFactory.isChangeEnabled(ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION,
+                callingPackageName, user)) {
+            return false;
+        }
+        if (networkCapabilities.hasCapability(
+                NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)) {
+            return true;
+        }
+        if (networkCapabilities.hasCapability(
+                NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void enforceRequestCapabilitiesDeclaration(@NonNull final String callerPackageName,
+            @NonNull final NetworkCapabilities networkCapabilities) {
+        final ApplicationSelfCertifiedNetworkCapabilities applicationNetworkCapabilities;
+        try {
+            final PackageManager packageManager = mContext.getPackageManager();
+            final PackageManager.Property networkSliceProperty = packageManager.getProperty(
+                    PackageManager.PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES, callerPackageName
+            );
+            final XmlResourceParser parser = packageManager
+                    .getResourcesForApplication(callerPackageName)
+                    .getXml(networkSliceProperty.getResourceId());
+            applicationNetworkCapabilities =
+                    ApplicationSelfCertifiedNetworkCapabilities.createFromXml(parser);
+        } catch (PackageManager.NameNotFoundException ne) {
+            throw new SecurityException(
+                    "Missing " + PackageManager.PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES
+                            + " property declaration");
+        } catch (XmlPullParserException | IOException  | InvalidTagException e) {
+            throw new SecurityException(e.getMessage());
+        }
+
+        applicationNetworkCapabilities.checkIfSelfCertifiedNetworkCapabilitiesDeclared(
+                networkCapabilities);
+    }
     private void enforceNetworkRequestPermissions(NetworkCapabilities networkCapabilities,
             String callingPackageName, String callingAttributionTag, final int callingUid) {
+        if (shouldCheckCapabilitiesDeclaration(networkCapabilities, callingUid,
+                callingPackageName)) {
+            enforceRequestCapabilitiesDeclaration(callingPackageName, networkCapabilities);
+        }
         if (networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED) == false) {
             // For T+ devices, callers with carrier privilege could request with CBS capabilities.
             if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)
