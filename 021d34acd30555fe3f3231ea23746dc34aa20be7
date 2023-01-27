@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "873be4ee_5a2a6438",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5995,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-01-27T22:25:42Z",
+      "side": 1,
+      "message": "Great. Thanks everyone. Follow-up CLs will populate the allowed UIDs on the network capabilities for default networks as per our recent design discussions so that `nc.isUidWithAccess(uid)` will take default networks into account.\n\nI\u0027ve also changed the ordering to do the less expensive checks first as suggested.",
+      "parentUuid": "7e4421b1_d6d1a266",
+      "range": {
+        "startLine": 5995,
+        "startChar": 31,
+        "endLine": 5995,
+        "endChar": 62
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e21417d_49390fbe",
@@ -260,6 +284,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c79e7a01_85b5b008",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9427,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-01-27T22:25:42Z",
+      "side": 1,
+      "message": "No, no need to backport this currently to S/T. If that need ever arises, lets discuss then. On that note, I\u0027ll change the check to Android U as discussed.",
+      "parentUuid": "7d76e124_10edd3e8",
+      "range": {
+        "startLine": 9427,
+        "startChar": 12,
+        "endLine": 9427,
+        "endChar": 33
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4609d4ab_02c26ed8",
@@ -321,6 +369,30 @@
       "side": 1,
       "message": "Splicing in the default UID in getAllowedUids sounds to me like a very reasonable strategy to implement this. It is complex and dangerous, because mutating the contents of NetworkCapabilities based on the rematch is really messy business (you can look at applyNetworkReassignment to see what it does to background networks, and that\u0027s a much streamlined version of what we used to have). Another very important point to care for is that the allowed UIDs are sent to netd ; in principle, I think always sending the default network as part of the allowed UIDs should be a no-op (and in fact allow for future simplifications), but we\u0027ll have to scrutinize this code very closely to make sure it\u0027s true.\n\nHowever, I think it\u0027s much simpler than alternatives I can think of. Alternatives require querying the default network for a UID inside `isUidPerAppRestricted` and as such requires knowing not just the NC but the `Network`. Figuring out when that changes so we can call the onBlockedStatusCallback again is really messy, while this suggestion provides a very straightforward way to deal with it.",
       "parentUuid": "44b15d7f_77d517c6",
+      "range": {
+        "startLine": 9473,
+        "startChar": 32,
+        "endLine": 9473,
+        "endChar": 93
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a35d7d7_15ad4503",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9473,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-01-27T22:25:42Z",
+      "side": 1,
+      "message": "Ok great, let\u0027s go with this approach and thank you all for the input.",
+      "parentUuid": "461452bd_a0436050",
       "range": {
         "startLine": 9473,
         "startChar": 32,
