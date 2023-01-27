@@ -109,6 +109,11 @@ apex {
                 "libframework-connectivity-jni",
                 "libframework-connectivity-tiramisu-jni"
             ],
+            native_shared_libs: [
+                "cronet_bssl",
+                "cronet_libcrypto",
+                "cronet_libssl",
+            ]
         },
     },
     binaries: [
