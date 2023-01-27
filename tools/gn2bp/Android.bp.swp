@@ -2817,7 +2817,6 @@ cc_genrule {
         "net/android/java/src/org/chromium/net/RegistrationPolicyApplicationStatus.java",
         "net/android/java/src/org/chromium/net/ThreadStatsUid.java",
         "net/android/java/src/org/chromium/net/X509Util.java",
-        "third_party/android_deps/local_modifications/preconditions/java/androidx/core/util/Preconditions.java",
         "url/android/java/src/org/chromium/url/IDNStringUtil.java",
     ],
     cmd: "current_dir=`basename \\`pwd\\``; " +
@@ -3071,7 +3070,6 @@ java_genrule {
         "net/android/java/src/org/chromium/net/RegistrationPolicyApplicationStatus.java",
         "net/android/java/src/org/chromium/net/ThreadStatsUid.java",
         "net/android/java/src/org/chromium/net/X509Util.java",
-        "third_party/android_deps/local_modifications/preconditions/java/androidx/core/util/Preconditions.java",
         "url/android/java/src/org/chromium/url/IDNStringUtil.java",
     ],
     cmd: "current_dir=`basename \\`pwd\\``; " +
@@ -4263,7 +4261,6 @@ java_library {
         "net/android/java/src/org/chromium/net/RegistrationPolicyApplicationStatus.java",
         "net/android/java/src/org/chromium/net/ThreadStatsUid.java",
         "net/android/java/src/org/chromium/net/X509Util.java",
-        "third_party/android_deps/local_modifications/preconditions/java/androidx/core/util/Preconditions.java",
         "url/android/java/src/org/chromium/url/IDNStringUtil.java",
     ],
     static_libs: [
