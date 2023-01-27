@@ -38,6 +38,9 @@ java_test_host {
         ":CtsHostsideNetworkTestsApp",
         ":CtsHostsideNetworkTestsApp2",
         ":CtsHostsideNetworkTestsAppNext",
+        ":CtsHostsideNetworkSlicingTestsApp1",
+        ":CtsHostsideNetworkSlicingTestsApp2",
+        ":CtsHostsideNetworkSlicingTestsApp3",
     ],
     per_testcase_directory: true,
 }
