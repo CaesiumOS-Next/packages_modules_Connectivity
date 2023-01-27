@@ -622,11 +622,21 @@ public final class NetworkCapabilities implements Parcelable {
 
     /**
      * Indicates that this network should be able to prioritize latency for the internet.
+     *
+     * <p> Starting from Android 14, user must explicitly declare they want to use this
+     * capability in app. Please refer to
+     * {@link android.content.pm.PackageManager#PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES} for
+     * more details.
      */
     public static final int NET_CAPABILITY_PRIORITIZE_LATENCY = 34;
 
     /**
      * Indicates that this network should be able to prioritize bandwidth for the internet.
+     *
+     * <p> Starting from Android 14, user must explicitly declare they want to use this
+     * capability in app. Please refer to
+     * {@link android.content.pm.PackageManager#PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES} for
+     * more details.
      */
     public static final int NET_CAPABILITY_PRIORITIZE_BANDWIDTH = 35;
 

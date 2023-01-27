@@ -6273,6 +6273,122 @@ public class ConnectivityServiceTest {
         }
     }
 
+//    @Test
+//    public void requestNetwork_inTargetSdkT_willByPassNetworkSliceCheck() throws Exception {
+//        doReturn(Build.VERSION_CODES.TIRAMISU).when(mPackageManager)
+//                .getTargetSdkVersion(anyString());
+//        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+//                .build();
+//        final TestNetworkCallback cb = new TestNetworkCallback();
+//        mCm.requestNetwork(networkRequest, cb);
+//    }
+//
+//    @Test
+//    public void requestNetwork_inTargetSdkU_willTriggerNetworkSliceCheck() throws Exception {
+//        doReturn(Build.VERSION_CODES.UPSIDE_DOWN_CAKE).when(mPackageManager)
+//                .getTargetSdkVersion(anyString());
+//        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+//                .build();
+//        final TestNetworkCallback cb = new TestNetworkCallback();
+//        assertThrows(SecurityException.class,
+//                () -> mCm.requestNetwork(networkRequest, cb));
+//    }
+//
+//    private void setupMockForNetworkSliceResources(int networkSliceResourceId)
+//            throws PackageManager.NameNotFoundException {
+//        PackageManager.Property property = new PackageManager.Property(
+//                PackageManager.PROPERTY_NETWORK_SLICE_DECLARATIONS,
+//                networkSliceResourceId,
+//                true /* isResource */,
+//                mContext.getPackageName(),
+//                "dummyClass"
+//        );
+//        if (networkSliceResourceId == 0) {
+//            doThrow(new PackageManager.NameNotFoundException()).when(mPackageManager).getProperty(
+//                    PackageManager.PROPERTY_NETWORK_SLICE_DECLARATIONS,
+//                    mContext.getPackageName());
+//        } else {
+//            doReturn(property).when(mPackageManager).getProperty(
+//                    PackageManager.PROPERTY_NETWORK_SLICE_DECLARATIONS,
+//                    mContext.getPackageName());
+//            doReturn(mContext.getResources()).when(mPackageManager).getResourcesForApplication(
+//                    mContext.getPackageName());
+//        }
+//    }
+//
+//    @Test
+//    public void requestNetwork_withoutPrioritizeBandwidthDeclaration_shouldThrowException()
+//            throws Exception {
+//        doReturn(Build.VERSION_CODES.UPSIDE_DOWN_CAKE).when(mPackageManager)
+//                .getTargetSdkVersion(anyString());
+//        setupMockForNetworkSliceResources(
+//                com.android.frameworks.tests.net.R.xml.network_slice_latency);
+//        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+//                .build();
+//        final TestNetworkCallback cb = new TestNetworkCallback();
+//        final Exception e = assertThrows(SecurityException.class,
+//                () -> mCm.requestNetwork(networkRequest, cb));
+//        assertEquals(e.getMessage(),
+//                "Miss " + ApplicationNetworkSliceCapabilities.PRIORITIZE_BANDWIDTH
+//                        + " declaration");
+//    }
+//
+//    @Test
+//    public void requestNetwork_withoutPrioritizeLatencyDeclaration_shouldThrowException()
+//            throws Exception {
+//        doReturn(Build.VERSION_CODES.UPSIDE_DOWN_CAKE).when(mPackageManager)
+//                .getTargetSdkVersion(anyString());
+//        setupMockForNetworkSliceResources(
+//                com.android.frameworks.tests.net.R.xml.network_slice_bandwidth);
+//        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+//                .build();
+//        final TestNetworkCallback cb = new TestNetworkCallback();
+//        final Exception e = assertThrows(SecurityException.class,
+//                () -> mCm.requestNetwork(networkRequest, cb));
+//        assertEquals(e.getMessage(),
+//                "Miss " + ApplicationNetworkSliceCapabilities.PRIORITIZE_LATENCY
+//                        + " declaration");
+//    }
+//
+//    @Test
+//    public void requestNetwork_withoutNetworkSliceProperty_shouldThrowException() throws Exception {
+//        doReturn(Build.VERSION_CODES.UPSIDE_DOWN_CAKE).when(mPackageManager)
+//                .getTargetSdkVersion(anyString());
+//        setupMockForNetworkSliceResources(0 /* networkSliceResourceId */);
+//        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+//                .build();
+//        final TestNetworkCallback cb = new TestNetworkCallback();
+//        final Exception e = assertThrows(SecurityException.class,
+//                () -> mCm.requestNetwork(networkRequest, cb));
+//        assertEquals(e.getMessage(), "Miss " + PackageManager.PROPERTY_NETWORK_SLICE_DECLARATIONS
+//                + " property declaration");
+//    }
+//
+//    @Test
+//    public void requestNetwork_withNetworkSliceDeclaration_shouldSucceed() throws Exception {
+//        doReturn(Build.VERSION_CODES.UPSIDE_DOWN_CAKE).when(mPackageManager)
+//                .getTargetSdkVersion(anyString());
+//        setupMockForNetworkSliceResources(
+//                com.android.frameworks.tests.net.R.xml.network_slice_both);
+//
+//        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+//                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+//                .build();
+//        final TestNetworkCallback cb = new TestNetworkCallback();
+//        mCm.requestNetwork(networkRequest, cb);
+//    }
+
     /**
      * Validate the service throws if request with CBS but without carrier privilege.
      */
