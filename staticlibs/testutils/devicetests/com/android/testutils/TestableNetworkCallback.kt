@@ -492,6 +492,15 @@ open class TestableNetworkCallback private constructor(
 
     fun expectAvailableThenValidatedCallbacks(
         net: Network,
+        blocked: Boolean,
+        tmt: Long = defaultTimeoutMs
+    ) {
+        expectAvailableCallbacks(net, validated = false, blocked = blocked, tmt = tmt)
+        expectCapabilitiesThat(net, tmt) { it.hasCapability(NET_CAPABILITY_VALIDATED) }
+    }
+
+    fun expectAvailableThenValidatedCallbacks(
+        net: Network,
         blockedReason: Int,
         tmt: Long = defaultTimeoutMs
     ) {
@@ -541,6 +550,10 @@ open class TestableNetworkCallback private constructor(
 
     fun expectAvailableThenValidatedCallbacks(n: HasNetwork) {
         expectAvailableThenValidatedCallbacks(n.network, defaultTimeoutMs)
+    }
+
+    fun expectAvailableAndBlockedThenValidatedCallbacks(n: HasNetwork) {
+        expectAvailableThenValidatedCallbacks(n.network, blocked = true, defaultTimeoutMs)
     }
 
     @JvmOverloads
