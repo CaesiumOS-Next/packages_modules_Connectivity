@@ -35,6 +35,7 @@ import android.os.Process;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.util.SparseIntArray;
 
 import androidx.annotation.Nullable;
 
@@ -65,7 +66,7 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
     private final TelephonyManagerShim mTelephonyManagerShim;
     private final TelephonyManager mTelephonyManager;
     @GuardedBy("mLock")
-    private int[] mCarrierServiceUid;
+    private final SparseIntArray mCarrierServiceUid = new SparseIntArray(2 /* initialCapacity */);
     @GuardedBy("mLock")
     private int mModemCount = 0;
     private final Object mLock = new Object();
@@ -247,9 +248,9 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
     @VisibleForTesting
     void updateCarrierServiceUid() {
         synchronized (mLock) {
-            mCarrierServiceUid = new int[mModemCount];
+            mCarrierServiceUid.clear();
             for (int i = 0; i < mModemCount; i++) {
-                mCarrierServiceUid[i] = getCarrierServicePackageUidForSlot(i);
+                mCarrierServiceUid.put(i, getCarrierServicePackageUidForSlot(i));
             }
         }
     }
@@ -258,11 +259,8 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
     int getCarrierServiceUidForSubId(int subId) {
         final int slotId = getSlotIndex(subId);
         synchronized (mLock) {
-            if (slotId != SubscriptionManager.INVALID_SIM_SLOT_INDEX && slotId < mModemCount) {
-                return mCarrierServiceUid[slotId];
-            }
+            return mCarrierServiceUid.get(slotId, Process.INVALID_UID);
         }
-        return Process.INVALID_UID;
     }
 
     @VisibleForTesting
