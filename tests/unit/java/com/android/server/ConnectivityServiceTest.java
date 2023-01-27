@@ -180,6 +180,8 @@ import static com.android.testutils.RecorderCallback.CallbackEntry.SUSPENDED;
 import static com.android.testutils.RecorderCallback.CallbackEntry.UNAVAILABLE;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -224,7 +226,9 @@ import android.app.BroadcastOptions;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
+import android.app.compat.CompatChanges;
 import android.app.usage.NetworkStatsManager;
+import android.compat.testing.PlatformCompatChangeRule;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentProvider;
@@ -402,6 +406,9 @@ import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.TestableNetworkCallback;
 import com.android.testutils.TestableNetworkOfferCallback;
 
+import libcore.junit.util.compat.CoreCompatChangeRule.DisableCompatChanges;
+import libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -470,6 +477,9 @@ public class ConnectivityServiceTest {
 
     @Rule
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
+    @Rule
+    public final PlatformCompatChangeRule compatChangeRule = new PlatformCompatChangeRule();
 
     private static final int TIMEOUT_MS = 2_000;
     // Broadcasts can take a long time to be delivered. The test will not wait for that long unless
@@ -1866,6 +1876,8 @@ public class ConnectivityServiceTest {
         setCaptivePortalMode(ConnectivitySettingsManager.CAPTIVE_PORTAL_MODE_PROMPT);
         setAlwaysOnNetworks(false);
         setPrivateDnsSettings(PRIVATE_DNS_MODE_OFF, "ignored.example.com");
+
+        mService.setCompatChangesFactory((changeId, packageName, user) -> false);
     }
 
     private void initMockedResources() {
@@ -6271,6 +6283,122 @@ public class ConnectivityServiceTest {
             testFactory.terminate();
             handlerThread.quit();
         }
+    }
+
+    @Test
+    @DisableCompatChanges(ConnectivityManager.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION)
+    public void requestNetwork_withCompatChangeDisabled_willByPassNetworkSliceCheck()
+            throws Exception {
+        mService.setCompatChangesFactory(CompatChanges::isChangeEnabled);
+        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+                .build();
+        final TestNetworkCallback cb = new TestNetworkCallback();
+        mCm.requestNetwork(networkRequest, cb);
+        mCm.unregisterNetworkCallback(cb);
+    }
+
+    @Test
+    @EnableCompatChanges(ConnectivityManager.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION)
+    public void requestNetwork_withCompatChangeEnabled_willTriggerNetworkSliceCheck()
+            throws Exception {
+        mService.setCompatChangesFactory(CompatChanges::isChangeEnabled);
+        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+                .build();
+        final TestNetworkCallback cb = new TestNetworkCallback();
+        assertThrows(NullPointerException.class,
+                () -> mCm.requestNetwork(networkRequest, cb));
+    }
+
+    private void setupMockForNetworkSliceResources(int networkSliceResourceId)
+            throws PackageManager.NameNotFoundException {
+        final PackageManager.Property property = new PackageManager.Property(
+                PackageManager.PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES,
+                networkSliceResourceId,
+                true /* isResource */,
+                mContext.getPackageName(),
+                "dummyClass"
+        );
+        if (networkSliceResourceId == 0) {
+            doThrow(new PackageManager.NameNotFoundException()).when(mPackageManager).getProperty(
+                    PackageManager.PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES,
+                    mContext.getPackageName());
+        } else {
+            doReturn(property).when(mPackageManager).getProperty(
+                    PackageManager.PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES,
+                    mContext.getPackageName());
+            doReturn(mContext.getResources()).when(mPackageManager).getResourcesForApplication(
+                    mContext.getPackageName());
+        }
+    }
+
+    @Test
+    @EnableCompatChanges(ConnectivityManager.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION)
+    public void requestNetwork_withoutPrioritizeBandwidthDeclaration_shouldThrowException()
+            throws Exception {
+        mService.setCompatChangesFactory(CompatChanges::isChangeEnabled);
+        setupMockForNetworkSliceResources(
+                com.android.frameworks.tests.net.R.xml.self_certified_capabilities_latency);
+        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+                .build();
+        final TestNetworkCallback cb = new TestNetworkCallback();
+        final Exception e = assertThrows(SecurityException.class,
+                () -> mCm.requestNetwork(networkRequest, cb));
+        assertThat(e.getMessage(),
+                containsString(ApplicationSelfCertifiedNetworkCapabilities.PRIORITIZE_BANDWIDTH));
+    }
+
+    @Test
+    @EnableCompatChanges(ConnectivityManager.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION)
+    public void requestNetwork_withoutPrioritizeLatencyDeclaration_shouldThrowException()
+            throws Exception {
+        mService.setCompatChangesFactory(CompatChanges::isChangeEnabled);
+        setupMockForNetworkSliceResources(
+                com.android.frameworks.tests.net.R.xml.self_certified_capabilities_bandwidth);
+        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+                .build();
+        final TestNetworkCallback cb = new TestNetworkCallback();
+        final Exception e = assertThrows(SecurityException.class,
+                () -> mCm.requestNetwork(networkRequest, cb));
+        assertThat(e.getMessage(),
+                containsString(ApplicationSelfCertifiedNetworkCapabilities.PRIORITIZE_LATENCY));
+    }
+
+    @Test
+    @EnableCompatChanges(ConnectivityManager.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION)
+    public void requestNetwork_withoutNetworkSliceProperty_shouldThrowException() throws Exception {
+        mService.setCompatChangesFactory(CompatChanges::isChangeEnabled);
+        setupMockForNetworkSliceResources(0 /* networkSliceResourceId */);
+        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+                .build();
+        final TestNetworkCallback cb = new TestNetworkCallback();
+        final Exception e = assertThrows(SecurityException.class,
+                () -> mCm.requestNetwork(networkRequest, cb));
+        assertThat(e.getMessage(),
+                containsString(PackageManager.PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES));
+    }
+
+    @Test
+    @EnableCompatChanges(ConnectivityManager.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION)
+    public void requestNetwork_withNetworkSliceDeclaration_shouldSucceed() throws Exception {
+        mService.setCompatChangesFactory(CompatChanges::isChangeEnabled);
+        setupMockForNetworkSliceResources(
+                com.android.frameworks.tests.net.R.xml.self_certified_capabilities_both);
+
+        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+                .build();
+        final TestNetworkCallback cb = new TestNetworkCallback();
+        mCm.requestNetwork(networkRequest, cb);
+        mCm.unregisterNetworkCallback(cb);
     }
 
     /**
