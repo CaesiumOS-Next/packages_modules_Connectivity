@@ -74,12 +74,12 @@ java_defaults {
 
 java_defaults {
     name: "CronetJavaDefaultsEnabled",
-    srcs: [":cronet_aml_api_sources"],
+    srcs: ["//external/cronet:cronet_aml_api_sources"],
     libs: [
         "androidx.annotation_annotation",
     ],
     impl_only_static_libs: [
-        "cronet_aml_java",
+        "//external/cronet:cronet_aml_java",
     ],
     // STOPSHIP(b/265674359): fix all Cronet lint warnings and re-enable lint
     // directly in framework-tethering
@@ -109,8 +109,8 @@ java_defaults {
 java_defaults {
   name: "CronetJavaPrejarjarDefaultsEnabled",
   static_libs: [
-    "cronet_aml_api_java",
-    "cronet_aml_java"
+    "//external/cronet:cronet_aml_api_java",
+    "//external/cronet:cronet_aml_java"
   ],
 }
 
