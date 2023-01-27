@@ -37,7 +37,7 @@ public final class ConnectivityCompatChanges {
      * @hide
      */
     @ChangeId
-    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.S_V2)
+    @EnabledSince(targetSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     public static final long EXCLUDED_ROUTES = 186082280;
 
     /**
@@ -61,6 +61,19 @@ public final class ConnectivityCompatChanges {
     @EnabledSince(targetSdkVersion = android.os.Build.VERSION_CODES.S)
     // This was a platform change ID with value 191844585L before T
     public static final long RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER = 235355681L;
+
+    /**
+     * The self certified capabilities check should be enabled after android 14.
+     *
+     * <p> Checks
+     * {@link android.content.pm.PackageManager#PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES}
+     * and {@link android.net.NetworkCapabilities} for more details.
+     *
+     * @hide
+     */
+    @ChangeId
+    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.TIRAMISU)
+    public static final long ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION = 266524688;
 
     private ConnectivityCompatChanges() {
     }
