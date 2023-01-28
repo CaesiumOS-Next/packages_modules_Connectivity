@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e8fa2b4_4a9704e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-28T00:25:42Z",
+      "side": 1,
+      "message": "There was a slight size decrease here though. I only looked at classes. Will have to look at what exactly is being removed before this is merged.",
+      "range": {
+        "startLine": 9,
+        "startChar": 62,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "f9325cd509486efbf3b49ee54cdeb84df6135c88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d194687e_0aaa4476",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-28T00:25:42Z",
+      "side": 1,
+      "message": "+Remi, maybe you know a better way to do this?",
+      "revId": "f9325cd509486efbf3b49ee54cdeb84df6135c88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
