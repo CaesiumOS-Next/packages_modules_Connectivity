@@ -39,6 +39,29 @@
       "message": "+Remi, maybe you know a better way to do this?",
       "revId": "f9325cd509486efbf3b49ee54cdeb84df6135c88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "096618f0_e96ed2bc",
+        "filename": "Tethering/common/TetheringLib/proguard.flags",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-28T00:27:38Z",
+      "side": 1,
+      "message": "Is there a better way to exclude all API classes?",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 2,
+        "endChar": 35
+      },
+      "revId": "f9325cd509486efbf3b49ee54cdeb84df6135c88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
