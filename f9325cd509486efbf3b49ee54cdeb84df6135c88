@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f691368_593a8ecf",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-30T17:24:55Z",
+      "side": 1,
+      "message": "one thing I don\u0027t like about this filegroup: if cronet proguard flags change, it likely won\u0027t show up in a mainline release review. There might be an argument for duplicating these rules within proguard.flags and dropping the filegroup altogether.",
+      "range": {
+        "startLine": 107,
+        "startChar": 14,
+        "endLine": 107,
+        "endChar": 37
+      },
+      "revId": "f9325cd509486efbf3b49ee54cdeb84df6135c88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a7f74b4_94ee4017",
         "filename": "Tethering/common/TetheringLib/proguard.flags",
         "patchSetId": 6
