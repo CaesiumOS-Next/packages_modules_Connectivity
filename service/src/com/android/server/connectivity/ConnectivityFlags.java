@@ -33,7 +33,12 @@ public final class ConnectivityFlags {
     public static final String NO_REMATCH_ALL_REQUESTS_ON_REGISTER =
             "no_rematch_all_requests_on_register";
 
+    @VisibleForTesting
+    public static final String CARRIER_SERVICE_CHANGED_USE_CALLBACK_VERSION =
+            "carrier_service_changed_use_callback_version";
+
     private boolean mNoRematchAllRequestsOnRegister;
+    private boolean mCarrierServiceChangedUseCallback;
 
     /**
      * Whether ConnectivityService should avoid avoid rematching all requests when a network
@@ -56,11 +61,26 @@ public final class ConnectivityFlags {
     }
 
     /**
+     * Whether CarrierPrivilegeAuthenticator should register callbacks for service package changes
+     *
+     * This flag is loaded in ConnectivityService systemReady. It must only be read on the
+     * same thread that ran systemReady.
+     *
+     * @return true if CPA should use callbacks to listen to service package changes
+     *         false if CPA should use the broadcast and synchronous getters
+     */
+    public boolean carrierServiceChangedUseCallback() {
+        return mCarrierServiceChangedUseCallback;
+    }
+
+    /**
      * Load flag values. Should only be called once, and can only be called once PackageManager is
      * ready.
      */
     public void loadFlags(ConnectivityService.Dependencies deps, Context ctx) {
         mNoRematchAllRequestsOnRegister = deps.isFeatureEnabled(
                 ctx, NO_REMATCH_ALL_REQUESTS_ON_REGISTER, false /* defaultEnabled */);
+        mCarrierServiceChangedUseCallback = deps.isFeatureEnabled(
+                ctx, CARRIER_SERVICE_CHANGED_USE_CALLBACK_VERSION, false /* defaultEnabled */);
     }
 }

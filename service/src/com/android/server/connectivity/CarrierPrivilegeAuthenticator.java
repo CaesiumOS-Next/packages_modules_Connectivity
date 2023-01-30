@@ -16,7 +16,6 @@
 
 package com.android.server.connectivity;
 
-import static android.net.NetworkCapabilities.NET_CAPABILITY_CBS;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 
 import android.annotation.NonNull;
@@ -73,6 +72,8 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
     @NonNull
     private final List<CarrierPrivilegesListenerShim> mCarrierPrivilegesChangedListeners =
             new ArrayList<>();
+    @GuardedBy("mLock")
+    private boolean mUseCallbacksForServiceChanged;
 
     public CarrierPrivilegeAuthenticator(@NonNull final Context c,
             @NonNull final TelephonyManager t,
@@ -82,8 +83,14 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
         mTelephonyManagerShim = telephonyManagerShim;
         mThread = new HandlerThread(TAG);
         mThread.start();
-        mHandler = new Handler(mThread.getLooper()) {};
+        mHandler = new Handler(mThread.getLooper());
+    }
+
+    /** Call when the system is ready */
+    public void systemReady(@NonNull final ConnectivityFlags flags) {
         synchronized (mLock) {
+            // flags.carrierServiceChangedUseCallback must only be used in systemReady()
+            mUseCallbacksForServiceChanged = flags.carrierServiceChangedUseCallback();
             mModemCount = mTelephonyManager.getActiveModemCount();
             registerForCarrierChanges();
             updateCarrierServiceUid();
