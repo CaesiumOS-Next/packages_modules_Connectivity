@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88aac4be_a7cee849",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-30T03:03:49Z",
+      "side": 1,
+      "message": "LGTM. Thanks for removing test APIs on PermissionMonitor.",
+      "revId": "2683c1aeec45cc223c1267113da7be1bc060f302",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
