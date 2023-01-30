@@ -20,11 +20,14 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.telephony.TelephonyManager.ACTION_MULTI_SIM_CONFIG_CHANGED;
 
+import static com.android.server.connectivity.ConnectivityFlags.CARRIER_SERVICE_CHANGED_USE_CALLBACK_VERSION;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
@@ -49,14 +52,17 @@ import com.android.net.module.util.CollectionUtils;
 import com.android.networkstack.apishim.TelephonyManagerShimImpl;
 import com.android.networkstack.apishim.common.TelephonyManagerShim.CarrierPrivilegesListenerShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
-import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
-import com.android.testutils.DevSdkIgnoreRunner;
+import com.android.server.ConnectivityService;
+import com.android.testutils.DevSdkIgnoreRule;
 
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.mockito.ArgumentCaptor;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
@@ -66,8 +72,8 @@ import java.util.Map;
  * Build, install and run with:
  *  atest FrameworksNetTests:CarrierPrivilegeAuthenticatorTest
  */
-@RunWith(DevSdkIgnoreRunner.class)
-@IgnoreUpTo(Build.VERSION_CODES.S_V2)
+@RunWith(Parameterized.class)
+// Ignored up to VERSION_CODES.S_V2, see |mIgnoreRule|
 public class CarrierPrivilegeAuthenticatorTest {
     private static final int SUBSCRIPTION_COUNT = 2;
     private static final int TEST_SUBSCRIPTION_ID = 1;
@@ -79,6 +85,10 @@ public class CarrierPrivilegeAuthenticatorTest {
     @NonNull private TestCarrierPrivilegeAuthenticator mCarrierPrivilegeAuthenticator;
     private final int mCarrierConfigPkgUid = 12345;
     private final String mTestPkg = "com.android.server.connectivity.test";
+
+    @Rule
+    public final DevSdkIgnoreRule mIgnoreRule =
+            new DevSdkIgnoreRule(Build.VERSION_CODES.S_V2 /* ignoreClassUpTo */);
 
     public class TestCarrierPrivilegeAuthenticator extends CarrierPrivilegeAuthenticator {
         TestCarrierPrivilegeAuthenticator(@NonNull final Context c,
@@ -92,15 +102,21 @@ public class CarrierPrivilegeAuthenticatorTest {
         }
     }
 
-    public CarrierPrivilegeAuthenticatorTest() {
+    @Parameterized.Parameters
+    public static Collection<Boolean> shouldUseCallbacks() {
+        return Arrays.asList(true, false);
+    }
+
+    public CarrierPrivilegeAuthenticatorTest(final boolean useCallbacks) throws Exception {
         mContext = mock(Context.class);
         mTelephonyManager = mock(TelephonyManager.class);
         mTelephonyManagerShim = mock(TelephonyManagerShimImpl.class);
         mPackageManager = mock(PackageManager.class);
-    }
-
-    @Before
-    public void setUp() throws Exception {
+        final ConnectivityFlags flags = new ConnectivityFlags();
+        final ConnectivityService.Dependencies deps = mock(ConnectivityService.Dependencies.class);
+        doReturn(useCallbacks).when(deps).isFeatureEnabled(any(),
+                eq(CARRIER_SERVICE_CHANGED_USE_CALLBACK_VERSION), anyBoolean());
+        flags.loadFlags(deps, mContext);
         doReturn(SUBSCRIPTION_COUNT).when(mTelephonyManager).getActiveModemCount();
         doReturn(mTestPkg).when(mTelephonyManagerShim)
                 .getCarrierServicePackageNameForLogicalSlot(anyInt());
@@ -110,6 +126,7 @@ public class CarrierPrivilegeAuthenticatorTest {
         doReturn(applicationInfo).when(mPackageManager).getApplicationInfo(eq(mTestPkg), anyInt());
         mCarrierPrivilegeAuthenticator =
                 new TestCarrierPrivilegeAuthenticator(mContext, mTelephonyManager);
+        mCarrierPrivilegeAuthenticator.systemReady(flags);
     }
 
     private IntentFilter getIntentFilter() {

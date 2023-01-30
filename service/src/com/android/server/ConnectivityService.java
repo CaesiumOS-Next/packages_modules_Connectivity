@@ -3118,6 +3118,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public void systemReadyInternal() {
         // Load flags after PackageManager is ready to query module version
         mFlags.loadFlags(mDeps, mContext);
+        if (null != mCarrierPrivilegeAuthenticator) {
+            mCarrierPrivilegeAuthenticator.systemReady(mFlags);
+        }
 
         // Since mApps in PermissionMonitor needs to be populated first to ensure that
         // listening network request which is sent by MultipathPolicyTracker won't be added
