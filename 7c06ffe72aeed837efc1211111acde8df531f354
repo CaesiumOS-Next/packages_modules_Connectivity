@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b3b9a4a_67ecd532",
+        "filename": "service/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-30T21:51:18Z",
+      "side": 1,
+      "message": "As it turns out, it\u0027s not.",
+      "parentUuid": "e8baf310_07fa8a0c",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 22
+      },
+      "revId": "7c06ffe72aeed837efc1211111acde8df531f354",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f3ee8ba_e3e1560f",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50b4af20_6f6fcf93",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-30T21:51:18Z",
+      "side": 1,
+      "message": "TIL that there is ENOTSUP(134), ENOTSUPP(524) and EOPNOTSUPP(95).\nI picked ENOTSUP, but I am not sure that\u0027s the right one?\nEither way, in a follow-up, this should probably just be changed to throw UnsupportedOperationException. (On a side note, throwException should probably throw an errno exception or we should just use jniThrowErrnoException).",
+      "parentUuid": "2f3ee8ba_e3e1560f",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "7c06ffe72aeed837efc1211111acde8df531f354",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9deff7f5_32216e88",
         "filename": "service/jni/com_android_server_TestNetworkService.cpp",
         "patchSetId": 7
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-17T15:50:49Z",
       "side": 1,
       "message": "return -1;\n\nright?",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 9
+      },
+      "revId": "7c06ffe72aeed837efc1211111acde8df531f354",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2beab2e_b04d2cda",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-30T21:51:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9deff7f5_32216e88",
       "range": {
         "startLine": 79,
         "startChar": 8,
