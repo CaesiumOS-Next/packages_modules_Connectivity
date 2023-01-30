@@ -1341,6 +1341,9 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
   if target.type in gn_utils.LINKER_UNIT_TYPES:
     set_module_flags(module, target.cflags, target.defines)
     set_module_include_dirs(module, target.cflags, target.include_dirs)
+    if not module.cpp_std:
+      # TODO(aymanm): Change this once soong supports arch-specific cpp_std
+      module.cpp_std = 'c++17'
     # TODO: set_module_xxx is confusing, apply similar function to module and target in better way.
     for arch_name, arch in target.arch.items():
       set_module_flags(module.target[arch_name], arch.cflags, arch.defines)

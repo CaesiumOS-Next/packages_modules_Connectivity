@@ -26,23 +26,23 @@ BUILDFLAGS_TARGET = '//gn:gen_buildflags'
 GEN_VERSION_TARGET = '//src/base:version_gen_h'
 LINKER_UNIT_TYPES = ('executable', 'shared_library', 'static_library', 'source_set')
 JAVA_BANNED_SCRIPTS = [
-    "//build/android/gyp/turbine.py",
-    "//build/android/gyp/compile_java.py",
-    "//build/android/gyp/filter_zip.py",
-    "//build/android/gyp/dex.py",
-    "//build/android/gyp/write_build_config.py",
-    "//build/android/gyp/create_r_java.py",
-    "//build/android/gyp/ijar.py",
-    "//build/android/gyp/create_r_java.py",
-    "//build/android/gyp/bytecode_processor.py",
-    "//build/android/gyp/prepare_resources.py",
-    "//build/android/gyp/aar.py",
-    "//build/android/gyp/zip.py",
+  "//build/android/gyp/turbine.py",
+  "//build/android/gyp/compile_java.py",
+  "//build/android/gyp/filter_zip.py",
+  "//build/android/gyp/dex.py",
+  "//build/android/gyp/write_build_config.py",
+  "//build/android/gyp/create_r_java.py",
+  "//build/android/gyp/ijar.py",
+  "//build/android/gyp/create_r_java.py",
+  "//build/android/gyp/bytecode_processor.py",
+  "//build/android/gyp/prepare_resources.py",
+  "//build/android/gyp/aar.py",
+  "//build/android/gyp/zip.py",
 ]
 # TODO(primiano): investigate these, they require further componentization.
 ODR_VIOLATION_IGNORE_TARGETS = {
-    '//test/cts:perfetto_cts_deps',
-    '//:perfetto_integrationtests',
+  '//test/cts:perfetto_cts_deps',
+  '//:perfetto_integrationtests',
 }
 ARCH_REGEX = r'(android_x86_64|android_x86|android_arm|android_arm64|host)'
 RESPONSE_FILE = '{{response_file_name}}'
@@ -50,7 +50,7 @@ RESPONSE_FILE = '{{response_file_name}}'
 def repo_root():
   """Returns an absolute path to the repository root."""
   return os.path.join(
-      os.path.realpath(os.path.dirname(__file__)), os.path.pardir)
+    os.path.realpath(os.path.dirname(__file__)), os.path.pardir)
 
 
 def label_to_path(label):
@@ -82,8 +82,8 @@ def _is_java_source(src):
 
 def is_java_action(script, outputs):
   return (script != "" and script not in JAVA_BANNED_SCRIPTS) and any(
-      [file.endswith(".srcjar") or file.endswith(".java")
-       for file in outputs])
+    [file.endswith(".srcjar") or file.endswith(".java")
+     for file in outputs])
 
 class GnParser(object):
   """A parser with some cleverness for GN json desc files
@@ -190,16 +190,16 @@ class GnParser(object):
       if isinstance(other, self.__class__):
         return self.name < other.name
       raise TypeError(
-          '\'<\' not supported between instances of \'%s\' and \'%s\'' %
-          (type(self).__name__, type(other).__name__))
+        '\'<\' not supported between instances of \'%s\' and \'%s\'' %
+        (type(self).__name__, type(other).__name__))
 
     def __repr__(self):
       return json.dumps({
-          k: (list(sorted(v)) if isinstance(v, set) else v)
-          for (k, v) in self.__dict__.items()
+        k: (list(sorted(v)) if isinstance(v, set) else v)
+        for (k, v) in self.__dict__.items()
       },
-                        indent=4,
-                        sort_keys=True)
+        indent=4,
+        sort_keys=True)
 
     def update(self, other, arch):
       for key in ('cflags', 'defines', 'deps', 'include_dirs', 'ldflags',
@@ -213,7 +213,7 @@ class GnParser(object):
 
     def _finalize_set_attribute(self, key):
       # Target contains the intersection of arch-dependent properties
-      getattr(self, key)\
+      getattr(self, key) \
         .update(set.intersection(*[getattr(arch, key) for arch in self.arch.values()]))
 
       # Deduplicate arch-dependent properties
@@ -438,7 +438,7 @@ class GnParser(object):
 
       if arch in dep.arch:
         target.arch[arch].transitive_static_libs_deps.update(
-            dep.arch[arch].transitive_static_libs_deps)
+          dep.arch[arch].transitive_static_libs_deps)
         target.arch[arch].deps.update(target.arch[arch].transitive_static_libs_deps)
 
       # Collect java sources. Java sources are kept inside the __compile_java target.
