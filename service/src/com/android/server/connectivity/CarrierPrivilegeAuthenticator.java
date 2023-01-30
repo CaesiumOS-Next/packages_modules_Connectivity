@@ -67,7 +67,6 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
     @GuardedBy("mLock")
     private int mModemCount = 0;
     private final Object mLock = new Object();
-    private final HandlerThread mThread;
     private final Handler mHandler;
     @NonNull
     private final List<CarrierPrivilegesListenerShim> mCarrierPrivilegesChangedListeners =
@@ -81,9 +80,9 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
         mContext = c;
         mTelephonyManager = t;
         mTelephonyManagerShim = telephonyManagerShim;
-        mThread = new HandlerThread(TAG);
-        mThread.start();
-        mHandler = new Handler(mThread.getLooper());
+        final HandlerThread thread = new HandlerThread(TAG);
+        thread.start();
+        mHandler = new Handler(thread.getLooper());
     }
 
     /** Call when the system is ready */
