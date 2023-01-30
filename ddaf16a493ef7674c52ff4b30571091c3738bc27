@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1816590c_a6759d72",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10892,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-30T02:58:05Z",
+      "side": 0,
+      "message": "ConnectivityServiceTest does not call any method from PermissionMonitor now and no other test is using mPermissionMonitor. Can we change the `mPermissionMonitor` to be private?",
+      "range": {
+        "startLine": 10892,
+        "startChar": 28,
+        "endLine": 10892,
+        "endChar": 46
+      },
+      "revId": "ddaf16a493ef7674c52ff4b30571091c3738bc27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
