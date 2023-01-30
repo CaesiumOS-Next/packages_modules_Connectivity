@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d45d1ee_1a881987",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-30T22:59:52Z",
+      "side": 1,
+      "message": "are you sure this - is correct?",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 33
+      },
+      "revId": "e1f393b89a6e579535e7a22eedcbf7c0ad2f2d0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
