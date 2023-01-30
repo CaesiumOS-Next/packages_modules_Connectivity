@@ -97,14 +97,12 @@ import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
-
 import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.checkAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
-
 import static java.util.Map.Entry;
 
 import android.Manifest;
@@ -3418,6 +3416,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public void systemReadyInternal() {
         // Load flags after PackageManager is ready to query module version
         mFlags.loadFlags(mDeps, mContext);
+        if (null != mCarrierPrivilegeAuthenticator) {
+            mCarrierPrivilegeAuthenticator.systemReady(mFlags);
+        }
 
         // Since mApps in PermissionMonitor needs to be populated first to ensure that
         // listening network request which is sent by MultipathPolicyTracker won't be added
