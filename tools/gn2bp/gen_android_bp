@@ -372,6 +372,7 @@ class Module(object):
     self.target['host'] = Target('host')
     self.stl = None
     self.cpp_std = None
+    self.c_std = None
     self.dist = dict()
     self.strip = dict()
     self.data = set()
@@ -442,6 +443,7 @@ class Module(object):
     self._output_field(output, 'data')
     self._output_field(output, 'stl')
     self._output_field(output, 'cpp_std')
+    self._output_field(output, 'c_std')
     self._output_field(output, 'apex_available')
     self._output_field(output, 'min_sdk_version')
     self._output_field(output, 'version_script')
@@ -1250,8 +1252,6 @@ def set_module_flags(module, cflags, defines):
   module.cflags.update(_get_cflags(cflags, defines))
   # TODO: implement proper cflag parsing.
   for flag in cflags:
-    if '-std=' in flag:
-      module.cpp_std = flag[len('-std='):]
     if '-fexceptions' in flag:
       module.cppflags.add('-fexceptions')
 
@@ -1634,6 +1634,8 @@ def create_blueprint_for_targets(gn, targets):
       '-UANDROID',
   ]
   defaults.stl = 'none'
+  defaults.c_std = 'gnu11'
+  defaults.cpp_std = 'c++17'
   defaults.min_sdk_version = 29
   defaults.apex_available.add(tethering_apex)
   blueprint.add_module(defaults)

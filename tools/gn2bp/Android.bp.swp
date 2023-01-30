@@ -2114,7 +2114,6 @@ cc_library_static {
         "third_party/icu/source/common/",
         "third_party/icu/source/i18n/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -2658,7 +2657,6 @@ cc_library_static {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -2880,7 +2878,6 @@ cc_library_static {
         "third_party/libxml/linux/include/",
         "third_party/libxml/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -3180,7 +3177,6 @@ cc_library_static {
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
     ],
-    cpp_std: "c++20",
 }
 
 // GN: //base/third_party/xdg_mime:xdg_mime
@@ -3227,7 +3223,6 @@ cc_library_static {
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
     ],
-    cpp_std: "c++20",
 }
 
 // GN: //base/third_party/xdg_user_dirs:xdg_user_dirs
@@ -3270,7 +3265,6 @@ cc_library_static {
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
     ],
-    cpp_std: "c++20",
 }
 
 // GN: //base:tracing_buildflags
@@ -3628,7 +3622,6 @@ cc_object {
         "buildtools/third_party/libc++/trunk/src/",
         "buildtools/third_party/libc++abi/trunk/include",
     ],
-    cpp_std: "c++20",
     cppflags: [
         "-fexceptions",
     ],
@@ -3726,7 +3719,6 @@ cc_object {
         "buildtools/third_party/libc++/trunk/src/",
         "buildtools/third_party/libc++abi/trunk/include",
     ],
-    cpp_std: "c++20",
     cppflags: [
         "-fexceptions",
     ],
@@ -3915,7 +3907,6 @@ cc_library_shared {
         "third_party/boringssl/src/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     ldflags: [
         "-Wl,--script,external/cronet/base/android/library_loader/anchor_functions.lds",
     ],
@@ -4639,7 +4630,6 @@ cc_object {
         "third_party/boringssl/src/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -4790,7 +4780,6 @@ cc_library_shared {
         "third_party/icu/source/i18n/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -5156,7 +5145,6 @@ cc_object {
         "third_party/boringssl/src/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -5280,7 +5268,6 @@ cc_object {
         "third_party/icu/source/i18n/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -5371,7 +5358,6 @@ cc_object {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -5448,7 +5434,6 @@ cc_object {
         "third_party/boringssl/src/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -5605,7 +5590,6 @@ cc_library_static {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -5758,7 +5742,6 @@ cc_library_static {
         "third_party/icu/source/common/",
         "third_party/icu/source/i18n/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -6003,6 +5986,8 @@ cc_defaults {
         "-fvisibility=hidden",
     ],
     stl: "none",
+    cpp_std: "c++17",
+    c_std: "gnu11",
     apex_available: [
         "com.android.tethering",
     ],
@@ -6655,7 +6640,6 @@ cc_object {
         "third_party/brotli/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -6759,7 +6743,6 @@ cc_object {
         "third_party/brotli/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -6857,7 +6840,6 @@ cc_object {
         "third_party/googletest/src/googletest/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -7041,7 +7023,6 @@ cc_library_static {
         "third_party/icu/source/i18n/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -7139,7 +7120,6 @@ cc_object {
         "third_party/brotli/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -7829,7 +7809,6 @@ cc_library_static {
         "third_party/brotli/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_arm: {
             srcs: [
@@ -7933,7 +7912,6 @@ cc_object {
         "third_party/brotli/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -8167,7 +8145,6 @@ cc_object {
         "third_party/boringssl/src/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -8232,7 +8209,6 @@ cc_library_static {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -8315,7 +8291,6 @@ cc_object {
         "third_party/boringssl/src/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -8405,7 +8380,6 @@ cc_object {
         "third_party/boringssl/src/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -8654,7 +8628,6 @@ cc_library_static {
         "third_party/icu/source/i18n/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -9158,7 +9131,6 @@ cc_library_static {
         "third_party/boringssl/src/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -9264,7 +9236,6 @@ cc_library_static {
         "third_party/boringssl/src/include/",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -9340,7 +9311,6 @@ cc_object {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++20",
 }
 
 // GN: //net/tools/tld_cleanup:tld_cleanup
@@ -9394,7 +9364,6 @@ cc_object {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -9471,7 +9440,6 @@ cc_binary {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++20",
 }
 
 // GN: //net/tools/transport_security_state_generator:transport_security_state_generator_sources
@@ -9537,7 +9505,6 @@ cc_object {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++20",
 }
 
 // GN: //net/traffic_annotation:traffic_annotation
@@ -9593,7 +9560,6 @@ cc_object {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -9659,7 +9625,6 @@ cc_library_static {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -9779,7 +9744,6 @@ cc_object {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -9880,7 +9844,6 @@ cc_object {
         "third_party/icu/source/common/",
         "third_party/icu/source/i18n/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -10007,7 +9970,6 @@ cc_library_static {
         "third_party/googletest/custom/",
         "third_party/googletest/src/googletest/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -13699,7 +13661,6 @@ cc_object {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/android_ndk/sources/android/cpufeatures/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -13746,7 +13707,6 @@ cc_object {
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -14308,7 +14268,6 @@ cc_library_static {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/brotli/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -14359,7 +14318,6 @@ cc_library_static {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/brotli/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -14409,7 +14367,6 @@ cc_library_static {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/ced/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -14488,7 +14445,6 @@ cc_object {
         "third_party/googletest/src/googlemock/include/",
         "third_party/googletest/src/googletest/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -14571,7 +14527,6 @@ cc_object {
         "third_party/googletest/src/googletest/",
         "third_party/googletest/src/googletest/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -15382,7 +15337,6 @@ cc_library_static {
         "third_party/libxml/linux/include/",
         "third_party/libxml/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -15447,7 +15401,6 @@ cc_library_static {
         "third_party/libxml/linux/include/",
         "third_party/libxml/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -15513,7 +15466,6 @@ cc_library_static {
         "third_party/libxml/linux/include/",
         "third_party/libxml/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -15879,7 +15831,6 @@ cc_library_static {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++20",
 }
 
 // GN: //third_party/protobuf:protobuf_lite
@@ -15950,7 +15901,6 @@ cc_library_static {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
@@ -16016,7 +15966,6 @@ cc_binary {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++20",
 }
 
 // GN: //third_party/protobuf:protoc_lib
@@ -16151,7 +16100,6 @@ cc_library_static {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/protobuf/src/",
     ],
-    cpp_std: "c++20",
 }
 
 // GN: //url:buildflags
@@ -16263,7 +16211,6 @@ cc_library_static {
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
     ],
-    cpp_std: "c++17",
     target: {
         android_x86: {
             cflags: [
