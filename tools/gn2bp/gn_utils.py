@@ -46,7 +46,7 @@ ODR_VIOLATION_IGNORE_TARGETS = {
 }
 ARCH_REGEX = r'(android_x86_64|android_x86|android_arm|android_arm64|host)'
 RESPONSE_FILE = '{{response_file_name}}'
-
+CPP_STD_FLAG = '-std='
 def repo_root():
   """Returns an absolute path to the repository root."""
   return os.path.join(
@@ -85,6 +85,12 @@ def is_java_action(script, outputs):
       [file.endswith(".srcjar") or file.endswith(".java")
        for file in outputs])
 
+def _get_cpp_std_version(cflags):
+  for flag in cflags:
+    if flag.startswith(CPP_STD_FLAG):
+      return flag[len(CPP_STD_FLAG):]
+  return ""
+
 class GnParser(object):
   """A parser with some cleverness for GN json desc files
 
@@ -119,6 +125,7 @@ class GnParser(object):
         self.deps = set()
         self.transitive_static_libs_deps = set()
         self.source_set_deps = set()
+        self.cpp_std = ''
 
         # These are valid only for type == 'action'
         self.inputs = set()
@@ -174,8 +181,10 @@ class GnParser(object):
       self.is_finalized = False
       self.arch = dict()
 
-      # This is used to get the name/version of libcronet
+      # List of variables valid for CPP modules.
+      # This is used to get the name of the action output for C++ libraries/executables.
       self.output_name = None
+      self.cpp_std = ''
 
     def host_supported(self):
       return 'host' in self.arch
@@ -226,7 +235,7 @@ class GnParser(object):
       if val and all([val == getattr(arch, key) for arch in self.arch.values()]):
         setattr(self, key, copy.deepcopy(val))
         for arch in self.arch.values():
-          getattr(arch, key, None)
+          setattr(arch, key, None)
 
     def _finalize_attribute(self, key):
       val = getattr(self, key)
@@ -250,7 +259,7 @@ class GnParser(object):
         return
 
       for key in ('sources', 'cflags', 'defines', 'include_dirs', 'deps', 'source_set_deps',
-                  'inputs', 'outputs', 'args', 'script', 'response_file_contents'):
+                  'inputs', 'outputs', 'args', 'script', 'response_file_contents', 'cpp_std'):
         self._finalize_attribute(key)
 
 
@@ -391,6 +400,7 @@ class GnParser(object):
     target.public_headers.update(public_headers)
 
     target.arch[arch].cflags.update(desc.get('cflags', []) + desc.get('cflags_cc', []))
+    target.arch[arch].cpp_std = _get_cpp_std_version(desc.get('cflags_cc', []))
     target.libs.update(desc.get('libs', []))
     target.ldflags.update(desc.get('ldflags', []))
     target.arch[arch].defines.update(desc.get('defines', []))

@@ -300,6 +300,7 @@ class Target(object):
     self.export_system_include_dirs = set()
     self.generated_headers = set()
     self.export_generated_headers = set()
+    self.cpp_std = None
 
   def to_string(self, output):
     nested_out = []
@@ -317,6 +318,7 @@ class Target(object):
     self._output_field(nested_out, 'export_system_include_dirs')
     self._output_field(nested_out, 'generated_headers')
     self._output_field(nested_out, 'export_generated_headers')
+    self._output_field(nested_out, 'cpp_std')
 
     if nested_out:
       output.append('    %s: {' % self.name)
@@ -1250,8 +1252,6 @@ def set_module_flags(module, cflags, defines):
   module.cflags.update(_get_cflags(cflags, defines))
   # TODO: implement proper cflag parsing.
   for flag in cflags:
-    if '-std=' in flag:
-      module.cpp_std = flag[len('-std='):]
     if '-fexceptions' in flag:
       module.cppflags.add('-fexceptions')
 
@@ -1341,6 +1341,7 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
   if target.type in gn_utils.LINKER_UNIT_TYPES:
     set_module_flags(module, target.cflags, target.defines)
     set_module_include_dirs(module, target.cflags, target.include_dirs)
+    module.cpp_std = target.cpp_std
     # TODO: set_module_xxx is confusing, apply similar function to module and target in better way.
     for arch_name, arch in target.arch.items():
       set_module_flags(module.target[arch_name], arch.cflags, arch.defines)
@@ -1445,6 +1446,7 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
                   (dep_module.name, dep_module.type, module.name))
 
   for arch_name, arch in target.arch.items():
+    module.target[arch_name].cpp_std = arch.cpp_std
     for dep_name in arch.deps:
       # |builtin_deps| override GN deps with Android-specific ones. See the
       # config in the top of this file.
