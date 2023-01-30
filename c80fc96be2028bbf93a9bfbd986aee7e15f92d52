@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e13b3ad1_efa54db5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-30T19:07:43Z",
+      "side": 1,
+      "message": "What\u0027s the end goal here?",
+      "revId": "c80fc96be2028bbf93a9bfbd986aee7e15f92d52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
