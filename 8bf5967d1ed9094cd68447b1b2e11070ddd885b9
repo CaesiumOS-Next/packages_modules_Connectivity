@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05a495ff_9cdb943a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-30T19:55:31Z",
+      "side": 1,
+      "message": "(TH+2 on identical, except for commit message, patchset 5)",
+      "revId": "8bf5967d1ed9094cd68447b1b2e11070ddd885b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
