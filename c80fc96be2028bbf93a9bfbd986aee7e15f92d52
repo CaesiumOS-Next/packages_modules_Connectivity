@@ -16,6 +16,24 @@
       "message": "What\u0027s the end goal here?",
       "revId": "c80fc96be2028bbf93a9bfbd986aee7e15f92d52",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88564d2c_375b52f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-30T19:17:18Z",
+      "side": 1,
+      "message": "The end goal is to switch from AF_PACKET/SOCK_DGRAM to AF_PACKET/SOCK_RAW (which switches from L3 to L2 framing), enable PACKET_AUXDATA (to get L2 header size + csum flags) and VIRTIO_VNET_HDR (to get csum_start/csum_offset), switch from read() to recvmsg(), parse the newly introduced cmsg and virtio header, skip over the L2 header, and use that information to detect and (eventually) handle cases where L4 checksum isn\u0027t populated by kernel and needs to be handled by clat userspace daemon (by calculating it in userspace, or perhaps finding a way to transmit with checksum offload??).",
+      "parentUuid": "e13b3ad1_efa54db5",
+      "revId": "c80fc96be2028bbf93a9bfbd986aee7e15f92d52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
