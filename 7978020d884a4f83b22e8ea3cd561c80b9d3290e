@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "647da828_4a37f318",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-30T04:07:51Z",
+      "side": 1,
+      "message": "I think there\u0027s a test in the change on top, maybe mention that instead ?",
+      "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "951d7b1c_b71e5d41",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2293,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-30T04:07:51Z",
+      "side": 1,
+      "message": "Since the slot is reset in onPaused this means you can\u0027t stop a paused keepalive I think. This is racy in any case, but maybe stop would keep working most of the time if you don\u0027t clear the slot in onPause ?\n\nThe ISocketKeepaliveCallback should be used to identify the request in any case, but it feels like using a consistent slot would remove some hard-to-maintain moving parts, and remove the \"tried to resume but no more slots\" case. That might not be too hard too, making KeepaliveTracker.handleStartKeepalive use the slot in KeepaliveInfo instead of searching for one, having the slot in the KeepaliveInfo constructor, and moving findFirstFreeSlot to AutomaticOnOffKeepalive",
+      "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "368dd552_3361fdce",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-30T04:07:51Z",
+      "side": 1,
+      "message": "Could this get called after the binder died in KeepaliveTracker, so it won\u0027t be cleaned up later ? See comment later in KeepaliveTracker; I think it should handle being in BINDER_DIED state in each method (so for handleStart, maybe it should do nothing)",
+      "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06c132db_ce9fa022",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-30T04:07:51Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of the architecture in the meantime, it seems to me that mResumed and SUCCESS_PAUSED wouldn\u0027t be necessary once the TODO is addressed. It\u0027s probably OK for now but do you have another change or a bug to fix it ? Maybe just filing a bug would be OK.",
+      "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71e89761_dbffecff",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-30T04:07:51Z",
+      "side": 1,
+      "message": "Could it be stopped because the binder died, but AutomaticOnOffKeepaliveTracker didn\u0027t know about it when it called this method ?\n\nIn general since KeepaliveInfo can be in BINDER_DIED stopped state without AutomaticOnOffKeepaliveTracker knowing about it, I think all methods in KeepaliveTracker need to support being called when it is stopped.\n\nI\u0027d say this really needs a refactor to only have the binder death in AutomaticOnOffKeepaliveTracker, although that\u0027s not exactly what this change is working on. Maybe file a bug for it ?",
+      "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
