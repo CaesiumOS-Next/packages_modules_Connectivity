@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d65fad86_0e0a4ea4",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-30T22:02:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dd37609_fa611017",
+      "range": {
+        "startLine": 395,
+        "startChar": 49,
+        "endLine": 395,
+        "endChar": 50
+      },
+      "revId": "d87b056c1a16f473a5cfe075ead90f7b79e6e2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40667d6f_05989282",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f022db94_f33b3765",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-30T22:02:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40667d6f_05989282",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 4
+      },
+      "revId": "d87b056c1a16f473a5cfe075ead90f7b79e6e2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f02fbe0_7e5a8793",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-17T15:52:58Z",
       "side": 1,
       "message": "I guess this is now a no-op, since this is 5.0+ when the previous one is 6.0+\n- should it be removed?",
+      "range": {
+        "startLine": 801,
+        "startChar": 8,
+        "endLine": 801,
+        "endChar": 38
+      },
+      "revId": "d87b056c1a16f473a5cfe075ead90f7b79e6e2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e103fe2_4a0b0c55",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-30T22:02:17Z",
+      "side": 1,
+      "message": "I have been leaning (ever so slightly) towards leaving both assumption checks. New tests are often based on existing tests, so being explicit in the assumption checks might prevent some future test bug.\n\nIn any case, I don\u0027t have a very strong opinion on this.",
+      "parentUuid": "1f02fbe0_7e5a8793",
       "range": {
         "startLine": 801,
         "startChar": 8,
