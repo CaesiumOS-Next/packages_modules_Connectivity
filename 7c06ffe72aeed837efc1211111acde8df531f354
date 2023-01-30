@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83113559_3edca9f3",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-30T22:24:14Z",
+      "side": 1,
+      "message": "Changed to EOPNOTSUPP, since bionic #define\u0027s ENOTSUP to the value of EOPNOTSUPP.",
+      "parentUuid": "50b4af20_6f6fcf93",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "7c06ffe72aeed837efc1211111acde8df531f354",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9deff7f5_32216e88",
