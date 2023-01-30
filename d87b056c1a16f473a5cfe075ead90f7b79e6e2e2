@@ -140,6 +140,30 @@
       },
       "revId": "d87b056c1a16f473a5cfe075ead90f7b79e6e2e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05e4463a_e8b44b91",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-30T23:00:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3e103fe2_4a0b0c55",
+      "range": {
+        "startLine": 801,
+        "startChar": 8,
+        "endLine": 801,
+        "endChar": 38
+      },
+      "revId": "d87b056c1a16f473a5cfe075ead90f7b79e6e2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
