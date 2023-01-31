@@ -19,6 +19,7 @@ package com.android.server.connectivity;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -119,7 +120,7 @@ public class CarrierPrivilegeAuthenticator {
             unregisterCarrierPrivilegesListeners();
             mModemCount = mTelephonyManager.getActiveModemCount();
             registerCarrierPrivilegesListeners(mModemCount);
-            updateCarrierServiceUid();
+            if (!mUseCallbacksForServiceChanged) updateCarrierServiceUid();
         }
     }
 
@@ -129,9 +130,19 @@ public class CarrierPrivilegeAuthenticator {
             mLogicalSlot = logicalSlot;
         }
 
+        @Override
+        public void onCarrierServiceChanged(@Nullable final String carrierServicePackageName,
+                final int carrierServiceUid) {
+            if (!mUseCallbacksForServiceChanged) return;
+            synchronized (mLock) {
+                mCarrierServiceUid.put(mLogicalSlot, carrierServiceUid);
+            }
+        }
+
         @Override public void onCarrierPrivilegesChanged(
                 @NonNull List<String> privilegedPackageNames,
                 @NonNull int[] privilegedUids) {
+            if (mUseCallbacksForServiceChanged) return;
             // Re-trigger the synchronous check (which is also very cheap due
             // to caching in CarrierPrivilegesTracker). This allows consistency
             // with the onSubscriptionsChangedListener and broadcasts.
