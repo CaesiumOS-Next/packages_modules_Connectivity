@@ -22,6 +22,30 @@
       },
       "revId": "707a996c9bcb0c794b03e74d2092655de27c4f72",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78ffcc6f_17d6ab00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-01-31T06:04:48Z",
+      "side": 1,
+      "message": "Hi Lorenzo, this is actually referring to the change in the Android.bp file: https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2363624/comment/4592d58e_c1681c89/",
+      "parentUuid": "4102b3c4_265e1559",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 66
+      },
+      "revId": "707a996c9bcb0c794b03e74d2092655de27c4f72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
