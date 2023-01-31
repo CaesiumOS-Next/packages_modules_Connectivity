@@ -20,14 +20,11 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.telephony.TelephonyManager.ACTION_MULTI_SIM_CONFIG_CHANGED;
 
-import static com.android.server.connectivity.ConnectivityFlags.CARRIER_SERVICE_CHANGED_USE_CALLBACK_VERSION;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
@@ -53,7 +50,6 @@ import com.android.net.module.util.CollectionUtils;
 import com.android.networkstack.apishim.TelephonyManagerShimImpl;
 import com.android.networkstack.apishim.common.TelephonyManagerShim.CarrierPrivilegesListenerShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
-import com.android.server.ConnectivityService;
 import com.android.testutils.DevSdkIgnoreRule;
 
 import org.junit.Rule;
@@ -62,8 +58,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.ArgumentCaptor;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
@@ -104,21 +98,12 @@ public class CarrierPrivilegeAuthenticatorTest {
         }
     }
 
-    @Parameterized.Parameters
-    public static Collection<Boolean> shouldUseCallbacks() {
-        return Arrays.asList(true, false);
-    }
-
-    public CarrierPrivilegeAuthenticatorTest(final boolean useCallbacks) throws Exception {
+    public CarrierPrivilegeAuthenticatorTest() throws Exception {
         mContext = mock(Context.class);
         mTelephonyManager = mock(TelephonyManager.class);
         mTelephonyManagerShim = mock(TelephonyManagerShimImpl.class);
         mPackageManager = mock(PackageManager.class);
         final ConnectivityFlags flags = new ConnectivityFlags();
-        final ConnectivityService.Dependencies deps = mock(ConnectivityService.Dependencies.class);
-        doReturn(useCallbacks).when(deps).isFeatureEnabled(any(),
-                eq(CARRIER_SERVICE_CHANGED_USE_CALLBACK_VERSION), anyBoolean());
-        flags.loadFlags(deps, mContext);
         doReturn(SUBSCRIPTION_COUNT).when(mTelephonyManager).getActiveModemCount();
         doReturn(mTestPkg).when(mTelephonyManagerShim)
                 .getCarrierServicePackageNameForLogicalSlot(anyInt());
