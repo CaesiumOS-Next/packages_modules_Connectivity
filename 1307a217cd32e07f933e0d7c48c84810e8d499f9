@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6996223_12ed38d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-01-31T22:28:36Z",
+      "side": 1,
+      "message": "Hi Remi, I\u0027m trying to mirror ConnectivityCoverageTests setup. Let me know if I missed anything. Thanks",
+      "revId": "1307a217cd32e07f933e0d7c48c84810e8d499f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
