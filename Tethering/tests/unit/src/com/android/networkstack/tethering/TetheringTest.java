@@ -82,6 +82,8 @@ import static com.android.testutils.TestPermissionUtil.runAsShell;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
@@ -179,6 +181,7 @@ import android.test.mock.MockContentResolver;
 import android.util.ArraySet;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -196,6 +199,7 @@ import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
 import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
 import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.MiscAsserts;
 
@@ -399,6 +403,7 @@ public class TetheringTest {
                     MacAddress.ALL_ZEROS_ADDRESS);
         }
 
+        @SuppressWarnings("DoNotCall") // Ignore warning for synchronous to call to Thread.run()
         @Override
         public void makeDhcpServer(String ifName, DhcpServingParamsParcel params,
                 DhcpServerCallbacks cb) {
@@ -1211,13 +1216,12 @@ public class TetheringTest {
         inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(wifi.networkId);
     }
 
-    @Test
-    public void testAutomaticUpstreamSelection() throws Exception {
+    private void verifyAutomaticUpstreamSelection(boolean configAutomatic) throws Exception {
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
         InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
         // Enable automatic upstream selection.
-        upstreamSelectionTestCommon(true, inOrder, mobile, wifi);
+        upstreamSelectionTestCommon(configAutomatic, inOrder, mobile, wifi);
 
         // This code has historically been racy, so test different orderings of CONNECTIVITY_ACTION
         // broadcasts and callbacks, and add mLooper.dispatchAll() calls between the two.
@@ -1297,6 +1301,20 @@ public class TetheringTest {
     }
 
     @Test
+    public void testAutomaticUpstreamSelection() throws Exception {
+        verifyAutomaticUpstreamSelection(true /* configAutomatic */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testAutomaticUpstreamSelectionWithConfigDisabled() throws Exception {
+        // Expect that automatic config can't disable the automatic mode because automatic mode
+        // is always enabled on U+ device.
+        verifyAutomaticUpstreamSelection(false /* configAutomatic */);
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
     public void testLegacyUpstreamSelection() throws Exception {
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
@@ -1322,29 +1340,147 @@ public class TetheringTest {
         verifyDisableTryCellWhenTetheringStop(inOrder);
     }
 
-    @Test
-    public void testChooseDunUpstreamByAutomaticMode() throws Exception {
-        // Enable automatic upstream selection.
-        TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
-        TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
-        TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
-        InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
-        chooseDunUpstreamTestCommon(true, inOrder, mobile, wifi, dun);
+    private void verifyWifiUpstreamAndUnregisterDunCallback(@NonNull final InOrder inOrder,
+            @NonNull final TestNetworkAgent wifi,
+            @NonNull final NetworkCallback currentDunCallack) throws Exception {
+        assertNotNull(currentDunCallack);
 
-        // When default network switch to mobile and wifi is connected (may have low signal),
-        // automatic mode would request dun again and choose it as upstream.
-        mCm.makeDefaultNetwork(mobile, CALLBACKS_FIRST);
-        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setTryCell(false);
+        inOrder.verify(mCm).unregisterNetworkCallback(eq(currentDunCallack));
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(wifi.networkId);
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+    }
+
+    @Nullable
+    private NetworkCallback verifyDunUpstream(@NonNull final InOrder inOrder,
+            @NonNull final TestNetworkAgent dun, final boolean needToRequestNetwork)
+            throws Exception {
         inOrder.verify(mUpstreamNetworkMonitor).setTryCell(true);
         ArgumentCaptor<NetworkCallback> captor = ArgumentCaptor.forClass(NetworkCallback.class);
-        inOrder.verify(mCm).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(), any());
+        NetworkCallback dunNetworkCallback = null;
+        if (needToRequestNetwork) {
+            inOrder.verify(mCm).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(),
+                    captor.capture());
+            dunNetworkCallback = captor.getValue();
+        }
         inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(null);
         final Runnable doDispatchAll = () -> mLooper.dispatchAll();
         dun.fakeConnect(CALLBACKS_FIRST, doDispatchAll);
         mLooper.dispatchAll();
         inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(dun.networkId);
 
-        // Lose and regain upstream again.
+        if (needToRequestNetwork) {
+            assertNotNull(dunNetworkCallback);
+        } else {
+            assertNull(dunNetworkCallback);
+        }
+
+        return dunNetworkCallback;
+    }
+
+    // Overall test coverage:
+    // - verifyChooseDunUpstreamByAutomaticMode: common, test#1, test#2
+    // - testChooseDunUpstreamByAutomaticMode_defaultNetworkWifi: test#3, test#4
+    // - testChooseDunUpstreamByAutomaticMode_loseDefaultNetworkWifi: test#5
+    // - testChooseDunUpstreamByAutomaticMode_defaultNetworkCell: test#5, test#7
+    // - testChooseDunUpstreamByAutomaticMode_loseAndRegainDun: test#8
+    // - testChooseDunUpstreamByAutomaticMode_switchDefaultFromWifiToCell: test#9, test#10
+    //
+    // Overall test cases:
+    // +-------+-------+-------+-------+-------+
+    // | Test  | WiFi  | Cellu |  Dun  | Expec |
+    // | Case  |       | alr   |       | ted   |
+    // |   #   |       |       |       | Upstr |
+    // |       |       |       |       | eam   |
+    // +-------+-------+-------+-------+-------+
+    // |   -   |       |       |       |   -   | --+
+    // +-------+-------+-------+-------+-------+   |
+    // |   -   |       |   V   |       |   -   |   |
+    // +-------+-------+-------+-------+-------+   |
+    // |   -   |       |   V   |   O   |  Dun  |   +-- chooseDunUpstreamTestCommon
+    // +-------+-------+-------+-------+-------+   |
+    // |   -   |   V   |   O   |   O   |  WiFi |   |
+    // +-------+-------+-------+-------+-------+   |
+    // |   -   |   V   |   O   |       |  WiFi | --+
+    // +-------+-------+-------+-------+-------+
+    // |       |   O   |   V   |       |   -   |
+    // |   1   +-------+-------+-------+-------+
+    // |       |   O   |   V   |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |       |   O   |   V   |       |   -   |
+    // |   2   +-------+-------+-------+-------+
+    // |       |   O   |   V   |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |   3   |   V   |   O   |       |  WiFi |
+    // +-------+-------+-------+-------+-------+
+    // |   4   |   V   |       |       |  WiFi |
+    // +-------+-------+-------+-------+-------+
+    // |   5   |       |       |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |   6   |       |   V   |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |   7   |       |       |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |       |       |       |       |   -   |
+    // |   8   +-------+-------+-------+-------+
+    // |       |       |       |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |       |   V   |       |   O   |  WiFi |
+    // |   9   +-------+-------+-------+-------+
+    // |       |   V   |       |       |  WiFi |
+    // +-------+-------+-------+-------+-------+
+    // |       |   O   |   V   |       |   -   |
+    // |   10  +-------+-------+-------+-------+
+    // |       |   O   |   V   |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    //
+    // Annotation:
+    // 1. "V" means that the given network is connected and it is default network.
+    // 2. "O" means that the given network is connected and it is not default network.
+    //
+
+    // Test case:
+    // +-------+-------+-------+-------+-------+
+    // | Test  | WiFi  | Cellu |  Dun  | Expec |
+    // | Case  |       | alr   |       | ted   |
+    // |   #   |       |       |       | Upstr |
+    // |       |       |       |       | eam   |
+    // +-------+-------+-------+-------+-------+
+    // |   -   |       |       |       |   -   | --+
+    // +-------+-------+-------+-------+-------+   |
+    // |   -   |       |   V   |       |   -   |   |
+    // +-------+-------+-------+-------+-------+   |
+    // |   -   |       |   V   |   O   |  Dun  |   +-- chooseDunUpstreamTestCommon
+    // +-------+-------+-------+-------+-------+   |
+    // |   -   |   V   |   O   |   O   |  WiFi |   |
+    // +-------+-------+-------+-------+-------+   |
+    // |   -   |   V   |   O   |       |  WiFi | --+
+    // +-------+-------+-------+-------+-------+
+    // |       |   O   |   V   |       |   -   |
+    // |   1   +-------+-------+-------+-------+
+    // |       |   O   |   V   |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |       |   O   |   V   |       |   -   |
+    // |   2   +-------+-------+-------+-------+
+    // |       |   O   |   V   |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    //
+    private void verifyChooseDunUpstreamByAutomaticMode(boolean configAutomatic) throws Exception {
+        // Enable automatic upstream selection.
+        TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
+        TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
+        TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
+        InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
+        chooseDunUpstreamTestCommon(configAutomatic, inOrder, mobile, wifi, dun);
+
+        // [1] When default network switch to mobile and wifi is connected (may have low signal),
+        // automatic mode would request dun again and choose it as upstream.
+        mCm.makeDefaultNetwork(mobile, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        verifyDunUpstream(inOrder, dun, true /* needToRequestNetwork */);
+
+        // [2] Lose and regain upstream again.
+        final Runnable doDispatchAll = () -> mLooper.dispatchAll();
         dun.fakeDisconnect(CALLBACKS_FIRST, doDispatchAll);
         mLooper.dispatchAll();
         inOrder.verify(mUpstreamNetworkMonitor).setTryCell(true);
@@ -1358,6 +1494,251 @@ public class TetheringTest {
     }
 
     @Test
+    public void testChooseDunUpstreamByAutomaticMode() throws Exception {
+        verifyChooseDunUpstreamByAutomaticMode(true /* configAutomatic */);
+    }
+
+    // testChooseDunUpstreamByAutomaticMode_* doesn't verify configAutomatic:false because no
+    // matter |configAutomatic| set to true or false, the result always be automatic mode. We
+    // just need one test to make sure this behavior. Don't need to test this configuration
+    // in all tests.
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testChooseDunUpstreamByAutomaticModeWithConfigDisabled() throws Exception {
+        verifyChooseDunUpstreamByAutomaticMode(false /* configAutomatic */);
+    }
+
+    // Test case:
+    // +-------+-------+-------+-------+-------+
+    // | Test  | WiFi  | Cellu |  Dun  | Expec |
+    // | Case  |       | alr   |       | ted   |
+    // |   #   |       |       |       | Upstr |
+    // |       |       |       |       | eam   |
+    // +-------+-------+-------+-------+-------+
+    // |   -   |   O   |   V   |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |   3   |   V   |   O   |       |  WiFi |
+    // +-------+-------+-------+-------+-------+
+    // |   4   |   V   |       |       |  WiFi |
+    // +-------+-------+-------+-------+-------+
+    //
+    // See verifyChooseDunUpstreamByAutomaticMode for the annotation.
+    //
+    @Test
+    public void testChooseDunUpstreamByAutomaticMode_defaultNetworkWifi() throws Exception {
+        TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
+        TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
+        TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
+        final InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
+        final NetworkCallback dunNetworkCallback1 = setupDunUpstreamTest(
+                true /* configAutomatic */, inOrder);
+
+        // When wifi connected, unregister dun request and choose wifi as upstream.
+        wifi.fakeConnect();
+        mCm.makeDefaultNetwork(wifi, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        verifyWifiUpstreamAndUnregisterDunCallback(inOrder, wifi, dunNetworkCallback1);
+
+        // When default network switch to mobile and wifi is connected (may have low signal),
+        // automatic mode would request dun again and choose it as upstream.
+        mCm.makeDefaultNetwork(mobile, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        final NetworkCallback dunNetworkCallback2 =
+                verifyDunUpstream(inOrder, dun, true /* needToRequestNetwork */);
+
+        // [3] When default network switch to wifi and mobile is still connected,
+        // unregister dun request and choose wifi as upstream.
+        mCm.makeDefaultNetwork(wifi, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        verifyWifiUpstreamAndUnregisterDunCallback(inOrder, wifi, dunNetworkCallback2);
+
+        // [4] When mobile is disconnected, keep wifi as upstream.
+        final Runnable doDispatchAll = () -> mLooper.dispatchAll();
+        mobile.fakeDisconnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+
+        verifyDisableTryCellWhenTetheringStop(inOrder);
+    }
+
+    // Test case:
+    // +-------+-------+-------+-------+-------+
+    // | Test  | WiFi  | Cellu |  Dun  | Expec |
+    // | Case  |       | alr   |       | ted   |
+    // |   #   |       |       |       | Upstr |
+    // |       |       |       |       | eam   |
+    // +-------+-------+-------+-------+-------+
+    // |   -   |   V   |       |       |  WiFi |
+    // +-------+-------+-------+-------+-------+
+    // |   5   |       |       |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    //
+    // See verifyChooseDunUpstreamByAutomaticMode for the annotation.
+    //
+    @Test
+    public void testChooseDunUpstreamByAutomaticMode_loseDefaultNetworkWifi() throws Exception {
+        TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
+        TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
+        final InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
+        final NetworkCallback dunNetworkCallback = setupDunUpstreamTest(
+                true /* configAutomatic */, inOrder);
+
+        // When wifi connected, unregister dun request and choose wifi as upstream.
+        wifi.fakeConnect();
+        mCm.makeDefaultNetwork(wifi, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        verifyWifiUpstreamAndUnregisterDunCallback(inOrder, wifi, dunNetworkCallback);
+
+        // [5] When wifi is disconnected, automatic mode would request dun again and choose it
+        // as upstream.
+        final Runnable doDispatchAll = () -> mLooper.dispatchAll();
+        mCm.makeDefaultNetwork(null, CALLBACKS_FIRST, doDispatchAll);
+        wifi.fakeDisconnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        verifyDunUpstream(inOrder, dun, true /* needToRequestNetwork */);
+
+        verifyDisableTryCellWhenTetheringStop(inOrder);
+    }
+
+    // Test case:
+    // +-------+-------+-------+-------+-------+
+    // | Test  | WiFi  | Cellu |  Dun  | Expec |
+    // | Case  |       | alr   |       | ted   |
+    // |   #   |       |       |       | Upstr |
+    // |       |       |       |       | eam   |
+    // +-------+-------+-------+-------+-------+
+    // |   -   |       |       |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |   6   |       |   V   |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |   7   |       |       |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    //
+    // See verifyChooseDunUpstreamByAutomaticMode for the annotation.
+    //
+    @Test
+    public void testChooseDunUpstreamByAutomaticMode_defaultNetworkCell() throws Exception {
+        TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
+        TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
+        final InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
+        setupDunUpstreamTest(true /* configAutomatic */, inOrder);
+
+        // Pretend dun connected and expect choose dun as upstream.
+        final Runnable doDispatchAll = () -> mLooper.dispatchAll();
+        dun.fakeConnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(dun.networkId);
+
+        // [6] When mobile is connected and default network switch to mobile, keep dun as upstream.
+        mobile.fakeConnect();
+        mCm.makeDefaultNetwork(mobile, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+
+        // [7] When mobile is disconnected, keep dun as upstream.
+        mCm.makeDefaultNetwork(null, CALLBACKS_FIRST, doDispatchAll);
+        mobile.fakeDisconnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+
+        verifyDisableTryCellWhenTetheringStop(inOrder);
+    }
+
+    // Test case:
+    // +-------+-------+-------+-------+-------+
+    // | Test  | WiFi  | Cellu |  Dun  | Expec |
+    // | Case  |       | alr   |       | ted   |
+    // |   #   |       |       |       | Upstr |
+    // |       |       |       |       | eam   |
+    // +-------+-------+-------+-------+-------+
+    // |   -   |       |       |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |       |       |       |       |   -   |
+    // |   8   +-------+-------+-------+-------+
+    // |       |       |       |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    //
+    // See verifyChooseDunUpstreamByAutomaticMode for the annotation.
+    //
+    @Test
+    public void testChooseDunUpstreamByAutomaticMode_loseAndRegainDun() throws Exception {
+        TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
+        final InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
+        setupDunUpstreamTest(true /* configAutomatic */, inOrder);
+
+        // Pretend dun connected and expect choose dun as upstream.
+        final Runnable doDispatchAll = () -> mLooper.dispatchAll();
+        dun.fakeConnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(dun.networkId);
+
+        // [8] Lose and regain upstream again.
+        dun.fakeDisconnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        verifyDunUpstream(inOrder, dun, false /* needToRequestNetwork */);
+
+        verifyDisableTryCellWhenTetheringStop(inOrder);
+    }
+
+    // Test case:
+    // +-------+-------+-------+-------+-------+
+    // | Test  | WiFi  | Cellu |  Dun  | Expec |
+    // | Case  |       | alr   |       | ted   |
+    // |   #   |       |       |       | Upstr |
+    // |       |       |       |       | eam   |
+    // +-------+-------+-------+-------+-------+
+    // |   -   |       |       |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    // |       |   V   |       |   O   |  WiFi |
+    // |   9   +-------+-------+-------+-------+
+    // |       |   V   |       |       |  WiFi |
+    // +-------+-------+-------+-------+-------+
+    // |       |   O   |   V   |       |   -   |
+    // |   10  +-------+-------+-------+-------+
+    // |       |   O   |   V   |   O   |  Dun  |
+    // +-------+-------+-------+-------+-------+
+    //
+    // See verifyChooseDunUpstreamByAutomaticMode for the annotation.
+    //
+    @Test
+    public void testChooseDunUpstreamByAutomaticMode_switchDefaultFromWifiToCell()
+            throws Exception {
+        TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
+        TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
+        TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
+        final InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
+        final NetworkCallback dunNetworkCallback = setupDunUpstreamTest(
+                true /* configAutomatic */, inOrder);
+
+        // Pretend dun connected and expect choose dun as upstream.
+        final Runnable doDispatchAll = () -> mLooper.dispatchAll();
+        dun.fakeConnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(dun.networkId);
+
+        // [9] When wifi is connected and default network switch to wifi, unregister dun request
+        // and choose wifi as upstream. When dun is disconnected, keep wifi as upstream.
+        wifi.fakeConnect();
+        mCm.makeDefaultNetwork(wifi, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        verifyWifiUpstreamAndUnregisterDunCallback(inOrder, wifi, dunNetworkCallback);
+        dun.fakeDisconnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+
+        // [10] When mobile and mobile are connected and default network switch to mobile
+        // (may have low signal), automatic mode would request dun again and choose it as
+        // upstream.
+        mobile.fakeConnect();
+        mCm.makeDefaultNetwork(mobile, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        verifyDunUpstream(inOrder, dun, true /* needToRequestNetwork */);
+
+        verifyDisableTryCellWhenTetheringStop(inOrder);
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
     public void testChooseDunUpstreamByLegacyMode() throws Exception {
         // Enable Legacy upstream selection.
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
@@ -1399,8 +1780,7 @@ public class TetheringTest {
         verifyDisableTryCellWhenTetheringStop(inOrder);
     }
 
-    private void chooseDunUpstreamTestCommon(final boolean automatic, InOrder inOrder,
-            TestNetworkAgent mobile, TestNetworkAgent wifi, TestNetworkAgent dun) throws Exception {
+    private NetworkCallback setupDunUpstreamTest(final boolean automatic, InOrder inOrder) {
         when(mResources.getBoolean(R.bool.config_tether_upstream_automatic)).thenReturn(automatic);
         when(mTelephonyManager.isTetheringApnRequired()).thenReturn(true);
         sendConfigurationChanged();
@@ -1413,10 +1793,16 @@ public class TetheringTest {
         inOrder.verify(mUpstreamNetworkMonitor).setTryCell(true);
         ArgumentCaptor<NetworkCallback> captor = ArgumentCaptor.forClass(NetworkCallback.class);
         inOrder.verify(mCm).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(),
-                captor.capture());
-        final NetworkCallback dunNetworkCallback1 = captor.getValue();
+                captor.capture() /* DUN network callback */);
 
-        // Pretend cellular connected and expect the upstream to be set.
+        return captor.getValue();
+    }
+
+    private void chooseDunUpstreamTestCommon(final boolean automatic, InOrder inOrder,
+            TestNetworkAgent mobile, TestNetworkAgent wifi, TestNetworkAgent dun) throws Exception {
+        final NetworkCallback dunNetworkCallback = setupDunUpstreamTest(automatic, inOrder);
+
+        // Pretend cellular connected and expect the upstream to be not set.
         mobile.fakeConnect();
         mCm.makeDefaultNetwork(mobile, BROADCAST_FIRST);
         mLooper.dispatchAll();
@@ -1432,9 +1818,7 @@ public class TetheringTest {
         wifi.fakeConnect();
         mCm.makeDefaultNetwork(wifi, CALLBACKS_FIRST);
         mLooper.dispatchAll();
-        inOrder.verify(mUpstreamNetworkMonitor).setTryCell(false);
-        inOrder.verify(mCm).unregisterNetworkCallback(eq(dunNetworkCallback1));
-        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(wifi.networkId);
+        verifyWifiUpstreamAndUnregisterDunCallback(inOrder, wifi, dunNetworkCallback);
         dun.fakeDisconnect(BROADCAST_FIRST, doDispatchAll);
         mLooper.dispatchAll();
         inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
@@ -1741,7 +2125,7 @@ public class TetheringTest {
                     new ArrayList<Network>(Arrays.asList(networks));
             for (Network upstream : expectedUpstreams) {
                 // throws OOB if no expectations
-                assertEquals(mActualUpstreams.remove(0), upstream);
+                assertEquals(upstream, mActualUpstreams.remove(0));
             }
             assertNoUpstreamChangeCallback();
         }
@@ -1756,14 +2140,14 @@ public class TetheringTest {
             for (TetheringConfigurationParcel config : expectedTetherConfig) {
                 // throws OOB if no expectations
                 final TetheringConfigurationParcel actualConfig = mTetheringConfigs.remove(0);
-                assertTetherConfigParcelEqual(actualConfig, config);
+                assertTetherConfigParcelEqual(config, actualConfig);
             }
             assertNoConfigChangeCallback();
         }
 
         public void expectOffloadStatusChanged(final int expectedStatus) {
             assertOffloadStatusChangedCallback();
-            assertEquals(mOffloadStatus.remove(0), new Integer(expectedStatus));
+            assertEquals(Integer.valueOf(expectedStatus), mOffloadStatus.remove(0));
         }
 
         public TetherStatesParcel pollTetherStatesChanged() {
@@ -1854,20 +2238,12 @@ public class TetheringTest {
 
         private void assertTetherConfigParcelEqual(@NonNull TetheringConfigurationParcel actual,
                 @NonNull TetheringConfigurationParcel expect) {
-            assertEquals(actual.subId, expect.subId);
-            assertArrayEquals(actual.tetherableUsbRegexs, expect.tetherableUsbRegexs);
-            assertArrayEquals(actual.tetherableWifiRegexs, expect.tetherableWifiRegexs);
-            assertArrayEquals(actual.tetherableBluetoothRegexs, expect.tetherableBluetoothRegexs);
-            assertEquals(actual.isDunRequired, expect.isDunRequired);
-            assertEquals(actual.chooseUpstreamAutomatically, expect.chooseUpstreamAutomatically);
-            assertArrayEquals(actual.preferredUpstreamIfaceTypes,
-                    expect.preferredUpstreamIfaceTypes);
-            assertArrayEquals(actual.legacyDhcpRanges, expect.legacyDhcpRanges);
-            assertArrayEquals(actual.defaultIPv4DNS, expect.defaultIPv4DNS);
-            assertEquals(actual.enableLegacyDhcpServer, expect.enableLegacyDhcpServer);
-            assertArrayEquals(actual.provisioningApp, expect.provisioningApp);
-            assertEquals(actual.provisioningAppNoUi, expect.provisioningAppNoUi);
-            assertEquals(actual.provisioningCheckPeriod, expect.provisioningCheckPeriod);
+            assertArrayEquals(expect.tetherableUsbRegexs, actual.tetherableUsbRegexs);
+            assertArrayEquals(expect.tetherableWifiRegexs, actual.tetherableWifiRegexs);
+            assertArrayEquals(expect.tetherableBluetoothRegexs, actual.tetherableBluetoothRegexs);
+            assertArrayEquals(expect.legacyDhcpRanges, actual.legacyDhcpRanges);
+            assertArrayEquals(expect.provisioningApp, actual.provisioningApp);
+            assertEquals(expect.provisioningAppNoUi, actual.provisioningAppNoUi);
         }
     }
 
@@ -2899,9 +3275,13 @@ public class TetheringTest {
     }
 
     private void forceUsbTetheringUse(final int function) {
-        Settings.Global.putInt(mContentResolver, TETHER_FORCE_USB_FUNCTIONS, function);
+        setSetting(TETHER_FORCE_USB_FUNCTIONS, function);
+    }
+
+    private void setSetting(final String key, final int value) {
+        Settings.Global.putInt(mContentResolver, key, value);
         final ContentObserver observer = mTethering.getSettingsObserverForTest();
-        observer.onChange(false /* selfChange */);
+        observer.onChange(false /* selfChange */, Settings.Global.getUriFor(key));
         mLooper.dispatchAll();
     }
 
@@ -2957,74 +3337,86 @@ public class TetheringTest {
                 TETHERING_WIFI_P2P, TETHERING_BLUETOOTH, TETHERING_ETHERNET });
     }
 
+    private void setUserRestricted(boolean restricted) {
+        final Bundle restrictions = new Bundle();
+        restrictions.putBoolean(UserManager.DISALLOW_CONFIG_TETHERING, restricted);
+        when(mUserManager.getUserRestrictions()).thenReturn(restrictions);
+        when(mUserManager.hasUserRestriction(
+                UserManager.DISALLOW_CONFIG_TETHERING)).thenReturn(restricted);
+
+        final Intent intent = new Intent(UserManager.ACTION_USER_RESTRICTIONS_CHANGED);
+        mServiceContext.sendBroadcastAsUser(intent, UserHandle.ALL);
+        mLooper.dispatchAll();
+    }
+
     @Test
     public void testTetheringSupported() throws Exception {
         final ArraySet<Integer> expectedTypes = getAllSupportedTetheringTypes();
         // Check tethering is supported after initialization.
-        setTetheringSupported(true /* supported */);
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         mTethering.registerTetheringEventCallback(callback);
         mLooper.dispatchAll();
-        updateConfigAndVerifySupported(callback, expectedTypes);
+        verifySupported(callback, expectedTypes);
 
-        // Could disable tethering supported by settings.
-        Settings.Global.putInt(mContentResolver, Settings.Global.TETHER_SUPPORTED, 0);
-        updateConfigAndVerifySupported(callback, new ArraySet<>());
+        // Could change tethering supported by settings.
+        setSetting(Settings.Global.TETHER_SUPPORTED, 0);
+        verifySupported(callback, new ArraySet<>());
+        setSetting(Settings.Global.TETHER_SUPPORTED, 1);
+        verifySupported(callback, expectedTypes);
 
-        // Could disable tethering supported by user restriction.
-        setTetheringSupported(true /* supported */);
-        updateConfigAndVerifySupported(callback, expectedTypes);
-        when(mUserManager.hasUserRestriction(
-                UserManager.DISALLOW_CONFIG_TETHERING)).thenReturn(true);
-        updateConfigAndVerifySupported(callback, new ArraySet<>());
+        // Could change tethering supported by user restriction.
+        setUserRestricted(true /* restricted */);
+        verifySupported(callback, new ArraySet<>());
+        setUserRestricted(false /* restricted */);
+        verifySupported(callback, expectedTypes);
 
-        // Tethering is supported if it has any supported downstream.
-        setTetheringSupported(true /* supported */);
-        updateConfigAndVerifySupported(callback, expectedTypes);
         // Usb tethering is not supported:
         expectedTypes.remove(TETHERING_USB);
         when(mResources.getStringArray(R.array.config_tether_usb_regexs))
                 .thenReturn(new String[0]);
-        updateConfigAndVerifySupported(callback, expectedTypes);
+        sendConfigurationChanged();
+        verifySupported(callback, expectedTypes);
         // Wifi tethering is not supported:
         expectedTypes.remove(TETHERING_WIFI);
         when(mResources.getStringArray(R.array.config_tether_wifi_regexs))
                 .thenReturn(new String[0]);
-        updateConfigAndVerifySupported(callback, expectedTypes);
+        sendConfigurationChanged();
+        verifySupported(callback, expectedTypes);
         // Bluetooth tethering is not supported:
         expectedTypes.remove(TETHERING_BLUETOOTH);
         when(mResources.getStringArray(R.array.config_tether_bluetooth_regexs))
                 .thenReturn(new String[0]);
 
         if (isAtLeastT()) {
-            updateConfigAndVerifySupported(callback, expectedTypes);
+            sendConfigurationChanged();
+            verifySupported(callback, expectedTypes);
 
             // P2p tethering is not supported:
             expectedTypes.remove(TETHERING_WIFI_P2P);
             when(mResources.getStringArray(R.array.config_tether_wifi_p2p_regexs))
                     .thenReturn(new String[0]);
-            updateConfigAndVerifySupported(callback, expectedTypes);
+            sendConfigurationChanged();
+            verifySupported(callback, expectedTypes);
             // Ncm tethering is not supported:
             expectedTypes.remove(TETHERING_NCM);
             when(mResources.getStringArray(R.array.config_tether_ncm_regexs))
                     .thenReturn(new String[0]);
-            updateConfigAndVerifySupported(callback, expectedTypes);
+            sendConfigurationChanged();
+            verifySupported(callback, expectedTypes);
             // Ethernet tethering (last supported type) is not supported:
             expectedTypes.remove(TETHERING_ETHERNET);
             mForceEthernetServiceUnavailable = true;
-            updateConfigAndVerifySupported(callback, new ArraySet<>());
-
+            sendConfigurationChanged();
+            verifySupported(callback, new ArraySet<>());
         } else {
             // If wifi, usb and bluetooth are all not supported, all the types are not supported.
-            expectedTypes.clear();
-            updateConfigAndVerifySupported(callback, expectedTypes);
+            sendConfigurationChanged();
+            verifySupported(callback, new ArraySet<>());
         }
     }
 
-    private void updateConfigAndVerifySupported(final TestTetheringEventCallback callback,
+    private void verifySupported(final TestTetheringEventCallback callback,
             final ArraySet<Integer> expectedTypes) {
-        sendConfigurationChanged();
-
         assertEquals(expectedTypes.size() > 0, mTethering.isTetheringSupported());
         callback.expectSupportedTetheringTypes(expectedTypes);
     }
