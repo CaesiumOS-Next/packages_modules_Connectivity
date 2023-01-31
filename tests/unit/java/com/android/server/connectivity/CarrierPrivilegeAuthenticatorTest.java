@@ -20,8 +20,6 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.telephony.TelephonyManager.ACTION_MULTI_SIM_CONFIG_CHANGED;
 
-import static com.android.server.connectivity.ConnectivityFlags.CARRIER_SERVICE_CHANGED_USE_CALLBACK;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -52,17 +50,14 @@ import com.android.net.module.util.CollectionUtils;
 import com.android.networkstack.apishim.TelephonyManagerShimImpl;
 import com.android.networkstack.apishim.common.TelephonyManagerShim.CarrierPrivilegesListenerShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
-import com.android.server.ConnectivityService;
 import com.android.testutils.DevSdkIgnoreRule;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.runners.JUnit4;
 import org.mockito.ArgumentCaptor;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
@@ -72,7 +67,7 @@ import java.util.Map;
  * Build, install and run with:
  *  atest FrameworksNetTests:CarrierPrivilegeAuthenticatorTest
  */
-@RunWith(Parameterized.class)
+@RunWith(JUnit4.class)
 // Ignored up to VERSION_CODES.S_V2, see |mIgnoreRule|
 public class CarrierPrivilegeAuthenticatorTest {
     private static final int SUBSCRIPTION_COUNT = 2;
@@ -93,9 +88,8 @@ public class CarrierPrivilegeAuthenticatorTest {
 
     public class TestCarrierPrivilegeAuthenticator extends CarrierPrivilegeAuthenticator {
         TestCarrierPrivilegeAuthenticator(@NonNull final Context c,
-                @NonNull final ConnectivityService.Dependencies deps,
                 @NonNull final TelephonyManager t) {
-            super(c, deps, t, mTelephonyManagerShim);
+            super(c, t, mTelephonyManagerShim);
         }
         @Override
         protected int getSlotIndex(int subId) {
@@ -104,21 +98,12 @@ public class CarrierPrivilegeAuthenticatorTest {
         }
     }
 
-    /** Parameters to test both using callbacks or the old broadcast */
-    @Parameterized.Parameters
-    public static Collection<Boolean> shouldUseCallbacks() {
-        return Arrays.asList(true, false);
-    }
-
-    public CarrierPrivilegeAuthenticatorTest(final boolean useCallbacks) throws Exception {
+    public CarrierPrivilegeAuthenticatorTest() throws Exception {
         mContext = mock(Context.class);
         mTelephonyManager = mock(TelephonyManager.class);
         mTelephonyManagerShim = mock(TelephonyManagerShimImpl.class);
         mPackageManager = mock(PackageManager.class);
         final ConnectivityFlags flags = new ConnectivityFlags();
-        final ConnectivityService.Dependencies deps = mock(ConnectivityService.Dependencies.class);
-        doReturn(useCallbacks).when(deps).isFeatureEnabled(any() /* context */,
-                eq(CARRIER_SERVICE_CHANGED_USE_CALLBACK));
         doReturn(SUBSCRIPTION_COUNT).when(mTelephonyManager).getActiveModemCount();
         doReturn(mTestPkg).when(mTelephonyManagerShim)
                 .getCarrierServicePackageNameForLogicalSlot(anyInt());
@@ -127,7 +112,7 @@ public class CarrierPrivilegeAuthenticatorTest {
         applicationInfo.uid = mCarrierConfigPkgUid;
         doReturn(applicationInfo).when(mPackageManager).getApplicationInfo(eq(mTestPkg), anyInt());
         mCarrierPrivilegeAuthenticator =
-                new TestCarrierPrivilegeAuthenticator(mContext, deps, mTelephonyManager);
+                new TestCarrierPrivilegeAuthenticator(mContext, mTelephonyManager);
         final ArgumentCaptor<BroadcastReceiver> receiverCaptor =
                 ArgumentCaptor.forClass(BroadcastReceiver.class);
         verify(mContext).registerReceiver(receiverCaptor.capture(), argThat(filter ->
