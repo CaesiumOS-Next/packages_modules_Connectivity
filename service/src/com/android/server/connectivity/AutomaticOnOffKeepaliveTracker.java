@@ -161,9 +161,14 @@ public class AutomaticOnOffKeepaliveTracker {
                 Log.d(TAG, "Received TCP polling intent");
                 final Network network = intent.getParcelableExtra(EXTRA_NETWORK);
                 final int slot = intent.getIntExtra(EXTRA_SLOT, -1);
+                final AutomaticOnOffKeepalive ki = findAutomaticOnOffKeepalive(network, slot);
+                if (ki == null) {
+                    Log.e(TAG, "Receive intent on nonexistent keepalive");
+                    return;
+                }
                 mConnectivityServiceHandler.obtainMessage(
                         NetworkAgent.CMD_MONITOR_AUTOMATIC_KEEPALIVE,
-                        slot, 0 , network).sendToTarget();
+                        slot, 0 , ki).sendToTarget();
             }
         }
     };
@@ -185,14 +190,17 @@ public class AutomaticOnOffKeepaliveTracker {
         private final KeepaliveTracker.KeepaliveInfo mKi;
         @Nullable
         private final FileDescriptor mFd;
+        @NonNull
+        private final Context mContext;
         @Nullable
-        private final PendingIntent mTcpPollingAlarm;
+        private PendingIntent mTcpPollingAlarm = null;
         @AutomaticOnOffState
         private int mAutomaticOnOffState;
 
         AutomaticOnOffKeepalive(@NonNull final KeepaliveTracker.KeepaliveInfo ki,
                 final boolean autoOnOff, @NonNull Context context) throws InvalidSocketException {
             this.mKi = Objects.requireNonNull(ki);
+            this.mContext = Objects.requireNonNull(context);
             if (autoOnOff && mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION)) {
                 mAutomaticOnOffState = STATE_ENABLED;
                 if (null == ki.mFd) {
@@ -205,15 +213,12 @@ public class AutomaticOnOffKeepaliveTracker {
                     Log.e(TAG, "Cannot dup fd: ", e);
                     throw new InvalidSocketException(ERROR_INVALID_SOCKET, e);
                 }
-                mTcpPollingAlarm = createTcpPollingAlarmIntent(
-                        context, ki.getNai().network(), ki.getSlot());
             } else {
                 mAutomaticOnOffState = STATE_ALWAYS_ON;
                 // A null fd is acceptable in KeepaliveInfo for backward compatibility of
                 // PacketKeepalive API, but it must never happen with automatic keepalives.
                 // TODO : remove mFd from KeepaliveInfo or from this class.
                 mFd = ki.mFd;
-                mTcpPollingAlarm = null;
             }
         }
 
@@ -223,6 +228,14 @@ public class AutomaticOnOffKeepaliveTracker {
 
         public boolean match(Network network, int slot) {
             return mKi.getNai().network().equals(network) && mKi.getSlot() == slot;
+        }
+
+        private PendingIntent getTcpPollingAlarmIntent() {
+            if (mTcpPollingAlarm == null) {
+                mTcpPollingAlarm = createTcpPollingAlarmIntent(
+                        mContext, getNetwork(), mKi.getSlot());
+            }
+            return mTcpPollingAlarm;
         }
 
         private PendingIntent createTcpPollingAlarmIntent(@NonNull Context context,
@@ -297,7 +310,7 @@ public class AutomaticOnOffKeepaliveTracker {
             handleMaybeResumeKeepalive(ki);
         }
         // TODO: listen to socket status instead of periodically check.
-        startTcpPollingAlarm(ki.mTcpPollingAlarm);
+        startTcpPollingAlarm(ki.getTcpPollingAlarmIntent());
     }
 
     /**
@@ -379,8 +392,14 @@ public class AutomaticOnOffKeepaliveTracker {
 
         // Add automatic on/off request into list to track its life cycle.
         mAutomaticOnOffKeepalives.add(autoKi);
+        // CAREFUL : mKeepaliveTracker.handleStartKeepalive will assign |ki.mSlot| after
+        // pulling |ki| from the message. The getTcpPollingAlarmIntent() below will read this member
+        // (through ki.getSlot()) and therefore actively relies on handleStartKeepalive
+        // having assigned this member before this is called.
+        // TODO : clean this up by assigning the slot before constructing a new
+        // AutomaticOnOffKeepalive instead and ideally removing the mSlot member from KeepaliveInfo.
         if (STATE_ALWAYS_ON != autoKi.mAutomaticOnOffState) {
-            startTcpPollingAlarm(autoKi.mTcpPollingAlarm);
+            startTcpPollingAlarm(autoKi.getTcpPollingAlarmIntent());
         }
     }
 
