@@ -2,7 +2,7 @@
 package android.net.http {
 
   public abstract class CallbackException extends android.net.http.HttpException {
-    ctor protected CallbackException(String, Throwable);
+    ctor protected CallbackException(@Nullable String, @Nullable Throwable);
   }
 
   public class ConnectionMigrationOptions {
@@ -12,9 +12,9 @@ package android.net.http {
 
   public static class ConnectionMigrationOptions.Builder {
     ctor public ConnectionMigrationOptions.Builder();
-    method public android.net.http.ConnectionMigrationOptions build();
-    method public android.net.http.ConnectionMigrationOptions.Builder setEnableDefaultNetworkMigration(boolean);
-    method public android.net.http.ConnectionMigrationOptions.Builder setEnablePathDegradationMigration(boolean);
+    method @NonNull public android.net.http.ConnectionMigrationOptions build();
+    method @NonNull public android.net.http.ConnectionMigrationOptions.Builder setEnableDefaultNetworkMigration(boolean);
+    method @NonNull public android.net.http.ConnectionMigrationOptions.Builder setEnablePathDegradationMigration(boolean);
   }
 
   public final class DnsOptions {
@@ -24,35 +24,35 @@ package android.net.http {
 
   public static final class DnsOptions.Builder {
     ctor public DnsOptions.Builder();
-    method public android.net.http.DnsOptions build();
-    method public android.net.http.DnsOptions.Builder setPersistHostCache(boolean);
-    method public android.net.http.DnsOptions.Builder setPersistHostCachePeriod(java.time.Duration);
+    method @NonNull public android.net.http.DnsOptions build();
+    method @NonNull public android.net.http.DnsOptions.Builder setPersistHostCache(boolean);
+    method @NonNull public android.net.http.DnsOptions.Builder setPersistHostCachePeriod(@NonNull java.time.Duration);
   }
 
   public abstract class HttpEngine {
-    method public abstract java.net.URLStreamHandlerFactory createURLStreamHandlerFactory();
-    method public abstract String getVersionString();
-    method public abstract android.net.http.UrlRequest.Builder newUrlRequestBuilder(String, android.net.http.UrlRequest.Callback, java.util.concurrent.Executor);
-    method public abstract java.net.URLConnection openConnection(java.net.URL) throws java.io.IOException;
+    method @NonNull public abstract java.net.URLStreamHandlerFactory createURLStreamHandlerFactory();
+    method @NonNull public abstract String getVersionString();
+    method @NonNull public abstract android.net.http.UrlRequest.Builder newUrlRequestBuilder(@NonNull String, @NonNull android.net.http.UrlRequest.Callback, @NonNull java.util.concurrent.Executor);
+    method @NonNull public abstract java.net.URLConnection openConnection(@NonNull java.net.URL) throws java.io.IOException;
     method public abstract void shutdown();
   }
 
   public static class HttpEngine.Builder {
-    ctor public HttpEngine.Builder(android.content.Context);
-    method public android.net.http.HttpEngine.Builder addPublicKeyPins(String, java.util.Set<byte[]>, boolean, java.time.Instant);
-    method public android.net.http.HttpEngine.Builder addQuicHint(String, int, int);
-    method public android.net.http.HttpEngine build();
-    method public String getDefaultUserAgent();
-    method public android.net.http.HttpEngine.Builder setConnectionMigrationOptions(android.net.http.ConnectionMigrationOptions);
-    method public android.net.http.HttpEngine.Builder setDnsOptions(android.net.http.DnsOptions);
-    method public android.net.http.HttpEngine.Builder setEnableBrotli(boolean);
-    method public android.net.http.HttpEngine.Builder setEnableHttp2(boolean);
-    method public android.net.http.HttpEngine.Builder setEnableHttpCache(int, long);
-    method public android.net.http.HttpEngine.Builder setEnablePublicKeyPinningBypassForLocalTrustAnchors(boolean);
-    method public android.net.http.HttpEngine.Builder setEnableQuic(boolean);
-    method public android.net.http.HttpEngine.Builder setQuicOptions(android.net.http.QuicOptions);
-    method public android.net.http.HttpEngine.Builder setStoragePath(String);
-    method public android.net.http.HttpEngine.Builder setUserAgent(String);
+    ctor public HttpEngine.Builder(@NonNull android.content.Context);
+    method @NonNull public android.net.http.HttpEngine.Builder addPublicKeyPins(@NonNull String, @NonNull java.util.Set<byte[]>, boolean, @NonNull java.time.Instant);
+    method @NonNull public android.net.http.HttpEngine.Builder addQuicHint(@NonNull String, int, int);
+    method @NonNull public android.net.http.HttpEngine build();
+    method @NonNull public String getDefaultUserAgent();
+    method @NonNull public android.net.http.HttpEngine.Builder setConnectionMigrationOptions(@NonNull android.net.http.ConnectionMigrationOptions);
+    method @NonNull public android.net.http.HttpEngine.Builder setDnsOptions(@NonNull android.net.http.DnsOptions);
+    method @NonNull public android.net.http.HttpEngine.Builder setEnableBrotli(boolean);
+    method @NonNull public android.net.http.HttpEngine.Builder setEnableHttp2(boolean);
+    method @NonNull public android.net.http.HttpEngine.Builder setEnableHttpCache(int, long);
+    method @NonNull public android.net.http.HttpEngine.Builder setEnablePublicKeyPinningBypassForLocalTrustAnchors(boolean);
+    method @NonNull public android.net.http.HttpEngine.Builder setEnableQuic(boolean);
+    method @NonNull public android.net.http.HttpEngine.Builder setQuicOptions(@NonNull android.net.http.QuicOptions);
+    method @NonNull public android.net.http.HttpEngine.Builder setStoragePath(@NonNull String);
+    method @NonNull public android.net.http.HttpEngine.Builder setUserAgent(@Nullable String);
     field public static final int HTTP_CACHE_DISABLED = 0; // 0x0
     field public static final int HTTP_CACHE_DISK = 3; // 0x3
     field public static final int HTTP_CACHE_DISK_NO_HTTP = 2; // 0x2
