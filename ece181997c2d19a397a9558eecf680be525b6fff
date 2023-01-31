@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2064c9e_66bac01d",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-31T04:41:19Z",
+      "side": 1,
+      "message": "This means that it\u0027s now possible to create a template of type MATCH_MOBILE with one of the subscriber IDs is null. That seems wrong. Should this check be put back?",
+      "range": {
+        "startLine": 278,
+        "startChar": 27,
+        "endLine": 278,
+        "endChar": 77
+      },
+      "revId": "ece181997c2d19a397a9558eecf680be525b6fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c341fefc_139fc75e",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 25
@@ -19,6 +42,29 @@
         "startChar": 5,
         "endLine": 293,
         "endChar": 24
+      },
+      "revId": "ece181997c2d19a397a9558eecf680be525b6fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ed3aee4_d44b84cb",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-31T04:41:19Z",
+      "side": 1,
+      "message": "Previously, matchesMobile would always return false if mMatchSubscriberIds was empty. Now, it will return true. Can this happen?\n\nIt looks like if this NetworkTemplate is built using the Builder, then it can never be of type MATCH_MOBILE and have an empty mMatchSubscriberIds.\n\nBut if code uses the UnsupportedAppUsage constructor, then I think it can construct a NetworkTemplate with type MATCH_MOBILE and a null subscriber ID. That would not match anything.\n\nCould this be a problem? Or does it not matter, because we don\u0027t think anything would create a NetworkTemplate of this type?",
+      "range": {
+        "startLine": 590,
+        "startChar": 20,
+        "endLine": 590,
+        "endChar": 64
       },
       "revId": "ece181997c2d19a397a9558eecf680be525b6fff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
