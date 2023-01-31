@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e025ac17_c0f41304",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-31T07:52:23Z",
+      "side": 1,
+      "message": "Before, monitoring of sockets could only be started if mMdnsDiscoveryManager !\u003d null || mAdvertiser !\u003d null, because maybeStartMonitoringSockets can only be called in such cases. So maybeStopMonitoringSocketsIfNoActiveRequest can only be called in such cases. If the monitoring wasn\u0027t started, it would just possibly log some debug message. mIsMonitoringSocketsStarted \u003d\u003d true is a subset of the cases where they are non-null, and actually monitoring only needs to be stopped if it is true.\n\nAfter the change, mMdnsDiscoveryManager and mAdvertiser are always non-null, so this just uses mIsMonitoringSocketsStarted to know whether maybeStopMonitoringSocketsIfNoActiveRequest needs to be called.\n\nThat said, it\u0027s just simpler to only check mIsMonitoringSocketsStarted once inside the method, and return without logging if it\u0027s true. Updated to that.",
+      "parentUuid": "3265860b_7601c555",
+      "revId": "eeb3fc1f99a6f3e0e20c59034ca6b33c91b263e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6aa6571_c5bbfe68",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-23T04:26:27Z",
       "side": 1,
       "message": "I can see in other place. `mAdvertiser !\u003d null` is replaced with `mDeps.isMdnsAdvertiserEnabled(mContext)`. Why we do `request instanceof AdvertiserClientRequest` here instead?",
+      "revId": "eeb3fc1f99a6f3e0e20c59034ca6b33c91b263e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ddbd8a6_876b4247",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-31T07:52:23Z",
+      "side": 1,
+      "message": "The feature flag may be changed while the request is registered; so when unregistering the service, the code needs to check the type of the request to unregister, not the value of the flag. So in general a flag check is used when adding a request, but an instanceof check is used when unregistering.\n\nAdded a comment.",
+      "parentUuid": "c6aa6571_c5bbfe68",
       "revId": "eeb3fc1f99a6f3e0e20c59034ca6b33c91b263e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a15ca93d_e6fcc17b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-31T07:52:23Z",
+      "side": 1,
+      "message": "MdnsMultinetworkSocketClient is documented as non-thread-safe, meaning that it must be accessed on a consistent thread; actually setCallback has a ensureRunningOnHandlerThread check that will throw if the callback is set on a thread that is not the looper thread.\n\nFor this particular method, this is because mCallback is accessed on the looper thread and has no synchronization, so it must be written on the same thread (otherwise it could be seen as null on the looper thread for a while)",
+      "parentUuid": "1e707fae_67f042f7",
+      "revId": "eeb3fc1f99a6f3e0e20c59034ca6b33c91b263e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "067f677d_7f0020ec",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-01-23T04:26:27Z",
       "side": 1,
       "message": "Just curious, it seems the test case in our code is not follow the testing best practice naming https://engdoc.corp.google.com/eng/doc/devguide/testing/unit/best-practices.md?cl\u003dhead\u0026polyglot\u003djava. Do we have other convention in our code base?",
+      "revId": "eeb3fc1f99a6f3e0e20c59034ca6b33c91b263e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93a977d9_84cb71f2",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-31T07:52:23Z",
+      "side": 1,
+      "message": "Good point, I never noticed that convention. Android most often doesn\u0027t seem to follow it:\n\nhttps://cs.android.com/search?q\u003d@test%20-f:external%20lang:java\u0026sq\u003d\u0026ss\u003dandroid\n\nUpdated the method to \"testMdnsAdvertiserFeatureFlagging\" instead, since this doesn\u0027t test the whole feature, just the on/off behavior.",
+      "parentUuid": "067f677d_7f0020ec",
       "revId": "eeb3fc1f99a6f3e0e20c59034ca6b33c91b263e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
