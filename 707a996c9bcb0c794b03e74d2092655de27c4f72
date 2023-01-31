@@ -46,6 +46,30 @@
       },
       "revId": "707a996c9bcb0c794b03e74d2092655de27c4f72",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13fe0ed9_5e1bc1f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-31T06:06:44Z",
+      "side": 1,
+      "message": "Ah, yes. SGTM.",
+      "parentUuid": "78ffcc6f_17d6ab00",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 66
+      },
+      "revId": "707a996c9bcb0c794b03e74d2092655de27c4f72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
