@@ -22,6 +22,30 @@
       },
       "revId": "b2c0f3407f6f9c13ec94cea4038557e15d587501",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "304fc562_1ce46ce7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-01-31T10:03:57Z",
+      "side": 1,
+      "message": "No, we don\u0027t have shim for this new ResolveListener callback.",
+      "parentUuid": "ec325dd3_c07b20be",
+      "range": {
+        "startLine": 768,
+        "startChar": 8,
+        "endLine": 768,
+        "endChar": 15
+      },
+      "revId": "b2c0f3407f6f9c13ec94cea4038557e15d587501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
