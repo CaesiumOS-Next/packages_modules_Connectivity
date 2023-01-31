@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec325dd3_c07b20be",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-31T02:31:07Z",
+      "side": 1,
+      "message": "I guess you\u0027ll need a shim change as well ?",
+      "range": {
+        "startLine": 768,
+        "startChar": 8,
+        "endLine": 768,
+        "endChar": 15
+      },
+      "revId": "b2c0f3407f6f9c13ec94cea4038557e15d587501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
