@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfccd50b_fdd8a4a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-31T06:36:32Z",
+      "side": 1,
+      "message": "LGTM, unless this CL results in the tests being skipped everywhere on all targets. If this CL does result in tests being skipped everywhere, then I think we should try to work around the issue instead.",
+      "revId": "9debcc0d588f88502ffb000f00b8ce586284a9e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2af986b_62726229",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-31T06:36:32Z",
+      "side": 1,
+      "message": "Wow, that\u0027s really new. Do we even only have one cuttlefish kernel that\u0027s new enough to run these tests on? If not, then the tests might be skipped everywhere, and as a result, bitrot...",
+      "range": {
+        "startLine": 402,
+        "startChar": 43,
+        "endLine": 402,
+        "endChar": 48
+      },
+      "revId": "9debcc0d588f88502ffb000f00b8ce586284a9e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
