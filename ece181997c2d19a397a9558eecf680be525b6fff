@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c341fefc_139fc75e",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-31T04:31:42Z",
+      "side": 1,
+      "message": "This could be called by an app with\n\n    new NetworkTemplate(6, something, something)\n    \nbut this won\u0027t work in the updated code I think ?",
+      "range": {
+        "startLine": 293,
+        "startChar": 5,
+        "endLine": 293,
+        "endChar": 24
+      },
+      "revId": "ece181997c2d19a397a9558eecf680be525b6fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
