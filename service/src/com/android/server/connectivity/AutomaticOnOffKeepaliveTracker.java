@@ -398,6 +398,11 @@ public class AutomaticOnOffKeepaliveTracker {
      * Handle stop keepalives on the specific network with given slot.
      */
     public void handleStopKeepalive(NetworkAgentInfo nai, int slot, int reason) {
+        if (null == nai) {
+            Log.e(TAG, "Attempt to stop keepalive on nonexistent network");
+            return;
+        }
+
         final AutomaticOnOffKeepalive autoKi = findAutomaticOnOffKeepalive(nai.network, slot);
         if (null == autoKi) {
             Log.e(TAG, "Attempt to stop nonexistent keepalive " + slot + " on " + nai);
