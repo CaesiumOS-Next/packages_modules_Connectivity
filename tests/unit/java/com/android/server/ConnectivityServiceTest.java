@@ -2130,7 +2130,6 @@ public class ConnectivityServiceTest {
         public boolean isFeatureEnabled(Context context, String name) {
             switch (name) {
                 case ConnectivityFlags.NO_REMATCH_ALL_REQUESTS_ON_REGISTER:
-                case ConnectivityFlags.CARRIER_SERVICE_CHANGED_USE_CALLBACK_VERSION:
                     return true;
                 case KEY_DESTROY_FROZEN_SOCKETS_VERSION:
                     return true;
