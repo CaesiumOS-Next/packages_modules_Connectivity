@@ -20,6 +20,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20c392c9_94cb990c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-31T18:06:25Z",
+      "side": 1,
+      "message": "FWIU, Android U supports 5.15 and 6.1 and cuttlefish will soon move to 6.1 (it\u0027s unfortunately still using 5.15...). I am happy to sit on this CL until that happens.",
+      "parentUuid": "bfccd50b_fdd8a4a4",
+      "revId": "9debcc0d588f88502ffb000f00b8ce586284a9e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "338eeaa1_fb034f57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-31T18:06:25Z",
+      "side": 1,
+      "message": "Setting to -2 until cuttlefish moves to kernel 6.1 at which point I will submit this change.",
+      "revId": "9debcc0d588f88502ffb000f00b8ce586284a9e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2af986b_62726229",
         "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
         "patchSetId": 9
