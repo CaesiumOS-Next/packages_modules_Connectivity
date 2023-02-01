@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c390c1_c915267a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1863,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-01T06:23:33Z",
+      "side": 1,
+      "message": "You need to move this out of this \"if\" because currently it rely on mTetherUpstream !\u003d newUpstream to assume capabilities is changed.\n\nAnd having a TODO that probably only call mNotificationUpdater.onUpstreamCapabilitiesChanged only if network capabilities is changed by moving this into handleUpstreamNetworkMonitorCallback.",
+      "range": {
+        "startLine": 1860,
+        "startChar": 0,
+        "endLine": 1863,
+        "endChar": 70
+      },
+      "revId": "525b8bb9115868b746093762fc537247534841f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
