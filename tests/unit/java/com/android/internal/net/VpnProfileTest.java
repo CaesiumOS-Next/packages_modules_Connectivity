@@ -20,6 +20,7 @@ import static android.net.cts.util.IkeSessionTestUtils.CHILD_PARAMS;
 import static android.net.cts.util.IkeSessionTestUtils.IKE_PARAMS_V4;
 
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
+import static com.android.modules.utils.build.SdkLevel.isAtLeastU;
 import static com.android.testutils.ParcelUtils.assertParcelSane;
 
 import static org.junit.Assert.assertEquals;
@@ -55,6 +56,8 @@ public class VpnProfileTest {
     private static final int ENCODED_INDEX_RESTRICTED_TO_TEST_NETWORKS = 24;
     private static final int ENCODED_INDEX_EXCLUDE_LOCAL_ROUTE = 25;
     private static final int ENCODED_INDEX_REQUIRE_PLATFORM_VALIDATION = 26;
+    private static final int ENCODED_INDEX_IKE_TUN_CONN_PARAMS = 27;
+    private static final int ENCODED_INDEX_KEEPALIVE_START_OPTIONS = 28;
 
     @Test
     public void testDefaults() throws Exception {
@@ -85,6 +88,7 @@ public class VpnProfileTest {
         assertFalse(p.isRestrictedToTestNetworks);
         assertFalse(p.excludeLocalRoutes);
         assertFalse(p.requiresInternetValidation);
+        assertEquals(0, p.keepaliveStartFlags);
     }
 
     private VpnProfile getSampleIkev2Profile(String key) {
@@ -166,7 +170,9 @@ public class VpnProfileTest {
 
     @Test
     public void testParcelUnparcel() {
-        if (isAtLeastT()) {
+        if (isAtLeastU()) {
+            assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 27);
+        } else if (isAtLeastT()) {
             // excludeLocalRoutes, requiresPlatformValidation were added in T.
             assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 26);
             assertParcelSane(getSampleIkev2ProfileWithIkeTunConnParams(DUMMY_PROFILE_KEY), 26);
@@ -205,12 +211,10 @@ public class VpnProfileTest {
         final String encoded = new String(getSampleIkev2Profile(DUMMY_PROFILE_KEY).encode());
         final List<String> parts =
                 new ArrayList<>(Arrays.asList(encoded.split(VpnProfile.VALUE_DELIMITER)));
-
         // Remove from back first to ensure indexing is consistent.
         for (int i = missingIndices.length - 1; i >= 0; i--) {
             parts.remove(missingIndices[i]);
         }
-
         return String.join(VpnProfile.VALUE_DELIMITER, parts.toArray(new String[0]));
     }
 
@@ -221,7 +225,9 @@ public class VpnProfileTest {
                         ENCODED_INDEX_AUTH_PARAMS_INLINE,
                         ENCODED_INDEX_RESTRICTED_TO_TEST_NETWORKS,
                         ENCODED_INDEX_EXCLUDE_LOCAL_ROUTE,
-                        ENCODED_INDEX_REQUIRE_PLATFORM_VALIDATION /* missingIndices */);
+                        ENCODED_INDEX_REQUIRE_PLATFORM_VALIDATION,
+                        ENCODED_INDEX_IKE_TUN_CONN_PARAMS,
+                        ENCODED_INDEX_KEEPALIVE_START_OPTIONS /* missingIndices */);
 
         assertNull(VpnProfile.decode(DUMMY_PROFILE_KEY, tooFewValues.getBytes()));
     }
@@ -230,7 +236,11 @@ public class VpnProfileTest {
     public void testEncodeDecodeMissingIsRestrictedToTestNetworks() {
         final String tooFewValues =
                 getEncodedDecodedIkev2ProfileMissingValues(
-                        ENCODED_INDEX_RESTRICTED_TO_TEST_NETWORKS /* missingIndices */);
+                        ENCODED_INDEX_RESTRICTED_TO_TEST_NETWORKS,
+                        ENCODED_INDEX_EXCLUDE_LOCAL_ROUTE,
+                        ENCODED_INDEX_REQUIRE_PLATFORM_VALIDATION,
+                        ENCODED_INDEX_IKE_TUN_CONN_PARAMS,
+                        ENCODED_INDEX_KEEPALIVE_START_OPTIONS /* missingIndices */);
 
         // Verify decoding without isRestrictedToTestNetworks defaults to false
         final VpnProfile decoded = VpnProfile.decode(DUMMY_PROFILE_KEY, tooFewValues.getBytes());
@@ -253,7 +263,9 @@ public class VpnProfileTest {
     public void testEncodeDecodeMissingRequiresValidation() {
         final String tooFewValues =
                 getEncodedDecodedIkev2ProfileMissingValues(
-                        ENCODED_INDEX_REQUIRE_PLATFORM_VALIDATION /* missingIndices */);
+                        ENCODED_INDEX_REQUIRE_PLATFORM_VALIDATION,
+                        ENCODED_INDEX_IKE_TUN_CONN_PARAMS,
+                        ENCODED_INDEX_KEEPALIVE_START_OPTIONS /* missingIndices */);
 
         // Verify decoding without requiresValidation defaults to false
         final VpnProfile decoded = VpnProfile.decode(DUMMY_PROFILE_KEY, tooFewValues.getBytes());
