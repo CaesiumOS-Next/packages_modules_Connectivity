@@ -35,6 +35,8 @@ import android.net.http.cts.util.TestUrlRequestCallback.ResponseStep;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import static org.junit.Assert.assertSame;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -90,5 +92,18 @@ public class UrlRequestTest {
         TestStatusListener statusListener = new TestStatusListener();
         request.getStatus(statusListener);
         statusListener.expectStatus(Status.INVALID);
+    }
+
+    @Test
+    public void testUrlRequestCancel_CancelCalled() throws Exception {
+        UrlRequest request = buildUrlRequest(mTestServer.getSuccessUrl());
+        mCallback.setAutoAdvance(false);
+
+        request.start();
+        mCallback.waitForNextStep();
+        assertSame(mCallback.mResponseStep, ResponseStep.ON_RESPONSE_STARTED);
+
+        request.cancel();
+        mCallback.expectCallback(ResponseStep.ON_CANCELED);
     }
 }
