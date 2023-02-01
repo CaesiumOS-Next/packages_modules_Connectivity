@@ -46,6 +46,7 @@ import android.net.IpSecAlgorithm;
 import android.net.Network;
 import android.net.NetworkRequest;
 import android.net.ProxyInfo;
+import android.net.SocketKeepalive;
 import android.net.TestNetworkInterface;
 import android.net.VpnManager;
 import android.net.cts.util.CtsNetUtils;
@@ -342,6 +343,27 @@ public class Ikev2VpnTest {
         final Ikev2VpnProfile profile = ikeProfileBuilder.build();
 
         assertEquals(expectedParams, profile.getIkeTunnelConnectionParams());
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testBuildIkev2VpnProfileWithKeepaliveStartOptions() throws Exception {
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+
+        final Ikev2VpnProfile profile = buildIkev2VpnProfilePsk(TEST_SERVER_ADDR_V6,
+                false /* isRestrictedToTestNetworks */, false /* requiresValidation */);
+        // Flag is not set by default.
+        assertEquals(0, profile.getKeepaliveStartFlags());
+
+        // Verify the keepalive start flags.
+        final IkeTunnelConnectionParams expectedParams = new IkeTunnelConnectionParams(
+                IkeSessionTestUtils.IKE_PARAMS_V6, IkeSessionTestUtils.CHILD_PARAMS);
+        final Ikev2VpnProfile.Builder ikeProfileBuilder =
+                new Ikev2VpnProfile.Builder(expectedParams)
+                        .setKeepaliveStartOptions(SocketKeepalive.FLAG_AUTOMATIC_ON_OFF);
+        final Ikev2VpnProfile profileWithOption = ikeProfileBuilder.build();
+        assertEquals(SocketKeepalive.FLAG_AUTOMATIC_ON_OFF,
+                profileWithOption.getKeepaliveStartFlags());
     }
 
     @Test
