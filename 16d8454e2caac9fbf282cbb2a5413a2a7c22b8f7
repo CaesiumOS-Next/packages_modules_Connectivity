@@ -16,6 +16,23 @@
       "message": "LGTM, but these tests are involved enough that Remi should probably take a look.",
       "revId": "16d8454e2caac9fbf282cbb2a5413a2a7c22b8f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e5a3610_fafdf3d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-01T04:40:05Z",
+      "side": 1,
+      "message": "Looks like SuiteApkInstaller is a subclass of TestAppInstallSetup where the only difference is how it finds local files to use for the test (getLocalPathForFilename).\n\nSo LGTM if TH is happy with it (meaning it still finds the files it is supposed to find).",
+      "revId": "16d8454e2caac9fbf282cbb2a5413a2a7c22b8f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
