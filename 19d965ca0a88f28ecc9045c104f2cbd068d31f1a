@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb83305e_96a97cf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-02-01T00:56:32Z",
+      "side": 1,
+      "message": "Do we have other options in terms of how this could be structured that reduces the complexity? How much effort would that be?\n\nI\u0027m wary that this file is already highly complex, and I think over-indexed on code reuse at the cost of readability, and I\u0027m wary of adding even more layers of indirection.\n\nLet\u0027s discuss?",
+      "revId": "19d965ca0a88f28ecc9045c104f2cbd068d31f1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "493d137f_57b742f1",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-02-01T00:56:32Z",
+      "side": 1,
+      "message": "Question - how much of the infrastructure here is truly reused? Is it cleaner to create an IpSecManagerTunnelMigrationTest?",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 48
+      },
+      "revId": "19d965ca0a88f28ecc9045c104f2cbd068d31f1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
