@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb49f90f_cce2370f",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-02-01T13:09:45Z",
+      "side": 1,
+      "message": "Can you move this (and the one below) to a local variable?",
+      "range": {
+        "startLine": 103,
+        "startChar": 29,
+        "endLine": 103,
+        "endChar": 35
+      },
+      "revId": "0ccc4ecfeae04a5f8541c5f6a1dea15a960f175f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
