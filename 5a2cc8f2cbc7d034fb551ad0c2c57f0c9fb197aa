@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06dd78d3_21f1e24d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-02-01T01:40:26Z",
+      "side": 1,
+      "message": "Note: the associated change in Perfetto has already been cherry-picked to the mainline branch.",
+      "revId": "5a2cc8f2cbc7d034fb551ad0c2c57f0c9fb197aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
