@@ -304,6 +304,29 @@ public class Ikev2VpnProfileTest {
         }
     }
 
+    @Test
+    public void setBuildInvalidKeepaliveStartOptions() throws Exception {
+        final Ikev2VpnProfile.Builder builder = getBuilderWithDefaultOptions();
+        try {
+            builder.setKeepaliveStartOptions(-1);
+            fail("Expected exception due to invalid start option");
+        } catch (IllegalArgumentException expected) {
+        }
+    }
+
+    @Test
+    public void setBuildKeepaliveStartOptions() throws Exception {
+        final Ikev2VpnProfile.Builder builder = getBuilderWithDefaultOptions();
+        builder.setAuthPsk(PSK_BYTES);
+        final Ikev2VpnProfile profile = builder.build();
+        assertEquals(0, profile.getKeepaliveStartFlags());
+
+        builder.setKeepaliveStartOptions(SocketKeepalive.FLAG_AUTOMATIC_ON_OFF);
+        final Ikev2VpnProfile profileWithOption = builder.build();
+        assertEquals(SocketKeepalive.FLAG_AUTOMATIC_ON_OFF,
+                profileWithOption.getKeepaliveStartFlags());
+    }
+
     private void verifyVpnProfileCommon(VpnProfile profile) {
         assertEquals(SERVER_ADDR_STRING, profile.server);
         assertEquals(IDENTITY_STRING, profile.ipsecIdentifier);
