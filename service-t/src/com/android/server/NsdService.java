@@ -100,7 +100,6 @@ public class NsdService extends INsdManager.Stub {
      * implementation.
      */
     private static final String MDNS_DISCOVERY_MANAGER_VERSION = "mdns_discovery_manager_version";
-    private static final String LOCAL_DOMAIN_NAME = "local";
     // Max label length as per RFC 1034/1035
     private static final int MAX_LABEL_LENGTH = 63;
 
@@ -228,7 +227,16 @@ public class NsdService extends INsdManager.Stub {
         }
 
         @Override
-        public void onServiceFound(MdnsServiceInfo serviceInfo) {
+        public void onServiceFound(@NonNull MdnsServiceInfo serviceInfo) {
+            // Ignore the callback that is not required service.
+            if (!serviceInfo.getServiceInstanceName().equals(mReqServiceInfo.getServiceName())) {
+                if (DBG) {
+                    Log.d(TAG, "Not required service, ignored."
+                            + " Require:" + mReqServiceInfo.getServiceName()
+                            + " Get:" + serviceInfo.getServiceInstanceName());
+                }
+                return;
+            }
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.RESOLVE_SERVICE_SUCCEEDED,
                     new MdnsEvent(mClientId, mReqServiceInfo.getServiceType(), serviceInfo));
