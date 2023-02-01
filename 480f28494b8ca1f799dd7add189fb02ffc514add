@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e54843e1_e60bf54b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-01T18:13:22Z",
+      "side": 1,
+      "message": "Nice! Etienne writes Java now :)",
+      "revId": "480f28494b8ca1f799dd7add189fb02ffc514add",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bccca4a3_c15ac704",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-01T18:13:22Z",
+      "side": 1,
+      "message": "Use `mCallback.expectCallback(ResponseStep....)`",
+      "revId": "480f28494b8ca1f799dd7add189fb02ffc514add",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea0863ea_e44f155c",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-01T18:13:22Z",
+      "side": 1,
+      "message": "We dont need the statusListener part.",
+      "revId": "480f28494b8ca1f799dd7add189fb02ffc514add",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
