@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b657b88b_b3ffb1a7",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-02-01T14:00:24Z",
+      "side": 1,
+      "message": "I think this can be dropped now.",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 22
+      },
+      "revId": "77a4065688ac74888256e91e999038188cb511ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
