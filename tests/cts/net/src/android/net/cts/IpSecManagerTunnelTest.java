@@ -47,6 +47,7 @@ import android.net.ConnectivityManager;
 import android.net.IpSecAlgorithm;
 import android.net.IpSecManager;
 import android.net.IpSecManager.IpSecTunnelInterface;
+import android.net.IpSecManager.SecurityParameterIndex;
 import android.net.IpSecTransform;
 import android.net.LinkAddress;
 import android.net.Network;
@@ -63,6 +64,8 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+
+import dalvik.system.CloseGuard;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -82,11 +85,6 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @Rule public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
 
     private static final String TAG = IpSecManagerTunnelTest.class.getSimpleName();
-
-    // Redefine this flag here so that IPsec code shipped in a mainline module can build on old
-    // platforms before FEATURE_IPSEC_TUNNEL_MIGRATION API is released.
-    private static final String FEATURE_IPSEC_TUNNEL_MIGRATION =
-            "android.software.ipsec_tunnel_migration";
 
     private static final InetAddress LOCAL_OUTER_4 = InetAddress.parseNumericAddress("192.0.2.1");
     private static final InetAddress REMOTE_OUTER_4 = InetAddress.parseNumericAddress("192.0.2.2");
@@ -256,22 +254,60 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         }
     }
 
+    /** Configuration object to group all the parameters for tunnel tests */
+    private static class IpSecTunnelTestParams {
+        public final Network ipsecNetwork;
+        public final IpSecTunnelInterface tunnelIface;
+        public final TunUtils tunUtils;
+        public final IpSecTransform inTunnelTransform;
+        public final IpSecTransform outTunnelTransform;
+        public final InetAddress localOuter;
+        public final InetAddress remoteOuter;
+        public final int seqNum;
+
+        /**
+         * Construct IpSecTunnelTestParams
+         *
+         * @param ipsecNetwork The IPsec Interface based Network for binding sockets on
+         * @param tunnelIface The IPsec tunnel interface that will be tested
+         * @param tunUtils The utility of the IPsec tunnel interface's underlying TUN network
+         * @param inTunnelTransform The inbound tunnel mode transform
+         * @param outTunnelTransform The outbound tunnel mode transform
+         * @param localOuter The local address of the outer IP packet
+         * @param remoteOuter The remote address of the outer IP packet
+         * @param seqNum The expected sequence number of the inbound packet
+         */
+        IpSecTunnelTestParams(
+                Network ipsecNetwork,
+                IpSecTunnelInterface tunnelIface,
+                TunUtils tunUtils,
+                IpSecTransform inTunnelTransform,
+                IpSecTransform outTunnelTransform,
+                InetAddress localOuter,
+                InetAddress remoteOuter,
+                int seqNum) {
+            this.ipsecNetwork = ipsecNetwork;
+            this.tunnelIface = tunnelIface;
+            this.tunUtils = tunUtils;
+            this.inTunnelTransform = inTunnelTransform;
+            this.outTunnelTransform = outTunnelTransform;
+            this.localOuter = localOuter;
+            this.remoteOuter = remoteOuter;
+            this.seqNum = seqNum;
+        }
+    }
+
     /* Test runnables for callbacks after IPsec tunnels are set up. */
     private abstract class IpSecTunnelTestRunnable {
         /**
          * Runs the test code, and returns the inner socket port, if any.
          *
-         * @param ipsecNetwork The IPsec Interface based Network for binding sockets on
-         * @param tunnelIface The IPsec tunnel interface that will be tested
-         * @param underlyingTunUtils The utility of the IPsec tunnel interface's underlying TUN
-         *     network
+         * @param testParams the parameters for running the test
          * @return the integer port of the inner socket if outbound, or 0 if inbound
          *     IpSecTunnelTestRunnable
          * @throws Exception if any part of the test failed.
          */
-        public abstract int run(
-                Network ipsecNetwork, IpSecTunnelInterface tunnelIface, TunUtils underlyingTunUtils)
-                throws Exception;
+        public abstract int run(IpSecTunnelTestParams testParams) throws Exception;
     }
 
     private int getPacketSize(
@@ -305,60 +341,193 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         return expectedPacketSize;
     }
 
-    private interface IpSecTunnelTestRunnableFactory {
-        IpSecTunnelTestRunnable getIpSecTunnelTestRunnable(
+    /** Configuration object for building an IpSecTunnelTestRunnable */
+    private class IpSecTunnelTestRunnableConfig implements AutoCloseable {
+        // Out, In, Reflect, MigrateTunnel, MigrateTransform
+        public final boolean transportInTunnelMode;
+        // Out, In, MigrateTunnel, MigrateTransform
+        public final int spi;
+        // Out, In, Reflect, MigrateTunnel, MigrateTransform
+        public final InetAddress localInner;
+        // Out, In, MigrateTunnel, MigrateTransform
+        public final InetAddress remoteInner;
+        // Out, In, Reflect, MigrateTunnel, MigrateTransform
+        public final IpSecTransform inTransportTransform;
+        // Out, In, Reflect, MigrateTunnel, MigrateTransform
+        public final IpSecTransform outTransportTransform;
+        // Out, In, MigrateTunnel, MigrateTransform, MigrateTransform
+        public final int encapPort;
+        // Reflect,
+        public final int innerSocketPort;
+
+        private UdpEncapsulationSocket encapSocket = null;
+
+        private final CloseGuard mCloseGuard = CloseGuard.get();
+
+        private IpSecTunnelTestRunnableConfig(
                 boolean transportInTunnelMode,
                 int spi,
                 InetAddress localInner,
                 InetAddress remoteInner,
-                InetAddress localOuter,
-                InetAddress remoteOuter,
                 IpSecTransform inTransportTransform,
                 IpSecTransform outTransportTransform,
                 int encapPort,
                 int innerSocketPort,
-                int expectedPacketSize)
-                throws Exception;
+                UdpEncapsulationSocket encapSocket) {
+            this.transportInTunnelMode = transportInTunnelMode;
+            this.spi = spi;
+            this.localInner = localInner;
+            this.remoteInner = remoteInner;
+            this.inTransportTransform = inTransportTransform;
+            this.outTransportTransform = outTransportTransform;
+            this.encapPort = encapPort;
+            this.innerSocketPort = innerSocketPort;
+            this.encapSocket = encapSocket;
+        }
+
+        IpSecTunnelTestRunnableConfig getCopy(
+                InetAddress localInner, InetAddress remoteInner, int innerSocketPort) {
+            return new IpSecTunnelTestRunnableConfig(
+                    this.transportInTunnelMode,
+                    this.spi,
+                    localInner,
+                    remoteInner,
+                    this.inTransportTransform,
+                    this.outTransportTransform,
+                    this.encapPort,
+                    innerSocketPort,
+                    this.encapSocket);
+        }
+
+        IpSecTunnelTestRunnableConfig(
+                InetAddress localInner,
+                InetAddress remoteInner,
+                int spi,
+                boolean useEncap,
+                boolean transportInTunnelMode)
+                throws Exception {
+            this.transportInTunnelMode = transportInTunnelMode;
+            this.localInner = localInner;
+            this.remoteInner = remoteInner;
+            this.spi = spi;
+
+            SecurityParameterIndex inTransportSpi =
+                    mISM.allocateSecurityParameterIndex(localInner, spi);
+            SecurityParameterIndex outTransportSpi =
+                    mISM.allocateSecurityParameterIndex(remoteInner, spi);
+            this.inTransportTransform =
+                    buildIpSecTransform(sContext, inTransportSpi, null, remoteInner);
+            this.outTransportTransform =
+                    buildIpSecTransform(sContext, outTransportSpi, null, localInner);
+            inTransportSpi.close();
+            outTransportSpi.close();
+
+            this.encapSocket = useEncap ? mISM.openUdpEncapsulationSocket() : null;
+
+            this.encapPort = useEncap ? encapSocket.getPort() : 0;
+            this.innerSocketPort = 0;
+
+            mCloseGuard.open("close");
+        }
+
+        IpSecTunnelTestRunnableConfig(
+                int innerFamily, int spi, boolean useEncap, boolean transportInTunnelMode)
+                throws Exception {
+            this(
+                    (innerFamily == AF_INET ? LOCAL_INNER_4 : LOCAL_INNER_6),
+                    (innerFamily == AF_INET ? REMOTE_INNER_4 : REMOTE_INNER_6),
+                    spi,
+                    useEncap,
+                    transportInTunnelMode);
+        }
+
+        @Override
+        public void close() {
+            inTransportTransform.close();
+            outTransportTransform.close();
+        }
+
+        /** Check that the SPI was closed properly. */
+        @Override
+        protected void finalize() throws Throwable {
+            if (mCloseGuard != null) {
+                mCloseGuard.warnIfOpen();
+            }
+            close();
+        }
+    }
+
+    private IpSecTransform buildTunnelModeTransform(
+            UdpEncapsulationSocket encapSocket, int spi, InetAddress srcOuter, InetAddress dstOuter)
+            throws Exception {
+        // Configure tunnel mode Transform parameters
+        IpSecTransform.Builder transformBuilder = new IpSecTransform.Builder(sContext);
+        transformBuilder.setEncryption(new IpSecAlgorithm(IpSecAlgorithm.CRYPT_AES_CBC, CRYPT_KEY));
+        transformBuilder.setAuthentication(
+                new IpSecAlgorithm(IpSecAlgorithm.AUTH_HMAC_SHA256, AUTH_KEY, AUTH_KEY.length * 4));
+        if (encapSocket != null) {
+            transformBuilder.setIpv4Encapsulation(encapSocket, encapSocket.getPort());
+        }
+
+        IpSecManager.SecurityParameterIndex ipsecSpi =
+                mISM.allocateSecurityParameterIndex(dstOuter, spi);
+        IpSecTransform transform = transformBuilder.buildTunnelModeTransform(srcOuter, ipsecSpi);
+        ipsecSpi.close();
+        return transform;
+    }
+
+    private interface IpSecTunnelTestRunnableFactory {
+        IpSecTunnelTestRunnable getIpSecTunnelTestRunnable(
+                IpSecTunnelTestRunnableConfig runnableConfig) throws Exception;
     }
 
     private class OutputIpSecTunnelTestRunnableFactory implements IpSecTunnelTestRunnableFactory {
         public IpSecTunnelTestRunnable getIpSecTunnelTestRunnable(
-                boolean transportInTunnelMode,
-                int spi,
-                InetAddress localInner,
-                InetAddress remoteInner,
-                InetAddress localOuter,
-                InetAddress remoteOuter,
-                IpSecTransform inTransportTransform,
-                IpSecTransform outTransportTransform,
-                int encapPort,
-                int unusedInnerSocketPort,
-                int expectedPacketSize) {
+                IpSecTunnelTestRunnableConfig runnableConfig) {
             return new IpSecTunnelTestRunnable() {
                 @Override
-                public int run(
-                        Network ipsecNetwork, IpSecTunnelInterface tunnelIface, TunUtils tunUtils)
-                        throws Exception {
+                public int run(IpSecTunnelTestParams testParams) throws Exception {
                     // Build a socket and send traffic
-                    JavaUdpSocket socket = new JavaUdpSocket(localInner);
-                    ipsecNetwork.bindSocket(socket.mSocket);
+                    JavaUdpSocket socket = new JavaUdpSocket(runnableConfig.localInner);
+                    testParams.ipsecNetwork.bindSocket(socket.mSocket);
                     int innerSocketPort = socket.getPort();
 
                     // For Transport-In-Tunnel mode, apply transform to socket
-                    if (transportInTunnelMode) {
+                    if (runnableConfig.transportInTunnelMode) {
                         mISM.applyTransportModeTransform(
-                                socket.mSocket, IpSecManager.DIRECTION_IN, inTransportTransform);
+                                socket.mSocket,
+                                IpSecManager.DIRECTION_IN,
+                                runnableConfig.inTransportTransform);
                         mISM.applyTransportModeTransform(
-                                socket.mSocket, IpSecManager.DIRECTION_OUT, outTransportTransform);
+                                socket.mSocket,
+                                IpSecManager.DIRECTION_OUT,
+                                runnableConfig.outTransportTransform);
                     }
 
-                    socket.sendTo(TEST_DATA, remoteInner, socket.getPort());
+                    socket.sendTo(TEST_DATA, runnableConfig.remoteInner, socket.getPort());
 
                     // Verify that an encrypted packet is sent. As of right now, checking encrypted
                     // body is not possible, due to the test not knowing some of the fields of the
                     // inner IP header (flow label, flags, etc)
-                    tunUtils.awaitEspPacketNoPlaintext(
-                            spi, TEST_DATA, encapPort != 0, expectedPacketSize);
+                    int innerFamily =
+                            runnableConfig.localInner instanceof Inet4Address ? AF_INET : AF_INET6;
+                    int outerFamily =
+                            testParams.localOuter instanceof Inet4Address ? AF_INET : AF_INET6;
+                    boolean useEncap = runnableConfig.encapPort != 0;
+
+                    int expectedPacketSize =
+                            getPacketSize(
+                                    innerFamily,
+                                    outerFamily,
+                                    useEncap,
+                                    runnableConfig.transportInTunnelMode);
+
+                    testParams.tunUtils.awaitEspPacketNoPlaintext(
+                            runnableConfig.spi,
+                            testParams.seqNum,
+                            TEST_DATA,
+                            useEncap,
+                            expectedPacketSize);
 
                     socket.close();
 
@@ -371,36 +540,29 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     private class InputReflectedIpSecTunnelTestRunnableFactory
             implements IpSecTunnelTestRunnableFactory {
         public IpSecTunnelTestRunnable getIpSecTunnelTestRunnable(
-                boolean transportInTunnelMode,
-                int spi,
-                InetAddress localInner,
-                InetAddress remoteInner,
-                InetAddress localOuter,
-                InetAddress remoteOuter,
-                IpSecTransform inTransportTransform,
-                IpSecTransform outTransportTransform,
-                int encapPort,
-                int innerSocketPort,
-                int expectedPacketSize)
-                throws Exception {
+                IpSecTunnelTestRunnableConfig runnableConfig) throws Exception {
             return new IpSecTunnelTestRunnable() {
                 @Override
-                public int run(
-                        Network ipsecNetwork, IpSecTunnelInterface tunnelIface, TunUtils tunUtils)
-                        throws Exception {
+                public int run(IpSecTunnelTestParams testParams) throws Exception {
                     // Build a socket and receive traffic
-                    JavaUdpSocket socket = new JavaUdpSocket(localInner, innerSocketPort);
-                    ipsecNetwork.bindSocket(socket.mSocket);
+                    JavaUdpSocket socket =
+                            new JavaUdpSocket(
+                                    runnableConfig.localInner, runnableConfig.innerSocketPort);
+                    testParams.ipsecNetwork.bindSocket(socket.mSocket);
 
                     // For Transport-In-Tunnel mode, apply transform to socket
-                    if (transportInTunnelMode) {
+                    if (runnableConfig.transportInTunnelMode) {
                         mISM.applyTransportModeTransform(
-                                socket.mSocket, IpSecManager.DIRECTION_IN, outTransportTransform);
+                                socket.mSocket,
+                                IpSecManager.DIRECTION_IN,
+                                runnableConfig.outTransportTransform);
                         mISM.applyTransportModeTransform(
-                                socket.mSocket, IpSecManager.DIRECTION_OUT, inTransportTransform);
+                                socket.mSocket,
+                                IpSecManager.DIRECTION_OUT,
+                                runnableConfig.inTransportTransform);
                     }
 
-                    tunUtils.reflectPackets();
+                    testParams.tunUtils.reflectPackets();
 
                     // Receive packet from socket, and validate that the payload is correct
                     receiveAndValidatePacket(socket);
@@ -416,59 +578,52 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     private class InputPacketGeneratorIpSecTunnelTestRunnableFactory
             implements IpSecTunnelTestRunnableFactory {
         public IpSecTunnelTestRunnable getIpSecTunnelTestRunnable(
-                boolean transportInTunnelMode,
-                int spi,
-                InetAddress localInner,
-                InetAddress remoteInner,
-                InetAddress localOuter,
-                InetAddress remoteOuter,
-                IpSecTransform inTransportTransform,
-                IpSecTransform outTransportTransform,
-                int encapPort,
-                int innerSocketPort,
-                int expectedPacketSize)
-                throws Exception {
+                IpSecTunnelTestRunnableConfig runnableConfig) throws Exception {
             return new IpSecTunnelTestRunnable() {
                 @Override
-                public int run(
-                        Network ipsecNetwork, IpSecTunnelInterface tunnelIface, TunUtils tunUtils)
-                        throws Exception {
+                public int run(IpSecTunnelTestParams testParams) throws Exception {
                     // Build a socket and receive traffic
-                    JavaUdpSocket socket = new JavaUdpSocket(localInner);
-                    ipsecNetwork.bindSocket(socket.mSocket);
+                    JavaUdpSocket socket = new JavaUdpSocket(runnableConfig.localInner);
+                    testParams.ipsecNetwork.bindSocket(socket.mSocket);
 
                     // For Transport-In-Tunnel mode, apply transform to socket
-                    if (transportInTunnelMode) {
+                    if (runnableConfig.transportInTunnelMode) {
                         mISM.applyTransportModeTransform(
-                                socket.mSocket, IpSecManager.DIRECTION_IN, outTransportTransform);
+                                socket.mSocket,
+                                IpSecManager.DIRECTION_IN,
+                                runnableConfig.outTransportTransform);
                         mISM.applyTransportModeTransform(
-                                socket.mSocket, IpSecManager.DIRECTION_OUT, inTransportTransform);
+                                socket.mSocket,
+                                IpSecManager.DIRECTION_OUT,
+                                runnableConfig.inTransportTransform);
                     }
 
                     byte[] pkt;
-                    if (transportInTunnelMode) {
+                    if (runnableConfig.transportInTunnelMode) {
                         pkt =
                                 getTransportInTunnelModePacket(
-                                        spi,
-                                        spi,
-                                        remoteInner,
-                                        localInner,
-                                        remoteOuter,
-                                        localOuter,
+                                        runnableConfig.spi,
+                                        runnableConfig.spi,
+                                        runnableConfig.remoteInner,
+                                        runnableConfig.localInner,
+                                        testParams.remoteOuter,
+                                        testParams.localOuter,
                                         socket.getPort(),
-                                        encapPort);
+                                        runnableConfig.encapPort,
+                                        testParams.seqNum);
                     } else {
                         pkt =
                                 getTunnelModePacket(
-                                        spi,
-                                        remoteInner,
-                                        localInner,
-                                        remoteOuter,
-                                        localOuter,
+                                        runnableConfig.spi,
+                                        runnableConfig.remoteInner,
+                                        runnableConfig.localInner,
+                                        testParams.remoteOuter,
+                                        testParams.localOuter,
                                         socket.getPort(),
-                                        encapPort);
+                                        runnableConfig.encapPort,
+                                        testParams.seqNum);
                     }
-                    tunUtils.injectPacket(pkt);
+                    testParams.tunUtils.injectPacket(pkt);
 
                     // Receive packet from socket, and validate
                     receiveAndValidatePacket(socket);
@@ -494,62 +649,37 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
 
         @Override
         public IpSecTunnelTestRunnable getIpSecTunnelTestRunnable(
-                boolean transportInTunnelMode,
-                int spi,
-                InetAddress localInner,
-                InetAddress remoteInner,
-                InetAddress localOuter,
-                InetAddress remoteOuter,
-                IpSecTransform inTransportTransform,
-                IpSecTransform outTransportTransform,
-                int encapPort,
-                int unusedInnerSocketPort,
-                int expectedPacketSize) {
+                IpSecTunnelTestRunnableConfig runnableConfig) {
             return new IpSecTunnelTestRunnable() {
                 @Override
-                public int run(
-                        Network ipsecNetwork, IpSecTunnelInterface tunnelIface, TunUtils tunUtils)
-                        throws Exception {
-                    mTestRunnableFactory
-                            .getIpSecTunnelTestRunnable(
-                                    transportInTunnelMode,
-                                    spi,
-                                    localInner,
-                                    remoteInner,
-                                    localOuter,
-                                    remoteOuter,
-                                    inTransportTransform,
-                                    outTransportTransform,
-                                    encapPort,
-                                    unusedInnerSocketPort,
-                                    expectedPacketSize)
-                            .run(ipsecNetwork, tunnelIface, sTunWrapper.utils);
+                public int run(IpSecTunnelTestParams testParams) throws Exception {
+                    mTestRunnableFactory.getIpSecTunnelTestRunnable(runnableConfig).run(testParams);
 
-                    tunnelIface.setUnderlyingNetwork(sTunWrapperNew.network);
+                    testParams.tunnelIface.setUnderlyingNetwork(sTunWrapperNew.network);
 
                     // Verify migrating to IPv4 and IPv6 addresses. It ensures that not only
                     // can IPsec tunnel migrate across interfaces, IPsec tunnel can also migrate to
                     // a different address on the same interface.
                     checkMigratedTunnel(
-                            localInner,
-                            remoteInner,
+                            runnableConfig.localInner,
+                            runnableConfig.remoteInner,
                             LOCAL_OUTER_4_NEW,
                             REMOTE_OUTER_4_NEW,
-                            encapPort != 0,
-                            transportInTunnelMode,
+                            runnableConfig.encapPort != 0,
+                            runnableConfig.transportInTunnelMode,
                             sTunWrapperNew.utils,
-                            tunnelIface,
-                            ipsecNetwork);
+                            testParams.tunnelIface,
+                            testParams.ipsecNetwork);
                     checkMigratedTunnel(
-                            localInner,
-                            remoteInner,
+                            runnableConfig.localInner,
+                            runnableConfig.remoteInner,
                             LOCAL_OUTER_6_NEW,
                             REMOTE_OUTER_6_NEW,
                             false, // IPv6 does not support UDP encapsulation
-                            transportInTunnelMode,
+                            runnableConfig.transportInTunnelMode,
                             sTunWrapperNew.utils,
-                            tunnelIface,
-                            ipsecNetwork);
+                            testParams.tunnelIface,
+                            testParams.ipsecNetwork);
 
                     return 0;
                 }
@@ -567,72 +697,131 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 IpSecTunnelInterface tunnelIface,
                 Network ipsecNetwork)
                 throws Exception {
-
-            // Preselect both SPI and encap port, to be used for both inbound and outbound tunnels.
-            // Re-uses the same SPI to ensure that even in cases of symmetric SPIs shared across
-            // tunnel and transport mode, packets are encrypted/decrypted properly based on the
-            // src/dst.
             int spi = getRandomSpi(localOuter, remoteOuter);
-
-            int innerFamily = localInner instanceof Inet4Address ? AF_INET : AF_INET6;
-            int outerFamily = localOuter instanceof Inet4Address ? AF_INET : AF_INET6;
-            int expectedPacketSize =
-                    getPacketSize(innerFamily, outerFamily, useEncap, transportInTunnelMode);
-
-            // Build transport mode transforms and encapsulation socket for verifying
-            // transport-in-tunnel case and encapsulation case.
-            try (IpSecManager.SecurityParameterIndex inTransportSpi =
-                            mISM.allocateSecurityParameterIndex(localInner, spi);
-                    IpSecManager.SecurityParameterIndex outTransportSpi =
-                            mISM.allocateSecurityParameterIndex(remoteInner, spi);
-                    IpSecTransform inTransportTransform =
-                            buildIpSecTransform(sContext, inTransportSpi, null, remoteInner);
-                    IpSecTransform outTransportTransform =
-                            buildIpSecTransform(sContext, outTransportSpi, null, localInner);
-                    UdpEncapsulationSocket encapSocket = mISM.openUdpEncapsulationSocket()) {
-
-                // Configure tunnel mode Transform parameters
-                IpSecTransform.Builder transformBuilder = new IpSecTransform.Builder(sContext);
-                transformBuilder.setEncryption(
-                        new IpSecAlgorithm(IpSecAlgorithm.CRYPT_AES_CBC, CRYPT_KEY));
-                transformBuilder.setAuthentication(
-                        new IpSecAlgorithm(
-                                IpSecAlgorithm.AUTH_HMAC_SHA256, AUTH_KEY, AUTH_KEY.length * 4));
-
-                if (useEncap) {
-                    transformBuilder.setIpv4Encapsulation(encapSocket, encapSocket.getPort());
-                }
+            try (IpSecTunnelTestRunnableConfig runnableConfig =
+                    new IpSecTunnelTestRunnableConfig(
+                            localInner, remoteInner, spi, useEncap, transportInTunnelMode)) {
 
                 // Apply transform and check that traffic is properly encrypted
-                try (IpSecManager.SecurityParameterIndex inSpi =
-                                mISM.allocateSecurityParameterIndex(localOuter, spi);
-                        IpSecManager.SecurityParameterIndex outSpi =
-                                mISM.allocateSecurityParameterIndex(remoteOuter, spi);
-                        IpSecTransform inTransform =
-                                transformBuilder.buildTunnelModeTransform(remoteOuter, inSpi);
+                try (IpSecTransform inTransform =
+                                buildTunnelModeTransform(
+                                        runnableConfig.encapSocket,
+                                        runnableConfig.spi,
+                                        remoteOuter,
+                                        localOuter);
                         IpSecTransform outTransform =
-                                transformBuilder.buildTunnelModeTransform(localOuter, outSpi)) {
+                                buildTunnelModeTransform(
+                                        runnableConfig.encapSocket,
+                                        runnableConfig.spi,
+                                        localOuter,
+                                        remoteOuter)) {
                     mISM.applyTunnelModeTransform(
                             tunnelIface, IpSecManager.DIRECTION_IN, inTransform);
                     mISM.applyTunnelModeTransform(
                             tunnelIface, IpSecManager.DIRECTION_OUT, outTransform);
 
                     mTestRunnableFactory
-                            .getIpSecTunnelTestRunnable(
-                                    transportInTunnelMode,
-                                    spi,
-                                    localInner,
-                                    remoteInner,
-                                    localOuter,
-                                    remoteOuter,
-                                    inTransportTransform,
-                                    outTransportTransform,
-                                    useEncap ? encapSocket.getPort() : 0,
-                                    0,
-                                    expectedPacketSize)
-                            .run(ipsecNetwork, tunnelIface, tunUtils);
+                            .getIpSecTunnelTestRunnable(runnableConfig)
+                            .run(
+                                    new IpSecTunnelTestParams(
+                                            ipsecNetwork,
+                                            tunnelIface,
+                                            tunUtils,
+                                            inTransform,
+                                            outTransform,
+                                            localOuter,
+                                            remoteOuter,
+                                            1 /* seqNum */));
                 }
             }
+        }
+    }
+
+    private class MigrateTunnelModeIpSecTransformTestRunnableFactory
+            implements IpSecTunnelTestRunnableFactory {
+        private final IpSecTunnelTestRunnableFactory mTestRunnableFactory;
+
+        MigrateTunnelModeIpSecTransformTestRunnableFactory(boolean isOutputTest) {
+            if (isOutputTest) {
+                mTestRunnableFactory = new OutputIpSecTunnelTestRunnableFactory();
+            } else {
+                mTestRunnableFactory = new InputPacketGeneratorIpSecTunnelTestRunnableFactory();
+            }
+        }
+
+        @Override
+        public IpSecTunnelTestRunnable getIpSecTunnelTestRunnable(
+                IpSecTunnelTestRunnableConfig runnableConfig) {
+            return new IpSecTunnelTestRunnable() {
+                @Override
+                public int run(IpSecTunnelTestParams testParams) throws Exception {
+                    final IpSecTunnelTestRunnable testRunnable =
+                            mTestRunnableFactory.getIpSecTunnelTestRunnable(runnableConfig);
+                    testRunnable.run(testParams);
+
+                    testParams.tunnelIface.setUnderlyingNetwork(sTunWrapperNew.network);
+
+                    checkMigrateTunnelModeTransform(
+                            testRunnable,
+                            testParams.inTunnelTransform,
+                            testParams.outTunnelTransform,
+                            testParams.tunnelIface,
+                            testParams.ipsecNetwork,
+                            sTunWrapperNew.utils,
+                            LOCAL_OUTER_4_NEW,
+                            REMOTE_OUTER_4_NEW,
+                            2 /* seqNum */);
+
+                    // Only test migration to IPv6 in non-UDP Encapsulation case
+                    if (runnableConfig.encapPort == 0) {
+                        checkMigrateTunnelModeTransform(
+                                testRunnable,
+                                testParams.inTunnelTransform,
+                                testParams.outTunnelTransform,
+                                testParams.tunnelIface,
+                                testParams.ipsecNetwork,
+                                sTunWrapperNew.utils,
+                                LOCAL_OUTER_6_NEW,
+                                REMOTE_OUTER_6_NEW,
+                                3 /* seqNum */);
+                    }
+
+                    return 0;
+                }
+            };
+        }
+
+        private void checkMigrateTunnelModeTransform(
+                IpSecTunnelTestRunnable testRunnable,
+                IpSecTransform inTunnelTransform,
+                IpSecTransform outTunnelTransform,
+                IpSecTunnelInterface tunnelIface,
+                Network ipsecNetwork,
+                TunUtils tunUtils,
+                InetAddress newLocalOuter,
+                InetAddress newRemoteOuter,
+                int seqNum)
+                throws Exception {
+            mISM.startTunnelModeTransformMigration(
+                    inTunnelTransform, newRemoteOuter, newLocalOuter);
+            mISM.startTunnelModeTransformMigration(
+                    outTunnelTransform, newLocalOuter, newRemoteOuter);
+
+            mISM.applyTunnelModeTransform(
+                    tunnelIface, IpSecManager.DIRECTION_IN, inTunnelTransform);
+            mISM.applyTunnelModeTransform(
+                    tunnelIface, IpSecManager.DIRECTION_OUT, outTunnelTransform);
+
+            testRunnable.run(
+                    new IpSecTunnelTestParams(
+                            ipsecNetwork,
+                            tunnelIface,
+                            tunUtils,
+                            inTunnelTransform,
+                            outTunnelTransform,
+                            newLocalOuter,
+                            newRemoteOuter,
+                            seqNum));
         }
     }
 
@@ -680,6 +869,28 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 new MigrateIpSecTunnelTestRunnableFactory(false));
     }
 
+    private void checkMigrateTunnelModeTransformOutput(
+            int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode)
+            throws Exception {
+        checkTunnel(
+                innerFamily,
+                outerFamily,
+                useEncap,
+                transportInTunnelMode,
+                new MigrateTunnelModeIpSecTransformTestRunnableFactory(true /* isOutputTest */));
+    }
+
+    private void checkMigrateTunnelModeTransformInput(
+            int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode)
+            throws Exception {
+        checkTunnel(
+                innerFamily,
+                outerFamily,
+                useEncap,
+                transportInTunnelMode,
+                new MigrateTunnelModeIpSecTransformTestRunnableFactory(false /* isOutputTest */));
+    }
+
     /**
      * Validates that the kernel can talk to itself.
      *
@@ -690,75 +901,29 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     public void checkTunnelReflected(
             int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode)
             throws Exception {
-        InetAddress localInner = innerFamily == AF_INET ? LOCAL_INNER_4 : LOCAL_INNER_6;
-        InetAddress remoteInner = innerFamily == AF_INET ? REMOTE_INNER_4 : REMOTE_INNER_6;
-
         InetAddress localOuter = outerFamily == AF_INET ? LOCAL_OUTER_4 : LOCAL_OUTER_6;
         InetAddress remoteOuter = outerFamily == AF_INET ? REMOTE_OUTER_4 : REMOTE_OUTER_6;
-
-        // Preselect both SPI and encap port, to be used for both inbound and outbound tunnels.
         int spi = getRandomSpi(localOuter, remoteOuter);
-        int expectedPacketSize =
-                getPacketSize(innerFamily, outerFamily, useEncap, transportInTunnelMode);
-
-        try (IpSecManager.SecurityParameterIndex inTransportSpi =
-                        mISM.allocateSecurityParameterIndex(localInner, spi);
-                IpSecManager.SecurityParameterIndex outTransportSpi =
-                        mISM.allocateSecurityParameterIndex(remoteInner, spi);
-                IpSecTransform inTransportTransform =
-                        buildIpSecTransform(sContext, inTransportSpi, null, remoteInner);
-                IpSecTransform outTransportTransform =
-                        buildIpSecTransform(sContext, outTransportSpi, null, localInner);
-                UdpEncapsulationSocket encapSocket = mISM.openUdpEncapsulationSocket()) {
-
+        try (IpSecTunnelTestRunnableConfig runnableConfig =
+                new IpSecTunnelTestRunnableConfig(
+                        innerFamily, spi, useEncap, transportInTunnelMode)) {
             // Run output direction tests
             IpSecTunnelTestRunnable outputIpSecTunnelTestRunnable =
                     new OutputIpSecTunnelTestRunnableFactory()
-                            .getIpSecTunnelTestRunnable(
-                                    transportInTunnelMode,
-                                    spi,
-                                    localInner,
-                                    remoteInner,
-                                    localOuter,
-                                    remoteOuter,
-                                    inTransportTransform,
-                                    outTransportTransform,
-                                    useEncap ? encapSocket.getPort() : 0,
-                                    0,
-                                    expectedPacketSize);
+                            .getIpSecTunnelTestRunnable(runnableConfig);
             int innerSocketPort =
                     buildTunnelNetworkAndRunTests(
-                    localInner,
-                    remoteInner,
-                    localOuter,
-                    remoteOuter,
-                    spi,
-                    useEncap ? encapSocket : null,
-                    outputIpSecTunnelTestRunnable);
+                            localOuter, remoteOuter, runnableConfig, outputIpSecTunnelTestRunnable);
 
             // Input direction tests, with matching inner socket ports.
+            final IpSecTunnelTestRunnableConfig inputRunnableConfig =
+                    runnableConfig.getCopy(
+                            runnableConfig.remoteInner, runnableConfig.localInner, innerSocketPort);
             IpSecTunnelTestRunnable inputIpSecTunnelTestRunnable =
                     new InputReflectedIpSecTunnelTestRunnableFactory()
-                            .getIpSecTunnelTestRunnable(
-                                    transportInTunnelMode,
-                                    spi,
-                                    remoteInner,
-                                    localInner,
-                                    localOuter,
-                                    remoteOuter,
-                                    inTransportTransform,
-                                    outTransportTransform,
-                                    useEncap ? encapSocket.getPort() : 0,
-                                    innerSocketPort,
-                                    expectedPacketSize);
+                            .getIpSecTunnelTestRunnable(inputRunnableConfig);
             buildTunnelNetworkAndRunTests(
-                    remoteInner,
-                    localInner,
-                    localOuter,
-                    remoteOuter,
-                    spi,
-                    useEncap ? encapSocket : null,
-                    inputIpSecTunnelTestRunnable);
+                    localOuter, remoteOuter, inputRunnableConfig, inputIpSecTunnelTestRunnable);
         }
     }
 
@@ -770,71 +935,41 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
             IpSecTunnelTestRunnableFactory factory)
             throws Exception {
 
-        InetAddress localInner = innerFamily == AF_INET ? LOCAL_INNER_4 : LOCAL_INNER_6;
-        InetAddress remoteInner = innerFamily == AF_INET ? REMOTE_INNER_4 : REMOTE_INNER_6;
-
         InetAddress localOuter = outerFamily == AF_INET ? LOCAL_OUTER_4 : LOCAL_OUTER_6;
         InetAddress remoteOuter = outerFamily == AF_INET ? REMOTE_OUTER_4 : REMOTE_OUTER_6;
 
         // Preselect both SPI and encap port, to be used for both inbound and outbound tunnels.
-        // Re-uses the same SPI to ensure that even in cases of symmetric SPIs shared across tunnel
-        // and transport mode, packets are encrypted/decrypted properly based on the src/dst.
+        // Re-uses the same SPI to ensure that even in cases of symmetric SPIs shared across
+        // tunnel and transport mode, packets are encrypted/decrypted properly based on the
+        // src/dst.
         int spi = getRandomSpi(localOuter, remoteOuter);
-        int expectedPacketSize =
-                getPacketSize(innerFamily, outerFamily, useEncap, transportInTunnelMode);
-
-        try (IpSecManager.SecurityParameterIndex inTransportSpi =
-                        mISM.allocateSecurityParameterIndex(localInner, spi);
-                IpSecManager.SecurityParameterIndex outTransportSpi =
-                        mISM.allocateSecurityParameterIndex(remoteInner, spi);
-                IpSecTransform inTransportTransform =
-                        buildIpSecTransform(sContext, inTransportSpi, null, remoteInner);
-                IpSecTransform outTransportTransform =
-                        buildIpSecTransform(sContext, outTransportSpi, null, localInner);
-                UdpEncapsulationSocket encapSocket = mISM.openUdpEncapsulationSocket()) {
+        try (IpSecTunnelTestRunnableConfig runnableConfig =
+                new IpSecTunnelTestRunnableConfig(
+                        innerFamily, spi, useEncap, transportInTunnelMode)) {
 
             buildTunnelNetworkAndRunTests(
-                    localInner,
-                    remoteInner,
                     localOuter,
                     remoteOuter,
-                    spi,
-                    useEncap ? encapSocket : null,
-                    factory.getIpSecTunnelTestRunnable(
-                            transportInTunnelMode,
-                            spi,
-                            localInner,
-                            remoteInner,
-                            localOuter,
-                            remoteOuter,
-                            inTransportTransform,
-                            outTransportTransform,
-                            useEncap ? encapSocket.getPort() : 0,
-                            0,
-                            expectedPacketSize));
+                    runnableConfig,
+                    factory.getIpSecTunnelTestRunnable(runnableConfig));
         }
     }
 
     private int buildTunnelNetworkAndRunTests(
-            InetAddress localInner,
-            InetAddress remoteInner,
             InetAddress localOuter,
             InetAddress remoteOuter,
-            int spi,
-            UdpEncapsulationSocket encapSocket,
+            IpSecTunnelTestRunnableConfig runnableConfig,
             IpSecTunnelTestRunnable test)
             throws Exception {
+        InetAddress localInner = runnableConfig.localInner;
+        int spi = runnableConfig.spi;
+
         int innerPrefixLen = localInner instanceof Inet6Address ? IP6_PREFIX_LEN : IP4_PREFIX_LEN;
         TestNetworkCallback testNetworkCb = null;
         int innerSocketPort;
 
-        try (IpSecManager.SecurityParameterIndex inSpi =
-                        mISM.allocateSecurityParameterIndex(localOuter, spi);
-                IpSecManager.SecurityParameterIndex outSpi =
-                        mISM.allocateSecurityParameterIndex(remoteOuter, spi);
-                IpSecManager.IpSecTunnelInterface tunnelIface =
-                        mISM.createIpSecTunnelInterface(
-                                localOuter, remoteOuter, sTunWrapper.network)) {
+        try (IpSecManager.IpSecTunnelInterface tunnelIface =
+                mISM.createIpSecTunnelInterface(localOuter, remoteOuter, sTunWrapper.network)) {
             // Build the test network
             tunnelIface.addAddress(localInner, innerPrefixLen);
             testNetworkCb = mCtsNetUtils.setupAndGetTestNetwork(tunnelIface.getInterfaceName());
@@ -849,28 +984,34 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
             assertNotNull(netIface);
             assertEquals(tunnelIface.getInterfaceName(), netIface.getDisplayName());
 
-            // Configure Transform parameters
-            IpSecTransform.Builder transformBuilder = new IpSecTransform.Builder(sContext);
-            transformBuilder.setEncryption(
-                    new IpSecAlgorithm(IpSecAlgorithm.CRYPT_AES_CBC, CRYPT_KEY));
-            transformBuilder.setAuthentication(
-                    new IpSecAlgorithm(
-                            IpSecAlgorithm.AUTH_HMAC_SHA256, AUTH_KEY, AUTH_KEY.length * 4));
-
-            if (encapSocket != null) {
-                transformBuilder.setIpv4Encapsulation(encapSocket, encapSocket.getPort());
-            }
-
             // Apply transform and check that traffic is properly encrypted
             try (IpSecTransform inTransform =
-                            transformBuilder.buildTunnelModeTransform(remoteOuter, inSpi);
+                            buildTunnelModeTransform(
+                                    runnableConfig.encapSocket,
+                                    runnableConfig.spi,
+                                    remoteOuter,
+                                    localOuter);
                     IpSecTransform outTransform =
-                            transformBuilder.buildTunnelModeTransform(localOuter, outSpi)) {
+                            buildTunnelModeTransform(
+                                    runnableConfig.encapSocket,
+                                    runnableConfig.spi,
+                                    localOuter,
+                                    remoteOuter)) {
                 mISM.applyTunnelModeTransform(tunnelIface, IpSecManager.DIRECTION_IN, inTransform);
                 mISM.applyTunnelModeTransform(
                         tunnelIface, IpSecManager.DIRECTION_OUT, outTransform);
 
-                innerSocketPort = test.run(testNetwork, tunnelIface, sTunWrapper.utils);
+                innerSocketPort =
+                        test.run(
+                                new IpSecTunnelTestParams(
+                                        testNetwork,
+                                        tunnelIface,
+                                        sTunWrapper.utils,
+                                        inTransform,
+                                        outTransform,
+                                        localOuter,
+                                        remoteOuter,
+                                        1 /* seqNum */));
             }
 
             // Teardown the test network
@@ -909,13 +1050,14 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     }
 
     private EspHeader buildTransportModeEspPacket(
-            int spi, InetAddress src, InetAddress dst, int port, Payload payload) throws Exception {
+            int spi, int seqNum, InetAddress src, InetAddress dst, Payload payload)
+            throws Exception {
         IpHeader preEspIpHeader = getIpHeader(payload.getProtocolId(), src, dst, payload);
 
         return new EspHeader(
                 payload.getProtocolId(),
                 spi,
-                1, // sequence number
+                seqNum,
                 CRYPT_KEY, // Same key for auth and crypt
                 payload.getPacketBytes(preEspIpHeader));
     }
@@ -928,13 +1070,14 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
             InetAddress dstOuter,
             int port,
             int encapPort,
+            int seqNum,
             Payload payload)
             throws Exception {
         IpHeader innerIp = getIpHeader(payload.getProtocolId(), srcInner, dstInner, payload);
         return new EspHeader(
                 innerIp.getProtocolId(),
                 spi,
-                1, // sequence number
+                seqNum, // sequence number
                 CRYPT_KEY, // Same key for auth and crypt
                 innerIp.getPacketBytes());
     }
@@ -958,13 +1101,14 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
             InetAddress srcOuter,
             InetAddress dstOuter,
             int port,
-            int encapPort)
+            int encapPort,
+            int seqNum)
             throws Exception {
         UdpHeader udp = new UdpHeader(port, port, new BytePayload(TEST_DATA));
 
         EspHeader espPayload =
                 buildTunnelModeEspPacket(
-                        spi, srcInner, dstInner, srcOuter, dstOuter, port, encapPort, udp);
+                        spi, srcInner, dstInner, srcOuter, dstOuter, port, encapPort, seqNum, udp);
         return maybeEncapPacket(srcOuter, dstOuter, encapPort, espPayload).getPacketBytes();
     }
 
@@ -976,11 +1120,13 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
             InetAddress srcOuter,
             InetAddress dstOuter,
             int port,
-            int encapPort)
+            int encapPort,
+            int seqNum)
             throws Exception {
         UdpHeader udp = new UdpHeader(port, port, new BytePayload(TEST_DATA));
 
-        EspHeader espPayload = buildTransportModeEspPacket(spiInner, srcInner, dstInner, port, udp);
+        EspHeader espPayload =
+                buildTransportModeEspPacket(spiInner, seqNum, srcInner, dstInner, udp);
         espPayload =
                 buildTunnelModeEspPacket(
                         spiOuter,
@@ -990,6 +1136,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                         dstOuter,
                         port,
                         encapPort,
+                        seqNum,
                         espPayload);
         return maybeEncapPacket(srcOuter, dstOuter, encapPort, espPayload).getPacketBytes();
     }
@@ -998,13 +1145,19 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
             int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode)
             throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(innerFamily, outerFamily, useEncap, transportInTunnelMode);
-        checkTunnelInput(innerFamily, outerFamily, useEncap, transportInTunnelMode);
+        checkMigrateTunnelOutput(innerFamily, outerFamily, useEncap, transportInTunnelMode);
+        checkMigrateTunnelInput(innerFamily, outerFamily, useEncap, transportInTunnelMode);
     }
 
-    /** Checks if FEATURE_IPSEC_TUNNEL_MIGRATION is enabled on the device */
-    private static boolean hasIpsecTunnelMigrateFeature() {
-        return sContext.getPackageManager().hasSystemFeature(FEATURE_IPSEC_TUNNEL_MIGRATION);
+    private void doTestMigrateTunnelModeTransform(
+            int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode)
+            throws Exception {
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelMigrateFeature());
+        checkMigrateTunnelModeTransformOutput(
+                innerFamily, outerFamily, useEncap, transportInTunnelMode);
+        checkMigrateTunnelModeTransformInput(
+                innerFamily, outerFamily, useEncap, transportInTunnelMode);
     }
 
     @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
@@ -1012,28 +1165,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     public void testHasIpSecTunnelMigrateFeature() throws Exception {
         // FEATURE_IPSEC_TUNNEL_MIGRATION is required when VSR API is U/U+
         if (getVsrApiLevel() > Build.VERSION_CODES.TIRAMISU) {
-            assertTrue(hasIpsecTunnelMigrateFeature());
-        }
-    }
-
-    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
-    @Test
-    public void testMigrateTunnelModeTransform() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        assumeTrue(hasIpsecTunnelMigrateFeature());
-
-        IpSecTransform.Builder transformBuilder = new IpSecTransform.Builder(sContext);
-        transformBuilder.setEncryption(new IpSecAlgorithm(IpSecAlgorithm.CRYPT_AES_CBC, CRYPT_KEY));
-        transformBuilder.setAuthentication(
-                new IpSecAlgorithm(IpSecAlgorithm.AUTH_HMAC_SHA256, AUTH_KEY, AUTH_KEY.length * 4));
-        int spi = getRandomSpi(LOCAL_OUTER_4, REMOTE_OUTER_4);
-
-        try (IpSecManager.SecurityParameterIndex outSpi =
-                        mISM.allocateSecurityParameterIndex(REMOTE_OUTER_4, spi);
-                IpSecTransform outTunnelTransform =
-                        transformBuilder.buildTunnelModeTransform(LOCAL_INNER_4, outSpi)) {
-            mISM.startTunnelModeTransformMigration(
-                    outTunnelTransform, LOCAL_OUTER_4_NEW, REMOTE_OUTER_4_NEW);
+            assertTrue(mCtsNetUtils.hasIpsecTunnelMigrateFeature());
         }
     }
 
@@ -1049,6 +1181,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @Test
     public void testMigrateTransportInTunnelModeV4InV4() throws Exception {
         doTestMigrateTunnel(AF_INET, AF_INET, false, true);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTransportInTunnelModeV4InV4() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET, AF_INET, false, true);
     }
 
     @Test
@@ -1070,6 +1208,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         doTestMigrateTunnel(AF_INET, AF_INET, true, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTransportInTunnelModeV4InV4UdpEncap() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET, AF_INET, true, true);
+    }
+
     @Test
     public void testTransportInTunnelModeV4InV4UdpEncapReflected() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1087,6 +1231,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @Test
     public void testMigrateTransportInTunnelModeV4InV6() throws Exception {
         doTestMigrateTunnel(AF_INET, AF_INET6, false, true);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTransportInTunnelModeV4InV6() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET, AF_INET6, false, true);
     }
 
     @Test
@@ -1108,6 +1258,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         doTestMigrateTunnel(AF_INET6, AF_INET, false, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTransportInTunnelModeV6InV4() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, false, true);
+    }
+
     @Test
     public void testTransportInTunnelModeV6InV4Reflected() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1127,6 +1283,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         doTestMigrateTunnel(AF_INET6, AF_INET, true, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTransportInTunnelModeV6InV4UdpEncap() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, true, true);
+    }
+
     @Test
     public void testTransportInTunnelModeV6InV4UdpEncapReflected() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1144,6 +1306,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @Test
     public void testMigrateTransportInTunnelModeV6InV6() throws Exception {
         doTestMigrateTunnel(AF_INET, AF_INET6, false, true);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTransportInTunnelModeV6InV6() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET, AF_INET6, false, true);
     }
 
     @Test
@@ -1166,6 +1334,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         doTestMigrateTunnel(AF_INET, AF_INET, false, false);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTunnelV4InV4() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET, AF_INET, false, false);
+    }
+
     @Test
     public void testTunnelV4InV4Reflected() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1183,6 +1357,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @Test
     public void testMigrateTunnelV4InV4UdpEncap() throws Exception {
         doTestMigrateTunnel(AF_INET, AF_INET, true, false);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTunnelV4InV4UdpEncap() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET, AF_INET, true, false);
     }
 
     @Test
@@ -1204,6 +1384,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         doTestMigrateTunnel(AF_INET, AF_INET6, false, false);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTunnelV4InV6() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET, AF_INET6, false, false);
+    }
+
     @Test
     public void testTunnelV4InV6Reflected() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1221,6 +1407,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @Test
     public void testMigrateTunnelV6InV4() throws Exception {
         doTestMigrateTunnel(AF_INET6, AF_INET, false, false);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTunnelV6InV4() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, false, false);
     }
 
     @Test
@@ -1242,6 +1434,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         doTestMigrateTunnel(AF_INET6, AF_INET, true, false);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTunnelV6InV4UdpEncap() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, true, false);
+    }
+
     @Test
     public void testTunnelV6InV4UdpEncapReflected() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1259,6 +1457,12 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @Test
     public void testMigrateTunnelV6InV6() throws Exception {
         doTestMigrateTunnel(AF_INET6, AF_INET6, false, false);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testMigrateTransformTunnelV6InV6() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET6, false, false);
     }
 
     @Test
