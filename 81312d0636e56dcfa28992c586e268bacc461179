@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "503a7341_50e1f1df",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2698,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-01T06:18:26Z",
+      "side": 1,
+      "message": "Move this to l. 2692 comment to here and verify network is the same ?\n\nassertEquals(upstreamState.network, upstreamState2.network)\n// Bug: duplicated upstream network change event.\nmTetheringEventCallback.expectUpstreamChanged(upstreamState2.network);",
+      "range": {
+        "startLine": 2698,
+        "startChar": 8,
+        "endLine": 2698,
+        "endChar": 78
+      },
+      "revId": "81312d0636e56dcfa28992c586e268bacc461179",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
