@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67b25494_aa44ad40",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/util/HttpCtsTestServer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-02-01T13:10:09Z",
+      "side": 1,
+      "message": "Discussed offline: it would be better to return an error response instead of asserting here to reduce tests flakiness (failing an assertion will most likely just kill the server thread, leaving the test thread hanging).",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 53
+      },
+      "revId": "84dee431f765e8925fc682c7f121da67bb839974",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
