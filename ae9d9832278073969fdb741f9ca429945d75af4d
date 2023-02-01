@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84c25e6d_014a2ef5",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 6015,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-01T06:38:46Z",
+      "side": 1,
+      "message": "This should be written in terms of rules, not chains. isFirewallUidRuleEnabled? Or, perhaps better, make this return an \"@FirewallRule int\" and call it getFirewallUidRule to match the setFirewallUidRule above?",
+      "range": {
+        "startLine": 6015,
+        "startChar": 19,
+        "endLine": 6015,
+        "endChar": 44
+      },
+      "revId": "ae9d9832278073969fdb741f9ca429945d75af4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
