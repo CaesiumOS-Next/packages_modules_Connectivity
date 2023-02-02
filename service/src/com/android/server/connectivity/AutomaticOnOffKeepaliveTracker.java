@@ -233,6 +233,14 @@ public class AutomaticOnOffKeepaliveTracker {
             return PendingIntent.getBroadcast(
                     context, 0 /* requestCode */, intent, PendingIntent.FLAG_IMMUTABLE);
         }
+
+        @Override
+        public String toString() {
+            return "AutomaticOnOffKeepalive [ "
+                    + mKi
+                    + ", state=" + mAutomaticOnOffState
+                    + " ]";
+        }
     }
 
     public AutomaticOnOffKeepaliveTracker(@NonNull Context context, @NonNull Handler handler) {
@@ -510,8 +518,18 @@ public class AutomaticOnOffKeepaliveTracker {
      * Dump AutomaticOnOffKeepaliveTracker state.
      */
     public void dump(IndentingPrintWriter pw) {
-        // TODO: Dump the necessary information for automatic on/off keepalive.
         mKeepaliveTracker.dump(pw);
+        pw.println("AutomaticOnOff enabled: "
+                + mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION));
+        pw.increaseIndent();
+        for (AutomaticOnOffKeepalive autoKi : mAutomaticOnOffKeepalives) {
+            // Only dump auto keepalive here because non-auto keepalives are handled in
+            // KeepaliveTracker.
+            if (autoKi.mAutomaticOnOffState != STATE_ALWAYS_ON) {
+                pw.println(autoKi.toString());
+            }
+        }
+        pw.decreaseIndent();
     }
 
     /**
