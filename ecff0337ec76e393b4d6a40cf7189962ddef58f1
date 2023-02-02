@@ -45,6 +45,30 @@
       },
       "revId": "ecff0337ec76e393b4d6a40cf7189962ddef58f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fedbdbc_0a7b54d5",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/util/HttpCtsTestServer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-02-02T10:49:25Z",
+      "side": 1,
+      "message": "I think the assert could leave the main (JUnit) thread hanging, possibly creating flaky tests?\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2337747/comment/67b25494_aa44ad40/",
+      "parentUuid": "59947d2a_c95addcf",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "ecff0337ec76e393b4d6a40cf7189962ddef58f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
