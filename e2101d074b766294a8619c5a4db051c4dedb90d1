@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55284d1d_ae9118d2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 3391,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-02T01:04:04Z",
+      "side": 1,
+      "message": "\"uidRuleEnabled\"\n\nThe chain is a list of rules (e.g., dozable, standby). The individual per-UID settings in the chain are rules.",
+      "range": {
+        "startLine": 3391,
+        "startChar": 24,
+        "endLine": 3391,
+        "endChar": 39
+      },
+      "revId": "e2101d074b766294a8619c5a4db051c4dedb90d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
