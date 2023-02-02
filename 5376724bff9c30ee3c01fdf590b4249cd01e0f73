@@ -1,0 +1,694 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e42aa7e_272a7e1c",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Javadoc format is :\n\n    /**\n     * One-line description\n     *\n     * Detailed discussion...",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 3
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e86cbea_0c1fbf22",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Slicing is not limited to 5G.",
+      "range": {
+        "startLine": 32,
+        "startChar": 31,
+        "endLine": 32,
+        "endChar": 33
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "122734d0_cc6fac07",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Our solution being more general than just slicing, I think we should generally avoid the words \"slice\" and \"slicing\", and instead speak in terms of capabilities. Note how nothing in the tree today is calling any of this functionality \"slices\".\n\nSuggest something like :\n\n    ...an immutable class that contains the application properties declared\n    in its manifest about the capabilities that need declaration.",
+      "range": {
+        "startLine": 32,
+        "startChar": 31,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "383a63cb_9b499ae9",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Likewise, here let\u0027s not use the \"slice\" term. These are network capabilities.",
+      "range": {
+        "startLine": 34,
+        "startChar": 37,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e62b252_0b7edc90",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Because this tag may contain multiple capabilities, I suggest we use `network-capabilities-declaration` or similar.",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02744ecc_ee0103b1",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "For permissions we\u0027re using \"uses-permission\". How about \"uses-network-capability\"",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d802ea12_29fddfa8",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "If they are invalid, then UOE doesn\u0027t sound like the correct exception – IllegalArgumentException sounds like the right one.\n\nFor incompatibility, that depends what the incompatibility is, but sure – if it\u0027s something that\u0027s not supported then UOE sounds right.",
+      "range": {
+        "startLine": 63,
+        "startChar": 83,
+        "endLine": 63,
+        "endChar": 90
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51f225fb_1d128c4c",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "final\n\nPlease get in the habit of making your locals final. This is safer and makes review a lot easier – and is the default for all modern languages.",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0b11060_88c38853",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Ideally for new code you should annotate everything @NonNull or @Nullable. I usually don\u0027t insist on `final` on the arguments, but if you can be bothered it\u0027s better too.",
+      "range": {
+        "startLine": 75,
+        "startChar": 48,
+        "endLine": 75,
+        "endChar": 55
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "066b93ae_4e103d31",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "This name doesn\u0027t seem to reflect what the method does – this sounds like you\u0027re querying if the net capability is \"prioritize latency\".\n\nOne option is \"hasPrioritizeLatency\".",
+      "range": {
+        "startLine": 82,
+        "startChar": 19,
+        "endLine": 82,
+        "endChar": 51
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de5b377a_7bada8ca",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Right so as discussed above, this is really invalid, rather than unsupported.",
+      "range": {
+        "startLine": 129,
+        "startChar": 30,
+        "endLine": 129,
+        "endChar": 59
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b4c1673_adc6eb9b",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Instead of storing the same strings from the XML, how about simply converting this to the values of the corresponding net capabilities ? Then only this class knows about the correspondence.",
+      "range": {
+        "startLine": 173,
+        "startChar": 47,
+        "endLine": 173,
+        "endChar": 50
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2eee07e_010b35a9",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "\"Unknown\" ?\n\nIf it\u0027s invalid I think we\u0027d want to throw. Now as we discussed offline, it\u0027s probably useful to ignore capabilities that we don\u0027t know about yet, so we can add more in the future and not force the dev to have separate config files depending on the SDK (assuming that\u0027s even possible, which I think it probably isn\u0027t)",
+      "range": {
+        "startLine": 179,
+        "startChar": 36,
+        "endLine": 179,
+        "endChar": 43
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aad04379_a6d1f0a1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6901,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "@nullability annotations",
+      "range": {
+        "startLine": 6901,
+        "startChar": 47,
+        "endLine": 6901,
+        "endChar": 53
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12ff68fc_0b683c3e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6901,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Maybe enforceRequestCapabilitiesDeclaration ?",
+      "range": {
+        "startLine": 6901,
+        "startChar": 24,
+        "endLine": 6901,
+        "endChar": 36
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0296298_6d4fa15a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6903,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "final on all the locals please.",
+      "range": {
+        "startLine": 6903,
+        "startChar": 8,
+        "endLine": 6903,
+        "endChar": 43
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdeb719d_cc3e88eb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6912,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "This is going to parse the XML every single time. Can we do better ? Either store this into a hashmap per-app, or you could have a",
+      "range": {
+        "startLine": 6912,
+        "startChar": 56,
+        "endLine": 6912,
+        "endChar": 69
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "548ae66a_f65310cc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6913,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "IIUC, because this is always called in enforceNetworkRequestPermissions, this code will throw for any U+ app that calls `requestNetwork` but doesn\u0027t have the property. I don\u0027t think this is what we want. We only want to require the property if the request actually requests one of the relevant capability.",
+      "range": {
+        "startLine": 6913,
+        "startChar": 32,
+        "endLine": 6913,
+        "endChar": 53
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d6c5d44_d1f2d53d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6915,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "missing",
+      "range": {
+        "startLine": 6915,
+        "startChar": 21,
+        "endLine": 6915,
+        "endChar": 25
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea958c4a_939ca5b2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6919,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Since you already pass the exception as the 2nd parameter this is not useful, since it will already be printed immediately below",
+      "range": {
+        "startLine": 6919,
+        "startChar": 65,
+        "endLine": 6919,
+        "endChar": 79
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6893a2a_9f4cb321",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6919,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "rename accordingly",
+      "range": {
+        "startLine": 6919,
+        "startChar": 29,
+        "endLine": 6919,
+        "endChar": 34
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5702bec6_25dd8661",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6921,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "As noted in the previous file I think it\u0027s better if only the class in charge of these permissions knows about the association, rather than ConnectivityService.",
+      "range": {
+        "startLine": 6921,
+        "startChar": 8,
+        "endLine": 6921,
+        "endChar": 10
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b42fe49_4a49c0cb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6938,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "I think the right way to do this is to define a compat change. You can find an example of this in LinkProperties#EXCLUDED_ROUTES ; the gist of it is you declare a long which corresponds to a bug ID (which enforces unicity) and a policy (@EnabledAfter(UPSIDE_DOWN_CAKE)), and then you query it.\n\nThis has the same effect as the code you wrote, but :\n• The developers can turn it on/off on their development device to see if that\u0027s what\u0027s causing their issue and other debugging purposes\n• It gets put in the release notes",
+      "range": {
+        "startLine": 6938,
+        "startChar": 12,
+        "endLine": 6938,
+        "endChar": 30
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "169e8536_ef71b5c4",
+        "filename": "tests/cts/hostside/networkslicingtestapp1/src/com.android.cts.net.hostside.networkslicingtestapp1/NetworkSlicingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12544800_bf3f03fe",
+        "filename": "tests/cts/hostside/networkslicingtestapp1/src/com.android.cts.net.hostside.networkslicingtestapp1/NetworkSlicingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "I think it would also be useful to test that requests without these can be issued without a declaration (that would have let you catch the issue that your code will throw to an app without a declaration even if it doesn\u0027t request the capability)",
+      "range": {
+        "startLine": 44,
+        "startChar": 59,
+        "endLine": 44,
+        "endChar": 94
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "613d45f9_ed7171a0",
+        "filename": "tests/unit/java/com/android/server/ApplicationNetworkSliceCapabilitiesTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Please strongly justify any use of lateinit. Lateinit means \"disable static nullability checks\" ; it\u0027s a very dangerous thing to use and it should be used as sparingly as possible, so we ask that any use of it is justified in comments. Of course it\u0027s better if you can remove it.",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fdda2c5_5a882b2f",
+        "filename": "tests/unit/java/com/android/server/ApplicationNetworkSliceCapabilitiesTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Is this necessary ? It looks like it could be inferred",
+      "range": {
+        "startLine": 47,
+        "startChar": 20,
+        "endLine": 47,
+        "endChar": 33
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4db645f5_8e1468f9",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6279,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Can we be a little bit more specific ? It sounds relatively easy to pass the correct string here.",
+      "range": {
+        "startLine": 6279,
+        "startChar": 37,
+        "endLine": 6279,
+        "endChar": 46
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a194076_296f8e39",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6285,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "Please release the request with `unregisterNetworkCallback` or make sure it\u0027s unregistered by `tearDown` (e.g. by using mTestPackageDefaultCallback or something)",
+      "range": {
+        "startLine": 6285,
+        "startChar": 46,
+        "endLine": 6285,
+        "endChar": 47
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "445a9bf5_862de5e6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6339,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-02T08:57:21Z",
+      "side": 1,
+      "message": "This is overspecified. Pretty clear in how fixing the typo will require you to come update this :)\n\nYou could do something like `assertTrue(e.getMessage().contains(PRIORITIZE_BANDWIDTH)`\n\nThere is another dimension on which this is over-specified : there is no particular reason why the exception should contain `PRIORITIZE_BANDWIDTH` over `PRIORITIZE_LATENCY`. In other words, code that would throw the same message with PRIORITIZE_LATENCY would be equally correct but rejected by your test.",
+      "range": {
+        "startLine": 6338,
+        "startChar": 16,
+        "endLine": 6339,
+        "endChar": 40
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
