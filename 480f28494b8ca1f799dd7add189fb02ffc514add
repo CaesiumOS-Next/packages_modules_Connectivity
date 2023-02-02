@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48bb3203_02440a06",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1556717
+      },
+      "writtenOn": "2023-02-02T12:58:44Z",
+      "side": 1,
+      "message": "I\u0027m confused by your comment - the reason I put that line there is precisely because the linter would not let me upload otherwise. Are you saying another linter will complain? Do you have a link?",
+      "parentUuid": "261c7a0c_861767f0",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 42
+      },
+      "revId": "480f28494b8ca1f799dd7add189fb02ffc514add",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bccca4a3_c15ac704",
@@ -75,6 +99,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "352aae51_825a972c",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1556717
+      },
+      "writtenOn": "2023-02-02T12:58:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bccca4a3_c15ac704",
+      "revId": "480f28494b8ca1f799dd7add189fb02ffc514add",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea0863ea_e44f155c",
@@ -88,6 +130,24 @@
       "writtenOn": "2023-02-01T18:13:22Z",
       "side": 1,
       "message": "We dont need the statusListener part.",
+      "revId": "480f28494b8ca1f799dd7add189fb02ffc514add",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92a06615_4d7dd976",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1556717
+      },
+      "writtenOn": "2023-02-02T12:58:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea0863ea_e44f155c",
       "revId": "480f28494b8ca1f799dd7add189fb02ffc514add",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
