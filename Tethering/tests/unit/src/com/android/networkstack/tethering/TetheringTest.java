@@ -29,6 +29,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_DUN;
 import static android.net.ConnectivityManager.TYPE_WIFI;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
@@ -2697,6 +2698,17 @@ public class TetheringTest {
         inOrder.verify(mNotificationUpdater)
                 .onUpstreamCapabilitiesChanged(upstreamState2.networkCapabilities);
 
+        // Set the upstream with the same network ID but different object and capability changed .
+        final UpstreamNetworkState upstreamState3 = buildMobileIPv4UpstreamState();
+        assertFalse(upstreamState3.networkCapabilities.hasCapability(NET_CAPABILITY_VALIDATED));
+        upstreamState3.networkCapabilities.addCapability(NET_CAPABILITY_VALIDATED);
+        initTetheringUpstream(upstreamState3);
+        stateMachine.chooseUpstreamType(true);
+        // Bug: duplicated upstream change event.
+        mTetheringEventCallback.expectUpstreamChanged(upstreamState3.network);
+        inOrder.verify(mNotificationUpdater)
+                .onUpstreamCapabilitiesChanged(upstreamState3.networkCapabilities);
+
         // Lose upstream.
         initTetheringUpstream(null);
         stateMachine.chooseUpstreamType(true);
@@ -2716,6 +2728,15 @@ public class TetheringTest {
         inOrder.verify(mNotificationUpdater)
                 .onUpstreamCapabilitiesChanged(upstreamState.networkCapabilities);
 
+        stateMachine.handleUpstreamNetworkMonitorCallback(EVENT_ON_CAPABILITIES, upstreamState);
+        inOrder.verify(mNotificationUpdater)
+                .onUpstreamCapabilitiesChanged(upstreamState.networkCapabilities);
+
+        // Verify that onUpstreamCapabilitiesChanged is called if current upstream network
+        // capabilities changed.
+        // Expect that capability is changed with new capability VALIDATED.
+        assertFalse(upstreamState.networkCapabilities.hasCapability(NET_CAPABILITY_VALIDATED));
+        upstreamState.networkCapabilities.addCapability(NET_CAPABILITY_VALIDATED);
         stateMachine.handleUpstreamNetworkMonitorCallback(EVENT_ON_CAPABILITIES, upstreamState);
         inOrder.verify(mNotificationUpdater)
                 .onUpstreamCapabilitiesChanged(upstreamState.networkCapabilities);
