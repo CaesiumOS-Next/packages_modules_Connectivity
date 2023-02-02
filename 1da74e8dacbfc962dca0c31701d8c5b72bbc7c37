@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "074126e2_6a7a0025",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-02T23:38:43Z",
+      "side": 1,
+      "message": "Ignore the mts directory I\u0027ve put these in. Will sort these out on a separate cl.",
+      "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
