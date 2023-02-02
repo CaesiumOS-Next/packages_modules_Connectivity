@@ -22,6 +22,30 @@
       },
       "revId": "ae9d9832278073969fdb741f9ca429945d75af4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc7b8032_39b14e10",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 6015,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-02-02T02:15:02Z",
+      "side": 1,
+      "message": "Renamed to `getUidFirewallRule`",
+      "parentUuid": "84c25e6d_014a2ef5",
+      "range": {
+        "startLine": 6015,
+        "startChar": 19,
+        "endLine": 6015,
+        "endChar": 44
+      },
+      "revId": "ae9d9832278073969fdb741f9ca429945d75af4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
