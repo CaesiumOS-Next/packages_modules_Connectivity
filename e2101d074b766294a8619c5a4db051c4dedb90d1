@@ -22,6 +22,30 @@
       },
       "revId": "e2101d074b766294a8619c5a4db051c4dedb90d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92266202_8b922e30",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 3391,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-02-02T02:12:27Z",
+      "side": 1,
+      "message": "This was updated to `uidFirewallRule` in the latest patch.",
+      "parentUuid": "55284d1d_ae9118d2",
+      "range": {
+        "startLine": 3391,
+        "startChar": 24,
+        "endLine": 3391,
+        "endChar": 39
+      },
+      "revId": "e2101d074b766294a8619c5a4db051c4dedb90d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
