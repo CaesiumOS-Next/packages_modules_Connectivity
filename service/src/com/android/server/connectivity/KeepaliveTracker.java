@@ -226,6 +226,7 @@ public class KeepaliveTracker {
                     + " interval=" + mInterval
                     + " uid=" + mUid + " pid=" + mPid + " privileged=" + mPrivileged
                     + " packetData=" + HexDump.toHexString(mPacket.getPacket())
+                    + " slot=" + mSlot
                     + " ]";
         }
 
