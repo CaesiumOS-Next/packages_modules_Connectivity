@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a33251c3_d8b221dd",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1638,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-02T19:53:32Z",
+      "side": 1,
+      "message": "This looks dangerous to me, not everything in Chromium is compiled with c++17 (I think parts of the code have transitioned to c++20). This also requires us to keep updating this code whenever the c++ version changes.\n\nUnfortunately, cpp_std / c_std isn\u0027t available in the target.arch properties, so I see the following ways forward:\n- Append \n```\n`android:\"arch_variant\"`\n```\nto C_std and Cpp_std [here](https://source.corp.google.com/aosp-master/build/soong/cc/compiler.go;l\u003d114) and see what Colin thinks. (Though, it is a little weird for the same library to be built with different cpp versions depending on the target architecture). Of course, this would also break in tm-mainline-prod, but he might be willing to merge this there too.\n- Figure out a way to ignore the cpp version flag of the test target. The best way to do this would probably involve adding cpp_std and c_std properties to GnParser.Target and do the flag parsing inside parse_gn_desc (and assert that once the version is set, it must always match for the other architectures). You would have to add a new parameter indicating if the target your parsing is a test target or not.\n\nDo you have any better ideas?\nMaybe you know why the c++ version (host??) differs?",
+      "range": {
+        "startLine": 1637,
+        "startChar": 2,
+        "endLine": 1638,
+        "endChar": 28
+      },
+      "revId": "86690b8a370ac8705dea83411ccb810c6340efa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20c8885b_4d416e3c",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-02T19:53:32Z",
+      "side": 1,
+      "message": "nit: in general, I would fix formatting / linter errors in a separate CL. But in this case, just leave it. We desperately need to turn on pylint for this directory 😊",
+      "range": {
+        "startLine": 29,
+        "startChar": 1,
+        "endLine": 40,
+        "endChar": 23
+      },
+      "revId": "86690b8a370ac8705dea83411ccb810c6340efa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
