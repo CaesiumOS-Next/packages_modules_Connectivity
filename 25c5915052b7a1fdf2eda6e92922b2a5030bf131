@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4801013e_e267de2d",
+        "filename": "Cronet/tests/common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-02T01:57:16Z",
+      "side": 1,
+      "message": "Nit: we generally don\u0027t write TODOs with usernames in Connectivity (although if that\u0027s a convention you\u0027d like to use for Cronet I don\u0027t have a problem with that); generally bugs are preferred (go/tott/486), but also since this is AOSP, external contributors can\u0027t easily access the person or bug to get more context, so it\u0027s better to explain sufficient rationale directly (and only optionally link to a bug for extra info)",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 15
+      },
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d0a9465_1e1b91e8",
+        "filename": "Cronet/tests/common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-02T01:57:16Z",
+      "side": 1,
+      "message": "Nit: unless you\u0027re planning to have multiple configs/manifests in the directory, it\u0027s more common to just name them AndroidManifest.xml and AndroidTest.xml. In that case you don\u0027t even need to specify it in the android_test build rule (it\u0027s the default)",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0f62870_85d18509",
+        "filename": "Cronet/tests/common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-02T01:57:16Z",
+      "side": 1,
+      "message": "Since this depends on the pre-jarjar artifacts, this test should use the jarjar rules too; see comments in aosp/2411177",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df8f570f_9a241581",
+        "filename": "Cronet/tests/common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-02T01:57:16Z",
+      "side": 1,
+      "message": "This is commented out, is that intended ? (if yes the comment should explain why).\n\nIf you\u0027re having trouble using internal tethering API, you might have to use framework-connectivity-internal-test-defaults (which is a hack that allows building against hidden API of bootclasspath classes, because normally the API stubs are earlier in the bootclasspath, so even if you add the .impl to the libs it will link against the API stub class in priority, which won\u0027t have hidden symbols).\n\nframework-connectivity-internal-test-defaults needs to be updated to use framework-tethering-pre-jarjar instead of .impl though.",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a3fdf87_66b536be",
+        "filename": "Cronet/tests/common/AndroidManifest_coverage.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-02T01:57:16Z",
+      "side": 1,
+      "message": "Might want to mention with a comment that this test combines android_library targets (CtsNetHttpTestsLib, NetHttpTestsLib) so permissions etc. are declared in their respective manifests (I was confused at first wondering why the test would pass with no permission at all)",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "825bdced_a3a4dae5",
+        "filename": "Cronet/tests/common/AndroidTest_coverage.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-02T01:57:16Z",
+      "side": 1,
+      "message": "We got aosp/2401533 as an incoming review recently as apparently the tradefed team is trying to have everything use SuiteApkInstaller, so you should probably use that instead",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dca1c05_83a18d06",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-02T01:57:16Z",
+      "side": 1,
+      "message": "Can this keep building against sdk_version: \"test_current\" ? It looks like it was possible before and that\u0027s a good thing (especially for CTS); it\u0027s very hard to add it back once people have added tests that depend on hidden API",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
