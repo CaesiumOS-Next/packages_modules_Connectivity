@@ -20,6 +20,8 @@ import android.app.compat.CompatChanges
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.LinkProperties
+import android.net.LocalSocket
+import android.net.LocalSocketAddress
 import android.net.Network
 import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
@@ -75,6 +77,7 @@ import com.android.testutils.runAsShell
 import com.android.testutils.tryTest
 import com.android.testutils.waitForIdle
 import java.io.File
+import java.io.IOException
 import java.net.ServerSocket
 import java.nio.charset.StandardCharsets
 import java.util.Random
@@ -759,6 +762,38 @@ class NsdManagerTest {
             nsdManager.unregisterService(registrationRecord)
         } cleanup {
             registrationRecord.expectCallback<ServiceUnregistered>()
+        }
+    }
+
+    @Test
+    fun testCannotConnectSocketToMdnsd() {
+        val targetSdkVersion = context.packageManager
+                .getTargetSdkVersion(context.applicationInfo.packageName)
+        assumeTrue(targetSdkVersion > 33)
+        val discoveryRecord = NsdDiscoveryRecord()
+        tryTest {
+            // Discover any service from NsdManager to enforce NsdService to start the mdnsd.
+            nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, discoveryRecord)
+            discoveryRecord.expectCallback<DiscoveryStarted>()
+
+            // Ensure the /dev/socket/mdnsd is created.
+            val socket = File("/dev/socket/mdnsd")
+            val timeout = System.currentTimeMillis() + TIMEOUT_MS
+            while (!socket.exists() && System.currentTimeMillis() < timeout) {
+                Thread.sleep(10)
+            }
+            assertTrue("$socket was not found after $TIMEOUT_MS ms", socket.exists())
+
+            // Create a LocalSocket and try to connect to mdnsd.
+            val localSocket = LocalSocket()
+            assertFalse("LocalSocket is connected.", localSocket.isConnected)
+            val address = LocalSocketAddress("mdnsd", LocalSocketAddress.Namespace.RESERVED)
+            assertFailsWith<IOException>("Expect fail but socket connected") {
+                localSocket.connect(address)
+            }
+        } cleanup {
+            nsdManager.stopServiceDiscovery(discoveryRecord)
+            discoveryRecord.expectCallback<DiscoveryStopped>()
         }
     }
 
