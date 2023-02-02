@@ -16,6 +16,24 @@
       "message": "this is in packages/modules/Connectivity, not hardware/interfaces?",
       "revId": "982ab92dc09c5a8834a1d9927d82e073c63eba63",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58056afa_54ec208c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-02-02T02:45:18Z",
+      "side": 1,
+      "message": "Ah, sorry for the mistake. New CL is aosp/2412035",
+      "parentUuid": "c3437f21_5647bb8d",
+      "revId": "982ab92dc09c5a8834a1d9927d82e073c63eba63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
