@@ -20,6 +20,8 @@ import android.app.compat.CompatChanges
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.LinkProperties
+import android.net.LocalSocket
+import android.net.LocalSocketAddress
 import android.net.Network
 import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
@@ -40,8 +42,8 @@ import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.Re
 import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.ServiceRegistered
 import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.ServiceUnregistered
 import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.UnregistrationFailed
-import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ResolveFailed
 import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ResolutionStopped
+import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ResolveFailed
 import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ServiceResolved
 import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.StopResolutionFailed
 import android.net.cts.NsdManagerTest.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.RegisterCallbackFailed
@@ -62,6 +64,7 @@ import android.platform.test.annotations.AppModeFull
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+import com.android.compatibility.common.util.PollingCheck
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
 import com.android.networkstack.apishim.NsdShimImpl
@@ -71,10 +74,12 @@ import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk30
+import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk33
 import com.android.testutils.runAsShell
 import com.android.testutils.tryTest
 import com.android.testutils.waitForIdle
 import java.io.File
+import java.io.IOException
 import java.net.ServerSocket
 import java.nio.charset.StandardCharsets
 import java.util.Random
@@ -760,6 +765,53 @@ class NsdManagerTest {
         } cleanup {
             registrationRecord.expectCallback<ServiceUnregistered>()
         }
+    }
+
+    private fun checkConnectSocketToMdnsd(shouldFail: Boolean) {
+        val discoveryRecord = NsdDiscoveryRecord()
+        tryTest {
+            // Discover any service from NsdManager to enforce NsdService to start the mdnsd.
+            nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, discoveryRecord)
+            discoveryRecord.expectCallback<DiscoveryStarted>()
+
+            // Ensure the /dev/socket/mdnsd is created.
+            val socket = File("/dev/socket/mdnsd")
+            PollingCheck.check(
+                    "$socket was not found after $TIMEOUT_MS ms",
+                    TIMEOUT_MS
+            ) { socket.exists() }
+
+            // Create a LocalSocket and try to connect to mdnsd.
+            val localSocket = LocalSocket()
+            assertFalse("LocalSocket is connected.", localSocket.isConnected)
+            val address = LocalSocketAddress("mdnsd", LocalSocketAddress.Namespace.RESERVED)
+            if (shouldFail) {
+                assertFailsWith<IOException>("Expect fail but socket connected") {
+                    localSocket.connect(address)
+                }
+            } else {
+                localSocket.connect(address)
+                assertTrue("LocalSocket is not connected.", localSocket.isConnected)
+                localSocket.close()
+            }
+        } cleanup {
+            nsdManager.stopServiceDiscovery(discoveryRecord)
+            discoveryRecord.expectCallback<DiscoveryStopped>()
+        }
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    fun testCannotConnectSocketToMdnsd() {
+        val targetSdkVersion = context.packageManager
+                .getTargetSdkVersion(context.applicationInfo.packageName)
+        assumeTrue(targetSdkVersion > Build.VERSION_CODES.TIRAMISU)
+        checkConnectSocketToMdnsd(shouldFail = true)
+    }
+
+    @Test @CtsNetTestCasesMaxTargetSdk33("mdnsd socket is accessible up to target SDK 33")
+    fun testCanConnectSocketToMdnsd() {
+        checkConnectSocketToMdnsd(shouldFail = false)
     }
 
     @Test @CtsNetTestCasesMaxTargetSdk30("Socket is started with the service up to target SDK 30")
