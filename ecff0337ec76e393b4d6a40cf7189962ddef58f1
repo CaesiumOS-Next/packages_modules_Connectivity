@@ -69,6 +69,30 @@
       },
       "revId": "ecff0337ec76e393b4d6a40cf7189962ddef58f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf4b6c84_bb7460b7",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/util/HttpCtsTestServer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-02T10:52:57Z",
+      "side": 1,
+      "message": "We\u0027ve had issues like that in the past with assertions in the ServerThread making the tests timeout. Also hard to investigate failures since the exception will be swallowed.",
+      "parentUuid": "59947d2a_c95addcf",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "ecff0337ec76e393b4d6a40cf7189962ddef58f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
