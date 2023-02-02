@@ -82,6 +82,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d731c4e_b69be567",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-02T16:50:58Z",
+      "side": 1,
+      "message": "That\u0027s very odd, usually it insists on putting static imports ahead of other imports. See https://source.corp.google.com/android-internal/packages/modules/Connectivity/tests/unit/java/com/android/server/ConnectivityServiceTest.java for instance. In any case, as long as the linter is happy, I am happy. 😊",
+      "parentUuid": "48bb3203_02440a06",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 42
+      },
+      "revId": "480f28494b8ca1f799dd7add189fb02ffc514add",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bccca4a3_c15ac704",
