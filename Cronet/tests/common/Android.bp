@@ -27,17 +27,11 @@ android_test {
     // Tethering started on SDK 30
     min_sdk_version: "30",
     test_suites: ["general-tests", "mts-tethering"],
-    manifest: "AndroidManifest_coverage.xml",
-    test_config: "AndroidTest_coverage.xml",
     static_libs: [
         "CtsNetHttpTestsLib",
-        "NetHttpTestsLib",
+        "NetHttpTestsLibPreJarJar",
     ],
-    libs: [
-        // Although not required to compile the static libs together, the "libs" used to build each
-        // of the common static test libs are necessary for R8 to avoid "Missing class" warnings and
-        // incorrect optimizations
-        //"framework-tethering.impl",
-    ],
+    jarjar_rules: ":framework-tethering-jarjar-rules",
+
     compile_multilib: "both",
 }
