@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e63ec7e_ae824f4d",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-02T01:24:27Z",
+      "side": 1,
+      "message": "Yeah, it looks we should throw IAE if a template of type MATCH_MOBILE contains one of the subscriber ID is null.",
+      "parentUuid": "f2064c9e_66bac01d",
+      "range": {
+        "startLine": 278,
+        "startChar": 27,
+        "endLine": 278,
+        "endChar": 77
+      },
+      "revId": "ece181997c2d19a397a9558eecf680be525b6fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c341fefc_139fc75e",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 25
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03ab9928_45d19cf1",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-02T01:24:27Z",
+      "side": 1,
+      "message": "Uers outside of module should use NetworkTemplate.Builder to build a template so this constructor should be used in module after T.",
+      "parentUuid": "c341fefc_139fc75e",
+      "range": {
+        "startLine": 293,
+        "startChar": 5,
+        "endLine": 293,
+        "endChar": 24
+      },
+      "revId": "ece181997c2d19a397a9558eecf680be525b6fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ed3aee4_d44b84cb",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 25
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-31T04:41:19Z",
       "side": 1,
       "message": "Previously, matchesMobile would always return false if mMatchSubscriberIds was empty. Now, it will return true. Can this happen?\n\nIt looks like if this NetworkTemplate is built using the Builder, then it can never be of type MATCH_MOBILE and have an empty mMatchSubscriberIds.\n\nBut if code uses the UnsupportedAppUsage constructor, then I think it can construct a NetworkTemplate with type MATCH_MOBILE and a null subscriber ID. That would not match anything.\n\nCould this be a problem? Or does it not matter, because we don\u0027t think anything would create a NetworkTemplate of this type?",
+      "range": {
+        "startLine": 590,
+        "startChar": 20,
+        "endLine": 590,
+        "endChar": 64
+      },
+      "revId": "ece181997c2d19a397a9558eecf680be525b6fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b6fd62c_aaad2040",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-02T01:24:27Z",
+      "side": 1,
+      "message": "If the mMatchSubscriberIds was empty then it should check if the type is `TYPE_MOBILE` and check it `matchesCollapsedRatType`. This is to keep the behavior of `MOBILE_WILDCARD`. So, if a template was built by\n```\n   NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(MERTERED_YES).build()\n```\nthen it is a template with type MATCH_MOBILE and has an empty mMatchSubscriberIds. This is a template of mobile wildcard.\n\nIf code uses the UnsupportedAppUsage constructor, and the template contains a null subscriber ID, then it should only match a null subscriber. But if the template is MATCH_MOBILE, it looks the template should not contain a null subscriber id.\n\nToday if a user outside of module then it should use NetworkTemplate.Builder to build a template. So, IIUC, a device with Android T+ should have no user using the constructor.",
+      "parentUuid": "3ed3aee4_d44b84cb",
       "range": {
         "startLine": 590,
         "startChar": 20,
