@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bef3ba5c_12b3f5b6",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-02T07:22:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "340c8037_f3466c25",
+      "range": {
+        "startLine": 521,
+        "startChar": 8,
+        "endLine": 521,
+        "endChar": 79
+      },
+      "revId": "31287b219211a5f00ada5ea64315a27ee381d5d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "488ad433_aa4d1b0d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-02T07:19:20Z",
       "side": 1,
       "message": "It seems like the size here includes auto \u0026 non-auto, maybe you can just say \"Keepalives: N\"? Or just remove this because the number of auto \u0026 non-auto can be calculated by ourselves.",
+      "range": {
+        "startLine": 523,
+        "startChar": 8,
+        "endLine": 523,
+        "endChar": 85
+      },
+      "revId": "31287b219211a5f00ada5ea64315a27ee381d5d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30a93cf5_dad88399",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-02T07:22:34Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "488ad433_aa4d1b0d",
       "range": {
         "startLine": 523,
         "startChar": 8,
