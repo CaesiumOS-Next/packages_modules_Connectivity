@@ -115,6 +115,23 @@ android_test {
 }
 
 android_test {
+    name: "CtsNetTestCasesMaxTargetSdk33",  // Must match CtsNetTestCasesMaxTargetSdk33 annotation.
+    defaults: [
+        "CtsNetTestCasesDefaults",
+        "CtsNetTestCasesApiStableDefaults",
+    ],
+    target_sdk_version: "33",
+    package_name: "android.net.cts.maxtargetsdk33",  // CTS package names must be unique.
+    instrumentation_target_package: "android.net.cts.maxtargetsdk33",
+    test_suites: [
+        "cts",
+        "general-tests",
+        "mts-tethering",
+    ],
+}
+
+
+android_test {
     name: "CtsNetTestCasesMaxTargetSdk31",  // Must match CtsNetTestCasesMaxTargetSdk31 annotation.
     defaults: [
         "CtsNetTestCasesDefaults",
@@ -126,7 +143,7 @@ android_test {
     test_suites: [
         "cts",
         "general-tests",
-        "mts-networking",
+        "mts-tethering",
     ],
 }
 
@@ -142,6 +159,6 @@ android_test {
     test_suites: [
         "cts",
         "general-tests",
-        "mts-networking",
+        "mts-tethering",
     ],
 }
