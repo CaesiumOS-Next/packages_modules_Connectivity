@@ -16,6 +16,98 @@
       "message": "Ignore the mts directory I\u0027ve put these in. Will sort these out on a separate cl.",
       "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "560f1045_44d726ec",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-03T00:16:43Z",
+      "side": 1,
+      "message": "Out of curiosity, do you know what\u0027s being used from androidx.core_core?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 29
+      },
+      "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d645091_8012b577",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-03T00:16:43Z",
+      "side": 1,
+      "message": "is this needed?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 6
+      },
+      "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37f72902_76e92b26",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4326,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-03T00:16:43Z",
+      "side": 1,
+      "message": "Would it make more sense to add all of `components/cronet/android/test/javatests/**/*.java` to this filegroup?",
+      "range": {
+        "startLine": 4326,
+        "startChar": 9,
+        "endLine": 4326,
+        "endChar": 95
+      },
+      "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbc8a0c2_f5c5fc27",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1596,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-03T00:16:43Z",
+      "side": 1,
+      "message": "I would argue this doesn\u0027t need to live in the script (there is nothing to be converted from GN to BP here). I would suggest you create this Android.bp file directly inside external/cronet/components/cronet/android/test.\n\nAlternatively, we could think about adding a build tag to the generated Android.bp that imports a manually maintained cronet_extras.bp.",
+      "range": {
+        "startLine": 1588,
+        "startChar": 0,
+        "endLine": 1596,
+        "endChar": 22
+      },
+      "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
