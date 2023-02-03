@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0a975c3_c12671c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-02-03T06:28:35Z",
+      "side": 1,
+      "message": "There changes are missing in Android-12L, so cherry-picked in 12L.",
+      "revId": "e20bb27fa398bb64150656b639d50f26e58837d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
