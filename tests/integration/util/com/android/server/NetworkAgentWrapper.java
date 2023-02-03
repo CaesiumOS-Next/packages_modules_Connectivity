@@ -202,10 +202,9 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
         }
 
         @Override
-        public void stopSocketKeepalive(Message msg) {
-            final int slot = msg.arg1;
+        public void onStopSocketKeepalive(@NonNull final ISocketKeepalive cb) {
             mWrapper.mHandlerThread.getThreadHandler().postDelayed(
-                    () -> onSocketKeepaliveEvent(slot, mWrapper.mStopKeepaliveError),
+                    () -> onSocketKeepaliveEvent(cb, mWrapper.mStopKeepaliveError),
                     mWrapper.mKeepaliveResponseDelay);
         }
 
