@@ -20,6 +20,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.http.UrlResponseInfo
 import org.junit.Assert.assertEquals
+import org.junit.Assume.assumeEquals
 import org.junit.Assume.assumeNotNull
 
 fun skipIfNoInternetConnection(context: Context) {
@@ -30,4 +31,8 @@ fun skipIfNoInternetConnection(context: Context) {
 
 fun assertOKStatusCode(info: UrlResponseInfo) {
     assertEquals("Status code must be 200 OK", 200, info.getHttpStatusCode())
+}
+
+fun assumeOKStatusCode(info: UrlResponseInfo) {
+    assumeEquals("Status code must be 200 OK", 200, info.getHttpStatusCode())
 }
