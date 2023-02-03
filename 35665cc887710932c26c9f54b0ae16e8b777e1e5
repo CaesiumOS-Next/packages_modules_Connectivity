@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09596c7c_37607e94",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 8730,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-03T08:20:26Z",
+      "side": 1,
+      "message": "The netd method isn\u0027t implemented before U, so make this a no-op before U ?",
+      "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25b58674_6a484d13",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 8760,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-03T08:20:26Z",
+      "side": 1,
+      "message": "But NativeUidRangeConfig has networks, not interface, so there should be no disappearing netid without ConnectivityService knowing about it ?\n\nIs this currently catching errors before U considering that the method doesn\u0027t exist ?\n\nIt would be best to still log something (Log.wtf if there\u0027s no actual expected case), unless there\u0027s cases where it\u0027s really expected to happen sometimes (but that should be differentiated with the exception error code)",
+      "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8045a9a_797591c5",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 9
@@ -20,6 +54,23 @@
         "endLine": 8762,
         "endChar": 46
       },
+      "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59b03b72_6750f836",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 8762,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-03T08:20:26Z",
+      "side": 1,
+      "message": "Suggest Log.wtf still; Is this currently catching errors before U considering that the method doesn\u0027t exist ?",
       "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
