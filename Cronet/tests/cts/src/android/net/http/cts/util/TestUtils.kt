@@ -31,3 +31,7 @@ fun skipIfNoInternetConnection(context: Context) {
 fun assertOKStatusCode(info: UrlResponseInfo) {
     assertEquals("Status code must be 200 OK", 200, info.getHttpStatusCode())
 }
+
+fun assumeOKStatusCode(info: UrlResponseInfo) {
+    assumeThat("Status code must be 200 OK", info.getHttpStatusCode(), equalTo(200))
+}
