@@ -34,6 +34,7 @@ android_library {
 android_test {
      name: "NetHttpTests",
      defaults: [
+        "CronetTestJavaDefaults",
         "mts-target-sdk-version-current",
      ],
      compile_multilib: "both",
