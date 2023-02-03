@@ -22,6 +22,30 @@
       },
       "revId": "29af82ecbbca1f1ca91105bbec000b657d624bd9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95ecb6cb_9efa82db",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-02-03T07:01:59Z",
+      "side": 1,
+      "message": "Updated in patch set 6 (code) and patch set 7 (test).",
+      "parentUuid": "76cb46dd_31917fc1",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 12
+      },
+      "revId": "29af82ecbbca1f1ca91105bbec000b657d624bd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
