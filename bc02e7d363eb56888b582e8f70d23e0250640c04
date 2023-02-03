@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e405df67_a744fce3",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 5
+      },
+      "lineNbr": 6183,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-03T10:39:00Z",
+      "side": 1,
+      "message": "Those are already removed in the next couple of CLs. I made sure not to add testing java classes to the JAR. Don\u0027t want to depend on proguard either way. and they aren\u0027t actually needed by us. It\u0027s for chromium",
+      "parentUuid": "bab88e05_cfee6bfd",
+      "range": {
+        "startLine": 6172,
+        "startChar": 0,
+        "endLine": 6183,
+        "endChar": 91
+      },
+      "revId": "bc02e7d363eb56888b582e8f70d23e0250640c04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "818c1965_6044a05f",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-02T19:03:24Z",
       "side": 1,
       "message": "nit: just make this non-const / \"default_tests\" to match the existing pattern.\n\nAlso, why not just add these to default_targets?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "bc02e7d363eb56888b582e8f70d23e0250640c04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd0c6a23_183fc923",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-03T10:39:00Z",
+      "side": 1,
+      "message": "Because targets that end with __library shouldn\u0027t collect java classes. It\u0027s in an upcoming CL to make sure that we don\u0027t include unwanted classes in the GEN_JNI or cronet_aml_java.",
+      "parentUuid": "818c1965_6044a05f",
       "range": {
         "startLine": 48,
         "startChar": 0,
