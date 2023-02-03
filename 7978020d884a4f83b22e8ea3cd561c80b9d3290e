@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cec18e8_b2dee034",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-03T13:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "647da828_4a37f318",
+      "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "951d7b1c_b71e5d41",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-30T04:07:51Z",
       "side": 1,
       "message": "Since the slot is reset in onPaused this means you can\u0027t stop a paused keepalive I think. This is racy in any case, but maybe stop would keep working most of the time if you don\u0027t clear the slot in onPause ?\n\nThe ISocketKeepaliveCallback should be used to identify the request in any case, but it feels like using a consistent slot would remove some hard-to-maintain moving parts, and remove the \"tried to resume but no more slots\" case. That might not be too hard too, making KeepaliveTracker.handleStartKeepalive use the slot in KeepaliveInfo instead of searching for one, having the slot in the KeepaliveInfo constructor, and moving findFirstFreeSlot to AutomaticOnOffKeepalive",
+      "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c74e1fa6_d65aebff",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2293,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-03T13:45:39Z",
+      "side": 1,
+      "message": "Regardless of whether we should keep a hardware slot reserved, we should absolutely use the callback to identify the request. That will work whether we reserve or not, and it will be a lot less sensitive to race conditions and much easier to read.\n\nThis should however be in another patch. Made aosp/2420340 below this.",
+      "parentUuid": "951d7b1c_b71e5d41",
       "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -69,6 +105,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d9b887e_54a5e9c1",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-03T13:45:39Z",
+      "side": 1,
+      "message": "b/267107416 is filed for that. I do not think it is realistic to fix this in one fell swoop in this patch.",
+      "parentUuid": "06c132db_ce9fa022",
+      "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71e89761_dbffecff",
@@ -82,6 +136,24 @@
       "writtenOn": "2023-01-30T04:07:51Z",
       "side": 1,
       "message": "Could it be stopped because the binder died, but AutomaticOnOffKeepaliveTracker didn\u0027t know about it when it called this method ?\n\nIn general since KeepaliveInfo can be in BINDER_DIED stopped state without AutomaticOnOffKeepaliveTracker knowing about it, I think all methods in KeepaliveTracker need to support being called when it is stopped.\n\nI\u0027d say this really needs a refactor to only have the binder death in AutomaticOnOffKeepaliveTracker, although that\u0027s not exactly what this change is working on. Maybe file a bug for it ?",
+      "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96eb3e77_b68625f0",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-03T13:45:39Z",
+      "side": 1,
+      "message": "b/267106526 is about having tests to make sure this works.\n\nI do not see any problem with multiple links to death – this is explicitly intended usage, and I strongly think there is no need of principle to only have one link to death so this should really not be a goal. Of course, conversely I have no objection to having only one if that\u0027s simpler ; I think we should have whichever style is simpler to maintain.\n\nInstead the goal should be to make sure this works in all cases and is as maintainable as possible. If the simplest solution is only one link, let\u0027s have one link. If the simplest solution is to have two, let\u0027s have two.\n\nObserve how this code was already broken if the app unregisters and dies in the span of a single handler loop. I don\u0027t think this patch should be held responsible for fixing this existing issue.",
+      "parentUuid": "71e89761_dbffecff",
       "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

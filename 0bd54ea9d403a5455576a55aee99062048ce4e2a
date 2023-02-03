@@ -22,6 +22,30 @@
       },
       "revId": "0bd54ea9d403a5455576a55aee99062048ce4e2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3221dad_93dd7f1f",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-03T13:45:39Z",
+      "side": 0,
+      "message": "Moot now, this was removed in a previous patch.\n\nIt\u0027s not possible to keep static here because this class is no longer static, and static methods in inner classes are not supported at our java language level. It\u0027s confusing in this patch because of the way I rebased, which makes it look like this was static and the class was inner before, but in reality that doesn\u0027t build.",
+      "parentUuid": "8fd020cf_972a77ac",
+      "range": {
+        "startLine": 228,
+        "startChar": 16,
+        "endLine": 228,
+        "endChar": 22
+      },
+      "revId": "0bd54ea9d403a5455576a55aee99062048ce4e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
