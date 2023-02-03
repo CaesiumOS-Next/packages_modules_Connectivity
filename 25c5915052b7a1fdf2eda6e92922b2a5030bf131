@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d51c37e4_45084986",
+        "filename": "Cronet/tests/common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-03T00:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4801013e_e267de2d",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 15
+      },
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d0a9465_1e1b91e8",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-02-02T01:57:16Z",
       "side": 1,
       "message": "Nit: unless you\u0027re planning to have multiple configs/manifests in the directory, it\u0027s more common to just name them AndroidManifest.xml and AndroidTest.xml. In that case you don\u0027t even need to specify it in the android_test build rule (it\u0027s the default)",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a9f6a1d_91351999",
+        "filename": "Cronet/tests/common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-03T00:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d0a9465_1e1b91e8",
       "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa42dceb_8868d143",
+        "filename": "Cronet/tests/common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-03T00:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0f62870_85d18509",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df8f570f_9a241581",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-02-02T01:57:16Z",
       "side": 1,
       "message": "This is commented out, is that intended ? (if yes the comment should explain why).\n\nIf you\u0027re having trouble using internal tethering API, you might have to use framework-connectivity-internal-test-defaults (which is a hack that allows building against hidden API of bootclasspath classes, because normally the API stubs are earlier in the bootclasspath, so even if you add the .impl to the libs it will link against the API stub class in priority, which won\u0027t have hidden symbols).\n\nframework-connectivity-internal-test-defaults needs to be updated to use framework-tethering-pre-jarjar instead of .impl though.",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9fe0e66_f60f08f9",
+        "filename": "Cronet/tests/common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-03T00:34:59Z",
+      "side": 1,
+      "message": "Unintended. Removed it.",
+      "parentUuid": "df8f570f_9a241581",
       "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -92,6 +170,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf718e02_e4fc7f8e",
+        "filename": "Cronet/tests/common/AndroidManifest_coverage.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-03T00:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a3fdf87_66b536be",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "825bdced_a3a4dae5",
@@ -109,6 +205,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c68dfa80_a40e9f29",
+        "filename": "Cronet/tests/common/AndroidTest_coverage.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-03T00:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "825bdced_a3a4dae5",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0dca1c05_83a18d06",
@@ -122,6 +236,24 @@
       "writtenOn": "2023-02-02T01:57:16Z",
       "side": 1,
       "message": "Can this keep building against sdk_version: \"test_current\" ? It looks like it was possible before and that\u0027s a good thing (especially for CTS); it\u0027s very hard to add it back once people have added tests that depend on hidden API",
+      "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b79f5f4c_5e27f46e",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-03T00:34:59Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "0dca1c05_83a18d06",
       "revId": "25c5915052b7a1fdf2eda6e92922b2a5030bf131",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
