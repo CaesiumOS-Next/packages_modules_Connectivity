@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "393980ff_7ac5b046",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-03T06:22:35Z",
+      "side": 1,
+      "message": "It sounds like this may have changed since last time, so we might not find the correct keepalive here. The alarm should instead contain something that can uniquely identify the AutomaticOnOffKeepalive, like the callback token ? (If possible it should contain the AutomaticOnOffKeepalive itself but I don\u0027t think that works because it\u0027s not parcelable)",
+      "range": {
+        "startLine": 164,
+        "startChar": 79,
+        "endLine": 164,
+        "endChar": 92
+      },
+      "revId": "0cbdb453bd9325d343ff072dcc2741fc5b7d1f97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47760317_8cab3c40",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-03T06:22:35Z",
+      "side": 1,
+      "message": "Oh please do not reinstate this. This was by far the worst part of the change, and I do not think it is acceptable. We really can\u0027t afford to keep something quite this awful.",
+      "range": {
+        "startLine": 395,
+        "startChar": 1,
+        "endLine": 400,
+        "endChar": 100
+      },
+      "revId": "0cbdb453bd9325d343ff072dcc2741fc5b7d1f97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
