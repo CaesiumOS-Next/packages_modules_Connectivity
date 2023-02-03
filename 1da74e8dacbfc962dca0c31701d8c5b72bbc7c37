@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81709c90_dea8ae3a",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-03T17:45:50Z",
+      "side": 1,
+      "message": "extraneous from copypaste 😄",
+      "parentUuid": "560f1045_44d726ec",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 29
+      },
+      "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d645091_8012b577",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-03T00:16:43Z",
       "side": 1,
       "message": "is this needed?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 6
+      },
+      "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9a73f19_564fec2a",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-03T17:45:50Z",
+      "side": 1,
+      "message": "Nope.",
+      "parentUuid": "2d645091_8012b577",
       "range": {
         "startLine": 33,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3e14de8_bfc1a2d3",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4326,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-03T17:45:50Z",
+      "side": 1,
+      "message": "Not yet, there\u0027d be lots of failures. Doing it iteratively so that I\u0027m not blocked and get enough coverage needed by 24th Feb.",
+      "parentUuid": "37f72902_76e92b26",
+      "range": {
+        "startLine": 4326,
+        "startChar": 9,
+        "endLine": 4326,
+        "endChar": 95
+      },
+      "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbc8a0c2_f5c5fc27",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-02-03T00:16:43Z",
       "side": 1,
       "message": "I would argue this doesn\u0027t need to live in the script (there is nothing to be converted from GN to BP here). I would suggest you create this Android.bp file directly inside external/cronet/components/cronet/android/test.\n\nAlternatively, we could think about adding a build tag to the generated Android.bp that imports a manually maintained cronet_extras.bp.",
+      "range": {
+        "startLine": 1588,
+        "startChar": 0,
+        "endLine": 1596,
+        "endChar": 22
+      },
+      "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc981ee7_98955f9a",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1596,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-03T17:45:50Z",
+      "side": 1,
+      "message": "I followed what was done for cronet_aml_api_sources though for consistency sake.\n\nI think this is easier in terms of creating patches for the Android.bp that I would write. Since it will change a couple of times before it\u0027s ready. Unless I dont have to create the patch now.\n\nMy preference is reverting to Android.bp in external/cronet/*/test and not creating a patch for it yet.\n\nSG?",
+      "parentUuid": "cbc8a0c2_f5c5fc27",
       "range": {
         "startLine": 1588,
         "startChar": 0,
