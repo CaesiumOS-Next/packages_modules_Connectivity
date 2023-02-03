@@ -22,6 +22,30 @@
       },
       "revId": "525b8bb9115868b746093762fc537247534841f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3fd1cff_cdb4d40d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1863,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-02-03T03:34:00Z",
+      "side": 1,
+      "message": "Per talked, leaving onUpstreamCapabilitiesChanged as it is safe because the\nupstream capability changes are covered by EVENT_ON_CAPABILITIES and\nchooseUpstreamType.\n\n- EVENT_ON_CAPABILITIES files onUpstreamCapabilitiesChanged if\nthe existing upstream\u0027s capabilities are changed.\n- chooseUpstreamType files onUpstreamCapabilitiesChanged if\nupstream is connected, switched, disconnected. New upstream\u0027s\ncapabilities need to notify the callback listener.\n\nThanks for your remind. I have also added two more CLs (aosp/2419000, aosp/2418999) for improving the test.",
+      "parentUuid": "78c390c1_c915267a",
+      "range": {
+        "startLine": 1860,
+        "startChar": 0,
+        "endLine": 1863,
+        "endChar": 70
+      },
+      "revId": "525b8bb9115868b746093762fc537247534841f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
