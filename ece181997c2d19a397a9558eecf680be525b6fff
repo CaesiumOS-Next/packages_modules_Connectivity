@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e8cb58b_37559ac7",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-03T02:48:49Z",
+      "side": 1,
+      "message": "It looks like in T it was possible to call the UnsupportedAppUsage constructor with null as argument, and I think it would not throw; so this behavior should probably be kept for backwards compatibility ?",
+      "parentUuid": "9e63ec7e_ae824f4d",
+      "range": {
+        "startLine": 278,
+        "startChar": 27,
+        "endLine": 278,
+        "endChar": 77
+      },
+      "revId": "ece181997c2d19a397a9558eecf680be525b6fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c341fefc_139fc75e",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 25
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Uers outside of module should use NetworkTemplate.Builder to build a template so this constructor should be used in module after T.",
       "parentUuid": "c341fefc_139fc75e",
+      "range": {
+        "startLine": 293,
+        "startChar": 5,
+        "endLine": 293,
+        "endChar": 24
+      },
+      "revId": "ece181997c2d19a397a9558eecf680be525b6fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d22406a_9075df87",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-03T02:48:49Z",
+      "side": 1,
+      "message": "Discussed in meeting: Because this is UnsupportedAppUsage, it is actually possible to call it when building against hidden API, or via reflection",
+      "parentUuid": "03ab9928_45d19cf1",
       "range": {
         "startLine": 293,
         "startChar": 5,
