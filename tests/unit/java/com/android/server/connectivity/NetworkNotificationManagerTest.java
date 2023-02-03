@@ -28,6 +28,7 @@ import static com.android.server.connectivity.NetworkNotificationManager.Notific
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.clearInvocations;
@@ -56,6 +57,8 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.SystemClock;
 import android.os.UserHandle;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
@@ -90,6 +93,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
@@ -391,7 +395,13 @@ public class NetworkNotificationManagerTest {
 
         final Instrumentation instr = InstrumentationRegistry.getInstrumentation();
         final UiDevice uiDevice =  UiDevice.getInstance(instr);
-        UiDevice.getInstance(instr).pressHome();
+        final Context ctx = instr.getContext();
+        final PowerManager pm = ctx.getSystemService(PowerManager.class);
+
+        // Wake up the device (it has no effect if the device is already awake).
+        uiDevice.executeShellCommand("input keyevent KEYCODE_WAKEUP");
+        waitUntil("Turn on screen", () -> pm.isInteractive());
+        uiDevice.pressHome();
 
         // UiDevice.getLauncherPackageName() requires the test manifest to have a <queries> tag for
         // the launcher intent.
@@ -404,7 +414,6 @@ public class NetworkNotificationManagerTest {
         // Non-"no internet" notifications are not affected
         verify(mNotificationManager).notify(eq(TEST_NOTIF_TAG), eq(NETWORK_SWITCH.eventId), any());
 
-        final Context ctx = instr.getContext();
         final String testAction = "com.android.connectivity.coverage.TEST_DIALOG";
         final Intent intent = new Intent(testAction)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -428,6 +437,17 @@ public class NetworkNotificationManagerTest {
 
         // Verify no NO_INTERNET notification was posted
         verify(mNotificationManager, never()).notify(any(), eq(NO_INTERNET.eventId), any());
+    }
+
+    private void waitUntil(String msg, BooleanSupplier predicate) {
+        int retry = 10;
+        while (retry-- > 0) {
+            if (predicate.getAsBoolean()) {
+                return;
+            }
+            SystemClock.sleep(100);
+        }
+        fail(msg + " FAILED");
     }
 
     private void doNotificationTextTest(NotificationType type, @StringRes int expectedTitleRes,
