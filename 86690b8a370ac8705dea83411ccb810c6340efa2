@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "16f7d991_7e905c7e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1638,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-03T10:42:22Z",
+      "side": 1,
+      "message": "I already removed this CL as it\u0027s not needed to compile. The reason this was here was because TM-mainline-prod was using gnu99 as stdc which was showing compilation errors and I was quite confused that day so I added those lines but realized that we don\u0027t really need to merge this into tm-mainline-prod.",
+      "parentUuid": "a33251c3_d8b221dd",
+      "range": {
+        "startLine": 1637,
+        "startChar": 2,
+        "endLine": 1638,
+        "endChar": 28
+      },
+      "revId": "86690b8a370ac8705dea83411ccb810c6340efa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "20c8885b_4d416e3c",
         "filename": "tools/gn2bp/gn_utils.py",
         "patchSetId": 3
