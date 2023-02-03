@@ -391,7 +391,9 @@ public class NetworkNotificationManagerTest {
 
         final Instrumentation instr = InstrumentationRegistry.getInstrumentation();
         final UiDevice uiDevice =  UiDevice.getInstance(instr);
-        UiDevice.getInstance(instr).pressHome();
+        // Wake up the device (it has no effect if the device is already awake).
+        uiDevice.executeShellCommand("input keyevent KEYCODE_WAKEUP");
+        uiDevice.pressHome();
 
         // UiDevice.getLauncherPackageName() requires the test manifest to have a <queries> tag for
         // the launcher intent.
