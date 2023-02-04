@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91c130f8_170ae933",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3351,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-04T07:43:57Z",
+      "side": 1,
+      "message": "expectCaps?\nAlso for other places.\nI don\u0027t really follow why this cannot be expectCaps but l.3387 can.\nDo I miss something?",
+      "range": {
+        "startLine": 3351,
+        "startChar": 17,
+        "endLine": 3351,
+        "endChar": 45
+      },
+      "revId": "b66db8b660fe7e898f3b36ded405a3ec4176bfcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
