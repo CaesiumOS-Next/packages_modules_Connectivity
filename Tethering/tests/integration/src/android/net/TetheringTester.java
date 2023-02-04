@@ -94,6 +94,9 @@ public final class TetheringTester {
     private static final int PACKET_READ_TIMEOUT_MS = 500;
     private static final int DHCP_DISCOVER_ATTEMPTS = 10;
     private static final int READ_RA_ATTEMPTS = 10;
+    // Sync from include/linux/in6.h.
+    // Not defined in android.system.OsConstants.
+    private static final int IPPROTO_FRAGMENT = 44;
     private static final byte[] DHCP_REQUESTED_PARAMS = new byte[] {
             DhcpPacket.DHCP_SUBNET_MASK,
             DhcpPacket.DHCP_ROUTER,
@@ -405,7 +408,10 @@ public final class TetheringTester {
         if (isIpv4) {
             return Struct.parse(Ipv4Header.class, buf).protocol == (byte) ipProto;
         } else {
-            return Struct.parse(Ipv6Header.class, buf).nextHeader == (byte) ipProto;
+            int p = Struct.parse(Ipv6Header.class, buf).nextHeader;
+            Log.d(TAG, "hasExpectedIpHeader: p " + p + ", ipProto " + ipProto);
+            return (byte) p == (byte) ipProto;
+            //return Struct.parse(Ipv6Header.class, buf).nextHeader == (byte) ipProto;
         }
     }
 
@@ -592,6 +598,33 @@ public final class TetheringTester {
         return true;
     }
 
+    public static boolean isExpectedFragmentPacketV6(@NonNull final byte[] rawPacket,
+            boolean hasEth, boolean hasMoreFragment) {
+        final ByteBuffer buf = ByteBuffer.wrap(rawPacket);
+        try {
+            Log.d(TAG, "isExpectedFragmentPacketV6: hasExpectedEtherHeader " + dumpHexString(rawPacket));
+            if (hasEth && !hasExpectedEtherHeader(buf, false /* isIpv4*/)) return false;
+
+            Log.d(TAG, "isExpectedFragmentPacketV6: hasExpectedIpHeader " + dumpHexString(rawPacket));
+            if (!hasExpectedIpHeader(buf, false /* isIpv4 */, IPPROTO_FRAGMENT)) return false;
+
+            Log.d(TAG, "isExpectedFragmentPacketV6: Read ext header " + dumpHexString(rawPacket));
+            // Read ext header
+            if (buf.getShort() != (short)0x1100 /* next header: udp, reserved */) return false;
+            //if (hasMoreFragment) {
+            //    if ((buf.getShort() & 0x01) != (hasMoreFragment ? 1 : 0)) return false;
+            //}
+            
+
+            //if (Struct.parse(UdpHeader.class, buf) == null) return false;
+            //
+            //if (!payloadVerifier.test(buf)) return false;
+        } catch (Exception e) {
+            // Parsing packet fail means it is not udp packet.
+            return false;
+        }
+        return true;
+    }
 
     private static boolean isTcpSynPacket(@NonNull final TcpHeader tcpHeader) {
         return (tcpHeader.dataOffsetAndControlBits & TCPHDR_SYN) != 0;
@@ -679,5 +712,18 @@ public final class TetheringTester {
         sendDownloadPacket(packet);
 
         return verifyPacketNotNull("Download fail", getDownloadPacket(filter));
+    }
+
+    public byte[] verifyDownload(final ByteBuffer[] packets, final Predicate<byte[]> filter)
+            throws Exception {
+        for (ByteBuffer packet : packets) {
+            sendDownloadPacket(packet);
+        }
+
+        for (int i = 0; i < packets.length; i++) {
+            verifyPacketNotNull("Download fail", getDownloadPacket(filter));
+        }
+
+        return new byte[] {(byte) 0xbe};  // FIXME
     }
 }
