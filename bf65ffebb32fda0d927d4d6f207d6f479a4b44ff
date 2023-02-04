@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8186a715_cace2de0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-04T09:11:11Z",
+      "side": 1,
+      "message": "LGTM but we may need to resolve the lint -1",
+      "revId": "bf65ffebb32fda0d927d4d6f207d6f479a4b44ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
