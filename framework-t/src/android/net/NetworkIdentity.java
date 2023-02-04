@@ -32,6 +32,7 @@ import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.service.NetworkIdentityProto;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.util.proto.ProtoOutputStream;
 
 import com.android.net.module.util.BitUtils;
@@ -410,6 +411,9 @@ public class NetworkIdentity {
                         .getTransportInfo();
                 if (transportInfo instanceof WifiInfo) {
                     final WifiInfo info = (WifiInfo) transportInfo;
+                    if (info.getNetworkKey() == null) {
+                        Log.wtf(TAG, "A null wifiNetworkKey is set to NetworkIdentity");
+                    }
                     setWifiNetworkKey(info.getNetworkKey());
                 }
             } else if (mType == TYPE_TEST) {
