@@ -32,6 +32,7 @@ import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.service.NetworkIdentityProto;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.util.proto.ProtoOutputStream;
 
 import com.android.net.module.util.BitUtils;
@@ -406,10 +407,17 @@ public class NetworkIdentity {
             setOemManaged(getOemBitfield(snapshot.getNetworkCapabilities()));
 
             if (mType == TYPE_WIFI) {
-                final TransportInfo transportInfo = snapshot.getNetworkCapabilities()
-                        .getTransportInfo();
+                final NetworkCapabilities nc = snapshot.getNetworkCapabilities();
+                final TransportInfo transportInfo = nc.getTransportInfo();
                 if (transportInfo instanceof WifiInfo) {
                     final WifiInfo info = (WifiInfo) transportInfo;
+                    // Log.wtf to catch trying to set a null wifiNetworkKey into NetworkkIdentity.
+                    // See b/266598304.
+                    if (info.getNetworkKey() == null) {
+                        Log.wtf(TAG, "WifiInfo contains a null wifiNetworkKey and it will"
+                                + " be set into NetworkIdentity, netId=" + snapshot.getNetwork()
+                                + "NetworkCapabilities=" + nc);
+                    }
                     setWifiNetworkKey(info.getNetworkKey());
                 }
             } else if (mType == TYPE_TEST) {
