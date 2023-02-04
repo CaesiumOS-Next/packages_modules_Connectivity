@@ -50,6 +50,7 @@ import android.telephony.TelephonyManager
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.assertParcelSane
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -159,6 +160,12 @@ class NetworkTemplateTest {
                 mockContext, buildWifiNetworkState(TEST_IMSI2, TEST_WIFI_KEY1), true, 0)
         val identWifiImsi1Key2 = buildNetworkIdentity(
                 mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_WIFI_KEY2), true, 0)
+        // This identity with a null wifiNetworkKey is to test the matchesWifiNetworkKey won't crash
+        // the system when a null wifiNetworkKey is provided, which would happen in some unknown
+        // cases, see b/266598304.
+        val identWifiNullKey = buildNetworkIdentity(
+                mockContext, buildWifiNetworkState(null/* subscriberId */,
+                null /* wifiNetworkKey */), true, 0)
 
         // Verify that template with WiFi Network Key only matches any subscriberId and
         // specific WiFi Network Key.
@@ -191,6 +198,13 @@ class NetworkTemplateTest {
         templateWifiKeyAllImsi1.assertMatches(identWifiImsi1Key1)
         templateWifiKeyAllImsi1.assertDoesNotMatch(identWifiImsi2Key1)
         templateWifiKeyAllImsi1.assertMatches(identWifiImsi1Key2)
+
+        // Test a network identity with null wifiNetworkKey won't crash.
+        try {
+            templateWifiKey1.assertDoesNotMatch(identWifiNullKey)
+        } catch (e: NullPointerException) {
+            fail("Unexpected NullPointerException was thrown.")
+        }
     }
 
     @Test
