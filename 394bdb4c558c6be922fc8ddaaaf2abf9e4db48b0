@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88b8df53_55593da2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-04T08:09:58Z",
+      "side": 1,
+      "message": "Fix build break since mSlot is removed.",
+      "revId": "394bdb4c558c6be922fc8ddaaaf2abf9e4db48b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
