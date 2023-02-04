@@ -103,6 +103,9 @@ public final class TetheringTester {
     private static final InetAddress LINK_LOCAL = parseNumericAddress("fe80::1");
 
     public static final String DHCP_HOSTNAME = "testhostname";
+    // Sync from include/linux/in6.h.
+    // Not defined in android.system.OsConstants.
+    public static final int IPPROTO_FRAGMENT = 44;
 
     private final ArrayMap<MacAddress, TetheredDevice> mTetheredDevices;
     private final TapPacketReader mDownstreamReader;
@@ -592,6 +595,70 @@ public final class TetheringTester {
         return true;
     }
 
+    private static boolean hasExpectedIpExtensionFragmentHeader(@NonNull final ByteBuffer buf,
+            boolean hasMoreFragment, int fragOffset, int ipProto) throws Exception {
+        // Fragment header. See RFC 8200 section 4.5.
+        // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        // |  Next Header  |   Reserved    |      Fragment Offset    |Res|M|
+        // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        // |                         Identification                        |
+        // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        //
+        // Verify next header field.
+        if (buf.get() != (byte) ipProto) return false;
+
+        // Skip reserved field.
+        buf.get();
+
+        // Verify fragment offset field and M flag bit.
+        final short flags = buf.getShort();
+        if (((flags >> 3) & 0x1fff) != fragOffset /* fragment offset */) return false;
+        if ((flags & 0x0001) != (hasMoreFragment ? 1 : 0) /* M */) return false;
+
+        // Skip identification field.
+        // Ignored because kernel generated a new random identification which is different from
+        // original identification. We can't check received fragment identification.
+        buf.getInt();
+
+        return true;
+    }
+
+    private static boolean hasExpectedIpFragmentHeaderV6(@NonNull final ByteBuffer buf, int ipProto,
+            boolean hasMoreFragment, int fragOffset) throws Exception {
+        if (!hasExpectedIpHeader(buf, false /* isIpv4 */, IPPROTO_FRAGMENT)) return false;
+        if (!hasExpectedIpExtensionFragmentHeader(buf, hasMoreFragment, fragOffset, ipProto)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static boolean hasExpectedUdpFragmentPayload(@NonNull final ByteBuffer buf,
+            @NonNull final ByteBuffer expectedPayload) {
+        if (buf.remaining() != expectedPayload.limit()) return false;
+
+        return Arrays.equals(getRemaining(buf), getRemaining(
+                expectedPayload.asReadOnlyBuffer()));
+    }
+
+    public static boolean isExpectedUdpFragmentPacketV6(@NonNull final byte[] rawPacket,
+            boolean hasEth, boolean hasMoreFragment, int fragOffset,
+            @NonNull final ByteBuffer expectedPayload) {
+        final ByteBuffer buf = ByteBuffer.wrap(rawPacket);
+        try {
+            if (hasEth && !hasExpectedEtherHeader(buf, false /* isIpv4*/)) return false;
+
+            if (!hasExpectedIpFragmentHeaderV6(buf, IPPROTO_UDP, hasMoreFragment, fragOffset)) {
+                return false;
+            }
+
+            if (!hasExpectedUdpFragmentPayload(buf, expectedPayload)) return false;
+        } catch (Exception e) {
+            // Parsing packet fail means it is not udp fragment packet.
+            return false;
+        }
+        return true;
+    }
 
     private static boolean isTcpSynPacket(@NonNull final TcpHeader tcpHeader) {
         return (tcpHeader.dataOffsetAndControlBits & TCPHDR_SYN) != 0;
@@ -679,5 +746,41 @@ public final class TetheringTester {
         sendDownloadPacket(packet);
 
         return verifyPacketNotNull("Download fail", getDownloadPacket(filter));
+    }
+
+    public List<byte[]> verifyFragmentUpload(final ByteBuffer[] fragmentPackets,
+            final Predicate<byte[]> [] filters) throws Exception {
+        // Send all fragments before verifying packets on upstream.
+        // Fragment packets are shown on the interface until all fragments are received.
+        for (ByteBuffer fragmentPacket : fragmentPackets) {
+            sendUploadPacket(fragmentPacket);
+        }
+
+        // If the fragments may be received out of order, need to improve this packet verification.
+        final List<byte[]> results = new ArrayList<>(fragmentPackets.length);
+        for (int i = 0; i < fragmentPackets.length; i++) {
+            final byte[] packet =
+                    verifyPacketNotNull("Upload fail", getUploadPacket(filters[i]));
+            results.add(packet);
+        }
+        return results;
+    }
+
+    public List<byte[]> verifyFragmentDownload(final ByteBuffer[] fragmentPackets,
+            final Predicate<byte[]> [] filters) throws Exception {
+        // Send all fragments before verifying packets on downstream.
+        // Fragment packets are shown on the interface until all fragments are received.
+        for (ByteBuffer fragmentPacket : fragmentPackets) {
+            sendDownloadPacket(fragmentPacket);
+        }
+
+        // If the fragments may be received out of order, need to improve this packet verification.
+        final List<byte[]> results = new ArrayList<>(fragmentPackets.length);
+        for (int i = 0; i < fragmentPackets.length; i++) {
+            final byte[] packet =
+                    verifyPacketNotNull("Download fail", getDownloadPacket(filters[i]));
+            results.add(packet);
+        }
+        return results;
     }
 }
