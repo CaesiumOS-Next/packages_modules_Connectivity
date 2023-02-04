@@ -25,8 +25,10 @@ import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
+import static android.net.TetheringTester.IPPROTO_FRAGMENT;
 import static android.net.TetheringTester.isExpectedIcmpPacket;
 import static android.net.TetheringTester.isExpectedTcpPacket;
+import static android.net.TetheringTester.isExpectedUdpFragmentPacketV6;
 import static android.net.TetheringTester.isExpectedUdpPacket;
 import static android.system.OsConstants.IPPROTO_IP;
 import static android.system.OsConstants.IPPROTO_IPV6;
@@ -37,6 +39,8 @@ import static com.android.net.module.util.HexDump.dumpHexString;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV4;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
+import static com.android.net.module.util.NetworkStackConstants.IPV6_HEADER_LEN;
+import static com.android.net.module.util.NetworkStackConstants.IPV6_LEN_OFFSET;
 import static com.android.net.module.util.NetworkStackConstants.TCPHDR_ACK;
 import static com.android.net.module.util.NetworkStackConstants.TCPHDR_SYN;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
@@ -72,6 +76,9 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.PacketBuilder;
+import com.android.net.module.util.Struct;
+import com.android.net.module.util.structs.EthernetHeader;
+import com.android.net.module.util.structs.Ipv6Header;
 import com.android.testutils.HandlerUtils;
 import com.android.testutils.TapPacketReader;
 import com.android.testutils.TestNetworkTracker;
@@ -95,6 +102,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Predicate;
 
 /**
  * TODO: Common variables or methods shared between CtsEthernetTetheringTest and
@@ -136,6 +144,11 @@ public abstract class EthernetTetheringTestBase {
     private static final short HOP_LIMIT = 0x40;
     // version=6, traffic class=0x0, flowlabel=0x0;
     private static final int VERSION_TRAFFICCLASS_FLOWLABEL = 0x60000000;
+
+    // Fragement definition.
+    protected static final short FRAG_ID = 517;
+    protected static final int PAYLOAD_LEN = 10000;
+    protected static final int MAXIMUM_PAYLOAD_LEN_PER_FRAGMENT = 1280;
 
     // UDP and TCP header definition.
     // LOCAL_PORT is used by public port and private port. Assume port 9876 has not been used yet
@@ -1011,6 +1024,197 @@ public abstract class EthernetTetheringTestBase {
         }
 
         return new TetheringTester(mDownstreamReader, mUpstreamReader);
+    }
+
+    @NonNull
+    protected ByteBuffer [] buildFragmentPacketsV6(
+            @Nullable final MacAddress srcMac, @Nullable final MacAddress dstMac,
+            @NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp,
+            short srcPort, short dstPort, @Nullable final ByteBuffer [] l4payloads)
+            throws Exception {
+        final ByteBuffer [] packets = new ByteBuffer[l4payloads.length];
+        int fragOffset = 0;
+        int totalFragLen = 0;
+
+        for (int i = 0; i < l4payloads.length; i++) {
+            final ByteBuffer l4payload = l4payloads[i];
+            final boolean hasMoreFragment = (i == (l4payloads.length - 1));
+            final boolean hasEther = (srcMac != null && dstMac != null);
+            final int etherHeaderLen = hasEther ? Struct.getSize(EthernetHeader.class) : 0;
+            final int ipv6HeaderLen = Struct.getSize(Ipv6Header.class);
+            final ByteBuffer fragmentHeader = ByteBuffer.allocate(8);  // init later
+            final int fragmentHeaderLen = fragmentHeader.limit();
+            final int l4PayloadLen = l4payload.limit();
+            final ByteBuffer packet = ByteBuffer.allocate(etherHeaderLen + ipv6HeaderLen
+                    + fragmentHeaderLen + l4PayloadLen);
+
+            // [1] Ethernet header
+            if (hasEther) {
+                final EthernetHeader ethHeader = new EthernetHeader(dstMac, srcMac,
+                        ETHER_TYPE_IPV6);
+                ethHeader.writeToByteBuffer(packet);
+            }
+
+            // [2] IP header
+            final Ipv6Header ipv6Header = new Ipv6Header(VERSION_TRAFFICCLASS_FLOWLABEL,
+                    (short) 0 /* payloadLength, calculate later */, (byte) IPPROTO_FRAGMENT,
+                    HOP_LIMIT, (Inet6Address) srcIp, (Inet6Address) dstIp);
+            ipv6Header.writeToByteBuffer(packet);
+
+            // [3] Fragement header. See RFC 8200 section 4.5.
+            // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            // |  Next Header  |   Reserved    |      Fragment Offset    |Res|M|
+            // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            // |                         Identification                        |
+            // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            //
+            fragmentHeader.putShort((short) 0x1100);  // next header: UDP, reserved
+            fragmentHeader.putShort((short) (((fragOffset & 0x1fff) << 3)
+                    | (hasMoreFragment ?  0 : 1)));  // offset, res, M
+            fragmentHeader.putInt(FRAG_ID);
+            fragmentHeader.flip();
+            packet.put(fragmentHeader);
+
+            // [4] Fragmented L4 payload
+            if (l4payload != null) {
+                packet.put(l4payload);
+                // in case data might be reused by caller, restore the position and
+                // limit of bytebuffer.
+                l4payload.clear();
+            }
+
+            // [5] Finalize packet
+            // Used for updating IP header fields. If there is Ehternet header, IPv6 header offset
+            // in buffer equals ethernet header length because IPv6 header is located next to
+            // ethernet header. Otherwise, IPv6 header offset is 0.
+            final int ipv6HeaderOffset = hasEther ? etherHeaderLen : 0;
+
+            // Populate the IPv6 payloadLength field.
+            // The payload length doesn't include IPv6 header length. See rfc8200 section 3.
+            packet.putShort(ipv6HeaderOffset + IPV6_LEN_OFFSET,
+                    (short) (fragmentHeaderLen + l4PayloadLen));
+            packet.flip();
+
+            packets[i] = packet;
+            totalFragLen += l4PayloadLen;
+            fragOffset = totalFragLen / 8;
+        }
+        return packets;
+    }
+
+    @NonNull
+    protected ByteBuffer [] buildFragmentPacketsV6(
+            @NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp,
+            short srcPort, short dstPort, @Nullable final ByteBuffer [] l4payloads)
+            throws Exception {
+        return buildFragmentPacketsV6(null /* srcMac */, null /* dstMac */, srcIp, dstIp, srcPort,
+                dstPort, l4payloads);
+    }
+
+    @NonNull
+    private ByteBuffer buildPayloadByLength(final int length) {
+        // The pattern combines ascii number [0-9] and alphabet [a-z].
+        final byte[] pattern = new byte[] { (byte) 0x30, (byte) 0x31, (byte) 0x32, (byte) 0x33,
+                (byte) 0x34, (byte) 0x35, (byte) 0x36, (byte) 0x37, (byte) 0x38, (byte) 0x39,
+                (byte) 0x61, (byte) 0x62, (byte) 0x63, (byte) 0x64, (byte) 0x65, (byte) 0x66,
+                (byte) 0x67, (byte) 0x68, (byte) 0x69, (byte) 0x6a, (byte) 0x6b, (byte) 0x6c,
+                (byte) 0x6d, (byte) 0x6e, (byte) 0x6f, (byte) 0x70, (byte) 0x71, (byte) 0x72,
+                (byte) 0x73, (byte) 0x74, (byte) 0x75, (byte) 0x76, (byte) 0x77, (byte) 0x78,
+                (byte) 0x79, (byte) 0x7a };
+
+        // Build a payload for a given length and fill the content with the ascii pattern.
+        final ByteBuffer payload = ByteBuffer.allocate(length);
+        for (int i = 0; i < payload.limit(); i++) {
+            payload.put(pattern[i % 36]);  // ascii number [0-9] and alphabet [a-z]
+        }
+
+        payload.flip();
+        return payload;
+    }
+
+    @NonNull
+    private ByteBuffer [] buildUdpFragments(@NonNull final InetAddress srcIp,
+            @NonNull final InetAddress dstIp) throws Exception {
+        // Build a large payload for making fragement packets.
+        final ByteBuffer testPayload = buildPayloadByLength(PAYLOAD_LEN);
+        Log.d(TAG, "Test payload: " +  dumpHexString(testPayload.array()));
+
+        // Build L4 layer with UDP header and payload. Note that UDP checksum needs source address
+        // and destination address. Use the existing #buildUdpPacket to build a packet with IP
+        // header and transport layer. Then, remove the IP header to get L4 UDP packet which
+        // already has counted UDP checksum. IP header is required for UDP checksum because the
+        // existing IpUtils.udpChecksum requires IP header to get source address and destination
+        // address while building checksum pseudo-header. See IpUtils.udpChecksum.
+        final ByteBuffer udpPayloadV6 = buildUdpPacket(srcIp, dstIp, REMOTE_PORT /* srcPort */,
+                LOCAL_PORT /* dstPort */, testPayload);
+        udpPayloadV6.position(IPV6_HEADER_LEN);  // remove IP header. keep udp header and payload
+        udpPayloadV6.compact();
+        udpPayloadV6.flip();
+
+        int udpPayloadLen = udpPayloadV6.remaining();
+        int fragNum = udpPayloadLen % MAXIMUM_PAYLOAD_LEN_PER_FRAGMENT == 0
+                ? udpPayloadLen / MAXIMUM_PAYLOAD_LEN_PER_FRAGMENT
+                : udpPayloadLen / MAXIMUM_PAYLOAD_LEN_PER_FRAGMENT + 1;
+
+        final ByteBuffer [] l4FragmentPayloads = new ByteBuffer[fragNum];
+        for (int i = 0; i < fragNum; i++) {
+            int fragLen = java.lang.Math.min(udpPayloadV6.remaining(),
+                    MAXIMUM_PAYLOAD_LEN_PER_FRAGMENT);
+            byte[] bytes = new byte[fragLen];
+            udpPayloadV6.get(bytes);
+            l4FragmentPayloads[i] = ByteBuffer.wrap(bytes);
+            Log.d(TAG, "Build UDP fragment[" + i + "]: "
+                    + dumpHexString(l4FragmentPayloads[i].array()));
+        }
+        return l4FragmentPayloads;
+    }
+
+    @NonNull
+    private Predicate<byte[]>[] buildUdpFragmentPacketVerifiers(final boolean upstream,
+            final ByteBuffer [] expectedUdpFragments) throws Exception {
+        final Predicate<byte[]>[] packetVerifiers = new Predicate[expectedUdpFragments.length];
+        for (int i = 0; i < expectedUdpFragments.length; i++) {
+            final boolean hasMoreFragment = (i != expectedUdpFragments.length - 1);
+            final ByteBuffer udpFragment = expectedUdpFragments[i];
+            packetVerifiers[i] = upstream
+                ? (p) -> {
+                    Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
+                    return isExpectedUdpFragmentPacketV6(p, false /* hasEther */,
+                            hasMoreFragment, udpFragment);
+                }
+                : (p) -> {
+                    Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
+                    return isExpectedUdpFragmentPacketV6(p, true /* hasEther */,
+                            hasMoreFragment, udpFragment);
+                };
+        }
+        return packetVerifiers;
+    }
+
+    protected void sendUploadFragmentPacketUdp(@NonNull final MacAddress srcMac,
+            @NonNull final MacAddress dstMac, @NonNull final InetAddress srcIp,
+            @NonNull final InetAddress dstIp, @NonNull final TetheringTester tester)
+            throws Exception {
+        final ByteBuffer [] udpFragments = buildUdpFragments(srcIp, dstIp);
+        final ByteBuffer [] testFragmentPackets = buildFragmentPacketsV6(srcMac, dstMac,
+                srcIp, dstIp, LOCAL_PORT /* srcPort */, REMOTE_PORT /* dstPort */,
+                udpFragments);
+        final Predicate<byte[]>[] packetVerifiers = buildUdpFragmentPacketVerifiers(
+                true /* upstream */, udpFragments);
+
+        tester.verifyUpload(testFragmentPackets, packetVerifiers);
+    }
+
+    protected void sendDownloadFragmentPacketUdp(@NonNull final InetAddress srcIp,
+            @NonNull final InetAddress dstIp, @NonNull final TetheringTester tester)
+            throws Exception {
+        final ByteBuffer [] udpFragments = buildUdpFragments(srcIp, dstIp);
+        final ByteBuffer [] testFragmentPackets = buildFragmentPacketsV6(srcIp, dstIp,
+                REMOTE_PORT /* srcPort */, LOCAL_PORT /* dstPort */, udpFragments);
+        final Predicate<byte[]>[] packetVerifiers = buildUdpFragmentPacketVerifiers(
+                false /* upstream */, udpFragments);
+
+        tester.verifyDownload(testFragmentPackets, packetVerifiers);
     }
 
     protected <T> List<T> toList(T... array) {
