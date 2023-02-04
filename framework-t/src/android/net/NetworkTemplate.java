@@ -574,7 +574,6 @@ public final class NetworkTemplate implements Parcelable {
      *                  to know details about the key.
      */
     private boolean matchesWifiNetworkKey(@NonNull String wifiNetworkKey) {
-        Objects.requireNonNull(wifiNetworkKey);
         return CollectionUtils.isEmpty(mMatchWifiNetworkKeys)
                 || CollectionUtils.contains(mMatchWifiNetworkKeys, wifiNetworkKey);
     }
