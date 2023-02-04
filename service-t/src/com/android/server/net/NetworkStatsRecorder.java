@@ -274,6 +274,7 @@ public class NetworkStatsRecorder {
 
                 // also record against complete dataset when present
                 if (complete != null) {
+                    Log.d(TAG, "Complete, ident=" + ident + ", entry=" + entry);
                     complete.recordData(ident, entry.uid, entry.set, entry.tag, start, end, entry);
                 }
             }
