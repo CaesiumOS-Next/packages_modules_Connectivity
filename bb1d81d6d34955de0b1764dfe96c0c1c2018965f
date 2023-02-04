@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "150f7dc4_9ab8acdc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-04T08:27:08Z",
+      "side": 1,
+      "message": "I added aosp/2419379 for testing to reduce the alarm timer temporary(combining sample patchset 23)",
+      "revId": "bb1d81d6d34955de0b1764dfe96c0c1c2018965f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "803988da_15d53279",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-04T08:27:08Z",
+      "side": 1,
+      "message": "Starting automatic on/off Keepliave is protected by DeviceConfig flag. This requires READ_DEVICE_CONFIG permission. I try to do in runWithShellPermissionIdentity but the flow is running in the executor. The start call may not be able to finish before dropping shell Identity.  I had updated this in patchset 23.",
+      "range": {
+        "startLine": 1175,
+        "startChar": 12,
+        "endLine": 1175,
+        "endChar": 82
+      },
+      "revId": "bb1d81d6d34955de0b1764dfe96c0c1c2018965f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
