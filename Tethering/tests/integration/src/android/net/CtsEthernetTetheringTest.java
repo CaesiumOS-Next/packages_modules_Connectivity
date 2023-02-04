@@ -1073,4 +1073,16 @@ public class CtsEthernetTetheringTest extends EthernetTetheringTestBase {
                 REMOTE_NAT64_ADDR /* downloadSrcIp */, clatIp6 /* downloadDstIp */,
                 tester, true /* isClat */);
     }
+
+    @Test
+    public void testTetherFragmentUdpV6() throws Exception {
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP6_ADDR),
+                toList(TEST_IP6_DNS));
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, true /* hasIpv6 */);
+        sendUploadFragmentPacketUdp(tethered.macAddr, tethered.routerMacAddr,
+                tethered.ipv6Addr, REMOTE_IP6_ADDR, tester);
+        sendDownloadFragmentPacketUdp(REMOTE_IP6_ADDR, tethered.ipv6Addr, tester);
+
+        // TODO: test BPF offload maps {rule, stats}.
+    }
 }

@@ -103,6 +103,9 @@ public final class TetheringTester {
     private static final InetAddress LINK_LOCAL = parseNumericAddress("fe80::1");
 
     public static final String DHCP_HOSTNAME = "testhostname";
+    // Sync from include/linux/in6.h.
+    // Not defined in android.system.OsConstants.
+    public static final int IPPROTO_FRAGMENT = 44;
 
     private final ArrayMap<MacAddress, TetheredDevice> mTetheredDevices;
     private final TapPacketReader mDownstreamReader;
@@ -592,6 +595,47 @@ public final class TetheringTester {
         return true;
     }
 
+    public static boolean isExpectedUdpFragmentPacketV6(@NonNull final byte[] rawPacket,
+            boolean hasEth, boolean hasMoreFragment, Predicate<ByteBuffer> payloadVerifier) {
+        final ByteBuffer buf = ByteBuffer.wrap(rawPacket);
+        try {
+            if (hasEth && !hasExpectedEtherHeader(buf, false /* isIpv4*/)) return false;
+
+            if (!hasExpectedIpHeader(buf, false /* isIpv4 */, IPPROTO_FRAGMENT)) return false;
+
+            // Fragment header. See RFC 8200 section 4.5.
+            // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            // |  Next Header  |   Reserved    |      Fragment Offset    |Res|M|
+            // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            // |                         Identification                        |
+            // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            //
+            if (buf.get() != (byte) IPPROTO_UDP /* next header */) return false;
+            buf.get();  // reserved
+            if ((buf.getShort() & 0x0001) != (hasMoreFragment ? 1 : 0) /* M */) return false;
+            buf.getInt();  // id, ignored because it was a new kernel generated random id.
+
+            // Verify transport layer fragments which includes the fragmented UDP header and
+            // payload.
+            if (!payloadVerifier.test(buf)) return false;
+        } catch (Exception e) {
+            // Parsing packet fail means it is not udp packet.
+            return false;
+        }
+        return true;
+    }
+
+    // |expectedPayload| is copied as read-only because the caller may reuse it.
+    public static boolean isExpectedUdpFragmentPacketV6(@NonNull final byte[] rawPacket,
+            boolean hasEth, boolean hasMoreFragment,
+            @NonNull final ByteBuffer expectedPayload) {
+        return isExpectedUdpFragmentPacketV6(rawPacket, hasEth, hasMoreFragment, p -> {
+            if (p.remaining() != expectedPayload.limit()) return false;
+
+            return Arrays.equals(getRemaining(p), getRemaining(
+                    expectedPayload.asReadOnlyBuffer()));
+        });
+    }
 
     private static boolean isTcpSynPacket(@NonNull final TcpHeader tcpHeader) {
         return (tcpHeader.dataOffsetAndControlBits & TCPHDR_SYN) != 0;
@@ -674,10 +718,44 @@ public final class TetheringTester {
         return verifyPacketNotNull("Upload fail", testUpload(packet, filter));
     }
 
+    public byte[] verifyUpload(final ByteBuffer[] packets, final Predicate<byte[]> [] filters)
+            throws Exception {
+        // Send all fragments before verifying packets.
+        // Fragment packets are shown on the interface after all fragments received.
+        for (ByteBuffer packet : packets) {
+            sendUploadPacket(packet);
+            packet.flip();  // may be reused.
+        }
+
+        // If the fragments may be received out of order, need to improve this packet verification.
+        for (int i = 0; i < packets.length; i++) {
+            verifyPacketNotNull("Upload fail", getUploadPacket(filters[i]));
+        }
+
+        return new byte[] {(byte) 0xbe};  // FIXME
+    }
+
     public byte[] verifyDownload(final ByteBuffer packet, final Predicate<byte[]> filter)
             throws Exception {
         sendDownloadPacket(packet);
 
         return verifyPacketNotNull("Download fail", getDownloadPacket(filter));
+    }
+
+    public byte[] verifyDownload(final ByteBuffer[] packets, final Predicate<byte[]> [] filters)
+            throws Exception {
+        // Send all fragments before verifying packets.
+        // Fragment packets are shown on the interface after all fragments received.
+        for (ByteBuffer packet : packets) {
+            sendDownloadPacket(packet);
+            packet.flip();  // may be reused.
+        }
+
+        // If the fragments may be received out of order, need to improve this packet verification.
+        for (int i = 0; i < packets.length; i++) {
+            verifyPacketNotNull("Download fail", getDownloadPacket(filters[i]));
+        }
+
+        return new byte[] {(byte) 0xbe};  // FIXME
     }
 }
