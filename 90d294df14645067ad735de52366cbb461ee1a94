@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9487b9f_8f60a9b8",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-06T06:01:04Z",
+      "side": 1,
+      "message": "Should we not move them all here instead ? It would be easier to understand.",
+      "range": {
+        "startLine": 526,
+        "startChar": 4,
+        "endLine": 527,
+        "endChar": 32
+      },
+      "revId": "90d294df14645067ad735de52366cbb461ee1a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
