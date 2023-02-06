@@ -125,4 +125,10 @@ public class UrlRequestTest {
         assertEquals(testData, mCallback.mResponseAsString);
         dataProvider.assertClosed();
     }
+
+    @Test
+    public void testUrlRequestFail_FailedCalled() throws Exception {
+        buildUrlRequest("http://0.0.0.0:0/").start();
+        mCallback.expectCallback(ResponseStep.ON_FAILED);
+    }
 }
