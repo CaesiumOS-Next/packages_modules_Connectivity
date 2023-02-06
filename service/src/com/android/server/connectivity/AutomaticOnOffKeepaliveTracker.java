@@ -383,7 +383,14 @@ public class AutomaticOnOffKeepaliveTracker {
      * The message is expected to contain a KeepaliveTracker.KeepaliveInfo.
      */
     public void handleStartKeepalive(Message message) {
-        final AutomaticOnOffKeepalive autoKi = (AutomaticOnOffKeepalive) message.obj;
+        final KeepaliveTracker.KeepaliveInfo ki = (KeepaliveTracker.KeepaliveInfo) message.obj;
+        AutomaticOnOffKeepalive autoKi;
+        try {
+            autoKi = new AutomaticOnOffKeepalive(ki, (message.arg1 == 1), mContext);
+        } catch (InvalidSocketException e) {
+            mKeepaliveTracker.notifyErrorCallback(ki.mCallback, e.error);
+            return;
+        }
         mKeepaliveTracker.handleStartKeepalive(autoKi.mKi);
 
         // Add automatic on/off request into list to track its life cycle.
@@ -455,15 +462,10 @@ public class AutomaticOnOffKeepaliveTracker {
         final KeepaliveTracker.KeepaliveInfo ki = mKeepaliveTracker.makeNattKeepaliveInfo(nai, fd,
                 intervalSeconds, cb, srcAddrString, srcPort, dstAddrString, dstPort);
         if (null == ki) return;
-        try {
-            final AutomaticOnOffKeepalive autoKi = new AutomaticOnOffKeepalive(ki,
-                    automaticOnOffKeepalives, mContext);
-            mConnectivityServiceHandler.obtainMessage(NetworkAgent.CMD_START_SOCKET_KEEPALIVE,
-                    // TODO : move ConnectivityService#encodeBool to a static lib.
-                    automaticOnOffKeepalives ? 1 : 0, 0, autoKi).sendToTarget();
-        } catch (InvalidSocketException e) {
-            mKeepaliveTracker.notifyErrorCallback(cb, e.error);
-        }
+
+        mConnectivityServiceHandler.obtainMessage(NetworkAgent.CMD_START_SOCKET_KEEPALIVE,
+                // TODO : move ConnectivityService#encodeBool to a static lib.
+                automaticOnOffKeepalives ? 1 : 0, 0, ki).sendToTarget();
     }
 
     /**
@@ -484,15 +486,9 @@ public class AutomaticOnOffKeepaliveTracker {
         final KeepaliveTracker.KeepaliveInfo ki = mKeepaliveTracker.makeNattKeepaliveInfo(nai, fd,
                 resourceId, intervalSeconds, cb, srcAddrString, dstAddrString, dstPort);
         if (null == ki) return;
-        try {
-            final AutomaticOnOffKeepalive autoKi = new AutomaticOnOffKeepalive(ki,
-                    automaticOnOffKeepalives, mContext);
-            mConnectivityServiceHandler.obtainMessage(NetworkAgent.CMD_START_SOCKET_KEEPALIVE,
-                    // TODO : move ConnectivityService#encodeBool to a static lib.
-                    automaticOnOffKeepalives ? 1 : 0, 0, autoKi).sendToTarget();
-        } catch (InvalidSocketException e) {
-            mKeepaliveTracker.notifyErrorCallback(cb, e.error);
-        }
+        mConnectivityServiceHandler.obtainMessage(NetworkAgent.CMD_START_SOCKET_KEEPALIVE,
+                // TODO : move ConnectivityService#encodeBool to a static lib.
+                automaticOnOffKeepalives ? 1 : 0, 0, ki).sendToTarget();
     }
 
     /**
@@ -513,14 +509,9 @@ public class AutomaticOnOffKeepaliveTracker {
         final KeepaliveTracker.KeepaliveInfo ki = mKeepaliveTracker.makeTcpKeepaliveInfo(nai, fd,
                 intervalSeconds, cb);
         if (null == ki) return;
-        try {
-            final AutomaticOnOffKeepalive autoKi = new AutomaticOnOffKeepalive(ki,
-                    false /* autoOnOff, tcp keepalives are never auto on/off */, mContext);
-            mConnectivityServiceHandler.obtainMessage(CMD_START_SOCKET_KEEPALIVE, autoKi)
-                    .sendToTarget();
-        } catch (InvalidSocketException e) {
-            mKeepaliveTracker.notifyErrorCallback(cb, e.error);
-        }
+        mConnectivityServiceHandler.obtainMessage(CMD_START_SOCKET_KEEPALIVE,
+                        0 /* autoOnOff, tcp keepalives are never auto on/off */, 0, ki)
+                .sendToTarget();
     }
 
     /**
