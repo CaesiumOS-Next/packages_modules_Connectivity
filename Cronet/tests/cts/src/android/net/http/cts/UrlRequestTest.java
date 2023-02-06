@@ -105,4 +105,10 @@ public class UrlRequestTest {
         request.cancel();
         mCallback.expectCallback(ResponseStep.ON_CANCELED);
     }
+
+    @Test
+    public void testUrlRequestFail_FailedCalled() throws Exception {
+        buildUrlRequest("http://0.0.0.0:0/").start();
+        mCallback.expectCallback(ResponseStep.ON_FAILED);
+    }
 }
