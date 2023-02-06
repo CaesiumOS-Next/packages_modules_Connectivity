@@ -22,6 +22,30 @@
       },
       "revId": "b5ebe999593d79b705733c832c71eb2f1feb3151",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6b487fa_4d992124",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1556717
+      },
+      "writtenOn": "2023-02-06T18:29:40Z",
+      "side": 1,
+      "message": "Right, I managed to fail at copy-pasting fail in a 3-line CL... how ironic. Done.",
+      "parentUuid": "5ac33ed1_62a5412a",
+      "range": {
+        "startLine": 110,
+        "startChar": 16,
+        "endLine": 110,
+        "endChar": 49
+      },
+      "revId": "b5ebe999593d79b705733c832c71eb2f1feb3151",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
