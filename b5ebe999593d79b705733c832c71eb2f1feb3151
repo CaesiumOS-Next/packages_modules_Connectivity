@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ac33ed1_62a5412a",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-06T18:20:10Z",
+      "side": 1,
+      "message": "nit: should this test be named differently as it doesn\u0027t actually test request.cancel()?",
+      "range": {
+        "startLine": 110,
+        "startChar": 16,
+        "endLine": 110,
+        "endChar": 49
+      },
+      "revId": "b5ebe999593d79b705733c832c71eb2f1feb3151",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
