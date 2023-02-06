@@ -16,6 +16,24 @@
       "message": "This would make it very confusing to diagnose failures in the listed classes compared to others, as jarjar behavior is different, and it\u0027s very difficult to find out why. That was one of the main reasons to get rid of manual jarjar rules.\n\nAlso the changes in package-private visibility are pretty confusing.\n\nI think it\u0027s time to auto-generate the jarjar rules for ConnectivityCoverageTests as well... You can do this by:\n\n - Replacing ConnectivityCoverageJarJarRules by a genrule similar to service-connectivity-jarjar-gen, using ConnectivityCoverageTestsLib as input (the first argument, which is service-connectivity-pre-jarjar and service-connectivity-tiramisu-pre-jarjar in service-connectivity-jarjar-gen)\n - Use the same android.net.connectivity prefix to match service-connectivity rules, so coverage sees the same classes\n - Maybe use the same jarjar-excludes via a filegroup, although it probably doesn\u0027t matter since you\u0027re removing most of it\n - Use ConnectivityCoverageJarJarRules in ConnectivityCoverageTests, not ConnectivityCoverageTestsLib (otherwise it\u0027s a circular dependency)\n\nThis way the tests should be jarjared the same way as the base class, so there shouldn\u0027t be package scope problems.",
       "revId": "0b06b7bda4ee3464b5572cfb2f4e88d6c355d87d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a64ccece_73b29ce9",
+        "filename": "tests/unit/connectivity-test-default-jarjar.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-06T05:38:22Z",
+      "side": 1,
+      "message": "Upload changes that auo-generate jarjar for FrameworksNetTestsLib. The reason I don\u0027t follow the suggestion to auto-generate jarjar for whole ConnectivityCoverageTests because it contains the tests come from multiple place (NetworkStack, Tethering and Connectivity) and Tethering doesn\u0027t adopt auto-generated jarjar yet.",
+      "parentUuid": "66dc12a8_beaa3604",
+      "revId": "0b06b7bda4ee3464b5572cfb2f4e88d6c355d87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
