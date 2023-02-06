@@ -117,6 +117,30 @@
       },
       "revId": "ecff0337ec76e393b4d6a40cf7189962ddef58f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2501564_67662c1b",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/util/HttpCtsTestServer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-06T17:31:37Z",
+      "side": 1,
+      "message": "(I assumed CtsTestServer would already do this, but) in this case, the right thing to do would probably be to override the worker threads uncaught exception handler and report back the exception to the main thread after joining.\n\nIf we don\u0027t end up replacing CtsTestServer, it might be a good idea to fix this (I could see having the worker thread trace being useful).\n\n---\n\nSide note: if this creates flaky tests, then maybe something else is broken? Are you saying that even without a response, the test can pass sometimes?",
+      "parentUuid": "bf4b6c84_bb7460b7",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "ecff0337ec76e393b4d6a40cf7189962ddef58f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
