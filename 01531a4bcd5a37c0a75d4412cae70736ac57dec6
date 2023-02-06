@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52438a5c_6224104c",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-06T04:28:46Z",
+      "side": 1,
+      "message": "Done, yeah, that should be useful if the screen was locked. Thanks!",
+      "parentUuid": "dcaef81f_1b00ac47",
+      "revId": "01531a4bcd5a37c0a75d4412cae70736ac57dec6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6df705a1_e2699d5d",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd65b83b_f51d6a98",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-06T04:28:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6df705a1_e2699d5d",
+      "revId": "01531a4bcd5a37c0a75d4412cae70736ac57dec6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbf112b3_23acc42c",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-02-06T02:05:55Z",
       "side": 1,
       "message": "10 retries of 100ms is just 1s (in practice more because sleep isn\u0027t exact but still); this is a bit short compared to TEST_TIMEOUT_MS \u003d\u003d 10s. Maybe make it ~10s ?",
+      "revId": "01531a4bcd5a37c0a75d4412cae70736ac57dec6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e29d37f_6ad03cd3",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-06T04:28:46Z",
+      "side": 1,
+      "message": "Done. Use TEST_TIMEOUT_MS.",
+      "parentUuid": "dbf112b3_23acc42c",
       "revId": "01531a4bcd5a37c0a75d4412cae70736ac57dec6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
