@@ -16,6 +16,23 @@
       "message": "Fix build break since mSlot is removed.",
       "revId": "394bdb4c558c6be922fc8ddaaaf2abf9e4db48b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0711e70_ea08ae80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-06T03:07:54Z",
+      "side": 1,
+      "message": "LGTM to for Jean\u0027s new patch if the build break fix I uploaded looks good to Jean/Remi.",
+      "revId": "394bdb4c558c6be922fc8ddaaaf2abf9e4db48b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
