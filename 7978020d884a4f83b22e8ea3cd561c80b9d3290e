@@ -88,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5624bbb8_55a7ccca",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-06T10:50:09Z",
+      "side": 1,
+      "message": "This is only ever called from handleMaybeResumeKeepalive, with a newly created ki object. So the scenarios I can see are as follows :\n\n• The binder dies after this is called (in which case, no problem).\n• The binder has died before the KI has been constructed. In that case, binderDied may have been called by the constructor of KeepaliveInfo. In that case, the KI is in STARTING state, which is a bit dangerous. I addressed this by setting the started reason and testing it in KI#stop.\n• The binder dies between construction and this is called. The code above also is triggered, but on another thread. This is pretty dangerous really, but it\u0027s existing. The code I added will probably help, but the fundamental problem here is that binderDied() in `KeepaliveTracker` is already broken and it\u0027s not the job of this patch to fix it ; I think the new code I added not only avoids making it worse, but also actually makes it better.\n\nWe already have b/267106526 to decisively fix the issue.\n\nWould that resolve your concerns ?",
+      "parentUuid": "368dd552_3361fdce",
+      "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06c132db_ce9fa022",
