@@ -16,6 +16,24 @@
       "message": "Had a good look but didn\u0027t find anything to say\n\nIt\u0027s concerning that this didn\u0027t require any unit test change though. KeepaliveTrackerTest doesn\u0027t exist, and AutomaticOnOffKeepaliveTrackerTest is very minimal. Consider adding some unit tests other than the CTS tests ? Code coverage in AutomaticOnOffKeepaliveTracker quite low (https://screenshot.googleplex.com/4R5DHpCHdnkZJgT). I think it\u0027s a general problem with the recent keepalive changes so can be in a separate CL though.",
       "revId": "fcf387567ce0164c4407801e4182cb46595ac2da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "446e13ed_e15b90e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-06T13:16:46Z",
+      "side": 1,
+      "message": "I had aosp/2383975 for the unit test previously. I will update it based on the latest design to add unit test coverage.",
+      "parentUuid": "f0715daa_1a3c2fea",
+      "revId": "fcf387567ce0164c4407801e4182cb46595ac2da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
