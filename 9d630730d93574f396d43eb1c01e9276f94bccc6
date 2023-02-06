@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7261e65_7ccb67df",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-02-06T14:58:21Z",
+      "side": 1,
+      "message": "side note: this race could probably be fixed by use of SO_REUSEADDR or SO_REUSEPORT.\n\ns1 \u003d socket()\ns1.bind(port\u003d0)\ns1.setsockopt(SO_REUSE)\nport \u003d s1.getsockname()\n\ns2 \u003d socket()\ns2.setsocktopt(SO_REUSE)\ns2.bind(port)\n\ns1.close()\ns2.setsockopt(!SO_REUSE)\n\nThough I know togging some settings like SO_REUSE post-bind is kind of evil due to how it interacts with the socket hash tables.",
+      "range": {
+        "startLine": 1214,
+        "startChar": 11,
+        "endLine": 1216,
+        "endChar": 12
+      },
+      "revId": "9d630730d93574f396d43eb1c01e9276f94bccc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82abbf98_832a90f7",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1659,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-02-06T14:58:21Z",
+      "side": 1,
+      "message": "should this removed check above still happen if not priv process?",
+      "range": {
+        "startLine": 1659,
+        "startChar": 8,
+        "endLine": 1659,
+        "endChar": 14
+      },
+      "revId": "9d630730d93574f396d43eb1c01e9276f94bccc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
