@@ -124,6 +124,24 @@
       "parentUuid": "7352474f_7d74cc16",
       "revId": "c65b4512894eeb1b863b20f56a3920f1bdebba60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ea96e74_86a717ad",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-06T15:12:56Z",
+      "side": 0,
+      "message": "I can\u0027t see how this is a problem. The default cpp_std is c++17. So everything that had C++17 didn\u0027t actually change anything if this was removed from it. It only affects the targets that compiles under C++20 and if a module was compiling under C++20 then it\u0027ll still have `cpp_std`.\n\nIn summary,\n\n* If a target had `cpp_std: c++17` then removing it doesn\u0027t make any difference.\n* If a target had `cpp_std: c++20` then it shouldn\u0027t be remove as there\u0027s currently no higher C++ version supported?\n* There\u0027re no target using cpp_std less than 17.",
+      "parentUuid": "7352474f_7d74cc16",
+      "revId": "c65b4512894eeb1b863b20f56a3920f1bdebba60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
