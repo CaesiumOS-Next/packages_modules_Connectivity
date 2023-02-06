@@ -443,6 +443,27 @@ class NetworkTemplateTest {
     }
 
     @Test
+    fun testEquals() {
+        val templateImsi1 = NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES)
+                .setSubscriberIds(setOf(TEST_IMSI1)).setRatType(TelephonyManager.NETWORK_TYPE_UMTS)
+                .build()
+        val templateImsi2 = NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES)
+                .setSubscriberIds(setOf(TEST_IMSI2)).setRatType(TelephonyManager.NETWORK_TYPE_UMTS)
+                .build()
+
+        assertEquals(templateImsi1, templateImsi1)
+        assertNotEquals(templateImsi1, templateImsi2)
+
+        val templateWifiKey1 = NetworkTemplate.Builder(MATCH_WIFI)
+                .setWifiNetworkKeys(setOf(TEST_WIFI_KEY1))
+        val templateWifiKey2 = NetworkTemplate.Builder(MATCH_WIFI)
+                .setWifiNetworkKeys(setOf(TEST_WIFI_KEY2))
+
+        assertEquals(templateWifiKey1, templateWifiKey1)
+        assertNotEquals(templateWifiKey1, templateWifiKey2)
+    }
+
+    @Test
     fun testParcelUnparcel() {
         val templateMobile = NetworkTemplate(MATCH_MOBILE, arrayOf(TEST_IMSI1),
                 emptyArray<String>(), METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL,
