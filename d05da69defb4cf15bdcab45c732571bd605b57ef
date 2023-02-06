@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b524e9c_6f53505f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-06T05:36:02Z",
+      "side": 1,
+      "message": "Let\u0027s explicit the exact constraint here (no more than 5 minutes in the future)",
+      "range": {
+        "startLine": 1508,
+        "startChar": 48,
+        "endLine": 1508,
+        "endChar": 97
+      },
+      "revId": "d05da69defb4cf15bdcab45c732571bd605b57ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1145eb3_146c113d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-06T05:36:02Z",
+      "side": 1,
+      "message": "The time of expiry, with System.currentTimeMillis() base.",
+      "range": {
+        "startLine": 1508,
+        "startChar": 26,
+        "endLine": 1508,
+        "endChar": 46
+      },
+      "revId": "d05da69defb4cf15bdcab45c732571bd605b57ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e0babab_52491d53",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5016,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-06T05:36:02Z",
+      "side": 1,
+      "message": "Is not supported",
+      "range": {
+        "startLine": 5016,
+        "startChar": 45,
+        "endLine": 5016,
+        "endChar": 61
+      },
+      "revId": "d05da69defb4cf15bdcab45c732571bd605b57ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33d15d1c_1248fe9d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5020,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-06T05:36:02Z",
+      "side": 1,
+      "message": "Argument",
+      "range": {
+        "startLine": 5020,
+        "startChar": 48,
+        "endLine": 5020,
+        "endChar": 50
+      },
+      "revId": "d05da69defb4cf15bdcab45c732571bd605b57ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b13cb0e2_d86dbccd",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-06T05:36:02Z",
+      "side": 1,
+      "message": "`currentTimeMillis()` is always \u003e 0 so you can remove this test.",
+      "range": {
+        "startLine": 663,
+        "startChar": 35,
+        "endLine": 663,
+        "endChar": 70
+      },
+      "revId": "d05da69defb4cf15bdcab45c732571bd605b57ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
