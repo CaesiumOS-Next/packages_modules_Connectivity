@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "716ac784_59bd5cc2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2298,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-06T07:32:46Z",
+      "side": 1,
+      "message": "Almost all intents received in broadcast receivers have extra, so `with extra` is not very useful. Maybe just `logIntent`",
+      "range": {
+        "startLine": 2298,
+        "startChar": 17,
+        "endLine": 2298,
+        "endChar": 35
+      },
+      "revId": "5cc12616fd6c5961b5e600afae905f0e59b118f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07e14ebc_2d68bce5",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2307,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-06T07:32:46Z",
+      "side": 1,
+      "message": "received",
+      "range": {
+        "startLine": 2307,
+        "startChar": 24,
+        "endLine": 2307,
+        "endChar": 31
+      },
+      "revId": "5cc12616fd6c5961b5e600afae905f0e59b118f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a197820_7a31a4ce",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2319,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-06T07:32:46Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 2319,
+        "startChar": 64,
+        "endLine": 2319,
+        "endChar": 65
+      },
+      "revId": "5cc12616fd6c5961b5e600afae905f0e59b118f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
