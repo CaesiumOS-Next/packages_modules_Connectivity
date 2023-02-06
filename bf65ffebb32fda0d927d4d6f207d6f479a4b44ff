@@ -16,6 +16,24 @@
       "message": "LGTM but we may need to resolve the lint -1",
       "revId": "bf65ffebb32fda0d927d4d6f207d6f479a4b44ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "343c6e05_409a6947",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-06T07:14:40Z",
+      "side": 1,
+      "message": "The java doc says \"IllegalArgumentException is thrown if the tag.length() \u003e 23 for Nougat (7.0) and prior releases (API \u003c\u003d 25), there is no tag limit of concern after this API level.\", so I this is a false alarm here.",
+      "parentUuid": "8186a715_cace2de0",
+      "revId": "bf65ffebb32fda0d927d4d6f207d6f479a4b44ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
