@@ -34,6 +34,24 @@
       "parentUuid": "8186a715_cace2de0",
       "revId": "bf65ffebb32fda0d927d4d6f207d6f479a4b44ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea27ab9c_5693d2f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-06T09:06:10Z",
+      "side": 1,
+      "message": "Ah, thanks for finding this. Yes I had noticed it didn\u0027t crash locally, so I wondered what that was about.\n\nThen I think I prefer keeping this, because making the tag \u003c\u003d 23 chars means we must either rename the class or have the tag not match the name of the class. The former is pretty annoying and the latter is not very palatable.",
+      "parentUuid": "343c6e05_409a6947",
+      "revId": "bf65ffebb32fda0d927d4d6f207d6f479a4b44ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
