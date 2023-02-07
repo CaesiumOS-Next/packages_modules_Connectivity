@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "248b3442_af93c4eb",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-07T12:11:36Z",
+      "side": 1,
+      "message": "Not really. Setup() is called before each test run and thus creates a new instance of the callback class each time.\n\nhttps://stackoverflow.com/questions/20295578/difference-between-before-beforeclass-beforeeach-and-beforeall",
+      "parentUuid": "58667bd1_3bf4e395",
+      "revId": "59c8cf3b9bb6970f3c044fc73f761208a0585038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16593a5d_0e325ca7",
         "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
         "patchSetId": 4
