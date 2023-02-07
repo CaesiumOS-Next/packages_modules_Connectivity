@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69532e0b_be48130a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-02-07T13:14:58Z",
+      "side": 1,
+      "message": "My understanding is as non-cherrypick non-flake-fix CTS change this needs to go through Lorenzo.",
+      "revId": "389b354a8371b83412fd5529d8cfbcc1b0dccb3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
