@@ -45,6 +45,30 @@
       },
       "revId": "9d630730d93574f396d43eb1c01e9276f94bccc6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6e508ed_6563e74c",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1659,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-07T07:16:29Z",
+      "side": 1,
+      "message": "A check for privileged process is not necessary. The permission check is performed when the UDP encapsulation socket is created. After that, the socket FD is maintained in the system process and stored in the EncapSocketRecord which we receive at line 1605. So an unprivileged app cannot pass in an encap socket of the wrong family here.\n\nHowever, what arguably is necessary, and was missing from this CL, is a check that the UDP encap socket family matches the destination address family. Things won\u0027t work otherwise. That\u0027s part of what this deleted check was doing, so in this patchset I modified the check instead of deleting it.\n\nIn order to perform that check we need the address family of the UDP encap socket. I decided to store that in the EncapSocketRecord instead of fetching that via setsockopt(SO_DOMAIN), but I guess we could have done that too.\n\nI thought briefly about what happens if the user uses IPV6_ADDRFORM on the socket and changes it to AF_INET. That\u0027s only possible for connected sockets bound to IPv6-mapped addresses, but I think that\u0027s possible here since the user can call connect on the FD it gets back to the system, and even though we bind the socket to an explicit port on ::, connecting to an IPv4-mapped address changes the local address to the local IPv4 address on the system.\n\nIt looks like the UDP encap hook would remain xfrm6_udp_encap_rcv instead of xfrm4_udp_encap_rcv, but not sure what would happen after that. That said, given that this is experimental, I just added a TODO.",
+      "parentUuid": "82abbf98_832a90f7",
+      "range": {
+        "startLine": 1659,
+        "startChar": 8,
+        "endLine": 1659,
+        "endChar": 14
+      },
+      "revId": "9d630730d93574f396d43eb1c01e9276f94bccc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
