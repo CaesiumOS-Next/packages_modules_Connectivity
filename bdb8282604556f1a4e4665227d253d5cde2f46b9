@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a508416_1cd076b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-07T08:27:25Z",
+      "side": 1,
+      "message": "Happy with this ; +reminv@ to see if my new patchset addresses the concerns he expressed before.",
+      "revId": "bdb8282604556f1a4e4665227d253d5cde2f46b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
