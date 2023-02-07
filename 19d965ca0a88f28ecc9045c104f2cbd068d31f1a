@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d85e230b_b3ec7559",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-02-07T05:59:57Z",
+      "side": 1,
+      "message": "I think comparatively, my current preference is this to the other CL; but perhaps if you help me understand the other CL, that might change.\n\nBut it\u0027s looking like there\u0027s an inherent need for nesting here, and unless we have 3-5x more copies, the complexity is inherent in what we are trying to test.\n\n+1 on this, pending further discussions tomorrow, then i\u0027ll +2 if it still seems the same way.",
+      "revId": "19d965ca0a88f28ecc9045c104f2cbd068d31f1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "493d137f_57b742f1",
@@ -55,6 +72,30 @@
       "side": 1,
       "message": "IpSecManagerTunnelMigrationTest resues many code which include the #checkTunnel, #buildTunnelNetworkAndRunTests, OutputIpSecTunnelTestRunnableFactory and InputPacketGeneratorIpSecTunnelTestRunnableFactory.\n\nI think this file becomes hard to read mainly due to\n- #checkTunnel and #buildTunnelNetworkAndRunTests\n   - They build lots of parameters that are not used immediately and thus those long statements for constructing objects become really distracting.\n   - Some parameters are used to build a TestRunnable, and some are used when running test, which is not straightforward.\n- the factory pattern\n\nI drafted aosp/2420539 to make some methods short. Let me know what\u0027s your thoughts on the shape.",
       "parentUuid": "493d137f_57b742f1",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 48
+      },
+      "revId": "19d965ca0a88f28ecc9045c104f2cbd068d31f1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa4338b3_b663facf",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-02-07T05:59:57Z",
+      "side": 1,
+      "message": "Looks like the new CL still has the factory pattern and the split TestRunnableConfig/IpSecTunnelTestParams?\n\nIs it possible to unroll any of the nesting? It\u0027s so many nested closures that it\u0027s hard to remember which ones we are in.",
+      "parentUuid": "0c0009c7_92a49fd5",
       "range": {
         "startLine": 260,
         "startChar": 0,
