@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4273c9c0_b49ac1c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-07T09:12:10Z",
+      "side": 1,
+      "message": "This lint is only relevant for API \u003c\u003d N. This code only ever runs on S+. Moreover, keeping the tag in sync with the name of the class is better for readability/debuggability.\n\nThus : bypass lint",
+      "revId": "9b1820103556df5eaaea89d1b3b6e565cd6709b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
