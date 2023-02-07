@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e92858d9_bdb591ce",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1829,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-07T08:05:18Z",
+      "side": 1,
+      "message": "This is not necessary for this patch but I thought it was easier to understand and might help in the future.\nAdvantages :\n• Some developer running into the same problem will come here and see this is already done and won\u0027t have to try it.\n• If DeviceConfig ever actually takes a context instead of statically grabbing the application context, it will work.\nDrawbacks :\n• Some developer might assume this is actually necessary for something\n\nI think the drawback is pretty thin because the cost of keeping this line here is essentially nil. So I think the advantages take it.\n\nPlease reopen if you feel otherwise. I don\u0027t feel very strongly.",
+      "parentUuid": "271d330c_f5046f7f",
+      "revId": "aa45ecd115c163b4ad680ea9380b2f476eb26576",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42f4351f_9fddeee9",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46aec3cf_192732b0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2177,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-07T08:05:18Z",
+      "side": 1,
+      "message": "Mostly, this is the same as above. That actually allows one to call the DeviceConfigUtils methods and have them behave as expected in a way that is explicit in the test. I think it\u0027s good to have a more faithful environment in unit tests even if we don\u0027t have users now. A good past example is `ContextUtils#mockContextAsUser` which wasn\u0027t strictly necessary when it was written (we had hacks to make it work), but it\u0027s saved us from duplicating these hacks countless times since, and it\u0027s likely some test authors have seen their test just work as expected without noticing it because we had just instrumented it right.\n\nBut if you want, I can move this to a separate patch, because you\u0027re right : it\u0027s not necessary for this patch, just a \"cleanup\" I happened into while writing this.",
+      "parentUuid": "42f4351f_9fddeee9",
+      "revId": "aa45ecd115c163b4ad680ea9380b2f476eb26576",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2aa4a4ac_f0dd23c5",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-02-06T11:21:09Z",
       "side": 1,
       "message": "Nit: this could be removed from here, it would be confusing as it doesn\u0027t do anything without the runner",
+      "revId": "aa45ecd115c163b4ad680ea9380b2f476eb26576",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e96d776c_817ea9b2",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-07T08:05:18Z",
+      "side": 1,
+      "message": "Replaced with a comment.",
+      "parentUuid": "2aa4a4ac_f0dd23c5",
       "revId": "aa45ecd115c163b4ad680ea9380b2f476eb26576",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
