@@ -40,6 +40,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.fail
 
 private const val TEST_IMSI1 = "imsi"
 private const val TEST_WIFI_KEY1 = "wifiKey1"
@@ -93,6 +94,13 @@ class NetworkTemplateTest {
         // Verify carrier template cannot be created without IMSI.
         assertFailsWith<IllegalArgumentException> {
             NetworkTemplate.Builder(MATCH_CARRIER).build()
+        }
+
+        // Verify carrier and mobile template cannot contain one of subscriber Id is null.
+        listOf(MATCH_MOBILE, MATCH_CARRIER).forEach {
+            assertFailsWith<IllegalArgumentException> {
+                NetworkTemplate.Builder(it).setSubscriberIds(setOf(null)).build()
+            }
         }
 
         // Verify template which matches metered cellular networks,
@@ -153,6 +161,19 @@ class NetworkTemplateTest {
                         METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL,
                         OEM_MANAGED_ALL)
                 assertEquals(expectedTemplate, it)
+            }
+        }
+    }
+
+    @Test
+    fun testUnsupportedAppUsageConstrutor() {
+        NetworkTemplate(1, null, null)
+        listOf(6 /* MATCH_MOBILE_WILDCARD */, 7 /* MATCH_WIFI_WILDCARD */).forEach { matchRule ->
+            try {
+                val templateWildcard = NetworkTemplate(matchRule, null, null)
+            } catch (e: IllegalArgumentException) {
+                fail("Unexpected exception. The constructor should be backward compatible with" +
+                        " wildcard match rules " + matchRule)
             }
         }
     }
