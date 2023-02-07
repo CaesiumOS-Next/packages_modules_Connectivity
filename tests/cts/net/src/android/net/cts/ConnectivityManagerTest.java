@@ -2431,7 +2431,8 @@ public class ConnectivityManagerTest {
         final Handler handler = new Handler(Looper.getMainLooper());
 
         registerDefaultNetworkCallback(myUidCallback, handler);
-        registerDefaultNetworkCallbackForUid(otherUid, otherUidCallback, handler);
+        runWithShellPermissionIdentity(() -> registerDefaultNetworkCallbackForUid(
+                otherUid, otherUidCallback, handler), NETWORK_SETTINGS);
 
         final Network defaultNetwork = mCm.getActiveNetwork();
         final List<DetailedBlockedStatusCallback> allCallbacks =
@@ -2443,23 +2444,27 @@ public class ConnectivityManagerTest {
         final Range<Integer> myUidRange = new Range<>(myUid, myUid);
         final Range<Integer> otherUidRange = new Range<>(otherUid, otherUid);
 
-        setRequireVpnForUids(true, List.of(myUidRange));
+        runWithShellPermissionIdentity(() -> setRequireVpnForUids(
+                true, List.of(myUidRange)), NETWORK_SETTINGS);
         myUidCallback.eventuallyExpectBlockedStatusCallback(defaultNetwork,
                 BLOCKED_REASON_LOCKDOWN_VPN);
         otherUidCallback.assertNoBlockedStatusCallback();
 
-        setRequireVpnForUids(true, List.of(myUidRange, otherUidRange));
+        runWithShellPermissionIdentity(() -> setRequireVpnForUids(
+                true, List.of(myUidRange, otherUidRange)), NETWORK_SETTINGS);
         myUidCallback.assertNoBlockedStatusCallback();
         otherUidCallback.eventuallyExpectBlockedStatusCallback(defaultNetwork,
                 BLOCKED_REASON_LOCKDOWN_VPN);
 
         // setRequireVpnForUids does no deduplication or refcounting. Removing myUidRange does not
         // unblock myUid because it was added to the blocked ranges twice.
-        setRequireVpnForUids(false, List.of(myUidRange));
+        runWithShellPermissionIdentity(() ->
+                setRequireVpnForUids(false, List.of(myUidRange)), NETWORK_SETTINGS);
         myUidCallback.assertNoBlockedStatusCallback();
         otherUidCallback.assertNoBlockedStatusCallback();
 
-        setRequireVpnForUids(false, List.of(myUidRange, otherUidRange));
+        runWithShellPermissionIdentity(() -> setRequireVpnForUids(
+                false, List.of(myUidRange, otherUidRange)), NETWORK_SETTINGS);
         myUidCallback.eventuallyExpectBlockedStatusCallback(defaultNetwork, BLOCKED_REASON_NONE);
         otherUidCallback.eventuallyExpectBlockedStatusCallback(defaultNetwork, BLOCKED_REASON_NONE);
 
@@ -2468,11 +2473,11 @@ public class ConnectivityManagerTest {
     }
 
     @Test
-    public void testBlockedStatusCallback() {
+    public void testBlockedStatusCallback() throws Exception {
         // Cannot use @IgnoreUpTo(Build.VERSION_CODES.R) because this test also requires API 31
         // shims, and @IgnoreUpTo does not check that.
         assumeTrue(TestUtils.shouldTestSApis());
-        runWithShellPermissionIdentity(() -> doTestBlockedStatusCallback(), NETWORK_SETTINGS);
+        doTestBlockedStatusCallback();
     }
 
     @Test
