@@ -1,5 +1,40 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9dd0942_7788da43",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-07T03:57:40Z",
+      "side": 1,
+      "message": "Was this tested on an old (Android S) dataset to make sure there\u0027s no bug introduced here ?",
+      "revId": "2e18f3ed8f7723ed197edc1f5495d0fccf2cab66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5731019e_3755c9b8",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2405,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-07T03:57:40Z",
+      "side": 1,
+      "message": "This changes the format of the EventLog, which OEMs might be depending on.\n\nAt least before U, the same format should be kept; maybe just use the xtTotal values there ?",
+      "revId": "2e18f3ed8f7723ed197edc1f5495d0fccf2cab66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
