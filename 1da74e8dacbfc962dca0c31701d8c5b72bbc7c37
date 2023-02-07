@@ -204,6 +204,30 @@
       },
       "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc144ec_dca3c384",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1596,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-07T21:06:05Z",
+      "side": 1,
+      "message": "Agreed to create a filesource in external/cronet.",
+      "parentUuid": "bc981ee7_98955f9a",
+      "range": {
+        "startLine": 1588,
+        "startChar": 0,
+        "endLine": 1596,
+        "endChar": 22
+      },
+      "revId": "1da74e8dacbfc962dca0c31701d8c5b72bbc7c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
