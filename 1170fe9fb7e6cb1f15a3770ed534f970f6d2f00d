@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dea2aec3_789f1fd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-07T09:54:08Z",
+      "side": 1,
+      "message": "Some nits but generally LGTM, thanks !",
+      "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7787b23b_50c2c7cf",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-07T09:54:08Z",
+      "side": 1,
+      "message": "Also add:\n\n    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)\n\nSince this depends on sepolicy changes that are merged in U+ (so not up to T). It\u0027s still possible to run a target SDK 34 test on T.",
+      "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8984d99a_96d94812",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-07T09:54:08Z",
+      "side": 1,
+      "message": "Nit: Build.VERSION_CODES.TIRAMISU",
+      "range": {
+        "startLine": 772,
+        "startChar": 38,
+        "endLine": 772,
+        "endChar": 40
+      },
+      "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4f0e2e7_1dfd67bb",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-07T09:54:08Z",
+      "side": 1,
+      "message": "com.android.compatibility.common.util.PollingCheck.check should be available in CTS, to do this",
+      "range": {
+        "startLine": 781,
+        "startChar": 12,
+        "endLine": 785,
+        "endChar": 85
+      },
+      "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f157549_dc9353d4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-07T09:54:08Z",
+      "side": 1,
+      "message": "This would be most useful if paired with a max-sdk-33 test that checks it works there; otherwise it\u0027s hard to know if the fail is due to the new restrictions, or if it would have failed anyway.\n\nYou might want to put both in the same CL to demonstrate that (if you factor out the code to one method like checkConnectSocketToMdnsd(shouldFail: Boolean), it\u0027s not much more code than what you have here).",
+      "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
