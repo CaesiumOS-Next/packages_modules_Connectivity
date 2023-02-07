@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33a06387_245d697a",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-07T10:21:36Z",
+      "side": 1,
+      "message": "Any reason this was reintroduced?",
+      "revId": "59c8cf3b9bb6970f3c044fc73f761208a0585038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16593a5d_0e325ca7",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-07T10:21:36Z",
+      "side": 1,
+      "message": "So the test is skipped once any of the requests it\u0027s trying isn\u0027t 200 OK? Is this the intention?\n\nDo we even need to assert OK status? If we get, eg a 500 error but the connection used quic, doesn\u0027t that work too?",
+      "revId": "59c8cf3b9bb6970f3c044fc73f761208a0585038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
