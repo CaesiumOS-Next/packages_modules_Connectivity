@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58667bd1_3bf4e395",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-02-07T10:54:48Z",
+      "side": 1,
+      "message": "This needs to be recreated for every requests. Otherwise the new requests will end up using the old one, meaning that things like `mCallback.expectCallback(ResponseStep.ON_SUCCEEDED)` directly return, `mCallback.mResponseInfo` is pre-populated etc.",
+      "parentUuid": "33a06387_245d697a",
+      "revId": "59c8cf3b9bb6970f3c044fc73f761208a0585038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16593a5d_0e325ca7",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-07T10:21:36Z",
       "side": 1,
       "message": "So the test is skipped once any of the requests it\u0027s trying isn\u0027t 200 OK? Is this the intention?\n\nDo we even need to assert OK status? If we get, eg a 500 error but the connection used quic, doesn\u0027t that work too?",
+      "revId": "59c8cf3b9bb6970f3c044fc73f761208a0585038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "698a6d6b_c8bf1b1d",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-02-07T10:54:48Z",
+      "side": 1,
+      "message": "The idea behind this is that if the server doesn\u0027t reply with 200, something weird is going on. Most likely we won\u0027t connect through QUIC or something else will fail, so it\u0027s just better to skip the test than to possibly report failure (and introduce flakiness).\n\nSo, in other words, this is a sort of heuristic to reduce flakiness until we have a QUIC-capable local test server.",
+      "parentUuid": "16593a5d_0e325ca7",
       "revId": "59c8cf3b9bb6970f3c044fc73f761208a0585038",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
