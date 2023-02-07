@@ -163,22 +163,21 @@ int generateIpv6Address(const char* iface, const in_addr v4, const in6_addr& nat
     return 0;
 }
 
+#define HANDLE_ERROR(msg) do {			\
+    int err = errno;				\
+    ALOGE(msg " failed: %s", strerror(err));	\
+    if (s >= 0) close(s);			\
+    return -err;				\
+} while (0)
+
 int detect_mtu(const struct in6_addr* plat_subnet, uint32_t plat_suffix, uint32_t mark) {
     // Create an IPv6 UDP socket.
     int s = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-    if (s < 0) {
-        int ret = errno;
-        ALOGE("socket(AF_INET6, SOCK_DGRAM, 0) failed: %s", strerror(errno));
-        return -ret;
-    }
+    if (s < 0) HANDLE_ERROR("socket(AF_INET6, SOCK_DGRAM, 0)");
 
     // Socket's mark affects routing decisions (network selection)
-    if (setsockopt(s, SOL_SOCKET, SO_MARK, &mark, sizeof(mark))) {
-        int ret = errno;
-        ALOGE("setsockopt(SOL_SOCKET, SO_MARK) failed: %s", strerror(errno));
-        close(s);
-        return -ret;
-    }
+    if (setsockopt(s, SOL_SOCKET, SO_MARK, &mark, sizeof(mark)))
+        HANDLE_ERROR("setsockopt(SOL_SOCKET, SO_MARK)");
 
     // Try to connect udp socket to plat_subnet(96 bits):plat_suffix(32 bits)
     struct sockaddr_in6 dst = {
@@ -186,31 +185,25 @@ int detect_mtu(const struct in6_addr* plat_subnet, uint32_t plat_suffix, uint32_
             .sin6_addr = *plat_subnet,
     };
     dst.sin6_addr.s6_addr32[3] = plat_suffix;
-    if (connect(s, (struct sockaddr*)&dst, sizeof(dst))) {
-        int ret = errno;
-        ALOGE("connect() failed: %s", strerror(errno));
-        close(s);
-        return -ret;
-    }
+    if (connect(s, (struct sockaddr*)&dst, sizeof(dst))) HANDLE_ERROR("connect()");
 
     // Fetch the socket's IPv6 mtu - this is effectively fetching mtu from routing table
     int mtu;
     socklen_t sz_mtu = sizeof(mtu);
-    if (getsockopt(s, SOL_IPV6, IPV6_MTU, &mtu, &sz_mtu)) {
-        int ret = errno;
-        ALOGE("getsockopt(SOL_IPV6, IPV6_MTU) failed: %s", strerror(errno));
-        close(s);
-        return -ret;
-    }
+    if (getsockopt(s, SOL_IPV6, IPV6_MTU, &mtu, &sz_mtu))
+        HANDLE_ERROR("getsockopt(SOL_IPV6, IPV6_MTU)");
+
+    close(s); s = -1;
+
     if (sz_mtu != sizeof(mtu)) {
         ALOGE("getsockopt(SOL_IPV6, IPV6_MTU) returned unexpected size: %d", sz_mtu);
-        close(s);
         return -EFAULT;
     }
-    close(s);
 
     return mtu;
 }
+
+#undef HANDLE_ERROR
 
 /* function: configure_packet_socket
  * Binds the packet socket and attaches the receive filter to it.
