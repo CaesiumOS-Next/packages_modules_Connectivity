@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa965d82_5cdf94e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-02-07T06:09:34Z",
+      "side": 1,
+      "message": "x86 libnetworkstats_test\n------------------------\nlibnetworkstats_test (2 Tests)\n[1/2] NetworkTraceHandlerTest#PollWhileInactive: IGNORED (0ms)\n[2/2] NetworkTraceHandlerTest#TraceTcpSession: IGNORED (0ms)\n\nSummary (Test executed with 1 devices.)\n-------\nx86 libnetworkstats_test: Passed: 0, Failed: 0, Ignored: 2, Assumption Failed: 0,    \n\nAll tests passed!",
+      "revId": "6d8a257be71b1b64dbd42b4aae074c0903ee259e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
