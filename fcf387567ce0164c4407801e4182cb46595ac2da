@@ -34,6 +34,24 @@
       "parentUuid": "f0715daa_1a3c2fea",
       "revId": "fcf387567ce0164c4407801e4182cb46595ac2da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0d5472f_6edc6d39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-07T08:12:25Z",
+      "side": 1,
+      "message": "Yeah I think we need some more coverage. There is some coverage in CTS, aosp/2383975 adds some, aosp/2369240 adds some more and b/267106526 is filed to add some more yet. I think with that, we\u0027ll be fine and this probably shouldn\u0027t hold this patch.",
+      "parentUuid": "446e13ed_e15b90e2",
+      "revId": "fcf387567ce0164c4407801e4182cb46595ac2da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
