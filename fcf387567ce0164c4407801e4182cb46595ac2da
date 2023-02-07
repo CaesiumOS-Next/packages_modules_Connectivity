@@ -52,6 +52,24 @@
       "parentUuid": "446e13ed_e15b90e2",
       "revId": "fcf387567ce0164c4407801e4182cb46595ac2da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d590ed1_473ed7c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-07T08:17:17Z",
+      "side": 1,
+      "message": "Besides, it\u0027s not all that surprising. This is an internal implementation detail, and tests that would break for this likely would be overspecified, really. CTS broken by this definitely would.\n\nBecause this really fixes a bug, it\u0027s likely possible to write a test that wouldn\u0027t pass before and would pass now, but of course we don\u0027t have such a test today because it wouldn\u0027t pass 😀\nNormally when writing this I\u0027m supposed to write the test that would have found this bug, but frankly the race condition that I\u0027d have to search for in the test is so extremely specific to the old implementation that the test would have no real value – it would only ever break in presence of a revert of the patch but not the test.",
+      "parentUuid": "a0d5472f_6edc6d39",
+      "revId": "fcf387567ce0164c4407801e4182cb46595ac2da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
