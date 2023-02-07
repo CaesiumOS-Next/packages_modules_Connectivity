@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32df3d26_2f876fc9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-07T06:49:08Z",
+      "side": 1,
+      "message": "This means only do cleanup in next time creating the builder so that these variable don\u0027t be cleanup when tethering stop.",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 9
+      },
+      "revId": "3eac1ab96308808e0581514d4e92664c7ac74676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
