@@ -96,6 +96,24 @@
       "message": "This would be most useful if paired with a max-sdk-33 test that checks it works there; otherwise it\u0027s hard to know if the fail is due to the new restrictions, or if it would have failed anyway.\n\nYou might want to put both in the same CL to demonstrate that (if you factor out the code to one method like checkConnectSocketToMdnsd(shouldFail: Boolean), it\u0027s not much more code than what you have here).",
       "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2808777_67f0c62b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T09:56:17Z",
+      "side": 1,
+      "message": "Thanks, will adjust all the comment in a separate CLs which contains two test case together.",
+      "parentUuid": "0f157549_dc9353d4",
+      "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
