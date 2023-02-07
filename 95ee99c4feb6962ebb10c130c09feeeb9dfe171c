@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b228824_6b911238",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-07T09:18:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb7e653a_81e89dd6",
+      "range": {
+        "startLine": 300,
+        "startChar": 15,
+        "endLine": 300,
+        "endChar": 42
+      },
+      "revId": "95ee99c4feb6962ebb10c130c09feeeb9dfe171c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66bdc781_5ad30ec6",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68db40bd_eae1cb0f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9316,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-07T09:18:24Z",
+      "side": 1,
+      "message": "1. oops, done\n2. Oh no I don\u0027t want to. It\u0027s really, really not \"the wrong API\", it is absolutely fine to call `expect(NETWORK_CAPS_UPDATED` and there is no reason to forbid it. `expectCaps` is only a shortcut, and also `expect()` returns the callback (not the caps) which contains more things than just the caps (the network for example, also a timestamp in the future) so it may be necessary in some cases.",
+      "parentUuid": "66bdc781_5ad30ec6",
+      "range": {
+        "startLine": 9316,
+        "startChar": 31,
+        "endLine": 9316,
+        "endChar": 51
+      },
+      "revId": "95ee99c4feb6962ebb10c130c09feeeb9dfe171c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e25aa78_f44e95ad",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-02-07T02:43:13Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 9332,
+        "startChar": 31,
+        "endLine": 9332,
+        "endChar": 51
+      },
+      "revId": "95ee99c4feb6962ebb10c130c09feeeb9dfe171c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49e37772_03e5f6ea",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9332,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-07T09:18:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e25aa78_f44e95ad",
       "range": {
         "startLine": 9332,
         "startChar": 31,
