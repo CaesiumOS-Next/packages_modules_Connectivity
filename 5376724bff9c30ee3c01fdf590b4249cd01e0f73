@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "735ffe43_ddca7091",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done. Added detailed discussion here.",
+      "parentUuid": "3e42aa7e_272a7e1c",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 3
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e86cbea_0c1fbf22",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a35b7dea_fdd4b798",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e86cbea_0c1fbf22",
+      "range": {
+        "startLine": 32,
+        "startChar": 31,
+        "endLine": 32,
+        "endChar": 33
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "658d190e_14f2f967",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "122734d0_cc6fac07",
+      "range": {
+        "startLine": 32,
+        "startChar": 31,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "383a63cb_9b499ae9",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "Likewise, here let\u0027s not use the \"slice\" term. These are network capabilities.",
+      "range": {
+        "startLine": 34,
+        "startChar": 37,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2f8f13f_8fb6d627",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "383a63cb_9b499ae9",
       "range": {
         "startLine": 34,
         "startChar": 37,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8945367_a932df42",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e62b252_0b7edc90",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02744ecc_ee0103b1",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "For permissions we\u0027re using \"uses-permission\". How about \"uses-network-capability\"",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "613f82d9_57148c33",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02744ecc_ee0103b1",
       "range": {
         "startLine": 54,
         "startChar": 12,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd1a4714_b563a69c",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Thanks, as discussed offline, use customized exception here.",
+      "parentUuid": "d802ea12_29fddfa8",
+      "range": {
+        "startLine": 63,
+        "startChar": 83,
+        "endLine": 63,
+        "endChar": 90
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51f225fb_1d128c4c",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "final\n\nPlease get in the habit of making your locals final. This is safer and makes review a lot easier – and is the default for all modern languages.",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b304b08_b5471ffa",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51f225fb_1d128c4c",
       "range": {
         "startLine": 69,
         "startChar": 8,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25b0a2d4_a7ddab8e",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0b11060_88c38853",
+      "range": {
+        "startLine": 75,
+        "startChar": 48,
+        "endLine": 75,
+        "endChar": 55
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "066b93ae_4e103d31",
@@ -221,6 +437,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "This name doesn\u0027t seem to reflect what the method does – this sounds like you\u0027re querying if the net capability is \"prioritize latency\".\n\nOne option is \"hasPrioritizeLatency\".",
+      "range": {
+        "startLine": 82,
+        "startChar": 19,
+        "endLine": 82,
+        "endChar": 51
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b250fe96_29be69fc",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "066b93ae_4e103d31",
       "range": {
         "startLine": 82,
         "startChar": 19,
@@ -254,6 +494,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "820f8b03_66822114",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de5b377a_7bada8ca",
+      "range": {
+        "startLine": 129,
+        "startChar": 30,
+        "endLine": 129,
+        "endChar": 59
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e92548b_2c7f2db2",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Thanks, updated to IllegalArgumentException.",
+      "parentUuid": "de5b377a_7bada8ca",
+      "range": {
+        "startLine": 129,
+        "startChar": 30,
+        "endLine": 129,
+        "endChar": 59
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b4c1673_adc6eb9b",
@@ -277,6 +565,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2102a249_b60758e7",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b4c1673_adc6eb9b",
+      "range": {
+        "startLine": 173,
+        "startChar": 47,
+        "endLine": 173,
+        "endChar": 50
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2eee07e_010b35a9",
@@ -290,6 +602,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "\"Unknown\" ?\n\nIf it\u0027s invalid I think we\u0027d want to throw. Now as we discussed offline, it\u0027s probably useful to ignore capabilities that we don\u0027t know about yet, so we can add more in the future and not force the dev to have separate config files depending on the SDK (assuming that\u0027s even possible, which I think it probably isn\u0027t)",
+      "range": {
+        "startLine": 179,
+        "startChar": 36,
+        "endLine": 179,
+        "endChar": 43
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfc51da6_673fba7c",
+        "filename": "service/src/com/android/server/ApplicationNetworkSliceCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2eee07e_010b35a9",
       "range": {
         "startLine": 179,
         "startChar": 36,
@@ -346,6 +682,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9006bb5_1d01a41f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6901,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aad04379_a6d1f0a1",
+      "range": {
+        "startLine": 6901,
+        "startChar": 47,
+        "endLine": 6901,
+        "endChar": 53
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cc09ca9_cab3ac65",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6901,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12ff68fc_0b683c3e",
+      "range": {
+        "startLine": 6901,
+        "startChar": 24,
+        "endLine": 6901,
+        "endChar": 36
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0296298_6d4fa15a",
@@ -359,6 +743,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "final on all the locals please.",
+      "range": {
+        "startLine": 6903,
+        "startChar": 8,
+        "endLine": 6903,
+        "endChar": 43
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "148a8456_5ea99b30",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6903,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0296298_6d4fa15a",
       "range": {
         "startLine": 6903,
         "startChar": 8,
@@ -392,6 +800,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a730de4_bff15f93",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6912,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Thanks for the advise. I have think it through but I feel caching it per-app might not safe here. If the app developer update the xml and reinstall the app. I couldn\u0027t come up with good cache expiration rules (sth. like LRU also not works here). Any suggestion for better idea here?",
+      "parentUuid": "bdeb719d_cc3e88eb",
+      "range": {
+        "startLine": 6912,
+        "startChar": 56,
+        "endLine": 6912,
+        "endChar": 69
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "548ae66a_f65310cc",
@@ -415,6 +847,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcd6c2aa_61cb25e2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6913,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Thanks for point it out. Have add a precondition check to only run the capabilities checking logic if NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH or NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY is declared.",
+      "parentUuid": "548ae66a_f65310cc",
+      "range": {
+        "startLine": 6913,
+        "startChar": 32,
+        "endLine": 6913,
+        "endChar": 53
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d6c5d44_d1f2d53d",
@@ -428,6 +884,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "missing",
+      "range": {
+        "startLine": 6915,
+        "startChar": 21,
+        "endLine": 6915,
+        "endChar": 25
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adcfad20_36f9a87d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6915,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d6c5d44_d1f2d53d",
       "range": {
         "startLine": 6915,
         "startChar": 21,
@@ -484,6 +964,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56834c73_0d557e37",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6919,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6893a2a_9f4cb321",
+      "range": {
+        "startLine": 6919,
+        "startChar": 29,
+        "endLine": 6919,
+        "endChar": 34
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6590b8ff_8670bd6c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6919,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea958c4a_939ca5b2",
+      "range": {
+        "startLine": 6919,
+        "startChar": 65,
+        "endLine": 6919,
+        "endChar": 79
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5702bec6_25dd8661",
@@ -497,6 +1025,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "As noted in the previous file I think it\u0027s better if only the class in charge of these permissions knows about the association, rather than ConnectivityService.",
+      "range": {
+        "startLine": 6921,
+        "startChar": 8,
+        "endLine": 6921,
+        "endChar": 10
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bff7a710_a6743108",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6921,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5702bec6_25dd8661",
       "range": {
         "startLine": 6921,
         "startChar": 8,
@@ -530,6 +1082,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6590d025_71b08821",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6938,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b42fe49_4a49c0cb",
+      "range": {
+        "startLine": 6938,
+        "startChar": 12,
+        "endLine": 6938,
+        "endChar": 30
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "169e8536_ef71b5c4",
@@ -543,6 +1119,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd4d5f9_fd785355",
+        "filename": "tests/cts/hostside/networkslicingtestapp1/src/com.android.cts.net.hostside.networkslicingtestapp1/NetworkSlicingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "169e8536_ef71b5c4",
       "range": {
         "startLine": 36,
         "startChar": 8,
@@ -576,6 +1176,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40b92b1b_09e44567",
+        "filename": "tests/cts/hostside/networkslicingtestapp1/src/com.android.cts.net.hostside.networkslicingtestapp1/NetworkSlicingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12544800_bf3f03fe",
+      "range": {
+        "startLine": 44,
+        "startChar": 59,
+        "endLine": 44,
+        "endChar": 94
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "613d45f9_ed7171a0",
@@ -589,6 +1213,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "Please strongly justify any use of lateinit. Lateinit means \"disable static nullability checks\" ; it\u0027s a very dangerous thing to use and it should be used as sparingly as possible, so we ask that any use of it is justified in comments. Of course it\u0027s better if you can remove it.",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fe63f7e_de07c161",
+        "filename": "tests/unit/java/com/android/server/ApplicationNetworkSliceCapabilitiesTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Thanks, updated to directly initialize the value.",
+      "parentUuid": "613d45f9_ed7171a0",
       "range": {
         "startLine": 38,
         "startChar": 12,
@@ -622,6 +1270,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10533f7a_734c4c53",
+        "filename": "tests/unit/java/com/android/server/ApplicationNetworkSliceCapabilitiesTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Yeah, removed the unnecessary type declaration.",
+      "parentUuid": "2fdda2c5_5a882b2f",
+      "range": {
+        "startLine": 47,
+        "startChar": 20,
+        "endLine": 47,
+        "endChar": 33
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4db645f5_8e1468f9",
@@ -635,6 +1307,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "Can we be a little bit more specific ? It sounds relatively easy to pass the correct string here.",
+      "range": {
+        "startLine": 6279,
+        "startChar": 37,
+        "endLine": 6279,
+        "endChar": 46
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a284dda1_c1e0ea94",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6279,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4db645f5_8e1468f9",
       "range": {
         "startLine": 6279,
         "startChar": 37,
@@ -668,6 +1364,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f99d3a5b_6f22f922",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6285,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a194076_296f8e39",
+      "range": {
+        "startLine": 6285,
+        "startChar": 46,
+        "endLine": 6285,
+        "endChar": 47
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "445a9bf5_862de5e6",
@@ -681,6 +1401,30 @@
       "writtenOn": "2023-02-02T08:57:21Z",
       "side": 1,
       "message": "This is overspecified. Pretty clear in how fixing the typo will require you to come update this :)\n\nYou could do something like `assertTrue(e.getMessage().contains(PRIORITIZE_BANDWIDTH)`\n\nThere is another dimension on which this is over-specified : there is no particular reason why the exception should contain `PRIORITIZE_BANDWIDTH` over `PRIORITIZE_LATENCY`. In other words, code that would throw the same message with PRIORITIZE_LATENCY would be equally correct but rejected by your test.",
+      "range": {
+        "startLine": 6338,
+        "startChar": 16,
+        "endLine": 6339,
+        "endChar": 40
+      },
+      "revId": "5376724bff9c30ee3c01fdf590b4249cd01e0f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bc2d411_b35f58a4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6339,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Thanks for the suggestion. Make the check less specific by using StringMatcher and also control the input networkRequest.",
+      "parentUuid": "445a9bf5_862de5e6",
       "range": {
         "startLine": 6338,
         "startChar": 16,

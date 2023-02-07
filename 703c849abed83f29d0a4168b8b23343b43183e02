@@ -16,6 +16,24 @@
       "message": "This patch should also update the public documentation of NET_CAPABILITY_PRIORITIZE_{LATENCY,BANDWIDTH} to explain the requirements starting with Android U.",
       "revId": "703c849abed83f29d0a4168b8b23343b43183e02",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0dfd60d_650a485c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-07T06:10:37Z",
+      "side": 1,
+      "message": "Thanks, add the documents in a separate CL: aosp/2420341",
+      "parentUuid": "befece3f_226f8b31",
+      "revId": "703c849abed83f29d0a4168b8b23343b43183e02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
