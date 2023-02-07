@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb7e653a_81e89dd6",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-07T02:43:13Z",
+      "side": 1,
+      "message": "expectCaps?",
+      "range": {
+        "startLine": 300,
+        "startChar": 15,
+        "endLine": 300,
+        "endChar": 42
+      },
+      "revId": "95ee99c4feb6962ebb10c130c09feeeb9dfe171c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66bdc781_5ad30ec6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9316,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-07T02:43:13Z",
+      "side": 1,
+      "message": "1. not done?\n\n2. Is it possible if we set NETWORK_CAPS_UPDATED to private to make it structurely impossible to use wrong API?",
+      "range": {
+        "startLine": 9316,
+        "startChar": 31,
+        "endLine": 9316,
+        "endChar": 51
+      },
+      "revId": "95ee99c4feb6962ebb10c130c09feeeb9dfe171c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e25aa78_f44e95ad",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9332,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-07T02:43:13Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 9332,
+        "startChar": 31,
+        "endLine": 9332,
+        "endChar": 51
+      },
+      "revId": "95ee99c4feb6962ebb10c130c09feeeb9dfe171c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
