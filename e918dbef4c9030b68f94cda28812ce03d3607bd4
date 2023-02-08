@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5938276d_d108d198",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-08T19:10:50Z",
+      "side": 1,
+      "message": "I haven\u0027t read ahead yet, but presumably, having *all* test-related java sources in a separate jar wouldn\u0027t hurt, right?",
+      "range": {
+        "startLine": 456,
+        "startChar": 13,
+        "endLine": 456,
+        "endChar": 95
+      },
+      "revId": "e918dbef4c9030b68f94cda28812ce03d3607bd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
