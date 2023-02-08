@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "064c7aa1_4ad94b45",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-08T06:09:28Z",
+      "side": 0,
+      "message": "Maybe add/modify a unit test for it?",
+      "range": {
+        "startLine": 577,
+        "startChar": 16,
+        "endLine": 577,
+        "endChar": 30
+      },
+      "revId": "210f3b234e48f353053dc8e0648cded926f60caf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
