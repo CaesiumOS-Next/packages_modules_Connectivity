@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33b2f8e7_11f833aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-08T18:42:41Z",
+      "side": 1,
+      "message": "nit: Just noticed that something\u0027s off with your git config. Try running `git config --global user.name \"Chidera Olibie\"`. It\u0027s odd that it\u0027s correct under the \"Commit\" tag; or did you fix this recently? In that case, you might want to run `git commit --amend --reset-author --no-edit` on the affected commits.",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 2,
+        "endChar": 19
+      },
+      "revId": "d9a729591f5101f15c2deb611c1c2ca198a00568",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
