@@ -40,7 +40,9 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.InetAddresses;
 import android.net.Network;
+import android.os.HandlerThread;
 import android.text.TextUtils;
+import android.util.Pair;
 
 import com.android.server.connectivity.mdns.MdnsServiceInfo.TextEntry;
 import com.android.server.connectivity.mdns.MdnsServiceTypeClient.QueryTaskConfig;
@@ -79,6 +81,8 @@ import java.util.concurrent.TimeUnit;
 public class MdnsServiceTypeClientTests {
     private static final int INTERFACE_INDEX = 999;
     private static final String SERVICE_TYPE = "_googlecast._tcp.local";
+    private static final Pair<String, Network> PER_NETWORK_SERVICE_TYPE =
+            Pair.create(SERVICE_TYPE, null);
     private static final String[] SERVICE_TYPE_LABELS = TextUtils.split(SERVICE_TYPE, "\\.");
     private static final InetSocketAddress IPV4_ADDRESS = new InetSocketAddress(
             MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT);
@@ -106,6 +110,7 @@ public class MdnsServiceTypeClientTests {
     private FakeExecutor currentThreadExecutor = new FakeExecutor();
 
     private MdnsServiceTypeClient client;
+    private MdnsServiceCache serviceCache;
 
     @Before
     @SuppressWarnings("DoNotMock")
@@ -159,8 +164,11 @@ public class MdnsServiceTypeClientTests {
                 .thenReturn(expectedIPv6Packets[14])
                 .thenReturn(expectedIPv6Packets[15]);
 
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+        final HandlerThread thread = new HandlerThread("MdnsServiceTypeClientTests");
+        thread.start();
+        serviceCache = new MdnsServiceCache(thread.getLooper());
+        client = new MdnsServiceTypeClient(PER_NETWORK_SERVICE_TYPE, mockSocketClient,
+                currentThreadExecutor, serviceCache) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -732,8 +740,8 @@ public class MdnsServiceTypeClientTests {
             throws Exception {
         //MdnsConfigsFlagsImpl.allowSearchOptionsToRemoveExpiredService.override(true);
         final String serviceInstanceName = "service-instance-1";
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+        client = new MdnsServiceTypeClient(PER_NETWORK_SERVICE_TYPE, mockSocketClient,
+                currentThreadExecutor, serviceCache) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -772,8 +780,8 @@ public class MdnsServiceTypeClientTests {
     public void processResponse_searchOptionsNotEnableServiceRemoval_shouldNotRemove()
             throws Exception {
         final String serviceInstanceName = "service-instance-1";
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+        client = new MdnsServiceTypeClient(PER_NETWORK_SERVICE_TYPE, mockSocketClient,
+                currentThreadExecutor, serviceCache) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -806,8 +814,8 @@ public class MdnsServiceTypeClientTests {
             throws Exception {
         //MdnsConfigsFlagsImpl.removeServiceAfterTtlExpires.override(true);
         final String serviceInstanceName = "service-instance-1";
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+        client = new MdnsServiceTypeClient(PER_NETWORK_SERVICE_TYPE, mockSocketClient,
+                currentThreadExecutor, serviceCache) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;

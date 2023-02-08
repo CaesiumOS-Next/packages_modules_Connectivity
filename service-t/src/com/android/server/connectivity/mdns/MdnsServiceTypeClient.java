@@ -34,10 +34,8 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -51,13 +49,13 @@ public class MdnsServiceTypeClient {
     private static final int DEFAULT_MTU = 1500;
     private static final MdnsLogger LOGGER = new MdnsLogger("MdnsServiceTypeClient");
 
-    private final String serviceType;
+    @NonNull private final Pair<String, Network> perNetworkServiceType;
     private final String[] serviceTypeLabels;
     private final MdnsSocketClientBase socketClient;
     private final ScheduledExecutorService executor;
+    @NonNull private final MdnsServiceCache serviceCache;
     private final Object lock = new Object();
     private final Set<MdnsServiceBrowserListener> listeners = new ArraySet<>();
-    private final Map<String, MdnsResponse> instanceNameToResponse = new HashMap<>();
     private final boolean removeServiceAfterTtlExpires =
             MdnsConfigs.removeServiceAfterTtlExpires();
     private final boolean allowSearchOptionsToRemoveExpiredService =
@@ -81,13 +79,15 @@ public class MdnsServiceTypeClient {
      * @param executor         A {@link ScheduledExecutorService} used to schedule query tasks.
      */
     public MdnsServiceTypeClient(
-            @NonNull String serviceType,
+            @NonNull Pair<String, Network> perNetworkServiceType,
             @NonNull MdnsSocketClientBase socketClient,
-            @NonNull ScheduledExecutorService executor) {
-        this.serviceType = serviceType;
+            @NonNull ScheduledExecutorService executor,
+            @NonNull MdnsServiceCache serviceCache) {
+        this.perNetworkServiceType = perNetworkServiceType;
         this.socketClient = socketClient;
         this.executor = executor;
-        serviceTypeLabels = TextUtils.split(serviceType, "\\.");
+        this.serviceCache = serviceCache;
+        serviceTypeLabels = TextUtils.split(perNetworkServiceType.first, "\\.");
     }
 
     private static MdnsServiceInfo buildMdnsServiceInfoFromResponse(
@@ -149,7 +149,9 @@ public class MdnsServiceTypeClient {
         synchronized (lock) {
             this.searchOptions = searchOptions;
             if (listeners.add(listener)) {
-                for (MdnsResponse existingResponse : instanceNameToResponse.values()) {
+                final List<MdnsResponse> responses =
+                        serviceCache.getCachedServices(perNetworkServiceType);
+                for (MdnsResponse existingResponse : responses) {
                     final MdnsServiceInfo info =
                             buildMdnsServiceInfoFromResponse(existingResponse, serviceTypeLabels);
                     listener.onServiceNameDiscovered(info);
@@ -226,7 +228,8 @@ public class MdnsServiceTypeClient {
 
     private void onResponseReceived(@NonNull MdnsResponse response) {
         MdnsResponse currentResponse;
-        currentResponse = instanceNameToResponse.get(response.getServiceInstanceName());
+        currentResponse = serviceCache.getCachedService(
+                response.getServiceInstanceName(), perNetworkServiceType);
 
         boolean newServiceFound = false;
         boolean existingServiceChanged = false;
@@ -236,7 +239,8 @@ public class MdnsServiceTypeClient {
             currentResponse = response;
             String serviceInstanceName = response.getServiceInstanceName();
             if (serviceInstanceName != null) {
-                instanceNameToResponse.put(serviceInstanceName, currentResponse);
+                serviceCache.addService(
+                        serviceInstanceName, perNetworkServiceType, currentResponse);
             }
         } else {
             boolean before = currentResponse.isComplete();
@@ -266,7 +270,8 @@ public class MdnsServiceTypeClient {
     }
 
     private void onGoodbyeReceived(@Nullable String serviceInstanceName) {
-        final MdnsResponse response = instanceNameToResponse.remove(serviceInstanceName);
+        final MdnsResponse response = serviceCache.removeService(
+                serviceInstanceName, perNetworkServiceType);
         if (response == null) {
             return;
         }
@@ -406,7 +411,7 @@ public class MdnsServiceTypeClient {
                         new EnqueueMdnsQueryCallable(
                                 socketClient,
                                 createMdnsPacketWriter(),
-                                serviceType,
+                                perNetworkServiceType.first,
                                 config.subtypes,
                                 config.expectUnicastResponse,
                                 config.transactionId,
@@ -440,7 +445,8 @@ public class MdnsServiceTypeClient {
                     }
                 }
                 if (shouldRemoveServiceAfterTtlExpires()) {
-                    Iterator<MdnsResponse> iter = instanceNameToResponse.values().iterator();
+                    final Iterator<MdnsResponse> iter =
+                            serviceCache.getCachedServices(perNetworkServiceType).iterator();
                     while (iter.hasNext()) {
                         MdnsResponse existingResponse = iter.next();
                         if (existingResponse.hasServiceRecord()
