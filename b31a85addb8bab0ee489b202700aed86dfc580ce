@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50993ec5_774b20a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-08T09:28:35Z",
+      "side": 1,
+      "message": "Test failure indicates the build didn\u0027t have the necessary netd CL? Not sure how that can have happened because that CL was in a topic with a CL that\u0027s necessary for this CL to apply without merge conflicts. Anyway, retrying.",
+      "revId": "b31a85addb8bab0ee489b202700aed86dfc580ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
