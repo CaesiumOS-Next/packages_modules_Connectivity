@@ -154,6 +154,9 @@ public class NetworkNotificationManager {
      * @param switchToNai for a NETWORK_SWITCH notification, the network we are switching to. Null
      *         in all other cases. Only used to determine the text of the notification.
      */
+    // TODO(b/193460475): Android Lint handles change from SystemApi to public incorrectly.
+    // TvExtender is made public in U, but existed back to O as an identical SystemApi.
+    @SuppressLint("NewApi")
     public void showNotification(int id, NotificationType notifyType, NetworkAgentInfo nai,
             NetworkAgentInfo switchToNai, PendingIntent intent, boolean highPriority) {
         final String tag = tagFor(id);
@@ -198,22 +201,11 @@ public class NetworkNotificationManager {
         }
 
         final Resources r = mResources.get();
-        if (highPriority && maybeNotifyViaDialog(r, notifyType, intent)) {
-            Log.d(TAG, "Notified via dialog for event " + nameOf(eventId));
-            return;
-        }
-
         final CharSequence title;
         final CharSequence details;
         Icon icon = Icon.createWithResource(
                 mResources.getResourcesContext(), getIcon(transportType));
-        final boolean showAsNoInternet = notifyType == NotificationType.PARTIAL_CONNECTIVITY
-                && r.getBoolean(R.bool.config_partialConnectivityNotifiedAsNoInternet);
-        if (showAsNoInternet) {
-            Log.d(TAG, "Showing partial connectivity as NO_INTERNET");
-        }
-        if ((notifyType == NotificationType.NO_INTERNET || showAsNoInternet)
-                && transportType == TRANSPORT_WIFI) {
+        if (notifyType == NotificationType.NO_INTERNET && transportType == TRANSPORT_WIFI) {
             title = r.getString(R.string.wifi_no_internet, name);
             details = r.getString(R.string.wifi_no_internet_detailed);
         } else if (notifyType == NotificationType.PRIVATE_DNS_BROKEN) {
@@ -285,17 +277,13 @@ public class NetworkNotificationManager {
                 .setWhen(System.currentTimeMillis())
                 .setShowWhen(notifyType == NotificationType.NETWORK_SWITCH)
                 .setSmallIcon(icon)
-                .setAutoCancel(r.getBoolean(R.bool.config_autoCancelNetworkNotifications))
+                .setAutoCancel(true)
                 .setTicker(title)
                 .setColor(mContext.getColor(android.R.color.system_notification_accent_color))
                 .setContentTitle(title)
                 .setContentIntent(intent)
                 .setLocalOnly(true)
-                .setOnlyAlertOnce(true)
-                // TODO: consider having action buttons to disconnect on the sign-in notification
-                // especially if it is ongoing
-                .setOngoing(notifyType == NotificationType.SIGN_IN
-                        && r.getBoolean(R.bool.config_ongoingSignInNotification));
+                .setOnlyAlertOnce(true);
 
         if (notifyType == NotificationType.NETWORK_SWITCH) {
             builder.setStyle(new Notification.BigTextStyle().bigText(details));
@@ -315,24 +303,6 @@ public class NetworkNotificationManager {
         } catch (NullPointerException npe) {
             Log.d(TAG, "setNotificationVisible: visible notificationManager error", npe);
         }
-    }
-
-    private boolean maybeNotifyViaDialog(Resources res, NotificationType notifyType,
-            PendingIntent intent) {
-        if (notifyType != NotificationType.NO_INTERNET
-                && notifyType != NotificationType.PARTIAL_CONNECTIVITY) {
-            return false;
-        }
-        if (!res.getBoolean(R.bool.config_notifyNoInternetAsDialogWhenHighPriority)) {
-            return false;
-        }
-
-        try {
-            intent.send();
-        } catch (PendingIntent.CanceledException e) {
-            Log.e(TAG, "Error sending dialog PendingIntent", e);
-        }
-        return true;
     }
 
     /**
@@ -394,9 +364,8 @@ public class NetworkNotificationManager {
         Toast.makeText(mContext, text, Toast.LENGTH_LONG).show();
     }
 
-    /** Get the logging tag for a notification ID */
-    @VisibleForTesting(visibility = VisibleForTesting.Visibility.PRIVATE)
-    public static String tagFor(int id) {
+    @VisibleForTesting
+    static String tagFor(int id) {
         return String.format("ConnectivityNotification:%d", id);
     }
 
