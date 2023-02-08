@@ -1,0 +1,319 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25411bae_9525dbb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "Do you mean \"to fix test failures after com.android.server* is jarjar\u0027ed\" ? Why does it fix it ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 29,
+        "endLine": 10,
+        "endChar": 13
+      },
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fda6b05_ee8aae13",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "Maybe \"Don\u0027t auto-jarjar non-connectivity module tests in FrameworksNetTests\" would be clearer ?",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 61
+      },
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf5240ce_b085470d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "Is there some bug for that ? It should mention using one auto-jarjar rules for all of ConnectivityCoverageTests too",
+      "range": {
+        "startLine": 12,
+        "startChar": 13,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6543d32a_c1a57611",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "proguard.flags also needs to be updated for the new packages",
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1efd861_cf5cb986",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "Maybe just use \"frameworks-net-tests-jarjar-rules\" and remove the one below that already includes it ? This would avoid having 2 jarjar rules being used, the \"-gen\" and the \"combined\", so it\u0027s less confusing which one should be used.",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 43
+      },
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "146ad510_0b6ef33b",
+        "filename": "tests/integration/util/com/android/server/NetworkAgentWrapper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "Why does this need to be public (who uses it ?), maybe mention in commit message",
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cda71d14_39dbc508",
+        "filename": "tests/unit/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "I\u0027d suggest just frameworks-net-tests-jarjar-rules",
+      "range": {
+        "startLine": 142,
+        "startChar": 11,
+        "endLine": 142,
+        "endChar": 51
+      },
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be9a6b04_330f17a0",
+        "filename": "tests/unit/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "This is necessary because the tests use framework-connectivity-internal-test-defaults, which require the user to use connectivity jarjar rules right ?\n\nMaybe add a comment to explain that ?",
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "784db1fe_bbd25d57",
+        "filename": "tests/unit/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "I\u0027d suggest frameworks-net-tests-lib-jarjar-gen, so it\u0027s clearer that it\u0027s just the jarjar rules of FrameworksNetTestsLib.",
+      "range": {
+        "startLine": 153,
+        "startChar": 11,
+        "endLine": 153,
+        "endChar": 42
+      },
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "714c825e_584c8444",
+        "filename": "tests/unit/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "Suggest private, see other comments",
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f4f2320_a16a7c46",
+        "filename": "tests/unit/jarjar-excludes.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "dependencies",
+      "range": {
+        "startLine": 1,
+        "startChar": 43,
+        "endLine": 1,
+        "endChar": 54
+      },
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33dbd200_f61c7591",
+        "filename": "tests/unit/jarjar-excludes.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "Do you mean the dependencies *of* com.android.dx, or the dependencies *of* kotlin can\u0027t be found ? Or do you mean the classes reference below can\u0027t be found ?\n\nCan you give a bit more details on what doesn\u0027t find them ?",
+      "range": {
+        "startLine": 1,
+        "startChar": 29,
+        "endLine": 2,
+        "endChar": 31
+      },
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "407ccd96_3dfd6743",
+        "filename": "tests/unit/jarjar-excludes.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "That\u0027s a bit too generic; which lib is that for ?",
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb697fd0_3038ea71",
+        "filename": "tests/unit/jarjar-excludes.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "exclude the tests which use object expressions",
+      "range": {
+        "startLine": 13,
+        "startChar": 57,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07aa02d1_5f2b2386",
+        "filename": "tests/unit/jarjar-excludes.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T04:37:12Z",
+      "side": 1,
+      "message": "Can you give a bit more details on what the error is and what needs to be done ? Do you have a CL to do that ? It\u0027s confusing if only TrackRecord is not getting jarjared",
+      "range": {
+        "startLine": 14,
+        "startChar": 27,
+        "endLine": 14,
+        "endChar": 31
+      },
+      "revId": "7cb4061f5af79558e094382500c89d2fec421724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
