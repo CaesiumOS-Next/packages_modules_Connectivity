@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d345bfff_34120e49",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1301,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-08T20:35:06Z",
+      "side": 1,
+      "message": "unrelated to this CL: we should probably allowlist most of them.",
+      "range": {
+        "startLine": 1301,
+        "startChar": 64,
+        "endLine": 1301,
+        "endChar": 76
+      },
+      "revId": "81153800209ec16a97c2050a1ea0f8ecd66954e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
