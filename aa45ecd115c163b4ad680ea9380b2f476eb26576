@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c914a93_b8fdd0b9",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1829,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-08T03:26:36Z",
+      "side": 1,
+      "message": "Hmm I think it\u0027s unusual for us to have setup code that\u0027s unnecessary on purpose, and there\u0027s potential that someone will lose time figuring out why changing the package version / flag value doesn\u0027t actually affect isFeatureEnabled (since it\u0027s mocked); but not feeling strongly either so meh",
+      "parentUuid": "e92858d9_bdb591ce",
+      "revId": "aa45ecd115c163b4ad680ea9380b2f476eb26576",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42f4351f_9fddeee9",
