@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea3b7b0_2538f7f8",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-08T20:38:51Z",
+      "side": 1,
+      "message": "can this be removed now?",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 6
+      },
+      "revId": "35a456a6ee1514a47a80eb1b98353b95fa160335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfaec6e7_5de5d3d8",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-08T20:38:51Z",
+      "side": 1,
+      "message": "Suggest going a step farther and allow anything that ends in .lds (from taking a quick look at one gn_desc files, this shouldn\u0027t actually affect anything at the moment).",
+      "range": {
+        "startLine": 1304,
+        "startChar": 6,
+        "endLine": 1304,
+        "endChar": 56
+      },
+      "revId": "35a456a6ee1514a47a80eb1b98353b95fa160335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
