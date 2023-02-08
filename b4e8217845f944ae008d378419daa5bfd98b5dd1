@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e811e162_8db53374",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-08T20:29:16Z",
+      "side": 1,
+      "message": "unrelated to this CL: just noticed that _sanitize_filepath() is only used from here (but only in parts because arg.startswith(\u0027../.../\u0027)).\nWe should delete _sanitize_filepath and replace self._sanitize_filepath(arg) with `re.sub(\u0027^(\\.\\./)+\u0027, \u0027\u0027, filepath)`",
+      "range": {
+        "startLine": 893,
+        "startChar": 12,
+        "endLine": 893,
+        "endChar": 40
+      },
+      "revId": "b4e8217845f944ae008d378419daa5bfd98b5dd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
