@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6580861d_5cb83128",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-08T18:55:55Z",
+      "side": 0,
+      "message": "Can you revert the spurious line changes?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "d9a729591f5101f15c2deb611c1c2ca198a00568",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
