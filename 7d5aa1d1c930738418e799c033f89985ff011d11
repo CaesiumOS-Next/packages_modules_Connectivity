@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71ab6158_260a39fa",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-08T07:46:16Z",
+      "side": 1,
+      "message": "An equals() implementation that return o1 \u003d\u003d o2 would simply pass this test.\nMaybe you need a third object that content is the same with one of them?",
+      "range": {
+        "startLine": 446,
+        "startChar": 8,
+        "endLine": 446,
+        "endChar": 18
+      },
+      "revId": "7d5aa1d1c930738418e799c033f89985ff011d11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
