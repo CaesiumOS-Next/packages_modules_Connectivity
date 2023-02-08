@@ -67,6 +67,12 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
     }
 
     private class InterfaceSocketCallback implements MdnsSocketProvider.SocketCallback {
+        private NetworkCallback mNetworkCallback;
+
+        InterfaceSocketCallback(NetworkCallback networkCallback) {
+            mNetworkCallback = networkCallback;
+        }
+
         @Override
         public void onSocketCreated(@NonNull Network network,
                 @NonNull MdnsInterfaceSocket socket, @NonNull List<LinkAddress> addresses) {
@@ -80,6 +86,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
             }
             socket.addPacketHandler(handler);
             mActiveNetworkSockets.put(socket, network);
+            mNetworkCallback.onRequestedNetworkCreated(network);
         }
 
         @Override
@@ -121,7 +128,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
      */
     @Override
     public void notifyNetworkRequested(@NonNull MdnsServiceBrowserListener listener,
-            @Nullable Network network) {
+            @Nullable Network network, @NonNull NetworkCallback networkCallback) {
         ensureRunningOnHandlerThread(mHandler);
         InterfaceSocketCallback callback = mRequestedNetworks.get(listener);
         if (callback != null) {
@@ -129,7 +136,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         }
 
         if (DBG) Log.d(TAG, "notifyNetworkRequested: network=" + network);
-        callback = new InterfaceSocketCallback();
+        callback = new InterfaceSocketCallback(networkCallback);
         mRequestedNetworks.put(listener, callback);
         mSocketProvider.requestSocket(network, callback);
     }
@@ -176,7 +183,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         if (errorCode == MdnsResponseDecoder.SUCCESS) {
             for (MdnsResponse response : responses) {
                 if (mCallback != null) {
-                    mCallback.onResponseReceived(response);
+                    mCallback.onResponseReceived(response, network);
                 }
             }
         } else if (errorCode != MdnsResponseErrorCode.ERROR_NOT_RESPONSE_MESSAGE) {
