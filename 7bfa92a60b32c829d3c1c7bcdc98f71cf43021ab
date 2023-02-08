@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13055c4b_a345ac1f",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-08T06:58:41Z",
+      "side": 1,
+      "message": "I don\u0027t think we can take this approach because it does not match how the rest of the API works and would break existing users.\n\nSpecifically: today, local-only hotspot is TETHERING_WIFI, and all the APIs treat it as such. A few examples:\n- TetheringEventCallback has separate onLocalOnlyInterfacesChanged(Set\u003cTetheringInterface\u003e) and onTetheredInterfacesChanged(Set\u003cTetheringInterface\u003e) methods. The TetheringInterface class that is passed in these callbacks contains the tethering type, and for local-only hotspot, that is TETHERING_WIFI.\n- TetheringEventCallback#onClientsChanged passes a TetheredClient, which similarly contains the tethering type (again, for LOHS this is TETHERING_WIFI).\n\nWe cannot represent LOHS as a new tethering type without breaking users of these APIs, and we know that OEM code does use them.\n\nAlso, TetheringRequest.Builder explicitly separates the tethering type (passed in via the constructor) and local/vs global (set by passing CONNECTIVITY_SCOPE_GLOBAL or CONNECTIVITY_SCOPE_LOCAL to setConnectivityScope). Adding a TETHERING_LOCAL_HOTSPOT would make it possible for callers to pass in TETHERING_LOCAL_HOTSPOT and CONNECTIVITY_SCOPE_GLOBAL, which would make no sense. The API surface should not allow this.",
+      "range": {
+        "startLine": 188,
+        "startChar": 38,
+        "endLine": 189,
+        "endChar": 37
+      },
+      "revId": "7bfa92a60b32c829d3c1c7bcdc98f71cf43021ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
