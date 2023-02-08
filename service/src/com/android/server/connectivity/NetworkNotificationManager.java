@@ -154,6 +154,9 @@ public class NetworkNotificationManager {
      * @param switchToNai for a NETWORK_SWITCH notification, the network we are switching to. Null
      *         in all other cases. Only used to determine the text of the notification.
      */
+    // TODO(b/193460475): Android Lint handles change from SystemApi to public incorrectly.
+    // TvExtender is made public in U, but existed back to O as an identical SystemApi.
+    @SuppressLint("NewApi")
     public void showNotification(int id, NotificationType notifyType, NetworkAgentInfo nai,
             NetworkAgentInfo switchToNai, PendingIntent intent, boolean highPriority) {
         final String tag = tagFor(id);
