@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03b4b231_34c48472",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-08T06:57:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7787b23b_50c2c7cf",
+      "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8984d99a_96d94812",
@@ -58,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7034e9eb_9c00c92c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-08T06:57:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8984d99a_96d94812",
+      "range": {
+        "startLine": 772,
+        "startChar": 38,
+        "endLine": 772,
+        "endChar": 40
+      },
+      "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4f0e2e7_1dfd67bb",
@@ -71,6 +113,30 @@
       "writtenOn": "2023-02-07T09:54:08Z",
       "side": 1,
       "message": "com.android.compatibility.common.util.PollingCheck.check should be available in CTS, to do this",
+      "range": {
+        "startLine": 781,
+        "startChar": 12,
+        "endLine": 785,
+        "endChar": 85
+      },
+      "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3ff34f5_794eacbd",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-08T06:57:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4f0e2e7_1dfd67bb",
       "range": {
         "startLine": 781,
         "startChar": 12,
@@ -112,6 +178,24 @@
       "side": 1,
       "message": "Thanks, will adjust all the comment in a separate CLs which contains two test case together.",
       "parentUuid": "0f157549_dc9353d4",
+      "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccf0f70c_0ec86b6e",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-08T06:57:01Z",
+      "side": 1,
+      "message": "Actually, I realized I can just merge all the changes in this CL. I also added the test case for max-sdk-33 case and refactor the code a little bit. Please kindly let me know if there are still concerns here.",
+      "parentUuid": "f2808777_67f0c62b",
       "revId": "1170fe9fb7e6cb1f15a3770ed534f970f6d2f00d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
