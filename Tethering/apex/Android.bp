@@ -84,7 +84,7 @@ apex {
     defaults: [
         "ConnectivityApexDefaults",
         "CronetInTetheringApexDefaults",
-        "r-launched-apex-module",
+        "r-launched-dcla-enabled-apex-module",
     ],
     compile_multilib: "both",
     bootclasspath_fragments: [
