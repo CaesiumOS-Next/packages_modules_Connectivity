@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64cd5a1d_5904ab6f",
+        "filename": "Cronet/tests/common/AndroidManifest.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-08T21:13:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f3c01a1_d00d707a",
+      "range": {
+        "startLine": 21,
+        "startChar": 39,
+        "endLine": 21,
+        "endChar": 54
+      },
+      "revId": "6a0a91992da36b4620aeab1fc8d835a9f4fe1a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68f5b495_4a7f324e",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-08T18:55:55Z",
       "side": 1,
       "message": "nit: same here, I am not sure if this was autoformatted by some tool, but all the new lines between bp targets seem to have been removed.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "6a0a91992da36b4620aeab1fc8d835a9f4fe1a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4aee29a_638ff1c8",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-08T21:13:31Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "68f5b495_4a7f324e",
       "range": {
         "startLine": 37,
         "startChar": 0,
