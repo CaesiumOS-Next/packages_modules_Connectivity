@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9283fa83_0f7aea9c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-09T02:20:11Z",
+      "side": 1,
+      "message": "The lint error seems like a bug in lint. It reports a build break, but\n• Presumbit pass, so build must have passed on all branches\n• It\u0027s one line off, which proves it\u0027s not build the correct code",
+      "revId": "99cab4a44c794d4fcda695b6a105e4f79da4c50a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
