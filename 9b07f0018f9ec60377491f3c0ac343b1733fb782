@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8c8eb93_2ca5de60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-09T06:02:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6291d57f_56243667",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "9b07f0018f9ec60377491f3c0ac343b1733fb782",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1474697c_a543f8af",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-02-09T03:15:23Z",
       "side": 1,
       "message": "Maybe add comment and bug reference to say why we can\u0027t do null check here?",
+      "revId": "9b07f0018f9ec60377491f3c0ac343b1733fb782",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adc00cc3_869aee5c",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-09T06:02:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1474697c_a543f8af",
       "revId": "9b07f0018f9ec60377491f3c0ac343b1733fb782",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
