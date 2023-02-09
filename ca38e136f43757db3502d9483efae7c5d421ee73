@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19212fd4_3ab43403",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-09T06:26:03Z",
+      "side": 1,
+      "message": "Maybe print what\u0027s inside the TransportInfo/NetworkCapabilities to help with debugging?",
+      "range": {
+        "startLine": 417,
+        "startChar": 86,
+        "endLine": 417,
+        "endChar": 89
+      },
+      "revId": "ca38e136f43757db3502d9483efae7c5d421ee73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c2b04ce_fcf3acdb",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-09T06:26:03Z",
+      "side": 1,
+      "message": "when a null wifiNetworkKey is provided, which would happen in some unknown cases, see b/xxxxx.",
+      "range": {
+        "startLine": 164,
+        "startChar": 22,
+        "endLine": 164,
+        "endChar": 67
+      },
+      "revId": "ca38e136f43757db3502d9483efae7c5d421ee73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
