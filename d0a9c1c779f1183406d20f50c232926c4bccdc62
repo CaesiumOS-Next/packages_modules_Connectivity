@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8a01720_5ca3ffb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-09T08:22:08Z",
+      "side": 1,
+      "message": "LGTM assuming comments will be resolved.\nPlease proceed with 2nd-tier review.",
+      "revId": "d0a9c1c779f1183406d20f50c232926c4bccdc62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25deddbe_d74a4a81",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-09T08:22:08Z",
+      "side": 1,
+      "message": "Please use constructor like l.473",
+      "revId": "d0a9c1c779f1183406d20f50c232926c4bccdc62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d3a9b3b_0c6ac478",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-09T08:22:08Z",
+      "side": 1,
+      "message": "nit: Might also need to assertEquals(dupTemplateImsi1, templateImsi1), also for below.",
+      "range": {
+        "startLine": 457,
+        "startChar": 8,
+        "endLine": 457,
+        "endChar": 53
+      },
+      "revId": "d0a9c1c779f1183406d20f50c232926c4bccdc62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
