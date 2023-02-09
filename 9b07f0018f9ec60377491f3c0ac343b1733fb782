@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6291d57f_56243667",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-09T02:48:05Z",
+      "side": 1,
+      "message": "IIUC the real problem is why the null wifi key was stored into the disk, maybe we should add some log in NetworkIdentity and comment to catch that if possible?",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "9b07f0018f9ec60377491f3c0ac343b1733fb782",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
