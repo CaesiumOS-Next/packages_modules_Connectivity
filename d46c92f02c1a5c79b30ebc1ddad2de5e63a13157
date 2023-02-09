@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcaf721e_1adc0762",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-09T11:06:27Z",
+      "side": 1,
+      "message": "LGTM although you might want to consider if you really need a separate test target (SGTM if you decide it\u0027s needed)",
+      "revId": "d46c92f02c1a5c79b30ebc1ddad2de5e63a13157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98433f03_a50e5c8c",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-09T11:06:27Z",
+      "side": 1,
+      "message": "Actually do you need this test ? The coverage target should be in presubmit and contains the same tests (although it also contains CTS), so maybe you don\u0027t need an additional target ?",
+      "revId": "d46c92f02c1a5c79b30ebc1ddad2de5e63a13157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d34c6350_7df0748c",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-09T11:06:27Z",
+      "side": 1,
+      "message": "You might not need this for a non-coverage test, I think the multilib thing is a hack because coverage didn\u0027t pick up the right target for 32/64 bits",
+      "revId": "d46c92f02c1a5c79b30ebc1ddad2de5e63a13157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4353e0ec_dcc34095",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 14
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-09T11:06:27Z",
+      "side": 1,
+      "message": "You should run NetHttpCoverageTests too, especially in mainline-presubmit. Probably in a separate change though.",
+      "revId": "d46c92f02c1a5c79b30ebc1ddad2de5e63a13157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
