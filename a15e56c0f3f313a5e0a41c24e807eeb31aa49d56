@@ -16,6 +16,24 @@
       "message": "Maybe put a bit more context here, so it\u0027s easy to understand why it\u0027s still here, and figure out when it can be removed",
       "revId": "a15e56c0f3f313a5e0a41c24e807eeb31aa49d56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "601d6f00_c8cda2e5",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-09T10:52:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da34bb79_c8719f6b",
+      "revId": "a15e56c0f3f313a5e0a41c24e807eeb31aa49d56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
