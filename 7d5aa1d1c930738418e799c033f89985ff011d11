@@ -22,6 +22,29 @@
       },
       "revId": "7d5aa1d1c930738418e799c033f89985ff011d11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b924244_2b7e67cd",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-09T06:49:40Z",
+      "side": 1,
+      "message": "Oops, missing .build()",
+      "range": {
+        "startLine": 458,
+        "startChar": 57,
+        "endLine": 458,
+        "endChar": 58
+      },
+      "revId": "7d5aa1d1c930738418e799c033f89985ff011d11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
