@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49c4836b_c5a5c4af",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-09T11:27:58Z",
+      "side": 1,
+      "message": "Is it okay to not have an mts-only tests? Submitting this for now.",
+      "parentUuid": "98433f03_a50e5c8c",
+      "revId": "d46c92f02c1a5c79b30ebc1ddad2de5e63a13157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d34c6350_7df0748c",
         "filename": "Cronet/tests/mts/Android.bp",
         "patchSetId": 14
@@ -48,6 +66,24 @@
       "writtenOn": "2023-02-09T11:06:27Z",
       "side": 1,
       "message": "You might not need this for a non-coverage test, I think the multilib thing is a hack because coverage didn\u0027t pick up the right target for 32/64 bits",
+      "revId": "d46c92f02c1a5c79b30ebc1ddad2de5e63a13157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5f76faa_f0c51356",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-09T11:27:58Z",
+      "side": 1,
+      "message": "Will also remove from CTS.",
+      "parentUuid": "d34c6350_7df0748c",
       "revId": "d46c92f02c1a5c79b30ebc1ddad2de5e63a13157",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -65,6 +101,24 @@
       "writtenOn": "2023-02-09T11:06:27Z",
       "side": 1,
       "message": "You should run NetHttpCoverageTests too, especially in mainline-presubmit. Probably in a separate change though.",
+      "revId": "d46c92f02c1a5c79b30ebc1ddad2de5e63a13157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b90ba50_bdf2316a",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 14
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-09T11:27:58Z",
+      "side": 1,
+      "message": "Will do",
+      "parentUuid": "4353e0ec_dcc34095",
       "revId": "d46c92f02c1a5c79b30ebc1ddad2de5e63a13157",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
