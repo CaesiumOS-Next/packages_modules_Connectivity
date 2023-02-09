@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a09d540a_a0cce441",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-09T08:13:40Z",
+      "side": 1,
+      "message": "LGTM but need 2nd-tier review.",
+      "revId": "95a90c7ee65da044d7b360c8fc3383fc4ae9c6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
