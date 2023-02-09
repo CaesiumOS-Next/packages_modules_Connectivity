@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "df02abb6_5a4ce354",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-09T08:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc1550d2_29997d9e",
+      "range": {
+        "startLine": 9,
+        "startChar": 69,
+        "endLine": 9,
+        "endChar": 72
+      },
+      "revId": "a3461bdc5a631d78896939c29f0d9c2c5bb2d16f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "874ca21f_8c135101",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -81,6 +105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18b35272_90f04588",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-09T08:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2b048de_9762e737",
+      "range": {
+        "startLine": 29,
+        "startChar": 39,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "a3461bdc5a631d78896939c29f0d9c2c5bb2d16f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c043a85_d5201050",
@@ -94,6 +142,30 @@
       "writtenOn": "2023-02-09T08:12:37Z",
       "side": 1,
       "message": "Nit : I know it\u0027s not strictly necessary but if you put @hide here it may help clarify this is not an SDK class",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "a3461bdc5a631d78896939c29f0d9c2c5bb2d16f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3703267c_3ce047a3",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-09T08:26:05Z",
+      "side": 1,
+      "message": "Done. It is actually strictly necessary as ThreeHugger rejected me.",
+      "parentUuid": "9c043a85_d5201050",
       "range": {
         "startLine": 31,
         "startChar": 0,
@@ -127,6 +199,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0180b239_93de27d8",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-09T08:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3a90e63_3376bb9d",
+      "range": {
+        "startLine": 37,
+        "startChar": 70,
+        "endLine": 37,
+        "endChar": 71
+      },
+      "revId": "a3461bdc5a631d78896939c29f0d9c2c5bb2d16f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d2eabc0_123329f3",
@@ -140,6 +236,30 @@
       "writtenOn": "2023-02-09T08:12:37Z",
       "side": 1,
       "message": "This is no longer visible \"for testing\" : it needs to be visible from LinkProperties. You can remove this annotation.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 22
+      },
+      "revId": "a3461bdc5a631d78896939c29f0d9c2c5bb2d16f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6da6f3d4_13642022",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-09T08:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d2eabc0_123329f3",
       "range": {
         "startLine": 43,
         "startChar": 4,
