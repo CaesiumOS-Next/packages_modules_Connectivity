@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9afde6e2_4d0bb4b8",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-09T11:07:21Z",
+      "side": 1,
+      "message": "Why are we not passing all the linker flags? Why does an allowlist exist?",
+      "range": {
+        "startLine": 1258,
+        "startChar": 4,
+        "endLine": 1258,
+        "endChar": 81
+      },
+      "revId": "ea38e4eb2270b7df56f0972e129f18c19cdb8b13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
