@@ -54,9 +54,57 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Defines a request for a network, made through {@link NetworkRequest.Builder} and used
- * to request a network via {@link ConnectivityManager#requestNetwork} or listen for changes
- * via {@link ConnectivityManager#registerNetworkCallback}.
+ * An object describing a network that the application is interested into.
+ *
+ * <p>See
+ * {@link https://developer.android.com/training/basics/network-ops/reading-network-state}
+ * for a general guide on how to use NetworkRequest and related classes.
+ *
+ * NetworkRequest defines a request for a network, made through
+ * {@link NetworkRequest.Builder} and used to request a network via
+ * {@link ConnectivityManager#requestNetwork} or listen for changes
+ * via the {@link ConnectivityManager#registerNetworkCallback} family of
+ * functions.
+ *
+ * <p>Applications build a NetworkRequest and pass it to one of the
+ * {@link ConnectivityManager} methods above together with a
+ * {@link ConnectivityManager.NetworkCallback} object. The callback
+ * will then start receiving method calls about networks that match
+ * the request.
+ *
+ * <p>Networks are brought up and/or matched according to the capabilities
+ * set in the builder. For example, a request with
+ * {@link NetworkCapabilities#NET_CAPABILITY_MMS} lets the system match
+ * and/or bring up a network that is capable to send MMS. A request with
+ * {@link NetworkCapabilities#NET_CAPABILITY_NOT_METERED} matches a network
+ * that doesn't charge the user for usage. See
+ * {@link NetworkCapabilities} for a list of capabilities and their
+ * description.
+ *
+ * <p>While all capabilities can be matched with the
+ * {@link ConnectivityManager#registerNetworkCallback} family of methods,
+ * not all capabilities can be used to request that the system brings
+ * up a network with {@link ConnectivityManager#requestNetwork}. Similarly,
+ * some capabilities may require a specific permission or privilege to be
+ * requested. Look up the specific capability and the
+ * {@link ConnectivityManager#requestNetwork} method for limitations.
+ *
+ * <p>Also, starting with Android 14, some capabilities require the
+ * appplication to explicitly add the
+ * {@link android.content.pm.PackageManager#PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES}
+ * property in the AndroidManifest.xml, which points to a self_certified_network_capabilities.xml
+ * resource file. In self_certified_network_capabilities.xml, it declares what kind of
+ * network capabilities the application wants to have.
+ *
+ * Here is an example self_certified_network_capabilities.xml:
+ * <pre>
+ *  {@code
+ *  <network-capabilities-declaration xmlns:android="http://schemas.android.com/apk/res/android">
+ *     <uses-network-capability android:name="NET_CAPABILITY_PRIORITIZE_LATENCY"/>
+ *     <uses-network-capability android:name="NET_CAPABILITY_PRIORITIZE_BANDWIDTH"/>
+ * </network-capabilities-declaration>
+ *  }
+ *  </pre>
  */
 public class NetworkRequest implements Parcelable {
     /**
