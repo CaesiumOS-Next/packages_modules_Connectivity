@@ -174,6 +174,24 @@
       "parentUuid": "71e89761_dbffecff",
       "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7969cd30_098e3663",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-10T08:36:29Z",
+      "side": 1,
+      "message": "Agreed multiple links to death is OK in itself; I was suggesting having a single one in AutomaticOnOffKeepaliveTracker as a possible fix for the problem I mentioned. But as long as the things to address in b/267106526 are addressed in a clean way, that works for me.",
+      "parentUuid": "96eb3e77_b68625f0",
+      "revId": "7978020d884a4f83b22e8ea3cd561c80b9d3290e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
