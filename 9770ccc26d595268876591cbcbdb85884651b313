@@ -213,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b69422e2_d8a4b351",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-02-10T00:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c763310_d4e951ed",
+      "range": {
+        "startLine": 732,
+        "startChar": 26,
+        "endLine": 732,
+        "endChar": 28
+      },
+      "revId": "9770ccc26d595268876591cbcbdb85884651b313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75b071bc_9387af10",

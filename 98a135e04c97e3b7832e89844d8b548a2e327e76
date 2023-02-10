@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac02ca71_5a970281",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-02-10T00:12:50Z",
+      "side": 0,
+      "message": "Moved to the runtime parameter list because in migration test the same runnable will run tests more than once with new outer addresses",
+      "range": {
+        "startLine": 314,
+        "startChar": 15,
+        "endLine": 315,
+        "endChar": 40
+      },
+      "revId": "98a135e04c97e3b7832e89844d8b548a2e327e76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b630f1cf_410c9c2d",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-02-10T00:12:50Z",
+      "side": 0,
+      "message": "It will need to be calculated in IpSecTunnelTestRunnable#run() because in migration test, outer family will change and the expected packet size will change",
+      "range": {
+        "startLine": 320,
+        "startChar": 20,
+        "endLine": 320,
+        "endChar": 38
+      },
+      "revId": "98a135e04c97e3b7832e89844d8b548a2e327e76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12e146d0_b225afc5",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-02-10T00:12:50Z",
+      "side": 0,
+      "message": "Moved to the runtime parameter list because in migration test the same runnable will run tests more than once with new outer addresses",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 379,
+        "endChar": 40
+      },
+      "revId": "98a135e04c97e3b7832e89844d8b548a2e327e76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
