@@ -52,6 +52,7 @@ class HttpCtsTestServer(context: Context) : CtsTestServer(context) {
             response.addHeader("Content-Length", req.entity.contentLength.toString())
         }
 
+        response?.addHeader("Cache-Control", "max-age=300")
         return response
     }
 }
