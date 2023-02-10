@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6f01af3_5cb714c8",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "Ideally this change should be split off since it\u0027s really unrelated to this patch.",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 35
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5da71b2_d3105da2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "Synchronous getters for caps/LP are essentially unsuitable for any serious code, and CTS should be considered serious code. See my comments below ; you have a very simple and much cleaner alternative.",
+      "range": {
+        "startLine": 1046,
+        "startChar": 43,
+        "endLine": 1046,
+        "endChar": 65
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf8389b3_04586899",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1127,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "some",
+      "range": {
+        "startLine": 1127,
+        "startChar": 15,
+        "endLine": 1127,
+        "endChar": 22
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deaa09b5_36b81ad6",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "On its own this is useless because you don\u0027t keep the return value. You should though ; see my comment below.",
+      "range": {
+        "startLine": 1132,
+        "startChar": 70,
+        "endLine": 1132,
+        "endChar": 77
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "109c955a_a6684a16",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "This is useless here since you\u0027ve waited for this network to be available. Either move this to l.1129, or remove it completely (in which case the error message will be \u0027expected call to AVAILABLE\u0027). In fact I think connectSomeDefaultNetwork will never return null, and will prefer throwing anyway",
+      "range": {
+        "startLine": 1136,
+        "startChar": 8,
+        "endLine": 1136,
+        "endChar": 21
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e72d7d2a_27510f13",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "What below operation ?",
+      "range": {
+        "startLine": 1147,
+        "startChar": 17,
+        "endLine": 1147,
+        "endChar": 26
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "456bd4d8_bb0ddb22",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "This needs to be specific. What operations and what permissions ?",
+      "range": {
+        "startLine": 1147,
+        "startChar": 36,
+        "endLine": 1147,
+        "endChar": 56
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de5b20e9_befae4c0",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "...if you can\u0027t ensure the task is completed before dropping the shell identity then this won\u0027t work, right ? Or are you sure it is completed by the end of the test ? If so, what gives you that guarantee, and can you reduce the scope of the section that holds the shell permissions to when you know the executor is done ?",
+      "range": {
+        "startLine": 1147,
+        "startChar": 81,
+        "endLine": 1148,
+        "endChar": 88
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abf62b26_ee3af769",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "You should have the capabilities of the network here, so that method should just take the caps and never call the synchronous getter.",
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eba9eeee_5bffe52b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1183,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "keepalive",
+      "range": {
+        "startLine": 1183,
+        "startChar": 41,
+        "endLine": 1183,
+        "endChar": 50
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fec09682_d8a80b5b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "If that\u0027s all you need you should just run this line with the shell identity and that\u0027s it",
+      "range": {
+        "startLine": 1184,
+        "startChar": 29,
+        "endLine": 1184,
+        "endChar": 47
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ce02c03_7ead6e4c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T06:04:50Z",
+      "side": 1,
+      "message": "This is a good change, but how is it related to this patch ?",
+      "range": {
+        "startLine": 550,
+        "startChar": 57,
+        "endLine": 550,
+        "endChar": 66
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
