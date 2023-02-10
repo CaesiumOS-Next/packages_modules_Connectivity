@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "741b0fe4_d6ac75de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T05:44:46Z",
+      "side": 1,
+      "message": "Sorry I do not understand this English and therefore I don\u0027t understand what the problem is.",
+      "range": {
+        "startLine": 21,
+        "startChar": 25,
+        "endLine": 24,
+        "endChar": 6
+      },
+      "revId": "a201579880bc1c4744d0ae5bdc99231e2039ae76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0df0e8f8_ed7ce6a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T05:44:46Z",
+      "side": 1,
+      "message": "I don\u0027t think this is the right solution. This has an internal class escape and defers the construction of the reference object to much later, which limits strongly the improvements we can make in the future (e.g. we no longer can remove the callback object from KI because we no longer have a path to pass it to where it\u0027s needed).\n\nI agree that you probably need to clear the caller identity and that\u0027s the right solution for CTS (as well as production, in fact). As for unit tests, isFeatureEnabled is already in a dependencies object, so I don\u0027t understand why you\u0027d need to change anything.",
+      "revId": "a201579880bc1c4744d0ae5bdc99231e2039ae76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4362b48e_6da6791d",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T05:44:46Z",
+      "side": 1,
+      "message": "...but this is an internal object of AutomaticOnOffKeepalive now. Why do we have to expose the guts of this to NetworkAgent ?",
+      "range": {
+        "startLine": 284,
+        "startChar": 15,
+        "endLine": 284,
+        "endChar": 28
+      },
+      "revId": "a201579880bc1c4744d0ae5bdc99231e2039ae76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9074d249_2916183a",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-10T05:44:46Z",
+      "side": 1,
+      "message": "Comment ?",
+      "range": {
+        "startLine": 389,
+        "startChar": 53,
+        "endLine": 389,
+        "endChar": 72
+      },
+      "revId": "a201579880bc1c4744d0ae5bdc99231e2039ae76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
