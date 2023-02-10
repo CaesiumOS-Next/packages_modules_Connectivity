@@ -46,6 +46,7 @@ ODR_VIOLATION_IGNORE_TARGETS = {
 }
 ARCH_REGEX = r'(android_x86_64|android_x86|android_arm|android_arm64|host)'
 RESPONSE_FILE = '{{response_file_name}}'
+TESTING_SUFFIX = "__testing"
 
 def repo_root():
   """Returns an absolute path to the repository root."""
@@ -325,6 +326,9 @@ class GnParser(object):
     if self._is_java_group(type_, target_name):
       java_group_name = target_name
 
+    if is_test_target:
+      target_name += TESTING_SUFFIX
+
     target = self.all_targets.get(target_name)
     if target is None:
       target = GnParser.Target(target_name, type_)
@@ -453,7 +457,8 @@ class GnParser(object):
           log.debug('Adding java sources for %s', dep.name)
           java_srcs = [src for src in dep.inputs if _is_java_source(src)]
           if not is_test_target:
-            # Don't collect java source files for test targets as this is not needed.
+            # TODO(aymanm): Fix collecting sources for testing modules for java.
+            # Don't collect java source files for test targets.
             # We only need a specific set of java sources which are hardcoded in gen_android_bp
             self.java_sources[java_group_name].update(java_srcs)
       if dep.type in ["action"] and target.type == "java_group":
@@ -463,7 +468,10 @@ class GnParser(object):
         if dep.name == '//base:base_java_aidl':
           self.java_sources[java_group_name].update(dep.arch[arch].sources)
         else:
-          self.java_actions[java_group_name].add(dep.name)
+          if not is_test_target:
+            # TODO(aymanm): Fix collecting actions for testing modules for java.
+            # Don't collect java actions for test targets.
+            self.java_actions[java_group_name].add(dep.name)
     return target
 
   def get_proto_exports(self, proto_desc):
