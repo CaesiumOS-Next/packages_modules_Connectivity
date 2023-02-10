@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a3dd4e5_57640430",
+        "filename": "service/native/libs/libclat/clatutils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-02-10T00:05:05Z",
+      "side": 1,
+      "message": "I guess it\u0027s time to finally figure out *how* we can use unique_fd from mainline module code, as yeah, of course that would have helped a bit here.\nI think we do at least have a way to use scopeguard due to the .h copy...",
+      "parentUuid": "be703a49_46c69a10",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 20
+      },
+      "revId": "6256ef391b5d81da3870eb6e8b2dd59093a19332",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b26cbe0e_1cfa2f7d",
         "filename": "service/native/libs/libclat/clatutils.cpp",
         "patchSetId": 7
