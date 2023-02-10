@@ -22,12 +22,14 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.TetheringManager.TETHERING_INVALID;
 import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHER_ERROR_ENTITLEMENT_UNKNOWN;
 import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
+import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
 import static android.net.cts.util.CtsTetheringUtils.isAnyIfaceMatch;
 
 import static com.android.testutils.TestPermissionUtil.runAsShell;
@@ -458,5 +460,18 @@ public class TetheringManagerTest {
                 mCtsNetUtils.connectToWifi();
             }
         }
+    }
+
+    @Test
+    public void testSilentInvalidTetherTypeTest() throws Exception {
+        assumeTrue(isTetheringSupported());
+
+        final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
+        runAsShell(TETHER_PRIVILEGED, () -> {
+            mTM.startTethering(new TetheringRequest.Builder(TETHERING_INVALID)
+                    .setShouldShowEntitlementUi(false).build(), c -> c.run() /* executor */,
+                    startTetheringCallback);
+            startTetheringCallback.expectTetheringFailed(TETHER_ERROR_UNKNOWN_TYPE);
+        });
     }
 }
