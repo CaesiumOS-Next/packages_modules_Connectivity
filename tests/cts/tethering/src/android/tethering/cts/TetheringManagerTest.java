@@ -15,6 +15,7 @@
  */
 package android.tethering.test;
 
+import static android.Manifest.permission.BLUETOOTH_CONNECT;
 import static android.Manifest.permission.MODIFY_PHONE_STATE;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
@@ -22,6 +23,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.TetheringManager.TETHERING_BLUETOOTH;
 import static android.net.TetheringManager.TETHERING_INVALID;
 import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
@@ -43,6 +45,8 @@ import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -66,12 +70,16 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.os.ResultReceiver;
+import android.sysprop.BluetoothProperties;
 import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
+
+import com.android.compatibility.common.util.PollingCheck;
 
 import org.junit.After;
 import org.junit.Before;
@@ -82,12 +90,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 @RunWith(AndroidJUnit4.class)
 public class TetheringManagerTest {
+    private static final String TAG = TetheringManagerTest.class.getSimpleName();
 
     private Context mContext;
 
@@ -95,12 +105,14 @@ public class TetheringManagerTest {
     private TetheringManager mTM;
     private WifiManager mWm;
     private PackageManager mPm;
+    private BluetoothAdapter mBluetoothAdapter;
 
     private TetherChangeReceiver mTetherChangeReceiver;
     private CtsNetUtils mCtsNetUtils;
     private CtsTetheringUtils mCtsTetheringUtils;
 
     private static final int DEFAULT_TIMEOUT_MS = 60_000;
+    private static final int BLUETOOTH_TIMEOUT_MS = 10_000;
 
     @Before
     public void setUp() throws Exception {
@@ -109,6 +121,7 @@ public class TetheringManagerTest {
         mTM = (TetheringManager) mContext.getSystemService(Context.TETHERING_SERVICE);
         mWm = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         mPm = mContext.getPackageManager();
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         mCtsNetUtils = new CtsNetUtils(mContext);
         mCtsTetheringUtils = new CtsTetheringUtils(mContext);
         mTetherChangeReceiver = new TetherChangeReceiver();
@@ -473,5 +486,113 @@ public class TetheringManagerTest {
                     startTetheringCallback);
             startTetheringCallback.expectTetheringFailed(TETHER_ERROR_UNKNOWN_TYPE);
         });
+    }
+
+    private boolean isBluetoothTetheringSupported() throws Exception {
+        if (!mPm.hasSystemFeature(PackageManager.FEATURE_BLUETOOTH)) {
+            Log.i(TAG, "Device does not have bluetooth feature");
+            return false;
+        }
+
+        final boolean isPanSupported = BluetoothProperties.isProfilePanPanuEnabled().orElse(false)
+                || BluetoothProperties.isProfilePanNapEnabled().orElse(false);
+        if (!isPanSupported) {
+            Log.i(TAG, "Device does not support pan");
+            return false;
+        }
+
+        final boolean hasTetherableBluetoothRegexs = mTM.getTetherableBluetoothRegexs().length > 0;
+        if (!hasTetherableBluetoothRegexs) {
+            Log.i(TAG, "Device does not have tetherable Bluetooth interfaces");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void waitForBluetoothState(final int expectedState) throws Exception {
+        // State polling is required because BluetoothAdapter#BluetoothStateChangeCallback is
+        // a hidden function which can't be called here.
+        PollingCheck.check(
+                "Bluetooth state is not expected after " + BLUETOOTH_TIMEOUT_MS + "ms timeout ("
+                        + "actual: " + mBluetoothAdapter.getState() + ", "
+                        + "expected: " + expectedState + ")",
+                BLUETOOTH_TIMEOUT_MS,
+                () -> mBluetoothAdapter.getState() == expectedState);
+    }
+
+    private static class PanServiceListener implements BluetoothProfile.ServiceListener {
+        private final CountDownLatch mServiceConnectedLatch = new CountDownLatch(1);
+
+        public void onServiceConnected(int profile, BluetoothProfile proxy) {
+            if (profile != BluetoothProfile.PAN) return;
+
+            Log.d(TAG, "PAN service connected");
+            mServiceConnectedLatch.countDown();
+        }
+
+        public void onServiceDisconnected(int profile) {
+            // no-op.
+        }
+
+        public void awaitServiceConnected() throws Exception {
+            assertTrue("Service not connected after " + BLUETOOTH_TIMEOUT_MS + "ms",
+                    mServiceConnectedLatch.await(BLUETOOTH_TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        }
+    }
+
+    private void waitForBluetoothTetherState(final boolean enabled) throws Exception {
+        runAsShell(BLUETOOTH_CONNECT, () -> {
+            final PanServiceListener panServiceListener = new PanServiceListener();
+            mBluetoothAdapter.getProfileProxy(mContext, panServiceListener, BluetoothProfile.PAN);
+            panServiceListener.awaitServiceConnected();
+        });
+    }
+
+    @Test
+    public void testRunSilentBluetoothTetherProvisioningAndEnable() throws Exception {
+        assumeTrue(isTetheringSupported());
+        assumeTrue(isBluetoothTetheringSupported());
+
+        boolean adapterWasDisabled = false;
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        try {
+            // Enable bluetooth before tethering.
+            if (!mBluetoothAdapter.isEnabled()) {
+                adapterWasDisabled = true;
+                runAsShell(BLUETOOTH_CONNECT, () -> {
+                    Log.d(TAG, "Enabling bluetooth for tethering");
+                    assertTrue(mBluetoothAdapter.enable());
+                    waitForBluetoothState(BluetoothAdapter.STATE_ON);
+                });
+            }
+
+            tetherEventCallback.expectNoTetheringActive();
+            runAsShell(TETHER_PRIVILEGED, () -> {
+                final StartTetheringCallback startTetheringCallback =
+                        new StartTetheringCallback();
+                mTM.startTethering(new TetheringRequest.Builder(TETHERING_BLUETOOTH)
+                        .setShouldShowEntitlementUi(false).build(), c -> c.run() /* executor */,
+                        startTetheringCallback);
+                startTetheringCallback.verifyTetheringStarted();
+            });
+            waitForBluetoothTetherState(true);
+
+            runAsShell(TETHER_PRIVILEGED, () -> {
+                mTM.stopTethering(TETHERING_BLUETOOTH);
+                //tetherEventCallback.expectNoTetheringActive();
+            });
+        } finally {
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+
+            // Restore original bluetooth state.
+            if (adapterWasDisabled) {
+                runAsShell(BLUETOOTH_CONNECT, () -> {
+                    assertTrue(mBluetoothAdapter.disable());
+                    waitForBluetoothState(BluetoothAdapter.STATE_OFF);
+                });
+            }
+        }
     }
 }
