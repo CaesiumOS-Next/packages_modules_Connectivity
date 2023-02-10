@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53946f1e_e320464d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done. Moved this to the ConnectivityCompatChanges.",
+      "parentUuid": "43ae3226_fbca6cde",
+      "range": {
+        "startLine": 131,
+        "startChar": 29,
+        "endLine": 131,
+        "endChar": 75
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e00e43e3_a63f8f74",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "Javadoc must be at the standard format :\n\n    /**\n     * One-line description\n     *\n     * Detailed discussion...\n     */",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 2
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3750138b_024861c6",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Updated based on the suggestion.\n\nHowever, As discussed, oracle javadoc required \"first sentence\" instead of \"first line\"",
+      "parentUuid": "e00e43e3_a63f8f74",
       "range": {
         "startLine": 32,
         "startChar": 1,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63f2cf4f_36ceb430",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a032b853_f3234d0c",
+      "range": {
+        "startLine": 33,
+        "startChar": 69,
+        "endLine": 33,
+        "endChar": 88
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b738558_a7f8c35d",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "Can\u0027t this just be a bitfield ? This looks very wasteful.",
+      "range": {
+        "startLine": 49,
+        "startChar": 18,
+        "endLine": 49,
+        "endChar": 30
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcd4a589_693bbd81",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b738558_a7f8c35d",
       "range": {
         "startLine": 49,
         "startChar": 18,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd4ea8b8_438b684b",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b12e6247_a081127c",
+      "range": {
+        "startLine": 67,
+        "startChar": 18,
+        "endLine": 67,
+        "endChar": 53
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "776eaf19_2bdcb7ef",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "enforce\n\n(if you look at the methods you changed in ConnectivityService you\u0027ll see that all methods that throw are called `enforce` and the ones that return a boolean are called `check`)",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 21
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "152697c5_2380fd4f",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "776eaf19_2bdcb7ef",
       "range": {
         "startLine": 92,
         "startChar": 16,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09891a62_ffb0d6e7",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "I realized if the xml has bad format, the apk won\u0027t compile. Aapt will check the xml format.\n\nExample failure message\n```\nError: exited with code: 1\nCommand: out/host/linux-x86/bin/aapt2 compile -o out/soong/.intermediates/packages/modules/Connectivity/tests/unit/FrameworksNetTests/android_common/aapt2/packages/modules/Connectivity/tests/unit/res --pseudo-localize packages/modules/Connectivity/tests/unit/res/raw/history_v1 packages/modules/Connectivity/tests/unit/res/raw/net_dev_typical packages/modules/Connectivity/tests/unit/res/raw/netstats_uid_v16 packages/modules/Connectivity/tests/unit/res/raw/netstats_uid_v4 packages/modules/Connectivity/tests/unit/res/raw/netstats_v1 packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_typical packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_vpn_incorrect_iface packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_vpn_one_underlying packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_vpn_one_underlying_compression packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_vpn_one_underlying_own_traffic packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_vpn_one_underlying_two_vpn packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_vpn_rewrite_through_self packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_vpn_two_underlying_duplication packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_vpn_two_underlying_split packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_vpn_two_underlying_split_compression packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_vpn_with_clat packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_with_clat packages/modules/Connectivity/tests/unit/res/raw/xt_qtaguid_with_clat_simple packages/modules/Connectivity/tests/unit/res/xml/self_certified_capabilities_bad_format.xml packages/modules/Connectivity/tests/unit/res/xml/self_certified_capabilities_bandwidth.xml packages/modules/Connectivity/tests/unit/res/xml/self_certified_capabilities_both.xml packages/modules/Connectivity/tests/unit/res/xml/self_certified_capabilities_latency.xml packages/modules/Connectivity/tests/unit/res/xml/self_certified_capabilities_other.xml packages/modules/Connectivity/tests/unit/res/xml/self_certified_capabilities_wrong_declaration.xml packages/modules/Connectivity/tests/unit/res/xml/self_certified_capabilities_wrong_tag.xml\nOutput:\npackages/modules/Connectivity/tests/unit/res/xml/self_certified_capabilities_bad_format.xml:18: error: no element found.\npackages/modules/Connectivity/tests/unit/res/xml/self_certified_capabilities_bad_format.xml: error: file failed to compile.\n\n```",
+      "parentUuid": "2b17181f_6b99096a",
+      "range": {
+        "startLine": 165,
+        "startChar": 66,
+        "endLine": 165,
+        "endChar": 78
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fa77b3f_7b83a4b9",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "\"format\" ?",
+      "range": {
+        "startLine": 171,
+        "startChar": 41,
+        "endLine": 171,
+        "endChar": 47
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a18f4564_8b3093b9",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Fixed, it should be \"uses-network-capability\"",
+      "parentUuid": "9fa77b3f_7b83a4b9",
       "range": {
         "startLine": 171,
         "startChar": 41,
@@ -202,6 +394,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f7b32ec_8f03c3da",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Thanks, changed to only logging.",
+      "parentUuid": "b5440113_f59e3b0d",
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcc392f5_b55f268c",
@@ -215,6 +425,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "Won\u0027t this fit on one line ?",
+      "range": {
+        "startLine": 176,
+        "startChar": 66,
+        "endLine": 176,
+        "endChar": 67
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "731354c2_1d47babc",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "dcc392f5_b55f268c",
       "range": {
         "startLine": 176,
         "startChar": 66,
@@ -248,6 +482,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28516abd_497f2b32",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d54acd64_75576759",
+      "range": {
+        "startLine": 192,
+        "startChar": 30,
+        "endLine": 192,
+        "endChar": 54
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db309eee_bce918a8",
@@ -261,6 +519,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "Why make this a mutable field ? This sets a private member that will be accessed on another thread – namely the connectivity thread – and that thread is already started, and you don\u0027t have a thread boundary so when you access the member on the handler thread you\u0027ll expose yourself to seeing an uninitialized member. You\u0027ll crash the system with NPE in a small percentage of cases.\n\nMutable members should be strictly reserved to the cases where they contain state that actually changes throughout the lifetime of the containing class. Here this is not the case, so it\u0027s hard to use and dangerous (and case in point, this will crash). Never use non-final members for dependency injection (or generally, never when it can be avoided at all 😜), it\u0027s just too easy to get it wrong.\n\nIt seems to me much simpler to just declare a new `isChangeEnabled` method in ConnectivityService#Dependencies and override that in the test instead. It\u0027s less code, it\u0027s easier to understand, and it won\u0027t crash the system. It\u0027s also what we do for all other dependency injections in this class and other classes in our code.",
+      "range": {
+        "startLine": 1648,
+        "startChar": 8,
+        "endLine": 1648,
+        "endChar": 31
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc46ce82_dec831b3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1648,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db309eee_bce918a8",
       "range": {
         "startLine": 1648,
         "startChar": 8,
@@ -294,6 +576,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ead512c6_55a0ef9c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6938,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "As discussed offline, checking pkgName and userId is more accurate here because there could be a case that two pkg shared the same uid.",
+      "parentUuid": "9779a6f2_a1cb77d9",
+      "range": {
+        "startLine": 6938,
+        "startChar": 16,
+        "endLine": 6938,
+        "endChar": 34
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9850809b_910f5694",
@@ -311,6 +617,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5804f19_67e595ac",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6949,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9850809b_910f5694",
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ce45c8b_2d3d4492",
@@ -324,6 +648,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "Could we only parse the XML once for a given package ? Here if the app calls requestNetwork() 20 time we\u0027ll be re-parsing the XML 20 times.",
+      "range": {
+        "startLine": 6964,
+        "startChar": 78,
+        "endLine": 6964,
+        "endChar": 84
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc620708_68a7f67e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6964,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ce45c8b_2d3d4492",
       "range": {
         "startLine": 6964,
         "startChar": 78,
@@ -357,6 +705,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89ae680d_dfad15c5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6969,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15737d9c_2bf5bf72",
+      "range": {
+        "startLine": 6969,
+        "startChar": 53,
+        "endLine": 6969,
+        "endChar": 55
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4a402b4_ebb264fb",
@@ -370,6 +742,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "So this makes sense for your InvalidTagException custom exception, but what does it do for the other two ? Could we just throw them as is instead ? I mean, if your XML is incorrect, XmlPullParserException is an easier to understand exception than SecurityException, though you\u0027ll have to test what it actually does in app space when it happens",
+      "range": {
+        "startLine": 6970,
+        "startChar": 42,
+        "endLine": 6970,
+        "endChar": 52
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6478cd9_73b9f117",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6970,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "As discussed offline, we have to throw SecurityException here because the XmlPullParserException and IOException is not runtime excpetion.",
+      "parentUuid": "d4a402b4_ebb264fb",
       "range": {
         "startLine": 6970,
         "startChar": 42,
@@ -405,6 +801,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6d468cd7_fd708f2c",
+        "filename": "service/src/com/android/server/InvalidTagException.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "351afa3b_94ee0826",
+      "range": {
+        "startLine": 17,
+        "startChar": 20,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ee9d44e2_7d77e194",
         "filename": "tests/cts/hostside/networkslicingtestapp/AndroidManifestWithoutProperty.xml",
         "patchSetId": 7
@@ -416,6 +836,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "Curious : is this actually necessary ? I half-expect this to be automatic by virtue of this being the name of the package of this app.",
+      "range": {
+        "startLine": 28,
+        "startChar": 29,
+        "endLine": 28,
+        "endChar": 42
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "000b5dc5_c648b514",
+        "filename": "tests/cts/hostside/networkslicingtestapp/AndroidManifestWithoutProperty.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "https://source.android.com/docs/core/tests/development/instrumentation\n```\nan android:targetPackage attribute must be defined. Its value should be set to the application package under test.\n\n```",
+      "parentUuid": "ee9d44e2_7d77e194",
       "range": {
         "startLine": 28,
         "startChar": 29,
@@ -439,6 +883,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "\"shouldFail\", but in fact this test doesn\u0027t fail, it should pass because the exception should be thrown\n\nBut more importantly, whether a test should throw or not is apparent as the last statement of the test I think ? It\u0027s more useful to explain what the scenario is here, e.g. requestNetwork_lackingRequiredSelfDeclaredCapabilities. Then it\u0027s clearer to a future developer what this tests and pretty obvious why that should throw.",
+      "range": {
+        "startLine": 70,
+        "startChar": 60,
+        "endLine": 70,
+        "endChar": 72
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59ec2fef_2f395eda",
+        "filename": "tests/cts/hostside/networkslicingtestapp/src/com.android.cts.net.hostside.networkslicingtestapp/NetworkSelfDeclaredCapabilitiesTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Refactored the test name.",
+      "parentUuid": "96b452a4_44e8f532",
       "range": {
         "startLine": 70,
         "startChar": 60,
@@ -495,6 +963,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7df22459_ebd0b31a",
+        "filename": "tests/unit/java/com/android/server/ApplicationSelfCertifiedNetworkCapabilitiesTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9202961_f47bd419",
+      "range": {
+        "startLine": 37,
+        "startChar": 20,
+        "endLine": 37,
+        "endChar": 21
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "281359ee_a85d2061",
+        "filename": "tests/unit/java/com/android/server/ApplicationSelfCertifiedNetworkCapabilitiesTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36faa62c_2f31037a",
+      "range": {
+        "startLine": 37,
+        "startChar": 59,
+        "endLine": 37,
+        "endChar": 64
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "894795a8_3496940f",
@@ -508,6 +1024,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "This can be inferred",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 33
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "896ae30a_09891721",
+        "filename": "tests/unit/java/com/android/server/ApplicationSelfCertifiedNetworkCapabilitiesTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "894795a8_3496940f",
       "range": {
         "startLine": 55,
         "startChar": 20,
@@ -541,6 +1081,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35433601_e74e0e59",
+        "filename": "tests/unit/java/com/android/server/ApplicationSelfCertifiedNetworkCapabilitiesTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9baff5b7_58bbd4f1",
+      "range": {
+        "startLine": 87,
+        "startChar": 91,
+        "endLine": 87,
+        "endChar": 92
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2f4a0d9_f26c9d38",
@@ -554,6 +1118,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "• This does test the `requestNetwork` method, but that\u0027s not very useful information here – the call is readily apparent in l.6298, and what you\u0027re interested in testing here is instead the self-declared capabilities.\n• `withCompatChangedDisabled` is apparent in the annotation above, so I don\u0027t think it\u0027s very useful mentioning it in the method name\n• Here too, having the result of the test in the name of the method looks superfluous to me.\n• While the test harness no longer cares about the method name and instead relies on the `@Test` annotation, you can notice that in this file all test methods start with `test` and the ones that don\u0027t are helper functions. Let\u0027s keep to the local convention in this file.\n\nTo make this more useful, I think it\u0027s best to describe what the scenario is, e.g. here you could name this `testSelfCertifiedCapabilitiesDisabled`.",
+      "range": {
+        "startLine": 6290,
+        "startChar": 16,
+        "endLine": 6290,
+        "endChar": 85
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f606712_9603c7c2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6290,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2f4a0d9_f26c9d38",
       "range": {
         "startLine": 6290,
         "startChar": 16,
@@ -587,6 +1175,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13af7041_c9609554",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6316,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a88d5de7_8cfcc1ec",
+      "range": {
+        "startLine": 6316,
+        "startChar": 55,
+        "endLine": 6316,
+        "endChar": 77
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fba96a08_b34d176c",
@@ -600,6 +1212,30 @@
       "writtenOn": "2023-02-09T05:19:09Z",
       "side": 1,
       "message": "Let\u0027s declare this only in the branch where it\u0027s actually used",
+      "range": {
+        "startLine": 6318,
+        "startChar": 38,
+        "endLine": 6318,
+        "endChar": 46
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1bef483_d5b2e357",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6318,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-10T09:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fba96a08_b34d176c",
       "range": {
         "startLine": 6318,
         "startChar": 38,
