@@ -23,12 +23,14 @@ import static android.net.http.cts.util.TestUtilsKt.skipIfNoInternetConnection;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 import android.net.http.HttpEngine;
 import android.net.http.UrlRequest;
 import android.net.http.UrlResponseInfo;
+import android.net.http.cts.util.HttpCtsTestServer;
 import android.net.http.cts.util.TestUrlRequestCallback;
 import android.net.http.cts.util.TestUrlRequestCallback.ResponseStep;
 
@@ -47,6 +49,7 @@ public class HttpEngineTest {
 
     private HttpEngine.Builder mEngineBuilder;
     private TestUrlRequestCallback mCallback;
+    private HttpCtsTestServer mTestServer;
     private UrlRequest mRequest;
     private HttpEngine mEngine;
 
@@ -56,6 +59,7 @@ public class HttpEngineTest {
         skipIfNoInternetConnection(context);
         mEngineBuilder = new HttpEngine.Builder(context);
         mCallback = new TestUrlRequestCallback();
+        mTestServer = new HttpCtsTestServer(context);
     }
 
     @After
@@ -66,6 +70,9 @@ public class HttpEngineTest {
         }
         if (mEngine != null) {
             mEngine.shutdown();
+        }
+        if (mTestServer != null) {
+            mTestServer.shutdown();
         }
     }
 
@@ -85,6 +92,31 @@ public class HttpEngineTest {
         UrlResponseInfo info = mCallback.mResponseInfo;
         assertOKStatusCode(info);
         assertEquals("h2", info.getNegotiatedProtocol());
+    }
+
+    @Test
+    public void testHttpEngine_EnableHttpCache() {
+        String url = mTestServer.getSuccessUrl();
+        mEngine =
+                mEngineBuilder
+                        .setEnableHttpCache(HttpEngine.Builder.HTTP_CACHE_IN_MEMORY, 1000 * 1024)
+                        .build();
+        UrlRequest.Builder builder =
+                mEngine.newUrlRequestBuilder(url, mCallback, mCallback.getExecutor());
+        mRequest = builder.build();
+        mRequest.start();
+        mCallback.expectCallback(ResponseStep.ON_SUCCEEDED);
+        UrlResponseInfo info = mCallback.mResponseInfo;
+        assertOKStatusCode(info);
+        assertFalse(info.wasCached());
+
+        mCallback = new TestUrlRequestCallback();
+        mRequest = builder.build();
+        mRequest.start();
+        mCallback.expectCallback(ResponseStep.ON_SUCCEEDED);
+        info = mCallback.mResponseInfo;
+        assertOKStatusCode(info);
+        assertTrue(info.wasCached());
     }
 
     @Test
