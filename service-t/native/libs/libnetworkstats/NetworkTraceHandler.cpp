@@ -27,9 +27,25 @@
 #include <perfetto/tracing/platform.h>
 #include <perfetto/tracing/tracing.h>
 
+namespace {
+// Wraps the NetworkTraceHandler for use within Perfetto, ensuring there is only
+// a single instance of the handler in use at any given time.
+class TraceDataSource : public perfetto::DataSource<TraceDataSource> {
+ public:
+  android::bpf::NetworkTraceHandler& GetHandler() {
+    static auto* sHandler = new android::bpf::NetworkTraceHandler();
+    return *sHandler;
+  }
+
+  void OnSetup(const SetupArgs& a) override { GetHandler().OnSetup(a.config); }
+  void OnStart(const StartArgs&) override { GetHandler().OnStart(); }
+  void OnStop(const StopArgs&) override { GetHandler().OnStop(); }
+};
+}  // namespace
+
 // Note: this is initializing state for a templated Perfetto type that resides
 // in the `perfetto` namespace. This must be defined in the global scope.
-PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS(android::bpf::NetworkTraceHandler);
+PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS(TraceDataSource);
 
 namespace android {
 namespace bpf {
@@ -43,7 +59,7 @@ void NetworkTraceHandler::RegisterDataSource() {
   ALOGD("Registering Perfetto data source");
   perfetto::DataSourceDescriptor dsd;
   dsd.set_name("android.network_packets");
-  NetworkTraceHandler::Register(dsd);
+  TraceDataSource::Register(dsd);
 }
 
 // static
@@ -57,15 +73,18 @@ void NetworkTraceHandler::InitPerfettoTracing() {
 
 NetworkTraceHandler::NetworkTraceHandler()
     : NetworkTraceHandler([this](const PacketTrace& pkt) {
-        NetworkTraceHandler::Trace(
-            [this, pkt](NetworkTraceHandler::TraceContext ctx) {
-              Fill(pkt, *ctx.NewTracePacket());
-            });
+        TraceDataSource::Trace([this, pkt](TraceDataSource::TraceContext ctx) {
+          Fill(pkt, *ctx.NewTracePacket());
+        });
       }) {}
 
-void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
-  const std::string& raw = args.config->network_packet_trace_config_raw();
+void NetworkTraceHandler::OnSetup(const perfetto::DataSourceConfig* args) {
+  const std::string& raw = args->network_packet_trace_config_raw();
   NetworkPacketTraceConfig::Decoder config(raw);
+
+  // Only first session sets mPollMs.
+  std::scoped_lock<std::mutex> lock(mInitMutex);
+  if (mSessionCount > 0) return;
 
   mPollMs = config.poll_ms();
   if (mPollMs < 100) {
@@ -74,13 +93,19 @@ void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
   }
 }
 
-void NetworkTraceHandler::OnStart(const StartArgs&) {
+void NetworkTraceHandler::OnStart() {
+  std::scoped_lock<std::mutex> lock(mInitMutex);
+  if (mSessionCount++ > 0) return;
+
   if (!Start()) return;
   mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
   Loop();
 }
 
-void NetworkTraceHandler::OnStop(const StopArgs&) {
+void NetworkTraceHandler::OnStop() {
+  std::scoped_lock<std::mutex> lock(mInitMutex);
+  if (--mSessionCount > 0) return;
+
   Stop();
   mTaskRunner.reset();
 }
