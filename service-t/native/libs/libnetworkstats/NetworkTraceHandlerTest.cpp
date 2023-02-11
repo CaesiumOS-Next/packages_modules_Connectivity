@@ -95,6 +95,24 @@ class NetworkTraceHandlerTest : public testing::Test {
   }
 };
 
+TEST_F(NetworkTraceHandlerTest, ConcurrentSessions) {
+  // Simulate two concurrent sessions (two starts followed by two stops). Check
+  // that tracing is stopped only after both sessions finish.
+  NetworkTraceHandler handler([&](const PacketTrace& pkt) {});
+
+  ASSERT_TRUE(handler.Start());
+  EXPECT_TRUE(handler.ConsumeAll());
+
+  ASSERT_TRUE(handler.Start());
+  EXPECT_TRUE(handler.ConsumeAll());
+
+  ASSERT_TRUE(handler.Stop());
+  EXPECT_TRUE(handler.ConsumeAll());
+
+  ASSERT_TRUE(handler.Stop());
+  EXPECT_FALSE(handler.ConsumeAll());
+}
+
 TEST_F(NetworkTraceHandlerTest, PollWhileInactive) {
   NetworkTraceHandler handler([&](const PacketTrace& pkt) {});
 
