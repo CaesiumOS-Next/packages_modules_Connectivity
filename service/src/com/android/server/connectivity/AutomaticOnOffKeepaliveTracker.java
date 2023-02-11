@@ -199,7 +199,9 @@ public class AutomaticOnOffKeepaliveTracker {
                 final boolean autoOnOff, @NonNull Context context) throws InvalidSocketException {
             this.mKi = Objects.requireNonNull(ki);
             mCallback = ki.mCallback;
-            if (autoOnOff && mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION)) {
+            final boolean featureEnabled = BinderUtils.withCleanCallingIdentity(() ->
+                    mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION));
+            if (autoOnOff && featureEnabled) {
                 mAutomaticOnOffState = STATE_ENABLED;
                 if (null == ki.mFd) {
                     throw new IllegalArgumentException("fd can't be null with automatic "
