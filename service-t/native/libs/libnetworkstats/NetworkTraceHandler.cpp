@@ -24,15 +24,32 @@
 #include <perfetto/config/android/network_trace_config.pbzero.h>
 #include <perfetto/trace/android/network_trace.pbzero.h>
 #include <perfetto/trace/profiling/profile_packet.pbzero.h>
-#include <perfetto/tracing/platform.h>
-#include <perfetto/tracing/tracing.h>
+#include <perfetto/tracing.h>
+
+namespace {
+// Wraps the NetworkTraceHandler for use within Perfetto, ensuring there is only
+// a single instance of the handler in use at any given time.
+class TraceDataSource : public perfetto::DataSource<TraceDataSource> {
+ public:
+  void OnSetup(const SetupArgs& args) override {
+    ::android::bpf::NetworkTraceHandler::Instance().OnSetup(args);
+  }
+  void OnStart(const StartArgs&) override {
+    ::android::bpf::NetworkTraceHandler::Instance().Start();
+  }
+  void OnStop(const StopArgs&) override {
+    ::android::bpf::NetworkTraceHandler::Instance().Stop();
+  }
+};
+}  // namespace
 
 // Note: this is initializing state for a templated Perfetto type that resides
 // in the `perfetto` namespace. This must be defined in the global scope.
-PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS(android::bpf::NetworkTraceHandler);
+PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS(TraceDataSource);
 
 namespace android {
 namespace bpf {
+using ::perfetto::DataSourceBase;
 using ::perfetto::protos::pbzero::NetworkPacketEvent;
 using ::perfetto::protos::pbzero::NetworkPacketTraceConfig;
 using ::perfetto::protos::pbzero::TracePacket;
@@ -43,7 +60,7 @@ void NetworkTraceHandler::RegisterDataSource() {
   ALOGD("Registering Perfetto data source");
   perfetto::DataSourceDescriptor dsd;
   dsd.set_name("android.network_packets");
-  NetworkTraceHandler::Register(dsd);
+  TraceDataSource::Register(dsd);
 }
 
 // static
@@ -57,15 +74,18 @@ void NetworkTraceHandler::InitPerfettoTracing() {
 
 NetworkTraceHandler::NetworkTraceHandler()
     : NetworkTraceHandler([this](const PacketTrace& pkt) {
-        NetworkTraceHandler::Trace(
-            [this, pkt](NetworkTraceHandler::TraceContext ctx) {
-              Fill(pkt, *ctx.NewTracePacket());
-            });
+        TraceDataSource::Trace([this, pkt](TraceDataSource::TraceContext ctx) {
+          Fill(pkt, *ctx.NewTracePacket());
+        });
       }) {}
 
-void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
+void NetworkTraceHandler::OnSetup(const DataSourceBase::SetupArgs& args) {
   const std::string& raw = args.config->network_packet_trace_config_raw();
   NetworkPacketTraceConfig::Decoder config(raw);
+
+  // Only the first session sets mPollMs.
+  std::scoped_lock<std::mutex> lock(mMutex);
+  if (mSessionCount > 0) return;
 
   mPollMs = config.poll_ms();
   if (mPollMs < 100) {
@@ -74,20 +94,15 @@ void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
   }
 }
 
-void NetworkTraceHandler::OnStart(const StartArgs&) {
-  if (!Start()) return;
-  mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
-  Loop();
-}
-
-void NetworkTraceHandler::OnStop(const StopArgs&) {
-  Stop();
-  mTaskRunner.reset();
-}
-
 void NetworkTraceHandler::Loop() {
-  mTaskRunner->PostDelayedTask([this]() { Loop(); }, mPollMs);
-  ConsumeAll();
+  mTaskRunner->PostDelayedTask(
+      [this]() {
+        mMutex.lock();
+        Loop();
+        mMutex.unlock();
+        ConsumeAll();
+      },
+      mPollMs);
 }
 
 void NetworkTraceHandler::Fill(const PacketTrace& src, TracePacket& dst) {
@@ -116,6 +131,9 @@ void NetworkTraceHandler::Fill(const PacketTrace& src, TracePacket& dst) {
 bool NetworkTraceHandler::Start() {
   ALOGD("Starting datasource");
 
+  std::scoped_lock<std::mutex> lock(mMutex);
+  if (mSessionCount++ > 0) return true;
+
   auto status = mConfigurationMap.init(PACKET_TRACE_ENABLED_MAP_PATH);
   if (!status.ok()) {
     ALOGW("Failed to bind config map: %s", status.error().message().c_str());
@@ -136,24 +154,31 @@ bool NetworkTraceHandler::Start() {
     return false;
   }
 
+  mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
+  Loop();
+
   return true;
 }
 
 bool NetworkTraceHandler::Stop() {
   ALOGD("Stopping datasource");
 
+  std::scoped_lock<std::mutex> lock(mMutex);
+  if (--mSessionCount > 0) return true;
+
   auto res = mConfigurationMap.writeValue(0, false, BPF_ANY);
   if (!res.ok()) {
     ALOGW("Failed to disable tracing: %s", res.error().message().c_str());
-    return false;
   }
 
+  mTaskRunner.reset();
   mRingBuffer.reset();
 
-  return true;
+  return res.ok();
 }
 
 bool NetworkTraceHandler::ConsumeAll() {
+  std::scoped_lock<std::mutex> lock(mMutex);
   if (mRingBuffer == nullptr) {
     ALOGW("Tracing is not active");
     return false;
