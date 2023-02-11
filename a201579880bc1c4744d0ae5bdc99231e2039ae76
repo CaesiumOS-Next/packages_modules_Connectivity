@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f24c8569_41d9a29a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-11T08:27:05Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "741b0fe4_d6ac75de",
+      "range": {
+        "startLine": 21,
+        "startChar": 25,
+        "endLine": 24,
+        "endChar": 6
+      },
+      "revId": "a201579880bc1c4744d0ae5bdc99231e2039ae76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0df0e8f8_ed7ce6a6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9737826_5abb3488",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-11T08:27:05Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "4362b48e_6da6791d",
+      "range": {
+        "startLine": 284,
+        "startChar": 15,
+        "endLine": 284,
+        "endChar": 28
+      },
+      "revId": "a201579880bc1c4744d0ae5bdc99231e2039ae76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9074d249_2916183a",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-02-10T05:44:46Z",
       "side": 1,
       "message": "Comment ?",
+      "range": {
+        "startLine": 389,
+        "startChar": 53,
+        "endLine": 389,
+        "endChar": 72
+      },
+      "revId": "a201579880bc1c4744d0ae5bdc99231e2039ae76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73238f74_d11314dd",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-11T08:27:05Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "9074d249_2916183a",
       "range": {
         "startLine": 389,
         "startChar": 53,
