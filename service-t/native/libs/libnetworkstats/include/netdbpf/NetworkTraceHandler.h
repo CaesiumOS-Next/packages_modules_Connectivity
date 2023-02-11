@@ -17,7 +17,7 @@
 #pragma once
 
 #include <perfetto/base/task_runner.h>
-#include <perfetto/tracing.h>
+#include <perfetto/tracing/data_source.h>
 
 #include <string>
 #include <unordered_map>
@@ -31,7 +31,7 @@
 namespace android {
 namespace bpf {
 
-class NetworkTraceHandler : public perfetto::DataSource<NetworkTraceHandler> {
+class NetworkTraceHandler {
  public:
   // Registers this DataSource.
   static void RegisterDataSource();
@@ -42,19 +42,18 @@ class NetworkTraceHandler : public perfetto::DataSource<NetworkTraceHandler> {
   // Initialize with the default Perfetto callback.
   NetworkTraceHandler();
 
-  // Testonly: initialize with a callback capable of intercepting data.
+  // Testonly: initialize with a callback capable of intercepting data. This
+  // sets mPollMs high enough that the periodic thread will never run in tests.
   NetworkTraceHandler(std::function<void(const PacketTrace&)> callback)
-      : mCallback(std::move(callback)) {}
+      : mPollMs(10000), mCallback(std::move(callback)) {}
 
   // Testonly: standalone functions without perfetto dependency.
   bool Start();
   bool Stop();
   bool ConsumeAll();
 
-  // perfetto::DataSource overrides:
-  void OnSetup(const SetupArgs&) override;
-  void OnStart(const StartArgs&) override;
-  void OnStop(const StopArgs&) override;
+  // perfetto::DataSource delegate.
+  void OnSetup(const perfetto::DataSourceBase::SetupArgs& args);
 
   // Convert a PacketTrace into a Perfetto trace packet.
   void Fill(const PacketTrace& src,
@@ -62,6 +61,11 @@ class NetworkTraceHandler : public perfetto::DataSource<NetworkTraceHandler> {
 
  private:
   void Loop();
+
+  // Record the active session count so that only the first concurrent session
+  // starts tracing, and only the last conccurrent session cleans up.
+  std::mutex mInitMutex;
+  int mSessionCount = 0;
 
   // How often to poll the ring buffer, defined by the trace config.
   uint32_t mPollMs;
