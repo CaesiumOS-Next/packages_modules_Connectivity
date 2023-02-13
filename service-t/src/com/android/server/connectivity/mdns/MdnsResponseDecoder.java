@@ -230,9 +230,9 @@ public class MdnsResponseDecoder {
 
     private static void assignInetRecord(MdnsResponse response, MdnsInetAddressRecord inetRecord) {
         if (inetRecord.getInet4Address() != null) {
-            response.setInet4AddressRecord(inetRecord);
+            response.addInet4AddressRecord(inetRecord);
         } else if (inetRecord.getInet6Address() != null) {
-            response.setInet6AddressRecord(inetRecord);
+            response.addInet6AddressRecord(inetRecord);
         }
     }
 

@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.Network;
 
@@ -33,8 +34,8 @@ public class MdnsResponse {
     private final List<MdnsPointerRecord> pointerRecords;
     private MdnsServiceRecord serviceRecord;
     private MdnsTextRecord textRecord;
-    private MdnsInetAddressRecord inet4AddressRecord;
-    private MdnsInetAddressRecord inet6AddressRecord;
+    @NonNull private List<MdnsInetAddressRecord> inet4AddressRecords;
+    @NonNull private List<MdnsInetAddressRecord> inet6AddressRecords;
     private long lastUpdateTime;
     private final int interfaceIndex;
     @Nullable private final Network network;
@@ -44,6 +45,8 @@ public class MdnsResponse {
         lastUpdateTime = now;
         records = new LinkedList<>();
         pointerRecords = new LinkedList<>();
+        inet4AddressRecords = new LinkedList<>();
+        inet6AddressRecords = new LinkedList<>();
         this.interfaceIndex = interfaceIndex;
         this.network = network;
     }
@@ -170,43 +173,52 @@ public class MdnsResponse {
         return textRecord != null;
     }
 
-    /** Sets the IPv4 address record. */
-    public synchronized boolean setInet4AddressRecord(
+    /** Add the IPv4 address record. */
+    public synchronized boolean addInet4AddressRecord(
             @Nullable MdnsInetAddressRecord newInet4AddressRecord) {
-        if (recordsAreSame(this.inet4AddressRecord, newInet4AddressRecord)) {
+        if (inet4AddressRecords.contains(newInet4AddressRecord)) {
             return false;
         }
-        if (this.inet4AddressRecord != null) {
-            records.remove(this.inet4AddressRecord);
-        }
         if (newInet4AddressRecord != null && newInet4AddressRecord.getInet4Address() != null) {
-            this.inet4AddressRecord = newInet4AddressRecord;
-            records.add(this.inet4AddressRecord);
+            inet4AddressRecords.add(newInet4AddressRecord);
+            records.add(newInet4AddressRecord);
         }
         return true;
     }
 
-    /** Gets the IPv4 address record. */
+    /** Gets the IPv4 address records. */
+    public synchronized List<MdnsInetAddressRecord> getInet4AddressRecords() {
+        return new LinkedList<>(inet4AddressRecords);
+    }
+
+    /** Return the first IPv4 address record or null if no record. */
+    @Nullable
     public synchronized MdnsInetAddressRecord getInet4AddressRecord() {
-        return inet4AddressRecord;
+        return inet4AddressRecords.isEmpty() ? null : inet4AddressRecords.get(0);
     }
 
+    /** Check whether response has IPv4 address record */
     public synchronized boolean hasInet4AddressRecord() {
-        return inet4AddressRecord != null;
+        return !inet4AddressRecords.isEmpty();
     }
 
-    /** Sets the IPv6 address record. */
-    public synchronized boolean setInet6AddressRecord(
+    /** Clear all IPv4 address records */
+    synchronized void clearInet4AddressRecords() {
+        for (MdnsInetAddressRecord record : inet4AddressRecords) {
+            records.remove(record);
+        }
+        inet4AddressRecords.clear();
+    }
+
+    /** Sets the IPv6 address records. */
+    public synchronized boolean addInet6AddressRecord(
             @Nullable MdnsInetAddressRecord newInet6AddressRecord) {
-        if (recordsAreSame(this.inet6AddressRecord, newInet6AddressRecord)) {
+        if (inet6AddressRecords.contains(newInet6AddressRecord)) {
             return false;
         }
-        if (this.inet6AddressRecord != null) {
-            records.remove(this.inet6AddressRecord);
-        }
         if (newInet6AddressRecord != null && newInet6AddressRecord.getInet6Address() != null) {
-            this.inet6AddressRecord = newInet6AddressRecord;
-            records.add(this.inet6AddressRecord);
+            inet6AddressRecords.add(newInet6AddressRecord);
+            records.add(newInet6AddressRecord);
         }
         return true;
     }
@@ -227,13 +239,28 @@ public class MdnsResponse {
         return network;
     }
 
-    /** Gets the IPv6 address record. */
-    public synchronized MdnsInetAddressRecord getInet6AddressRecord() {
-        return inet6AddressRecord;
+    /** Gets all IPv6 address records. */
+    public synchronized List<MdnsInetAddressRecord> getInet6AddressRecords() {
+        return new LinkedList<>(inet6AddressRecords);
     }
 
+    /** Return the first IPv6 address record or null if no record. */
+    @Nullable
+    public synchronized MdnsInetAddressRecord getInet6AddressRecord() {
+        return inet6AddressRecords.isEmpty() ? null : inet6AddressRecords.get(0);
+    }
+
+    /** Check whether response has IPv6 address record */
     public synchronized boolean hasInet6AddressRecord() {
-        return inet6AddressRecord != null;
+        return !inet6AddressRecords.isEmpty();
+    }
+
+    /** Clear all IPv6 address records */
+    synchronized void clearInet6AddressRecords() {
+        for (MdnsInetAddressRecord record : inet6AddressRecords) {
+            records.remove(record);
+        }
+        inet6AddressRecords.clear();
     }
 
     /** Gets all of the records. */
@@ -274,45 +301,45 @@ public class MdnsResponse {
             }
         }
 
-        MdnsInetAddressRecord otherInet4AddressRecord = other.getInet4AddressRecord();
-        if (otherInet4AddressRecord != null && otherInet4AddressRecord.getInet4Address() != null) {
-            if (setInet4AddressRecord(otherInet4AddressRecord)) {
-                updated = true;
+        if (other.hasInet4AddressRecord()) {
+            final List<MdnsInetAddressRecord> otherInet4AddressRecords =
+                    other.getInet4AddressRecords();
+            clearInet4AddressRecords();
+            for (MdnsInetAddressRecord inetAddressRecord : otherInet4AddressRecords) {
+                addInet4AddressRecord(inetAddressRecord);
             }
+            updated = true;
         }
 
-        MdnsInetAddressRecord otherInet6AddressRecord = other.getInet6AddressRecord();
-        if (otherInet6AddressRecord != null && otherInet6AddressRecord.getInet6Address() != null) {
-            if (setInet6AddressRecord(otherInet6AddressRecord)) {
-                updated = true;
+
+        if (other.hasInet6AddressRecord()) {
+            final List<MdnsInetAddressRecord> otherInet6AddressRecords =
+                    other.getInet6AddressRecords();
+            clearInet6AddressRecords();
+            for (MdnsInetAddressRecord inetAddressRecord : otherInet6AddressRecords) {
+                addInet6AddressRecord(inetAddressRecord);
             }
+            updated = true;
         }
 
         // If the hostname in the service record no longer matches the hostname in either of the
         // address records, then drop the address records.
         if (this.serviceRecord != null) {
-            boolean dropAddressRecords = false;
-
-            if (this.inet4AddressRecord != null) {
+            for (MdnsInetAddressRecord inetAddressRecord : getInet4AddressRecords()) {
                 if (!Arrays.equals(
-                        this.serviceRecord.getServiceHost(), this.inet4AddressRecord.getName())) {
-                    dropAddressRecords = true;
+                        this.serviceRecord.getServiceHost(), inetAddressRecord.getName())) {
+                    records.remove(inetAddressRecord); // Drop record.
+                    updated = true;
                 }
             }
-            if (this.inet6AddressRecord != null) {
+            for (MdnsInetAddressRecord inetAddressRecord : getInet6AddressRecords()) {
                 if (!Arrays.equals(
-                        this.serviceRecord.getServiceHost(), this.inet6AddressRecord.getName())) {
-                    dropAddressRecords = true;
+                        this.serviceRecord.getServiceHost(), inetAddressRecord.getName())) {
+                    records.remove(inetAddressRecord); // Drop record.
+                    updated = true;
                 }
-            }
-
-            if (dropAddressRecords) {
-                setInet4AddressRecord(null);
-                setInet6AddressRecord(null);
-                updated = true;
             }
         }
-
         return updated;
     }
 
@@ -324,7 +351,7 @@ public class MdnsResponse {
         return !pointerRecords.isEmpty()
                 && (serviceRecord != null)
                 && (textRecord != null)
-                && (inet4AddressRecord != null || inet6AddressRecord != null);
+                && (!inet4AddressRecords.isEmpty() || !inet6AddressRecords.isEmpty());
     }
 
     /**
@@ -388,13 +415,13 @@ public class MdnsResponse {
             ++count;
         }
 
-        if (inet4AddressRecord != null) {
-            inet4AddressRecord.write(writer, now);
+        for (MdnsInetAddressRecord inetAddressRecord : inet4AddressRecords) {
+            inetAddressRecord.write(writer, now);
             ++count;
         }
 
-        if (inet6AddressRecord != null) {
-            inet6AddressRecord.write(writer, now);
+        for (MdnsInetAddressRecord inetAddressRecord : inet6AddressRecords) {
+            inetAddressRecord.write(writer, now);
             ++count;
         }
 

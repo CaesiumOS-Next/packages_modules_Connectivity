@@ -143,9 +143,9 @@ public class MdnsResponseTests {
             reader.skip(2); // skip record type indication.
             // Apply the right kind of record to the response.
             if (responseData.recordClass == MdnsInet4AddressRecord.class) {
-                response.setInet4AddressRecord(new MdnsInet4AddressRecord(name, reader));
+                response.addInet4AddressRecord(new MdnsInet4AddressRecord(name, reader));
             } else if (responseData.recordClass == MdnsInet6AddressRecord.class) {
-                response.setInet6AddressRecord(new MdnsInet6AddressRecord(name, reader));
+                response.addInet6AddressRecord(new MdnsInet6AddressRecord(name, reader));
             } else if (responseData.recordClass == MdnsPointerRecord.class) {
                 response.addPointerRecord(new MdnsPointerRecord(name, reader));
             } else if (responseData.recordClass == MdnsServiceRecord.class) {
@@ -168,7 +168,7 @@ public class MdnsResponseTests {
         MdnsInetAddressRecord record = new MdnsInetAddressRecord(name, MdnsRecord.TYPE_A, reader);
         MdnsResponse response = new MdnsResponse(0, INTERFACE_INDEX, mNetwork);
         assertFalse(response.hasInet4AddressRecord());
-        assertTrue(response.setInet4AddressRecord(record));
+        assertTrue(response.addInet4AddressRecord(record));
         assertEquals(response.getInet4AddressRecord(), record);
     }
 
@@ -182,7 +182,7 @@ public class MdnsResponseTests {
                 new MdnsInetAddressRecord(name, MdnsRecord.TYPE_AAAA, reader);
         MdnsResponse response = new MdnsResponse(0, INTERFACE_INDEX, mNetwork);
         assertFalse(response.hasInet6AddressRecord());
-        assertTrue(response.setInet6AddressRecord(record));
+        assertTrue(response.addInet6AddressRecord(record));
         assertEquals(response.getInet6AddressRecord(), record);
     }
 

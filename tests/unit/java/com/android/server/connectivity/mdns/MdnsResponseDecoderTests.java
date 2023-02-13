@@ -266,11 +266,11 @@ public class MdnsResponseDecoderTests {
         assertFalse(response.isComplete());
 
         response = responses.get(0);
-        response.setInet4AddressRecord(null);
+        response.clearInet4AddressRecords();
         assertFalse(response.isComplete());
 
         response = responses.get(0);
-        response.setInet6AddressRecord(null);
+        response.clearInet6AddressRecords();
         assertFalse(response.isComplete());
 
         response = responses.get(0);
@@ -329,9 +329,9 @@ public class MdnsResponseDecoderTests {
 
         // And should both have the same IPv6 address:
         assertEquals(InetAddresses.parseNumericAddress("2605:a601:a846:5700:3e61:5ff:fe0c:89f8"),
-                response1.getInet6AddressRecord().getInet6Address());
+                response1.getInet6AddressRecords().get(1).getInet6Address());
         assertEquals(InetAddresses.parseNumericAddress("2605:a601:a846:5700:3e61:5ff:fe0c:89f8"),
-                response2.getInet6AddressRecord().getInet6Address());
+                response2.getInet6AddressRecords().get(1).getInet6Address());
     }
 
     @Test

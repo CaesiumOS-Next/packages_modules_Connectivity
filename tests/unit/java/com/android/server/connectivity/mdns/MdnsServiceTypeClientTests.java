@@ -414,13 +414,13 @@ public class MdnsServiceTypeClientTests {
     }
 
     private static void verifyServiceInfo(MdnsServiceInfo serviceInfo, String serviceName,
-            String[] serviceType, String ipv4Address, String ipv6Address, int port,
+            String[] serviceType, List<String> ipv4Addresses, List<String> ipv6Addresses, int port,
             List<String> subTypes, Map<String, String> attributes, int interfaceIndex,
             Network network) {
         assertEquals(serviceName, serviceInfo.getServiceInstanceName());
         assertArrayEquals(serviceType, serviceInfo.getServiceType());
-        assertEquals(ipv4Address, serviceInfo.getIpv4Address());
-        assertEquals(ipv6Address, serviceInfo.getIpv6Address());
+        assertEquals(ipv4Addresses, serviceInfo.getIpv4Addresses());
+        assertEquals(ipv6Addresses, serviceInfo.getIpv6Addresses());
         assertEquals(port, serviceInfo.getPort());
         assertEquals(subTypes, serviceInfo.getSubtypes());
         for (String key : attributes.keySet()) {
@@ -445,8 +445,8 @@ public class MdnsServiceTypeClientTests {
         verifyServiceInfo(serviceInfoCaptor.getAllValues().get(0),
                 "service-instance-1",
                 SERVICE_TYPE_LABELS,
-                null /* ipv4Address */,
-                null /* ipv6Address */,
+                List.of() /* ipv4Addresses */,
+                List.of() /* ipv6Addresses */,
                 0 /* port */,
                 List.of() /* subTypes */,
                 Collections.singletonMap("key", null) /* attributes */,
@@ -491,8 +491,8 @@ public class MdnsServiceTypeClientTests {
         verifyServiceInfo(serviceInfoCaptor.getAllValues().get(0),
                 "service-instance-1",
                 SERVICE_TYPE_LABELS,
-                ipV4Address /* ipv4Address */,
-                null /* ipv6Address */,
+                List.of(ipV4Address) /* ipv4Addresses */,
+                List.of() /* ipv6Addresses */,
                 5353 /* port */,
                 Collections.singletonList("ABCDE") /* subTypes */,
                 Collections.singletonMap("key", null) /* attributes */,
@@ -560,8 +560,8 @@ public class MdnsServiceTypeClientTests {
         verifyServiceInfo(serviceInfoCaptor.getAllValues().get(0),
                 "service-instance-1",
                 SERVICE_TYPE_LABELS,
-                null /* ipv4Address */,
-                ipV6Address /* ipv6Address */,
+                List.of() /* ipv4Addresses */,
+                List.of(ipV6Address) /* ipv6Addresses */,
                 5353 /* port */,
                 Collections.singletonList("ABCDE") /* subTypes */,
                 Collections.singletonMap("key", null) /* attributes */,
@@ -669,8 +669,8 @@ public class MdnsServiceTypeClientTests {
         verifyServiceInfo(serviceInfoCaptor.getAllValues().get(0),
                 "service-instance-1",
                 SERVICE_TYPE_LABELS,
-                "192.168.1.1" /* ipv4Address */,
-                null /* ipv6Address */,
+                List.of("192.168.1.1") /* ipv4Addresses */,
+                List.of() /* ipv6Addresses */,
                 5353 /* port */,
                 Collections.singletonList("ABCDE") /* subTypes */,
                 Collections.singletonMap("key", null) /* attributes */,
@@ -890,8 +890,8 @@ public class MdnsServiceTypeClientTests {
         verifyServiceInfo(serviceInfoCaptor.getAllValues().get(0),
                 serviceName,
                 SERVICE_TYPE_LABELS,
-                null /* ipv4Address */,
-                null /* ipv6Address */,
+                List.of() /* ipv4Addresses */,
+                List.of() /* ipv6Addresses */,
                 5353 /* port */,
                 Collections.singletonList("ABCDE") /* subTypes */,
                 Collections.singletonMap("key", null) /* attributes */,
@@ -903,8 +903,8 @@ public class MdnsServiceTypeClientTests {
         verifyServiceInfo(serviceInfoCaptor.getAllValues().get(1),
                 serviceName,
                 SERVICE_TYPE_LABELS,
-                ipV4Address /* ipv4Address */,
-                null /* ipv6Address */,
+                List.of(ipV4Address) /* ipv4Addresses */,
+                List.of() /* ipv6Addresses */,
                 5353 /* port */,
                 Collections.singletonList("ABCDE") /* subTypes */,
                 Collections.singletonMap("key", null) /* attributes */,
@@ -916,8 +916,8 @@ public class MdnsServiceTypeClientTests {
         verifyServiceInfo(serviceInfoCaptor.getAllValues().get(2),
                 serviceName,
                 SERVICE_TYPE_LABELS,
-                ipV4Address /* ipv4Address */,
-                ipV6Address /* ipv6Address */,
+                List.of(ipV4Address) /* ipv4Addresses */,
+                List.of(ipV6Address) /* ipv6Addresses */,
                 5354 /* port */,
                 Collections.singletonList("ABCDE") /* subTypes */,
                 Collections.singletonMap("key", "value") /* attributes */,
@@ -929,8 +929,8 @@ public class MdnsServiceTypeClientTests {
         verifyServiceInfo(serviceInfoCaptor.getAllValues().get(3),
                 serviceName,
                 SERVICE_TYPE_LABELS,
-                ipV4Address /* ipv4Address */,
-                ipV6Address /* ipv6Address */,
+                List.of(ipV4Address) /* ipv4Addresses */,
+                List.of(ipV6Address) /* ipv6Addresses */,
                 5354 /* port */,
                 Collections.singletonList("ABCDE") /* subTypes */,
                 Collections.singletonMap("key", "value") /* attributes */,
@@ -942,8 +942,8 @@ public class MdnsServiceTypeClientTests {
         verifyServiceInfo(serviceInfoCaptor.getAllValues().get(4),
                 serviceName,
                 SERVICE_TYPE_LABELS,
-                ipV4Address /* ipv4Address */,
-                ipV6Address /* ipv6Address */,
+                List.of(ipV4Address) /* ipv4Addresses */,
+                List.of(ipV6Address) /* ipv6Addresses */,
                 5354 /* port */,
                 Collections.singletonList("ABCDE") /* subTypes */,
                 Collections.singletonMap("key", "value") /* attributes */,
@@ -1050,11 +1050,11 @@ public class MdnsServiceTypeClientTests {
         if (host.contains(":")) {
             when(inetAddressRecord.getInet6Address())
                     .thenReturn((Inet6Address) Inet6Address.getByName(host));
-            response.setInet6AddressRecord(inetAddressRecord);
+            response.addInet6AddressRecord(inetAddressRecord);
         } else {
             when(inetAddressRecord.getInet4Address())
                     .thenReturn((Inet4Address) Inet4Address.getByName(host));
-            response.setInet4AddressRecord(inetAddressRecord);
+            response.addInet4AddressRecord(inetAddressRecord);
         }
 
         MdnsTextRecord textRecord = mock(MdnsTextRecord.class);
@@ -1119,7 +1119,7 @@ public class MdnsServiceTypeClientTests {
                         false /* cacheFlush */,
                         120000L /* ttlMillis */,
                         Inet6Address.getByName(host));
-                response.setInet6AddressRecord(inetAddressRecord);
+                response.addInet6AddressRecord(inetAddressRecord);
             } else {
                 final MdnsInetAddressRecord inetAddressRecord = new MdnsInetAddressRecord(
                         new String[] {"address"} /* name */,
@@ -1127,7 +1127,7 @@ public class MdnsServiceTypeClientTests {
                         false /* cacheFlush */,
                         120000L /* ttlMillis */,
                         Inet4Address.getByName(host));
-                response.setInet4AddressRecord(inetAddressRecord);
+                response.addInet4AddressRecord(inetAddressRecord);
             }
         }
 
