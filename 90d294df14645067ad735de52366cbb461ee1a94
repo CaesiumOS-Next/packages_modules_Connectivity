@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "547ec355_2060cd0c",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T08:39:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce4e6cfe_abfc7291",
+      "range": {
+        "startLine": 241,
+        "startChar": 35,
+        "endLine": 241,
+        "endChar": 55
+      },
+      "revId": "90d294df14645067ad735de52366cbb461ee1a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9487b9f_8f60a9b8",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ae32d5b_b3d8f804",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T08:39:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9487b9f_8f60a9b8",
+      "range": {
+        "startLine": 526,
+        "startChar": 4,
+        "endLine": 527,
+        "endChar": 32
+      },
+      "revId": "90d294df14645067ad735de52366cbb461ee1a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79a14e8a_85bb4032",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-02-13T05:12:30Z",
       "side": 1,
       "message": "Let\u0027s always print it, whether it\u0027s auto or not.",
+      "range": {
+        "startLine": 528,
+        "startChar": 12,
+        "endLine": 528,
+        "endChar": 65
+      },
+      "revId": "90d294df14645067ad735de52366cbb461ee1a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7ffec26_7e5ed729",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T08:39:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79a14e8a_85bb4032",
       "range": {
         "startLine": 528,
         "startChar": 12,
