@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a378abcc_5317e71b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T07:49:48Z",
+      "side": 1,
+      "message": "a null subscriber ID",
+      "range": {
+        "startLine": 277,
+        "startChar": 90,
+        "endLine": 278,
+        "endChar": 44
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0cc1576_486f9e29",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 6
@@ -49,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "982ac322_a5ee4dd7",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T07:49:48Z",
+      "side": 1,
+      "message": "For backwards compatibility, still accept old wildcard match rules (6 and 7 for MATCH_{MOBILE,WIFI}_WILDCARD but convert into functionally equivalent non-wildcard ones.",
+      "parentUuid": "554512b3_13db40a8",
+      "range": {
+        "startLine": 308,
+        "startChar": 34,
+        "endLine": 309,
+        "endChar": 66
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b3b1584_50aabe3f",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 6
@@ -65,6 +112,53 @@
         "startChar": 26,
         "endLine": 310,
         "endChar": 27
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf3eefd4_90ede23f",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T07:49:48Z",
+      "side": 1,
+      "message": "Suggest having a static helper method that defines the 6 and 7 values as local constants\n\n    static int getBackwardsCompatibleMatchRule(int matchRule) {\n      // Old MATCH_MOBILE_WILDCARD\n      if (6 \u003d\u003d matchRule) return MATCH_MOBILE;\n      // Old MATCH_WIFI_WILDCARD\n      if (7 \u003d\u003d matchRule) return MATCH_WIFI;\n      return matchRule;\n    }\n\nor\n\n    static int getBackwardsCompatibleMatchRule(int matchRule) {\n      // Backwards compatibility old constants\n      final int MATCH_MOBILE_WILDCARD \u003d 6;\n      final int MATCH_WIFI_WILDCARD \u003d 7;\n      if (MATCH_MOBILE_WILDCARD \u003d\u003d matchRule) return MATCH_MOBILE;\n      if (MATCH_WIFI_WILDCARD \u003d\u003d matchRule) return MATCH_WIFI;\n      return matchRule;\n    }",
+      "parentUuid": "5b3b1584_50aabe3f",
+      "range": {
+        "startLine": 310,
+        "startChar": 26,
+        "endLine": 310,
+        "endChar": 27
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1ce225a_ad9770cc",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T07:49:48Z",
+      "side": 1,
+      "message": "If you use the static method rule, you could also have a static boolean isMeteredForBackwardsCompatibility(matchRule) or so",
+      "range": {
+        "startLine": 313,
+        "startChar": 89,
+        "endLine": 313,
+        "endChar": 90
       },
       "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -134,6 +228,75 @@
         "startChar": 31,
         "endLine": 170,
         "endChar": 32
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "585b405b_d08ac4c6",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T07:49:48Z",
+      "side": 1,
+      "message": "I think it\u0027s just simpler to say\n\n    NetworkTemplate(6 /* MATCH_MOBILE_WILDCARD */, null, null)\n    NetworkTemplate(7 /* MATCH_WIFI_WILDCARD */, null, null)\n\nAlso see https://engdoc.corp.google.com/eng/doc/tott/episodes/598.md?cl\u003dhead\u0026g3docserverpod\u003dtrue",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 74
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e45d0a15_6e672350",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T07:49:48Z",
+      "side": 1,
+      "message": "You don\u0027t need this val",
+      "range": {
+        "startLine": 173,
+        "startChar": 17,
+        "endLine": 173,
+        "endChar": 39
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed86025b_471eb8e2",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T07:49:48Z",
+      "side": 1,
+      "message": "I don\u0027t think this catch serves any purpose. You should remove it and possibly replace it with a comment. If it fails with IAE, the test will fail all the same.",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 13
       },
       "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
