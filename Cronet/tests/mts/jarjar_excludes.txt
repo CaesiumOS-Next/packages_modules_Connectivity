@@ -1,0 +1,3 @@
+# Don't touch anything that's already under android.net
+android\.net\..+
+androidx\..+
