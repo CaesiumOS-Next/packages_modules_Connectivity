@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce4e6cfe_abfc7291",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T05:12:30Z",
+      "side": 1,
+      "message": "Can we print a readable string rather than an int ?",
+      "range": {
+        "startLine": 241,
+        "startChar": 35,
+        "endLine": 241,
+        "endChar": 55
+      },
+      "revId": "90d294df14645067ad735de52366cbb461ee1a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9487b9f_8f60a9b8",
         "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
         "patchSetId": 9
@@ -19,6 +42,29 @@
         "startChar": 4,
         "endLine": 527,
         "endChar": 32
+      },
+      "revId": "90d294df14645067ad735de52366cbb461ee1a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79a14e8a_85bb4032",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T05:12:30Z",
+      "side": 1,
+      "message": "Let\u0027s always print it, whether it\u0027s auto or not.",
+      "range": {
+        "startLine": 528,
+        "startChar": 12,
+        "endLine": 528,
+        "endChar": 65
       },
       "revId": "90d294df14645067ad735de52366cbb461ee1a94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
