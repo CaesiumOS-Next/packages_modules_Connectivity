@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bcc19d3_cc8d675a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1861,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-02-13T13:23:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "032fab59_06b920ae",
+      "range": {
+        "startLine": 1860,
+        "startChar": 16,
+        "endLine": 1861,
+        "endChar": 71
+      },
+      "revId": "faf5ce4d8553cb27567b1434d4eb4d003350889d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2dd329b_5b1d4ee0",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-02-13T12:00:53Z",
       "side": 1,
       "message": "verify onUpstreamCapabilitiesChanged will be called via EVENT_ON_CAPABILITIES ?\n\n    stateMachine.handleUpstreamNetworkMonitorCallback(EVENT_ON_CAPABILITIES, \n    inOrder.verify(mNotificationUpdater)\n                .onUpstreamCapabilitiesChanged(upstreamState3.networkCapabilities);",
+      "revId": "faf5ce4d8553cb27567b1434d4eb4d003350889d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a858aed1_c77e1273",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2708,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-02-13T13:23:17Z",
+      "side": 1,
+      "message": "verified on L.2738 since aosp/2419000.\n\nIf it is not enough, please reopen this comment. thanks",
+      "parentUuid": "f2dd329b_5b1d4ee0",
       "revId": "faf5ce4d8553cb27567b1434d4eb4d003350889d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
