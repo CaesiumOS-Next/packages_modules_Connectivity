@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7c9cf46_30758a4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2023-02-13T09:23:15Z",
+      "side": 1,
+      "message": "Can you describe why do you need to change ConnectivityServiceTest in commit message? What the problem did you meet?",
+      "revId": "331ff0ba3d68f928c5d0e1b1d355472aa2637d34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1238db1_7211a59a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2023-02-13T09:23:15Z",
+      "side": 1,
+      "message": "Additional space?",
+      "range": {
+        "startLine": 2109,
+        "startChar": 18,
+        "endLine": 2109,
+        "endChar": 19
+      },
+      "revId": "331ff0ba3d68f928c5d0e1b1d355472aa2637d34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
