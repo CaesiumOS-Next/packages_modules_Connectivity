@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "032fab59_06b920ae",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1861,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-13T12:00:53Z",
+      "side": 1,
+      "message": "Maybe make this comment more precise:\n\nNeed to notify capabilities change after upstream network changed because upstream may switch to existing network which don\u0027t have UpstreamNetworkMonitor.EVENT_ON_CAPABILITIES callback.",
+      "range": {
+        "startLine": 1860,
+        "startChar": 16,
+        "endLine": 1861,
+        "endChar": 71
+      },
+      "revId": "faf5ce4d8553cb27567b1434d4eb4d003350889d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2dd329b_5b1d4ee0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2708,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-13T12:00:53Z",
+      "side": 1,
+      "message": "verify onUpstreamCapabilitiesChanged will be called via EVENT_ON_CAPABILITIES ?\n\n    stateMachine.handleUpstreamNetworkMonitorCallback(EVENT_ON_CAPABILITIES, \n    inOrder.verify(mNotificationUpdater)\n                .onUpstreamCapabilitiesChanged(upstreamState3.networkCapabilities);",
+      "revId": "faf5ce4d8553cb27567b1434d4eb4d003350889d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
