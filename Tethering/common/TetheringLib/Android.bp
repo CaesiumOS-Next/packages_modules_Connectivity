@@ -35,6 +35,7 @@ java_sdk_library {
     ],
     impl_library_visibility: [
         "//packages/modules/Connectivity/Tethering:__subpackages__",
+        "//packages/modules/Connectivity/Cronet:__subpackages__",
         "//packages/modules/Connectivity/framework",
         "//packages/modules/Connectivity/framework-t",
         "//packages/modules/Connectivity/service",
@@ -43,6 +44,7 @@ java_sdk_library {
         // Using for test only
         "//cts/tests/netlegacy22.api",
         "//external/sl4a:__subpackages__",
+        "//external/cronet:__subpackages__",
         "//frameworks/base/core/tests/bandwidthtests",
         "//frameworks/base/core/tests/benchmarks",
         "//frameworks/base/core/tests/utillib",

@@ -17,12 +17,43 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+java_genrule {
+    name: "nethttp-test-jarjar-rules",
+    tool_files: [
+        ":NetHttpTestsLibPreJarJar{.jar}",
+        ":framework-tethering.stubs.module_lib{.jar}",
+        "jarjar_excludes.txt",
+    ],
+    tools: [
+        "jarjar-rules-generator",
+    ],
+    out: ["nethttp_test_jarjar_rules.txt"],
+    cmd: "$(location jarjar-rules-generator) " +
+        "$(location :NetHttpTestsLibPreJarJar{.jar}) " +
+        "--apistubs $(location :framework-tethering.stubs.module_lib{.jar}) " +
+        "--prefix android.net.http.internal " +
+        "--excludes $(location jarjar_excludes.txt) " +
+        "--output $(out)",
+}
+
+genrule {
+    name: "NetHttpJarJarRules",
+    defaults: ["jarjar-rules-combine-defaults"],
+    srcs: [
+        ":framework-tethering-jarjar-rules",
+        ":nethttp-test-jarjar-rules",
+    ],
+    out: ["jarjar-rules-nethttp.txt"],
+    visibility: ["//visibility:private"],
+}
+
 android_library {
     name: "NetHttpTestsLibPreJarJar",
     srcs: [":cronet_aml_javatests_sources"],
-    sdk_version: "test_current",
+    sdk_version: "module_current",
     min_sdk_version: "30",
     static_libs: [
+        "cronet_testserver_utils",
         "androidx.test.ext.junit",
         "androidx.test.rules",
         "junit",
@@ -30,8 +61,8 @@ android_library {
     libs: [
         "android.test.base",
         "framework-tethering-pre-jarjar",
-    ],
-    lint: { test: true }
+        "framework-connectivity.stubs.module_lib",
+    ]
 }
 
 android_test {
@@ -40,9 +71,11 @@ android_test {
         "CronetTestJavaDefaults",
         "mts-target-sdk-version-current",
      ],
-     sdk_version: "test_current",
+     compile_multilib: "both",
+     //sdk_version: "test_current",
      static_libs: ["NetHttpTestsLibPreJarJar"],
-     jarjar_rules: ":framework-tethering-jarjar-rules",
+     jni_libs: ["cronet_aml_components_cronet_android_cronet_tests"],
+     jarjar_rules: ":NetHttpJarJarRules",
      test_suites: [
          "general-tests",
          "mts-tethering",
