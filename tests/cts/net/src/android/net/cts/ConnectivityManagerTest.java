@@ -547,8 +547,7 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "Cannot request network in instant app mode")
     @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
-    public void testGetAllNetworkStateSnapshots()
-            throws InterruptedException {
+    public void testGetAllNetworkStateSnapshots() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
         // Make sure cell is active to retrieve IMSI for verification in later step.
         final Network cellNetwork = mCtsNetUtils.connectToCell();
