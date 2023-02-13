@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4027da99_394bfdaf",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T08:09:47Z",
+      "side": 1,
+      "message": "If it\u0027s not too hard, can we check this is the UIDs we expect ? IIUC this should be a collection containing exactly one range and that range should be the range for PRIMARY_USER. Search in frameworks/libs/net and see if we have a helper function that creates such a range",
+      "range": {
+        "startLine": 876,
+        "startChar": 74,
+        "endLine": 876,
+        "endChar": 77
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8b528bd_dfe610f3",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T08:09:47Z",
+      "side": 1,
+      "message": "Can we find the session key ?",
+      "range": {
+        "startLine": 892,
+        "startChar": 68,
+        "endLine": 892,
+        "endChar": 77
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a29702ba_b5205a60",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T08:09:47Z",
+      "side": 1,
+      "message": "It\u0027s a bit surprising this passes because the 1st call was not with these uid ranges.\n\nYou should have a comment here saying that this 2nd argument only applies to the second call, and this works because `prepareVpnForVerifyAppExclusionList` has already `verify`ed the first one.",
+      "range": {
+        "startLine": 892,
+        "startChar": 81,
+        "endLine": 892,
+        "endChar": 94
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4828368_0f0b9ecf",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1553,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T08:09:47Z",
+      "side": 1,
+      "message": "times(3) ?",
+      "range": {
+        "startLine": 1553,
+        "startChar": 19,
+        "endLine": 1553,
+        "endChar": 39
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4768909_f0d2222e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1561,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T08:09:47Z",
+      "side": 1,
+      "message": "increase",
+      "range": {
+        "startLine": 1561,
+        "startChar": 52,
+        "endLine": 1561,
+        "endChar": 62
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "061d8368_e1199e1c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1566,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T08:09:47Z",
+      "side": 1,
+      "message": "Why is this moved after the retry ? There was already a failure before the first retry no ?",
+      "range": {
+        "startLine": 1566,
+        "startChar": 23,
+        "endLine": 1566,
+        "endChar": 44
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ebb227c_dbf4cf59",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T08:09:47Z",
+      "side": 1,
+      "message": "retry",
+      "range": {
+        "startLine": 1588,
+        "startChar": 87,
+        "endLine": 1588,
+        "endChar": 95
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cb2a441_0c7ebcf2",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T08:09:47Z",
+      "side": 1,
+      "message": "twice",
+      "range": {
+        "startLine": 1588,
+        "startChar": 65,
+        "endLine": 1588,
+        "endChar": 72
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb2717b8_2557202a",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1590,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-13T08:09:47Z",
+      "side": 1,
+      "message": "I think this is wrong.\n\nThis method was already called before. It\u0027s true that the current code is calling it again with the same UIDs, however that\u0027s a no-op because this method is idempotent. It\u0027s not wrong if the code doesn\u0027t call this, it\u0027s only wrong if it calls it with different arguments.\n\nInstead, what you should check is that the code never called `setVpnDefaultForUids` with an empty list (or even better, with any different list than the original).",
+      "range": {
+        "startLine": 1590,
+        "startChar": 60,
+        "endLine": 1590,
+        "endChar": 80
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
