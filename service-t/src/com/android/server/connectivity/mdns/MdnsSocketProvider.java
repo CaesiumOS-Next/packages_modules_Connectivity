@@ -96,23 +96,27 @@ public class MdnsSocketProvider {
         mNetworkCallback = new NetworkCallback() {
             @Override
             public void onLost(Network network) {
+                if (!mMonitoringSockets) return;
                 mActiveNetworksLinkProperties.remove(network);
                 removeSocket(network, null /* interfaceName */);
             }
 
             @Override
             public void onLinkPropertiesChanged(Network network, LinkProperties lp) {
+                if (!mMonitoringSockets) return;
                 handleLinkPropertiesChanged(network, lp);
             }
         };
         mTetheringEventCallback = new TetheringEventCallback() {
             @Override
             public void onLocalOnlyInterfacesChanged(@NonNull List<String> interfaces) {
+                if (!mMonitoringSockets) return;
                 handleTetherInterfacesChanged(mLocalOnlyInterfaces, interfaces);
             }
 
             @Override
             public void onTetheredInterfacesChanged(@NonNull List<String> interfaces) {
+                if (!mMonitoringSockets) return;
                 handleTetherInterfacesChanged(mTetheredInterfaces, interfaces);
             }
         };
@@ -156,7 +160,7 @@ public class MdnsSocketProvider {
         }
     }
 
-    private static class SocketNetlinkMonitor extends NetlinkMonitor {
+    private class SocketNetlinkMonitor extends NetlinkMonitor {
         SocketNetlinkMonitor(Handler handler) {
             super(handler, LOGGER.mLog, TAG, OsConstants.NETLINK_ROUTE,
                     NetlinkConstants.RTMGRP_IPV4_IFADDR | NetlinkConstants.RTMGRP_IPV6_IFADDR);
@@ -164,6 +168,7 @@ public class MdnsSocketProvider {
 
         @Override
         public void processNetlinkMessage(NetlinkMessage nlMsg, long whenMs) {
+            if (!mMonitoringSockets) return;
             // TODO: Handle netlink message.
         }
     }
@@ -211,6 +216,8 @@ public class MdnsSocketProvider {
 
         mHandler.post(mNetlinkMonitor::stop);
         mMonitoringSockets = false;
+
+
     }
 
     /*** Check whether the target network is matched current network */

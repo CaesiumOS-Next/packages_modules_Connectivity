@@ -76,6 +76,9 @@ public class ConnectivityResources {
             return mResourcesContext;
         }
 
+        // TODO: move ConnectivityResources to service-connectivity (since it requires
+        // QUERY_ALL_PACKAGES permission so isn't generally usable in all processes), then use
+        // DeviceConfigUtils.getConnectivityResourcesPackage from net-utils-device-common
         final List<ResolveInfo> pkgs = mContext.getPackageManager()
                 .queryIntentActivities(new Intent(RESOURCES_APK_INTENT), MATCH_SYSTEM_ONLY);
         pkgs.removeIf(pkg -> !pkg.activityInfo.applicationInfo.sourceDir.startsWith(RES_PKG_DIR));
