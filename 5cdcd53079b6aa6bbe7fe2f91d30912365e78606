@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c27f7bd0_5389d0aa",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6f01af3_5cb714c8",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 35
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5da71b2_d3105da2",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-10T06:04:50Z",
       "side": 1,
       "message": "Synchronous getters for caps/LP are essentially unsuitable for any serious code, and CTS should be considered serious code. See my comments below ; you have a very simple and much cleaner alternative.",
+      "range": {
+        "startLine": 1046,
+        "startChar": 43,
+        "endLine": 1046,
+        "endChar": 65
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbb936da_e8e3a741",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5da71b2_d3105da2",
       "range": {
         "startLine": 1046,
         "startChar": 43,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11d16d48_85b63060",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1127,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf8389b3_04586899",
+      "range": {
+        "startLine": 1127,
+        "startChar": 15,
+        "endLine": 1127,
+        "endChar": 22
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "deaa09b5_36b81ad6",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e1f96d3_9358bc29",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deaa09b5_36b81ad6",
+      "range": {
+        "startLine": 1132,
+        "startChar": 70,
+        "endLine": 1132,
+        "endChar": 77
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "109c955a_a6684a16",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-02-10T06:04:50Z",
       "side": 1,
       "message": "This is useless here since you\u0027ve waited for this network to be available. Either move this to l.1129, or remove it completely (in which case the error message will be \u0027expected call to AVAILABLE\u0027). In fact I think connectSomeDefaultNetwork will never return null, and will prefer throwing anyway",
+      "range": {
+        "startLine": 1136,
+        "startChar": 8,
+        "endLine": 1136,
+        "endChar": 21
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "396b45f2_a8886de0",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "109c955a_a6684a16",
       "range": {
         "startLine": 1136,
         "startChar": 8,
@@ -162,6 +282,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93ab4025_9c4f925b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "456bd4d8_bb0ddb22",
+      "range": {
+        "startLine": 1147,
+        "startChar": 36,
+        "endLine": 1147,
+        "endChar": 56
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d53b2a3e_0192cc12",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "e72d7d2a_27510f13",
+      "range": {
+        "startLine": 1147,
+        "startChar": 17,
+        "endLine": 1147,
+        "endChar": 26
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de5b20e9_befae4c0",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-02-10T06:04:50Z",
       "side": 1,
       "message": "...if you can\u0027t ensure the task is completed before dropping the shell identity then this won\u0027t work, right ? Or are you sure it is completed by the end of the test ? If so, what gives you that guarantee, and can you reduce the scope of the section that holds the shell permissions to when you know the executor is done ?",
+      "range": {
+        "startLine": 1147,
+        "startChar": 81,
+        "endLine": 1148,
+        "endChar": 88
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0d19eb6_8f51d7dd",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de5b20e9_befae4c0",
       "range": {
         "startLine": 1147,
         "startChar": 81,
@@ -202,6 +394,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a34160ec_d1ff87fc",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abf62b26_ee3af769",
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eba9eeee_5bffe52b",
@@ -215,6 +425,30 @@
       "writtenOn": "2023-02-10T06:04:50Z",
       "side": 1,
       "message": "keepalive",
+      "range": {
+        "startLine": 1183,
+        "startChar": 41,
+        "endLine": 1183,
+        "endChar": 50
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c75f0003_d0933448",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1183,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eba9eeee_5bffe52b",
       "range": {
         "startLine": 1183,
         "startChar": 41,
@@ -248,6 +482,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2530246_50db22a8",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fec09682_d8a80b5b",
+      "range": {
+        "startLine": 1184,
+        "startChar": 29,
+        "endLine": 1184,
+        "endChar": 47
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ce02c03_7ead6e4c",
@@ -261,6 +519,30 @@
       "writtenOn": "2023-02-10T06:04:50Z",
       "side": 1,
       "message": "This is a good change, but how is it related to this patch ?",
+      "range": {
+        "startLine": 550,
+        "startChar": 57,
+        "endLine": 550,
+        "endChar": 66
+      },
+      "revId": "5cdcd53079b6aa6bbe7fe2f91d30912365e78606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdfe3a9d_1846a8d2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T13:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ce02c03_7ead6e4c",
       "range": {
         "startLine": 550,
         "startChar": 57,
