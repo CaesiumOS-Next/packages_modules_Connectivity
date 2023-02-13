@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be1c2c71_5a94c71b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-13T09:27:50Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed; Lorenzo will need to +1 for owners in CTS tests (see https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/OWNERS_core_networking_xts;drc\u003daca4658bf82fa012f31e55509f2b6449e782354f;l\u003d4), so I think you can send to him next.",
+      "revId": "a16f43a81cc4664e6ca214679c05ca3c82492441",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "094ac392_2b12c7f6",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-13T09:27:50Z",
+      "side": 1,
+      "message": "Could you have another change to add the test and the other target SDK variants to the MTS config ? Here: https://cs.android.com/android/platform/superproject/+/master:test/mts/tools/mts-tradefed/res/config/mts-tethering-tests-list-user.xml",
+      "revId": "a16f43a81cc4664e6ca214679c05ca3c82492441",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63200e19_8a7ebd05",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-13T09:27:50Z",
+      "side": 1,
+      "message": "Actually I think this should be mts-tethering (same for the other similar suites); otherwise it would run in NetworkStack MTS, which isn\u0027t really what is tested in the tests.",
+      "range": {
+        "startLine": 129,
+        "startChar": 9,
+        "endLine": 129,
+        "endChar": 23
+      },
+      "revId": "a16f43a81cc4664e6ca214679c05ca3c82492441",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dbbe346_e46df170",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-13T09:27:50Z",
+      "side": 1,
+      "message": "Actually I think that for apps targeting U+, we could avoid creating it entirely when discoverServices is called; so the test should not enforce that it is created. You can probably just check that if it is created, then connecting to it should not be allowed.",
+      "revId": "a16f43a81cc4664e6ca214679c05ca3c82492441",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c5ab251_f2013c3c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-13T09:27:50Z",
+      "side": 1,
+      "message": "Nit: maybe add a comment to explain that this test is enforced by an sepolicy change in U+. Generally implementation is in the module so the set of configurations to run on is different, this would clarify why this test is U+ without requirements on module versions.",
+      "revId": "a16f43a81cc4664e6ca214679c05ca3c82492441",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
