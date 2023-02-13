@@ -16,6 +16,24 @@
       "message": "Actually,  I\u0027m not sure this is the right way forward. I think it\u0027s confusing to apply the NETWORK_SETTINGS-specific redactions to apps that don\u0027t have NETWORK_SETTINGS.\n\nIf the primary need here is to be able to see information in the TransportInfo, then I\u0027d rather add a new REDACT_FOR_NETWORK_SETUP_WIZARD redaction level. I think we can do that as soon as the automerger between AOSP and tm-dev is switched off (tomorrow?).",
       "revId": "a2555b67188aa9276e87f10784dd48b759af199e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a33101c_2a3cf3b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2023-02-13T18:03:56Z",
+      "side": 1,
+      "message": "Done; added REDACT_FOR_NETWORK_SETUP_WIZARD",
+      "parentUuid": "a3c89166_bad83d8c",
+      "revId": "a2555b67188aa9276e87f10784dd48b759af199e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
