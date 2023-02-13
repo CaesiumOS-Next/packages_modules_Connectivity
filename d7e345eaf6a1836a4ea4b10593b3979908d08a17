@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c780cfe5_d509bf15",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T09:55:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc98d212_becadb31",
+      "range": {
+        "startLine": 267,
+        "startChar": 36,
+        "endLine": 267,
+        "endChar": 46
+      },
+      "revId": "d7e345eaf6a1836a4ea4b10593b3979908d08a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf6a0614_5c00eb0a",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-13T09:23:15Z",
       "side": 1,
       "message": "Maybe add a small comment to describe that why do we need to clean calling identity here?",
+      "range": {
+        "startLine": 555,
+        "startChar": 39,
+        "endLine": 555,
+        "endChar": 75
+      },
+      "revId": "d7e345eaf6a1836a4ea4b10593b3979908d08a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dbd014b_6766ab6f",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-13T09:55:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf6a0614_5c00eb0a",
       "range": {
         "startLine": 555,
         "startChar": 39,
