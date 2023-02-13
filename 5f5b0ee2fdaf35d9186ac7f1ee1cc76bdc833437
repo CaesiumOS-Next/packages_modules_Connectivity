@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0cc1576_486f9e29",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-13T06:24:03Z",
+      "side": 1,
+      "message": "It seems fall through here is not better than code duplication. But no strong opinion.",
+      "range": {
+        "startLine": 284,
+        "startChar": 16,
+        "endLine": 284,
+        "endChar": 31
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "554512b3_13db40a8",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-13T06:24:03Z",
+      "side": 1,
+      "message": "For backward compatibility, still accept wildcard match rules but convert into non-wildcard ones.",
+      "range": {
+        "startLine": 308,
+        "startChar": 34,
+        "endLine": 309,
+        "endChar": 66
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b3b1584_50aabe3f",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-13T06:24:03Z",
+      "side": 1,
+      "message": "I think it is ok to define private constants in this class?\nThey need to be commented clearly said this is only for backward compatibility of deprecated constructor.",
+      "range": {
+        "startLine": 310,
+        "startChar": 26,
+        "endLine": 310,
+        "endChar": 27
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a1b6c79_96f5d0d1",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-13T06:24:03Z",
+      "side": 1,
+      "message": "7?",
+      "range": {
+        "startLine": 316,
+        "startChar": 43,
+        "endLine": 316,
+        "endChar": 44
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "986a412c_758c0516",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-13T06:24:03Z",
+      "side": 1,
+      "message": "1. I\u0027m not sure how useful is this log. who will look at it?\n\n2. Maybe \n\"Use MATCH_MOBILE with empty subscriberIds or MATCH_WIFI with empty wifiNetworkKeys instead of template with matchRule\u003d\" + matchRule",
+      "range": {
+        "startLine": 317,
+        "startChar": 23,
+        "endLine": 318,
+        "endChar": 65
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "383e72f4_6aa0bc12",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-13T06:24:03Z",
+      "side": 1,
+      "message": "/* ... */",
+      "range": {
+        "startLine": 170,
+        "startChar": 31,
+        "endLine": 170,
+        "endChar": 32
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
