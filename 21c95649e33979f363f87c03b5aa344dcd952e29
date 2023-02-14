@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae2e43ac_8db90137",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 9147,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-02-14T06:11:19Z",
+      "side": 1,
+      "message": "This seemed more readable as separate instance variables. They could be conceivably all be removed and passed instead into the final `updateNaisWithNetcaps` however the downside here is the code is less readable (IMO).",
+      "range": {
+        "startLine": 9143,
+        "startChar": 8,
+        "endLine": 9147,
+        "endChar": 39
+      },
+      "revId": "21c95649e33979f363f87c03b5aa344dcd952e29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da7c0cda_ce038129",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1579,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-02-14T06:11:19Z",
+      "side": 1,
+      "message": "Not sure if we want to include this?",
+      "range": {
+        "startLine": 1579,
+        "startChar": 18,
+        "endLine": 1579,
+        "endChar": 84
+      },
+      "revId": "21c95649e33979f363f87c03b5aa344dcd952e29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5811cd9c_0c4562f8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3047,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-02-14T06:11:19Z",
+      "side": 1,
+      "message": "This is really a \"blocked\" callback, however used \"unblocked\" as the value is always false for callers. We can change if preferred.",
+      "range": {
+        "startLine": 3047,
+        "startChar": 51,
+        "endLine": 3047,
+        "endChar": 60
+      },
+      "revId": "21c95649e33979f363f87c03b5aa344dcd952e29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
