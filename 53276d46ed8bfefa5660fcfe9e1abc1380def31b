@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ad3206e_6cef1e67",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-14T10:05:13Z",
+      "side": 1,
+      "message": "Tests ?",
+      "revId": "53276d46ed8bfefa5660fcfe9e1abc1380def31b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59713e1c_62bee692",
+        "filename": "framework/src/android/net/IConnectivityManager.aidl",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-14T10:05:13Z",
+      "side": 1,
+      "message": "underpinned",
+      "range": {
+        "startLine": 191,
+        "startChar": 73,
+        "endLine": 191,
+        "endChar": 84
+      },
+      "revId": "53276d46ed8bfefa5660fcfe9e1abc1380def31b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27e1fc36_93b9bd73",
+        "filename": "framework/src/android/net/NattSocketKeepalive.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-14T10:05:13Z",
+      "side": 1,
+      "message": "underpinned",
+      "range": {
+        "startLine": 69,
+        "startChar": 37,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "53276d46ed8bfefa5660fcfe9e1abc1380def31b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
