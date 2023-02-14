@@ -90,6 +90,7 @@ java_library {
     srcs: [
         ":service-mdns-droidstubs",
         "src/com/android/server/connectivity/mdns/**/*.java",
+        ":mdns-offload-api-files",
     ],
     exclude_srcs: [
         "src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",

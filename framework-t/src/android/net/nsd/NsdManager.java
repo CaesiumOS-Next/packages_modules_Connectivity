@@ -16,6 +16,9 @@
 
 package android.net.nsd;
 
+import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.Manifest.permission.NETWORK_STACK;
+import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_PLATFORM_MDNS_BACKEND;
 import static android.net.connectivity.ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER;
 
@@ -45,9 +48,11 @@ import android.util.SparseArray;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.CollectionUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 
@@ -313,7 +318,104 @@ public final class NsdManager {
     private final ArrayMap<Integer, PerNetworkDiscoveryTracker>
             mPerNetworkDiscoveryMap = new ArrayMap<>();
 
+    @GuardedBy("mOffloadEngines")
+    private final ArrayList<OffloadEngineImpl> mOffloadEngines = new ArrayList<>();
     private final ServiceHandler mHandler;
+
+    private static class OffloadEngineImpl extends IOffloadEngine.Stub {
+        private final Executor mExecutor;
+        private final OffloadEngine mEngine;
+
+        private OffloadEngineImpl(@NonNull Executor executor, @NonNull OffloadEngine appCb) {
+            mExecutor = executor;
+            mEngine = appCb;
+        }
+
+        @Override
+        public void addOrUpdateOffloadServiceInfo(OffloadServiceInfo info) {
+            mExecutor.execute(() -> mEngine.addOrUpdateOffloadServiceInfo(info));
+        }
+
+        @Override
+        public void removeOffloadServiceInfo(OffloadServiceInfo info) {
+            mExecutor.execute(() -> mEngine.removeOffloadServiceInfo(info));
+        }
+    }
+
+    /**
+     * Registers an OffloadEngine to NsdManager.
+     *
+     * A caller can register itself as an OffloadEngine if it supports mDns hardware offload.
+     * The caller must implement {@link OffloadEngine} interface and trigger the hardware
+     * offload logic property when the {@link OffloadEngine#addOrUpdateOffloadServiceInfo} and
+     * {@link OffloadEngine#removeOffloadServiceInfo} callback is called.
+     *
+     * @param ifaceName  indicates which network interface the hardware offload is running
+     * @param executor   the executor thread to receive the offload callbacks
+     * @param engine     the OffloadEngine to receive offload callbacks
+     * @param offloadCapabilities    one of the OffloadEngine.OFFLOAD_CAPABILITY_*
+     * @throws IllegalArgumentException if the engine is already registered.
+     *
+     * @hide
+     */
+    //@SystemApi
+    @RequiresPermission(anyOf = {NETWORK_SETTINGS, PERMISSION_MAINLINE_NETWORK_STACK,
+            NETWORK_STACK})
+    public void registerOffloadEngine(@NonNull String ifaceName, @NonNull Executor executor,
+            @NonNull OffloadEngine engine, long offloadCapabilities) {
+        Objects.requireNonNull(ifaceName);
+        Objects.requireNonNull(executor);
+        Objects.requireNonNull(engine);
+        final OffloadEngineImpl cbImpl = new OffloadEngineImpl(executor, engine);
+        synchronized (mOffloadEngines) {
+            final int index = CollectionUtils.indexOf(mOffloadEngines,
+                    impl -> impl.mEngine == engine);
+            if (index > 0) {
+                throw new IllegalArgumentException("This engine is already registered");
+            }
+            mOffloadEngines.add(cbImpl);
+        }
+        try {
+            mService.registerOffloadEngine(ifaceName, cbImpl, offloadCapabilities);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
+
+
+    /**
+     * Unregistered OffloadEngine from NsdService.
+     *
+     * A caller can unregister itself as an OffloadEngine when it doesn't want to receive the
+     * callback anymore. The OffloadEngine must have been previously registered with the system
+     * using the {@link NsdManager#registerOffloadEngine} method.
+     *
+     * @param engine OffloadEngine object to be removed from NsdService
+     * @throws IllegalArgumentException if the engine is not registered.
+     *
+     * @hide
+     */
+    //@SystemApi
+    @RequiresPermission(anyOf = {NETWORK_SETTINGS, PERMISSION_MAINLINE_NETWORK_STACK,
+            NETWORK_STACK})
+    public void unregisterOffloadEngine(@NonNull OffloadEngine engine) {
+        Objects.requireNonNull(engine);
+        final OffloadEngineImpl cbImpl;
+        synchronized (mOffloadEngines) {
+            final int index = CollectionUtils.indexOf(mOffloadEngines,
+                    impl -> impl.mEngine == engine);
+            if (index < 0) {
+                throw new IllegalArgumentException("This engine is not registered");
+            }
+            cbImpl = mOffloadEngines.remove(index);
+        }
+
+        try {
+            mService.unregisterOffloadEngine(cbImpl);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
 
     private class PerNetworkDiscoveryTracker {
         final String mServiceType;
