@@ -25,6 +25,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.transportNamesOf;
+import static android.net.NetworkRequest.Type.REQUEST;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -195,6 +196,17 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     // be trusted. Most callers should simply use the {@link networkCapabilities}
     // field instead.
     private @Nullable NetworkCapabilities mDeclaredCapabilitiesUnsanitized;
+
+    /**
+     * {@see NetworkCapabilities#getAllowedUidsNoCopy}
+     * @return the agent's allowed UIDs
+     */
+    public ArraySet<Integer> getDeclaredAllowedUidsNoCopy() {
+        if (null == mDeclaredCapabilitiesUnsanitized) {
+            return new ArraySet<>();
+        }
+        return mDeclaredCapabilitiesUnsanitized.getAllowedUidsNoCopy();
+    }
 
     // Timestamp (SystemClock.elapsedRealtime()) when netd has been told to create this Network, or
     // 0 if it hasn't been done yet.
@@ -429,6 +441,14 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
 
     // Indicate whether this device has the automotive feature.
     private final boolean mHasAutomotiveFeature;
+
+    private boolean hasAllowedUids() {
+        return getAllowedUidsNoCopy().size() > 0;
+    }
+
+    private ArraySet<Integer> getAllowedUidsNoCopy() {
+        return networkCapabilities.getAllowedUidsNoCopy();
+    }
 
     /**
      * Checks that a proposed update to the NCs of this NAI satisfies structural constraints.
@@ -1183,6 +1203,19 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     }
 
     /**
+     * Returns whether this network is currently satisfying a particular UID.
+     */
+    public boolean isSatisfyingUid(int uid) {
+        for (int i = 0, reqSize = mNetworkRequests.size(); i < reqSize; i++) {
+            final NetworkRequest nr = mNetworkRequests.valueAt(i);
+            if (nr.type == REQUEST && nr.getRequestorUid() == uid) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns the request at the specified position in the list of requests satisfied by this
      * network.
      */
@@ -1634,6 +1667,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
                 + "  lp{" + linkProperties + "}"
                 + "  nc{" + networkCapabilities + "}"
                 + "  factorySerialNumber=" + factorySerialNumber
+                + (hasAllowedUids() ? " allowedUids " + getAllowedUidsNoCopy() : "")
                 + "}";
     }
 
