@@ -82,6 +82,15 @@ filegroup {
     visibility: ["//packages/modules/Connectivity:__subpackages__"],
 }
 
+filegroup {
+    name: "mdns-offload-api-files",
+    srcs: [
+        "src/android/net/nsd/OffloadEngine.java",
+        "src/android/net/nsd/OffloadServiceInfo.java",
+    ],
+    visibility: ["//packages/modules/Connectivity:__subpackages__"],
+}
+
 java_library {
     name: "framework-connectivity-t-pre-jarjar",
     defaults: ["framework-connectivity-t-defaults"],
