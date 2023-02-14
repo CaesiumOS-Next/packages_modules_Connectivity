@@ -73,7 +73,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         /**
          * Called by the advertiser after it successfully registered a service, after probing.
          */
-        void onRegisterServiceSucceeded(@NonNull MdnsInterfaceAdvertiser advertiser, int serviceId);
+        void onServiceProbingSucceeded(@NonNull MdnsInterfaceAdvertiser advertiser, int serviceId);
 
         /**
          * Called by the advertiser when a conflict was found, during or after probing.
@@ -101,7 +101,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         public void onFinished(MdnsProber.ProbingInfo info) {
             final MdnsAnnouncer.AnnouncementInfo announcementInfo;
             mSharedLog.i("Probing finished for service " + info.getServiceId());
-            mCbHandler.post(() -> mCb.onRegisterServiceSucceeded(
+            mCbHandler.post(() -> mCb.onServiceProbingSucceeded(
                     MdnsInterfaceAdvertiser.this, info.getServiceId()));
             try {
                 announcementInfo = mRecordRepository.onProbingSucceeded(info);
@@ -344,5 +344,9 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
 
         if (answers == null) return;
         mReplySender.queueReply(answers);
+    }
+
+    public String getSocketInterfaceName() {
+        return mSocket.getInterface().getName();
     }
 }
