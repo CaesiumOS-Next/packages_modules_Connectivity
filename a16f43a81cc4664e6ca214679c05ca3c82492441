@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a6aee27_adc6508c",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-14T07:49:22Z",
+      "side": 1,
+      "message": "Sure, raised in aosp/2435072",
+      "parentUuid": "094ac392_2b12c7f6",
+      "revId": "a16f43a81cc4664e6ca214679c05ca3c82492441",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63200e19_8a7ebd05",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-02-13T09:27:50Z",
       "side": 1,
       "message": "Actually I think this should be mts-tethering (same for the other similar suites); otherwise it would run in NetworkStack MTS, which isn\u0027t really what is tested in the tests.",
+      "range": {
+        "startLine": 129,
+        "startChar": 9,
+        "endLine": 129,
+        "endChar": 23
+      },
+      "revId": "a16f43a81cc4664e6ca214679c05ca3c82492441",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9015b0b4_4a327d20",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-14T07:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63200e19_8a7ebd05",
       "range": {
         "startLine": 129,
         "startChar": 9,
@@ -75,6 +117,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25d1135f_c2dcfe5b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-14T07:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dbbe346_e46df170",
+      "revId": "a16f43a81cc4664e6ca214679c05ca3c82492441",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c5ab251_f2013c3c",
@@ -88,6 +148,24 @@
       "writtenOn": "2023-02-13T09:27:50Z",
       "side": 1,
       "message": "Nit: maybe add a comment to explain that this test is enforced by an sepolicy change in U+. Generally implementation is in the module so the set of configurations to run on is different, this would clarify why this test is U+ without requirements on module versions.",
+      "revId": "a16f43a81cc4664e6ca214679c05ca3c82492441",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e93052ea_937ffcc3",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-14T07:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c5ab251_f2013c3c",
       "revId": "a16f43a81cc4664e6ca214679c05ca3c82492441",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
