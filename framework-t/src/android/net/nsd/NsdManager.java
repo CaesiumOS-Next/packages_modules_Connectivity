@@ -16,6 +16,9 @@
 
 package android.net.nsd;
 
+import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.Manifest.permission.NETWORK_STACK;
+import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.connectivity.ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER;
 
 import android.annotation.IntDef;
@@ -24,6 +27,7 @@ import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
+import android.annotation.SystemApi;
 import android.annotation.SystemService;
 import android.app.compat.CompatChanges;
 import android.content.Context;
@@ -44,9 +48,12 @@ import android.util.SparseArray;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.CollectionUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 
@@ -309,7 +316,99 @@ public final class NsdManager {
     private final ArrayMap<Integer, PerNetworkDiscoveryTracker>
             mPerNetworkDiscoveryMap = new ArrayMap<>();
 
+    @GuardedBy("mOffloadEngines")
+    private final ArrayList<OffloadEngineImpl> mOffloadEngines = new ArrayList<>();
     private final ServiceHandler mHandler;
+
+    /**
+     * The interface that exports the OffloadEngine APIs.
+     *
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public interface OffloadEngine {
+        /**
+         * To be called when OffloadRecords is updated.
+         *
+         * @param records the list of objects represents the OffloadRecords
+         */
+        void onOffloadUpdated(@NonNull List<OffloadRecord> records);
+    }
+
+    private static class OffloadEngineImpl extends IOffloadEngine.Stub {
+        private final Executor mExecutor;
+        private final OffloadEngine mEngine;
+
+        private OffloadEngineImpl(Executor executor, OffloadEngine appCb) {
+            mExecutor = executor;
+            mEngine = appCb;
+        }
+
+        @Override
+        public void onOffloadsUpdated(List<OffloadRecord> infos) {
+            mExecutor.execute(() -> mEngine.onOffloadUpdated(infos));
+        }
+    }
+
+    /**
+     * Registers an OffloadEngine to NsdService.
+     *
+     * @param ifaceName  indicates which network interface the hardware offload is running
+     * @param executor   the executor thread to execute offload logic
+     * @param engine     the OffloadEngine to handle offload logic
+     * @throws IllegalArgumentException if the engine is already registered.
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    @RequiresPermission(anyOf = {NETWORK_SETTINGS, PERMISSION_MAINLINE_NETWORK_STACK,
+            NETWORK_STACK})
+    public void registerOffloadEngine(@NonNull String ifaceName, @NonNull Executor executor,
+            @NonNull OffloadEngine engine) {
+
+        final OffloadEngineImpl cbImpl = new OffloadEngineImpl(executor, engine);
+        synchronized (mOffloadEngines) {
+            final int index = CollectionUtils.indexOf(mOffloadEngines,
+                    impl -> impl.mEngine == engine);
+            if (index > 0) {
+                throw new IllegalArgumentException("This engine is already registered");
+            }
+            mOffloadEngines.add(cbImpl);
+        }
+        try {
+            mService.registerOffloadEngine(ifaceName, cbImpl);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
+
+
+    /**
+     * Unregistered OffloadEngine from NsdService.
+     *
+     * @param engine OffloadEngine object to be removed from NsdService
+     * @throws IllegalArgumentException if the engine is not registered.
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    @RequiresPermission(anyOf = {NETWORK_SETTINGS, PERMISSION_MAINLINE_NETWORK_STACK,
+            NETWORK_STACK})
+    public void unregisterOffloadEngine(@NonNull OffloadEngine engine) {
+        final OffloadEngineImpl cbImpl;
+        synchronized (mOffloadEngines) {
+            final int index = CollectionUtils.indexOf(mOffloadEngines,
+                    impl -> impl.mEngine == engine);
+            if (index < 0) {
+                throw new IllegalArgumentException("This engine is not registered");
+            }
+            cbImpl = mOffloadEngines.remove(index);
+        }
+
+        try {
+            mService.unregisterOffloadEngine(cbImpl);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
 
     private class PerNetworkDiscoveryTracker {
         final String mServiceType;
