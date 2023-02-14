@@ -207,3 +207,33 @@ package android.net {
 
 }
 
+package android.net.nsd {
+
+  public final class HardwareOffloadException extends java.lang.Exception implements android.os.Parcelable {
+    ctor public HardwareOffloadException(int, @NonNull android.net.nsd.OffloadInfo);
+    method public int describeContents();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.nsd.HardwareOffloadException> CREATOR;
+  }
+
+  public final class NsdManager {
+    method @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_SETTINGS, android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK}) public void registerOffloadCallback(int, @NonNull java.util.concurrent.Executor, @NonNull android.net.nsd.NsdManager.HardwareOffloadCallback);
+    method public void unregisterOffloadCallback(@NonNull android.net.nsd.NsdManager.HardwareOffloadCallback);
+  }
+
+  public static interface NsdManager.HardwareOffloadCallback {
+    method public void onAddOffload(@NonNull android.net.nsd.OffloadInfo, @NonNull android.os.OutcomeReceiver<android.net.nsd.OffloadInfo,android.net.nsd.HardwareOffloadException>);
+    method public void onRemoveOffload(@NonNull android.net.nsd.OffloadInfo);
+  }
+
+  public final class OffloadInfo implements android.os.Parcelable {
+    ctor public OffloadInfo(@NonNull String, @NonNull String);
+    method public int describeContents();
+    method @NonNull public String getServiceName();
+    method @NonNull public String getServiceType();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.nsd.OffloadInfo> CREATOR;
+  }
+
+}
+
