@@ -22,6 +22,30 @@
       },
       "revId": "56c412a9c8896065390e6b04d8d6b17362ed48d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db027a4b_08dee43a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-02-14T08:21:22Z",
+      "side": 1,
+      "message": "\u003eDoes getUidRule available for T ? \n\n`setUidRule` is available for T devices.\nSo, yes, `getUidRule` can be available for T devices.\n\n\u003e  need to throw if sEnableJavaBpfMap is false.\n\n`setUidRule` use JNI or Java code to update the rule based on the flag for experiment.\nBut regardless of the code path, the rule is stored in the bpf map so `getUidRule` can always use java code to retrieve the state from the bpf map, I think.",
+      "parentUuid": "10c49e6a_a7219f9e",
+      "range": {
+        "startLine": 734,
+        "startChar": 8,
+        "endLine": 734,
+        "endChar": 19
+      },
+      "revId": "56c412a9c8896065390e6b04d8d6b17362ed48d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
