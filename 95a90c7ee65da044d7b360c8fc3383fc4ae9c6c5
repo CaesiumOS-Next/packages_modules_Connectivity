@@ -16,6 +16,29 @@
       "message": "LGTM but need 2nd-tier review.",
       "revId": "95a90c7ee65da044d7b360c8fc3383fc4ae9c6c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41eb3121_ebfb05c7",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-14T07:13:57Z",
+      "side": 1,
+      "message": "Can we discard the data instead of writing null data?",
+      "range": {
+        "startLine": 417,
+        "startChar": 19,
+        "endLine": 417,
+        "endChar": 53
+      },
+      "revId": "95a90c7ee65da044d7b360c8fc3383fc4ae9c6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
