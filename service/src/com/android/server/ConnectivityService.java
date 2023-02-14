@@ -8751,6 +8751,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     newNc);
         }
 
+        if (nai.networkCapabilities.hasAllowedUids()) {
+            final Set<Integer> allowedUids =
+                    getAgentSatisfiedAllowedUids(nai, nai.networkCapabilities);
+            allowedUids.addAll(newNc.getAllowedUids());
+            newNc.setAllowedUids(allowedUids);
+        }
+
         return newNc;
     }
 
@@ -8795,11 +8802,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (Objects.equals(nai.networkCapabilities, newNc)) return;
         final String differences = newNc.describeCapsDifferencesFrom(nai.networkCapabilities);
         if (null != differences) {
+            //TODO: allowed UID diffs should be included in differences.
             Log.i(TAG, "Update capabilities for net " + nai.network + " : " + differences);
         }
         updateNetworkPermissions(nai, newNc);
         final NetworkCapabilities prevNc = nai.getAndSetNetworkCapabilities(newNc);
-
         updateVpnUids(nai, prevNc, newNc);
         updateAllowedUids(nai, prevNc, newNc);
         nai.updateScoreForNetworkAgentUpdate();
@@ -9103,6 +9110,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } catch (RemoteException e) {
             // Netd died. This usually causes a runtime restart anyway.
         }
+    }
+
+    private Set<Integer> getAgentSatisfiedAllowedUids(
+            NetworkAgentInfo nai, NetworkCapabilities nc) {
+        if (null == nc) {
+            return Collections.emptySet();
+        }
+        final ArraySet<Integer> allowedUids = new ArraySet<>();
+        for (int uid : nc.getAllowedUidsNoCopy()) {
+            if (nai.isSatisfyingUid(uid)) {
+                allowedUids.add(uid);
+            }
+        }
+        return allowedUids;
     }
 
     public void handleUpdateLinkProperties(@NonNull NetworkAgentInfo nai,
@@ -9748,6 +9769,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // TODO: This may be slow, and should be optimized.
         final long start = SystemClock.elapsedRealtime();
         final NetworkReassignment changes = computeNetworkReassignment(networkRequests);
+        setAllowedUidsOnReassignment(changes);
+
         final long computed = SystemClock.elapsedRealtime();
         applyNetworkReassignment(changes, start);
         final long applied = SystemClock.elapsedRealtime();
@@ -9761,6 +9784,68 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Shorter form, only one line of log
             log(String.format("%s [c %d] [a %d] [i %d]", changes.toString(),
                     computed - start, applied - computed, end - applied));
+        }
+    }
+
+    private void setAllowedUidsOnReassignment(@NonNull final NetworkReassignment changes) {
+        if (!SdkLevel.isAtLeastU()) {
+            return;
+        }
+        final ArrayMap<NetworkAgentInfo, ArraySet<Integer>>
+                naiUids = getNaiAllowedUidChanges(changes);
+        final ArrayMap<NetworkAgentInfo, NetworkCapabilities>
+                naiCaps = getNaiNetcapsWithAllowedUidChanges(naiUids);
+        updateNaisWithNetcaps(naiCaps);
+    }
+
+    private ArrayMap<NetworkAgentInfo, NetworkCapabilities> getNaiNetcapsWithAllowedUidChanges(
+            ArrayMap<NetworkAgentInfo, ArraySet<Integer>> naiUids) {
+        final ArrayMap<NetworkAgentInfo, NetworkCapabilities> naiCaps = new ArrayMap<>();
+        for (Entry<NetworkAgentInfo, ArraySet<Integer>> entry : naiUids.entrySet()) {
+            final NetworkAgentInfo nai = entry.getKey();
+            final ArraySet<Integer> perAppDefaultUids = entry.getValue();
+            final NetworkCapabilities nc = new NetworkCapabilities(nai.getCapsNoCopy());
+            final ArraySet<Integer> allowedUids = nai.getDeclaredAllowedUidsNoCopy();
+
+            allowedUids.addAll(perAppDefaultUids);
+            nc.setAllowedUids(allowedUids);
+            naiCaps.put(nai, nc);
+        }
+        return naiCaps;
+    }
+
+    private ArrayMap<NetworkAgentInfo, ArraySet<Integer>> getNaiAllowedUidChanges(
+            NetworkReassignment changes) {
+        final ArrayMap<NetworkAgentInfo, ArraySet<Integer>> naiUids = new ArrayMap<>();
+        for (NetworkReassignment.RequestReassignment event : changes.getRequestReassignments()) {
+            final NetworkAgentInfo oldNai = event.mOldNetwork;
+            final NetworkAgentInfo newNai = event.mNewNetwork;
+            if (null != oldNai && mNoServiceNetwork != oldNai) {
+                if (!naiUids.containsKey(oldNai)) {
+                    naiUids.put(oldNai, new ArraySet<>());
+                }
+            }
+
+            // Allowed UIDs only makes sense for restricted networks.
+            if (null != newNai && mNoServiceNetwork != newNai
+                    && !newNai.networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)) {
+                if (!naiUids.containsKey(newNai)) {
+                    naiUids.put(newNai, new ArraySet<>());
+                }
+                naiUids.get(newNai).add(event.mNewNetworkRequest.getRequestorUid());
+            }
+        }
+        return naiUids;
+    }
+
+    private void updateNaisWithNetcaps(ArrayMap<NetworkAgentInfo, NetworkCapabilities> naiCaps) {
+        for (Entry<NetworkAgentInfo, NetworkCapabilities> entry : naiCaps.entrySet()) {
+            final NetworkAgentInfo nai = entry.getKey();
+            final NetworkCapabilities newNc = entry.getValue();
+            if (DBG)  {
+                log("setAllowedUidsOnReassignment for " + nai.network.netId + " - " + newNc);
+            }
+            nai.getAndSetNetworkCapabilities(newNc);
         }
     }
 
