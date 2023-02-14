@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d688638e_4aa288a8",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-14T09:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a378abcc_5317e71b",
+      "range": {
+        "startLine": 277,
+        "startChar": 90,
+        "endLine": 278,
+        "endChar": 44
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0cc1576_486f9e29",
@@ -94,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e42f903_dd357cb3",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-14T09:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "982ac322_a5ee4dd7",
+      "range": {
+        "startLine": 308,
+        "startChar": 34,
+        "endLine": 309,
+        "endChar": 66
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b3b1584_50aabe3f",
@@ -141,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0a7d240_82011321",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-14T09:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf3eefd4_90ede23f",
+      "range": {
+        "startLine": 310,
+        "startChar": 26,
+        "endLine": 310,
+        "endChar": 27
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1ce225a_ad9770cc",
@@ -154,6 +226,30 @@
       "writtenOn": "2023-02-13T07:49:48Z",
       "side": 1,
       "message": "If you use the static method rule, you could also have a static boolean isMeteredForBackwardsCompatibility(matchRule) or so",
+      "range": {
+        "startLine": 313,
+        "startChar": 89,
+        "endLine": 313,
+        "endChar": 90
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88b01806_79058ad7",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-14T09:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1ce225a_ad9770cc",
       "range": {
         "startLine": 313,
         "startChar": 89,
@@ -187,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce7ad09f_284f266e",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-14T09:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a1b6c79_96f5d0d1",
+      "range": {
+        "startLine": 316,
+        "startChar": 43,
+        "endLine": 316,
+        "endChar": 44
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "986a412c_758c0516",
@@ -200,6 +320,30 @@
       "writtenOn": "2023-02-13T06:24:03Z",
       "side": 1,
       "message": "1. I\u0027m not sure how useful is this log. who will look at it?\n\n2. Maybe \n\"Use MATCH_MOBILE with empty subscriberIds or MATCH_WIFI with empty wifiNetworkKeys instead of template with matchRule\u003d\" + matchRule",
+      "range": {
+        "startLine": 317,
+        "startChar": 23,
+        "endLine": 318,
+        "endChar": 65
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ca1825e_96e56c62",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-14T09:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "986a412c_758c0516",
       "range": {
         "startLine": 317,
         "startChar": 23,
@@ -233,6 +377,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98b0c9fe_18b6805d",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-14T09:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "383e72f4_6aa0bc12",
+      "range": {
+        "startLine": 170,
+        "startChar": 31,
+        "endLine": 170,
+        "endChar": 32
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "585b405b_d08ac4c6",
@@ -246,6 +414,30 @@
       "writtenOn": "2023-02-13T07:49:48Z",
       "side": 1,
       "message": "I think it\u0027s just simpler to say\n\n    NetworkTemplate(6 /* MATCH_MOBILE_WILDCARD */, null, null)\n    NetworkTemplate(7 /* MATCH_WIFI_WILDCARD */, null, null)\n\nAlso see https://engdoc.corp.google.com/eng/doc/tott/episodes/598.md?cl\u003dhead\u0026g3docserverpod\u003dtrue",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 74
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7772bd10_5fef9b73",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-14T09:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "585b405b_d08ac4c6",
       "range": {
         "startLine": 171,
         "startChar": 8,
@@ -279,6 +471,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d7b5ca3_4cae24f8",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-14T09:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e45d0a15_6e672350",
+      "range": {
+        "startLine": 173,
+        "startChar": 17,
+        "endLine": 173,
+        "endChar": 39
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed86025b_471eb8e2",
@@ -292,6 +508,30 @@
       "writtenOn": "2023-02-13T07:49:48Z",
       "side": 1,
       "message": "I don\u0027t think this catch serves any purpose. You should remove it and possibly replace it with a comment. If it fails with IAE, the test will fail all the same.",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 13
+      },
+      "revId": "5f5b0ee2fdaf35d9186ac7f1ee1cc76bdc833437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e06dd1c2_772b41f6",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-14T09:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed86025b_471eb8e2",
       "range": {
         "startLine": 174,
         "startChar": 0,
