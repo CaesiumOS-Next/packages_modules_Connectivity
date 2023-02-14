@@ -24,15 +24,19 @@ import android.net.LinkAddress;
 import android.net.Network;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
+import android.net.nsd.OffloadEngine;
+import android.net.nsd.OffloadServiceInfo;
 import android.os.Looper;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -68,9 +72,10 @@ public class MdnsAdvertiser {
             new ArrayMap<>();
     private final SparseArray<Registration> mRegistrations = new SparseArray<>();
     private final Dependencies mDeps;
-
     private String[] mDeviceHostName;
     @NonNull private final SharedLog mSharedLog;
+    private final Map<String, List<OffloadService>> mInterfaceOffloadServices =
+            new ArrayMap<>();
 
     /**
      * Dependencies for {@link MdnsAdvertiser}, useful for testing.
@@ -115,18 +120,30 @@ public class MdnsAdvertiser {
     private final MdnsInterfaceAdvertiser.Callback mInterfaceAdvertiserCb =
             new MdnsInterfaceAdvertiser.Callback() {
         @Override
-        public void onRegisterServiceSucceeded(
+        public void onServiceProbingSucceeded(
                 @NonNull MdnsInterfaceAdvertiser advertiser, int serviceId) {
-            // Wait for all current interfaces to be done probing before notifying of success.
-            if (any(mAllAdvertisers, (k, a) -> a.isProbing(serviceId))) return;
-            // The service may still be unregistered/renamed if a conflict is found on a later added
-            // interface, or if a conflicting announcement/reply is detected (RFC6762 9.)
-
             final Registration registration = mRegistrations.get(serviceId);
             if (registration == null) {
                 Log.wtf(TAG, "Register succeeded for unknown registration");
                 return;
             }
+
+            final String interfaceName = advertiser.getSocketInterfaceName();
+            final List<OffloadService> existOffloadServices =
+                    mInterfaceOffloadServices.computeIfAbsent(
+                            interfaceName, k -> new ArrayList<>());
+            // Remove existing offload services from cache for update.
+            existOffloadServices.removeIf(item -> item.mServiceId == serviceId);
+            final OffloadService newOffloadService = createOffloadService(serviceId,
+                    registration.mServiceInfo);
+            existOffloadServices.add(newOffloadService);
+            mCb.onOffloadStartOrUpdate(interfaceName, newOffloadService.mOffloadServiceInfo);
+
+            // Wait for all current interfaces to be done probing before notifying of success.
+            if (any(mAllAdvertisers, (k, a) -> a.isProbing(serviceId))) return;
+            // The service may still be unregistered/renamed if a conflict is found on a later added
+            // interface, or if a conflicting announcement/reply is detected (RFC6762 9.)
+
             if (!registration.mNotifiedRegistrationSuccess) {
                 mCb.onRegisterServiceSucceeded(serviceId, registration.getServiceInfo());
                 registration.mNotifiedRegistrationSuccess = true;
@@ -148,7 +165,12 @@ public class MdnsAdvertiser {
                 registration.mNotifiedRegistrationSuccess = false;
 
                 // The service was done probing, just reset it to probing state (RFC6762 9.)
-                forAllAdvertisers(a -> a.restartProbingForConflict(serviceId));
+                forAllAdvertisers(a -> {
+                    if (!a.restartProbingForConflict(serviceId)) {
+                        return;
+                    }
+                    maybeSendOffloadStop(a.getSocketInterfaceName(), serviceId);
+                });
                 return;
             }
 
@@ -196,6 +218,22 @@ public class MdnsAdvertiser {
         registration.updateForConflict(newInfo, renameCount);
     }
 
+    private void maybeSendOffloadStop(final String interfaceName, int serviceId) {
+        final List<OffloadService> existOffloadServices =
+                mInterfaceOffloadServices.get(interfaceName);
+        if (existOffloadServices == null) {
+            return;
+        }
+        // Stop the offloaded service by matching the service id
+        int idx = CollectionUtils.indexOf(existOffloadServices,
+                item -> item.mServiceId == serviceId);
+        if (idx >= 0) {
+            mCb.onOffloadStop(interfaceName,
+                    existOffloadServices.get(idx).mOffloadServiceInfo);
+            existOffloadServices.remove(idx);
+        }
+    }
+
     /**
      * A request for a {@link MdnsInterfaceAdvertiser}.
      *
@@ -221,7 +259,17 @@ public class MdnsAdvertiser {
          * @return true if this {@link InterfaceAdvertiserRequest} should now be deleted.
          */
         boolean onAdvertiserDestroyed(@NonNull MdnsInterfaceSocket socket) {
-            mAdvertisers.remove(socket);
+            final MdnsInterfaceAdvertiser removedAdvertiser = mAdvertisers.remove(socket);
+            final String interfaceName = removedAdvertiser.getSocketInterfaceName();
+            // If the interface is destroyed, stop all hardware offloading on that interface.
+            final List<OffloadService> offloadServices = mInterfaceOffloadServices.remove(
+                    interfaceName);
+            if (offloadServices != null) {
+                for (OffloadService offloadService : offloadServices) {
+                    mCb.onOffloadStop(interfaceName, offloadService.mOffloadServiceInfo);
+                }
+            }
+
             if (mAdvertisers.size() == 0 && mPendingRegistrations.size() == 0) {
                 // No advertiser is using sockets from this request anymore (in particular for exit
                 // announcements), and there is no registration so newer sockets will not be
@@ -280,7 +328,10 @@ public class MdnsAdvertiser {
         void removeService(int id) {
             mPendingRegistrations.remove(id);
             for (int i = 0; i < mAdvertisers.size(); i++) {
-                mAdvertisers.valueAt(i).removeService(id);
+                final MdnsInterfaceAdvertiser advertiser = mAdvertisers.valueAt(i);
+                advertiser.removeService(id);
+
+                maybeSendOffloadStop(advertiser.getSocketInterfaceName(), id);
             }
         }
 
@@ -319,6 +370,16 @@ public class MdnsAdvertiser {
                 @NonNull MdnsInterfaceSocket socket, @NonNull List<LinkAddress> addresses) {
             final MdnsInterfaceAdvertiser advertiser = mAdvertisers.get(socket);
             if (advertiser != null) advertiser.updateAddresses(addresses);
+        }
+    }
+
+    private static class OffloadService {
+        private final @NonNull OffloadServiceInfo mOffloadServiceInfo;
+        private final int mServiceId;
+
+        OffloadService(int serviceId, OffloadServiceInfo offloadServiceInfo) {
+            mOffloadServiceInfo = offloadServiceInfo;
+            mServiceId = serviceId;
         }
     }
 
@@ -414,6 +475,24 @@ public class MdnsAdvertiser {
 
         // Unregistration is notified immediately as success in NsdService so no callback is needed
         // here.
+
+        /**
+         * Called when a service is ready to be sent for hardware offloading.
+         *
+         * @param interfaceName the interface for sending the update to.
+         * @param offloadServiceInfo the offloading content.
+         */
+        void onOffloadStartOrUpdate(@NonNull String interfaceName,
+                @NonNull OffloadServiceInfo offloadServiceInfo);
+
+        /**
+         * Called when a service is removed or the MdnsInterfaceAdvertiser is destroyed.
+         *
+         * @param interfaceName the interface for sending the update to.
+         * @param offloadServiceInfo the offloading content.
+         */
+        void onOffloadStop(@NonNull String interfaceName,
+                @NonNull OffloadServiceInfo offloadServiceInfo);
     }
 
     public MdnsAdvertiser(@NonNull Looper looper, @NonNull MdnsSocketProvider socketProvider,
@@ -513,4 +592,21 @@ public class MdnsAdvertiser {
             return false;
         });
     }
+
+    private OffloadService createOffloadService(int serviceId,
+            @NonNull NsdServiceInfo serviceInfo) {
+        final OffloadServiceInfo offloadServiceInfo = new OffloadServiceInfo(
+                serviceInfo.getServiceName(),
+                serviceInfo.getServiceType(),
+                String.join(".", mDeviceHostName),
+                null /* rawOffloadPacket */,
+                // TODO: define overlayable resources in
+                // ServiceConnectivityResources that set the priority based on
+                // service type.
+                0 /* priority */,
+                // TODO: set the offloadType based on the callback timing.
+                OffloadEngine.OFFLOAD_CAPABILITY_TRANSMIT);
+        return new OffloadService(serviceId, offloadServiceInfo);
+    }
+
 }
