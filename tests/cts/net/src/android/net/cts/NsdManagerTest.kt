@@ -16,6 +16,7 @@
 package android.net.cts
 
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
+import android.Manifest.permission.NETWORK_SETTINGS
 import android.app.compat.CompatChanges
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
@@ -60,6 +61,8 @@ import android.net.nsd.NsdManager.DiscoveryListener
 import android.net.nsd.NsdManager.RegistrationListener
 import android.net.nsd.NsdManager.ResolveListener
 import android.net.nsd.NsdServiceInfo
+import android.net.nsd.OffloadEngine
+import android.net.nsd.OffloadServiceInfo
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
@@ -345,6 +348,22 @@ class NsdManagerTest {
 
         override fun onServiceInfoCallbackUnregistered() {
             add(UnregisterCallbackSucceeded)
+        }
+    }
+
+    private class TestNsdOffloadEngine : OffloadEngine,
+        NsdRecord<TestNsdOffloadEngine.OffloadEvent>() {
+        sealed class OffloadEvent : NsdEvent {
+            data class AddOrUpdateEvent(val info: OffloadServiceInfo) : OffloadEvent()
+            data class RemoveEvent(val info: OffloadServiceInfo) : OffloadEvent()
+        }
+
+        override fun addOrUpdateOffloadServiceInfo(info: OffloadServiceInfo) {
+            add(OffloadEvent.AddOrUpdateEvent(info))
+        }
+
+        override fun removeOffloadServiceInfo(info: OffloadServiceInfo) {
+            add(OffloadEvent.RemoveEvent(info))
         }
     }
 
@@ -847,6 +866,47 @@ class NsdManagerTest {
             nsdManager.unregisterService(registrationRecord)
         } cleanup {
             registrationRecord.expectCallback<ServiceUnregistered>()
+        }
+    }
+
+    fun checkOffloadServiceInfo(serviceInfo: OffloadServiceInfo) {
+        assertEquals(serviceName, serviceInfo.serviceName)
+        assertEquals(serviceType, serviceInfo.serviceType)
+        assertTrue(serviceInfo.deviceHostName.startsWith("Android_"))
+        assertTrue(serviceInfo.deviceHostName.endsWith("local"))
+        assertEquals(null, serviceInfo.rawOffloadPacket)
+        assertEquals(0, serviceInfo.priority)
+        assertEquals(OffloadEngine.OFFLOAD_CAPABILITY_TRANSMIT.toLong(), serviceInfo.offloadType)
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    @Test
+    fun testNsdManager_registerOffloadEngine() {
+        val offloadEngine = TestNsdOffloadEngine()
+        runAsShell(NETWORK_SETTINGS) {
+            nsdManager.registerOffloadEngine(testNetwork1.iface.interfaceName,
+                { it.run() }, offloadEngine,
+                OffloadEngine.OFFLOAD_CAPABILITY_TRANSMIT.toLong())
+        }
+
+        val si = NsdServiceInfo()
+        si.serviceType = serviceType
+        si.serviceName = serviceName
+        si.network = testNetwork1.network
+        si.port = 12345
+        val record = NsdRegistrationRecord()
+        nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, record)
+        val addOrUpdateEvent = offloadEngine
+            .expectCallback<TestNsdOffloadEngine.OffloadEvent.AddOrUpdateEvent>()
+        checkOffloadServiceInfo(addOrUpdateEvent.info)
+
+        nsdManager.unregisterService(record)
+        val unregisterEvent = offloadEngine
+            .expectCallback<TestNsdOffloadEngine.OffloadEvent.RemoveEvent>()
+        checkOffloadServiceInfo(unregisterEvent.info)
+
+        runAsShell(NETWORK_SETTINGS) {
+            nsdManager.unregisterOffloadEngine(offloadEngine)
         }
     }
 
