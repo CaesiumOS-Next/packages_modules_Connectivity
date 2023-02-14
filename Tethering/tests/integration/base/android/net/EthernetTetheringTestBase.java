@@ -122,9 +122,9 @@ public abstract class EthernetTetheringTestBase {
             (Inet4Address) parseNumericAddress("8.8.8.8");
     protected static final Inet6Address REMOTE_IP6_ADDR =
             (Inet6Address) parseNumericAddress("2002:db8:1::515:ca");
+    // Test prefix64 is 64:ff9b::/96. See also TetheringTester#PREF64_IPV4ONLY_ADDR_*
     protected static final Inet6Address REMOTE_NAT64_ADDR =
             (Inet6Address) parseNumericAddress("64:ff9b::808:808");
-    protected static final IpPrefix TEST_NAT64PREFIX = new IpPrefix("64:ff9b::/96");
 
     // IPv4 header definition.
     protected static final short ID = 27149;
@@ -639,7 +639,6 @@ public abstract class EthernetTetheringTestBase {
         final LinkProperties lp = new LinkProperties();
         lp.setLinkAddresses(addresses);
         lp.setDnsServers(dnses);
-        lp.setNat64Prefix(TEST_NAT64PREFIX);
 
         return runAsShell(MANAGE_TEST_NETWORKS, () -> initTestNetwork(mContext, lp, TIMEOUT_MS));
     }
