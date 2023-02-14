@@ -263,5 +263,14 @@ package android.net.nsd {
     field @NonNull public static final android.os.Parcelable.Creator<android.net.nsd.NsdServiceInfo> CREATOR;
   }
 
+  public final class OffloadInfo implements android.os.Parcelable {
+    ctor public OffloadInfo(@NonNull String, @NonNull String);
+    method public int describeContents();
+    method @NonNull public String getServiceName();
+    method @NonNull public String getServiceType();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.nsd.OffloadInfo> CREATOR;
+  }
+
 }
 

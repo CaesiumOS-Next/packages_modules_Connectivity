@@ -16,6 +16,8 @@
 
 package android.net.nsd;
 
+import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.connectivity.ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER;
 
 import android.annotation.IntDef;
@@ -24,6 +26,7 @@ import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
+import android.annotation.SystemApi;
 import android.annotation.SystemService;
 import android.app.compat.CompatChanges;
 import android.content.Context;
@@ -35,6 +38,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.os.OutcomeReceiver;
 import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.ArrayMap;
@@ -44,9 +48,11 @@ import android.util.SparseArray;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.CollectionUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 
@@ -308,8 +314,119 @@ public final class NsdManager {
     @GuardedBy("mPerNetworkDiscoveryMap")
     private final ArrayMap<Integer, PerNetworkDiscoveryTracker>
             mPerNetworkDiscoveryMap = new ArrayMap<>();
+    @GuardedBy("mOffloadCallbacks")
+    private final ArrayList<HardwareOffloadCallbackImpl> mOffloadCallbacks = new ArrayList<>();
 
     private final ServiceHandler mHandler;
+
+    /**
+     * The interface that represents the hardware
+     *
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public interface HardwareOffloadCallback {
+        /** TODO: document */
+        void onAddOffload(@NonNull OffloadInfo info,
+                @NonNull OutcomeReceiver<OffloadInfo, HardwareOffloadException> outcomeReceiver);
+        /** TODO: document */
+        void onRemoveOffload(@NonNull OffloadInfo info);
+    }
+
+    private static class HardwareOffloadCallbackImpl extends IHardwareOffloadCallback.Stub {
+        private final Executor mExecutor;
+        private final HardwareOffloadCallback mAppCb;
+
+        private HardwareOffloadCallbackImpl(Executor executor, HardwareOffloadCallback appCb) {
+            mExecutor = executor;
+            mAppCb = appCb;
+        }
+
+        @Override
+        public void onAddOffload(OffloadInfo info, IOffloadOutcomeReceiver outcomeReceiver) {
+            mExecutor.execute(() -> mAppCb.onAddOffload(
+                    info, new OffloadReceiver(outcomeReceiver)));
+        }
+        @Override
+        public void onRemoveOffload(OffloadInfo info) {
+            mExecutor.execute(() -> mAppCb.onRemoveOffload(info));
+        }
+    };
+
+    private static class OffloadReceiver
+            implements OutcomeReceiver<OffloadInfo, HardwareOffloadException> {
+        private final IOffloadOutcomeReceiver mInternalReceiver;
+
+        OffloadReceiver(IOffloadOutcomeReceiver internalReceiver) {
+            mInternalReceiver = internalReceiver;
+        }
+
+        @Override
+        public void onError(@NonNull HardwareOffloadException error) {
+            try {
+                mInternalReceiver.onError(error);
+            } catch (RemoteException e) {
+                e.rethrowFromSystemServer();
+            }
+        }
+
+        @Override
+        public void onResult(@NonNull OffloadInfo result) {
+            try {
+                mInternalReceiver.onResult(result);
+            } catch (RemoteException e) {
+                e.rethrowFromSystemServer();
+            }
+        }
+    }
+
+    /**
+     * TODO: document
+     * @param ifaceIndex
+     * @param cb
+     * @return
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    @RequiresPermission(anyOf = { NETWORK_SETTINGS, PERMISSION_MAINLINE_NETWORK_STACK })
+    public void registerOffloadCallback(int ifaceIndex, @NonNull Executor executor,
+            @NonNull HardwareOffloadCallback cb) {
+
+        final HardwareOffloadCallbackImpl cbImpl = new HardwareOffloadCallbackImpl(executor, cb);
+        synchronized (mOffloadCallbacks) {
+            mOffloadCallbacks.add(cbImpl);
+        }
+
+        try {
+            mService.registerOffloadCallback(ifaceIndex, cbImpl);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
+
+
+    /**
+     * TODO: document
+     * @param cb
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public void unregisterOffloadCallback(@NonNull HardwareOffloadCallback cb) {
+        final HardwareOffloadCallbackImpl cbImpl;
+        synchronized (mOffloadCallbacks) {
+            final int index = CollectionUtils.indexOf(mOffloadCallbacks, impl -> impl.mAppCb == cb);
+            if (index < 0) {
+                throw new IllegalArgumentException("This callback is not registered");
+            }
+            cbImpl = mOffloadCallbacks.remove(index);
+        }
+
+        try {
+            mService.unregisterOffloadCallback(cbImpl);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
 
     private class PerNetworkDiscoveryTracker {
         final String mServiceType;
