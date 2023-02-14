@@ -1451,7 +1451,14 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             private NetworkStatsCollection getUidComplete() {
                 synchronized (mStatsLock) {
                     if (mUidComplete == null) {
+                        final long start = mClock.millis();
                         mUidComplete = mUidRecorder.getOrLoadCompleteLocked();
+                        final long end = mClock.millis();
+                        final Map<NetworkStatsCollection.Key, NetworkStatsHistory> entries = mUidComplete.getEntries();
+                        if (end - start > 1000) {
+                            Log.d("JUNYU", "mUidComplete took " + (end - start) + " ms with "
+                                    + entries.size() + " entries");
+                        }
                     }
                     return mUidComplete;
                 }
@@ -1460,7 +1467,14 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             private NetworkStatsCollection getUidTagComplete() {
                 synchronized (mStatsLock) {
                     if (mUidTagComplete == null) {
+                        final long start = mClock.millis();
                         mUidTagComplete = mUidTagRecorder.getOrLoadCompleteLocked();
+                        final long end = mClock.millis();
+                        final Map<NetworkStatsCollection.Key, NetworkStatsHistory> entries = mUidTagComplete.getEntries();
+                        if (end - start > 1000) {
+                            Log.d("JUNYU", "getUidTagComplete took " + (end - start) + " ms with "
+                                    + entries.size() + " entries");
+                        }
                     }
                     return mUidTagComplete;
                 }

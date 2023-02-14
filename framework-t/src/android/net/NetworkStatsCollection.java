@@ -114,6 +114,16 @@ public class NetworkStatsCollection implements FileRotator.Reader, FileRotator.W
     private long mTotalBytes;
     private boolean mDirty;
 
+    private long mRecordHistoryTag1, mRecordHistoryTag2, mRecordHistoryTag3;
+    /** @hide */
+    public long measureEnsureBuckets = 0L;
+    /** @hide */
+    public long measureBinarySearch = 0L;
+    /** @hide */
+    public long measureInsert = 0L;
+    /** @hide */
+    public long measureMath = 0L;
+
     /**
      * Construct a {@link NetworkStatsCollection} object.
      *
@@ -434,11 +444,22 @@ public class NetworkStatsCollection implements FileRotator.Reader, FileRotator.W
         noteRecordedHistory(history.getStart(), history.getEnd(), history.getTotalBytes());
 
         NetworkStatsHistory target = mStats.get(key);
+        mRecordHistoryTag1 = System.currentTimeMillis();
         if (target == null) {
             target = new NetworkStatsHistory(history.getBucketDuration());
+            mRecordHistoryTag2 = System.currentTimeMillis();
             mStats.put(key, target);
+        } else {
+            mRecordHistoryTag2 = mRecordHistoryTag1;
         }
+        mRecordHistoryTag3 = System.currentTimeMillis();
         target.recordEntireHistory(history);
+        measureEnsureBuckets += target.measureEnsureBuckets;
+        measureInsert += target.measureInsert;
+        measureMath += target.measureMath;
+        measureBinarySearch += target.measureBinarySearch;
+        target.measureBinarySearch =
+                target.measureInsert = target.measureMath = target.measureEnsureBuckets = 0;
     }
 
     /**
@@ -495,8 +516,17 @@ public class NetworkStatsCollection implements FileRotator.Reader, FileRotator.W
             case VERSION_UNIFIED_INIT: {
                 // uid := size *(NetworkIdentitySet size *(uid set tag NetworkStatsHistory))
                 final int identSize = in.readInt();
+                final long measureStart = System.currentTimeMillis();
+                long identTotal = 0L;
+                long historyTotal = 0L;
+                long recordTag1Total = 0L;
+                long recordTag2Total = 0L;
+                long recordTag3Total = 0L;
+                long recordTag4Total = 0L;
                 for (int i = 0; i < identSize; i++) {
+                    final long identStart = System.currentTimeMillis();
                     final NetworkIdentitySet ident = new NetworkIdentitySet(in);
+                    identTotal += System.currentTimeMillis() - identStart;
 
                     final int size = in.readInt();
                     for (int j = 0; j < size; j++) {
@@ -505,9 +535,28 @@ public class NetworkStatsCollection implements FileRotator.Reader, FileRotator.W
                         final int tag = in.readInt();
 
                         final Key key = new Key(ident, uid, set, tag);
+                        final long historyStart = System.currentTimeMillis();
                         final NetworkStatsHistory history = new NetworkStatsHistory(in);
+                        historyTotal += System.currentTimeMillis() - historyStart;
+
+                        final long recordStart = System.currentTimeMillis();
                         recordHistory(key, history);
+                        recordTag1Total += mRecordHistoryTag1 - recordStart;
+                        recordTag2Total += mRecordHistoryTag2 - mRecordHistoryTag1;
+                        recordTag3Total += mRecordHistoryTag3 - mRecordHistoryTag2;
+                        recordTag4Total += System.currentTimeMillis() - mRecordHistoryTag3;
                     }
+                }
+                final long measureTotal = System.currentTimeMillis() - measureStart;
+                if (measureTotal > 300L) {
+                    Log.d("JUNYU", "NetworkStatsCollection#read() total=" + measureTotal
+                            + " ident=" + identTotal + " history=" + historyTotal
+                            + " record=" + recordTag1Total + "," + recordTag2Total + ","
+                            + recordTag3Total + "," + recordTag4Total);
+                    Log.d("JUNYU", "NetworkStatsHistory: ensureBucket,BinarySearch,Insert,Math="
+                            + measureEnsureBuckets + "," + measureBinarySearch + "," + measureInsert
+                            + "," + measureMath);
+                    measureMath = measureInsert = measureEnsureBuckets = measureBinarySearch = 0;
                 }
                 break;
             }

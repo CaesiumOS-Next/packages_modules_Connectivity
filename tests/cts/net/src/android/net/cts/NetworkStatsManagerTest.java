@@ -218,7 +218,7 @@ public class NetworkStatsManagerTest {
         if (networkInfo == null) {
             Log.w(LOG_TAG, "Network info is null");
         } else {
-            Log.w(LOG_TAG, "Network: " + networkInfo.toString());
+            Log.w(LOG_TAG, "Network(" + network + "): " + networkInfo.toString());
         }
         InputStreamReader in = null;
         HttpURLConnection urlc = null;

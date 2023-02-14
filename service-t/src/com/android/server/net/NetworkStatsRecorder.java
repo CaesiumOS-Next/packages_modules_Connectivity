@@ -32,6 +32,7 @@ import android.net.NetworkTemplate;
 import android.net.TrafficStats;
 import android.os.Binder;
 import android.os.DropBoxManager;
+import android.os.SystemClock;
 import android.service.NetworkStatsRecorderProto;
 import android.util.IndentingPrintWriter;
 import android.util.Log;
@@ -196,10 +197,17 @@ public class NetworkStatsRecorder {
 
     private NetworkStatsCollection loadLocked(long start, long end) {
         if (LOGD) Log.d(TAG, "loadLocked() reading from disk for " + mCookie);
+        final long tag1 = SystemClock.elapsedRealtime();
         final NetworkStatsCollection res = new NetworkStatsCollection(mBucketDuration);
         try {
+            final long tag2 = SystemClock.elapsedRealtime();
             mRotator.readMatching(res, start, end);
+            final long tag3 = SystemClock.elapsedRealtime();
             res.recordCollection(mPending);
+            final long tag4 = SystemClock.elapsedRealtime();
+            if (tag4 - tag1 > 1000L) {
+                Log.d("JUNYU", "" + (tag2 - tag1) + "," + (tag3 - tag2) + "," + (tag4 - tag3));
+            }
         } catch (IOException e) {
             Log.wtf(TAG, "problem completely reading network stats", e);
             recoverAndDeleteData();

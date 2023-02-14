@@ -107,6 +107,15 @@ public final class NetworkStatsHistory implements Parcelable {
     private long totalBytes;
 
     /** @hide */
+    public long measureEnsureBuckets = 0L;
+    /** @hide */
+    public long measureBinarySearch = 0L;
+    /** @hide */
+    public long measureInsert = 0L;
+    /** @hide */
+    public long measureMath = 0L;
+
+    /** @hide */
     public NetworkStatsHistory(long bucketDuration, long[] bucketStart, long[] activeTime,
             long[] rxBytes, long[] rxPackets, long[] txBytes, long[] txPackets,
             long[] operations, int bucketCount, long totalBytes) {
@@ -555,8 +564,11 @@ public final class NetworkStatsHistory implements Parcelable {
             return;
         }
 
+        long tag1 = System.currentTimeMillis();
         // create any buckets needed by this range
         ensureBuckets(start, end);
+        long tag2 = System.currentTimeMillis();
+        measureEnsureBuckets += tag2 - tag1;
         // Return fast if there is still no entry. This would typically happen when the start,
         // end or duration are not valid values, e.g. start > end, negative duration value, etc.
         if (bucketCount == 0) return;
@@ -593,7 +605,8 @@ public final class NetworkStatsHistory implements Parcelable {
 
             duration -= overlap;
         }
-
+        long tag3 = System.currentTimeMillis();
+        measureMath += tag3 - tag2;
         totalBytes += entry.rxBytes + entry.txBytes;
     }
 
@@ -643,12 +656,17 @@ public final class NetworkStatsHistory implements Parcelable {
         end += (bucketDuration - (end % bucketDuration)) % bucketDuration;
 
         for (long now = start; now < end; now += bucketDuration) {
+            long tag1 = System.currentTimeMillis();
             // try finding existing bucket
             final int index = Arrays.binarySearch(bucketStart, 0, bucketCount, now);
+            long tag2 = System.currentTimeMillis();
+            measureBinarySearch += tag2 - tag1;
             if (index < 0) {
                 // bucket missing, create and insert
                 insertBucket(~index, now);
             }
+            long tag3 = System.currentTimeMillis();
+            measureInsert += tag3 - tag2;
         }
     }
 
