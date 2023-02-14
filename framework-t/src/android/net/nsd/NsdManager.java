@@ -16,6 +16,8 @@
 
 package android.net.nsd;
 
+import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.connectivity.ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER;
 
 import android.annotation.IntDef;
@@ -24,6 +26,7 @@ import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
+import android.annotation.SystemApi;
 import android.annotation.SystemService;
 import android.app.compat.CompatChanges;
 import android.content.Context;
@@ -44,9 +47,12 @@ import android.util.SparseArray;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.CollectionUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 
@@ -309,7 +315,96 @@ public final class NsdManager {
     private final ArrayMap<Integer, PerNetworkDiscoveryTracker>
             mPerNetworkDiscoveryMap = new ArrayMap<>();
 
+    @GuardedBy("mOffloadCallbacks")
+    private final ArrayList<HardwareOffloadCallbackImpl> mOffloadCallbacks = new ArrayList<>();
     private final ServiceHandler mHandler;
+
+    /**
+     * The interface that exports the hardware offload callback APIs.
+     *
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public interface HardwareOffloadCallback {
+        /**
+         * To be called when OffloadInfo needs to be added to the hardware offload handler.
+         *
+         * @param infos the list of objects represents the service name and service type to be
+         *              added to offload handler.
+         */
+        void onOffloadUpdated(@NonNull List<OffloadInfo> infos);
+    }
+
+    private static class HardwareOffloadCallbackImpl extends IHardwareOffloadCallback.Stub {
+        private final Executor mExecutor;
+        private final HardwareOffloadCallback mAppCb;
+
+        private HardwareOffloadCallbackImpl(Executor executor, HardwareOffloadCallback appCb) {
+            mExecutor = executor;
+            mAppCb = appCb;
+        }
+
+        @Override
+        public void onOffloadUpdated(List<OffloadInfo> infos) {
+            mExecutor.execute(() -> mAppCb.onOffloadUpdated(infos));
+        }
+    }
+
+    /**
+     * Registers a hardware offload callback to NsdService.
+     *
+     * @param ifaceIndex indicates which network interface the hardware offload is running
+     * @param executor   the executor thread to execute the hardware offload logic
+     * @param cb         the hardware offload callback object to handle hardware offload logic
+     * @throws IllegalArgumentException if the callback already registered.
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    @RequiresPermission(anyOf = {NETWORK_SETTINGS, PERMISSION_MAINLINE_NETWORK_STACK})
+    public void registerOffloadCallback(int ifaceIndex, @NonNull Executor executor,
+            @NonNull HardwareOffloadCallback cb) {
+
+        final HardwareOffloadCallbackImpl cbImpl = new HardwareOffloadCallbackImpl(executor, cb);
+        synchronized (mOffloadCallbacks) {
+            final int index = CollectionUtils.indexOf(mOffloadCallbacks, impl -> impl.mAppCb == cb);
+            if (index > 0) {
+                throw new IllegalArgumentException("This callback is already registered");
+            }
+            mOffloadCallbacks.add(cbImpl);
+        }
+        try {
+            mService.registerOffloadCallback(ifaceIndex, cbImpl);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
+
+
+    /**
+     * Unregistered a hardware offload callback from NsdService.
+     *
+     * @param cb the hardware offload callback object to be removed from NsdService
+     * @throws IllegalArgumentException if the callback is not registered.
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    @RequiresPermission(anyOf = {NETWORK_SETTINGS, PERMISSION_MAINLINE_NETWORK_STACK})
+    public void unregisterOffloadCallback(@NonNull HardwareOffloadCallback cb) {
+        final HardwareOffloadCallbackImpl cbImpl;
+        synchronized (mOffloadCallbacks) {
+            final int index = CollectionUtils.indexOf(mOffloadCallbacks, impl -> impl.mAppCb == cb);
+            if (index < 0) {
+                throw new IllegalArgumentException("This callback is not registered");
+            }
+            cbImpl = mOffloadCallbacks.remove(index);
+        }
+
+        try {
+            mService.unregisterOffloadCallback(cbImpl);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
 
     private class PerNetworkDiscoveryTracker {
         final String mServiceType;

@@ -16,6 +16,7 @@
 package android.net.cts
 
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
+import android.Manifest.permission.NETWORK_SETTINGS
 import android.app.compat.CompatChanges
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
@@ -55,6 +56,7 @@ import android.net.nsd.NsdManager.DiscoveryListener
 import android.net.nsd.NsdManager.RegistrationListener
 import android.net.nsd.NsdManager.ResolveListener
 import android.net.nsd.NsdServiceInfo
+import android.net.nsd.OffloadInfo
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
@@ -76,6 +78,7 @@ import com.android.testutils.runAsShell
 import com.android.testutils.tryTest
 import com.android.testutils.waitForIdle
 import java.io.File
+import java.net.NetworkInterface
 import java.net.ServerSocket
 import java.nio.charset.StandardCharsets
 import java.util.Random
@@ -319,6 +322,17 @@ class NsdManagerTest {
 
         override fun onServiceInfoCallbackUnregistered() {
             add(UnregisterCallbackSucceeded)
+        }
+    }
+
+    private class NsdHardwareOffloadCallBack : NsdManager.HardwareOffloadCallback,
+        NsdRecord<NsdHardwareOffloadCallBack.OffloadEvent>() {
+        sealed class OffloadEvent : NsdEvent {
+            data class OffloadUpdatedEvent(val infos: List<OffloadInfo>) : OffloadEvent()
+        }
+
+        override fun onOffloadUpdated(infos: MutableList<OffloadInfo>) {
+            add(OffloadEvent.OffloadUpdatedEvent(infos))
         }
     }
 
@@ -760,6 +774,35 @@ class NsdManagerTest {
             nsdManager.unregisterService(registrationRecord)
         } cleanup {
             registrationRecord.expectCallback<ServiceUnregistered>()
+        }
+    }
+
+    @Test
+    fun testNsdManager_registerOffloadCallback() {
+        val ifaceIdx = NetworkInterface.getByName(testNetwork1.iface.interfaceName).index
+        val offloadCallBack = NsdHardwareOffloadCallBack()
+        runAsShell(NETWORK_SETTINGS) {
+            nsdManager.registerOffloadCallback(ifaceIdx, { it.run() }, offloadCallBack)
+        }
+
+        val si = NsdServiceInfo()
+        si.serviceType = serviceType
+        si.serviceName = serviceName
+        si.port = 12345
+        val record = NsdRegistrationRecord()
+        nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, record)
+        val registerEvent = offloadCallBack
+            .expectCallback<NsdHardwareOffloadCallBack.OffloadEvent.OffloadUpdatedEvent>()
+        assertEquals(registerEvent.infos.size, 1)
+        assertEquals(registerEvent.infos[0].serviceName, serviceName)
+        assertEquals(registerEvent.infos[0].serviceType, serviceType)
+        assertEquals(registerEvent.infos[0].hostName, "")
+        nsdManager.unregisterService(record)
+        val unregisterEvent = offloadCallBack
+            .expectCallback<NsdHardwareOffloadCallBack.OffloadEvent.OffloadUpdatedEvent>()
+        assertTrue(unregisterEvent.infos.isEmpty())
+        runAsShell(NETWORK_SETTINGS) {
+            nsdManager.unregisterOffloadCallback(offloadCallBack)
         }
     }
 
