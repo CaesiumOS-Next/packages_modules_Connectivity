@@ -9030,6 +9030,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     newNc);
         }
 
+        if (nai.networkCapabilities.hasAllowedUids()) {
+            final Set<Integer> allowedUids =
+                    getAgentSatisfiedAllowedUids(nai, nai.networkCapabilities);
+            allowedUids.addAll(newNc.getAllowedUids());
+            newNc.setAllowedUids(allowedUids);
+        }
+
         return newNc;
     }
 
@@ -9074,11 +9081,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (Objects.equals(nai.networkCapabilities, newNc)) return;
         final String differences = newNc.describeCapsDifferencesFrom(nai.networkCapabilities);
         if (null != differences) {
+            //TODO: allowed UID diffs should be included in differences.
             Log.i(TAG, "Update capabilities for net " + nai.network + " : " + differences);
         }
         updateNetworkPermissions(nai, newNc);
         final NetworkCapabilities prevNc = nai.getAndSetNetworkCapabilities(newNc);
-
         updateVpnUids(nai, prevNc, newNc);
         updateAllowedUids(nai, prevNc, newNc);
         nai.updateScoreForNetworkAgentUpdate();
@@ -9520,6 +9527,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } catch (RemoteException e) {
             // Netd died. This usually causes a runtime restart anyway.
         }
+    }
+
+    private Set<Integer> getAgentSatisfiedAllowedUids(
+            NetworkAgentInfo nai, NetworkCapabilities nc) {
+        if (null == nc) {
+            return Collections.emptySet();
+        }
+        final ArraySet<Integer> allowedUids = new ArraySet<>();
+        for (int uid : nc.getAllowedUidsNoCopy()) {
+            if (nai.isSatisfyingUid(uid)) {
+                allowedUids.add(uid);
+            }
+        }
+        return allowedUids;
     }
 
     public void handleUpdateLinkProperties(@NonNull NetworkAgentInfo nai,
@@ -10195,6 +10216,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // TODO: This may be slow, and should be optimized.
         final long start = SystemClock.elapsedRealtime();
         final NetworkReassignment changes = computeNetworkReassignment(networkRequests);
+        setAllowedUidsOnReassignment(changes);
+
         final long computed = SystemClock.elapsedRealtime();
         applyNetworkReassignment(changes, start);
         final long applied = SystemClock.elapsedRealtime();
@@ -10217,6 +10240,113 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (null == nai2) return false;
         return nai1.linkProperties.getInterfaceName()
                 .equals(nai2.linkProperties.getInterfaceName());
+    }
+
+    private void setAllowedUidsOnReassignment(@NonNull final NetworkReassignment changes) {
+        if (!SdkLevel.isAtLeastU()) {
+            return;
+        }
+        final ArrayMap<NetworkAgentInfo, ArraySet<Integer>>
+                naiUids = getNaiAllowedUidChanges(changes, mNoServiceNetwork);
+        final ArrayMap<NetworkAgentInfo, NetworkCapabilities>
+                naiCaps = getNaiNetcapsWithAllowedUidChanges(naiUids);
+        updateNaisWithNetcaps(naiCaps);
+    }
+
+    /**
+     * Retrieve a map of NetworkAgentInfo objects to the corresponding NetworkCapabilities with the
+     * NetworkCapabilities objects updated to include the passed in allowed UIDs.
+     *
+     * This method is primarily used to set the allowed UIDs for per-app default networks. The
+     * list of allowed UIDs for a NetworkAgentInfo can change on each rematch request. For example,
+     * a UID may have access to restricted network `A` with a particular capability, however, if
+     * network A is no longer available, then the UID in question could fall back to restricted
+     * network `B` as determined by its per-app default network preference (and vice-versa). This is
+     * as opposed to those allowed UIDs set on NetworkAgentInfo initialization, which will not
+     * change on rematch. Therefore, as the per-app default UIDs are changed on each rematch, this
+     * method is in turn used to update both the old and new per-app default network's UIDs for
+     * those UIDs which now have access after a rematch.
+     *
+     * This method must remain static as it should not use state outside of its arguments.
+     *
+     * @param naiUids a map of NetworkAgentInfo objects to the corresponding UIDs allowed to use
+     *                said NetworkAgentInfo.
+     * @return a map of NetworkAgentInfo objects to their NetworkCapabilities with the passed in
+     * allowed UIDs set.
+     */
+    private static ArrayMap<
+            NetworkAgentInfo, NetworkCapabilities> getNaiNetcapsWithAllowedUidChanges(
+                    ArrayMap<NetworkAgentInfo, ArraySet<Integer>> naiUids) {
+        final ArrayMap<NetworkAgentInfo, NetworkCapabilities> naiCaps = new ArrayMap<>();
+        // Iterate through the map of NetworkAgentInfo objects and update their NetworkCapabilities
+        // to include the mapped allowed UIDs.
+        for (Entry<NetworkAgentInfo, ArraySet<Integer>> entry : naiUids.entrySet()) {
+            final NetworkAgentInfo nai = entry.getKey();
+            final ArraySet<Integer> perAppDefaultUids = entry.getValue();
+            // Return the unsanitized NetworkCapabilities, as these need to be updated as-is, and
+            // in-place with the only item being changed being the allowed UIDs.
+            final NetworkCapabilities nc = new NetworkCapabilities(nai.getCapsNoCopy());
+            final ArraySet<Integer> allowedUids = nai.getDeclaredAllowedUidsNoCopy();
+            // Add all the per-app default UIDs to any allowed UIDs on the NAI. Existing allowed
+            // UIDs may exist as set on network agent info initialization (e.g., ethernet NAIs have
+            // some flows where this can happen currently).
+            allowedUids.addAll(perAppDefaultUids);
+            nc.setAllowedUids(allowedUids);
+            naiCaps.put(nai, nc);
+        }
+        return naiCaps;
+    }
+
+    /**
+     * Retrieve a map of NetworkAgentInfo objects to the corresponding UIDs allowed to use said
+     * NetworkAgentInfo as per the NetworkReassignment.
+     *
+     * This method must remain static as it should not use state outside of its arguments.
+     *
+     * @param changes the result of a rematch.
+     * @param noServiceNetwork the NetworkAgentInfo corresponding to the "no service" network.
+     * @return a map of NetworkAgentInfo objects to their allowed UIDs.
+     */
+    private static ArrayMap<NetworkAgentInfo, ArraySet<Integer>> getNaiAllowedUidChanges(
+            NetworkReassignment changes, NetworkAgentInfo noServiceNetwork) {
+        final ArrayMap<NetworkAgentInfo, ArraySet<Integer>> naiUids = new ArrayMap<>();
+        // Iterate over each RequestReassignment.
+        for (NetworkReassignment.RequestReassignment event : changes.getRequestReassignments()) {
+            final NetworkAgentInfo oldNai = event.mOldNetwork;
+            final NetworkAgentInfo newNai = event.mNewNetwork;
+            // If the network being reassigned is not null, and not the no-service network.
+            if (null != oldNai && noServiceNetwork != oldNai) {
+                // Put in an entry to clear out any allowed UIDs for this network in case it no
+                // longer ends up having any per-app default UIDs.
+                if (!naiUids.containsKey(oldNai)) {
+                    naiUids.put(oldNai, new ArraySet<>());
+                }
+            }
+
+            // Allowed UIDs only makes sense for restricted networks.
+            if (null != newNai && noServiceNetwork != newNai
+                    && !newNai.networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)) {
+                // Add an entry in the map if one doesn't currently exist.
+                if (!naiUids.containsKey(newNai)) {
+                    naiUids.put(newNai, new ArraySet<>());
+                }
+                // Add the UID of the requestor as it is "allowed" to use this restricted network
+                // as per the rematch's NetworkReassignment.
+                naiUids.get(newNai).add(event.mNewNetworkRequest.getRequestorUid());
+            }
+        }
+        return naiUids;
+    }
+
+    private void updateNaisWithNetcaps(ArrayMap<NetworkAgentInfo, NetworkCapabilities> naiCaps) {
+        for (Entry<NetworkAgentInfo, NetworkCapabilities> entry : naiCaps.entrySet()) {
+            final NetworkAgentInfo nai = entry.getKey();
+            final NetworkCapabilities newNc = entry.getValue();
+            if (DBG)  {
+                log("setAllowedUidsOnReassignment for " + nai.network.netId + " - " + newNc);
+            }
+            nai.getAndSetNetworkCapabilities(newNc);
+        }
     }
 
     private void applyNetworkReassignment(@NonNull final NetworkReassignment changes,
