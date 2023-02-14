@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "712d7b43_66abcf3c",
+        "filename": "tests/unit/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-14T15:45:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "393a35b3_78446baf",
+      "range": {
+        "startLine": 149,
+        "startChar": 11,
+        "endLine": 149,
+        "endChar": 41
+      },
+      "revId": "febb22218910d55e67c8b71928b06ee730730638",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f139189_63acb4e8",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "408c4c74_97349503",
+        "filename": "tests/unit/jarjar-excludes.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-14T15:45:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f139189_63acb4e8",
+      "revId": "febb22218910d55e67c8b71928b06ee730730638",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "543904d5_450a2ce0",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-02-14T01:45:02Z",
       "side": 1,
       "message": "If you\u0027re not working on this immediately, can you file a bug ? There\u0027s a good chance it\u0027s an easy fix in gen_jarjar.py",
+      "revId": "febb22218910d55e67c8b71928b06ee730730638",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41a18e65_cf5bc0c0",
+        "filename": "tests/unit/jarjar-excludes.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-14T15:45:24Z",
+      "side": 1,
+      "message": "filed b/269259216",
+      "parentUuid": "543904d5_450a2ce0",
       "revId": "febb22218910d55e67c8b71928b06ee730730638",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
