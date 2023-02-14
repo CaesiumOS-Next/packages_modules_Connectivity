@@ -675,7 +675,6 @@ public abstract class EthernetTetheringTestBase {
         final LinkProperties lp = new LinkProperties();
         lp.setLinkAddresses(addresses);
         lp.setDnsServers(dnses);
-        lp.setNat64Prefix(TEST_NAT64PREFIX);
 
         return runAsShell(MANAGE_TEST_NETWORKS, () -> initTestNetwork(mContext, lp, TIMEOUT_MS));
     }

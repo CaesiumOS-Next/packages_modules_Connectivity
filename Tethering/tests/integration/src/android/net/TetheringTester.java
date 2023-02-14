@@ -19,6 +19,7 @@ package android.net;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.system.OsConstants.IPPROTO_ICMP;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
+import static android.system.OsConstants.IPPROTO_IPV6;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
@@ -83,6 +84,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Predicate;
+
+import static android.net.DnsResolver.CLASS_IN;
+import static android.net.DnsResolver.TYPE_AAAA;
+import static android.net.InetAddresses.parseNumericAddress;
+import com.android.net.module.util.PacketBuilder;
+
 
 /**
  * A class simulate tethered client. When caller create TetheringTester, it would connect to
@@ -465,6 +472,11 @@ public final class TetheringTester {
             super(data);
         }
 
+        TestDnsPacket(@NonNull DnsHeader header, @Nullable ArrayList<DnsRecord> qd,
+                @Nullable ArrayList<DnsRecord> an) {
+            super(header, qd, an);
+        }
+
         @Nullable
         public static TestDnsPacket getTestDnsPacket(final ByteBuffer buf) {
             try {
@@ -700,10 +712,145 @@ public final class TetheringTester {
         return null;
     }
 
+    // IPv6 header definition.
+    private static final short HOP_LIMIT = 0x40;
+    // version=6, traffic class=0x0, flowlabel=0x0;
+    private static final int VERSION_TRAFFICCLASS_FLOWLABEL = 0x60000000;
+
+    private int getIpProto(@NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp) {
+        return IPPROTO_IPV6;
+    }
+
+    private boolean isAddressIpv4(@NonNull final  InetAddress srcIp,
+            @NonNull final InetAddress dstIp) {
+        if (srcIp instanceof Inet4Address && dstIp instanceof Inet4Address) return true;
+        if (srcIp instanceof Inet6Address && dstIp instanceof Inet6Address) return false;
+
+        fail("Unsupported conditions: srcIp " + srcIp + ", dstIp " + dstIp);
+        return false;  // unreachable
+    }
+
+    @NonNull
+    protected ByteBuffer buildUdpPacket(
+            @Nullable final MacAddress srcMac, @Nullable final MacAddress dstMac,
+            @NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp,
+            short srcPort, short dstPort, @Nullable final ByteBuffer payload)
+            throws Exception {
+        final int ipProto = getIpProto(srcIp, dstIp);
+        final boolean hasEther = (srcMac != null && dstMac != null);
+        final int payloadLen = (payload == null) ? 0 : payload.limit();
+        final ByteBuffer buffer = PacketBuilder.allocate(hasEther, ipProto, IPPROTO_UDP,
+                payloadLen);
+        final PacketBuilder packetBuilder = new PacketBuilder(buffer);
+
+        // [1] Ethernet header
+        //if (hasEther) {
+        //    packetBuilder.writeL2Header(srcMac, dstMac, getEthType(srcIp, dstIp));
+        //}
+
+        // [2] IP header
+        //if (ipProto == IPPROTO_IP) {
+        //    //packetBuilder.writeIpv4Header(TYPE_OF_SERVICE, ID, FLAGS_AND_FRAGMENT_OFFSET,
+        //    //        TIME_TO_LIVE, (byte) IPPROTO_UDP, (Inet4Address) srcIp, (Inet4Address) dstIp);
+        //} else {
+            packetBuilder.writeIpv6Header(VERSION_TRAFFICCLASS_FLOWLABEL, (byte) IPPROTO_UDP,
+                    HOP_LIMIT, (Inet6Address) srcIp, (Inet6Address) dstIp);
+        //}
+
+        // [3] UDP header
+        packetBuilder.writeUdpHeader(srcPort, dstPort);
+
+        // [4] Payload
+        if (payload != null) {
+            buffer.put(payload);
+            // in case data might be reused by caller, restore the position and
+            // limit of bytebuffer.
+            payload.clear();
+        }
+
+        return packetBuilder.finalizePacket();
+    }
+
+    @NonNull
+    protected ByteBuffer buildUdpPacket(@NonNull final InetAddress srcIp,
+            @NonNull final InetAddress dstIp, short srcPort, short dstPort,
+            @Nullable final ByteBuffer payload) throws Exception {
+        return buildUdpPacket(null /* srcMac */, null /* dstMac */, srcIp, dstIp, srcPort,
+                dstPort, payload);
+    }
+
+    private void maybeReplyUdpDnsPrefix64Discovery(byte[] packet) {
+        Log.d(TAG, "maybeReplyDnsPrefix64: " + dumpHexString(packet));
+        final ByteBuffer buf = ByteBuffer.wrap(packet);
+
+        Ipv6Header ipv6Header = null;
+        UdpHeader udpHeader = null;
+        try {
+            Log.d(TAG, "maybeReplyDnsPrefix64: parsing ipv6Header");
+            ipv6Header = Struct.parse(Ipv6Header.class, buf);
+            if (ipv6Header.nextHeader != IPPROTO_UDP) return;
+
+            Log.d(TAG, "maybeReplyDnsPrefix64: parsing udpHeader");
+            udpHeader = Struct.parse(UdpHeader.class, buf);
+            if (udpHeader == null) return;
+        } catch (Exception e) {
+            // Parsing packet fail means it is not udp packet.
+            return ;
+        }
+        
+        Log.d(TAG, "maybeReplyDnsPrefix64: parsing DNS packet");
+
+        final TestDnsPacket prefix64Query = TestDnsPacket.getTestDnsPacket(buf);
+        if (prefix64Query == null) return;
+        if (prefix64Query.getHeader().isResponse()) return;
+        if (prefix64Query.getQDCount() != 1) return;
+        if (prefix64Query.getANCount() != 0) return;
+        if (prefix64Query.getNSCount() != 0) return;
+        if (prefix64Query.getARCount() != 0) return;
+
+        final List<DnsPacket.DnsRecord> qdRecordList =
+                prefix64Query.getRecordList(DnsPacket.QDSECTION);
+        if (qdRecordList.size() != 1) return;
+        if(!qdRecordList.get(0).dName.equals("ipv4only.arpa")) return;
+
+        Log.d(TAG, "maybeReplyDnsPrefix64: ipv4only.arpa found !!!!!!!!");
+
+        final DnsPacket.DnsHeader replyHeader = new DnsPacket.DnsHeader(
+                prefix64Query.getHeader().getId(), 0x8180, 1 /* qcount */, 2 /* ancount */);
+        final ArrayList<DnsPacket.DnsRecord> qlist = new ArrayList<>();
+        final ArrayList<DnsPacket.DnsRecord> alist = new ArrayList<>();
+        qlist.add(DnsPacket.DnsRecord.makeQuestion(
+                "ipv4only.arpa", TYPE_AAAA, CLASS_IN));
+
+        try {
+            alist.add(DnsPacket.DnsRecord.makeAOrAAAARecord(
+                    DnsPacket.ANSECTION, "ipv4only.arpa", CLASS_IN, 0 /* ttl */,
+                    parseNumericAddress("64:ff9b::c000:aa")));
+            alist.add(DnsPacket.DnsRecord.makeAOrAAAARecord(
+                    DnsPacket.ANSECTION, "ipv4only.arpa", CLASS_IN, 0 /* ttl */,
+                    parseNumericAddress("64:ff9b::c000:ab")));
+        final TestDnsPacket prefix64Reply = new TestDnsPacket(replyHeader, qlist, alist);
+
+        final ByteBuffer testPacket = buildUdpPacket(ipv6Header.dstIp, ipv6Header.srcIp, (short) udpHeader.dstPort, (short) udpHeader.srcPort,
+                ByteBuffer.wrap(prefix64Reply.getBytes()));
+            Log.d(TAG, "maybeReplyDnsPrefix64: " + dumpHexString(testPacket.array()));
+            sendDownloadPacket(testPacket);
+        } catch (Exception e) {
+            fail("maybeReplyDnsPrefix64: Failed to reply prefix64 discovery to " + ipv6Header.dstIp);
+        }
+    }
+
     private byte[] getUploadPacket(Predicate<byte[]> filter) {
         assertNotNull("Can't deal with upstream interface in local only mode", mUpstreamReader);
+        byte[] packet;
+        while ((packet = mUpstreamReader.poll(PACKET_READ_TIMEOUT_MS)) != null) {
+            if (filter.test(packet)) return packet;
 
-        return mUpstreamReader.poll(PACKET_READ_TIMEOUT_MS, filter);
+            maybeReplyUdpDnsPrefix64Discovery(packet);
+            //maybeReplyNa(packet);
+        }
+
+        return null;
     }
 
     private @NonNull byte[] verifyPacketNotNull(String message, @Nullable byte[] packet) {
