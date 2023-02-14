@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a712b307_1b90f0c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-14T09:53:32Z",
+      "side": 1,
+      "message": "There isn\u0027t a lot of context in b/230643853, what is the exact use-case for registerSystemDefaultNetworkCallback ? The bug mentions a \"low quality\" summary, what is that exactly ? It\u0027s possible this callback is not the best way to implement it.\n\nI don\u0027t have API+1 so you\u0027ll need reviews from Lorenzo or Jean (who added/reviewed the original API so they\u0027re probably better reviewers)",
+      "revId": "98858d6b2799d96720b08d3120ab130b982c6ab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
