@@ -16,6 +16,7 @@
 
 package android.net.nsd;
 
+import android.net.nsd.IHardwareOffloadCallback;
 import android.net.nsd.INsdManagerCallback;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Messenger;
@@ -35,4 +36,6 @@ interface INsdServiceConnector {
     void stopResolution(int listenerKey);
     void registerServiceInfoCallback(int listenerKey, in NsdServiceInfo serviceInfo);
     void unregisterServiceInfoCallback(int listenerKey);
+    void registerOffloadEngine(String ifaceName, in IHardwareOffloadCallback cb);
+    void unregisterOffloadEngine(in IHardwareOffloadCallback cb);
 }

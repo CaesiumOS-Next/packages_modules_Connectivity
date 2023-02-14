@@ -16,6 +16,7 @@
 
 package com.android.server;
 
+import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.ConnectivityManager.NETID_UNSET;
 import static android.net.nsd.NsdManager.MDNS_DISCOVERY_MANAGER_EVENT;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
@@ -35,17 +36,20 @@ import android.net.mdns.aidl.GetAddressInfo;
 import android.net.mdns.aidl.IMDnsEventListener;
 import android.net.mdns.aidl.RegistrationInfo;
 import android.net.mdns.aidl.ResolutionInfo;
+import android.net.nsd.IHardwareOffloadCallback;
 import android.net.nsd.INsdManager;
 import android.net.nsd.INsdManagerCallback;
 import android.net.nsd.INsdServiceConnector;
 import android.net.nsd.MDnsManager;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
+import android.net.nsd.OffloadRecord;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.os.UserHandle;
 import android.text.TextUtils;
@@ -79,6 +83,7 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,7 +145,10 @@ public class NsdService extends INsdManager.Stub {
     private final HashMap<NsdServiceConnector, ClientInfo> mClients = new HashMap<>();
 
     /* A map from unique id to client info */
-    private final SparseArray<ClientInfo> mIdToClientInfoMap= new SparseArray<>();
+    private final SparseArray<ClientInfo> mIdToClientInfoMap = new SparseArray<>();
+
+    private final RemoteCallbackList<IHardwareOffloadCallback> mOffloadCallbacks =
+            new RemoteCallbackList<>();
 
     private final long mCleanupDelayMs;
 
@@ -171,31 +179,40 @@ public class NsdService extends INsdManager.Stub {
         }
 
         @Override
-        public void onServiceFound(@NonNull MdnsServiceInfo serviceInfo) { }
+        public void onServiceFound(@NonNull MdnsServiceInfo serviceInfo) {
+        }
 
         @Override
-        public void onServiceUpdated(@NonNull MdnsServiceInfo serviceInfo) { }
+        public void onServiceUpdated(@NonNull MdnsServiceInfo serviceInfo) {
+        }
 
         @Override
-        public void onServiceRemoved(@NonNull MdnsServiceInfo serviceInfo) { }
+        public void onServiceRemoved(@NonNull MdnsServiceInfo serviceInfo) {
+        }
 
         @Override
-        public void onServiceNameDiscovered(@NonNull MdnsServiceInfo serviceInfo) { }
+        public void onServiceNameDiscovered(@NonNull MdnsServiceInfo serviceInfo) {
+        }
 
         @Override
-        public void onServiceNameRemoved(@NonNull MdnsServiceInfo serviceInfo) { }
+        public void onServiceNameRemoved(@NonNull MdnsServiceInfo serviceInfo) {
+        }
 
         @Override
-        public void onSearchStoppedWithError(int error) { }
+        public void onSearchStoppedWithError(int error) {
+        }
 
         @Override
-        public void onSearchFailedToStart() { }
+        public void onSearchFailedToStart() {
+        }
 
         @Override
-        public void onDiscoveryQuerySent(@NonNull List<String> subtypes, int transactionId) { }
+        public void onDiscoveryQuerySent(@NonNull List<String> subtypes, int transactionId) {
+        }
 
         @Override
-        public void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode) { }
+        public void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode) {
+        }
     }
 
     private class DiscoveryListener extends MdnsListener {
@@ -291,6 +308,7 @@ public class NsdService extends INsdManager.Stub {
         private void scheduleStop() {
             sendMessageDelayed(NsdManager.DAEMON_CLEANUP, mCleanupDelayMs);
         }
+
         private void maybeScheduleStop() {
             // The native daemon should stay alive and can't be cleanup
             // if any legacy client connected.
@@ -324,7 +342,7 @@ public class NsdService extends INsdManager.Stub {
         NsdStateMachine(String name, Handler handler) {
             super(name, handler);
             addState(mDefaultState);
-                addState(mEnabledState, mDefaultState);
+            addState(mEnabledState, mDefaultState);
             State initialState = mEnabledState;
             setInitialState(initialState);
             setLogRecSize(25);
@@ -366,7 +384,7 @@ public class NsdService extends INsdManager.Stub {
                             cInfo.onDiscoverServicesFailed(
                                     clientId, NsdManager.FAILURE_INTERNAL_ERROR);
                         }
-                       break;
+                        break;
                     case NsdManager.STOP_DISCOVERY:
                         cInfo = getClientInfoForReply(msg);
                         if (cInfo != null) {
@@ -1175,7 +1193,7 @@ public class NsdService extends INsdManager.Stub {
                 }
                 return true;
             }
-       }
+        }
     }
 
     private static void setServiceNetworkForCallback(NsdServiceInfo info, int netId, int ifaceIdx) {
@@ -1355,6 +1373,9 @@ public class NsdService extends INsdManager.Stub {
     }
 
     private class AdvertiserCallback implements MdnsAdvertiser.AdvertiserCallback {
+        // TODO: add a callback to notify when a service is being added on each interface (as soon
+        // as probing starts), and call mOffloadCallbacks
+
         @Override
         public void onRegisterServiceSucceeded(int serviceId, NsdServiceInfo registeredInfo) {
             final ClientInfo clientInfo = getClientInfoOrLog(serviceId);
@@ -1409,6 +1430,7 @@ public class NsdService extends INsdManager.Stub {
     private static class ListenerArgs {
         public final NsdServiceConnector connector;
         public final NsdServiceInfo serviceInfo;
+
         ListenerArgs(NsdServiceConnector connector, NsdServiceInfo serviceInfo) {
             this.connector = connector;
             this.serviceInfo = serviceInfo;
@@ -1416,7 +1438,7 @@ public class NsdService extends INsdManager.Stub {
     }
 
     private class NsdServiceConnector extends INsdServiceConnector.Stub
-            implements IBinder.DeathRecipient  {
+            implements IBinder.DeathRecipient {
         @Override
         public void registerService(int listenerKey, NsdServiceInfo serviceInfo) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
@@ -1478,6 +1500,18 @@ public class NsdService extends INsdManager.Stub {
         }
 
         @Override
+        public void registerOffloadCallback(int ifaceIndex, IHardwareOffloadCallback cb) {
+            PermissionUtils.enforceNetworkStackPermissionOr(mContext, NETWORK_SETTINGS);
+            mOffloadCallbacks.register(cb, ifaceIndex /* cookie */);
+        }
+
+        @Override
+        public void unregisterOffloadCallback(IHardwareOffloadCallback cb) {
+            PermissionUtils.enforceNetworkStackPermissionOr(mContext, NETWORK_SETTINGS);
+            mOffloadCallbacks.unregister(cb);
+        }
+
+        @Override
         public void binderDied() {
             mNsdStateMachine.sendMessage(
                     mNsdStateMachine.obtainMessage(NsdManager.UNREGISTER_CLIENT, this));
@@ -1510,11 +1544,44 @@ public class NsdService extends INsdManager.Stub {
             Log.e(TAG, "Interface to register service on not found");
             return false;
         }
-        return mMDnsManager.registerService(regId, name, type, port, textRecord, registerInterface);
+
+        if (!mMDnsManager.registerService(regId, name, type, port, textRecord, registerInterface)) {
+            return false;
+        }
+
+        // TODO: updates the NsdManager to kept track of the full list of the offload info and
+        //  send the list.
+        final OffloadRecord oi = new OffloadRecord(name, type);
+        sendUpdatedOffloadInfo(List.of(oi), registerInterface);
+        return true;
+    }
+
+    private void sendUpdatedOffloadInfo(@NonNull final List<OffloadRecord> infos,
+            int registerInterface) {
+        final int count = mOffloadCallbacks.beginBroadcast();
+        for (int i = 0; i < count; i++) {
+            final int ifaceIdx = (int) mOffloadCallbacks.getBroadcastCookie(i);
+            if (registerInterface != IFACE_IDX_ANY && ifaceIdx != registerInterface) continue;
+            try {
+                mOffloadCallbacks.getBroadcastItem(i).onOffloadUpdated(infos);
+            } catch (RemoteException e) {
+                // Can happen in regular cases, do not log a stacktrace
+                Log.i(TAG, "Failed to send offload callback, remote died: " + e.getMessage());
+            }
+        }
+        mOffloadCallbacks.finishBroadcast();
     }
 
     private boolean unregisterService(int regId) {
-        return mMDnsManager.stopOperation(regId);
+        Log.i(TAG, "unregister service is called");
+        if (!mMDnsManager.stopOperation(regId)) {
+            return false;
+        }
+        Log.i(TAG, "unregister send the updated");
+        // TODO: updates the NsdManager to kept track of the full list of the offload info and
+        //  send the list.
+        sendUpdatedOffloadInfo(new ArrayList<>(), IFACE_IDX_ANY/* registerInterface */);
+        return true;
     }
 
     private boolean discoverServices(int discoveryId, NsdServiceInfo serviceInfo) {

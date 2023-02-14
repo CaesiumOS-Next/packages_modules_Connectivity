@@ -57,6 +57,7 @@ import android.net.nsd.NsdManager.DiscoveryListener
 import android.net.nsd.NsdManager.RegistrationListener
 import android.net.nsd.NsdManager.ResolveListener
 import android.net.nsd.NsdServiceInfo
+import android.net.nsd.OffloadRecord
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
@@ -326,6 +327,17 @@ class NsdManagerTest {
 
         override fun onServiceInfoCallbackUnregistered() {
             add(UnregisterCallbackSucceeded)
+        }
+    }
+
+    private class NsdHardwareOffloadCallBack : NsdManager.HardwareOffloadCallback,
+        NsdRecord<NsdHardwareOffloadCallBack.OffloadEvent>() {
+        sealed class OffloadEvent : NsdEvent {
+            data class OffloadUpdatedEvent(val infos: List<OffloadRecord>) : OffloadEvent()
+        }
+
+        override fun onOffloadUpdated(infos: MutableList<OffloadRecord>) {
+            add(OffloadEvent.OffloadUpdatedEvent(infos))
         }
     }
 
