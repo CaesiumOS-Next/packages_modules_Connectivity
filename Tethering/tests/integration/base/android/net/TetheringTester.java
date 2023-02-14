@@ -16,14 +16,19 @@
 
 package android.net;
 
+import static android.net.DnsResolver.CLASS_IN;
+import static android.net.DnsResolver.TYPE_AAAA;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.system.OsConstants.IPPROTO_ICMP;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
+import static android.system.OsConstants.IPPROTO_IPV6;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.DnsPacket.ANSECTION;
 import static com.android.net.module.util.DnsPacket.ARSECTION;
+import static com.android.net.module.util.DnsPacket.DnsHeader;
+import static com.android.net.module.util.DnsPacket.DnsRecord;
 import static com.android.net.module.util.DnsPacket.NSSECTION;
 import static com.android.net.module.util.DnsPacket.QDSECTION;
 import static com.android.net.module.util.HexDump.dumpHexString;
@@ -58,6 +63,7 @@ import androidx.annotation.Nullable;
 
 import com.android.net.module.util.DnsPacket;
 import com.android.net.module.util.Ipv6Utils;
+import com.android.net.module.util.PacketBuilder;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.structs.EthernetHeader;
 import com.android.net.module.util.structs.Icmpv4Header;
@@ -101,6 +107,35 @@ public final class TetheringTester {
             DhcpPacket.DHCP_LEASE_TIME,
     };
     private static final InetAddress LINK_LOCAL = parseNumericAddress("fe80::1");
+
+    // Prefix64 discovery definition. See RFC 7050 section 8.
+    // Note that the AAAA response Pref64::WKAs consisting of Pref64::/n and WKA.
+    // Use 64:ff9b::/96 as Pref64::/n and WKA 192.0.0.17{0|1} here.
+    //
+    // Host                                          DNS64 server
+    //   |                                                |
+    //   |  "AAAA" query for "ipv4only.arpa."             |
+    //   |----------------------------------------------->|
+    //   |                                                |
+    //   |  "AAAA" response with:                         |
+    //   |  "64:ff9b::192.0.0.170"                        |
+    //   |  "64:ff9b::192.0.0.171"                        |
+    //   |<-----------------------------------------------|
+    //
+    private static final String PREF64_IPV4ONLY_HOSTNAME = "ipv4only.arpa";
+    private static final InetAddress PREF64_IPV4ONLY_ADDR_A = parseNumericAddress(
+            "64:ff9b::192.0.0.170");
+    private static final InetAddress PREF64_IPV4ONLY_ADDR_B = parseNumericAddress(
+            "64:ff9b::192.0.0.171");
+
+    // IPv6 header definition.
+    private static final short HOP_LIMIT = 0x40;
+    // version=6, traffic class=0x0, flowlabel=0x0;
+    private static final int VERSION_TRAFFICCLASS_FLOWLABEL = 0x60000000;
+
+    // DNS header definition.
+    private static final short FLAG = (short) 0x8100;  // qr, ra
+    private static final short TTL = (short) 0;
 
     public static final String DHCP_HOSTNAME = "testhostname";
 
@@ -462,6 +497,11 @@ public final class TetheringTester {
             super(data);
         }
 
+        TestDnsPacket(@NonNull DnsHeader header, @Nullable ArrayList<DnsRecord> qd,
+                @Nullable ArrayList<DnsRecord> an) {
+            super(header, qd, an);
+        }
+
         @Nullable
         public static TestDnsPacket getTestDnsPacket(final ByteBuffer buf) {
             try {
@@ -650,10 +690,99 @@ public final class TetheringTester {
         return null;
     }
 
+    @NonNull
+    private ByteBuffer buildUdpDnsPrefix64ReplyPacket(int dnsId, @NonNull final Inet6Address srcIp,
+            @NonNull final Inet6Address dstIp, short srcPort, short dstPort) throws Exception {
+        // [1] Build prefix64 DNS message.
+        final ArrayList<DnsRecord> qlist = new ArrayList<>();
+        final ArrayList<DnsRecord> alist = new ArrayList<>();
+        // Fill QD section.
+        qlist.add(DnsRecord.makeQuestion(PREF64_IPV4ONLY_HOSTNAME, TYPE_AAAA, CLASS_IN));
+        // Fill AN sections.
+        alist.add(DnsRecord.makeAOrAAAARecord(ANSECTION, PREF64_IPV4ONLY_HOSTNAME, CLASS_IN, TTL,
+                PREF64_IPV4ONLY_ADDR_A));
+        alist.add(DnsRecord.makeAOrAAAARecord(ANSECTION, PREF64_IPV4ONLY_HOSTNAME, CLASS_IN, TTL,
+                PREF64_IPV4ONLY_ADDR_B));
+        final DnsHeader header = new DnsHeader(dnsId, FLAG, qlist.size(), alist.size());
+        final ByteBuffer payload = ByteBuffer.wrap(new TestDnsPacket(header, qlist, alist)
+                .getBytes());
+
+        // [2] Build IPv6 UDP DNS packet.
+        // TODO: use EthernetTetheringTestBase#buildUdpPacket once it is moved into common utils.
+        final ByteBuffer buffer = PacketBuilder.allocate(false /* hasEther */, IPPROTO_IPV6,
+                IPPROTO_UDP, payload.limit());
+        final PacketBuilder packetBuilder = new PacketBuilder(buffer);
+        packetBuilder.writeIpv6Header(VERSION_TRAFFICCLASS_FLOWLABEL, (byte) IPPROTO_UDP,
+                HOP_LIMIT, srcIp, dstIp);
+        packetBuilder.writeUdpHeader(srcPort, dstPort);
+        buffer.put(payload);
+
+        return packetBuilder.finalizePacket();
+    }
+
+    private void maybeReplyUdpDnsPrefix64Discovery(@NonNull byte[] packet) {
+        final ByteBuffer buf = ByteBuffer.wrap(packet);
+
+        // [1] Parse the prefix64 discovery DNS query for hostname ipv4only.arpa.
+        // Parse IPv6 and UDP header.
+        Ipv6Header ipv6Header = null;
+        UdpHeader udpHeader = null;
+        try {
+            ipv6Header = Struct.parse(Ipv6Header.class, buf);
+            if (ipv6Header == null || ipv6Header.nextHeader != IPPROTO_UDP) return;
+
+            udpHeader = Struct.parse(UdpHeader.class, buf);
+            if (udpHeader == null) return;
+        } catch (Exception e) {
+            // Parsing packet fail means it is not IPv6 UDP packet.
+            return;
+        }
+
+        // Parse DNS message.
+        final TestDnsPacket pref64Query = TestDnsPacket.getTestDnsPacket(buf);
+        if (pref64Query == null) return;
+        if (pref64Query.getHeader().isResponse()) return;
+        if (pref64Query.getQDCount() != 1) return;
+        if (pref64Query.getANCount() != 0) return;
+        if (pref64Query.getNSCount() != 0) return;
+        if (pref64Query.getARCount() != 0) return;
+
+        final List<DnsRecord> qdRecordList = pref64Query.getRecordList(QDSECTION);
+        if (qdRecordList.size() != 1) return;
+        if (!qdRecordList.get(0).dName.equals(PREF64_IPV4ONLY_HOSTNAME)) return;
+
+        // [2] Build prefix64 DNS discovery reply from received query.
+        // DNS response transaction id must be copied from DNS query. Used by the requester
+        // to match up replies to outstanding queries. See RFC 1035 section 4.1.1. Also reverse
+        // the source/destination address/port of query packet for building reply packet.
+        final ByteBuffer replyPacket;
+        try {
+            replyPacket = buildUdpDnsPrefix64ReplyPacket(pref64Query.getHeader().getId(),
+                    ipv6Header.dstIp, ipv6Header.srcIp, (short) udpHeader.dstPort,
+                    (short) udpHeader.srcPort);
+        } catch (Exception e) {
+            fail("Failed to build prefix64 discovery reply for " + ipv6Header.srcIp);
+            return;
+        }
+
+        Log.d(TAG, "Sending prefix64 discovery reply");
+        try {
+            sendDownloadPacket(replyPacket);
+        } catch (Exception e) {
+            fail("Failed to reply prefix64 discovery for " + ipv6Header.srcIp);
+        }
+    }
+
     private byte[] getUploadPacket(Predicate<byte[]> filter) {
         assertNotNull("Can't deal with upstream interface in local only mode", mUpstreamReader);
 
-        return mUpstreamReader.poll(PACKET_READ_TIMEOUT_MS, filter);
+        byte[] packet;
+        while ((packet = mUpstreamReader.poll(PACKET_READ_TIMEOUT_MS)) != null) {
+            if (filter.test(packet)) return packet;
+
+            maybeReplyUdpDnsPrefix64Discovery(packet);
+        }
+        return null;
     }
 
     private @NonNull byte[] verifyPacketNotNull(String message, @Nullable byte[] packet) {
