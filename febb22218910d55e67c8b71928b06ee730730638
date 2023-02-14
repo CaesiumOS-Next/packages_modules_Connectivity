@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "393a35b3_78446baf",
+        "filename": "tests/unit/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-14T01:45:02Z",
+      "side": 1,
+      "message": "Nit: frameworks-net-tests-jarjar-rules.txt would be more consistent",
+      "range": {
+        "startLine": 149,
+        "startChar": 11,
+        "endLine": 149,
+        "endChar": 41
+      },
+      "revId": "febb22218910d55e67c8b71928b06ee730730638",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f139189_63acb4e8",
+        "filename": "tests/unit/jarjar-excludes.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-14T01:45:02Z",
+      "side": 1,
+      "message": "Is this bouncycastle ? That\u0027s the only package I can find in com.android.internal.org. In that case could you make it com.android.internal.org.bouncycastle ?",
+      "revId": "febb22218910d55e67c8b71928b06ee730730638",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "543904d5_450a2ce0",
+        "filename": "tests/unit/jarjar-excludes.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-14T01:45:02Z",
+      "side": 1,
+      "message": "If you\u0027re not working on this immediately, can you file a bug ? There\u0027s a good chance it\u0027s an easy fix in gen_jarjar.py",
+      "revId": "febb22218910d55e67c8b71928b06ee730730638",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
