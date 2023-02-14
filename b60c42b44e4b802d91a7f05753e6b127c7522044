@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23b90ba0_08755716",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-02-14T08:08:46Z",
+      "side": 1,
+      "message": "We need to remove this, `isFeatureEnabled` throws Exception.",
+      "range": {
+        "startLine": 597,
+        "startChar": 8,
+        "endLine": 597,
+        "endChar": 18
+      },
+      "revId": "b60c42b44e4b802d91a7f05753e6b127c7522044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a93d15e_b2cc20fc",
+        "filename": "framework/src/android/net/ConnectivityResources.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-02-14T08:08:46Z",
+      "side": 1,
+      "message": "nits: I think this comment should be in aosp/2428741",
+      "revId": "b60c42b44e4b802d91a7f05753e6b127c7522044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db2b8280_1bb573b7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-02-14T08:08:46Z",
+      "side": 1,
+      "message": "It looks unrelated change?",
+      "revId": "b60c42b44e4b802d91a7f05753e6b127c7522044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
