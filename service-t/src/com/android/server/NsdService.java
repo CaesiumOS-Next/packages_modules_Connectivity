@@ -16,6 +16,7 @@
 
 package com.android.server;
 
+import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.ConnectivityManager.NETID_UNSET;
 import static android.net.nsd.NsdManager.MDNS_DISCOVERY_MANAGER_EVENT;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
@@ -35,17 +36,22 @@ import android.net.mdns.aidl.GetAddressInfo;
 import android.net.mdns.aidl.IMDnsEventListener;
 import android.net.mdns.aidl.RegistrationInfo;
 import android.net.mdns.aidl.ResolutionInfo;
+import android.net.nsd.HardwareOffloadException;
+import android.net.nsd.IHardwareOffloadCallback;
 import android.net.nsd.INsdManager;
 import android.net.nsd.INsdManagerCallback;
 import android.net.nsd.INsdServiceConnector;
+import android.net.nsd.IOffloadOutcomeReceiver;
 import android.net.nsd.MDnsManager;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
+import android.net.nsd.OffloadInfo;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.os.UserHandle;
 import android.text.TextUtils;
@@ -141,6 +147,9 @@ public class NsdService extends INsdManager.Stub {
 
     /* A map from unique id to client info */
     private final SparseArray<ClientInfo> mIdToClientInfoMap= new SparseArray<>();
+
+    private final RemoteCallbackList<IHardwareOffloadCallback> mOffloadCallbacks =
+            new RemoteCallbackList<>();
 
     private final long mCleanupDelayMs;
 
@@ -1355,6 +1364,9 @@ public class NsdService extends INsdManager.Stub {
     }
 
     private class AdvertiserCallback implements MdnsAdvertiser.AdvertiserCallback {
+        // TODO: add a callback to notify when a service is being added on each interface (as soon
+        // as probing starts), and call mOffloadCallbacks
+
         @Override
         public void onRegisterServiceSucceeded(int serviceId, NsdServiceInfo registeredInfo) {
             final ClientInfo clientInfo = getClientInfoOrLog(serviceId);
@@ -1394,6 +1406,24 @@ public class NsdService extends INsdManager.Stub {
                 Log.e(TAG, String.format("Client ID not found for service %d", serviceId));
             }
             return clientId;
+        }
+    }
+
+    private static class OffloadOutcomeCallback extends IOffloadOutcomeReceiver.Stub {
+        private final OffloadInfo mOffloadInfo;
+
+        private OffloadOutcomeCallback(OffloadInfo offloadInfo) {
+            mOffloadInfo = offloadInfo;
+        }
+
+        @Override
+        public void onError(@NonNull HardwareOffloadException error) {
+            Log.e(TAG, "Offload failed for info " + mOffloadInfo, error);
+        }
+
+        @Override
+        public void onResult(@NonNull OffloadInfo result) {
+            if (DBG) Log.d(TAG, "Offload succeeded for " + mOffloadInfo);
         }
     }
 
@@ -1478,6 +1508,18 @@ public class NsdService extends INsdManager.Stub {
         }
 
         @Override
+        public void registerOffloadCallback(int ifaceIndex, IHardwareOffloadCallback cb) {
+            PermissionUtils.enforceNetworkStackPermissionOr(mContext, NETWORK_SETTINGS);
+            mOffloadCallbacks.register(cb, ifaceIndex /* cookie */);
+        }
+
+        @Override
+        public void unregisterOffloadCallback(IHardwareOffloadCallback cb) {
+            PermissionUtils.enforceNetworkStackPermissionOr(mContext, NETWORK_SETTINGS);
+            mOffloadCallbacks.unregister(cb);
+        }
+
+        @Override
         public void binderDied() {
             mNsdStateMachine.sendMessage(
                     mNsdStateMachine.obtainMessage(NsdManager.UNREGISTER_CLIENT, this));
@@ -1510,7 +1552,27 @@ public class NsdService extends INsdManager.Stub {
             Log.e(TAG, "Interface to register service on not found");
             return false;
         }
-        return mMDnsManager.registerService(regId, name, type, port, textRecord, registerInterface);
+
+        if (!mMDnsManager.registerService(regId, name, type, port, textRecord, registerInterface)) {
+            return false;
+        }
+
+        final OffloadInfo oi = new OffloadInfo(name, type);
+        final int count = mOffloadCallbacks.beginBroadcast();
+        for (int i = 0; i < count; i++) {
+            final int ifaceIdx = (int) mOffloadCallbacks.getBroadcastCookie(i);
+            if (registerInterface != IFACE_IDX_ANY && ifaceIdx != registerInterface) continue;
+
+            try {
+                mOffloadCallbacks.getBroadcastItem(i).onAddOffload(
+                        oi, new OffloadOutcomeCallback(oi));
+            } catch (RemoteException e) {
+                // Can happen in regular cases, do not log a stacktrace
+                Log.i(TAG, "Failed to send offload callback, remote died: " + e.getMessage());
+            }
+        }
+        mOffloadCallbacks.finishBroadcast();
+        return true;
     }
 
     private boolean unregisterService(int regId) {
