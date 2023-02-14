@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10c49e6a_a7219f9e",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-14T08:09:55Z",
+      "side": 1,
+      "message": "Does getUidRule available for T ? If yes, then you probably also need to throw if sEnableJavaBpfMap is false. Otherwise just make this throwIfPreU ?",
+      "range": {
+        "startLine": 734,
+        "startChar": 8,
+        "endLine": 734,
+        "endChar": 19
+      },
+      "revId": "56c412a9c8896065390e6b04d8d6b17362ed48d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
