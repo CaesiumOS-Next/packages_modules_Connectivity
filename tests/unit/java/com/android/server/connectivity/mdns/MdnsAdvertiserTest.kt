@@ -20,6 +20,8 @@ import android.net.InetAddresses.parseNumericAddress
 import android.net.LinkAddress
 import android.net.Network
 import android.net.nsd.NsdServiceInfo
+import android.net.nsd.OffloadEngine
+import android.net.nsd.OffloadServiceInfo
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
@@ -59,6 +61,8 @@ private val TEST_NETWORK_1 = mock(Network::class.java)
 private val TEST_NETWORK_2 = mock(Network::class.java)
 private val TEST_HOSTNAME = arrayOf("Android_test", "local")
 private const val TEST_SUBTYPE = "_subtype"
+private val TEST_INTERFACE1 = "test_iface1"
+private val TEST_INTERFACE2 = "test_iface2"
 
 private val SERVICE_1 = NsdServiceInfo("TestServiceName", "_advertisertest._tcp").apply {
     port = 12345
@@ -93,6 +97,16 @@ private val LONG_ALL_NETWORKS_SERVICE =
         network = null
     }
 
+private val OFFLOAD_SERVICEINFO = OffloadServiceInfo(
+    "TestServiceName",
+    "_advertisertest._tcp",
+    listOf("_subType"),
+    "Android_test.local",
+    null, /* rawOffloadPacket */
+    0, /* priority */
+    OffloadEngine.OFFLOAD_REPLY.toLong()
+)
+
 @RunWith(DevSdkIgnoreRunner::class)
 @IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class MdnsAdvertiserTest {
@@ -122,6 +136,8 @@ class MdnsAdvertiserTest {
         doReturn(true).`when`(mockInterfaceAdvertiser2).isProbing(anyInt())
         doReturn(createEmptyNetworkInterface()).`when`(mockSocket1).getInterface()
         doReturn(createEmptyNetworkInterface()).`when`(mockSocket2).getInterface()
+        doReturn(TEST_INTERFACE1).`when`(mockInterfaceAdvertiser1).socketInterfaceName
+        doReturn(TEST_INTERFACE2).`when`(mockInterfaceAdvertiser2).socketInterfaceName
     }
 
     @After
@@ -159,12 +175,15 @@ class MdnsAdvertiserTest {
         )
 
         doReturn(false).`when`(mockInterfaceAdvertiser1).isProbing(SERVICE_ID_1)
-        postSync { intAdvCbCaptor.value.onRegisterServiceSucceeded(
+        postSync { intAdvCbCaptor.value.onServiceProbingSucceeded(
                 mockInterfaceAdvertiser1, SERVICE_ID_1) }
         verify(cb).onRegisterServiceSucceeded(eq(SERVICE_ID_1), argThat { it.matches(SERVICE_1) })
+        verify(cb).onOffloadStartOrUpdate(eq(TEST_INTERFACE1), eq(OFFLOAD_SERVICEINFO))
 
         postSync { socketCb.onInterfaceDestroyed(TEST_NETWORK_1, mockSocket1) }
         verify(mockInterfaceAdvertiser1).destroyNow()
+        postSync { intAdvCbCaptor.value.onDestroyed(mockSocket1) }
+        verify(cb).onOffloadStop(eq(TEST_INTERFACE1), eq(OFFLOAD_SERVICEINFO))
     }
 
     @Test
@@ -194,14 +213,16 @@ class MdnsAdvertiserTest {
                 anyInt(), eq(ALL_NETWORKS_SERVICE), eq(TEST_SUBTYPE))
 
         doReturn(false).`when`(mockInterfaceAdvertiser1).isProbing(SERVICE_ID_1)
-        postSync { intAdvCbCaptor1.value.onRegisterServiceSucceeded(
+        postSync { intAdvCbCaptor1.value.onServiceProbingSucceeded(
                 mockInterfaceAdvertiser1, SERVICE_ID_1) }
+        verify(cb).onOffloadStartOrUpdate(eq(TEST_INTERFACE1), eq(OFFLOAD_SERVICEINFO))
 
         // Need both advertisers to finish probing and call onRegisterServiceSucceeded
         verify(cb, never()).onRegisterServiceSucceeded(anyInt(), any())
         doReturn(false).`when`(mockInterfaceAdvertiser2).isProbing(SERVICE_ID_1)
-        postSync { intAdvCbCaptor2.value.onRegisterServiceSucceeded(
+        postSync { intAdvCbCaptor2.value.onServiceProbingSucceeded(
                 mockInterfaceAdvertiser2, SERVICE_ID_1) }
+        verify(cb).onOffloadStartOrUpdate(eq(TEST_INTERFACE2), eq(OFFLOAD_SERVICEINFO))
         verify(cb).onRegisterServiceSucceeded(eq(SERVICE_ID_1),
                 argThat { it.matches(ALL_NETWORKS_SERVICE) })
 
@@ -209,6 +230,8 @@ class MdnsAdvertiserTest {
         postSync { advertiser.removeService(SERVICE_ID_1) }
         verify(mockInterfaceAdvertiser1).removeService(SERVICE_ID_1)
         verify(mockInterfaceAdvertiser2).removeService(SERVICE_ID_1)
+        verify(cb).onOffloadStop(eq(TEST_INTERFACE1), eq(OFFLOAD_SERVICEINFO))
+        verify(cb).onOffloadStop(eq(TEST_INTERFACE2), eq(OFFLOAD_SERVICEINFO))
 
         // Interface advertisers call onDestroyed after sending exit announcements
         postSync { intAdvCbCaptor1.value.onDestroyed(mockSocket1) }
@@ -284,12 +307,12 @@ class MdnsAdvertiserTest {
             argThat { it.matches(expectedCaseInsensitiveRenamed) }, eq(null))
 
         doReturn(false).`when`(mockInterfaceAdvertiser1).isProbing(SERVICE_ID_1)
-        postSync { intAdvCbCaptor.value.onRegisterServiceSucceeded(
+        postSync { intAdvCbCaptor.value.onServiceProbingSucceeded(
                 mockInterfaceAdvertiser1, SERVICE_ID_1) }
         verify(cb).onRegisterServiceSucceeded(eq(SERVICE_ID_1), argThat { it.matches(SERVICE_1) })
 
         doReturn(false).`when`(mockInterfaceAdvertiser1).isProbing(SERVICE_ID_2)
-        postSync { intAdvCbCaptor.value.onRegisterServiceSucceeded(
+        postSync { intAdvCbCaptor.value.onServiceProbingSucceeded(
                 mockInterfaceAdvertiser1, SERVICE_ID_2) }
         verify(cb).onRegisterServiceSucceeded(eq(SERVICE_ID_2),
                 argThat { it.matches(expectedRenamed) })
