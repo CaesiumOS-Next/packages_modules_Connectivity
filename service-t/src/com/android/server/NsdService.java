@@ -16,6 +16,7 @@
 
 package com.android.server;
 
+import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.ConnectivityManager.NETID_UNSET;
 import static android.net.nsd.NsdManager.MDNS_DISCOVERY_MANAGER_EVENT;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
@@ -41,21 +42,25 @@ import android.net.mdns.aidl.ResolutionInfo;
 import android.net.nsd.INsdManager;
 import android.net.nsd.INsdManagerCallback;
 import android.net.nsd.INsdServiceConnector;
+import android.net.nsd.IOffloadEngine;
 import android.net.nsd.MDnsManager;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
+import android.net.nsd.OffloadServiceInfo;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.os.UserHandle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
 
+import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.State;
@@ -185,6 +190,20 @@ public class NsdService extends INsdManager.Stub {
     private int mLegacyClientCount = 0;
     // The number of client that ever connected.
     private int mClientNumberId = 1;
+
+    @GuardedBy("mOffloadEngines")
+    private final RemoteCallbackList<IOffloadEngine> mOffloadEngines =
+            new RemoteCallbackList<>();
+
+    private static class OffloadEngineCookie {
+        final String mInterfaceName;
+        final long mOffloadCapabilities;
+
+        OffloadEngineCookie(@NonNull String interfaceName, long capabilities) {
+            this.mInterfaceName = interfaceName;
+            this.mOffloadCapabilities = capabilities;
+        }
+    }
 
     private static class MdnsListener implements MdnsServiceBrowserListener {
         protected final int mClientId;
@@ -1517,7 +1536,56 @@ public class NsdService extends INsdManager.Stub {
         }
     }
 
+    private void sendOffloadServiceInfosUpdate(NsdServiceInfo serviceInfo, boolean isRemove) {
+        final Network network = serviceInfo.getNetwork();
+        final String serviceName = serviceInfo.getServiceName();
+        final String[] serviceType = serviceInfo.getServiceType().split("\\.");
+        final String registerInterfaceName = getNetworkInterfaceName(network);
+        synchronized (mOffloadEngines) {
+            final int count = mOffloadEngines.beginBroadcast();
+            for (int i = 0; i < count; i++) {
+                try {
+                    final OffloadEngineCookie offloadEngineCookie =
+                            (OffloadEngineCookie) mOffloadEngines.getBroadcastCookie(i);
+                    final String ifaceName = offloadEngineCookie.mInterfaceName;
+                    if (registerInterfaceName != null && !registerInterfaceName.equals(ifaceName)) {
+                        continue;
+                    }
+                    if (isRemove) {
+                        final OffloadServiceInfo offloadServiceInfo = new OffloadServiceInfo(
+                                serviceName,
+                                serviceType,
+                                mAdvertiser.getDeviceHostName(),
+                                null /* rawOffloadPacket */,
+                                // TODO: Set the priority correctly.
+                                0 /* priority */);
+                        mOffloadEngines.getBroadcastItem(i).removeOffloadServiceInfo(
+                                offloadServiceInfo);
+                    } else {
+                        final OffloadServiceInfo offloadServiceInfo = new OffloadServiceInfo(
+                                serviceName,
+                                serviceType,
+                                mAdvertiser.getDeviceHostName(),
+                                // TODO: Get the rawOffloadPacket
+                                null /* rawOffloadPacket */,
+                                // TODO: Set the priority correctly.
+                                0 /* priority */);
+                        mOffloadEngines.getBroadcastItem(i).addOrUpdateOffloadServiceInfo(
+                                offloadServiceInfo);
+                    }
+                } catch (RemoteException e) {
+                    // Can happen in regular cases, do not log a stacktrace
+                    Log.i(TAG, "Failed to send offload callback, remote died: " + e.getMessage());
+                }
+            }
+            mOffloadEngines.finishBroadcast();
+        }
+    }
+
     private class AdvertiserCallback implements MdnsAdvertiser.AdvertiserCallback {
+        // TODO: add a callback to notify when a service is being added on each interface (as soon
+        // as probing starts), and call mOffloadCallbacks
+
         @Override
         public void onRegisterServiceSucceeded(int serviceId, NsdServiceInfo registeredInfo) {
             final ClientInfo clientInfo = getClientInfoOrLog(serviceId);
@@ -1530,6 +1598,15 @@ public class NsdService extends INsdManager.Stub {
             // historical behavior.
             final NsdServiceInfo cbInfo = new NsdServiceInfo(registeredInfo.getServiceName(), null);
             clientInfo.onRegisterServiceSucceeded(clientId, cbInfo);
+
+            // Notify the hardware offload engine to offload registered service.
+            sendOffloadServiceInfosUpdate(registeredInfo, false /* isRemove */);
+        }
+
+        @Override
+        public void onServiceUnregistered(int serviceId, NsdServiceInfo unregisteredServiceInfo) {
+            // Notify the hardware offload engine to offload registered service.
+            sendOffloadServiceInfosUpdate(unregisteredServiceInfo, true /* isRemove */);
         }
 
         @Override
@@ -1661,6 +1738,37 @@ public class NsdService extends INsdManager.Stub {
         public void binderDied() {
             mNsdStateMachine.sendMessage(
                     mNsdStateMachine.obtainMessage(NsdManager.UNREGISTER_CLIENT, this));
+
+        }
+
+        @Override
+        public void registerOffloadEngine(String ifaceName, IOffloadEngine cb,
+                long offloadCapabilities) throws RemoteException {
+            PermissionUtils.enforceNetworkStackPermissionOr(mContext, NETWORK_SETTINGS);
+            synchronized (mOffloadEngines) {
+                final int count = mOffloadEngines.beginBroadcast();
+                for (int i = 0; i < count; i++) {
+                    final String existIfaceName =
+                            ((OffloadEngineCookie) mOffloadEngines.getBroadcastCookie(
+                                    i)).mInterfaceName;
+                    if (existIfaceName.equals(ifaceName)) {
+                        throw new RemoteException("ifaceName: " + ifaceName
+                                + " already have an OffloadEngine registered.");
+                    }
+                }
+                mOffloadEngines.finishBroadcast();
+                mOffloadEngines.register(cb,
+                        new OffloadEngineCookie(ifaceName, offloadCapabilities));
+                // TODO: send all the existing OffloadServiceInfos back.
+            }
+        }
+
+        @Override
+        public void unregisterOffloadEngine(IOffloadEngine cb) throws RemoteException {
+            PermissionUtils.enforceNetworkStackPermissionOr(mContext, NETWORK_SETTINGS);
+            synchronized (mOffloadEngines) {
+                mOffloadEngines.unregister(cb);
+            }
         }
     }
 
@@ -1743,25 +1851,41 @@ public class NsdService extends INsdManager.Stub {
             return IFACE_IDX_ANY;
         }
 
+        String interfaceName = getNetworkInterfaceName(network);
+        if (interfaceName == null) {
+            return IFACE_IDX_ANY;
+        }
+        return getNetworkInterfaceIndexByName(interfaceName);
+    }
+
+    private String getNetworkInterfaceName(@Nullable Network network) {
+        if (network == null) {
+            return null;
+        }
         final ConnectivityManager cm = mContext.getSystemService(ConnectivityManager.class);
         if (cm == null) {
             Log.wtf(TAG, "No ConnectivityManager for resolveService");
-            return IFACE_IDX_ANY;
+            return null;
         }
         final LinkProperties lp = cm.getLinkProperties(network);
-        if (lp == null) return IFACE_IDX_ANY;
+        if (lp == null) {
+            return null;
+        }
+        return lp.getInterfaceName();
+    }
 
+    private int getNetworkInterfaceIndexByName(final String ifaceName) {
         // Only resolve on non-stacked interfaces
         final NetworkInterface iface;
         try {
-            iface = NetworkInterface.getByName(lp.getInterfaceName());
+            iface = NetworkInterface.getByName(ifaceName);
         } catch (SocketException e) {
             Log.e(TAG, "Error querying interface", e);
             return IFACE_IDX_ANY;
         }
 
         if (iface == null) {
-            Log.e(TAG, "Interface not found: " + lp.getInterfaceName());
+            Log.e(TAG, "Interface not found: " + ifaceName);
             return IFACE_IDX_ANY;
         }
 

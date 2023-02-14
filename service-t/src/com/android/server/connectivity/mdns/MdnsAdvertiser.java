@@ -24,6 +24,7 @@ import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Looper;
 import android.util.ArrayMap;
+import android.util.ArraySet;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -33,6 +34,7 @@ import com.android.net.module.util.SharedLog;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
@@ -64,6 +66,8 @@ public class MdnsAdvertiser {
             new ArrayMap<>();
     private final ArrayMap<MdnsInterfaceSocket, MdnsInterfaceAdvertiser> mAllAdvertisers =
             new ArrayMap<>();
+
+    private final Set<Integer> mOffloadedService = new ArraySet<>();
     private final SparseArray<Registration> mRegistrations = new SparseArray<>();
     private final Dependencies mDeps;
 
@@ -126,6 +130,7 @@ public class MdnsAdvertiser {
             }
             if (!registration.mNotifiedRegistrationSuccess) {
                 mCb.onRegisterServiceSucceeded(serviceId, registration.getServiceInfo());
+                mOffloadedService.add(serviceId);
                 registration.mNotifiedRegistrationSuccess = true;
             }
         }
@@ -403,6 +408,14 @@ public class MdnsAdvertiser {
 
         // Unregistration is notified immediately as success in NsdService so no callback is needed
         // here.
+
+        /**
+         * Called when a service was unregistered.
+         *
+         * @param serviceId ID of the unregistered service.
+         * @param unregisteredServiceInfo the info for the unregistered service.
+         */
+        void onServiceUnregistered(int serviceId, NsdServiceInfo unregisteredServiceInfo);
     }
 
     public MdnsAdvertiser(@NonNull Looper looper, @NonNull MdnsSocketProvider socketProvider,
@@ -477,6 +490,11 @@ public class MdnsAdvertiser {
             final InterfaceAdvertiserRequest advertiser = mAdvertiserRequests.valueAt(i);
             advertiser.removeService(id);
         }
+        Registration registration = mRegistrations.get(id);
+        if (mOffloadedService.contains(id)) {
+            mCb.onServiceUnregistered(id, registration.mServiceInfo);
+            mOffloadedService.remove(id);
+        }
         mRegistrations.remove(id);
         // Regenerates host name when registrations removed.
         if (mRegistrations.size() == 0) {
@@ -488,6 +506,11 @@ public class MdnsAdvertiser {
     public void dump(PrintWriter pw) {
         LOGGER.reverseDump(pw);
     }
+
+    public String[] getDeviceHostName() {
+        return mDeviceHostName;
+    }
+
     private static <K, V> boolean any(@NonNull ArrayMap<K, V> map,
             @NonNull BiPredicate<K, V> predicate) {
         for (int i = 0; i < map.size(); i++) {
