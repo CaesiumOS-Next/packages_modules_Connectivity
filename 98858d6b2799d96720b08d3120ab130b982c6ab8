@@ -16,6 +16,24 @@
       "message": "There isn\u0027t a lot of context in b/230643853, what is the exact use-case for registerSystemDefaultNetworkCallback ? The bug mentions a \"low quality\" summary, what is that exactly ? It\u0027s possible this callback is not the best way to implement it.\n\nI don\u0027t have API+1 so you\u0027ll need reviews from Lorenzo or Jean (who added/reviewed the original API so they\u0027re probably better reviewers)",
       "revId": "98858d6b2799d96720b08d3120ab130b982c6ab8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e699a7ff_41da36cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2023-02-14T21:36:38Z",
+      "side": 1,
+      "message": "My understanding is that registerDefaultNetworkCallback (which Setting and SUW can use) won\u0027t report the true default network if there\u0027s a VPN active, but registerSystemDefaultNetworkCallback (which SUW *cannot* use) does give the underlying default network.\n\nThe default network status is used to control\n1) \"!\" icon in the Wifi pie (if wifi isn\u0027t default)\n2) \"Low quality\" summary if wifi is connected but cell is default (due to the wifi score being low).\n3) Letting Settings know if carrier merged wifi is default or not (to show \"W+\" instead of LTE/5G) (not a SUW case)",
+      "parentUuid": "a712b307_1b90f0c0",
+      "revId": "98858d6b2799d96720b08d3120ab130b982c6ab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
