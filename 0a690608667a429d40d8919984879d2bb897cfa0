@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bef6ebce_b3fc47b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-15T08:27:37Z",
+      "side": 1,
+      "message": "LGTM, only nits.",
+      "revId": "0a690608667a429d40d8919984879d2bb897cfa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a19d2be_98d3cd6c",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-15T08:27:37Z",
+      "side": 1,
+      "message": "This only have one caller, seems doesn\u0027t need to define default ?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "0a690608667a429d40d8919984879d2bb897cfa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8547ccdd_2aff4d00",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-15T08:27:37Z",
+      "side": 1,
+      "message": "This is only caller of TetheringIntegrationTestsBaseLibDefaults. Why not just expand it here ?\n\n    android_library {\n        name: \"TetheringIntegrationTestsBaseLib\",\n        target_sdk_version: \"current\",\n        platform_apis: true,\n        defaults: [\"TetheringIntegrationTestsDefaults\"],\n        srcs: [\"base/**/*.java\"],\n        ....",
+      "range": {
+        "startLine": 66,
+        "startChar": 16,
+        "endLine": 66,
+        "endChar": 56
+      },
+      "revId": "0a690608667a429d40d8919984879d2bb897cfa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
