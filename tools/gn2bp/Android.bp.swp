@@ -795,6 +795,44 @@ cc_genrule {
     ],
 }
 
+// GN: //base:android_runtime_jni_headers
+cc_genrule {
+    name: "cronet_aml_base_android_runtime_jni_headers__testing",
+    cmd: "$(location base/android/jni_generator/jni_generator.py) --ptr_type " +
+         "long " +
+         "--output_dir " +
+         "$(genDir)/base/android_runtime_jni_headers " +
+         "--includes " +
+         "base/android/jni_generator/jni_generator_helper.h " +
+         "--jar_file " +
+         "$(location :current_android_jar) " +
+         "--output_name " +
+         "Runnable_jni.h " +
+         "--output_name " +
+         "Runtime_jni.h " +
+         "--input_file " +
+         "java/lang/Runnable.class " +
+         "--input_file " +
+         "java/lang/Runtime.class " +
+         "--javap " +
+         "$$(find $${OUT_DIR:-out}/.path -name javap)",
+    out: [
+        "base/android_runtime_jni_headers/Runnable_jni.h",
+        "base/android_runtime_jni_headers/Runtime_jni.h",
+    ],
+    tool_files: [
+        ":current_android_jar",
+        "base/android/jni_generator/android_jar.classes",
+        "base/android/jni_generator/jni_generator.py",
+        "build/android/gyp/util/__init__.py",
+        "build/android/gyp/util/build_utils.py",
+        "build/gn_helpers.py",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+}
+
 // GN: //base:base
 cc_library_static {
     name: "cronet_aml_base_base",
@@ -1816,25 +1854,16 @@ cc_library_static {
                 "base/files/scoped_file_linux.cc",
                 "base/memory/platform_shared_memory_mapper_posix.cc",
                 "base/memory/platform_shared_memory_region_posix.cc",
-                "base/nix/mime_util_xdg.cc",
-                "base/nix/xdg_util.cc",
                 "base/power_monitor/power_monitor_device_source_stub.cc",
                 "base/process/process_linux.cc",
                 "base/profiler/stack_sampler_posix.cc",
                 "base/stack_canary_linux.cc",
                 "base/threading/platform_thread_linux.cc",
             ],
-            static_libs: [
-                "cronet_aml_base_third_party_symbolize_symbolize",
-                "cronet_aml_base_third_party_xdg_mime_xdg_mime",
-                "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs",
-            ],
             cflags: [
                 "-DCR_SYSROOT_KEY=20220331T153654Z-0",
-                "-DGLOG_EXPORT=",
                 "-DUSE_AURA=1",
                 "-DUSE_OZONE=1",
-                "-DUSE_SYMBOLIZE",
                 "-DUSE_UDEV",
                 "-D_FILE_OFFSET_BITS=64",
                 "-D_LARGEFILE64_SOURCE",
@@ -2468,15 +2497,15 @@ cc_library_static {
                 "third_party/android_ndk/sources/android/cpufeatures/",
             ],
             generated_headers: [
-                "cronet_aml_base_android_runtime_jni_headers",
-                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_android_runtime_jni_headers__testing",
+                "cronet_aml_base_base_jni_headers__testing",
                 "cronet_aml_base_debugging_buildflags",
                 "cronet_aml_base_logging_buildflags",
                 "cronet_aml_build_chromeos_buildflags",
             ],
             export_generated_headers: [
-                "cronet_aml_base_android_runtime_jni_headers",
-                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_android_runtime_jni_headers__testing",
+                "cronet_aml_base_base_jni_headers__testing",
                 "cronet_aml_base_debugging_buildflags",
                 "cronet_aml_base_logging_buildflags",
                 "cronet_aml_build_chromeos_buildflags",
@@ -2587,15 +2616,15 @@ cc_library_static {
                 "third_party/android_ndk/sources/android/cpufeatures/",
             ],
             generated_headers: [
-                "cronet_aml_base_android_runtime_jni_headers",
-                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_android_runtime_jni_headers__testing",
+                "cronet_aml_base_base_jni_headers__testing",
                 "cronet_aml_base_debugging_buildflags",
                 "cronet_aml_base_logging_buildflags",
                 "cronet_aml_build_chromeos_buildflags",
             ],
             export_generated_headers: [
-                "cronet_aml_base_android_runtime_jni_headers",
-                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_android_runtime_jni_headers__testing",
+                "cronet_aml_base_base_jni_headers__testing",
                 "cronet_aml_base_debugging_buildflags",
                 "cronet_aml_base_logging_buildflags",
                 "cronet_aml_build_chromeos_buildflags",
@@ -2704,15 +2733,15 @@ cc_library_static {
                 "third_party/android_ndk/sources/android/cpufeatures/",
             ],
             generated_headers: [
-                "cronet_aml_base_android_runtime_jni_headers",
-                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_android_runtime_jni_headers__testing",
+                "cronet_aml_base_base_jni_headers__testing",
                 "cronet_aml_base_debugging_buildflags",
                 "cronet_aml_base_logging_buildflags",
                 "cronet_aml_build_chromeos_buildflags",
             ],
             export_generated_headers: [
-                "cronet_aml_base_android_runtime_jni_headers",
-                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_android_runtime_jni_headers__testing",
+                "cronet_aml_base_base_jni_headers__testing",
                 "cronet_aml_base_debugging_buildflags",
                 "cronet_aml_base_logging_buildflags",
                 "cronet_aml_build_chromeos_buildflags",
@@ -2822,15 +2851,15 @@ cc_library_static {
                 "third_party/android_ndk/sources/android/cpufeatures/",
             ],
             generated_headers: [
-                "cronet_aml_base_android_runtime_jni_headers",
-                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_android_runtime_jni_headers__testing",
+                "cronet_aml_base_base_jni_headers__testing",
                 "cronet_aml_base_debugging_buildflags",
                 "cronet_aml_base_logging_buildflags",
                 "cronet_aml_build_chromeos_buildflags",
             ],
             export_generated_headers: [
-                "cronet_aml_base_android_runtime_jni_headers",
-                "cronet_aml_base_base_jni_headers",
+                "cronet_aml_base_android_runtime_jni_headers__testing",
+                "cronet_aml_base_base_jni_headers__testing",
                 "cronet_aml_base_debugging_buildflags",
                 "cronet_aml_base_logging_buildflags",
                 "cronet_aml_build_chromeos_buildflags",
@@ -2862,25 +2891,16 @@ cc_library_static {
                 "base/files/scoped_file_linux.cc",
                 "base/memory/platform_shared_memory_mapper_posix.cc",
                 "base/memory/platform_shared_memory_region_posix.cc",
-                "base/nix/mime_util_xdg.cc",
-                "base/nix/xdg_util.cc",
                 "base/power_monitor/power_monitor_device_source_stub.cc",
                 "base/process/process_linux.cc",
                 "base/profiler/stack_sampler_posix.cc",
                 "base/stack_canary_linux.cc",
                 "base/threading/platform_thread_linux.cc",
             ],
-            static_libs: [
-                "cronet_aml_base_third_party_symbolize_symbolize__testing",
-                "cronet_aml_base_third_party_xdg_mime_xdg_mime__testing",
-                "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs__testing",
-            ],
             cflags: [
                 "-DCR_SYSROOT_KEY=20220331T153654Z-0",
-                "-DGLOG_EXPORT=",
                 "-DUSE_AURA=1",
                 "-DUSE_OZONE=1",
-                "-DUSE_SYMBOLIZE",
                 "-DUSE_UDEV",
                 "-D_FILE_OFFSET_BITS=64",
                 "-D_LARGEFILE64_SOURCE",
@@ -3200,6 +3220,278 @@ cc_genrule {
     ],
 }
 
+// GN: //base:base_jni_headers
+cc_genrule {
+    name: "cronet_aml_base_base_jni_headers__testing",
+    srcs: [
+        "base/android/java/src/org/chromium/base/ApkAssets.java",
+        "base/android/java/src/org/chromium/base/ApplicationStatus.java",
+        "base/android/java/src/org/chromium/base/BaseFeatureList.java",
+        "base/android/java/src/org/chromium/base/BuildInfo.java",
+        "base/android/java/src/org/chromium/base/BundleUtils.java",
+        "base/android/java/src/org/chromium/base/Callback.java",
+        "base/android/java/src/org/chromium/base/CommandLine.java",
+        "base/android/java/src/org/chromium/base/ContentUriUtils.java",
+        "base/android/java/src/org/chromium/base/CpuFeatures.java",
+        "base/android/java/src/org/chromium/base/EarlyTraceEvent.java",
+        "base/android/java/src/org/chromium/base/EventLog.java",
+        "base/android/java/src/org/chromium/base/FeatureList.java",
+        "base/android/java/src/org/chromium/base/Features.java",
+        "base/android/java/src/org/chromium/base/FieldTrialList.java",
+        "base/android/java/src/org/chromium/base/FileUtils.java",
+        "base/android/java/src/org/chromium/base/ImportantFileWriterAndroid.java",
+        "base/android/java/src/org/chromium/base/IntStringCallback.java",
+        "base/android/java/src/org/chromium/base/JNIUtils.java",
+        "base/android/java/src/org/chromium/base/JavaExceptionReporter.java",
+        "base/android/java/src/org/chromium/base/JavaHandlerThread.java",
+        "base/android/java/src/org/chromium/base/LocaleUtils.java",
+        "base/android/java/src/org/chromium/base/MemoryPressureListener.java",
+        "base/android/java/src/org/chromium/base/PathService.java",
+        "base/android/java/src/org/chromium/base/PathUtils.java",
+        "base/android/java/src/org/chromium/base/PiiElider.java",
+        "base/android/java/src/org/chromium/base/PowerMonitor.java",
+        "base/android/java/src/org/chromium/base/RadioUtils.java",
+        "base/android/java/src/org/chromium/base/SysUtils.java",
+        "base/android/java/src/org/chromium/base/ThreadUtils.java",
+        "base/android/java/src/org/chromium/base/TimezoneUtils.java",
+        "base/android/java/src/org/chromium/base/TraceEvent.java",
+        "base/android/java/src/org/chromium/base/UnguessableToken.java",
+        "base/android/java/src/org/chromium/base/jank_tracker/JankMetricUMARecorder.java",
+        "base/android/java/src/org/chromium/base/library_loader/LibraryLoader.java",
+        "base/android/java/src/org/chromium/base/library_loader/LibraryPrefetcher.java",
+        "base/android/java/src/org/chromium/base/memory/JavaHeapDumpGenerator.java",
+        "base/android/java/src/org/chromium/base/metrics/NativeUmaRecorder.java",
+        "base/android/java/src/org/chromium/base/metrics/StatisticsRecorderAndroid.java",
+        "base/android/java/src/org/chromium/base/process_launcher/ChildProcessService.java",
+        "base/android/java/src/org/chromium/base/task/PostTask.java",
+        "base/android/java/src/org/chromium/base/task/TaskRunnerImpl.java",
+    ],
+    cmd: "$(location base/android/jni_generator/jni_generator.py) --ptr_type " +
+         "long " +
+         "--output_dir " +
+         "$(genDir)/base/base_jni_headers " +
+         "--includes " +
+         "base/android/jni_generator/jni_generator_helper.h " +
+         "--use_proxy_hash " +
+         "--output_name " +
+         "ApkAssets_jni.h " +
+         "--output_name " +
+         "ApplicationStatus_jni.h " +
+         "--output_name " +
+         "BaseFeatureList_jni.h " +
+         "--output_name " +
+         "BuildInfo_jni.h " +
+         "--output_name " +
+         "BundleUtils_jni.h " +
+         "--output_name " +
+         "Callback_jni.h " +
+         "--output_name " +
+         "CommandLine_jni.h " +
+         "--output_name " +
+         "ContentUriUtils_jni.h " +
+         "--output_name " +
+         "CpuFeatures_jni.h " +
+         "--output_name " +
+         "EarlyTraceEvent_jni.h " +
+         "--output_name " +
+         "EventLog_jni.h " +
+         "--output_name " +
+         "FeatureList_jni.h " +
+         "--output_name " +
+         "Features_jni.h " +
+         "--output_name " +
+         "FieldTrialList_jni.h " +
+         "--output_name " +
+         "FileUtils_jni.h " +
+         "--output_name " +
+         "ImportantFileWriterAndroid_jni.h " +
+         "--output_name " +
+         "IntStringCallback_jni.h " +
+         "--output_name " +
+         "JNIUtils_jni.h " +
+         "--output_name " +
+         "JavaExceptionReporter_jni.h " +
+         "--output_name " +
+         "JavaHandlerThread_jni.h " +
+         "--output_name " +
+         "LocaleUtils_jni.h " +
+         "--output_name " +
+         "MemoryPressureListener_jni.h " +
+         "--output_name " +
+         "PathService_jni.h " +
+         "--output_name " +
+         "PathUtils_jni.h " +
+         "--output_name " +
+         "PiiElider_jni.h " +
+         "--output_name " +
+         "PowerMonitor_jni.h " +
+         "--output_name " +
+         "RadioUtils_jni.h " +
+         "--output_name " +
+         "SysUtils_jni.h " +
+         "--output_name " +
+         "ThreadUtils_jni.h " +
+         "--output_name " +
+         "TimezoneUtils_jni.h " +
+         "--output_name " +
+         "TraceEvent_jni.h " +
+         "--output_name " +
+         "UnguessableToken_jni.h " +
+         "--output_name " +
+         "JankMetricUMARecorder_jni.h " +
+         "--output_name " +
+         "LibraryLoader_jni.h " +
+         "--output_name " +
+         "LibraryPrefetcher_jni.h " +
+         "--output_name " +
+         "JavaHeapDumpGenerator_jni.h " +
+         "--output_name " +
+         "NativeUmaRecorder_jni.h " +
+         "--output_name " +
+         "StatisticsRecorderAndroid_jni.h " +
+         "--output_name " +
+         "ChildProcessService_jni.h " +
+         "--output_name " +
+         "PostTask_jni.h " +
+         "--output_name " +
+         "TaskRunnerImpl_jni.h " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/ApkAssets.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/ApplicationStatus.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/BaseFeatureList.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/BuildInfo.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/BundleUtils.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/Callback.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/CommandLine.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/ContentUriUtils.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/CpuFeatures.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/EarlyTraceEvent.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/EventLog.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/FeatureList.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/Features.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/FieldTrialList.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/FileUtils.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/ImportantFileWriterAndroid.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/IntStringCallback.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/JNIUtils.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/JavaExceptionReporter.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/JavaHandlerThread.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/LocaleUtils.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/MemoryPressureListener.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/PathService.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/PathUtils.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/PiiElider.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/PowerMonitor.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/RadioUtils.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/SysUtils.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/ThreadUtils.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/TimezoneUtils.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/TraceEvent.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/UnguessableToken.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/jank_tracker/JankMetricUMARecorder.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/library_loader/LibraryLoader.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/library_loader/LibraryPrefetcher.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/memory/JavaHeapDumpGenerator.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/metrics/NativeUmaRecorder.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/metrics/StatisticsRecorderAndroid.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/process_launcher/ChildProcessService.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/task/PostTask.java) " +
+         "--input_file " +
+         "$(location base/android/java/src/org/chromium/base/task/TaskRunnerImpl.java)",
+    out: [
+        "base/base_jni_headers/ApkAssets_jni.h",
+        "base/base_jni_headers/ApplicationStatus_jni.h",
+        "base/base_jni_headers/BaseFeatureList_jni.h",
+        "base/base_jni_headers/BuildInfo_jni.h",
+        "base/base_jni_headers/BundleUtils_jni.h",
+        "base/base_jni_headers/Callback_jni.h",
+        "base/base_jni_headers/ChildProcessService_jni.h",
+        "base/base_jni_headers/CommandLine_jni.h",
+        "base/base_jni_headers/ContentUriUtils_jni.h",
+        "base/base_jni_headers/CpuFeatures_jni.h",
+        "base/base_jni_headers/EarlyTraceEvent_jni.h",
+        "base/base_jni_headers/EventLog_jni.h",
+        "base/base_jni_headers/FeatureList_jni.h",
+        "base/base_jni_headers/Features_jni.h",
+        "base/base_jni_headers/FieldTrialList_jni.h",
+        "base/base_jni_headers/FileUtils_jni.h",
+        "base/base_jni_headers/ImportantFileWriterAndroid_jni.h",
+        "base/base_jni_headers/IntStringCallback_jni.h",
+        "base/base_jni_headers/JNIUtils_jni.h",
+        "base/base_jni_headers/JankMetricUMARecorder_jni.h",
+        "base/base_jni_headers/JavaExceptionReporter_jni.h",
+        "base/base_jni_headers/JavaHandlerThread_jni.h",
+        "base/base_jni_headers/JavaHeapDumpGenerator_jni.h",
+        "base/base_jni_headers/LibraryLoader_jni.h",
+        "base/base_jni_headers/LibraryPrefetcher_jni.h",
+        "base/base_jni_headers/LocaleUtils_jni.h",
+        "base/base_jni_headers/MemoryPressureListener_jni.h",
+        "base/base_jni_headers/NativeUmaRecorder_jni.h",
+        "base/base_jni_headers/PathService_jni.h",
+        "base/base_jni_headers/PathUtils_jni.h",
+        "base/base_jni_headers/PiiElider_jni.h",
+        "base/base_jni_headers/PostTask_jni.h",
+        "base/base_jni_headers/PowerMonitor_jni.h",
+        "base/base_jni_headers/RadioUtils_jni.h",
+        "base/base_jni_headers/StatisticsRecorderAndroid_jni.h",
+        "base/base_jni_headers/SysUtils_jni.h",
+        "base/base_jni_headers/TaskRunnerImpl_jni.h",
+        "base/base_jni_headers/ThreadUtils_jni.h",
+        "base/base_jni_headers/TimezoneUtils_jni.h",
+        "base/base_jni_headers/TraceEvent_jni.h",
+        "base/base_jni_headers/UnguessableToken_jni.h",
+    ],
+    tool_files: [
+        "base/android/jni_generator/android_jar.classes",
+        "base/android/jni_generator/jni_generator.py",
+        "build/android/gyp/util/__init__.py",
+        "build/android/gyp/util/build_utils.py",
+        "build/gn_helpers.py",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+}
+
 // GN: //base:base_static
 cc_library_static {
     name: "cronet_aml_base_base_static",
@@ -3410,7 +3702,7 @@ cc_library_static {
 cc_genrule {
     name: "cronet_aml_base_build_date",
     cmd: "$(location build/write_build_date_header.py) $(out) " +
-         "1676008584",
+         "1674644139",
     host_supported: true,
     out: [
         "base/generated_build_date.h",
@@ -5113,354 +5405,6 @@ cc_library_static {
             compile_multilib: "64",
         },
     },
-}
-
-// GN: //base/third_party/symbolize:symbolize
-cc_library_static {
-    name: "cronet_aml_base_third_party_symbolize_symbolize",
-    srcs: [
-        "base/third_party/symbolize/demangle.cc",
-        "base/third_party/symbolize/symbolize.cc",
-    ],
-    host_supported: true,
-    device_supported: false,
-    defaults: [
-        "cronet_aml_defaults",
-    ],
-    cflags: [
-        "-DCR_CLANG_REVISION=\"llvmorg-16-init-6578-g0d30e92f-2\"",
-        "-DCR_LIBCXX_REVISION=64d36e572d3f9719c5d75011a718f33f11126851",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
-        "-DDYNAMIC_ANNOTATIONS_ENABLED=0",
-        "-DGLOG_EXPORT=",
-        "-DNDEBUG",
-        "-DNO_UNWIND_TABLES",
-        "-DNVALGRIND",
-        "-DOFFICIAL_BUILD",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
-        "-D_FILE_OFFSET_BITS=64",
-        "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
-        "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-O2",
-        "-fdata-sections",
-        "-ffunction-sections",
-        "-fno-asynchronous-unwind-tables",
-        "-fno-unwind-tables",
-        "-fstack-protector",
-        "-fvisibility-inlines-hidden",
-        "-fvisibility=hidden",
-        "-g1",
-        "-msse3",
-    ],
-    local_include_dirs: [
-        "./",
-        "buildtools/third_party/libc++/",
-        "buildtools/third_party/libc++/trunk/include",
-        "buildtools/third_party/libc++abi/trunk/include",
-    ],
-    cpp_std: "c++20",
-    ldflags: [
-        "-Wl,--as-needed",
-        "-Wl,--gc-sections",
-        "-Wl,--icf=all",
-    ],
-}
-
-// GN: //base/third_party/symbolize:symbolize
-cc_library_static {
-    name: "cronet_aml_base_third_party_symbolize_symbolize__testing",
-    srcs: [
-        "base/third_party/symbolize/demangle.cc",
-        "base/third_party/symbolize/symbolize.cc",
-    ],
-    host_supported: true,
-    device_supported: false,
-    defaults: [
-        "cronet_aml_defaults",
-    ],
-    cflags: [
-        "-DCR_CLANG_REVISION=\"llvmorg-16-init-6578-g0d30e92f-2\"",
-        "-DCR_LIBCXX_REVISION=64d36e572d3f9719c5d75011a718f33f11126851",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
-        "-DDYNAMIC_ANNOTATIONS_ENABLED=0",
-        "-DGLOG_EXPORT=",
-        "-DNDEBUG",
-        "-DNO_UNWIND_TABLES",
-        "-DNVALGRIND",
-        "-DOFFICIAL_BUILD",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
-        "-D_FILE_OFFSET_BITS=64",
-        "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
-        "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-O2",
-        "-fdata-sections",
-        "-ffunction-sections",
-        "-fno-asynchronous-unwind-tables",
-        "-fno-unwind-tables",
-        "-fstack-protector",
-        "-fvisibility-inlines-hidden",
-        "-fvisibility=hidden",
-        "-g1",
-        "-msse3",
-    ],
-    local_include_dirs: [
-        "./",
-        "buildtools/third_party/libc++/",
-        "buildtools/third_party/libc++/trunk/include",
-        "buildtools/third_party/libc++abi/trunk/include",
-    ],
-    cpp_std: "c++20",
-    ldflags: [
-        "-Wl,--as-needed",
-        "-Wl,--gc-sections",
-        "-Wl,--icf=all",
-    ],
-}
-
-// GN: //base/third_party/xdg_mime:xdg_mime
-cc_library_static {
-    name: "cronet_aml_base_third_party_xdg_mime_xdg_mime",
-    srcs: [
-        "base/third_party/xdg_mime/xdgmime.c",
-        "base/third_party/xdg_mime/xdgmimealias.c",
-        "base/third_party/xdg_mime/xdgmimecache.c",
-        "base/third_party/xdg_mime/xdgmimeglob.c",
-        "base/third_party/xdg_mime/xdgmimeicon.c",
-        "base/third_party/xdg_mime/xdgmimeint.c",
-        "base/third_party/xdg_mime/xdgmimemagic.c",
-        "base/third_party/xdg_mime/xdgmimeparent.c",
-    ],
-    host_supported: true,
-    device_supported: false,
-    defaults: [
-        "cronet_aml_defaults",
-    ],
-    cflags: [
-        "-DCR_CLANG_REVISION=\"llvmorg-16-init-6578-g0d30e92f-2\"",
-        "-DCR_LIBCXX_REVISION=64d36e572d3f9719c5d75011a718f33f11126851",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
-        "-DDYNAMIC_ANNOTATIONS_ENABLED=0",
-        "-DNDEBUG",
-        "-DNO_UNWIND_TABLES",
-        "-DNVALGRIND",
-        "-DOFFICIAL_BUILD",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
-        "-D_FILE_OFFSET_BITS=64",
-        "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
-        "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-O2",
-        "-fdata-sections",
-        "-ffunction-sections",
-        "-fno-asynchronous-unwind-tables",
-        "-fno-unwind-tables",
-        "-fstack-protector",
-        "-fvisibility-inlines-hidden",
-        "-fvisibility=hidden",
-        "-g1",
-        "-msse3",
-    ],
-    local_include_dirs: [
-        "./",
-        "buildtools/third_party/libc++/",
-        "buildtools/third_party/libc++/trunk/include",
-        "buildtools/third_party/libc++abi/trunk/include",
-    ],
-    cpp_std: "c++20",
-    ldflags: [
-        "-Wl,--as-needed",
-        "-Wl,--gc-sections",
-        "-Wl,--icf=all",
-    ],
-}
-
-// GN: //base/third_party/xdg_mime:xdg_mime
-cc_library_static {
-    name: "cronet_aml_base_third_party_xdg_mime_xdg_mime__testing",
-    srcs: [
-        "base/third_party/xdg_mime/xdgmime.c",
-        "base/third_party/xdg_mime/xdgmimealias.c",
-        "base/third_party/xdg_mime/xdgmimecache.c",
-        "base/third_party/xdg_mime/xdgmimeglob.c",
-        "base/third_party/xdg_mime/xdgmimeicon.c",
-        "base/third_party/xdg_mime/xdgmimeint.c",
-        "base/third_party/xdg_mime/xdgmimemagic.c",
-        "base/third_party/xdg_mime/xdgmimeparent.c",
-    ],
-    host_supported: true,
-    device_supported: false,
-    defaults: [
-        "cronet_aml_defaults",
-    ],
-    cflags: [
-        "-DCR_CLANG_REVISION=\"llvmorg-16-init-6578-g0d30e92f-2\"",
-        "-DCR_LIBCXX_REVISION=64d36e572d3f9719c5d75011a718f33f11126851",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
-        "-DDYNAMIC_ANNOTATIONS_ENABLED=0",
-        "-DNDEBUG",
-        "-DNO_UNWIND_TABLES",
-        "-DNVALGRIND",
-        "-DOFFICIAL_BUILD",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
-        "-D_FILE_OFFSET_BITS=64",
-        "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
-        "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-O2",
-        "-fdata-sections",
-        "-ffunction-sections",
-        "-fno-asynchronous-unwind-tables",
-        "-fno-unwind-tables",
-        "-fstack-protector",
-        "-fvisibility-inlines-hidden",
-        "-fvisibility=hidden",
-        "-g1",
-        "-msse3",
-    ],
-    local_include_dirs: [
-        "./",
-        "buildtools/third_party/libc++/",
-        "buildtools/third_party/libc++/trunk/include",
-        "buildtools/third_party/libc++abi/trunk/include",
-    ],
-    cpp_std: "c++20",
-    ldflags: [
-        "-Wl,--as-needed",
-        "-Wl,--gc-sections",
-        "-Wl,--icf=all",
-    ],
-}
-
-// GN: //base/third_party/xdg_user_dirs:xdg_user_dirs
-cc_library_static {
-    name: "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs",
-    srcs: [
-        "base/third_party/xdg_user_dirs/xdg_user_dir_lookup.cc",
-    ],
-    host_supported: true,
-    device_supported: false,
-    defaults: [
-        "cronet_aml_defaults",
-    ],
-    cflags: [
-        "-DCR_CLANG_REVISION=\"llvmorg-16-init-6578-g0d30e92f-2\"",
-        "-DCR_LIBCXX_REVISION=64d36e572d3f9719c5d75011a718f33f11126851",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
-        "-DDYNAMIC_ANNOTATIONS_ENABLED=0",
-        "-DNDEBUG",
-        "-DNO_UNWIND_TABLES",
-        "-DNVALGRIND",
-        "-DOFFICIAL_BUILD",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
-        "-D_FILE_OFFSET_BITS=64",
-        "-D_FORTIFY_SOURCE=2",
-        "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
-        "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-D__STDC_CONSTANT_MACROS",
-        "-D__STDC_FORMAT_MACROS",
-        "-O2",
-        "-fdata-sections",
-        "-ffunction-sections",
-        "-fno-asynchronous-unwind-tables",
-        "-fno-unwind-tables",
-        "-fstack-protector",
-        "-fvisibility-inlines-hidden",
-        "-fvisibility=hidden",
-        "-g1",
-        "-msse3",
-    ],
-    local_include_dirs: [
-        "./",
-        "buildtools/third_party/libc++/",
-        "buildtools/third_party/libc++/trunk/include",
-        "buildtools/third_party/libc++abi/trunk/include",
-    ],
-    cpp_std: "c++20",
-    ldflags: [
-        "-Wl,--as-needed",
-        "-Wl,--gc-sections",
-        "-Wl,--icf=all",
-    ],
-}
-
-// GN: //base/third_party/xdg_user_dirs:xdg_user_dirs
-cc_library_static {
-    name: "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs__testing",
-    srcs: [
-        "base/third_party/xdg_user_dirs/xdg_user_dir_lookup.cc",
-    ],
-    host_supported: true,
-    device_supported: false,
-    defaults: [
-        "cronet_aml_defaults",
-    ],
-    cflags: [
-        "-DCR_CLANG_REVISION=\"llvmorg-16-init-6578-g0d30e92f-2\"",
-        "-DCR_LIBCXX_REVISION=64d36e572d3f9719c5d75011a718f33f11126851",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
-        "-DDYNAMIC_ANNOTATIONS_ENABLED=0",
-        "-DNDEBUG",
-        "-DNO_UNWIND_TABLES",
-        "-DNVALGRIND",
-        "-DOFFICIAL_BUILD",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
-        "-D_FILE_OFFSET_BITS=64",
-        "-D_FORTIFY_SOURCE=2",
-        "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
-        "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-D__STDC_CONSTANT_MACROS",
-        "-D__STDC_FORMAT_MACROS",
-        "-O2",
-        "-fdata-sections",
-        "-ffunction-sections",
-        "-fno-asynchronous-unwind-tables",
-        "-fno-unwind-tables",
-        "-fstack-protector",
-        "-fvisibility-inlines-hidden",
-        "-fvisibility=hidden",
-        "-g1",
-        "-msse3",
-    ],
-    local_include_dirs: [
-        "./",
-        "buildtools/third_party/libc++/",
-        "buildtools/third_party/libc++/trunk/include",
-        "buildtools/third_party/libc++abi/trunk/include",
-    ],
-    cpp_std: "c++20",
-    ldflags: [
-        "-Wl,--as-needed",
-        "-Wl,--gc-sections",
-        "-Wl,--icf=all",
-    ],
 }
 
 // GN: //base:tracing_buildflags
@@ -9850,11 +9794,6 @@ cc_library_static {
             ],
         },
         host: {
-            static_libs: [
-                "cronet_aml_base_third_party_symbolize_symbolize",
-                "cronet_aml_base_third_party_xdg_mime_xdg_mime",
-                "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs",
-            ],
             cflags: [
                 "-DCR_SYSROOT_KEY=20220331T153654Z-0",
                 "-DUSE_AURA=1",
@@ -10070,11 +10009,6 @@ cc_library_static {
             ],
         },
         host: {
-            static_libs: [
-                "cronet_aml_base_third_party_symbolize_symbolize__testing",
-                "cronet_aml_base_third_party_xdg_mime_xdg_mime__testing",
-                "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs__testing",
-            ],
             cflags: [
                 "-DCR_SYSROOT_KEY=20220331T153654Z-0",
                 "-DUSE_AURA=1",
@@ -16200,9 +16134,6 @@ cc_object {
         "cronet_aml_base_base_static__testing",
         "cronet_aml_base_third_party_double_conversion_double_conversion__testing",
         "cronet_aml_base_third_party_dynamic_annotations_dynamic_annotations__testing",
-        "cronet_aml_base_third_party_symbolize_symbolize__testing",
-        "cronet_aml_base_third_party_xdg_mime_xdg_mime__testing",
-        "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs__testing",
         "cronet_aml_third_party_boringssl_boringssl__testing",
         "cronet_aml_third_party_icu_icui18n__testing",
         "cronet_aml_third_party_icu_icuuc_private__testing",
@@ -16361,9 +16292,6 @@ cc_binary {
         "cronet_aml_base_base_static__testing",
         "cronet_aml_base_third_party_double_conversion_double_conversion__testing",
         "cronet_aml_base_third_party_dynamic_annotations_dynamic_annotations__testing",
-        "cronet_aml_base_third_party_symbolize_symbolize__testing",
-        "cronet_aml_base_third_party_xdg_mime_xdg_mime__testing",
-        "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs__testing",
         "cronet_aml_crypto_crypto__testing",
         "cronet_aml_third_party_boringssl_boringssl__testing",
         "cronet_aml_third_party_icu_icui18n__testing",
@@ -16442,9 +16370,6 @@ cc_object {
         "cronet_aml_base_base_static__testing",
         "cronet_aml_base_third_party_double_conversion_double_conversion__testing",
         "cronet_aml_base_third_party_dynamic_annotations_dynamic_annotations__testing",
-        "cronet_aml_base_third_party_symbolize_symbolize__testing",
-        "cronet_aml_base_third_party_xdg_mime_xdg_mime__testing",
-        "cronet_aml_base_third_party_xdg_user_dirs_xdg_user_dirs__testing",
         "cronet_aml_third_party_boringssl_boringssl__testing",
         "cronet_aml_third_party_icu_icui18n__testing",
         "cronet_aml_third_party_icu_icuuc_private__testing",
