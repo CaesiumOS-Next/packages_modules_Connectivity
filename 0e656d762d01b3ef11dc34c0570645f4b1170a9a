@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac0e74cd_2e7c96c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-15T08:13:15Z",
+      "side": 1,
+      "message": "LGTM. I remember lorenzo suggest 2-tier review for this change, so just +1 and leave second tier reviewer to approve this.",
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
