@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a37780_c5fcca12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-15T08:32:21Z",
+      "side": 1,
+      "message": "Can you also explain why this is being done? Was it just incorrect? That would be a good reason to change it :)",
+      "range": {
+        "startLine": 12,
+        "startChar": 42,
+        "endLine": 12,
+        "endChar": 43
+      },
+      "revId": "194fa895c60fddf5f36fda440b3de0e8bb0e2d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b61f3467_ed6ea455",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-15T08:32:21Z",
+      "side": 1,
+      "message": "Still LGTM.",
+      "revId": "194fa895c60fddf5f36fda440b3de0e8bb0e2d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
