@@ -78,7 +78,7 @@ function gn_desc() {
   gn desc "${OUT_PATH}" --format=json --all-toolchains "//*" > "${out_file}"
 }
 
-apply_patches
+#apply_patches
 gn_desc x86
 gn_desc x64
 gn_desc arm
