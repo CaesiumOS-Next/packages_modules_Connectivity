@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b94b24c_22962051",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-15T15:10:46Z",
+      "side": 1,
+      "message": "Is there a reason we can\u0027t simply always make this true? If the caller enabled connection migration on path degradation, then presumably they want to migrate stuck requests regardless of whether the requests get stuck before the handshake or after it.\n\nIIRC this was not supported by the initial migration code but was only added later (and resulted in a major improvement in the effectiveness of connection migration). Perhaps that\u0027s why it\u0027s a flag. But is there any reason for it to continue to be a flag now?\n\nDo you know if anyone intentionally sets it to false?",
+      "range": {
+        "startLine": 48,
+        "startChar": 36,
+        "endLine": 48,
+        "endChar": 81
+      },
+      "revId": "fb4c1af99c74e3e83920e28c39553041c2aba779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "904ec0a1_8bc403b8",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-15T15:10:46Z",
+      "side": 1,
+      "message": "Can we call this something more specific, such as getUseAsyncDnsResolver? That way if we eventually unify this with the system DNS resolver this API will become a no-op but its name will still be accurate.",
+      "range": {
+        "startLine": 66,
+        "startChar": 36,
+        "endLine": 66,
+        "endChar": 62
+      },
+      "revId": "fb4c1af99c74e3e83920e28c39553041c2aba779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22217fa5_59213c1b",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-15T15:10:46Z",
+      "side": 1,
+      "message": "It seems a bit redundant to have both setEnableStaleDns and setStaleDnsOptions. It seems like just setStaleDnsOptions(@Nullable StaleDnsOptions options) would be sufficient?",
+      "range": {
+        "startLine": 75,
+        "startChar": 54,
+        "endLine": 75,
+        "endChar": 72
+      },
+      "revId": "fb4c1af99c74e3e83920e28c39553041c2aba779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7efb361_70ea9c06",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-15T15:10:46Z",
+      "side": 1,
+      "message": "How are these methods different from getAllHeaders and getAllHeadersAsList above?\n\nLooks like this is only used by BidirectionalStream.Callback#onResponseTrailersReceived. That callback method also passes in the UrlResponseInfo which contains the headers as well.\n\nIf those headers are the same ones in the HeaderBlock, then is it possible for the callback to only pass the UrlResponseInfo? Or do we need this class for some other reason?",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 103
+      },
+      "revId": "fb4c1af99c74e3e83920e28c39553041c2aba779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
