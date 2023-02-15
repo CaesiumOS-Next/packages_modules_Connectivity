@@ -90,6 +90,12 @@
   ],
   "postsubmit": [
     {
+      "name": "CtsTetheringTestLatestSdk"
+    },
+    {
+      "name": "MtsTetheringTestLatestSdk"
+    },
+    {
       "name": "TetheringPrivilegedTests"
     },
     {
@@ -198,6 +204,12 @@
     {
       "name": "CtsNetTestCasesLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]",
       "keywords": ["sim"]
+    },
+    {
+      "name": "CtsTetheringTestLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
+    },
+    {
+      "name": "MtsTetheringTestLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
     }
   ],
   "imports": [
