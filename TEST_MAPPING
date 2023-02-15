@@ -90,6 +90,12 @@
   ],
   "postsubmit": [
     {
+      "name": "CtsTetheringTestLatestSdk"
+    },
+    {
+      "name": "MtsTetheringTestLatestSdk"
+    },
+    {
       "name": "TetheringPrivilegedTests"
     },
     {
