@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "945efe2f_ec7e0188",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2023-02-15T19:11:59Z",
+      "side": 1,
+      "message": "\u003e Maybe you\u0027ve answered this question already... since you are introducing this new constant I assume that you are planning to give SUW access to some of fields in WifiInfo. What exactly do you plan to do? Are those fields already redacted for lack of other permissions?\n\nYes, specifically WifiInfo.isPrimary() is redacted for lack of NETWORK_SETTINGS, but we need it for SUW as well.\n\n\u003e If not, is there a precedent in WifiInfo or anywhere else for fields for which more than one redaction applies?\n\nWifiInfo.getMacAddress() is redacted for lack of location AND mac address permissions, but I don\u0027t see anywhere that uses an OR redaction.\n\nI think for consistency with the semantics, we should explicitly have a REDACT_FOR_NETWORK_SETTINGS_OR_SETUP_WIZARD flag.",
+      "parentUuid": "45e0ad11_b34b7e13",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 72
+      },
+      "revId": "c89a6af2cc53d866081a17bca1a9df6f323e7bce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca58b942_b04784aa",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-15T10:06:15Z",
       "side": 1,
       "message": "Why does this say NETWORK_SETTINGS?",
+      "range": {
+        "startLine": 11368,
+        "startChar": 24,
+        "endLine": 11368,
+        "endChar": 40
+      },
+      "revId": "c89a6af2cc53d866081a17bca1a9df6f323e7bce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f5dd3c4_cb6a7c94",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11368,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2023-02-15T19:11:59Z",
+      "side": 1,
+      "message": "Oops. Fixed",
+      "parentUuid": "ca58b942_b04784aa",
       "range": {
         "startLine": 11368,
         "startChar": 24,
