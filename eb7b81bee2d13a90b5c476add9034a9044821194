@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc6e72b3_cf042c2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-15T10:13:16Z",
+      "side": 1,
+      "message": "I\u0027ve got nothing against this test in itself, but it seems you should have other tests to cover common cases where the exception would be thrown ? It seems something like HttpException or NetworkException for example could be covered by doing a request to an endpoint that doesn\u0027t work/exist ?",
+      "revId": "eb7b81bee2d13a90b5c476add9034a9044821194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "550324ff_718099e9",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/ExceptionsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-15T10:13:16Z",
+      "side": 1,
+      "message": "You might want to change this message in the future so enforcing it via CTS may be a bit too much. If you really need to cover this you could just assert it\u0027s not null...",
+      "revId": "eb7b81bee2d13a90b5c476add9034a9044821194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
