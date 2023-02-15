@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1aa38bb_361bd00a",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-02-15T16:35:00Z",
+      "side": 1,
+      "message": "I only found this being set to false as an experiment baseline in google3. I think it makes sense to promote this to enabled by default, and dropping the config option (both here and in Chromium).",
+      "parentUuid": "2b94b24c_22962051",
+      "range": {
+        "startLine": 48,
+        "startChar": 36,
+        "endLine": 48,
+        "endChar": 81
+      },
+      "revId": "fb4c1af99c74e3e83920e28c39553041c2aba779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "904ec0a1_8bc403b8",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-15T15:10:46Z",
       "side": 1,
       "message": "Can we call this something more specific, such as getUseAsyncDnsResolver? That way if we eventually unify this with the system DNS resolver this API will become a no-op but its name will still be accurate.",
+      "range": {
+        "startLine": 66,
+        "startChar": 36,
+        "endLine": 66,
+        "endChar": 62
+      },
+      "revId": "fb4c1af99c74e3e83920e28c39553041c2aba779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db53f16a_68f0f12d",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-02-15T16:35:00Z",
+      "side": 1,
+      "message": "I don\u0027t like using the name \"async\" as it\u0027s an implementation detail of the Chromium stack, that\u0027s also why I changed the name from async to something else in Chromium. It becomes a little difficult to explain now that both the \"Cronet DNS stacnk\" and \"AOSP stack\" are part of AOSP and still be brief. The best I could come up with is that it\u0027s the DNS specific to the HTTP stack, but I\u0027m definitely open to suggestions.",
+      "parentUuid": "904ec0a1_8bc403b8",
       "range": {
         "startLine": 66,
         "startChar": 36,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "370d887b_5afbb0f7",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-02-15T16:35:00Z",
+      "side": 1,
+      "message": "We had some discussion about this on the initial proposal CL: https://critique.corp.google.com/cl/492437433/depot/google3/experimental/users/danstahr/cronet/experimental_options_builders/DnsOptions.java?version\u003ds1#65\n\nI\u0027m not super keen on implicitly enabling stale DNS as you set the stale DNS options, for a couple of reasons:\n\n - I generally dislike the idea of things being done implicitly in an API. \n - It\u0027s awkward to just enable stale DNS without configuring the detailed options. \n - It\u0027s surprising that setFoo(effectivelyDefault()) and not calling the API at all has different results.\n - Having a relatively easily accessible feature kill switch is useful for both us and the developers.",
+      "parentUuid": "22217fa5_59213c1b",
+      "range": {
+        "startLine": 75,
+        "startChar": 54,
+        "endLine": 75,
+        "endChar": 72
+      },
+      "revId": "fb4c1af99c74e3e83920e28c39553041c2aba779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7efb361_70ea9c06",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-02-15T15:10:46Z",
       "side": 1,
       "message": "How are these methods different from getAllHeaders and getAllHeadersAsList above?\n\nLooks like this is only used by BidirectionalStream.Callback#onResponseTrailersReceived. That callback method also passes in the UrlResponseInfo which contains the headers as well.\n\nIf those headers are the same ones in the HeaderBlock, then is it possible for the callback to only pass the UrlResponseInfo? Or do we need this class for some other reason?",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 103
+      },
+      "revId": "fb4c1af99c74e3e83920e28c39553041c2aba779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4161d16_81ac6122",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-02-15T16:35:00Z",
+      "side": 1,
+      "message": "\u003e Looks like this is only used by BidirectionalStream.Callback#onResponseTrailersReceived. \n\nThat\u0027s right, it\u0027s only exposed for the one particular method.\n\n\u003e That callback method also passes in the UrlResponseInfo which contains the headers as well.\n\nOne could guess that\u0027s the case from the names, but while UrlResponseInfo contains the *actual headers* of the response, the separate onResponseTrailersReceived parameter contains the trailers.\n\nThis is (annoyingly) consistent with the HTTP spec where we commonly refer to HTTP headers, and then mention \"oh, by the way, the trailers have the same format\" as a side note (http3 example: https://www.rfc-editor.org/rfc/rfc9114.html#section-4.1-5.3).",
+      "parentUuid": "d7efb361_70ea9c06",
       "range": {
         "startLine": 260,
         "startChar": 0,
