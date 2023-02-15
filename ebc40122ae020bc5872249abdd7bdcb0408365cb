@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f9a3687_94b7d8d8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-15T06:32:21Z",
+      "side": 1,
+      "message": "Fix the error prone warning ?",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 80
+      },
+      "revId": "ebc40122ae020bc5872249abdd7bdcb0408365cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9898ec34_1b7bed7d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-15T06:32:21Z",
+      "side": 1,
+      "message": "Not for this change, I think we could just remove TETHER_ENABLE_LEGACY_DHCP_SERVER because the feature is enabled for years and we never use this flag to disable it.\n\nRegarding to OVERRIDE_TETHER_ENABLE_BPF_OFFLOAD, probably just switch to tethering namespace because we never roll out this flag.",
+      "range": {
+        "startLine": 166,
+        "startChar": 12,
+        "endLine": 169,
+        "endChar": 70
+      },
+      "revId": "ebc40122ae020bc5872249abdd7bdcb0408365cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
