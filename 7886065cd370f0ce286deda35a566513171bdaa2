@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa02556f_13a48aef",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-15T02:14:57Z",
+      "side": 1,
+      "message": "Not sure why this is here, maybe some Cronet CL missing ? I think you can revert it in this CL",
+      "revId": "7886065cd370f0ce286deda35a566513171bdaa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57f0def5_712c46ab",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-15T02:14:57Z",
+      "side": 1,
+      "message": "This and the below should not be @hide (add/remove callbacks should be part of the API so that IpClient and other clients can implement them)",
+      "revId": "7886065cd370f0ce286deda35a566513171bdaa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
