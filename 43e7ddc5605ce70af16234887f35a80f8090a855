@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2995a52b_d67b2fc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-15T10:32:38Z",
+      "side": 1,
+      "message": "I\u0027ve repurposed this cl to add the tests to mainline test mapping",
+      "parentUuid": "78d7979f_5f7c9311",
+      "revId": "43e7ddc5605ce70af16234887f35a80f8090a855",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "542064df_ba87f733",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -65,6 +83,42 @@
       "writtenOn": "2023-01-25T06:57:59Z",
       "side": 1,
       "message": "It would probably be a good idea to also have a line to allow testing tethering+other connectivity modules, like:\n\n```\n\u003coption name\u003d\"config-descriptor:metadata\" key\u003d\"mainline-param\" value\u003d\"CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex\" /\u003e\n```\n    \nSee: http://go/aocs/android/platform/superproject/+/master:packages/modules/Connectivity/tests/cts/net/AndroidTestTemplate.xml;drc\u003d9e61b824042ea65f25e683ccc9faaa016742a412;l\u003d23\n\nFor example I can expect that Cronet could depend on new behavior of the dnsresolver module, so also testing with both installed would be useful.",
+      "revId": "43e7ddc5605ce70af16234887f35a80f8090a855",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af7ff68c_29ad49ec",
+        "filename": "Cronet/tests/cts/AndroidTest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-15T10:32:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eac426e0_8bc1e4c9",
+      "revId": "43e7ddc5605ce70af16234887f35a80f8090a855",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f23a9a44_d6699f46",
+        "filename": "Cronet/tests/cts/AndroidTest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-15T10:32:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eb301a2_a8917fb2",
       "revId": "43e7ddc5605ce70af16234887f35a80f8090a855",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
