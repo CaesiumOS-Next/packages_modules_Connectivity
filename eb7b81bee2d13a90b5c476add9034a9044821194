@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7816b9a_bfed0919",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-15T13:37:30Z",
+      "side": 1,
+      "message": "I\u0027ve added more test and separated it into its own test class.",
+      "parentUuid": "bc6e72b3_cf042c2e",
+      "revId": "eb7b81bee2d13a90b5c476add9034a9044821194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "550324ff_718099e9",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-15T10:13:16Z",
       "side": 1,
       "message": "You might want to change this message in the future so enforcing it via CTS may be a bit too much. If you really need to cover this you could just assert it\u0027s not null...",
+      "revId": "eb7b81bee2d13a90b5c476add9034a9044821194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4777b8e_04b1a2d1",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/ExceptionsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-15T13:37:30Z",
+      "side": 1,
+      "message": "Will do",
+      "parentUuid": "550324ff_718099e9",
       "revId": "eb7b81bee2d13a90b5c476add9034a9044821194",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
