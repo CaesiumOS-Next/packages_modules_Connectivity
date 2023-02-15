@@ -224,7 +224,8 @@ public class Ikev2VpnTest {
 
     private Ikev2VpnProfile buildIkev2VpnProfileCommon(
             @NonNull Ikev2VpnProfile.Builder builder, boolean isRestrictedToTestNetworks,
-            boolean requiresValidation) throws Exception {
+            boolean requiresValidation, boolean automaticIpVersionSelectionEnabled,
+            boolean automaticNattKeepaliveTimerEnabled) throws Exception {
 
         builder.setBypassable(true)
                 .setAllowedAlgorithms(TEST_ALLOWED_ALGORITHMS)
@@ -236,6 +237,10 @@ public class Ikev2VpnTest {
         }
         if (isRestrictedToTestNetworks) {
             builder.restrictToTestNetworks();
+        }
+        if (TestUtils.shouldTestUApis()) {
+            builder.setAutomaticIpVersionSelectionEnabled(automaticIpVersionSelectionEnabled);
+            builder.setAutomaticNattKeepaliveTimerEnabled(automaticNattKeepaliveTimerEnabled);
         }
 
         return builder.build();
@@ -263,21 +268,23 @@ public class Ikev2VpnTest {
     }
 
     private Ikev2VpnProfile buildIkev2VpnProfilePsk(@NonNull String remote,
-            boolean isRestrictedToTestNetworks, boolean requiresValidation) throws Exception {
+            boolean isRestrictedToTestNetworks, boolean requiresValidation)
+            throws Exception {
         final Ikev2VpnProfile.Builder builder =
                 new Ikev2VpnProfile.Builder(remote, TEST_IDENTITY).setAuthPsk(TEST_PSK);
         return buildIkev2VpnProfileCommon(builder, isRestrictedToTestNetworks,
-                requiresValidation);
+                requiresValidation, false /* automaticIpVersionSelectionEnabled */,
+                false /* automaticNattKeepaliveTimerEnabled */);
     }
 
     private Ikev2VpnProfile buildIkev2VpnProfileUsernamePassword(boolean isRestrictedToTestNetworks)
             throws Exception {
-
         final Ikev2VpnProfile.Builder builder =
                 new Ikev2VpnProfile.Builder(TEST_SERVER_ADDR_V6, TEST_IDENTITY)
                         .setAuthUsernamePassword(TEST_USER, TEST_PASSWORD, mServerRootCa);
         return buildIkev2VpnProfileCommon(builder, isRestrictedToTestNetworks,
-                false /* requiresValidation */);
+                false /* requiresValidation */, false /* automaticIpVersionSelectionEnabled */,
+                false /* automaticNattKeepaliveTimerEnabled */);
     }
 
     private Ikev2VpnProfile buildIkev2VpnProfileDigitalSignature(boolean isRestrictedToTestNetworks)
@@ -287,7 +294,8 @@ public class Ikev2VpnTest {
                         .setAuthDigitalSignature(
                                 mUserCertKey.cert, mUserCertKey.key, mServerRootCa);
         return buildIkev2VpnProfileCommon(builder, isRestrictedToTestNetworks,
-                false /* requiresValidation */);
+                false /* requiresValidation */, false /* automaticIpVersionSelectionEnabled */,
+                false /* automaticNattKeepaliveTimerEnabled */);
     }
 
     private void checkBasicIkev2VpnProfile(@NonNull Ikev2VpnProfile profile) throws Exception {
@@ -685,6 +693,46 @@ public class Ikev2VpnTest {
         assumeTrue(TestUtils.shouldTestTApis());
         doTestStartStopVpnProfile(true /* testIpv6Only */, false /* requiresValidation */,
                 true /* testSessionKey */, false /* testIkeTunConnParams */);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testBuildIkev2VpnProfileWithAutomaticNattKeepaliveTimerEnabled() throws Exception {
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+
+        final Ikev2VpnProfile profileWithDefaultValue = buildIkev2VpnProfilePsk(TEST_SERVER_ADDR_V6,
+                false /* isRestrictedToTestNetworks */, false /* requiresValidation */);
+        assertFalse(profileWithDefaultValue.isAutomaticNattKeepaliveTimerEnabled());
+
+        final Ikev2VpnProfile.Builder builder =
+                new Ikev2VpnProfile.Builder(TEST_SERVER_ADDR_V6, TEST_IDENTITY)
+                        .setAuthPsk(TEST_PSK);
+        final Ikev2VpnProfile profile = buildIkev2VpnProfileCommon(builder,
+                false /* isRestrictedToTestNetworks */,
+                false /* requiresValidation */,
+                false /* automaticIpVersionSelectionEnabled */,
+                true /* automaticNattKeepaliveTimerEnabled */);
+        assertTrue(profile.isAutomaticNattKeepaliveTimerEnabled());
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testBuildIkev2VpnProfileWithAutomaticIpVersionSelectionEnabled() throws Exception {
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+
+        final Ikev2VpnProfile profileWithDefaultValue = buildIkev2VpnProfilePsk(TEST_SERVER_ADDR_V6,
+                false /* isRestrictedToTestNetworks */, false /* requiresValidation */);
+        assertFalse(profileWithDefaultValue.isAutomaticIpVersionSelectionEnabled());
+
+        final Ikev2VpnProfile.Builder builder =
+                new Ikev2VpnProfile.Builder(TEST_SERVER_ADDR_V6, TEST_IDENTITY)
+                        .setAuthPsk(TEST_PSK);
+        final Ikev2VpnProfile profile = buildIkev2VpnProfileCommon(builder,
+                false /* isRestrictedToTestNetworks */,
+                false /* requiresValidation */,
+                true /* automaticIpVersionSelectionEnabled */,
+                false /* automaticNattKeepaliveTimerEnabled */);
+        assertTrue(profile.isAutomaticIpVersionSelectionEnabled());
     }
 
     private static class CertificateAndKey {
