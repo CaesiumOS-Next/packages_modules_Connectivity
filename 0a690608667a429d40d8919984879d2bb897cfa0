@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb4c9663_2ab735b0",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-02-15T09:42:30Z",
+      "side": 1,
+      "message": "Done\n\nPer talked, \n1. remove TetheringIntegrationTestsLibDefaults and TetheringIntegrationTestsBaseLibDefaults\n2. add src: \"base/**/*.java\" to TetheringIntegrationTestsDefaults\n3. add src: \"src/**/*.java\" to TetheringIntegrationTestsLatestSdkLib, TetheringIntegrationTestsLib, TetheringIntegrationTests",
+      "parentUuid": "1a19d2be_98d3cd6c",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "0a690608667a429d40d8919984879d2bb897cfa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8547ccdd_2aff4d00",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-15T08:27:37Z",
       "side": 1,
       "message": "This is only caller of TetheringIntegrationTestsBaseLibDefaults. Why not just expand it here ?\n\n    android_library {\n        name: \"TetheringIntegrationTestsBaseLib\",\n        target_sdk_version: \"current\",\n        platform_apis: true,\n        defaults: [\"TetheringIntegrationTestsDefaults\"],\n        srcs: [\"base/**/*.java\"],\n        ....",
+      "range": {
+        "startLine": 66,
+        "startChar": 16,
+        "endLine": 66,
+        "endChar": 56
+      },
+      "revId": "0a690608667a429d40d8919984879d2bb897cfa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67697ac8_323d2a89",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-02-15T09:42:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8547ccdd_2aff4d00",
       "range": {
         "startLine": 66,
         "startChar": 16,
