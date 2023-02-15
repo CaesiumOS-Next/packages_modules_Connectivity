@@ -78,6 +78,16 @@ public final class DnsResolver {
     public static final int TYPE_A = 1;
     public static final int TYPE_AAAA = 28;
 
+    // TODO: add below constants as part of QueryType and the public API
+    /** @hide */
+    public static final int TYPE_PTR = 12;
+    /** @hide */
+    public static final int TYPE_TXT = 16;
+    /** @hide */
+    public static final int TYPE_SRV = 33;
+    /** @hide */
+    public static final int TYPE_ANY = 255;
+
     @IntDef(prefix = { "FLAG_" }, value = {
             FLAG_EMPTY,
             FLAG_NO_RETRY,
