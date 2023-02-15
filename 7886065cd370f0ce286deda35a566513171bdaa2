@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56a49e90_ef1b773e",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-15T02:40:25Z",
+      "side": 1,
+      "message": "Thanks, talked to motomu, he will update the API and I think this diff will disappear after I rebase.",
+      "parentUuid": "aa02556f_13a48aef",
+      "revId": "7886065cd370f0ce286deda35a566513171bdaa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57f0def5_712c46ab",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-15T02:14:57Z",
       "side": 1,
       "message": "This and the below should not be @hide (add/remove callbacks should be part of the API so that IpClient and other clients can implement them)",
+      "revId": "7886065cd370f0ce286deda35a566513171bdaa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1e175ad_8f2b1980",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-15T02:40:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57f0def5_712c46ab",
       "revId": "7886065cd370f0ce286deda35a566513171bdaa2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
