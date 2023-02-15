@@ -90,6 +90,9 @@
   ],
   "postsubmit": [
     {
+      "name": "MtsTetheringTestLatestSdk"
+    },
+    {
       "name": "TetheringPrivilegedTests"
     },
     {
