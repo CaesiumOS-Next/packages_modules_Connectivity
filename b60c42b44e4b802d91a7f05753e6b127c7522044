@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0a7b57e_e6881e6a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-15T04:31:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23b90ba0_08755716",
+      "range": {
+        "startLine": 597,
+        "startChar": 8,
+        "endLine": 597,
+        "endChar": 18
+      },
+      "revId": "b60c42b44e4b802d91a7f05753e6b127c7522044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a93d15e_b2cc20fc",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e927982e_03c2f677",
+        "filename": "framework/src/android/net/ConnectivityResources.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-15T04:31:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a93d15e_b2cc20fc",
+      "revId": "b60c42b44e4b802d91a7f05753e6b127c7522044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db2b8280_1bb573b7",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-02-14T08:08:46Z",
       "side": 1,
       "message": "It looks unrelated change?",
+      "revId": "b60c42b44e4b802d91a7f05753e6b127c7522044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3473ecb8_dc643bfb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-15T04:31:18Z",
+      "side": 1,
+      "message": "Oops - removed",
+      "parentUuid": "db2b8280_1bb573b7",
       "revId": "b60c42b44e4b802d91a7f05753e6b127c7522044",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
