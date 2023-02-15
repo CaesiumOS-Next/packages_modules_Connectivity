@@ -43,18 +43,18 @@ package android.net.http {
     ctor protected CallbackException(String, Throwable);
   }
 
-  public class ConnectionMigrationOptions {
+  public class ConnectionMigrationParams {
     method @Nullable public Boolean getAllowNonDefaultNetworkUsage();
     method @Nullable public Boolean getEnableDefaultNetworkMigration();
     method @Nullable public Boolean getEnablePathDegradationMigration();
   }
 
-  public static final class ConnectionMigrationOptions.Builder {
-    ctor public ConnectionMigrationOptions.Builder();
-    method public android.net.http.ConnectionMigrationOptions build();
-    method public android.net.http.ConnectionMigrationOptions.Builder setAllowNonDefaultNetworkUsage(boolean);
-    method public android.net.http.ConnectionMigrationOptions.Builder setEnableDefaultNetworkMigration(boolean);
-    method public android.net.http.ConnectionMigrationOptions.Builder setEnablePathDegradationMigration(boolean);
+  public static final class ConnectionMigrationParams.Builder {
+    ctor public ConnectionMigrationParams.Builder();
+    method public android.net.http.ConnectionMigrationParams build();
+    method public android.net.http.ConnectionMigrationParams.Builder setAllowNonDefaultNetworkUsage(boolean);
+    method public android.net.http.ConnectionMigrationParams.Builder setEnableDefaultNetworkMigration(boolean);
+    method public android.net.http.ConnectionMigrationParams.Builder setEnablePathDegradationMigration(boolean);
   }
 
   public final class DnsOptions {
@@ -109,7 +109,7 @@ package android.net.http {
     method public android.net.http.HttpEngine.Builder addQuicHint(String, int, int);
     method public android.net.http.HttpEngine build();
     method public String getDefaultUserAgent();
-    method public android.net.http.HttpEngine.Builder setConnectionMigrationOptions(android.net.http.ConnectionMigrationOptions);
+    method public android.net.http.HttpEngine.Builder setConnectionMigrationParams(android.net.http.ConnectionMigrationParams);
     method public android.net.http.HttpEngine.Builder setDnsOptions(android.net.http.DnsOptions);
     method public android.net.http.HttpEngine.Builder setEnableBrotli(boolean);
     method public android.net.http.HttpEngine.Builder setEnableHttp2(boolean);
