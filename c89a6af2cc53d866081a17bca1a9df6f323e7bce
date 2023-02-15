@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45e0ad11_b34b7e13",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-15T10:06:15Z",
+      "side": 1,
+      "message": "No objection in principle but I\u0027m not sure the semantics work here.\n\nSpecifically: can the design of the REDACT_FOR_* constants support the case that a field should be accessible to callers with NETWORK_SETUP_WIZARD but also to callers with other permissions such as NETWORK_SETTINGS (which generally is able to access almost everything)? The documentation of the REDACT_FOR_* constants doesn\u0027t allow it at the moment - it says \"redact any fields that need \u003cpermission\u003e\", and doesn\u0027t contemplate the case where one of a set of permissions should grant access to a given field.\n\nMaybe you\u0027ve answered this question already... since you are introducing this new constant I assume that you are planning to give SUW access to some of fields in WifiInfo. What exactly do you plan to do? Are those fields already redacted for lack of other permissions?\n\nIf not, is there a precedent in WifiInfo or anywhere else for fields for which more than one redaction applies?\n\nOn the face of it this seems like it would work, because the redactions are always passed in together as a bitmask, so any TransportInfo implementing the redactions could say \"redact this field if the caller has neither NETWORK_SETTINGS nor NETWORK_SETUP_WIZARD\". Am I missing something?",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 72
+      },
+      "revId": "c89a6af2cc53d866081a17bca1a9df6f323e7bce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca58b942_b04784aa",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11368,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-15T10:06:15Z",
+      "side": 1,
+      "message": "Why does this say NETWORK_SETTINGS?",
+      "range": {
+        "startLine": 11368,
+        "startChar": 24,
+        "endLine": 11368,
+        "endChar": 40
+      },
+      "revId": "c89a6af2cc53d866081a17bca1a9df6f323e7bce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
