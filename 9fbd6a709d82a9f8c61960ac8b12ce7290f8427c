@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "207867ce_36f0949d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-16T07:56:44Z",
+      "side": 1,
+      "message": "Let\u0027s change the namespace first",
+      "revId": "9fbd6a709d82a9f8c61960ac8b12ce7290f8427c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
