@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5722752b_b72317a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1896186
+      },
+      "writtenOn": "2023-02-16T18:25:53Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "955f74855e8b515df1d7e00bbaabfc482acf6f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72676da7_aef548f6",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1896186
+      },
+      "writtenOn": "2023-02-16T18:25:53Z",
+      "side": 1,
+      "message": "Optional: This can be static",
+      "revId": "955f74855e8b515df1d7e00bbaabfc482acf6f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6267bfc8_76f7cfb4",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1896186
+      },
+      "writtenOn": "2023-02-16T18:25:53Z",
+      "side": 1,
+      "message": "Optional: it looks like we can avoid exposing this header now.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 29
+      },
+      "revId": "955f74855e8b515df1d7e00bbaabfc482acf6f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
