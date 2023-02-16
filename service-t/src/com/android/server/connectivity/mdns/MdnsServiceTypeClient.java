@@ -55,6 +55,7 @@ public class MdnsServiceTypeClient {
     private final ScheduledExecutorService executor;
     @NonNull private final MdnsServiceCache serviceCache;
     @Nullable private final Network network;
+    @NonNull private final MdnsServiceCache.ServiceExpireCallback serviceExpireCallback;
     private final Object lock = new Object();
     private final Set<MdnsServiceBrowserListener> listeners = new ArraySet<>();
     private final boolean removeServiceAfterTtlExpires =
@@ -91,6 +92,23 @@ public class MdnsServiceTypeClient {
         this.serviceCache = serviceCache;
         this.network = network;
         serviceTypeLabels = TextUtils.split(serviceType, "\\.");
+        serviceExpireCallback = new MdnsServiceCache.ServiceExpireCallback() {
+            @Override
+            public void onServiceExpired(@NonNull MdnsResponse response) {
+                for (MdnsServiceBrowserListener listener : listeners) {
+                    final String serviceInstanceName = response.getServiceInstanceName();
+                    if (serviceInstanceName != null) {
+                        final MdnsServiceInfo serviceInfo =
+                                buildMdnsServiceInfoFromResponse(response, serviceTypeLabels);
+                        if (response.isComplete()) {
+                            listener.onServiceRemoved(serviceInfo);
+                        }
+                        listener.onServiceNameRemoved(serviceInfo);
+                    }
+                }
+            }
+        };
+        serviceCache.registerServiceExpireCallback(serviceType, serviceExpireCallback);
     }
 
     private static MdnsServiceInfo buildMdnsServiceInfoFromResponse(

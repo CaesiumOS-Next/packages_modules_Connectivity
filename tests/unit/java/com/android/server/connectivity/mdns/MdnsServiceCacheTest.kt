@@ -18,15 +18,21 @@ package com.android.server.connectivity.mdns
 
 import android.net.Network
 import android.os.Build
+import android.os.HandlerThread
 import android.os.SystemClock
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.TimeUnit
 
 private const val SERVICE_NAME = "service-instance"
 private const val SERVICE_TYPE = "_test._tcp.local"
@@ -37,7 +43,22 @@ private const val INTERFACE_INDEX = 999
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class MdnsServiceCacheTest {
     private val network = mock(Network::class.java)
-    private val serviceCache = MdnsServiceCache()
+    private val deps = mock(MdnsServiceCache.Dependencies::class.java)
+    private val thread = HandlerThread(MdnsServiceCacheTest::class.simpleName)
+    private val serviceCache by lazy {
+        MdnsServiceCache(thread.looper, deps)
+    }
+
+    @Before
+    fun setUp() {
+        thread.start()
+        doReturn(5L).`when`(deps).checkTtlExpiredServicesDelay
+    }
+
+    @After
+    fun tearDown() {
+        thread.quitSafely()
+    }
 
     @Test
     fun testAddAndRemoveService() {
@@ -73,6 +94,24 @@ class MdnsServiceCacheTest {
         assertEquals(1, responses4.size)
         assertEquals(serviceName1, responses3[0].serviceInstanceName)
         assertEquals(serviceName2, responses4[0].serviceInstanceName)
+    }
+
+    class TestExpireCallback : MdnsServiceCache.ServiceExpireCallback {
+        val future = CompletableFuture<MdnsResponse>()
+        override fun onServiceExpired(response: MdnsResponse) {
+            future.complete(response)
+        }
+
+        fun getExpiredService(): MdnsResponse = future.get(200L, TimeUnit.MILLISECONDS)
+    }
+
+    @Test
+    fun testServiceExpire() {
+        val callback = TestExpireCallback()
+        serviceCache.registerServiceExpireCallback(SERVICE_TYPE, callback)
+        serviceCache.addService(SERVICE_TYPE, createResponse())
+        val expire = callback.getExpiredService()
+        assertEquals(SERVICE_NAME, expire.serviceInstanceName)
     }
 
     private fun createResponse(
