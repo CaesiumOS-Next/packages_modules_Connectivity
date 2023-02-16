@@ -74,7 +74,7 @@ apex {
         "dscp_policy.o",
         "netd.o",
         "offload.o",
-        "test.o",
+        "test.o", //
     ],
     apps: [
         "ServiceConnectivityResources",
