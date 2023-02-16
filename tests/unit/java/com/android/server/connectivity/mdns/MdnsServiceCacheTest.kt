@@ -42,11 +42,12 @@ class MdnsServiceCacheTest {
     @Test
     fun testAddAndRemoveService() {
         serviceCache.addService(SERVICE_TYPE, createResponse())
-        var response = serviceCache.getCachedService(SERVICE_NAME, SERVICE_TYPE)
+        var response = serviceCache.getCachedService(SERVICE_NAME, SERVICE_TYPE, network)
         assertNotNull(response)
         assertEquals(SERVICE_NAME, response!!.serviceInstanceName)
-        serviceCache.removeService(SERVICE_NAME, SERVICE_TYPE)
-        response = serviceCache.getCachedService(SERVICE_NAME, SERVICE_TYPE)
+
+        serviceCache.removeService(SERVICE_NAME, SERVICE_TYPE, network)
+        response = serviceCache.getCachedService(SERVICE_NAME, SERVICE_TYPE, network)
         assertNull(response)
     }
 
@@ -59,13 +60,15 @@ class MdnsServiceCacheTest {
         serviceCache.addService(serviceType1, createResponse(serviceName1))
         serviceCache.addService(serviceType1, createResponse(serviceName2))
         serviceCache.addService(serviceType2, createResponse(serviceName2))
-        val responses1 = serviceCache.getCachedServices(serviceType1)
-        val responses2 = serviceCache.getCachedServices(serviceType2)
+
+        val responses1 = serviceCache.getCachedServices(serviceType1, network)
+        val responses2 = serviceCache.getCachedServices(serviceType2, network)
         assertEquals(2, responses1.size)
         assertEquals(1, responses2.size)
-        serviceCache.removeService(serviceName2, serviceType1)
-        val responses3 = serviceCache.getCachedServices(serviceType1)
-        val responses4 = serviceCache.getCachedServices(serviceType2)
+
+        serviceCache.removeService(serviceName2, serviceType1, network)
+        val responses3 = serviceCache.getCachedServices(serviceType1, network)
+        val responses4 = serviceCache.getCachedServices(serviceType2, network)
         assertEquals(1, responses3.size)
         assertEquals(1, responses4.size)
         assertEquals(serviceName1, responses3[0].serviceInstanceName)

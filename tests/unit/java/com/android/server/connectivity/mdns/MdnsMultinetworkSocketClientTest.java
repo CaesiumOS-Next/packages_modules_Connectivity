@@ -150,7 +150,7 @@ public class MdnsMultinetworkSocketClientTest {
         handler.handlePacket(data, data.length, null /* src */);
         final ArgumentCaptor<MdnsResponse> responseCaptor =
                 ArgumentCaptor.forClass(MdnsResponse.class);
-        verify(mCallback).onResponseReceived(responseCaptor.capture());
+        verify(mCallback).onResponseReceived(responseCaptor.capture(), eq(mNetwork));
         final MdnsResponse response = responseCaptor.getValue();
         assertTrue(response.hasPointerRecords());
         assertArrayEquals("_testtype._tcp.local".split("\\."),

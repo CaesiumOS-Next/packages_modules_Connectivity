@@ -373,7 +373,7 @@ public class MdnsSocketClientTests {
         mdnsClient.startDiscovery();
 
         verify(mockCallback, timeout(TIMEOUT).atLeast(1))
-                .onResponseReceived(any(MdnsResponse.class));
+                .onResponseReceived(any(MdnsResponse.class), any());
     }
 
     @Test
@@ -382,7 +382,7 @@ public class MdnsSocketClientTests {
         mdnsClient.startDiscovery();
 
         verify(mockCallback, timeout(TIMEOUT).atLeastOnce())
-                .onResponseReceived(any(MdnsResponse.class));
+                .onResponseReceived(any(MdnsResponse.class), any());
 
         mdnsClient.stopDiscovery();
     }
@@ -514,7 +514,7 @@ public class MdnsSocketClientTests {
         mdnsClient.startDiscovery();
 
         verify(mockCallback, timeout(TIMEOUT).atLeastOnce())
-                .onResponseReceived(argThat(response -> response.getInterfaceIndex() == 21));
+                .onResponseReceived(argThat(response -> response.getInterfaceIndex() == 21), any());
     }
 
     @Test
@@ -540,7 +540,7 @@ public class MdnsSocketClientTests {
                 ArgumentCaptor.forClass(MdnsResponse.class);
         verify(mockMulticastSocket, never()).getInterfaceIndex();
         verify(mockCallback, timeout(TIMEOUT).atLeast(1))
-                .onResponseReceived(mdnsResponseCaptor.capture());
+                .onResponseReceived(mdnsResponseCaptor.capture(), any());
         assertEquals(-1, mdnsResponseCaptor.getValue().getInterfaceIndex());
     }
 }

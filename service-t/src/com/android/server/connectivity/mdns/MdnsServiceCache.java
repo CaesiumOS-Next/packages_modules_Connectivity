@@ -16,8 +16,11 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSocketProvider.isNetworkMatched;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.Network;
 import android.util.ArrayMap;
 
 import com.android.internal.annotations.GuardedBy;
@@ -43,16 +46,31 @@ public class MdnsServiceCache {
      * Get the cache services which are queried from given service type and network.
      *
      * @param serviceType the target service type.
-     * @return the list of services which matches the given service type.
+     * @param network the target network
+     * @return the list of services which matches the given service type and network.
      */
     @NonNull
-    public synchronized List<MdnsResponse> getCachedServices(@NonNull String serviceType) {
+    public synchronized List<MdnsResponse> getCachedServices(@NonNull String serviceType,
+            @Nullable Network network) {
         final List<MdnsResponse> services = new ArrayList<>();
         final List<MdnsResponse> responses = mCachedServices.getOrDefault(serviceType, null);
         if (responses != null) {
-            services.addAll(responses);
+            for (MdnsResponse response : responses) {
+                if (isNetworkMatched(network, response.getNetwork())) {
+                    services.add(response);
+                }
+            }
         }
         return services;
+    }
+
+    private boolean hasSameNetworkAndServiceName(@Nullable Network network,
+            @NonNull String serviceName, @NonNull MdnsResponse response) {
+        if (isNetworkMatched(network, response.getNetwork())
+                && serviceName.equals(response.getServiceInstanceName())) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -60,17 +78,18 @@ public class MdnsServiceCache {
      *
      * @param serviceName the target service name.
      * @param serviceType the target service type.
+     * @param network the target network
      * @return the service which matches given conditions.
      */
     @Nullable
     public synchronized MdnsResponse getCachedService(@NonNull String serviceName,
-            @NonNull String serviceType) {
+            @NonNull String serviceType, @Nullable Network network) {
         final List<MdnsResponse> responses = mCachedServices.getOrDefault(serviceType, null);
         if (responses == null) {
             return null;
         }
         for (MdnsResponse response : responses) {
-            if (serviceName.equals(response.getServiceInstanceName())) {
+            if (hasSameNetworkAndServiceName(network, serviceName, response)) {
                 return response;
             }
         }
@@ -96,7 +115,8 @@ public class MdnsServiceCache {
 
         // Ignore existed response.
         for (MdnsResponse response : responses) {
-            if (newResponse.getServiceInstanceName().equals(response.getServiceInstanceName())) {
+            if (hasSameNetworkAndServiceName(
+                    newResponse.getNetwork(), newResponse.getServiceInstanceName(), response)) {
                 return;
             }
         }
@@ -104,21 +124,22 @@ public class MdnsServiceCache {
     }
 
     /**
-     * Remove a service which matches the given service name and type.
+     * Remove a service which matches the given service name, type and network.
      *
      * @param serviceName the target service name.
      * @param serviceType the target service type.
+     * @param network the target network.
      */
     @Nullable
     public synchronized MdnsResponse removeService(@NonNull String serviceName,
-            @NonNull String serviceType) {
+            @NonNull String serviceType, @Nullable Network network) {
         final List<MdnsResponse> responses = mCachedServices.getOrDefault(serviceType, null);
         if (responses == null) {
             return null;
         }
         for (int i = 0; i < responses.size(); i++) {
             final MdnsResponse response = responses.get(i);
-            if (serviceName.equals(response.getServiceInstanceName())) {
+            if (hasSameNetworkAndServiceName(network, serviceName, response)) {
                 return responses.remove(i);
             }
         }

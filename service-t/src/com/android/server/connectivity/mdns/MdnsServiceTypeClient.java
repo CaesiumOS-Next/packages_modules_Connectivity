@@ -54,6 +54,7 @@ public class MdnsServiceTypeClient {
     private final MdnsSocketClientBase socketClient;
     private final ScheduledExecutorService executor;
     @NonNull private final MdnsServiceCache serviceCache;
+    @Nullable private final Network network;
     private final Object lock = new Object();
     private final Set<MdnsServiceBrowserListener> listeners = new ArraySet<>();
     private final boolean removeServiceAfterTtlExpires =
@@ -82,11 +83,13 @@ public class MdnsServiceTypeClient {
             @NonNull String serviceType,
             @NonNull MdnsSocketClientBase socketClient,
             @NonNull ScheduledExecutorService executor,
-            @NonNull MdnsServiceCache serviceCache) {
+            @NonNull MdnsServiceCache serviceCache,
+            @Nullable Network network) {
         this.serviceType = serviceType;
         this.socketClient = socketClient;
         this.executor = executor;
         this.serviceCache = serviceCache;
+        this.network = network;
         serviceTypeLabels = TextUtils.split(serviceType, "\\.");
     }
 
@@ -154,7 +157,7 @@ public class MdnsServiceTypeClient {
             this.searchOptions = searchOptions;
             if (listeners.add(listener)) {
                 final List<MdnsResponse> responses =
-                        serviceCache.getCachedServices(serviceType);
+                        serviceCache.getCachedServices(serviceType, network);
                 for (MdnsResponse existingResponse : responses) {
                     final MdnsServiceInfo info =
                             buildMdnsServiceInfoFromResponse(existingResponse, serviceTypeLabels);
@@ -190,7 +193,9 @@ public class MdnsServiceTypeClient {
      */
     public boolean stopSendAndReceive(@NonNull MdnsServiceBrowserListener listener) {
         synchronized (lock) {
-            listeners.remove(listener);
+            if (!listeners.remove(listener)) {
+                return false;
+            }
             if (listeners.isEmpty() && requestTaskFuture != null) {
                 requestTaskFuture.cancel(true);
                 requestTaskFuture = null;
@@ -233,7 +238,7 @@ public class MdnsServiceTypeClient {
     private void onResponseReceived(@NonNull MdnsResponse response) {
         MdnsResponse currentResponse;
         currentResponse = serviceCache.getCachedService(
-                response.getServiceInstanceName(), serviceType);
+                response.getServiceInstanceName(), serviceType, network);
 
         boolean newServiceFound = false;
         boolean existingServiceChanged = false;
@@ -273,7 +278,7 @@ public class MdnsServiceTypeClient {
 
     private void onGoodbyeReceived(@Nullable String serviceInstanceName) {
         final MdnsResponse response =
-                serviceCache.removeService(serviceInstanceName, serviceType);
+                serviceCache.removeService(serviceInstanceName, serviceType, network);
         if (response == null) {
             return;
         }
@@ -448,7 +453,7 @@ public class MdnsServiceTypeClient {
                 }
                 if (shouldRemoveServiceAfterTtlExpires()) {
                     final Iterator<MdnsResponse> iter =
-                            serviceCache.getCachedServices(serviceType).iterator();
+                            serviceCache.getCachedServices(serviceType, network).iterator();
                     while (iter.hasNext()) {
                         MdnsResponse existingResponse = iter.next();
                         if (existingResponse.hasServiceRecord()
