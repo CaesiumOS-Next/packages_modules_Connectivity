@@ -116,7 +116,7 @@ package android.net.http {
     method public android.net.http.HttpEngine.Builder setEnableHttpCache(int, long);
     method public android.net.http.HttpEngine.Builder setEnablePublicKeyPinningBypassForLocalTrustAnchors(boolean);
     method public android.net.http.HttpEngine.Builder setEnableQuic(boolean);
-    method public android.net.http.HttpEngine.Builder setQuicOptions(android.net.http.QuicOptions);
+    method public android.net.http.HttpEngine.Builder setQuicParams(android.net.http.QuicParams);
     method public android.net.http.HttpEngine.Builder setStoragePath(String);
     method public android.net.http.HttpEngine.Builder setUserAgent(String);
     field public static final int HTTP_CACHE_DISABLED = 0; // 0x0
@@ -154,19 +154,19 @@ package android.net.http {
     ctor protected QuicException(@Nullable String, @Nullable Throwable);
   }
 
-  public class QuicOptions {
+  public class QuicParams {
     method @Nullable public String getHandshakeUserAgent();
     method @Nullable public Integer getInMemoryServerConfigsCacheSize();
     method @NonNull public java.util.Set<java.lang.String> getQuicHostAllowlist();
   }
 
-  public static final class QuicOptions.Builder {
-    ctor public QuicOptions.Builder();
-    method @NonNull public android.net.http.QuicOptions.Builder addAllowedQuicHost(@NonNull String);
-    method @NonNull public android.net.http.QuicOptions build();
-    method @NonNull public android.net.http.QuicOptions.Builder setHandshakeUserAgent(@Nullable String);
-    method public android.net.http.QuicOptions.Builder setIdleConnectionTimeout(java.time.Duration);
-    method @NonNull public android.net.http.QuicOptions.Builder setInMemoryServerConfigsCacheSize(int);
+  public static final class QuicParams.Builder {
+    ctor public QuicParams.Builder();
+    method @NonNull public android.net.http.QuicParams.Builder addAllowedQuicHost(@NonNull String);
+    method @NonNull public android.net.http.QuicParams build();
+    method @NonNull public android.net.http.QuicParams.Builder setHandshakeUserAgent(@Nullable String);
+    method public android.net.http.QuicParams.Builder setIdleConnectionTimeout(java.time.Duration);
+    method @NonNull public android.net.http.QuicParams.Builder setInMemoryServerConfigsCacheSize(int);
   }
 
   public abstract class UploadDataProvider implements java.io.Closeable {
