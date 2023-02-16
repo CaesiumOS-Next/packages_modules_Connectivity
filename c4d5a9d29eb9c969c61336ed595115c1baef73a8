@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43f347fb_222469cc",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-02-16T22:06:16Z",
+      "side": 1,
+      "message": "should drop session count on error exits\n\nor not increase in if above, and only increase just before return true below",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 17
+      },
+      "revId": "c4d5a9d29eb9c969c61336ed595115c1baef73a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ea2f7d2_b1f957bf",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-02-16T22:06:16Z",
+      "side": 1,
+      "message": "feels wrong for there to be public constructors if you want this to be a singleton",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 24
+      },
+      "revId": "c4d5a9d29eb9c969c61336ed595115c1baef73a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d33ee4cf_14d56dfb",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-02-16T22:06:16Z",
+      "side": 1,
+      "message": "should the mutex and count not be static?  (ie. class members)\n\nis the real problem this entire class should be a singleton?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 2
+      },
+      "revId": "c4d5a9d29eb9c969c61336ed595115c1baef73a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e730a07_7ae671a2",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-02-16T22:06:16Z",
+      "side": 1,
+      "message": "I assume this should be marked as guarded by the mutex.\nGUARDED_BY\n\nas should possibly other fields",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 24
+      },
+      "revId": "c4d5a9d29eb9c969c61336ed595115c1baef73a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
