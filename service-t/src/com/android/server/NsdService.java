@@ -803,15 +803,26 @@ public class NsdService extends INsdManager.Stub {
                             break;
                         }
                         id = request.mGlobalId;
-                        removeRequestMap(clientId, id, clientInfo);
-                        if (stopResolveService(id)) {
+                        // Note isMdnsDiscoveryManagerEnabled may have changed to false at this
+                        // point, so this needs to check the type of the original request to
+                        // unregister instead of looking at the flag value.
+                        if (request instanceof DiscoveryManagerRequest) {
+                            final MdnsListener listener =
+                                    ((DiscoveryManagerRequest) request).mListener;
+                            mMdnsDiscoveryManager.unregisterListener(
+                                    listener.getListenedServiceType(), listener);
+                            removeRequestMap(clientId, id, clientInfo);
                             clientInfo.onStopResolutionSucceeded(clientId);
                         } else {
-                            clientInfo.onStopResolutionFailed(
-                                    clientId, NsdManager.FAILURE_OPERATION_NOT_RUNNING);
+                            removeRequestMap(clientId, id, clientInfo);
+                            if (stopResolveService(id)) {
+                                clientInfo.onStopResolutionSucceeded(clientId);
+                            } else {
+                                clientInfo.onStopResolutionFailed(
+                                        clientId, NsdManager.FAILURE_OPERATION_NOT_RUNNING);
+                            }
+                            clientInfo.mResolvedService = null;
                         }
-                        clientInfo.mResolvedService = null;
-                        // TODO: Implement the stop resolution with MdnsDiscoveryManager.
                         break;
                     }
                     case NsdManager.REGISTER_SERVICE_CALLBACK:
