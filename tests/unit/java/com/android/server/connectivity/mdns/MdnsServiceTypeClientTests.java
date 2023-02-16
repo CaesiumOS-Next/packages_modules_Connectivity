@@ -40,6 +40,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.InetAddresses;
 import android.net.Network;
+import android.os.HandlerThread;
 import android.text.TextUtils;
 
 import com.android.server.connectivity.mdns.MdnsServiceInfo.TextEntry;
@@ -160,7 +161,9 @@ public class MdnsServiceTypeClientTests {
                 .thenReturn(expectedIPv6Packets[14])
                 .thenReturn(expectedIPv6Packets[15]);
 
-        serviceCache = new MdnsServiceCache();
+        final HandlerThread thread = new HandlerThread("MdnsServiceTypeClientTests");
+        thread.start();
+        serviceCache = new MdnsServiceCache(thread.getLooper());
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                 serviceCache, null /* network*/) {
                     @Override
