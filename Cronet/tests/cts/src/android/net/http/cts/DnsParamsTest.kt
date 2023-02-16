@@ -16,7 +16,7 @@
 
 package android.net.http.cts
 
-import android.net.http.DnsOptions
+import android.net.http.DnsParams
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import java.time.Duration
 import kotlin.test.Test
@@ -26,21 +26,21 @@ import kotlin.test.assertTrue
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class DnsOptionsTest {
+class DnsParamsTest {
 
     @Test
-    fun testDnsOptions_persistHostCache_returnSetValue() {
-        val options = DnsOptions.Builder().setPersistHostCache(true).build()
+    fun testDnsParams_persistHostCache_returnSetValue() {
+        val params = DnsParams.Builder().setPersistHostCache(true).build()
 
-        assertNotNull(options.persistHostCache)
-        assertTrue(options.persistHostCache!!)
+        assertNotNull(params.persistHostCache)
+        assertTrue(params.persistHostCache!!)
     }
 
     @Test
-    fun testDnsOptions_persistHostCachePeriod_returnSetValue() {
+    fun testDnsParams_persistHostCachePeriod_returnSetValue() {
         val period = Duration.ZERO
-        val options = DnsOptions.Builder().setPersistHostCachePeriod(period).build()
+        val params = DnsParams.Builder().setPersistHostCachePeriod(period).build()
 
-        assertEquals(period, options.persistHostCachePeriod)
+        assertEquals(period, params.persistHostCachePeriod)
     }
 }
