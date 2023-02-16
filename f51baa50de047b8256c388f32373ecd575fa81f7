@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11892705_599fa1eb",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/InlineExecutionProhibitedExceptionTests.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-16T17:07:30Z",
+      "side": 1,
+      "message": "Smart cast doesn\u0027t work here because `callback.mError.cause` is a complex expression",
+      "revId": "f51baa50de047b8256c388f32373ecd575fa81f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
