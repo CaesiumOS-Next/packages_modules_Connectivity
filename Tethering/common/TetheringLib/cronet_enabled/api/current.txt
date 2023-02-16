@@ -57,40 +57,40 @@ package android.net.http {
     method public android.net.http.ConnectionMigrationParams.Builder setEnablePathDegradationMigration(boolean);
   }
 
-  public final class DnsOptions {
+  public final class DnsParams {
     method @Nullable public Boolean getEnableStaleDns();
     method @Nullable public Boolean getPersistHostCache();
     method @Nullable public java.time.Duration getPersistHostCachePeriod();
     method @Nullable public Boolean getPreestablishConnectionsToStaleDnsResults();
-    method @Nullable public android.net.http.DnsOptions.StaleDnsOptions getStaleDnsOptions();
+    method @Nullable public android.net.http.DnsParams.StaleDnsParams getStaleDnsParams();
     method @Nullable public Boolean getUseHttpStackDnsResolver();
   }
 
-  public static final class DnsOptions.Builder {
-    ctor public DnsOptions.Builder();
-    method public android.net.http.DnsOptions build();
-    method public android.net.http.DnsOptions.Builder setEnableStaleDns(boolean);
-    method public android.net.http.DnsOptions.Builder setPersistHostCache(boolean);
-    method public android.net.http.DnsOptions.Builder setPersistHostCachePeriod(java.time.Duration);
-    method public android.net.http.DnsOptions.Builder setPreestablishConnectionsToStaleDnsResults(boolean);
-    method public android.net.http.DnsOptions.Builder setStaleDnsOptions(android.net.http.DnsOptions.StaleDnsOptions);
-    method public android.net.http.DnsOptions.Builder setUseHttpStackDnsResolver(boolean);
+  public static final class DnsParams.Builder {
+    ctor public DnsParams.Builder();
+    method public android.net.http.DnsParams build();
+    method public android.net.http.DnsParams.Builder setEnableStaleDns(boolean);
+    method public android.net.http.DnsParams.Builder setPersistHostCache(boolean);
+    method public android.net.http.DnsParams.Builder setPersistHostCachePeriod(java.time.Duration);
+    method public android.net.http.DnsParams.Builder setPreestablishConnectionsToStaleDnsResults(boolean);
+    method public android.net.http.DnsParams.Builder setStaleDnsParams(android.net.http.DnsParams.StaleDnsParams);
+    method public android.net.http.DnsParams.Builder setUseHttpStackDnsResolver(boolean);
   }
 
-  public static class DnsOptions.StaleDnsOptions {
+  public static class DnsParams.StaleDnsParams {
     method @Nullable public Boolean getAllowCrossNetworkUsage();
     method @Nullable public Long getFreshLookupTimeoutMillis();
     method @Nullable public Long getMaxExpiredDelayMillis();
     method @Nullable public Boolean getUseStaleOnNameNotResolved();
   }
 
-  public static final class DnsOptions.StaleDnsOptions.Builder {
-    ctor public DnsOptions.StaleDnsOptions.Builder();
-    method public android.net.http.DnsOptions.StaleDnsOptions build();
-    method public android.net.http.DnsOptions.StaleDnsOptions.Builder setAllowCrossNetworkUsage(boolean);
-    method public android.net.http.DnsOptions.StaleDnsOptions.Builder setFreshLookupTimeout(java.time.Duration);
-    method public android.net.http.DnsOptions.StaleDnsOptions.Builder setMaxExpiredDelay(java.time.Duration);
-    method public android.net.http.DnsOptions.StaleDnsOptions.Builder setUseStaleOnNameNotResolved(boolean);
+  public static final class DnsParams.StaleDnsParams.Builder {
+    ctor public DnsParams.StaleDnsParams.Builder();
+    method public android.net.http.DnsParams.StaleDnsParams build();
+    method public android.net.http.DnsParams.StaleDnsParams.Builder setAllowCrossNetworkUsage(boolean);
+    method public android.net.http.DnsParams.StaleDnsParams.Builder setFreshLookupTimeout(java.time.Duration);
+    method public android.net.http.DnsParams.StaleDnsParams.Builder setMaxExpiredDelay(java.time.Duration);
+    method public android.net.http.DnsParams.StaleDnsParams.Builder setUseStaleOnNameNotResolved(boolean);
   }
 
   public abstract class HttpEngine {
@@ -110,7 +110,7 @@ package android.net.http {
     method public android.net.http.HttpEngine build();
     method public String getDefaultUserAgent();
     method public android.net.http.HttpEngine.Builder setConnectionMigrationParams(android.net.http.ConnectionMigrationParams);
-    method public android.net.http.HttpEngine.Builder setDnsOptions(android.net.http.DnsOptions);
+    method public android.net.http.HttpEngine.Builder setDnsParams(android.net.http.DnsParams);
     method public android.net.http.HttpEngine.Builder setEnableBrotli(boolean);
     method public android.net.http.HttpEngine.Builder setEnableHttp2(boolean);
     method public android.net.http.HttpEngine.Builder setEnableHttpCache(int, long);
