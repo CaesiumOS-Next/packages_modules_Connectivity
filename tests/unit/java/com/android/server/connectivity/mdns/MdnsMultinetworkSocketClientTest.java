@@ -62,6 +62,7 @@ public class MdnsMultinetworkSocketClientTest {
     @Mock private MdnsInterfaceSocket mSocket;
     @Mock private MdnsServiceBrowserListener mListener;
     @Mock private MdnsSocketClientBase.Callback mCallback;
+    @Mock private MdnsSocketClientBase.NetworkCallback mNetworkCallback;
     private MdnsMultinetworkSocketClient mSocketClient;
     private Handler mHandler;
 
@@ -78,7 +79,8 @@ public class MdnsMultinetworkSocketClientTest {
     private SocketCallback expectSocketCallback() {
         final ArgumentCaptor<SocketCallback> callbackCaptor =
                 ArgumentCaptor.forClass(SocketCallback.class);
-        mHandler.post(() -> mSocketClient.notifyNetworkRequested(mListener, mNetwork));
+        mHandler.post(
+                () -> mSocketClient.notifyNetworkRequested(mListener, mNetwork, mNetworkCallback));
         verify(mProvider, timeout(DEFAULT_TIMEOUT))
                 .requestSocket(eq(mNetwork), callbackCaptor.capture());
         return callbackCaptor.getValue();
