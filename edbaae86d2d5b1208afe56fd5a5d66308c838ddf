@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d2706ca_81490178",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-16T05:55:36Z",
+      "side": 1,
+      "message": "Instead of adding to postsubmit, could you also add to mainline-postsubmit ? It allow us to run the test in R, S, T devices.",
+      "range": {
+        "startLine": 91,
+        "startChar": 3,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "edbaae86d2d5b1208afe56fd5a5d66308c838ddf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b801276_4e0ced25",
         "filename": "TEST_MAPPING",
         "patchSetId": 2
