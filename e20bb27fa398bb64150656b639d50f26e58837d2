@@ -33,6 +33,24 @@
       "message": "This is a test change. Please merge this in android12-tests-dev.",
       "revId": "e20bb27fa398bb64150656b639d50f26e58837d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6941eb45_726ef67b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-02-16T21:40:43Z",
+      "side": 1,
+      "message": "added - aosp/2437332 for android12-tests-dev\n\nthe change is in master but missing 12L and sc-dev. \n\nNote : repo is \tplatform/packages/modules/Connectivity\n\nBuild fails on - aosp/2437332 for android12-tests-dev - will abandon the change",
+      "parentUuid": "99c070f0_f73deadb",
+      "revId": "e20bb27fa398bb64150656b639d50f26e58837d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
