@@ -62,6 +62,30 @@
       },
       "revId": "95a90c7ee65da044d7b360c8fc3383fc4ae9c6c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9f748dd_c6ae4d93",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-16T10:03:45Z",
+      "side": 1,
+      "message": "https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/framework-t/src/android/net/NetworkTemplate.java;l\u003d816?q\u003dNetworkTemplate.java\u0026sq\u003dpackage:aosp-master%20file:.\n\nNetworkTemplate.Builder#setWifiNetworkKeys checks the key cannot be null so normally `{null}` should not be a case for mMatchWifiNetworkKeys.\n\nBut...if users use the constructor(l.308) and build against hidden API, then `{null}` is possible..",
+      "parentUuid": "0a70b78c_dd60210b",
+      "range": {
+        "startLine": 577,
+        "startChar": 86,
+        "endLine": 578,
+        "endChar": 66
+      },
+      "revId": "95a90c7ee65da044d7b360c8fc3383fc4ae9c6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
