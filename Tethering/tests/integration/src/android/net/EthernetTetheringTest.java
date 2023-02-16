@@ -860,8 +860,28 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
         final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, true /* hasIpv6 */);
         sendUploadFragmentPacketUdpV6(tethered.macAddr, tethered.routerMacAddr,
                 tethered.ipv6Addr, REMOTE_IP6_ADDR, tester);
-        sendDownloadFragmentPacketUdpV6(REMOTE_IP6_ADDR, tethered.ipv6Addr, tester);
+        sendDownloadFragmentPacketUdpV6(REMOTE_IP6_ADDR, tethered.ipv6Addr, tester,
+                false /* is6To4 */);
 
         // TODO: test BPF offload maps {rule, stats}.
+    }
+
+    // TODO: support R device. See b/234727688.
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testTetherClatFragmentUdpDownload() throws Exception {
+        // CLAT only starts on IPv6 only network.
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP6_ADDR),
+                toList(TEST_IP6_DNS));
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, true /* hasIpv6 */);
+
+        // Get CLAT IPv6 address.
+        final Inet6Address clatIp6 = getClatIpv6Address(tester, tethered);
+
+        // Send an IPv6 UDP packet in reply direction.
+        // IPv6 packet -- CLAT translation --> IPv4 packet
+        sendDownloadFragmentPacketUdpV6(REMOTE_NAT64_ADDR, clatIp6, tester, true /* is6To4 */);
+
+        // TODO: test CLAT upload once support IPv4 fragment test.
     }
 }
