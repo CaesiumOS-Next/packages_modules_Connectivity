@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "159a083e_8fab63a7",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-16T08:18:06Z",
+      "side": 1,
+      "message": "Is there a reason to redact isPrimary? It doesn\u0027t seem to be privacy sensitive.\n\nThat said - it seems like the more correct value would indeed be REDACT_FOR_SETUP_WIZARD, not REDACT_FOR_NETWORK_SETTINGS_OR_SETUP_WIZARD. Then, if WifiInfo wants to make isPrimary available only to callers that have either SETUP_WIZARD or NETWORK_SETTINGS, it can just do \"||\".\n\nWe would need a different value if we wanted to say, \"redact unless the caller has *both* NETWORK_SETTINGS and NETWORK_SETUP_WIZARD\", but that\u0027s not the case here.\n\nSo perhaps we can just update the documentation of all the values (both existing and new) to say something like:\n\n     * The receiving app does not hold {@link android.Manifest.permission#WHATEVER},\n     * so data should be redacted accordingly.",
+      "parentUuid": "945efe2f_ec7e0188",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 72
+      },
+      "revId": "c89a6af2cc53d866081a17bca1a9df6f323e7bce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca58b942_b04784aa",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 4
