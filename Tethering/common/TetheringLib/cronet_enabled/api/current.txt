@@ -17,16 +17,16 @@ package android.net.http {
     method public android.net.http.ConnectionMigrationParams.Builder setEnablePathDegradationMigration(boolean);
   }
 
-  public final class DnsOptions {
+  public final class DnsParams {
     method @Nullable public Boolean getPersistHostCache();
     method @Nullable public java.time.Duration getPersistHostCachePeriod();
   }
 
-  public static final class DnsOptions.Builder {
-    ctor public DnsOptions.Builder();
-    method public android.net.http.DnsOptions build();
-    method public android.net.http.DnsOptions.Builder setPersistHostCache(boolean);
-    method public android.net.http.DnsOptions.Builder setPersistHostCachePeriod(java.time.Duration);
+  public static final class DnsParams.Builder {
+    ctor public DnsParams.Builder();
+    method public android.net.http.DnsParams build();
+    method public android.net.http.DnsParams.Builder setPersistHostCache(boolean);
+    method public android.net.http.DnsParams.Builder setPersistHostCachePeriod(java.time.Duration);
   }
 
   public abstract class HttpEngine {
@@ -45,7 +45,7 @@ package android.net.http {
     method public android.net.http.HttpEngine build();
     method public String getDefaultUserAgent();
     method public android.net.http.HttpEngine.Builder setConnectionMigrationParams(android.net.http.ConnectionMigrationParams);
-    method public android.net.http.HttpEngine.Builder setDnsOptions(android.net.http.DnsOptions);
+    method public android.net.http.HttpEngine.Builder setDnsParams(android.net.http.DnsParams);
     method public android.net.http.HttpEngine.Builder setEnableBrotli(boolean);
     method public android.net.http.HttpEngine.Builder setEnableHttp2(boolean);
     method public android.net.http.HttpEngine.Builder setEnableHttpCache(int, long);
