@@ -206,7 +206,8 @@ public class AutomaticOnOffKeepaliveTracker {
             this.mKi = Objects.requireNonNull(ki);
             mCallback = ki.mCallback;
             mUnderpinnedNetwork = underpinnedNetwork;
-            if (autoOnOff && mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION)) {
+            if (autoOnOff && mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION,
+                    true /* defaultEnabled */)) {
                 mAutomaticOnOffState = STATE_ENABLED;
                 if (null == ki.mFd) {
                     throw new IllegalArgumentException("fd can't be null with automatic "
@@ -798,10 +799,13 @@ public class AutomaticOnOffKeepaliveTracker {
          * Find out if a feature is enabled from DeviceConfig.
          *
          * @param name The name of the property to look up.
+         * @param defaultEnabled whether to consider the feature enabled in the absence of
+         *                       the flag. This MUST be a statically-known constant.
          * @return whether the feature is enabled
          */
-        public boolean isFeatureEnabled(@NonNull final String name) {
-            return DeviceConfigUtils.isFeatureEnabled(mContext, NAMESPACE_CONNECTIVITY, name);
+        public boolean isFeatureEnabled(@NonNull final String name, final boolean defaultEnabled) {
+            return DeviceConfigUtils.isFeatureEnabled(mContext, NAMESPACE_CONNECTIVITY, name,
+                    defaultEnabled);
         }
     }
 }
