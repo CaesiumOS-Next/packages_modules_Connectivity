@@ -39,6 +39,29 @@
       },
       "revId": "95a90c7ee65da044d7b360c8fc3383fc4ae9c6c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a70b78c_dd60210b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-02-16T05:49:18Z",
+      "side": 1,
+      "message": "Should we just check if wifiNetworkKey is null and return false here since the whole system expects wifiNetworkKey should not be null?",
+      "range": {
+        "startLine": 577,
+        "startChar": 86,
+        "endLine": 578,
+        "endChar": 66
+      },
+      "revId": "95a90c7ee65da044d7b360c8fc3383fc4ae9c6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
