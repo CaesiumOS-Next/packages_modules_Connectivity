@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7ddce29_f643efd3",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2023-02-16T18:01:59Z",
+      "side": 1,
+      "message": "Sounds like we should revisit this for the next dessert release (including possibly un-redacting isPrimary). In any case, this API isn\u0027t strictly necessary since we have a viable workaround to get the isPrimary information.",
+      "parentUuid": "159a083e_8fab63a7",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 72
+      },
+      "revId": "c89a6af2cc53d866081a17bca1a9df6f323e7bce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca58b942_b04784aa",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 4
