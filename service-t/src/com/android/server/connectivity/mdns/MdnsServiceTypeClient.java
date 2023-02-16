@@ -35,10 +35,9 @@ import java.net.Inet6Address;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -47,7 +46,6 @@ import java.util.concurrent.ScheduledExecutorService;
  * registered {@link MdnsServiceBrowserListener} instances.
  */
 public class MdnsServiceTypeClient {
-
     private static final int DEFAULT_MTU = 1500;
     private static final MdnsLogger LOGGER = new MdnsLogger("MdnsServiceTypeClient");
 
@@ -58,10 +56,10 @@ public class MdnsServiceTypeClient {
     private final MdnsResponseDecoder responseDecoder;
     private final ScheduledExecutorService executor;
     @Nullable private final Network network;
+    @NonNull private final MdnsServiceCache serviceCache;
     private final Object lock = new Object();
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
-    private final Map<String, MdnsResponse> instanceNameToResponse = new HashMap<>();
     private final boolean removeServiceAfterTtlExpires =
             MdnsConfigs.removeServiceAfterTtlExpires();
     private final boolean allowSearchOptionsToRemoveExpiredService =
@@ -90,8 +88,10 @@ public class MdnsServiceTypeClient {
             @NonNull String serviceType,
             @NonNull MdnsSocketClientBase socketClient,
             @NonNull ScheduledExecutorService executor,
-            @Nullable Network network) {
-        this(serviceType, socketClient, executor, new MdnsResponseDecoder.Clock(), network);
+            @Nullable Network network,
+            @NonNull MdnsServiceCache serviceCache) {
+        this(serviceType, socketClient, executor, new MdnsResponseDecoder.Clock(), network,
+                serviceCache);
     }
 
     @VisibleForTesting
@@ -100,7 +100,8 @@ public class MdnsServiceTypeClient {
             @NonNull MdnsSocketClientBase socketClient,
             @NonNull ScheduledExecutorService executor,
             @NonNull MdnsResponseDecoder.Clock clock,
-            @Nullable Network network) {
+            @Nullable Network network,
+            @NonNull MdnsServiceCache serviceCache) {
         this.serviceType = serviceType;
         this.socketClient = socketClient;
         this.executor = executor;
@@ -108,6 +109,7 @@ public class MdnsServiceTypeClient {
         this.responseDecoder = new MdnsResponseDecoder(clock, serviceTypeLabels);
         this.clock = clock;
         this.network = network;
+        this.serviceCache = serviceCache;
     }
 
     private static MdnsServiceInfo buildMdnsServiceInfoFromResponse(
@@ -173,7 +175,9 @@ public class MdnsServiceTypeClient {
         synchronized (lock) {
             this.searchOptions = searchOptions;
             if (listeners.put(listener, searchOptions) == null) {
-                for (MdnsResponse existingResponse : instanceNameToResponse.values()) {
+                final Set<MdnsResponse> responses =
+                        serviceCache.getCachedServices(serviceType, network);
+                for (MdnsResponse existingResponse : responses) {
                     final MdnsServiceInfo info =
                             buildMdnsServiceInfoFromResponse(existingResponse, serviceTypeLabels);
                     listener.onServiceNameDiscovered(info);
@@ -229,12 +233,13 @@ public class MdnsServiceTypeClient {
     public synchronized void processResponse(@NonNull MdnsPacket packet, int interfaceIndex,
             Network network) {
         synchronized (lock) {
-            // Augment the list of current known responses, and generated responses for resolve
+            // Augment the set of current known responses, and generated responses for resolve
             // requests if there is no known response
-            final List<MdnsResponse> currentList = new ArrayList<>(instanceNameToResponse.values());
-            currentList.addAll(makeResponsesForResolveIfUnknown(interfaceIndex, network));
+            final Set<MdnsResponse> currentSet =
+                    new ArraySet<>(serviceCache.getCachedServices(serviceType, network));
+            currentSet.addAll(makeResponsesForResolveIfUnknown(interfaceIndex, network));
             final ArraySet<MdnsResponse> modifiedResponses = responseDecoder.augmentResponses(
-                    packet, currentList, interfaceIndex, network);
+                    packet, currentSet, interfaceIndex, network);
 
             for (MdnsResponse modified : modifiedResponses) {
                 if (modified.isGoodbye()) {
@@ -253,8 +258,8 @@ public class MdnsServiceTypeClient {
     }
 
     private void onResponseModified(@NonNull MdnsResponse response) {
-        final MdnsResponse currentResponse =
-                instanceNameToResponse.get(response.getServiceInstanceName());
+        final MdnsResponse currentResponse = serviceCache.getCachedService(
+                response.getServiceInstanceName(), serviceType, network);
 
         boolean newServiceFound = false;
         boolean serviceBecomesComplete = false;
@@ -262,11 +267,11 @@ public class MdnsServiceTypeClient {
             newServiceFound = true;
             String serviceInstanceName = response.getServiceInstanceName();
             if (serviceInstanceName != null) {
-                instanceNameToResponse.put(serviceInstanceName, response);
+                serviceCache.addService(serviceType, response);
             }
         } else {
             boolean before = currentResponse.isComplete();
-            instanceNameToResponse.put(response.getServiceInstanceName(), response);
+            serviceCache.addService(serviceType, response);
             boolean after = response.isComplete();
             serviceBecomesComplete = !before && after;
         }
@@ -290,7 +295,8 @@ public class MdnsServiceTypeClient {
     }
 
     private void onGoodbyeReceived(@Nullable String serviceInstanceName) {
-        final MdnsResponse response = instanceNameToResponse.remove(serviceInstanceName);
+        final MdnsResponse response =
+                serviceCache.removeService(serviceInstanceName, serviceType, network);
         if (response == null) {
             return;
         }
@@ -422,7 +428,8 @@ public class MdnsServiceTypeClient {
             if (resolveName == null) {
                 continue;
             }
-            MdnsResponse knownResponse = instanceNameToResponse.get(resolveName);
+            MdnsResponse knownResponse =
+                    serviceCache.getCachedService(resolveName, serviceType, network);
             if (knownResponse == null) {
                 final ArrayList<String> instanceFullName = new ArrayList<>(
                         serviceTypeLabels.length + 1);
@@ -502,7 +509,8 @@ public class MdnsServiceTypeClient {
                     }
                 }
                 if (shouldRemoveServiceAfterTtlExpires()) {
-                    Iterator<MdnsResponse> iter = instanceNameToResponse.values().iterator();
+                    final Iterator<MdnsResponse> iter =
+                            serviceCache.getCachedServices(serviceType, network).iterator();
                     while (iter.hasNext()) {
                         MdnsResponse existingResponse = iter.next();
                         if (existingResponse.hasServiceRecord()

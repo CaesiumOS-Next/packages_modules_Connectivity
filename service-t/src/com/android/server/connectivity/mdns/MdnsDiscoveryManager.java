@@ -47,9 +47,9 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
 
     private final ExecutorProvider executorProvider;
     private final MdnsSocketClientBase socketClient;
-
     @GuardedBy("this")
     @NonNull private final PerNetworkServiceTypeClients perNetworkServiceTypeClients;
+    @NonNull private final MdnsServiceCache serviceCache;
 
     private static class PerNetworkServiceTypeClients {
         private final ArrayMap<Pair<String, Network>, MdnsServiceTypeClient> clients =
@@ -104,6 +104,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         this.executorProvider = executorProvider;
         this.socketClient = socketClient;
         perNetworkServiceTypeClients = new PerNetworkServiceTypeClients();
+        serviceCache = new MdnsServiceCache();
     }
 
     /**
@@ -201,8 +202,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
     @VisibleForTesting
     MdnsServiceTypeClient createServiceTypeClient(@NonNull String serviceType,
             @Nullable Network network) {
-        return new MdnsServiceTypeClient(
-                serviceType, socketClient,
-                executorProvider.newServiceTypeClientSchedulerExecutor(), network);
+        return new MdnsServiceTypeClient(serviceType, socketClient,
+                executorProvider.newServiceTypeClientSchedulerExecutor(), network, serviceCache);
     }
 }
