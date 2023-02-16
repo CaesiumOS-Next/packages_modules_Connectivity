@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e3bc2fe_ae55991a",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-02-16T21:20:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72676da7_aef548f6",
+      "revId": "955f74855e8b515df1d7e00bbaabfc482acf6f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6267bfc8_76f7cfb4",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-02-16T18:25:53Z",
       "side": 1,
       "message": "Optional: it looks like we can avoid exposing this header now.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 29
+      },
+      "revId": "955f74855e8b515df1d7e00bbaabfc482acf6f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daf7eeb6_c08f8d4f",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-02-16T21:20:35Z",
+      "side": 1,
+      "message": "I still need data_source.h but I can pull that in individually.",
+      "parentUuid": "6267bfc8_76f7cfb4",
       "range": {
         "startLine": 20,
         "startChar": 0,
