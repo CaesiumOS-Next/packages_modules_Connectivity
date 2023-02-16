@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b801276_4e0ced25",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-16T05:53:16Z",
+      "side": 1,
+      "message": "Also add CtsTetheringTestLatestSdk ?",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 6
+      },
+      "revId": "edbaae86d2d5b1208afe56fd5a5d66308c838ddf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
