@@ -30,7 +30,7 @@ import static android.net.TetheringTester.IPV6_FLAG_M;
 import static android.net.TetheringTester.IPV6_FRAGMENT_MASK;
 import static android.net.TetheringTester.isExpectedIcmpPacket;
 import static android.net.TetheringTester.isExpectedTcpPacket;
-import static android.net.TetheringTester.isExpectedUdpFragmentPacketV6;
+import static android.net.TetheringTester.isExpectedUdpFragmentPacket;
 import static android.net.TetheringTester.isExpectedUdpPacket;
 import static android.system.OsConstants.IPPROTO_IP;
 import static android.system.OsConstants.IPPROTO_IPV6;
@@ -1292,7 +1292,7 @@ public abstract class EthernetTetheringTestBase {
 
     @NonNull
     private Predicate<byte[]>[] buildUdpFragmentPacketFilters(final boolean upload,
-            final ByteBuffer [] expectedFragmentedPayloads) throws Exception {
+            boolean isIpv4, final ByteBuffer [] expectedFragmentedPayloads) throws Exception {
         final Predicate<byte[]>[] filters = new Predicate[expectedFragmentedPayloads.length];
         for (int i = 0; i < expectedFragmentedPayloads.length; i++) {
             // The last fragment has no more fragment.
@@ -1303,12 +1303,12 @@ public abstract class EthernetTetheringTestBase {
             filters[i] = upload
                 ? (p) -> {
                     Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
-                    return isExpectedUdpFragmentPacketV6(p, false /* hasEther */,
+                    return isExpectedUdpFragmentPacket(p, false /* hasEther */, isIpv4,
                             hasMoreFragment, fragmentOffset, fragmentedPayload);
                 }
                 : (p) -> {
                     Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
-                    return isExpectedUdpFragmentPacketV6(p, true /* hasEther */,
+                    return isExpectedUdpFragmentPacket(p, true /* hasEther */, isIpv4,
                             hasMoreFragment, fragmentOffset, fragmentedPayload);
                 };
         }
@@ -1324,19 +1324,28 @@ public abstract class EthernetTetheringTestBase {
         final ByteBuffer [] packets = buildIpFragmentPacketsV6(srcMac, dstMac, srcIp, dstIp,
                 fragments);
         final Predicate<byte[]>[] filters = buildUdpFragmentPacketFilters(true /* upload */,
-                fragments);
+                false /* isIpv4 */, fragments);
 
         tester.verifyFragmentUpload(packets, filters);
     }
 
     protected void sendDownloadFragmentPacketUdpV6(@NonNull final InetAddress srcIp,
-            @NonNull final InetAddress dstIp, @NonNull final TetheringTester tester)
-            throws Exception {
+            @NonNull final InetAddress dstIp, @NonNull final TetheringTester tester,
+            boolean is6To4) throws Exception {
+        if (is6To4) {
+            assertFalse("CLAT download test must sends IPv6 packet", isAddressIpv4(srcIp, dstIp));
+        }
+
+        // Expected received UDP packet IP protocol. While testing CLAT (is6To4 = true), the packet
+        // on downstream must be IPv4. Otherwise, the IP protocol of test packet is the same on
+        // both downstream and upstream.
+        final boolean isIpv4 = is6To4 ? true : isAddressIpv4(srcIp, dstIp);
+
         final ByteBuffer [] fragments = buildUdpFragmentsV6(srcIp, dstIp, REMOTE_PORT /* srcPort */,
                 LOCAL_PORT /* dstPort */);
         final ByteBuffer [] packets = buildIpFragmentPacketsV6(srcIp, dstIp, fragments);
         final Predicate<byte[]>[] filters = buildUdpFragmentPacketFilters(false /* upload */,
-                fragments);
+                isIpv4, fragments);
 
         tester.verifyFragmentDownload(packets, filters);
     }

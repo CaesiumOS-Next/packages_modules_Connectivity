@@ -38,10 +38,13 @@ import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_TLLA;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_NEIGHBOR_SOLICITATION;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
+import static com.android.net.module.util.NetworkStackConstants.IPV4_FLAG_MF;
+import static com.android.net.module.util.NetworkStackConstants.IPV4_FRAGMENT_MASK;
 import static com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_ALL_NODES_MULTICAST;
 import static com.android.net.module.util.NetworkStackConstants.NEIGHBOR_ADVERTISEMENT_FLAG_OVERRIDE;
 import static com.android.net.module.util.NetworkStackConstants.NEIGHBOR_ADVERTISEMENT_FLAG_SOLICITED;
 import static com.android.net.module.util.NetworkStackConstants.TCPHDR_SYN;
+import static com.android.net.module.util.NetworkStackConstants.UDP_HEADER_LEN;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -614,36 +617,89 @@ public final class TetheringTester {
         return true;
     }
 
-    private static boolean hasExpectedIpFragmentHeaderV6(@NonNull final ByteBuffer buf, int ipProto,
-            boolean hasMoreFragment, int fragmentOffset) throws Exception {
-        if (!hasExpectedIpHeader(buf, false /* isIpv4 */, IPPROTO_FRAGMENT)) return false;
-        if (!hasExpectedIpExtensionFragmentHeader(buf, hasMoreFragment, fragmentOffset, ipProto)) {
-            return false;
+    private static boolean hasExpectedIpFragmentHeader(@NonNull final ByteBuffer buf,
+            boolean isIpv4, int ipProto, boolean hasMoreFragment, int fragOffset)
+            throws Exception {
+        if (isIpv4) {
+            final Ipv4Header ipv4Header = Struct.parse(Ipv4Header.class, buf);
+            if (ipv4Header.protocol != (byte) ipProto) return false;
+
+            if (((ipv4Header.flagsAndFragmentOffset & IPV4_FLAG_MF) != 0) != hasMoreFragment) {
+                return false;
+            }
+
+            if ((ipv4Header.flagsAndFragmentOffset & IPV4_FRAGMENT_MASK) != fragOffset) {
+                return false;
+            }
+        } else {
+            if (!hasExpectedIpHeader(buf, isIpv4, IPPROTO_FRAGMENT)) return false;
+            if (!hasExpectedIpExtensionFragmentHeader(buf, hasMoreFragment, fragOffset, ipProto)) {
+                return false;
+            }
         }
 
         return true;
     }
 
     private static boolean hasExpectedUdpFragmentPayload(@NonNull final ByteBuffer buf,
+            boolean hasMoreFragment, int fragmentOffset,
             @NonNull final ByteBuffer expectedPayload) {
         if (buf.remaining() != expectedPayload.limit()) return false;
 
-        return Arrays.equals(getRemaining(buf), getRemaining(
-                expectedPayload.asReadOnlyBuffer()));
+        // The first IP fragment payload includes the UDP header of the original unfragmented UDP
+        // message. UDP header checksum may be changed by IP header source address and destination
+        // address during packet translation. For CLAT test case, UDP checksum should be modified
+        // during CLAT translation. Skip verifying UDP header here. In order to simply the fragment
+        // payload verification and eaiser to reuse this function for all test cases.
+        //
+        // IP fragment payload#1
+        // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        // |  UDP header   |                                               |
+        // +-+-+-+-+-+-+-+-+           Data                                |
+        // |                                                               |
+        // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        // ..
+        //
+        // IP fragment payload#N
+        // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        // |                                                               |
+        // |                           Data                                |
+        // |                                                               |
+        // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        //
+        final boolean isFirstFragment = (fragmentOffset == 0 && hasMoreFragment);
+        if (isFirstFragment) {
+            final ByteBuffer expectedPayloadNoUdpHeader = expectedPayload.asReadOnlyBuffer();
+            expectedPayloadNoUdpHeader.position(UDP_HEADER_LEN);
+            try {
+                if (Struct.parse(UdpHeader.class, buf) == null) return false;
+            } catch (Exception e) {
+                 // Parsing packet fail means it is not the first udp fragment packet.
+                return false;
+            }
+            return Arrays.equals(getRemaining(buf), getRemaining(expectedPayloadNoUdpHeader));
+        } else {
+            return Arrays.equals(getRemaining(buf), getRemaining(expectedPayload
+                    .asReadOnlyBuffer()));
+        }
     }
 
-    public static boolean isExpectedUdpFragmentPacketV6(@NonNull final byte[] rawPacket,
-            boolean hasEth, boolean hasMoreFragment, int fragmentOffset,
+    public static boolean isExpectedUdpFragmentPacket(@NonNull final byte[] rawPacket,
+            boolean hasEth, boolean isIpv4, boolean hasMoreFragment, int fragmentOffset,
             @NonNull final ByteBuffer expectedPayload) {
         final ByteBuffer buf = ByteBuffer.wrap(rawPacket);
         try {
-            if (hasEth && !hasExpectedEtherHeader(buf, false /* isIpv4*/)) return false;
+            if (hasEth && !hasExpectedEtherHeader(buf, isIpv4)) return false;
 
-            if (!hasExpectedIpFragmentHeaderV6(buf, IPPROTO_UDP, hasMoreFragment, fragmentOffset)) {
+            if (!hasExpectedIpFragmentHeader(buf, isIpv4, IPPROTO_UDP, hasMoreFragment,
+                    fragmentOffset)) {
                 return false;
             }
 
-            if (!hasExpectedUdpFragmentPayload(buf, expectedPayload)) return false;
+            if (!hasExpectedUdpFragmentPayload(buf, hasMoreFragment, fragmentOffset,
+                    expectedPayload)) {
+                return false;
+            }
         } catch (Exception e) {
             // Parsing packet fail means it is not udp fragment packet.
             return false;
