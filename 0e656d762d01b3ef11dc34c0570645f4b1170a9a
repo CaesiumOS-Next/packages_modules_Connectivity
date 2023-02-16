@@ -16,6 +16,41 @@
       "message": "LGTM. I remember lorenzo suggest 2-tier review for this change, so just +1 and leave second tier reviewer to approve this.",
       "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbe1b01a_0125e890",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-02-16T05:46:54Z",
+      "side": 1,
+      "message": "Hi Jean\nMay I have your help to have 2-tier review? Thank you.",
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ff75c2a_de7d8bef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-02-16T05:46:54Z",
+      "side": 1,
+      "message": "Thanks for your review. \nInvite Jean to help 2-tier review because lorenzo had mentioned in 2/2 meeting.",
+      "parentUuid": "ac0e74cd_2e7c96c2",
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
