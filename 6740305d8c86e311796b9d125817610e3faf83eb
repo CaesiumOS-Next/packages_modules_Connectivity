@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d52c8d0e_43cbc119",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/DnsOptionsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-16T19:51:00Z",
+      "side": 1,
+      "message": "nit: the following will throw an assertion error instead of an NPE:\n```\nassertNotNull(options.persistHostCache)\nassertTrue(options.persistHostCache)\n```",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 46
+      },
+      "revId": "6740305d8c86e311796b9d125817610e3faf83eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7137361c_3a889077",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/DnsOptionsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-16T19:51:00Z",
+      "side": 1,
+      "message": "This should be assertEquals. The fact that assertSame passes is interesting though. Does this mean the Builder doesn\u0027t create a defensive copy? This might be something that should be fixed.",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 18
+      },
+      "revId": "6740305d8c86e311796b9d125817610e3faf83eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
