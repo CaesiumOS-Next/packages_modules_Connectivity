@@ -8861,11 +8861,21 @@ public class ConnectivityServiceTest {
         final TestNetworkCallback callback = new TestNetworkCallback();
         mCm.registerNetworkCallback(request, callback);
 
+        // File a VPN request to prevent VPN network being lingered.
+        final NetworkRequest vpnRequest = new NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_VPN)
+                .removeCapability(NET_CAPABILITY_NOT_VPN)
+                .build();
+        final TestNetworkCallback vpnCallback = new TestNetworkCallback();
+        mCm.requestNetwork(vpnRequest, vpnCallback);
+
         // Bring up a VPN
         mMockVpn.establishForMyUid();
         assertUidRangesUpdatedForMyUid(true);
         callback.expectAvailableThenValidatedCallbacks(mMockVpn);
         callback.assertNoCallback();
+        vpnCallback.expectAvailableThenValidatedCallbacks(mMockVpn);
+        vpnCallback.assertNoCallback();
 
         final int uid = Process.myUid();
         NetworkCapabilities nc = mCm.getNetworkCapabilities(mMockVpn.getNetwork());
@@ -8879,6 +8889,8 @@ public class ConnectivityServiceTest {
         callback.expectAvailableCallbacksUnvalidated(mWiFiAgent);
         callback.expectCaps(mMockVpn, c -> c.hasTransport(TRANSPORT_VPN)
                         && c.hasTransport(TRANSPORT_WIFI));
+        vpnCallback.expectCaps(mMockVpn, c -> c.hasTransport(TRANSPORT_VPN)
+                && c.hasTransport(TRANSPORT_WIFI));
         callback.expectCaps(mWiFiAgent, c -> c.hasCapability(NET_CAPABILITY_VALIDATED));
 
         doReturn(UserHandle.getUid(RESTRICTED_USER, VPN_UID)).when(mPackageManager)
@@ -8898,6 +8910,12 @@ public class ConnectivityServiceTest {
                 && c.getUids().contains(restrictUidRange)
                 && c.hasTransport(TRANSPORT_VPN)
                 && c.hasTransport(TRANSPORT_WIFI));
+        vpnCallback.expectCaps(mMockVpn, c ->
+                c.getUids().size() == 2
+                        && c.getUids().contains(singleUidRange)
+                        && c.getUids().contains(restrictUidRange)
+                        && c.hasTransport(TRANSPORT_VPN)
+                        && c.hasTransport(TRANSPORT_WIFI));
 
         // Change the VPN's capabilities somehow (specifically, disconnect wifi).
         mWiFiAgent.disconnect();
@@ -8908,6 +8926,12 @@ public class ConnectivityServiceTest {
                 && c.getUids().contains(restrictUidRange)
                 && c.hasTransport(TRANSPORT_VPN)
                 && !c.hasTransport(TRANSPORT_WIFI));
+        vpnCallback.expectCaps(mMockVpn, c ->
+                c.getUids().size() == 2
+                        && c.getUids().contains(singleUidRange)
+                        && c.getUids().contains(restrictUidRange)
+                        && c.hasTransport(TRANSPORT_VPN)
+                        && !c.hasTransport(TRANSPORT_WIFI));
 
         // User removed and expect to lose the UID range for the restricted user.
         mMockVpn.onUserRemoved(RESTRICTED_USER);
@@ -8919,6 +8943,14 @@ public class ConnectivityServiceTest {
                 && c.getUids().contains(singleUidRange)
                 && c.hasTransport(TRANSPORT_VPN)
                 && !c.hasTransport(TRANSPORT_WIFI));
+        vpnCallback.expectCaps(mMockVpn, c ->
+                c.getUids().size() == 1
+                        && c.getUids().contains(singleUidRange)
+                        && c.hasTransport(TRANSPORT_VPN)
+                        && !c.hasTransport(TRANSPORT_WIFI));
+
+        mCm.unregisterNetworkCallback(callback);
+        mCm.unregisterNetworkCallback(vpnCallback);
     }
 
     @Test
