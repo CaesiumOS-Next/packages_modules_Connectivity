@@ -184,7 +184,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         if (errorCode == MdnsResponseDecoder.SUCCESS) {
             for (MdnsResponse response : responses) {
                 if (mCallback != null) {
-                    mCallback.onResponseReceived(response);
+                    mCallback.onResponseReceived(response, network);
                 }
             }
         } else if (errorCode != MdnsResponseErrorCode.ERROR_NOT_RESPONSE_MESSAGE) {

@@ -25,7 +25,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
+import android.net.Network;
 import android.text.TextUtils;
+import android.util.Pair;
 
 import com.android.server.connectivity.mdns.MdnsSocketClientBase.NetworkCallback;
 import com.android.testutils.DevSdkIgnoreRule;
@@ -48,6 +51,10 @@ public class MdnsDiscoveryManagerTests {
 
     private static final String SERVICE_TYPE_1 = "_googlecast._tcp.local";
     private static final String SERVICE_TYPE_2 = "_test._tcp.local";
+    private static final Pair<String, Network> PER_NETWORK_SERVICE_TYPE_1 =
+            Pair.create(SERVICE_TYPE_1, null);
+    private static final Pair<String, Network> PER_NETWORK_SERVICE_TYPE_2 =
+            Pair.create(SERVICE_TYPE_2, null);
 
     @Mock private ExecutorProvider executorProvider;
     @Mock private MdnsSocketClientBase socketClient;
@@ -69,10 +76,13 @@ public class MdnsDiscoveryManagerTests {
 
         discoveryManager = new MdnsDiscoveryManager(executorProvider, socketClient) {
                     @Override
-                    MdnsServiceTypeClient createServiceTypeClient(@NonNull String serviceType) {
-                        if (serviceType.equals(SERVICE_TYPE_1)) {
+                    MdnsServiceTypeClient createServiceTypeClient(@NonNull String serviceType,
+                            @Nullable Network network) {
+                        final Pair<String, Network> perNetworkServiceType =
+                                Pair.create(serviceType, network);
+                        if (perNetworkServiceType.equals(PER_NETWORK_SERVICE_TYPE_1)) {
                             return mockServiceTypeClientOne;
-                        } else if (serviceType.equals(SERVICE_TYPE_2)) {
+                        } else if (perNetworkServiceType.equals(PER_NETWORK_SERVICE_TYPE_2)) {
                             return mockServiceTypeClientTwo;
                         }
                         return null;
@@ -139,15 +149,15 @@ public class MdnsDiscoveryManagerTests {
                         SERVICE_TYPE_2, mockListenerTwo, mockServiceTypeClientTwo));
 
         MdnsResponse responseForServiceTypeOne = createMockResponse(SERVICE_TYPE_1);
-        discoveryManager.onResponseReceived(responseForServiceTypeOne);
+        discoveryManager.onResponseReceived(responseForServiceTypeOne, null /* network */);
         verify(mockServiceTypeClientOne).processResponse(responseForServiceTypeOne);
 
         MdnsResponse responseForServiceTypeTwo = createMockResponse(SERVICE_TYPE_2);
-        discoveryManager.onResponseReceived(responseForServiceTypeTwo);
+        discoveryManager.onResponseReceived(responseForServiceTypeTwo, null /* network */);
         verify(mockServiceTypeClientTwo).processResponse(responseForServiceTypeTwo);
 
         MdnsResponse responseForSubtype = createMockResponse("subtype._sub._googlecast._tcp.local");
-        discoveryManager.onResponseReceived(responseForSubtype);
+        discoveryManager.onResponseReceived(responseForSubtype, null /* network */);
         verify(mockServiceTypeClientOne).processResponse(responseForSubtype);
     }
 

@@ -441,7 +441,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
                 LOGGER.log("mDNS %s response received: %s at ifIndex %d", responseType,
                         serviceInstanceName, interfaceIndex);
                 if (callback != null) {
-                    callback.onResponseReceived(response);
+                    callback.onResponseReceived(response, network);
                 }
             }
         } else if (errorCode != MdnsResponseErrorCode.ERROR_NOT_RESPONSE_MESSAGE) {
