@@ -1430,6 +1430,35 @@ public class VpnTest extends VpnTestBase {
     }
 
     @Test
+    public void testVpnManagerVpnChangesLockdownModeForBypassableVpn() throws Exception {
+        // Vpn#setVpnForcedLocked() will call Vpn#createUserAndRestrictedProfilesRanges() and pass
+        // TEST_VPN_PKG as disallowedApplications to generate uid ranges.
+        // In createVpnAndSetupUidChecks(), it will mock Process.myUid() as the uid of TEST_VPN_PKG
+        // in order to pass the checks like Vpn#doesPackageHaveAppop(),
+        // Vpn#verifyCallingUidAndPackage().
+        // Since the user of Process.myUid() is system, if the VPN is not created for SYSTEM_USER,
+        // there will be a problem when generating uid ranges. For example, if Process.myUid() is
+        // 10100, and the VPN is created for PRIMARY_USER, the uid ranges will be like
+        // {2700000-10099}, {10101-2799999}, which is wrong. And in fact, the
+        // IllegalArgumentException will be thrown first when the upper is less than the lower.
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */),
+                true /* mtuSupportsIpv6 */, SYSTEM_USER);
+
+        // Enable VPN always-on for TEST_VPN_PKG.
+        assertTrue(vpnSnapShot.vpn.setAlwaysOnPackage(TEST_VPN_PKG, false /* lockdown */,
+                null /* lockdownAllowlist */));
+
+        // Change lockdown mode from false to true and expect that the VPN network agent will
+        // re-register.
+        assertTrue(vpnSnapShot.vpn.setAlwaysOnPackage(TEST_VPN_PKG, true /* lockdown */,
+                null /* lockdownAllowlist */));
+        // verifySetupPlatformVpn() has verified the first register().
+        verify(mMockNetworkAgent, times(2)).register();
+        verify(mMockNetworkAgent).unregister();
+    }
+
+    @Test
     public void testSetPackageAuthorizationVpnService() throws Exception {
         final Vpn vpn = createVpnAndSetupUidChecks();
 
