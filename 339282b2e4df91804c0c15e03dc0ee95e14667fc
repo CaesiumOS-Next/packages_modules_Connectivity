@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "665c1ea1_74d3326f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8878,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-17T05:32:45Z",
+      "side": 1,
+      "message": "Is it meaningful to verify no callback here?",
+      "range": {
+        "startLine": 8878,
+        "startChar": 8,
+        "endLine": 8878,
+        "endChar": 39
+      },
+      "revId": "339282b2e4df91804c0c15e03dc0ee95e14667fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34b22d60_62b758cf",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8918,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-17T05:32:45Z",
+      "side": 1,
+      "message": "I am not sure if we need to verify vpnCallback here. The intention is to register a VPN request so that VPN network will not be lingered. The network cap verification is done in the `callback`. `vpnCallback` verify them again with exactly the same content does not bring too much value but confusing here.\n\nActually, can\u0027t you replace the origin callback to not to use registerNetworkCallback but use requestNetwork?",
+      "range": {
+        "startLine": 8913,
+        "startChar": 8,
+        "endLine": 8918,
+        "endChar": 59
+      },
+      "revId": "339282b2e4df91804c0c15e03dc0ee95e14667fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
