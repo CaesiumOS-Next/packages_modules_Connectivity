@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6517cc21_c2ffd9cd",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-17T08:46:17Z",
+      "side": 1,
+      "message": "Could we avoid duplication with the UrlResponseInfo#getAllHeaders* methods by removing those methods and instead adding a:\n\n    method public abstract UrlResponseInfo.HeaderBlock getHeaders();\n\nmethod?",
+      "range": {
+        "startLine": 256,
+        "startChar": 47,
+        "endLine": 256,
+        "endChar": 58
+      },
+      "revId": "6e3a817a6f69b14d626bfe560fdc5a5c055574eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
