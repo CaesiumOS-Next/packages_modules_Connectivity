@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3d95011_51085831",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-17T15:11:27Z",
+      "side": 1,
+      "message": "How is this set? I don\u0027t see any corresponding setter in the builder.",
+      "range": {
+        "startLine": 62,
+        "startChar": 36,
+        "endLine": 62,
+        "endChar": 79
+      },
+      "revId": "7fd1d264ee9083f452854037a73ce0774d10f6b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
