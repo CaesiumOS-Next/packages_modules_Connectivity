@@ -1442,6 +1442,37 @@ public class VpnTest extends VpnTestBase {
     }
 
     @Test
+    public void testVpnManagerVpnChangesLockdownModeForBypassableVpn() throws Exception {
+        // In #createVpnAndSetupUidChecks(), it always mocks the uid of TEST_VPN_PKG with
+        // Process.myUid(). Running VPN with non-SYSTEM_USER will result in problem when generating
+        // uid ranges since test cases usually run on SYSTEM_USER.
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */),
+                true /* mtuSupportsIpv6 */, SYSTEM_USER);
+
+        // Enable VPN always-on for TEST_VPN_PKG.
+        assertTrue(vpnSnapShot.vpn.setAlwaysOnPackage(TEST_VPN_PKG, false /* lockdown */,
+                null /* lockdownAllowlist */));
+
+        // Change lockdown mode from false to true and expect that the VPN network agent will
+        // re-register.
+        assertTrue(vpnSnapShot.vpn.setAlwaysOnPackage(TEST_VPN_PKG, true /* lockdown */,
+                null /* lockdownAllowlist */));
+        // verifySetupPlatformVpn() has verified the first register().
+        verify(mMockNetworkAgent, times(2)).register();
+        verify(mMockNetworkAgent).unregister();
+
+        // Change lockdown mode to false again, and it's expected that the VPN network agent will
+        // re-register again.
+        assertTrue(vpnSnapShot.vpn.setAlwaysOnPackage(TEST_VPN_PKG, false /* lockdown */,
+                null /* lockdownAllowlist */));
+        verify(mMockNetworkAgent, times(3)).register();
+        verify(mMockNetworkAgent, times(2)).unregister();
+
+        vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
+    }
+
+    @Test
     public void testSetPackageAuthorizationVpnService() throws Exception {
         final Vpn vpn = createVpnAndSetupUidChecks();
 
@@ -1871,6 +1902,8 @@ public class VpnTest extends VpnTestBase {
                 any(), any(), anyString(), ncCaptor.capture(), lpCaptor.capture(),
                 any(), nacCaptor.capture(), any(), any());
         verify(mIkeSessionWrapper).setUnderpinnedNetwork(TEST_NETWORK);
+        verify(mMockNetworkAgent).register();
+
         // Check LinkProperties
         final LinkProperties lp = lpCaptor.getValue();
         final List<RouteInfo> expectedRoutes =
