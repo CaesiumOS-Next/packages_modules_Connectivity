@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afab4683_df93eac9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T09:54:11Z",
+      "side": 1,
+      "message": "Happy with this, over to Lorenzo",
+      "revId": "44a34285ac4386e217e1e585ce35363fb384e9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "024e8bc3_a17f4636",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T09:54:11Z",
+      "side": 1,
+      "message": "Maybe explain in a comment that the caller is responsible for unregistering this callback",
+      "range": {
+        "startLine": 380,
+        "startChar": 47,
+        "endLine": 380,
+        "endChar": 55
+      },
+      "revId": "44a34285ac4386e217e1e585ce35363fb384e9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
