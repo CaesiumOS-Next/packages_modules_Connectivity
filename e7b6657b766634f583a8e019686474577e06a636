@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77827d43_cc240d12",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T04:40:04Z",
+      "side": 1,
+      "message": "nc",
+      "range": {
+        "startLine": 411,
+        "startChar": 52,
+        "endLine": 411,
+        "endChar": 85
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c2596ac_f10e987f",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T04:40:04Z",
+      "side": 1,
+      "message": "I think this might be difficult for wifi developers to notice ; it would be more useful to mention WifiInfo explicitly. If you know the netId it will also be useful.",
+      "range": {
+        "startLine": 418,
+        "startChar": 72,
+        "endLine": 418,
+        "endChar": 87
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad1f81c_3862e4f2",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T04:40:04Z",
+      "side": 1,
+      "message": "Suggested wording :\n\n    Note that this code accepts null wifi network keys because of a past bug\n    where wifi code was sending a null network key for some connected networks,\n    which isn\u0027t expectend and ended up stored in the data on many devices.\n    A null network key in the data matches a wildcard template (one where\n    {@code mMatchWifiNetworkKeys} is empty), but not one where {@code\n    mMatchWifiNetworkKeys} contains null.",
+      "range": {
+        "startLine": 579,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 43
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6bcaa23_3c88b49e",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T04:40:04Z",
+      "side": 1,
+      "message": "This means we will happily say yes when the key in the identity is null, meaning a caller with a null key might get true here. In a sense, that\u0027s expected, but it\u0027s also a bit dangerous.\n\nShould we take steps to reassign these null keys to something else ? Considering we don\u0027t know what wifi to assign this traffic to, removing these lines from the data sounds like the best thing to do. Maybe we could do that when we compress the data ; combined with code that refuses to add new snapshots with null, you\u0027ll see the nulls in the data die out after a few weeks.",
+      "range": {
+        "startLine": 585,
+        "startChar": 12,
+        "endLine": 585,
+        "endChar": 18
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "366f00b6_a7d4d309",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T04:40:04Z",
+      "side": 1,
+      "message": "What does it mean for mMatchWifiNetworkKeys to contain null ?",
+      "range": {
+        "startLine": 588,
+        "startChar": 44,
+        "endLine": 588,
+        "endChar": 65
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be4a733f_529f2127",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T04:40:04Z",
+      "side": 1,
+      "message": "Can you back up this assertion ? I understand that in a sense you\u0027d want to return this data to a general wildcard query for wifi because you know this traffic happened on wifi, but you don\u0027t know what wifi and it may contain wildly varying wifis. Maybe it\u0027s better to behave like this data was never here in the first place.",
+      "range": {
+        "startLine": 135,
+        "startChar": 18,
+        "endLine": 135,
+        "endChar": 70
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58074501_8d97d187",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T04:40:04Z",
+      "side": 1,
+      "message": "happens because of a bug in wifi",
+      "range": {
+        "startLine": 134,
+        "startChar": 68,
+        "endLine": 135,
+        "endChar": 16
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbda746c_9f3ebbd4",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T04:40:04Z",
+      "side": 1,
+      "message": "that",
+      "range": {
+        "startLine": 213,
+        "startChar": 68,
+        "endLine": 213,
+        "endChar": 69
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
