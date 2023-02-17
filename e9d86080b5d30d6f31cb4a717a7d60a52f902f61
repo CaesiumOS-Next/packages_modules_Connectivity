@@ -118,6 +118,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f308ff72_ee61f4d2",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-17T06:46:44Z",
+      "side": 1,
+      "message": "Alfo OffloadCallback suggests that it\u0027s a callback about offloads that have happened, but it\u0027s not - it\u0027s a way to ask something to do offload.",
+      "parentUuid": "b6d331ad_71d0ea06",
+      "range": {
+        "startLine": 328,
+        "startChar": 21,
+        "endLine": 328,
+        "endChar": 44
+      },
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d2dcfaba_715329fe",
         "filename": "framework-t/src/android/net/nsd/NsdManager.java",
         "patchSetId": 7
