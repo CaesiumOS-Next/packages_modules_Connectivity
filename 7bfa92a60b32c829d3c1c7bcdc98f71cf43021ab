@@ -22,6 +22,30 @@
       },
       "revId": "7bfa92a60b32c829d3c1c7bcdc98f71cf43021ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7153d19a_f00f1f39",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2023-02-17T08:00:16Z",
+      "side": 1,
+      "message": "Thanks Lorenzo. With this approach, the ipServer created will have the Type#TETHERING_LOCAL_HOTSPOT  based on WifiIpMode received as part of WiFiManager broadcast event.\n\nThe TetheringInterface formed as part of these events (onLocalOnlyInterfacesChanged / onTetheredInterfacesChanged) will have the type picked from IpServer and TYPE_LOCAL_HOTSPOT will be send @ https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/Tethering.java;l\u003d1099?q\u003dTethering.java\u0026ss\u003dandroid%2Fplatform%2Fsuperproject \n\nFor the TetheringEventCallback#onClientsChanged events, only TYPE_WIFI is considered and if the additional LOCAL_HOTSPOT conditional check will fix this as well @ https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java;l\u003d92-111?q\u003dupdateConnectedClients\u0026ss\u003dandroid%2Fplatform%2Fsuperproject\n\nRegarding the scope, as of the default scope is GLOBAL except for TYPE_NCM and making the scope local for TYPE_LOCAL_HOTSPOT and allowing TYPE_LOCAL_HOTSPOT in checkConnectivityScope will handle the scenarios.\n\nI will upload a patch in a day for review.",
+      "parentUuid": "13055c4b_a345ac1f",
+      "range": {
+        "startLine": 188,
+        "startChar": 38,
+        "endLine": 189,
+        "endChar": 37
+      },
+      "revId": "7bfa92a60b32c829d3c1c7bcdc98f71cf43021ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
