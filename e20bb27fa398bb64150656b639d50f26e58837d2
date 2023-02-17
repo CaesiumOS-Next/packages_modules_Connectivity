@@ -69,6 +69,23 @@
       "parentUuid": "6941eb45_726ef67b",
       "revId": "e20bb27fa398bb64150656b639d50f26e58837d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "443fa73b_229e657b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-17T09:18:50Z",
+      "side": 1,
+      "message": "Sainath, can you provide a bit more context on why you are cherry-picking this change to a previous development branch? Is there a test failure? A bug? ...?",
+      "revId": "e20bb27fa398bb64150656b639d50f26e58837d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
