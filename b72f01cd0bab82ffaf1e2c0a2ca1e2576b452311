@@ -332,6 +332,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "252e6bf6_81b0e96b",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "You can\u0027t/shouldn\u0027t really rely on this for a few reasons.\n\n• There may be other tools that do not check this. There are many toolchains for Android.\n• Older versions of our tools may not check this. You didn\u0027t check all previous versions of them.\n• The code is still more readable if it does the right thing in all cases.\n\nIf you could rely on the tools for sure, then you would only have to make sure the system doesn\u0027t crash (because somebody could still attack), but I think the three arguments above should convince you that your code should not contain unstated assumptions of some particular form of well-formedness.",
+      "parentUuid": "09891a62_ffb0d6e7",
+      "range": {
+        "startLine": 165,
+        "startChar": 66,
+        "endLine": 165,
+        "endChar": 78
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9fa77b3f_7b83a4b9",
         "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
         "patchSetId": 7
@@ -496,6 +520,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "d54acd64_75576759",
+      "range": {
+        "startLine": 192,
+        "startChar": 30,
+        "endLine": 192,
+        "endChar": 54
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db32f37c_9bee6035",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "Not done",
+      "parentUuid": "28516abd_497f2b32",
       "range": {
         "startLine": 192,
         "startChar": 30,

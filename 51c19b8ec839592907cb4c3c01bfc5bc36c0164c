@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e8caa55_d53282c1",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "No I think it should be enabled since U. The difference is, if there is a T-v2 or something, then you don\u0027t want to enable it there.",
+      "range": {
+        "startLine": 75,
+        "startChar": 57,
+        "endLine": 75,
+        "endChar": 65
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "325e6d28_0db6a962",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "What is the threading model for this member ? Is it guarded by a lock ? Should it always be accessed only on one thread ? Please add comments, and possibly annotations if relevant.",
+      "range": {
+        "startLine": 913,
+        "startChar": 12,
+        "endLine": 913,
+        "endChar": 41
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23b5ff6f_6e9bdfeb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1473,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "for the specified package ?",
+      "range": {
+        "startLine": 1473,
+        "startChar": 65,
+        "endLine": 1473,
+        "endChar": 72
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adaaf0c7_9f1fe534",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 6993,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "Why do you need to fully qualify this ? Can\u0027t it be just imported ?",
+      "range": {
+        "startLine": 6993,
+        "startChar": 14,
+        "endLine": 6993,
+        "endChar": 46
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e2ce6a_ee768931",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 6996,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "AIUI this can never contain null, so the double contains-get just does the work twice. You could just call get and only compute it if non-null. In fact, you could even use HashMap#computeIfAbsent.",
+      "range": {
+        "startLine": 6996,
+        "startChar": 46,
+        "endLine": 6996,
+        "endChar": 57
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30906153_82a4fcae",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 7010,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "This is running on a random binder thread.",
+      "range": {
+        "startLine": 7010,
+        "startChar": 16,
+        "endLine": 7010,
+        "endChar": 45
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f9054e1_d9c5d0cf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 7016,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "Is this necessarily true ? If the package was uninstalled just as it was sending this request, such that the binder call made it to the system server but by the time you query the package is no longer installed, won\u0027t you get NameNotFoundException too ?",
+      "range": {
+        "startLine": 7016,
+        "startChar": 32,
+        "endLine": 7016,
+        "endChar": 52
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42b19a47_ee379cc1",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "API guideline 6.6.7 : builders should not have getters\n\nhttps://g3doc.corp.google.com/company/teams/android-api-council/guidelines/index.md?cl\u003dhead#methods-prefer-collection-over-array\n\nGranted, this is not a public class and as such it\u0027s not strictly speaking subject to these guidelines, but it\u0027s still what all builders in Android look like in practice.\n\nSince this is an inner class, the parent can access the private member anyway. Java will generate a synthetic hidden accessor for this use.",
+      "range": {
+        "startLine": 134,
+        "startChar": 20,
+        "endLine": 134,
+        "endChar": 23
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00076109_945bdc41",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "Is this not a little bit bizarre in terms of builder usage ? Normally a builder has public setters and lets you build an object tailored to your needs.\n\nHere, the way you create an instance of ApplicationSelfCertifiedNetworkCapabilities is to call the factory method, which makes sense, but somehow there is still this Builder with a public constructor, a public getter, a public build() method, and that\u0027s it.\n\nIf the builder is not used by the caller to build the object, then it\u0027s only as useful as what it contains, and in this case the only thing it contains is a long.\n\nI think you\u0027d be better served by just removing the Builder class, move parseXml to the parent class, and have the long a local in parseXml, to be |\u003d with every call to parseDeclarationTag (which could just return the value).",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 29
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d5afbd3_658e22f4",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "Unknown\n(it might be valid later on)",
+      "range": {
+        "startLine": 176,
+        "startChar": 32,
+        "endLine": 176,
+        "endChar": 39
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6853951d_62f41342",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2120,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "While I think this is a smart way to do this, it took me a little while to understand how it works. I suggest you add a few lines of documentation to `enableCompatChangeCheck` to explain how a developer is supposed to use this in conjunction with the annotations.",
+      "range": {
+        "startLine": 2120,
+        "startChar": 24,
+        "endLine": 2120,
+        "endChar": 54
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f71d496_fac8d9e4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2123,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "guarded by \"this\" but not locked here",
+      "range": {
+        "startLine": 2123,
+        "startChar": 12,
+        "endLine": 2123,
+        "endChar": 42
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a9afef8_9170097e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 6360,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "Wait why does this throw NPE ? None of the arguments passed are null.",
+      "range": {
+        "startLine": 6360,
+        "startChar": 21,
+        "endLine": 6360,
+        "endChar": 41
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acf91adb_1ab11801",
+        "filename": "tests/unit/java/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilitiesTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T06:31:13Z",
+      "side": 1,
+      "message": "ies :)",
+      "range": {
+        "startLine": 43,
+        "startChar": 29,
+        "endLine": 43,
+        "endChar": 30
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
