@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93909a82_7b399cf6",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1681,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-17T17:10:13Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "4c8c1f16_ccdafe20",
+      "range": {
+        "startLine": 1681,
+        "startChar": 8,
+        "endLine": 1681,
+        "endChar": 12
+      },
+      "revId": "bc192e49a283ca06528fd95825a9412b18ea8f57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68e31876_d5150670",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-17T00:11:46Z",
       "side": 1,
       "message": "I\u0027d think you\u0027d want to duplicate them in GnUtils, otherwise, things like host support still get mixed in.",
+      "range": {
+        "startLine": 1317,
+        "startChar": 2,
+        "endLine": 1318,
+        "endChar": 36
+      },
+      "revId": "bc192e49a283ca06528fd95825a9412b18ea8f57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65972d6a_068ab67b",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-17T17:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68e31876_d5150670",
       "range": {
         "startLine": 1317,
         "startChar": 2,
