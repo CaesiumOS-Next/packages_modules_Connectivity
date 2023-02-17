@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b47c9c8_03292322",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8878,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2023-02-17T07:07:12Z",
+      "side": 1,
+      "message": "I think this can also be a question for line.8876.\nIt just ensures that the test won\u0027t receive any unexpected callback later to influence the test. In fact, we can also add this check after every expectXXX() if we want to confirm this.\n\nI can remove this if you think it\u0027s meaningless.",
+      "parentUuid": "665c1ea1_74d3326f",
+      "range": {
+        "startLine": 8878,
+        "startChar": 8,
+        "endLine": 8878,
+        "endChar": 39
+      },
+      "revId": "339282b2e4df91804c0c15e03dc0ee95e14667fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "34b22d60_62b758cf",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-17T05:32:45Z",
       "side": 1,
       "message": "I am not sure if we need to verify vpnCallback here. The intention is to register a VPN request so that VPN network will not be lingered. The network cap verification is done in the `callback`. `vpnCallback` verify them again with exactly the same content does not bring too much value but confusing here.\n\nActually, can\u0027t you replace the origin callback to not to use registerNetworkCallback but use requestNetwork?",
+      "range": {
+        "startLine": 8913,
+        "startChar": 8,
+        "endLine": 8918,
+        "endChar": 59
+      },
+      "revId": "339282b2e4df91804c0c15e03dc0ee95e14667fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15058c0e_1c00f7d5",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8918,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2023-02-17T07:07:12Z",
+      "side": 1,
+      "message": "\u003e I am not sure if we need to verify vpnCallback here. The intention is to register a VPN request so that VPN network will not be lingered. The network cap verification is done in the callback. vpnCallback verify them again with exactly the same content does not bring too much value but confusing here.\n\nI was also thinking about this when I was writing these code. I don\u0027t have strong opinion on it.\nIf you think we don\u0027t need it, I can remove it.\n\n\u003e Actually, can\u0027t you replace the origin callback to not to use registerNetworkCallback but use requestNetwork?\n\nIn fact, this was the initial idea that came to my mind. But we can\u0027t just replace registerNetworkCallback with requestNetwork because we need to specify the transport type(TRANSPORT_VPN) explicitly in the network request. Otherwise, it\u0027s not a VPN request in fact.",
+      "parentUuid": "34b22d60_62b758cf",
       "range": {
         "startLine": 8913,
         "startChar": 8,
