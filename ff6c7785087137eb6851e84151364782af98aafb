@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7798874f_99d5dc0e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-17T09:19:13Z",
+      "side": 1,
+      "message": "After aosp/2443021, I think this would be better implemented in MdnsServiceTypeClient: filter out the callbacks based on the MdnsSearchOptions.resolveInstanceName of each client.",
+      "revId": "ff6c7785087137eb6851e84151364782af98aafb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
