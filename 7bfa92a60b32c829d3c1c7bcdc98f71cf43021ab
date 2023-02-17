@@ -46,6 +46,30 @@
       },
       "revId": "7bfa92a60b32c829d3c1c7bcdc98f71cf43021ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d54786fc_7834bbcb",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-17T08:04:20Z",
+      "side": 1,
+      "message": "Are you still planning on adding a TETHERING_LOCAL_HOTSPOT type? I don\u0027t think that\u0027s acceptable. The other TETHERING_xxx types are all link types (wifi, bluetooth, ethernet, etc.), and local-only is not a link type, it\u0027s a connectivity scope.",
+      "parentUuid": "7153d19a_f00f1f39",
+      "range": {
+        "startLine": 188,
+        "startChar": 38,
+        "endLine": 189,
+        "endChar": 37
+      },
+      "revId": "7bfa92a60b32c829d3c1c7bcdc98f71cf43021ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
