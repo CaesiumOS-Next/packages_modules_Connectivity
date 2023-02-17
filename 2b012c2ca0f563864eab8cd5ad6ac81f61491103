@@ -46,6 +46,30 @@
       },
       "revId": "2b012c2ca0f563864eab8cd5ad6ac81f61491103",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06e692a5_7ed9ae9e",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/DnsOptionsTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-17T17:02:59Z",
+      "side": 1,
+      "message": "Oh! persistHostCache is a getter! Yeah it makes sense then. I guess there is \"no way\" of knowing if the subsequent call returns the same object.",
+      "parentUuid": "894c328a_e697a87b",
+      "range": {
+        "startLine": 36,
+        "startChar": 43,
+        "endLine": 36,
+        "endChar": 45
+      },
+      "revId": "2b012c2ca0f563864eab8cd5ad6ac81f61491103",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
