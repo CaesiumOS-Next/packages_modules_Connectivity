@@ -22,6 +22,30 @@
       },
       "revId": "f95fd405d72428e277e7fa095149bb6a7b0e157d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f42db1_58cc6e88",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-02-17T04:27:47Z",
+      "side": 1,
+      "message": "MAX_RTR_ADV_INTERVAL_SEC and MIN_RTR_ADV_INTERVAL_SEC doesn\u0027t change, hotspot still sends ~7 RAs within 1h, increase the router lifetime to 2h, which means downstream device will receive more RAs within the entire router lifetime, to have the chance of losing the critical refresh RA lower.",
+      "parentUuid": "aeafa58d_54238622",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 36
+      },
+      "revId": "f95fd405d72428e277e7fa095149bb6a7b0e157d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
