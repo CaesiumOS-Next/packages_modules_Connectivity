@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43482b03_68437047",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 39
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T10:16:47Z",
+      "side": 1,
+      "message": "Happy with this : over to Lorenzo",
+      "revId": "9a043a46461f61a52be9c91aaa7f9a8faa0ebacd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c27c4e10_6ca42d10",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-17T10:16:47Z",
+      "side": 1,
+      "message": "It\u0027s not the design that\u0027s protected is it ? It\u0027s the feature.",
+      "range": {
+        "startLine": 1126,
+        "startChar": 80,
+        "endLine": 1126,
+        "endChar": 86
+      },
+      "revId": "9a043a46461f61a52be9c91aaa7f9a8faa0ebacd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
