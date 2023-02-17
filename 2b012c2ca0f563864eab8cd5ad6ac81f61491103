@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53ea4613_b289e4c2",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/DnsOptionsTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-17T15:20:02Z",
+      "side": 1,
+      "message": "I am curious: assertNotNull should support smart casts now -- does this not work for us yet? https://youtrack.jetbrains.com/issue/KT-7566",
+      "range": {
+        "startLine": 36,
+        "startChar": 43,
+        "endLine": 36,
+        "endChar": 45
+      },
+      "revId": "2b012c2ca0f563864eab8cd5ad6ac81f61491103",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
