@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17335867_e304948a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2023-02-17T09:38:25Z",
+      "side": 1,
+      "message": "As offline discussion, remove unnecessary checks.",
+      "revId": "5d59a7b5e8faaf74fbcffff948918029fd110933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
