@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f56116b4_13941450",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/InlineExecutionProhibitedExceptionTests.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-17T17:16:43Z",
+      "side": 1,
+      "message": "What I am saying is: This doesn\u0027t test the API for InlineExecutionProhibitedException -- it tests the UrlRequest API.\n\nLooking at the definition of InlineExecutionProhibitedException, it seems that it literally only contains a default constructor. When testing the exception\u0027s API, all the test should / could do is throw an InlineExecutionProhibitedException and assert on the type of exception thrown, but there is probably very little value in doing so.\n\nSo yeah, I like this approach if it provides indirect coverage.",
+      "parentUuid": "f51aaa79_9f88e09b",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 70
+      },
+      "revId": "0f81c6e2df80ed0bcd0dc17f0dc2e51bf90d64bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95b6c977_8e297f4d",
         "filename": "Cronet/tests/cts/src/android/net/http/cts/InlineExecutionProhibitedExceptionTests.kt",
         "patchSetId": 2
