@@ -45,8 +45,8 @@ package android.net.http {
 
   public class ConnectionMigrationParams {
     method @Nullable public Boolean getAllowNonDefaultNetworkUsage();
-    method @Nullable public Boolean getEnableDefaultNetworkMigration();
-    method @Nullable public Boolean getEnablePathDegradationMigration();
+    method @Nullable public Boolean isEnableDefaultNetworkMigration();
+    method @Nullable public Boolean isEnablePathDegradationMigration();
   }
 
   public static final class ConnectionMigrationParams.Builder {
@@ -59,11 +59,11 @@ package android.net.http {
 
   public final class DnsParams {
     method @Nullable public Boolean getEnableStaleDns();
-    method @Nullable public Boolean getPersistHostCache();
     method @Nullable public java.time.Duration getPersistHostCachePeriod();
     method @Nullable public Boolean getPreestablishConnectionsToStaleDnsResults();
     method @Nullable public android.net.http.DnsParams.StaleDnsParams getStaleDnsParams();
     method @Nullable public Boolean getUseHttpStackDnsResolver();
+    method @Nullable public Boolean isPersistHostCache();
   }
 
   public static final class DnsParams.Builder {
@@ -155,9 +155,9 @@ package android.net.http {
   }
 
   public class QuicParams {
+    method @NonNull public java.util.Set<java.lang.String> getAllowedQuicHosts();
     method @Nullable public String getHandshakeUserAgent();
     method @Nullable public Integer getInMemoryServerConfigsCacheSize();
-    method @NonNull public java.util.Set<java.lang.String> getQuicHostAllowlist();
   }
 
   public static final class QuicParams.Builder {
@@ -188,7 +188,10 @@ package android.net.http {
   public abstract class UrlRequest {
     method public abstract void cancel();
     method public abstract void followRedirect();
+    method @Nullable public abstract String getHttpMethod();
     method public abstract void getStatus(@NonNull android.net.http.UrlRequest.StatusListener);
+    method public abstract boolean isAllowDirectExecutor();
+    method public abstract boolean isDisableCache();
     method public abstract boolean isDone();
     method public abstract void read(@NonNull java.nio.ByteBuffer);
     method public abstract void start();
