@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00559136_75ab67e2",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-17T17:33:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9aca5a02_5ab0607a",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "bc02e7d363eb56888b582e8f70d23e0250640c04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5c7ac6e_11e7581d",
@@ -132,6 +156,30 @@
       "writtenOn": "2023-02-08T19:08:30Z",
       "side": 1,
       "message": "We discussed the cpp_std side effect yesterday and concluded that it\u0027s probably best / easiest just to add `cpp_std \u003d \u0027c++17\u0027` to the defaults here. This will effectively ensure that whenever there is a mismatch between host and target cpp versions, the lower one is picked (Chromium is transitioning from c++17 to c++20 as we speak). Once that transition has completed (and we theoretically do not encounter any more mismatches), we can raise the value to c++20.",
+      "range": {
+        "startLine": 1636,
+        "startChar": 2,
+        "endLine": 1636,
+        "endChar": 10
+      },
+      "revId": "bc02e7d363eb56888b582e8f70d23e0250640c04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47e7cdcb_e241c2a4",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1636,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-17T17:33:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5c7ac6e_11e7581d",
       "range": {
         "startLine": 1636,
         "startChar": 2,
