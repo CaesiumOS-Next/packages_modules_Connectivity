@@ -1430,6 +1430,35 @@ public class VpnTest extends VpnTestBase {
     }
 
     @Test
+    public void testVpnManagerVpnChangesLockdownModeForBypassableVpn() throws Exception {
+        // Vpn#setVpnForcedLocked() will call Vpn#createUserAndRestrictedProfilesRanges() and pass
+        // TEST_VPN_PKG as disallowedApplications to generate uid ranges.
+        // In createVpnAndSetupUidChecks(), it will mock Process.myUid() as the uid of TEST_VPN_PKG
+        // in order to pass the checks like Vpn#doesPackageHaveAppop(),
+        // Vpn#verifyCallingUidAndPackage().
+        // Since the user of Process.myUid() is system, if the VPN is not created for SYSTEM_USER,
+        // there will be a problem when generating uid ranges. For example, if Process.myUid() is
+        // 10100, and the VPN is created for PRIMARY_USER, the uid ranges will be like
+        // {2700000-10099}, {10101-2799999}, which is wrong. And in fact, the
+        // IllegalArgumentException will be thrown first when the upper is less than the lower.
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */),
+                true /* mtuSupportsIpv6 */, SYSTEM_USER);
+
+        // Enable VPN always-on for TEST_VPN_PKG.
+        assertTrue(vpnSnapShot.vpn.setAlwaysOnPackage(TEST_VPN_PKG, false /* lockdown */,
+                null /* lockdownAllowlist */));
+
+        // Change lockdown mode from false to true and expect that the VPN network agent will
+        // re-register.
+        assertTrue(vpnSnapShot.vpn.setAlwaysOnPackage(TEST_VPN_PKG, true /* lockdown */,
+                null /* lockdownAllowlist */));
+        // verifySetupPlatformVpn() has verified the first register().
+        verify(mMockNetworkAgent, times(2)).register();
+        verify(mMockNetworkAgent).unregister();
+    }
+
+    @Test
     public void testSetPackageAuthorizationVpnService() throws Exception {
         final Vpn vpn = createVpnAndSetupUidChecks();
 
@@ -1807,11 +1836,12 @@ public class VpnTest extends VpnTestBase {
 
     private PlatformVpnSnapshot verifySetupPlatformVpn(IkeSessionConfiguration ikeConfig)
             throws Exception {
-        return verifySetupPlatformVpn(ikeConfig, true);
+        return verifySetupPlatformVpn(ikeConfig, true, PRIMARY_USER);
     }
 
     private PlatformVpnSnapshot verifySetupPlatformVpn(
-            IkeSessionConfiguration ikeConfig, boolean mtuSupportsIpv6) throws Exception {
+            IkeSessionConfiguration ikeConfig, boolean mtuSupportsIpv6, UserInfo user)
+            throws Exception {
         if (!mtuSupportsIpv6) {
             doReturn(IPV6_MIN_MTU - 1).when(mTestDeps).calculateVpnMtu(any(), anyInt(), anyInt(),
                     anyBoolean());
@@ -1821,7 +1851,7 @@ public class VpnTest extends VpnTestBase {
                 .newNetworkAgent(
                         any(), any(), anyString(), any(), any(), any(), any(), any(), any());
 
-        final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
+        final Vpn vpn = createVpnAndSetupUidChecks(user, AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
         when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
 
@@ -1850,6 +1880,7 @@ public class VpnTest extends VpnTestBase {
         verify(mTestDeps).newNetworkAgent(
                 any(), any(), anyString(), ncCaptor.capture(), lpCaptor.capture(),
                 any(), nacCaptor.capture(), any(), any());
+        verify(mMockNetworkAgent).register();
 
         // Check LinkProperties
         final LinkProperties lp = lpCaptor.getValue();
@@ -1910,7 +1941,7 @@ public class VpnTest extends VpnTestBase {
         final PlatformVpnSnapshot vpnSnapShot =
                 verifySetupPlatformVpn(
                         createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */),
-                        false /* mtuSupportsIpv6 */);
+                        false /* mtuSupportsIpv6 */, PRIMARY_USER);
         vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
     }
 
