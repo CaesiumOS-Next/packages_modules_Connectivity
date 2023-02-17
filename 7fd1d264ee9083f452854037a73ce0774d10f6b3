@@ -22,6 +22,30 @@
       },
       "revId": "7fd1d264ee9083f452854037a73ce0774d10f6b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49d4ba4c_0909031d",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-02-17T15:33:07Z",
+      "side": 1,
+      "message": "The setter remained hidden and unhiding it didn\u0027t update the API snapshot properly due to build caching. Fixed now.",
+      "parentUuid": "d3d95011_51085831",
+      "range": {
+        "startLine": 62,
+        "startChar": 36,
+        "endLine": 62,
+        "endChar": 79
+      },
+      "revId": "7fd1d264ee9083f452854037a73ce0774d10f6b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
