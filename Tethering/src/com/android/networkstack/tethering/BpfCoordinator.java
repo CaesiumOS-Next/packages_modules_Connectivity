@@ -119,6 +119,8 @@ public class BpfCoordinator {
     private static final int DUMP_TIMEOUT_MS = 10_000;
     private static final MacAddress NULL_MAC_ADDRESS = MacAddress.fromString(
             "00:00:00:00:00:00");
+    private static final UpstreamInfo EMPTY_UPSTREAM = new UpstreamInfo(0 /* ifIndex */,
+            0 /* mtu */);
     private static final String TETHER_DOWNSTREAM4_MAP_PATH = makeMapPath(DOWNSTREAM, 4);
     private static final String TETHER_UPSTREAM4_MAP_PATH = makeMapPath(UPSTREAM, 4);
     private static final String TETHER_DOWNSTREAM6_FS_PATH = makeMapPath(DOWNSTREAM, 6);
@@ -900,6 +902,35 @@ public class BpfCoordinator {
         return mtu;
     }
 
+    @NonNull
+    private UpstreamInfo getUpstreamInfoV4(@Nullable UpstreamNetworkState ns) {
+        if (ns == null || ns.linkProperties == null) return EMPTY_UPSTREAM;
+
+        String upstreamIfaceName = null;
+        int upstreamIndex = 0;
+        int mtu = INVALID_MTU;
+
+        final String ifaceName = ns.linkProperties.getInterfaceName();
+        if (ns.linkProperties.hasIpv4Address()) {
+            upstreamIfaceName = ifaceName;
+        }
+
+        // No IPv4 address has found on the upstream.
+        if (upstreamIfaceName == null) return EMPTY_UPSTREAM;
+
+        // VCN interface is not supported.
+        if (isVcnInterface(upstreamIfaceName)) return EMPTY_UPSTREAM;
+
+        // Support raw ip upstream interface only. TODO: support ether ip upstream interface.
+        final InterfaceParams upstreamParams = mDeps.getInterfaceParams(upstreamIfaceName);
+        if (upstreamParams == null || upstreamParams.hasMacAddress) return EMPTY_UPSTREAM;
+
+        mtu = getMtu(upstreamIfaceName, ns.linkProperties);
+        upstreamIndex = upstreamParams.index;
+
+        return new UpstreamInfo(upstreamIndex, mtu);
+    }
+
     /**
      * Call when UpstreamNetworkState may be changed.
      * If upstream has ipv4 for tethering, update this new UpstreamNetworkState
@@ -911,24 +942,10 @@ public class BpfCoordinator {
     public void updateUpstreamNetworkState(UpstreamNetworkState ns) {
         if (!isUsingBpf()) return;
 
-        int upstreamIndex = 0;
-        int mtu = INVALID_MTU;
+        final UpstreamInfo currUpstreamInfo = getUpstreamInfoV4(ns);
 
-        // This will not work on a network that is using 464xlat because hasIpv4Address will not be
-        // true.
-        // TODO: need to consider 464xlat.
-        if (ns != null && ns.linkProperties != null && ns.linkProperties.hasIpv4Address()) {
-            // TODO: support ether ip upstream interface.
-            final String ifaceName = ns.linkProperties.getInterfaceName();
-            final InterfaceParams params = mDeps.getInterfaceParams(ifaceName);
-            final boolean isVcn = isVcnInterface(ifaceName);
-            mtu = getMtu(ifaceName, ns.linkProperties);
-
-            if (!isVcn && params != null && !params.hasMacAddress /* raw ip upstream only */) {
-                upstreamIndex = params.index;
-            }
-        }
-        if (mLastIPv4UpstreamIfindex == upstreamIndex) return;
+        // TODO: replace mLastIPv4UpstreamIfindex by mIpv4UpstreamInfo.
+        if (mLastIPv4UpstreamIfindex == currUpstreamInfo.ifIndex) return;
 
         // Clear existing rules if upstream interface is changed. The existing rules should be
         // cleared before upstream index mapping is cleared. It can avoid that ipServer or
@@ -945,22 +962,22 @@ public class BpfCoordinator {
 
         // Don't update mLastIPv4UpstreamIfindex before clearing existing rules if any. Need that
         // to tell if it is required to clean the out-of-date rules.
-        mLastIPv4UpstreamIfindex = upstreamIndex;
+        mLastIPv4UpstreamIfindex = currUpstreamInfo.ifIndex;
 
         // If link properties are valid, build the upstream information mapping. Otherwise, clear
         // the upstream interface index mapping, to ensure that any conntrack events that arrive
         // after the upstream is lost do not incorrectly add rules pointing at the upstream.
-        if (upstreamIndex == 0) {
+        if (currUpstreamInfo.ifIndex == 0) {
             mIpv4UpstreamIndices.clear();
             mIpv4UpstreamInfo = null;
             return;
         }
 
-        mIpv4UpstreamInfo = new UpstreamInfo(upstreamIndex, mtu);
+        mIpv4UpstreamInfo = currUpstreamInfo;
         Collection<InetAddress> addresses = ns.linkProperties.getAddresses();
-        for (final InetAddress addr: addresses) {
-            if (isValidUpstreamIpv4Address(addr)) {
-                mIpv4UpstreamIndices.put((Inet4Address) addr, upstreamIndex);
+        for (final InetAddress address: addresses) {
+            if (isValidUpstreamIpv4Address(address)) {
+                mIpv4UpstreamIndices.put((Inet4Address) address, currUpstreamInfo.ifIndex);
             }
         }
     }
