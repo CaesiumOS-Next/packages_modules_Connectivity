@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4cba24d_ed084a73",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1906,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-18T07:14:01Z",
+      "side": 1,
+      "message": "You should also update here to take 3 parameters?",
+      "range": {
+        "startLine": 1905,
+        "startChar": 48,
+        "endLine": 1906,
+        "endChar": 85
+      },
+      "revId": "1ec99a04afdc6eb08bf60859a71b88d5e9e3fefc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f3f46ea_9c9e32be",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1921,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-18T07:14:01Z",
+      "side": 1,
+      "message": "also here and usage in other places?",
+      "range": {
+        "startLine": 1921,
+        "startChar": 48,
+        "endLine": 1921,
+        "endChar": 70
+      },
+      "revId": "1ec99a04afdc6eb08bf60859a71b88d5e9e3fefc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
