@@ -267,13 +267,9 @@ public class BpfCoordinator {
     // BpfCoordinatorTest needs predictable iteration order.
     private final Set<Integer> mDeviceMapSet = new LinkedHashSet<>();
 
-    // Tracks the last IPv4 upstream index. Support single upstream only.
-    // TODO: Support multi-upstream interfaces.
-    private int mLastIPv4UpstreamIfindex = 0;
-
     // Tracks the IPv4 upstream interface information.
     @Nullable
-    private UpstreamInfo mIpv4UpstreamInfo = null;
+    private UpstreamInfo mIpv4UpstreamInfo = EMPTY_UPSTREAM;
 
     // Runnable that used by scheduling next polling of stats.
     private final Runnable mScheduledPollingStats = () -> {
@@ -944,8 +940,7 @@ public class BpfCoordinator {
 
         final UpstreamInfo currUpstreamInfo = getUpstreamInfoV4(ns);
 
-        // TODO: replace mLastIPv4UpstreamIfindex by mIpv4UpstreamInfo.
-        if (mLastIPv4UpstreamIfindex == currUpstreamInfo.ifIndex) return;
+        if (mIpv4UpstreamInfo.ifIndex == currUpstreamInfo.ifIndex) return;
 
         // Clear existing rules if upstream interface is changed. The existing rules should be
         // cleared before upstream index mapping is cleared. It can avoid that ipServer or
@@ -953,27 +948,25 @@ public class BpfCoordinator {
         // key while removeing the rules. Can't notify each IpServer to clear the rules as
         // IPv6TetheringCoordinator#updateUpstreamNetworkState because the IpServer may not
         // handle the upstream changing notification before changing upstream index mapping.
-        if (mLastIPv4UpstreamIfindex != 0) {
+        if (mIpv4UpstreamInfo.ifIndex != 0) {
             // Clear all forwarding IPv4 rules for all downstreams.
             for (final IpServer ipserver : mTetherClients.keySet()) {
                 tetherOffloadRule4Clear(ipserver);
             }
         }
 
-        // Don't update mLastIPv4UpstreamIfindex before clearing existing rules if any. Need that
+        // Don't update mIpv4UpstreamInfo before clearing existing rules if any. Need that
         // to tell if it is required to clean the out-of-date rules.
-        mLastIPv4UpstreamIfindex = currUpstreamInfo.ifIndex;
+        mIpv4UpstreamInfo = currUpstreamInfo;
 
         // If link properties are valid, build the upstream information mapping. Otherwise, clear
         // the upstream interface index mapping, to ensure that any conntrack events that arrive
         // after the upstream is lost do not incorrectly add rules pointing at the upstream.
         if (currUpstreamInfo.ifIndex == 0) {
             mIpv4UpstreamIndices.clear();
-            mIpv4UpstreamInfo = null;
             return;
         }
 
-        mIpv4UpstreamInfo = currUpstreamInfo;
         Collection<InetAddress> addresses = ns.linkProperties.getAddresses();
         for (final InetAddress address: addresses) {
             if (isValidUpstreamIpv4Address(address)) {
@@ -1119,7 +1112,7 @@ public class BpfCoordinator {
         pw.decreaseIndent();
 
         pw.println("IPv4 Upstream Information: "
-                + (mIpv4UpstreamInfo != null ? mIpv4UpstreamInfo : "<empty>"));
+                + (mIpv4UpstreamInfo != EMPTY_UPSTREAM ? mIpv4UpstreamInfo : "<empty>"));
 
         pw.println();
         pw.println("Forwarding counters:");
@@ -1865,7 +1858,8 @@ public class BpfCoordinator {
                 return;
             }
 
-            if (mIpv4UpstreamInfo == null || mIpv4UpstreamInfo.ifIndex != upstreamIndex) return;
+            if (mIpv4UpstreamInfo == EMPTY_UPSTREAM
+                    || mIpv4UpstreamInfo.ifIndex != upstreamIndex) return;
 
             final Tether4Value upstream4Value = makeTetherUpstream4Value(e, mIpv4UpstreamInfo);
             final Tether4Value downstream4Value = makeTetherDownstream4Value(e, tetherClient,
