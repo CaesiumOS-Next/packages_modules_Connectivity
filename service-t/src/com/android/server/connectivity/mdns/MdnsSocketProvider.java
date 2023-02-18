@@ -64,6 +64,7 @@ public class MdnsSocketProvider {
     // But 1440 should generally be enough because of standard Ethernet.
     // Note: mdnsresponder mDNSEmbeddedAPI.h uses 8940 for Ethernet jumbo frames.
     private static final int READ_BUFFER_SIZE = 2048;
+    private static final int EVENT_UNREGISTER_NETWORK_CALLBACK = 1;
     private static final MdnsLogger LOGGER = new MdnsLogger(TAG);
     @NonNull private final Context mContext;
     @NonNull private final Looper mLooper;
@@ -195,22 +196,32 @@ public class MdnsSocketProvider {
         mMonitoringSockets = true;
     }
 
-    /*** Stop monitoring sockets and unregister callbacks */
-    public void stopMonitoringSockets() {
+    private void processUnregisterCallback() {
+        if (!mMonitoringSockets) return; // Already unregistered.
+
+        // Only unregister the network callback if there is no socket request.
+        if (mCallbacksToRequestedNetworks.isEmpty()) {
+            mContext.getSystemService(ConnectivityManager.class)
+                    .unregisterNetworkCallback(mNetworkCallback);
+
+            final TetheringManager tetheringManager = mContext.getSystemService(
+                    TetheringManager.class);
+            tetheringManager.unregisterTetheringEventCallback(mTetheringEventCallback);
+
+            mHandler.post(mNetlinkMonitor::stop);
+            mMonitoringSockets = false;
+        }
+    }
+
+    /*** Request to stop monitoring sockets and unregister callbacks */
+    public void requestStopWhenInactive() {
         ensureRunningOnHandlerThread(mHandler);
         if (!mMonitoringSockets) {
             Log.d(TAG, "Monitoring sockets hasn't been started.");
             return;
         }
-        if (DBG) Log.d(TAG, "Stop monitoring sockets.");
-        mContext.getSystemService(ConnectivityManager.class)
-                .unregisterNetworkCallback(mNetworkCallback);
-
-        final TetheringManager tetheringManager = mContext.getSystemService(TetheringManager.class);
-        tetheringManager.unregisterTetheringEventCallback(mTetheringEventCallback);
-
-        mHandler.post(mNetlinkMonitor::stop);
-        mMonitoringSockets = false;
+        if (DBG) Log.d(TAG, "Try to stop monitoring sockets.");
+        processUnregisterCallback();
     }
 
     /*** Check whether the target network is matched current network */
@@ -448,6 +459,34 @@ public class MdnsSocketProvider {
             info.mSocket.destroy();
             // Still notify to unrequester for socket destroy.
             cb.onInterfaceDestroyed(new Network(INetd.LOCAL_NET_ID), info.mSocket);
+        }
+        mTetherInterfaceSockets.clear();
+
+        // Prcoess network callback unregistration if there is no request..
+        if (mCallbacksToRequestedNetworks.isEmpty()) {
+            processUnregisterCallback();
+        }
+    }
+
+    private void destroySockets(@Nullable SocketCallback cb) {
+        // Check if remaining requests are matched any of sockets.
+        for (int i = mNetworkSockets.size() - 1; i >= 0; i--) {
+            final Network network = mNetworkSockets.keyAt(i);
+            if (matchRequestedNetwork(network)) continue;
+            final SocketInfo info = mNetworkSockets.removeAt(i);
+            info.mSocket.destroy();
+            // Still notify to unrequester for socket destroy.
+            if (cb != null) cb.onInterfaceDestroyed(network, info.mSocket);
+        }
+
+        // Remove all sockets for tethering interface because these sockets do not have associated
+        // networks, and they should invoke by a request for all networks (interfaces). If there is
+        // no such request, the sockets for tethering interface should be removed.
+        for (int i = mTetherInterfaceSockets.size() - 1; i >= 0; i--) {
+            final SocketInfo info = mTetherInterfaceSockets.valueAt(i);
+            info.mSocket.destroy();
+            // Still notify to unrequester for socket destroy.
+            if (cb != null) cb.onInterfaceDestroyed(new Network(INetd.LOCAL_NET_ID), info.mSocket);
         }
         mTetherInterfaceSockets.clear();
     }
