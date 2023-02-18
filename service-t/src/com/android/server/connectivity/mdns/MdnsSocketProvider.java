@@ -195,22 +195,32 @@ public class MdnsSocketProvider {
         mMonitoringSockets = true;
     }
 
-    /*** Stop monitoring sockets and unregister callbacks */
-    public void stopMonitoringSockets() {
+    private void processUnregisterCallback() {
+        if (!mMonitoringSockets) return; // Already unregistered.
+
+        // Only unregister the network callback if there is no socket request.
+        if (mCallbacksToRequestedNetworks.isEmpty()) {
+            mContext.getSystemService(ConnectivityManager.class)
+                    .unregisterNetworkCallback(mNetworkCallback);
+
+            final TetheringManager tetheringManager = mContext.getSystemService(
+                    TetheringManager.class);
+            tetheringManager.unregisterTetheringEventCallback(mTetheringEventCallback);
+
+            mHandler.post(mNetlinkMonitor::stop);
+            mMonitoringSockets = false;
+        }
+    }
+
+    /*** Request to stop monitoring sockets and unregister callbacks */
+    public void requestStopWhenInactive() {
         ensureRunningOnHandlerThread(mHandler);
         if (!mMonitoringSockets) {
             Log.d(TAG, "Monitoring sockets hasn't been started.");
             return;
         }
-        if (DBG) Log.d(TAG, "Stop monitoring sockets.");
-        mContext.getSystemService(ConnectivityManager.class)
-                .unregisterNetworkCallback(mNetworkCallback);
-
-        final TetheringManager tetheringManager = mContext.getSystemService(TetheringManager.class);
-        tetheringManager.unregisterTetheringEventCallback(mTetheringEventCallback);
-
-        mHandler.post(mNetlinkMonitor::stop);
-        mMonitoringSockets = false;
+        if (DBG) Log.d(TAG, "Try to stop monitoring sockets.");
+        processUnregisterCallback();
     }
 
     /*** Check whether the target network is matched current network */
@@ -450,6 +460,11 @@ public class MdnsSocketProvider {
             cb.onInterfaceDestroyed(new Network(INetd.LOCAL_NET_ID), info.mSocket);
         }
         mTetherInterfaceSockets.clear();
+
+        // Prcoess network callback unregistration if there is no request..
+        if (mCallbacksToRequestedNetworks.isEmpty()) {
+            processUnregisterCallback();
+        }
     }
 
     /*** Callbacks for listening socket changes */
