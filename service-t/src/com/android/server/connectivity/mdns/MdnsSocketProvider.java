@@ -30,6 +30,7 @@ import android.net.TetheringManager;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.system.OsConstants;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -64,6 +65,7 @@ public class MdnsSocketProvider {
     // But 1440 should generally be enough because of standard Ethernet.
     // Note: mdnsresponder mDNSEmbeddedAPI.h uses 8940 for Ethernet jumbo frames.
     private static final int READ_BUFFER_SIZE = 2048;
+    private static final int EVENT_UNREGISTER_NETWORK_CALLBACK = 1;
     private static final MdnsLogger LOGGER = new MdnsLogger(TAG);
     @NonNull private final Context mContext;
     @NonNull private final Looper mLooper;
@@ -91,7 +93,7 @@ public class MdnsSocketProvider {
             @NonNull Dependencies deps) {
         mContext = context;
         mLooper = looper;
-        mHandler = new Handler(looper);
+        mHandler = new InternalHandler(looper);
         mDependencies = deps;
         mNetworkCallback = new NetworkCallback() {
             @Override
@@ -168,6 +170,23 @@ public class MdnsSocketProvider {
         }
     }
 
+    private class InternalHandler extends Handler {
+        InternalHandler(Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case EVENT_UNREGISTER_NETWORK_CALLBACK:
+                    processUnregisterCallback();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     /*** Ensure that current running thread is same as given handler thread */
     public static void ensureRunningOnHandlerThread(Handler handler) {
         if (handler.getLooper().getThread() != Thread.currentThread()) {
@@ -181,6 +200,10 @@ public class MdnsSocketProvider {
         ensureRunningOnHandlerThread(mHandler);
         if (mMonitoringSockets) {
             Log.d(TAG, "Already monitoring sockets.");
+            // Remove the network callback unregistration event if it is processing.
+            if (mHandler.hasMessages(EVENT_UNREGISTER_NETWORK_CALLBACK)) {
+                mHandler.removeMessages(EVENT_UNREGISTER_NETWORK_CALLBACK);
+            }
             return;
         }
         if (DBG) Log.d(TAG, "Start monitoring sockets.");
@@ -195,6 +218,30 @@ public class MdnsSocketProvider {
         mMonitoringSockets = true;
     }
 
+    private void processUnregisterCallback() {
+        if (!mMonitoringSockets) return; // Already unregistered.
+
+        // Only unregister the network callback if there is no socket request.
+        if (mCallbacksToRequestedNetworks.isEmpty()) {
+            mContext.getSystemService(ConnectivityManager.class)
+                    .unregisterNetworkCallback(mNetworkCallback);
+
+            final TetheringManager tetheringManager = mContext.getSystemService(
+                    TetheringManager.class);
+            tetheringManager.unregisterTetheringEventCallback(mTetheringEventCallback);
+
+            mHandler.post(mNetlinkMonitor::stop);
+            destroySockets(null);
+            mMonitoringSockets = false;
+        } else {
+            if (DBG) Log.d(TAG, "Unregister network callbacks until all sockets are unrequested.");
+            // Ignore the stop because there is still a socket request. Unregister network callbacks
+            // until all sockets are unrequested.
+            mHandler.sendMessageDelayed(
+                    mHandler.obtainMessage(EVENT_UNREGISTER_NETWORK_CALLBACK), 200L);
+        }
+    }
+
     /*** Stop monitoring sockets and unregister callbacks */
     public void stopMonitoringSockets() {
         ensureRunningOnHandlerThread(mHandler);
@@ -203,14 +250,7 @@ public class MdnsSocketProvider {
             return;
         }
         if (DBG) Log.d(TAG, "Stop monitoring sockets.");
-        mContext.getSystemService(ConnectivityManager.class)
-                .unregisterNetworkCallback(mNetworkCallback);
-
-        final TetheringManager tetheringManager = mContext.getSystemService(TetheringManager.class);
-        tetheringManager.unregisterTetheringEventCallback(mTetheringEventCallback);
-
-        mHandler.post(mNetlinkMonitor::stop);
-        mMonitoringSockets = false;
+        processUnregisterCallback();
     }
 
     /*** Check whether the target network is matched current network */
@@ -430,6 +470,18 @@ public class MdnsSocketProvider {
             return;
         }
 
+        // Try to destroy socket if no request is matched.
+        destroySockets(cb);
+
+        // Check if there is a pending network callback unregistration.
+        if (mCallbacksToRequestedNetworks.isEmpty()
+                && mHandler.hasMessages(EVENT_UNREGISTER_NETWORK_CALLBACK)) {
+            mHandler.removeMessages(EVENT_UNREGISTER_NETWORK_CALLBACK);
+            processUnregisterCallback();
+        }
+    }
+
+    private void destroySockets(@Nullable SocketCallback cb) {
         // Check if remaining requests are matched any of sockets.
         for (int i = mNetworkSockets.size() - 1; i >= 0; i--) {
             final Network network = mNetworkSockets.keyAt(i);
@@ -437,7 +489,7 @@ public class MdnsSocketProvider {
             final SocketInfo info = mNetworkSockets.removeAt(i);
             info.mSocket.destroy();
             // Still notify to unrequester for socket destroy.
-            cb.onInterfaceDestroyed(network, info.mSocket);
+            if (cb != null) cb.onInterfaceDestroyed(network, info.mSocket);
         }
 
         // Remove all sockets for tethering interface because these sockets do not have associated
@@ -447,7 +499,7 @@ public class MdnsSocketProvider {
             final SocketInfo info = mTetherInterfaceSockets.valueAt(i);
             info.mSocket.destroy();
             // Still notify to unrequester for socket destroy.
-            cb.onInterfaceDestroyed(new Network(INetd.LOCAL_NET_ID), info.mSocket);
+            if (cb != null) cb.onInterfaceDestroyed(new Network(INetd.LOCAL_NET_ID), info.mSocket);
         }
         mTetherInterfaceSockets.clear();
     }
