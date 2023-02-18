@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f70c03e_45e8643a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-18T07:54:11Z",
+      "side": 1,
+      "message": "I tried to generate some traffic on S device(only collect few days data) and push the dataset to U device. I can import the usage succefully.",
+      "parentUuid": "c9dd0942_7788da43",
+      "revId": "2e18f3ed8f7723ed197edc1f5495d0fccf2cab66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5731019e_3755c9b8",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-07T03:57:40Z",
       "side": 1,
       "message": "This changes the format of the EventLog, which OEMs might be depending on.\n\nAt least before U, the same format should be kept; maybe just use the xtTotal values there ?",
+      "revId": "2e18f3ed8f7723ed197edc1f5495d0fccf2cab66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd86f6ef_849d6bab",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2405,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-18T07:54:11Z",
+      "side": 1,
+      "message": "Done. aosp/2432572",
+      "parentUuid": "5731019e_3755c9b8",
       "revId": "2e18f3ed8f7723ed197edc1f5495d0fccf2cab66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
