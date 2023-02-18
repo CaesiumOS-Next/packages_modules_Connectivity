@@ -167,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6e34501_b180d638",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-18T05:50:51Z",
+      "side": 1,
+      "message": "Maybe there already have null data in the record so it looks this case should be handled. Keep this unresolved since this might need more discussion about if this kind of data should be returned to a general wildcard query or not.",
+      "parentUuid": "f6bcaa23_3c88b49e",
+      "range": {
+        "startLine": 585,
+        "startChar": 12,
+        "endLine": 585,
+        "endChar": 18
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "366f00b6_a7d4d309",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 8
@@ -178,6 +202,30 @@
       "writtenOn": "2023-02-17T04:40:04Z",
       "side": 1,
       "message": "What does it mean for mMatchWifiNetworkKeys to contain null ?",
+      "range": {
+        "startLine": 588,
+        "startChar": 44,
+        "endLine": 588,
+        "endChar": 65
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e27a6275_2fe0a534",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-18T05:50:51Z",
+      "side": 1,
+      "message": "I think we don\u0027t want to have null in the keys, however, we did not really restrict it in all constructors.\nSome removed constructors/buildTemplate* (such like `buildTemplateWifi(@Nullable String wifiNetworkKey,@Nullable String subscriberId)`) will use `wifiNetworkKey \u003d\u003d null ? new String[0] : new String[] {wifiNetworkKey}` to avoid mMatchWifiNetworkKeys to contain null.\n\nIf users use the Builder then [NetworkTemplate.Builder#setWifiNetworkKeys](https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/framework-t/src/android/net/NetworkTemplate.java;l\u003d817?q\u003dNetworkTemplate.java\u0026sq\u003dpackage:aosp-master%20file:.) will throw IAE if there\u0027s a key is null.\n\nToday only the @hide [constructor](https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/framework-t/src/android/net/NetworkTemplate.java;l\u003d308?q\u003dNetworkTemplate.java\u0026sq\u003dpackage:aosp-master%20file:.) could build a template with mMatchWifiNetworkKeys that contains null.",
+      "parentUuid": "366f00b6_a7d4d309",
       "range": {
         "startLine": 588,
         "startChar": 44,
@@ -253,6 +301,30 @@
         "startChar": 68,
         "endLine": 135,
         "endChar": 16
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5454113b_34b49d43",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-18T05:50:51Z",
+      "side": 1,
+      "message": "We sure that is TYPE_WIFI and a wildcard query doesn\u0027t care about the key. So, I think as long as the type is TYPE_WIFI, the data should be found by wildcard template.\n\nOr do you think now that if we don\u0027t record a data that contains null wifiNetworkKey then the data that containds null key should not be returned?",
+      "parentUuid": "be4a733f_529f2127",
+      "range": {
+        "startLine": 135,
+        "startChar": 18,
+        "endLine": 135,
+        "endChar": 70
       },
       "revId": "e7b6657b766634f583a8e019686474577e06a636",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"

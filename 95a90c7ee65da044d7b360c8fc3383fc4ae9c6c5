@@ -67,6 +67,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "21d54827_33c01ae3",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-18T05:50:51Z",
+      "side": 1,
+      "message": "Done. Try to not add the data to identity set.",
+      "parentUuid": "c2a66614_3c5019cf",
+      "range": {
+        "startLine": 417,
+        "startChar": 19,
+        "endLine": 417,
+        "endChar": 53
+      },
+      "revId": "95a90c7ee65da044d7b360c8fc3383fc4ae9c6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0a70b78c_dd60210b",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 5

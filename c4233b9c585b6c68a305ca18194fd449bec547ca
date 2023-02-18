@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9bff43f_fbc384f4",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-18T05:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "235815e8_59066595",
+      "range": {
+        "startLine": 580,
+        "startChar": 88,
+        "endLine": 580,
+        "endChar": 97
+      },
+      "revId": "c4233b9c585b6c68a305ca18194fd449bec547ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14ac5e37_a7dfccee",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-18T03:12:44Z",
       "side": 1,
       "message": "exceeed line limit?",
+      "range": {
+        "startLine": 134,
+        "startChar": 100,
+        "endLine": 134,
+        "endChar": 101
+      },
+      "revId": "c4233b9c585b6c68a305ca18194fd449bec547ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34253939_55d878e4",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-18T05:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14ac5e37_a7dfccee",
       "range": {
         "startLine": 134,
         "startChar": 100,
