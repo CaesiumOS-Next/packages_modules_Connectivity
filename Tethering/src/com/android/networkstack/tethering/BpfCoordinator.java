@@ -1089,6 +1089,35 @@ public class BpfCoordinator {
         return mtu;
     }
 
+    @Nullable
+    private UpstreamInfo getUpstreamInfoV4(@Nullable UpstreamNetworkState ns) {
+        if (ns == null || ns.linkProperties == null) return null;
+
+        String upstreamIfaceName = null;
+        int upstreamIndex = NO_UPSTREAM;
+        int mtu = INVALID_MTU;
+
+        final String ifaceName = ns.linkProperties.getInterfaceName();
+        if (ns.linkProperties.hasIpv4Address()) {
+            upstreamIfaceName = ifaceName;
+        }
+
+        // No IPv4 address has found on the upstream.
+        if (upstreamIfaceName == null) return null;
+
+        // VCN interface is not supported.
+        if (isVcnInterface(upstreamIfaceName)) return null;
+
+        // Support raw ip upstream interface only. TODO: support ether ip upstream interface.
+        final InterfaceParams upstreamParams = mDeps.getInterfaceParams(upstreamIfaceName);
+        if (upstreamParams == null || upstreamParams.hasMacAddress) return null;
+
+        mtu = getMtu(upstreamIfaceName, ns.linkProperties);
+        upstreamIndex = upstreamParams.index;
+
+        return new UpstreamInfo(upstreamIfaceName, upstreamIndex, mtu);
+    }
+
     /**
      * Call when UpstreamNetworkState may be changed.
      * If upstream has ipv4 for tethering, update this new UpstreamNetworkState
@@ -1100,23 +1129,11 @@ public class BpfCoordinator {
     public void updateUpstreamNetworkState(UpstreamNetworkState ns) {
         if (!isUsingBpf()) return;
 
-        int upstreamIndex = 0;
-        int mtu = INVALID_MTU;
+        final UpstreamInfo currUpstreamInfo = getUpstreamInfoV4(ns);
 
-        // This will not work on a network that is using 464xlat because hasIpv4Address will not be
-        // true.
-        // TODO: need to consider 464xlat.
-        if (ns != null && ns.linkProperties != null && ns.linkProperties.hasIpv4Address()) {
-            // TODO: support ether ip upstream interface.
-            final String ifaceName = ns.linkProperties.getInterfaceName();
-            final InterfaceParams params = mDeps.getInterfaceParams(ifaceName);
-            final boolean isVcn = isVcnInterface(ifaceName);
-            mtu = getMtu(ifaceName, ns.linkProperties);
-
-            if (!isVcn && params != null && !params.hasMacAddress /* raw ip upstream only */) {
-                upstreamIndex = params.index;
-            }
-        }
+        final int upstreamIndex = (currUpstreamInfo != null)
+                ? currUpstreamInfo.ifIndex
+                : NO_UPSTREAM;
         if (mLastIPv4UpstreamIfindex == upstreamIndex) return;
 
         // Clear existing rules if upstream interface is changed. The existing rules should be
@@ -1145,11 +1162,11 @@ public class BpfCoordinator {
             return;
         }
 
-        mIpv4UpstreamInfo = new UpstreamInfo(upstreamIndex, mtu);
+        mIpv4UpstreamInfo = currUpstreamInfo;
         Collection<InetAddress> addresses = ns.linkProperties.getAddresses();
-        for (final InetAddress addr: addresses) {
-            if (isValidUpstreamIpv4Address(addr)) {
-                mIpv4UpstreamIndices.put((Inet4Address) addr, upstreamIndex);
+        for (final InetAddress address: addresses) {
+            if (isValidUpstreamIpv4Address(address)) {
+                mIpv4UpstreamIndices.put((Inet4Address) address, upstreamIndex);
             }
         }
     }
@@ -1876,22 +1893,24 @@ public class BpfCoordinator {
     /** Upstream information class. */
     private static final class UpstreamInfo {
         // TODO: add clat interface information
+        public final String ifName;
         public final int ifIndex;
         public final int mtu;
 
-        private UpstreamInfo(final int ifIndex, final int mtu) {
+        private UpstreamInfo(@NonNull final String ifName, final int ifIndex, final int mtu) {
+            this.ifName = ifName;
             this.ifIndex = ifIndex;
             this.mtu = mtu;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(ifIndex, mtu);
+            return Objects.hash(ifName, ifIndex, mtu);
         }
 
         @Override
         public String toString() {
-            return String.format("ifIndex: %d, mtu: %d", ifIndex, mtu);
+            return String.format("ifName: %s, ifIndex: %d, mtu: %d", ifName, ifIndex, mtu);
         }
     }
 
