@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88194f0f_cb44aae6",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T03:50:35Z",
+      "side": 1,
+      "message": "Or you can rename it to more explicitly",
+      "parentUuid": "5ef612a9_0bd73ae5",
+      "range": {
+        "startLine": 1082,
+        "startChar": 8,
+        "endLine": 1082,
+        "endChar": 27
+      },
+      "revId": "a8d66bccdc6ef19dce3c1ef23a1299955ab1934c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "09d4052a_5dda6ff9",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 4
