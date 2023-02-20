@@ -135,6 +135,12 @@ package android.net {
     field @NonNull public static final android.os.Parcelable.Creator<android.net.DhcpOption> CREATOR;
   }
 
+  public final class LinkProperties implements android.os.Parcelable {
+    method public boolean addAssignedPrefix(@NonNull android.net.IpPrefix);
+    method @NonNull public java.util.List<android.net.IpPrefix> getAssignedPrefixes();
+    method public boolean removeAssignedPrefix(@NonNull android.net.IpPrefix);
+  }
+
   public final class NetworkAgentConfig implements android.os.Parcelable {
     method @Nullable public String getSubscriberId();
     method public boolean isBypassableVpn();

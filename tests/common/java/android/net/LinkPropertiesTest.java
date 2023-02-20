@@ -103,6 +103,8 @@ public class LinkPropertiesTest {
     private static final LinkAddress LINKADDRV6 = new LinkAddress(ADDRV6, 128);
     private static final LinkAddress LINKADDRV6LINKLOCAL = new LinkAddress("fe80::1/64");
     private static final Uri CAPPORT_API_URL = Uri.parse("https://test.example.com/capportapi");
+    private static final IpPrefix TEST_IPV4_PREFIX = new IpPrefix("75.208.6.0/24");
+    private static final IpPrefix TEST_IPV6_PREFIX = new IpPrefix("2001:0db8:85a3:0001::/64");
 
     // CaptivePortalData cannot be in a constant as it does not exist on Q.
     // The test runner also crashes when scanning for tests if it is a return type.
@@ -1359,5 +1361,86 @@ public class LinkPropertiesTest {
     @DisableCompatChanges({ConnectivityCompatChanges.EXCLUDED_ROUTES})
     public void testExcludedRoutesDisabledByCompatChange() {
         checkExcludeRoutesNotVisibleAfterS();
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testAssignedPrefix() {
+        final LinkProperties lp = makeTestObject();
+
+        // Add prefix
+        lp.addAssignedPrefix(TEST_IPV4_PREFIX);
+        lp.addAssignedPrefix(TEST_IPV6_PREFIX);
+        assertEquals(2, lp.getAssignedPrefixes().size());
+
+        // Add same prefix but different prefix length
+        final IpPrefix prefix = new IpPrefix("2001:0db8:85a3:0001::/80");
+        lp.addAssignedPrefix(prefix);
+        assertEquals(3, lp.getAssignedPrefixes().size());
+
+        // Add null prefix
+        lp.addAssignedPrefix(null);
+        assertEquals(3, lp.getAssignedPrefixes().size());
+
+        // Compare the LinkProperties
+        assertLinkPropertiesEqual(lp, new LinkProperties(lp));
+
+        // Remove null prefix
+        lp.removeAssignedPrefix(null);
+        assertEquals(3, lp.getAssignedPrefixes().size());
+
+        // Remove the prefixes added before
+        lp.removeAssignedPrefix(TEST_IPV4_PREFIX);
+        assertEquals(2, lp.getAssignedPrefixes().size());
+        lp.removeAssignedPrefix(TEST_IPV6_PREFIX);
+        assertEquals(1, lp.getAssignedPrefixes().size());
+
+        // Clear the LinkProperties
+        lp.clear();
+        assertEquals(0, lp.getAssignedPrefixes().size());
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testAssignedPrefixesParceling() throws Exception {
+        final LinkProperties lp = new LinkProperties();
+        lp.addAssignedPrefix(TEST_IPV4_PREFIX);
+        lp.addAssignedPrefix(TEST_IPV6_PREFIX);
+        final LinkProperties unparceled = parcelingRoundTrip(lp);
+        assertEquals(2, unparceled.getAssignedPrefixes().size());
+        assertEquals(TEST_IPV4_PREFIX, unparceled.getAssignedPrefixes().get(0));
+        assertEquals(TEST_IPV6_PREFIX, unparceled.getAssignedPrefixes().get(1));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testIdenticalAssignedPrefixes() throws Exception {
+        final LinkProperties source = makeTestObject();
+        source.addAssignedPrefix(TEST_IPV4_PREFIX);
+        source.addAssignedPrefix(TEST_IPV6_PREFIX);
+
+        final LinkProperties target = makeTestObject();
+        target.addAssignedPrefix(TEST_IPV6_PREFIX);
+
+        // different list size
+        assertFalse(source.isIdenticalAssignedPrefixes(target));
+
+        // different order of prefix is fine
+        target.addAssignedPrefix(TEST_IPV4_PREFIX);
+        assertTrue(source.isIdenticalAssignedPrefixes(target));
+
+        // same IPv6 prefix but different prefix length
+        final IpPrefix v6Prefix = new IpPrefix("2001:0db8:85a3:0001::/80");
+        target.removeAssignedPrefix(TEST_IPV6_PREFIX);
+        target.addAssignedPrefix(v6Prefix);
+        assertFalse(source.isIdenticalAssignedPrefixes(target));
+        target.removeAssignedPrefix(v6Prefix);
+
+        // same IPv4 prefix but different prefix length
+        final IpPrefix v4Prefix = new IpPrefix("75.208.6.0/27");
+        target.removeAssignedPrefix(TEST_IPV4_PREFIX);
+        target.addAssignedPrefix(v4Prefix);
+        target.addAssignedPrefix(TEST_IPV6_PREFIX);
+        assertFalse(source.isIdenticalAssignedPrefixes(target));
     }
 }
