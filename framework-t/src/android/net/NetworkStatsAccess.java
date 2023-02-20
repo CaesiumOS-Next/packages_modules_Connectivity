@@ -142,8 +142,14 @@ public final class NetworkStatsAccess {
         }
 
         //TODO(b/169395065) Figure out if this flow makes sense in Device Owner mode.
-        boolean isProfileOwner = mDpm != null && (mDpm.isProfileOwnerApp(callingPackage)
-                || mDpm.isDeviceOwnerApp(callingPackage));
+        final boolean isProfileOwner;
+        Binder.clearCallingIdentity();
+        try {
+            isProfileOwner = mDpm != null && (mDpm.isProfileOwnerApp(callingPackage)
+                    || mDpm.isDeviceOwnerApp(callingPackage));
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
         if (isProfileOwner) {
             // Apps with the AppOps permission, profile owners, and apps with the privileged
             // permission can access data usage for all apps in this user/profile.
