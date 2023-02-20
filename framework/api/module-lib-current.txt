@@ -139,6 +139,12 @@ package android.net {
     field @NonNull public static final android.os.Parcelable.Creator<android.net.DhcpOption> CREATOR;
   }
 
+  public final class LinkProperties implements android.os.Parcelable {
+    method @FlaggedApi("com.android.net.flags.support_delegated_prefixes") public boolean addDelegatedPrefix(@NonNull android.net.IpPrefix);
+    method @FlaggedApi("com.android.net.flags.support_delegated_prefixes") @NonNull public java.util.Set<android.net.IpPrefix> getDelegatedPrefixes();
+    method @FlaggedApi("com.android.net.flags.support_delegated_prefixes") public boolean removeDelegatedPrefix(@NonNull android.net.IpPrefix);
+  }
+
   public final class NetworkAgentConfig implements android.os.Parcelable {
     method @Nullable public String getSubscriberId();
     method public boolean isBypassableVpn();
