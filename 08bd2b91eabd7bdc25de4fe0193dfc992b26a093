@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80ba380f_92e67a9b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T02:45:44Z",
+      "side": 1,
+      "message": "This could just be { it }. But maybe this is a bit more readable",
+      "range": {
+        "startLine": 788,
+        "startChar": 16,
+        "endLine": 790,
+        "endChar": 17
+      },
+      "revId": "08bd2b91eabd7bdc25de4fe0193dfc992b26a093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2203b26_1c0b258e",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T02:45:44Z",
+      "side": 1,
+      "message": "For posterity, it would be good to have a comment to explain why this check is there (IIUC the sepolicy is implemented in the vendor image, so the access may not be blocked otherwise)",
+      "revId": "08bd2b91eabd7bdc25de4fe0193dfc992b26a093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
