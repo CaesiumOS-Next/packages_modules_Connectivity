@@ -1655,7 +1655,8 @@ public class ConnectivityManagerTest {
         final NetworkCapabilities nc = mCm.getNetworkCapabilities(network);
 
         // Get number of supported concurrent keepalives for testing network.
-        final int[] keepalivesPerTransport = KeepaliveUtils.getSupportedKeepalives(mContext);
+        final int[] keepalivesPerTransport = runAsShell(NETWORK_SETTINGS,
+                () -> mCm.getSupportedKeepalives());
         return KeepaliveUtils.getSupportedKeepalivesForNetworkCapabilities(
                 keepalivesPerTransport, nc);
     }
@@ -1670,6 +1671,8 @@ public class ConnectivityManagerTest {
      * keepalives is set to 0.
      */
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
+    // getSupportedKeepalives is available in updatable ConnectivityManager (S+)
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S)
     @Test
     public void testKeepaliveWifiUnsupported() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
@@ -1686,6 +1689,8 @@ public class ConnectivityManagerTest {
     }
 
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
+    // getSupportedKeepalives is available in updatable ConnectivityManager (S+)
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S)
     @Test
     @RequiresDevice // Keepalive is not supported on virtual hardware
     public void testCreateTcpKeepalive() throws Exception {
