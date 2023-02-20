@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dac8ace_631a79c1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T07:45:25Z",
+      "side": 1,
+      "message": "Miss nullability",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 13
+      },
+      "revId": "9588117608a775c7407b4c9e851b2dde25f9b5ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "609bffbb_0ba708b7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T07:45:25Z",
+      "side": 1,
+      "message": "Also ignore the check if the response has all records? Use response#isComplete() to check.",
+      "range": {
+        "startLine": 121,
+        "startChar": 51,
+        "endLine": 121,
+        "endChar": 60
+      },
+      "revId": "9588117608a775c7407b4c9e851b2dde25f9b5ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27251063_14d7b5ac",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T07:45:25Z",
+      "side": 1,
+      "message": "As disscused offline, if users try to resolve a service that is not got from discovery and it\u0027s the frist time query for the MdnsServiceTypeClient, this will be a no question query.",
+      "range": {
+        "startLine": 142,
+        "startChar": 37,
+        "endLine": 142,
+        "endChar": 49
+      },
+      "revId": "9588117608a775c7407b4c9e851b2dde25f9b5ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
