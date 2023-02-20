@@ -16,6 +16,29 @@
       "message": "Add Lorenzo for further review",
       "revId": "e4f97599ae27a9f0cbfe92e1a9c07516d53252da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "692a2fa5_f9289444",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-20T05:11:13Z",
+      "side": 1,
+      "message": "s/s//",
+      "range": {
+        "startLine": 386,
+        "startChar": 26,
+        "endLine": 386,
+        "endChar": 27
+      },
+      "revId": "e4f97599ae27a9f0cbfe92e1a9c07516d53252da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
