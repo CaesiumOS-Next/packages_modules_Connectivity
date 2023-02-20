@@ -1655,7 +1655,8 @@ public class ConnectivityManagerTest {
         final NetworkCapabilities nc = mCm.getNetworkCapabilities(network);
 
         // Get number of supported concurrent keepalives for testing network.
-        final int[] keepalivesPerTransport = KeepaliveUtils.getSupportedKeepalives(mContext);
+        final int[] keepalivesPerTransport = runAsShell(NETWORK_SETTINGS,
+                () -> mCm.getSupportedKeepalives());
         return KeepaliveUtils.getSupportedKeepalivesForNetworkCapabilities(
                 keepalivesPerTransport, nc);
     }

@@ -37,7 +37,6 @@ import static android.net.SocketKeepalive.SUCCESS_PAUSED;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
-import android.net.ConnectivityResources;
 import android.net.ISocketKeepaliveCallback;
 import android.net.InetAddresses;
 import android.net.InvalidPacketException;
