@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c970fdcb_be618b41",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-20T14:49:11Z",
+      "side": 0,
+      "message": "I had a pending fix for this previous to add this line.\n```\nintent.setIdentifier(this.hashCode());\n```\n\nIt would also work so that AlarmManager.cancel() could cancel the correct one. Intent#filterEquals() could not specify the difference between two different alarm if there are multiple alarms at the same time. e.g. keepalive restart soon in current flow.",
+      "range": {
+        "startLine": 255,
+        "startChar": 12,
+        "endLine": 255,
+        "endChar": 51
+      },
+      "revId": "150eccf5635c020289ed0508b4e6d744e5852222",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eee8fa9_e813fcd8",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-20T14:49:11Z",
+      "side": 1,
+      "message": "We may need to close this fd after the test to prevent leak.",
+      "range": {
+        "startLine": 329,
+        "startChar": 29,
+        "endLine": 329,
+        "endChar": 31
+      },
+      "revId": "4163643371ba0d7f2b91e030bdfe667044123d0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
