@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3141965b_df1a9351",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T03:04:09Z",
+      "side": 1,
+      "message": "Thanks, I think using this is more readable than using it.",
+      "parentUuid": "80ba380f_92e67a9b",
+      "range": {
+        "startLine": 788,
+        "startChar": 16,
+        "endLine": 790,
+        "endChar": 17
+      },
+      "revId": "08bd2b91eabd7bdc25de4fe0193dfc992b26a093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2203b26_1c0b258e",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-02-20T02:45:44Z",
       "side": 1,
       "message": "For posterity, it would be good to have a comment to explain why this check is there (IIUC the sepolicy is implemented in the vendor image, so the access may not be blocked otherwise)",
+      "revId": "08bd2b91eabd7bdc25de4fe0193dfc992b26a093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd9974b1_2dcb3ac1",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T03:04:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2203b26_1c0b258e",
       "revId": "08bd2b91eabd7bdc25de4fe0193dfc992b26a093",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
