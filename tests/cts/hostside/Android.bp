@@ -12,6 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+next_app_data = [ ":CtsHostsideNetworkTestsAppNext" ]
+
+// The above line is put in place to prevent any future automerger merge conflict between aosp,
+// tm-mainline-prod and udc-dev. The CtsHostsideNetworkTestsAppNext target will not exist in
+// tm-mainline-prod, but it should exist in aosp and udc-dev.
+
+
+
+
+
 package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
@@ -37,7 +47,6 @@ java_test_host {
     data: [
         ":CtsHostsideNetworkTestsApp",
         ":CtsHostsideNetworkTestsApp2",
-        ":CtsHostsideNetworkTestsAppNext",
-    ],
+    ] + next_app_data,
     per_testcase_directory: true,
 }
