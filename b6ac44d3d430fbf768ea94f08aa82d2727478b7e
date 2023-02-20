@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b95dbb28_0186c6d5",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T08:22:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e57902b8_02e9bc3a",
+      "revId": "b6ac44d3d430fbf768ea94f08aa82d2727478b7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be1cfcc4_3cffd20e",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-02-20T06:44:13Z",
       "side": 1,
       "message": "capability",
+      "range": {
+        "startLine": 142,
+        "startChar": 40,
+        "endLine": 142,
+        "endChar": 48
+      },
+      "revId": "b6ac44d3d430fbf768ea94f08aa82d2727478b7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f086a08b_a577e87d",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T08:22:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be1cfcc4_3cffd20e",
       "range": {
         "startLine": 142,
         "startChar": 40,
