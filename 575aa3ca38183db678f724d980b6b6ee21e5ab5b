@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f53296f_70e71177",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T05:50:31Z",
+      "side": 1,
+      "message": "Opps, fixed.",
+      "parentUuid": "8ef071fa_eaf337d9",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "575aa3ca38183db678f724d980b6b6ee21e5ab5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90f34e96_6e0da3d8",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-20T04:16:45Z",
       "side": 1,
       "message": "parser ? The parser must already be initialized correctly and all",
+      "range": {
+        "startLine": 54,
+        "startChar": 78,
+        "endLine": 54,
+        "endChar": 82
+      },
+      "revId": "575aa3ca38183db678f724d980b6b6ee21e5ab5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5d5a4d8_1091787e",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T05:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f34e96_6e0da3d8",
       "range": {
         "startLine": 54,
         "startChar": 78,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f0a4170_c7ceec36",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T05:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37ed5d3b_eb040311",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 13
+      },
+      "revId": "575aa3ca38183db678f724d980b6b6ee21e5ab5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7a307d7_93683bce",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-02-20T04:16:45Z",
       "side": 1,
       "message": "If I\u0027m reading this correctly, the code will terminate as soon as it finds any end tag, regardless of whether the stack is empty. The loop in l.117~119 will eat one but only one stack depth. In other words, with the following correctly formed XML :\n\n    \u003cnetwork-capabilities-declaration\u003e\n      \u003cfuture-tag\u003e\n        \u003cdetails value\u003d\"something\" /\u003e\n      \u003c/future-tag\u003e\n      \u003cuses-network-capability name\u003d\"NET_CAPABILITY_PRIORITIZE_BANDWIDTH\"\u003e\n    \u003c/network-capabilities-declaration\u003e\n\n...then l.117 breaks at \u003c/details\u003e, and l.96 breaks at \u003c/future-tag\u003e, and the object is created with capabilities 0, although that\u0027s clearly incorrect.",
+      "range": {
+        "startLine": 120,
+        "startChar": 12,
+        "endLine": 120,
+        "endChar": 19
+      },
+      "revId": "575aa3ca38183db678f724d980b6b6ee21e5ab5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e858aad_b742d941",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T05:50:31Z",
+      "side": 1,
+      "message": "Thanks, I rewrite the parsing logic a little bit to handle all those edge cases in a cleaner way.\n\nThe new parsing logic will checks:\n1. all the tags are balanced\n2. if the  uses-network-capability tag declared directly under network-capabilities-declaration then parse the attributes.\n3. All other tags will only trigger logging.\n\nPlease let me know if there is still concerns on above logic.",
+      "parentUuid": "f7a307d7_93683bce",
       "range": {
         "startLine": 120,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "643b3563_bf9c0a7c",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T05:50:31Z",
+      "side": 1,
+      "message": "Thanks, renamed to `checkedNextTag` to explain it contains checking logic.",
+      "parentUuid": "13167f57_1cd7794b",
+      "range": {
+        "startLine": 151,
+        "startChar": 23,
+        "endLine": 151,
+        "endChar": 30
+      },
+      "revId": "575aa3ca38183db678f724d980b6b6ee21e5ab5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33d67237_d3a915e0",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-02-20T04:16:45Z",
       "side": 1,
       "message": "s/If//",
+      "range": {
+        "startLine": 176,
+        "startChar": 23,
+        "endLine": 176,
+        "endChar": 25
+      },
+      "revId": "575aa3ca38183db678f724d980b6b6ee21e5ab5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "772acf92_1cdfd5bf",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T05:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33d67237_d3a915e0",
       "range": {
         "startLine": 176,
         "startChar": 23,
