@@ -46,6 +46,30 @@
       },
       "revId": "be5929c4aa3a32072a0f370a95da86f0a86635b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d110b3f3_fffb3b77",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8806,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-20T08:48:55Z",
+      "side": 1,
+      "message": "If so I think the log is not that useful.\nGiven that logs from the field won\u0027t contain this log.\nAnd the info can be obtained by other logs like netd.",
+      "parentUuid": "085a6178_5f1d0732",
+      "range": {
+        "startLine": 8806,
+        "startChar": 8,
+        "endLine": 8806,
+        "endChar": 43
+      },
+      "revId": "be5929c4aa3a32072a0f370a95da86f0a86635b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
