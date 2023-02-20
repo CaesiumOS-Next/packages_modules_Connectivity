@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95579b83_6c1c6385",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2482,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-20T14:30:08Z",
+      "side": 1,
+      "message": "Is this method still useful ? ISTM you could just inline doTestBlockedStatusCallback",
+      "range": {
+        "startLine": 2476,
+        "startChar": 0,
+        "endLine": 2482,
+        "endChar": 5
+      },
+      "revId": "0a2155788bfa3d37c9286c517e4d9885c2fb6183",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
