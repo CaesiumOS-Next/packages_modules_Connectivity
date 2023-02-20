@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab0170a3_9e4aed0e",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e8caa55_d53282c1",
+      "range": {
+        "startLine": 75,
+        "startChar": 57,
+        "endLine": 75,
+        "endChar": 65
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "325e6d28_0db6a962",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-17T06:31:13Z",
       "side": 1,
       "message": "What is the threading model for this member ? Is it guarded by a lock ? Should it always be accessed only on one thread ? Please add comments, and possibly annotations if relevant.",
+      "range": {
+        "startLine": 913,
+        "startChar": 12,
+        "endLine": 913,
+        "endChar": 41
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2118b7af_f5881940",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Thanks, I just realized it can be accessed from random binder thread. Added the lock here.",
+      "parentUuid": "325e6d28_0db6a962",
       "range": {
         "startLine": 913,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b79db6d8_db419db2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1473,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23b5ff6f_6e9bdfeb",
+      "range": {
+        "startLine": 1473,
+        "startChar": 65,
+        "endLine": 1473,
+        "endChar": 72
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adaaf0c7_9f1fe534",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-02-17T06:31:13Z",
       "side": 1,
       "message": "Why do you need to fully qualify this ? Can\u0027t it be just imported ?",
+      "range": {
+        "startLine": 6993,
+        "startChar": 14,
+        "endLine": 6993,
+        "endChar": 46
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f58cff11_f413cc7f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 6993,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "adaaf0c7_9f1fe534",
       "range": {
         "startLine": 6993,
         "startChar": 14,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "037aa8c3_1c91d16d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 6996,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Thanks. Removed the unnecessary contains call. However, I don\u0027t think HashMap#computeIfAbsent can be used here. The xmlParsing process contains `XmlPullParserException | IOException | InvalidTagException` that we want to explicitly handled (cannot just try/catch them inside the lambda function).",
+      "parentUuid": "80e2ce6a_ee768931",
+      "range": {
+        "startLine": 6996,
+        "startChar": 46,
+        "endLine": 6996,
+        "endChar": 57
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30906153_82a4fcae",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-02-17T06:31:13Z",
       "side": 1,
       "message": "This is running on a random binder thread.",
+      "range": {
+        "startLine": 7010,
+        "startChar": 16,
+        "endLine": 7010,
+        "endChar": 45
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e64a0b6_3aff8d53",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 7010,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Done. added synchronized block to guard it.",
+      "parentUuid": "30906153_82a4fcae",
       "range": {
         "startLine": 7010,
         "startChar": 16,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f989a95_cca7226c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 7016,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Thanks, Rewrite the error message. I think \"Cannot find android.net.PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES property\" will cover this case.",
+      "parentUuid": "0f9054e1_d9c5d0cf",
+      "range": {
+        "startLine": 7016,
+        "startChar": 32,
+        "endLine": 7016,
+        "endChar": 52
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42b19a47_ee379cc1",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-02-17T06:31:13Z",
       "side": 1,
       "message": "API guideline 6.6.7 : builders should not have getters\n\nhttps://g3doc.corp.google.com/company/teams/android-api-council/guidelines/index.md?cl\u003dhead#methods-prefer-collection-over-array\n\nGranted, this is not a public class and as such it\u0027s not strictly speaking subject to these guidelines, but it\u0027s still what all builders in Android look like in practice.\n\nSince this is an inner class, the parent can access the private member anyway. Java will generate a synthetic hidden accessor for this use.",
+      "range": {
+        "startLine": 134,
+        "startChar": 20,
+        "endLine": 134,
+        "endChar": 23
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee9ad84a_32573f26",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "42b19a47_ee379cc1",
       "range": {
         "startLine": 134,
         "startChar": 20,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f86dcd0c_9fb80c1e",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Thanks for the suggestion, removed the builder class as suggested.",
+      "parentUuid": "00076109_945bdc41",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 29
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d5afbd3_658e22f4",
@@ -221,6 +437,30 @@
       "writtenOn": "2023-02-17T06:31:13Z",
       "side": 1,
       "message": "Unknown\n(it might be valid later on)",
+      "range": {
+        "startLine": 176,
+        "startChar": 32,
+        "endLine": 176,
+        "endChar": 39
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94bd0d96_0a802cfd",
+        "filename": "service/src/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d5afbd3_658e22f4",
       "range": {
         "startLine": 176,
         "startChar": 32,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b715527_632449f9",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2120,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6853951d_62f41342",
+      "range": {
+        "startLine": 2120,
+        "startChar": 24,
+        "endLine": 2120,
+        "endChar": 54
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f71d496_fac8d9e4",
@@ -267,6 +531,30 @@
       "writtenOn": "2023-02-17T06:31:13Z",
       "side": 1,
       "message": "guarded by \"this\" but not locked here",
+      "range": {
+        "startLine": 2123,
+        "startChar": 12,
+        "endLine": 2123,
+        "endChar": 42
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2202822f_8abdeead",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2123,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f71d496_fac8d9e4",
       "range": {
         "startLine": 2123,
         "startChar": 12,
@@ -300,6 +588,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b365f5d_4b2bad29",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 6360,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "It is because I don\u0027t mock anything so networkSliceProperty is null\n```\nfinal PackageManager.Property networkSliceProperty \u003d packageManager.getProperty(\n                            PackageManager.PROPERTY_SELF_CERTIFIED_NETWORK_CAPABILITIES,\n                            callerPackageName\n                    );\n```\nso the following code will throw NPE\n```\nfinal XmlResourceParser parser \u003d packageManager\n                            .getResourcesForApplication(callerPackageName)\n                            .getXml(networkSliceProperty.getResourceId());\n```\n\nActually I feel this is a little bit confusing and the the enable flag logic already testes by all the other test case. \n\nI think we don\u0027t need to test it standalone so I removed it.",
+      "parentUuid": "7a9afef8_9170097e",
+      "range": {
+        "startLine": 6360,
+        "startChar": 21,
+        "endLine": 6360,
+        "endChar": 41
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acf91adb_1ab11801",
@@ -313,6 +625,30 @@
       "writtenOn": "2023-02-17T06:31:13Z",
       "side": 1,
       "message": "ies :)",
+      "range": {
+        "startLine": 43,
+        "startChar": 29,
+        "endLine": 43,
+        "endChar": 30
+      },
+      "revId": "51c19b8ec839592907cb4c3c01bfc5bc36c0164c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81560903_2a87f39e",
+        "filename": "tests/unit/java/com/android/server/connectivity/ApplicationSelfCertifiedNetworkCapabilitiesTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acf91adb_1ab11801",
       "range": {
         "startLine": 43,
         "startChar": 29,

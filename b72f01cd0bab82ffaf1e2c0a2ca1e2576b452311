@@ -354,6 +354,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed645ec7_38de9cd7",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Thanks, added logic to check there is no unbalanced tag.",
+      "parentUuid": "252e6bf6_81b0e96b",
+      "range": {
+        "startLine": 165,
+        "startChar": 66,
+        "endLine": 165,
+        "endChar": 78
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fa77b3f_7b83a4b9",
@@ -544,6 +568,30 @@
       "side": 1,
       "message": "Not done",
       "parentUuid": "28516abd_497f2b32",
+      "range": {
+        "startLine": 192,
+        "startChar": 30,
+        "endLine": 192,
+        "endChar": 54
+      },
+      "revId": "b72f01cd0bab82ffaf1e2c0a2ca1e2576b452311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "165ca0e0_492d64a4",
+        "filename": "service/src/com/android/server/ApplicationSelfCertifiedNetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-20T02:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db32f37c_9bee6035",
       "range": {
         "startLine": 192,
         "startChar": 30,
