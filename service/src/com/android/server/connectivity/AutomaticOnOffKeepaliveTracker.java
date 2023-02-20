@@ -159,7 +159,6 @@ public class AutomaticOnOffKeepaliveTracker {
     private final ArrayList<AutomaticOnOffKeepalive> mAutomaticOnOffKeepalives = new ArrayList<>();
     // TODO: Remove this when TCP polling design is replaced with callback.
     private long mTestLowTcpPollingTimerUntilMs = 0;
-
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -250,6 +249,9 @@ public class AutomaticOnOffKeepaliveTracker {
             final Bundle b = new Bundle();
             b.putBinder(EXTRA_BINDER_TOKEN, token);
             intent.putExtra(EXTRA_BINDER_TOKEN, b);
+            // This identifier is set only for correctly identifying intent in the alarm so that
+            // AlarmManager.cancel() will remove the correct intent.
+            intent.setIdentifier(this.hashCode());
             return BinderUtils.withCleanCallingIdentity(() -> PendingIntent.getBroadcast(
                     context, 0 /* requestCode */, intent, PendingIntent.FLAG_IMMUTABLE));
         }
