@@ -16,8 +16,10 @@
 
 package android.net;
 
+import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
 import static android.net.connectivity.ConnectivityCompatChanges.EXCLUDED_ROUTES;
 
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
@@ -39,9 +41,11 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.StringJoiner;
 
 /**
@@ -78,6 +82,7 @@ public final class LinkProperties implements Parcelable {
     private boolean mWakeOnLanSupported;
     private Uri mCaptivePortalApiUrl;
     private CaptivePortalData mCaptivePortalData;
+    private final Set<IpPrefix> mDelegatedPrefixes = new HashSet<>();
 
     /**
      * Indicates whether parceling should preserve fields that are set based on permissions of
@@ -205,6 +210,15 @@ public final class LinkProperties implements Parcelable {
         mWakeOnLanSupported = source.mWakeOnLanSupported;
         mCaptivePortalApiUrl = source.mCaptivePortalApiUrl;
         mCaptivePortalData = source.mCaptivePortalData;
+        mDelegatedPrefixes.addAll(source.mDelegatedPrefixes);
+    }
+
+    // TODO : remove this class when udc-mainline-prod is abandoned and android.net.flags.Flags is
+    // available here
+    /** @hide */
+    public static class Flags {
+        static final String SUPPORT_DELEGATED_PREFIXES =
+                "com.android.net.flags.support_delegated_prefixes";
     }
 
     /**
@@ -891,6 +905,50 @@ public final class LinkProperties implements Parcelable {
     }
 
     /**
+     * Adds a given {@link IpPrefix} to the set of delegated prefixes, if not present.
+     *
+     * @param prefix The {@link IpPrefix} specifying the prefix to add.
+     * @return {@code true} if the prefix was added, false otherwise.
+     *
+     * @hide
+     */
+    @FlaggedApi(Flags.SUPPORT_DELEGATED_PREFIXES)
+    @SystemApi(client = MODULE_LIBRARIES)
+    public boolean addDelegatedPrefix(@NonNull IpPrefix prefix) {
+        Objects.requireNonNull(prefix, "delegated prefix to be added should not be null");
+        return mDelegatedPrefixes.add(prefix);
+    }
+
+    /**
+     * Removes the given {@link IpPrefix} from the set of delegated prefixes.
+     *
+     * @param prefix The {@link IpPrefix} specifying the prefix to remove.
+     * @return {@code true} if the prefix was removed, {@code false} if it was not present.
+     *
+     * @hide
+     */
+    @FlaggedApi(Flags.SUPPORT_DELEGATED_PREFIXES)
+    @SystemApi(client = MODULE_LIBRARIES)
+    public boolean removeDelegatedPrefix(@NonNull IpPrefix prefix) {
+        Objects.requireNonNull(prefix, "delegated prefix to be removed should not be null");
+        return mDelegatedPrefixes.remove(prefix);
+    }
+
+    /**
+     * Returns all the {@link IpPrefix} for delegated prefixes set on this link.
+     *
+     * @return A defensive copy of {@link IpPrefix} for delegated prefixes on
+     * this link.
+     *
+     * @hide
+     */
+    @FlaggedApi(Flags.SUPPORT_DELEGATED_PREFIXES)
+    @SystemApi(client = MODULE_LIBRARIES)
+    public @NonNull Set<IpPrefix> getDelegatedPrefixes() {
+        return new HashSet<IpPrefix>(mDelegatedPrefixes);
+    }
+
+    /**
      * Clears this object to its initial state.
      */
     public void clear() {
@@ -916,6 +974,7 @@ public final class LinkProperties implements Parcelable {
         mWakeOnLanSupported = false;
         mCaptivePortalApiUrl = null;
         mCaptivePortalData = null;
+        mDelegatedPrefixes.clear();
     }
 
     /**
@@ -1023,6 +1082,12 @@ public final class LinkProperties implements Parcelable {
             }
             resultJoiner.add(stackedLinksJoiner.toString());
         }
+
+        resultJoiner.add("DelegatedPrefixes: [");
+        if (!mDelegatedPrefixes.isEmpty()) {
+            resultJoiner.add(TextUtils.join(",", mDelegatedPrefixes));
+        }
+        resultJoiner.add("]");
 
         return resultJoiner.toString();
     }
@@ -1578,6 +1643,20 @@ public final class LinkProperties implements Parcelable {
     }
 
     /**
+     * Compares this {@code LinkProperties}'s DelegatedPrefixes against the target.
+     *
+     * @param target LinkProperties to compare.
+     * @return {@code true} if both are identical, {@code false} otherwise.
+     * @hide
+     */
+    public boolean isIdenticalDelegatedPrefixes(LinkProperties target) {
+        final Collection<IpPrefix> targetPrefixes = target.mDelegatedPrefixes;
+        return (mDelegatedPrefixes.size() == targetPrefixes.size())
+                ? mDelegatedPrefixes.containsAll(targetPrefixes)
+                : false;
+    }
+
+    /**
      * Set whether the network interface supports WakeOnLAN
      *
      * @param supported WakeOnLAN supported value
@@ -1685,7 +1764,8 @@ public final class LinkProperties implements Parcelable {
                 && isIdenticalNat64Prefix(target)
                 && isIdenticalWakeOnLan(target)
                 && isIdenticalCaptivePortalApiUrl(target)
-                && isIdenticalCaptivePortalData(target);
+                && isIdenticalCaptivePortalData(target)
+                && isIdenticalDelegatedPrefixes(target);
     }
 
     /**
@@ -1712,7 +1792,8 @@ public final class LinkProperties implements Parcelable {
                 + ((null == mPrivateDnsServerName) ? 0 : mPrivateDnsServerName.hashCode())
                 + Objects.hash(mNat64Prefix)
                 + (mWakeOnLanSupported ? 71 : 0)
-                + Objects.hash(mCaptivePortalApiUrl, mCaptivePortalData);
+                + Objects.hash(mCaptivePortalApiUrl, mCaptivePortalData)
+                + mDelegatedPrefixes.hashCode() * 73;
     }
 
     /**
@@ -1753,6 +1834,11 @@ public final class LinkProperties implements Parcelable {
         dest.writeBoolean(mWakeOnLanSupported);
         dest.writeParcelable(mParcelSensitiveFields ? mCaptivePortalApiUrl : null, 0);
         dest.writeParcelable(mParcelSensitiveFields ? mCaptivePortalData : null, 0);
+
+        dest.writeInt(mDelegatedPrefixes.size());
+        for (IpPrefix prefix : mDelegatedPrefixes) {
+            dest.writeParcelable(prefix, flags);
+        }
     }
 
     private static void writeAddresses(@NonNull Parcel dest, @NonNull List<InetAddress> list) {
@@ -1847,6 +1933,11 @@ public final class LinkProperties implements Parcelable {
 
                 netProp.setCaptivePortalApiUrl(in.readParcelable(null));
                 netProp.setCaptivePortalData(in.readParcelable(null));
+
+                int prefixCount = in.readInt();
+                for (int i = 0; i < prefixCount; i++) {
+                    netProp.addDelegatedPrefix(in.readParcelable(null));
+                }
                 return netProp;
             }
 
