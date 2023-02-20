@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25db8c6e_243ff44c",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-20T06:58:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97ba3779_8e190737",
+      "range": {
+        "startLine": 249,
+        "startChar": 22,
+        "endLine": 249,
+        "endChar": 26
+      },
+      "revId": "4347cb837ef1d6971b3ee343a356d0051497e0bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d751608e_d2313590",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-20T05:17:38Z",
       "side": 1,
       "message": "Code duplicated with l.256~258 ?",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 9
+      },
+      "revId": "4347cb837ef1d6971b3ee343a356d0051497e0bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1c93d68_78b60787",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-20T06:58:15Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "d751608e_d2313590",
       "range": {
         "startLine": 252,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "487a5324_dc8b2569",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-20T06:58:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec2d72bd_752831c3",
+      "range": {
+        "startLine": 278,
+        "startChar": 22,
+        "endLine": 278,
+        "endChar": 26
+      },
+      "revId": "4347cb837ef1d6971b3ee343a356d0051497e0bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4daefd12_9e5367d0",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-02-20T05:17:38Z",
       "side": 1,
       "message": "Is this necessary ? If the device doesn\u0027t have this feature, Ikev2VpnProfile is useless but it doesn\u0027t mean the test can\u0027t be run ?",
+      "range": {
+        "startLine": 719,
+        "startChar": 0,
+        "endLine": 719,
+        "endChar": 58
+      },
+      "revId": "4347cb837ef1d6971b3ee343a356d0051497e0bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f0df293_36634ca2",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-20T06:58:15Z",
+      "side": 1,
+      "message": "Agree with you. Remove this.",
+      "parentUuid": "4daefd12_9e5367d0",
       "range": {
         "startLine": 719,
         "startChar": 0,
