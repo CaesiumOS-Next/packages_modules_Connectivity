@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89ef6b46_cae4cc3b",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 6
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-20T04:10:45Z",
+      "side": 1,
+      "message": "I think this won\u0027t run without the\n\n    \u003coption name\u003d\"config-descriptor:metadata\" key\u003d\"mainline-param\"\n  \nin the AndroidTest.xml (or AndroidTestTemplate.xml)\n\nReference CtsNetTestCasesLatestSdk\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/cts/net/AndroidTestTemplate.xml;l\u003d23 as example.",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 159
+      },
+      "revId": "92f3d31713ac1949b79ab0986e8529c3fbdc82be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
