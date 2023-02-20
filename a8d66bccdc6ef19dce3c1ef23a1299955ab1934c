@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b460c1a_7b16a894",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T10:29:53Z",
+      "side": 1,
+      "message": "Good point, this should be 2 different tests; done",
+      "parentUuid": "88194f0f_cb44aae6",
+      "range": {
+        "startLine": 1082,
+        "startChar": 8,
+        "endLine": 1082,
+        "endChar": 27
+      },
+      "revId": "a8d66bccdc6ef19dce3c1ef23a1299955ab1934c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09d4052a_5dda6ff9",
@@ -61,6 +85,30 @@
       "writtenOn": "2023-02-20T03:46:18Z",
       "side": 1,
       "message": "These are redundant.",
+      "range": {
+        "startLine": 1086,
+        "startChar": 7,
+        "endLine": 1090,
+        "endChar": 76
+      },
+      "revId": "a8d66bccdc6ef19dce3c1ef23a1299955ab1934c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b5977cf_1d44ab3d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T10:29:53Z",
+      "side": 1,
+      "message": "Used in the new test; also added a method to factor it out",
+      "parentUuid": "09d4052a_5dda6ff9",
       "range": {
         "startLine": 1086,
         "startChar": 7,
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "143d2463_d2710bda",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T10:29:53Z",
+      "side": 1,
+      "message": "Added to DnsResolver, as the TODO in DnsPacket says to add there",
+      "parentUuid": "ee9e7b9e_f70a7e18",
+      "range": {
+        "startLine": 1122,
+        "startChar": 70,
+        "endLine": 1122,
+        "endChar": 74
+      },
+      "revId": "a8d66bccdc6ef19dce3c1ef23a1299955ab1934c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4651ffc8_a70c3edc",
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cad6953_2aabfaa4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T10:29:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4651ffc8_a70c3edc",
+      "range": {
+        "startLine": 1165,
+        "startChar": 12,
+        "endLine": 1165,
+        "endChar": 13
+      },
+      "revId": "a8d66bccdc6ef19dce3c1ef23a1299955ab1934c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b634e09_8e0dd1a7",
@@ -130,6 +226,30 @@
       "writtenOn": "2023-02-20T03:46:18Z",
       "side": 1,
       "message": "Does legacy mdnsresponder always report ipv4 address first? If not, this might be flaky.",
+      "range": {
+        "startLine": 1174,
+        "startChar": 41,
+        "endLine": 1174,
+        "endChar": 52
+      },
+      "revId": "a8d66bccdc6ef19dce3c1ef23a1299955ab1934c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70272e46_b8a31a84",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T10:29:53Z",
+      "side": 1,
+      "message": "Changed to expect either address",
+      "parentUuid": "1b634e09_8e0dd1a7",
       "range": {
         "startLine": 1174,
         "startChar": 41,
