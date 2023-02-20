@@ -38,7 +38,6 @@ import static org.mockito.Mockito.verify;
 import android.app.AlarmManager;
 import android.content.Context;
 import android.content.res.Resources;
-import android.net.ConnectivityResources;
 import android.net.INetd;
 import android.net.ISocketKeepaliveCallback;
 import android.net.KeepalivePacketData;
