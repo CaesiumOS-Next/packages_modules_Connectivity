@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5b645ef_7fa005a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T03:46:18Z",
+      "side": 1,
+      "message": "MdnsAdvertiser / MdnsDiscovery?",
+      "range": {
+        "startLine": 17,
+        "startChar": 18,
+        "endLine": 17,
+        "endChar": 22
+      },
+      "revId": "8726d242f5e4be3f396a175ccbfdf14ece216ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

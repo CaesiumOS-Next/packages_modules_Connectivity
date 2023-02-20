@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ef612a9_0bd73ae5",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T03:46:18Z",
+      "side": 1,
+      "message": "PTR response is only for discovery. Maybe separate the resolution part to another test.",
+      "range": {
+        "startLine": 1082,
+        "startChar": 8,
+        "endLine": 1082,
+        "endChar": 27
+      },
+      "revId": "a8d66bccdc6ef19dce3c1ef23a1299955ab1934c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09d4052a_5dda6ff9",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T03:46:18Z",
+      "side": 1,
+      "message": "These are redundant.",
+      "range": {
+        "startLine": 1086,
+        "startChar": 7,
+        "endLine": 1090,
+        "endChar": 76
+      },
+      "revId": "a8d66bccdc6ef19dce3c1ef23a1299955ab1934c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee9e7b9e_f70a7e18",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T03:46:18Z",
+      "side": 1,
+      "message": "Nit: Maybe define a constant on DnsPacket since it has a TYPE_CNAME definition there.",
+      "range": {
+        "startLine": 1122,
+        "startChar": 70,
+        "endLine": 1122,
+        "endChar": 74
+      },
+      "revId": "a8d66bccdc6ef19dce3c1ef23a1299955ab1934c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4651ffc8_a70c3edc",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T03:46:18Z",
+      "side": 1,
+      "message": "Nit: Check resolved sevice name that matches found service name?",
+      "range": {
+        "startLine": 1165,
+        "startChar": 12,
+        "endLine": 1165,
+        "endChar": 13
+      },
+      "revId": "a8d66bccdc6ef19dce3c1ef23a1299955ab1934c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b634e09_8e0dd1a7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T03:46:18Z",
+      "side": 1,
+      "message": "Does legacy mdnsresponder always report ipv4 address first? If not, this might be flaky.",
+      "range": {
+        "startLine": 1174,
+        "startChar": 41,
+        "endLine": 1174,
+        "endChar": 52
+      },
+      "revId": "a8d66bccdc6ef19dce3c1ef23a1299955ab1934c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
