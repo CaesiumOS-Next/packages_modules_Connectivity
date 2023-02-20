@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "900db87f_d25ac2e0",
+        "filename": "tests/cts/hostside/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T09:59:08Z",
+      "side": 1,
+      "message": "and downstream branches",
+      "range": {
+        "startLine": 18,
+        "startChar": 3,
+        "endLine": 18,
+        "endChar": 31
+      },
+      "revId": "edcdd504cb659acb6e64d60e3eac4edfa6b074e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
