@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a76c9cc5_ff98c87a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 8730,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-20T07:55:46Z",
+      "side": 1,
+      "message": "Done\nRefer to aosp/2445824",
+      "parentUuid": "09596c7c_37607e94",
+      "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0100a87_2b14fd0b",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "151d93a1_7e619074",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 8759,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-20T07:55:46Z",
+      "side": 1,
+      "message": "Acknowledged\nRefer to aosp/2445824",
+      "parentUuid": "e0100a87_2b14fd0b",
+      "range": {
+        "startLine": 8759,
+        "startChar": 17,
+        "endLine": 8759,
+        "endChar": 41
+      },
+      "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25b58674_6a484d13",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-02-03T08:20:26Z",
       "side": 1,
       "message": "But NativeUidRangeConfig has networks, not interface, so there should be no disappearing netid without ConnectivityService knowing about it ?\n\nIs this currently catching errors before U considering that the method doesn\u0027t exist ?\n\nIt would be best to still log something (Log.wtf if there\u0027s no actual expected case), unless there\u0027s cases where it\u0027s really expected to happen sometimes (but that should be differentiated with the exception error code)",
+      "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03542aa8_ec9db815",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 8760,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-20T07:55:46Z",
+      "side": 1,
+      "message": "Done.\nRefer to aosp/2445824\nthere\u0027s no actual expected case",
+      "parentUuid": "25b58674_6a484d13",
       "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -94,6 +154,48 @@
       "writtenOn": "2023-02-03T08:20:26Z",
       "side": 1,
       "message": "Suggest Log.wtf still; Is this currently catching errors before U considering that the method doesn\u0027t exist ?",
+      "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "803cdeb7_0ee4ba52",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 8762,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-20T07:55:46Z",
+      "side": 1,
+      "message": "Done\nRefer to aosp/2445824",
+      "parentUuid": "59b03b72_6750f836",
+      "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ecca122_a6b77156",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 8762,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-20T07:55:46Z",
+      "side": 1,
+      "message": "Done\nRefer to aosp/2445824",
+      "parentUuid": "f8045a9a_797591c5",
+      "range": {
+        "startLine": 8762,
+        "startChar": 31,
+        "endLine": 8762,
+        "endChar": 46
+      },
       "revId": "35665cc887710932c26c9f54b0ae16e8b777e1e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
