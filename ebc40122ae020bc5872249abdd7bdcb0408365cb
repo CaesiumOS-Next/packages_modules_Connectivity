@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5487c5ed_f9c5cab4",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T02:26:06Z",
+      "side": 1,
+      "message": "I had a look at the full report but don\u0027t see anything related to this class, do you remember what it was ?",
+      "parentUuid": "6f9a3687_94b7d8d8",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 80
+      },
+      "revId": "ebc40122ae020bc5872249abdd7bdcb0408365cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9898ec34_1b7bed7d",
