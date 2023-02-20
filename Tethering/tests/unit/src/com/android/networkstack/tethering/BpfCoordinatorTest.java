@@ -2487,19 +2487,12 @@ public class BpfCoordinatorTest {
         coordinator.updateUpstreamNetworkState(wifiDualStackUpstreamState);
         assertTrue(ipv4UpstreamIndices.isEmpty());
         // Expect that mobile xlat interface |UPSTREAM_XLAT_IFINDEX| is not found in mapping.
-        if (clatOffloadEnabled) {
-            assertEquals(3, interfaceNames.size());
-            assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));
-            // For U+ devices, xlat interface mapping has been added in previous test [5].
-            // TODO: remove xlat interface mapping once it is unused.
-            assertTrue(interfaceNames.contains(UPSTREAM_XLAT_IFINDEX));
-            assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX2));
-        } else {
-            // For S and T devices, xlat interface has never been added to mapping.
-            assertEquals(2, interfaceNames.size());
-            assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));
-            assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX2));
-        }
+        // For S and T devices, xlat interface has never been added to mapping.
+        // For U+ devices, xlat interface is removed from mapping when upstream switched from
+        // mobile xlat to wifi.
+        assertEquals(2, interfaceNames.size());
+        assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));
+        assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX2));
     }
 
     @Test

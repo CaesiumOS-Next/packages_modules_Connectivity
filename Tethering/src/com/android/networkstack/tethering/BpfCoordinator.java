@@ -749,6 +749,29 @@ public class BpfCoordinator {
     }
 
     /**
+     * Remove a given upstream interface name mapping. Before calling this function,
+     * must make sure that there is no rule on the given upstream. This function
+     * can be only called by #updateUpstreamNetworkState.
+     */
+    private void removeUpstreamNameFromLookupTable(int upstreamIfindex) {
+        if (!isUsingBpf()) return;
+
+        if (upstreamIfindex == 0) {
+            mLog.e("Can't remove interface mapping because upstream index is invalid.");
+            return;
+        }
+
+        if (isAnyRuleOnUpstream(upstreamIfindex)
+                || mBpfCoordinatorShim.isAnyIpv4RuleOnUpstream(upstreamIfindex)) {
+            mLog.e("Can't remove interface mapping because there are rules on the interface index "
+                    + upstreamIfindex);
+            return;
+        }
+
+        mInterfaceNames.remove(upstreamIfindex);
+    }
+
+    /**
      * Add downstream client.
      * Note that this can be only called on handler thread.
      */
@@ -986,6 +1009,7 @@ public class BpfCoordinator {
         // Do nothing if upstream is not changed.
         if (mIpv4UpstreamInfo.ifIndex == currUpstreamInfo.ifIndex) return;
 
+        // Clean up the previous upstream stubs if any.
         if (mIpv4UpstreamInfo.ifIndex != 0) {
             // Clear all forwarding IPv4 rules for all downstreams.
             // Clear existing rules if upstream interface is changed. The existing rules should be
@@ -997,6 +1021,23 @@ public class BpfCoordinator {
             // mapping.
             for (final IpServer ipserver : mTetherClients.keySet()) {
                 tetherOffloadRule4Clear(ipserver);
+            }
+
+            // Remove the upstream interface name mapping while v4-only clat interface is lost.
+            // Needed because clat interface index is generated every time clat started. The
+            // clat interface mapping may increase by time in IPv6-only environment which needs
+            // clat. Note the #removeUpstreamNameFromLookupTable must be called when no rule on
+            // the given upstream index. Or the data limit cleanup will be broken.
+            // See #updateDataLimit.
+            // TODO: consider cleaning any losing interface index stubs (ex: IPv6 only or dual
+            // stack). Before cleaning the forwarding rule stubs, need to remove existing rules
+            // and guarantee incoming events can't use out-of-date interface index to build
+            // the rule. The IPv4 part has done in this function. Need to implemenet IPv6 part.
+            // We can only clean clat interface index currently because clat interface is
+            // guaranteed IPv4 only. It is fine for now because mostly interfaces don't
+            // change interface index.
+            if (clatOffloadEnabled && is464XlatInterface(mIpv4UpstreamInfo.ifName)) {
+                removeUpstreamNameFromLookupTable(mIpv4UpstreamInfo.ifIndex);
             }
         }
 
