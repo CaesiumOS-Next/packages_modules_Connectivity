@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5aa5994_bcb931b2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-02-20T02:46:43Z",
+      "side": 1,
+      "message": "The warning suggest to make this class static because this class doesn\u0027t reference any non-static filed outside this class",
+      "parentUuid": "5487c5ed_f9c5cab4",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 80
+      },
+      "revId": "ebc40122ae020bc5872249abdd7bdcb0408365cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9898ec34_1b7bed7d",
