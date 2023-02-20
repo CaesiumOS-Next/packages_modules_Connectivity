@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b09d85b_bd029346",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T05:46:44Z",
+      "side": 1,
+      "message": "Generally ArrayList is a better choice, except for very specific cases (also errorprone said that)",
+      "range": {
+        "startLine": 48,
+        "startChar": 34,
+        "endLine": 48,
+        "endChar": 44
+      },
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "823f807e_efdbb3ef",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T05:46:44Z",
+      "side": 1,
+      "message": "It\u0027s worth noting that contains is based on .equals, and .equals for records doesn\u0027t look at the TTL or receiptTimeMillis; so the address record TTL or receiptTimeMillis will never be updated, and I\u0027m guessing they\u0027ll just expire at some point (bug).\n\nNow I think TTL isn\u0027t used except for the service record, but the service record uses the same logic, so this probably causes services to expire after the initial TTL currently.\n\nMaybe file a bug to fix that ?",
+      "range": {
+        "startLine": 179,
+        "startChar": 32,
+        "endLine": 179,
+        "endChar": 40
+      },
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eba3c6d9_ea394439",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T05:46:44Z",
+      "side": 1,
+      "message": "This should probably return false if the record has no address ? I\u0027m not sure this should happen though.\n\nYou could just return false early if the record is null or has no address.",
+      "range": {
+        "startLine": 182,
+        "startChar": 45,
+        "endLine": 182,
+        "endChar": 92
+      },
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4352cfa4_ab1ca4a2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T05:46:44Z",
+      "side": 1,
+      "message": "Collections.unmodifiableList would avoid copying the whole list",
+      "range": {
+        "startLine": 191,
+        "startChar": 15,
+        "endLine": 191,
+        "endChar": 18
+      },
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1911bab_209fc09d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T05:46:44Z",
+      "side": 1,
+      "message": "This changes the logic here: if the other result has records, it\u0027s always considered updated, even though it\u0027s possible that the new records are the previous ones (every call to addInet4AddressRecord returns false). With this code I think you\u0027ll send serviceUpdated callbacks for each incoming packet.\n\nTo avoid that I think you could do:\n\n - If there\u0027s any known record that is not in the \"other\" list, clear the records, with a TODO to only do it if the cache flush bit is set (b/266777103). This matches historical implementation that replaces all old records if new ones are received.\n - Then use `updated |\u003d addInet4AddressRecord(inetAddressRecord)`. This way if there\u0027s no change, updated stays false.",
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7d593ca_d823c42f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T05:46:44Z",
+      "side": 1,
+      "message": "All address records should have the same hostname, so you shouldn\u0027t need to iterate through them. I think you could do this cleanup when calling setServiceRecord by dropping all address records if the serviceHost changed.",
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f4e6f4d_994128dd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T05:46:44Z",
+      "side": 1,
+      "message": "Collections.unmodifiableList would avoid copying contents",
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c54f570_12a50550",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-20T05:46:44Z",
+      "side": 1,
+      "message": "Nit: I think you can add @Deprecated too",
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
