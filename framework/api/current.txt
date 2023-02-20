@@ -246,6 +246,7 @@ package android.net {
     method public boolean addRoute(@NonNull android.net.RouteInfo);
     method public void clear();
     method public int describeContents();
+    method @NonNull public java.util.List<android.net.IpPrefix> getAssignedPrefixes();
     method @Nullable public java.net.Inet4Address getDhcpServerAddress();
     method @NonNull public java.util.List<java.net.InetAddress> getDnsServers();
     method @Nullable public String getDomains();
