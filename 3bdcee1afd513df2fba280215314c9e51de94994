@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9c9d671_ad77698a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T13:05:12Z",
+      "side": 1,
+      "message": "LGTM. Thank you for adding these tests and useful test methods.",
+      "revId": "3bdcee1afd513df2fba280215314c9e51de94994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce076a60_77874fc4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T13:05:12Z",
+      "side": 1,
+      "message": "I think this would not happend now because you are trying to bind a socket to the network, it should get failure there if network is null.",
+      "range": {
+        "startLine": 381,
+        "startChar": 39,
+        "endLine": 381,
+        "endChar": 85
+      },
+      "revId": "3bdcee1afd513df2fba280215314c9e51de94994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18377861_9c5bbf3f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T13:05:12Z",
+      "side": 1,
+      "message": "Check the network is not null here?",
+      "range": {
+        "startLine": 403,
+        "startChar": 12,
+        "endLine": 403,
+        "endChar": 19
+      },
+      "revId": "3bdcee1afd513df2fba280215314c9e51de94994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8b15655_1b8e02e7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T13:05:12Z",
+      "side": 1,
+      "message": "Unregister service?",
+      "range": {
+        "startLine": 1006,
+        "startChar": 8,
+        "endLine": 1006,
+        "endChar": 9
+      },
+      "revId": "3bdcee1afd513df2fba280215314c9e51de94994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40fcf4cc_32573067",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-02-20T13:05:12Z",
+      "side": 1,
+      "message": "Nit: Shouldn\u0027t you discover services on testNetwork1 only?",
+      "range": {
+        "startLine": 1038,
+        "startChar": 23,
+        "endLine": 1038,
+        "endChar": 39
+      },
+      "revId": "3bdcee1afd513df2fba280215314c9e51de94994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
