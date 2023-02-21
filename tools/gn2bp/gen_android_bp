@@ -1025,7 +1025,7 @@ class JniRegistrationGeneratorSanitizer(BaseActionSanitizer):
 
     # .h file jni_registration_generator.py generates has #define with directory name.
     # With the genrule env that contains "." which is invalid. So replace that at the end of cmd.
-    commands.append(";sed -i -e 's/OUT_SOONG_.TEMP_SBOX_.*_OUT/GEN/g' ")
+    commands.append(";sed -i -e 's/.*_SOONG_.TEMP_SBOX_.*_OUT/GEN/g' ")
     commands.append("$(genDir)/components/cronet/android/cronet_jni_registration.h")
     return NEWLINE.join(commands)
 
