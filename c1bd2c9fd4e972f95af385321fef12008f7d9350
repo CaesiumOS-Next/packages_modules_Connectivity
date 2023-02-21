@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca8ed4bd_4ebbb662",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-21T14:20:22Z",
+      "side": 1,
+      "message": "Can you use the TestUrlRequestCallback in utils instead? Ditto everywhere else possible.",
+      "revId": "c1bd2c9fd4e972f95af385321fef12008f7d9350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d8ad37_67deae9c",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-21T14:20:22Z",
+      "side": 1,
+      "message": "I would assertContains(\"direct\") here or not assert the error message itself.\n\nhttps://engdoc.corp.google.com/eng/doc/devguide/java/testing/exceptions.md?cl\u003dhead#when:~:text\u003dYou%20should%20not%20test%20the",
+      "revId": "c1bd2c9fd4e972f95af385321fef12008f7d9350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9a66206_6cf26cca",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-21T14:20:22Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "c1bd2c9fd4e972f95af385321fef12008f7d9350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
