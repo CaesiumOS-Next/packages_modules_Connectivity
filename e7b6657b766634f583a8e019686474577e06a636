@@ -238,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4723b2e1_4b8282d9",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-21T05:27:18Z",
+      "side": 1,
+      "message": "So IIUC, we can make 100% sure it never happens by surveying all callers, and once we know no callers do this change the @hide constructor to throw in that case ? Can we just do that, and then simplify this code ?",
+      "parentUuid": "e27a6275_2fe0a534",
+      "range": {
+        "startLine": 588,
+        "startChar": 44,
+        "endLine": 588,
+        "endChar": 65
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be4a733f_529f2127",
         "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
         "patchSetId": 8
@@ -320,6 +344,30 @@
       "side": 1,
       "message": "We sure that is TYPE_WIFI and a wildcard query doesn\u0027t care about the key. So, I think as long as the type is TYPE_WIFI, the data should be found by wildcard template.\n\nOr do you think now that if we don\u0027t record a data that contains null wifiNetworkKey then the data that containds null key should not be returned?",
       "parentUuid": "be4a733f_529f2127",
+      "range": {
+        "startLine": 135,
+        "startChar": 18,
+        "endLine": 135,
+        "endChar": 70
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40a6c201_4cc47abd",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-21T05:27:18Z",
+      "side": 1,
+      "message": "I\u0027m on the fence. But I think you make a compelling point. We know it\u0027s wifi, and the key is not returned anyway, so I think what you say makes sense.",
+      "parentUuid": "5454113b_34b49d43",
       "range": {
         "startLine": 135,
         "startChar": 18,
