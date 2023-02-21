@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d418dd73_131f5582",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-21T03:29:36Z",
+      "side": 1,
+      "message": "LGTM assuming nit will be addressed.",
+      "revId": "5639e554ff3bb0182396d9ba84212da8f3e4edbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ded8dd8e_eaff9b7f",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-21T03:29:36Z",
+      "side": 1,
+      "message": "Maybe link to bug\n(b/xxxxxxx)",
+      "range": {
+        "startLine": 407,
+        "startChar": 11,
+        "endLine": 407,
+        "endChar": 12
+      },
+      "revId": "5639e554ff3bb0182396d9ba84212da8f3e4edbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
