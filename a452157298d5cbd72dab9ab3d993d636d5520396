@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9344b295_14d07d66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-21T02:58:56Z",
+      "side": 1,
+      "message": "LGTM but need jchalard@\u0027s review.",
+      "revId": "a452157298d5cbd72dab9ab3d993d636d5520396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e37263_2c6c63da",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-21T02:58:56Z",
+      "side": 1,
+      "message": "space?",
+      "range": {
+        "startLine": 317,
+        "startChar": 90,
+        "endLine": 317,
+        "endChar": 91
+      },
+      "revId": "a452157298d5cbd72dab9ab3d993d636d5520396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
