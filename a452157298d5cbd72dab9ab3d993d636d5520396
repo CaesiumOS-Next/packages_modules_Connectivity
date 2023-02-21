@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b562dcfc_f87a4fc9",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-21T06:18:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75e37263_2c6c63da",
+      "range": {
+        "startLine": 317,
+        "startChar": 90,
+        "endLine": 317,
+        "endChar": 91
+      },
+      "revId": "a452157298d5cbd72dab9ab3d993d636d5520396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ae47b99_1fb1a75c",
@@ -97,6 +121,54 @@
       "range": {
         "startLine": 168,
         "startChar": 31,
+        "endLine": 168,
+        "endChar": 41
+      },
+      "revId": "a452157298d5cbd72dab9ab3d993d636d5520396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a170aa_0dd27c1c",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-21T06:18:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50aa5e1f_4533b04b",
+      "range": {
+        "startLine": 168,
+        "startChar": 31,
+        "endLine": 168,
+        "endChar": 41
+      },
+      "revId": "a452157298d5cbd72dab9ab3d993d636d5520396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee274b29_2b8ba214",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-21T06:18:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ae47b99_1fb1a75c",
+      "range": {
+        "startLine": 168,
+        "startChar": 8,
         "endLine": 168,
         "endChar": 41
       },
