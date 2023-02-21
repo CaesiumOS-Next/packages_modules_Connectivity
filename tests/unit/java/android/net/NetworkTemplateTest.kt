@@ -32,16 +32,20 @@ import android.net.NetworkStats.METERED_ALL
 import android.net.NetworkStats.METERED_NO
 import android.net.NetworkStats.METERED_YES
 import android.net.NetworkStats.ROAMING_ALL
+import android.net.NetworkTemplate.MATCH_BLUETOOTH
 import android.net.NetworkTemplate.MATCH_CARRIER
 import android.net.NetworkTemplate.MATCH_MOBILE
+import android.net.NetworkTemplate.MATCH_PROXY
 import android.net.NetworkTemplate.MATCH_TEST
 import android.net.NetworkTemplate.MATCH_WIFI
 import android.net.NetworkTemplate.NETWORK_TYPE_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_NO
 import android.net.NetworkTemplate.OEM_MANAGED_YES
+import android.net.NetworkTemplate.buildTemplateBluetooth
 import android.net.NetworkTemplate.buildTemplateMobileAll
 import android.net.NetworkTemplate.buildTemplateMobileWildcard
+import android.net.NetworkTemplate.buildTemplateProxy
 import android.net.NetworkTemplate.buildTemplateWifiWildcard
 import android.net.NetworkTemplate.normalize
 import android.net.wifi.WifiInfo
@@ -485,6 +489,39 @@ class NetworkTemplateTest {
         assertParcelSane(templateMobile, 8)
         assertParcelSane(templateWifi, 8)
         assertParcelSane(templateOem, 8)
+    }
+
+    @Test
+    fun testConstructor() {
+        val templateMobile = NetworkTemplate(MATCH_MOBILE, null /* subscriberId */,
+                null /* subscriberIds */, null /* wifiNetworkKey */)
+        val templateMobileImsi1 = NetworkTemplate(MATCH_MOBILE, TEST_IMSI1 /* subscriberId */,
+                null /* subscriberIds */, null /* wifiNetworkKey */)
+        val templateMobileImsi1Imsi2 = NetworkTemplate(MATCH_MOBILE, null /* subscriberId */,
+                arrayOf(TEST_IMSI1, TEST_IMSI2) /* subscriberIds */, null /* wifiNetworkKey */)
+
+        assertEquals(NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES).build(),
+                templateMobile)
+        assertEquals(NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES)
+                .setSubscriberIds(setOf(TEST_IMSI1)).build(), templateMobileImsi1)
+        assertEquals(NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES)
+                .setSubscriberIds(setOf(TEST_IMSI1, TEST_IMSI2)).build(), templateMobileImsi1Imsi2)
+    }
+
+    @Test
+    fun testLegacyBuildTemplateMethods() {
+        val templateBluetooth = NetworkTemplate(MATCH_BLUETOOTH,
+                emptyArray<String>() /* subscriberIds */,
+                emptyArray<String>() /* wifiNetworkKeys */, METERED_ALL, ROAMING_ALL,
+                DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL, OEM_MANAGED_ALL)
+
+        val templateProxy = NetworkTemplate(MATCH_PROXY,
+                emptyArray<String>() /* subscriberIds */,
+                emptyArray<String>() /* wifiNetworkKeys */, METERED_ALL, ROAMING_ALL,
+                DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL, OEM_MANAGED_ALL)
+
+        assertEquals(templateBluetooth, buildTemplateBluetooth())
+        assertEquals(templateProxy, buildTemplateProxy())
     }
 
     // Verify NETWORK_TYPE_* constants in NetworkTemplate do not conflict with
