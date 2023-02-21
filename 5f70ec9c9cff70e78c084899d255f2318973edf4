@@ -22,6 +22,30 @@
       },
       "revId": "5f70ec9c9cff70e78c084899d255f2318973edf4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41418955_82a5eb02",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/DnsOptionsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-21T14:01:48Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "531087d7_74b712f5",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 45
+      },
+      "revId": "5f70ec9c9cff70e78c084899d255f2318973edf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
