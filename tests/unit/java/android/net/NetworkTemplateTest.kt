@@ -32,16 +32,20 @@ import android.net.NetworkStats.METERED_ALL
 import android.net.NetworkStats.METERED_NO
 import android.net.NetworkStats.METERED_YES
 import android.net.NetworkStats.ROAMING_ALL
+import android.net.NetworkTemplate.MATCH_BLUETOOTH
 import android.net.NetworkTemplate.MATCH_CARRIER
 import android.net.NetworkTemplate.MATCH_MOBILE
+import android.net.NetworkTemplate.MATCH_PROXY
 import android.net.NetworkTemplate.MATCH_TEST
 import android.net.NetworkTemplate.MATCH_WIFI
 import android.net.NetworkTemplate.NETWORK_TYPE_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_NO
 import android.net.NetworkTemplate.OEM_MANAGED_YES
+import android.net.NetworkTemplate.buildTemplateBluetooth
 import android.net.NetworkTemplate.buildTemplateMobileAll
 import android.net.NetworkTemplate.buildTemplateMobileWildcard
+import android.net.NetworkTemplate.buildTemplateProxy
 import android.net.NetworkTemplate.buildTemplateWifiWildcard
 import android.net.NetworkTemplate.normalize
 import android.net.wifi.WifiInfo
@@ -57,6 +61,7 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
@@ -485,6 +490,22 @@ class NetworkTemplateTest {
         assertParcelSane(templateMobile, 8)
         assertParcelSane(templateWifi, 8)
         assertParcelSane(templateOem, 8)
+    }
+
+    @Test
+    fun testLegacyBuildTemplateMethods() {
+        val templateBluetooth = NetworkTemplate(MATCH_BLUETOOTH,
+                emptyArray<String>() /* subscriberIds */,
+                emptyArray<String>() /* wifiNetworkKeys */, METERED_ALL, ROAMING_ALL,
+                DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL, OEM_MANAGED_ALL)
+
+        val templateProxy = NetworkTemplate(MATCH_PROXY,
+                emptyArray<String>() /* subscriberIds */,
+                emptyArray<String>() /* wifiNetworkKeys */, METERED_ALL, ROAMING_ALL,
+                DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL, OEM_MANAGED_ALL)
+
+        assertEquals(templateBluetooth, buildTemplateBluetooth())
+        assertEquals(templateProxy, buildTemplateProxy())
     }
 
     // Verify NETWORK_TYPE_* constants in NetworkTemplate do not conflict with
