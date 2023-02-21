@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a028674e_551d34d9",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-02-21T16:01:24Z",
+      "side": 1,
+      "message": "The test callback isn\u0027t very well suited for testing the callback logic itself, which is what these tests are doing. It also behaves incorrectly when you use a direct executor (as the thread that runs the callbacks is different between initialization from the test and the callback execution). \n\nSo as a result, I\u0027m using a custom callback so the specifics of those few tests don\u0027t leak elsewhere and make the TestUrlRequestCallback overly generic.",
+      "parentUuid": "ca8ed4bd_4ebbb662",
+      "revId": "c1bd2c9fd4e972f95af385321fef12008f7d9350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40d8ad37_67deae9c",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "628e2f34_fa4d2a7f",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-02-21T16:01:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40d8ad37_67deae9c",
+      "revId": "c1bd2c9fd4e972f95af385321fef12008f7d9350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9a66206_6cf26cca",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-02-21T14:20:22Z",
       "side": 1,
       "message": "ditto",
+      "revId": "c1bd2c9fd4e972f95af385321fef12008f7d9350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "decfc328_cabec90b",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-02-21T16:01:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9a66206_6cf26cca",
       "revId": "c1bd2c9fd4e972f95af385321fef12008f7d9350",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
