@@ -22,6 +22,30 @@
       },
       "revId": "150eccf5635c020289ed0508b4e6d744e5852222",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a7702b2_c03ea0e0",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-21T05:20:01Z",
+      "side": 0,
+      "message": "Maybe, but using intents is slow and error-prone, and should be avoided whenever there is an alternative. The new code is much simpler and easier to understand, and a lot less fiddly.",
+      "parentUuid": "c970fdcb_be618b41",
+      "range": {
+        "startLine": 255,
+        "startChar": 12,
+        "endLine": 255,
+        "endChar": 51
+      },
+      "revId": "150eccf5635c020289ed0508b4e6d744e5852222",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
