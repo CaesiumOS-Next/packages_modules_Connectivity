@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bca8fd3_c9f2d60e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-21T23:20:30Z",
+      "side": 1,
+      "message": "We don\u0027t technically need this at all. Both framework-tethering-pre-jarjar and cronet_aml_java can just use the filegroup.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 22
+      },
+      "revId": "74e0847bdac3c5fc81eefcb142b250ff84f07395",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
