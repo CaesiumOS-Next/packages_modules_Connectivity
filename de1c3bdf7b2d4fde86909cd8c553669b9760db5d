@@ -39,6 +39,29 @@
       "message": "A unit test that also explains that this is used on some T OEM devices building against hidden API may be useful to make sure we don\u0027t break/remove it in the future. The bug link doesn\u0027t provide context for AOSP contributors that don\u0027t have access.",
       "revId": "de1c3bdf7b2d4fde86909cd8c553669b9760db5d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c898954_17c1cec7",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-21T08:33:27Z",
+      "side": 1,
+      "message": "Question: Do we want to add other suspected O API methods as well?\nIt is unlikely to me since we found that the target SDK of vivo settings is 33.",
+      "range": {
+        "startLine": 409,
+        "startChar": 19,
+        "endLine": 409,
+        "endChar": 36
+      },
+      "revId": "de1c3bdf7b2d4fde86909cd8c553669b9760db5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
