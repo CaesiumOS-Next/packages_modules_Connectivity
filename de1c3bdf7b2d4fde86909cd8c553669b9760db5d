@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8b0acca_a9fe5827",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-21T09:27:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a03c1d4_70f74f15",
+      "range": {
+        "startLine": 407,
+        "startChar": 7,
+        "endLine": 407,
+        "endChar": 11
+      },
+      "revId": "de1c3bdf7b2d4fde86909cd8c553669b9760db5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "863a2e5c_c0b13f26",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-21T08:33:27Z",
       "side": 1,
       "message": "Question: Do we want to add other suspected O API methods as well?\nIt is unlikely to me since we found that the target SDK of vivo settings is 33.",
+      "range": {
+        "startLine": 409,
+        "startChar": 19,
+        "endLine": 409,
+        "endChar": 36
+      },
+      "revId": "de1c3bdf7b2d4fde86909cd8c553669b9760db5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db6aa29c_fb4202f8",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-21T09:27:39Z",
+      "side": 1,
+      "message": "Yes. To be safe, we should add them back.",
+      "parentUuid": "0c898954_17c1cec7",
       "range": {
         "startLine": 409,
         "startChar": 19,
