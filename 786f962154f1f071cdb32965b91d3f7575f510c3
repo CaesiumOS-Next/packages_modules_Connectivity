@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "382bec65_9469c7d4",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1814,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-21T21:39:52Z",
+      "side": 1,
+      "message": "nit: you could just put the name in here. Is there a benefit to keeping it in a constant?",
+      "range": {
+        "startLine": 1814,
+        "startChar": 11,
+        "endLine": 1814,
+        "endChar": 13
+      },
+      "revId": "786f962154f1f071cdb32965b91d3f7575f510c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
