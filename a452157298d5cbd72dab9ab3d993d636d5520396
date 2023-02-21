@@ -39,6 +39,29 @@
       },
       "revId": "a452157298d5cbd72dab9ab3d993d636d5520396",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ae47b99_1fb1a75c",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-21T03:01:09Z",
+      "side": 1,
+      "message": "Do we want to verify these templates are the same with what we expected by building it with Builder?",
+      "range": {
+        "startLine": 168,
+        "startChar": 8,
+        "endLine": 168,
+        "endChar": 41
+      },
+      "revId": "a452157298d5cbd72dab9ab3d993d636d5520396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
