@@ -51,6 +51,7 @@ import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.NetworkIdentityUtils;
 
@@ -246,6 +247,38 @@ public final class NetworkTemplate implements Parcelable {
         return new NetworkTemplate.Builder(MATCH_ETHERNET).build();
     }
 
+    /**
+     * Template to combine all {@link ConnectivityManager#TYPE_BLUETOOTH} style
+     * networks together.
+     *
+     * @hide
+     */
+    // TODO(b/270089918): Remove this method. This can only be done after there are no more callers,
+    //  including in OEM code which can access this by linking against the framework.
+    public static NetworkTemplate buildTemplateBluetooth() {
+        if (getInitialSdkLevel() > Build.VERSION_CODES.TIRAMISU) {
+            throw new UnsupportedOperationException(
+                    "buildTemplateBluetooth is not supported above Android T devices");
+        }
+        return new NetworkTemplate.Builder(MATCH_BLUETOOTH).build();
+    }
+
+    /**
+     * Template to combine all {@link ConnectivityManager#TYPE_PROXY} style
+     * networks together.
+     *
+     * @hide
+     */
+    // TODO(b/270089918): Remove this method. This can only be done after there are no more callers,
+    //  including in OEM code which can access this by linking against the framework.
+    public static NetworkTemplate buildTemplateProxy() {
+        if (getInitialSdkLevel() > Build.VERSION_CODES.TIRAMISU) {
+            throw new UnsupportedOperationException(
+                    "buildTemplateProxy is not supported above Android T devices");
+        }
+        return new NetworkTemplate(MATCH_PROXY, null, null);
+    }
+
     private final int mMatchRule;
 
     /**
@@ -334,6 +367,25 @@ public final class NetworkTemplate implements Parcelable {
             return METERED_YES;
         }
         return METERED_ALL;
+    }
+
+    /** @hide */
+    // TODO(b/270089918): Remove this method after no callers.
+    public NetworkTemplate(int matchRule, String subscriberId, String[] matchSubscriberIds,
+            String wifiNetworkKey) {
+        // Older versions used to only match MATCH_MOBILE and MATCH_MOBILE_WILDCARD templates
+        // to metered networks. It is now possible to match mobile with any meteredness, but
+        // in order to preserve backward compatibility of @UnsupportedAppUsage methods, this
+        // constructor passes METERED_YES for these types.
+        this(getBackwardsCompatibleMatchRule(matchRule), matchSubscriberIds,
+                wifiNetworkKey != null ? new String[] { wifiNetworkKey } : new String[0],
+                getMeterednessForBackwardsCompatibility(matchRule),
+                ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL,
+                OEM_MANAGED_ALL);
+        if (getInitialSdkLevel() > Build.VERSION_CODES.TIRAMISU) {
+            throw new UnsupportedOperationException(
+                    "This constructor is not supported above Android T devices");
+        }
     }
 
     /** @hide */
@@ -436,9 +488,14 @@ public final class NetworkTemplate implements Parcelable {
         return false;
     }
 
-    // TODO(b/270089918): Remove this method after no callers.
+    // TODO(b/270089918): Remove this method. This can only be done after there are no more callers,
+    //  including in OEM code which can access this by linking against the framework.
     /** @hide */
     public boolean isMatchRuleMobile() {
+        if (getInitialSdkLevel() > Build.VERSION_CODES.TIRAMISU) {
+            throw new UnsupportedOperationException(
+                    "isMatchRuleMobile is not supported above Android T devices");
+        }
         switch (mMatchRule) {
             case MATCH_MOBILE:
             // Old MATCH_MOBILE_WILDCARD
@@ -733,6 +790,19 @@ public final class NetworkTemplate implements Parcelable {
                 return "OEM_MANAGED_YES";
             default:
                 return NetworkIdentity.getOemManagedNames(oemManaged);
+        }
+    }
+
+    // TODO: Move to a proper utility class. This is copied from
+    //  {@link android.net.cts.ConnectivityManagerTest}.
+    private static int getInitialSdkLevel() {
+        try {
+            return SdkLevel.isAtLeastS() ? Build.VERSION.DEVICE_INITIAL_SDK_INT
+                    // FIRST_SDK_INT was a @TestApi field renamed to DEVICE_INITIAL_SDK_INT in S
+                    : Build.VERSION.class.getField("FIRST_SDK_INT").getInt(null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            // Should never happen.
+            throw new RuntimeException(e);
         }
     }
 
