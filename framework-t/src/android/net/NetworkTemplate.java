@@ -246,6 +246,28 @@ public final class NetworkTemplate implements Parcelable {
         return new NetworkTemplate.Builder(MATCH_ETHERNET).build();
     }
 
+    /**
+     * Template to combine all {@link ConnectivityManager#TYPE_BLUETOOTH} style
+     * networks together.
+     *
+     * @hide
+     */
+    // TODO(b/270089918): Remove this method after no callers.
+    public static NetworkTemplate buildTemplateBluetooth() {
+        return new NetworkTemplate.Builder(MATCH_BLUETOOTH).build();
+    }
+
+    /**
+     * Template to combine all {@link ConnectivityManager#TYPE_PROXY} style
+     * networks together.
+     *
+     * @hide
+     */
+    // TODO(b/270089918): Remove this method after no callers.
+    public static NetworkTemplate buildTemplateProxy() {
+        return new NetworkTemplate.Builder(MATCH_PROXY).build();
+    }
+
     private final int mMatchRule;
 
     /**
@@ -334,6 +356,21 @@ public final class NetworkTemplate implements Parcelable {
             return METERED_YES;
         }
         return METERED_ALL;
+    }
+
+    /** @hide */
+    // TODO(b/270089918): Remove this method after no callers.
+    public NetworkTemplate(int matchRule, String subscriberId, String[] matchSubscriberIds,
+            String wifiNetworkKey) {
+        // Older versions used to only match MATCH_MOBILE and MATCH_MOBILE_WILDCARD templates
+        // to metered networks. It is now possible to match mobile with any meteredness, but
+        // in order to preserve backward compatibility of @UnsupportedAppUsage methods, this
+        //constructor passes METERED_YES for these types.
+        this(getBackwardsCompatibleMatchRule(matchRule), matchSubscriberIds,
+                wifiNetworkKey != null ? new String[] { wifiNetworkKey } : new String[0],
+                getMeterednessForBackwardsCompatibility(matchRule),
+                ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL,
+                OEM_MANAGED_ALL);
     }
 
     /** @hide */
