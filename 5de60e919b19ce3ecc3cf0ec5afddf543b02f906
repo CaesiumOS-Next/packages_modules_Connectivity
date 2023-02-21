@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24be13f2_18d1a371",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 3
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-21T19:59:22Z",
+      "side": 1,
+      "message": "These were all already duplicated. It looks like this change made `__testing__testing` targets out of duplicated `__testing` targets.",
+      "range": {
+        "startLine": 906,
+        "startChar": 11,
+        "endLine": 906,
+        "endChar": 72
+      },
+      "revId": "5de60e919b19ce3ecc3cf0ec5afddf543b02f906",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
