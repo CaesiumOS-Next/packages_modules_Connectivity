@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "295f862b_10cccc84",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-21T07:51:39Z",
+      "side": 1,
+      "message": "Discussed in meeting: to avoid the timer, let\u0027s have a method like requestStopWhenInactive (or other name you prefer ? requestStopMonitoring ? stopMonitoringAsync ?) which will set a boolean; in unrequestSocket, if the boolean is true and there is no request left, then stop monitoring",
+      "revId": "ffbccdf34ec1db475653c616c6397ecc14d831f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
