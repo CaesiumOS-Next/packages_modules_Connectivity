@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2143d24c_719cd73f",
+        "filename": "Cronet/tools/import/copy.bara.sky",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-22T11:32:00Z",
+      "side": 1,
+      "message": "Just to clarify. They\u0027re still in the chromium repository as they\u0027re used there for host compilation. It\u0027s just not used by the gn2bp script anymore as we removed the codepath that included it.",
+      "parentUuid": "592610d1_eb512868",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 40
+      },
+      "revId": "61e83c8a19a6383ee69afcbcf1e277a770afa830",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "db8cfd1c_788bdd30",
         "filename": "Cronet/tools/import/copy.bara.sky",
         "patchSetId": 3
