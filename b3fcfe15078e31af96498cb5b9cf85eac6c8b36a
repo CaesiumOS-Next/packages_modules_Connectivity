@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ae8382c_db8562ee",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-22T06:57:03Z",
+      "side": 1,
+      "message": "Do you think the following description explaining the problem?\n```\nIn #createVpnAndSetupUidChecks(), it always mock the uid of TEST_VPN_PKG with Process.myUid().\nRunning VPN with non-SYSTEM_USER will result in problem on generating uid ranges since test \ncases usually run on SYSTEM_USER.\n```\n\nMy difficulty on the existing comment is that the example does not help to understand the problem but think: is it a problem on creating uid ranges? \n\nWith the given sample comment, it means the test will fail when I switch to non-system user to run the unit test. It\u0027s not very nice though. The better solution should have the test always pass with any user but it may require a amount of refactoring on the test.",
+      "range": {
+        "startLine": 1434,
+        "startChar": 8,
+        "endLine": 1440,
+        "endChar": 31
+      },
+      "revId": "b3fcfe15078e31af96498cb5b9cf85eac6c8b36a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
