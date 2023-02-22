@@ -16,6 +16,24 @@
       "message": "setTestLowTcpPollingTimerForKeepalive is only usable on debuggable builds, so it can\u0027t be used in CTS. Is that expected ? Will the test only be run on debug devices (so not on actual CTS) ?",
       "revId": "32e4f08d7b7c7293796f2249d8b2a4f9cd8db345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1625b919_ac6c68d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 42
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-02-22T05:30:10Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. I think we would like it to run on actual CTS. I address it in aosp/2450123.",
+      "parentUuid": "66925287_a2074274",
+      "revId": "32e4f08d7b7c7293796f2249d8b2a4f9cd8db345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
