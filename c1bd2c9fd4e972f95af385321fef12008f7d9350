@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43541013_65ef2f0f",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-22T19:28:03Z",
+      "side": 1,
+      "message": "I understand the bytebuffer tests need features that are not supported by the testcallback. \n\nI still have reservations about the executor tests. You can call `callback.allowDirectExecutor` to disable the executor thread check in the test callback and allow it run on the calling thread. We have similar tests in chromium. See: https://source.chromium.org/chromium/chromium/src/+/main:components/cronet/android/test/javatests/src/org/chromium/net/CronetUrlRequestTest.java;l\u003d1590 or aosp/2441419(will abandon this).",
+      "parentUuid": "a028674e_551d34d9",
+      "revId": "c1bd2c9fd4e972f95af385321fef12008f7d9350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40d8ad37_67deae9c",
         "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
         "patchSetId": 1
