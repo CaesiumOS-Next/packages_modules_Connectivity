@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecb60bd1_bd598857",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-22T16:56:25Z",
+      "side": 1,
+      "message": "prohr@ The reason why so many new static libraries are being added to the modules is because those were previously `cc_objects` and they were embedded into the `srcs` of `cronet_aml_base_base`. Now they\u0027re cc_static_library so they aren\u0027t part of the `srcs` and have to be propagated to every module that depend on `cronet_aml_base_base`",
+      "revId": "93c719cb618a28036fb856d6a1cf06b8c4945190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
