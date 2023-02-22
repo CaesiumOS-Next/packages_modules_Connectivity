@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84ed66a0_d81de36a",
+        "filename": "framework-t/api/module-lib-current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-22T06:13:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3543135_66c42a8a",
+      "range": {
+        "startLine": 213,
+        "startChar": 262,
+        "endLine": 213,
+        "endChar": 285
+      },
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a7038c2_2ce2875b",
+        "filename": "framework-t/api/module-lib-current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-22T06:13:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cf54d35_fc99be74",
+      "range": {
+        "startLine": 213,
+        "startChar": 109,
+        "endLine": 213,
+        "endChar": 142
+      },
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7257ccd8_663b8773",
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35726af8_70a4e050",
+        "filename": "framework-t/api/module-lib-current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-22T06:13:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7257ccd8_663b8773",
+      "range": {
+        "startLine": 218,
+        "startChar": 23,
+        "endLine": 218,
+        "endChar": 39
+      },
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5fe6af6_5cde4513",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-02-17T06:43:55Z",
       "side": 1,
       "message": "It looks like the hostname can be \"\", but is that really the case? Or do you just use an empty string to denote \"no hostname\"? If the latter, then null would be better than \"\".",
+      "range": {
+        "startLine": 225,
+        "startChar": 11,
+        "endLine": 225,
+        "endChar": 19
+      },
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c1b4407_1accb52b",
+        "filename": "framework-t/api/module-lib-current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-22T06:13:48Z",
+      "side": 1,
+      "message": "Thanks, I have discuss with Remi, because the hostname should not be empty. We should propagate the real hostname into the field. If we cannot get the actual hostname (e.g. in the mdnsrespnder), we can use \"Android.local\" as a default value.",
+      "parentUuid": "b5fe6af6_5cde4513",
       "range": {
         "startLine": 225,
         "startChar": 11,
@@ -140,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91b08eeb_6f19083f",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-22T06:13:48Z",
+      "side": 1,
+      "message": "Thanks, updated to OffloadEngine.",
+      "parentUuid": "f308ff72_ee61f4d2",
+      "range": {
+        "startLine": 328,
+        "startChar": 21,
+        "endLine": 328,
+        "endChar": 44
+      },
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2dcfaba_715329fe",
@@ -163,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db9dfc6d_317b4e02",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-22T06:13:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2dcfaba_715329fe",
+      "range": {
+        "startLine": 330,
+        "startChar": 53,
+        "endLine": 330,
+        "endChar": 58
+      },
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6cd6882_97b97701",
@@ -176,6 +320,24 @@
       "writtenOn": "2023-02-17T06:43:55Z",
       "side": 1,
       "message": "What should happen if multiple entities register an OffloadCallback for the same interface? Given the current API shape is fine - we just send onOffloadUpdated to all of them.\n\nBut if we add transmit support down the line (which I think we\u0027re planning to do), then probably we can\u0027t allow multiple entities to register for the same interface? Because if we did, we\u0027d potentially get multiple responses for the same query?",
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d37465e_e252f848",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-22T06:13:48Z",
+      "side": 1,
+      "message": "Thanks, as discussed offline. Update to make sure one interface can only have one offload engine registered.",
+      "parentUuid": "b6cd6882_97b97701",
       "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -226,6 +388,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "795d1f6c_5261ad51",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-22T06:13:48Z",
+      "side": 1,
+      "message": "As mentioned above, the check here is to check one engine object is not reused. I added checked in NsdService to check one interface can only have one engine registered.",
+      "parentUuid": "b9d8fe35_73a50c16",
+      "range": {
+        "startLine": 371,
+        "startChar": 50,
+        "endLine": 371,
+        "endChar": 90
+      },
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bb8d8f1_c6dd75da",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-22T06:13:48Z",
+      "side": 1,
+      "message": "I think the IllegalArgument should be accurate here. The logic here is checking one engine object cannot be registered for two interface. If the engine object already registered for some interface it should not be reused. Therefore, we throw IllegalArgument.",
+      "parentUuid": "9b03f71f_01cab363",
+      "range": {
+        "startLine": 371,
+        "startChar": 26,
+        "endLine": 371,
+        "endChar": 50
+      },
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ef3c3da_411d0f08",
@@ -249,6 +459,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8114e63f_3154412e",
+        "filename": "framework-t/src/android/net/nsd/OffloadInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-22T06:13:48Z",
+      "side": 1,
+      "message": "Thanks for the advice. Updated to OffloadRecord.",
+      "parentUuid": "0ef3c3da_411d0f08",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 30
+      },
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80255a56_2216ff48",
@@ -262,6 +496,30 @@
       "writtenOn": "2023-02-17T06:43:55Z",
       "side": 1,
       "message": "Looks like this API can offload services, which are... PTR queries? What about the other queries used in MDNS, such as SRV, A, AAAA? Can this object support those? Or perhaps it doesn\u0027t need to?",
+      "range": {
+        "startLine": 34,
+        "startChar": 25,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "e9d86080b5d30d6f31cb4a717a7d60a52f902f61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b928e9fd_a2e5282e",
+        "filename": "framework-t/src/android/net/nsd/OffloadInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-22T06:13:48Z",
+      "side": 1,
+      "message": "Thanks. Lets look at an example as follows:\nServiceName: test_service\nServiceType: _mnt._tcp.\nHostName: Android.local\n\nWe can feed the following QNAME into ApfFilter\n1. _mnt._tcp.local for PTR record query\n2. test_service._mnt._tcp.local for SRV/TXT record query\n3. Android.local for A/AAAA record query",
+      "parentUuid": "80255a56_2216ff48",
       "range": {
         "startLine": 34,
         "startChar": 25,
