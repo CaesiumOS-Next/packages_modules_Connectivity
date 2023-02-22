@@ -42,6 +42,7 @@ public class StateMachineShim {
             mAsyncSM = new AsyncStateMachine(name, looper);
             mSyncSM = null;
         }
+
     }
 
     // This is used for mainSM. If useSyncSM is true, creating syncSM with unstarted tethering
