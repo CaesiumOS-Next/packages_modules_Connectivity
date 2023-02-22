@@ -22,6 +22,30 @@
       },
       "revId": "74e0847bdac3c5fc81eefcb142b250ff84f07395",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06c4fe70_e5efdfef",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-22T11:39:07Z",
+      "side": 1,
+      "message": "But each time someone introduces a new dependency to the API. cronet_aml_java will break because it can\u0027t find those new dependency and we will have to change the gn2bp script to accommodate for the dependency.\n\nI tried to avoid that by having the filegroup being included in `cronet_aml_api_java` which is a java_library and that can be manually maintained.",
+      "parentUuid": "4bca8fd3_c9f2d60e",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 22
+      },
+      "revId": "74e0847bdac3c5fc81eefcb142b250ff84f07395",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
