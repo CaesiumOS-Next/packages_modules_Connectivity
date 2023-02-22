@@ -21,6 +21,7 @@ import android.os.Looper;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
+import com.android.networkstack.tethering.TetheringDependencies;
 import com.android.networkstack.tethering.util.SyncStateMachine.StateInfo;
 
 import java.util.List;
@@ -40,10 +41,20 @@ public class StateMachineShim {
             mAsyncSM = new AsyncStateMachine(name, looper);
             mSyncSM = null;
         }
+
     }
 
-    public StateMachineShim(final String name, final Thread thread) {
-        this(null, new SyncStateMachine(name, thread));
+    public StateMachineShim(final String name, final TetheringDependencies deps,
+            final boolean useSyncSM) {
+        mUseSyncSM = useSyncSM;
+        if (useSyncSM) {
+            mAsyncSM = null;
+            mSyncSM = new SyncStateMachine(name, deps.getTetheringThread());
+        } else {
+            mAsyncSM = new AsyncStateMachine(name, deps.getTetheringLooper());
+            mSyncSM = null;
+        }
+
     }
 
     @VisibleForTesting
