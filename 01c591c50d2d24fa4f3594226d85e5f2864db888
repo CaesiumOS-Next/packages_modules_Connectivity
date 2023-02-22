@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "894e9b50_14dcb025",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-02-22T10:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e6b5b43_c2b88feb",
+      "range": {
+        "startLine": 2075,
+        "startChar": 20,
+        "endLine": 2075,
+        "endChar": 45
+      },
+      "revId": "01c591c50d2d24fa4f3594226d85e5f2864db888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91e985e0_0908e934",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-14T07:51:00Z",
       "side": 1,
       "message": "This looks hacky that update mCurrentUpStreamStartTime inside createBuilder.\nAt least you need some comments talking about the reason. Also I think you need to aware that there is potential race condition problem if you change upstream things when you deal with downstream. Because tethering have separate state machine for downstream and upstream and they communicated each other asynchronous, having global variable like this and touch it both in downstream (createBuilder would be called from downstream flow) and upstream code flow always have potential race condition problem.",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "01c591c50d2d24fa4f3594226d85e5f2864db888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a78b151_bcdb4d5d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-02-22T10:12:40Z",
+      "side": 1,
+      "message": "I have removed these to avoid dependency.",
+      "parentUuid": "91e985e0_0908e934",
       "range": {
         "startLine": 123,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c764e6ff_5d586518",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-02-22T10:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fadcff8_759fb56f",
+      "range": {
+        "startLine": 146,
+        "startChar": 19,
+        "endLine": 146,
+        "endChar": 30
+      },
+      "revId": "01c591c50d2d24fa4f3594226d85e5f2864db888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b15c178_1476af66",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-02-14T07:51:00Z",
       "side": 1,
       "message": "If we change the code as below, does it work ?\n\n    for (RecordUpstreamEvent event : mUpstreamEventList) {\n        if (downstreamStartTime \u003e event.mStartTime) continue;\n        updateUpstreamEvents(upstreamEventsBuilder, event);\n    }\n\n    final long startTime \u003d downstreamStartTime \u003e mCurrentUpStreamStartTime ? downstreamStartTime : mCurrentUpStreamStartTime;\n    final long stopTime \u003d timeNow();\n        \n    updateUpstreamEvents(upstreamEventsBuilder, new RecordUpstreamEvent(startTime, stopTime, mCurrentUpstream));",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 35
+      },
+      "revId": "01c591c50d2d24fa4f3594226d85e5f2864db888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e52330aa_2a299b3c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-02-22T10:12:40Z",
+      "side": 1,
+      "message": "Yes, it works.",
+      "parentUuid": "0b15c178_1476af66",
       "range": {
         "startLine": 171,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfbba593_0470a75a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-02-22T10:12:40Z",
+      "side": 1,
+      "message": "You are right, we just need to take care upstream relevant variables.",
+      "parentUuid": "f49c01ab_c0096553",
+      "range": {
+        "startLine": 245,
+        "startChar": 8,
+        "endLine": 245,
+        "endChar": 38
+      },
+      "revId": "01c591c50d2d24fa4f3594226d85e5f2864db888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3872e12a_dec5f7d7",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ef15311_0246e69a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-02-22T10:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3872e12a_dec5f7d7",
+      "range": {
+        "startLine": 326,
+        "startChar": 8,
+        "endLine": 326,
+        "endChar": 60
+      },
+      "revId": "01c591c50d2d24fa4f3594226d85e5f2864db888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "247879ad_b0b2456e",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-02-14T07:51:00Z",
       "side": 1,
       "message": "hasVpn is less common. If you follow the suggestion below, then you just need to check 2 IF at most.\n\n    if (hasVpn) {\n        if (hasCellular \u0026\u0026 hasWifi) return UT_WIFI_CELLULAR_VPN;\n        \n        if (hasCellular) return UT_CELLULAR_VPN;\n        if (hasWifi) return UT_WIFI_VPN;\n        if (hasBT) return UT_BLUETOOTH_VPN;\n        if (hasEthernet) return UT_ETHERNET_VPN;  \n    }\n    \n    if (hasCellular) return UpstreamType.UT_CELLULAR;\n    if (hasWifi) return UpstreamType.UT_WIFI;\n    if (hasBT) return UpstreamType.UT_BLUETOOTH;\n    if (hasEthernet) return UpstreamType.UT_ETHERNET;\n    if (hasWifiAware) return UpstreamType.UT_WIFI_AWARE;\n    if (hasLopan) return UpstreamType.UT_LOWPAN;",
+      "range": {
+        "startLine": 336,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 9
+      },
+      "revId": "01c591c50d2d24fa4f3594226d85e5f2864db888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1add38b3_a8b10fe3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-02-22T10:12:40Z",
+      "side": 1,
+      "message": "No, compiler would complain \"missing return statement\" if modify like this way.",
+      "parentUuid": "247879ad_b0b2456e",
       "range": {
         "startLine": 336,
         "startChar": 0,
