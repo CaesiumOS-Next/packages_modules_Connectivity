@@ -22,6 +22,30 @@
       },
       "revId": "5de60e919b19ce3ecc3cf0ec5afddf543b02f906",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e28217a_b6d72069",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 3
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-22T18:45:07Z",
+      "side": 1,
+      "message": "Done. It was just a naming issue here.",
+      "parentUuid": "24be13f2_18d1a371",
+      "range": {
+        "startLine": 906,
+        "startChar": 11,
+        "endLine": 906,
+        "endChar": 72
+      },
+      "revId": "5de60e919b19ce3ecc3cf0ec5afddf543b02f906",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
