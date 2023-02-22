@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9fe70dd_f9fe720d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-22T18:55:11Z",
+      "side": 1,
+      "message": "actually, this should have been fixed by aosp/2401567, so I think we can remove this altogether.",
+      "revId": "6097ec90cbd07d26b8a043a2a1b2eb7e3db2de99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
