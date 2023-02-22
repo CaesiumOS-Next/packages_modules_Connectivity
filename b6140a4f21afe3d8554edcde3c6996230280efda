@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ec88669_4a0454d3",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-02-22T22:43:23Z",
+      "side": 1,
+      "message": "Technically yes it could race. I added a condition to guard this better that gets reset once all traces have completed and a warning when the requested poll_ms is ignored.",
+      "parentUuid": "a720e926_24bd448c",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 32
+      },
+      "revId": "b6140a4f21afe3d8554edcde3c6996230280efda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a1e57f8_2371f9c8",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-22T00:34:42Z",
       "side": 1,
       "message": "I just don\u0027t understand how this is correct, unless all calls to \u0027return false\u0027 below are changed to abort()",
+      "range": {
+        "startLine": 135,
+        "startChar": 19,
+        "endLine": 135,
+        "endChar": 21
+      },
+      "revId": "b6140a4f21afe3d8554edcde3c6996230280efda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db2887c8_7eef0369",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-02-22T22:43:23Z",
+      "side": 1,
+      "message": "Perfetto doesn\u0027t use this return value, it always calls Stop. Both Start and Stop handle the counter in all cases so that, regardless of success, it only tries to initialize on the first concurrent session and clean up on the last concurrent session.\n\nImagine the following scenario:\n1. Session `A` calls Start (and fails)\n2. Session `B` calls Start\n3. Session `A` calls Stop\n4. Session `B` calls Stop\n\nIf we only increment mSessionCount on success, `B` would try to re-initialize (which would probably be ok). However, when `A`\u0027s Stop is called, what would we do? Unless we have a place to record that `A` failed to start (currently we don\u0027t), it would decrement mSessionCount **back to zero and actually stop tracing**. `B`\u0027s trace session would mysteriously end part way.\n\nWith the current code, `A` increments mSessionCount, `B` wouldn\u0027t try to re-initialize and only in `B`\u0027s Stop would the cleanup finally occur (i.e. once all active sessions are done). This isn\u0027t as good about re-trying, but I\u0027m not sure what you\u0027d actually expect to work after a retry here.\n\nAborting does side-step this problem, but it seems like a big hammer. We could also try to store the success/failure per session (I think Perfetto gives us a session id). That allows us to skip Stop and decrementing in those cases and even allows other sessions to retry (however, I still don\u0027t know why/when a retry would succeed).",
+      "parentUuid": "9a1e57f8_2371f9c8",
       "range": {
         "startLine": 135,
         "startChar": 19,
