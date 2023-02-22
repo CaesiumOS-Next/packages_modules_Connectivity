@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a720e926_24bd448c",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-02-22T00:34:42Z",
+      "side": 1,
+      "message": "I just don\u0027t see how this works.  Create two objects, call OnSetup() on both, then OnStart() on one or the other or both...\n\nPerhaps OnSetup() needs to save the setting in the object, and then OnStart() should use it?\n\nOr add a ton of logging here... saying what is happening.\n\nOr make this a \u0027static bool OnSetupCalled \u003d false\u0027 barrier, so it can really only be called once.\n\nEither way log something when the call is ignored - especially if the values don\u0027t match.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 32
+      },
+      "revId": "b6140a4f21afe3d8554edcde3c6996230280efda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a1e57f8_2371f9c8",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-02-22T00:34:42Z",
+      "side": 1,
+      "message": "I just don\u0027t understand how this is correct, unless all calls to \u0027return false\u0027 below are changed to abort()",
+      "range": {
+        "startLine": 135,
+        "startChar": 19,
+        "endLine": 135,
+        "endChar": 21
+      },
+      "revId": "b6140a4f21afe3d8554edcde3c6996230280efda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
