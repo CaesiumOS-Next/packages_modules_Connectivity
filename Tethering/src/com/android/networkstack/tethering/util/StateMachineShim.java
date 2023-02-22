@@ -16,6 +16,7 @@
 
 package com.android.networkstack.tethering.util;
 
+import android.os.Handler;
 import android.os.Looper;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -143,6 +144,18 @@ public class StateMachineShim {
         }
 
         mSyncSM.sendSelfMessage(what, 0, 0, obj);
+    }
+
+    /**
+     * Get AsyncStateMachine's handler.
+     * This can only be used with async state machine, and will throw if using sync state machine.
+     */
+    public Handler getHandlerFromAsyncSM() {
+        if (mSyncSM != null) {
+            throw new IllegalStateException("getHandler can only be used with async SM");
+        }
+
+        return mAsyncSM.getHandler();
     }
 
     /**
