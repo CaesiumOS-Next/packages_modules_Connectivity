@@ -56,6 +56,7 @@ import android.net.NetworkCapabilities;
 import android.net.ResolverOptionsParcel;
 import android.net.ResolverParamsParcel;
 import android.net.RouteInfo;
+import android.net.resolv.aidl.DohParamsParcel;
 import android.net.shared.PrivateDnsConfig;
 import android.os.Build;
 import android.provider.Settings;
@@ -353,8 +354,16 @@ public class DnsManagerTest {
     @Test
     public void testSendDnsConfiguration() throws Exception {
         reset(mMockDnsResolver);
-        mDnsManager.updatePrivateDns(new Network(TEST_NETID),
-                mDnsManager.getPrivateDnsConfig());
+        final PrivateDnsConfig cfg = new PrivateDnsConfig(
+                PRIVATE_DNS_MODE_OPPORTUNISTIC /* mode */,
+                null /* hostname */,
+                null /* ips */,
+                "doh.com" /* dohName */,
+                null /* dohIps */,
+                "/some-path{?dns}" /* dohPath */,
+                5353 /* dohPort */);
+
+        mDnsManager.updatePrivateDns(new Network(TEST_NETID), cfg);
         final LinkProperties lp = new LinkProperties();
         lp.setInterfaceName(TEST_IFACENAME);
         lp.addDnsServer(InetAddress.getByName("3.3.3.3"));
@@ -383,7 +392,11 @@ public class DnsManagerTest {
         expectedParams.transportTypes = TEST_TRANSPORT_TYPES;
         expectedParams.resolverOptions = null;
         expectedParams.meteredNetwork = true;
-        expectedParams.dohParams = null;
+        expectedParams.dohParams = new DohParamsParcel.Builder()
+                .setName("doh.com")
+                .setDohpath("/some-path{?dns}")
+                .setPort(5353)
+                .build();
         assertResolverParamsEquals(actualParams, expectedParams);
     }
 
