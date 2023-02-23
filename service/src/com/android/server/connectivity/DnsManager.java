@@ -384,6 +384,16 @@ public class DnsManager {
                 : useTls ? paramsParcel.servers  // Opportunistic
                 : new String[0];            // Off
         paramsParcel.transportTypes = transportTypes;
+        paramsParcel.dohName = useTls ? privateDnsCfg.dohName : "";
+        paramsParcel.dohServers =
+                useTls ? makeStrings(
+                        Arrays.stream(privateDnsCfg.dohIps)
+                        .filter((ip) -> lp.isReachable(ip))
+                        .collect(Collectors.toList()))
+                : new String[0];            // Off
+        paramsParcel.dohPath = useTls ? privateDnsCfg.dohPath : "";
+        paramsParcel.dohPort = useTls ? privateDnsCfg.dohPort : -1;
+
         // Prepare to track the validation status of the DNS servers in the
         // resolver config when private DNS is in opportunistic or strict mode.
         if (useTls) {
