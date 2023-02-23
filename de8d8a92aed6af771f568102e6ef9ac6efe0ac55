@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3909193_41c584e3",
+        "filename": "framework-t/src/android/net/NetworkStatsAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1717283
+      },
+      "writtenOn": "2023-02-23T10:13:37Z",
+      "side": 1,
+      "message": "token \u003d Binder.clearCallingIdentity();",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 38
+      },
+      "revId": "de8d8a92aed6af771f568102e6ef9ac6efe0ac55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb2be4f5_a2467fae",
+        "filename": "framework-t/src/android/net/NetworkStatsAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1717283
+      },
+      "writtenOn": "2023-02-23T10:13:37Z",
+      "side": 1,
+      "message": "Nit: You can do this under isDeviceOwner \u003d",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 9
+      },
+      "revId": "de8d8a92aed6af771f568102e6ef9ac6efe0ac55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
