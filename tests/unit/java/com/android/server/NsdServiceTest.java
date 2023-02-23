@@ -17,6 +17,8 @@
 package com.android.server;
 
 import static android.net.InetAddresses.parseNumericAddress;
+import static android.net.connectivity.ConnectivityCompatChanges.RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND;
+import static android.net.connectivity.ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER;
 import static android.net.nsd.NsdManager.FAILURE_BAD_PARAMETERS;
 import static android.net.nsd.NsdManager.FAILURE_INTERNAL_ERROR;
 import static android.net.nsd.NsdManager.FAILURE_OPERATION_NOT_RUNNING;
@@ -53,7 +55,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.net.INetd;
 import android.net.Network;
-import android.net.connectivity.ConnectivityCompatChanges;
 import android.net.mdns.aidl.DiscoveryInfo;
 import android.net.mdns.aidl.GetAddressInfo;
 import android.net.mdns.aidl.IMDnsEventListener;
@@ -188,7 +189,7 @@ public class NsdServiceTest {
     }
 
     @Test
-    @DisableCompatChanges(ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
+    @DisableCompatChanges(RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
     public void testPreSClients() throws Exception {
         // Pre S client connected, the daemon should be started.
         connectClient(mService);
@@ -215,7 +216,7 @@ public class NsdServiceTest {
     }
 
     @Test
-    @EnableCompatChanges(ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
+    @EnableCompatChanges(RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
     public void testNoDaemonStartedWhenClientsConnect() throws Exception {
         // Creating an NsdManager will not cause daemon startup.
         connectClient(mService);
@@ -249,7 +250,8 @@ public class NsdServiceTest {
     }
 
     @Test
-    @EnableCompatChanges(ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
+    @EnableCompatChanges(RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testClientRequestsAreGCedAtDisconnection() throws Exception {
         final NsdManager client = connectClient(mService);
         final INsdManagerCallback cb1 = getCallback();
@@ -292,7 +294,8 @@ public class NsdServiceTest {
     }
 
     @Test
-    @EnableCompatChanges(ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
+    @EnableCompatChanges(RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testCleanupDelayNoRequestActive() throws Exception {
         final NsdManager client = connectClient(mService);
 
@@ -328,6 +331,7 @@ public class NsdServiceTest {
     }
 
     @Test
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testDiscoverOnTetheringDownstream() throws Exception {
         final NsdManager client = connectClient(mService);
         final int interfaceIdx = 123;
@@ -418,6 +422,7 @@ public class NsdServiceTest {
     }
 
     @Test
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testDiscoverOnBlackholeNetwork() throws Exception {
         final NsdManager client = connectClient(mService);
         final DiscoveryListener discListener = mock(DiscoveryListener.class);
@@ -447,6 +452,7 @@ public class NsdServiceTest {
     }
 
     @Test
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testServiceRegistrationSuccessfulAndFailed() throws Exception {
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
@@ -493,6 +499,7 @@ public class NsdServiceTest {
     }
 
     @Test
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testServiceDiscoveryFailed() throws Exception {
         final NsdManager client = connectClient(mService);
         final DiscoveryListener discListener = mock(DiscoveryListener.class);
@@ -519,6 +526,7 @@ public class NsdServiceTest {
     }
 
     @Test
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testServiceResolutionFailed() throws Exception {
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
@@ -549,6 +557,7 @@ public class NsdServiceTest {
     }
 
     @Test
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testGettingAddressFailed() throws Exception {
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
@@ -595,6 +604,7 @@ public class NsdServiceTest {
     }
 
     @Test
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testNoCrashWhenProcessResolutionAfterBinderDied() throws Exception {
         final NsdManager client = connectClient(mService);
         final INsdManagerCallback cb = getCallback();
@@ -614,6 +624,7 @@ public class NsdServiceTest {
     }
 
     @Test
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testStopServiceResolution() {
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
@@ -636,6 +647,7 @@ public class NsdServiceTest {
     }
 
     @Test
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testStopResolutionFailed() {
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
@@ -660,6 +672,7 @@ public class NsdServiceTest {
     }
 
     @Test @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testStopResolutionDuringGettingAddress() throws RemoteException {
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
@@ -838,6 +851,7 @@ public class NsdServiceTest {
     }
 
     @Test
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testMdnsDiscoveryManagerFeature() {
         // Create NsdService w/o feature enabled.
         final NsdManager client = connectClient(mService);
@@ -1020,6 +1034,7 @@ public class NsdServiceTest {
     }
 
     @Test
+    @DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
     public void testMdnsAdvertiserFeatureFlagging() {
         // Create NsdService w/o feature enabled.
         final NsdManager client = connectClient(mService);
@@ -1150,6 +1165,31 @@ public class NsdServiceTest {
                 argThat(info -> matches(info, new NsdServiceInfo(regInfo.getServiceName(), null))));
     }
 
+    @Test
+    @EnableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)
+    public void testAfterTBackend() {
+        final NsdManager client = connectClient(mService);
+        final NsdServiceInfo regInfo = new NsdServiceInfo("a".repeat(70), SERVICE_TYPE);
+        final Network network = new Network(999);
+        regInfo.setHost(parseNumericAddress("192.0.2.123"));
+        regInfo.setPort(12345);
+        regInfo.setAttribute("testattr", "testvalue");
+        regInfo.setNetwork(network);
+
+        // Verify the registration uses MdnsAdvertiser
+        final RegistrationListener regListener = mock(RegistrationListener.class);
+        client.registerService(regInfo, NsdManager.PROTOCOL_DNS_SD, Runnable::run, regListener);
+        waitForIdle();
+        verify(mSocketProvider).startMonitoringSockets();
+        verify(mAdvertiser).addService(anyInt(), any());
+
+        // Verify the discovery uses MdnsDiscoveryManager
+        final DiscoveryListener discListener = mock(DiscoveryListener.class);
+        client.discoverServices(SERVICE_TYPE, PROTOCOL, network, r -> r.run(), discListener);
+        waitForIdle();
+        verify(mDiscoveryManager).registerListener(anyString(), any(), any());
+    }
+
     private void waitForIdle() {
         HandlerUtils.waitForIdle(mHandler, TIMEOUT_MS);
     }
@@ -1157,7 +1197,8 @@ public class NsdServiceTest {
     NsdService makeService() {
         final NsdService service = new NsdService(mContext, mHandler, CLEANUP_DELAY_MS, mDeps) {
             @Override
-            public INsdServiceConnector connect(INsdManagerCallback baseCb) {
+            public INsdServiceConnector connect(INsdManagerCallback baseCb,
+                    boolean runNewMdnsBackend) {
                 // Wrap the callback in a transparent mock, to mock asBinder returning a
                 // LinkToDeathRecorder. This will allow recording the binder death recipient
                 // registered on the callback. Use a transparent mock and not a spy as the actual
@@ -1166,7 +1207,7 @@ public class NsdServiceTest {
                         AdditionalAnswers.delegatesTo(baseCb));
                 doReturn(new LinkToDeathRecorder()).when(cb).asBinder();
                 mCreatedCallbacks.add(cb);
-                return super.connect(cb);
+                return super.connect(cb, runNewMdnsBackend);
             }
         };
         return service;

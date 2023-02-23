@@ -62,6 +62,17 @@ public final class ConnectivityCompatChanges {
     // This was a platform change ID with value 191844585L before T
     public static final long RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER = 235355681L;
 
+    /**
+     * When enabled, apps targeting < Android 14 are considered legacy for the NSD backend.
+     * For legacy apps, the NSD still uses mDnsResponder as its backend. For the other apps, the
+     * NSD will use MdnsDiscoveryManager / MdnsAdvertiser as its backend.
+     *
+     * @hide
+     */
+    @ChangeId
+    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.TIRAMISU)
+    public static final long RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND = 270306772L;
+
     private ConnectivityCompatChanges() {
     }
 }
