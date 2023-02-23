@@ -27,9 +27,28 @@
 #include <perfetto/tracing/platform.h>
 #include <perfetto/tracing/tracing.h>
 
+namespace {
+// Wraps the NetworkTraceHandler for use within Perfetto.
+class TraceDataSource : public perfetto::DataSource<TraceDataSource> {
+ public:
+  void OnSetup(const SetupArgs& args) override {
+    const std::string& raw = args.config->network_packet_trace_config_raw();
+    perfetto::protos::pbzero::NetworkPacketTraceConfig::Decoder config(raw);
+    mPollMs = config.poll_ms();
+  }
+
+  void OnStart(const StartArgs&) override { mHandler.Start(mPollMs); }
+  void OnStop(const StopArgs&) override { mHandler.Stop(); }
+
+ private:
+  android::bpf::NetworkTraceHandler mHandler;
+  uint32_t mPollMs;
+};
+}  // namespace
+
 // Note: this is initializing state for a templated Perfetto type that resides
 // in the `perfetto` namespace. This must be defined in the global scope.
-PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS(android::bpf::NetworkTraceHandler);
+PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS(TraceDataSource);
 
 namespace android {
 namespace bpf {
@@ -43,7 +62,7 @@ void NetworkTraceHandler::RegisterDataSource() {
   ALOGD("Registering Perfetto data source");
   perfetto::DataSourceDescriptor dsd;
   dsd.set_name("android.network_packets");
-  NetworkTraceHandler::Register(dsd);
+  TraceDataSource::Register(dsd);
 }
 
 // static
@@ -57,33 +76,10 @@ void NetworkTraceHandler::InitPerfettoTracing() {
 
 NetworkTraceHandler::NetworkTraceHandler()
     : NetworkTraceHandler([this](const PacketTrace& pkt) {
-        NetworkTraceHandler::Trace(
-            [this, pkt](NetworkTraceHandler::TraceContext ctx) {
-              Fill(pkt, *ctx.NewTracePacket());
-            });
+        TraceDataSource::Trace([this, pkt](TraceDataSource::TraceContext ctx) {
+          Fill(pkt, *ctx.NewTracePacket());
+        });
       }) {}
-
-void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
-  const std::string& raw = args.config->network_packet_trace_config_raw();
-  NetworkPacketTraceConfig::Decoder config(raw);
-
-  mPollMs = config.poll_ms();
-  if (mPollMs < 100) {
-    ALOGI("poll_ms is missing or below the 100ms minimum. Increasing to 100ms");
-    mPollMs = 100;
-  }
-}
-
-void NetworkTraceHandler::OnStart(const StartArgs&) {
-  if (!Start()) return;
-  mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
-  Loop();
-}
-
-void NetworkTraceHandler::OnStop(const StopArgs&) {
-  Stop();
-  mTaskRunner.reset();
-}
 
 void NetworkTraceHandler::Loop() {
   mTaskRunner->PostDelayedTask([this]() { Loop(); }, mPollMs);
@@ -113,8 +109,14 @@ void NetworkTraceHandler::Fill(const PacketTrace& src, TracePacket& dst) {
   }
 }
 
-bool NetworkTraceHandler::Start() {
+bool NetworkTraceHandler::Start(uint32_t pollMs) {
   ALOGD("Starting datasource");
+
+  mPollMs = pollMs;
+  if (mPollMs < 100) {
+    ALOGI("poll_ms is missing or below the 100ms minimum. Increasing to 100ms");
+    mPollMs = 100;
+  }
 
   auto status = mConfigurationMap.init(PACKET_TRACE_ENABLED_MAP_PATH);
   if (!status.ok()) {
@@ -136,6 +138,10 @@ bool NetworkTraceHandler::Start() {
     return false;
   }
 
+  // Start a task runner to run ConsumeAll every mPollMs milliseconds.
+  mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
+  Loop();
+
   return true;
 }
 
@@ -145,12 +151,12 @@ bool NetworkTraceHandler::Stop() {
   auto res = mConfigurationMap.writeValue(0, false, BPF_ANY);
   if (!res.ok()) {
     ALOGW("Failed to disable tracing: %s", res.error().message().c_str());
-    return false;
   }
 
+  mTaskRunner.reset();
   mRingBuffer.reset();
 
-  return true;
+  return res.ok();
 }
 
 bool NetworkTraceHandler::ConsumeAll() {

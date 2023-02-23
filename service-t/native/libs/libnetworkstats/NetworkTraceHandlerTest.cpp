@@ -39,6 +39,9 @@ using ::testing::Test;
 
 namespace android {
 namespace bpf {
+// Use uint32 max to cause the handler to never Loop. Instead, the tests will
+// manually drive things by calling ConsumeAll explicitly.
+constexpr uint32_t kNeverPoll = std::numeric_limits<uint32_t>::max();
 
 __be16 bindAndListen(int s) {
   sockaddr_in sin = {.sin_family = AF_INET};
@@ -100,7 +103,7 @@ TEST_F(NetworkTraceHandlerTest, PollWhileInactive) {
 
   // One succeed after start and before stop.
   EXPECT_FALSE(handler.ConsumeAll());
-  ASSERT_TRUE(handler.Start());
+  ASSERT_TRUE(handler.Start(kNeverPoll));
   EXPECT_TRUE(handler.ConsumeAll());
   ASSERT_TRUE(handler.Stop());
   EXPECT_FALSE(handler.ConsumeAll());
@@ -119,7 +122,7 @@ TEST_F(NetworkTraceHandlerTest, TraceTcpSession) {
     packets.push_back(pkt);
   });
 
-  ASSERT_TRUE(handler.Start());
+  ASSERT_TRUE(handler.Start(kNeverPoll));
   const uint32_t kClientTag = 2468;
   const uint32_t kServerTag = 1357;
 

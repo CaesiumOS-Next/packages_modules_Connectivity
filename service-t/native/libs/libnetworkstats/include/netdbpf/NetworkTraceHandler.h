@@ -31,7 +31,7 @@
 namespace android {
 namespace bpf {
 
-class NetworkTraceHandler : public perfetto::DataSource<NetworkTraceHandler> {
+class NetworkTraceHandler {
  public:
   // Registers this DataSource.
   static void RegisterDataSource();
@@ -46,15 +46,14 @@ class NetworkTraceHandler : public perfetto::DataSource<NetworkTraceHandler> {
   NetworkTraceHandler(std::function<void(const PacketTrace&)> callback)
       : mCallback(std::move(callback)) {}
 
-  // Testonly: standalone functions without perfetto dependency.
-  bool Start();
-  bool Stop();
-  bool ConsumeAll();
+  // Starts tracing with the given poll interval.
+  bool Start(uint32_t pollMs);
 
-  // perfetto::DataSource overrides:
-  void OnSetup(const SetupArgs&) override;
-  void OnStart(const StartArgs&) override;
-  void OnStop(const StopArgs&) override;
+  // Stops tracing and release any held state.
+  bool Stop();
+
+  // Consumes all available events from the ringbuffer.
+  bool ConsumeAll();
 
   // Convert a PacketTrace into a Perfetto trace packet.
   void Fill(const PacketTrace& src,
