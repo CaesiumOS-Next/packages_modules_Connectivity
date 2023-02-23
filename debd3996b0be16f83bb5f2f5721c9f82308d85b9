@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eef8c4e_6c2e3957",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2023-02-23T10:08:37Z",
+      "side": 1,
+      "message": "Just have a quick review and I don\u0027t find anything wrong right now.\nI\u0027d like to review it again tomorrow.",
+      "revId": "debd3996b0be16f83bb5f2f5721c9f82308d85b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd35b203_fbebb757",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1962,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2023-02-23T10:08:37Z",
+      "side": 1,
+      "message": "o_F?",
+      "range": {
+        "startLine": 1962,
+        "startChar": 36,
+        "endLine": 1962,
+        "endChar": 38
+      },
+      "revId": "debd3996b0be16f83bb5f2f5721c9f82308d85b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
