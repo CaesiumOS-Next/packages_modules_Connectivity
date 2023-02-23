@@ -24,6 +24,7 @@ import android.net.Network;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.net.module.util.ByteUtils;
 
@@ -396,6 +397,10 @@ public class MdnsServiceInfo implements Parcelable {
             } else if (delimitPos == 0) {
                 return null;
             }
+            final String key = new String(Arrays.copyOf(textBytes, delimitPos), US_ASCII);
+            final int valueLength = textBytes.length - (delimitPos + 1);
+            Log.d("MdnsServiceInfo", "key=" + key + ", delimitPos=" + delimitPos
+                    + ", textBytes.length=" + textBytes.length + ", valueLength=" + valueLength);
             return new TextEntry(
                     new String(Arrays.copyOf(textBytes, delimitPos), US_ASCII),
                     Arrays.copyOfRange(textBytes, delimitPos + 1, textBytes.length));

@@ -454,18 +454,49 @@ class NsdManagerTest {
 
         // Check Txt attributes
         assertEquals(8, resolvedService.attributes.size)
-        assertTrue(resolvedService.attributes.containsKey("booleanAttr"))
-        assertNull(resolvedService.attributes["booleanAttr"])
-        assertEquals("value", resolvedService.attributes["keyValueAttr"].utf8ToString())
-        assertEquals("=", resolvedService.attributes["keyEqualsAttr"].utf8ToString())
-        assertEquals(" value ",
-                resolvedService.attributes[" whiteSpaceKeyValueAttr "].utf8ToString())
-        assertEquals(string256.substring(9), resolvedService.attributes["longkey"].utf8ToString())
-        assertArrayEquals(testByteArray, resolvedService.attributes["binaryDataAttr"])
-        assertTrue(resolvedService.attributes.containsKey("nullBinaryDataAttr"))
-        assertNull(resolvedService.attributes["nullBinaryDataAttr"])
-        assertTrue(resolvedService.attributes.containsKey("emptyBinaryDataAttr"))
-        assertNull(resolvedService.attributes["emptyBinaryDataAttr"])
+        if (TestUtils.shouldTestUApis()) {
+            // Per RFC6763 6.4, case is ignored when interpreting a key, so "papersize=A4",
+            // "PAPERSIZE=A4", and "Papersize=A4" are all identical. Therefore, the new backend
+            // store the key by lower case.
+            assertTrue(resolvedService.attributes.containsKey("booleanattr"))
+            assertNull(resolvedService.attributes["booleanattr"])
+            assertEquals("value", resolvedService.attributes["keyvalueattr"].utf8ToString())
+            assertEquals("=", resolvedService.attributes["keyequalsattr"].utf8ToString())
+            assertEquals(
+                " value ",
+                resolvedService.attributes[" whitespacekeyvalueattr "].utf8ToString()
+            )
+            assertEquals(
+                string256.substring(9),
+                resolvedService.attributes["longkey"].utf8ToString()
+            )
+            assertArrayEquals(testByteArray, resolvedService.attributes["binarydataattr"])
+            assertTrue(resolvedService.attributes.containsKey("nullbinarydataattr"))
+            assertNull(resolvedService.attributes["nullbinarydataattr"])
+            assertTrue(resolvedService.attributes.containsKey("emptybinarydataattr"))
+            // Per RFC6763 6.4, if there is no '=' in a DNS-SD TXT record string, then it is a
+            // boolean attribute, simply identified as being present, with no value. So the empty
+            // binary data should not be treated as no value.
+            assertArrayEquals(byteArrayOf(), resolvedService.attributes["emptybinarydataattr"])
+        } else {
+            assertTrue(resolvedService.attributes.containsKey("booleanAttr"))
+            assertNull(resolvedService.attributes["booleanAttr"])
+            assertEquals("value", resolvedService.attributes["keyValueAttr"].utf8ToString())
+            assertEquals("=", resolvedService.attributes["keyEqualsAttr"].utf8ToString())
+            assertEquals(
+                " value ",
+                resolvedService.attributes[" whiteSpaceKeyValueAttr "].utf8ToString()
+            )
+            assertEquals(
+                string256.substring(9),
+                resolvedService.attributes["longkey"].utf8ToString()
+            )
+            assertArrayEquals(testByteArray, resolvedService.attributes["binaryDataAttr"])
+            assertTrue(resolvedService.attributes.containsKey("nullBinaryDataAttr"))
+            assertNull(resolvedService.attributes["nullBinaryDataAttr"])
+            assertTrue(resolvedService.attributes.containsKey("emptyBinaryDataAttr"))
+            assertNull(resolvedService.attributes["emptyBinaryDataAttr"])
+        }
         assertEquals(localPort, resolvedService.port)
 
         // Unregister the service
