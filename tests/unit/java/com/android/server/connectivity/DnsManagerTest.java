@@ -374,7 +374,7 @@ public class DnsManagerTest {
         expectedParams.tlsServers = new String[]{"3.3.3.3", "4.4.4.4"};
         expectedParams.transportTypes = TEST_TRANSPORT_TYPES;
         expectedParams.resolverOptions = null;
-        expectedParams.dohParams = null;
+        expectedParams.dohParams = new DohParamsParcel();
         assertResolverParamsEquals(actualParams, expectedParams);
     }
 
