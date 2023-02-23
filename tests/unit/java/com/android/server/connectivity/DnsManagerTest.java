@@ -379,7 +379,7 @@ public class DnsManagerTest {
         expectedParams.dohName = "";
         expectedParams.dohServers = new String[]{};
         expectedParams.dohPath = "";
-        expectedParams.dohPort = 0;
+        expectedParams.dohPort = -1;
         expectedParams.resolverOptions = null;
         assertResolverParamsEquals(actualParams, expectedParams);
     }
