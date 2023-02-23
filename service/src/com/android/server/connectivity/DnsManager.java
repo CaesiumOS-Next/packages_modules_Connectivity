@@ -40,6 +40,7 @@ import android.net.LinkProperties;
 import android.net.Network;
 import android.net.ResolverParamsParcel;
 import android.net.Uri;
+import android.net.resolv.aidl.DohParamsParcel;
 import android.net.shared.PrivateDnsConfig;
 import android.os.Binder;
 import android.os.RemoteException;
@@ -384,6 +385,17 @@ public class DnsManager {
                 : useTls ? paramsParcel.servers  // Opportunistic
                 : new String[0];            // Off
         paramsParcel.transportTypes = transportTypes;
+        paramsParcel.dohParams = new DohParamsParcel();
+        paramsParcel.dohParams.name = useTls ? privateDnsCfg.dohName : "";
+        paramsParcel.dohParams.ips =
+                useTls ? makeStrings(
+                        Arrays.stream(privateDnsCfg.dohIps)
+                              .filter((ip) -> lp.isReachable(ip))
+                              .collect(Collectors.toList()))
+                : new String[0];
+        paramsParcel.dohParams.dohpath = useTls ? privateDnsCfg.dohPath : "";
+        paramsParcel.dohParams.port = useTls ? privateDnsCfg.dohPort : -1;
+
         // Prepare to track the validation status of the DNS servers in the
         // resolver config when private DNS is in opportunistic or strict mode.
         if (useTls) {
@@ -397,12 +409,14 @@ public class DnsManager {
         }
 
         Log.d(TAG, String.format("sendDnsConfigurationForNetwork(%d, %s, %s, %d, %d, %d, %d, "
-                + "%d, %d, %s, %s)", paramsParcel.netId, Arrays.toString(paramsParcel.servers),
-                Arrays.toString(paramsParcel.domains), paramsParcel.sampleValiditySeconds,
-                paramsParcel.successThreshold, paramsParcel.minSamples,
-                paramsParcel.maxSamples, paramsParcel.baseTimeoutMsec,
+                + "%d, %d, %s, %s, %s, %s, %s, %d)", paramsParcel.netId,
+                Arrays.toString(paramsParcel.servers), Arrays.toString(paramsParcel.domains),
+                paramsParcel.sampleValiditySeconds, paramsParcel.successThreshold,
+                paramsParcel.minSamples, paramsParcel.maxSamples, paramsParcel.baseTimeoutMsec,
                 paramsParcel.retryCount, paramsParcel.tlsName,
-                Arrays.toString(paramsParcel.tlsServers)));
+                Arrays.toString(paramsParcel.tlsServers), paramsParcel.dohParams.name,
+                Arrays.toString(paramsParcel.dohParams.ips), paramsParcel.dohParams.dohpath,
+                paramsParcel.dohParams.port));
 
         try {
             mDnsResolver.setResolverConfiguration(paramsParcel);
