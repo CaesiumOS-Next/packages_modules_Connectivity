@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b18d0d1_912c10c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-24T16:20:18Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "210c4ba7e553d0507c87b9e06e597a1b59d0ca33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e848671_2ee52e06",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-24T16:20:18Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: TODO statements should not reference a specific human; consider using a bug number instead; see https://source.android.com/setup/contribute/code-style#use-todo-comments for more details.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nTODO statements should not reference a specific human; consider using a bug number instead or just TODO x; see https://source.android.com/setup/contribute/code-style#use-todo-comments for more details.",
+      "range": {
+        "startLine": 164,
+        "startChar": 11,
+        "endLine": 164,
+        "endChar": 28
+      },
+      "revId": "210c4ba7e553d0507c87b9e06e597a1b59d0ca33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18cf4299_39d94bbd",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-24T16:20:18Z",
+      "side": 1,
+      "message": "fyi: This should be a separate test",
+      "revId": "210c4ba7e553d0507c87b9e06e597a1b59d0ca33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
