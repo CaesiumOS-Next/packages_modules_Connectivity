@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83d6231b_33acc7c0",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-24T11:07:07Z",
+      "side": 1,
+      "message": "Done. Thanks, the test catches that Builder doesn\u0027t support to build a template with MATCH_PROXY.",
+      "parentUuid": "e8904595_cfc64965",
+      "range": {
+        "startLine": 256,
+        "startChar": 34,
+        "endLine": 256,
+        "endChar": 56
+      },
+      "revId": "d441ec5185ad69710bc50f66da69e609cee3fb59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d61e3752_a919b1f5",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-24T03:09:04Z",
       "side": 1,
       "message": "IIUC it was possible that caller only provide subscriberId but matchSubscriberIds is null?\nIf so, do we want to make it backward compatible?",
+      "range": {
+        "startLine": 363,
+        "startChar": 42,
+        "endLine": 363,
+        "endChar": 91
+      },
+      "revId": "d441ec5185ad69710bc50f66da69e609cee3fb59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3924324_98beb726",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-02-24T11:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d61e3752_a919b1f5",
       "range": {
         "startLine": 363,
         "startChar": 42,
