@@ -70,6 +70,30 @@
       },
       "revId": "7bfa92a60b32c829d3c1c7bcdc98f71cf43021ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb8f930a_6d729d82",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1937168
+      },
+      "writtenOn": "2023-02-24T22:49:23Z",
+      "side": 1,
+      "message": "Lorenzo, any design suggestion you can provide to complete this feature.",
+      "parentUuid": "d54786fc_7834bbcb",
+      "range": {
+        "startLine": 188,
+        "startChar": 38,
+        "endLine": 189,
+        "endChar": 37
+      },
+      "revId": "7bfa92a60b32c829d3c1c7bcdc98f71cf43021ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
