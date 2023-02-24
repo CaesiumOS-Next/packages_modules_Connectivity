@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac87bf81_ffbf9abc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2023-02-24T10:39:50Z",
+      "side": 1,
+      "message": "FYI the reason this change has been reverted was because it made use of `Build.VERSION_CODES.UPSIDE_DOWN_CAKE`. That was added to `tm-mainline-prod` indirectly (and inadvertently) by ag/21423290 which was a temporary fix that was needed urgently in tm-dev to unblock some train work. Only the `aapt2` change was needed but the whole change was applied as that was quickest. Unfortunately, the addition of `Build.VERSION_CODES.UPSIDE_DOWN_CAKE` caused a build breakage so the whole change was reverted and a new change with just the `aapt2` change was uploaded.\n\nYour original change should work find in `udc-dev`.",
+      "revId": "5c97d6c9872ad8a7a5a20ff36a5afe2e3406396f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
