@@ -55,13 +55,15 @@ void NetworkTraceHandler::InitPerfettoTracing() {
   NetworkTraceHandler::RegisterDataSource();
 }
 
-NetworkTraceHandler::NetworkTraceHandler()
-    : mPoller([](const PacketTrace& pkt) {
-        NetworkTraceHandler::Trace(
-            [pkt](NetworkTraceHandler::TraceContext ctx) {
-              NetworkTraceHandler::Fill(pkt, *ctx.NewTracePacket());
-            });
-      }) {}
+// static
+NetworkTracePoller& NetworkTraceHandler::Poller() {
+  static NetworkTracePoller sPoller([](const PacketTrace& pkt) {
+    NetworkTraceHandler::Trace([pkt](NetworkTraceHandler::TraceContext ctx) {
+      NetworkTraceHandler::Fill(pkt, *ctx.NewTracePacket());
+    });
+  });
+  return sPoller;
+}
 
 void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
   const std::string& raw = args.config->network_packet_trace_config_raw();
@@ -74,8 +76,13 @@ void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
   }
 }
 
-void NetworkTraceHandler::OnStart(const StartArgs&) { mPoller.Start(mPollMs); }
-void NetworkTraceHandler::OnStop(const StopArgs&) { mPoller.Stop(); }
+void NetworkTraceHandler::OnStart(const StartArgs&) {
+  mStarted = Poller().Start(mPollMs);
+}
+
+void NetworkTraceHandler::OnStop(const StopArgs&) {
+  if (mStarted) Poller().Stop();
+}
 
 void NetworkTracePoller::Loop() {
   mTaskRunner->PostDelayedTask(
@@ -116,6 +123,14 @@ bool NetworkTracePoller::Start(uint32_t pollMs) {
   ALOGD("Starting datasource");
 
   std::scoped_lock<std::mutex> lock(mMutex);
+  if (mSessionCount > 0) {
+    if (mPollMs != pollMs) {
+      ALOGI("poll_ms can't change while running, ignoring poll_ms=%d", pollMs);
+    }
+    mSessionCount++;
+    return true;
+  }
+
   auto status = mConfigurationMap.init(PACKET_TRACE_ENABLED_MAP_PATH);
   if (!status.ok()) {
     ALOGW("Failed to bind config map: %s", status.error().message().c_str());
@@ -141,6 +156,7 @@ bool NetworkTracePoller::Start(uint32_t pollMs) {
   mPollMs = pollMs;
   Loop();
 
+  mSessionCount++;
   return true;
 }
 
@@ -148,6 +164,10 @@ bool NetworkTracePoller::Stop() {
   ALOGD("Stopping datasource");
 
   std::scoped_lock<std::mutex> lock(mMutex);
+
+  // If this isn't the last session, don't clean up yet.
+  if (--mSessionCount > 0) return true;
+
   auto res = mConfigurationMap.writeValue(0, false, BPF_ANY);
   if (!res.ok()) {
     ALOGW("Failed to disable tracing: %s", res.error().message().c_str());
