@@ -117,6 +117,30 @@
       },
       "revId": "b6140a4f21afe3d8554edcde3c6996230280efda",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82265ed6_699544ef",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-02-24T00:40:24Z",
+      "side": 1,
+      "message": "Start/Stop aren\u0027t perfetto functions, OnStart and OnStop (above) are and they return void. The return value here is primarily to facilitate testing, it doesn\u0027t actually change any behavior w.r.t. Perfetto.\n\nIf the concern is that the second Start would return true even if the first fails, that\u0027s an easy fix. I just save whether or not Start succeeded.\n\nIf you want it so that Stop isn\u0027t called if Start fails, I can add state to the TraceDataSource. However, I was trying to avoid having two sets of state, especially since TraceDataSource isn\u0027t as easily tested.\n\nIf the important part is retrying the Start after a failed Start, that could also be done by saving the Start success but keeping the counting. However, I\u0027m not sure what is expected to succeed on a retry here.",
+      "parentUuid": "d1be7dc1_4764c998",
+      "range": {
+        "startLine": 135,
+        "startChar": 19,
+        "endLine": 135,
+        "endChar": 21
+      },
+      "revId": "b6140a4f21afe3d8554edcde3c6996230280efda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
