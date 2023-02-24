@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebe4f7e6_5cb18cd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-24T16:21:56Z",
+      "side": 1,
+      "message": "LGTM. Please upstream this change. Trying to make sure we don\u0027t differ from upstream a lot for these utils.",
+      "revId": "b7c14eb74a2c524715846ff3c12cb84713237c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
