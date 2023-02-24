@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8904595_cfc64965",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-24T03:09:04Z",
+      "side": 1,
+      "message": "Do we also want to have a unit test for these methods if that is trivial to do?",
+      "range": {
+        "startLine": 256,
+        "startChar": 34,
+        "endLine": 256,
+        "endChar": 56
+      },
+      "revId": "d441ec5185ad69710bc50f66da69e609cee3fb59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d61e3752_a919b1f5",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-24T03:09:04Z",
+      "side": 1,
+      "message": "IIUC it was possible that caller only provide subscriberId but matchSubscriberIds is null?\nIf so, do we want to make it backward compatible?",
+      "range": {
+        "startLine": 363,
+        "startChar": 42,
+        "endLine": 363,
+        "endChar": 91
+      },
+      "revId": "d441ec5185ad69710bc50f66da69e609cee3fb59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
