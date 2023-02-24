@@ -141,6 +141,30 @@
       },
       "revId": "b6140a4f21afe3d8554edcde3c6996230280efda",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a843d819_213530b9",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-02-24T01:13:33Z",
+      "side": 1,
+      "message": "I\u0027ve pulled out most of the refactoring and mutex work so this change is more focused on the concurrency behavior.\n\nI\u0027ve opted for the second option:\n* TraceDataSource records whether that instance\u0027s Start succeeded and won\u0027t call Stop if it didn\u0027t.\n* Start increments the session count only if tracing is already active or if we get to the end and return true.",
+      "parentUuid": "82265ed6_699544ef",
+      "range": {
+        "startLine": 135,
+        "startChar": 19,
+        "endLine": 135,
+        "endChar": 21
+      },
+      "revId": "b6140a4f21afe3d8554edcde3c6996230280efda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

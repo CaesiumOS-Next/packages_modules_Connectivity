@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab52965d_820342fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-02-24T01:13:33Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "259b671b_a2549757",
+      "revId": "7e5b913b5406cdbadfeb06c537d2e6bc8e8e1929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc2bab2e_8e7ac3b3",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-02-23T03:09:04Z",
       "side": 1,
       "message": "should this just save the args in the class and pass them to Start() in OnStart?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 66
+      },
+      "revId": "7e5b913b5406cdbadfeb06c537d2e6bc8e8e1929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6882eee_c2bd5032",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-02-24T01:13:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc2bab2e_8e7ac3b3",
       "range": {
         "startLine": 35,
         "startChar": 0,
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e182d6e_05a1132e",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-02-24T01:13:33Z",
+      "side": 1,
+      "message": "mSetupCalled has been removed.",
+      "parentUuid": "eccb92db_6ac5e835",
+      "revId": "7e5b913b5406cdbadfeb06c537d2e6bc8e8e1929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75a1f362_021ec90e",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-02-23T03:09:04Z",
       "side": 1,
       "message": "is this actually true? should be a comment of some sort I think.  should additional fields be reset here?  ie. reset mPollMs to the class default.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 23
+      },
+      "revId": "7e5b913b5406cdbadfeb06c537d2e6bc8e8e1929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4c38886_eeafbbb2",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-02-24T01:13:33Z",
+      "side": 1,
+      "message": "mSetupCalled has been removed.",
+      "parentUuid": "75a1f362_021ec90e",
       "range": {
         "startLine": 175,
         "startChar": 0,
