@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd5cf3e1_a17c1299",
+        "filename": "framework-t/src/android/net/NetworkStatsAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-24T06:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6e2ac90_e922e957",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 38
+      },
+      "revId": "de8d8a92aed6af771f568102e6ef9ac6efe0ac55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb2be4f5_a2467fae",
@@ -61,6 +85,30 @@
       "writtenOn": "2023-02-23T10:13:37Z",
       "side": 1,
       "message": "Nit: You can do this under isDeviceOwner \u003d",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 9
+      },
+      "revId": "de8d8a92aed6af771f568102e6ef9ac6efe0ac55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4ab1e51_2cf90aab",
+        "filename": "framework-t/src/android/net/NetworkStatsAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-02-24T06:25:12Z",
+      "side": 1,
+      "message": "Given that this function would be called frequently.\nI would prefer to avoid unnecessary RPC calls by keep it as is, since SYSTEM_UID would be the major caller (e.g. statsd, Settings, NetworkPolicyManagerService) and returned at line.136.\nDoes it make sense?",
+      "parentUuid": "bb2be4f5_a2467fae",
       "range": {
         "startLine": 147,
         "startChar": 8,
