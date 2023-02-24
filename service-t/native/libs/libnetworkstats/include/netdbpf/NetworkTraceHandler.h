@@ -40,6 +40,12 @@ class NetworkTraceHandler {
   // Connects to the system Perfetto daemon and registers the trace handler.
   static void InitPerfettoTracing();
 
+  // Returns a singleton instance of the handler.
+  static NetworkTraceHandler& Instance() {
+    static NetworkTraceHandler sHandler;
+    return sHandler;
+  }
+
   // Initialize with the default Perfetto callback.
   NetworkTraceHandler();
 
@@ -64,6 +70,13 @@ class NetworkTraceHandler {
   void Loop() REQUIRES(mMutex);
 
   std::mutex mMutex;
+
+  // Record the active session count so that only the first concurrent session
+  // only the last conccurrent session cleans up.
+  int mSessionCount GUARDED_BY(mMutex);
+
+  // Record whether or not tracing was *sucessfully* started and running.
+  bool mRunning GUARDED_BY(mMutex);
 
   // How often to poll the ring buffer, defined by the trace config.
   uint32_t mPollMs GUARDED_BY(mMutex);
