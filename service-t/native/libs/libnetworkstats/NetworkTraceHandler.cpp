@@ -37,11 +37,14 @@ class TraceDataSource : public perfetto::DataSource<TraceDataSource> {
     mPollMs = config.poll_ms();
   }
 
-  void OnStart(const StartArgs&) override { mHandler.Start(mPollMs); }
-  void OnStop(const StopArgs&) override { mHandler.Stop(); }
+  void OnStart(const StartArgs&) override {
+    ::android::bpf::NetworkTraceHandler::Instance().Start(mPollMs);
+  }
+  void OnStop(const StopArgs&) override {
+    ::android::bpf::NetworkTraceHandler::Instance().Stop();
+  }
 
  private:
-  android::bpf::NetworkTraceHandler mHandler;
   uint32_t mPollMs;
 };
 }  // namespace
@@ -119,6 +122,13 @@ bool NetworkTraceHandler::Start(uint32_t pollMs) {
   ALOGD("Starting datasource");
 
   std::scoped_lock<std::mutex> lock(mMutex);
+  mSessionCount++;
+  if (mRunning) {
+    if (mPollMs != pollMs) {
+      ALOGI("poll_ms can't change while running, ignoring poll_ms=%d", pollMs);
+    }
+    return true;
+  }
 
   mPollMs = pollMs;
   if (mPollMs < 100) {
@@ -150,6 +160,7 @@ bool NetworkTraceHandler::Start(uint32_t pollMs) {
   mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
   Loop();
 
+  mRunning = true;
   return true;
 }
 
@@ -157,6 +168,10 @@ bool NetworkTraceHandler::Stop() {
   ALOGD("Stopping datasource");
 
   std::scoped_lock<std::mutex> lock(mMutex);
+
+  // If this isn't the last session, don't clean up yet.
+  if (--mSessionCount > 0) return true;
+
   auto res = mConfigurationMap.writeValue(0, false, BPF_ANY);
   if (!res.ok()) {
     ALOGW("Failed to disable tracing: %s", res.error().message().c_str());
@@ -164,6 +179,7 @@ bool NetworkTraceHandler::Stop() {
 
   mTaskRunner.reset();
   mRingBuffer.reset();
+  mRunning = false;
 
   return res.ok();
 }
