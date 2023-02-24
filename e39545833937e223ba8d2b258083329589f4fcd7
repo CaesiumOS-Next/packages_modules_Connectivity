@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48d09472_79303601",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 7795,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-24T23:04:04Z",
+      "side": 1,
+      "message": "Why do we want this prefix in the first place? Looks like it would be preferable just to have ifName in --nflog-prefix. Am I missing something?",
+      "range": {
+        "startLine": 7795,
+        "startChar": 30,
+        "endLine": 7795,
+        "endChar": 49
+      },
+      "revId": "e39545833937e223ba8d2b258083329589f4fcd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03ce94a1_52ce9a74",
+        "filename": "tests/unit/java/com/android/server/connectivity/IpConnectivityMetricsTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-24T23:04:04Z",
+      "side": 1,
+      "message": "nit: should this use WakeupEventParcel.IFACE_PREFIX?",
+      "range": {
+        "startLine": 613,
+        "startChar": 21,
+        "endLine": 613,
+        "endChar": 71
+      },
+      "revId": "e39545833937e223ba8d2b258083329589f4fcd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0980e17e_22c8f6b3",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetdEventListenerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-24T23:04:04Z",
+      "side": 1,
+      "message": "nit: would \"NET_HANDLE\" make this fit on a single line?",
+      "range": {
+        "startLine": 123,
+        "startChar": 16,
+        "endLine": 123,
+        "endChar": 31
+      },
+      "revId": "e39545833937e223ba8d2b258083329589f4fcd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
