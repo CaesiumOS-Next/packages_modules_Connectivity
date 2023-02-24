@@ -52,6 +52,12 @@ class NetworkTracePoller {
 
   std::mutex mMutex;
 
+  // Records the number of successfully started active sessions so that only the
+  // first active session attempts setup and only the last cleans up. Note that
+  // the session count will remain zero if Start fails. It is expected that Stop
+  // will not be called for any trace session where Start fails.
+  int mSessionCount GUARDED_BY(mMutex);
+
   // How often to poll the ring buffer, defined by the trace config.
   uint32_t mPollMs GUARDED_BY(mMutex);
 
@@ -77,20 +83,19 @@ class NetworkTraceHandler : public perfetto::DataSource<NetworkTraceHandler> {
   // Connects to the system Perfetto daemon and registers the trace handler.
   static void InitPerfettoTracing();
 
-  // Initialize with the default Perfetto callback.
-  NetworkTraceHandler();
-
   // perfetto::DataSource overrides:
   void OnSetup(const SetupArgs& args) override;
   void OnStart(const StartArgs&) override;
   void OnStop(const StopArgs&) override;
 
  private:
+  // Returns a singleton instance of the poller.
+  static NetworkTracePoller& Poller();
+
   // Convert a PacketTrace into a Perfetto trace packet.
   static void Fill(const PacketTrace& src,
                    ::perfetto::protos::pbzero::TracePacket& dst);
 
-  NetworkTracePoller mPoller;
   uint32_t mPollMs;
 };
 
