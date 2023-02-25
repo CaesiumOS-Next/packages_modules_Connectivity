@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a4131ee_7b9478e2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 7795,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2023-02-25T01:25:03Z",
+      "side": 1,
+      "message": "TBH I don\u0027t know. Because this already exists in this way, I don\u0027t want to touch it. I assume there was a reason to add it.\nI agree that removing it would be ideal. I am just trying to simplify the dependency and have the constant defined in one place that both sides of the binder can refer to.\n\nI was added in https://android-review.git.corp.google.com/c/platform/frameworks/base/+/411360 and we can follow up later to see if we can remove it.",
+      "parentUuid": "48d09472_79303601",
+      "range": {
+        "startLine": 7795,
+        "startChar": 30,
+        "endLine": 7795,
+        "endChar": 49
+      },
+      "revId": "e39545833937e223ba8d2b258083329589f4fcd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03ce94a1_52ce9a74",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-24T23:04:04Z",
       "side": 1,
       "message": "nit: should this use WakeupEventParcel.IFACE_PREFIX?",
+      "range": {
+        "startLine": 613,
+        "startChar": 21,
+        "endLine": 613,
+        "endChar": 71
+      },
+      "revId": "e39545833937e223ba8d2b258083329589f4fcd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5834efbf_0ffa0898",
+        "filename": "tests/unit/java/com/android/server/connectivity/IpConnectivityMetricsTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2023-02-25T01:25:03Z",
+      "side": 1,
+      "message": "I wanted to move this to `MetricsTestUtil` but it doesn\u0027t let me because of the way the build files are organized.\n\nI want to keep the dependency graph as is so refering to NetdEventListenerService seems better.",
+      "parentUuid": "03ce94a1_52ce9a74",
       "range": {
         "startLine": 613,
         "startChar": 21,
