@@ -55,6 +55,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.intThat;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
@@ -962,6 +963,65 @@ public class PermissionMonitorTest {
         mPermissionMonitor.updateVpnLockdownUidRanges(false /* add */, lockdownRange);
         verify(mBpfNetMaps).updateUidLockdownRule(anyInt(), eq(false) /* add */);
         verify(mBpfNetMaps).updateUidLockdownRule(MOCK_UID11, false /* add */);
+    }
+
+    @Test
+    public void testLockdownUidFilteringWithLockdownEnableDisableWithMultiAddAndOverlap() {
+        doReturn(List.of(buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID11, CHANGE_NETWORK_STATE,
+                        CONNECTIVITY_USE_RESTRICTED_NETWORKS),
+                buildPackageInfo(MOCK_PACKAGE1, MOCK_UID11),
+                buildPackageInfo(SYSTEM_PACKAGE2, VPN_UID)))
+                .when(mPackageManager).getInstalledPackagesAsUser(eq(GET_PERMISSIONS), anyInt());
+        mPermissionMonitor.startMonitoring();
+        // MOCK_UID11 is subject to the VPN.
+        final UidRange range1 = new UidRange(MOCK_UID11, MOCK_UID11);
+        final UidRange[] lockdownRange1 = {range1};
+
+        // Add Lockdown uid range at 1st time, expect a rule to be set up
+        mPermissionMonitor.updateVpnLockdownUidRanges(true /* add */, lockdownRange1);
+        verify(mBpfNetMaps).updateUidLockdownRule(anyInt(), eq(true) /* add */);
+        verify(mBpfNetMaps).updateUidLockdownRule(MOCK_UID11, true /* add */);
+
+        reset(mBpfNetMaps);
+
+        // MOCK_UID11, MOCK_UID12 together
+        final UidRange range2 = new UidRange(MOCK_UID11, MOCK_UID12);
+        final UidRange[] lockdownRange2 = {range2};
+
+        // Add overlapping multiple-UID range. Rule may be set again, which is functionally
+        // a no-op, so it is fine.
+        mPermissionMonitor.updateVpnLockdownUidRanges(true /* add */, lockdownRange2);
+        verify(mBpfNetMaps, atLeast(1)).updateUidLockdownRule(anyInt(), eq(true) /* add */);
+        verify(mBpfNetMaps).updateUidLockdownRule(MOCK_UID12, true /* add */);
+
+        reset(mBpfNetMaps);
+
+        // Remove the multiple-UID range. UID from first rule should not be removed.
+        mPermissionMonitor.updateVpnLockdownUidRanges(false /* false */, lockdownRange2);
+        verify(mBpfNetMaps, times(1)).updateUidLockdownRule(anyInt(), eq(false) /* add */);
+        verify(mBpfNetMaps).updateUidLockdownRule(MOCK_UID12, false /* add */);
+
+        reset(mBpfNetMaps);
+
+        // Add the multiple-UID range back again to be able to test removing the first range, too.
+        mPermissionMonitor.updateVpnLockdownUidRanges(true /* add */, lockdownRange2);
+        verify(mBpfNetMaps, atLeast(1)).updateUidLockdownRule(anyInt(), eq(true) /* add */);
+        verify(mBpfNetMaps).updateUidLockdownRule(MOCK_UID12, true /* add */);
+
+        reset(mBpfNetMaps);
+
+        // Remove the single-UID range. The rule for MOCK_UID11 should not change because it is
+        // still covered by the second, multiple-UID range rule.
+        mPermissionMonitor.updateVpnLockdownUidRanges(false /* false */, lockdownRange1);
+        verify(mBpfNetMaps, never()).updateUidLockdownRule(anyInt(),  anyBoolean());
+
+        reset(mBpfNetMaps);
+
+        // Remove the multiple-UID range. Expect both UID rules to be torn down.
+        mPermissionMonitor.updateVpnLockdownUidRanges(false /* false */, lockdownRange2);
+        verify(mBpfNetMaps, times(2)).updateUidLockdownRule(anyInt(), eq(false) /* add */);
+        verify(mBpfNetMaps).updateUidLockdownRule(MOCK_UID11, false /* add */);
+        verify(mBpfNetMaps).updateUidLockdownRule(MOCK_UID12, false /* add */);
     }
 
     @Test
