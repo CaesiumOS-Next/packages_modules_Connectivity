@@ -16,6 +16,24 @@
       "message": "Is this something we can implement for the test server now?",
       "revId": "f909669ff34b180d427c46861be10260113bcbe8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e37fd4a_58d519bc",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-02-27T13:29:51Z",
+      "side": 1,
+      "message": "This could be fixed in CtsTestServer\u0027s code. But that thing is deprecated and they\u0027re not accepting patches AFAIU (e.g., aosp/2423765).",
+      "parentUuid": "ff8fc1fe_50b7c58a",
+      "revId": "f909669ff34b180d427c46861be10260113bcbe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
