@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fe8a6f5_6fa85656",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-27T17:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "120c08eb_92802770",
+      "range": {
+        "startLine": 9,
+        "startChar": 45,
+        "endLine": 10,
+        "endChar": 3
+      },
+      "revId": "1fe95a7230fd43b769f0f742e8824af320ad3c18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36b944a0_df93010a",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddaa1734_91466cc5",
+        "filename": "Cronet/tests/common/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-27T17:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36b944a0_df93010a",
+      "revId": "1fe95a7230fd43b769f0f742e8824af320ad3c18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6312fbde_3d4067cd",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-02-27T09:49:19Z",
       "side": 1,
       "message": "You shouldn\u0027t need to have this both in the Android.bp and the manifest; I think the Android.bp is a better place these days",
+      "revId": "1fe95a7230fd43b769f0f742e8824af320ad3c18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79b5b963_351553a2",
+        "filename": "Cronet/tests/common/AndroidManifest.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-27T17:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6312fbde_3d4067cd",
       "revId": "1fe95a7230fd43b769f0f742e8824af320ad3c18",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
