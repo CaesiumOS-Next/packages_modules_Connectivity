@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d86609b6_e054d7d7",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-27T23:29:36Z",
+      "side": 1,
+      "message": "Does Soong not complain about a target with only generated headers (but no sources)?",
+      "range": {
+        "startLine": 552,
+        "startChar": 99,
+        "endLine": 552,
+        "endChar": 130
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9562cf9e_626cb5d4",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1524,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-27T23:29:36Z",
+      "side": 1,
+      "message": "Same as line 1552, maybe there should just be a line here:\n```\nif not dep_module.has_input_files():\n    continue\n```",
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "062ba026_4be4772d",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1552,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-27T23:29:36Z",
+      "side": 1,
+      "message": "I wonder if this could be generalized, i.e. checked for all target types?",
+      "range": {
+        "startLine": 1552,
+        "startChar": 11,
+        "endLine": 1552,
+        "endChar": 37
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "922b106b_09df995b",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1563,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-27T23:29:36Z",
+      "side": 1,
+      "message": "I guess this should be removed.",
+      "range": {
+        "startLine": 1559,
+        "startChar": 6,
+        "endLine": 1563,
+        "endChar": 66
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "145485ea_d5bae9f8",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-27T23:29:36Z",
+      "side": 1,
+      "message": "I actually wonder if it wouldn\u0027t be better to remove source_set from LINKER_UNIT_TYPES. It very clearly isn\u0027t a linker unit type, so it\u0027s somewhat surprising to see it listed here.",
+      "range": {
+        "startLine": 27,
+        "startChar": 72,
+        "endLine": 27,
+        "endChar": 82
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e33af5b_b1387235",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-27T23:29:36Z",
+      "side": 1,
+      "message": "nit: add: \"Source sets are later translated to static_libraries, so it makes sense to reuse transitive_static_libs_deps.\"",
+      "range": {
+        "startLine": 443,
+        "startChar": 36,
+        "endLine": 443,
+        "endChar": 46
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
