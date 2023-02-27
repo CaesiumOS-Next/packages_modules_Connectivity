@@ -192,6 +192,8 @@ public class MdnsResponseDecoderTests {
             "03666f6f03626172047175787800001000010000007800240d613d68656c6c6f2074686572650c623d3132"
                     + "33343536373839300878797a3d21402324");
 
+    private static final String[] DATAIN_SERVICE_NAME_1 = new String[] { "foo", "bar", "quxx" };
+
     private static final String CAST_SERVICE_NAME = "_googlecast";
     private static final String[] CAST_SERVICE_TYPE =
             new String[] {CAST_SERVICE_NAME, "_tcp", "local"};
@@ -285,25 +287,30 @@ public class MdnsResponseDecoderTests {
 
     @Test
     public void testIsComplete() {
-        MdnsResponse response = responses.valueAt(0);
+        MdnsResponse response = new MdnsResponse(responses.valueAt(0));
         assertTrue(response.isComplete());
 
         response.clearPointerRecords();
-        assertFalse(response.isComplete());
+        // The service name is still known in MdnsResponse#getServiceName
+        assertTrue(response.isComplete());
 
-        response = responses.valueAt(0);
+        response = new MdnsResponse(responses.valueAt(0));
         response.setInet4AddressRecord(null);
         assertFalse(response.isComplete());
 
-        response = responses.valueAt(0);
+        response.setInet6AddressRecord(new MdnsInetAddressRecord(new String[] { "testhostname" },
+                0L /* receiptTimeMillis */, false /* cacheFlush */, 1234L /* ttlMillis */,
+                parseNumericAddress("2008:db1::123")));
+        assertTrue(response.isComplete());
+
         response.setInet6AddressRecord(null);
         assertFalse(response.isComplete());
 
-        response = responses.valueAt(0);
+        response = new MdnsResponse(responses.valueAt(0));
         response.setServiceRecord(null);
         assertFalse(response.isComplete());
 
-        response = responses.valueAt(0);
+        response = new MdnsResponse(responses.valueAt(0));
         response.setTextRecord(null);
         assertFalse(response.isComplete());
     }
@@ -375,7 +382,7 @@ public class MdnsResponseDecoderTests {
 
     @Test
     public void testDecodeWithIpv4AddressChange() throws IOException {
-        MdnsResponse response = makeMdnsResponse(0, List.of(
+        MdnsResponse response = makeMdnsResponse(0, DATAIN_SERVICE_NAME_1, List.of(
                 new PacketAndRecordClass(DATAIN_PTR_1,
                         MdnsPointerRecord.class),
                 new PacketAndRecordClass(DATAIN_SERVICE_1,
@@ -395,7 +402,7 @@ public class MdnsResponseDecoderTests {
 
     @Test
     public void testDecodeWithIpv6AddressChange() throws IOException {
-        MdnsResponse response = makeMdnsResponse(0, List.of(
+        MdnsResponse response = makeMdnsResponse(0, DATAIN_SERVICE_NAME_1, List.of(
                 new PacketAndRecordClass(DATAIN_PTR_1,
                         MdnsPointerRecord.class),
                 new PacketAndRecordClass(DATAIN_SERVICE_1,
@@ -415,7 +422,7 @@ public class MdnsResponseDecoderTests {
 
     @Test
     public void testDecodeWithChangeOnText() throws IOException {
-        MdnsResponse response = makeMdnsResponse(0, List.of(
+        MdnsResponse response = makeMdnsResponse(0, DATAIN_SERVICE_NAME_1, List.of(
                 new PacketAndRecordClass(DATAIN_PTR_1,
                         MdnsPointerRecord.class),
                 new PacketAndRecordClass(DATAIN_SERVICE_1,
@@ -436,7 +443,7 @@ public class MdnsResponseDecoderTests {
 
     @Test
     public void testDecodeWithChangeOnService() throws IOException {
-        MdnsResponse response = makeMdnsResponse(0, List.of(
+        MdnsResponse response = makeMdnsResponse(0, DATAIN_SERVICE_NAME_1, List.of(
                 new PacketAndRecordClass(DATAIN_PTR_1,
                         MdnsPointerRecord.class),
                 new PacketAndRecordClass(DATAIN_SERVICE_1,
@@ -459,7 +466,7 @@ public class MdnsResponseDecoderTests {
 
     @Test
     public void testDecodeWithChangeOnPtr() throws IOException {
-        MdnsResponse response = makeMdnsResponse(0, List.of(
+        MdnsResponse response = makeMdnsResponse(0, DATAIN_SERVICE_NAME_1, List.of(
                 new PacketAndRecordClass(DATAIN_PTR_1,
                         MdnsPointerRecord.class),
                 new PacketAndRecordClass(DATAIN_SERVICE_1,
@@ -483,7 +490,7 @@ public class MdnsResponseDecoderTests {
                         new PacketAndRecordClass(DATAIN_SERVICE_2, MdnsServiceRecord.class),
                         new PacketAndRecordClass(DATAIN_TEXT_1, MdnsTextRecord.class));
         // Create a two identical responses.
-        MdnsResponse response = makeMdnsResponse(0, recordList);
+        MdnsResponse response = makeMdnsResponse(0, DATAIN_SERVICE_NAME_1, recordList);
 
         final MdnsResponseDecoder decoder = new MdnsResponseDecoder(mClock, null);
         final byte[] identicalResponse = makeResponsePacket(
@@ -495,10 +502,10 @@ public class MdnsResponseDecoderTests {
         assertEquals(0, changes.size());
     }
 
-    private static MdnsResponse makeMdnsResponse(long time, List<PacketAndRecordClass> responseList)
-            throws IOException {
+    private static MdnsResponse makeMdnsResponse(long time, String[] serviceName,
+            List<PacketAndRecordClass> responseList) throws IOException {
         final MdnsResponse response = new MdnsResponse(
-                time, 999 /* interfaceIndex */, mock(Network.class));
+                time, serviceName, 999 /* interfaceIndex */, mock(Network.class));
         for (PacketAndRecordClass responseData : responseList) {
             DatagramPacket packet =
                     new DatagramPacket(responseData.packetData, responseData.packetData.length);
