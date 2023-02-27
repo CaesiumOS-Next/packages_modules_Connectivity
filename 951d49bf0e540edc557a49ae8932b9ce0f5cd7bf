@@ -16,6 +16,24 @@
       "message": "Adding Lorenzo FYI but this was already reviewed in aosp/2411006, only changing the target SDK check",
       "revId": "951d49bf0e540edc557a49ae8932b9ce0f5cd7bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a05388f4_f27ecfc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-27T07:39:13Z",
+      "side": 1,
+      "message": "The only changing is the vendor api level check as suggested by jeffv\n\n```\nJeffrey Vander Stoep, 36 min\nYou can check the vendor level in the test\ne.g. https://cs.android.com/android/platform/superproject/+/master:cts/hostsidetests/security/src/android/security/cts/SELinuxHostTest.java;l\u003d183?q\u003dselinuxhost\n```",
+      "parentUuid": "e6782ea5_92a50e54",
+      "revId": "951d49bf0e540edc557a49ae8932b9ce0f5cd7bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
