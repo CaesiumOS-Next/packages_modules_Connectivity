@@ -34,6 +34,29 @@
       "parentUuid": "e6782ea5_92a50e54",
       "revId": "951d49bf0e540edc557a49ae8932b9ce0f5cd7bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1336b57_e48e42cf",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-27T09:09:26Z",
+      "side": 1,
+      "message": "\"isSocketExist\" is not correct and nothing should have this name. Can you use doesSocketExist here too? Or will that conflict with the boolean above?",
+      "range": {
+        "startLine": 788,
+        "startChar": 18,
+        "endLine": 788,
+        "endChar": 31
+      },
+      "revId": "951d49bf0e540edc557a49ae8932b9ce0f5cd7bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
