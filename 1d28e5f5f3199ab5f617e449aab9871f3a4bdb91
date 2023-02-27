@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41b6d6a3_ff6786a3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-27T10:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d677cf81_10f6e570",
+      "range": {
+        "startLine": 766,
+        "startChar": 36,
+        "endLine": 766,
+        "endChar": 82
+      },
+      "revId": "1d28e5f5f3199ab5f617e449aab9871f3a4bdb91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eed38711_48eb024f",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-20T14:22:18Z",
       "side": 1,
       "message": "Nit: Meaningless comments now.",
+      "range": {
+        "startLine": 190,
+        "startChar": 20,
+        "endLine": 191,
+        "endChar": 83
+      },
+      "revId": "1d28e5f5f3199ab5f617e449aab9871f3a4bdb91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eb11e92_3f4f4e98",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-27T10:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eed38711_48eb024f",
       "range": {
         "startLine": 190,
         "startChar": 20,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8bcdffa_dbea30e6",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-27T10:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f59d12b2_8d47d4aa",
+      "range": {
+        "startLine": 389,
+        "startChar": 41,
+        "endLine": 389,
+        "endChar": 51
+      },
+      "revId": "1d28e5f5f3199ab5f617e449aab9871f3a4bdb91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f63900f_a794c9cd",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "358313b6_a8e06d03",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-27T10:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f63900f_a794c9cd",
+      "range": {
+        "startLine": 407,
+        "startChar": 42,
+        "endLine": 407,
+        "endChar": 81
+      },
+      "revId": "1d28e5f5f3199ab5f617e449aab9871f3a4bdb91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7071489_5fe04a89",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-02-20T14:22:18Z",
       "side": 1,
       "message": "Maybe also add DATAIN_IPV4_1 record and verify this record will be dropped after host name changes.",
+      "range": {
+        "startLine": 438,
+        "startChar": 49,
+        "endLine": 438,
+        "endChar": 51
+      },
+      "revId": "1d28e5f5f3199ab5f617e449aab9871f3a4bdb91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57a80492_aa16a9ff",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-27T10:20:08Z",
+      "side": 1,
+      "message": "Done - also verifying the hostname change, not service name, since the service name is the same before/after",
+      "parentUuid": "f7071489_5fe04a89",
       "range": {
         "startLine": 438,
         "startChar": 49,
