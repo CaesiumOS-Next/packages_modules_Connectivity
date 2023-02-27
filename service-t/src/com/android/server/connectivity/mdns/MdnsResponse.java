@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.Network;
 
@@ -39,14 +40,17 @@ public class MdnsResponse {
     private long lastUpdateTime;
     private final int interfaceIndex;
     @Nullable private final Network network;
+    @NonNull private final String[] serviceName;
 
     /** Constructs a new, empty response. */
-    public MdnsResponse(long now, int interfaceIndex, @Nullable Network network) {
+    public MdnsResponse(long now, @NonNull String[] serviceName, int interfaceIndex,
+            @Nullable Network network) {
         lastUpdateTime = now;
         records = new LinkedList<>();
         pointerRecords = new LinkedList<>();
         this.interfaceIndex = interfaceIndex;
         this.network = network;
+        this.serviceName = serviceName;
     }
 
     public MdnsResponse(MdnsResponse base) {
@@ -57,6 +61,7 @@ public class MdnsResponse {
         inet4AddressRecord = base.inet4AddressRecord;
         inet6AddressRecord = base.inet6AddressRecord;
         lastUpdateTime = base.lastUpdateTime;
+        serviceName = base.serviceName;
         interfaceIndex = base.interfaceIndex;
         network = base.network;
     }
@@ -75,6 +80,11 @@ public class MdnsResponse {
      * record is already present in the response.
      */
     public synchronized boolean addPointerRecord(MdnsPointerRecord pointerRecord) {
+        if (!Arrays.equals(serviceName, pointerRecord.getPointer())) {
+            throw new IllegalArgumentException(
+                    "Pointer records for different service names cannot be added");
+        }
+
         if (!pointerRecords.contains(pointerRecord)) {
             pointerRecords.add(pointerRecord);
             records.add(pointerRecord);
@@ -285,12 +295,12 @@ public class MdnsResponse {
     }
 
     /**
-     * Tests if the response is complete. A response is considered complete if it contains PTR, SRV,
-     * TXT, and A (for IPv4) or AAAA (for IPv6) records.
+     * Tests if the response is complete. A response is considered complete if it contains SRV,
+     * TXT, and A (for IPv4) or AAAA (for IPv6) records. The service type->name mapping is always
+     * known when constructing a MdnsResponse, so this may return true when there is no PTR record.
      */
     public synchronized boolean isComplete() {
-        return !pointerRecords.isEmpty()
-                && (serviceRecord != null)
+        return (serviceRecord != null)
                 && (textRecord != null)
                 && (inet4AddressRecord != null || inet6AddressRecord != null);
     }
@@ -299,12 +309,13 @@ public class MdnsResponse {
      * Returns the key for this response. The key uniquely identifies the response by its service
      * name.
      */
-    public synchronized String getServiceInstanceName() {
-        if (pointerRecords.isEmpty()) {
-            return null;
-        }
-        String[] pointers = pointerRecords.get(0).getPointer();
-        return ((pointers != null) && (pointers.length > 0)) ? pointers[0] : null;
+    public String getServiceInstanceName() {
+        return serviceName.length > 0 ? serviceName[0] : null;
+    }
+
+    @NonNull
+    public String[] getServiceName() {
+        return serviceName;
     }
 
     /**
