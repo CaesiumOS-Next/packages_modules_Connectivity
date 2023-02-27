@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6782ea5_92a50e54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-27T07:37:06Z",
+      "side": 1,
+      "message": "Adding Lorenzo FYI but this was already reviewed in aosp/2411006, only changing the target SDK check",
+      "revId": "951d49bf0e540edc557a49ae8932b9ce0f5cd7bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
