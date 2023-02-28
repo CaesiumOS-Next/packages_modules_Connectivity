@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c0b642a_7d5a5f4f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T09:44:10Z",
+      "side": 1,
+      "message": "Add comment about the exception throw?",
+      "revId": "1e4289859f0dd5eaf8dbf08ec113097ae339aad0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "764295d3_ad4ef337",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T09:44:10Z",
+      "side": 1,
+      "message": "Why we only need to log here?",
+      "revId": "1e4289859f0dd5eaf8dbf08ec113097ae339aad0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e39a0237_5d1851c3",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T09:44:10Z",
+      "side": 1,
+      "message": "Please fix the errorprone here.",
+      "revId": "1e4289859f0dd5eaf8dbf08ec113097ae339aad0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
