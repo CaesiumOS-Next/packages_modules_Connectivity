@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0278bc6d_6f73dc28",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T08:16:23Z",
+      "side": 1,
+      "message": "If the intent is to stop if this is currently inactive, this should be called stopIfInactive\n\nIf the intent is to request stop when the provider becomes inactive, then some variable should be set to indicate that the next time it is inactive, it should stop (and startMonitoringSockets should reset that variable). Right now this will happen regardless of whether requestStopWhenInactive was called.\n\nI think I would prefer the 2nd option, because it\u0027s a bit confusing if it always stops as soon as there is no active request; the caller (NsdService) might miss that it stopped by itself.",
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "815ec7c3_6fa28b86",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T08:16:23Z",
+      "side": 1,
+      "message": "Typo: only one dot ?",
+      "range": {
+        "startLine": 464,
+        "startChar": 73,
+        "endLine": 464,
+        "endChar": 75
+      },
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd9d0635_f8881b70",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T08:16:23Z",
+      "side": 1,
+      "message": "Typo: Process",
+      "range": {
+        "startLine": 464,
+        "startChar": 11,
+        "endLine": 464,
+        "endChar": 18
+      },
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "174d57cd_cdcf9c36",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T08:16:23Z",
+      "side": 1,
+      "message": "This is already checked in processUnregisterCallback\n\nMaybe it should be called maybeStopMonitoringSockets ? To mirror the naming of startMonitoringSockets",
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2139d56b_d08e2604",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T08:16:23Z",
+      "side": 1,
+      "message": "There should be a test to verify that if a callback is registered/unregistered, without calling requestStopWhenInactive, then the provider will not be stopped (I think this isn\u0027t the case in this patchset)",
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc9371cd_45ac7ac1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T08:16:23Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary since there was no callback",
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afe4b514_41d5c967",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T08:16:23Z",
+      "side": 1,
+      "message": "reset is generally discouraged (see Mockito doc); this indicates that the below case should probably be in a different test case",
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
