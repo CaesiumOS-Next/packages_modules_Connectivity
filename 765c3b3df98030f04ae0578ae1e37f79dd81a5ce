@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc5842dc_7845350d",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T08:39:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e94d5dc2_ac2da75a",
+      "range": {
+        "startLine": 68,
+        "startChar": 11,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "765c3b3df98030f04ae0578ae1e37f79dd81a5ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a600b4dd_b185ad8b",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e259842d_eaf3150f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 6987,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T08:39:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a600b4dd_b185ad8b",
+      "range": {
+        "startLine": 6987,
+        "startChar": 55,
+        "endLine": 6987,
+        "endChar": 76
+      },
+      "revId": "765c3b3df98030f04ae0578ae1e37f79dd81a5ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5d0bfc3_4c454a3e",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-02-28T08:30:31Z",
       "side": 1,
       "message": "I don\u0027t understand why you\u0027d want to do this – one of the points of having a compat change is to let devs test on T (assuming it\u0027s possible, which seems to be the case here).\n\nIf I\u0027m missing something and it\u0027s not possible to let this run on T, then at the very least the SDK check should be inside the shouldCheckCapabilitiesDeclaration method. After all, it\u0027s its job.",
+      "range": {
+        "startLine": 7042,
+        "startChar": 12,
+        "endLine": 7043,
+        "endChar": 19
+      },
+      "revId": "765c3b3df98030f04ae0578ae1e37f79dd81a5ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cb3c01f_d89d311c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7043,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T08:39:20Z",
+      "side": 1,
+      "message": "Done. As discussed, remove the atLeastU check as the developer could turn on the flag on T device.",
+      "parentUuid": "d5d0bfc3_4c454a3e",
       "range": {
         "startLine": 7042,
         "startChar": 12,
