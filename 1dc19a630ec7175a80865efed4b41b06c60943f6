@@ -22,6 +22,30 @@
       },
       "revId": "1dc19a630ec7175a80865efed4b41b06c60943f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ede1d3_8e817943",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/BidirectionalStreamTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-02-28T19:03:01Z",
+      "side": 1,
+      "message": "TIL that Junit reinitialized the variables after each test too. Not just those in @Before.\n\nCant change the stream variable since the properties are different for each test.\n\nFixed.",
+      "parentUuid": "bfbe3957_9a7932a4",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "1dc19a630ec7175a80865efed4b41b06c60943f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
