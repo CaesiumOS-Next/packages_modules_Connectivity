@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cce3499_97acd90a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-28T08:57:37Z",
+      "side": 1,
+      "message": "Actually before merging this CL we should probably double-check that all the NonNulls are really NonNull and vice versa.",
+      "revId": "c16b1636ea12d7d610b7e21b16e65e915881f403",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55cd0e80_d5ffef9c",
