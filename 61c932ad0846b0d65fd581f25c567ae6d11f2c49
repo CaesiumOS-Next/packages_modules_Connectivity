@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f7edecb_50834903",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 7837,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-28T01:14:50Z",
+      "side": 1,
+      "message": "nit: can you add a comment that this needs to be kept in sync with NetdEventListenerService which is not mainlined?",
+      "range": {
+        "startLine": 7837,
+        "startChar": 8,
+        "endLine": 7837,
+        "endChar": 85
+      },
+      "revId": "61c932ad0846b0d65fd581f25c567ae6d11f2c49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
