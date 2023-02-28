@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55cd0e80_d5ffef9c",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-02-28T08:41:49Z",
+      "side": 1,
+      "message": "Just to confirm: all these @NonNull annotations will actually throw NPE if the caller passes in null, right?\n\nIf not then we should either make sure they do throw NPE (assuming this won\u0027t break any existing users when we use these methods in PlatformCronetProvider) or make them @Nullable.\n\nFor Executors specifically, it\u0027s common to say that a null executor has a specific meaning (e.g., \"run on the the main thread\"). @NonNull is fine too I think.",
+      "range": {
+        "startLine": 100,
+        "startChar": 184,
+        "endLine": 100,
+        "endChar": 192
+      },
+      "revId": "c16b1636ea12d7d610b7e21b16e65e915881f403",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
