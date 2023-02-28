@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfbe3957_9a7932a4",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/BidirectionalStreamTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-02-28T18:39:41Z",
+      "side": 1,
+      "message": "Should this just be:\n```\nprivate val context \u003d ApplicationProvider.applicationContext\nprivate val callback \u003d TestBidirectionalStreamCallback()\nprivate val httpEngine \u003d HttpEngine.Builder(context).build()\nprivate val stream \u003d httpEngine.newBidirectionalStreamBuilder(URL, callback, callback.executor)\n```",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "1dc19a630ec7175a80865efed4b41b06c60943f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
