@@ -79,17 +79,6 @@ void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
 void NetworkTraceHandler::OnStart(const StartArgs&) { Poller().Start(mPollMs); }
 void NetworkTraceHandler::OnStop(const StopArgs&) { Poller().Stop(); }
 
-void NetworkTracePoller::Loop() {
-  mTaskRunner->PostDelayedTask(
-      [this]() {
-        mMutex.lock();
-        Loop();
-        mMutex.unlock();
-        ConsumeAll();
-      },
-      mPollMs);
-}
-
 // static
 void NetworkTraceHandler::Fill(const PacketTrace& src, TracePacket& dst) {
   dst.set_timestamp(src.timestampNs);
@@ -112,83 +101,6 @@ void NetworkTraceHandler::Fill(const PacketTrace& src, TracePacket& dst) {
   } else {
     event->set_interface("error");
   }
-}
-
-bool NetworkTracePoller::Start(uint32_t pollMs) {
-  ALOGD("Starting datasource");
-
-  std::scoped_lock<std::mutex> lock(mMutex);
-  if (mSessionCount > 0) {
-    if (mPollMs != pollMs) {
-      ALOGI("poll_ms can't change while running, ignoring poll_ms=%d", pollMs);
-    }
-    mSessionCount++;
-    return true;
-  }
-
-  auto status = mConfigurationMap.init(PACKET_TRACE_ENABLED_MAP_PATH);
-  if (!status.ok()) {
-    ALOGW("Failed to bind config map: %s", status.error().message().c_str());
-    return false;
-  }
-
-  auto rb = BpfRingbuf<PacketTrace>::Create(PACKET_TRACE_RINGBUF_PATH);
-  if (!rb.ok()) {
-    ALOGW("Failed to create ringbuf: %s", rb.error().message().c_str());
-    return false;
-  }
-
-  mRingBuffer = std::move(*rb);
-
-  auto res = mConfigurationMap.writeValue(0, true, BPF_ANY);
-  if (!res.ok()) {
-    ALOGW("Failed to enable tracing: %s", res.error().message().c_str());
-    return false;
-  }
-
-  // Start a task runner to run ConsumeAll every mPollMs milliseconds.
-  mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
-  mPollMs = pollMs;
-  Loop();
-
-  mSessionCount++;
-  return true;
-}
-
-bool NetworkTracePoller::Stop() {
-  ALOGD("Stopping datasource");
-
-  std::scoped_lock<std::mutex> lock(mMutex);
-
-  // If this isn't the last session, don't clean up yet.
-  if (--mSessionCount > 0) return true;
-
-  auto res = mConfigurationMap.writeValue(0, false, BPF_ANY);
-  if (!res.ok()) {
-    ALOGW("Failed to disable tracing: %s", res.error().message().c_str());
-  }
-
-  mTaskRunner.reset();
-  mRingBuffer.reset();
-
-  return res.ok();
-}
-
-bool NetworkTracePoller::ConsumeAll() {
-  std::scoped_lock<std::mutex> lock(mMutex);
-
-  if (mRingBuffer == nullptr) {
-    ALOGW("Tracing is not active");
-    return false;
-  }
-
-  base::Result<int> ret = mRingBuffer->ConsumeAll(mCallback);
-  if (!ret.ok()) {
-    ALOGW("Failed to poll ringbuf: %s", ret.error().message().c_str());
-    return false;
-  }
-
-  return true;
 }
 
 }  // namespace bpf
