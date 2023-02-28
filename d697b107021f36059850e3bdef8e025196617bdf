@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5db7dc7_93b24cd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T07:54:12Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed",
+      "revId": "d697b107021f36059850e3bdef8e025196617bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8dff9fe_b168d2a8",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T07:54:12Z",
+      "side": 1,
+      "message": "There\u0027s already 2 other places that have these 3 lines (get listener, unregister, removeRequestMap), maybe factor them out to a method ? Similarly to stopResolveService, maybe stopDiscoveryManagerRequest ?",
+      "revId": "d697b107021f36059850e3bdef8e025196617bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74fe8349_b37c578f",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1176,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T07:54:12Z",
+      "side": 1,
+      "message": "listenerCaptor is used to capture but never to verify; did you intend to use eq(listenerCaptor.getValue()) here ?",
+      "range": {
+        "startLine": 1176,
+        "startChar": 64,
+        "endLine": 1176,
+        "endChar": 69
+      },
+      "revId": "d697b107021f36059850e3bdef8e025196617bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
