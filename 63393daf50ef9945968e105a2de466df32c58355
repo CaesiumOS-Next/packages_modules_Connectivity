@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66599115_4d878566",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T07:39:10Z",
+      "side": 1,
+      "message": "nit: set the default value of network to null?",
+      "revId": "63393daf50ef9945968e105a2de466df32c58355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee76daff_729005c8",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T07:39:10Z",
+      "side": 1,
+      "message": "hard code the port as constant?",
+      "revId": "63393daf50ef9945968e105a2de466df32c58355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9520568_cc6dd876",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T07:39:10Z",
+      "side": 1,
+      "message": "Based on the build warning, it seems the value is never used. Do we really need the value here?",
+      "revId": "63393daf50ef9945968e105a2de466df32c58355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "784f86dc_f70e6eaa",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T07:39:10Z",
+      "side": 1,
+      "message": "Maybe add some comment on top of the test case to indicate the expected behavior",
+      "revId": "63393daf50ef9945968e105a2de466df32c58355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee524c7d_b482cbb0",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T07:39:10Z",
+      "side": 1,
+      "message": "nit: I it should be serviceFound instead of foundCb? Its not an cb object.",
+      "revId": "63393daf50ef9945968e105a2de466df32c58355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43e66de3_9cb64277",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T07:39:10Z",
+      "side": 1,
+      "message": "Its a query for both srv and txt. So the name should be srvAndTxtQuery or just query instead of srvQuery.",
+      "revId": "63393daf50ef9945968e105a2de466df32c58355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8033a34_3fe07836",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1229,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T07:39:10Z",
+      "side": 1,
+      "message": "ditto: not cb object.",
+      "revId": "63393daf50ef9945968e105a2de466df32c58355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d35406fd_31287649",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T07:39:10Z",
+      "side": 1,
+      "message": "nit: Its better to be consist with use or not use the let statement.\n\n```\nfoundCb.serviceInfo.let\n```",
+      "revId": "63393daf50ef9945968e105a2de466df32c58355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e2e41d_d2d277e9",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T07:39:10Z",
+      "side": 1,
+      "message": "nit: replaceNameTemplates seems not a very meaningful function name to me. Maybe replaceNameWithRandomSuffix is better?",
+      "revId": "63393daf50ef9945968e105a2de466df32c58355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f015634f_1a1226ba",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T07:39:10Z",
+      "side": 1,
+      "message": "testPacketName -\u003e srcServiceName?",
+      "revId": "63393daf50ef9945968e105a2de466df32c58355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9cbe932_be07d5d6",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T07:39:10Z",
+      "side": 1,
+      "message": "testPacketName -\u003e srcTypePrefix?",
+      "revId": "63393daf50ef9945968e105a2de466df32c58355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
