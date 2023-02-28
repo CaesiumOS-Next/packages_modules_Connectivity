@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e666d29c_ddc1d7bb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T02:58:06Z",
+      "side": 1,
+      "message": "Done (parseResponse is @NonNull now)",
+      "parentUuid": "f44cf5bb_1a2f0d05",
+      "range": {
+        "startLine": 180,
+        "startChar": 41,
+        "endLine": 180,
+        "endChar": 49
+      },
+      "revId": "c2272d87ccf7a4bb46ea241db151403cd888b10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ea9c4ec_0b8b5373",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-20T10:27:34Z",
       "side": 1,
       "message": "Shouldn\u0027t we throws ParseException with error code ERROR_NOT_RESPONSE_MESSAGE instead of null here?",
+      "range": {
+        "startLine": 100,
+        "startChar": 23,
+        "endLine": 100,
+        "endChar": 27
+      },
+      "revId": "c2272d87ccf7a4bb46ea241db151403cd888b10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d063f39e_ab4f5592",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T02:58:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ea9c4ec_0b8b5373",
       "range": {
         "startLine": 100,
         "startChar": 23,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d1a8b83_d768f08f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T02:58:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10a5e0ba_f7ea500e",
+      "range": {
+        "startLine": 105,
+        "startChar": 23,
+        "endLine": 105,
+        "endChar": 27
+      },
+      "revId": "c2272d87ccf7a4bb46ea241db151403cd888b10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d02efaed_30f2d818",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-02-20T10:27:34Z",
       "side": 1,
       "message": "IIUC if the response only has SRV/TXT records without a PTR record, this would be null and currentResponse would be null as well. Then this reponse would be treated as a new service instead of the update for existed service.",
+      "range": {
+        "startLine": 250,
+        "startChar": 53,
+        "endLine": 250,
+        "endChar": 86
+      },
+      "revId": "c2272d87ccf7a4bb46ea241db151403cd888b10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c624a55_5ea89a4f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T02:58:06Z",
+      "side": 1,
+      "message": "As discussed it\u0027s not possible for a MdnsResponse not to have a PTR record, as they\u0027re always built based on one.\n\nI think there\u0027s a problem in the next patch where the MdnsResponse will never be built when there\u0027s no known PTR record though (so this method wouldn\u0027t be called at all); I\u0027ll address that in another commit.",
+      "parentUuid": "d02efaed_30f2d818",
       "range": {
         "startLine": 250,
         "startChar": 53,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ad0ab62_40c45562",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T02:58:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da704e76_4142e5d4",
+      "range": {
+        "startLine": 135,
+        "startChar": 23,
+        "endLine": 135,
+        "endChar": 41
+      },
+      "revId": "c2272d87ccf7a4bb46ea241db151403cd888b10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4923b929_2c8ac8dd",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-02-20T10:27:34Z",
       "side": 1,
       "message": "I think this is unused now.",
+      "range": {
+        "startLine": 978,
+        "startChar": 25,
+        "endLine": 978,
+        "endChar": 43
+      },
+      "revId": "c2272d87ccf7a4bb46ea241db151403cd888b10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a6ab537_692fe519",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T02:58:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4923b929_2c8ac8dd",
       "range": {
         "startLine": 978,
         "startChar": 25,
