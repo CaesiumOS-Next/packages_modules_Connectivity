@@ -22,6 +22,30 @@
       },
       "revId": "5d176320327af0bbcbb11adfd206be6749107042",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ddc6d0d_36be7461",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-28T16:27:21Z",
+      "side": 0,
+      "message": "Should be left for a different CL for clean up.",
+      "parentUuid": "a9a1cdf5_69160bd7",
+      "range": {
+        "startLine": 379,
+        "startChar": 6,
+        "endLine": 379,
+        "endChar": 47
+      },
+      "revId": "5d176320327af0bbcbb11adfd206be6749107042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

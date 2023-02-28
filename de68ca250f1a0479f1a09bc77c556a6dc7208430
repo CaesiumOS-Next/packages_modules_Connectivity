@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57502681_48bb9232",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-28T16:27:21Z",
+      "side": 1,
+      "message": "Soong only complains for cc_object but static_libraries seems to be fine. This is used to export `generated_headers`.",
+      "parentUuid": "d86609b6_e054d7d7",
+      "range": {
+        "startLine": 552,
+        "startChar": 99,
+        "endLine": 552,
+        "endChar": 130
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9562cf9e_626cb5d4",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e374a3d_0421f49d",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1524,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-28T16:27:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9562cf9e_626cb5d4",
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "062ba026_4be4772d",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-02-27T23:29:36Z",
       "side": 1,
       "message": "I wonder if this could be generalized, i.e. checked for all target types?",
+      "range": {
+        "startLine": 1552,
+        "startChar": 11,
+        "endLine": 1552,
+        "endChar": 37
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77c9853d_f15d7321",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1552,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-28T16:27:21Z",
+      "side": 1,
+      "message": "I did a generalized check however only for compiled modules as genrules are always returning false for `has_input_files()`",
+      "parentUuid": "062ba026_4be4772d",
       "range": {
         "startLine": 1552,
         "startChar": 11,
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20b25760_36257d4e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1563,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-28T16:27:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "922b106b_09df995b",
+      "range": {
+        "startLine": 1559,
+        "startChar": 6,
+        "endLine": 1563,
+        "endChar": 66
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "145485ea_d5bae9f8",
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4103261_4ba1d247",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-28T16:27:21Z",
+      "side": 1,
+      "message": "It\u0027s not a linker type but we\u0027re treating it like one in here by converting it a cc_static_library. so I\u0027d prefer to keep it this way or make this change in a different CL for cleanup.",
+      "parentUuid": "145485ea_d5bae9f8",
+      "range": {
+        "startLine": 27,
+        "startChar": 72,
+        "endLine": 27,
+        "endChar": 82
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e33af5b_b1387235",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-02-27T23:29:36Z",
       "side": 1,
       "message": "nit: add: \"Source sets are later translated to static_libraries, so it makes sense to reuse transitive_static_libs_deps.\"",
+      "range": {
+        "startLine": 443,
+        "startChar": 36,
+        "endLine": 443,
+        "endChar": 46
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a88f333a_1bb83025",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-02-28T16:27:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e33af5b_b1387235",
       "range": {
         "startLine": 443,
         "startChar": 36,
