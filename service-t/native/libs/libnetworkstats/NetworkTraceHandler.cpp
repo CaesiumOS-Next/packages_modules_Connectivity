@@ -56,7 +56,7 @@ void NetworkTraceHandler::InitPerfettoTracing() {
 }
 
 NetworkTraceHandler::NetworkTraceHandler()
-    : NetworkTraceHandler([this](const PacketTrace& pkt) {
+    : mLooper([this](const PacketTrace& pkt) {
         NetworkTraceHandler::Trace(
             [this, pkt](NetworkTraceHandler::TraceContext ctx) {
               Fill(pkt, *ctx.NewTracePacket());
@@ -74,18 +74,10 @@ void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
   }
 }
 
-void NetworkTraceHandler::OnStart(const StartArgs&) {
-  if (!Start()) return;
-  mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
-  Loop();
-}
+void NetworkTraceHandler::OnStart(const StartArgs&) { mLooper.Start(mPollMs); }
+void NetworkTraceHandler::OnStop(const StopArgs&) { mLooper.Stop(); }
 
-void NetworkTraceHandler::OnStop(const StopArgs&) {
-  Stop();
-  mTaskRunner.reset();
-}
-
-void NetworkTraceHandler::Loop() {
+void NetworkTraceLooper::Loop() {
   mTaskRunner->PostDelayedTask([this]() { Loop(); }, mPollMs);
   ConsumeAll();
 }
@@ -113,8 +105,10 @@ void NetworkTraceHandler::Fill(const PacketTrace& src, TracePacket& dst) {
   }
 }
 
-bool NetworkTraceHandler::Start() {
+bool NetworkTraceLooper::Start(uint32_t pollMs) {
   ALOGD("Starting datasource");
+
+  mPollMs = pollMs;
 
   auto status = mConfigurationMap.init(PACKET_TRACE_ENABLED_MAP_PATH);
   if (!status.ok()) {
@@ -136,24 +130,28 @@ bool NetworkTraceHandler::Start() {
     return false;
   }
 
+  // Start a task runner to run ConsumeAll every mPollMs milliseconds.
+  mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
+  Loop();
+
   return true;
 }
 
-bool NetworkTraceHandler::Stop() {
+bool NetworkTraceLooper::Stop() {
   ALOGD("Stopping datasource");
 
   auto res = mConfigurationMap.writeValue(0, false, BPF_ANY);
   if (!res.ok()) {
     ALOGW("Failed to disable tracing: %s", res.error().message().c_str());
-    return false;
   }
 
+  mTaskRunner.reset();
   mRingBuffer.reset();
 
-  return true;
+  return res.ok();
 }
 
-bool NetworkTraceHandler::ConsumeAll() {
+bool NetworkTraceLooper::ConsumeAll() {
   if (mRingBuffer == nullptr) {
     ALOGW("Tracing is not active");
     return false;

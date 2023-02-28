@@ -83,7 +83,7 @@ struct PacketPrinter {
   }
 };
 
-class NetworkTraceHandlerTest : public testing::Test {
+class NetworkTraceLooperTest : public testing::Test {
  protected:
   void SetUp() {
     if (access(PACKET_TRACE_RINGBUF_PATH, R_OK)) {
@@ -95,31 +95,31 @@ class NetworkTraceHandlerTest : public testing::Test {
   }
 };
 
-TEST_F(NetworkTraceHandlerTest, PollWhileInactive) {
-  NetworkTraceHandler handler([&](const PacketTrace& pkt) {});
+TEST_F(NetworkTraceLooperTest, PollWhileInactive) {
+  NetworkTraceLooper looper([&](const PacketTrace& pkt) {});
 
   // One succeed after start and before stop.
-  EXPECT_FALSE(handler.ConsumeAll());
-  ASSERT_TRUE(handler.Start());
-  EXPECT_TRUE(handler.ConsumeAll());
-  ASSERT_TRUE(handler.Stop());
-  EXPECT_FALSE(handler.ConsumeAll());
+  EXPECT_FALSE(looper.ConsumeAll());
+  ASSERT_TRUE(looper.Start());
+  EXPECT_TRUE(looper.ConsumeAll());
+  ASSERT_TRUE(looper.Stop());
+  EXPECT_FALSE(looper.ConsumeAll());
 }
 
-TEST_F(NetworkTraceHandlerTest, TraceTcpSession) {
+TEST_F(NetworkTraceLooperTest, TraceTcpSession) {
   __be16 server_port = 0;
   std::vector<PacketTrace> packets;
 
   // Record all packets with the bound address and current uid. This callback is
   // involked only within ConsumeAll, at which point the port should have
   // already been filled in and all packets have been processed.
-  NetworkTraceHandler handler([&](const PacketTrace& pkt) {
+  NetworkTraceLooper looper([&](const PacketTrace& pkt) {
     if (pkt.sport != server_port && pkt.dport != server_port) return;
     if (pkt.uid != getuid()) return;
     packets.push_back(pkt);
   });
 
-  ASSERT_TRUE(handler.Start());
+  ASSERT_TRUE(looper.Start());
   const uint32_t kClientTag = 2468;
   const uint32_t kServerTag = 1357;
 
@@ -155,8 +155,8 @@ TEST_F(NetworkTraceHandlerTest, TraceTcpSession) {
     EXPECT_EQ(std::string(data), std::string(buff));
   }
 
-  ASSERT_TRUE(handler.ConsumeAll());
-  ASSERT_TRUE(handler.Stop());
+  ASSERT_TRUE(looper.ConsumeAll());
+  ASSERT_TRUE(looper.Stop());
 
   // There are 12 packets in total (6 messages: each seen by client & server):
   // 1. Client connects to server with syn
