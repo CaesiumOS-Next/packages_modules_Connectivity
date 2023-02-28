@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "531c4414_1b96fb11",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T09:06:05Z",
+      "side": 1,
+      "message": "I think it is better to add a comment here explain the A/AAAA record might be resolved in next scheduled call.",
+      "revId": "feee0efa1db161e2e90d86b1ac27316bf76e9cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3b9298d_3058d309",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-02-28T09:06:05Z",
+      "side": 1,
+      "message": "I think it will be better to specificity it is  `instanceFullName`.",
+      "revId": "feee0efa1db161e2e90d86b1ac27316bf76e9cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
