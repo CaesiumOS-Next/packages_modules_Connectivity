@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ae8e3e5_256badb2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2717,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-02-28T08:39:13Z",
+      "side": 1,
+      "message": "But that\u0027s not guaranteed is it ? If Ethernet is connected, then wifi won\u0027t be the default.",
+      "range": {
+        "startLine": 2717,
+        "startChar": 11,
+        "endLine": 2717,
+        "endChar": 55
+      },
+      "revId": "81723a76dc2b0a6c730cf8f722f1fc8771e54654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
