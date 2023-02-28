@@ -208,6 +208,17 @@ public final class NetworkCapabilities implements Parcelable {
     private int mEnterpriseId;
 
     /**
+     * Gets the enterprise IDs as an int. Internal callers only.
+     *
+     * Prefer getEnterpriseIds/hasEnterpriseId if not immediately collapsing back into a scalar.
+     * @return
+     * @hide
+     */
+    public int getEnterpriseIdsInternal() {
+        return mEnterpriseId;
+    }
+
+    /**
      * Get enteprise identifiers set.
      *
      * Get all the enterprise capabilities identifier set on this {@code NetworkCapability}
@@ -798,6 +809,17 @@ public final class NetworkCapabilities implements Parcelable {
     }
 
     /**
+     * Gets the capabilities as an int. Internal callers only.
+     *
+     * Prefer getCapabilities/hasCapability if not immediately collapsing back into a scalar.
+     * @return
+     * @hide
+     */
+    public long getCapabilitiesInternal() {
+        return mNetworkCapabilities;
+    }
+
+    /**
      * Gets all the capabilities set on this {@code NetworkCapability} instance.
      *
      * @return an array of capability values for this instance.
@@ -1262,6 +1284,17 @@ public final class NetworkCapabilities implements Parcelable {
     @SystemApi
     @NonNull public @Transport int[] getTransportTypes() {
         return BitUtils.unpackBits(mTransportTypes);
+    }
+
+    /**
+     * Gets the transports as an int. Internal callers only.
+     *
+     * Prefer getTransportTypes/hasTransportType if not immediately collapsing back into a scalar.
+     * @return
+     * @hide
+     */
+    public long getTransportTypesInternal() {
+        return mTransportTypes;
     }
 
     /**

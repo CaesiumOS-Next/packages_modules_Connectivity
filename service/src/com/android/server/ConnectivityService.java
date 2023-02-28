@@ -75,6 +75,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_OEM_PAID;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_OEM_PRIVATE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_PARTIAL_CONNECTIVITY;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_1;
 import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_5;
@@ -231,6 +232,9 @@ import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.provider.Settings;
+import android.stats.connectivity.MeteredState;
+import android.stats.connectivity.RequestType;
+import android.stats.connectivity.ValidatedState;
 import android.sysprop.NetworkProperties;
 import android.system.ErrnoException;
 import android.telephony.TelephonyManager;
@@ -242,6 +246,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
+import android.util.StatsEvent;
 
 import androidx.annotation.RequiresApi;
 
@@ -250,6 +255,16 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
+import com.android.metrics.ConnectionDurationForTransports;
+import com.android.metrics.ConnectionDurationPerTransports;
+import com.android.metrics.ConnectivityStateSample;
+import com.android.metrics.NetworkCountForTransports;
+import com.android.metrics.NetworkCountPerTransports;
+import com.android.metrics.NetworkDescription;
+import com.android.metrics.NetworkList;
+import com.android.metrics.NetworkRequestCount;
+import com.android.metrics.RequestCountForType;
+import com.android.metrics.SampleConnectivityStateMetrics;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
@@ -1642,6 +1657,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else {
             mCdmps = null;
         }
+
+        SampleConnectivityStateMetrics.start(mContext, mHandler, this::sampleConnectivityState);
     }
 
     /**
@@ -2167,6 +2184,113 @@ public class ConnectivityService extends IConnectivityManager.Stub
         NetworkCapabilities[] out = new NetworkCapabilities[result.size()];
         out = result.values().toArray(out);
         return out;
+    }
+
+    private StatsEvent sampleConnectivityState() {
+        ensureRunningOnConnectivityServiceThread();
+        final ConnectivityStateSample.Builder builder = ConnectivityStateSample.newBuilder();
+        builder.setNetworkCountPerTransports(sampleNetworkCount(mNetworkAgentInfos));
+        builder.setConnectionDurationPerTransports(sampleConnectionDuration(mNetworkAgentInfos));
+        builder.setNetworkRequestCount(sampleNetworkRequestCount(mNetworkRequests.values()));
+        builder.setNetworks(sampleNetworks(mNetworkAgentInfos));
+        final ConnectivityStateSample sample = builder.build();
+        return ConnectivityStatsLog.buildStatsEvent(
+                ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE,
+                sample.getNetworkCountPerTransports().toByteArray(),
+                sample.getConnectionDurationPerTransports().toByteArray(),
+                sample.getNetworkRequestCount().toByteArray(),
+                sample.getNetworks().toByteArray());
+    }
+
+    private static NetworkCountPerTransports sampleNetworkCount(
+            @NonNull final ArraySet<NetworkAgentInfo> nais) {
+        final SparseIntArray countPerTransports = new SparseIntArray();
+        for (final NetworkAgentInfo nai : nais) {
+            int transports = (int) nai.networkCapabilities.getTransportTypesInternal();
+            countPerTransports.put(transports, 1 + countPerTransports.get(transports, 0));
+        }
+        final NetworkCountPerTransports.Builder builder = NetworkCountPerTransports.newBuilder();
+        for (int i = countPerTransports.size() - 1; i >= 0; --i) {
+            final NetworkCountForTransports.Builder c = NetworkCountForTransports.newBuilder();
+            c.setTransportTypes(countPerTransports.keyAt(i));
+            c.setNetworkCount(countPerTransports.valueAt(i));
+            builder.setNetworkCountForTransports(i, c);
+        }
+        return builder.build();
+    }
+
+    private static ConnectionDurationPerTransports sampleConnectionDuration(
+            @NonNull final ArraySet<NetworkAgentInfo> nais) {
+        final ConnectionDurationPerTransports.Builder builder =
+                ConnectionDurationPerTransports.newBuilder();
+        int index = 0;
+        for (final NetworkAgentInfo nai : nais) {
+            final ConnectionDurationForTransports.Builder c =
+                    ConnectionDurationForTransports.newBuilder();
+            c.setTransportTypes((int) nai.networkCapabilities.getTransportTypesInternal());
+            c.setDurationSec((int) (SystemClock.elapsedRealtime() - nai.getConnectedTime()));
+            builder.setConnectionDurationForTransports(index++, c);
+        }
+        return builder.build();
+    }
+
+    private static NetworkRequestCount sampleNetworkRequestCount(
+            @NonNull final Collection<NetworkRequestInfo> nris) {
+        final NetworkRequestCount.Builder builder = NetworkRequestCount.newBuilder();
+        final SparseIntArray countPerType = new SparseIntArray();
+        for (final NetworkRequestInfo nri : nris) {
+            final int type;
+            if (Process.SYSTEM_UID == nri.mAsUid) {
+                type = RequestType.RT_SYSTEM.getNumber();
+            } else if (Process.SYSTEM_UID == nri.mUid) {
+                type = RequestType.RT_SYSTEM_ON_BEHALF_OF_APP.getNumber();
+            } else {
+                type = RequestType.RT_APP.getNumber();
+            }
+            countPerType.put(type, countPerType.get(type, 0));
+        }
+        for (int i = countPerType.size() - 1; i >= 0; --i) {
+            final RequestCountForType.Builder r = RequestCountForType.newBuilder();
+            r.setRequestType(RequestType.forNumber(countPerType.keyAt(i)));
+            r.setRequestCount(countPerType.valueAt(i));
+            builder.setRequestCountForType(i, r);
+        }
+        return builder.build();
+    }
+
+    private static NetworkList sampleNetworks(@NonNull final ArraySet<NetworkAgentInfo> nais) {
+        final NetworkList.Builder builder = NetworkList.newBuilder();
+        int index = 0;
+        for (final NetworkAgentInfo nai : nais) {
+            final NetworkCapabilities nc = nai.networkCapabilities;
+            final NetworkDescription.Builder d = NetworkDescription.newBuilder();
+            d.setTransportTypes((int) nc.getTransportTypesInternal());
+            final MeteredState meteredState;
+            if (nc.hasCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED)) {
+                meteredState = MeteredState.METERED_TEMPORARILY_UNMETERED;
+            } else if (nc.hasCapability(NET_CAPABILITY_NOT_METERED)) {
+                meteredState = MeteredState.METERED_NO;
+            } else {
+                meteredState = MeteredState.METERED_YES;
+            }
+            d.setMeteredState(meteredState);
+            final ValidatedState validatedState;
+            if (nc.hasCapability(NET_CAPABILITY_CAPTIVE_PORTAL)) {
+                validatedState = ValidatedState.VS_PORTAL;
+            } else if (nc.hasCapability(NET_CAPABILITY_PARTIAL_CONNECTIVITY)) {
+                validatedState = ValidatedState.VS_PARTIAL;
+            } else if (nc.hasCapability(NET_CAPABILITY_VALIDATED)) {
+                validatedState = ValidatedState.VS_VALID;
+            } else {
+                validatedState = ValidatedState.VS_INVALID;
+            }
+            d.setValidatedState(validatedState);
+            d.setScorePolicies(nai.getScore().getPoliciesInternal());
+            d.setCapabilities(nc.getCapabilitiesInternal());
+            d.setEnterpriseId(nc.getEnterpriseIdsInternal());
+            builder.setNetworkDescription(index++, d);
+        }
+        return builder.build();
     }
 
     @Override

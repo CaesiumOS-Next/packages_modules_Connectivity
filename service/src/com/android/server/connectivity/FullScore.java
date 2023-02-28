@@ -304,6 +304,17 @@ public class FullScore {
     }
 
     /**
+     * Gets the policies as an long. Internal callers only.
+     *
+     * Use has if not immediately collapsing back into a scalar.
+     * @return
+     * @hide
+     */
+    public long getPoliciesInternal() {
+        return mPolicies;
+    }
+
+    /**
      * @return whether this score has a particular policy.
      */
     @VisibleForTesting
