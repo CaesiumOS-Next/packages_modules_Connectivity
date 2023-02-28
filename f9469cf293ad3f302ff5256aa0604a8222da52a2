@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e96b3d_4c39d6db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T09:28:37Z",
+      "side": 1,
+      "message": "Typo: register",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "020462f5_f1321841",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T09:28:37Z",
+      "side": 1,
+      "message": "cs",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f37ca83_47943fbd",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T09:28:37Z",
+      "side": 1,
+      "message": "Similarly to aosp/2239480 I think it would be better in MdnsServiceTypeClient after aosp/2443021. But we can also move it there when that CL is merged to avoid blocking you.",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aac009d5_db3804a2",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T09:28:37Z",
+      "side": 1,
+      "message": "Can you factor this out to a method in the base MdnsListener class ? It looks like you just need to do:\n\n - If service name !\u003d null, filter by name (maybe replace mReqServiceInfo with 2 strings for type/name, as the ServiceInfo is provided by clients and may have a name even for discovery)\n - Call sendMessage taking the message (SERVICE_UPDATED, RESOLVE_SERVICE_SUCCEEDED...) as argument\n\nThis and the 2 classes above repeat the same code a number of times",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfad680d_3198f59e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T09:28:37Z",
+      "side": 1,
+      "message": "If you put the `[\\\\.]?` outside of the parenthesis (2nd capture group) in the regex, and return `matcher.group(2)` instead of `serviceType` when `matcher.group(1) \u003d\u003d null`, you don\u0027t need to do this since the return value won\u0027t end with a dot.\n\nThis makes the return value of constructServiceType more consistent so there\u0027s less cases to consider in the rest of the code.",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c48e3065_3b5b1ee0",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T09:28:37Z",
+      "side": 1,
+      "message": "Nit: the NsdManager.registerServiceInfoCallback documentation should be updated since it won\u0027t return FAILURE_ALREADY_ACTIVE anymore now",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22ec8b29_249f7a01",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T09:28:37Z",
+      "side": 1,
+      "message": "Note I filed b/271067818 to go over the query timing",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27a6c6ad_2795fe98",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T09:28:37Z",
+      "side": 1,
+      "message": "This is a bit confusing because it suggests that this can happen, but I think SERVICE_UPDATED shouldn\u0027t be called if there\u0027s no address. SERVICE_UPDATED_LOST should be called instead if the service previously had addresses (I think it\u0027s not done today but that\u0027s a bug: https://b.corp.google.com/issues/266030646#comment3).\n\nIn any case I think you can remove this check as it shouldn\u0027t happen",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "473b6ab2_d2598d60",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T09:28:37Z",
+      "side": 1,
+      "message": "You might want to separate this to a separate change, as Lorenzo needs to look at it",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c7972a0_2b38e06d",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-02-28T09:28:37Z",
+      "side": 1,
+      "message": "Typo: unregistration",
+      "range": {
+        "startLine": 784,
+        "startChar": 35,
+        "endLine": 784,
+        "endChar": 48
+      },
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
