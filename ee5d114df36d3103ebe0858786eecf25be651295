@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e66672b_eb7d8c29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-01T06:11:48Z",
+      "side": 1,
+      "message": "LGTM with nits that doesn\u0027t need to do anything.",
+      "revId": "ee5d114df36d3103ebe0858786eecf25be651295",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2eb7e1f_f864e35b",
+        "filename": "tests/cts/net/src/android/net/cts/CaptivePortalTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-01T06:11:48Z",
+      "side": 1,
+      "message": "nit: For readiblity, it seems to me \"eventuallyExpect\" serves better than \"poll\" since it clearly let the reader knows the method is going to skip events in its name.\nBut given that this one doesn\u0027t really have many callers. No strong opinion.",
+      "range": {
+        "startLine": 154,
+        "startChar": 24,
+        "endLine": 154,
+        "endChar": 28
+      },
+      "revId": "ee5d114df36d3103ebe0858786eecf25be651295",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
