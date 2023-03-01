@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf58b66e_691fdcd4",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-01T03:50:46Z",
+      "side": 1,
+      "message": "How about throwing if isAtLeastU() ? So this code can be cleaned up eventually",
+      "revId": "69086d6cbc34bafb9f470df21b8b19710f654494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
