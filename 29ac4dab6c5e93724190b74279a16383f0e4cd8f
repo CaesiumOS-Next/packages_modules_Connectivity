@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6de1b0d_a53be3fa",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-01T07:59:27Z",
+      "side": 1,
+      "message": "The check only verified whether the lock should be held when updating instanceNameToResponse, because when the feature was disabled, it was not necessary to hold the lock.\nThe new code needs the lock in any case: in particular QueryTask now also uses the lock to call makeResponsesForResolveIfUnknown so the lock is necessary regardless of the shouldRemoveServiceAfterTtlExpires feature.",
+      "parentUuid": "46876d2b_613e9c15",
+      "revId": "29ac4dab6c5e93724190b74279a16383f0e4cd8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a20ea81a_e033c47d",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
         "patchSetId": 8
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-01T06:49:38Z",
       "side": 1,
       "message": "nit: why some of the string using concatenation and some doesn\u0027t? Its better to be consist.",
+      "revId": "29ac4dab6c5e93724190b74279a16383f0e4cd8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60b1dd15_c254ff3e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-01T07:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a20ea81a_e033c47d",
       "revId": "29ac4dab6c5e93724190b74279a16383f0e4cd8f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
