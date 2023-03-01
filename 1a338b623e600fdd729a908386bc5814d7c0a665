@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "439a22ec_96cda275",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-01T08:00:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5f87cfa_0803b28a",
+      "revId": "1a338b623e600fdd729a908386bc5814d7c0a665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b44c0ae2_d94a8dd1",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-01T07:24:30Z",
       "side": 1,
       "message": "Please fix the errorprone.",
+      "revId": "1a338b623e600fdd729a908386bc5814d7c0a665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed5de5a9_f907da53",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-01T08:00:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b44c0ae2_d94a8dd1",
       "revId": "1a338b623e600fdd729a908386bc5814d7c0a665",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
