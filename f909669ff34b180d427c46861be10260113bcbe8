@@ -34,6 +34,52 @@
       "parentUuid": "ff8fc1fe_50b7c58a",
       "revId": "f909669ff34b180d427c46861be10260113bcbe8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c63a4520_800f1184",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-01T19:04:01Z",
+      "side": 1,
+      "message": "Can this use a domain we own (e.g. URL)? Speaking of which, I am not sure source.android.com works from China? Maybe we should test against www.265.com.",
+      "range": {
+        "startLine": 96,
+        "startChar": 22,
+        "endLine": 96,
+        "endChar": 45
+      },
+      "revId": "f909669ff34b180d427c46861be10260113bcbe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb2756b1_77535231",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-01T19:04:01Z",
+      "side": 1,
+      "message": "When using literals as method arguments, it\u0027s helpful to also add the parameter name in a comment:\n```\nsetEnableHttpCache(HttpEngine.Builder.HTTP_CACHE_DISK, /* maxSize */ 100 * 1024)\n```",
+      "range": {
+        "startLine": 104,
+        "startChar": 80,
+        "endLine": 104,
+        "endChar": 90
+      },
+      "revId": "f909669ff34b180d427c46861be10260113bcbe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
