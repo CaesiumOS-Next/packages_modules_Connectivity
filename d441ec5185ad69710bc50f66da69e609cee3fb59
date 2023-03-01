@@ -93,6 +93,30 @@
       },
       "revId": "d441ec5185ad69710bc50f66da69e609cee3fb59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40003191_b58627ef",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-01T10:37:09Z",
+      "side": 1,
+      "message": "Reverted this based on Remi\u0027s offline discussion.",
+      "parentUuid": "c3924324_98beb726",
+      "range": {
+        "startLine": 363,
+        "startChar": 42,
+        "endLine": 363,
+        "endChar": 91
+      },
+      "revId": "d441ec5185ad69710bc50f66da69e609cee3fb59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
