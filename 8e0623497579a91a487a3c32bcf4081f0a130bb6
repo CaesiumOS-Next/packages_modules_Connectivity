@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c59e9b1b_0558a61e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-01T14:24:18Z",
+      "side": 1,
+      "message": "This looks like a correct behavior since the inet4AddressRecord is removed from records. But is there an issue without resetting this?",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 194,
+        "endChar": 43
+      },
+      "revId": "8e0623497579a91a487a3c32bcf4081f0a130bb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef7da45b_af45691f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-01T14:24:18Z",
+      "side": 1,
+      "message": "Not quite sure for this point record clear behavior . Could you add some comments to explain it?",
+      "range": {
+        "startLine": 189,
+        "startChar": 20,
+        "endLine": 191,
+        "endChar": 21
+      },
+      "revId": "8e0623497579a91a487a3c32bcf4081f0a130bb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
