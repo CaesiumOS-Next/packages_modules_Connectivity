@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1833cbd8_c10dd6b6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2094,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-01T17:48:12Z",
+      "side": 1,
+      "message": "mTetheringMetrices is final and never be null, isn\u0027t it ?",
+      "range": {
+        "startLine": 2094,
+        "startChar": 20,
+        "endLine": 2094,
+        "endChar": 37
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1281ccb_90e6702f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-01T17:48:12Z",
+      "side": 1,
+      "message": "just mDownstreamStartTime.put(downstreamType, timeNow()) then remove l.112 ?",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 60
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45e459e2_40716a5d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-01T17:48:12Z",
+      "side": 1,
+      "message": "I don\u0027t find the caller outside of this class, change to private ?",
+      "range": {
+        "startLine": 152,
+        "startChar": 4,
+        "endLine": 152,
+        "endChar": 10
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3da2def_3239b328",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-01T17:48:12Z",
+      "side": 1,
+      "message": "event.mUpstremType never be null, isn\u0027t it because transportTypeToUpstreamTypeEnum never return null.",
+      "range": {
+        "startLine": 155,
+        "startChar": 33,
+        "endLine": 156,
+        "endChar": 74
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54228530_0166d022",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-01T17:48:12Z",
+      "side": 1,
+      "message": "no caller outside this function ? If so, change to private.",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 10
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "830cbe95_64cdd568",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-01T17:48:12Z",
+      "side": 1,
+      "message": "Since tethering record downstream startTime prior than upstream start time, this will miss first upstream. I think you should compare with stopTime instead:\n\n    if (downstreamStartTime \u003e event.mStopTime) continue;",
+      "range": {
+        "startLine": 170,
+        "startChar": 12,
+        "endLine": 170,
+        "endChar": 65
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "084306e3_595c0a62",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-01T17:48:12Z",
+      "side": 1,
+      "message": "Then deal with multiple downstream case that downstream may start when upstream already be available.\n\n    if (downstreamStartTime \u003e event.mStartTime) {\n        updateUpstreamEvents(upstreamEventsBuilder, new RecordUpstreamEvent(downstreamStartTime, event.mStopTime, event.mUpstream));\n    } else {\n        updateUpstreamEvents(upstreamEventsBuilder, event);\n    }",
+      "range": {
+        "startLine": 171,
+        "startChar": 12,
+        "endLine": 171,
+        "endChar": 63
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b879f805_79fb6236",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-01T17:48:12Z",
+      "side": 1,
+      "message": "With above suggestion, you can just simply the code:\n\nHave updateUpstreamEvents(final UpstreamEvents.Builder upstreamEventsBuilder, final long startTime, final long stopTime, final UpstreamType type)\n\nThen:\n\n    private long getStartTime(long first, long second) {\n        return first \u003e second ? first : second\n    }\n\n    for (RecordUpstreamEvent event : mUpstreamEventList) {\n        if (downstreamStartTime \u003e event.mStopTime) continue;\n        \n        final long startTime \u003d getStartTime(downstreamStartTime,event.mStartTime); \n        updateUpstreamEvents(upstreamEventsBuilder, startTime, event.mStopTime, event.mUpstream));\n    }\n    \n    final long startTime \u003d getStartTime(downstreamStartTime, mCurrentUpStreamStartTime);\n    final long stopTime \u003d timeNow();\n    updateUpstreamEvents(upstreamEventsBuilder, startTime, stopTime, mCurrentUpstream);",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 179,
+        "endChar": 35
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
