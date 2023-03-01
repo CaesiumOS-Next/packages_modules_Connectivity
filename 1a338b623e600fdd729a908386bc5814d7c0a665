@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5f87cfa_0803b28a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-01T07:24:30Z",
+      "side": 1,
+      "message": "@Nullable?",
+      "revId": "1a338b623e600fdd729a908386bc5814d7c0a665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b44c0ae2_d94a8dd1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-01T07:24:30Z",
+      "side": 1,
+      "message": "Please fix the errorprone.",
+      "revId": "1a338b623e600fdd729a908386bc5814d7c0a665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
