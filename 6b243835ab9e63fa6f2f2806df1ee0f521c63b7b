@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8ec5d63_f3810407",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-01T06:49:38Z",
+      "side": 1,
+      "message": "modifiedList -\u003e modifiedResponses?",
+      "revId": "6b243835ab9e63fa6f2f2806df1ee0f521c63b7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fd11542_4267291c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-01T06:49:38Z",
+      "side": 1,
+      "message": "changes.",
+      "range": {
+        "startLine": 491,
+        "startChar": 37,
+        "endLine": 491,
+        "endChar": 43
+      },
+      "revId": "6b243835ab9e63fa6f2f2806df1ee0f521c63b7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecbfebd7_bfdf92a3",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-01T06:49:38Z",
+      "side": 1,
+      "message": "What is this expireOnExit\u003d?",
+      "revId": "6b243835ab9e63fa6f2f2806df1ee0f521c63b7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
