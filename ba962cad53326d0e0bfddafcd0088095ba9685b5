@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a54f815_1d64391a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-02T02:57:34Z",
+      "side": 1,
+      "message": "I also prefer the 2nd option. Add a flag `mRequestStop` to recognize whether the stop request is existed or not.",
+      "parentUuid": "0278bc6d_6f73dc28",
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "815ec7c3_6fa28b86",
@@ -64,6 +82,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1888f170_27151fc1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-02T02:57:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd9d0635_f8881b70",
+      "range": {
+        "startLine": 464,
+        "startChar": 11,
+        "endLine": 464,
+        "endChar": 18
+      },
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a79de1f9_75ee07d3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-02T02:57:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "815ec7c3_6fa28b86",
+      "range": {
+        "startLine": 464,
+        "startChar": 73,
+        "endLine": 464,
+        "endChar": 75
+      },
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "174d57cd_cdcf9c36",
@@ -77,6 +143,24 @@
       "writtenOn": "2023-02-28T08:16:23Z",
       "side": 1,
       "message": "This is already checked in processUnregisterCallback\n\nMaybe it should be called maybeStopMonitoringSockets ? To mirror the naming of startMonitoringSockets",
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2683ab4d_4acacbbd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-02T02:57:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "174d57cd_cdcf9c36",
       "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -98,6 +182,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f86c7e2f_47508b5a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-02T02:57:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2139d56b_d08e2604",
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc9371cd_45ac7ac1",
@@ -115,6 +217,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a887103_94a555e4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-02T02:57:34Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "dc9371cd_45ac7ac1",
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afe4b514_41d5c967",
@@ -128,6 +248,24 @@
       "writtenOn": "2023-02-28T08:16:23Z",
       "side": 1,
       "message": "reset is generally discouraged (see Mockito doc); this indicates that the below case should probably be in a different test case",
+      "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f34d52f1_776d4fda",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-02T02:57:34Z",
+      "side": 1,
+      "message": "Removed and verify the method calling times instead.",
+      "parentUuid": "afe4b514_41d5c967",
       "revId": "ba962cad53326d0e0bfddafcd0088095ba9685b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
