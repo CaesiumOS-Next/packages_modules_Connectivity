@@ -218,6 +218,10 @@ public class MdnsResponseDecoderTests {
         MdnsResponseDecoder decoder = new MdnsResponseDecoder(mClock, null);
         responses = decode(decoder, data);
         assertEquals(2, responses.size());
+
+        // The same decoder can also decode different types
+        responses = decode(decoder, matterDuplicateHostname);
+        assertEquals(5, responses.size());
     }
 
     @Test

@@ -616,7 +616,7 @@ public class MdnsServiceTypeClientTests {
         client.processResponse(createResponse(
                 serviceName, ipV6Address, 5353,
                 SERVICE_TYPE_LABELS,
-                Collections.emptyMap(), 0L), INTERFACE_INDEX, mockNetwork);
+                Collections.emptyMap(), /* ptrTtlMillis= */ 0L), INTERFACE_INDEX, mockNetwork);
         verifyServiceRemovedCallback(
                 mockListenerOne, serviceName, SERVICE_TYPE_LABELS, INTERFACE_INDEX, mockNetwork);
         verifyServiceRemovedCallback(
