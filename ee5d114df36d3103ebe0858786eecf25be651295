@@ -39,6 +39,30 @@
       },
       "revId": "ee5d114df36d3103ebe0858786eecf25be651295",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47a3360c_10ab3fbd",
+        "filename": "tests/cts/net/src/android/net/cts/CaptivePortalTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T03:53:34Z",
+      "side": 1,
+      "message": "I thought about this for a long time. Originally we thought (documented in the bug) we wanted to have \"expect\", \"expectEventually\", \"poll\" and \"pollEventually\". However, \"pollEventually\" doesn\u0027t actually make sense, because what it would do is exactly the same thing as poll with a predicate.\n\n• The difference between \"poll\" and \"expect\" is that \"expect\" throws if the next event doesn\u0027t match the predicate. Therefore \"poll\" with a predicate can only mean to skip non-matching events, because \"poll\" is defined not to throw.\n• We need to keep the name \"poll\" to mean the same thing it does in Java collections.\n\nSo I converged on this, and I do believe it is the best trade-off. Considering you don\u0027t feel strongly I think I want to keep this.",
+      "parentUuid": "e2eb7e1f_f864e35b",
+      "range": {
+        "startLine": 154,
+        "startChar": 24,
+        "endLine": 154,
+        "endChar": 28
+      },
+      "revId": "ee5d114df36d3103ebe0858786eecf25be651295",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
