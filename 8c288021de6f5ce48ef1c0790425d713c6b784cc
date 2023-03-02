@@ -16,6 +16,24 @@
       "message": "Consider reusing existing TestUploadDataProvider",
       "revId": "8c288021de6f5ce48ef1c0790425d713c6b784cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e01d504_fb2ee17f",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-02T16:46:10Z",
+      "side": 1,
+      "message": "Looking at the monstrosity I\u0027d prefer to stick to a lean custom implementation. This should ideally be just one of UploadDataProviders helper methods but that\u0027s not available as we haven\u0027t made apihelpers public.",
+      "parentUuid": "3a5b2583_7926790b",
+      "revId": "8c288021de6f5ce48ef1c0790425d713c6b784cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
