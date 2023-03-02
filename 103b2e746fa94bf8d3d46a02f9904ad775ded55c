@@ -33,6 +33,24 @@
       "message": "Shouldn\u0027t we delete it instead ?",
       "revId": "103b2e746fa94bf8d3d46a02f9904ad775ded55c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92000750_9ec6f1e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-02T09:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bcec930_4d8c30bd",
+      "revId": "103b2e746fa94bf8d3d46a02f9904ad775ded55c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
