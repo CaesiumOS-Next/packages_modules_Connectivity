@@ -43,4 +43,13 @@ class ConnectionMigrationOptionsTest {
         assertNotNull(options.enablePathDegradationMigration)
         assertTrue(options.enablePathDegradationMigration!!)
     }
+
+    @Test
+    fun testConnectionMigrationOptions_allowNonDefaultNetworkUsage_returnSetValue() {
+        val options =
+            ConnectionMigrationOptions.Builder().setAllowNonDefaultNetworkUsage(true).build()
+
+        assertNotNull(options.allowNonDefaultNetworkUsage)
+        assertTrue(options.allowNonDefaultNetworkUsage!!)
+    }
 }
