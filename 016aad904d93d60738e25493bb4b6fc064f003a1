@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77cc9176_a58f2a03",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-02T10:33:29Z",
+      "side": 1,
+      "message": "Done in aosp/2465774",
+      "parentUuid": "666d1716_8b30df9d",
+      "range": {
+        "startLine": 108,
+        "startChar": 46,
+        "endLine": 108,
+        "endChar": 72
+      },
+      "revId": "016aad904d93d60738e25493bb4b6fc064f003a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e953c2a_883021a3",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-03-01T09:45:14Z",
       "side": 1,
       "message": "I think it\u0027s not very useful to verify the MdnsPacket with different service types for each client since every MdnsPackets will send it to all clients. Maybe just verify the MdnsPacket that will be sent to all clients?",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 132,
+        "endChar": 95
+      },
+      "revId": "016aad904d93d60738e25493bb4b6fc064f003a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae2aa0df_45be9f45",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-02T10:33:29Z",
+      "side": 1,
+      "message": "Done in aosp/2465775",
+      "parentUuid": "3e953c2a_883021a3",
       "range": {
         "startLine": 118,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "971d3567_f700c34e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-02T10:33:29Z",
+      "side": 1,
+      "message": "Done in aosp/2465775",
+      "parentUuid": "4a23bfa6_2e28c0e8",
+      "range": {
+        "startLine": 160,
+        "startChar": 76,
+        "endLine": 160,
+        "endChar": 83
+      },
+      "revId": "016aad904d93d60738e25493bb4b6fc064f003a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77a7d613_106412fc",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-03-01T09:45:14Z",
       "side": 1,
       "message": "Nit: This should be `true` because rclass\u003d0x8001. But MdnsServiceRecord doesn\u0027t compare this flag actually.",
+      "range": {
+        "startLine": 163,
+        "startChar": 24,
+        "endLine": 163,
+        "endChar": 29
+      },
+      "revId": "016aad904d93d60738e25493bb4b6fc064f003a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "444c140d_66e59069",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-02T10:33:29Z",
+      "side": 1,
+      "message": "Done in aosp/2465775",
+      "parentUuid": "77a7d613_106412fc",
       "range": {
         "startLine": 163,
         "startChar": 24,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "354100ea_13f1c240",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-02T10:33:29Z",
+      "side": 1,
+      "message": "Done in aosp/2465775",
+      "parentUuid": "0722dba6_3da7ca76",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 173,
+        "endChar": 5
+      },
+      "revId": "016aad904d93d60738e25493bb4b6fc064f003a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "246ecb0b_0cabb415",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-03-01T09:45:14Z",
       "side": 1,
       "message": "Nit: /* ptrTtlMillis\u003d */ 0L",
+      "range": {
+        "startLine": 616,
+        "startChar": 40,
+        "endLine": 616,
+        "endChar": 42
+      },
+      "revId": "016aad904d93d60738e25493bb4b6fc064f003a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa00c751_7d3f4a79",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-02T10:33:29Z",
+      "side": 1,
+      "message": "Done in aosp/2465775",
+      "parentUuid": "246ecb0b_0cabb415",
       "range": {
         "startLine": 616,
         "startChar": 40,
