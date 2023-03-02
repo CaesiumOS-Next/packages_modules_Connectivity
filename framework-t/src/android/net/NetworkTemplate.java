@@ -385,6 +385,18 @@ public final class NetworkTemplate implements Parcelable {
     }
 
     /** @hide */
+    // TODO(b/269974916): Remove this method after Android U is released.
+    //  This is only used by CTS of Android T.
+    public NetworkTemplate(int matchRule, String subscriberId, String[] matchSubscriberIds,
+            String[] matchWifiNetworkKeys, int metered, int roaming,
+            int defaultNetwork, int ratType, int oemManaged, int subscriberIdMatchRule) {
+        // subscriberId and subscriberIdMatchRule aren't used since they are replaced by
+        // matchSubscriberIds.
+        this(matchRule, matchSubscriberIds, matchWifiNetworkKeys, metered, roaming, defaultNetwork,
+                ratType, oemManaged);
+    }
+
+    /** @hide */
     public NetworkTemplate(int matchRule, String[] matchSubscriberIds,
             String[] matchWifiNetworkKeys, int metered, int roaming, int defaultNetwork,
             int ratType, int oemManaged) {
