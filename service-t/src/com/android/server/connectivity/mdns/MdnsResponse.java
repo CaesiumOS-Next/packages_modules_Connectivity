@@ -22,6 +22,7 @@ import android.net.Network;
 import com.android.internal.annotations.VisibleForTesting;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -46,6 +47,18 @@ public class MdnsResponse {
         pointerRecords = new LinkedList<>();
         this.interfaceIndex = interfaceIndex;
         this.network = network;
+    }
+
+    public MdnsResponse(MdnsResponse base) {
+        records = new ArrayList<>(base.records);
+        pointerRecords = new ArrayList<>(base.pointerRecords);
+        serviceRecord = base.serviceRecord;
+        textRecord = base.textRecord;
+        inet4AddressRecord = base.inet4AddressRecord;
+        inet6AddressRecord = base.inet6AddressRecord;
+        lastUpdateTime = base.lastUpdateTime;
+        interfaceIndex = base.interfaceIndex;
+        network = base.network;
     }
 
     // This generic typed helper compares records for equality.
@@ -178,6 +191,7 @@ public class MdnsResponse {
         }
         if (this.inet4AddressRecord != null) {
             records.remove(this.inet4AddressRecord);
+            this.inet4AddressRecord = null;
         }
         if (newInet4AddressRecord != null && newInet4AddressRecord.getInet4Address() != null) {
             this.inet4AddressRecord = newInet4AddressRecord;
@@ -203,6 +217,7 @@ public class MdnsResponse {
         }
         if (this.inet6AddressRecord != null) {
             records.remove(this.inet6AddressRecord);
+            this.inet6AddressRecord = null;
         }
         if (newInet6AddressRecord != null && newInet6AddressRecord.getInet6Address() != null) {
             this.inet6AddressRecord = newInet6AddressRecord;
