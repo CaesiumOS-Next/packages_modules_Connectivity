@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e3d9a56_53bd0dc5",
+        "filename": "framework-t/src/android/net/NetworkStatsAccess.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T03:57:27Z",
+      "side": 1,
+      "message": "Optional (since it\u0027s not changed by your patch) : the `mDpm` naming implies it\u0027s a member, but here it\u0027s a local so it should just be called `dpm`.",
+      "range": {
+        "startLine": 111,
+        "startChar": 34,
+        "endLine": 111,
+        "endChar": 38
+      },
+      "revId": "09330c436e578e9638c73f230eb3a239af0944bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
