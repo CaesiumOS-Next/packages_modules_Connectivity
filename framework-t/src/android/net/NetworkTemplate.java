@@ -349,6 +349,10 @@ public final class NetworkTemplate implements Parcelable {
         if (matchRule == 6 || matchRule == 7) {
             Log.e(TAG, "Use MATCH_MOBILE with empty subscriberIds or MATCH_WIFI with empty "
                     + "wifiNetworkKeys instead of template with matchRule=" + matchRule);
+            if (DEVICE_INITIAL_SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+                throw new UnsupportedOperationException(
+                        "Wildcard templates are not supported above Android T devices");
+            }
         }
     }
 
@@ -382,6 +386,24 @@ public final class NetworkTemplate implements Parcelable {
                 getMeterednessForBackwardsCompatibility(matchRule),
                 ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL,
                 OEM_MANAGED_ALL);
+        if (DEVICE_INITIAL_SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+            throw new UnsupportedOperationException(
+                    "This constructor is not supported above Android T devices");
+        }
+    }
+
+    /** @hide */
+    // TODO(b/269974916): Remove this method after Android U is released.
+    //  This is only used by CTS of Android T.
+    public NetworkTemplate(int matchRule, String subscriberId, String[] matchSubscriberIds,
+            String[] matchWifiNetworkKeys, int metered, int roaming,
+            int defaultNetwork, int ratType, int oemManaged, int subscriberIdMatchRule) {
+        // subscriberId and subscriberIdMatchRule aren't used since they are replaced by
+        // matchSubscriberIds, which could be null to indicate the intention of matching any
+        // subscriberIds.
+        this(getBackwardsCompatibleMatchRule(matchRule),
+                matchSubscriberIds == null ? new String[]{} : matchSubscriberIds,
+                matchWifiNetworkKeys, metered, roaming, defaultNetwork, ratType, oemManaged);
         if (DEVICE_INITIAL_SDK_INT > Build.VERSION_CODES.TIRAMISU) {
             throw new UnsupportedOperationException(
                     "This constructor is not supported above Android T devices");
