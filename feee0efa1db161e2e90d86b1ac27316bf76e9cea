@@ -61,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6dbc7a77_a2e442c4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-02T07:53:53Z",
+      "side": 1,
+      "message": "Hmm I don\u0027t think that can happen, if there\u0027s a service record, it can\u0027t be created with a null service host, especially since here it\u0027s from a parsed packet",
+      "parentUuid": "54f8662e_4421fe93",
+      "range": {
+        "startLine": 139,
+        "startChar": 35,
+        "endLine": 139,
+        "endChar": 39
+      },
+      "revId": "feee0efa1db161e2e90d86b1ac27316bf76e9cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3b9298d_3058d309",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 5
