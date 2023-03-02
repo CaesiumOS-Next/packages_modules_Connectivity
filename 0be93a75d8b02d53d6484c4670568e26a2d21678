@@ -46,6 +46,30 @@
       },
       "revId": "0be93a75d8b02d53d6484c4670568e26a2d21678",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f28402de_e118155e",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-02T11:08:00Z",
+      "side": 1,
+      "message": "`packages/modules/DeviceLock/DeviceLockController/src/com/android/devicelockcontroller/policy/CronetDownloader.java:106` is using this API.\nBuild error when I removed this API\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2442763?checksPatchset\u003d1\u0026tab\u003dchecks",
+      "parentUuid": "c38146f2_3318f153",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 2
+      },
+      "revId": "0be93a75d8b02d53d6484c4670568e26a2d21678",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
