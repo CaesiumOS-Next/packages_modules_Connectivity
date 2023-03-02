@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e9be620_39e8b79f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-02T03:04:41Z",
+      "side": 1,
+      "message": "Remove self+2",
+      "revId": "ea7e33ce6cb2f8c2169a57cde78bb36c0f8400b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
