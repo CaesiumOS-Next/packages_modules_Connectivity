@@ -22,6 +22,30 @@
       },
       "revId": "0be93a75d8b02d53d6484c4670568e26a2d21678",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c38146f2_3318f153",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-02T09:47:05Z",
+      "side": 1,
+      "message": "This API is used in internal master.\nSo I will remove after I replace the internal use by new API.\nhttps://android-review.git.corp.google.com/c/platform/external/cronet/+/2441601/comment/db24ddaf_25778b9a/",
+      "parentUuid": "7f0263c8_a07db609",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 2
+      },
+      "revId": "0be93a75d8b02d53d6484c4670568e26a2d21678",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
