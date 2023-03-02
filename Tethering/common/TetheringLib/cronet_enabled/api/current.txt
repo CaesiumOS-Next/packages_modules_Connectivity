@@ -94,13 +94,14 @@ package android.net.http {
   }
 
   public abstract class HttpEngine {
-    method public void bindToNetwork(@Nullable android.net.Network);
+    method public void bindToNetwork(@NonNull android.net.Network);
     method public abstract java.net.URLStreamHandlerFactory createURLStreamHandlerFactory();
     method public static String getVersionString();
     method public abstract android.net.http.BidirectionalStream.Builder newBidirectionalStreamBuilder(String, android.net.http.BidirectionalStream.Callback, java.util.concurrent.Executor);
     method public abstract android.net.http.UrlRequest.Builder newUrlRequestBuilder(String, android.net.http.UrlRequest.Callback, java.util.concurrent.Executor);
     method public abstract java.net.URLConnection openConnection(java.net.URL) throws java.io.IOException;
     method public abstract void shutdown();
+    method public void unbindFromNetwork();
   }
 
   public static class HttpEngine.Builder {
@@ -197,7 +198,7 @@ package android.net.http {
   public abstract static class UrlRequest.Builder {
     method public abstract android.net.http.UrlRequest.Builder addHeader(String, String);
     method public abstract android.net.http.UrlRequest.Builder allowDirectExecutor();
-    method public abstract android.net.http.UrlRequest.Builder bindToNetwork(@Nullable android.net.Network);
+    method public abstract android.net.http.UrlRequest.Builder bindToNetwork(@NonNull android.net.Network);
     method public abstract android.net.http.UrlRequest build();
     method public abstract android.net.http.UrlRequest.Builder disableCache();
     method public abstract android.net.http.UrlRequest.Builder setHttpMethod(String);
@@ -205,6 +206,7 @@ package android.net.http {
     method public abstract android.net.http.UrlRequest.Builder setTrafficStatsTag(int);
     method public abstract android.net.http.UrlRequest.Builder setTrafficStatsUid(int);
     method public abstract android.net.http.UrlRequest.Builder setUploadDataProvider(android.net.http.UploadDataProvider, java.util.concurrent.Executor);
+    method public abstract android.net.http.UrlRequest.Builder unbindFromNetwork();
     field public static final int REQUEST_PRIORITY_HIGHEST = 4; // 0x4
     field public static final int REQUEST_PRIORITY_IDLE = 0; // 0x0
     field public static final int REQUEST_PRIORITY_LOW = 2; // 0x2
