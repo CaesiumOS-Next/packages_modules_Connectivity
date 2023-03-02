@@ -69,6 +69,24 @@
       "parentUuid": "9f5b355b_5e5bdf2b",
       "revId": "307b4a374e2fa07182087012b5bd375116fa7194",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9950f468_8163fe6b",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/QuicOptionsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-02T17:31:56Z",
+      "side": 1,
+      "message": "Wow, didn\u0027t know about truth. This indeed looks really cool! If it\u0027s not present in tm-mainline-prod, try adding the dependency to CronetTestJavaDefaultsEnabled. You\u0027ll need to add the defaults to CtsNetHttpTestsLib and NetHttpCoverageTests as well, but that might just work. (And we don\u0027t really want to build this stuff in tm-mainline-prod anyways).",
+      "parentUuid": "0c64f84f_05417539",
+      "revId": "307b4a374e2fa07182087012b5bd375116fa7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
