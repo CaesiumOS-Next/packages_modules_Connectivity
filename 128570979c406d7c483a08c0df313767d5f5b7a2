@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5decc4bc_44533843",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-02T13:43:49Z",
+      "side": 1,
+      "message": "Please reuse the global mCallback",
+      "revId": "128570979c406d7c483a08c0df313767d5f5b7a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "466f4ff3_7314e959",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-02T13:43:49Z",
+      "side": 1,
+      "message": "Out of curiosity, is this needed? I know it\u0027s in the chromium tests but the direct executor tests also works for a GET req",
+      "revId": "128570979c406d7c483a08c0df313767d5f5b7a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "825957af_261d0ffb",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-02T13:43:49Z",
+      "side": 1,
+      "message": "This can be replaced with `mCallback.expectCallback(ResponseStep.ON_SUCCEDED)",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 9
+      },
+      "revId": "128570979c406d7c483a08c0df313767d5f5b7a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b9feb56_d186afd4",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-02T13:43:49Z",
+      "side": 1,
+      "message": "ditto on global callback",
+      "revId": "128570979c406d7c483a08c0df313767d5f5b7a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
