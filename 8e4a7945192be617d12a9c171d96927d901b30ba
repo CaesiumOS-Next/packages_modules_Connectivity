@@ -93,6 +93,30 @@
       },
       "revId": "8e4a7945192be617d12a9c171d96927d901b30ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e84fe0fc_3be9ecec",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-02T17:20:35Z",
+      "side": 1,
+      "message": "Ah, I misinterpreted your intent here. \"We only ever return DROP_UNLESS_DNS on ingress\" confused me. Got it now, thanks.",
+      "parentUuid": "941da8e0_c49e4026",
+      "range": {
+        "startLine": 430,
+        "startChar": 0,
+        "endLine": 431,
+        "endChar": 47
+      },
+      "revId": "8e4a7945192be617d12a9c171d96927d901b30ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
