@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b6163d_924aee38",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-02T00:33:26Z",
+      "side": 1,
+      "message": "Unrelated, but can you add a comment on what bpf_owner_match actually does? It\u0027s a bit of a pain to read.",
+      "range": {
+        "startLine": 351,
+        "startChar": 34,
+        "endLine": 351,
+        "endChar": 49
+      },
+      "revId": "8e4a7945192be617d12a9c171d96927d901b30ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a19f5db4_cf4d2e02",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-02T00:33:26Z",
+      "side": 1,
+      "message": "I see the \"return DROP\" improvement, but why did this block move further down, especially if this could just return early on line 418 (and the block will be executed either way as there is no return in between)?",
+      "range": {
+        "startLine": 430,
+        "startChar": 0,
+        "endLine": 431,
+        "endChar": 47
+      },
+      "revId": "8e4a7945192be617d12a9c171d96927d901b30ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
