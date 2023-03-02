@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "394de4e8_61bdf0ba",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-02T01:37:13Z",
+      "side": 1,
+      "message": "Heh, that\u0027s definitely out of scope for this CL, but honestly it does a *lot* and I\u0027m not at all sure how we could meaningfully summarize this in less than the code itself...",
+      "parentUuid": "f1b6163d_924aee38",
+      "range": {
+        "startLine": 351,
+        "startChar": 34,
+        "endLine": 351,
+        "endChar": 49
+      },
+      "revId": "8e4a7945192be617d12a9c171d96927d901b30ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a19f5db4_cf4d2e02",
         "filename": "bpf_progs/netd.c",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-02T00:33:26Z",
       "side": 1,
       "message": "I see the \"return DROP\" improvement, but why did this block move further down, especially if this could just return early on line 418 (and the block will be executed either way as there is no return in between)?",
+      "range": {
+        "startLine": 430,
+        "startChar": 0,
+        "endLine": 431,
+        "endChar": 47
+      },
+      "revId": "8e4a7945192be617d12a9c171d96927d901b30ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "941da8e0_c49e4026",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-02T01:37:13Z",
+      "side": 1,
+      "message": "Because technically speaking DROP_UNLESS_DNS should return early if it becomes DROP, but we don\u0027t know that until after the above if()",
+      "parentUuid": "a19f5db4_cf4d2e02",
       "range": {
         "startLine": 430,
         "startChar": 0,
