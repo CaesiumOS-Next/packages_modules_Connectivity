@@ -94,7 +94,7 @@ package android.net.http {
   }
 
   public abstract class HttpEngine {
-    method public void bindToNetwork(@Nullable android.net.Network);
+    method public void bindToNetwork(@NonNull android.net.Network);
     method @NonNull public abstract java.net.URLStreamHandlerFactory createUrlStreamHandlerFactory();
     method @NonNull public static String getVersionString();
     method @NonNull public abstract android.net.http.BidirectionalStream.Builder newBidirectionalStreamBuilder(@NonNull String, @NonNull java.util.concurrent.Executor, @NonNull android.net.http.BidirectionalStream.Callback);
@@ -102,6 +102,7 @@ package android.net.http {
     method @NonNull public android.net.http.UrlRequest.Builder newUrlRequestBuilder(@NonNull String, @NonNull android.net.http.UrlRequest.Callback, @NonNull java.util.concurrent.Executor);
     method @NonNull public abstract java.net.URLConnection openConnection(@NonNull java.net.URL) throws java.io.IOException;
     method public abstract void shutdown();
+    method public void unbindFromNetwork();
   }
 
   public static class HttpEngine.Builder {
@@ -197,7 +198,7 @@ package android.net.http {
 
   public abstract static class UrlRequest.Builder {
     method @NonNull public abstract android.net.http.UrlRequest.Builder addHeader(@NonNull String, @NonNull String);
-    method @NonNull public abstract android.net.http.UrlRequest.Builder bindToNetwork(@Nullable android.net.Network);
+    method @NonNull public abstract android.net.http.UrlRequest.Builder bindToNetwork(@NonNull android.net.Network);
     method @NonNull public abstract android.net.http.UrlRequest build();
     method @NonNull public abstract android.net.http.UrlRequest.Builder setAllowDirectExecutor(boolean);
     method @NonNull public abstract android.net.http.UrlRequest.Builder setDisableCache(boolean);
@@ -206,6 +207,7 @@ package android.net.http {
     method @NonNull public abstract android.net.http.UrlRequest.Builder setTrafficStatsTag(int);
     method @NonNull public abstract android.net.http.UrlRequest.Builder setTrafficStatsUid(int);
     method @NonNull public abstract android.net.http.UrlRequest.Builder setUploadDataProvider(@NonNull android.net.http.UploadDataProvider, @NonNull java.util.concurrent.Executor);
+    method @NonNull public abstract android.net.http.UrlRequest.Builder unbindFromNetwork();
     field public static final int REQUEST_PRIORITY_HIGHEST = 4; // 0x4
     field public static final int REQUEST_PRIORITY_IDLE = 0; // 0x0
     field public static final int REQUEST_PRIORITY_LOW = 2; // 0x2
