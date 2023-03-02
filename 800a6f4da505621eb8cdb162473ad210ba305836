@@ -16,6 +16,29 @@
       "message": "LGTM",
       "revId": "800a6f4da505621eb8cdb162473ad210ba305836",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79452a65_05be8ae0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-02T11:17:17Z",
+      "side": 1,
+      "message": "Nit: @NonNull",
+      "range": {
+        "startLine": 52,
+        "startChar": 24,
+        "endLine": 52,
+        "endChar": 25
+      },
+      "revId": "800a6f4da505621eb8cdb162473ad210ba305836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
