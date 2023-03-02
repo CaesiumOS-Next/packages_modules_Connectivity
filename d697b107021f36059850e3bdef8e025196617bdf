@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0dd3234_da5aeffc",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-02T06:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8dff9fe_b168d2a8",
+      "revId": "d697b107021f36059850e3bdef8e025196617bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74fe8349_b37c578f",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-02-28T07:54:12Z",
       "side": 1,
       "message": "listenerCaptor is used to capture but never to verify; did you intend to use eq(listenerCaptor.getValue()) here ?",
+      "range": {
+        "startLine": 1176,
+        "startChar": 64,
+        "endLine": 1176,
+        "endChar": 69
+      },
+      "revId": "d697b107021f36059850e3bdef8e025196617bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2bea301_574e0b98",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1176,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-02T06:58:18Z",
+      "side": 1,
+      "message": "Yes. Done.",
+      "parentUuid": "74fe8349_b37c578f",
       "range": {
         "startLine": 1176,
         "startChar": 64,
