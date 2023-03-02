@@ -46,6 +46,30 @@
       },
       "revId": "5d176320327af0bbcbb11adfd206be6749107042",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70aa1c3d_ad7a9e06",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-02T00:10:19Z",
+      "side": 0,
+      "message": "I agree that the clean up should go into its own CL, but until then, these two lines should just stay here.",
+      "parentUuid": "1ddc6d0d_36be7461",
+      "range": {
+        "startLine": 379,
+        "startChar": 6,
+        "endLine": 379,
+        "endChar": 47
+      },
+      "revId": "5d176320327af0bbcbb11adfd206be6749107042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

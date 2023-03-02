@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d0ecc19_556b6e98",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-02T00:10:19Z",
+      "side": 1,
+      "message": "Now that\u0027s a surprise! Interestingly, it creates an empty .a (wtf?):\n```\n$ objdump -s ./target/product/vsoc_x86_64/obj_x86/STATIC_LIBRARIES/prohr_test_intermediates/prohr_test.a\nIn archive ./target/product/vsoc_x86_64/obj_x86/STATIC_LIBRARIES/prohr_test_intermediates/prohr_test.a:\n```\n\nPlease also add a comment:\n`# Soong also accepts cc targets that only contain generated_headers.`\n\nAnd wrap lines at 100 characters. Or even better, make the function more readable by splitting the \u0027or\u0027 into multiple if / returns. Something like:\n```\nif len(self.srcs) \u003e 0:\n  return True\nelif any(...):\n  return True\n# Soong also accepts cc targets that only contain generated_headers.\nreturn len(self.generated_headers) \u003e 0\n```",
+      "parentUuid": "57502681_48bb9232",
+      "range": {
+        "startLine": 552,
+        "startChar": 99,
+        "endLine": 552,
+        "endChar": 130
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9562cf9e_626cb5d4",
         "filename": "tools/gn2bp/gen_android_bp",
         "patchSetId": 4
