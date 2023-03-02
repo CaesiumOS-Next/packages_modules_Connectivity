@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4923171_badec651",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T07:19:12Z",
+      "side": 1,
+      "message": "Suggestion : you could help with deprecation by throwing if the first SDK level of the phone is U or above. Then we can remove this method confidently when we no longer support T.",
+      "range": {
+        "startLine": 257,
+        "startChar": 8,
+        "endLine": 257,
+        "endChar": 14
+      },
+      "revId": "2dba2c15709b3d0dc30223db0ac41053042d2aa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

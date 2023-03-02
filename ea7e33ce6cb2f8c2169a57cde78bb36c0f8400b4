@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f992f576_ef5b1414",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T07:19:12Z",
+      "side": 1,
+      "message": "Suggested wording :\n\n    Remove this method. This can only be done after there are no more callers,\n    including in OEM code which can access this by linking against the framework.",
+      "parentUuid": "82055727_ad5fd60f",
+      "range": {
+        "startLine": 255,
+        "startChar": 61,
+        "endLine": 255,
+        "endChar": 62
+      },
+      "revId": "ea7e33ce6cb2f8c2169a57cde78bb36c0f8400b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "67080244_c09aa79c",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 5
