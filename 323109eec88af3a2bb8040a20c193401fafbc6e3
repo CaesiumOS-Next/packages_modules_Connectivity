@@ -16,6 +16,23 @@
       "message": "FWIW I think it\u0027s OK to leave this class called DnsOptions for consistency with the Cronet class of the same name. Maybe we can just abandon this CL and instead add this to the lint baseline?",
       "revId": "323109eec88af3a2bb8040a20c193401fafbc6e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eeec6e8_7f0e403f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-02T09:11:23Z",
+      "side": 1,
+      "message": "... or to @SuppressLint the warnings where appropriate.",
+      "revId": "323109eec88af3a2bb8040a20c193401fafbc6e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
