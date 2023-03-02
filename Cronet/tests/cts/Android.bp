@@ -55,6 +55,7 @@ android_library {
         "junit",
         "hamcrest-library",
         "kotlin-test",
+        "truth",
     ],
     libs: [
         "android.test.base",
