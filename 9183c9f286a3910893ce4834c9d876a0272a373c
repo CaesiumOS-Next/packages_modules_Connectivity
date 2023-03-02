@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "345b8373_6dfaded5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-02T06:15:13Z",
+      "side": 1,
+      "message": "I think this can be final ?",
+      "range": {
+        "startLine": 92,
+        "startChar": 11,
+        "endLine": 92,
+        "endChar": 12
+      },
+      "revId": "9183c9f286a3910893ce4834c9d876a0272a373c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7883ed89_871490fa",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-02T06:15:13Z",
+      "side": 1,
+      "message": "Nit: this is a better/more descriptive format of test names than what we use in general, but to be at least consistent with other tests, I\u0027d rather keep the prefix \"test\" (testRemoveService_whenAllServiceRemoved_thenUpdateHostName). It would look a bit weird/stand out in the list of run tests otherwise.",
+      "range": {
+        "startLine": 234,
+        "startChar": 8,
+        "endLine": 234,
+        "endChar": 21
+      },
+      "revId": "9183c9f286a3910893ce4834c9d876a0272a373c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c9c9d9e_bfd7c7ee",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-02T06:15:13Z",
+      "side": 1,
+      "message": "Nit: maybe have verify(..., times(1)) just after the constructor to show this is where it\u0027s called the first time",
+      "revId": "9183c9f286a3910893ce4834c9d876a0272a373c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
