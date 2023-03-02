@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "663dfebe_18b5091e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-03-02T11:35:38Z",
+      "side": 1,
+      "message": "I don\u0027t think `generated_headers` is the reason why Soong accepts such targets. I think Soong accepts any empty cc_static_library even if it doesn\u0027t include the `generated_headers`. \n\nThe reason I have `generated_headers` is for `export_generated_headers` attribute which is used to allow dependending modules to include those headers.",
+      "parentUuid": "1d0ecc19_556b6e98",
+      "range": {
+        "startLine": 552,
+        "startChar": 99,
+        "endLine": 552,
+        "endChar": 130
+      },
+      "revId": "de68ca250f1a0479f1a09bc77c556a6dc7208430",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9562cf9e_626cb5d4",
