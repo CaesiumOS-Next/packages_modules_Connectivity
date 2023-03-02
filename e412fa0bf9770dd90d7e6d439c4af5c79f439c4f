@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca45f1ea_457b7a33",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T11:57:41Z",
+      "side": 1,
+      "message": "Likewise you can\u0027t do this because of vendor freeze. You need to check for the first SDK level. android.os.Build.DEVICE_INITIAL_SDK_INT",
+      "range": {
+        "startLine": 352,
+        "startChar": 25,
+        "endLine": 352,
+        "endChar": 35
+      },
+      "revId": "e412fa0bf9770dd90d7e6d439c4af5c79f439c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
