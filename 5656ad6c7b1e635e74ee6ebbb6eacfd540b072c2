@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68ce96d9_1c29e5c0",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T08:44:11Z",
+      "side": 1,
+      "message": "Simulate a new network coming up",
+      "range": {
+        "startLine": 2036,
+        "startChar": 11,
+        "endLine": 2036,
+        "endChar": 36
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "524dd0f2_5569f350",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2037,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T08:44:11Z",
+      "side": 1,
+      "message": "Why this change ? The callback only gets onLost if the previously default network was lost. This method was simulating a change to a new default network, not a loss of the old one. The old code was entirely correct.",
+      "range": {
+        "startLine": 2037,
+        "startChar": 8,
+        "endLine": 2037,
+        "endChar": 46
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0affde22_f29aee4b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T08:44:11Z",
+      "side": 1,
+      "message": "The subId should probably be the first argument : that\u0027s the major argument here.",
+      "range": {
+        "startLine": 2046,
+        "startChar": 70,
+        "endLine": 2046,
+        "endChar": 80
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da423e73_227854fb",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 4
@@ -19,6 +88,52 @@
         "startChar": 37,
         "endLine": 2049,
         "endChar": 51
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2870ac65_6471d1d5",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2051,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T08:44:11Z",
+      "side": 1,
+      "message": "List.of(subscriptionInfo)\n\n?",
+      "range": {
+        "startLine": 2051,
+        "startChar": 17,
+        "endLine": 2051,
+        "endChar": 31
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18cb12d6_dc105cc5",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2077,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T08:44:11Z",
+      "side": 1,
+      "message": ".Builder().build()\n\nI know it\u0027s annoying but let\u0027s not encourage usage of the mutable style",
+      "range": {
+        "startLine": 2077,
+        "startChar": 73,
+        "endLine": 2077,
+        "endChar": 75
       },
       "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -49,6 +164,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88544818_2b38989c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2106,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T08:44:11Z",
+      "side": 1,
+      "message": "+1, this is exactly what I was writing above.",
+      "parentUuid": "1af1921c_5358e9e2",
+      "range": {
+        "startLine": 2105,
+        "startChar": 8,
+        "endLine": 2106,
+        "endChar": 46
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e70cf67_c887fbef",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 4
@@ -65,6 +204,76 @@
         "startChar": 58,
         "endLine": 2109,
         "endChar": 91
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6598bd02_40cd94be",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T08:44:11Z",
+      "side": 1,
+      "message": "Better yet : fix the bug that makes this happen",
+      "parentUuid": "0e70cf67_c887fbef",
+      "range": {
+        "startLine": 2109,
+        "startChar": 58,
+        "endLine": 2109,
+        "endChar": 91
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ed160a5_9556e6e0",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2124,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T08:44:11Z",
+      "side": 1,
+      "message": "Why do you need to do this ? `setUp` already calls `resetExecutor` which sets up the executor to execute inline anything that\u0027s passed to execute(), so as far as I understand, this is going to run the runnable again.",
+      "range": {
+        "startLine": 2123,
+        "startChar": 0,
+        "endLine": 2124,
+        "endChar": 40
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9537cde_ae2f841d",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2125,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-02T08:44:11Z",
+      "side": 1,
+      "message": "once()",
+      "range": {
+        "startLine": 2125,
+        "startChar": 15,
+        "endLine": 2125,
+        "endChar": 33
       },
       "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
