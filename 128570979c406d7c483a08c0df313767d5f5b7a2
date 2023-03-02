@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1e2fb66_d44ab1ff",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-02T14:15:23Z",
+      "side": 1,
+      "message": "[Opinionated rant below]\nI think we\u0027re approaching non-expressive tests territory here. I\u0027ve had a traumatic experience deciphering cryptic tests on my previous team, and would prefer to be a little more explicit even at the cost of code duplication.  See also http://go/tott/643 and users being set up in the individual test.\n\nI don\u0027t think it\u0027s such a clear cut here and I\u0027ll use mCallback for consistency but please let\u0027s keep this in mind for other tests.",
+      "parentUuid": "5decc4bc_44533843",
+      "revId": "128570979c406d7c483a08c0df313767d5f5b7a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "466f4ff3_7314e959",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-02T13:43:49Z",
       "side": 1,
       "message": "Out of curiosity, is this needed? I know it\u0027s in the chromium tests but the direct executor tests also works for a GET req",
+      "revId": "128570979c406d7c483a08c0df313767d5f5b7a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a80954d_1d554e55",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-02T14:15:23Z",
+      "side": 1,
+      "message": "It\u0027s not strictly necessary but it verifies that the direct executor works with both the upload provider and the response callback.",
+      "parentUuid": "466f4ff3_7314e959",
       "revId": "128570979c406d7c483a08c0df313767d5f5b7a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b94f3c8_bf03c6b3",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-02T14:15:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "825957af_261d0ffb",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 9
+      },
+      "revId": "128570979c406d7c483a08c0df313767d5f5b7a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b9feb56_d186afd4",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-03-02T13:43:49Z",
       "side": 1,
       "message": "ditto on global callback",
+      "revId": "128570979c406d7c483a08c0df313767d5f5b7a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ff1abf2_3a92a948",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-02T14:15:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b9feb56_d186afd4",
       "revId": "128570979c406d7c483a08c0df313767d5f5b7a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
