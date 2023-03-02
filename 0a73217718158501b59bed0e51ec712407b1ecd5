@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbe52b76_b9b64715",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-02T09:12:48Z",
+      "side": 1,
+      "message": "Per comment on other CL, leave as is and @SuppressLint or add to baseline?",
+      "revId": "0a73217718158501b59bed0e51ec712407b1ecd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
