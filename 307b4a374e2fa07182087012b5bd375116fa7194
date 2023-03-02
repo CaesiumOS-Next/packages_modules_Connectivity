@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74786d7c_aff28902",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-02T16:23:49Z",
+      "side": 1,
+      "message": "Reassigning to Patrick since I\u0027ll be OOO tomorrow",
+      "revId": "307b4a374e2fa07182087012b5bd375116fa7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25a15569_171433d9",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/QuicOptionsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-02T16:23:49Z",
+      "side": 1,
+      "message": "You can use hamcrest here. See HttpEngine tests.",
+      "revId": "307b4a374e2fa07182087012b5bd375116fa7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
