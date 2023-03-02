@@ -115,21 +115,21 @@ public class MdnsDiscoveryManagerTests {
         discoveryManager.registerListener(
                 SERVICE_TYPE_2, mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
 
-        MdnsPacket responseForServiceTypeOne = createMdnsPacket(SERVICE_TYPE_1);
+        final List<MdnsPacket> responses = List.of(
+                createMdnsPacket(SERVICE_TYPE_1),
+                createMdnsPacket(SERVICE_TYPE_2),
+                createMdnsPacket("subtype._sub._googlecast._tcp.local"));
+
         final int ifIndex = 1;
         final Network network = mock(Network.class);
-        discoveryManager.onResponseReceived(responseForServiceTypeOne, ifIndex, network);
-        verify(mockServiceTypeClientOne).processResponse(responseForServiceTypeOne, ifIndex,
-                network);
 
-        MdnsPacket responseForServiceTypeTwo = createMdnsPacket(SERVICE_TYPE_2);
-        discoveryManager.onResponseReceived(responseForServiceTypeTwo, ifIndex, network);
-        verify(mockServiceTypeClientTwo).processResponse(responseForServiceTypeTwo, ifIndex,
-                network);
+        // Responses should be received on each ServiceTypeClient
+        responses.forEach(r -> {
+            discoveryManager.onResponseReceived(r, ifIndex, network);
 
-        MdnsPacket responseForSubtype = createMdnsPacket("subtype._sub._googlecast._tcp.local");
-        discoveryManager.onResponseReceived(responseForSubtype, ifIndex, network);
-        verify(mockServiceTypeClientOne).processResponse(responseForSubtype, ifIndex, network);
+            verify(mockServiceTypeClientOne).processResponse(r, ifIndex, network);
+            verify(mockServiceTypeClientTwo).processResponse(r, ifIndex, network);
+        });
     }
 
     private MdnsPacket createMdnsPacket(String serviceType) {

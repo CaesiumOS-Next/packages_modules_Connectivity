@@ -157,10 +157,10 @@ public class MdnsMultinetworkSocketClientTest {
         final String[] serviceName = "testservice._testtype._tcp.local".split("\\.");
         assertEquals(List.of(
                 new MdnsPointerRecord("_testtype._tcp.local".split("\\."),
-                        0L /* receiptTimeMillis */, false /* cacheFlush */, 4500000 /* ttlMillis */,
-                        serviceName),
+                        0L /* receiptTimeMillis */, true /* cacheFlush */,
+                        4500000L /* ttlMillis */, serviceName),
                 new MdnsServiceRecord(serviceName, 0L /* receiptTimeMillis */,
-                        false /* cacheFlush */, 4500000 /* ttlMillis */, 0 /* servicePriority */,
+                        true /* cacheFlush */, 4500000 /* ttlMillis */, 0 /* servicePriority */,
                         0 /* serviceWeight */, 31234 /* servicePort */,
                         new String[] { "Android", "local" } /* serviceHost */)
         ), response.answers);
