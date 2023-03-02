@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a5b2583_7926790b",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-02T16:27:22Z",
+      "side": 1,
+      "message": "Consider reusing existing TestUploadDataProvider",
+      "revId": "8c288021de6f5ce48ef1c0790425d713c6b784cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
