@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de7401b6_16b023b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-02T09:40:20Z",
+      "side": 1,
+      "message": "LGTM but per comments on the other CL we should probably @hide getProxyServer.",
+      "revId": "cc4ba101dd3db1eaf50b22a53871014f0e8afa23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
