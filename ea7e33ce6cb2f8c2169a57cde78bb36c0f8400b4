@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82055727_ad5fd60f",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-02T07:09:30Z",
+      "side": 1,
+      "message": "I think we don\u0027t have actuall callers for these 3 methods.\nBut the CL is based on the suggestion here:\nhttps://b.corp.google.com/issues/269178029#comment9\nAny idea on how we should describe this?\nOr maybe we don\u0027t need this CL until we get a bug?",
+      "parentUuid": "e0a73b5e_710d6c4a",
+      "range": {
+        "startLine": 255,
+        "startChar": 61,
+        "endLine": 255,
+        "endChar": 62
+      },
+      "revId": "ea7e33ce6cb2f8c2169a57cde78bb36c0f8400b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "67080244_c09aa79c",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 5
@@ -54,6 +78,30 @@
       "writtenOn": "2023-03-02T06:33:11Z",
       "side": 1,
       "message": "space ?",
+      "range": {
+        "startLine": 368,
+        "startChar": 10,
+        "endLine": 368,
+        "endChar": 11
+      },
+      "revId": "ea7e33ce6cb2f8c2169a57cde78bb36c0f8400b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c41b19ba_72324d2f",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-02T07:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67080244_c09aa79c",
       "range": {
         "startLine": 368,
         "startChar": 10,
@@ -77,6 +125,30 @@
       "writtenOn": "2023-03-02T06:33:11Z",
       "side": 1,
       "message": "Why would we want to make sure the hidden methods are present ? This will delay our ability to remove the constructor, right ?",
+      "range": {
+        "startLine": 497,
+        "startChar": 8,
+        "endLine": 497,
+        "endChar": 29
+      },
+      "revId": "ea7e33ce6cb2f8c2169a57cde78bb36c0f8400b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78570ec7_302c1c48",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-02T07:09:30Z",
+      "side": 1,
+      "message": "Removed.\nJust wanted to make sure they are correct if present.",
+      "parentUuid": "71fad80f_b4563c0f",
       "range": {
         "startLine": 497,
         "startChar": 8,
