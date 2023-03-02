@@ -33,6 +33,24 @@
       "message": "You can use hamcrest here. See HttpEngine tests.",
       "revId": "307b4a374e2fa07182087012b5bd375116fa7194",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f5b355b_5e5bdf2b",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/QuicOptionsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-02T16:29:13Z",
+      "side": 1,
+      "message": "Truth is amazing, as are fluent assertions in general. Try it, you won\u0027t want to go back 😊.\n\nSee truth.dev for a pitch I wholeheartedly agree with.",
+      "parentUuid": "25a15569_171433d9",
+      "revId": "307b4a374e2fa07182087012b5bd375116fa7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
