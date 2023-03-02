@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfb527e7_1023e0d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-02T09:06:04Z",
+      "side": 1,
+      "message": "LGTM assuming the user agent is made nonnull.",
+      "revId": "c16b1636ea12d7d610b7e21b16e65e915881f403",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55cd0e80_d5ffef9c",
@@ -36,6 +53,53 @@
         "startChar": 184,
         "endLine": 100,
         "endChar": 192
+      },
+      "revId": "c16b1636ea12d7d610b7e21b16e65e915881f403",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a24f9d84_9af071c1",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-02T09:06:04Z",
+      "side": 1,
+      "message": "Actually, there\u0027s no way to throw here since HttpEngine is an abstract class anyway. Whether this method throws or not is controlled by the concrete implementations.",
+      "parentUuid": "55cd0e80_d5ffef9c",
+      "range": {
+        "startLine": 100,
+        "startChar": 184,
+        "endLine": 100,
+        "endChar": 192
+      },
+      "revId": "c16b1636ea12d7d610b7e21b16e65e915881f403",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44cf11d1_fc9f3573",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-02T09:06:04Z",
+      "side": 1,
+      "message": "This should probably be @NonNull.",
+      "range": {
+        "startLine": 121,
+        "startChar": 76,
+        "endLine": 121,
+        "endChar": 85
       },
       "revId": "c16b1636ea12d7d610b7e21b16e65e915881f403",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
