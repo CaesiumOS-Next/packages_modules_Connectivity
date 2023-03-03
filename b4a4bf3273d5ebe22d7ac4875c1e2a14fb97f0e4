@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82697234_c878dc8b",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:09:25Z",
+      "side": 1,
+      "message": "comment that this function schedules another run of itself and then does ConsumeAll, thus effectively doing ConsumeAll periodically",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 4
+      },
+      "revId": "b4a4bf3273d5ebe22d7ac4875c1e2a14fb97f0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "392caaef_1e53d612",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:09:25Z",
+      "side": 1,
+      "message": "called here instead of at the end of Loop() itself purely because we want to call this without mutexes...",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 18
+      },
+      "revId": "b4a4bf3273d5ebe22d7ac4875c1e2a14fb97f0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "663dd73a_df1d2d45",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:09:25Z",
+      "side": 1,
+      "message": "add a private version that doesn\u0027t take the lock\n\nprivate:\nbool ConsumeAllLocked() REQUIRES(mMutex);",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 37
+      },
+      "revId": "b4a4bf3273d5ebe22d7ac4875c1e2a14fb97f0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
