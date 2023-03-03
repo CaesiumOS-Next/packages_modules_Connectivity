@@ -16,6 +16,24 @@
       "message": "LGTM but per comments on the other CL we should probably @hide getProxyServer.",
       "revId": "cc4ba101dd3db1eaf50b22a53871014f0e8afa23",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c05b32a3_3b90190f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-03T02:49:02Z",
+      "side": 1,
+      "message": "`getProxyServer` is a method of `public abstract class UrlResponseInfo`\nSo I don\u0027t think we can hide this,\n```\ngetProxyServer cannot be hidden and abstract when UrlResponseInfo has a visible constructor, in case a third-party attempts to subclass it. [HiddenAbstractMethod]\n```\n\nIt looks `getProxyServer` is used only in test and toString.\nIf we don\u0027t expose this method, can we remove `getProxyServer` method? @danstahr@google.com",
+      "parentUuid": "de7401b6_16b023b2",
+      "revId": "cc4ba101dd3db1eaf50b22a53871014f0e8afa23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
