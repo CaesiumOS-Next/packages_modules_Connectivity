@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25eef252_8bfa117f",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T07:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd2c5c04_02adb77a",
+      "range": {
+        "startLine": 68,
+        "startChar": 34,
+        "endLine": 68,
+        "endChar": 52
+      },
+      "revId": "0f84bc17ff253586d4aae356ad9a1171d3181b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75bd5734_3461de8f",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-28T06:40:53Z",
       "side": 1,
       "message": "This suggests synchronous calls which we probably don\u0027t want to encourage up front. Maybe just say:\n\nTo learn about the capabilities of connected networks, apps should register callbacks with...\n...\nFor quick debugging, Android also provides",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 111,
+        "endChar": 10
+      },
+      "revId": "0f84bc17ff253586d4aae356ad9a1171d3181b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bafbe8cb_4c8868c7",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T07:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75bd5734_3461de8f",
       "range": {
         "startLine": 110,
         "startChar": 3,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "574b8c86_e0bc8d8d",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T07:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d74f12c5_e116e9a1",
+      "range": {
+        "startLine": 119,
+        "startChar": 11,
+        "endLine": 119,
+        "endChar": 17
+      },
+      "revId": "0f84bc17ff253586d4aae356ad9a1171d3181b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3ddefb6_b24bf0f8",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-02-28T06:40:53Z",
       "side": 1,
       "message": "Other code, such as Context, would suggest using:\n\n{@link Build.VERSION_CODES#UPSIDE_DOWN_CAKE}",
+      "range": {
+        "startLine": 683,
+        "startChar": 21,
+        "endLine": 683,
+        "endChar": 31
+      },
+      "revId": "0f84bc17ff253586d4aae356ad9a1171d3181b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "361ca96a_225e3fc2",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T07:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3ddefb6_b24bf0f8",
       "range": {
         "startLine": 683,
         "startChar": 21,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8587c003_14dbd50e",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T07:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b83212bc_ced6b3e0",
+      "range": {
+        "startLine": 684,
+        "startChar": 78,
+        "endLine": 684,
+        "endChar": 92
+      },
+      "revId": "0f84bc17ff253586d4aae356ad9a1171d3181b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd18a2e6_4382a62e",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-02-28T06:40:53Z",
       "side": 1,
       "message": "in",
+      "range": {
+        "startLine": 57,
+        "startChar": 69,
+        "endLine": 57,
+        "endChar": 73
+      },
+      "revId": "0f84bc17ff253586d4aae356ad9a1171d3181b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b19d5b05_ef8ebbe7",
+        "filename": "framework/src/android/net/NetworkRequest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T07:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd18a2e6_4382a62e",
       "range": {
         "startLine": 57,
         "startChar": 69,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c76de8fb_b2733d8a",
+        "filename": "framework/src/android/net/NetworkRequest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T07:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93fa774a_89eee13e",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 65,
+        "endChar": 55
+      },
+      "revId": "0f84bc17ff253586d4aae356ad9a1171d3181b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb817bc9_bc5aeb00",
@@ -192,6 +360,30 @@
       "writtenOn": "2023-02-28T06:40:53Z",
       "side": 1,
       "message": "This should say that:\n- requestNetwork will only bring up a network if there no available network matching the request is already connected\n- The system will attempt to keep the network connected for as long as the callback remains registered\n- The request will only match one network at a time (the one which the system considers the best)",
+      "range": {
+        "startLine": 82,
+        "startChar": 14,
+        "endLine": 82,
+        "endChar": 15
+      },
+      "revId": "0f84bc17ff253586d4aae356ad9a1171d3181b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5a2939b_655e1885",
+        "filename": "framework/src/android/net/NetworkRequest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T07:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb817bc9_bc5aeb00",
       "range": {
         "startLine": 82,
         "startChar": 14,
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c79b7c8b_0a19aee8",
+        "filename": "framework/src/android/net/NetworkRequest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T07:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13672708_78311ca5",
+      "range": {
+        "startLine": 90,
+        "startChar": 68,
+        "endLine": 90,
+        "endChar": 69
+      },
+      "revId": "0f84bc17ff253586d4aae356ad9a1171d3181b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1a0e97e_74ae31ed",
@@ -238,6 +454,30 @@
       "writtenOn": "2023-02-28T06:40:53Z",
       "side": 1,
       "message": "(see other comment about VERSION_CODES)",
+      "range": {
+        "startLine": 92,
+        "startChar": 26,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "0f84bc17ff253586d4aae356ad9a1171d3181b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "915c2d95_a332c465",
+        "filename": "framework/src/android/net/NetworkRequest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T07:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1a0e97e_74ae31ed",
       "range": {
         "startLine": 92,
         "startChar": 26,
