@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53897eff_4d9f75be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-03T07:50:42Z",
+      "side": 1,
+      "message": "A few more details about backwards compatibility could be useful: explain that the previous API accepted both formats, so we need to keep backwards compatibility with both formats",
+      "revId": "7056c42eceffdce588a783d44d37fb8cc991e921",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d76122be_951deebf",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-03T07:50:42Z",
+      "side": 1,
+      "message": "Nit: you shouldn\u0027t need a parenthesis, as it would create a capture group; you could use `(?:\\\\.)` to avoid creating a capture group, or just `\\\\.?` here should work I think.",
+      "range": {
+        "startLine": 1231,
+        "startChar": 27,
+        "endLine": 1231,
+        "endChar": 28
+      },
+      "revId": "7056c42eceffdce588a783d44d37fb8cc991e921",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
