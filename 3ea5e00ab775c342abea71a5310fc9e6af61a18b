@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b159f58_956944be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-03T03:23:38Z",
+      "side": 1,
+      "message": "Also worth mentioning that these methods are still in hiddenapi-max-target-o-low-priority.txt, so they should not be removed without considering hidden API usage. Removing hidden API in general isn\u0027t forbidden, but the ones listed in hiddenapi usage need extra care.",
+      "revId": "3ea5e00ab775c342abea71a5310fc9e6af61a18b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f0d42d8_000796ff",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-03T03:23:38Z",
+      "side": 1,
+      "message": "Nit: Why use a builder now but not in the below one ? I think original code did not use a builder",
+      "revId": "3ea5e00ab775c342abea71a5310fc9e6af61a18b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

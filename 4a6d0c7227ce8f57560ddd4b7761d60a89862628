@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d6056d_20e82453",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-03T03:23:38Z",
+      "side": 1,
+      "message": "Why not just isAtLeastU() ? Devices upgrading from T to U shouldn\u0027t be allowed to use hidden API either, and OEMs will be able to test it",
+      "revId": "4a6d0c7227ce8f57560ddd4b7761d60a89862628",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
