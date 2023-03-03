@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa116cfc_d7cb61e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:02:53Z",
+      "side": 1,
+      "message": "I think it would be nice to get some of the code comment requests/improvements in here, but perhaps the rest is already done or can be done in followups, or isn\u0027t even needed or something...",
+      "revId": "f7f6925eb12b8fae9a04953a052da80ab4c3d2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44a38d1_55313726",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:02:53Z",
+      "side": 1,
+      "message": "please reorder this in a follow-up CL so NTP is next to other NTP stuff.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 33
+      },
+      "revId": "f7f6925eb12b8fae9a04953a052da80ab4c3d2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72cd992c_290f959a",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:02:53Z",
+      "side": 1,
+      "message": "I guess this moves into the asynch part in follow up CL",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 12
+      },
+      "revId": "f7f6925eb12b8fae9a04953a052da80ab4c3d2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5e02462_617b6b31",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:02:53Z",
+      "side": 1,
+      "message": "perhaps \u0027static class method\u0027",
+      "range": {
+        "startLine": 85,
+        "startChar": 3,
+        "endLine": 85,
+        "endChar": 9
+      },
+      "revId": "f7f6925eb12b8fae9a04953a052da80ab4c3d2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7e5906b_7613920b",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:02:53Z",
+      "side": 1,
+      "message": "comment that this Loop() is non-blocking and asynchronous.",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "f7f6925eb12b8fae9a04953a052da80ab4c3d2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91505adb_b1719637",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:02:53Z",
+      "side": 1,
+      "message": "can fit on one line",
+      "range": {
+        "startLine": 144,
+        "startChar": 17,
+        "endLine": 144,
+        "endChar": 18
+      },
+      "revId": "f7f6925eb12b8fae9a04953a052da80ab4c3d2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b50c065_447a9796",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandlerTest.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:02:53Z",
+      "side": 1,
+      "message": "should Loop() that uses mPollMs be a no-op if this is max? (or use 0 to mean none for easier checking)",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 9
+      },
+      "revId": "f7f6925eb12b8fae9a04953a052da80ab4c3d2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "242b01ae_afad8ede",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:02:53Z",
+      "side": 1,
+      "message": "Could we add a comment saying something along the lines of this class being an internal implementation detail of NTHandler, with no publically available methods (except for test)\n\nAlso maybe mention it is/will be a singleton...\n\nAs mentioned in chat perhaps namespace internal if it doesn\u0027t end up with internal:: having to show up all over the place...",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "f7f6925eb12b8fae9a04953a052da80ab4c3d2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fc59816_2ce82ff9",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:02:53Z",
+      "side": 1,
+      "message": "perhaps hide this (or the public) behind #ifdef NTH_TEST_MODE or something\nthere\u0027s some examples in some other BPF header files",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 2
+      },
+      "revId": "f7f6925eb12b8fae9a04953a052da80ab4c3d2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82f1b674_0d4c0a79",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:02:53Z",
+      "side": 1,
+      "message": "comment that this class NTHandler is registered with perfetto",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 5
+      },
+      "revId": "f7f6925eb12b8fae9a04953a052da80ab4c3d2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "661d09ac_510579b8",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:02:53Z",
+      "side": 1,
+      "message": "I assume this becomes a singleton later - and thus likely static",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 29
+      },
+      "revId": "f7f6925eb12b8fae9a04953a052da80ab4c3d2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
