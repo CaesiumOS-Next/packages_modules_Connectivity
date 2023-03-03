@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e6e9b28_635209f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-03T03:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b159f58_956944be",
+      "revId": "3ea5e00ab775c342abea71a5310fc9e6af61a18b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f0d42d8_000796ff",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-03T03:23:38Z",
       "side": 1,
       "message": "Nit: Why use a builder now but not in the below one ? I think original code did not use a builder",
+      "revId": "3ea5e00ab775c342abea71a5310fc9e6af61a18b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f1c5a0f_12d4f584",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-03T03:42:50Z",
+      "side": 1,
+      "message": "Will address in later patches since it does not block the train release.\nIIRC Aaron mentioned we cannot build a MATCH_PROXY template.",
+      "parentUuid": "7f0d42d8_000796ff",
       "revId": "3ea5e00ab775c342abea71a5310fc9e6af61a18b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
