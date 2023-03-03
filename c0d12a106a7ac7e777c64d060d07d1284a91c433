@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dc286ea_2b475a75",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T03:10:07Z",
+      "side": 1,
+      "message": "Why is this necessary ? This code is in framework-t, which AIUI never runs under T. It\u0027s also in the connectivity module which is only running on S+.",
+      "range": {
+        "startLine": 822,
+        "startChar": 19,
+        "endLine": 822,
+        "endChar": 40
+      },
+      "revId": "c0d12a106a7ac7e777c64d060d07d1284a91c433",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
