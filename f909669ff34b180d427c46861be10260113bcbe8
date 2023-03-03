@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dcd4955_11991bc4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-03-03T12:43:20Z",
+      "side": 1,
+      "message": "See https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2463195.",
+      "revId": "f909669ff34b180d427c46861be10260113bcbe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff8fc1fe_50b7c58a",
@@ -59,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea64eb60_f830556d",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-03-03T12:43:20Z",
+      "side": 1,
+      "message": "I wanted to use source.android.com like in the other tests, but unfortunately that one sends a `cache-control: no-cache, must-revalidate` header.\n\nAnyway, ideally we should be able to move these to the quic test server soon enough?",
+      "parentUuid": "c63a4520_800f1184",
+      "range": {
+        "startLine": 96,
+        "startChar": 22,
+        "endLine": 96,
+        "endChar": 45
+      },
+      "revId": "f909669ff34b180d427c46861be10260113bcbe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb2756b1_77535231",
@@ -72,6 +113,30 @@
       "writtenOn": "2023-03-01T19:04:01Z",
       "side": 1,
       "message": "When using literals as method arguments, it\u0027s helpful to also add the parameter name in a comment:\n```\nsetEnableHttpCache(HttpEngine.Builder.HTTP_CACHE_DISK, /* maxSize */ 100 * 1024)\n```",
+      "range": {
+        "startLine": 104,
+        "startChar": 80,
+        "endLine": 104,
+        "endChar": 90
+      },
+      "revId": "f909669ff34b180d427c46861be10260113bcbe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8a49aa7_763da254",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-03-03T12:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb2756b1_77535231",
       "range": {
         "startLine": 104,
         "startChar": 80,
