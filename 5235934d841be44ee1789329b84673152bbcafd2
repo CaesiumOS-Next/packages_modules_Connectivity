@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d41cfd2d_080f36e4",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-03-03T23:06:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bc173b2_4bf868da",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "5235934d841be44ee1789329b84673152bbcafd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8adca9a_a4358472",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa5d50e8_a7ed3d8b",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-03-03T23:06:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8adca9a_a4358472",
+      "range": {
+        "startLine": 128,
+        "startChar": 27,
+        "endLine": 128,
+        "endChar": 33
+      },
+      "revId": "5235934d841be44ee1789329b84673152bbcafd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "575b44cb_d11a5300",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-03-03T23:06:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5aeb45a9_b3ea9d36",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 79
+      },
+      "revId": "5235934d841be44ee1789329b84673152bbcafd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20d4553c_43b9164a",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff1ac5b_14f7319b",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-03-03T23:06:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20d4553c_43b9164a",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 2
+      },
+      "revId": "5235934d841be44ee1789329b84673152bbcafd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a8401e0_877ee569",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-03-03T20:22:07Z",
       "side": 1,
       "message": "I think I would recommend using a static field instead of a static Poller() method\n\ni prefer failures at lib load time rather than delayed till run time",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 38
+      },
+      "revId": "5235934d841be44ee1789329b84673152bbcafd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f1e3a31_a908e0b3",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-03-03T23:06:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a8401e0_877ee569",
       "range": {
         "startLine": 93,
         "startChar": 0,
