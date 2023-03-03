@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "675a95b5_c4036593",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-03T03:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e710e26_c54140af",
+      "range": {
+        "startLine": 80,
+        "startChar": 56,
+        "endLine": 80,
+        "endChar": 57
+      },
+      "revId": "3df2bb9a827b48ce157070c63d258f6c0957fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03b47acf_5ba450aa",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-03-02T13:36:52Z",
       "side": 1,
       "message": "Should remove existing from `records` as well?",
+      "range": {
+        "startLine": 88,
+        "startChar": 43,
+        "endLine": 88,
+        "endChar": 44
+      },
+      "revId": "3df2bb9a827b48ce157070c63d258f6c0957fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0442d13_c99b2512",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-03T03:09:06Z",
+      "side": 1,
+      "message": "Oops - done and covered in test",
+      "parentUuid": "03b47acf_5ba450aa",
       "range": {
         "startLine": 88,
         "startChar": 43,
