@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2531359f_2ea40f32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T11:00:07Z",
+      "side": 1,
+      "message": "LGTM only nits. You can address them in a follow up commit.",
+      "revId": "151d0a5528f732c2011eb2e2bdfbba876bd3536f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a78094b_ae5a62f5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T11:00:07Z",
+      "side": 1,
+      "message": "Nit: I think the service type should not have local.",
+      "range": {
+        "startLine": 118,
+        "startChar": 32,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "151d0a5528f732c2011eb2e2bdfbba876bd3536f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0034803_1be1f5b7",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T11:00:07Z",
+      "side": 1,
+      "message": "Nit: Maybe verify the \"_type2._tcp\" is running discovery with mMockMDnsM.",
+      "range": {
+        "startLine": 1084,
+        "startChar": 54,
+        "endLine": 1084,
+        "endChar": 55
+      },
+      "revId": "151d0a5528f732c2011eb2e2bdfbba876bd3536f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
