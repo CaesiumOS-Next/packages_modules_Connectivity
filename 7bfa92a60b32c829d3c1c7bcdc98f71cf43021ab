@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "770b94ad_f93af724",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-03T04:40:53Z",
+      "side": 1,
+      "message": "Per discussion, looks like the only thing we need to do here is to fix PrivateAddressCoordinator so it doesn\u0027t assign the same IP ranges to the two IpServers. Options:\n1. Mark\u0027s old CL to make PrivateAddressCoordinator care about interface names, not TETHERING_xxx types. This may be risky because the lifecycle is not the same as the tethering type lifecycle. But it seems more correct in the long term.\n2. Use another class (e.g., TetheringDownstreamInfo, which contains a type and a scope) as the key into mCachedAddresses.\n\nMark, can you link to your old CL so Pavan can take a look?",
+      "revId": "7bfa92a60b32c829d3c1c7bcdc98f71cf43021ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13055c4b_a345ac1f",
