@@ -213,6 +213,17 @@ public class MdnsResponseDecoder {
                     List<MdnsResponse> matchingResponses =
                             findResponsesWithHostName(responses, inetRecord.getName());
                     for (MdnsResponse response : matchingResponses) {
+                        // Per RFC6762 10.2, clear all address records if the cache-flush bit set.
+                        // This bit, the cache-flush bit, tells neighboring hosts
+                        // that this is not a shared record type.  Instead of merging this new
+                        // record additively into the cache in addition to any previous records with
+                        // the same name, rrtype, and rrclass, all old records with that name,
+                        // rrtype, and rrclass that were received more than one second ago are
+                        // declared invalid, and marked to expire from the cache in one second.
+                        if (inetRecord.getCacheFlush()) {
+                            response.clearInet4AddressRecords();
+                            response.clearInet6AddressRecords();
+                        }
                         if (assignInetRecord(response, inetRecord)) {
                             modified.add(response);
                         }
@@ -221,6 +232,17 @@ public class MdnsResponseDecoder {
                     MdnsResponse response =
                             findResponseWithHostName(responses, inetRecord.getName());
                     if (response != null) {
+                        // Per RFC6762 10.2, clear all address records if the cache-flush bit set.
+                        // This bit, the cache-flush bit, tells neighboring hosts
+                        // that this is not a shared record type.  Instead of merging this new
+                        // record additively into the cache in addition to any previous records with
+                        // the same name, rrtype, and rrclass, all old records with that name,
+                        // rrtype, and rrclass that were received more than one second ago are
+                        // declared invalid, and marked to expire from the cache in one second.
+                        if (inetRecord.getCacheFlush()) {
+                            response.clearInet4AddressRecords();
+                            response.clearInet6AddressRecords();
+                        }
                         if (assignInetRecord(response, inetRecord)) {
                             modified.add(response);
                         }
@@ -235,9 +257,9 @@ public class MdnsResponseDecoder {
     private static boolean assignInetRecord(
             MdnsResponse response, MdnsInetAddressRecord inetRecord) {
         if (inetRecord.getInet4Address() != null) {
-            return response.setInet4AddressRecord(inetRecord);
+            return response.addInet4AddressRecord(inetRecord);
         } else if (inetRecord.getInet6Address() != null) {
-            return response.setInet6AddressRecord(inetRecord);
+            return response.addInet6AddressRecord(inetRecord);
         }
         return false;
     }
