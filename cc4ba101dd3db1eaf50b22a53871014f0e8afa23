@@ -34,6 +34,24 @@
       "parentUuid": "de7401b6_16b023b2",
       "revId": "cc4ba101dd3db1eaf50b22a53871014f0e8afa23",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa1400b0_50c8ccff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-03T10:47:22Z",
+      "side": 1,
+      "message": "I worked around a similar issue elsewhere by making the method concrete and having an empty implementation the subclasses can override. This allows you to @hide it.",
+      "parentUuid": "c05b32a3_3b90190f",
+      "revId": "cc4ba101dd3db1eaf50b22a53871014f0e8afa23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
