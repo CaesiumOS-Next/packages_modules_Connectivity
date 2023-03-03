@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36bb5bd4_2cd392f9",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-03-03T22:56:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82697234_c878dc8b",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 4
+      },
+      "revId": "b4a4bf3273d5ebe22d7ac4875c1e2a14fb97f0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "392caaef_1e53d612",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c1aac9d_26ccf3aa",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-03-03T22:56:17Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "392caaef_1e53d612",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 18
+      },
+      "revId": "b4a4bf3273d5ebe22d7ac4875c1e2a14fb97f0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "663dd73a_df1d2d45",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-03T20:09:25Z",
       "side": 1,
       "message": "add a private version that doesn\u0027t take the lock\n\nprivate:\nbool ConsumeAllLocked() REQUIRES(mMutex);",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 37
+      },
+      "revId": "b4a4bf3273d5ebe22d7ac4875c1e2a14fb97f0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a3e1fcb_4919e642",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-03-03T22:56:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "663dd73a_df1d2d45",
       "range": {
         "startLine": 48,
         "startChar": 0,
