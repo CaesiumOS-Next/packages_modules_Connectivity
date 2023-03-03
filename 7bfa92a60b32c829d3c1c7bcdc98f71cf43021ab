@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be87edca_142789e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-03T08:41:32Z",
+      "side": 1,
+      "message": "The old CL we discuss in the meeting is https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/1729157\n\nIt is conflict with top of tree now, I\u0027ll have an update to make it work with current tree.",
+      "parentUuid": "770b94ad_f93af724",
+      "revId": "7bfa92a60b32c829d3c1c7bcdc98f71cf43021ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13055c4b_a345ac1f",
