@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "586082a5_e5f852c9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-03T08:36:41Z",
+      "side": 1,
+      "message": "I prefer make IOffloadConfig and IOffloadControl final, then you don\u0027t need to check whether they not null everywhere. We can provide getIOffloadHal getter function and change constructor to protected then allowing passing control and config to contructor so that you don\u0027t need getXXXXMockable anymore. This approach would also have advantage that you can let OffloadHardwareInterface more consistency with original one.\n\n    private final IOffloadConfig mIOffloadConfig;\n    private final IOffloadControl mIOffloadControl;\n    private final int mOffloadHalVersion;\n    protected OffloadHalHidlImpl(int version, IOffloadConfig config, IOffloadControl control, @NonNull Handler handler, @NonNull SharedLog log) {\n        mOffloadHalVersion \u003d version;\n        mIOffloadConfig \u003d config;\n        mIOffloadControl \u003d control;\n        mHandler \u003d handler;\n        mLog \u003d log.forSubComponent(TAG);\n    }\n\n     public static IOffloadHal getIOffloadHal(Handler h, SharedLog log) {\n        IOffloadConfig config \u003d null \n        try {\n            config \u003d IOffloadConfig.getService(true /*retry*/);\n        } catch (RemoteException | NoSuchElementException e) {\n            log.e(\"getIOffloadConfig error \" + e);\n            return null;\n        }\n        \n        IOffloadControl control \u003d null;\n        int version \u003d OFFLOAD_HAL_VERSION_NONE;\n        try {\n            control \u003d android.hardware.tetheroffload.control\n                   .V1_1.IOffloadControl.getService(true /*retry*/);\n            version \u003d OFFLOAD_HAL_VERSION_1_1;\n        } catch (NoSuchElementException e) {\n            // Unsupported by device.\n        } catch (RemoteException e) {\n            log.e(\"Unable to get offload control \" + OFFLOAD_HAL_VERSION_HIDL_1_0);\n        }\n        if (control \u003d\u003d null) {\n            try {\n                hal \u003d IOffloadControl.getService(true /*retry*/);\n                version \u003d OFFLOAD_HAL_VERSION_1_0;\n            } catch (NoSuchElementException e) {\n                // Unsupported by device.\n            } catch (RemoteException e) {\n                log.e(\"Unable to get offload control \" + OFFLOAD_HAL_VERSION_HIDL_1_1);\n            }\n        }\n        \n        if (config \u003d\u003d null || control \u003d\u003d null) return null;\n        \n        return new OffloadHalHidlImpl(version, config, control, h, log);\n     }",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 45
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e71c701a_22e18104",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-03T08:36:41Z",
+      "side": 1,
+      "message": "No string opinion, but you can just pass handler when calling initOffload because it is only usage of handler. Then you don\u0027t need mHandler.",
+      "range": {
+        "startLine": 65,
+        "startChar": 39,
+        "endLine": 65,
+        "endChar": 54
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7a0d719_1a380547",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-03T08:36:41Z",
+      "side": 1,
+      "message": "If you take my suggestion above, OffloadHalHidlImpl only created only if control and config don\u0027t be null, then you don\u0027t need to getIOffoadXXX in initOffload. You can simply the initOffload logic and make this function just like code move.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 9
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b2b08f1_9a6e439a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-03T08:36:41Z",
+      "side": 1,
+      "message": "As the error prone warning indicated, the NativeHandle is final and does not override Object.toString, so it only print the class name and its hashcode. Do you think print the hash code is useful ? If no, just remove these ?",
+      "range": {
+        "startLine": 116,
+        "startChar": 71,
+        "endLine": 116,
+        "endChar": 87
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f70b7487_7605d33e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-03T08:36:41Z",
+      "side": 1,
+      "message": "If you take my suggestion above, you don\u0027t need these mockable function.",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 394,
+        "endChar": 5
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "429b50ed_f4f6bfbc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-03T08:36:41Z",
+      "side": 1,
+      "message": "You can just:\n\n    if (OffloadHalAidlImpl.getServiceVersion() !\u003d OFFLOAD_HAL_VERSION_NONE) {\n        return new OffloadHalAidlImpl(mHandler, mLog);\n    } else if (OffloadHalHidlImpl.getServiceVersion() !\u003d OFFLOAD_HAL_VERSION_NONE) {\n        return new OffloadHalHidlImpl(mHandler, mLog);\n    }\n    return null;",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 23
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef679904_42fd12dc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-03T08:36:41Z",
+      "side": 1,
+      "message": "This seems behavior change but actually don\u0027t because there are no double start usage if I read the code correctly. Please document this in commit message because this is not apparently. Originally if initConfig successful but initControl fail, OffloadControl would flag mConfigInitialized to true to prevent double initConfig when start offload again. Since the caller Tethering.java don\u0027t have calling OffloadControl#start() twice without calling OffloadControl#stop(), it is fine to remove mConfigInitialized.",
+      "range": {
+        "startLine": 295,
+        "startChar": 9,
+        "endLine": 297,
+        "endChar": 9
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

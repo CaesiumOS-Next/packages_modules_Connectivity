@@ -22,6 +22,30 @@
       },
       "revId": "cd9399be1e910503b5c2d88e1203211115fa06c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1439354c_c8d6e4ec",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-03T08:36:41Z",
+      "side": 0,
+      "message": "This seems behavior change but actually don\u0027t because there are no double start usage if I read the code correctly. Please document this in commit message because this is not apparently. Originally if initConfig successful but initControl fail, OffloadControl would flag mConfigInitialized to true to prevent double initConfig when start offload again. Since the caller Tethering.java don\u0027t have calling OffloadControl#start() twice without calling OffloadControl#stop(), it is fine to remove mConfigInitialized because it never be used.",
+      "parentUuid": "6c0cd38f_181e5b12",
+      "range": {
+        "startLine": 208,
+        "startChar": 13,
+        "endLine": 208,
+        "endChar": 31
+      },
+      "revId": "cd9399be1e910503b5c2d88e1203211115fa06c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
