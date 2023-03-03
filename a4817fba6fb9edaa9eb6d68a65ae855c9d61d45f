@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3adece25_5d43f762",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-03-03T14:45:15Z",
+      "side": 1,
+      "message": "As someone without much context on gn2bp, I find using a specific function name more readable in this case.",
+      "revId": "a4817fba6fb9edaa9eb6d68a65ae855c9d61d45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
