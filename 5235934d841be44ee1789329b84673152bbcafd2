@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bc173b2_4bf868da",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:22:07Z",
+      "side": 1,
+      "message": "shouldn\u0027t this set mStarted \u003d false after it is done?",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "5235934d841be44ee1789329b84673152bbcafd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8adca9a_a4358472",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:22:07Z",
+      "side": 1,
+      "message": "be changed",
+      "range": {
+        "startLine": 128,
+        "startChar": 27,
+        "endLine": 128,
+        "endChar": 33
+      },
+      "revId": "5235934d841be44ee1789329b84673152bbcafd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aeb45a9_b3ea9d36",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:22:07Z",
+      "side": 1,
+      "message": "why can\u0027t we lower it if it\u0027s smaller than it was?\n\nok, chat discussion about why min/max are both potentially wrong... please add a comment to that effect",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 79
+      },
+      "revId": "5235934d841be44ee1789329b84673152bbcafd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20d4553c_43b9164a",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:22:07Z",
+      "side": 1,
+      "message": "I guess technically should check for 0 and error out",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 2
+      },
+      "revId": "5235934d841be44ee1789329b84673152bbcafd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a8401e0_877ee569",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTraceHandler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-03T20:22:07Z",
+      "side": 1,
+      "message": "I think I would recommend using a static field instead of a static Poller() method\n\ni prefer failures at lib load time rather than delayed till run time",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 38
+      },
+      "revId": "5235934d841be44ee1789329b84673152bbcafd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
