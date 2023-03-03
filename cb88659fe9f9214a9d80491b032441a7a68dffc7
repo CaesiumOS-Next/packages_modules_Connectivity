@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0406884f_7e42a2b6",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-03T03:13:22Z",
+      "side": 1,
+      "message": "Same comment as on the other patch",
+      "range": {
+        "startLine": 800,
+        "startChar": 18,
+        "endLine": 800,
+        "endChar": 41
+      },
+      "revId": "cb88659fe9f9214a9d80491b032441a7a68dffc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
