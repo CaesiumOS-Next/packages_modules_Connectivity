@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ff7c245_c58cc83b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T11:27:42Z",
+      "side": 1,
+      "message": "The index of existing pointer record in records may not be same as pointerRecords. Will address this problem in aosp/2431933",
+      "range": {
+        "startLine": 90,
+        "startChar": 27,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "36981e2352c9dda422d18d203ed294350419cd00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
