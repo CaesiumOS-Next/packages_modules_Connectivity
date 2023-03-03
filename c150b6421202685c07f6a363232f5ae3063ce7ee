@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5afa6e71_3de5ec72",
+        "filename": "Cronet/tools/import/import_cronet.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-03T02:16:00Z",
+      "side": 1,
+      "message": "Do we need to checkout the upstream-import branch before run copybara?",
+      "revId": "c150b6421202685c07f6a363232f5ae3063ce7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
