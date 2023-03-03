@@ -16,6 +16,24 @@
       "message": "I don\u0027t think you can do this, because of the vendor freeze. Vendors can have stuff on their vendor partition that depends on this.\n\nI think the only thing you can do is to check for the *first* SDK level.",
       "revId": "ac69dc4fc31d6f678c4fd8046c5608a88e8f07a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f31cf2e1_e2e03ee7",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-03T03:02:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "557f6d69_78d40fc7",
+      "revId": "ac69dc4fc31d6f678c4fd8046c5608a88e8f07a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
