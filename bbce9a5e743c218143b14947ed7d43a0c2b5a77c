@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb80885b_f490c332",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T13:42:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b09d85b_bd029346",
+      "range": {
+        "startLine": 48,
+        "startChar": 34,
+        "endLine": 48,
+        "endChar": 44
+      },
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "823f807e_efdbb3ef",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-20T05:46:44Z",
       "side": 1,
       "message": "It\u0027s worth noting that contains is based on .equals, and .equals for records doesn\u0027t look at the TTL or receiptTimeMillis; so the address record TTL or receiptTimeMillis will never be updated, and I\u0027m guessing they\u0027ll just expire at some point (bug).\n\nNow I think TTL isn\u0027t used except for the service record, but the service record uses the same logic, so this probably causes services to expire after the initial TTL currently.\n\nMaybe file a bug to fix that ?",
+      "range": {
+        "startLine": 179,
+        "startChar": 32,
+        "endLine": 179,
+        "endChar": 40
+      },
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba502abc_c50e123c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T13:42:53Z",
+      "side": 1,
+      "message": "Based on your change that the different TTL record is considered to be a different record.",
+      "parentUuid": "823f807e_efdbb3ef",
       "range": {
         "startLine": 179,
         "startChar": 32,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "647031b5_417a5c05",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T13:42:53Z",
+      "side": 1,
+      "message": "The only caller MdnsResponseDecoder#assignInetRecord checks `inetRecord.getInet4Address() !\u003d null` when calling it. So I think we can remove this check here.",
+      "parentUuid": "eba3c6d9_ea394439",
+      "range": {
+        "startLine": 182,
+        "startChar": 45,
+        "endLine": 182,
+        "endChar": 92
+      },
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4352cfa4_ab1ca4a2",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-02-20T05:46:44Z",
       "side": 1,
       "message": "Collections.unmodifiableList would avoid copying the whole list",
+      "range": {
+        "startLine": 191,
+        "startChar": 15,
+        "endLine": 191,
+        "endChar": 18
+      },
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5dd8e0b_92a54e59",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T13:42:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4352cfa4_ab1ca4a2",
       "range": {
         "startLine": 191,
         "startChar": 15,
@@ -110,6 +206,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "097bf1fc_ffa5bb7c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T13:42:53Z",
+      "side": 1,
+      "message": "Add the cache flush check on MdnsResponseDecoder side. And current design (your change) should match your description.",
+      "parentUuid": "d1911bab_209fc09d",
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7d593ca_d823c42f",
@@ -123,6 +237,24 @@
       "writtenOn": "2023-02-20T05:46:44Z",
       "side": 1,
       "message": "All address records should have the same hostname, so you shouldn\u0027t need to iterate through them. I think you could do this cleanup when calling setServiceRecord by dropping all address records if the serviceHost changed.",
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb54e984_c282dfae",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T13:42:53Z",
+      "side": 1,
+      "message": "The current design (your change) should match your description.",
+      "parentUuid": "f7d593ca_d823c42f",
       "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -144,6 +276,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aad84dd_d597da0b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T13:42:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f4e6f4d_994128dd",
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c54f570_12a50550",
@@ -157,6 +307,24 @@
       "writtenOn": "2023-02-20T05:46:44Z",
       "side": 1,
       "message": "Nit: I think you can add @Deprecated too",
+      "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b3e8175_1acf0613",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-03T13:42:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c54f570_12a50550",
       "revId": "bbce9a5e743c218143b14947ed7d43a0c2b5a77c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
