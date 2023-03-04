@@ -90,14 +90,24 @@ class BpfHandlerTest : public ::testing::Test {
         return sock;
     }
 
-    void expectUidTag(uint64_t cookie, uid_t uid, uint32_t tag) {
+    void expectUidTag(int sockfd, uint64_t cookie, uid_t uid, uint32_t tag) {
         Result<UidTagValue> tagResult = mFakeCookieTagMap.readValue(cookie);
         ASSERT_RESULT_OK(tagResult);
         EXPECT_EQ(uid, tagResult.value().uid);
         EXPECT_EQ(tag, tagResult.value().tag);
+
+        EXPECT_EQ(tag, mBh.getTagFromSocketCookie(cookie));
+
+        if (sockfd >= 0) EXPECT_EQ(tag, mBh.getTagFromSocket(sockfd));
     }
 
-    void expectNoTag(uint64_t cookie) { EXPECT_FALSE(mFakeCookieTagMap.readValue(cookie).ok()); }
+    void expectNoTag(int sockfd, uint64_t cookie) {
+        EXPECT_FALSE(mFakeCookieTagMap.readValue(cookie).ok());
+
+        EXPECT_EQ(0, mBh.getTagFromSocketCookie(cookie));
+
+        if (sockfd >= 0) EXPECT_EQ(0, mBh.getTagFromSocket(sockfd));
+    }
 
     void populateFakeStats(uint64_t cookie, uint32_t uid, uint32_t tag, StatsKey* key) {
         UidTagValue cookieMapkey = {.uid = (uint32_t)uid, .tag = tag};
@@ -125,13 +135,13 @@ class BpfHandlerTest : public ::testing::Test {
         uint64_t sockCookie = getSocketCookie(sock);
         EXPECT_NE(NONEXISTENT_COOKIE, sockCookie);
         EXPECT_EQ(-EMFILE, mBh.tagSocket(sock, tag, uid, uid));
-        expectNoTag(sockCookie);
+        expectNoTag(sock, sockCookie);
 
         // Delete stats entries then tag socket success
         StatsKey key = {.uid = uid, .tag = 0, .counterSet = TEST_COUNTERSET, .ifaceIndex = 1};
         ASSERT_RESULT_OK(mFakeStatsMapA.deleteValue(key));
         EXPECT_EQ(0, mBh.tagSocket(sock, tag, uid, uid));
-        expectUidTag(sockCookie, uid, tag);
+        expectUidTag(sock, sockCookie, uid, tag);
     }
 };
 
@@ -140,29 +150,33 @@ TEST_F(BpfHandlerTest, TestTagSocketV4) {
     int v4socket = setUpSocketAndTag(AF_INET, &sockCookie, TEST_TAG, TEST_UID, TEST_UID);
     expectUidTag(sockCookie, TEST_UID, TEST_TAG);
     ASSERT_EQ(0, mBh.untagSocket(v4socket));
-    expectNoTag(sockCookie);
+    expectNoTag(v4socket, sockCookie);
     expectMapEmpty(mFakeCookieTagMap);
+    close(v4socket);
 }
 
 TEST_F(BpfHandlerTest, TestReTagSocket) {
     uint64_t sockCookie;
     int v4socket = setUpSocketAndTag(AF_INET, &sockCookie, TEST_TAG, TEST_UID, TEST_UID);
-    expectUidTag(sockCookie, TEST_UID, TEST_TAG);
+    expectUidTag(v4socket, sockCookie, TEST_UID, TEST_TAG);
     ASSERT_EQ(0, mBh.tagSocket(v4socket, TEST_TAG + 1, TEST_UID + 1, TEST_UID + 1));
-    expectUidTag(sockCookie, TEST_UID + 1, TEST_TAG + 1);
+    expectUidTag(v4socket, sockCookie, TEST_UID + 1, TEST_TAG + 1);
+    close(v4socket);
 }
 
 TEST_F(BpfHandlerTest, TestTagTwoSockets) {
     uint64_t sockCookie1;
     uint64_t sockCookie2;
     int v4socket1 = setUpSocketAndTag(AF_INET, &sockCookie1, TEST_TAG, TEST_UID, TEST_UID);
-    setUpSocketAndTag(AF_INET, &sockCookie2, TEST_TAG, TEST_UID, TEST_UID);
-    expectUidTag(sockCookie1, TEST_UID, TEST_TAG);
-    expectUidTag(sockCookie2, TEST_UID, TEST_TAG);
+    int v4socket2 = setUpSocketAndTag(AF_INET, &sockCookie2, TEST_TAG, TEST_UID, TEST_UID);
+    expectUidTag(v4socket1, sockCookie1, TEST_UID, TEST_TAG);
+    expectUidTag(v4socket2, sockCookie2, TEST_UID, TEST_TAG);
     ASSERT_EQ(0, mBh.untagSocket(v4socket1));
-    expectNoTag(sockCookie1);
-    expectUidTag(sockCookie2, TEST_UID, TEST_TAG);
+    expectNoTag(v4socket1, sockCookie1);
+    expectUidTag(v4socket2, sockCookie2, TEST_UID, TEST_TAG);
     ASSERT_FALSE(mFakeCookieTagMap.getNextKey(sockCookie2).ok());
+    close(v4socket2);
+    close(v4socket1);
 }
 
 TEST_F(BpfHandlerTest, TestTagSocketV6) {
@@ -170,8 +184,9 @@ TEST_F(BpfHandlerTest, TestTagSocketV6) {
     int v6socket = setUpSocketAndTag(AF_INET6, &sockCookie, TEST_TAG, TEST_UID, TEST_UID);
     expectUidTag(sockCookie, TEST_UID, TEST_TAG);
     ASSERT_EQ(0, mBh.untagSocket(v6socket));
-    expectNoTag(sockCookie);
+    expectNoTag(v6socket, sockCookie);
     expectMapEmpty(mFakeCookieTagMap);
+    close(v6socket);
 }
 
 TEST_F(BpfHandlerTest, TestTagInvalidSocket) {
@@ -185,6 +200,7 @@ TEST_F(BpfHandlerTest, TestTagSocketWithUnsupportedFamily) {
     EXPECT_LE(0, packetSocket);
     EXPECT_NE(NONEXISTENT_COOKIE, getSocketCookie(packetSocket));
     EXPECT_EQ(-EAFNOSUPPORT, mBh.tagSocket(packetSocket, TEST_TAG, TEST_UID, TEST_UID));
+    close(packetSocket);
 }
 
 TEST_F(BpfHandlerTest, TestTagSocketWithUnsupportedProtocol) {
@@ -192,6 +208,7 @@ TEST_F(BpfHandlerTest, TestTagSocketWithUnsupportedProtocol) {
     EXPECT_LE(0, rawSocket);
     EXPECT_NE(NONEXISTENT_COOKIE, getSocketCookie(rawSocket));
     EXPECT_EQ(-EPROTONOSUPPORT, mBh.tagSocket(rawSocket, TEST_TAG, TEST_UID, TEST_UID));
+    close(rawSocket);
 }
 
 TEST_F(BpfHandlerTest, TestTagSocketWithoutPermission) {
@@ -199,6 +216,7 @@ TEST_F(BpfHandlerTest, TestTagSocketWithoutPermission) {
     ASSERT_NE(-1, sock);
     ASSERT_EQ(-EPERM, mBh.tagSocket(sock, TEST_TAG, TEST_UID, TEST_UID2));
     expectMapEmpty(mFakeCookieTagMap);
+    close(sock);
 }
 
 TEST_F(BpfHandlerTest, TestTagSocketWithPermission) {

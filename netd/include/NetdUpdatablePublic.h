@@ -34,6 +34,17 @@ __BEGIN_DECLS
  */
 int libnetd_updatable_init(const char* cg2_path);
 
+
+/*
+ */
+uint32_t libnetd_updatable_getTagFromSocket(int sockFd);
+
+
+/*
+ */
+uint32_t libnetd_updatable_getTagFromSocketCookie(uint64_t cookie);
+
+
 /*
  * Set the socket tag and owning UID for traffic statistics on the specified socket. Permission
  * check is performed based on the |realUid| before socket tagging.
