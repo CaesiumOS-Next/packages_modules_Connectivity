@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adbd3fc1_b9a8e645",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-04T01:42:48Z",
+      "side": 1,
+      "message": "actually logically speaking... should this run ConsumeAll() first and only then schedule the next run?\n\nWhat happens if ConsumeAll() takes longer than mPollMs?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 2
+      },
+      "revId": "572bbe444f949083b1cf30d434445c621c7d1232",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
