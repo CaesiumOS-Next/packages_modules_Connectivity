@@ -37,6 +37,14 @@ int libnetd_updatable_init(const char* cg2_path) {
     return 0;
 }
 
+uint32_t libnetd_updatable_getTagFromSocket(int sockFd) {
+    return sBpfHandler.getTagFromSocket(sockFd);
+}
+
+uint32_t libnetd_updatable_getTagFromSocketCookie(uint64_t cookie) {
+    return sBpfHandler.getTagFromSocketCookie(cookie);
+}
+
 int libnetd_updatable_tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realUid) {
     return sBpfHandler.tagSocket(sockFd, tag, chargeUid, realUid);
 }
