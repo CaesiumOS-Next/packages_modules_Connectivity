@@ -32,6 +32,15 @@ class BpfHandler {
     BpfHandler(const BpfHandler&) = delete;
     BpfHandler& operator=(const BpfHandler&) = delete;
     netdutils::Status init(const char* cg2_path);
+
+    /*
+     */
+    uint32_t getTagFromSocket(int sockFd);
+
+    /*
+     */
+    uint32_t getTagFromSocketCookie(uint64_t cookie);
+
     /*
      * Tag the socket with the specified tag and uid. In the qtaguid module, the
      * first tag request that grab the spinlock of rb_tree can update the tag
