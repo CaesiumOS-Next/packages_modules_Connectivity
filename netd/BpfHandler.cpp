@@ -247,6 +247,24 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
     return 0;
 }
 
+uint32_t getTagFromSocketCookie(uint64_t cookie) {
+    if (!mCookieTagMap.isValid()) return -EPERM;
+
+    auto res = mCookieTagMap.readValue(cookie);
+    if (!res.ok()) {
+        ALOGE()
+        return 0;
+    }    
+    return res.value().tag;
+}
+
+uint32_t getTagFromSocket(int sockFd) {
+    uint64_t sock_cookie = getSocketCookie(sockFd);
+    if (sock_cookie == NONEXISTENT_COOKIE) return -errno;
+
+    return getTagFromSocketCookie(sock_cookie);
+}
+
 int BpfHandler::untagSocket(int sockFd) {
     uint64_t sock_cookie = getSocketCookie(sockFd);
     if (sock_cookie == NONEXISTENT_COOKIE) return -errno;
