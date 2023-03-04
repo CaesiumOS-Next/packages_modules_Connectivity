@@ -95,9 +95,15 @@ class BpfHandlerTest : public ::testing::Test {
         ASSERT_RESULT_OK(tagResult);
         EXPECT_EQ(uid, tagResult.value().uid);
         EXPECT_EQ(tag, tagResult.value().tag);
+
+        EXPECT_EQ(tag, mBh.getTagFromSocketCookie(cookie));
     }
 
-    void expectNoTag(uint64_t cookie) { EXPECT_FALSE(mFakeCookieTagMap.readValue(cookie).ok()); }
+    void expectNoTag(uint64_t cookie) {
+        EXPECT_FALSE(mFakeCookieTagMap.readValue(cookie).ok());
+
+        EXPECT_EQ(0, mBh.getTagFromSocketCookie(cookie));
+    }
 
     void populateFakeStats(uint64_t cookie, uint32_t uid, uint32_t tag, StatsKey* key) {
         UidTagValue cookieMapkey = {.uid = (uint32_t)uid, .tag = tag};
