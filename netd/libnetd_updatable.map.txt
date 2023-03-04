@@ -20,6 +20,8 @@
 LIBNETD_UPDATABLE {
   global:
     libnetd_updatable_init; # apex
+    libnetd_updatable_getTagFromSocket; # apex
+    libnetd_updatable_getTagFromSocketCookie; # apex
     libnetd_updatable_tagSocket; # apex
     libnetd_updatable_untagSocket; # apex
   local:
