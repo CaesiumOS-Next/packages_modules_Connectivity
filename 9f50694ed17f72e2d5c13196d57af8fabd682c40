@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "558b4981_b8ff1d76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-06T04:20:30Z",
+      "side": 1,
+      "message": "You should mention that you can\u0027t fix the method because there\u0027s an internal caller of it, so you\u0027re instead adding the method with the right signature and plan to remove the one with the wront signature once the caller has been updated.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 6
+      },
+      "revId": "9f50694ed17f72e2d5c13196d57af8fabd682c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
