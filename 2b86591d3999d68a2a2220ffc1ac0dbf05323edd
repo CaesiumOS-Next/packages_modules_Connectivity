@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5cbebc1_e29cbcac",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-06T07:22:08Z",
+      "side": 1,
+      "message": "Can this happen ? This wouldn\u0027t be a RESOLVE_SERVICE_SUCCEEDED event in that case right ?",
+      "revId": "2b86591d3999d68a2a2220ffc1ac0dbf05323edd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
