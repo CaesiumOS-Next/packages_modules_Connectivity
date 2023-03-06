@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "934c9338_209437b9",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-06T03:04:32Z",
+      "side": 1,
+      "message": "Done aosp/2469783",
+      "parentUuid": "e4f2e2cc_c9bffdcd",
+      "range": {
+        "startLine": 48,
+        "startChar": 36,
+        "endLine": 48,
+        "endChar": 67
+      },
+      "revId": "db917647324474557b607d59c49bf40a6fe2f059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e539768_a6d60373",
@@ -87,6 +111,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5830a22d_fe81fbc9",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-06T03:04:32Z",
+      "side": 1,
+      "message": "Done aosp/2469783",
+      "parentUuid": "c2b894f2_b0345ab5",
+      "range": {
+        "startLine": 66,
+        "startChar": 36,
+        "endLine": 66,
+        "endChar": 54
+      },
+      "revId": "db917647324474557b607d59c49bf40a6fe2f059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e715a6f_21c0ed54",
@@ -100,6 +148,30 @@
       "writtenOn": "2023-03-02T10:10:19Z",
       "side": 1,
       "message": "Should this also have a corresponding isStaleDnsEnabled and be renamed to setStaleDnsEnabled?\n\nIn fact, we probably want all the boolean setters to be called setXyzEnabled and have the corresponding getters be called isXyzEnabled.",
+      "range": {
+        "startLine": 72,
+        "startChar": 53,
+        "endLine": 72,
+        "endChar": 70
+      },
+      "revId": "db917647324474557b607d59c49bf40a6fe2f059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "220adec4_b0d1e01c",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-06T03:04:32Z",
+      "side": 1,
+      "message": "Done aosp/2469783",
+      "parentUuid": "5e715a6f_21c0ed54",
       "range": {
         "startLine": 72,
         "startChar": 53,
@@ -133,6 +205,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4291126_8586583e",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-06T03:04:32Z",
+      "side": 1,
+      "message": "Done aosp/2469783",
+      "parentUuid": "6517e1a6_f2965215",
+      "range": {
+        "startLine": 194,
+        "startChar": 35,
+        "endLine": 194,
+        "endChar": 56
+      },
+      "revId": "db917647324474557b607d59c49bf40a6fe2f059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c74ffab_c985617c",
@@ -146,6 +242,30 @@
       "writtenOn": "2023-03-02T10:10:19Z",
       "side": 1,
       "message": "This doesn\u0027t really make sense as a method name. isCacheDisabled, and rename the setter to setCacheDisabled?",
+      "range": {
+        "startLine": 195,
+        "startChar": 35,
+        "endLine": 195,
+        "endChar": 49
+      },
+      "revId": "db917647324474557b607d59c49bf40a6fe2f059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba420a86_cf94a7ec",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-06T03:04:32Z",
+      "side": 1,
+      "message": "Done aosp/2469783",
+      "parentUuid": "8c74ffab_c985617c",
       "range": {
         "startLine": 195,
         "startChar": 35,
