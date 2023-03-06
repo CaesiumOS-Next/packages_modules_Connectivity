@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16f3574a_5e00c15b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-06T03:19:44Z",
+      "side": 1,
+      "message": "Ouch... Thanks for finding that",
+      "revId": "3a632aeb6b7ea468b6d8db50b3a6dbb93f96a052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c2bd9b4_75513db3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-06T03:19:44Z",
+      "side": 1,
+      "message": "Nit: I think these methods could be factored out to a generic:\n\n    private \u003cT extends MdnsRecord\u003e boolean addOrReplaceRecord(\n        @NonNull T record,\n        @NonNull List\u003cT\u003e recordsList);\n\nwhere recordsList would be inet4AddressRecords, inet6AddressRecords or pointerRecords",
+      "revId": "3a632aeb6b7ea468b6d8db50b3a6dbb93f96a052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c18b5223_bad15416",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-06T03:19:44Z",
+      "side": 1,
+      "message": "This is not implemented here; maybe add a TODO instead",
+      "range": {
+        "startLine": 224,
+        "startChar": 47,
+        "endLine": 225,
+        "endChar": 94
+      },
+      "revId": "3a632aeb6b7ea468b6d8db50b3a6dbb93f96a052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c0f8aa1_4a24d488",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-06T03:19:44Z",
+      "side": 1,
+      "message": "Nit: maybe also mention cache flush set for the records changed here",
+      "revId": "3a632aeb6b7ea468b6d8db50b3a6dbb93f96a052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f6c45d1_bf260027",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-06T03:19:44Z",
+      "side": 1,
+      "message": "Nit: see lint error, `/* ipv4Address\u003d */` does not match formal parameter name`",
+      "range": {
+        "startLine": 452,
+        "startChar": 19,
+        "endLine": 452,
+        "endChar": 30
+      },
+      "revId": "3a632aeb6b7ea468b6d8db50b3a6dbb93f96a052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
