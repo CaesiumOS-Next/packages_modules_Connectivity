@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d13f4c33_28f63327",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2094,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-06T10:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1833cbd8_c10dd6b6",
+      "range": {
+        "startLine": 2094,
+        "startChar": 20,
+        "endLine": 2094,
+        "endChar": 37
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1281ccb_90e6702f",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-01T17:48:12Z",
       "side": 1,
       "message": "just mDownstreamStartTime.put(downstreamType, timeNow()) then remove l.112 ?",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 60
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec91e62f_6e8db428",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-06T10:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1281ccb_90e6702f",
       "range": {
         "startLine": 121,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8011bb5_7100269b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-06T10:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45e459e2_40716a5d",
+      "range": {
+        "startLine": 152,
+        "startChar": 4,
+        "endLine": 152,
+        "endChar": 10
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3da2def_3239b328",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-03-01T17:48:12Z",
       "side": 1,
       "message": "event.mUpstremType never be null, isn\u0027t it because transportTypeToUpstreamTypeEnum never return null.",
+      "range": {
+        "startLine": 155,
+        "startChar": 33,
+        "endLine": 156,
+        "endChar": 74
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b1059d7_8e9adffc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-06T10:50:12Z",
+      "side": 1,
+      "message": "event.mUpstream would be null if maybeUpdateUpstreamType() is not ever called. The use case would be like:\n\n1. There is no upstream in mUpstreamEventList.\n2. Start Wifi tethering.\n3. Stop Wifi tethering.",
+      "parentUuid": "a3da2def_3239b328",
       "range": {
         "startLine": 155,
         "startChar": 33,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79f8a7c7_39d06369",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-06T10:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54228530_0166d022",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 10
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "830cbe95_64cdd568",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-03-01T17:48:12Z",
       "side": 1,
       "message": "Since tethering record downstream startTime prior than upstream start time, this will miss first upstream. I think you should compare with stopTime instead:\n\n    if (downstreamStartTime \u003e event.mStopTime) continue;",
+      "range": {
+        "startLine": 170,
+        "startChar": 12,
+        "endLine": 170,
+        "endChar": 65
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af9b9982_e12f53ee",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-06T10:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "830cbe95_64cdd568",
       "range": {
         "startLine": 170,
         "startChar": 12,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c5db576_8d34899a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-06T10:50:12Z",
+      "side": 1,
+      "message": "Add testMultiUpstreamsCreatedBeforeStartingTethering() to check this use case.",
+      "parentUuid": "084306e3_595c0a62",
+      "range": {
+        "startLine": 171,
+        "startChar": 12,
+        "endLine": 171,
+        "endChar": 63
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b879f805_79fb6236",
@@ -175,6 +343,54 @@
       "writtenOn": "2023-03-01T17:48:12Z",
       "side": 1,
       "message": "With above suggestion, you can just simply the code:\n\nHave updateUpstreamEvents(final UpstreamEvents.Builder upstreamEventsBuilder, final long startTime, final long stopTime, final UpstreamType type)\n\nThen:\n\n    private long getStartTime(long first, long second) {\n        return first \u003e second ? first : second\n    }\n\n    for (RecordUpstreamEvent event : mUpstreamEventList) {\n        if (downstreamStartTime \u003e event.mStopTime) continue;\n        \n        final long startTime \u003d getStartTime(downstreamStartTime,event.mStartTime); \n        updateUpstreamEvents(upstreamEventsBuilder, startTime, event.mStopTime, event.mUpstream));\n    }\n    \n    final long startTime \u003d getStartTime(downstreamStartTime, mCurrentUpStreamStartTime);\n    final long stopTime \u003d timeNow();\n    updateUpstreamEvents(upstreamEventsBuilder, startTime, stopTime, mCurrentUpstream);",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 179,
+        "endChar": 35
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6da6708_2f6945e8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-06T10:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b879f805_79fb6236",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 179,
+        "endChar": 35
+      },
+      "revId": "fa0763df21d11a9c9c3b47f6c54adf9dc0989ac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23217800_d9058b91",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-06T10:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b879f805_79fb6236",
       "range": {
         "startLine": 169,
         "startChar": 8,
