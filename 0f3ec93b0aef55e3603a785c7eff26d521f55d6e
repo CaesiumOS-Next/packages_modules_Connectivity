@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8002f73c_60784acd",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-06T03:53:27Z",
+      "side": 1,
+      "message": "This may affect other CTS tests, can it be removed ?",
+      "revId": "0f3ec93b0aef55e3603a785c7eff26d521f55d6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6307bc54_bd725d55",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-06T03:53:27Z",
+      "side": 1,
+      "message": "I\u0027m not sure why that\u0027s actually necessary for this kind of test, NsdServiceInfo doesn\u0027t seem to care about whether the host address is localhost or something else, so if that\u0027s the reason why the ThreadPolicy needs to be set, maybe it can be removed.",
+      "revId": "0f3ec93b0aef55e3603a785c7eff26d521f55d6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
