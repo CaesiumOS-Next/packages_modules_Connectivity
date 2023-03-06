@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9382625e_e9fb6c52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-06T04:28:51Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "e45a550d04028d43fbf20b62c403824c0f93f166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d8df136_26ac8a7a",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-06T04:28:51Z",
+      "side": 1,
+      "message": "It looks like this exists because the caller might want to know the *default* user agent before building the HttpEngine. That seems reasonable. Presumably this cannot be a static method on HttpEngine instead, because the default user agent will be different for different concrete HttpEngine implementations?",
+      "range": {
+        "startLine": 112,
+        "startChar": 34,
+        "endLine": 112,
+        "endChar": 53
+      },
+      "revId": "e45a550d04028d43fbf20b62c403824c0f93f166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
