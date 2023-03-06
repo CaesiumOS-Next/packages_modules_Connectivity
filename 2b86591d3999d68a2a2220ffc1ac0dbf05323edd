@@ -16,6 +16,24 @@
       "message": "Can this happen ? This wouldn\u0027t be a RESOLVE_SERVICE_SUCCEEDED event in that case right ?",
       "revId": "2b86591d3999d68a2a2220ffc1ac0dbf05323edd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2971079_009b5a0a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-06T08:52:48Z",
+      "side": 1,
+      "message": "\u003e  This wouldn\u0027t be a RESOLVE_SERVICE_SUCCEEDED event in that case right ?\n\nYes, that would be SERVICE_FOUND or parsing failure callback I think. And the address strings get from InetAddress#getHostAddress, they should not be invalid. So this should not happen. Instead, we should notify onResolveServiceFailed if parsing failed. Will address it in a follow up commit.",
+      "parentUuid": "e5cbebc1_e29cbcac",
+      "revId": "2b86591d3999d68a2a2220ffc1ac0dbf05323edd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
