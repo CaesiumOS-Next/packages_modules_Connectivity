@@ -51,6 +51,7 @@ android_library {
         "cts_defaults",
         "CronetTestJavaDefaults",
     ],
+    asset_dirs: [],
     sdk_version: "test_current",
     min_sdk_version: "30",
     srcs: [
@@ -58,6 +59,7 @@ android_library {
         "src/**/*.kt",
     ],
     static_libs: [
+        "cronet_test_utils",
         "androidx.test.ext.junit",
         "ctstestrunner-axt",
         "ctstestserver",
@@ -76,12 +78,17 @@ android_library {
 
 android_test {
     name: "CtsNetHttpTestCases",
+    asset_dirs: [],
     defaults: [
         "cts_defaults",
         "CronetTestJavaDefaults",
     ],
-    sdk_version: "test_current",
+    // sdk_version: "test_current",
     static_libs: ["CtsNetHttpTestsLib"],
+    jni_libs: [
+        "cronet_aml_components_cronet_android_cronet_tests__testing"
+    ],
+    data: [":cronet_aml_testserver_data"],
     // Tag this as a cts test artifact
     test_suites: [
         "cts",

@@ -23,6 +23,7 @@ android_library {
     sdk_version: "test_current",
     min_sdk_version: "30",
     static_libs: [
+        "cronet_test_utils",
         "androidx.test.ext.junit",
         "androidx.test.rules",
         "junit",
@@ -40,12 +41,14 @@ android_test {
         "CronetTestJavaDefaults",
         "mts-target-sdk-version-current",
      ],
-     sdk_version: "test_current",
+     // sdk_version: "test_current",
      static_libs: ["NetHttpTestsLibPreJarJar"],
      jarjar_rules: ":framework-tethering-jarjar-rules",
+     jni_libs: [
+        "cronet_aml_components_cronet_android_cronet_tests__testing"
+     ],
      test_suites: [
          "general-tests",
          "mts-tethering",
      ],
 }
-
