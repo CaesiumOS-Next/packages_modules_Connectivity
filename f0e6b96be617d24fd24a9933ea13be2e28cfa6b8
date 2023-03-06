@@ -22,6 +22,30 @@
       },
       "revId": "f0e6b96be617d24fd24a9933ea13be2e28cfa6b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb5167ae_03dac752",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-06T23:27:25Z",
+      "side": 1,
+      "message": "I guess the one argument against this change is the lack of consistency that is being introduced. Soong_namespaces have historically mostly been used for device / hardware configuration.",
+      "parentUuid": "ba899370_1f2c4638",
+      "range": {
+        "startLine": 22,
+        "startChar": 12,
+        "endLine": 22,
+        "endChar": 30
+      },
+      "revId": "f0e6b96be617d24fd24a9933ea13be2e28cfa6b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
