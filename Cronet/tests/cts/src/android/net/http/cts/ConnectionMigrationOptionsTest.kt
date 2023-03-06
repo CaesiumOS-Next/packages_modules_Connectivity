@@ -20,11 +20,22 @@ import android.net.http.ConnectionMigrationOptions
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlin.test.Test
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class ConnectionMigrationOptionsTest {
+
+    @Test
+    fun testConnectionMigrationOptions_defaultValues() {
+        val options =
+                ConnectionMigrationOptions.Builder().build()
+
+        assertNull(options.allowNonDefaultNetworkUsage)
+        assertNull(options.enableDefaultNetworkMigration)
+        assertNull(options.enablePathDegradationMigration)
+    }
 
     @Test
     fun testConnectionMigrationOptions_enableDefaultNetworkMigration_returnSetValue() {
@@ -42,5 +53,14 @@ class ConnectionMigrationOptionsTest {
 
         assertNotNull(options.enablePathDegradationMigration)
         assertTrue(options.enablePathDegradationMigration!!)
+    }
+
+    @Test
+    fun testConnectionMigrationOptions_allowNonDefaultNetworkUsage_returnSetValue() {
+        val options =
+                ConnectionMigrationOptions.Builder().setAllowNonDefaultNetworkUsage(true).build()
+
+        assertNotNull(options.allowNonDefaultNetworkUsage)
+        assertTrue(options.allowNonDefaultNetworkUsage!!)
     }
 }
