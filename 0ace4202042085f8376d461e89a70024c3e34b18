@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acf7f93c_66f9672c",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-06T04:14:37Z",
+      "side": 1,
+      "message": "The fact that the getter is nullable suggests that null is a valid value here (presumably it means \"unset\" or default?). If so, then I think it makes sense for the setter to be nullable as well. That way, the caller can \"reset\" the useragent in the builder once they have set it.\n\nI don\u0027t feel too strongly about it, so maybe this is fine? The review pod is going to comment on it anyway.",
+      "range": {
+        "startLine": 167,
+        "startChar": 87,
+        "endLine": 167,
+        "endChar": 94
+      },
+      "revId": "0ace4202042085f8376d461e89a70024c3e34b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
