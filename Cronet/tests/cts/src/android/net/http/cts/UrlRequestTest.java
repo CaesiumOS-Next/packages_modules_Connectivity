@@ -19,6 +19,8 @@ package android.net.http.cts;
 import static android.net.http.cts.util.TestUtilsKt.assertOKStatusCode;
 import static android.net.http.cts.util.TestUtilsKt.skipIfNoInternetConnection;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
@@ -86,6 +88,40 @@ public class UrlRequestTest {
     }
 
     @Test
+    public void testUrlRequestGet_defaultUserAgent() throws Exception {
+        String url = mTestServer.getUserAgentUrl();
+        UrlRequest request = createUrlRequestBuilder(url).build();
+        request.start();
+
+        mCallback.expectCallback(ResponseStep.ON_SUCCEEDED);
+        UrlResponseInfo info = mCallback.mResponseInfo;
+        assertOKStatusCode(info);
+        String receivedUserAgent = extractUserAgent(mCallback.mResponseAsString);
+
+        assertThat(receivedUserAgent).startsWith("AndroidHttpClient");
+    }
+
+    @Test
+    public void testUrlRequestGet_customUserAgent() throws Exception {
+        String userAgent = "CtsTests User Agent";
+        mHttpEngine =
+                new HttpEngine.Builder(ApplicationProvider.getApplicationContext())
+                        .setUserAgent(userAgent)
+                        .build();
+
+        String url = mTestServer.getUserAgentUrl();
+        UrlRequest request = createUrlRequestBuilder(url).build();
+        request.start();
+
+        mCallback.expectCallback(ResponseStep.ON_SUCCEEDED);
+        UrlResponseInfo info = mCallback.mResponseInfo;
+        assertOKStatusCode(info);
+        String receivedUserAgent = extractUserAgent(mCallback.mResponseAsString);
+
+        assertThat(receivedUserAgent).isEqualTo(userAgent);
+    }
+
+    @Test
     public void testUrlRequestStatus_InvalidBeforeRequestStarts() throws Exception {
         UrlRequest request = createUrlRequestBuilder(mTestServer.getSuccessUrl()).build();
         // Calling before request is started should give Status.INVALID,
@@ -130,5 +166,13 @@ public class UrlRequestTest {
     public void testUrlRequestFail_FailedCalled() throws Exception {
         createUrlRequestBuilder("http://0.0.0.0:0/").build().start();
         mCallback.expectCallback(ResponseStep.ON_FAILED);
+    }
+
+    private static String extractUserAgent(String userAgentResponseBody) {
+        // If someone wants to be evil and have the title HTML tag a part of the user agent,
+        // they'll have to fix this method :)
+        return userAgentResponseBody
+                .replaceFirst(".*<title>", "")
+                .replaceFirst("</title>.*", "");
     }
 }
