@@ -22,6 +22,30 @@
       },
       "revId": "572bbe444f949083b1cf30d434445c621c7d1232",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b3dc964_7331aecc",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-03-06T17:36:02Z",
+      "side": 1,
+      "message": "The task runner is single threaded, so that would just run them back-to-back which is fine. Doing the scheduling first should make it loop closer to mPollMs. I\u0027ll also note the minimum mPollMs is 100ms and I think this typically takes a few ms or less.",
+      "parentUuid": "adbd3fc1_b9a8e645",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 2
+      },
+      "revId": "572bbe444f949083b1cf30d434445c621c7d1232",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
