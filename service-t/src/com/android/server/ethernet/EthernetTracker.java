@@ -19,6 +19,9 @@ package com.android.server.ethernet;
 import static android.net.EthernetManager.ETHERNET_STATE_DISABLED;
 import static android.net.EthernetManager.ETHERNET_STATE_ENABLED;
 import static android.net.TestNetworkManager.TEST_TAP_PREFIX;
+import static android.net.EthernetManager.STATE_ABSENT;
+import static android.net.EthernetManager.STATE_LINK_DOWN;
+import static android.net.EthernetManager.STATE_LINK_UP;
 
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PACKAGE;
 
@@ -327,9 +330,20 @@ public class EthernetTracker {
         ensureRunningOnEthernetServiceThread();
         final int state = mFactory.getInterfaceState(iface);
         final int role = getInterfaceRole(iface);
-        final IpConfiguration config = getIpConfigurationForCallback(iface, state);
+        IpConfiguration config = getIpConfigurationForCallback(iface, state);
         try {
-            listener.onInterfaceStateChanged(iface, state, role, config);
+            if (getInterfaceMode(iface) == INTERFACE_MODE_SERVER) {
+                if (config == null) {
+                    IpConfiguration ipConfig = new IpConfiguration();
+                    ipConfig.setIpAssignment(IpAssignment.UNASSIGNED);
+                    ipConfig.setProxySettings(ProxySettings.NONE);
+                    config = ipConfig;
+                }
+                listener.onInterfaceStateChanged(iface, mTetheredInterfaceWasAvailable ?
+                                STATE_LINK_UP : STATE_LINK_DOWN, role, config);
+            } else {
+                listener.onInterfaceStateChanged(iface, state, role, config);
+            }
         } catch (RemoteException e) {
             // Do nothing here.
         }
@@ -430,6 +444,10 @@ public class EthernetTracker {
             }
             for (String iface : getInterfaces(canUseRestrictedNetworks)) {
                 unicastInterfaceStateChange(listener, iface);
+            }
+
+            if (mDefaultInterfaceMode == INTERFACE_MODE_SERVER) {
+                unicastInterfaceStateChange(listener, mDefaultInterface);
             }
 
             unicastEthernetStateChange(listener, mEthernetState);
