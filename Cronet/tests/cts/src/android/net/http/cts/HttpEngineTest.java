@@ -82,7 +82,7 @@ public class HttpEngineTest {
     public void testHttpEngine_Default() throws Exception {
         mEngine = mEngineBuilder.build();
         UrlRequest.Builder builder =
-                mEngine.newUrlRequestBuilder(URL, mCallback.getExecutor(), mCallback);
+                mEngine.newUrlRequestBuilder(URL, mCallback, mCallback.getExecutor());
         mRequest = builder.build();
         mRequest.start();
 
@@ -130,7 +130,7 @@ public class HttpEngineTest {
     public void testHttpEngine_DisableHttp2() throws Exception {
         mEngine = mEngineBuilder.setEnableHttp2(false).build();
         UrlRequest.Builder builder =
-                mEngine.newUrlRequestBuilder(URL, mCallback.getExecutor(), mCallback);
+                mEngine.newUrlRequestBuilder(URL, mCallback, mCallback.getExecutor());
         mRequest = builder.build();
         mRequest.start();
 
@@ -181,7 +181,7 @@ public class HttpEngineTest {
         for (int i = 0; i < 5; i++) {
             mCallback = new TestUrlRequestCallback();
             UrlRequest.Builder builder =
-                    mEngine.newUrlRequestBuilder(URL, mCallback.getExecutor(), mCallback);
+                    mEngine.newUrlRequestBuilder(URL, mCallback, mCallback.getExecutor());
             mRequest = builder.build();
             mRequest.start();
 

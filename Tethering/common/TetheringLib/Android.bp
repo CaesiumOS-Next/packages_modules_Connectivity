@@ -35,6 +35,7 @@ java_sdk_library {
     ],
     impl_library_visibility: [
         "//packages/modules/Connectivity/Tethering:__subpackages__",
+        "//packages/modules/Connectivity/Cronet:__subpackages__",
         "//packages/modules/Connectivity/framework",
         "//packages/modules/Connectivity/framework-t",
         "//packages/modules/Connectivity/service",

@@ -234,6 +234,7 @@ public class TestUrlRequestCallback extends UrlRequest.Callback {
         if (isTerminalCallback(expectedStep)) {
             assertTrue("Did not receive terminal callback before timeout", blockForDone());
         }
+        if (expectedStep != ResponseStep.ON_FAILED) assertNull(mError);
         assertSame(expectedStep, mResponseStep);
     }
 
@@ -247,6 +248,7 @@ public class TestUrlRequestCallback extends UrlRequest.Callback {
         if (isTerminalCallback(expectedStep)) {
             assumeTrue("Did not receive terminal callback before timeout", blockForDone());
         }
+        if (expectedStep != ResponseStep.ON_FAILED) assertNull(mError);
         assumeThat(expectedStep, equalTo(mResponseStep));
     }
 

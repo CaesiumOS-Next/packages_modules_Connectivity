@@ -28,14 +28,13 @@ android_test {
     name: "NetHttpCoverageTests",
     defaults: ["CronetTestJavaDefaults"],
     enforce_default_target_sdk_version: true,
-    sdk_version: "test_current",
     min_sdk_version: "30",
     test_suites: ["general-tests", "mts-tethering"],
+    jni_libs: ["cronet_aml_components_cronet_android_cronet_tests__testing"],
     static_libs: [
         "modules-utils-native-coverage-listener",
         "CtsNetHttpTestsLib",
         "NetHttpTestsLibPreJarJar",
     ],
-    jarjar_rules: ":framework-tethering-jarjar-rules",
     compile_multilib: "both", // Include both the 32 and 64 bit versions
 }
