@@ -16,6 +16,46 @@
       "message": "LGTM",
       "revId": "0e929ddfcdfb2f93291c68bec374f49d8e32fcfc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b88998_7b1010e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-06T11:38:10Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "0e929ddfcdfb2f93291c68bec374f49d8e32fcfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85d2ab06_ec56eadf",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-06T11:38:10Z",
+      "side": 1,
+      "message": "Nit: Maybe put the RFC here to explain why this is case-insensitive.\n\n\n\u003e RFC6763 6.4, case is ignored when interpreting a key, so \"papersize\u003dA4\", \"PAPERSIZE\u003dA4\", and \"Papersize\u003dA4\" are all identical.",
+      "range": {
+        "startLine": 208,
+        "startChar": 52,
+        "endLine": 208,
+        "endChar": 53
+      },
+      "revId": "0e929ddfcdfb2f93291c68bec374f49d8e32fcfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
