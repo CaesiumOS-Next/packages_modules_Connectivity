@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c23d09a9_e476d12d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-07T11:24:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f525a05_27ec40b1",
+      "range": {
+        "startLine": 70,
+        "startChar": 15,
+        "endLine": 70,
+        "endChar": 16
+      },
+      "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bdda7df_896ef5dd",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-03-07T08:28:40Z",
       "side": 1,
       "message": "Until you merge the change to have per-network MdnsServiceTypeClient, I think this would cause startSendAndReceive to be called for each Network, so restarting the QueryTask every time ? You can probably avoid that by having both changes in one topic so they\u0027re submitted together.",
+      "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8df9f3b_c764e980",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-07T11:24:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4bdda7df_896ef5dd",
       "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5b443ff_56aa6a88",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-07T11:24:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26302746_7b06b18e",
+      "range": {
+        "startLine": 132,
+        "startChar": 48,
+        "endLine": 132,
+        "endChar": 63
+      },
+      "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2497a9e1_9f183757",
@@ -81,6 +147,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff7964f6_6db71008",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-07T11:24:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2497a9e1_9f183757",
+      "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "739dba99_14c1a8e1",
@@ -94,6 +178,24 @@
       "writtenOn": "2023-03-07T08:28:40Z",
       "side": 1,
       "message": "You can probably verify that mNetworkCallback is called here; of have another test that just does expectSocketCallback, onSocketCreated, expect the network callback",
+      "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c52ab2e_94e8c63b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-07T11:24:39Z",
+      "side": 1,
+      "message": "Verify the SocketCreationCallback#onSocketCreated is called here.",
+      "parentUuid": "739dba99_14c1a8e1",
       "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
