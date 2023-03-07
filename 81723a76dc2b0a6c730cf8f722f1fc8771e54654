@@ -87,6 +87,30 @@
       },
       "revId": "81723a76dc2b0a6c730cf8f722f1fc8771e54654",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "691e6288_e6450d2f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2717,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-07T10:04:20Z",
+      "side": 1,
+      "message": "That\u0027s simpler indeed - done",
+      "parentUuid": "674a6da4_656a1d27",
+      "range": {
+        "startLine": 2717,
+        "startChar": 11,
+        "endLine": 2717,
+        "endChar": 55
+      },
+      "revId": "81723a76dc2b0a6c730cf8f722f1fc8771e54654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
