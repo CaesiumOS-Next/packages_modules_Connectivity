@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f525a05_27ec40b1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-07T08:28:40Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 70,
+        "startChar": 15,
+        "endLine": 70,
+        "endChar": 16
+      },
+      "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bdda7df_896ef5dd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-07T08:28:40Z",
+      "side": 1,
+      "message": "Until you merge the change to have per-network MdnsServiceTypeClient, I think this would cause startSendAndReceive to be called for each Network, so restarting the QueryTask every time ? You can probably avoid that by having both changes in one topic so they\u0027re submitted together.",
+      "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26302746_7b06b18e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-07T08:28:40Z",
+      "side": 1,
+      "message": "This will be confusing considering there\u0027s already ConnectivityManager.NetworkCallback; maybe SocketCreationCallback#onSocketCreated ? The callback is actually called in onSocketCreated, not on Network creation.",
+      "range": {
+        "startLine": 132,
+        "startChar": 48,
+        "endLine": 132,
+        "endChar": 63
+      },
+      "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2497a9e1_9f183757",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-07T08:28:40Z",
+      "side": 1,
+      "message": "I think you could just call this method multiple times with serviceType, listener, client as argument in the tests, instead of having the loop and the ListenerRegistration class\n\nSo `verifyListenerRegistration(String, MdnsServiceBrowserListener, MdnsServiceTypeClient)`\n\nSee: go/tott/643",
+      "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "739dba99_14c1a8e1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-07T08:28:40Z",
+      "side": 1,
+      "message": "You can probably verify that mNetworkCallback is called here; of have another test that just does expectSocketCallback, onSocketCreated, expect the network callback",
+      "revId": "6d34334722e2216674c6dbb26fa079fa7a6d2fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
