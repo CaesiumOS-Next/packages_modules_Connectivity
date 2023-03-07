@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ad2e7a0_358a6d0d",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-07T06:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68ce96d9_1c29e5c0",
+      "range": {
+        "startLine": 2036,
+        "startChar": 11,
+        "endLine": 2036,
+        "endChar": 36
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "524dd0f2_5569f350",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-02T08:44:11Z",
       "side": 1,
       "message": "Why this change ? The callback only gets onLost if the previously default network was lost. This method was simulating a change to a new default network, not a loss of the old one. The old code was entirely correct.",
+      "range": {
+        "startLine": 2037,
+        "startChar": 8,
+        "endLine": 2037,
+        "endChar": 46
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9883e250_63d862cd",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2037,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-07T06:01:21Z",
+      "side": 1,
+      "message": "I want to simulate default network lost case but it does no matter here. Update it back to original code.",
+      "parentUuid": "524dd0f2_5569f350",
       "range": {
         "startLine": 2037,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a612b4a2_2a913583",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-07T06:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0affde22_f29aee4b",
+      "range": {
+        "startLine": 2046,
+        "startChar": 70,
+        "endLine": 2046,
+        "endChar": 80
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da423e73_227854fb",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-02-24T09:51:53Z",
       "side": 1,
       "message": "Maybe just \"subscriptions\"?",
+      "range": {
+        "startLine": 2049,
+        "startChar": 37,
+        "endLine": 2049,
+        "endChar": 51
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40fff42c_68f51d77",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2049,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-07T06:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da423e73_227854fb",
       "range": {
         "startLine": 2049,
         "startChar": 37,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d878fd7_379c7e55",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2051,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-07T06:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2870ac65_6471d1d5",
+      "range": {
+        "startLine": 2051,
+        "startChar": 17,
+        "endLine": 2051,
+        "endChar": 31
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18cb12d6_dc105cc5",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-03-02T08:44:11Z",
       "side": 1,
       "message": ".Builder().build()\n\nI know it\u0027s annoying but let\u0027s not encourage usage of the mutable style",
+      "range": {
+        "startLine": 2077,
+        "startChar": 73,
+        "endLine": 2077,
+        "endChar": 75
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e6f6b1_c9cdccf6",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2077,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-07T06:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18cb12d6_dc105cc5",
       "range": {
         "startLine": 2077,
         "startChar": 73,
@@ -186,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef06ed7f_4c36ea6c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2106,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-07T06:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88544818_2b38989c",
+      "range": {
+        "startLine": 2105,
+        "startChar": 8,
+        "endLine": 2106,
+        "endChar": 46
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e70cf67_c887fbef",
@@ -233,6 +401,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc05345c_9bf777c9",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-07T06:01:21Z",
+      "side": 1,
+      "message": "Address issue in aosp/2469686",
+      "parentUuid": "6598bd02_40cd94be",
+      "range": {
+        "startLine": 2109,
+        "startChar": 58,
+        "endLine": 2109,
+        "endChar": 91
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ed160a5_9556e6e0",
@@ -256,6 +448,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f21dd3e7_bc6e06cd",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2124,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-07T06:01:21Z",
+      "side": 1,
+      "message": "oh, yes, it\u0027s not necessary. Removed.",
+      "parentUuid": "1ed160a5_9556e6e0",
+      "range": {
+        "startLine": 2123,
+        "startChar": 0,
+        "endLine": 2124,
+        "endChar": 40
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9537cde_ae2f841d",
@@ -269,6 +485,30 @@
       "writtenOn": "2023-03-02T08:44:11Z",
       "side": 1,
       "message": "once()",
+      "range": {
+        "startLine": 2125,
+        "startChar": 15,
+        "endLine": 2125,
+        "endChar": 33
+      },
+      "revId": "5656ad6c7b1e635e74ee6ebbb6eacfd540b072c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c5659b_7a651b97",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2125,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-07T06:01:21Z",
+      "side": 1,
+      "message": "Do you mean you verify it\u0027s only triggered once? By default, I think it verifies this condition  happen only one time. If there are multiple invocations, it will fail. I expect we do not need to specify it. or do you mean something else?",
+      "parentUuid": "d9537cde_ae2f841d",
       "range": {
         "startLine": 2125,
         "startChar": 15,
