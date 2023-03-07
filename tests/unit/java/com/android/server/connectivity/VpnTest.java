@@ -2037,7 +2037,10 @@ public class VpnTest extends VpnTestBase {
                         false /* mtuSupportsIpv6 */);
         // Simulate a new network coming up
         vpnSnapShot.nwCb.onAvailable(TEST_NETWORK_2);
+        verify(mIkeSessionWrapper, never()).setNetwork(any(), anyInt(), anyInt(), anyInt());
 
+        vpnSnapShot.nwCb.onCapabilitiesChanged(
+                TEST_NETWORK_2, new NetworkCapabilities.Builder().build());
         // Verify MOBIKE is triggered
         verify(mIkeSessionWrapper).setNetwork(TEST_NETWORK_2,
                 expectedIpVersion, expectedEncapType, expectedKeepalive);
@@ -2121,11 +2124,8 @@ public class VpnTest extends VpnTestBase {
 
         // Simulate a new network coming up
         vpnSnapShot.nwCb.onAvailable(TEST_NETWORK_2);
-        // guessNattKeepaliveTimerForNetwork() will return AUTOMATIC_KEEPALIVE_DELAY_SECONDS
-        // because mUnderlyingNetworkCapabilities is not set at the moment.
-        // TODO: Fix it to prevent setNetwork() being triggered w/o valid network capabilities.
-        verify(mIkeSessionWrapper).setNetwork(TEST_NETWORK_2,
-                ESP_IP_VERSION_AUTO, ESP_IP_VERSION_AUTO, AUTOMATIC_KEEPALIVE_DELAY_SECONDS);
+        // Migration will not be started until receiving network capabilities change.
+        verify(mIkeSessionWrapper, never()).setNetwork(any(), anyInt(), anyInt(), anyInt());
 
         reset(mIkeSessionWrapper);
         mockCarrierConfig(TEST_SUB_ID, TEST_KEEPALIVE_TIMER, simState);
@@ -2168,7 +2168,10 @@ public class VpnTest extends VpnTestBase {
         // Mock new network comes up and the cleanup task is cancelled
         vpnSnapShot.nwCb.onAvailable(TEST_NETWORK_2);
         verify(mScheduledFuture).cancel(anyBoolean());
+        verify(mIkeSessionWrapper, never()).setNetwork(any(), anyInt(), anyInt(), anyInt());
 
+        vpnSnapShot.nwCb.onCapabilitiesChanged(TEST_NETWORK_2,
+                new NetworkCapabilities.Builder().build());
         // Verify MOBIKE is triggered
         verify(mIkeSessionWrapper).setNetwork(eq(TEST_NETWORK_2),
                 eq(ESP_IP_VERSION_AUTO) /* ipVersion */,
