@@ -20,6 +20,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "014f5f2e_2ea38688",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-07T21:10:28Z",
+      "side": 1,
+      "message": "I am not sure what your goal is here. Are you wanting to introduce server mode interface state tracking? If so, take a look at r.android.com/2262629 which aims to do exactly that (though the change needs to be rebased on top of aosp-master, as some changes in that chain cannot be merged).",
+      "revId": "e5166867f8fa52c1f54c18f3aa9c3a03f3aaf518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb3c35ef_3d50320e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-07T21:10:28Z",
+      "side": 1,
+      "message": "This just feels wrong. The IpConfiguration is only null when interface state is absent. An absent interface is not tracked by EthernetTracker and therefore cannot have an IpConfiguration. Additionally, this change creates a discrepancy between the behavior of broadcastInterfaceStateChange and unicastInterfaceStateChange. Not to mention that if you want to change the behavior of the callbacks, you will have to put it behind an SDK version / extension version check to not break existing apps.",
+      "range": {
+        "startLine": 337,
+        "startChar": 20,
+        "endLine": 340,
+        "endChar": 38
+      },
+      "revId": "e5166867f8fa52c1f54c18f3aa9c3a03f3aaf518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96c683ff_f9f1442b",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 1
