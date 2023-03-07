@@ -201,7 +201,8 @@ public class TetheringConfiguration {
         tetherableBluetoothRegexs = getResourceStringArray(
                 res, R.array.config_tether_bluetooth_regexs);
 
-        isDunRequired = checkDunRequired(ctx);
+        // Always disable dun.
+        isDunRequired = false;
 
         // Here is how automatic mode enable/disable support on different Android version:
         // - R   : can be enabled/disabled by resource config_tether_upstream_automatic.
@@ -230,8 +231,8 @@ public class TetheringConfiguration {
 
         PersistableBundle carrierConfigs = getCarrierConfig(ctx, activeDataSubId);
         isCarrierSupportTethering = carrierConfigAffirmsCarrierSupport(carrierConfigs);
-        isCarrierConfigAffirmsEntitlementCheckRequired =
-                carrierConfigAffirmsEntitlementCheckRequired(carrierConfigs);
+        // Force to non-entitlement mode.
+        isCarrierConfigAffirmsEntitlementCheckRequired = false;
 
         mOffloadPollInterval = getResourceInteger(res,
                 R.integer.config_tether_offload_poll_interval,
