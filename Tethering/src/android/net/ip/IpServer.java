@@ -671,7 +671,11 @@ public class IpServer extends StateMachine {
             mLinkProperties.removeLinkAddress(mIpv4Address);
             mLinkProperties.removeRoute(getDirectConnectedRoute(mIpv4Address));
         }
-        return configureDhcp(enabled, mIpv4Address, mStaticIpv4ClientAddr);
+        if (mInterfaceType == TetheringManager.TETHERING_WIFI) {
+            return configureDhcp(enabled, mIpv4Address, mStaticIpv4ClientAddr);
+        } else {
+            return true;
+        }
     }
 
     private boolean shouldNotConfigureBluetoothInterface() {
