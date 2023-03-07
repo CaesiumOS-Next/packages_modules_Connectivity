@@ -63,6 +63,30 @@
       },
       "revId": "81723a76dc2b0a6c730cf8f722f1fc8771e54654",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "674a6da4_656a1d27",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2717,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-07T09:55:12Z",
+      "side": 1,
+      "message": "Okay so instead of doing this, can we at least just say expectEventually in l.2725 ? This is both simpler than this and less likely to flake when the infra has bizarre network changes.",
+      "parentUuid": "df1f5822_2077d89a",
+      "range": {
+        "startLine": 2717,
+        "startChar": 11,
+        "endLine": 2717,
+        "endChar": 55
+      },
+      "revId": "81723a76dc2b0a6c730cf8f722f1fc8771e54654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
