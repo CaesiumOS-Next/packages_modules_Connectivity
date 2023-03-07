@@ -17,6 +17,9 @@ package com.android.networkstack.tethering;
 
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.TetheringManager.TETHERING_BLUETOOTH;
+import static android.net.TetheringManager.TETHERING_ETHERNET;
+import static android.net.TetheringManager.TETHERING_USB;
+import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 
 import static com.android.net.module.util.Inet4AddressUtils.inet4AddressToIntHTH;
@@ -73,6 +76,9 @@ public class PrivateAddressCoordinator {
     private final ArraySet<IpServer> mDownstreams;
     private static final String LEGACY_WIFI_P2P_IFACE_ADDRESS = "192.168.49.1/24";
     private static final String LEGACY_BLUETOOTH_IFACE_ADDRESS = "192.168.44.1/24";
+    private static final String TEST_WIFI_IFACE_ADDRESS = "192.168.1.1/24";
+    private static final String TEST_USB_IFACE_ADDRESS = "192.168.2.1/24";
+    private static final String TEST_ETHERNET_IFACE_ADDRESS = "192.168.3.1/24";
     private final List<IpPrefix> mTetheringPrefixes;
     private final ConnectivityManager mConnectivityMgr;
     private final TetheringConfiguration mConfig;
@@ -89,6 +95,11 @@ public class PrivateAddressCoordinator {
         // Reserved static addresses for bluetooth and wifi p2p.
         mCachedAddresses.put(TETHERING_BLUETOOTH, new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));
         mCachedAddresses.put(TETHERING_WIFI_P2P, new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
+        // Reserved static addresses for testing, please manually changing the corresponding hardcode
+        // address if needed.
+        mCachedAddresses.put(TETHERING_WIFI, new LinkAddress(TEST_WIFI_IFACE_ADDRESS));
+        mCachedAddresses.put(TETHERING_USB, new LinkAddress(TEST_USB_IFACE_ADDRESS));
+        mCachedAddresses.put(TETHERING_ETHERNET, new LinkAddress(TEST_ETHERNET_IFACE_ADDRESS));
 
         mTetheringPrefixes = new ArrayList<>(Arrays.asList(new IpPrefix("192.168.0.0/16"),
             new IpPrefix("172.16.0.0/12"), new IpPrefix("10.0.0.0/8")));
