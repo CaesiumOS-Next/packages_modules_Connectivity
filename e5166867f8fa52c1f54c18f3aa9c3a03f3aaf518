@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27c26abc_7bade546",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-07T08:26:11Z",
+      "side": 1,
+      "message": "+ Patrick who is more familiar with EthernetTracker\n\nCould you explain more detail in commit message why the change can fix the problem ?\n\nAlso could you add the test in packages/modules/Connectivity/tests/cts/net/src/android/net/cts/EthernetManagerTest.kt ?",
+      "revId": "e5166867f8fa52c1f54c18f3aa9c3a03f3aaf518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96c683ff_f9f1442b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-07T08:26:11Z",
+      "side": 1,
+      "message": "If we change the code as below, does it work ?\n\n    if (role \u003d\u003d INTERFACE_MODE_SERVER) {\n        final IpConfiguration config \u003d new IpConfiguration();\n        config.setIpAssignment(IpAssignment.UNASSIGNED);\n        config.setProxySettings(ProxySettings.NONE);\n        listener.onInterfaceStateChanged(iface, mTetheredInterfaceWasAvailable ? STATE_LINK_UP : STATE_LINK_DOWN, INTERFACE_MODE_SERVER, config);\n    } else {\n        final IpConfiguration config \u003d getIpConfigurationForCallback(iface, state);\n        listener.onInterfaceStateChanged(iface, state, role, config);\n    }",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 13
+      },
+      "revId": "e5166867f8fa52c1f54c18f3aa9c3a03f3aaf518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d28d9732_3c7e15ae",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-07T08:26:11Z",
+      "side": 1,
+      "message": "Could you have some comments in commit message why we need additional unicastInterfaceStateChange(mDefaultInterface) ? It seems the case you try to cover is the mDefaultInterface is not in #getInterfaces yet but you want to callback it ?",
+      "range": {
+        "startLine": 449,
+        "startChar": 12,
+        "endLine": 451,
+        "endChar": 13
+      },
+      "revId": "e5166867f8fa52c1f54c18f3aa9c3a03f3aaf518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
