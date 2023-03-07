@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7fec0bf_4a62f6aa",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-07T09:33:56Z",
+      "side": 1,
+      "message": "Resolved in another comment : yes it should be returned. This is what the latest patchset does.",
+      "parentUuid": "d6e34501_b180d638",
+      "range": {
+        "startLine": 585,
+        "startChar": 12,
+        "endLine": 585,
+        "endChar": 18
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "366f00b6_a7d4d309",
