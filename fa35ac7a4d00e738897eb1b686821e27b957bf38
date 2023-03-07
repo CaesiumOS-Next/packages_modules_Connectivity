@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eba3b65_2cdd0a8f",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-07T10:19:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58f798ff_448283f7",
+      "range": {
+        "startLine": 414,
+        "startChar": 87,
+        "endLine": 414,
+        "endChar": 89
+      },
+      "revId": "fa35ac7a4d00e738897eb1b686821e27b957bf38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d62c3e1_72a80f25",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-07T09:33:56Z",
       "side": 1,
       "message": "Do you want to also add a comment to explain where this data will be thrown out, and why it can\u0027t be done here ?",
+      "range": {
+        "startLine": 420,
+        "startChar": 20,
+        "endLine": 420,
+        "endChar": 21
+      },
+      "revId": "fa35ac7a4d00e738897eb1b686821e27b957bf38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e0184e3_533e22a5",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-07T10:19:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d62c3e1_72a80f25",
       "range": {
         "startLine": 420,
         "startChar": 20,
