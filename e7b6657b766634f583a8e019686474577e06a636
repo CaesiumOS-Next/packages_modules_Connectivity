@@ -260,6 +260,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5ced003_29802973",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-07T09:18:14Z",
+      "side": 1,
+      "message": "To the question above: Yes but I\u0027m not sure we can say no caller do this anymore consider that they might invoke our hidden methods.\n\nWhat does it mean for mMatchWifiNetworkKeys to contain null ?\nThat means the caller may want to match wifi networks which uses null as their wifi key, which does not make any sense becasue all wifi should have a non-null wifi key.\nGiven that nulls are not never a valid input, and they should not match any given wifiNetworkKey. I think we can leave it as is for now, since it won\u0027t match any non-null wifiNetworkKey, and if wifiNetworkKey is null, we simply return true at l.585 if it is wildcard case.",
+      "parentUuid": "4723b2e1_4b8282d9",
+      "range": {
+        "startLine": 588,
+        "startChar": 44,
+        "endLine": 588,
+        "endChar": 65
+      },
+      "revId": "e7b6657b766634f583a8e019686474577e06a636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be4a733f_529f2127",
