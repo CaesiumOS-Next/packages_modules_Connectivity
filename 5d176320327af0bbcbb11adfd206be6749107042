@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f1a300d_f1f97774",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10651,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-07T09:36:55Z",
+      "side": 0,
+      "message": "Thinking of this now : can we require that either the network has TRANSPORT_TEST, or that one of the underlying networks has TRANSPORT_TEST ? I think this should account for both the VPN and VCN case.",
+      "range": {
+        "startLine": 10647,
+        "startChar": 8,
+        "endLine": 10651,
+        "endChar": 0
+      },
+      "revId": "5d176320327af0bbcbb11adfd206be6749107042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
