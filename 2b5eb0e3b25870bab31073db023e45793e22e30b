@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bffb256d_199cdbb9",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-07T09:43:04Z",
+      "side": 1,
+      "message": "I don\u0027t think they really risk becoming the default – rather, they might match existing callbacks and cause existing apps to try using them explicitly.",
+      "range": {
+        "startLine": 719,
+        "startChar": 19,
+        "endLine": 719,
+        "endChar": 44
+      },
+      "revId": "2b5eb0e3b25870bab31073db023e45793e22e30b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64783e3a_63fa5588",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-07T09:43:04Z",
+      "side": 1,
+      "message": "Set.of(...)",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 0
+      },
+      "revId": "2b5eb0e3b25870bab31073db023e45793e22e30b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
