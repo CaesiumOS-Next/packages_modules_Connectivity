@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3cf1819_f684a711",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-07T11:24:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ecc83d4_3c3841af",
+      "revId": "54764d82645a036a356ecdb27f2a608096d2dfc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8263959_c862f2b4",
@@ -52,6 +70,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c7cf6e8_9631a6fa",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-07T11:24:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8263959_c862f2b4",
+      "revId": "54764d82645a036a356ecdb27f2a608096d2dfc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50ac3f6d_1565645d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-07T11:24:51Z",
+      "side": 1,
+      "message": "Yes, I think so. If the network is null, suppose that would be single network for each service type (use MdnsSocketClient) instead of multiple networks.",
+      "parentUuid": "12855661_48b914c1",
+      "revId": "54764d82645a036a356ecdb27f2a608096d2dfc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4ddea57_2f4f9caf",
@@ -65,6 +119,30 @@
       "writtenOn": "2023-03-07T05:56:01Z",
       "side": 1,
       "message": "This should probably take the Network as argument too, to avoid sending callbacks to unrelated requests",
+      "range": {
+        "startLine": 210,
+        "startChar": 96,
+        "endLine": 210,
+        "endChar": 97
+      },
+      "revId": "54764d82645a036a356ecdb27f2a608096d2dfc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8e77e44_d56a8dd4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-07T11:24:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4ddea57_2f4f9caf",
       "range": {
         "startLine": 210,
         "startChar": 96,
@@ -98,6 +176,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf979810_726d1579",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-07T11:24:51Z",
+      "side": 1,
+      "message": "Yeah, this should be listeners.isEmpty().",
+      "parentUuid": "d127ac6e_544c02fd",
+      "range": {
+        "startLine": 193,
+        "startChar": 23,
+        "endLine": 193,
+        "endChar": 28
+      },
+      "revId": "54764d82645a036a356ecdb27f2a608096d2dfc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0a240ae_557b3ca8",
@@ -111,6 +213,30 @@
       "writtenOn": "2023-03-07T05:56:01Z",
       "side": 1,
       "message": "mockNetwork ? Shouldn\u0027t most tests use that instead of null ?",
+      "range": {
+        "startLine": 738,
+        "startChar": 30,
+        "endLine": 738,
+        "endChar": 34
+      },
+      "revId": "54764d82645a036a356ecdb27f2a608096d2dfc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2d3b887_391eee0c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-07T11:24:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0a240ae_557b3ca8",
       "range": {
         "startLine": 738,
         "startChar": 30,
