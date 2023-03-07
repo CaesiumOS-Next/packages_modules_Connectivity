@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71fd65d5_dcbc12fb",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-07T12:35:20Z",
+      "side": 1,
+      "message": "The useragent is a property of the engine. I think these should go into the HttpEngine class.",
+      "revId": "9ac55c9d2e5fa7b14f464b38f45302e9cb7cafad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
