@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_ACK;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 import static com.android.testutils.ContextUtils.mockService;
 
 import static org.junit.Assert.assertEquals;
@@ -43,8 +45,13 @@ import android.net.TetheringManager.TetheringEventCallback;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.system.OsConstants;
 
 import com.android.net.module.util.ArrayTrackRecord;
+import com.android.net.module.util.netlink.NetlinkConstants;
+import com.android.net.module.util.netlink.RtNetlinkAddressMessage;
+import com.android.net.module.util.netlink.StructIfaddrMsg;
+import com.android.net.module.util.netlink.StructNlMsgHdr;
 import com.android.server.connectivity.mdns.MdnsSocketProvider.Dependencies;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -58,6 +65,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
+import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.util.Collections;
 import java.util.List;
 
@@ -67,11 +76,16 @@ public class MdnsSocketProviderTest {
     private static final String TEST_IFACE_NAME = "test";
     private static final String LOCAL_ONLY_IFACE_NAME = "local_only";
     private static final String TETHERED_IFACE_NAME = "tethered";
+    private static final int TETHERED_IFACE_IDX = 32;
     private static final long DEFAULT_TIMEOUT = 2000L;
     private static final long NO_CALLBACK_TIMEOUT = 200L;
     private static final LinkAddress LINKADDRV4 = new LinkAddress("192.0.2.0/24");
     private static final LinkAddress LINKADDRV6 =
             new LinkAddress("2001:0db8:85a3:0000:0000:8a2e:0370:7334/64");
+
+    private static final LinkAddress LINKADDRV6_UPDATED =
+            new LinkAddress("2001:0db8:85a3:0000:0000:8a2e:0370:7334/64", 1 /* flags */,
+                    0 /* scope */);
     private static final Network TEST_NETWORK = new Network(123);
     private static final Network LOCAL_NETWORK = new Network(INetd.LOCAL_NET_ID);
 
@@ -86,6 +100,7 @@ public class MdnsSocketProviderTest {
     private MdnsSocketProvider mSocketProvider;
     private NetworkCallback mNetworkCallback;
     private TetheringEventCallback mTetheringEventCallback;
+    private MdnsSocketProvider.NetLinkMonitorCallBack mNetLinkMonitorCallBack;
 
     @Before
     public void setUp() throws IOException {
@@ -107,10 +122,17 @@ public class MdnsSocketProviderTest {
         doReturn(mTetheredIfaceWrapper).when(mDeps).getNetworkInterfaceByName(TETHERED_IFACE_NAME);
         doReturn(mock(MdnsInterfaceSocket.class))
                 .when(mDeps).createMdnsInterfaceSocket(any(), anyInt(), any(), any());
+        doReturn(TETHERED_IFACE_IDX).when(mDeps).getNetworkInterfaceIndexByName(
+                TETHERED_IFACE_NAME);
         final HandlerThread thread = new HandlerThread("MdnsSocketProviderTest");
         thread.start();
         mHandler = new Handler(thread.getLooper());
+        doCallRealMethod().when(mDeps).createSocketNetlinkMonitor(any(), any());
         mSocketProvider = new MdnsSocketProvider(mContext, thread.getLooper(), mDeps);
+        final ArgumentCaptor<MdnsSocketProvider.NetLinkMonitorCallBack> netLinkCb =
+                ArgumentCaptor.forClass(MdnsSocketProvider.NetLinkMonitorCallBack.class);
+        verify(mDeps).createSocketNetlinkMonitor(any(), netLinkCb.capture());
+        mNetLinkMonitorCallBack = netLinkCb.getValue();
     }
 
     private void startMonitoringSockets() {
@@ -126,6 +148,9 @@ public class MdnsSocketProviderTest {
 
         mNetworkCallback = nwCallbackCaptor.getValue();
         mTetheringEventCallback = teCallbackCaptor.getValue();
+
+        mHandler.post(mSocketProvider::startNetLinkMonitor);
+        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
     }
 
     private class TestSocketCallback implements MdnsSocketProvider.SocketCallback {
@@ -277,6 +302,84 @@ public class MdnsSocketProviderTest {
         testCallback2.expectedNoCallback();
         // Expect the socket destroy for tethered interface.
         testCallback3.expectedInterfaceDestroyedForNetwork(LOCAL_NETWORK);
+    }
+
+    private RtNetlinkAddressMessage createNetworkAddressUpdateNetLink(
+            short msgType, LinkAddress linkAddress, int ifIndex, int flags) {
+        final StructNlMsgHdr nlmsghdr = new StructNlMsgHdr();
+        nlmsghdr.nlmsg_type = msgType;
+        nlmsghdr.nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK;
+        nlmsghdr.nlmsg_seq = 1;
+
+        InetAddress ip = linkAddress.getAddress();
+
+        final byte family =
+                (byte) ((ip instanceof Inet6Address) ? OsConstants.AF_INET6 : OsConstants.AF_INET);
+        StructIfaddrMsg structIfaddrMsg = new StructIfaddrMsg(family,
+                (short) linkAddress.getPrefixLength(),
+                (short) linkAddress.getFlags(), (short) linkAddress.getScope(), ifIndex);
+
+        return new RtNetlinkAddressMessage(nlmsghdr, structIfaddrMsg, ip,
+                null /* structIfacacheInfo */, flags);
+    }
+
+    @Test
+    public void testDownstreamNetworkAddressUpdateFromNetlink() {
+        startMonitoringSockets();
+        final TestSocketCallback testCallbackAll = new TestSocketCallback();
+        mHandler.post(() -> mSocketProvider.requestSocket(null /* network */, testCallbackAll));
+        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
+
+        // Address add message arrived before the interface is created.
+        RtNetlinkAddressMessage addIpv4AddrMsg = createNetworkAddressUpdateNetLink(
+                NetlinkConstants.RTM_NEWADDR,
+                LINKADDRV4,
+                TETHERED_IFACE_IDX,
+                0 /* flags */);
+        mHandler.post(
+                () ->  mNetLinkMonitorCallBack.processRtNetlinkAddressMessage(addIpv4AddrMsg));
+        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
+
+        // Interface is created.
+        mHandler.post(() -> mTetheringEventCallback.onTetheredInterfacesChanged(
+                List.of(TETHERED_IFACE_NAME)));
+        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
+        verify(mTetheredIfaceWrapper).getNetworkInterface();
+        testCallbackAll.expectedSocketCreatedForNetwork(LOCAL_NETWORK, List.of(LINKADDRV4));
+
+        // Old Address removed.
+        RtNetlinkAddressMessage removeIpv4AddrMsg = createNetworkAddressUpdateNetLink(
+                NetlinkConstants.RTM_DELADDR,
+                LINKADDRV4,
+                TETHERED_IFACE_IDX,
+                0 /* flags */);
+        mHandler.post(
+                () ->  mNetLinkMonitorCallBack.processRtNetlinkAddressMessage(removeIpv4AddrMsg));
+        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
+        testCallbackAll.expectedAddressesChangedForNetwork(LOCAL_NETWORK, List.of());
+
+        // New address added.
+        RtNetlinkAddressMessage addIpv6AddrMsg = createNetworkAddressUpdateNetLink(
+                NetlinkConstants.RTM_NEWADDR,
+                LINKADDRV6,
+                TETHERED_IFACE_IDX,
+                0 /* flags */);
+        mHandler.post(
+                () ->  mNetLinkMonitorCallBack.processRtNetlinkAddressMessage(addIpv6AddrMsg));
+        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
+        testCallbackAll.expectedAddressesChangedForNetwork(LOCAL_NETWORK, List.of(LINKADDRV6));
+
+        // Address updated
+        RtNetlinkAddressMessage updateIpv6AddrMsg = createNetworkAddressUpdateNetLink(
+                NetlinkConstants.RTM_NEWADDR,
+                LINKADDRV6,
+                TETHERED_IFACE_IDX,
+                1 /* flags */);
+        mHandler.post(
+                () ->  mNetLinkMonitorCallBack.processRtNetlinkAddressMessage(updateIpv6AddrMsg));
+        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
+        testCallbackAll.expectedAddressesChangedForNetwork(LOCAL_NETWORK,
+                List.of(LINKADDRV6_UPDATED));
     }
 
     @Test
