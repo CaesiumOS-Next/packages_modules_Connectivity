@@ -321,11 +321,18 @@ public class TetheringService extends Service {
     @VisibleForTesting
     public TetheringDependencies makeTetheringDependencies() {
         return new TetheringDependencies() {
+            final HandlerThread mTetherThread = new HandlerThread("android.tethering");
+
+            @Override
+            public Thread getTetheringThread() {
+                return mTetherThread;
+            }
+
             @Override
             public Looper getTetheringLooper() {
-                final HandlerThread tetherThread = new HandlerThread("android.tethering");
-                tetherThread.start();
-                return tetherThread.getLooper();
+                if (!mTetherThread.isAlive()) mTetherThread.start();
+
+                return mTetherThread.getLooper();
             }
 
             @Override

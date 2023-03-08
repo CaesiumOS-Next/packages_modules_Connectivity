@@ -133,6 +133,9 @@ public abstract class TetheringDependencies {
      */
     public abstract Looper getTetheringLooper();
 
+    /** Get the thread which tethering running on. */
+    public abstract Thread getTetheringThread();
+
     /**
      *  Get Context of TetheringSerice.
      */
