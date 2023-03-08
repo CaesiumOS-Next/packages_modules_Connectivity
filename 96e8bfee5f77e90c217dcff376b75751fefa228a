@@ -22,6 +22,30 @@
       },
       "revId": "96e8bfee5f77e90c217dcff376b75751fefa228a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "234c05be_5570934c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 7021,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-08T04:13:04Z",
+      "side": 1,
+      "message": "https://developer.android.com/reference/android/content/pm/PackageManager.Property#getResourceId()\n\n```\nIf the property is not of a resource id type, returns 0.\n\n```\n\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/content/pm/PackageManager.java;l\u003d238?q\u003dProperty%20getResourceId\n\nAre you referring to they are not set the property with TYPE_RESOURCE? Or there is not property set at all?",
+      "parentUuid": "5fb3a5a3_9c27cbd5",
+      "range": {
+        "startLine": 7021,
+        "startChar": 36,
+        "endLine": 7021,
+        "endChar": 72
+      },
+      "revId": "96e8bfee5f77e90c217dcff376b75751fefa228a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
