@@ -2810,8 +2810,8 @@ public class Tethering {
                 Log.wtf(TAG, "Unknown interface state: " + state);
                 return;
         }
-        mTetherMainSM.sendMessage(which, state, 0, who);
         sendTetherStateChangedBroadcast();
+        mTetherMainSM.sendMessage(which, state, 0, who);
     }
 
     private void notifyLinkPropertiesChanged(IpServer who, LinkProperties newLp) {
