@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91b87ebf_442c759d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-08T09:21:22Z",
+      "side": 1,
+      "message": "The comment should say that this is checking that the new backend is in use (because the old one doesn\u0027t do this correctly).",
+      "range": {
+        "startLine": 517,
+        "startChar": 12,
+        "endLine": 517,
+        "endChar": 29
+      },
+      "revId": "d89289b31f89c1d40344f26a09008f955236e1fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
