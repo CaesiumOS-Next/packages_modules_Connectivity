@@ -35,6 +35,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f26973ca_a3f31f53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-08T10:00:57Z",
+      "side": 1,
+      "message": "Failures are unrelated:\ntestInternetNetworkRateLimitInBytesPerSecond: known failure as per b/271947547\ntestMobileDataPreferredUids: known failure as per b/261809933\ntestUidsAllowedOnRestrictedNetworks: known failure as per b/260567036\ntestIngressRateLimit_testSetting : known failure as per b/271945400",
+      "revId": "30bd70d168160c0de177ca29718d381bbc75fa98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09050308_d20e1c84",
