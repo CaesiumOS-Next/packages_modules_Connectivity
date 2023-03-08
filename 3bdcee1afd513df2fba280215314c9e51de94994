@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86299932_9773075f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-08T06:06:15Z",
+      "side": 1,
+      "message": "Right, but I still need this check otherwise Kotlin will think it\u0027s a Network? and not a Network",
+      "parentUuid": "ce076a60_77874fc4",
+      "range": {
+        "startLine": 381,
+        "startChar": 39,
+        "endLine": 381,
+        "endChar": 85
+      },
+      "revId": "3bdcee1afd513df2fba280215314c9e51de94994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18377861_9c5bbf3f",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-20T13:05:12Z",
       "side": 1,
       "message": "Check the network is not null here?",
+      "range": {
+        "startLine": 403,
+        "startChar": 12,
+        "endLine": 403,
+        "endChar": 19
+      },
+      "revId": "3bdcee1afd513df2fba280215314c9e51de94994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0791cf3d_0ec97b95",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-08T06:06:15Z",
+      "side": 1,
+      "message": "Actually agent.register() is marked @NonNull, so Kotlin assumes that it\u0027s not a nullable type",
+      "parentUuid": "18377861_9c5bbf3f",
       "range": {
         "startLine": 403,
         "startChar": 12,
