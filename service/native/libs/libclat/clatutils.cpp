@@ -33,11 +33,9 @@ namespace android {
 namespace net {
 namespace clat {
 
-bool isIpv4AddressFree(in_addr_t addr) {
-    int s = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-    if (s == -1) {
-        return 0;
-    }
+bool isIpv4AddressFree(const in_addr_t addr) {
+    const int s = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    if (s == -1) return 0;
 
     // Attempt to connect to the address. If the connection succeeds and getsockname returns the
     // same then the address is already assigned to the system and we can't use it.
@@ -47,8 +45,9 @@ bool isIpv4AddressFree(in_addr_t addr) {
             .sin_addr = {addr},
     };
     socklen_t len = sizeof(sin);
-    bool inuse = connect(s, (struct sockaddr*)&sin, sizeof(sin)) == 0 &&
-                 getsockname(s, (struct sockaddr*)&sin, &len) == 0 && (size_t)len >= sizeof(sin) &&
+    bool inuse = !connect(s, (struct sockaddr*)&sin, sizeof(sin)) &&
+                 !getsockname(s, (struct sockaddr*)&sin, &len) &&
+                 len == (socklen_t)sizeof(sin) &&
                  sin.sin_addr.s_addr == addr;
 
     close(s);
@@ -118,18 +117,18 @@ void makeChecksumNeutral(in6_addr* v6, const in_addr v4, const in6_addr& nat64Pr
 }
 
 // Picks a random interface ID that is checksum neutral with the IPv4 address and the NAT64 prefix.
-int generateIpv6Address(const char* iface, const in_addr v4, const in6_addr& nat64Prefix,
-                        in6_addr* v6, uint32_t mark) {
-    int s = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+int generateIpv6Address(const char* const iface, const in_addr v4, const in6_addr& nat64Prefix,
+                        in6_addr* const v6, const uint32_t mark) {
+    const int s = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
     if (s == -1) return -errno;
 
     // Socket's mark affects routing decisions (network selection)
     // An fwmark is necessary for clat to bypass the VPN during initialization.
     if (setsockopt(s, SOL_SOCKET, SO_MARK, &mark, sizeof(mark))) {
-        int ret = errno;
-        ALOGE("setsockopt(SOL_SOCKET, SO_MARK) failed: %s", strerror(errno));
+        const int err = errno;
+        ALOGE("setsockopt(SOL_SOCKET, SO_MARK) failed: %s", strerror(err));
         close(s);
-        return -ret;
+        return -err;
     }
 
     if (setsockopt(s, SOL_SOCKET, SO_BINDTODEVICE, iface, strlen(iface) + 1) == -1) {
@@ -163,21 +162,21 @@ int generateIpv6Address(const char* iface, const in_addr v4, const in6_addr& nat
     return 0;
 }
 
-int detect_mtu(const struct in6_addr* plat_subnet, uint32_t plat_suffix, uint32_t mark) {
+int detect_mtu(const struct in6_addr* const plat_subnet, const uint32_t plat_suffix, const uint32_t mark) {
     // Create an IPv6 UDP socket.
-    int s = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    const int s = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
     if (s < 0) {
-        int ret = errno;
-        ALOGE("socket(AF_INET6, SOCK_DGRAM, 0) failed: %s", strerror(errno));
-        return -ret;
+        const int err = errno;
+        ALOGE("socket(AF_INET6, SOCK_DGRAM, 0) failed: %s", strerror(err));
+        return -err;
     }
 
     // Socket's mark affects routing decisions (network selection)
     if (setsockopt(s, SOL_SOCKET, SO_MARK, &mark, sizeof(mark))) {
-        int ret = errno;
-        ALOGE("setsockopt(SOL_SOCKET, SO_MARK) failed: %s", strerror(errno));
+        const int err = errno;
+        ALOGE("setsockopt(SOL_SOCKET, SO_MARK) failed: %s", strerror(err));
         close(s);
-        return -ret;
+        return -err;
     }
 
     // Try to connect udp socket to plat_subnet(96 bits):plat_suffix(32 bits)
@@ -187,20 +186,20 @@ int detect_mtu(const struct in6_addr* plat_subnet, uint32_t plat_suffix, uint32_
     };
     dst.sin6_addr.s6_addr32[3] = plat_suffix;
     if (connect(s, (struct sockaddr*)&dst, sizeof(dst))) {
-        int ret = errno;
-        ALOGE("connect() failed: %s", strerror(errno));
+        const int err = errno;
+        ALOGE("connect() failed: %s", strerror(err));
         close(s);
-        return -ret;
+        return -err;
     }
 
     // Fetch the socket's IPv6 mtu - this is effectively fetching mtu from routing table
     int mtu;
     socklen_t sz_mtu = sizeof(mtu);
     if (getsockopt(s, SOL_IPV6, IPV6_MTU, &mtu, &sz_mtu)) {
-        int ret = errno;
-        ALOGE("getsockopt(SOL_IPV6, IPV6_MTU) failed: %s", strerror(errno));
+        const int err = errno;
+        ALOGE("getsockopt(SOL_IPV6, IPV6_MTU) failed: %s", strerror(err));
         close(s);
-        return -ret;
+        return -err;
     }
     if (sz_mtu != sizeof(mtu)) {
         ALOGE("getsockopt(SOL_IPV6, IPV6_MTU) returned unexpected size: %d", sz_mtu);
@@ -220,33 +219,45 @@ int detect_mtu(const struct in6_addr* plat_subnet, uint32_t plat_suffix, uint32_
  * returns: 0 on success, -errno on failure
  */
 int configure_packet_socket(int sock, in6_addr* addr, int ifindex) {
-    uint32_t* ipv6 = addr->s6_addr32;
+
+// Accept the full packet
+#define BPF_ACCEPT BPF_STMT(BPF_RET | BPF_K, 0xFFFFFFFF)
+
+// Reject the packet
+#define BPF_REJECT BPF_STMT(BPF_RET | BPF_K, 0)
+
+// *TWO* instructions: compare and if equal jump over the reject statement
+#define BPF_REJECT_IF_NOT_EQUAL(v) \
+	BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, (v), 1, 0), \
+	BPF_REJECT
+
+// Big/Network Endian 32-bit load relative to start of network (IPv4/IPv6) header.
+#define BPF_LOAD_NET_RELATIVE_BE32(ofs) \
+	BPF_STMT(BPF_LD | BPF_W | BPF_ABS, SKF_NET_OFF + (ofs))
+
+// Big/Network Endian 32-bit load from IPv6 header field.
+#define BPF_LOAD_IPV6_BE32(field) \
+	BPF_LOAD_NET_RELATIVE_BE32(offsetof(ipv6hdr, field))
 
     // clang-format off
     struct sock_filter filter_code[] = {
-    // Load the first four bytes of the IPv6 destination address (starts 24 bytes in).
-    // Compare it against the first four bytes of our IPv6 address, in host byte order (BPF loads
-    // are always in host byte order). If it matches, continue with next instruction (JMP 0). If it
-    // doesn't match, jump ahead to statement that returns 0 (ignore packet). Repeat for the other
-    // three words of the IPv6 address, and if they all match, return full packet (accept packet).
-        BPF_STMT(BPF_LD  | BPF_W   | BPF_ABS,  24),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K,    htonl(ipv6[0]), 0, 7),
-        BPF_STMT(BPF_LD  | BPF_W   | BPF_ABS,  28),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K,    htonl(ipv6[1]), 0, 5),
-        BPF_STMT(BPF_LD  | BPF_W   | BPF_ABS,  32),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K,    htonl(ipv6[2]), 0, 3),
-        BPF_STMT(BPF_LD  | BPF_W   | BPF_ABS,  36),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K,    htonl(ipv6[3]), 0, 1),
-        BPF_STMT(BPF_RET | BPF_K,              0xFFFFFFFF),
-        BPF_STMT(BPF_RET | BPF_K,              0),
+        BPF_LOAD_IPV6_BE32(daddr.s6_addr32[0]),
+        BPF_REJECT_IF_NOT_EQUAL(ntohl(addr->s6_addr32[0])),
+        BPF_LOAD_IPV6_BE32(daddr.s6_addr32[1]),
+        BPF_REJECT_IF_NOT_EQUAL(ntohl(addr->s6_addr32[1])),
+        BPF_LOAD_IPV6_BE32(daddr.s6_addr32[2]),
+        BPF_REJECT_IF_NOT_EQUAL(ntohl(addr->s6_addr32[2])),
+        BPF_LOAD_IPV6_BE32(daddr.s6_addr32[3]),
+        BPF_REJECT_IF_NOT_EQUAL(ntohl(addr->s6_addr32[3])),
+        BPF_ACCEPT,
     };
     // clang-format on
     struct sock_fprog filter = {sizeof(filter_code) / sizeof(filter_code[0]), filter_code};
 
     if (setsockopt(sock, SOL_SOCKET, SO_ATTACH_FILTER, &filter, sizeof(filter))) {
-        int res = errno;
-        ALOGE("attach packet filter failed: %s", strerror(errno));
-        return -res;
+        const int err = errno;
+        ALOGE("attach packet filter failed: %s", strerror(err));
+        return -err;
     }
 
     struct sockaddr_ll sll = {
@@ -257,9 +268,9 @@ int configure_packet_socket(int sock, in6_addr* addr, int ifindex) {
                     PACKET_OTHERHOST,  // The 464xlat IPv6 address is not assigned to the kernel.
     };
     if (bind(sock, (struct sockaddr*)&sll, sizeof(sll))) {
-        int res = errno;
-        ALOGE("binding packet socket: %s", strerror(errno));
-        return -res;
+        const int err = errno;
+        ALOGE("binding packet socket: %s", strerror(err));
+        return -err;
     }
 
     return 0;
