@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbcdbab6_89993417",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-08T10:02:40Z",
+      "side": 1,
+      "message": "I think the two tests test a slightly different condition. `testHttpEngine_GetDefaultUserAgent` checks whether a static method of the *builder* returns a value which takes an expected shape. This test verifies that such value is \n\na) actually used as the default in the built HttpEngine, and \nb) that it makes its way to the server. \n\nIn a way, this is more of a test for the request than for the engine but given you argued that the user agent is a property of the engine and the two tests are quite similar, I\u0027m inclined to keep it here. I also don\u0027t think it\u0027s beneficial to delete the test at this point - it already exists and verifies reasonable expectation that wouldn\u0027t be checked otherwise.",
+      "parentUuid": "4ebb950b_ac98eefe",
+      "revId": "b24285756b97c833677ca5885389c19af731b8ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1191492_6d2f836a",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-07T18:13:05Z",
       "side": 1,
       "message": "Rename to `testHttpEngine`",
+      "revId": "b24285756b97c833677ca5885389c19af731b8ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3939a869_9525aabb",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-08T10:02:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1191492_6d2f836a",
       "revId": "b24285756b97c833677ca5885389c19af731b8ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
