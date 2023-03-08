@@ -220,8 +220,11 @@ int detect_mtu(const struct in6_addr* plat_subnet, uint32_t plat_suffix, uint32_
  * returns: 0 on success, -errno on failure
  */
 int configure_packet_socket(int sock, in6_addr* addr, int ifindex) {
-    uint32_t* ipv6 = addr->s6_addr32;
 
+#define BPF_ACCEPT BPF_STMT(BPF_RET | BPF_K, 0xFFFFFFFF)
+#define BPF_REJECT BPF_STMT(BPF_RET | BPF_K, 0)
+#define BPF_REJECT_UNLESS_EQUAL(v) BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, v, 1, 0), BPF_REJECT
+#define BPF_LOAD_NET32(ofs) BPF_STMT(BPF_LD | BPF_W | BPF_ABS, SKF_NET_OFF + (ofs))
     // clang-format off
     struct sock_filter filter_code[] = {
     // Load the first four bytes of the IPv6 destination address (starts 24 bytes in).
@@ -229,16 +232,15 @@ int configure_packet_socket(int sock, in6_addr* addr, int ifindex) {
     // are always in host byte order). If it matches, continue with next instruction (JMP 0). If it
     // doesn't match, jump ahead to statement that returns 0 (ignore packet). Repeat for the other
     // three words of the IPv6 address, and if they all match, return full packet (accept packet).
-        BPF_STMT(BPF_LD  | BPF_W   | BPF_ABS,  24),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K,    htonl(ipv6[0]), 0, 7),
-        BPF_STMT(BPF_LD  | BPF_W   | BPF_ABS,  28),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K,    htonl(ipv6[1]), 0, 5),
-        BPF_STMT(BPF_LD  | BPF_W   | BPF_ABS,  32),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K,    htonl(ipv6[2]), 0, 3),
-        BPF_STMT(BPF_LD  | BPF_W   | BPF_ABS,  36),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K,    htonl(ipv6[3]), 0, 1),
-        BPF_STMT(BPF_RET | BPF_K,              0xFFFFFFFF),
-        BPF_STMT(BPF_RET | BPF_K,              0),
+        BPF_LOAD_NET32(offsetof(ipv6hdr, daddr) + 0),
+        BPF_REJECT_UNLESS_EQUAL(ntohl(addr->s6_addr32[0])),
+        BPF_LOAD_NET32(offsetof(ipv6hdr, daddr.s6_addr32[1]) + 4),
+        BPF_REJECT_UNLESS_EQUAL(ntohl(addr->s6_addr32[1])),
+        BPF_LOAD_NET32(offsetof(ipv6hdr, daddr) + 8),
+        BPF_REJECT_UNLESS_EQUAL(ntohl(addr->s6_addr32[2])),
+        BPF_LOAD_NET32(offsetof(ipv6hdr, daddr) + 12),
+        BPF_REJECT_UNLESS_EQUAL(ntohl(addr->s6_addr32[3])),
+        BPF_ACCEPT,
     };
     // clang-format on
     struct sock_fprog filter = {sizeof(filter_code) / sizeof(filter_code[0]), filter_code};
