@@ -296,6 +296,7 @@ public class Tethering {
         mDeps = deps;
         mContext = mDeps.getContext();
         mNetd = mDeps.getINetd(mContext);
+        mDeps.startTetheringThread();
         mLooper = mDeps.getTetheringLooper();
         mNotificationUpdater = mDeps.getNotificationUpdater(mContext, mLooper);
         mTetheringMetrics = mDeps.getTetheringMetrics();

@@ -493,6 +493,11 @@ public class TetheringTest {
         }
 
         @Override
+        public Thread getTetheringThread() {
+            return Thread.currentThread();
+        }
+
+        @Override
         public Looper getTetheringLooper() {
             return mLooper.getLooper();
         }
