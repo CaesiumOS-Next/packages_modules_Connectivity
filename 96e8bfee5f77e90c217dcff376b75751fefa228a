@@ -46,6 +46,30 @@
       },
       "revId": "96e8bfee5f77e90c217dcff376b75751fefa228a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a01d3981_8ecbfab5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 7021,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-08T04:21:32Z",
+      "side": 1,
+      "message": "I think there different cases here:\n1. Property not exist at all, it will thrown PackageManager.NameNotFoundException and be handled by the security exception.\n2. If the property exist, but don\u0027t have proper resource set. The getXml() call will throw the NotFoundException(https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/content/res/Resources.java;l\u003d2509;drc\u003d5ca657189aac546af0aafaba11bbc9c5d889eab3?q\u003dResources%20getXml), therefore,the parser is not created.",
+      "parentUuid": "234c05be_5570934c",
+      "range": {
+        "startLine": 7021,
+        "startChar": 36,
+        "endLine": 7021,
+        "endChar": 72
+      },
+      "revId": "96e8bfee5f77e90c217dcff376b75751fefa228a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
