@@ -58,6 +58,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e74ace_098049ba",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-08T06:28:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9f37ca83_47943fbd",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aac009d5_db3804a2",
@@ -71,6 +89,24 @@
       "writtenOn": "2023-02-28T09:28:37Z",
       "side": 1,
       "message": "Can you factor this out to a method in the base MdnsListener class ? It looks like you just need to do:\n\n - If service name !\u003d null, filter by name (maybe replace mReqServiceInfo with 2 strings for type/name, as the ServiceInfo is provided by clients and may have a name even for discovery)\n - Call sendMessage taking the message (SERVICE_UPDATED, RESOLVE_SERVICE_SUCCEEDED...) as argument\n\nThis and the 2 classes above repeat the same code a number of times",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2f1a787_49a7bf7e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-08T06:28:19Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "aac009d5_db3804a2",
       "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -94,6 +130,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dff8a2e2_ccfdd29a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-08T06:28:19Z",
+      "side": 1,
+      "message": "Not exactly. It\u0027s compatible with old behavior. Separate this change to another CL and add some comments there.",
+      "parentUuid": "983f4a1e_d66e3f7b",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfad680d_3198f59e",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 3
@@ -105,6 +159,24 @@
       "writtenOn": "2023-02-28T09:28:37Z",
       "side": 1,
       "message": "If you put the `[\\\\.]?` outside of the parenthesis (2nd capture group) in the regex, and return `matcher.group(2)` instead of `serviceType` when `matcher.group(1) \u003d\u003d null`, you don\u0027t need to do this since the return value won\u0027t end with a dot.\n\nThis makes the return value of constructServiceType more consistent so there\u0027s less cases to consider in the rest of the code.",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "579fe032_ba5ebe69",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-08T06:28:19Z",
+      "side": 1,
+      "message": "Done in aosp/2468385",
+      "parentUuid": "bfad680d_3198f59e",
       "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -128,6 +200,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b1a65570_652585e3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-08T06:28:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c48e3065_3b5b1ee0",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "22ec8b29_249f7a01",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 3
@@ -139,6 +229,24 @@
       "writtenOn": "2023-02-28T09:28:37Z",
       "side": 1,
       "message": "Note I filed b/271067818 to go over the query timing",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f1e8d45_9e21bb8c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-08T06:28:19Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "22ec8b29_249f7a01",
       "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -156,6 +264,24 @@
       "writtenOn": "2023-02-28T09:28:37Z",
       "side": 1,
       "message": "This is a bit confusing because it suggests that this can happen, but I think SERVICE_UPDATED shouldn\u0027t be called if there\u0027s no address. SERVICE_UPDATED_LOST should be called instead if the service previously had addresses (I think it\u0027s not done today but that\u0027s a bug: https://b.corp.google.com/issues/266030646#comment3).\n\nIn any case I think you can remove this check as it shouldn\u0027t happen",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6dd8730_1f145051",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-08T06:28:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "27a6c6ad_2795fe98",
       "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -179,6 +305,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d85496b1_55412452",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-08T06:28:19Z",
+      "side": 1,
+      "message": "I don\u0027t think this part can spearate to another change because NsdServiceInfo contains all addresses in one service update callback now.",
+      "parentUuid": "473b6ab2_d2598d60",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8c7972a0_2b38e06d",
         "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
         "patchSetId": 3
@@ -190,6 +334,30 @@
       "writtenOn": "2023-02-28T09:28:37Z",
       "side": 1,
       "message": "Typo: unregistration",
+      "range": {
+        "startLine": 784,
+        "startChar": 35,
+        "endLine": 784,
+        "endChar": 48
+      },
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9038c5e_47043fcb",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-08T06:28:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c7972a0_2b38e06d",
       "range": {
         "startLine": 784,
         "startChar": 35,
