@@ -112,8 +112,9 @@ package android.net.http {
     method @NonNull public abstract java.util.Map<java.lang.String,java.util.List<java.lang.String>> getAsMap();
   }
 
-  public abstract class HttpEngine {
+  public abstract class HttpEngine implements java.lang.AutoCloseable {
     method public void bindToNetwork(@Nullable android.net.Network);
+    method public void close();
     method @NonNull public abstract java.net.URLStreamHandlerFactory createUrlStreamHandlerFactory();
     method @NonNull public static String getVersionString();
     method @NonNull public abstract android.net.http.BidirectionalStream.Builder newBidirectionalStreamBuilder(@NonNull String, @NonNull java.util.concurrent.Executor, @NonNull android.net.http.BidirectionalStream.Callback);
