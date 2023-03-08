@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "add97cd4_d781a7ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-08T10:50:31Z",
+      "side": 1,
+      "message": "LGTM. But see my comment that can cause conflict.",
+      "revId": "d2e51a87c13ceb1d3c2729d0886800f0adcbf0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d25b44a_8ef48236",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-08T10:50:31Z",
+      "side": 1,
+      "message": "MdnsServiceTypeClient will have a network argument after aosp/2440003 merged. Either this commit or aosp/2440003 need to rebase on each other.",
+      "range": {
+        "startLine": 996,
+        "startChar": 8,
+        "endLine": 996,
+        "endChar": 98
+      },
+      "revId": "d2e51a87c13ceb1d3c2729d0886800f0adcbf0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
