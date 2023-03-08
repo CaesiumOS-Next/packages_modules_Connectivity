@@ -21,6 +21,7 @@ import android.os.Looper;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
+import com.android.networkstack.tethering.TetheringDependencies;
 import com.android.networkstack.tethering.util.SyncStateMachine.StateInfo;
 
 import java.util.List;
@@ -43,7 +44,20 @@ public class StateMachineShim {
         }
     }
 
-    // TODO: adding construtor for mainSM which create before tethering thread started.
+    // This is used for mainSM. If useSyncSM is true, creating syncSM with unstarted tethering
+    // thread. Otherwise, creating asyncSM with tethering looper which will start tethering thread
+    // at this moment.
+    public StateMachineShim(final String name, final TetheringDependencies deps,
+            final boolean useSyncSM) {
+        mUseSyncSM = useSyncSM;
+        if (useSyncSM) {
+            mAsyncSM = null;
+            mSyncSM = new SyncStateMachine(name, deps.getTetheringThread());
+        } else {
+            mAsyncSM = new AsyncStateMachine(name, deps.getTetheringLooper());
+            mSyncSM = null;
+        }
+    }
 
     @VisibleForTesting
     public StateMachineShim(final StateMachine async, final SyncStateMachine sync) {
