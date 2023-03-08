@@ -26,23 +26,23 @@ BUILDFLAGS_TARGET = '//gn:gen_buildflags'
 GEN_VERSION_TARGET = '//src/base:version_gen_h'
 LINKER_UNIT_TYPES = ('executable', 'shared_library', 'static_library', 'source_set')
 JAVA_BANNED_SCRIPTS = [
-    "//build/android/gyp/turbine.py",
-    "//build/android/gyp/compile_java.py",
-    "//build/android/gyp/filter_zip.py",
-    "//build/android/gyp/dex.py",
-    "//build/android/gyp/write_build_config.py",
-    "//build/android/gyp/create_r_java.py",
-    "//build/android/gyp/ijar.py",
-    "//build/android/gyp/create_r_java.py",
-    "//build/android/gyp/bytecode_processor.py",
-    "//build/android/gyp/prepare_resources.py",
-    "//build/android/gyp/aar.py",
-    "//build/android/gyp/zip.py",
+  "//build/android/gyp/turbine.py",
+  "//build/android/gyp/compile_java.py",
+  "//build/android/gyp/filter_zip.py",
+  "//build/android/gyp/dex.py",
+  "//build/android/gyp/write_build_config.py",
+  "//build/android/gyp/create_r_java.py",
+  "//build/android/gyp/ijar.py",
+  "//build/android/gyp/create_r_java.py",
+  "//build/android/gyp/bytecode_processor.py",
+  "//build/android/gyp/prepare_resources.py",
+  "//build/android/gyp/aar.py",
+  "//build/android/gyp/zip.py",
 ]
 # TODO(primiano): investigate these, they require further componentization.
 ODR_VIOLATION_IGNORE_TARGETS = {
-    '//test/cts:perfetto_cts_deps',
-    '//:perfetto_integrationtests',
+  '//test/cts:perfetto_cts_deps',
+  '//:perfetto_integrationtests',
 }
 ARCH_REGEX = r'(android_x86_64|android_x86|android_arm|android_arm64|host)'
 RESPONSE_FILE = '{{response_file_name}}'
@@ -52,7 +52,7 @@ AIDL_INCLUDE_DIRS_REGEX = r'--includes=\[(.*)\]'
 def repo_root():
   """Returns an absolute path to the repository root."""
   return os.path.join(
-      os.path.realpath(os.path.dirname(__file__)), os.path.pardir)
+    os.path.realpath(os.path.dirname(__file__)), os.path.pardir)
 
 
 def _clean_string(str):
@@ -96,8 +96,8 @@ def _is_java_source(src):
 
 def is_java_action(script, outputs):
   return (script != "" and script not in JAVA_BANNED_SCRIPTS) and any(
-      [file.endswith(".srcjar") or file.endswith(".java")
-       for file in outputs])
+    [file.endswith(".srcjar") or file.endswith(".java")
+     for file in outputs])
 
 class GnParser(object):
   """A parser with some cleverness for GN json desc files
@@ -205,16 +205,16 @@ class GnParser(object):
       if isinstance(other, self.__class__):
         return self.name < other.name
       raise TypeError(
-          '\'<\' not supported between instances of \'%s\' and \'%s\'' %
-          (type(self).__name__, type(other).__name__))
+        '\'<\' not supported between instances of \'%s\' and \'%s\'' %
+        (type(self).__name__, type(other).__name__))
 
     def __repr__(self):
       return json.dumps({
-          k: (list(sorted(v)) if isinstance(v, set) else v)
-          for (k, v) in self.__dict__.items()
+        k: (list(sorted(v)) if isinstance(v, set) else v)
+        for (k, v) in self.__dict__.items()
       },
-                        indent=4,
-                        sort_keys=True)
+        indent=4,
+        sort_keys=True)
 
     def update(self, other, arch):
       for key in ('cflags', 'defines', 'deps', 'include_dirs', 'ldflags',
@@ -228,7 +228,7 @@ class GnParser(object):
 
     def _finalize_set_attribute(self, key):
       # Target contains the intersection of arch-dependent properties
-      getattr(self, key)\
+      getattr(self, key) \
         .update(set.intersection(*[getattr(arch, key) for arch in self.arch.values()]))
 
       # Deduplicate arch-dependent properties
@@ -327,7 +327,8 @@ class GnParser(object):
 
     return self.all_targets[label_without_toolchain(gn_target_name)]
 
-  def parse_gn_desc(self, gn_desc, gn_target_name, java_group_name=None, is_test_target=False):
+  def parse_gn_desc(self, gn_desc, gn_target_name, java_group_name=None, is_test_target=False,
+                    collect_java_sources_and_actions=True):
     """Parses a gn desc tree and resolves all target dependencies.
 
         It bubbles up variables from source_set dependencies as described in the
@@ -423,7 +424,8 @@ class GnParser(object):
 
     # Recurse in dependencies.
     for gn_dep_name in desc.get('deps', []):
-      dep = self.parse_gn_desc(gn_desc, gn_dep_name, java_group_name, is_test_target)
+      dep = self.parse_gn_desc(gn_desc, gn_dep_name, java_group_name, is_test_target,
+                               collect_java_sources_and_actions)
       if dep.type == 'proto_library':
         target.proto_deps.add(dep.name)
         target.transitive_proto_deps.add(dep.name)
@@ -464,7 +466,7 @@ class GnParser(object):
         if dep.name.endswith('__compile_java'):
           log.debug('Adding java sources for %s', dep.name)
           java_srcs = [src for src in dep.inputs if _is_java_source(src)]
-          if not is_test_target:
+          if collect_java_sources_and_actions:
             # TODO(aymanm): Fix collecting sources for testing modules for java.
             # Don't collect java source files for test targets.
             # We only need a specific set of java sources which are hardcoded in gen_android_bp
@@ -473,11 +475,11 @@ class GnParser(object):
         # GN uses an action to compile aidl files. However, this is not needed in soong
         # as soong can directly have .aidl files in srcs. So adding .aidl files to the java_sources.
         # TODO: Find a better way/place to do this.
-        if '_aidl' in dep.name:
+        if '_aidl' in dep.name and collect_java_sources_and_actions:
           self.java_sources[java_group_name].update(dep.arch[arch].sources)
           self.aidl_local_include_dirs.update(_extract_includes_from_aidl_args(dep.arch[arch].args))
         else:
-          if not is_test_target:
+          if collect_java_sources_and_actions:
             # TODO(aymanm): Fix collecting actions for testing modules for java.
             # Don't collect java actions for test targets.
             self.java_actions[java_group_name].add(dep.name)

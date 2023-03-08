@@ -51,6 +51,12 @@ DEFAULT_TESTS = [
   '//components/cronet/android:cronet_unittests_android__library',
 ]
 
+# this target is special because it depends on main cronet targets, but we don't want to collect
+# java sources and actions since it is still a test target
+CRONET_TESTS = [
+    '//components/cronet/android:cronet_tests',
+]
+
 EXTRAS_ANDROID_BP_FILE = "Android.extras.bp"
 
 CRONET_API_MODULE_NAME = "cronet_aml_api_java"
@@ -1814,10 +1820,12 @@ def main():
     with open(desc_file) as f:
       desc = json.load(f)
     for target in targets:
-      gn.parse_gn_desc(desc, target)
+        gn.parse_gn_desc(desc, target, is_test_target=False, collect_java_sources_and_actions=True)
+    for target in CRONET_TESTS:
+        gn.parse_gn_desc(desc, target, is_test_target=False, collect_java_sources_and_actions=False)
     for test_target in DEFAULT_TESTS:
-      gn.parse_gn_desc(desc, test_target, is_test_target=True)
-  blueprint = create_blueprint_for_targets(gn, targets, DEFAULT_TESTS)
+        gn.parse_gn_desc(desc, test_target, is_test_target=True, collect_java_sources_and_actions=False)
+  blueprint = create_blueprint_for_targets(gn, targets + CRONET_TESTS, DEFAULT_TESTS)
   project_root = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
   tool_name = os.path.relpath(os.path.abspath(__file__), project_root)
 
