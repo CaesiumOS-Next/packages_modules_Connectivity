@@ -327,7 +327,8 @@ class GnParser(object):
 
     return self.all_targets[label_without_toolchain(gn_target_name)]
 
-  def parse_gn_desc(self, gn_desc, gn_target_name, java_group_name=None, is_test_target=False):
+  def parse_gn_desc(self, gn_desc, gn_target_name, java_group_name=None, is_test_target=False,
+                    collect_java_sources_and_actions=True):
     """Parses a gn desc tree and resolves all target dependencies.
 
         It bubbles up variables from source_set dependencies as described in the
@@ -423,7 +424,8 @@ class GnParser(object):
 
     # Recurse in dependencies.
     for gn_dep_name in desc.get('deps', []):
-      dep = self.parse_gn_desc(gn_desc, gn_dep_name, java_group_name, is_test_target)
+      dep = self.parse_gn_desc(gn_desc, gn_dep_name, java_group_name, is_test_target,
+                               collect_java_sources_and_actions)
       if dep.type == 'proto_library':
         target.proto_deps.add(dep.name)
         target.transitive_proto_deps.add(dep.name)
@@ -464,7 +466,7 @@ class GnParser(object):
         if dep.name.endswith('__compile_java'):
           log.debug('Adding java sources for %s', dep.name)
           java_srcs = [src for src in dep.inputs if _is_java_source(src)]
-          if not is_test_target:
+          if collect_java_sources_and_actions:
             # TODO(aymanm): Fix collecting sources for testing modules for java.
             # Don't collect java source files for test targets.
             # We only need a specific set of java sources which are hardcoded in gen_android_bp
@@ -473,11 +475,11 @@ class GnParser(object):
         # GN uses an action to compile aidl files. However, this is not needed in soong
         # as soong can directly have .aidl files in srcs. So adding .aidl files to the java_sources.
         # TODO: Find a better way/place to do this.
-        if '_aidl' in dep.name:
+        if '_aidl' in dep.name and collect_java_sources_and_actions:
           self.java_sources[java_group_name].update(dep.arch[arch].sources)
           self.aidl_local_include_dirs.update(_extract_includes_from_aidl_args(dep.arch[arch].args))
         else:
-          if not is_test_target:
+          if collect_java_sources_and_actions:
             # TODO(aymanm): Fix collecting actions for testing modules for java.
             # Don't collect java actions for test targets.
             self.java_actions[java_group_name].add(dep.name)
