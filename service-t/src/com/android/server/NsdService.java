@@ -1324,6 +1324,7 @@ public class NsdService extends INsdManager.Stub {
         mDeps = deps;
 
         mMdnsSocketProvider = deps.makeMdnsSocketProvider(ctx, handler.getLooper());
+        mMdnsSocketProvider.startNetLinkMonitor();
         mMdnsSocketClient =
                 new MdnsMultinetworkSocketClient(handler.getLooper(), mMdnsSocketProvider);
         mMdnsDiscoveryManager =
