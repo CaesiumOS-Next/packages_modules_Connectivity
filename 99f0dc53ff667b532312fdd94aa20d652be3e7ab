@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71b5e4ef_2b318da6",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-08T06:12:24Z",
+      "side": 1,
+      "message": "Why pass this in? You can just use NetworkCapabilities.transportNameOf.",
+      "range": {
+        "startLine": 388,
+        "startChar": 37,
+        "endLine": 388,
+        "endChar": 77
+      },
+      "revId": "99f0dc53ff667b532312fdd94aa20d652be3e7ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2f1fc66_6196124b",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-08T06:12:24Z",
+      "side": 1,
+      "message": "Why is this method useful? It looks like it will file a NetworkRequest for some transport, wait for it to become the default network, and then return it. But the system does this automatically. Connectivity internally maintains a default network request which does this.",
+      "range": {
+        "startLine": 446,
+        "startChar": 19,
+        "endLine": 446,
+        "endChar": 44
+      },
+      "revId": "99f0dc53ff667b532312fdd94aa20d652be3e7ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
