@@ -113,6 +113,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f51aae5_0ca0095c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-08T09:04:22Z",
+      "side": 1,
+      "message": "Actually there\u0027s no filtering in MdnsServiceTypeClient right now, so removing the filtering here will likely cause issues\n\nIt can be added to all methods that iterate through the listeners there. I can make a change while you\u0027re looking at your changes.",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "983f4a1e_d66e3f7b",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 3
@@ -142,6 +159,24 @@
       "side": 1,
       "message": "Not exactly. It\u0027s compatible with old behavior. Separate this change to another CL and add some comments there.",
       "parentUuid": "983f4a1e_d66e3f7b",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c34810a8_d47bcb5b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-08T09:04:22Z",
+      "side": 1,
+      "message": "Did you mean that the new regex was incompatible with the old behavior ? Basically disallowing the use of a dot at the end was not intended, as it could break some users of the legacy API, so this was fixed in aosp/2468385",
+      "parentUuid": "dff8a2e2_ccfdd29a",
       "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -317,6 +352,24 @@
       "side": 1,
       "message": "I don\u0027t think this part can spearate to another change because NsdServiceInfo contains all addresses in one service update callback now.",
       "parentUuid": "473b6ab2_d2598d60",
+      "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf2bf747_9690be54",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-08T09:04:22Z",
+      "side": 1,
+      "message": "The problem is I can +2 this change for the other classes, but I\u0027m not supposed to approve CTS changes unless they\u0027re for flakes or cherrypicks. So this shouldn\u0027t be submitted without Lorenzo taking a look; it would be easier if it\u0027s in a small CL in the same topic.",
+      "parentUuid": "d85496b1_55412452",
       "revId": "f9469cf293ad3f302ff5256aa0604a8222da52a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },

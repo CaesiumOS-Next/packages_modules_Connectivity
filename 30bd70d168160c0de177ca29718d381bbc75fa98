@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80eff409_d308a058",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-08T09:04:22Z",
+      "side": 1,
+      "message": "LGTM, comments can be addressed separately. But Lorenzo should have a look at CTS changes.",
+      "revId": "30bd70d168160c0de177ca29718d381bbc75fa98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09050308_d20e1c84",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-08T09:04:22Z",
+      "side": 1,
+      "message": "Nit: this is a bit confusing (capture 0 is for the first verify, capture 1 is for the first call of the second verify, capture 2 is for the second call of the second verify ?); it would be clearer with a different captor",
+      "range": {
+        "startLine": 781,
+        "startChar": 69,
+        "endLine": 781,
+        "endChar": 70
+      },
+      "revId": "30bd70d168160c0de177ca29718d381bbc75fa98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
