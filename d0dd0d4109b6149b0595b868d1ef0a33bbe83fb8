@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6b56e26_549f1087",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-08T03:27:45Z",
+      "side": 1,
+      "message": "LGTM, but before this rolls out, can you confirm with OEM users of Ethernet that this change will not negatively affect them?",
+      "revId": "d0dd0d4109b6149b0595b868d1ef0a33bbe83fb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
