@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbab7a1c_218aa400",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-09T04:24:21Z",
+      "side": 1,
+      "message": "Adopt the same design as what we do in ConnectivityManagerTest and have aosp/2479276 to update design in this test first.",
+      "parentUuid": "1442284a_fdaaad72",
+      "range": {
+        "startLine": 1143,
+        "startChar": 43,
+        "endLine": 1143,
+        "endChar": 45
+      },
+      "revId": "018666f2723f5a8e73ff31f5ec855947bb98acbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8481ad1_8656e982",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f2e184_c9d03217",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-09T04:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8481ad1_8656e982",
+      "range": {
+        "startLine": 1153,
+        "startChar": 8,
+        "endLine": 1153,
+        "endChar": 91
+      },
+      "revId": "018666f2723f5a8e73ff31f5ec855947bb98acbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80e49c4e_6a7e3dde",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-03-08T09:25:19Z",
       "side": 1,
       "message": "What does it mean that the sockets should be blocked? Do you mean that the sockets were closed when the VPN was started by startVpn above? If so, then say:\n\n    // There should be no open sockets on the VPN network, because any\n    // open sockets were closed when startVpn above was called. So the\n    // first TCP poll should trigger ON_PAUSED.",
+      "range": {
+        "startLine": 1196,
+        "startChar": 31,
+        "endLine": 1196,
+        "endChar": 63
+      },
+      "revId": "018666f2723f5a8e73ff31f5ec855947bb98acbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4239ea1c_668e4fa8",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-09T04:24:21Z",
+      "side": 1,
+      "message": "Updated. Thanks for the suggestion.",
+      "parentUuid": "80e49c4e_6a7e3dde",
       "range": {
         "startLine": 1196,
         "startChar": 31,
