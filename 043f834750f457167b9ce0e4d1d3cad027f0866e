@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f277633_c447fd85",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T03:11:03Z",
+      "side": 1,
+      "message": "nits: although it is unlikely to start upstream at time 0L but 0L still be a valid value for timestamp. Use if (mCurrentUpstream !\u003d null) would be better because null is not valid upstream. mCurrentUpstream is null means there is no prior upstream type.",
+      "range": {
+        "startLine": 142,
+        "startChar": 12,
+        "endLine": 142,
+        "endChar": 43
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee4b317c_c3097c91",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T03:11:03Z",
+      "side": 1,
+      "message": "Sorry I think you just follow my previous comment, but it seems getLaterStartTime or similar name which can reflect getting larger value will be more readable.",
+      "range": {
+        "startLine": 151,
+        "startChar": 17,
+        "endLine": 151,
+        "endChar": 29
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c3db7dc_99b3b3c4",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T03:11:03Z",
+      "side": 1,
+      "message": "-1 is not a valid transport type. Building a null UpstreamNetworkState looks very weird, you can just use null instead of buildUpstreamState(-1)",
+      "range": {
+        "startLine": 147,
+        "startChar": 12,
+        "endLine": 147,
+        "endChar": 27
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afa13050_2ed00e5e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T03:11:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 157,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 9
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35ec4cf9_e6a9cd38",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T03:11:03Z",
+      "side": 1,
+      "message": "Move these into l.207 which near the caller ?\nAlso you can just:\n\n    final UpstreamEvent.Builder upstreamEvent \u003d UpstreamEvent.newBuilder().setUpstreamType(UpstreamType.UT_NO_NETWORK).setDurationMillis(2 * SECOND_IN_MILLIS);\n    final UpstreamEvents.Builder upstreamEvents \u003d UpstreamEvents.newBuilder().addUpstreamEvent(upstreamEvent);",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 59
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42c39574_5535b4b7",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T03:11:03Z",
+      "side": 1,
+      "message": "run tests in loop make test hard to debug because we can\u0027t directly know the fail point by the line of failure code stack.\n\nWe can remove the loop and runUpstreamTypesTest multiple times instead:\n\n    private void runUpstreamTypesTest(final Pair\u003cInteger, UpstreamType\u003e testPair)\n    \n    public void testUpstreamTypes() {\n        runUpstreamTypesTest(new Pair\u003c\u003e(TRANSPORT_CELLULAR, UpstreamType.UT_CELLULAR));\n        runUpstreamTypesTest(new Pair\u003c\u003e(TRANSPORT_WIFI, UpstreamType.UT_WIFI));\n        ...\n    }",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 315,
+        "endChar": 64
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5c2f485_a0aa9c78",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T03:11:03Z",
+      "side": 1,
+      "message": "Also test UpstreamType.UT_UNKOWN ?",
+      "range": {
+        "startLine": 362,
+        "startChar": 4,
+        "endLine": 362,
+        "endChar": 5
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
