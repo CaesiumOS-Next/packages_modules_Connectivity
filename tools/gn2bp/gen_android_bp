@@ -721,6 +721,10 @@ def create_proto_modules(blueprint, gn, target):
   # are not put in the same intermediate path, so local includes do not work
   # without explictily exporting the include dir.
   header_module.export_include_dirs.add(target.proto_in_dir)
+  if "src" in target.proto_in_dir:
+    # Workaround for //third_party/quic_trace:quic_trace_proto__testing.
+    prefix_len = target.proto_in_dir.find("src") + len("src")
+    header_module.export_include_dirs.add(target.proto_in_dir[:prefix_len])
 
   # This function does not return header_module so setting apex_available attribute here.
   header_module.apex_available.add(tethering_apex)
