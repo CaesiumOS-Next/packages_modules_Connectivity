@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59850a7b_d69a949a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-09T06:33:00Z",
+      "side": 1,
+      "message": "This NetworkCallback registration is calliing in tearDown() after unregisterRegisteredCallbacks() called. So this NetworkCallback will not be unregistered. Maybe the unregisterRegisteredCallbacks() should be called in the end of tearDown() to ensure all NetworkCallbacks can unregister?",
+      "range": {
+        "startLine": 446,
+        "startChar": 8,
+        "endLine": 446,
+        "endChar": 51
+      },
+      "revId": "0e6aac3184c9e4ee55fa0d259766a0ca526f726f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
