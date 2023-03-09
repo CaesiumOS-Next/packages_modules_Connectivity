@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcd0a3e5_6d59f312",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T11:12:48Z",
+      "side": 1,
+      "message": "Added to catch IllegalStateException.",
+      "parentUuid": "b70d9820_a34ae91a",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 9
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d96bfe46_8d19c301",
@@ -94,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4765d734_2f0e3a01",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T11:12:48Z",
+      "side": 1,
+      "message": "Added to catch IllegalStateException.",
+      "parentUuid": "d96bfe46_8d19c301",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "089ad0ac_bf4c7be0",
@@ -107,6 +155,30 @@
       "writtenOn": "2023-03-09T06:11:56Z",
       "side": 1,
       "message": "IOffload.aidl doesn\u0027t says getForwardedStats will throw IllegalArgumentException. If it never throw IllegalArgumentException, remove this. Otherwise improve the document ?",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 57
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5b5080b_0e8eb139",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T11:12:48Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "089ad0ac_bf4c7be0",
       "range": {
         "startLine": 124,
         "startChar": 8,
