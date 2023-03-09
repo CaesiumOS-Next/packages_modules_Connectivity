@@ -39,6 +39,30 @@
       },
       "revId": "48ac3901f20bfed3d5a6607921a28c888ba0f68a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78cd3d28_50799780",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-09T09:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "492517e5_700282cb",
+      "range": {
+        "startLine": 214,
+        "startChar": 35,
+        "endLine": 214,
+        "endChar": 63
+      },
+      "revId": "48ac3901f20bfed3d5a6607921a28c888ba0f68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
