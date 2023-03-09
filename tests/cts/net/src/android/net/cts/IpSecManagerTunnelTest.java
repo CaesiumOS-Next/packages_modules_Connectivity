@@ -73,6 +73,8 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 
+import android.content.pm.PackageManager;
+
 @RunWith(AndroidJUnit4.class)
 @AppModeFull(reason = "MANAGE_TEST_NETWORKS permission can't be granted to instant apps")
 public class IpSecManagerTunnelTest extends IpSecBaseTest {
@@ -997,6 +999,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     // Transport-in-Tunnel mode tests
     @Test
     public void testTransportInTunnelModeV4InV4() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET, AF_INET, false, true);
         checkTunnelInput(AF_INET, AF_INET, false, true);
@@ -1005,17 +1008,20 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV4InV4() throws Exception {
+        if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET, AF_INET, false, true);
     }
 
     @Test
     public void testTransportInTunnelModeV4InV4Reflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET, AF_INET, false, true);
     }
 
     @Test
     public void testTransportInTunnelModeV4InV4UdpEncap() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET, AF_INET, true, true);
         checkTunnelInput(AF_INET, AF_INET, true, true);
@@ -1024,17 +1030,20 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV4InV4UdpEncap() throws Exception {
+        if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET, AF_INET, true, true);
     }
 
     @Test
     public void testTransportInTunnelModeV4InV4UdpEncapReflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET, AF_INET, false, true);
     }
 
     @Test
     public void testTransportInTunnelModeV4InV6() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET, AF_INET6, false, true);
         checkTunnelInput(AF_INET, AF_INET6, false, true);
@@ -1043,17 +1052,20 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV4InV6() throws Exception {
+       if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET, AF_INET6, false, true);
     }
 
     @Test
     public void testTransportInTunnelModeV4InV6Reflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET, AF_INET, false, true);
     }
 
     @Test
     public void testTransportInTunnelModeV6InV4() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET6, AF_INET, false, true);
         checkTunnelInput(AF_INET6, AF_INET, false, true);
@@ -1062,17 +1074,20 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV6InV4() throws Exception {
+        if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET6, AF_INET, false, true);
     }
 
     @Test
     public void testTransportInTunnelModeV6InV4Reflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET, AF_INET, false, true);
     }
 
     @Test
     public void testTransportInTunnelModeV6InV4UdpEncap() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET6, AF_INET, true, true);
         checkTunnelInput(AF_INET6, AF_INET, true, true);
@@ -1081,17 +1096,20 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV6InV4UdpEncap() throws Exception {
+        if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET6, AF_INET, true, true);
     }
 
     @Test
     public void testTransportInTunnelModeV6InV4UdpEncapReflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET, AF_INET, false, true);
     }
 
     @Test
     public void testTransportInTunnelModeV6InV6() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET, AF_INET6, false, true);
         checkTunnelInput(AF_INET, AF_INET6, false, true);
@@ -1100,11 +1118,13 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV6InV6() throws Exception {
+        if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET, AF_INET6, false, true);
     }
 
     @Test
     public void testTransportInTunnelModeV6InV6Reflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET, AF_INET, false, true);
     }
@@ -1112,6 +1132,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     // Tunnel mode tests
     @Test
     public void testTunnelV4InV4() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET, AF_INET, false, false);
         checkTunnelInput(AF_INET, AF_INET, false, false);
@@ -1120,17 +1141,20 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTunnelV4InV4() throws Exception {
+        if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET, AF_INET, false, false);
     }
 
     @Test
     public void testTunnelV4InV4Reflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET, AF_INET, false, false);
     }
 
     @Test
     public void testTunnelV4InV4UdpEncap() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET, AF_INET, true, false);
         checkTunnelInput(AF_INET, AF_INET, true, false);
@@ -1139,17 +1163,20 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTunnelV4InV4UdpEncap() throws Exception {
+        if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET, AF_INET, true, false);
     }
 
     @Test
     public void testTunnelV4InV4UdpEncapReflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET, AF_INET, true, false);
     }
 
     @Test
     public void testTunnelV4InV6() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET, AF_INET6, false, false);
         checkTunnelInput(AF_INET, AF_INET6, false, false);
@@ -1158,17 +1185,20 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTunnelV4InV6() throws Exception {
+        if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET, AF_INET6, false, false);
     }
 
     @Test
     public void testTunnelV4InV6Reflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET, AF_INET6, false, false);
     }
 
     @Test
     public void testTunnelV6InV4() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET6, AF_INET, false, false);
         checkTunnelInput(AF_INET6, AF_INET, false, false);
@@ -1177,17 +1207,20 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTunnelV6InV4() throws Exception {
+        if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET6, AF_INET, false, false);
     }
 
     @Test
     public void testTunnelV6InV4Reflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET6, AF_INET, false, false);
     }
 
     @Test
     public void testTunnelV6InV4UdpEncap() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET6, AF_INET, true, false);
         checkTunnelInput(AF_INET6, AF_INET, true, false);
@@ -1196,17 +1229,20 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTunnelV6InV4UdpEncap() throws Exception {
+        if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET6, AF_INET, true, false);
     }
 
     @Test
     public void testTunnelV6InV4UdpEncapReflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET6, AF_INET, true, false);
     }
 
     @Test
     public void testTunnelV6InV6() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET6, AF_INET6, false, false);
         checkTunnelInput(AF_INET6, AF_INET6, false, false);
@@ -1215,12 +1251,19 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTunnelV6InV6() throws Exception {
+        if (isHardwareAutomotive()) return;
         doTestMigrateTunnel(AF_INET6, AF_INET6, false, false);
     }
 
     @Test
     public void testTunnelV6InV6Reflected() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelReflected(AF_INET6, AF_INET6, false, false);
+    }
+
+    protected boolean isHardwareAutomotive() {
+        final PackageManager pm = InstrumentationRegistry.getInstrumentation().getContext().getPackageManager();
+        return pm.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE);
     }
 }

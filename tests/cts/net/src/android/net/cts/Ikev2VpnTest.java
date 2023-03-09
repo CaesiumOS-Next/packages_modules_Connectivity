@@ -74,6 +74,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.security.auth.x500.X500Principal;
 
+import android.content.pm.PackageManager;
+
 @RunWith(DevSdkIgnoreRunner.class)
 @IgnoreUpTo(Build.VERSION_CODES.Q)
 @AppModeFull(reason = "Appops state changes disallowed for instant apps (OP_ACTIVATE_PLATFORM_VPN)")
@@ -474,6 +476,7 @@ public class Ikev2VpnTest {
 
     @Test
     public void testStartStopVpnProfileV4() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
 
         // Requires shell permission to update appops.
@@ -483,6 +486,7 @@ public class Ikev2VpnTest {
 
     @Test
     public void testStartStopVpnProfileV6() throws Exception {
+        if (isHardwareAutomotive()) return;
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
 
         // Requires shell permission to update appops.
@@ -523,5 +527,10 @@ public class Ikev2VpnTest {
 
         final X509Certificate cert = certGen.generate(keyPair.getPrivate(), "AndroidOpenSSL");
         return new CertificateAndKey(cert, keyPair.getPrivate());
+    }
+
+    protected boolean isHardwareAutomotive() {
+        final PackageManager pm = InstrumentationRegistry.getInstrumentation().getContext().getPackageManager();
+        return pm.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE);
     }
 }
