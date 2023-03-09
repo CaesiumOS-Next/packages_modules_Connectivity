@@ -22,6 +22,30 @@
       },
       "revId": "0e6aac3184c9e4ee55fa0d259766a0ca526f726f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "945a5b4d_00207ffd",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-09T06:44:59Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. It\u0027s an existing issue before this modification.\n\nUpdated.",
+      "parentUuid": "59850a7b_d69a949a",
+      "range": {
+        "startLine": 446,
+        "startChar": 8,
+        "endLine": 446,
+        "endChar": 51
+      },
+      "revId": "0e6aac3184c9e4ee55fa0d259766a0ca526f726f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
