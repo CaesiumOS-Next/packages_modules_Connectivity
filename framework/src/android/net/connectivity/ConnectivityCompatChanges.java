@@ -73,6 +73,16 @@ public final class ConnectivityCompatChanges {
     @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.TIRAMISU)
     public static final long ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION = 266524688;
 
+    /**
+     * When enabled, apps targeting < Android 14 are considered legacy for the NSD backend.
+     * The legacy apps use a legacy native daemon as NsdManager backend, but other apps use a
+     * platform-integration mDNS implementation as backend.
+     *
+     * @hide
+     */
+    @ChangeId
+    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.TIRAMISU)
+    public static final long ENABLE_PLATFORM_MDNS_BACKEND = 270306772L;
     private ConnectivityCompatChanges() {
     }
 }
