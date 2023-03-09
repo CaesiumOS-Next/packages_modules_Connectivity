@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54d80889_d9847867",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:11:56Z",
+      "side": 1,
+      "message": "The lifecyle of this variable looks be the same as mTetheringOffloadCallback and mTetheringOffloadCallback already hold same OffloadHalCallback object, remove this ?",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 51
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b70d9820_a34ae91a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:11:56Z",
+      "side": 1,
+      "message": "Make have comment saying we don\u0027t expect IllegalStateException to be happen.",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 9
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d96bfe46_8d19c301",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:11:56Z",
+      "side": 1,
+      "message": "Not sure whether you want to catch IllegalStateException or you should make sure there is no double stopOffload case.\n\nLooking at the doc of IOffload.aidl. It says: EX_ILLEGAL_STATE if initOffload() was not called, or if stopOffload() was already called.\n\nIn OffloadHardwareInterface#stopOffload(), it still reset mIOffload to null if mIOffload.stopOffload fail. Thus, it is possible that offload is not stop successfully but OffloadHardwareInterface would still be init next time.",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "089ad0ac_bf4c7be0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:11:56Z",
+      "side": 1,
+      "message": "IOffload.aidl doesn\u0027t says getForwardedStats will throw IllegalArgumentException. If it never throw IllegalArgumentException, remove this. Otherwise improve the document ?",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 57
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03285139_fe5ef6f5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:11:56Z",
+      "side": 1,
+      "message": "\"private\" ? because there is no caller outside.\n\nOr you could just move getServiceVersion into getIOffloadHal",
+      "range": {
+        "startLine": 255,
+        "startChar": 4,
+        "endLine": 255,
+        "endChar": 10
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfa16e18_71f5df8c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:11:56Z",
+      "side": 1,
+      "message": "You can just then you don\u0027t need getServiceVersion()\n\n    if (!SdkLevel.isAtLeastU() || !ServiceManager.isDeclared(HAL_INSTANCE_NAME)) return null;",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 61
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d43fb0a4_e62bc969",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:11:56Z",
+      "side": 1,
+      "message": "These is duplicated as OffloadHalidlImpl, we could move these to common place (e.g. TetheringUtils) to avoid duplicated code.",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 368,
+        "endChar": 5
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f1f79a4_07e3abf5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:11:56Z",
+      "side": 1,
+      "message": "This is no caller anymore ?",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 5
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48fd3785_45cc5e41",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:11:56Z",
+      "side": 1,
+      "message": "This looks wrong that stopOffload() will set mIOffload to null but you don\u0027t getOffload again so that this may cause NPE.",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 26
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "996cae3b_408c7469",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:11:56Z",
+      "side": 1,
+      "message": "should this function return if stopOffload fail ? If you just reset mIOffload to null even stop offload fail, checkNullIOffload will prevent you to retry stopOffload()",
+      "range": {
+        "startLine": 345,
+        "startChar": 8,
+        "endLine": 347,
+        "endChar": 9
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b42c809_f6ae1d77",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalHidlImplTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:11:56Z",
+      "side": 1,
+      "message": "Never used, remove ?",
+      "range": {
+        "startLine": 72,
+        "startChar": 34,
+        "endLine": 72,
+        "endChar": 53
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
