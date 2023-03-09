@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6438bb4c_5983a7b3",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-09T07:09:52Z",
+      "side": 1,
+      "message": "Should this not depend on the passed subscription ID ? Otherwise l.2054 won\u0027t behave as expected ; you pass a subID for this method but you\u0027ll affect all telephony managers.\n\nSee mockContextAsUser for a very similar example",
+      "range": {
+        "startLine": 343,
+        "startChar": 17,
+        "endLine": 343,
+        "endChar": 34
+      },
+      "revId": "12111c932ffb7711e8fd272117ff7fe066bbc52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7879f370_6cebf76e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2099,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-09T07:09:52Z",
+      "side": 1,
+      "message": "Ideally you should add a WifiInfo with TEST_SUB_ID for realism",
+      "range": {
+        "startLine": 2099,
+        "startChar": 17,
+        "endLine": 2099,
+        "endChar": 33
+      },
+      "revId": "12111c932ffb7711e8fd272117ff7fe066bbc52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a59458a5_801b2b0b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2140,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-09T07:09:52Z",
+      "side": 1,
+      "message": "S",
+      "range": {
+        "startLine": 2140,
+        "startChar": 52,
+        "endLine": 2140,
+        "endChar": 53
+      },
+      "revId": "12111c932ffb7711e8fd272117ff7fe066bbc52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3060daa0_ca635be4",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2141,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-09T07:09:52Z",
+      "side": 1,
+      "message": "cC",
+      "range": {
+        "startLine": 2141,
+        "startChar": 49,
+        "endLine": 2141,
+        "endChar": 50
+      },
+      "revId": "12111c932ffb7711e8fd272117ff7fe066bbc52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
