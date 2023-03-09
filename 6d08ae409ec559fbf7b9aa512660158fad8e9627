@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60ecc719_931b4546",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T09:18:26Z",
+      "side": 1,
+      "message": "Normally Handler is passed to the constructor, even it is used only once.",
+      "parentUuid": "e71c701a_22e18104",
+      "range": {
+        "startLine": 65,
+        "startChar": 39,
+        "endLine": 65,
+        "endChar": 54
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7a0d719_1a380547",

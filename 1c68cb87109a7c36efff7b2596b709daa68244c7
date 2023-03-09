@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc4de883_88c7130a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T09:18:26Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "54d80889_d9847867",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 51
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b70d9820_a34ae91a",
@@ -116,6 +140,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcf8acf1_f1544198",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T09:18:26Z",
+      "side": 1,
+      "message": "Moved into getIOffloadHal().",
+      "parentUuid": "03285139_fe5ef6f5",
+      "range": {
+        "startLine": 255,
+        "startChar": 4,
+        "endLine": 255,
+        "endChar": 10
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfa16e18_71f5df8c",
@@ -129,6 +177,30 @@
       "writtenOn": "2023-03-09T06:11:56Z",
       "side": 1,
       "message": "You can just then you don\u0027t need getServiceVersion()\n\n    if (!SdkLevel.isAtLeastU() || !ServiceManager.isDeclared(HAL_INSTANCE_NAME)) return null;",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 61
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70729478_c841504b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T09:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfa16e18_71f5df8c",
       "range": {
         "startLine": 272,
         "startChar": 0,
@@ -185,6 +257,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f7d9ef_10780b25",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T09:18:26Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "6f1f79a4_07e3abf5",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 5
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48fd3785_45cc5e41",
@@ -208,6 +304,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "528a5e82_c6868d1d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T09:18:26Z",
+      "side": 1,
+      "message": "Set mIOffload to null after stopOffload().",
+      "parentUuid": "48fd3785_45cc5e41",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 26
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "996cae3b_408c7469",
@@ -221,6 +341,30 @@
       "writtenOn": "2023-03-09T06:11:56Z",
       "side": 1,
       "message": "should this function return if stopOffload fail ? If you just reset mIOffload to null even stop offload fail, checkNullIOffload will prevent you to retry stopOffload()",
+      "range": {
+        "startLine": 345,
+        "startChar": 8,
+        "endLine": 347,
+        "endChar": 9
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54cff048_f40a85a9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T09:18:26Z",
+      "side": 1,
+      "message": "Since stopOffload() doesn\u0027t return the status of the operation, it won\u0027t retry it again.",
+      "parentUuid": "996cae3b_408c7469",
       "range": {
         "startLine": 345,
         "startChar": 8,
@@ -300,6 +444,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c6898e7_69c48d97",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalHidlImplTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T09:18:26Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "0b42c809_f6ae1d77",
+      "range": {
+        "startLine": 72,
+        "startChar": 34,
+        "endLine": 72,
+        "endChar": 53
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5888756a_dc7c7641",
@@ -336,6 +504,30 @@
       "writtenOn": "2023-03-09T06:39:59Z",
       "side": 1,
       "message": "It seems could be covered by offloadHalVersion because we only expect fail when OFFLOAD_HAL_VERSION_NONE. How about:\n\n    final int num \u003d offloadHalVersion !\u003d OFFLOAD_HAL_VERSION_NONE ? 1 : 0;\n    verify(mIOffload, times(num)).initOffload(any(NativeHandle.class),\n                any(NativeHandle.class), eq(mOffloadHalCallback));",
+      "range": {
+        "startLine": 113,
+        "startChar": 70,
+        "endLine": 113,
+        "endChar": 91
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aa69904_1032c4fe",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHardwareInterfaceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T09:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fef67f0_307667df",
       "range": {
         "startLine": 113,
         "startChar": 70,

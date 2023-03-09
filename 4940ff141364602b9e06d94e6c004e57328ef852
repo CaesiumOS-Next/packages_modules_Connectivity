@@ -112,6 +112,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61e79ac2_a808ee82",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T09:18:26Z",
+      "side": 1,
+      "message": "Removed getServiceVersion()",
+      "parentUuid": "bfe2b180_6a8281bb",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 13
+      },
+      "revId": "4940ff141364602b9e06d94e6c004e57328ef852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b01f1307_8af02efd",
@@ -243,6 +267,30 @@
       "side": 1,
       "message": "Just to prevent someone call initOffload() more than once. But now I think it maybe safer to stop it and init again. Updated it in such way.",
       "parentUuid": "9e92d328_5afa07cd",
+      "range": {
+        "startLine": 298,
+        "startChar": 8,
+        "endLine": 298,
+        "endChar": 32
+      },
+      "revId": "4940ff141364602b9e06d94e6c004e57328ef852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46cbb806_37acb011",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T09:18:26Z",
+      "side": 1,
+      "message": "Updated code, please help to review it again.",
+      "parentUuid": "378b36c3_f02563a3",
       "range": {
         "startLine": 298,
         "startChar": 8,
