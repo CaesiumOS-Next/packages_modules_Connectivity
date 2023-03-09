@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b436e3e_d1de6d2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-09T08:58:26Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed (a follow-up CL is fine).",
+      "revId": "48ac3901f20bfed3d5a6607921a28c888ba0f68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "492517e5_700282cb",
+        "filename": "Tethering/common/TetheringLib/cronet_enabled/api/current.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-09T08:58:26Z",
+      "side": 1,
+      "message": "This looks a bit weird. How about:\n\nboolean isDirectExecutorAllowed()\nBuilder setDirectExecutorAllowed(boolean)\n\n?",
+      "range": {
+        "startLine": 214,
+        "startChar": 35,
+        "endLine": 214,
+        "endChar": 63
+      },
+      "revId": "48ac3901f20bfed3d5a6607921a28c888ba0f68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
