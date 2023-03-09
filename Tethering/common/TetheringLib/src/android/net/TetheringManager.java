@@ -63,13 +63,13 @@ public class TetheringManager {
     private static final int DEFAULT_TIMEOUT_MS = 60_000;
     private static final long CONNECTOR_POLL_INTERVAL_MILLIS = 200L;
 
-    @GuardedBy("mConnectorWaitQueue")
     @Nullable
-    private ITetheringConnector mConnector;
+    private volatile ITetheringConnector mConnector;
     @GuardedBy("mConnectorWaitQueue")
     @NonNull
     private final List<ConnectorConsumer> mConnectorWaitQueue = new ArrayList<>();
     private final Supplier<IBinder> mConnectorSupplier;
+    private final ConnectorDeathRecipient mConnectorDeathRecipient;
 
     private final TetheringCallbackInternal mCallback;
     private final Context mContext;
@@ -275,7 +275,12 @@ public class TetheringManager {
         mContext = context;
         mCallback = new TetheringCallbackInternal(this);
         mConnectorSupplier = connectorSupplier;
+        mConnectorDeathRecipient = new ConnectorDeathRecipient(this);
 
+        init();
+    }
+
+    private void init() {
         final String pkgName = mContext.getOpPackageName();
 
         final IBinder connector = mConnectorSupplier.get();
@@ -287,14 +292,25 @@ public class TetheringManager {
         // up and be sent from a worker thread; later, they are always sent from the caller thread.
         // Considering that it's just oneway binder calls, and ordering is preserved, this seems
         // better than inconsistent behavior persisting after boot.
-        if (connector != null) {
+        if (connector != null && connector.isBinderAlive()) {
             mConnector = ITetheringConnector.Stub.asInterface(connector);
+            linkToDeath(connector);
         } else {
             startPollingForConnector();
         }
 
         Log.i(TAG, "registerTetheringEventCallback:" + pkgName);
+
         getConnector(c -> c.registerTetheringEventCallback(mCallback, pkgName));
+    }
+
+    private void linkToDeath(@NonNull final IBinder connector) {
+        try {
+            connector.linkToDeath(mConnectorDeathRecipient, 0);
+        } catch (RemoteException e) {
+            // remote process just gone.
+            onTetheringDisconnected();
+        }
     }
 
     /** @hide */
@@ -309,6 +325,7 @@ public class TetheringManager {
         // it's guaranteed that registerTetheringEventCallback was already called before calling
         // unregisterTetheringEventCallback in finalize.
         if (mConnector == null) Log.wtf(TAG, "null connector in finalize!");
+        mConnector.asBinder().unlinkToDeath(mConnectorDeathRecipient, 0);
         getConnector(c -> c.unregisterTetheringEventCallback(mCallback, pkgName));
 
         super.finalize();
@@ -324,7 +341,7 @@ public class TetheringManager {
                 }
 
                 final IBinder connector = mConnectorSupplier.get();
-                if (connector != null) {
+                if (connector != null && connector.isBinderAlive()) {
                     onTetheringConnected(ITetheringConnector.Stub.asInterface(connector));
                     return;
                 }
@@ -375,10 +392,33 @@ public class TetheringManager {
             synchronized (mConnectorWaitQueue) {
                 if (mConnectorWaitQueue.size() == 0) {
                     mConnector = connector;
+                    linkToDeath(connector.asBinder());
                     return;
                 }
             }
         } while (true);
+    }
+
+    private void onTetheringDisconnected() {
+        mConnector = null;
+
+        // Remote process is gone, retry by polling ITetheringConnector then register
+        // TetheringInteralCallback.
+        Log.i(TAG, "Remote process is gone, retrying");
+        init();
+    }
+
+    private static class ConnectorDeathRecipient implements IBinder.DeathRecipient {
+        private final WeakReference<TetheringManager> mTetheringMgrRef;
+
+        ConnectorDeathRecipient(TetheringManager tm) {
+            mTetheringMgrRef = new WeakReference<>(tm);
+        }
+
+        public void binderDied() {
+            TetheringManager tetheringMgr = mTetheringMgrRef.get();
+            tetheringMgr.onTetheringDisconnected();
+        }
     }
 
     /**
