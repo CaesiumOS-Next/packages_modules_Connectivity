@@ -233,6 +233,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c58e8ebb_f2a5bd3c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalAidlImplTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:39:59Z",
+      "side": 1,
+      "message": "Followup change is fine: Not only RemoteException, could you also test other Exception ? For example: getForwardedStats also throw ServiceSpecificException, could you test it ?",
+      "range": {
+        "startLine": 157,
+        "startChar": 16,
+        "endLine": 157,
+        "endChar": 44
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bde9c9bf_1e148d64",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalAidlImplTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:39:59Z",
+      "side": 1,
+      "message": "Followup change is fine: could you also test other Exception ? For example: setLocalPrefixes could also throw illegalStateException and ServiceSpecificExcpetion. We could verify the return value when getting ServiceSpecificExcpetion. Also verify the code don\u0027t catch illegalStateException because we don\u0027t expect it to happen ?\n\nSame as other aidl api interface.",
+      "range": {
+        "startLine": 182,
+        "startChar": 16,
+        "endLine": 182,
+        "endChar": 43
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b42c809_f6ae1d77",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalHidlImplTest.java",
         "patchSetId": 10
@@ -249,6 +295,52 @@
         "startChar": 34,
         "endLine": 72,
         "endChar": 53
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5888756a_dc7c7641",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalHidlImplTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:39:59Z",
+      "side": 1,
+      "message": "Not for this change, adding in follow up is fine. Could you also test the error handling ? Throw exception from mIOffloadControlMock and verify mIOffloadHal\u0027s return vale. Same problem for other HAL api.",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 125,
+        "endChar": 37
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fef67f0_307667df",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHardwareInterfaceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-09T06:39:59Z",
+      "side": 1,
+      "message": "It seems could be covered by offloadHalVersion because we only expect fail when OFFLOAD_HAL_VERSION_NONE. How about:\n\n    final int num \u003d offloadHalVersion !\u003d OFFLOAD_HAL_VERSION_NONE ? 1 : 0;\n    verify(mIOffload, times(num)).initOffload(any(NativeHandle.class),\n                any(NativeHandle.class), eq(mOffloadHalCallback));",
+      "range": {
+        "startLine": 113,
+        "startChar": 70,
+        "endLine": 113,
+        "endChar": 91
       },
       "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
