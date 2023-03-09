@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf36e7be_05da1f19",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T02:39:30Z",
+      "side": 1,
+      "message": "Updated as suggested.",
+      "parentUuid": "586082a5_e5f852c9",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 45
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e71c701a_22e18104",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cad8135_f1af63b9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T02:39:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7a0d719_1a380547",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 9
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b2b08f1_9a6e439a",
@@ -83,6 +131,30 @@
       "writtenOn": "2023-03-03T08:36:41Z",
       "side": 1,
       "message": "As the error prone warning indicated, the NativeHandle is final and does not override Object.toString, so it only print the class name and its hashcode. Do you think print the hash code is useful ? If no, just remove these ?",
+      "range": {
+        "startLine": 116,
+        "startChar": 71,
+        "endLine": 116,
+        "endChar": 87
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fe6c719_0617aea8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T02:39:30Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "5b2b08f1_9a6e439a",
       "range": {
         "startLine": 116,
         "startChar": 71,
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c5c874e_e4b24415",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T02:39:30Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "f70b7487_7605d33e",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 394,
+        "endChar": 5
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "429b50ed_f4f6bfbc",
@@ -129,6 +225,30 @@
       "writtenOn": "2023-03-03T08:36:41Z",
       "side": 1,
       "message": "You can just:\n\n    if (OffloadHalAidlImpl.getServiceVersion() !\u003d OFFLOAD_HAL_VERSION_NONE) {\n        return new OffloadHalAidlImpl(mHandler, mLog);\n    } else if (OffloadHalHidlImpl.getServiceVersion() !\u003d OFFLOAD_HAL_VERSION_NONE) {\n        return new OffloadHalHidlImpl(mHandler, mLog);\n    }\n    return null;",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 23
+      },
+      "revId": "6d08ae409ec559fbf7b9aa512660158fad8e9627",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbc108ea_54f6de50",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-09T02:39:30Z",
+      "side": 1,
+      "message": "Changed to call getIOffloadHal() API.",
+      "parentUuid": "429b50ed_f4f6bfbc",
       "range": {
         "startLine": 190,
         "startChar": 0,
