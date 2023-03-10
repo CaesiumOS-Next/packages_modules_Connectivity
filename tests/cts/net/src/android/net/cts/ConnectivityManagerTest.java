@@ -1475,15 +1475,14 @@ public class ConnectivityManagerTest {
             : Integer.parseInt(rawMeteredPref);
     }
 
-    private int findNextPrefValue(ContentResolver resolver) {
+    private int findNextPrefValue(ContentResolver resolver, int currentMeteredPref) {
         // A bit of a nuclear hammer, but race conditions in CTS are bad. To be able to
         // detect a correct setting value without race conditions, the next pref must
         // be a valid value (range 0..3) that is different from the old setting of the
         // metered preference and from the unmetered preference.
-        final int meteredPref = getCurrentMeteredMultipathPreference(resolver);
         final int unmeteredPref = ConnectivityManager.MULTIPATH_PREFERENCE_UNMETERED;
-        if (0 != meteredPref && 0 != unmeteredPref) return 0;
-        if (1 != meteredPref && 1 != unmeteredPref) return 1;
+        if (0 != currentMeteredPref && 0 != unmeteredPref) return 0;
+        if (1 != currentMeteredPref && 1 != unmeteredPref) return 1;
         return 2;
     }
 
@@ -1503,7 +1502,7 @@ public class ConnectivityManagerTest {
                 resolver, NETWORK_METERED_MULTIPATH_PREFERENCE);
         try {
             final int initialMeteredPreference = getCurrentMeteredMultipathPreference(resolver);
-            int newMeteredPreference = findNextPrefValue(resolver);
+            int newMeteredPreference = findNextPrefValue(resolver, initialMeteredPreference);
             Settings.Global.putString(resolver, NETWORK_METERED_MULTIPATH_PREFERENCE,
                     Integer.toString(newMeteredPreference));
             // Wifi meteredness changes from unmetered to metered will disconnect and reconnect
@@ -1517,7 +1516,7 @@ public class ConnectivityManagerTest {
                     newMeteredPreference);
 
             final int oldMeteredPreference = newMeteredPreference;
-            newMeteredPreference = findNextPrefValue(resolver);
+            newMeteredPreference = findNextPrefValue(resolver, oldMeteredPreference);
             Settings.Global.putString(resolver, NETWORK_METERED_MULTIPATH_PREFERENCE,
                     Integer.toString(newMeteredPreference));
             assertEquals(mCm.getNetworkCapabilities(network).hasCapability(
