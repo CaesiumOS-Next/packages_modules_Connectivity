@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0012d127_be32a431",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-10T17:13:51Z",
+      "side": 1,
+      "message": "The change also needs to be reflected in the API snapshot (build running now, will update the CL ASAP).",
+      "revId": "652037212f122b5e8ed23c3b3cad1416811155c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
