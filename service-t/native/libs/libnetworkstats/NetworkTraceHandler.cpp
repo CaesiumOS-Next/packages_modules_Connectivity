@@ -153,7 +153,14 @@ void NetworkTraceHandler::Write(const std::vector<PacketTrace>& packets,
                                 NetworkTraceHandler::TraceContext& ctx) {
   std::unordered_map<BundleKey, BundleDetails, BundleHash, BundleEq> bundles;
   for (const PacketTrace& pkt : packets) {
-    BundleDetails& bundle = bundles[pkt];
+    BundleKey key = pkt;
+
+    // Drop (zero) fields before bundle lookup for proper coalescing.
+    if (mDropTcpFlags) key.tcpFlags = 0;
+    if (mDropLocalPort) (key.egress ? key.sport : key.dport) = 0;
+    if (mDropRemotePort) (key.egress ? key.dport : key.sport) = 0;
+
+    BundleDetails& bundle = bundles[key];
     bundle.time_and_len.emplace_back(pkt.timestampNs, pkt.length);
     bundle.minTs = std::min(bundle.minTs, pkt.timestampNs);
     bundle.maxTs = std::max(bundle.maxTs, pkt.timestampNs);
@@ -197,11 +204,17 @@ void NetworkTraceHandler::Fill(const PacketTrace& src,
   event->set_uid(src.uid);
   event->set_tag(src.tag);
 
-  event->set_local_port(src.egress ? ntohs(src.sport) : ntohs(src.dport));
-  event->set_remote_port(src.egress ? ntohs(src.dport) : ntohs(src.sport));
+  if (!mDropLocalPort) {
+    event->set_local_port(src.egress ? ntohs(src.sport) : ntohs(src.dport));
+  }
+  if (!mDropRemotePort) {
+    event->set_remote_port(src.egress ? ntohs(src.dport) : ntohs(src.sport));
+  }
+  if (!mDropTcpFlags) {
+    event->set_tcp_flags(src.tcpFlags);
+  }
 
   event->set_ip_proto(src.ipProto);
-  event->set_tcp_flags(src.tcpFlags);
 
   char ifname[IF_NAMESIZE] = {};
   if (if_indextoname(src.ifindex, ifname) == ifname) {
