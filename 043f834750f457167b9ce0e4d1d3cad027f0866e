@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b52bca01_7b9156b6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-10T03:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f277633_c447fd85",
+      "range": {
+        "startLine": 142,
+        "startChar": 12,
+        "endLine": 142,
+        "endChar": 43
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee4b317c_c3097c91",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-09T03:11:03Z",
       "side": 1,
       "message": "Sorry I think you just follow my previous comment, but it seems getLaterStartTime or similar name which can reflect getting larger value will be more readable.",
+      "range": {
+        "startLine": 151,
+        "startChar": 17,
+        "endLine": 151,
+        "endChar": 29
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c5194ea_772b1638",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-10T03:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee4b317c_c3097c91",
       "range": {
         "startLine": 151,
         "startChar": 17,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e51aa76_51134d8a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-10T03:16:35Z",
+      "side": 1,
+      "message": "Right, thanks for the suggestion. It\u0027s useful.",
+      "parentUuid": "0c3db7dc_99b3b3c4",
+      "range": {
+        "startLine": 147,
+        "startChar": 12,
+        "endLine": 147,
+        "endChar": 27
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afa13050_2ed00e5e",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-03-09T03:11:03Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 157,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 9
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adeaa2c8_30b67819",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-10T03:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afa13050_2ed00e5e",
       "range": {
         "startLine": 157,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d045317_ec94753f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-10T03:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35ec4cf9_e6a9cd38",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 59
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42c39574_5535b4b7",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d51ca9e9_3cb2b942",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-10T03:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42c39574_5535b4b7",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 315,
+        "endChar": 64
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5c2f485_a0aa9c78",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-03-09T03:11:03Z",
       "side": 1,
       "message": "Also test UpstreamType.UT_UNKOWN ?",
+      "range": {
+        "startLine": 362,
+        "startChar": 4,
+        "endLine": 362,
+        "endChar": 5
+      },
+      "revId": "043f834750f457167b9ce0e4d1d3cad027f0866e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a359cd2_b87ca819",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-10T03:16:35Z",
+      "side": 1,
+      "message": "The Integer to the TRANSPORT is sync from frameworks/proto_logging/stats/enums/stats/connectivity/network_stack.proto.\n\nisValidTransport() would check if the input TRANSPORT is valid, could you recommand how can we test UpstreamType.UT_UNKOWN?\npackages/modules/Connectivity/framework/src/android/net/NetworkCapabilities.java",
+      "parentUuid": "e5c2f485_a0aa9c78",
       "range": {
         "startLine": 362,
         "startChar": 4,
