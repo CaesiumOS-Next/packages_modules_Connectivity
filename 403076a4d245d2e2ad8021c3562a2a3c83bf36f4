@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f21406e_ff234a2a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-10T12:46:06Z",
+      "side": 1,
+      "message": "Done. Updated to catch all Exceptions. If it really catches Exceptions that is not expected, user will find something wrong (method returns false), maybe this is better than just crash.",
+      "parentUuid": "0c398a6b_76aef011",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 9
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e18dd43_253550e9",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-03-10T10:26:50Z",
       "side": 1,
       "message": "This log message doesn\u0027t seem useful because OffloadHardwareInterface has already logged an identical log message. We should either keep the log messages in OffloadHardwareInterface or keep them here (and in the AIDL impl) but not both.",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 80
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac593dde_4a213d7d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-10T12:46:06Z",
+      "side": 1,
+      "message": "OffloadHardwareInterface: log information (function name and parameters)\nHIDL: log errors (if exception) and results (output from HIDL APIs)\nAIDL: log errors (if exception)\nThey are not fully duplicated. I can update it in a follow-up if needed.",
+      "parentUuid": "7e18dd43_253550e9",
       "range": {
         "startLine": 129,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8fcb0fb_53e8cc13",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-10T12:46:06Z",
+      "side": 1,
+      "message": "Done, updated as suggested.",
+      "parentUuid": "babd8dc9_8495547c",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 9
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3429c0ff_c60df3b2",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-03-10T10:26:50Z",
       "side": 1,
       "message": "This is very hard to read. See go/tott/455 for why this is bad.\n\nCan you unindent? Something like the following:\n\n    if (h1 \u003d\u003d null || h2 \u003d\u003d null) {\n        mLog.e(\"Failed to create socket\");\n        maybeCloseFdInNativeHandle(h1);\n        maybeCloseFdInNativeHandle(h2);\n        return OFFLOAD_HAL_VERSION_NONE;\n    }\n\n    requestSocketDump(h1);\n    ...\n    if (!mIOffload.initOffload(h1, h2, mOffloadHalCallback)) {\n        mIOffload.stopOffload();\n        mLog.e(\"Failed to initialize offload.\");\n        maybeCloseFdInNativeHandle(h1);\n        maybeCloseFdInNativeHandle(h2);\n        return OFFLOAD_HAL_VERSION_NONE;\n    }\n\n    // Explicitly close FDs for HIDL. AIDL will pass the original FDs to the service,\n    // they shouldn\u0027t be closed here.\n    if (mIOffload.getVersion() \u003c OFFLOAD_HAL_VERSION_AIDL) {\n        maybeCloseFdInNativeHandle(h1);\n        maybeCloseFdInNativeHandle(h2);\n    }\n    return mIOffload.getVersion();\n\n\nIf the duplication of calls to maybeCloseFdInNativeHandle bothers you, you could use a helper method to reduce that. Also, given that you always close the fds together, then maybe add a method that closes both of them?\n\n    private void maybeCloseFdInNativeHandles(final NativeHandle... handles) {\n        for (NativeHandle h : handles) {\n            if (h \u003d\u003d null) continue;\n            try {\n                h.close();\n            } catch (IOException | IllegalStateException e) {\n                // IllegalStateException means fd is already closed, do nothing here.\n                // Also nothing we can do if IOException.\n            }\n        }\n    }",
+      "range": {
+        "startLine": 318,
+        "startChar": 8,
+        "endLine": 318,
+        "endChar": 39
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4de3029_471522fb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-10T12:46:06Z",
+      "side": 1,
+      "message": "Done, updated as suggested. Original indent was just want to eliminate too many maybeCloseFdInNativeHandle...",
+      "parentUuid": "3429c0ff_c60df3b2",
       "range": {
         "startLine": 318,
         "startChar": 8,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7584b649_06b0ce47",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-10T12:46:06Z",
+      "side": 1,
+      "message": "Done. Updated as suggested.",
+      "parentUuid": "d6145f23_5923d4da",
+      "range": {
+        "startLine": 345,
+        "startChar": 46,
+        "endLine": 345,
+        "endChar": 52
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "376b8d61_ef078fa3",
@@ -156,6 +276,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89ea580b_e4c3b59f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-10T12:46:06Z",
+      "side": 1,
+      "message": "Done. Updated as suggested.",
+      "parentUuid": "376b8d61_ef078fa3",
+      "range": {
+        "startLine": 356,
+        "startChar": 8,
+        "endLine": 356,
+        "endChar": 80
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "506bab97_9ee162d8",
@@ -169,6 +313,30 @@
       "writtenOn": "2023-03-10T10:26:50Z",
       "side": 1,
       "message": "AFAICT the previous code never did \"if (mOffloadControl \u003d\u003d null)\" anywhere, so I think this method is not needed. If so, we should delete it.\n\nSuperfluous null checks are very confusing because anyone who is modifying the code sees a null check they will assume that things might be null when in fact they cannot be.",
+      "range": {
+        "startLine": 422,
+        "startChar": 20,
+        "endLine": 422,
+        "endChar": 37
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c7ccdc_6c43fbb8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-10T12:46:06Z",
+      "side": 1,
+      "message": "Done. Updated as suggested.",
+      "parentUuid": "506bab97_9ee162d8",
       "range": {
         "startLine": 422,
         "startChar": 20,

@@ -332,6 +332,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85acf77c_8e4433df",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-10T12:46:06Z",
+      "side": 1,
+      "message": "NetworkProtocol in HIDL and AIDL are coming from different classes.\nHIDL: android.hardware.tetheroffload.control.V1_0.NetworkProtocol;\nAIDL: android.hardware.tetheroffload.NetworkProtocol\nAlthough their values are the same, but I think we shouldn\u0027t mix them, right?",
+      "parentUuid": "066a6588_e4d16ad1",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 368,
+        "endChar": 5
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f1f79a4_07e3abf5",
         "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
         "patchSetId": 10
