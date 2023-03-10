@@ -30,6 +30,7 @@ import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 import android.net.http.HttpEngine;
+import android.net.http.QuicOptions;
 import android.net.http.UrlRequest;
 import android.net.http.UrlResponseInfo;
 import android.net.http.cts.util.HttpCtsTestServer;
@@ -101,8 +102,8 @@ public class HttpEngineTest {
         mEngine =
                 mEngineBuilder
                         .setStoragePath(mContext.getApplicationInfo().dataDir)
-                        .setEnableHttpCache(HttpEngine.Builder.HTTP_CACHE_DISK,
-                                            /* maxSize */ 100 * 1024)
+                        .setEnableHttpCache(
+                                HttpEngine.Builder.HTTP_CACHE_DISK, /* maxSize */ 100 * 1024)
                         .build();
 
         UrlRequest.Builder builder =
@@ -246,11 +247,32 @@ public class HttpEngineTest {
         assertThat(receivedUserAgent).isEqualTo(userAgent);
     }
 
+    @Test
+    public void testHttpEngine_SetQuicOptions_DefaultValues_RequestSucceeds() throws Exception {
+        QuicOptions options = new QuicOptions.Builder().build();
+        mEngine =
+                mEngineBuilder
+                        .setEnableQuic(true)
+                        .addQuicHint(HOST, 443, 443)
+                        .setQuicOptions(options)
+                        .build();
+        mCallback = new TestUrlRequestCallback();
+        UrlRequest.Builder builder =
+                mEngine.newUrlRequestBuilder(URL, mCallback.getExecutor(), mCallback);
+        mRequest = builder.build();
+        mRequest.start();
+
+        // This tests uses a non-hermetic server. Instead of asserting, assume the next
+        // callback. This way, if the request were to fail, the test would just be skipped
+        // instead of failing.
+        mCallback.assumeCallback(ResponseStep.ON_SUCCEEDED);
+        UrlResponseInfo info = mCallback.mResponseInfo;
+        assumeOKStatusCode(info);
+    }
+
     private static String extractUserAgent(String userAgentResponseBody) {
         // If someone wants to be evil and have the title HTML tag a part of the user agent,
         // they'll have to fix this method :)
-        return userAgentResponseBody
-                .replaceFirst(".*<title>", "")
-                .replaceFirst("</title>.*", "");
+        return userAgentResponseBody.replaceFirst(".*<title>", "").replaceFirst("</title>.*", "");
     }
 }
