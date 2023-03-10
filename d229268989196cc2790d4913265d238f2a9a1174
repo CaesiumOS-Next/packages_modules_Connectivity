@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e33f7f65_05e1dad5",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-10T09:56:05Z",
+      "side": 0,
+      "message": "This used to be `lint: { strict_updatability_linting: true }` (https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2384137/27/Tethering/common/TetheringLib/Android.bp#b75), we should revert to that. It\u0027s not the default: \n\n\u003e strict_updatability_linting bool, If true, baselining updatability lint checks (e.g. NewApi) is prohibited. Defaults to false.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 11
+      },
+      "revId": "d229268989196cc2790d4913265d238f2a9a1174",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
