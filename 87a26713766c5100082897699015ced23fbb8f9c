@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcad463b_d7a2b21d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-10T03:34:47Z",
+      "side": 1,
+      "message": "The change LGTM, but I think you need to document more detail about the change in commit message. The major difference is you remove mConfigInitialized. You should document why this is fine, seeing my previous comment.\nThis is XL CL (although there are a mount of part just be code move), suggest to have multiple smaller changes next time. Take this change as example, you can separate it into 4 CLs:\n1. Remove mConfigInitialized and document why it is fine.\n2. Add IOffloadHAL.java.\n3. Create OffloadHalHidlImpl.java and move existing hidl interface usage from OffloadHardwareInterface to OffloadHalHidlImpl.java. Then this change will almost be code move.\n4. Create OffloadHalAidlImpl.java and Implement it. This is U+ only changes which will more easy to get approval.\n\nWith above suggestion, you could isolate the changes into its own change so that reviewer could just easier to focus the change in smaller change which may make the code review more faster and safer.",
+      "revId": "87a26713766c5100082897699015ced23fbb8f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
