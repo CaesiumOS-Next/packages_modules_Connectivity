@@ -50,6 +50,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.google.common.base.Strings;
+import com.google.common.truth.Truth;
 
 import org.junit.After;
 import org.junit.Before;
@@ -285,6 +286,23 @@ public class UrlRequestTest {
         assertNotNull(e);
         assertTrue(e.getCause() instanceof IllegalArgumentException);
         assertTrue(e.getCause().getMessage().contains("full"));
+    }
+
+    public void testUrlRequest_redirects() throws Exception {
+        int expectedNumRedirects = 5;
+        String url =
+                mTestServer.getRedirectingAssetUrl("html/hello_world.html", expectedNumRedirects);
+
+        UrlRequest request = createUrlRequestBuilder(url).build();
+        request.start();
+
+        mCallback.expectCallback(ResponseStep.ON_SUCCEEDED);
+        UrlResponseInfo info = mCallback.mResponseInfo;
+        assertOKStatusCode(info);
+        Truth.assertThat(mCallback.mResponseAsString).contains("hello world");
+        Truth.assertThat(info.getUrlChain()).hasSize(expectedNumRedirects + 1);
+        Truth.assertThat(info.getUrlChain().get(0)).isEqualTo(url);
+        Truth.assertThat(info.getUrlChain().get(expectedNumRedirects)).isEqualTo(info.getUrl());
     }
 
     @Test
