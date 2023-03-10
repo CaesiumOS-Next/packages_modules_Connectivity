@@ -22,6 +22,30 @@
       },
       "revId": "d229268989196cc2790d4913265d238f2a9a1174",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0968a0c_75cda91a",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-10T10:02:48Z",
+      "side": 0,
+      "message": "Added `lint: { strict_updatability_linting: true },` back to `framework-tethering`",
+      "parentUuid": "e33f7f65_05e1dad5",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 11
+      },
+      "revId": "d229268989196cc2790d4913265d238f2a9a1174",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
