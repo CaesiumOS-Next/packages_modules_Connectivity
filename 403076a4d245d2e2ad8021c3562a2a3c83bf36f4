@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21db9966_5fbe40d8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/IOffloadHal.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-10T10:26:50Z",
+      "side": 1,
+      "message": "FWIW I think this code now has too many layers. The original design only had two: OffloadController and OffloadHardwareInterface. OffloadController had the control logic, and OffloadHardwareInterface was a very simple class, with basically no state, which just converted the function calls to HIDL calls (including the HIDL synchronous callback boilerplate).\n\nThis CL keeps OffloadHardwareInterface and adds moves the actual code down to another layer (the HIDL/AIDL layer). That results in a lot of method duplication between the hardware interface and the HIDL impl (and, consequently, between the hardware interface and the AIDL impl).\n\nIt seems like it would have been better to essentially rename OffloadHardwareInterface to the HIDL impl, and move the few bits of non-HIDL code into OffloadController.\n\nIt\u0027s probably too late to change the design at this stage, and this code doesn\u0027t change very often so readability isn\u0027t super important. But we should at least remove the code duplication (e.g., the duplication of identical log messages).",
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c398a6b_76aef011",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-10T10:26:50Z",
+      "side": 1,
+      "message": "This CL contains dozens of lines of boilerplate like this. This doesn\u0027t seem useful because all the handle*Exception methods are basically the same anyway. None of them actually do anything, they just log. If that\u0027s what we want, then it\u0027s much simpler to do something like:\n\n    public boolean stopOffload() {\n        final String methodStr \u003d \"stopOffload\";\n        try {\n            mIOffload.stopOffload();\n        } catch (Exception e) {\n            logAndIgnoreException(e, methodStr);\n            return false;\n        }\n        mTetheringOffloadCallback \u003d null;\n        return true;     \n    }\n\n    private void logAndIgnoreException(Exception e) {\n        mLog.e(\"IOffload.\" + methodStr + \" failed with + \" e.getClass().getSimpleName() + \": \", e);\n    }\n\nActually, I\u0027m not even sure you need the getClass().getSimpleName() because the log likely already prints the exception class. Probably a good idea to check though.\n\nIf you do this the behaviour will be a bit different from the what\u0027s in this CL right now, because this CL catches different types of exceptions in different calls. For example, stopOffload catches IllegalStateException, RemoteException and ServiceSpecificException, but it does not catch IllegalArgumentException. I think the only difference is that the code in this CL right now will crash the networkstack process (and the system) if we get an exception we don\u0027t expect, whereas what I suggest here will just ignore the exception and log.\n\nIf you really want to catch different exceptions in different methods, and crash if you get an exception of a different type, you can always do that with:\n\n        try {\n            mIOffload.stopOffload();\n        } catch (IllegalStateException | RemoteException | ServiceSpecificException e) {\n            logAndIgnoreException(e);\n            return false;\n        }",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 9
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e18dd43_253550e9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-10T10:26:50Z",
+      "side": 1,
+      "message": "This log message doesn\u0027t seem useful because OffloadHardwareInterface has already logged an identical log message. We should either keep the log messages in OffloadHardwareInterface or keep them here (and in the AIDL impl) but not both.",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 80
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "babd8dc9_8495547c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-10T10:26:50Z",
+      "side": 1,
+      "message": "It looks like the previous code would simply ignore duplicate init attempts. But this new code will instead try to stop offload if init is called twice. Can we avoid changing that in this CL? This CL is already trying to do too much I think.",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 9
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3429c0ff_c60df3b2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-10T10:26:50Z",
+      "side": 1,
+      "message": "This is very hard to read. See go/tott/455 for why this is bad.\n\nCan you unindent? Something like the following:\n\n    if (h1 \u003d\u003d null || h2 \u003d\u003d null) {\n        mLog.e(\"Failed to create socket\");\n        maybeCloseFdInNativeHandle(h1);\n        maybeCloseFdInNativeHandle(h2);\n        return OFFLOAD_HAL_VERSION_NONE;\n    }\n\n    requestSocketDump(h1);\n    ...\n    if (!mIOffload.initOffload(h1, h2, mOffloadHalCallback)) {\n        mIOffload.stopOffload();\n        mLog.e(\"Failed to initialize offload.\");\n        maybeCloseFdInNativeHandle(h1);\n        maybeCloseFdInNativeHandle(h2);\n        return OFFLOAD_HAL_VERSION_NONE;\n    }\n\n    // Explicitly close FDs for HIDL. AIDL will pass the original FDs to the service,\n    // they shouldn\u0027t be closed here.\n    if (mIOffload.getVersion() \u003c OFFLOAD_HAL_VERSION_AIDL) {\n        maybeCloseFdInNativeHandle(h1);\n        maybeCloseFdInNativeHandle(h2);\n    }\n    return mIOffload.getVersion();\n\n\nIf the duplication of calls to maybeCloseFdInNativeHandle bothers you, you could use a helper method to reduce that. Also, given that you always close the fds together, then maybe add a method that closes both of them?\n\n    private void maybeCloseFdInNativeHandles(final NativeHandle... handles) {\n        for (NativeHandle h : handles) {\n            if (h \u003d\u003d null) continue;\n            try {\n                h.close();\n            } catch (IOException | IllegalStateException e) {\n                // IllegalStateException means fd is already closed, do nothing here.\n                // Also nothing we can do if IOException.\n            }\n        }\n    }",
+      "range": {
+        "startLine": 318,
+        "startChar": 8,
+        "endLine": 318,
+        "endChar": 39
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6145f23_5923d4da",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-10T10:26:50Z",
+      "side": 1,
+      "message": "This is a behaviour change, the previous code would ignore the failure and did:\n\n        mOffloadControl \u003d null;\n        mTetheringOffloadCallback \u003d null;\n        mControlCallback \u003d null;\n        mLog.log(\"stopOffloadControl()\");\n\neven if mOffloadControl was null.\n\nIs there a reason to change that behaviour? If not, maybe keep the previous behaviour?",
+      "range": {
+        "startLine": 345,
+        "startChar": 46,
+        "endLine": 345,
+        "endChar": 52
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "376b8d61_ef078fa3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-10T10:26:50Z",
+      "side": 1,
+      "message": "Is this code needed? Do we need to support calling getForwardedStats if there is no offload HAL? It seems confusing to return empty stats if we don\u0027t have a pointer to the HAL.\n\nThe previous code didn\u0027t do that. If getForwardedStats was called with a null mOffloadControl, it would crash with an NPE. Presumably that means that this can never happen. If so, we should remove the null check.\n\nLooks like you have similar null checks in all the other methods, so maybe remove all of them? Or more specifically, remove all the ones that didn\u0027t already exist.",
+      "range": {
+        "startLine": 356,
+        "startChar": 8,
+        "endLine": 356,
+        "endChar": 80
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "506bab97_9ee162d8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-10T10:26:50Z",
+      "side": 1,
+      "message": "AFAICT the previous code never did \"if (mOffloadControl \u003d\u003d null)\" anywhere, so I think this method is not needed. If so, we should delete it.\n\nSuperfluous null checks are very confusing because anyone who is modifying the code sees a null check they will assume that things might be null when in fact they cannot be.",
+      "range": {
+        "startLine": 422,
+        "startChar": 20,
+        "endLine": 422,
+        "endChar": 37
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
