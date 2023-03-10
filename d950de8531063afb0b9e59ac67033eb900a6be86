@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9111daa0_3aad3d5d",
+        "filename": "service/native/libs/libclat/clatutils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-10T23:08:39Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 48,
+        "startChar": 9,
+        "endLine": 48,
+        "endChar": 14
+      },
+      "revId": "d950de8531063afb0b9e59ac67033eb900a6be86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
