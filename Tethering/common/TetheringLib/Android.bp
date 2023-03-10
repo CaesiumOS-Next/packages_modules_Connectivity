@@ -81,14 +81,6 @@ java_defaults {
     impl_only_static_libs: [
         "cronet_aml_java",
     ],
-    // STOPSHIP(b/265674359): fix all Cronet lint warnings and re-enable lint
-    // directly in framework-tethering
-    lint: {
-         enabled: false,
-    },
-    api_lint: {
-        enabled: false,
-    },
     api_dir: "cronet_enabled/api",
 }
 
