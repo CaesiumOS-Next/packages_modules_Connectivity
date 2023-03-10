@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "netdbpf/NetworkTraceHandler.h"
+#include "protos/perfetto/config/android/network_trace_config.gen.h"
 #include "protos/perfetto/trace/android/network_trace.pb.h"
 #include "protos/perfetto/trace/trace.pb.h"
 #include "protos/perfetto/trace/trace_packet.pb.h"
@@ -27,6 +28,7 @@
 namespace android {
 namespace bpf {
 using ::perfetto::protos::NetworkPacketEvent;
+using ::perfetto::protos::NetworkPacketTraceConfig;
 using ::perfetto::protos::Trace;
 using ::perfetto::protos::TracePacket;
 using ::perfetto::protos::TrafficDirection;
@@ -42,7 +44,8 @@ class HandlerForTest : public NetworkTraceHandler {
 class NetworkTraceHandlerTest : public testing::Test {
  protected:
   // Starts a tracing session with the handler under test.
-  std::unique_ptr<perfetto::TracingSession> StartTracing() {
+  std::unique_ptr<perfetto::TracingSession> StartTracing(
+      NetworkPacketTraceConfig settings) {
     perfetto::TracingInitArgs args;
     args.backends = perfetto::kInProcessBackend;
     perfetto::Tracing::Initialize(args);
@@ -53,7 +56,9 @@ class NetworkTraceHandlerTest : public testing::Test {
 
     perfetto::TraceConfig cfg;
     cfg.add_buffers()->set_size_kb(1024);
-    cfg.add_data_sources()->mutable_config()->set_name("test.network_packets");
+    auto* config = cfg.add_data_sources()->mutable_config();
+    config->set_name("test.network_packets");
+    config->set_network_packet_trace_config_raw(settings.SerializeAsString());
 
     auto session = perfetto::Tracing::NewTrace(perfetto::kInProcessBackend);
     session->Setup(cfg);
@@ -86,8 +91,9 @@ class NetworkTraceHandlerTest : public testing::Test {
 
   // This runs a trace with a single call to Write.
   bool TraceAndSortPackets(const std::vector<PacketTrace>& input,
-                           std::vector<TracePacket>* output) {
-    auto session = StartTracing();
+                           std::vector<TracePacket>* output,
+                           NetworkPacketTraceConfig config = {}) {
+    auto session = StartTracing(config);
     HandlerForTest::Trace([&](HandlerForTest::TraceContext ctx) {
       ctx.GetDataSourceLocked()->Write(input, ctx);
       ctx.Flush();
@@ -187,6 +193,40 @@ TEST_F(NetworkTraceHandlerTest, BasicBundling) {
 
   EXPECT_THAT(events[1].timestamp(), 2);
   EXPECT_THAT(events[1].network_packet_bundle().ctx().uid(), 456);
+  EXPECT_THAT(events[1].network_packet_bundle().packet_lengths(),
+              testing::ElementsAre(400, 100));
+  EXPECT_THAT(events[1].network_packet_bundle().packet_timestamps(),
+              testing::ElementsAre(0, 2));
+}
+
+TEST_F(NetworkTraceHandlerTest, AggregationThreshold) {
+  // With an aggregation threshold of 3, the set of packets with uid=123 will
+  // be aggregated (3>=3) whereas packets with uid=456 get per-packet info.
+  NetworkPacketTraceConfig config;
+  config.set_aggregation_threshold(3);
+
+  std::vector<PacketTrace> input = {
+      PacketTrace{.uid = 123, .timestampNs = 2, .length = 200},
+      PacketTrace{.uid = 123, .timestampNs = 1, .length = 100},
+      PacketTrace{.uid = 123, .timestampNs = 4, .length = 300},
+
+      PacketTrace{.uid = 456, .timestampNs = 2, .length = 400},
+      PacketTrace{.uid = 456, .timestampNs = 4, .length = 100},
+  };
+
+  std::vector<TracePacket> events;
+  ASSERT_TRUE(TraceAndSortPackets(input, &events, config));
+
+  ASSERT_EQ(events.size(), 2);
+
+  EXPECT_EQ(events[0].timestamp(), 1);
+  EXPECT_EQ(events[0].network_packet_bundle().ctx().uid(), 123);
+  EXPECT_EQ(events[0].network_packet_bundle().total_duration(), 3);
+  EXPECT_EQ(events[0].network_packet_bundle().total_packets(), 3);
+  EXPECT_EQ(events[0].network_packet_bundle().total_length(), 600);
+
+  EXPECT_EQ(events[1].timestamp(), 2);
+  EXPECT_EQ(events[1].network_packet_bundle().ctx().uid(), 456);
   EXPECT_THAT(events[1].network_packet_bundle().packet_lengths(),
               testing::ElementsAre(400, 100));
   EXPECT_THAT(events[1].network_packet_bundle().packet_timestamps(),
