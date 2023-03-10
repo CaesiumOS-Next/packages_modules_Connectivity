@@ -16,6 +16,24 @@
       "message": "LGTM, but before this rolls out, can you confirm with OEM users of Ethernet that this change will not negatively affect them?",
       "revId": "d0dd0d4109b6149b0595b868d1ef0a33bbe83fb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "593ee0f2_fc71b8b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-10T16:26:21Z",
+      "side": 1,
+      "message": "I have confirmation from at least one major OEM that this change will not negatively affect them.",
+      "parentUuid": "c6b56e26_549f1087",
+      "revId": "d0dd0d4109b6149b0595b868d1ef0a33bbe83fb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
