@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc52cfbc_8f0afbdc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-11T22:05:05Z",
+      "side": 1,
+      "message": "Note: depends on userspace clatd change to offset by aux-\u003etp_net",
+      "revId": "4e54b70010fa0b054a0d46019b0c30cdce08454e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
