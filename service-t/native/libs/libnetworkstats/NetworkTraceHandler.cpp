@@ -34,6 +34,7 @@ PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS(android::bpf::NetworkTraceHandler);
 namespace android {
 namespace bpf {
 using ::android::bpf::internal::NetworkTracePoller;
+using ::perfetto::protos::pbzero::NetworkPacketBundle;
 using ::perfetto::protos::pbzero::NetworkPacketEvent;
 using ::perfetto::protos::pbzero::NetworkPacketTraceConfig;
 using ::perfetto::protos::pbzero::TracePacket;
@@ -59,9 +60,6 @@ using ::perfetto::protos::pbzero::TrafficDirection;
 // the amount of redundant information written, thus reducing the overall trace
 // size. Interning ids are similarly based on unique bundle contexts.
 
-// Keys are PacketTraces where timestamp and length are ignored.
-using BundleKey = PacketTrace;
-
 // Based on boost::hash_combine
 template <typename T, typename... Rest>
 void HashCombine(std::size_t& seed, const T& val, const Rest&... rest) {
@@ -80,19 +78,15 @@ struct BundleDetails {
 #define AGG_FIELDS(x) \
   x.ifindex, x.uid, x.tag, x.sport, x.dport, x.egress, x.ipProto, x.tcpFlags
 
-struct BundleHash {
-  std::size_t operator()(const BundleKey& a) const {
-    std::size_t seed = 0;
-    HashCombine(seed, AGG_FIELDS(a));
-    return seed;
-  }
-};
+std::size_t BundleHash::operator()(const BundleKey& a) const {
+  std::size_t seed = 0;
+  HashCombine(seed, AGG_FIELDS(a));
+  return seed;
+}
 
-struct BundleEq {
-  bool operator()(const BundleKey& a, const BundleKey& b) const {
-    return std::tie(AGG_FIELDS(a)) == std::tie(AGG_FIELDS(b));
-  }
-};
+bool BundleEq::operator()(const BundleKey& a, const BundleKey& b) const {
+  return std::tie(AGG_FIELDS(a)) == std::tie(AGG_FIELDS(b));
+}
 
 // static
 void NetworkTraceHandler::RegisterDataSource() {
@@ -151,6 +145,8 @@ void NetworkTraceHandler::OnStop(const StopArgs&) {
 
 void NetworkTraceHandler::Write(const std::vector<PacketTrace>& packets,
                                 NetworkTraceHandler::TraceContext& ctx) {
+  uint64_t minTs = std::numeric_limits<uint64_t>::max();
+  NetworkTraceState* incr_state = ctx.GetIncrementalState();
   std::unordered_map<BundleKey, BundleDetails, BundleHash, BundleEq> bundles;
   for (const PacketTrace& pkt : packets) {
     BundleKey key = pkt;
@@ -159,6 +155,8 @@ void NetworkTraceHandler::Write(const std::vector<PacketTrace>& packets,
     if (mDropTcpFlags) key.tcpFlags = 0;
     if (mDropLocalPort) (key.egress ? key.sport : key.dport) = 0;
     if (mDropRemotePort) (key.egress ? key.dport : key.sport) = 0;
+
+    minTs = std::min(minTs, pkt.timestampNs);
 
     BundleDetails& bundle = bundles[key];
     bundle.time_and_len.emplace_back(pkt.timestampNs, pkt.length);
@@ -171,11 +169,19 @@ void NetworkTraceHandler::Write(const std::vector<PacketTrace>& packets,
     const BundleKey& key = kv.first;
     const BundleDetails& details = kv.second;
 
+    // If state was cleared, emit a separate packet to indicate it.
+    if (mInternLimit > 0 && incr_state->cleared) {
+      auto clear = ctx.NewTracePacket();
+      clear->set_sequence_flags(TracePacket::SEQ_INCREMENTAL_STATE_CLEARED);
+      clear->set_timestamp(minTs);
+      incr_state->cleared = false;
+    }
+
     auto dst = ctx.NewTracePacket();
+    dst->set_sequence_flags(TracePacket::SEQ_NEEDS_INCREMENTAL_STATE);
     dst->set_timestamp(details.minTs);
 
-    auto* event = dst->set_network_packet_bundle();
-    Fill(key, event->set_ctx());
+    auto* event = FillWithInterning(incr_state, key, dst.get());
 
     int count = details.time_and_len.size();
     if (!mAggregationThreshold || count < mAggregationThreshold) {
@@ -222,6 +228,36 @@ void NetworkTraceHandler::Fill(const PacketTrace& src,
   } else {
     event->set_interface("error");
   }
+}
+NetworkPacketBundle* NetworkTraceHandler::FillWithInterning(
+    NetworkTraceState* state, const BundleKey& key, TracePacket* dst) {
+  uint64_t iid = 0;
+
+  if (state->iids.size() < mInternLimit) {
+    auto [iter, success] = state->iids.try_emplace(key, state->iids.size() + 1);
+    iid = iter->second;
+
+    if (success) {
+      // If we successfully empaced, record the newly interned data.
+      auto* packet_context = dst->set_interned_data()->add_packet_context();
+      Fill(key, packet_context->set_ctx());
+      packet_context->set_iid(iid);
+    }
+  } else {
+    auto iter = state->iids.find(key);
+    if (iter != state->iids.end()) {
+      iid = iter->second;
+    }
+  }
+
+  auto* event = dst->set_network_packet_bundle();
+  if (iid == 0) {
+    Fill(key, event->set_ctx());
+  } else {
+    event->set_iid(iid);
+  }
+
+  return event;
 }
 
 }  // namespace bpf
