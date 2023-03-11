@@ -16,6 +16,8 @@
 
 package android.net.cts.util;
 
+import static android.net.ipsec.ike.IkeSessionParams.ESP_ENCAP_TYPE_AUTO;
+import static android.net.ipsec.ike.IkeSessionParams.ESP_IP_VERSION_AUTO;
 import static android.net.ipsec.ike.SaProposal.DH_GROUP_4096_BIT_MODP;
 import static android.net.ipsec.ike.SaProposal.ENCRYPTION_ALGORITHM_AES_CBC;
 import static android.net.ipsec.ike.SaProposal.ENCRYPTION_ALGORITHM_AES_GCM_12;
@@ -64,11 +66,12 @@ public class IkeSessionTestUtils {
 
     public static IkeSessionParams getTestIkeSessionParams(boolean testIpv6,
             IkeIdentification identification) {
-        return getTestIkeSessionParams(testIpv6, identification, TEST_KEEPALIVE_TIMEOUT_UNSET);
+        return getTestIkeSessionParams(testIpv6, identification, TEST_KEEPALIVE_TIMEOUT_UNSET,
+                ESP_IP_VERSION_AUTO, ESP_ENCAP_TYPE_AUTO);
     }
 
     public static IkeSessionParams getTestIkeSessionParams(boolean testIpv6,
-            IkeIdentification identification, int keepaliveTimer) {
+            IkeIdentification identification, int keepaliveTimer, int ipVersion, int encapType) {
         final String testServer = testIpv6 ? TEST_SERVER_ADDR_V6 : TEST_SERVER_ADDR_V4;
         final InetAddress addr = InetAddresses.parseNumericAddress(testServer);
         final IkeSessionParams.Builder ikeOptionsBuilder =
@@ -79,6 +82,8 @@ public class IkeSessionTestUtils {
                                 ? new IkeIpv6AddrIdentification((Inet6Address) addr)
                                 : new IkeIpv4AddrIdentification((Inet4Address) addr))
                         .setAuthPsk(TEST_PSK)
+                        .setIpVersion(ipVersion)
+                        .setEncapType(encapType)
 
                         .addSaProposal(getIkeSaProposals());
         if (keepaliveTimer != TEST_KEEPALIVE_TIMEOUT_UNSET) {
