@@ -30,10 +30,36 @@
 namespace android {
 namespace bpf {
 
+// BundleKeys are PacketTraces where timestamp and length are ignored.
+using BundleKey = PacketTrace;
+
+struct BundleHash {
+  std::size_t operator()(const BundleKey& a) const;
+};
+
+struct BundleEq {
+  bool operator()(const BundleKey& a, const BundleKey& b) const;
+};
+
+// The following will be used for Perfetto's incremental state. Perfetto clears
+// this periodically to prevent infinite growth and recover from various forms
+// of packet loss. When cleared (or on initialization), this struct will be
+// default constructed. We use this to remember the iids we've ouput *since the
+// last time incremental state was cleared*.
+struct NetworkTraceState {
+  bool cleared;
+  std::unordered_map<BundleKey, uint64_t, BundleHash, BundleEq> iids;
+};
+
+struct NetworkTraceTraits : public perfetto::DefaultDataSourceTraits {
+  using IncrementalStateType = NetworkTraceState;
+};
+
 // NetworkTraceHandler implements the android.network_packets data source. This
 // class is registered with Perfetto and is instantiated when tracing starts and
 // destroyed when tracing ends. There is one instance per trace session.
-class NetworkTraceHandler : public perfetto::DataSource<NetworkTraceHandler> {
+class NetworkTraceHandler
+    : public perfetto::DataSource<NetworkTraceHandler, NetworkTraceTraits> {
  public:
   // Registers this DataSource.
   static void RegisterDataSource();
@@ -55,6 +81,11 @@ class NetworkTraceHandler : public perfetto::DataSource<NetworkTraceHandler> {
   // Convert a PacketTrace into a Perfetto trace packet.
   void Fill(const PacketTrace& src,
             ::perfetto::protos::pbzero::NetworkPacketEvent* event);
+
+  // Fills in contextual information either inline or via interning.
+  ::perfetto::protos::pbzero::NetworkPacketBundle* FillWithInterning(
+      NetworkTraceState* state, const BundleKey& key,
+      ::perfetto::protos::pbzero::TracePacket* dst);
 
   static internal::NetworkTracePoller sPoller;
   bool mStarted;
