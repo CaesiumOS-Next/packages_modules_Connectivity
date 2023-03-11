@@ -75,13 +75,13 @@ cc_test {
         "libgmock",
         "libnetworkstats",
         "libperfetto_client_experimental",
+        "libprotobuf-cpp-lite",
         "perfetto_trace_protos",
     ],
     shared_libs: [
         "libbase",
         "liblog",
         "libandroid_net",
-        "libprotobuf-cpp-lite",
     ],
     compile_multilib: "both",
     multilib: {
