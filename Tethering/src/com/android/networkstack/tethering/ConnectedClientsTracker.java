@@ -49,6 +49,8 @@ public class ConnectedClientsTracker {
     @NonNull
     private List<WifiClient> mLastWifiClients = Collections.emptyList();
     @NonNull
+    private List<WifiClient> mLastLocalOnlyClients = Collections.emptyList();
+    @NonNull
     private List<TetheredClient> mLastTetheredClients = Collections.emptyList();
 
     @VisibleForTesting
@@ -72,18 +74,21 @@ public class ConnectedClientsTracker {
      *
      * <p>The new list can be obtained through {@link #getLastTetheredClients()}.
      * @param ipServers The IpServers used to assign addresses to clients.
-     * @param wifiClients The list of L2-connected WiFi clients. Null for no change since last
-     *                    update.
+     * @param wifiClients The list of L2-connected WiFi clients which behide global hotspot.
+     *                    Null for no change since last update.
+     * @param localOnlyClients The list of L2-connected WiFi clients which behdie localOnly hotspot.
+     *                    Null for no change since last update.
      * @return True if the list of clients changed since the last calculation.
      */
     public boolean updateConnectedClients(
-            Iterable<IpServer> ipServers, @Nullable List<WifiClient> wifiClients) {
+            Iterable<IpServer> ipServers, @Nullable List<WifiClient> wifiClients,
+            @Nullable List<WifiClient> localOnlyClients) {
         final long now = mClock.elapsedRealtime();
 
-        if (wifiClients != null) {
-            mLastWifiClients = wifiClients;
-        }
-        final Set<MacAddress> wifiClientMacs = getClientMacs(mLastWifiClients);
+        if (wifiClients != null) mLastWifiClients = wifiClients;
+        if (localOnlyClients != null) mLastLocalOnlyClients = localOnlyClients;
+
+        final Set<MacAddress> wifiClientMacs = getWifiClientMacs();
 
         // Build the list of non-expired leases from all IpServers, grouped by mac address
         final Map<MacAddress, TetheredClient> clientsMap = new HashMap<>();
@@ -173,9 +178,13 @@ public class ConnectedClientsTracker {
     }
 
     @NonNull
-    private static Set<MacAddress> getClientMacs(@NonNull List<WifiClient> clients) {
-        final Set<MacAddress> macs = new HashSet<>(clients.size());
-        for (WifiClient c : clients) {
+    private Set<MacAddress> getWifiClientMacs() {
+        final Set<MacAddress> macs = new HashSet<>(
+                mLastWifiClients.size() + mLastLocalOnlyClients.size());
+        for (WifiClient c : mLastWifiClients) {
+            macs.add(c.getMacAddress());
+        }
+        for (WifiClient c : mLastLocalOnlyClients) {
             macs.add(c.getMacAddress());
         }
         return macs;
