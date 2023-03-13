@@ -16,6 +16,23 @@
       "message": "See on flake dashboard: http://shortn/_8Iq3rQ0Ext",
       "revId": "986ef85d28f5c7372bfeb326e2653dadc1293111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9571570_2a8f91c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-13T09:14:17Z",
+      "side": 1,
+      "message": "I was wondering why ENETUNREACH actually.\n\nCan it even happen, BTW? I think the route to the fe80::/64 prefix should already be there by the time that the IPv6 address clears DAD. I guess you could try removing ENETUNREACH and seeing if the test is still flaky.",
+      "revId": "986ef85d28f5c7372bfeb326e2653dadc1293111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
