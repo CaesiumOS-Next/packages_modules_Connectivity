@@ -223,6 +223,9 @@ def enable_boringssl(module, arch):
   shared_libs.add('//external/cronet/third_party/boringssl:libcrypto')
   shared_libs.add('//external/cronet/third_party/boringssl:libssl')
 
+def always_disable(module, arch):
+  pass
+
 # Android equivalents for third-party libraries that the upstream project
 # depends on.
 builtin_deps = {
