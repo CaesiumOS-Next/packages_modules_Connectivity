@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "048582c4_30e61d50",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7022,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-13T04:01:55Z",
+      "side": 1,
+      "message": "This is incorrect, at least on a theoretical level – you\u0027re going to cache the properties of the package for whatever user called you first, and then reuse it for any user. If you wanted to fetch the properties per-user, you\u0027d need to cache it per-user too.\n\nIn practice this is inconsequential because AFAIK, there can\u0027t be different properties per user. But I think a simpler and better way to exploit this fact is simply to clear the caller identity before you get the context manager. Then you\u0027re consistent, always reading it for user 0, and explicitly relying on the fact that there can be only one manifest across all users.",
+      "range": {
+        "startLine": 7022,
+        "startChar": 28,
+        "endLine": 7022,
+        "endChar": 58
+      },
+      "revId": "817861de3d01bd2b501f2f9b2b1bdec188560202",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
