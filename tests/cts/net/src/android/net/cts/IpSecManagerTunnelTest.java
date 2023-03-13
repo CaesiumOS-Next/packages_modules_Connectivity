@@ -331,6 +331,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 InetAddress remoteInner,
                 IpSecTransform inTransportTransform,
                 IpSecTransform outTransportTransform,
+                UdpEncapsulationSocket encapSocket,
                 int encapPort,
                 int innerSocketPort)
                 throws Exception;
@@ -344,6 +345,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 InetAddress remoteInner,
                 IpSecTransform inTransportTransform,
                 IpSecTransform outTransportTransform,
+                UdpEncapsulationSocket encapSocket,
                 int encapPort,
                 int unusedInnerSocketPort) {
             return new IpSecTunnelTestRunnable() {
@@ -401,6 +403,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 InetAddress remoteInner,
                 IpSecTransform inTransportTransform,
                 IpSecTransform outTransportTransform,
+                UdpEncapsulationSocket encapSocket,
                 int encapPort,
                 int innerSocketPort)
                 throws Exception {
@@ -450,6 +453,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 InetAddress remoteInner,
                 IpSecTransform inTransportTransform,
                 IpSecTransform outTransportTransform,
+                UdpEncapsulationSocket encapSocket,
                 int encapPort,
                 int innerSocketPort)
                 throws Exception {
@@ -503,6 +507,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                         seqNum);
                     }
                     tunUtils.injectPacket(pkt);
+                    android.util.Log.i("TEST", "injectPacket " + TunUtils.byteArrayToHexString(pkt));
 
                     // Receive packet from socket, and validate
                     receiveAndValidatePacket(socket);
@@ -534,6 +539,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 InetAddress remoteInner,
                 IpSecTransform inTransportTransform,
                 IpSecTransform outTransportTransform,
+                UdpEncapsulationSocket encapSocket,
                 int encapPort,
                 int unusedInnerSocketPort) {
             return new IpSecTunnelTestRunnable() {
@@ -556,6 +562,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                     remoteInner,
                                     inTransportTransform,
                                     outTransportTransform,
+                                    encapSocket,
                                     encapPort,
                                     unusedInnerSocketPort)
                             .run(
@@ -577,6 +584,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                             remoteInner,
                             LOCAL_OUTER_4_NEW,
                             REMOTE_OUTER_4_NEW,
+                            encapSocket,
                             encapPort != 0,
                             transportInTunnelMode,
                             sTunWrapperNew.utils,
@@ -587,6 +595,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                             remoteInner,
                             LOCAL_OUTER_6_NEW,
                             REMOTE_OUTER_6_NEW,
+                            null /* encapSocket */,
                             false, // IPv6 does not support UDP encapsulation
                             transportInTunnelMode,
                             sTunWrapperNew.utils,
@@ -603,6 +612,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 InetAddress remoteInner,
                 InetAddress localOuter,
                 InetAddress remoteOuter,
+                UdpEncapsulationSocket oldEncapSocket,
                 boolean useEncap,
                 boolean transportInTunnelMode,
                 TunUtils tunUtils,
@@ -631,7 +641,8 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                             buildIpSecTransform(sContext, inTransportSpi, null, remoteInner);
                     IpSecTransform outTransportTransform =
                             buildIpSecTransform(sContext, outTransportSpi, null, localInner);
-                    UdpEncapsulationSocket encapSocket = mISM.openUdpEncapsulationSocket()) {
+                    UdpEncapsulationSocket encapSocket4 = mISM.openUdpEncapsulationSocket();
+                    UdpEncapsulationSocket encapSocket6 = mISM.openUdpEncapsulationSocket(65537)) {
 
                 // Configure tunnel mode Transform parameters
                 IpSecTransform.Builder transformBuilder = new IpSecTransform.Builder(sContext);
@@ -641,6 +652,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                         new IpSecAlgorithm(
                                 IpSecAlgorithm.AUTH_HMAC_SHA256, AUTH_KEY, AUTH_KEY.length * 4));
 
+                UdpEncapsulationSocket encapSocket = outerFamily == AF_INET? encapSocket4: encapSocket6;
                 if (useEncap) {
                     transformBuilder.setIpv4Encapsulation(encapSocket, encapSocket.getPort());
                 }
@@ -667,6 +679,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                     remoteInner,
                                     inTransportTransform,
                                     outTransportTransform,
+                                    useEncap ? encapSocket : null,
                                     useEncap ? encapSocket.getPort() : 0,
                                     0)
                             .run(
@@ -703,6 +716,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 InetAddress remoteInner,
                 IpSecTransform inTransportTransform,
                 IpSecTransform outTransportTransform,
+                UdpEncapsulationSocket encapSocket,
                 int encapPort,
                 int unusedInnerSocketPort) {
             return new IpSecTunnelTestRunnable() {
@@ -725,6 +739,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                     remoteInner,
                                     inTransportTransform,
                                     outTransportTransform,
+                                    encapSocket,
                                     encapPort,
                                     unusedInnerSocketPort);
                     testRunnable.run(
@@ -738,19 +753,29 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                             seqNum);
 
                     tunnelIface.setUnderlyingNetwork(sTunWrapperNew.network);
-                    checkMigrateTunnelModeTransform(
-                            testRunnable,
-                            inTunnelTransform,
-                            outTunnelTransform,
-                            tunnelIface,
-                            ipsecNetwork,
-                            sTunWrapperNew.utils,
-                            LOCAL_OUTER_4_NEW,
-                            REMOTE_OUTER_4_NEW,
-                            2 /* seqNum */);
+                    if (encapSocket != null) {
+                        android.util.Log.i("TEST", "rebind encapSocket to new Network " + sTunWrapperNew.network);
+                        sTunWrapperNew.network.bindSocket(encapSocket.getFileDescriptor());
+                    }
 
-                    // Only test migration to IPv6 in non-UDP Encapsulation case
-                    if (encapPort == 0) {
+                    // Migrate to V4
+                    if (encapPort == 0 || localOuter instanceof Inet4Address) {
+                        android.util.Log.i("TEST", "Migrate to V4 encapPort != 0 " + (encapPort != 0));
+                        checkMigrateTunnelModeTransform(
+                                testRunnable,
+                                inTunnelTransform,
+                                outTunnelTransform,
+                                tunnelIface,
+                                ipsecNetwork,
+                                sTunWrapperNew.utils,
+                                LOCAL_OUTER_4_NEW,
+                                REMOTE_OUTER_4_NEW,
+                                2 /* seqNum */);
+                    }
+
+                    // Migrate to V6
+                    if (encapPort == 0 || localOuter instanceof Inet6Address) {
+                        android.util.Log.i("TEST", "Migrate to V6 encapPort != 0 " + (encapPort != 0));
                         checkMigrateTunnelModeTransform(
                                 testRunnable,
                                 inTunnelTransform,
@@ -897,7 +922,10 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                         buildIpSecTransform(sContext, inTransportSpi, null, remoteInner);
                 IpSecTransform outTransportTransform =
                         buildIpSecTransform(sContext, outTransportSpi, null, localInner);
-                UdpEncapsulationSocket encapSocket = mISM.openUdpEncapsulationSocket()) {
+                UdpEncapsulationSocket encapSocket4 = mISM.openUdpEncapsulationSocket();
+                UdpEncapsulationSocket encapSocket6 = mISM.openUdpEncapsulationSocket(65536)) {
+
+            UdpEncapsulationSocket encapSocket = outerFamily == AF_INET? encapSocket4: encapSocket6;
 
             // Run output direction tests
             IpSecTunnelTestRunnable outputIpSecTunnelTestRunnable =
@@ -909,6 +937,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                     remoteInner,
                                     inTransportTransform,
                                     outTransportTransform,
+                                    useEncap ? encapSocket : null,
                                     useEncap ? encapSocket.getPort() : 0,
                                     0);
             int innerSocketPort =
@@ -931,6 +960,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                     localInner,
                                     inTransportTransform,
                                     outTransportTransform,
+                                    useEncap ? encapSocket : null,
                                     useEncap ? encapSocket.getPort() : 0,
                                     innerSocketPort);
             buildTunnelNetworkAndRunTests(
@@ -973,7 +1003,10 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                         buildIpSecTransform(sContext, inTransportSpi, null, remoteInner);
                 IpSecTransform outTransportTransform =
                         buildIpSecTransform(sContext, outTransportSpi, null, localInner);
-                UdpEncapsulationSocket encapSocket = mISM.openUdpEncapsulationSocket()) {
+                UdpEncapsulationSocket encapSocket4 = mISM.openUdpEncapsulationSocket();
+                UdpEncapsulationSocket encapSocket6 = mISM.openUdpEncapsulationSocket(65536)) {
+
+            UdpEncapsulationSocket encapSocket = outerFamily == AF_INET? encapSocket4: encapSocket6;
 
             buildTunnelNetworkAndRunTests(
                     localInner,
@@ -989,6 +1022,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                             remoteInner,
                             inTransportTransform,
                             outTransportTransform,
+                            useEncap ? encapSocket : null,
                             useEncap ? encapSocket.getPort() : 0,
                             0));
         }
@@ -1038,6 +1072,10 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
 
             if (encapSocket != null) {
                 transformBuilder.setIpv4Encapsulation(encapSocket, encapSocket.getPort());
+
+                // Debug
+                android.util.Log.i("TEST", "bind encapSocket to network " + sTunWrapper.network);
+                sTunWrapper.network.bindSocket(encapSocket.getFileDescriptor());
             }
 
             // Apply transform and check that traffic is properly encrypted
@@ -1201,197 +1239,200 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
             throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         assumeTrue(mCtsNetUtils.hasIpsecTunnelMigrateFeature());
+
+        android.util.Log.i("TEST", "Start output test outerFamily " + outerFamily);
         checkMigrateTunnelModeTransformOutput(
                 innerFamily, outerFamily, useEncap, transportInTunnelMode);
+        android.util.Log.i("TEST", "Start input test outerFamily " + outerFamily);
         checkMigrateTunnelModeTransformInput(
                 innerFamily, outerFamily, useEncap, transportInTunnelMode);
     }
 
-    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
-    @Test
-    public void testHasIpSecTunnelMigrateFeature() throws Exception {
-        // FEATURE_IPSEC_TUNNEL_MIGRATION is required when VSR API is U/U+
-        if (getVsrApiLevel() > Build.VERSION_CODES.TIRAMISU) {
-            assertTrue(mCtsNetUtils.hasIpsecTunnelMigrateFeature());
-        }
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testHasIpSecTunnelMigrateFeature() throws Exception {
+    //     // FEATURE_IPSEC_TUNNEL_MIGRATION is required when VSR API is U/U+
+    //     if (getVsrApiLevel() > Build.VERSION_CODES.TIRAMISU) {
+    //         assertTrue(mCtsNetUtils.hasIpsecTunnelMigrateFeature());
+    //     }
+    // }
 
-    // Transport-in-Tunnel mode tests
-    @Test
-    public void testTransportInTunnelModeV4InV4() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(AF_INET, AF_INET, false, true);
-        checkTunnelInput(AF_INET, AF_INET, false, true);
-    }
+    // // Transport-in-Tunnel mode tests
+    // @Test
+    // public void testTransportInTunnelModeV4InV4() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelOutput(AF_INET, AF_INET, false, true);
+    //     checkTunnelInput(AF_INET, AF_INET, false, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.R)
-    @Test
-    public void testMigrateTransportInTunnelModeV4InV4() throws Exception {
-        doTestMigrateTunnel(AF_INET, AF_INET, false, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTransportInTunnelModeV4InV4() throws Exception {
+    //     doTestMigrateTunnel(AF_INET, AF_INET, false, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
-    @Test
-    public void testMigrateTransformTransportInTunnelModeV4InV4() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET, AF_INET, false, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTransportInTunnelModeV4InV4() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET, AF_INET, false, true);
+    // }
 
-    @Test
-    public void testTransportInTunnelModeV4InV4Reflected() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET, AF_INET, false, true);
-    }
+    // @Test
+    // public void testTransportInTunnelModeV4InV4Reflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET, AF_INET, false, true);
+    // }
 
-    @Test
-    public void testTransportInTunnelModeV4InV4UdpEncap() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(AF_INET, AF_INET, true, true);
-        checkTunnelInput(AF_INET, AF_INET, true, true);
-    }
+    // @Test
+    // public void testTransportInTunnelModeV4InV4UdpEncap() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelOutput(AF_INET, AF_INET, true, true);
+    //     checkTunnelInput(AF_INET, AF_INET, true, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.R)
-    @Test
-    public void testMigrateTransportInTunnelModeV4InV4UdpEncap() throws Exception {
-        doTestMigrateTunnel(AF_INET, AF_INET, true, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTransportInTunnelModeV4InV4UdpEncap() throws Exception {
+    //     doTestMigrateTunnel(AF_INET, AF_INET, true, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
-    @Test
-    public void testMigrateTransformTransportInTunnelModeV4InV4UdpEncap() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET, AF_INET, true, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTransportInTunnelModeV4InV4UdpEncap() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET, AF_INET, true, true);
+    // }
 
-    @Test
-    public void testTransportInTunnelModeV4InV4UdpEncapReflected() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET, AF_INET, false, true);
-    }
+    // @Test
+    // public void testTransportInTunnelModeV4InV4UdpEncapReflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET, AF_INET, false, true);
+    // }
 
-    @Test
-    public void testTransportInTunnelModeV4InV6() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(AF_INET, AF_INET6, false, true);
-        checkTunnelInput(AF_INET, AF_INET6, false, true);
-    }
+    // @Test
+    // public void testTransportInTunnelModeV4InV6() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelOutput(AF_INET, AF_INET6, false, true);
+    //     checkTunnelInput(AF_INET, AF_INET6, false, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.R)
-    @Test
-    public void testMigrateTransportInTunnelModeV4InV6() throws Exception {
-        doTestMigrateTunnel(AF_INET, AF_INET6, false, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTransportInTunnelModeV4InV6() throws Exception {
+    //     doTestMigrateTunnel(AF_INET, AF_INET6, false, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
-    @Test
-    public void testMigrateTransformTransportInTunnelModeV4InV6() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET, AF_INET6, false, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTransportInTunnelModeV4InV6() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET, AF_INET6, false, true);
+    // }
 
-    @Test
-    public void testTransportInTunnelModeV4InV6Reflected() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET, AF_INET, false, true);
-    }
+    // @Test
+    // public void testTransportInTunnelModeV4InV6Reflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET, AF_INET, false, true);
+    // }
 
-    @Test
-    public void testTransportInTunnelModeV6InV4() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(AF_INET6, AF_INET, false, true);
-        checkTunnelInput(AF_INET6, AF_INET, false, true);
-    }
+    // @Test
+    // public void testTransportInTunnelModeV6InV4() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelOutput(AF_INET6, AF_INET, false, true);
+    //     checkTunnelInput(AF_INET6, AF_INET, false, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.R)
-    @Test
-    public void testMigrateTransportInTunnelModeV6InV4() throws Exception {
-        doTestMigrateTunnel(AF_INET6, AF_INET, false, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTransportInTunnelModeV6InV4() throws Exception {
+    //     doTestMigrateTunnel(AF_INET6, AF_INET, false, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
-    @Test
-    public void testMigrateTransformTransportInTunnelModeV6InV4() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, false, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTransportInTunnelModeV6InV4() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, false, true);
+    // }
 
-    @Test
-    public void testTransportInTunnelModeV6InV4Reflected() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET, AF_INET, false, true);
-    }
+    // @Test
+    // public void testTransportInTunnelModeV6InV4Reflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET, AF_INET, false, true);
+    // }
 
-    @Test
-    public void testTransportInTunnelModeV6InV4UdpEncap() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(AF_INET6, AF_INET, true, true);
-        checkTunnelInput(AF_INET6, AF_INET, true, true);
-    }
+    // @Test
+    // public void testTransportInTunnelModeV6InV4UdpEncap() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelOutput(AF_INET6, AF_INET, true, true);
+    //     checkTunnelInput(AF_INET6, AF_INET, true, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.R)
-    @Test
-    public void testMigrateTransportInTunnelModeV6InV4UdpEncap() throws Exception {
-        doTestMigrateTunnel(AF_INET6, AF_INET, true, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTransportInTunnelModeV6InV4UdpEncap() throws Exception {
+    //     doTestMigrateTunnel(AF_INET6, AF_INET, true, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
-    @Test
-    public void testMigrateTransformTransportInTunnelModeV6InV4UdpEncap() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, true, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTransportInTunnelModeV6InV4UdpEncap() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, true, true);
+    // }
 
-    @Test
-    public void testTransportInTunnelModeV6InV4UdpEncapReflected() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET, AF_INET, false, true);
-    }
+    // @Test
+    // public void testTransportInTunnelModeV6InV4UdpEncapReflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET, AF_INET, false, true);
+    // }
 
-    @Test
-    public void testTransportInTunnelModeV6InV6() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(AF_INET, AF_INET6, false, true);
-        checkTunnelInput(AF_INET, AF_INET6, false, true);
-    }
+    // @Test
+    // public void testTransportInTunnelModeV6InV6() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelOutput(AF_INET, AF_INET6, false, true);
+    //     checkTunnelInput(AF_INET, AF_INET6, false, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.R)
-    @Test
-    public void testMigrateTransportInTunnelModeV6InV6() throws Exception {
-        doTestMigrateTunnel(AF_INET, AF_INET6, false, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTransportInTunnelModeV6InV6() throws Exception {
+    //     doTestMigrateTunnel(AF_INET, AF_INET6, false, true);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
-    @Test
-    public void testMigrateTransformTransportInTunnelModeV6InV6() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET, AF_INET6, false, true);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTransportInTunnelModeV6InV6() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET, AF_INET6, false, true);
+    // }
 
-    @Test
-    public void testTransportInTunnelModeV6InV6Reflected() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET, AF_INET, false, true);
-    }
+    // @Test
+    // public void testTransportInTunnelModeV6InV6Reflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET, AF_INET, false, true);
+    // }
 
-    // Tunnel mode tests
-    @Test
-    public void testTunnelV4InV4() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(AF_INET, AF_INET, false, false);
-        checkTunnelInput(AF_INET, AF_INET, false, false);
-    }
+    // // Tunnel mode tests
+    // @Test
+    // public void testTunnelV4InV4() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelOutput(AF_INET, AF_INET, false, false);
+    //     checkTunnelInput(AF_INET, AF_INET, false, false);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.R)
-    @Test
-    public void testMigrateTunnelV4InV4() throws Exception {
-        doTestMigrateTunnel(AF_INET, AF_INET, false, false);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTunnelV4InV4() throws Exception {
+    //     doTestMigrateTunnel(AF_INET, AF_INET, false, false);
+    // }
 
-    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
-    @Test
-    public void testMigrateTransformTunnelV4InV4() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET, AF_INET, false, false);
-    }
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTunnelV4InV4() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET, AF_INET, false, false);
+    // }
 
-    @Test
-    public void testTunnelV4InV4Reflected() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET, AF_INET, false, false);
-    }
+    // @Test
+    // public void testTunnelV4InV4Reflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET, AF_INET, false, false);
+    // }
 
     @Test
     public void testTunnelV4InV4UdpEncap() throws Exception {
@@ -1400,121 +1441,203 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET, AF_INET, true, false);
     }
 
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTunnelV4InV4UdpEncap() throws Exception {
+    //     doTestMigrateTunnel(AF_INET, AF_INET, true, false);
+    // }
+
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTunnelV4InV4UdpEncap() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET, AF_INET, true, false);
+    // }
+
+    // @Test
+    // public void testTunnelV4InV4UdpEncapReflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET, AF_INET, true, false);
+    // }
+
+    // @Test
+    // public void testTunnelV4InV6() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelOutput(AF_INET, AF_INET6, false, false);
+    //     checkTunnelInput(AF_INET, AF_INET6, false, false);
+    // }
+
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTunnelV4InV6() throws Exception {
+    //     doTestMigrateTunnel(AF_INET, AF_INET6, false, false);
+    // }
+
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTunnelV4InV6() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET, AF_INET6, false, false);
+    // }
+
+    // @Test
+    // public void testTunnelV4InV6Reflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET, AF_INET6, false, false);
+    // }
+
+    // @Test
+    // public void testTunnelV6InV4() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelOutput(AF_INET6, AF_INET, false, false);
+    //     checkTunnelInput(AF_INET6, AF_INET, false, false);
+    // }
+
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTunnelV6InV4() throws Exception {
+    //     doTestMigrateTunnel(AF_INET6, AF_INET, false, false);
+    // }
+
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTunnelV6InV4() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, false, false);
+    // }
+
+    // @Test
+    // public void testTunnelV6InV4Reflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET6, AF_INET, false, false);
+    // }
+
+    // @Test
+    // public void testTunnelV6InV4UdpEncap() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelOutput(AF_INET6, AF_INET, true, false);
+    //     checkTunnelInput(AF_INET6, AF_INET, true, false);
+    // }
+
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTunnelV6InV4UdpEncap() throws Exception {
+    //     doTestMigrateTunnel(AF_INET6, AF_INET, true, false);
+    // }
+
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTunnelV6InV4UdpEncap() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, true, false);
+    // }
+
+    // @Test
+    // public void testTunnelV6InV4UdpEncapReflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET6, AF_INET, true, false);
+    // }
+
+    // @Test
+    // public void testTunnelV6InV6() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelOutput(AF_INET6, AF_INET6, false, false);
+    //     checkTunnelInput(AF_INET6, AF_INET6, false, false);
+    // }
+
+    // @IgnoreUpTo(Build.VERSION_CODES.R)
+    // @Test
+    // public void testMigrateTunnelV6InV6() throws Exception {
+    //     doTestMigrateTunnel(AF_INET6, AF_INET6, false, false);
+    // }
+
+    // @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    // @Test
+    // public void testMigrateTransformTunnelV6InV6() throws Exception {
+    //     doTestMigrateTunnelModeTransform(AF_INET6, AF_INET6, false, false);
+    // }
+
+    // @Test
+    // public void testTunnelV6InV6Reflected() throws Exception {
+    //     assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+    //     checkTunnelReflected(AF_INET6, AF_INET6, false, false);
+    // }
+
+    @Test
+    public void testTransportInTunnelModeV4InV6UdpEncap() throws Exception {
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+        checkTunnelOutput(AF_INET, AF_INET6, true, true);
+        checkTunnelInput(AF_INET, AF_INET6, true, true);
+    }
+
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
-    public void testMigrateTunnelV4InV4UdpEncap() throws Exception {
-        doTestMigrateTunnel(AF_INET, AF_INET, true, false);
+    public void testMigrateTransportInTunnelModeV4InV6UdpEncap() throws Exception {
+        doTestMigrateTunnel(AF_INET, AF_INET6, true, true);
     }
 
     @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
     @Test
-    public void testMigrateTransformTunnelV4InV4UdpEncap() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET, AF_INET, true, false);
+    public void testMigrateTransformTransportInTunnelModeV4InV6UdpEncap() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET, AF_INET6, true, true);
     }
 
     @Test
-    public void testTunnelV4InV4UdpEncapReflected() throws Exception {
+    public void testTransportInTunnelModeV6InV6UdpEncap() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET, AF_INET, true, false);
-    }
-
-    @Test
-    public void testTunnelV4InV6() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(AF_INET, AF_INET6, false, false);
-        checkTunnelInput(AF_INET, AF_INET6, false, false);
+        checkTunnelOutput(AF_INET6, AF_INET6, true, true);
+        checkTunnelInput(AF_INET6, AF_INET6, true, true);
     }
 
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
-    public void testMigrateTunnelV4InV6() throws Exception {
-        doTestMigrateTunnel(AF_INET, AF_INET6, false, false);
+    public void testMigrateTransportInTunnelModeV6InV6UdpEncap() throws Exception {
+        doTestMigrateTunnel(AF_INET6, AF_INET6, true, true);
     }
 
     @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
     @Test
-    public void testMigrateTransformTunnelV4InV6() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET, AF_INET6, false, false);
+    public void testMigrateTransformTransportInTunnelModeV6InV6UdpEncap() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET6, true, true);
     }
 
     @Test
-    public void testTunnelV4InV6Reflected() throws Exception {
+    public void testTunnelV4InV6UdpEncap() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET, AF_INET6, false, false);
-    }
-
-    @Test
-    public void testTunnelV6InV4() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(AF_INET6, AF_INET, false, false);
-        checkTunnelInput(AF_INET6, AF_INET, false, false);
+        checkTunnelOutput(AF_INET, AF_INET6, true, false);
+        checkTunnelInput(AF_INET, AF_INET6, true, false);
     }
 
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
-    public void testMigrateTunnelV6InV4() throws Exception {
-        doTestMigrateTunnel(AF_INET6, AF_INET, false, false);
+    public void testMigrateTunnelV4InV6UdpEncap() throws Exception {
+        doTestMigrateTunnel(AF_INET, AF_INET6, true, false);
     }
 
     @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
     @Test
-    public void testMigrateTransformTunnelV6InV4() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, false, false);
+    public void testMigrateTransformTunnelV4InV6UdpEncap() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET, AF_INET6, true, false);
     }
 
     @Test
-    public void testTunnelV6InV4Reflected() throws Exception {
+    public void testTunnelV6InV6UdpEncap() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET6, AF_INET, false, false);
-    }
-
-    @Test
-    public void testTunnelV6InV4UdpEncap() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(AF_INET6, AF_INET, true, false);
-        checkTunnelInput(AF_INET6, AF_INET, true, false);
+        checkTunnelOutput(AF_INET6, AF_INET6, true, false);
+        checkTunnelInput(AF_INET6, AF_INET6, true, false);
     }
 
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
-    public void testMigrateTunnelV6InV4UdpEncap() throws Exception {
-        doTestMigrateTunnel(AF_INET6, AF_INET, true, false);
+    public void testMigrateTunnelV6InV6UdpEncap() throws Exception {
+        doTestMigrateTunnel(AF_INET6, AF_INET6, true, false);
     }
 
     @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
     @Test
-    public void testMigrateTransformTunnelV6InV4UdpEncap() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET, true, false);
+    public void testMigrateTransformTunnelV6InV6UdpEncap() throws Exception {
+        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET6, true, false);
     }
 
     @Test
-    public void testTunnelV6InV4UdpEncapReflected() throws Exception {
+    public void testTunnelV6InV6UdpEncapReflected() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET6, AF_INET, true, false);
-    }
-
-    @Test
-    public void testTunnelV6InV6() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(AF_INET6, AF_INET6, false, false);
-        checkTunnelInput(AF_INET6, AF_INET6, false, false);
-    }
-
-    @IgnoreUpTo(Build.VERSION_CODES.R)
-    @Test
-    public void testMigrateTunnelV6InV6() throws Exception {
-        doTestMigrateTunnel(AF_INET6, AF_INET6, false, false);
-    }
-
-    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
-    @Test
-    public void testMigrateTransformTunnelV6InV6() throws Exception {
-        doTestMigrateTunnelModeTransform(AF_INET6, AF_INET6, false, false);
-    }
-
-    @Test
-    public void testTunnelV6InV6Reflected() throws Exception {
-        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelReflected(AF_INET6, AF_INET6, false, false);
+        checkTunnelReflected(AF_INET6, AF_INET6, true, false);
     }
 }

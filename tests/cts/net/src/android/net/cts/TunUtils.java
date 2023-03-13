@@ -98,6 +98,7 @@ public class TunUtils {
         } else if (bytesRead >= DATA_BUFFER_LEN) {
             throw new IllegalStateException("Too big packet. Fragmentation unsupported");
         }
+
         return Arrays.copyOf(inBytes, bytesRead);
     }
 
@@ -106,11 +107,24 @@ public class TunUtils {
             for (int i = startIndex; i < mPackets.size(); i++) {
                 byte[] pkt = mPackets.get(i);
                 if (verifier.test(pkt)) {
+                    android.util.Log.i("TEST", "getFirstMatchingPacket " + byteArrayToHexString(pkt));
                     return pkt;
                 }
             }
         }
         return null;
+    }
+
+    public static String byteArrayToHexString(byte[] data) {
+        if (data == null || data.length == 0) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : data) {
+            sb.append(String.format(java.util.Locale.US, "%02X", b));
+        }
+        return sb.toString() + " length " + data.length;
     }
 
     protected byte[] awaitPacket(Predicate<byte[]> verifier) throws Exception {
@@ -184,9 +198,14 @@ public class TunUtils {
 
     private static boolean isEsp(byte[] pkt, int spi, int seqNum, boolean encap) {
         if (isIpv6(pkt)) {
-            // IPv6 UDP encap not supported by kernels; assume non-encap.
-            return pkt[IP6_PROTO_OFFSET] == IPPROTO_ESP
+            if (encap) {
+                return pkt[IP6_PROTO_OFFSET] == IPPROTO_UDP
+                        && checkExpectedSpiAndSeq(pkt, IP6_HDRLEN + UDP_HDRLEN, spi, seqNum);
+            } else {
+                return pkt[IP6_PROTO_OFFSET] == IPPROTO_ESP
                     && checkExpectedSpiAndSeq(pkt, IP6_HDRLEN, spi, seqNum);
+            }
+
         } else {
             // Use default IPv4 header length (assuming no options)
             if (encap) {
