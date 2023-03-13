@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f39478f9_d3fdf5ad",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-13T18:08:58Z",
+      "side": 1,
+      "message": "Can you explain why? Is there some other CL that changes the __testing targets in some particular way?\nI get scared every time I see test targets make changes to the production bp modules, so I would really prefer if this could depend on the __testing modules instead. If those get prefixed with the same jarjar prefix (which we have concluded they should anyways, and that the only issue (GEN_JNI and J/N) can be fixed by jarjar), is there a difference between the two modules?\n\nOne of the main motivations behind adding __testing targets was that tests would not affect the production modules.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "a02d0acd385dce337599c74f22b27b51fca81f76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19a042c4_fc728f58",
         "filename": "tools/gn2bp/gen_android_bp",
         "patchSetId": 8
@@ -19,6 +42,29 @@
         "startChar": 57,
         "endLine": 1828,
         "endChar": 69
+      },
+      "revId": "a02d0acd385dce337599c74f22b27b51fca81f76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a146bdc0_db3ed07a",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-13T18:08:58Z",
+      "side": 1,
+      "message": "FWIW, it\u0027s already been this way, but I don\u0027t understand why this isn\u0027t checked once on line 465 before the whole block of code",
+      "range": {
+        "startLine": 469,
+        "startChar": 13,
+        "endLine": 469,
+        "endChar": 45
       },
       "revId": "a02d0acd385dce337599c74f22b27b51fca81f76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
