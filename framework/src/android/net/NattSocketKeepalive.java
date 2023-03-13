@@ -66,8 +66,9 @@ public final class NattSocketKeepalive extends SocketKeepalive {
      *                    the supplied {@link Callback} will see a call to
      *                    {@link Callback#onError(int)} with {@link #ERROR_INVALID_INTERVAL}.
      * @param flags Flags to enable/disable available options on this keepalive.
-     * @param underpinnedNetwork The underpinned network of this keepalive.
-     *
+     * @param underpinnedNetwork an optional network running over mNetwork that this
+     *                           keepalive is intended to keep up, e.g. an IPSec
+     *                           tunnel running over mNetwork
      * @hide
      */
     @Override

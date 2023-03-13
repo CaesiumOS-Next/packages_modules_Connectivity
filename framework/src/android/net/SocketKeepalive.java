@@ -21,6 +21,7 @@ import static android.annotation.SystemApi.Client.PRIVILEGED_APPS;
 import android.annotation.IntDef;
 import android.annotation.IntRange;
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.annotation.SystemApi;
 import android.os.Binder;
 import android.os.ParcelFileDescriptor;
@@ -379,7 +380,7 @@ public abstract class SocketKeepalive implements AutoCloseable {
      */
     @SystemApi(client = PRIVILEGED_APPS)
     public final void start(@IntRange(from = MIN_INTERVAL_SEC, to = MAX_INTERVAL_SEC)
-            int intervalSec, @StartFlags int flags, @NonNull Network underpinnedNetwork) {
+            int intervalSec, @StartFlags int flags, @Nullable Network underpinnedNetwork) {
         startImpl(intervalSec, flags, underpinnedNetwork);
     }
 
