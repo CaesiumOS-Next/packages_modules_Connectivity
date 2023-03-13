@@ -22,6 +22,30 @@
       },
       "revId": "817861de3d01bd2b501f2f9b2b1bdec188560202",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d2da07c_35e69c75",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7022,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-13T04:38:13Z",
+      "side": 1,
+      "message": "Done. As suggested, use the `Binder.clearCallingIdentity` instead.",
+      "parentUuid": "048582c4_30e61d50",
+      "range": {
+        "startLine": 7022,
+        "startChar": 28,
+        "endLine": 7022,
+        "endChar": 58
+      },
+      "revId": "817861de3d01bd2b501f2f9b2b1bdec188560202",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
