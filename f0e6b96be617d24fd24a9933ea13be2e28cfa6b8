@@ -46,6 +46,30 @@
       },
       "revId": "f0e6b96be617d24fd24a9933ea13be2e28cfa6b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b035325a_ba4ae0a4",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-03-13T15:48:41Z",
+      "side": 1,
+      "message": "Well, at least this keeps things consistent within //external/cronet (as boringssl in there requires its use). I\u0027ll merge as is for now. If anybody complains, we can always revisit this decision.",
+      "parentUuid": "bb5167ae_03dac752",
+      "range": {
+        "startLine": 22,
+        "startChar": 12,
+        "endLine": 22,
+        "endChar": 30
+      },
+      "revId": "f0e6b96be617d24fd24a9933ea13be2e28cfa6b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
