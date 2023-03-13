@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4d6b829_aec4c581",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-13T23:13:18Z",
+      "side": 1,
+      "message": "Can you put this in here instead? I feel that\u0027s a bit better (and easier) because the change is not generally applicable to all proto modules. I am really wondering though: where does Chromium get that include directory from? Searching for \"third_party/quic_trace/src\" in the GN desc json yields just about no results.",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 15
+      },
+      "revId": "c495e9c5097de9fd0f5012d757b949d960e0ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
