@@ -3411,6 +3411,8 @@ public class ConnectivityManagerTest {
 
     private void doTestFirewallBlocking(final int chain, final boolean isAllowList) {
         final int myUid = Process.myUid();
+        // ALLOWLIST means the firewall denies all by default, uids must be explicitly allowed
+        // DENYLIST means the firewall allows all by default, uids must be explicitly denyed
         final int ruleToAddMatch = isAllowList ? FIREWALL_RULE_ALLOW : FIREWALL_RULE_DENY;
         final int ruleToRemoveMatch = isAllowList ? FIREWALL_RULE_DENY : FIREWALL_RULE_ALLOW;
 
@@ -3468,20 +3470,51 @@ public class ConnectivityManagerTest {
                 });
         }, NETWORK_SETTINGS);
     }
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    @AppModeFull(reason = "Socket cannot bind in instant app mode")
+    public void testFirewallBlockingDozable() {
+        doTestFirewallBlocking(FIREWALL_CHAIN_DOZABLE, ALLOWLIST);
+    }
 
     @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
     @AppModeFull(reason = "Socket cannot bind in instant app mode")
-    public void testFirewallBlocking() {
-        // ALLOWLIST means the firewall denies all by default, uids must be explicitly allowed
-        doTestFirewallBlocking(FIREWALL_CHAIN_DOZABLE, ALLOWLIST);
+    public void testFirewallBlockingPowersave() {
         doTestFirewallBlocking(FIREWALL_CHAIN_POWERSAVE, ALLOWLIST);
-        doTestFirewallBlocking(FIREWALL_CHAIN_RESTRICTED, ALLOWLIST);
-        doTestFirewallBlocking(FIREWALL_CHAIN_LOW_POWER_STANDBY, ALLOWLIST);
+    }
 
-        // DENYLIST means the firewall allows all by default, uids must be explicitly denyed
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    @AppModeFull(reason = "Socket cannot bind in instant app mode")
+    public void testFirewallBlockingRestricted() {
+        doTestFirewallBlocking(FIREWALL_CHAIN_RESTRICTED, ALLOWLIST);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    @AppModeFull(reason = "Socket cannot bind in instant app mode")
+    public void testFirewallBlockingLowPowerStandby() {
+        doTestFirewallBlocking(FIREWALL_CHAIN_LOW_POWER_STANDBY, ALLOWLIST);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    @AppModeFull(reason = "Socket cannot bind in instant app mode")
+    public void testFirewallBlockingStandby() {
         doTestFirewallBlocking(FIREWALL_CHAIN_STANDBY, DENYLIST);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    @AppModeFull(reason = "Socket cannot bind in instant app mode")
+    public void testFirewallBlockingOemDeny1() {
         doTestFirewallBlocking(FIREWALL_CHAIN_OEM_DENY_1, DENYLIST);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    @AppModeFull(reason = "Socket cannot bind in instant app mode")
+    public void testFirewallBlockingOemDeny2() {
         doTestFirewallBlocking(FIREWALL_CHAIN_OEM_DENY_2, DENYLIST);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    @AppModeFull(reason = "Socket cannot bind in instant app mode")
+    public void testFirewallBlockingOemDeny3() {
         doTestFirewallBlocking(FIREWALL_CHAIN_OEM_DENY_3, DENYLIST);
     }
 
