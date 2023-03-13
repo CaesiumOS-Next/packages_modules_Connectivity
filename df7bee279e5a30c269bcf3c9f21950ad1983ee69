@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6bc0b25_be70e7f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-13T09:02:23Z",
+      "side": 1,
+      "message": "Title updated.",
+      "parentUuid": "0f2662fb_a175654b",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "df7bee279e5a30c269bcf3c9f21950ad1983ee69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e567a33c_6b28798a",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-13T08:40:41Z",
       "side": 1,
       "message": "Please clarify this documentation.\n\nA keepalive is not underpinned by a network, so this is very unclear. Keepalives run on a given network, but here the keepalive runs on mNetwork. So what is this underpinned network ?\n\nSuggested wording :\n\n    @param underpinnedNetwork an optional network running over mNetwork that this \n                              keepalive is intended to keep up, e.g. an IPSec \n                              tunnel running over mNetwork",
+      "range": {
+        "startLine": 378,
+        "startChar": 33,
+        "endLine": 378,
+        "endChar": 75
+      },
+      "revId": "df7bee279e5a30c269bcf3c9f21950ad1983ee69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a367c5d_11d91536",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-13T09:02:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e567a33c_6b28798a",
       "range": {
         "startLine": 378,
         "startChar": 33,
