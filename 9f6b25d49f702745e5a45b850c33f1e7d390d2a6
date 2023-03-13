@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3a07a7e_fe5faab2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-13T15:44:57Z",
+      "side": 1,
+      "message": "Rather than define multiple transport type here, you can use an array of transport types. Currently your buildUpstreamCapabilities() reply on the NetworkCapabilites#TRANSPORT_* value 7 ~ 11 doesn\u0027t used in network_stack.proto.\n\nYou can:\n\n    private static NetworkCapabilities buildUpstreamCapabilities(final int[] transports) {\n        final NetworkCapabilities nc \u003d new NetworkCapabilities();\n        for (int type: transpors) {\n            nc.addTransportType(type);\n        }\n        return nc;\n    }\n    \n    private static UpstreamNetworkState buildUpstreamState(final int... transports) {\n        return new UpstreamNetworkState(\n                null,\n                buildUpstreamCapabilities(transport),\n                null);\n    }\n    \n    buildUpstreamState(TRANSPORT_WIFI, TRANSPORT_VPN);",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 62
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f71554ff_55f4beaf",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-13T15:44:57Z",
+      "side": 1,
+      "message": "The loop is not necessary anymore ?",
+      "range": {
+        "startLine": 188,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 66
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c98f6f78_95e12ebe",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-13T15:44:57Z",
+      "side": 1,
+      "message": "Suggest make the change as small as possible. You could improve the test like this in separate change.",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 213,
+        "endChar": 30
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52b0250a_22e5b3c0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-13T15:44:57Z",
+      "side": 1,
+      "message": "The loop is not necessary anymore ?",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 61
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b04f8f9_999c4540",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-13T15:44:57Z",
+      "side": 1,
+      "message": "You never pass Pair\u003cInteger, UpstreamType\u003e array. Just final Pair\u003cInteger, UpstreamType\u003e testPair and remove the loop at l.319 ?",
+      "range": {
+        "startLine": 317,
+        "startChar": 38,
+        "endLine": 317,
+        "endChar": 84
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "620c5ba1_7dbcc996",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-13T15:44:57Z",
+      "side": 1,
+      "message": "Which case upstream would be -1, looking at the input l.354 ~ 365, there are no -1 upstream",
+      "range": {
+        "startLine": 332,
+        "startChar": 16,
+        "endLine": 332,
+        "endChar": 30
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9f856f6_7df7cef5",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-13T15:44:57Z",
+      "side": 1,
+      "message": "You reuse upstreamEvent for UT_NO_NETWORK and expectedResult then add to upstreamEvents twice. If UpstreamEvents.Builder#addUpstreamEvent doesn\u0027t do defensive copy (usually I don\u0027t expect it do so), then the two elements inside upstreamEvents are all belong to expectedResult.\n\nI try to find the implementation of UpstreamEvents.Builder#addUpstreamEvent but fail. Could you check whether it do the defensive copy for adding UpstreamEvent. If yes, then it explain why this work. If no, our test code have bug that it is likely l.139 (verify(mTetheringMetrics).write(expectedReport)) doesn\u0027t verify the content of report.",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 63
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c47a2b79_2eceead9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-13T15:44:57Z",
+      "side": 1,
+      "message": "The naming looks weird, tethering won\u0027t setup upstream without startTethering. Thus, the upstream always happen after startTethering. Or I missunderstand your purpose ? Maybe rename to testUpstreamsWithSingleDownstream and rename the next test with testUpstreamsWithMutipleDownstreams",
+      "range": {
+        "startLine": 412,
+        "startChar": 16,
+        "endLine": 412,
+        "endChar": 63
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c903963_f4319ed8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-13T15:44:57Z",
+      "side": 1,
+      "message": "Is this possible to happen ? having upstream without startTethering ?",
+      "range": {
+        "startLine": 473,
+        "startChar": 16,
+        "endLine": 473,
+        "endChar": 64
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
