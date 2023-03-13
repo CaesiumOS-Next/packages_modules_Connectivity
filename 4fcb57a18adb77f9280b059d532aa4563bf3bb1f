@@ -16,6 +16,24 @@
       "message": "Can you add a comment to the default_license target (this already caught me by surprise once 😊):\ndefault_license.comment \u003d `The actual license can be found in Android.extras.bp`",
       "revId": "4fcb57a18adb77f9280b059d532aa4563bf3bb1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f45d6b3_1f100a61",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1770,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-13T13:11:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19a70a65_2559c005",
+      "revId": "4fcb57a18adb77f9280b059d532aa4563bf3bb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
