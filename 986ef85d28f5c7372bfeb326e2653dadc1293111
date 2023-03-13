@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6653e21c_360b5157",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-13T08:27:24Z",
+      "side": 1,
+      "message": "See on flake dashboard: http://shortn/_8Iq3rQ0Ext",
+      "revId": "986ef85d28f5c7372bfeb326e2653dadc1293111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
