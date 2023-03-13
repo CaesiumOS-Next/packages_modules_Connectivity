@@ -29,6 +29,7 @@ import android.os.RemoteException;
 import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 
 /**
@@ -380,6 +381,7 @@ public abstract class SocketKeepalive implements AutoCloseable {
     @SystemApi(client = PRIVILEGED_APPS)
     public final void start(@IntRange(from = MIN_INTERVAL_SEC, to = MAX_INTERVAL_SEC)
             int intervalSec, @StartFlags int flags, @NonNull Network underpinnedNetwork) {
+        Objects.requireNonNull(underpinnedNetwork);
         startImpl(intervalSec, flags, underpinnedNetwork);
     }
 
