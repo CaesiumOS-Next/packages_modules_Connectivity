@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f2662fb_a175654b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-13T08:40:41Z",
+      "side": 1,
+      "message": "Please describe in the first line what this patch does, so that it\u0027s easy to find later. If I want to search fo a patch that makes the network nullable, a description like \"address mainline review feedback\" tells me nothing at all about what this patch does.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "df7bee279e5a30c269bcf3c9f21950ad1983ee69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e567a33c_6b28798a",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-13T08:40:41Z",
+      "side": 1,
+      "message": "Please clarify this documentation.\n\nA keepalive is not underpinned by a network, so this is very unclear. Keepalives run on a given network, but here the keepalive runs on mNetwork. So what is this underpinned network ?\n\nSuggested wording :\n\n    @param underpinnedNetwork an optional network running over mNetwork that this \n                              keepalive is intended to keep up, e.g. an IPSec \n                              tunnel running over mNetwork",
+      "range": {
+        "startLine": 378,
+        "startChar": 33,
+        "endLine": 378,
+        "endChar": 75
+      },
+      "revId": "df7bee279e5a30c269bcf3c9f21950ad1983ee69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
