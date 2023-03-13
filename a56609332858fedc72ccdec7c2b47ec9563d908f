@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1be9232f_03c4b2da",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-03-13T15:45:31Z",
+      "side": 1,
+      "message": "@motomuman@google.com Could you please tweak the gn2bp to handle this change?",
+      "range": {
+        "startLine": 53,
+        "startChar": 11,
+        "endLine": 53,
+        "endChar": 78
+      },
+      "revId": "a56609332858fedc72ccdec7c2b47ec9563d908f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d6404d5_384efd26",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1823,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-03-13T15:45:31Z",
+      "side": 1,
+      "message": "Nit: This is unnecessary as the method already have default values. \n\n`gn.parse_gn_desc(desc,target)` is enough for here.",
+      "range": {
+        "startLine": 1823,
+        "startChar": 37,
+        "endLine": 1823,
+        "endChar": 98
+      },
+      "revId": "a56609332858fedc72ccdec7c2b47ec9563d908f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6d1d2e9_09ef955f",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-03-13T15:45:31Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 1825,
+        "startChar": 61,
+        "endLine": 1825,
+        "endChar": 99
+      },
+      "revId": "a56609332858fedc72ccdec7c2b47ec9563d908f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
