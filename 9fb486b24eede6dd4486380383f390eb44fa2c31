@@ -22,6 +22,30 @@
       },
       "revId": "9fb486b24eede6dd4486380383f390eb44fa2c31",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3526d0cc_e7164cd7",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-03-14T15:29:20Z",
+      "side": 1,
+      "message": "This would be invalid for action_foreach that doesn\u0027t use the GNRunBinary sanitizer.",
+      "parentUuid": "9e96d214_2494ec15",
+      "range": {
+        "startLine": 1251,
+        "startChar": 23,
+        "endLine": 1251,
+        "endChar": 31
+      },
+      "revId": "9fb486b24eede6dd4486380383f390eb44fa2c31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
