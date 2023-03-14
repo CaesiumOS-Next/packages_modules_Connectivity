@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e094ccc_b633882d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-14T22:53:43Z",
+      "side": 1,
+      "message": "Let\u0027s submit aosp/2487884 and aosp/2485850 instead.",
+      "revId": "d0ac1102465f6fe1644381caba1514f22278a986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
