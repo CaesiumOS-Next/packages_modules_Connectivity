@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "751f63f0_9935478d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-14T20:05:39Z",
+      "side": 1,
+      "message": "hmm, I guess EthernetTetheringTest is flaky or something?\nIt passes locally on a bluejay on udc-dev.",
+      "revId": "2b04ea3afb847b9fbea933e4caf56a206246b630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
