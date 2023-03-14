@@ -88,6 +88,7 @@ public class EthernetTrackerTest {
     @After
     public void cleanUp() {
         mHandlerThread.quitSafely();
+        mHandlerThread.join();
     }
 
     private void initMockResources() {

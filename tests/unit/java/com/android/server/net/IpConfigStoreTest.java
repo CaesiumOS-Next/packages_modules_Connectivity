@@ -140,6 +140,7 @@ public class IpConfigStoreTest {
                     @Override
                     public void quitHandlerThread(HandlerThread handlerThread) {
                         testHandlerThread.quitSafely();
+                        testHandlerThread.join();
                     }
         };
 
