@@ -89,6 +89,18 @@ class DnsOptionsTest {
     }
 
     @Test
+    fun testDnsOptions_setStaleDnsOptions_defaultValues() {
+        val staleOptions = DnsOptions.StaleDnsOptions.Builder().build()
+        val options = DnsOptions.Builder()
+                .setStaleDnsEnabled(DNS_OPTION_ENABLED)
+                .setStaleDnsOptions(staleOptions)
+                .build()
+
+        assertEquals(DNS_OPTION_ENABLED, options.staleDnsEnabled)
+        assertEquals(staleOptions, options.staleDnsOptions)
+    }
+
+    @Test
     fun testStaleDnsOptions_defaultValues() {
         val options = DnsOptions.StaleDnsOptions.Builder().build()
 
