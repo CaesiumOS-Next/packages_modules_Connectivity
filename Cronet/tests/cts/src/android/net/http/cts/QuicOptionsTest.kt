@@ -18,6 +18,9 @@ package android.net.http.cts
 import android.net.http.QuicOptions
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -30,7 +33,10 @@ class QuicOptionsTest {
         assertThat(quicOptions.handshakeUserAgent).isNull()
         // TODO(danstahr): idleConnectionTimeout getter should be public
         // assertThat(quicOptions.idleConnectionTimeout).isNull()
-        assertThat(quicOptions.inMemoryServerConfigsCacheSize).isNull()
+        assertFalse(quicOptions.hasInMemoryServerConfigsCacheSize())
+        assertFailsWith(IllegalStateException::class) {
+            quicOptions.inMemoryServerConfigsCacheSize
+        }
     }
 
     @Test
@@ -64,6 +70,7 @@ class QuicOptionsTest {
         val quicOptions = QuicOptions.Builder()
                 .setInMemoryServerConfigsCacheSize(42)
                 .build()
+        assertTrue(quicOptions.hasInMemoryServerConfigsCacheSize())
         assertThat(quicOptions.inMemoryServerConfigsCacheSize)
                 .isEqualTo(42)
     }
