@@ -35,7 +35,6 @@ import java.net.Inet6Address;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Future;
@@ -57,6 +56,7 @@ public class MdnsServiceTypeClient {
     private final ScheduledExecutorService executor;
     @Nullable private final Network network;
     @NonNull private final MdnsServiceCache serviceCache;
+    @NonNull private final MdnsServiceCache.ServiceExpireCallback serviceExpireCallback;
     private final Object lock = new Object();
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
@@ -110,6 +110,29 @@ public class MdnsServiceTypeClient {
         this.clock = clock;
         this.network = network;
         this.serviceCache = serviceCache;
+        serviceExpireCallback = new MdnsServiceCache.ServiceExpireCallback() {
+            @Override
+            public void onServiceExpired(@NonNull MdnsResponse response) {
+                for (int i = 0; i < listeners.size(); i++) {
+                    final MdnsServiceBrowserListener listener = listeners.keyAt(i);
+                    final String serviceInstanceName = response.getServiceInstanceName();
+                    if (serviceInstanceName != null) {
+                        final MdnsServiceInfo serviceInfo =
+                                buildMdnsServiceInfoFromResponse(response, serviceTypeLabels);
+                        if (response.isComplete()) {
+                            listener.onServiceRemoved(serviceInfo);
+                        }
+                        listener.onServiceNameRemoved(serviceInfo);
+                    }
+                }
+            }
+        };
+        serviceCache.registerServiceExpireCallback(serviceType, serviceExpireCallback);
+    }
+
+    /*** Unregister service expire callback */
+    public void unregisterServiceExpireCallback() {
+        serviceCache.unregisterServiceExpireCallback(serviceExpireCallback);
     }
 
     private static MdnsServiceInfo buildMdnsServiceInfoFromResponse(
@@ -509,32 +532,7 @@ public class MdnsServiceTypeClient {
                     }
                 }
                 if (shouldRemoveServiceAfterTtlExpires()) {
-                    final Iterator<MdnsResponse> iter =
-                            serviceCache.getCachedServices(serviceType, network).iterator();
-                    while (iter.hasNext()) {
-                        MdnsResponse existingResponse = iter.next();
-                        if (existingResponse.hasServiceRecord()
-                                && existingResponse
-                                .getServiceRecord()
-                                .getRemainingTTL(clock.elapsedRealtime())
-                                == 0) {
-                            iter.remove();
-                            for (int i = 0; i < listeners.size(); i++) {
-                                final MdnsServiceBrowserListener listener = listeners.keyAt(i);
-                                String serviceInstanceName =
-                                        existingResponse.getServiceInstanceName();
-                                if (serviceInstanceName != null) {
-                                    final MdnsServiceInfo serviceInfo =
-                                            buildMdnsServiceInfoFromResponse(
-                                                    existingResponse, serviceTypeLabels);
-                                    if (existingResponse.isComplete()) {
-                                        listener.onServiceRemoved(serviceInfo);
-                                    }
-                                    listener.onServiceNameRemoved(serviceInfo);
-                                }
-                            }
-                        }
-                    }
+                    serviceCache.checkAndNotifyTtlExpiredServices();
                 }
                 QueryTaskConfig config = this.config.getConfigForNextRun();
                 requestTaskFuture =

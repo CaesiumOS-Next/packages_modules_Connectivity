@@ -165,7 +165,7 @@ public class MdnsServiceTypeClientTests {
                 .thenReturn(expectedIPv6Packets[14])
                 .thenReturn(expectedIPv6Packets[15]);
 
-        serviceCache = new MdnsServiceCache();
+        serviceCache = new MdnsServiceCache(mockDecoderClock);
         client =
                 new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                         mockDecoderClock, mockNetwork, serviceCache) {
