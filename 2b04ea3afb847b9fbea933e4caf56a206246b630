@@ -16,6 +16,23 @@
       "message": "hmm, I guess EthernetTetheringTest is flaky or something?\nIt passes locally on a bluejay on udc-dev.",
       "revId": "2b04ea3afb847b9fbea933e4caf56a206246b630",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05b89e14_3164104d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-14T23:24:24Z",
+      "side": 1,
+      "message": "SocketDestroyLinkLocal flake - I\u0027ve seen this one occasionally before - unrelated.",
+      "revId": "2b04ea3afb847b9fbea933e4caf56a206246b630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
