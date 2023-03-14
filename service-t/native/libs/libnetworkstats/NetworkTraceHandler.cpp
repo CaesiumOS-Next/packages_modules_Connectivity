@@ -151,6 +151,17 @@ void NetworkTraceHandler::OnStop(const StopArgs&) {
 
 void NetworkTraceHandler::Write(const std::vector<PacketTrace>& packets,
                                 NetworkTraceHandler::TraceContext& ctx) {
+  // TODO: remove this fallback once Perfetto stable has support for bundles.
+  if (!mInternLimit && !mAggregationThreshold) {
+    for (const PacketTrace& pkt : packets) {
+      auto dst = ctx.NewTracePacket();
+      dst->set_timestamp(pkt.timestampNs);
+      auto* event = dst->set_network_packet();
+      event->set_length(pkt.length);
+      Fill(pkt, event);
+    }
+    return;
+  }
   std::unordered_map<BundleKey, BundleDetails, BundleHash, BundleEq> bundles;
   for (const PacketTrace& pkt : packets) {
     BundleDetails& bundle = bundles[pkt];
