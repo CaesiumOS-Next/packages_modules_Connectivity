@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb0636ae_1f7b442e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-14T06:26:29Z",
+      "side": 1,
+      "message": "LGTM assuming this is tested to actually run the preparer, and verified that it fails if there is no sim card or no wifi connected",
+      "revId": "9bfe8578a2d850feb4baefe05fc2ab0acad3d976",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
