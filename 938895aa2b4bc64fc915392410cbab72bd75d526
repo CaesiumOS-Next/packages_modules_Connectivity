@@ -22,6 +22,81 @@
       },
       "revId": "938895aa2b4bc64fc915392410cbab72bd75d526",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f737dbde_7100f771",
+        "filename": "Cronet/tools/import/copy.bara.sky",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-14T07:46:42Z",
+      "side": 1,
+      "message": "nits:\n`folder.origin(materialize_outside_symlinks \u003d True)` would help me to understand.\nIf we will remove True soon, it\u0027s fine.",
+      "parentUuid": "22276a5f_c63ddb48",
+      "range": {
+        "startLine": 99,
+        "startChar": 27,
+        "endLine": 99,
+        "endChar": 31
+      },
+      "revId": "938895aa2b4bc64fc915392410cbab72bd75d526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f8fbacc_bca6002c",
+        "filename": "Cronet/tools/import/import_cronet.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-14T07:46:42Z",
+      "side": 1,
+      "message": "nits: It looks this is for `setup_folder_origin`",
+      "revId": "938895aa2b4bc64fc915392410cbab72bd75d526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0137021f_71a78d76",
+        "filename": "Cronet/tools/import/import_cronet.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-14T07:46:42Z",
+      "side": 1,
+      "message": "nits: _new_rev is not used in `do_run_copybara` now.",
+      "revId": "938895aa2b4bc64fc915392410cbab72bd75d526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f592f73b_8f61a74e",
+        "filename": "Cronet/tools/import/import_cronet.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-14T07:46:42Z",
+      "side": 1,
+      "message": "nits: Can we remove this now?",
+      "revId": "938895aa2b4bc64fc915392410cbab72bd75d526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
