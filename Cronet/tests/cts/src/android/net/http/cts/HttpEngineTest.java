@@ -210,6 +210,7 @@ public class HttpEngineTest {
     @Test
     public void testHttpEngine_GetDefaultUserAgent() throws Exception {
         assertThat(mEngineBuilder.getDefaultUserAgent(), containsString("AndroidHttpClient"));
+        assertThat(mEngineBuilder.getDefaultUserAgent()).contains(HttpEngine.getVersionString());
     }
 
     @Test
@@ -316,5 +317,10 @@ public class HttpEngineTest {
         mCallback.expectCallback(ResponseStep.ON_SUCCEEDED);
         UrlResponseInfo info = mCallback.mResponseInfo;
         assertOKStatusCode(info);
+    }
+
+    @Test
+    public void getVersionString_expectedFormat() {
+        assertThat(HttpEngine.getVersionString()).matches("([0-9]+\\.){3}[0-9]+");
     }
 }
