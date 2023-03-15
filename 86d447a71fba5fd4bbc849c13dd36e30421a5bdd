@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e99d6974_cc5610d9",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/QuicExceptionTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-15T10:43:54Z",
+      "side": 1,
+      "message": "Is it necessary to test that it\u0027s the same instance? Would equality suffice?\n\nPlease also test getting the error code and retriability signal.",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "86d447a71fba5fd4bbc849c13dd36e30421a5bdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
