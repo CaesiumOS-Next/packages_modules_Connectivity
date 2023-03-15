@@ -1045,7 +1045,8 @@ public class VpnTest {
     public void testAppAllowed() throws Exception {
         assumeTrue(supportedHardware());
 
-        FileDescriptor fd = openSocketFdInOtherApp(TEST_HOST, 80, TIMEOUT_MS);
+        FileDescriptor localFd = openSocketFd(TEST_HOST, 80, TIMEOUT_MS);
+        FileDescriptor remoteFd = openSocketFdInOtherApp(TEST_HOST, 80, TIMEOUT_MS);
 
         // Shell app must not be put in here or it would kill the ADB-over-network use case
         String allowedApps = mRemoteSocketFactoryClient.getPackageName() + "," + mPackageName;
@@ -1053,7 +1054,8 @@ public class VpnTest {
                  new String[] {"192.0.2.0/24", "2001:db8::/32"},
                  allowedApps, "", null, null /* underlyingNetworks */, false /* isAlwaysMetered */);
 
-        assertSocketClosed(fd, TEST_HOST);
+        assertSocketStillOpen(localFd, TEST_HOST);
+        assertSocketClosed(remoteFd, TEST_HOST);
 
         checkTrafficOnVpn();
 
@@ -1271,6 +1273,29 @@ public class VpnTest {
         final Network network = mCM.getActiveNetwork();
         final NetworkCapabilities nc = mCM.getNetworkCapabilities(network);
         assertFalse(nc.hasTransport(TRANSPORT_VPN));
+    }
+
+    @Test
+    public void testSocketClosed() throws Exception {
+        assumeTrue(supportedHardware());
+
+        FileDescriptor localFd = openSocketFd(TEST_HOST, 80, TIMEOUT_MS);
+        List<FileDescriptor> remoteFds = new ArrayList<>();
+
+        for (int i = 0; i < 30; i++) {
+            remoteFds.add(openSocketFdInOtherApp(TEST_HOST, 80, TIMEOUT_MS));
+        }
+
+        // Shell app must not be put in here or it would kill the ADB-over-network use case
+        String allowedApps = mRemoteSocketFactoryClient.getPackageName() + "," + mPackageName;
+        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
+                new String[] {"192.0.2.0/24", "2001:db8::/32"},
+                allowedApps, "", null, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+
+        assertSocketStillOpen(localFd, TEST_HOST);
+        for (FileDescriptor remoteFd: remoteFds) {
+            assertSocketClosed(remoteFd, TEST_HOST);
+        }
     }
 
     @Test
