@@ -166,6 +166,7 @@ public class TetheringConfiguration {
     private final int mP2pLeasesSubnetPrefixLength;
 
     private final boolean mEnableWearTethering;
+    private final boolean mUseSapAndLohsConcurrently;
 
     private final int mUsbTetheringFunction;
     protected final ContentResolver mContentResolver;
@@ -244,6 +245,9 @@ public class TetheringConfiguration {
         mP2pLeasesSubnetPrefixLength = getP2pLeasesSubnetPrefixLengthFromRes(res, configLog);
 
         mEnableWearTethering = shouldEnableWearTethering(ctx);
+
+        mUseSapAndLohsConcurrently = getResourceBoolean(res,
+                R.bool.config_sap_lohs_use_different_ipv4_address, false /* defaultValue */);
 
         configLog.log(toString());
     }
@@ -331,6 +335,11 @@ public class TetheringConfiguration {
     /** Returns true if wearable device tethering is enabled. */
     public boolean isWearTetheringEnabled() {
         return mEnableWearTethering;
+    }
+
+    /** Return whether support softap and localOnlyHotspot enabled at the same time. */
+    public boolean isUseSapAndLohsConcurrently() {
+        return mUseSapAndLohsConcurrently;
     }
 
     /** Does the dumping.*/
