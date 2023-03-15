@@ -84,7 +84,8 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
             final List<MdnsServiceTypeClient> list = new ArrayList<>();
             for (int i = 0; i < clients.size(); i++) {
                 final Pair<String, Network> perNetworkServiceType = clients.keyAt(i);
-                if (isNetworkMatched(network, perNetworkServiceType.second)) {
+                final Network serviceTypeNetwork = perNetworkServiceType.second;
+                if (serviceTypeNetwork == null || isNetworkMatched(network, serviceTypeNetwork)) {
                     list.add(clients.valueAt(i));
                 }
             }
@@ -184,11 +185,11 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
                 // of the service type clients.
                 serviceTypeClient.unregisterServiceExpireCallback();
                 perNetworkServiceTypeClients.remove(serviceTypeClient);
-                if (perNetworkServiceTypeClients.isEmpty()) {
-                    // No discovery request. Stops the socket client.
-                    socketClient.stopDiscovery();
-                }
             }
+        }
+        if (perNetworkServiceTypeClients.isEmpty()) {
+            // No discovery request. Stops the socket client.
+            socketClient.stopDiscovery();
         }
         // Unrequested the network.
         socketClient.notifyNetworkUnrequested(listener);
