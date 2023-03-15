@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c51bbc91_5a552d3d",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-15T16:01:56Z",
+      "side": 1,
+      "message": "See the associated change in external/cronet, I changed that behavior.",
+      "parentUuid": "f9d831fb_dcef6ec6",
+      "revId": "904daba7b2528a6b04a63296f8dc0f2ea9425553",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2769ddd6_9b20438a",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-15T15:53:04Z",
       "side": 1,
       "message": "Can we check that this is not null instead? Having this binds us to this particular format and it\u0027s not advisable to.",
+      "revId": "904daba7b2528a6b04a63296f8dc0f2ea9425553",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "943e99bc_b437dff7",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-15T16:01:56Z",
+      "side": 1,
+      "message": "\u003e it\u0027s not advisable to\n\nI don\u0027t think it\u0027s too wild of an expectation that a version is persistently formatted. Can you link to the source of the advice?\n\nIf we expect the format of the string to change in the future, perhaps we should include a versioning scheme now before we release the first version and people start relying on it.",
+      "parentUuid": "2769ddd6_9b20438a",
       "revId": "904daba7b2528a6b04a63296f8dc0f2ea9425553",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
