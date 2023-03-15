@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f7ed33b_c781acf9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T08:40:52Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem correct ? The methods are synchronized and it seems this is intended to be used by MdnsServiceTypeClients running on different threads, although they won\u0027t modify the same values (different Network/type)",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 36
+      },
+      "revId": "9919ec18605830fcf641c98ab36f42e30faf607c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8024470b_2b360ce7",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
         "patchSetId": 3
