@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89c36e94_9416d136",
+        "filename": "framework-t/src/android/net/nsd/INsdManager.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T07:03:49Z",
+      "side": 1,
+      "message": "Nit: \"new\" will become inaccurate at some point, maybe \"useJavaMdnsBackend\" ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 65,
+        "endLine": 29,
+        "endChar": 82
+      },
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5cc8823_fd5922b6",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T07:03:49Z",
+      "side": 1,
+      "message": "The javadoc and name of this flag will be visible in developer documentation. MdnsDiscoveryManager / MdnsAdvertiser won\u0027t be understandable from there as-is, since they\u0027re not in developer documentation.\n\nMaybe ENABLE_PLATFORM_MDNS_BACKEND ? And the javadoc would explain that legacy apps use a legacy native daemon as NsdManager backend, but other apps use a platform-integration mDNS implementation as backend.",
+      "range": {
+        "startLine": 85,
+        "startChar": 29,
+        "endLine": 85,
+        "endChar": 78
+      },
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b8719a1_9b0de95c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T07:03:49Z",
+      "side": 1,
+      "message": "Nit: I\u0027d suggest putting this check first, as it\u0027s less expensive than the others (it\u0027s just reading a boolean, but the others have to read/parse flags)",
+      "range": {
+        "startLine": 611,
+        "startChar": 46,
+        "endLine": 611,
+        "endChar": 64
+      },
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2db0272b_9985ada0",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1537,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T07:03:49Z",
+      "side": 1,
+      "message": "Nit: @NonNull on the members and constructor arguments",
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "875a63ee_651e0ee8",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T07:03:49Z",
+      "side": 1,
+      "message": "Also `@DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)`, as it will be disabled before S",
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b360d30_c478a54d",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T07:03:49Z",
+      "side": 1,
+      "message": "Also `@DisableCompatChanges(RUN_MDNS_DISCOVERY_MANAGER_AND_ADVERTISER_BACKEND)`, otherwise this is not testing that the daemon isn\u0027t started on connect (as it won\u0027t be started anyway)",
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1d62788_f85e25ec",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T07:03:49Z",
+      "side": 1,
+      "message": "You could also have reused testAdvertiseWithMdnsAdvertiser and testMdnsDiscoveryManagerFeature, just moving the code to a method that you\u0027d call with the flag on or with the compat change on\n\nBut this works too",
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
