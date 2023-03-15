@@ -334,15 +334,6 @@ public class MdnsServiceTypeClient {
         }
     }
 
-    private boolean shouldRemoveServiceAfterTtlExpires() {
-        if (removeServiceAfterTtlExpires) {
-            return true;
-        }
-        return allowSearchOptionsToRemoveExpiredService
-                && searchOptions != null
-                && searchOptions.removeExpiredService();
-    }
-
     @VisibleForTesting
     MdnsPacketWriter createMdnsPacketWriter() {
         return new MdnsPacketWriter(DEFAULT_MTU);
@@ -530,9 +521,6 @@ public class MdnsServiceTypeClient {
                     for (int i = 0; i < listeners.size(); i++) {
                         listeners.keyAt(i).onDiscoveryQuerySent(result.second, result.first);
                     }
-                }
-                if (shouldRemoveServiceAfterTtlExpires()) {
-                    serviceCache.checkAndNotifyTtlExpiredServices();
                 }
                 QueryTaskConfig config = this.config.getConfigForNextRun();
                 requestTaskFuture =

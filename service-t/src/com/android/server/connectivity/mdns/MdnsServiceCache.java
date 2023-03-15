@@ -21,14 +21,18 @@ import static com.android.server.connectivity.mdns.MdnsSocketProvider.isNetworkM
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.Network;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * The {@link MdnsServiceCache} manages the service which discovers from each socket and cache these
@@ -37,13 +41,13 @@ import java.util.Set;
  * <p>This class is not thread safe.
  */
 public class MdnsServiceCache {
-    private static final String TAG = MdnsServiceCache.class.getSimpleName();
+    private static final long DEFAULT_DELAY_TIME_MS = 120000L;
     /**
      * A map of cached services. Key is the service type and value is the service which use the
      * service type to discover from each socket.
      */
     @GuardedBy("this")
-    private final ArrayMap<String, Set<MdnsResponse>> mCachedServices = new ArrayMap<>();
+    private final ArrayMap<String, TreeSet<MdnsResponse>> mCachedServices = new ArrayMap<>();
 
     /**
      * A map of service expire callbacks. Key is the callback listener and value is the listened
@@ -53,14 +57,17 @@ public class MdnsServiceCache {
     private final ArrayMap<ServiceExpireCallback, String> mCallbacks = new ArrayMap<>();
 
     private final MdnsResponseDecoder.Clock mClock;
+    private final Handler mHandler;
 
-    public MdnsServiceCache() {
-        this(new MdnsResponseDecoder.Clock());
+
+    public MdnsServiceCache(@NonNull Looper looper) {
+        this(new MdnsResponseDecoder.Clock(), looper);
     }
 
     @VisibleForTesting
-    MdnsServiceCache(@NonNull MdnsResponseDecoder.Clock clock) {
+    MdnsServiceCache(@NonNull MdnsResponseDecoder.Clock clock, @NonNull Looper looper) {
         mClock = clock;
+        mHandler = new Handler(looper);
     }
 
 
@@ -131,10 +138,18 @@ public class MdnsServiceCache {
      */
     public synchronized void addService(@NonNull String serviceType,
             @NonNull MdnsResponse response) {
-        Set<MdnsResponse> responses = mCachedServices.get(serviceType);
+        // Start the service expiration check when the first service is added.
+        if (mCachedServices.size() == 0) {
+            final long now = mClock.elapsedRealtime();
+            final long delay = response.hasServiceRecord()
+                    ? response.getServiceRecord().getRemainingTTL(now) : DEFAULT_DELAY_TIME_MS;
+            mHandler.postDelayed(this::checkAndNotifyTtlExpiredServices, delay);
+        }
+
+        TreeSet<MdnsResponse> responses = mCachedServices.get(serviceType);
         // First response for the service type.
         if (responses == null) {
-            responses = new ArraySet<>();
+            responses = new TreeSet<>(new ServiceTtlComparator(mClock));
             responses.add(response);
             mCachedServices.put(serviceType, responses);
             return;
@@ -199,11 +214,13 @@ public class MdnsServiceCache {
     }
 
     /*** Check whether the ttl time is expired on each service and notify to the listeners */
-    public synchronized void checkAndNotifyTtlExpiredServices() {
+    @VisibleForTesting
+    synchronized void checkAndNotifyTtlExpiredServices() {
         final long now = mClock.elapsedRealtime();
+        long nextCheckDelay = 120000L;
         for (int i = 0; i < mCachedServices.size(); i++) {
             final String serviceType = mCachedServices.keyAt(i);
-            final Set<MdnsResponse> responses = mCachedServices.valueAt(i);
+            final TreeSet<MdnsResponse> responses = mCachedServices.valueAt(i);
             final Iterator<MdnsResponse> iterator = responses.iterator();
             while (iterator.hasNext()) {
                 final MdnsResponse response = iterator.next();
@@ -218,7 +235,16 @@ public class MdnsServiceCache {
             if (responses.size() == 0) {
                 // Remove the serviceType if no response.
                 mCachedServices.removeAt(i);
+            } else {
+                // Update the next check delay
+                final long ttl = responses.first().getServiceRecord().getRemainingTTL(now);
+                if (ttl < nextCheckDelay) {
+                    nextCheckDelay = ttl;
+                }
             }
+        }
+        if (mCachedServices.size() > 0) {
+            mHandler.postDelayed(this::checkAndNotifyTtlExpiredServices, nextCheckDelay);
         }
     }
 
@@ -226,5 +252,34 @@ public class MdnsServiceCache {
     public interface ServiceExpireCallback {
         /*** Notify the service is expired */
         default void onServiceExpired(@NonNull MdnsResponse response) { }
+    }
+
+    /*** Comparator for MdnsResponse's order */
+    private static class ServiceTtlComparator implements Comparator<MdnsResponse> {
+        private final MdnsResponseDecoder.Clock mClock;
+
+        ServiceTtlComparator(@NonNull MdnsResponseDecoder.Clock clock) {
+            mClock = clock;
+        }
+
+        @Override
+        public int compare(MdnsResponse o1, MdnsResponse o2) {
+            // Can't do comparison if any of response or service record is null.
+            if (o1 == null || o2 == null
+                    || !o1.hasServiceRecord() || !o2.hasServiceRecord()) {
+                return -1;
+            }
+
+            final long now = mClock.elapsedRealtime();
+            final long diff = (o1.getServiceRecord().getRemainingTTL(now)
+                    - o2.getServiceRecord().getRemainingTTL(now));
+            // Order by remaining ttl time
+            if (diff != 0L) {
+                return (int) diff;
+            }
+            // If the remaining ttl time is same then check the service instance name to determine
+            // whether they are same response.
+            return o1.getServiceInstanceName().equals(o2.getServiceInstanceName()) ? 0 : -1;
+        }
     }
 }

@@ -39,6 +39,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.InetAddresses;
 import android.net.Network;
+import android.os.HandlerThread;
 import android.text.TextUtils;
 
 import com.android.server.connectivity.mdns.MdnsServiceInfo.TextEntry;
@@ -46,6 +47,7 @@ import com.android.server.connectivity.mdns.MdnsServiceTypeClient.QueryTaskConfi
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -111,6 +113,7 @@ public class MdnsServiceTypeClientTests {
 
     private MdnsServiceTypeClient client;
     private MdnsServiceCache serviceCache;
+    private HandlerThread thread;
 
     @Before
     @SuppressWarnings("DoNotMock")
@@ -165,7 +168,9 @@ public class MdnsServiceTypeClientTests {
                 .thenReturn(expectedIPv6Packets[14])
                 .thenReturn(expectedIPv6Packets[15]);
 
-        serviceCache = new MdnsServiceCache(mockDecoderClock);
+        thread = new HandlerThread("MdnsServiceTypeClientTests");
+        thread.start();
+        serviceCache = new MdnsServiceCache(mockDecoderClock, thread.getLooper());
         client =
                 new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                         mockDecoderClock, mockNetwork, serviceCache) {
@@ -174,6 +179,13 @@ public class MdnsServiceTypeClientTests {
                         return mockPacketWriter;
                     }
                 };
+    }
+
+    @After
+    public void tearDown() {
+        if (thread != null) {
+            thread.quitSafely();
+        }
     }
 
     @Test
@@ -672,32 +684,7 @@ public class MdnsServiceTypeClientTests {
     }
 
     @Test
-    public void processResponse_notAllowRemoveSearch_shouldNotRemove() throws Exception {
-        final String serviceInstanceName = "service-instance-1";
-        client.startSendAndReceive(
-                mockListenerOne,
-                MdnsSearchOptions.newBuilder().build());
-        Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
-
-        // Process the initial response.
-        client.processResponse(createResponse(
-                serviceInstanceName, "192.168.1.1", 5353, /* subtype= */ "ABCDE",
-                Collections.emptyMap(), TEST_TTL), INTERFACE_INDEX, mockNetwork);
-
-        // Clear the scheduled runnable.
-        currentThreadExecutor.getAndClearLastScheduledRunnable();
-
-        // Simulate the case where the response is after TTL.
-        doReturn(TEST_ELAPSED_REALTIME + TEST_TTL + 1L).when(mockDecoderClock).elapsedRealtime();
-        firstMdnsTask.run();
-
-        // Verify removed callback was not called.
-        verifyServiceRemovedNoCallback(mockListenerOne);
-    }
-
-    @Test
-    @Ignore("MdnsConfigs is not configurable currently.")
-    public void processResponse_allowSearchOptionsToRemoveExpiredService_shouldRemove()
+    public void processResponse_shouldRemoveAfterTtlTimeExpired()
             throws Exception {
         //MdnsConfigsFlagsImpl.allowSearchOptionsToRemoveExpiredService.override(true);
         final String serviceInstanceName = "service-instance-1";
@@ -710,91 +697,21 @@ public class MdnsServiceTypeClientTests {
                     }
                 };
         client.startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
-        Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
 
         // Process the initial response.
         client.processResponse(createResponse(
                 serviceInstanceName, "192.168.1.1", 5353, /* subtype= */ "ABCDE",
                 Collections.emptyMap(), TEST_TTL), INTERFACE_INDEX, mockNetwork);
 
-        // Clear the scheduled runnable.
-        currentThreadExecutor.getAndClearLastScheduledRunnable();
-
-        // Simulate the case where the response is under TTL.
-        doReturn(TEST_ELAPSED_REALTIME + TEST_TTL - 1L).when(mockDecoderClock).elapsedRealtime();
-        firstMdnsTask.run();
+        // Trigger service ttl expiration check
+        serviceCache.checkAndNotifyTtlExpiredServices();
 
         // Verify removed callback was not called.
         verifyServiceRemovedNoCallback(mockListenerOne);
 
-        // Simulate the case where the response is after TTL.
+        // Simulate the case where the response is after TTL and trigger the check again
         doReturn(TEST_ELAPSED_REALTIME + TEST_TTL + 1L).when(mockDecoderClock).elapsedRealtime();
-        firstMdnsTask.run();
-
-        // Verify removed callback was called.
-        verifyServiceRemovedCallback(mockListenerOne, serviceInstanceName, SERVICE_TYPE_LABELS,
-                INTERFACE_INDEX, mockNetwork);
-    }
-
-    @Test
-    public void processResponse_searchOptionsNotEnableServiceRemoval_shouldNotRemove()
-            throws Exception {
-        final String serviceInstanceName = "service-instance-1";
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                        mockDecoderClock, mockNetwork, serviceCache) {
-                    @Override
-                    MdnsPacketWriter createMdnsPacketWriter() {
-                        return mockPacketWriter;
-                    }
-                };
-        client.startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
-        Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
-
-        // Process the initial response.
-        client.processResponse(createResponse(
-                serviceInstanceName, "192.168.1.1", 5353, /* subtype= */ "ABCDE",
-                Collections.emptyMap(), TEST_TTL), INTERFACE_INDEX, mockNetwork);
-
-        // Clear the scheduled runnable.
-        currentThreadExecutor.getAndClearLastScheduledRunnable();
-
-        // Simulate the case where the response is after TTL.
-        doReturn(TEST_ELAPSED_REALTIME + TEST_TTL + 1L).when(mockDecoderClock).elapsedRealtime();
-        firstMdnsTask.run();
-
-        // Verify removed callback was not called.
-        verifyServiceRemovedNoCallback(mockListenerOne);
-    }
-
-    @Test
-    @Ignore("MdnsConfigs is not configurable currently.")
-    public void processResponse_removeServiceAfterTtlExpiresEnabled_shouldRemove()
-            throws Exception {
-        //MdnsConfigsFlagsImpl.removeServiceAfterTtlExpires.override(true);
-        final String serviceInstanceName = "service-instance-1";
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                        mockDecoderClock, mockNetwork, serviceCache) {
-                    @Override
-                    MdnsPacketWriter createMdnsPacketWriter() {
-                        return mockPacketWriter;
-                    }
-                };
-        client.startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
-        Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
-
-        // Process the initial response.
-        client.processResponse(createResponse(
-                serviceInstanceName, "192.168.1.1", 5353, /* subtype= */ "ABCDE",
-                Collections.emptyMap(), TEST_TTL), INTERFACE_INDEX, mockNetwork);
-
-        // Clear the scheduled runnable.
-        currentThreadExecutor.getAndClearLastScheduledRunnable();
-
-        // Simulate the case where the response is after TTL.
-        doReturn(TEST_ELAPSED_REALTIME + TEST_TTL + 1L).when(mockDecoderClock).elapsedRealtime();
-        firstMdnsTask.run();
+        serviceCache.checkAndNotifyTtlExpiredServices();
 
         // Verify removed callback was called.
         verifyServiceRemovedCallback(mockListenerOne, serviceInstanceName, SERVICE_TYPE_LABELS,

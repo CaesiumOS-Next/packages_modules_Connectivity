@@ -18,14 +18,17 @@ package com.android.server.connectivity.mdns
 
 import android.net.Network
 import android.os.Build
+import android.os.HandlerThread
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.server.connectivity.mdns.MdnsServiceCacheTest.ExpireRecord.ExpireEvent.ServiceExpired
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.doReturn
@@ -39,13 +42,28 @@ private const val SERVICE_TYPE_2 = "_test2._tcp.local"
 private const val INTERFACE_INDEX = 999
 private const val TEST_ELAPSED_REALTIME = 123L
 private const val NO_CALLBACK_TIMEOUT_MS = 200L
+private const val TIMEOUT_MS = 2000L
 
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class MdnsServiceCacheTest {
     private val network = mock(Network::class.java)
     private val clock = mock(MdnsResponseDecoder.Clock::class.java)
-    private val serviceCache = MdnsServiceCache(clock)
+    private val thread = HandlerThread(MdnsServiceCacheTest::class.simpleName)
+    private val serviceCache by lazy {
+        MdnsServiceCache(clock, thread.looper)
+    }
+
+    @Before
+    fun setUp() {
+        thread.start()
+        doReturn(TEST_ELAPSED_REALTIME).`when`(clock).elapsedRealtime()
+    }
+
+    @After
+    fun tearDown() {
+        thread.quitSafely()
+    }
 
     @Test
     fun testAddAndRemoveService() {
@@ -94,8 +112,8 @@ class MdnsServiceCacheTest {
             history.add(ServiceExpired(response))
         }
 
-        inline fun expectedServiceExpired(serviceName: String) {
-            val event = history.poll(0L /* timeoutMs */)
+        inline fun expectedServiceExpired(serviceName: String, timeoutMs: Long = TIMEOUT_MS) {
+            val event = history.poll(timeoutMs)
             assertNotNull(event)
             assertTrue(event is ServiceExpired)
             if (event != null) {
@@ -116,18 +134,19 @@ class MdnsServiceCacheTest {
         val callback2 = ExpireRecord()
         serviceCache.registerServiceExpireCallback(SERVICE_TYPE_1, callback1)
         serviceCache.registerServiceExpireCallback(SERVICE_TYPE_2, callback2)
+
         // Add multiple services with different ttl time.
         serviceCache.addService(SERVICE_TYPE_1,
-            createResponse(SERVICE_NAME_1, SERVICE_TYPE_1, 1L /* ttlTime */))
+            createResponse(SERVICE_NAME_1, SERVICE_TYPE_1, 120000L /* ttlTime */))
         serviceCache.addService(SERVICE_TYPE_1,
-            createResponse(SERVICE_NAME_2, SERVICE_TYPE_1, 21L /* ttlTime */))
+            createResponse(SERVICE_NAME_2, SERVICE_TYPE_1, 124000L /* ttlTime */))
         serviceCache.addService(SERVICE_TYPE_2,
-            createResponse(SERVICE_NAME_3, SERVICE_TYPE_2, 11L /* ttlTime */))
+            createResponse(SERVICE_NAME_3, SERVICE_TYPE_2, 122000L /* ttlTime */))
         assertEquals(2, serviceCache.getCachedServices(SERVICE_TYPE_1, network).size)
         assertEquals(1, serviceCache.getCachedServices(SERVICE_TYPE_2, network).size)
 
         // Simulate the case where the response is after TTL then check expired services.
-        doReturn(TEST_ELAPSED_REALTIME + 10L).`when`(clock).elapsedRealtime()
+        doReturn(TEST_ELAPSED_REALTIME + 120001L).`when`(clock).elapsedRealtime()
         serviceCache.checkAndNotifyTtlExpiredServices()
         // Expect SERVICE_NAME_1 expired.
         callback1.expectedServiceExpired(SERVICE_NAME_1)
@@ -136,7 +155,7 @@ class MdnsServiceCacheTest {
         assertEquals(1, serviceCache.getCachedServices(SERVICE_TYPE_2, network).size)
 
         // Simulate the case where the response is after TTL then check expired services.
-        doReturn(TEST_ELAPSED_REALTIME + 20L).`when`(clock).elapsedRealtime()
+        doReturn(TEST_ELAPSED_REALTIME + 122001L).`when`(clock).elapsedRealtime()
         serviceCache.checkAndNotifyTtlExpiredServices()
         // Expect SERVICE_NAME_3 expired.
         callback1.assertNoCallback()

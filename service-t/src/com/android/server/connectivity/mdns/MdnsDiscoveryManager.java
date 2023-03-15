@@ -23,6 +23,8 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.net.Network;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -104,7 +106,17 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         this.executorProvider = executorProvider;
         this.socketClient = socketClient;
         perNetworkServiceTypeClients = new PerNetworkServiceTypeClients();
-        serviceCache = new MdnsServiceCache();
+        final HandlerThread thread = new HandlerThread("MdnsServiceCacheThread");
+        thread.start();
+        serviceCache = new MdnsServiceCache(thread.getLooper());
+    }
+
+    public MdnsDiscoveryManager(@NonNull ExecutorProvider executorProvider,
+            @NonNull MdnsSocketClientBase socketClient, @NonNull Looper looper) {
+        this.executorProvider = executorProvider;
+        this.socketClient = socketClient;
+        perNetworkServiceTypeClients = new PerNetworkServiceTypeClients();
+        serviceCache = new MdnsServiceCache(looper);
     }
 
     /**
