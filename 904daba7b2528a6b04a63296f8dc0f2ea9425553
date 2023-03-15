@@ -69,6 +69,24 @@
       "parentUuid": "2769ddd6_9b20438a",
       "revId": "904daba7b2528a6b04a63296f8dc0f2ea9425553",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62c14601_be1c2fa2",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-15T16:23:42Z",
+      "side": 1,
+      "message": "There\u0027s no specific documentation that I can find, just the general consensus of CTS. If someone were to reimplement Cronet, they would be bound by this version syntax.\n\nAlso(very far-fetched😄) but in 19yrs, we would exceed the 3 digit version. The issue is that, if cronet still exists, the current owners would definitely not know to update the tests till they run into this. This came to mind because we ran into a simpler issue when we moved from 99-\u003e100 and some of tests started failing.",
+      "parentUuid": "943e99bc_b437dff7",
+      "revId": "904daba7b2528a6b04a63296f8dc0f2ea9425553",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
