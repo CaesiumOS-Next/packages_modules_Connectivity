@@ -405,8 +405,8 @@ public class IpServer extends StateMachine {
 
     /** Internals. */
 
-    private boolean startIPv4() {
-        return configureIPv4(true);
+    private boolean startIPv4(boolean isLocalOnly) {
+        return configureIPv4(true, isLocalOnly);
     }
 
     /**
@@ -616,7 +616,7 @@ public class IpServer extends StateMachine {
     }
 
     private void stopIPv4() {
-        configureIPv4(false);
+        configureIPv4(false /* enabled */, false /* non use */);
         // NOTE: All of configureIPv4() will be refactored out of existence
         // into calls to InterfaceController, shared with startIPv4().
         mInterfaceCtrl.clearIPv4Address();
@@ -627,11 +627,11 @@ public class IpServer extends StateMachine {
         mStaticIpv4ClientAddr = null;
     }
 
-    private boolean configureIPv4(boolean enabled) {
+    private boolean configureIPv4(boolean enabled, boolean isLocalOnly) {
         if (VDBG) Log.d(TAG, "configureIPv4(" + enabled + ")");
 
         if (enabled) {
-            mIpv4Address = requestIpv4Address(true /* useLastAddress */);
+            mIpv4Address = requestIpv4Address(isLocalOnly, true /* useLastAddress */);
         }
 
         if (mIpv4Address == null) {
@@ -679,12 +679,14 @@ public class IpServer extends StateMachine {
         return (mInterfaceType == TetheringManager.TETHERING_BLUETOOTH) && !SdkLevel.isAtLeastT();
     }
 
-    private LinkAddress requestIpv4Address(final boolean useLastAddress) {
+    private LinkAddress requestIpv4Address(final boolean isLocalOnly,
+            final boolean useLastAddress) {
         if (mStaticIpv4ServerAddr != null) return mStaticIpv4ServerAddr;
 
         if (shouldNotConfigureBluetoothInterface()) return new LinkAddress(BLUETOOTH_IFACE_ADDR);
 
-        return mPrivateAddressCoordinator.requestDownstreamAddress(this, useLastAddress);
+        return mPrivateAddressCoordinator.requestDownstreamAddress(this, isLocalOnly,
+                useLastAddress);
     }
 
     private boolean startIPv6() {
@@ -998,7 +1000,8 @@ public class IpServer extends StateMachine {
         }
     }
 
-    private void handleNewPrefixRequest(@NonNull final IpPrefix currentPrefix) {
+    private void handleNewPrefixRequest(@NonNull final IpPrefix currentPrefix,
+            boolean isLocalOnly) {
         if (!currentPrefix.contains(mIpv4Address.getAddress())
                 || currentPrefix.getPrefixLength() != mIpv4Address.getPrefixLength()) {
             Log.e(TAG, "Invalid prefix: " + currentPrefix);
@@ -1006,7 +1009,7 @@ public class IpServer extends StateMachine {
         }
 
         final LinkAddress deprecatedLinkAddress = mIpv4Address;
-        mIpv4Address = requestIpv4Address(false);
+        mIpv4Address = requestIpv4Address(isLocalOnly, false);
         if (mIpv4Address == null) {
             mLog.e("Fail to request a new downstream prefix");
             return;
@@ -1174,11 +1177,17 @@ public class IpServer extends StateMachine {
     }
 
     class BaseServingState extends State {
+        private final boolean mIsLocalOnly;
+
+        BaseServingState(boolean isLocalOnly) {
+            mIsLocalOnly = isLocalOnly;
+        }
+
         @Override
         public void enter() {
             startConntrackMonitoring();
 
-            if (!startIPv4()) {
+            if (!startIPv4(mIsLocalOnly)) {
                 mLastError = TETHER_ERROR_IFACE_CFG_ERROR;
                 return;
             }
@@ -1245,7 +1254,7 @@ public class IpServer extends StateMachine {
                     transitionTo(mInitialState);
                     break;
                 case CMD_NEW_PREFIX_REQUEST:
-                    handleNewPrefixRequest((IpPrefix) message.obj);
+                    handleNewPrefixRequest((IpPrefix) message.obj, mIsLocalOnly);
                     break;
                 case CMD_NOTIFY_PREFIX_CONFLICT:
                     mLog.i("restart tethering: " + mInterfaceType);
@@ -1265,6 +1274,10 @@ public class IpServer extends StateMachine {
     // and forwarding and NAT rules should be handled by a coordinating
     // functional element outside of IpServer.
     class LocalHotspotState extends BaseServingState {
+        LocalHotspotState() {
+            super(true);
+        }
+
         @Override
         public void enter() {
             super.enter();
@@ -1301,6 +1314,10 @@ public class IpServer extends StateMachine {
     // and forwarding and NAT rules should be handled by a coordinating
     // functional element outside of IpServer.
     class TetheredState extends BaseServingState {
+        TetheredState() {
+            super(false);
+        }
+
         @Override
         public void enter() {
             super.enter();
