@@ -49,6 +49,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc4f379f_3d5b0a94",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T09:40:44Z",
+      "side": 1,
+      "message": "This uses a lock but returns a set of mutable MdnsResponse that could be modified without holding the lock.\n\nAlso it\u0027s confusing that this uses \"this\" as lock, but MdnsServiceTypeClient also has a \"lock\" for other purposes.\n\nIn general I think we avoid locks in core networking code because it brings a lot of difficult problems, and use Handler instead. Do you think you could have a change to make MdnsServiceTypeClient run in a given Handler (at least everything except the QueryTask) ? Basically you\u0027d check the current thread in all public methods. There\u0027s a number of changes needed across MdnsDiscoveryManager and MdnsServiceTypeClient to achieve that I think.",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "9919ec18605830fcf641c98ab36f42e30faf607c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af77051a_f4845a33",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
         "patchSetId": 3
