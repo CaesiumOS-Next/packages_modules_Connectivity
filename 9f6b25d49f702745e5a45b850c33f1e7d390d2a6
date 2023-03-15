@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47e3de49_b367bc3b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-15T05:16:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3a07a7e_fe5faab2",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 62
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f71554ff_55f4beaf",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-13T15:44:57Z",
       "side": 1,
       "message": "The loop is not necessary anymore ?",
+      "range": {
+        "startLine": 188,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 66
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b84997_669128fb",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-15T05:16:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f71554ff_55f4beaf",
       "range": {
         "startLine": 188,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d63e81_80beaf7a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-15T05:16:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c98f6f78_95e12ebe",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 213,
+        "endChar": 30
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52b0250a_22e5b3c0",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-03-13T15:44:57Z",
       "side": 1,
       "message": "The loop is not necessary anymore ?",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 61
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6119406_503f17fc",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-15T05:16:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52b0250a_22e5b3c0",
       "range": {
         "startLine": 225,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ff7bd9c_75107363",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-15T05:16:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b04f8f9_999c4540",
+      "range": {
+        "startLine": 317,
+        "startChar": 38,
+        "endLine": 317,
+        "endChar": 84
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "620c5ba1_7dbcc996",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-03-13T15:44:57Z",
       "side": 1,
       "message": "Which case upstream would be -1, looking at the input l.354 ~ 365, there are no -1 upstream",
+      "range": {
+        "startLine": 332,
+        "startChar": 16,
+        "endLine": 332,
+        "endChar": 30
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5099796_2be4b135",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-15T05:16:06Z",
+      "side": 1,
+      "message": "Change it to check null",
+      "parentUuid": "620c5ba1_7dbcc996",
       "range": {
         "startLine": 332,
         "startChar": 16,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a51d45a_22632214",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-15T05:16:06Z",
+      "side": 1,
+      "message": "I changed the input parameter from |expectedResult| to |UpstreamType.UT_NO_NETWORK| in line#340 and it would fail in the second test.\n\n```\nrunUpstreamTypesTest(new Pair\u003c\u003e(buildUpstreamState(TRANSPORT_CELLULAR),\n                UpstreamType.UT_CELLULAR));\n```\n\nAfter changing the parameter:\n\nexpected output\n```\n  upstream_event {\n    duration_millis: 1000\n    upstream_type: UT_NO_NETWORK\n  }\n  upstream_event {\n    duration_millis: 2000\n    upstream_type: UT_NO_NETWORK\n  }\n```\n\nactual output\n```\n  upstream_event {\n    duration_millis: 1000\n    upstream_type: UT_NO_NETWORK\n  }\n  upstream_event {\n    duration_millis: 2000\n    upstream_type: UT_CELLULAR\n  }\n```\n\nDiscussed with Mark offline, it add copyOnWrite() before doing addUpstreamEvent and copy on write is a technique that can be used to implement defensive copy. So i think it\u0027s ok",
+      "parentUuid": "e9f856f6_7df7cef5",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 63
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c47a2b79_2eceead9",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "978a5820_fa3c5f69",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-15T05:16:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c47a2b79_2eceead9",
+      "range": {
+        "startLine": 412,
+        "startChar": 16,
+        "endLine": 412,
+        "endChar": 63
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c903963_f4319ed8",
@@ -198,6 +390,30 @@
       "writtenOn": "2023-03-13T15:44:57Z",
       "side": 1,
       "message": "Is this possible to happen ? having upstream without startTethering ?",
+      "range": {
+        "startLine": 473,
+        "startChar": 16,
+        "endLine": 473,
+        "endChar": 64
+      },
+      "revId": "9f6b25d49f702745e5a45b850c33f1e7d390d2a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58d8c3e7_ab8c535a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-15T05:16:06Z",
+      "side": 1,
+      "message": "I\u0027ve checked the size to mUpstreamEventList in TetheringMetrics.java line#154, and the size of list wouldn\u0027t increase if no startTethering first.",
+      "parentUuid": "5c903963_f4319ed8",
       "range": {
         "startLine": 473,
         "startChar": 16,
