@@ -20,6 +20,7 @@ import android.net.http.DnsOptions
 import android.net.http.DnsOptions.DNS_OPTION_ENABLED
 import android.net.http.DnsOptions.DNS_OPTION_UNSPECIFIED
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.google.common.truth.Truth.assertThat
 import java.time.Duration
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -86,6 +87,21 @@ class DnsOptionsTest {
 
         assertEquals(DNS_OPTION_ENABLED,
                 options.preestablishConnectionsToStaleDnsResultsEnabled)
+    }
+
+    @Test
+    fun testDnsOptions_staleDnsOptions_returnsSetValue() {
+        val staleOptions = DnsOptions.StaleDnsOptions.Builder()
+                .setAllowCrossNetworkUsageEnabled(DNS_OPTION_ENABLED)
+                .setMaxExpiredDelay(Duration.ofHours(42))
+                .build()
+
+        val options = DnsOptions.Builder()
+                .setStaleDnsOptions(staleOptions)
+                .build()
+
+        assertThat(options.staleDnsOptions)
+                .isEqualTo(staleOptions)
     }
 
     @Test
