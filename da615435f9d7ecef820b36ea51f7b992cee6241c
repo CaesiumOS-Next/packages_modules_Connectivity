@@ -22,6 +22,30 @@
       },
       "revId": "da615435f9d7ecef820b36ea51f7b992cee6241c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6836c7ac_6cf478b9",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-15T10:47:53Z",
+      "side": 1,
+      "message": "aside: Do you think it\u0027s still necessary to confirm that quic is used in this case?\n\nI\u0027ll assert the OK status, but we still need to assumeCallback if we are sending to a non-test server.",
+      "parentUuid": "9e0e46a4_7ee7d5b0",
+      "range": {
+        "startLine": 265,
+        "startChar": 8,
+        "endLine": 267,
+        "endChar": 30
+      },
+      "revId": "da615435f9d7ecef820b36ea51f7b992cee6241c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
