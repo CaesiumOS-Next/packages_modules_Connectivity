@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f32a101_1284a94c",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-03-15T00:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "860b3a73_52e450f6",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 76
+      },
+      "revId": "193e706e167b9116cf1f7eb0479f95cd8bf14c78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbb30692_13f91f0e",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-14T22:55:23Z",
       "side": 1,
       "message": "do you not want to set_remote_port(0) if dropping remote port?",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 77
+      },
+      "revId": "193e706e167b9116cf1f7eb0479f95cd8bf14c78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68226809_c1e1dd2a",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-03-15T00:03:36Z",
+      "side": 1,
+      "message": "Leaving it empty is preferred. This uses proto2 so the other side can use `has_remote_port()` to see if it was set. Using `remote_port()` without checking defaults to 0 anyways. So dropping is a bit more explicit in this case.",
+      "parentUuid": "cbb30692_13f91f0e",
       "range": {
         "startLine": 224,
         "startChar": 0,
