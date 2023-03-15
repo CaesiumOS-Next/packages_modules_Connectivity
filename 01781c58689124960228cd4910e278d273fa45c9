@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f20f349_34e1bd16",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/DnsOptionsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-15T10:40:25Z",
+      "side": 1,
+      "message": "Consider setting a non-default value here to make sure the values propagate.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 71
+      },
+      "revId": "01781c58689124960228cd4910e278d273fa45c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
