@@ -18,10 +18,14 @@ package com.android.networkstack.tethering;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.TetheringManager.TETHERING_BLUETOOTH;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
+import static android.net.ip.IpServer.STATE_LOCAL_ONLY;
+import static android.net.ip.IpServer.STATE_TETHERED;
+import static android.net.ip.IpServer.getStateString;
 
 import static com.android.net.module.util.Inet4AddressUtils.inet4AddressToIntHTH;
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
 import static com.android.net.module.util.Inet4AddressUtils.prefixLengthToV4NetmaskIntHTH;
+import static com.android.networkstack.tethering.Tethering.getTypeString;
 import static com.android.networkstack.tethering.util.PrefixUtils.asIpPrefix;
 
 import static java.util.Arrays.asList;
@@ -34,7 +38,6 @@ import android.net.Network;
 import android.net.ip.IpServer;
 import android.util.ArrayMap;
 import android.util.ArraySet;
-import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,7 +80,7 @@ public class PrivateAddressCoordinator {
     private final ConnectivityManager mConnectivityMgr;
     private final TetheringConfiguration mConfig;
     // keyed by downstream type(TetheringManager.TETHERING_*).
-    private final SparseArray<LinkAddress> mCachedAddresses;
+    private final ArrayMap<AddressKey, LinkAddress> mCachedAddresses;
 
     public PrivateAddressCoordinator(Context context, TetheringConfiguration config) {
         mDownstreams = new ArraySet<>();
@@ -85,10 +88,12 @@ public class PrivateAddressCoordinator {
         mConnectivityMgr = (ConnectivityManager) context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);
         mConfig = config;
-        mCachedAddresses = new SparseArray<>();
+        mCachedAddresses = new ArrayMap<AddressKey, LinkAddress>();
         // Reserved static addresses for bluetooth and wifi p2p.
-        mCachedAddresses.put(TETHERING_BLUETOOTH, new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));
-        mCachedAddresses.put(TETHERING_WIFI_P2P, new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
+        mCachedAddresses.put(new AddressKey(TETHERING_BLUETOOTH),
+                new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));
+        mCachedAddresses.put(new AddressKey(TETHERING_WIFI_P2P),
+                new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
 
         mTetheringPrefixes = new ArrayList<>(Arrays.asList(new IpPrefix("192.168.0.0/16"),
             new IpPrefix("172.16.0.0/12"), new IpPrefix("10.0.0.0/8")));
@@ -166,16 +171,18 @@ public class PrivateAddressCoordinator {
      * returns null if there is no available address.
      */
     @Nullable
-    public LinkAddress requestDownstreamAddress(final IpServer ipServer, boolean useLastAddress) {
+    public LinkAddress requestDownstreamAddress(final IpServer ipServer, final boolean isLocalOnly,
+            boolean useLastAddress) {
         if (mConfig.shouldEnableWifiP2pDedicatedIp()
                 && ipServer.interfaceType() == TETHERING_WIFI_P2P) {
             return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
         }
 
+        final AddressKey addrKey = new AddressKey(ipServer.interfaceType(), ipServer.servingMode());
         // This ensures that tethering isn't started on 2 different interfaces with the same type.
         // Once tethering could support multiple interface with the same type,
         // TetheringSoftApCallback would need to handle it among others.
-        final LinkAddress cachedAddress = mCachedAddresses.get(ipServer.interfaceType());
+        final LinkAddress cachedAddress = mCachedAddresses.get(addrKey);
         if (useLastAddress && cachedAddress != null
                 && !isConflictWithUpstream(asIpPrefix(cachedAddress))) {
             mDownstreams.add(ipServer);
@@ -186,7 +193,7 @@ public class PrivateAddressCoordinator {
             final LinkAddress newAddress = chooseDownstreamAddress(prefixRange);
             if (newAddress != null) {
                 mDownstreams.add(ipServer);
-                mCachedAddresses.put(ipServer.interfaceType(), newAddress);
+                mCachedAddresses.put(addrKey, newAddress);
                 return newAddress;
             }
         }
@@ -382,6 +389,42 @@ public class PrivateAddressCoordinator {
         final LinkAddress address = downstream.getAddress();
 
         return asIpPrefix(address);
+    }
+
+    private static class AddressKey {
+        static int EXTEND_TYPE_IGNORE     = 0;
+        static int EXTEND_TYPE_INTERNET   = 1;
+        static int EXTEND_TYPE_LOCAL_ONLY = 2;
+
+        private final int mType;
+        private final int mExtendType;
+
+        AddressKey(int type) {
+            this(type, EXTEND_TYPE_IGNORE);
+        }
+
+        AddressKey(int type, int extend) {
+            mType = type;
+            mExtendType = extend;
+        }
+
+        @Override
+        public int hashCode() {
+            return (mType << 16) + mExtendType;
+        }
+
+        @Override
+        public boolean equals(@Nullable Object obj) {
+            if (!(obj instanceof AddressKey)) return false;
+            final AddressKey other = (AddressKey) obj;
+
+            return mType == other.mType && mExtendType == other.mExtendType;
+        }
+
+        @Override
+        public String toString() {
+            return " AddressKey(" + mType + ", " + mExtendType + ")";
+        }
     }
 
     void dump(final IndentingPrintWriter pw) {

@@ -2871,4 +2871,18 @@ public class Tethering {
             } catch (RemoteException e) { }
         });
     }
+
+    /** Get string name of TetheringManager#TETHERING_*.*/
+    public static String getTypeString(int type) {
+        switch (type) {
+            case TETHERING_WIFI: return "WIFI";
+            case TETHERING_USB: return "USB";
+            case TETHERING_BLUETOOTH: return "BLUETOOTH";
+            case TETHERING_WIFI_P2P: return "WIFI_P2P";
+            case TETHERING_NCM: return "NCM";
+            case TETHERING_ETHERNET: return "ETHERNET";
+            case TETHERING_WIGIG: return "WIGIG";
+        }
+        return "UNKNOWN(" + type + ")";
+    }
 }
