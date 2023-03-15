@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52e517b9_390626a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-15T10:22:44Z",
+      "side": 1,
+      "message": "Hi Dan, I already wrote this here. cc: aosp/2485978\n\nPlease don\u0027t forget to check the sheets to avoid duplicate work.",
+      "revId": "a213276fe282f8bd9aadc77c0770a3803d3c5b9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
