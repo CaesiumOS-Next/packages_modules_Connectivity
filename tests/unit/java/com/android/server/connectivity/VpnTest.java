@@ -48,6 +48,7 @@ import static android.telephony.CarrierConfigManager.KEY_PREFERRED_IKE_PROTOCOL_
 
 import static com.android.net.module.util.NetworkStackConstants.IPV6_MIN_MTU;
 import static com.android.server.connectivity.Vpn.AUTOMATIC_KEEPALIVE_DELAY_SECONDS;
+import static com.android.server.connectivity.Vpn.DEFAULT_LONG_LIVED_TCP_CONNS_EXPENSIVE_TIMEOUT_SEC;
 import static com.android.server.connectivity.Vpn.DEFAULT_UDP_PORT_4500_NAT_TIMEOUT_SEC_INT;
 import static com.android.server.connectivity.Vpn.PREFERRED_IKE_PROTOCOL_AUTO;
 import static com.android.server.connectivity.Vpn.PREFERRED_IKE_PROTOCOL_IPV4_UDP;
@@ -1860,6 +1861,13 @@ public class VpnTest extends VpnTestBase {
 
     private PlatformVpnSnapshot verifySetupPlatformVpn(VpnProfile vpnProfile,
             IkeSessionConfiguration ikeConfig, boolean mtuSupportsIpv6) throws Exception {
+        return verifySetupPlatformVpn(vpnProfile, ikeConfig, mtuSupportsIpv6,
+                false /* areLongLivedTcpConnectionsExpensive */);
+    }
+
+    private PlatformVpnSnapshot verifySetupPlatformVpn(VpnProfile vpnProfile,
+            IkeSessionConfiguration ikeConfig, boolean mtuSupportsIpv6,
+            boolean areLongLivedTcpConnectionsExpensive) throws Exception {
         if (!mtuSupportsIpv6) {
             doReturn(IPV6_MIN_MTU - 1).when(mTestDeps).calculateVpnMtu(any(), anyInt(), anyInt(),
                     anyBoolean());
@@ -1942,8 +1950,10 @@ public class VpnTest extends VpnTestBase {
 
         // Check if allowBypass is set or not.
         assertTrue(nacCaptor.getValue().isBypassableVpn());
-        assertTrue(((VpnTransportInfo) ncCaptor.getValue().getTransportInfo()).isBypassable());
-
+        final VpnTransportInfo info = (VpnTransportInfo) ncCaptor.getValue().getTransportInfo();
+        assertTrue(info.isBypassable());
+        assertEquals(areLongLivedTcpConnectionsExpensive,
+                info.areLongLivedTcpConnectionsExpensive());
         return new PlatformVpnSnapshot(vpn, nwCb, ikeCb, childCb);
     }
 
@@ -2063,7 +2073,8 @@ public class VpnTest extends VpnTestBase {
         final PlatformVpnSnapshot vpnSnapShot =
                 verifySetupPlatformVpn(profile,
                         createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */),
-                        false /* mtuSupportsIpv6 */);
+                        false /* mtuSupportsIpv6 */,
+                        expectedKeepalive < DEFAULT_LONG_LIVED_TCP_CONNS_EXPENSIVE_TIMEOUT_SEC);
         // Simulate a new network coming up
         vpnSnapShot.nwCb.onAvailable(TEST_NETWORK_2);
         verify(mIkeSessionWrapper, never()).setNetwork(any(), anyInt(), anyInt(), anyInt());
@@ -2110,7 +2121,8 @@ public class VpnTest extends VpnTestBase {
                 PREFERRED_IKE_PROTOCOL_IPV4_UDP,
                 AUTOMATIC_KEEPALIVE_DELAY_SECONDS /* expectedKeepaliveTimer */,
                 ESP_IP_VERSION_AUTO /* expectedIpVersion */,
-                ESP_ENCAP_TYPE_AUTO /* expectedEncapType */);
+                ESP_ENCAP_TYPE_AUTO /* expectedEncapType */,
+                true /* areLongLivedTcpConnectionsExpensive */);
     }
 
     @Test
@@ -2120,7 +2132,8 @@ public class VpnTest extends VpnTestBase {
                 PREFERRED_IKE_PROTOCOL_IPV4_UDP,
                 AUTOMATIC_KEEPALIVE_DELAY_SECONDS /* expectedKeepaliveTimer */,
                 ESP_IP_VERSION_AUTO /* expectedIpVersion */,
-                ESP_ENCAP_TYPE_AUTO /* expectedEncapType */);
+                ESP_ENCAP_TYPE_AUTO /* expectedEncapType */,
+                true /* areLongLivedTcpConnectionsExpensive */);
     }
 
     @Test
@@ -2130,7 +2143,8 @@ public class VpnTest extends VpnTestBase {
                 PREFERRED_IKE_PROTOCOL_AUTO,
                 TEST_KEEPALIVE_TIMER /* expectedKeepaliveTimer */,
                 ESP_IP_VERSION_AUTO /* expectedIpVersion */,
-                ESP_ENCAP_TYPE_AUTO /* expectedEncapType */);
+                ESP_ENCAP_TYPE_AUTO /* expectedEncapType */,
+                false /* areLongLivedTcpConnectionsExpensive */);
     }
 
     @Test
@@ -2144,7 +2158,8 @@ public class VpnTest extends VpnTestBase {
                 PREFERRED_IKE_PROTOCOL_IPV4_UDP,
                 AUTOMATIC_KEEPALIVE_DELAY_SECONDS /* expectedKeepaliveTimer */,
                 ESP_IP_VERSION_AUTO /* expectedIpVersion */,
-                ESP_ENCAP_TYPE_AUTO /* expectedEncapType */);
+                ESP_ENCAP_TYPE_AUTO /* expectedEncapType */,
+                true /* areLongLivedTcpConnectionsExpensive */);
     }
 
     @Test
@@ -2154,7 +2169,8 @@ public class VpnTest extends VpnTestBase {
                 PREFERRED_IKE_PROTOCOL_IPV4_UDP,
                 TEST_KEEPALIVE_TIMER /* expectedKeepaliveTimer */,
                 ESP_IP_VERSION_IPV4 /* expectedIpVersion */,
-                ESP_ENCAP_TYPE_UDP /* expectedEncapType */);
+                ESP_ENCAP_TYPE_UDP /* expectedEncapType */,
+                false /* areLongLivedTcpConnectionsExpensive */);
     }
 
     @Test
@@ -2164,7 +2180,8 @@ public class VpnTest extends VpnTestBase {
                 PREFERRED_IKE_PROTOCOL_IPV6_ESP,
                 TEST_KEEPALIVE_TIMER /* expectedKeepaliveTimer */,
                 ESP_IP_VERSION_IPV6 /* expectedIpVersion */,
-                ESP_ENCAP_TYPE_NONE /* expectedEncapType */);
+                ESP_ENCAP_TYPE_NONE /* expectedEncapType */,
+                false /* areLongLivedTcpConnectionsExpensive */);
     }
 
     @Test
@@ -2174,7 +2191,8 @@ public class VpnTest extends VpnTestBase {
                 PREFERRED_IKE_PROTOCOL_IPV6_UDP,
                 TEST_KEEPALIVE_TIMER /* expectedKeepaliveTimer */,
                 ESP_IP_VERSION_IPV6 /* expectedIpVersion */,
-                ESP_ENCAP_TYPE_UDP /* expectedEncapType */);
+                ESP_ENCAP_TYPE_UDP /* expectedEncapType */,
+                false /* areLongLivedTcpConnectionsExpensive */);
     }
 
     private NetworkCapabilities createTestCellNc() {
@@ -2187,7 +2205,8 @@ public class VpnTest extends VpnTestBase {
     }
 
     private void doTestReadCarrierConfig(NetworkCapabilities nc, int simState, int preferredIpProto,
-            int expectedKeepaliveTimer, int expectedIpVersion, int expectedEncapType)
+            int expectedKeepaliveTimer, int expectedIpVersion, int expectedEncapType,
+            boolean areLongLivedTcpConnectionsExpensive)
             throws Exception {
         final Ikev2VpnProfile ikeProfile =
                 new Ikev2VpnProfile.Builder(TEST_VPN_SERVER, TEST_VPN_IDENTITY)
@@ -2200,7 +2219,8 @@ public class VpnTest extends VpnTestBase {
         final PlatformVpnSnapshot vpnSnapShot =
                 verifySetupPlatformVpn(ikeProfile.toVpnProfile(),
                         createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */),
-                        false /* mtuSupportsIpv6 */);
+                        false /* mtuSupportsIpv6 */,
+                        true /* areLongLivedTcpConnectionsExpensive */);
 
         final CarrierConfigManager.CarrierConfigChangeListener listener =
                 getCarrierConfigListener();
@@ -2215,15 +2235,30 @@ public class VpnTest extends VpnTestBase {
         vpnSnapShot.nwCb.onCapabilitiesChanged(TEST_NETWORK_2, nc);
         verify(mIkeSessionWrapper).setNetwork(TEST_NETWORK_2,
                 expectedIpVersion, expectedEncapType, expectedKeepaliveTimer);
+        final ArgumentCaptor<NetworkCapabilities> ncCaptor =
+                ArgumentCaptor.forClass(NetworkCapabilities.class);
+        verify(mMockNetworkAgent).doSendNetworkCapabilities(ncCaptor.capture());
+
+        final VpnTransportInfo info =
+                (VpnTransportInfo) ncCaptor.getValue().getTransportInfo();
+        assertEquals(areLongLivedTcpConnectionsExpensive,
+                info.areLongLivedTcpConnectionsExpensive());
 
         reset(mExecutor);
         reset(mIkeSessionWrapper);
+        reset(mMockNetworkAgent);
 
         // Trigger carrier config change
         listener.onCarrierConfigChanged(1 /* logicalSlotIndex */, TEST_SUB_ID,
                 -1 /* carrierId */, -1 /* specificCarrierId */);
         verify(mIkeSessionWrapper).setNetwork(TEST_NETWORK_2,
                 expectedIpVersion, expectedEncapType, expectedKeepaliveTimer);
+        verify(mMockNetworkAgent).doSendNetworkCapabilities(ncCaptor.capture());
+
+        final VpnTransportInfo infoAfterCarrierConfigChange =
+                (VpnTransportInfo) ncCaptor.getValue().getTransportInfo();
+        assertEquals(areLongLivedTcpConnectionsExpensive,
+                infoAfterCarrierConfigChange.areLongLivedTcpConnectionsExpensive());
     }
 
     @Test
