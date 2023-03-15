@@ -290,6 +290,12 @@ tethering_apex = "com.android.tethering"
 # Name of cronet api target
 java_api_target_name = "//components/cronet/android:cronet_api_java"
 
+# Visibility set for package default
+package_default_visibility = "//visibility:private"
+
+# Visibility set for modules used from Connectivity
+connectivity_visibility = "//packages/modules/Connectivity:__subpackages__"
+
 # ----------------------------------------------------------------------------
 # End of configuration.
 # ----------------------------------------------------------------------------
@@ -475,6 +481,8 @@ class Module(object):
     self.license_kinds = set()
     self.license_text = set()
     self.default_applicable_licenses = set()
+    self.default_visibility = []
+    self.visibility = []
 
   def to_string(self, output):
     if self.comment:
@@ -534,6 +542,8 @@ class Module(object):
     self._output_field(output, 'license_kinds')
     self._output_field(output, 'license_text')
     self._output_field(output, 'default_applicable_licenses')
+    self._output_field(output, 'default_visibility')
+    self._output_field(output, 'visibility')
     if self.rtti:
       self._output_field(output, 'rtti')
 
@@ -1723,6 +1733,7 @@ def create_java_module(blueprint, gn, is_test_target):
       module.srcs.add(':' + create_action_module(blueprint, target, 'java_genrule', is_test_target).name)
   preprocessor_module = create_java_jni_preprocessor(blueprint)
   module.plugins.add(preprocessor_module.name)
+  module.visibility.append(connectivity_visibility)
   blueprint.add_module(module)
   return module
 
@@ -1738,6 +1749,7 @@ def create_java_api_module(blueprint, gn):
     ':' + create_action_module(blueprint, gn.get_target(dep), 'java_genrule', False).name
     for dep in get_api_java_actions(gn)])
   blueprint.add_module(source_module)
+  source_module.visibility.append(connectivity_visibility)
   return source_module
 
 def update_jni_registration_module(module, gn):
@@ -1790,7 +1802,9 @@ def create_blueprint_for_targets(gn, targets, test_targets):
   blueprint.add_module(defaults)
 
   for target in targets:
-    create_modules_from_target(blueprint, gn, target, is_test_target=False)
+    module = create_modules_from_target(blueprint, gn, target, is_test_target=False)
+    if module:
+      module.visibility.append(connectivity_visibility)
 
   for test_target in test_targets:
     create_modules_from_target(blueprint, gn, test_target + gn_utils.TESTING_SUFFIX, is_test_target=True)
@@ -1824,11 +1838,12 @@ def create_blueprint_for_targets(gn, targets, test_targets):
 
   return blueprint
 
-def create_default_license_module(blueprint):
-  default_license = Module("package", "", "PACKAGE")
-  default_license.comment = "The actual license can be found in Android.extras.bp"
-  default_license.default_applicable_licenses.add(CRONET_LICENSE_NAME)
-  blueprint.add_module(default_license)
+def create_package_module(blueprint):
+  package = Module("package", "", "PACKAGE")
+  package.comment = "The actual license can be found in Android.extras.bp"
+  package.default_applicable_licenses.add(CRONET_LICENSE_NAME)
+  package.default_visibility.append(package_default_visibility)
+  blueprint.add_module(package)
 
 def main():
   parser = argparse.ArgumentParser(
@@ -1882,7 +1897,7 @@ def main():
   # Add any proto groups to the blueprint.
   for l_name, t_names in proto_groups.items():
     create_proto_group_modules(blueprint, gn, l_name, t_names)
-  create_default_license_module(blueprint)
+  create_package_module(blueprint)
   output = [
       """// Copyright (C) 2022 The Android Open Source Project
 //
