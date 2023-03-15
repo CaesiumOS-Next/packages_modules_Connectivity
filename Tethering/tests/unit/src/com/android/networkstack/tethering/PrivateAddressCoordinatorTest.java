@@ -61,6 +61,7 @@ public final class PrivateAddressCoordinatorTest {
     private static final String TEST_IFNAME = "test0";
 
     @Mock private IpServer mHotspotIpServer;
+    @Mock private IpServer mLocalHotspotIpServer;
     @Mock private IpServer mUsbIpServer;
     @Mock private IpServer mEthernetIpServer;
     @Mock private IpServer mWifiP2pIpServer;
@@ -90,6 +91,7 @@ public final class PrivateAddressCoordinatorTest {
         when(mUsbIpServer.interfaceType()).thenReturn(TETHERING_USB);
         when(mEthernetIpServer.interfaceType()).thenReturn(TETHERING_ETHERNET);
         when(mHotspotIpServer.interfaceType()).thenReturn(TETHERING_WIFI);
+        when(mLocalHotspotIpServer.interfaceType()).thenReturn(TETHERING_WIFI);
         when(mWifiP2pIpServer.interfaceType()).thenReturn(TETHERING_WIFI_P2P);
     }
 
@@ -105,8 +107,13 @@ public final class PrivateAddressCoordinatorTest {
     }
 
     private LinkAddress requestDownstreamAddress(final IpServer ipServer, boolean useLastAddress) {
+        return requestDownstreamAddress(ipServer, false /* isLocalOnly */, useLastAddress);
+    }
+
+    private LinkAddress requestDownstreamAddress(final IpServer ipServer, boolean isLocalOnly,
+            boolean useLastAddress) {
         final LinkAddress address = mPrivateAddressCoordinator.requestDownstreamAddress(
-                ipServer, useLastAddress);
+                ipServer, isLocalOnly, useLastAddress);
         when(ipServer.getAddress()).thenReturn(address);
         return address;
     }
@@ -547,5 +554,38 @@ public final class PrivateAddressCoordinatorTest {
                 true /* useLastAddress */);
         assertEquals(mLegacyWifiP2pAddress, address);
         mPrivateAddressCoordinator.releaseDownstream(mWifiP2pIpServer);
+    }
+
+    @Test
+    public void testEnableSapAndLohsSeparately() throws Exception {
+        when(mConfig.isUseSapAndLohsConcurrently()).thenReturn(false);
+        final int fakeHotspotSubAddr = 0x2b05; // 43.5
+        when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(fakeHotspotSubAddr);
+        final LinkAddress hotspotAddress = requestDownstreamAddress(mHotspotIpServer,
+                false /* isLocalOnly */, true /* useLastAddress */);
+        assertEquals("Wrong hotspot prefix: ", new LinkAddress("192.168.43.5/24"), hotspotAddress);
+        mPrivateAddressCoordinator.releaseDownstream(mHotspotIpServer);
+
+        when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(0x8605);
+        final LinkAddress localHotspotAddress = requestDownstreamAddress(mLocalHotspotIpServer,
+                true /* isLocalOnly */, true /* useLastAddress */);
+        assertEquals("Reuse hotspot address: ", hotspotAddress, localHotspotAddress);
+    }
+
+    @Test
+    public void testEnableSapAndLohsConcurrently() throws Exception {
+        when(mConfig.isUseSapAndLohsConcurrently()).thenReturn(true);
+        final int fakeHotspotSubAddr = 0x2b05; // 43.5
+        when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(fakeHotspotSubAddr);
+        final LinkAddress hotspotAddress = requestDownstreamAddress(mHotspotIpServer,
+                false /* isLocalOnly */, true /* useLastAddress */);
+        assertEquals("Wrong hotspot prefix: ", new LinkAddress("192.168.43.5/24"), hotspotAddress);
+
+        final int fakeLocalHotspotSubAddr = 0x8605; // 134.5
+        when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(fakeLocalHotspotSubAddr);
+        final LinkAddress localHotspotAddress = requestDownstreamAddress(mLocalHotspotIpServer,
+                true /* isLocalOnly */, true /* useLastAddress */);
+        assertEquals("Wrong local hotspot prefix: ", new LinkAddress("192.168.134.5/24"),
+                localHotspotAddress);
     }
 }
