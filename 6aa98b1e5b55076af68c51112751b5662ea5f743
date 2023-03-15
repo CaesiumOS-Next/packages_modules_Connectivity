@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02d75dfc_12ea99a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-15T15:18:33Z",
+      "side": 1,
+      "message": "Please fix presumbit failure.",
+      "revId": "6aa98b1e5b55076af68c51112751b5662ea5f743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20d99374_f3a771a6",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-15T15:18:33Z",
+      "side": 1,
+      "message": "for a future cl, we need to change the test class to use truth\u0027s assertThat.",
+      "revId": "6aa98b1e5b55076af68c51112751b5662ea5f743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
