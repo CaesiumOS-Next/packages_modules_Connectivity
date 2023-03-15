@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae1d4306_ce5dca4e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T09:35:42Z",
+      "side": 1,
+      "message": "Nit: ServiceExpiredCallback or ServiceExpiryCallback ? (also in other usages)",
+      "range": {
+        "startLine": 53,
+        "startChar": 27,
+        "endLine": 53,
+        "endChar": 48
+      },
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef316bc4_8d89137d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T09:35:42Z",
+      "side": 1,
+      "message": "Calling this while holding the lock for mCallbacks and mCachedServices seems a bit dangerous. Could you take a handler as argument to post the callback ?\n\nIdeally the cache would be auto-cleared based on TTL without having to call checkAndNotifyTtlExpiredServices; the Handler is also necessary for that.",
+      "range": {
+        "startLine": 196,
+        "startChar": 36,
+        "endLine": 196,
+        "endChar": 52
+      },
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd7dc474_93321afb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T09:35:42Z",
+      "side": 1,
+      "message": "This carries over previous behavior which is fine, but the cache should actually be cleared when the TTL expires, even if there is no QueryTask at that time (it could be 20s later).\n\nYou could have a SparseArray\u003cMdnsResponse\u003e indexed by expiration date, and schedule a message on the handler for the next one. Maybe in another change ?",
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35562c25_ae91e10b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T09:35:42Z",
+      "side": 1,
+      "message": "Nit: maybe make it more generic like close() ? The caller shouldn\u0027t need to know what the serviceExpireCallback is, since it\u0027s internal to MdnsServiceTypeClient + MdnsServiceCache",
+      "range": {
+        "startLine": 134,
+        "startChar": 16,
+        "endLine": 134,
+        "endChar": 47
+      },
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b01814_a0943c88",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T09:35:42Z",
+      "side": 1,
+      "message": "Can you change the import instead?",
+      "range": {
+        "startLine": 108,
+        "startChar": 24,
+        "endLine": 108,
+        "endChar": 34
+      },
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07a5a74a_a6c0cb2d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T09:35:42Z",
+      "side": 1,
+      "message": "Nit: unused ?",
+      "range": {
+        "startLine": 151,
+        "startChar": 21,
+        "endLine": 151,
+        "endChar": 31
+      },
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
