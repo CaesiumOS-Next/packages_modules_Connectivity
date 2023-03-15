@@ -271,8 +271,8 @@ public class IpServerTest {
             dispatchTetherConnectionChanged(upstreamIface, lp, 0);
         }
         reset(mNetd, mCallback, mAddressCoordinator, mBpfCoordinator);
-        when(mAddressCoordinator.requestDownstreamAddress(any(), anyBoolean())).thenReturn(
-                mTestAddress);
+        when(mAddressCoordinator.requestDownstreamAddress(any(), anyBoolean(),
+                anyBoolean())).thenReturn(mTestAddress);
     }
 
     @SuppressWarnings("DoNotCall") // Ignore warning for synchronous to call to Thread.run()
@@ -293,8 +293,8 @@ public class IpServerTest {
     @Before public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         when(mSharedLog.forSubComponent(anyString())).thenReturn(mSharedLog);
-        when(mAddressCoordinator.requestDownstreamAddress(any(), anyBoolean())).thenReturn(
-                mTestAddress);
+        when(mAddressCoordinator.requestDownstreamAddress(any(), anyBoolean(),
+                anyBoolean())).thenReturn(mTestAddress);
         when(mTetherConfig.isBpfOffloadEnabled()).thenReturn(DEFAULT_USING_BPF_OFFLOAD);
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(false /* default value */);
 
@@ -428,7 +428,8 @@ public class IpServerTest {
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
         InOrder inOrder = inOrder(mCallback, mNetd, mAddressCoordinator);
         if (isAtLeastT()) {
-            inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(true));
+            inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(false),
+                    eq(true));
             inOrder.verify(mNetd).interfaceSetCfg(argThat(cfg ->
                     IFACE_NAME.equals(cfg.ifName) && assertContainsFlag(cfg.flags, IF_STATE_UP)));
         }
@@ -477,7 +478,7 @@ public class IpServerTest {
 
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
         InOrder inOrder = inOrder(mCallback, mNetd, mAddressCoordinator);
-        inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(true));
+        inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(false), eq(true));
         inOrder.verify(mNetd).interfaceSetCfg(argThat(cfg ->
                 IFACE_NAME.equals(cfg.ifName) && assertContainsFlag(cfg.flags, IF_STATE_UP)));
         inOrder.verify(mNetd).tetherInterfaceAdd(IFACE_NAME);
@@ -498,7 +499,7 @@ public class IpServerTest {
 
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_LOCAL_ONLY);
         InOrder inOrder = inOrder(mCallback, mNetd, mAddressCoordinator);
-        inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(true));
+        inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(true), eq(true));
         inOrder.verify(mNetd).interfaceSetCfg(argThat(cfg ->
                   IFACE_NAME.equals(cfg.ifName) && assertNotContainsFlag(cfg.flags, IF_STATE_UP)));
         inOrder.verify(mNetd).tetherInterfaceAdd(IFACE_NAME);
@@ -766,7 +767,7 @@ public class IpServerTest {
         final ArgumentCaptor<LinkProperties> lpCaptor =
                 ArgumentCaptor.forClass(LinkProperties.class);
         InOrder inOrder = inOrder(mNetd, mCallback, mAddressCoordinator);
-        inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(true));
+        inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(true), eq(true));
         inOrder.verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
         // One for ipv4 route, one for ipv6 link local route.
         inOrder.verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(IFACE_NAME),
@@ -779,12 +780,12 @@ public class IpServerTest {
         // Simulate the DHCP server receives DHCPDECLINE on MirrorLink and then signals
         // onNewPrefixRequest callback.
         final LinkAddress newAddress = new LinkAddress("192.168.100.125/24");
-        when(mAddressCoordinator.requestDownstreamAddress(any(), anyBoolean())).thenReturn(
-                newAddress);
+        when(mAddressCoordinator.requestDownstreamAddress(any(), anyBoolean(),
+                anyBoolean())).thenReturn(newAddress);
         eventCallbacks.onNewPrefixRequest(new IpPrefix("192.168.42.0/24"));
         mLooper.dispatchAll();
 
-        inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(false));
+        inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(true), eq(false));
         inOrder.verify(mNetd).tetherApplyDnsInterfaces();
         inOrder.verify(mCallback).updateLinkProperties(eq(mIpServer), lpCaptor.capture());
         verifyNoMoreInteractions(mCallback);

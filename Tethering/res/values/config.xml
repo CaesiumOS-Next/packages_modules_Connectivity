@@ -203,4 +203,8 @@
     <!-- Which USB function should be enabled when TETHERING_USB is requested. 0: RNDIS, 1: NCM.
          -->
     <integer translatable="false" name="config_tether_usb_functions">0</integer>
+
+    <!-- To allow users to use SAP and LOHS simultaneously, assign different IPv4 addresses to
+         the same tethering type with different connectivity scopes. -->
+    <bool name="config_sap_lohs_use_different_ipv4_address">false</bool>
 </resources>
