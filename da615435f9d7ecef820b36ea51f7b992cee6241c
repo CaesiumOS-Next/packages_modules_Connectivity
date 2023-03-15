@@ -46,6 +46,30 @@
       },
       "revId": "da615435f9d7ecef820b36ea51f7b992cee6241c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e04f46b_40a30fc5",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-15T10:56:36Z",
+      "side": 1,
+      "message": "\u003e aside: Do you think it\u0027s still necessary to confirm that quic is used in this case?\n\nIt depends on what you want to test. If you\u0027re asserting you can still use QUIC even after setting the options, verify that QUIC is used. If you\u0027re testing you can send any request after setting the options (not necessarily QUIC), there\u0027s no need to. I\u0027m assuming we\u0027re using a non-hermetic server because we do want to use QUIC so it makes sense to also check we did end up using it. Otherwise, let\u0027s just use the test server and not worry about assumptions at all.\n\nRegardless, I think we should have a mechanism to check for consistent assumption failures so that we notice potential breakages.",
+      "parentUuid": "6836c7ac_6cf478b9",
+      "range": {
+        "startLine": 265,
+        "startChar": 8,
+        "endLine": 267,
+        "endChar": 30
+      },
+      "revId": "da615435f9d7ecef820b36ea51f7b992cee6241c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
