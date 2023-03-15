@@ -22,6 +22,30 @@
       },
       "revId": "ced46b145e3b03b1263dd510c11c7547a7c0b80f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "517eb8cf_7adeb89c",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/QuicOptionsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-15T10:12:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c19c572e_d90c3691",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 68
+      },
+      "revId": "ced46b145e3b03b1263dd510c11c7547a7c0b80f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
