@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8024470b_2b360ce7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T08:24:11Z",
+      "side": 1,
+      "message": "It seems that you always need/have a Network when querying the cache and when adding to the cache, so having the Network in the key would help. It would also simplify getCachedServices(type, network), since you don\u0027t need to do additional filtering (can just return Collections.unmodifiableSet of the map value).\n\nSo taking into account the case-insensitive problem, maybe you could have an ArrayMap\u003cCacheKey, Set\u003cMdnsResponse\u003e\u003e, where CacheKey is like:\n\n\tstatic class CacheKey {\n\t    final Network network;\n\t    final String lowercaseServiceType;\n\t    @Override public int hashCode();\n\t    @Override public boolean equals(Object);\n\t}\n\nAnother possibility could be to use a TreeMap\u003cMdnsResponse\u003e, where the CacheKey is like:\n\n\tstatic class CacheKey implements Comparable\u003cCacheKey\u003e {\n\t    final int netId;\n\t    final String lowercaseServiceType;\n\t    final String lowercaseServiceName;\n\t    @Override public int compareTo(CacheKey) {\n\t        // Compare netId, then serviceType, then serviceName\n\t        // Make sure null \u003c any non-null serviceName\n\t    }\n\t}\n\nThen getCachedServices can use `TreeMap.tailMap(new CacheKey(netId, serviceType, null))` to find services for the type, and getCachedService, addService, removeService are just one line each.",
+      "range": {
+        "startLine": 45,
+        "startChar": 54,
+        "endLine": 45,
+        "endChar": 69
+      },
+      "revId": "9919ec18605830fcf641c98ab36f42e30faf607c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af77051a_f4845a33",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T08:24:11Z",
+      "side": 1,
+      "message": "Considering b/272194544, this should probably use case-insensitive matching.\n\nYou could for example have all keys be lowercase (and query with serviceType converted to lowercase); or you could use a TreeMap with a custom comparator, which would be less memory efficient.\n\nNote that I used CASE_INSENSITIVE_ORDER in the past, but that\u0027s not actually correct: as per the RFC (RFC6762 16. last paragraph), only a-z should be case-insensitive, and I think (?) CASE_INSENSITIVE_ORDER is a bit more generic. If you write some method to convert to lowercase this way, we could reuse it (and write comparators for maps based on it)",
+      "range": {
+        "startLine": 58,
+        "startChar": 60,
+        "endLine": 58,
+        "endChar": 63
+      },
+      "revId": "9919ec18605830fcf641c98ab36f42e30faf607c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbea997a_838dd624",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T08:24:11Z",
+      "side": 1,
+      "message": "Also this should be case-insensitive",
+      "range": {
+        "startLine": 72,
+        "startChar": 31,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "9919ec18605830fcf641c98ab36f42e30faf607c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0792be9d_96d87122",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T08:24:11Z",
+      "side": 1,
+      "message": "mCachedServices.computeIfAbsent can simplify this a bit I think",
+      "revId": "9919ec18605830fcf641c98ab36f42e30faf607c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "152fecee_b5f5e0a8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T08:24:11Z",
+      "side": 1,
+      "message": "This would clear the service from the cache, but it doesn\u0027t anymore, since the iterator is independent from the contents of the cache",
+      "revId": "9919ec18605830fcf641c98ab36f42e30faf607c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bb1e515_23f70ee0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T08:24:11Z",
+      "side": 1,
+      "message": "Use kotlin.test.assertNotNull, then this won\u0027t be necessary",
+      "range": {
+        "startLine": 48,
+        "startChar": 45,
+        "endLine": 48,
+        "endChar": 47
+      },
+      "revId": "9919ec18605830fcf641c98ab36f42e30faf607c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74534fe1_5d78dd73",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-15T08:24:11Z",
+      "side": 1,
+      "message": "nit: /* now */",
+      "range": {
+        "startLine": 79,
+        "startChar": 9,
+        "endLine": 79,
+        "endChar": 11
+      },
+      "revId": "9919ec18605830fcf641c98ab36f42e30faf607c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
