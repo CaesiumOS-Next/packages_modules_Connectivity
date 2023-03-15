@@ -87,6 +87,24 @@
       "parentUuid": "943e99bc_b437dff7",
       "revId": "904daba7b2528a6b04a63296f8dc0f2ea9425553",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caf75805_654b514e",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-15T16:40:35Z",
+      "side": 1,
+      "message": "Note that the `{3}` refers to the number of groups, not the number of digits in a group. The regex matches strings in format `DIGITS.DIGITS.DIGITS.DIGITS`. \n\nI understand the crux your concerns, at the same time I\u0027m worried that a simple non-nullness check would mean that a trivial implementation would pass the test anyway. Although in context of other CTS tests we have perhaps its just the way CTS is supposed to be written. After all, https://source.android.com/docs/compatibility/cdd admits that neither the CTS suite nor the policy text is comprehensive and the AOSP repository is the true spec. \n\nChanged to checking the string is provided.",
+      "parentUuid": "62c14601_be1c2fa2",
+      "revId": "904daba7b2528a6b04a63296f8dc0f2ea9425553",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
