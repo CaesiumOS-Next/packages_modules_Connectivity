@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48931bfe_5f2b71b8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-15T08:09:50Z",
+      "side": 1,
+      "message": "Actually you don\u0027t need pair, you can just:\n\n    private void runUpstreamTypesTest(final UpstreamNetworkState ns, final UpstreamType expectedResult)\n    \nThen you don\u0027t need to assgin testPair.first and testPair.second to other variable for readability",
+      "range": {
+        "startLine": 273,
+        "startChar": 38,
+        "endLine": 273,
+        "endChar": 93
+      },
+      "revId": "be40ebc040a0d3b6b69bce097a4d9331fe025264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7170cc5_848f5f73",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-15T08:09:50Z",
+      "side": 1,
+      "message": "\"ns\" instead of \"nc\"",
+      "range": {
+        "startLine": 275,
+        "startChar": 35,
+        "endLine": 275,
+        "endChar": 37
+      },
+      "revId": "be40ebc040a0d3b6b69bce097a4d9331fe025264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e334278_2a00958d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-15T08:09:50Z",
+      "side": 1,
+      "message": "Suggest to have helper function:\n\n    private void addUpstreamEvent(UpstreamEvents.Builder upstreamEvents, UpstreamType type, long during) {\n        UpstreamEvent.Builder upstreamEvent \u003d UpstreamEvent.newBuilder().\n                .setUpstreamType(expectedResult)\n                .setDurationMillis(3 * SECOND_IN_MILLIS);\n        upstreamEvents.addUpstreamEvent(upstreamEvent);\n    }\n    \n    addUpstreamEvent(upstreamEvents, expectedResult, 3 * SECOND_IN_MILLIS)",
+      "range": {
+        "startLine": 288,
+        "startChar": 12,
+        "endLine": 290,
+        "endChar": 59
+      },
+      "revId": "be40ebc040a0d3b6b69bce097a4d9331fe025264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9d06bf5_29c661d8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-15T08:09:50Z",
+      "side": 1,
+      "message": "This seems already be covered by testUpstreamTypes ? Maybe remove duplicated test ?",
+      "range": {
+        "startLine": 391,
+        "startChar": 16,
+        "endLine": 391,
+        "endChar": 49
+      },
+      "revId": "be40ebc040a0d3b6b69bce097a4d9331fe025264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
