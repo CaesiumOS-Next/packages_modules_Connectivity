@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e6c7b2f_b610274b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-16T16:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bc370a9_fa3fd8c5",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 163,
+        "endChar": 56
+      },
+      "revId": "6e8b9c1af091f8ca9fc8b387bd3b3ee2be3f2841",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0cabc0f_2749175f",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5fcfc62_21e6951e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-16T16:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0cabc0f_2749175f",
+      "range": {
+        "startLine": 314,
+        "startChar": 8,
+        "endLine": 314,
+        "endChar": 76
+      },
+      "revId": "6e8b9c1af091f8ca9fc8b387bd3b3ee2be3f2841",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66abded2_a76b73e4",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-16T05:01:16Z",
       "side": 1,
       "message": "getElapsedRealtime() would change when incrementCurrentTime is called. Calculate the expected time like this may the code hard to read. Could you have some variable to improve the readability ? E.g.:\n\n        mTetheringMetrics.createBuilder(TETHERING_WIFI, SETTINGS_PKG);\n    +   final int wifiTetheringStartTime \u003d getElapsedRealtime();\n        mTetheringMetrics.maybeUpdateUpstreamType(null);\n        incrementCurrentTime(1 * SECOND_IN_MILLIS);\n        mTetheringMetrics.createBuilder(TETHERING_USB, SYSTEMUI_PKG);\n    +   final int usbTetheringStartTime \u003d getElapsedRealtime();\n        incrementCurrentTime(2 * SECOND_IN_MILLIS);\n        mTetheringMetrics.createBuilder(TETHERING_BLUETOOTH, GMS_PKG);\n    +   final int bluetoothTetheringStartTime \u003d getElapsedRealtime();\n        incrementCurrentTime(3 * SECOND_IN_MILLIS);\n        updateErrorAndSendReport(TETHERING_WIFI, TETHER_ERROR_DHCPSERVER_ERROR);\n        \n        UpstreamEvents.Builder usbTethering_upstreams \u003d UpstreamEvents.newBuilder();\n        addUpstreamEvent(usbTethering_upstreams, UpstreamType.UT_NO_NETWORK,\n                getElapsedRealtime());\n        verifyReport(DownstreamType.DS_TETHERING_USB, ErrorCode.EC_ENABLE_FORWARDING_ERROR,\n                UserType.USER_SYSTEMUI, usbTethering_upstreams,\n                currentTimeMillis() - usbTetheringStartTime);",
+      "range": {
+        "startLine": 323,
+        "startChar": 16,
+        "endLine": 323,
+        "endChar": 61
+      },
+      "revId": "6e8b9c1af091f8ca9fc8b387bd3b3ee2be3f2841",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "081d36ae_ba9e493c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-16T16:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66abded2_a76b73e4",
       "range": {
         "startLine": 323,
         "startChar": 16,
