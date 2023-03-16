@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7adf6f39_3f73f00b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1209,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T03:46:36Z",
+      "side": 1,
+      "message": "6: oops !",
+      "range": {
+        "startLine": 1209,
+        "startChar": 55,
+        "endLine": 1209,
+        "endChar": 56
+      },
+      "revId": "a03cf1d7d0807255140e591a59469baef9dc8679",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
