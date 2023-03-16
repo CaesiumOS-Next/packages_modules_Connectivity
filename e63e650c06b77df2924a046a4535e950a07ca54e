@@ -1,0 +1,266 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0abe96cc_34ffbcaf",
+        "filename": "framework/src/android/net/LinkAddress.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "Nit: this is an implementation-related comment, not really relevant for the method description, I think it would be better inside the method rather than in the javadoc",
+      "range": {
+        "startLine": 498,
+        "startChar": 7,
+        "endLine": 498,
+        "endChar": 11
+      },
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "706871c9_87abfbb4",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "Nit: maybe add a comment to indicate this is started on boot, and intentionally never stopped, to ensure that all address events are received",
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23ba786a_004551bd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "Instead of having this map, could you have mLocalOnlyInterfaces and mTetheredInterfaces be ArrayMap\u003cString, Integer\u003e, and have mTetherInterfaceSockets indexed by interface index ?\n\nBasically only the onLocalOnlyInterfacesChanged, onTetheredInterfacesChanged callbacks use address names. You\u0027d get the diff of added/removed interface indexes based on mLocalOnlyInterfaces and mTetherInterfaceSockets, and everything else uses interface indexes for tethering interfaces.\n\nI think this would minimize conversion from/to interface index/name, and simplify methods like maybeUpdateTetheringSocketAddress and retrieveAndNotifySocketFromInterface",
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21282e27_0becf63c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "I don\u0027t know what code this refers to in this method, if that\u0027s relevant here maybe the comment can have more details ?",
+      "range": {
+        "startLine": 156,
+        "startChar": 15,
+        "endLine": 156,
+        "endChar": 53
+      },
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e03d9a71_50fedead",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "Supernit: create ? to match the existing createMdnsInterfaceSocket",
+      "range": {
+        "startLine": 174,
+        "startChar": 36,
+        "endLine": 174,
+        "endChar": 39
+      },
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d72efbd_0e7a931c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "As an optimization, maybe you could just do this if addLinkAddress or removeLinkAddress return true (same for the check for isEmpty)",
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b827051_f238d9b3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "Add @VisibleForTesting if this is only \"public\" for testing purposes",
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbc8b02e_54868ebc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "If all callers are already on the handler, you could do ensureRunningOnHandlerThread(mHandler); and just call mNetlinkMonitor.start() directly; this would save a handler loop.",
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c76233fc_3fa8e86c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "Maybe factor out these 5 lines to a method, since they\u0027re the same as the ones used in handleLinkPropertiesChanged",
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d159a8c9_30791375",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "SuperNit: final",
+      "range": {
+        "startLine": 395,
+        "startChar": 7,
+        "endLine": 395,
+        "endChar": 8
+      },
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba3204b3_ee2ce2ad",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "Nit: Collections.emptyList() ? (otherwise you\u0027d want new ArrayList\u003c\u003e(0))",
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b27f8ba7_66100f7c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "capture() should be used in a verify() call:\n    \n    mSocketProvider \u003d new MdnsSocketProvider(...);\n    verify(mDeps).getSocketNetlinkMonitor(any(), netlinkCb.capture());\n    \n(see: https://site.mockito.org/javadoc/current/org/mockito/ArgumentCaptor.html, \"it is recommended to use ArgumentCaptor with verification but not with stubbing\")",
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4d906db_332e2a14",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "Maybe waitForIdle to minimize flakes; or call this after the post for startMonitoringSockets, which has a waitForIdle already",
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d5296dc_9b7488a4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T11:46:33Z",
+      "side": 1,
+      "message": "Also testing that address updates work (in particular don\u0027t end up with duplicated addresses) would be useful",
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
