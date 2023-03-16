@@ -1335,8 +1335,8 @@ public class NsdService extends INsdManager.Stub {
         handler.post(mMdnsSocketProvider::startNetLinkMonitor);
         mMdnsSocketClient =
                 new MdnsMultinetworkSocketClient(handler.getLooper(), mMdnsSocketProvider);
-        mMdnsDiscoveryManager =
-                deps.makeMdnsDiscoveryManager(new ExecutorProvider(), mMdnsSocketClient);
+        mMdnsDiscoveryManager = deps.makeMdnsDiscoveryManager(
+                new ExecutorProvider(), mMdnsSocketClient, handler.getLooper());
         handler.post(() -> mMdnsSocketClient.setCallback(mMdnsDiscoveryManager));
         mAdvertiser = deps.makeMdnsAdvertiser(handler.getLooper(), mMdnsSocketProvider,
                 new AdvertiserCallback());
@@ -1391,9 +1391,9 @@ public class NsdService extends INsdManager.Stub {
         /**
          * @see MdnsDiscoveryManager
          */
-        public MdnsDiscoveryManager makeMdnsDiscoveryManager(
-                ExecutorProvider executorProvider, MdnsSocketClientBase socketClient) {
-            return new MdnsDiscoveryManager(executorProvider, socketClient);
+        public MdnsDiscoveryManager makeMdnsDiscoveryManager(ExecutorProvider executorProvider,
+                MdnsSocketClientBase socketClient, Looper looper) {
+            return new MdnsDiscoveryManager(executorProvider, socketClient, looper);
         }
 
         /**
