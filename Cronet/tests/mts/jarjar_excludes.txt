@@ -1,4 +1,4 @@
-# It's prohibited to jarjar androidx packages
+# androidx has files that are not compatible with jarjar rules
 androidx\..+
 # Do not jarjar the api classes
 android\.net\..+
@@ -8,3 +8,5 @@ org\.chromium\.base\..+
 # Do not jarjar the tests and its utils as they also do JNI with cronet_tests.so
 org\.chromium\.net\..*Test.*(\$.+)?
 org\.chromium\.net\.NativeTestServer(\$.+)?
+org\.chromium\.net\.MockCertVerifier(\$.+)?
+org\.chromium\.net\.MockUrlRequestJobFactory(\$.+)?
