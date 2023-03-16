@@ -524,13 +524,16 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
 
     private class MigrateIpSecTunnelTestRunnableFactory implements IpSecTunnelTestRunnableFactory {
         private final IpSecTunnelTestRunnableFactory mTestRunnableFactory;
+        private final boolean mIsEncapTypeChanged;
 
-        MigrateIpSecTunnelTestRunnableFactory(boolean isOutputTest) {
+        MigrateIpSecTunnelTestRunnableFactory(boolean isOutputTest, boolean isEncapTypeChanged) {
             if (isOutputTest) {
                 mTestRunnableFactory = new OutputIpSecTunnelTestRunnableFactory();
             } else {
                 mTestRunnableFactory = new InputPacketGeneratorIpSecTunnelTestRunnableFactory();
             }
+
+            mIsEncapTypeChanged = isEncapTypeChanged;
         }
 
         @Override
@@ -576,10 +579,9 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                     seqNum);
                     tunnelIface.setUnderlyingNetwork(sTunWrapperNew.network);
 
-                    // TODO: Add CTS test for migration with encap type change
-
-                    // This test only verify migration without encap type change
-                    final boolean useEncapAfterMigrate = encapSocket != null;
+                    final boolean useEncapBeforeMigrate = encapSocket != null;
+                    final boolean useEncapAfterMigrate =
+                            mIsEncapTypeChanged ? !useEncapBeforeMigrate : useEncapBeforeMigrate;
 
                     // Verify migrating to IPv4 and IPv6 addresses. It ensures that not only
                     // can IPsec tunnel migrate across interfaces, IPsec tunnel can also migrate to
@@ -849,25 +851,33 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     }
 
     private void checkMigrateTunnelOutput(
-            int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode)
+            int innerFamily,
+            int outerFamily,
+            boolean useEncap,
+            boolean transportInTunnelMode,
+            boolean isEncapTypeChanged)
             throws Exception {
         checkTunnel(
                 innerFamily,
                 outerFamily,
                 useEncap,
                 transportInTunnelMode,
-                new MigrateIpSecTunnelTestRunnableFactory(true));
+                new MigrateIpSecTunnelTestRunnableFactory(true, isEncapTypeChanged));
     }
 
     private void checkMigrateTunnelInput(
-            int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode)
+            int innerFamily,
+            int outerFamily,
+            boolean useEncap,
+            boolean transportInTunnelMode,
+            boolean isEncapTypeChanged)
             throws Exception {
         checkTunnel(
                 innerFamily,
                 outerFamily,
                 useEncap,
                 transportInTunnelMode,
-                new MigrateIpSecTunnelTestRunnableFactory(false));
+                new MigrateIpSecTunnelTestRunnableFactory(false, isEncapTypeChanged));
     }
 
     private void checkMigrateTunnelModeTransformOutput(
@@ -1217,8 +1227,31 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
             int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode)
             throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkMigrateTunnelOutput(innerFamily, outerFamily, useEncap, transportInTunnelMode);
-        checkMigrateTunnelInput(innerFamily, outerFamily, useEncap, transportInTunnelMode);
+        checkMigrateTunnelOutput(
+                innerFamily,
+                outerFamily,
+                useEncap,
+                transportInTunnelMode,
+                false /* isEncapTypeChanged */);
+        checkMigrateTunnelInput(
+                innerFamily,
+                outerFamily,
+                useEncap,
+                transportInTunnelMode,
+                false /* isEncapTypeChanged */);
+
+        checkMigrateTunnelOutput(
+                innerFamily,
+                outerFamily,
+                useEncap,
+                transportInTunnelMode,
+                true /* isEncapTypeChanged */);
+        checkMigrateTunnelInput(
+                innerFamily,
+                outerFamily,
+                useEncap,
+                transportInTunnelMode,
+                true /* isEncapTypeChanged */);
     }
 
     private void doTestMigrateTunnelModeTransform(
