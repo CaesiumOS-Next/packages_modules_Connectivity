@@ -3815,13 +3815,17 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testExplicitlySelected() throws Exception {
-        NetworkRequest request = new NetworkRequest.Builder()
+        final NetworkRequest request = new NetworkRequest.Builder()
                 .clearCapabilities().addCapability(NET_CAPABILITY_INTERNET)
                 .build();
-        TestNetworkCallback callback = new TestNetworkCallback();
+        final TestNetworkCallback callback = new TestNetworkCallback();
         mCm.registerNetworkCallback(request, callback);
 
-        // Bring up validated cell.
+        // Bring up validated cell, after requesting it so it doesn't disconnect during the test
+        final NetworkRequest cellRequest = new NetworkRequest.Builder()
+                .clearCapabilities().addTransportType(TRANSPORT_CELLULAR).build();
+        final TestNetworkCallback cellCallback = new TestNetworkCallback();
+        mCm.requestNetwork(cellRequest, cellCallback);
         mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
         mCellAgent.connect(true);
         callback.expectAvailableThenValidatedCallbacks(mCellAgent);
@@ -3920,6 +3924,7 @@ public class ConnectivityServiceTest {
 
         callback.expect(LOST, mWiFiAgent);
         callback.expect(LOST, mCellAgent);
+        mCm.unregisterNetworkCallback(cellCallback);
     }
 
     private void doTestFirstEvaluation(
