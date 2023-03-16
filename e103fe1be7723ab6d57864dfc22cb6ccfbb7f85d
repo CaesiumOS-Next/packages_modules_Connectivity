@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f1135e2_fd08157d",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T10:21:44Z",
+      "side": 1,
+      "message": "It\u0027s actually enabled on apps target \u003e\u003d 14, so maybe say \"Apps targeting \u003c Android 14 use a legacy NSD backend\".\n\nThen add a line break (javadoc should be one line that becomes the method summary on the doc page, then an empty line, then the details).",
+      "range": {
+        "startLine": 77,
+        "startChar": 7,
+        "endLine": 77,
+        "endChar": 91
+      },
+      "revId": "e103fe1be7723ab6d57864dfc22cb6ccfbb7f85d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceba788e_1596f7ed",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-16T10:21:44Z",
+      "side": 1,
+      "message": "Nit: platform-integrated",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 27
+      },
+      "revId": "e103fe1be7723ab6d57864dfc22cb6ccfbb7f85d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
