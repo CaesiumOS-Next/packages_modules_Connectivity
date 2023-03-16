@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c538cfd1_bc796120",
+        "filename": "framework-t/src/android/net/nsd/INsdManager.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-16T07:20:08Z",
+      "side": 1,
+      "message": "Rename to `useJavaBackend` which aligns the usage on NsdService.",
+      "parentUuid": "89c36e94_9416d136",
+      "range": {
+        "startLine": 29,
+        "startChar": 65,
+        "endLine": 29,
+        "endChar": 82
+      },
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5cc8823_fd5922b6",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-15T07:03:49Z",
       "side": 1,
       "message": "The javadoc and name of this flag will be visible in developer documentation. MdnsDiscoveryManager / MdnsAdvertiser won\u0027t be understandable from there as-is, since they\u0027re not in developer documentation.\n\nMaybe ENABLE_PLATFORM_MDNS_BACKEND ? And the javadoc would explain that legacy apps use a legacy native daemon as NsdManager backend, but other apps use a platform-integration mDNS implementation as backend.",
+      "range": {
+        "startLine": 85,
+        "startChar": 29,
+        "endLine": 85,
+        "endChar": 78
+      },
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "925dc9b3_577c4ce0",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-16T07:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5cc8823_fd5922b6",
       "range": {
         "startLine": 85,
         "startChar": 29,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb50e667_4104f2b6",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-16T07:20:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5b8719a1_9b0de95c",
+      "range": {
+        "startLine": 611,
+        "startChar": 46,
+        "endLine": 611,
+        "endChar": 64
+      },
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2db0272b_9985ada0",
@@ -83,6 +155,24 @@
       "writtenOn": "2023-03-15T07:03:49Z",
       "side": 1,
       "message": "Nit: @NonNull on the members and constructor arguments",
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2bb6c4d_6c145710",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1537,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-16T07:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2db0272b_9985ada0",
       "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -104,6 +194,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ce7d76e_0545e38d",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-16T07:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "875a63ee_651e0ee8",
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b360d30_c478a54d",
@@ -121,6 +229,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63b4d8e8_a5617594",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-16T07:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b360d30_c478a54d",
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1d62788_f85e25ec",
@@ -134,6 +260,24 @@
       "writtenOn": "2023-03-15T07:03:49Z",
       "side": 1,
       "message": "You could also have reused testAdvertiseWithMdnsAdvertiser and testMdnsDiscoveryManagerFeature, just moving the code to a method that you\u0027d call with the flag on or with the compat change on\n\nBut this works too",
+      "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b64d1ef_f0ea44fc",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-16T07:20:08Z",
+      "side": 1,
+      "message": "Yes, that should work. But I want to test the compat change enabled here. Rename it to more explicitly one.",
+      "parentUuid": "e1d62788_f85e25ec",
       "revId": "58a8e7825f1b5e0d5896e9b436d0264ed259ade0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
