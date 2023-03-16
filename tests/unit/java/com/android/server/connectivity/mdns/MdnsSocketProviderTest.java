@@ -16,6 +16,11 @@
 
 package com.android.server.connectivity.mdns;
 
+import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
+import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_VPN;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
+
 import static com.android.testutils.ContextUtils.mockService;
 
 import static org.junit.Assert.assertEquals;
@@ -38,6 +43,7 @@ import android.net.ConnectivityManager.NetworkCallback;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.TetheringManager;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.os.Build;
@@ -98,8 +104,14 @@ public class MdnsSocketProviderTest {
             // Test is using mockito-extended
             doCallRealMethod().when(mContext).getSystemService(TetheringManager.class);
         }
-        doReturn(true).when(mDeps).canScanOnInterface(any());
         doReturn(mTestNetworkIfaceWrapper).when(mDeps).getNetworkInterfaceByName(anyString());
+        doReturn(true).when(mTestNetworkIfaceWrapper).isUp();
+        doReturn(true).when(mLocalOnlyIfaceWrapper).isUp();
+        doReturn(true).when(mTetheredIfaceWrapper).isUp();
+        doReturn(true).when(mTestNetworkIfaceWrapper).supportsMulticast();
+        doReturn(true).when(mLocalOnlyIfaceWrapper).supportsMulticast();
+        doReturn(true).when(mTetheredIfaceWrapper).supportsMulticast();
+        doReturn(mTestNetworkIfaceWrapper).when(mDeps).getNetworkInterfaceByName(TEST_IFACE_NAME);
         doReturn(mLocalOnlyIfaceWrapper).when(mDeps)
                 .getNetworkInterfaceByName(LOCAL_ONLY_IFACE_NAME);
         doReturn(mTetheredIfaceWrapper).when(mDeps).getNetworkInterfaceByName(TETHERED_IFACE_NAME);
@@ -205,6 +217,24 @@ public class MdnsSocketProviderTest {
         }
     }
 
+    private static NetworkCapabilities makeCapabilities(int... transports) {
+        final NetworkCapabilities nc = new NetworkCapabilities();
+        for (int transport : transports) {
+            nc.addTransportType(transport);
+        }
+        return nc;
+    }
+
+    private void postNetworkAvailable(int... transports) {
+        final LinkProperties testLp = new LinkProperties();
+        testLp.setInterfaceName(TEST_IFACE_NAME);
+        testLp.setLinkAddresses(List.of(LINKADDRV4));
+        final NetworkCapabilities testNc = makeCapabilities(transports);
+        mHandler.post(() -> mNetworkCallback.onCapabilitiesChanged(TEST_NETWORK, testNc));
+        mHandler.post(() -> mNetworkCallback.onLinkPropertiesChanged(TEST_NETWORK, testLp));
+        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
+    }
+
     @Test
     public void testSocketRequestAndUnrequestSocket() {
         startMonitoringSockets();
@@ -214,12 +244,7 @@ public class MdnsSocketProviderTest {
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         testCallback1.expectedNoCallback();
 
-        final LinkProperties testLp = new LinkProperties();
-        testLp.setInterfaceName(TEST_IFACE_NAME);
-        testLp.setLinkAddresses(List.of(LINKADDRV4));
-        mHandler.post(() -> mNetworkCallback.onLinkPropertiesChanged(TEST_NETWORK, testLp));
-        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(mTestNetworkIfaceWrapper).getNetworkInterface();
+        postNetworkAvailable(TRANSPORT_WIFI);
         testCallback1.expectedSocketCreatedForNetwork(TEST_NETWORK, List.of(LINKADDRV4));
 
         final TestSocketCallback testCallback2 = new TestSocketCallback();
@@ -238,7 +263,6 @@ public class MdnsSocketProviderTest {
         mHandler.post(() -> mTetheringEventCallback.onLocalOnlyInterfacesChanged(
                 List.of(LOCAL_ONLY_IFACE_NAME)));
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(mLocalOnlyIfaceWrapper).getNetworkInterface();
         testCallback1.expectedNoCallback();
         testCallback2.expectedNoCallback();
         testCallback3.expectedSocketCreatedForNetwork(null /* network */, List.of());
@@ -246,7 +270,6 @@ public class MdnsSocketProviderTest {
         mHandler.post(() -> mTetheringEventCallback.onTetheredInterfacesChanged(
                 List.of(TETHERED_IFACE_NAME)));
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(mTetheredIfaceWrapper).getNetworkInterface();
         testCallback1.expectedNoCallback();
         testCallback2.expectedNoCallback();
         testCallback3.expectedSocketCreatedForNetwork(null /* network */, List.of());
@@ -286,12 +309,7 @@ public class MdnsSocketProviderTest {
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         testCallback.expectedNoCallback();
 
-        final LinkProperties testLp = new LinkProperties();
-        testLp.setInterfaceName(TEST_IFACE_NAME);
-        testLp.setLinkAddresses(List.of(LINKADDRV4));
-        mHandler.post(() -> mNetworkCallback.onLinkPropertiesChanged(TEST_NETWORK, testLp));
-        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(mTestNetworkIfaceWrapper, times(1)).getNetworkInterface();
+        postNetworkAvailable(TRANSPORT_WIFI);
         testCallback.expectedSocketCreatedForNetwork(TEST_NETWORK, List.of(LINKADDRV4));
 
         final LinkProperties newTestLp = new LinkProperties();
@@ -299,7 +317,6 @@ public class MdnsSocketProviderTest {
         newTestLp.setLinkAddresses(List.of(LINKADDRV4, LINKADDRV6));
         mHandler.post(() -> mNetworkCallback.onLinkPropertiesChanged(TEST_NETWORK, newTestLp));
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(mTestNetworkIfaceWrapper, times(1)).getNetworkInterface();
         testCallback.expectedAddressesChangedForNetwork(
                 TEST_NETWORK, List.of(LINKADDRV4, LINKADDRV6));
     }
@@ -402,5 +419,78 @@ public class MdnsSocketProviderTest {
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         verify(mTestNetworkIfaceWrapper, times(2)).getNetworkInterface();
         testCallback.expectedSocketCreatedForNetwork(otherNetwork, List.of(otherAddress));
+    }
+
+    @Test
+    public void testNoSocketCreatedForCellular() {
+        startMonitoringSockets();
+
+        final TestSocketCallback testCallback = new TestSocketCallback();
+        mHandler.post(() -> mSocketProvider.requestSocket(TEST_NETWORK, testCallback));
+
+        postNetworkAvailable(TRANSPORT_CELLULAR);
+        testCallback.expectedNoCallback();
+    }
+
+    @Test
+    public void testNoSocketCreatedForNonMulticastInterface() throws Exception {
+        doReturn(false).when(mTestNetworkIfaceWrapper).supportsMulticast();
+        startMonitoringSockets();
+
+        final TestSocketCallback testCallback = new TestSocketCallback();
+        mHandler.post(() -> mSocketProvider.requestSocket(TEST_NETWORK, testCallback));
+
+        postNetworkAvailable(TRANSPORT_BLUETOOTH);
+        testCallback.expectedNoCallback();
+    }
+
+    @Test
+    public void testSocketCreatedForMulticastInterface() throws Exception {
+        doReturn(true).when(mTestNetworkIfaceWrapper).supportsMulticast();
+        startMonitoringSockets();
+
+        final TestSocketCallback testCallback = new TestSocketCallback();
+        mHandler.post(() -> mSocketProvider.requestSocket(TEST_NETWORK, testCallback));
+
+        postNetworkAvailable(TRANSPORT_BLUETOOTH);
+        testCallback.expectedSocketCreatedForNetwork(TEST_NETWORK, List.of(LINKADDRV4));
+    }
+
+    @Test
+    public void testNoSocketCreatedForPTPInterface() throws Exception {
+        doReturn(true).when(mTestNetworkIfaceWrapper).isPointToPoint();
+        startMonitoringSockets();
+
+        final TestSocketCallback testCallback = new TestSocketCallback();
+        mHandler.post(() -> mSocketProvider.requestSocket(TEST_NETWORK, testCallback));
+
+        postNetworkAvailable(TRANSPORT_BLUETOOTH);
+        testCallback.expectedNoCallback();
+    }
+
+    @Test
+    public void testNoSocketCreatedForVPNInterface() throws Exception {
+        // VPN interfaces generally also have IFF_POINTOPOINT, but even if they don't, they should
+        // not be included even with TRANSPORT_WIFI.
+        doReturn(false).when(mTestNetworkIfaceWrapper).supportsMulticast();
+        startMonitoringSockets();
+
+        final TestSocketCallback testCallback = new TestSocketCallback();
+        mHandler.post(() -> mSocketProvider.requestSocket(TEST_NETWORK, testCallback));
+
+        postNetworkAvailable(TRANSPORT_VPN, TRANSPORT_WIFI);
+        testCallback.expectedNoCallback();
+    }
+
+    @Test
+    public void testSocketCreatedForWifiWithoutMulticastFlag() throws Exception {
+        doReturn(false).when(mTestNetworkIfaceWrapper).supportsMulticast();
+        startMonitoringSockets();
+
+        final TestSocketCallback testCallback = new TestSocketCallback();
+        mHandler.post(() -> mSocketProvider.requestSocket(TEST_NETWORK, testCallback));
+
+        postNetworkAvailable(TRANSPORT_WIFI);
+        testCallback.expectedSocketCreatedForNetwork(TEST_NETWORK, List.of(LINKADDRV4));
     }
 }
