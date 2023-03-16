@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d76c47a_bfbfd8d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-03-16T22:48:45Z",
+      "side": 1,
+      "message": "Ahh, whoops misread. This is ICMP in ESP, not the other way around.",
+      "parentUuid": "1d3b814d_4a35b725",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 60
+      },
+      "revId": "cf45c51fefb1fc90dd25a1465b054dec82b6b65a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "964b67b6_1a8f639f",
@@ -42,6 +66,76 @@
         "startChar": 29,
         "endLine": 52,
         "endChar": 58
+      },
+      "revId": "cf45c51fefb1fc90dd25a1465b054dec82b6b65a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ea81540_a1aa986f",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-03-16T22:48:45Z",
+      "side": 1,
+      "message": "Ahh, this is to ensure that awaitEspPacket() behavior does not change. It\u0027s already skipping verification, but we want to wait for a matching ESP packet with the right length in awaitEspPacketNoPlaintext (and continue ignoring the size in awaitEspPacket)",
+      "parentUuid": "964b67b6_1a8f639f",
+      "range": {
+        "startLine": 52,
+        "startChar": 29,
+        "endLine": 52,
+        "endChar": 58
+      },
+      "revId": "cf45c51fefb1fc90dd25a1465b054dec82b6b65a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee0219e9_8b07e1ff",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-03-16T22:48:45Z",
+      "side": 1,
+      "message": "Update javadoc?",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 46
+      },
+      "revId": "cf45c51fefb1fc90dd25a1465b054dec82b6b65a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23638d70_367851c1",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-03-16T22:48:45Z",
+      "side": 1,
+      "message": "Suggest breaking the packet size check out into a separate method, and then adding it here, instead of in \"isEsp\"; that method is a bit more specific, and packet size isn\u0027t necessarily related to ESP\n\nOr even better, add it parallel to this isEspFailIfSpecifiedPlaintextFound",
+      "range": {
+        "startLine": 186,
+        "startChar": 49,
+        "endLine": 186,
+        "endChar": 50
       },
       "revId": "cf45c51fefb1fc90dd25a1465b054dec82b6b65a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
