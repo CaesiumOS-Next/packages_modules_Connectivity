@@ -1853,7 +1853,7 @@ public class ConnectivityServiceTest {
         final Context mockResContext = mock(Context.class);
         doReturn(mResources).when(mockResContext).getResources();
         ConnectivityResources.setResourcesContextForTest(mockResContext);
-        mDeps = new ConnectivityServiceDependencies(mockResContext);
+        mDeps = spy(new ConnectivityServiceDependencies(mockResContext));
         mAutoOnOffKeepaliveDependencies =
                 new AutomaticOnOffKeepaliveTrackerDependencies(mServiceContext);
         mService = new ConnectivityService(mServiceContext,
@@ -1912,7 +1912,7 @@ public class ConnectivityServiceTest {
                 .getBoolean(R.bool.config_cellular_radio_timesharing_capable);
     }
 
-    class ConnectivityServiceDependencies extends ConnectivityService.Dependencies {
+    public class ConnectivityServiceDependencies extends ConnectivityService.Dependencies {
         final ConnectivityResources mConnRes;
 
         ConnectivityServiceDependencies(final Context mockResContext) {
@@ -2147,6 +2147,10 @@ public class ConnectivityServiceTest {
                     return super.isChangeEnabled(changeId, packageName, user);
                 }
             }
+        }
+
+        public void destroyLiveTcpSocket(final Set<Range<Integer>> ranges,
+                final Set<Integer> exemptUids) {
         }
     }
 
@@ -12459,12 +12463,13 @@ public class ConnectivityServiceTest {
 
     private void assertVpnUidRangesUpdated(boolean add, Set<UidRange> vpnRanges, int exemptUid)
             throws Exception {
-        InOrder inOrder = inOrder(mMockNetd);
-        ArgumentCaptor<int[]> exemptUidCaptor = ArgumentCaptor.forClass(int[].class);
+        InOrder inOrder = inOrder(mMockNetd, mDeps);
+        Set<Integer> exemptUidSet = new ArraySet<>();
+        exemptUidSet.add(exemptUid);
+        exemptUidSet.add(Process.VPN_UID);
 
-        inOrder.verify(mMockNetd, times(1)).socketDestroy(eq(toUidRangeStableParcels(vpnRanges)),
-                exemptUidCaptor.capture());
-        assertContainsExactly(exemptUidCaptor.getValue(), Process.VPN_UID, exemptUid);
+        inOrder.verify(mDeps, times(1)).destroyLiveTcpSocket(eq(UidRange.toIntRanges(vpnRanges)),
+                eq(exemptUidSet));
 
         if (add) {
             inOrder.verify(mMockNetd, times(1)).networkAddUidRangesParcel(
@@ -12476,9 +12481,8 @@ public class ConnectivityServiceTest {
                             toUidRangeStableParcels(vpnRanges), PREFERENCE_ORDER_VPN));
         }
 
-        inOrder.verify(mMockNetd, times(1)).socketDestroy(eq(toUidRangeStableParcels(vpnRanges)),
-                exemptUidCaptor.capture());
-        assertContainsExactly(exemptUidCaptor.getValue(), Process.VPN_UID, exemptUid);
+        inOrder.verify(mDeps, times(1)).destroyLiveTcpSocket(eq(UidRange.toIntRanges(vpnRanges)),
+                eq(exemptUidSet));
     }
 
     @Test
