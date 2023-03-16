@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d3b814d_4a35b725",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-03-16T22:28:43Z",
+      "side": 1,
+      "message": "Wait, what does this mean? ICMP isn\u0027t an encapsulating protocol, so that means it thinks the packet is too big, malformed or something",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 60
+      },
+      "revId": "cf45c51fefb1fc90dd25a1465b054dec82b6b65a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "964b67b6_1a8f639f",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-03-16T22:28:43Z",
+      "side": 1,
+      "message": "Why is this necessary? It seems like this might be a symptom of us not knowing what is happening?",
+      "range": {
+        "startLine": 52,
+        "startChar": 29,
+        "endLine": 52,
+        "endChar": 58
+      },
+      "revId": "cf45c51fefb1fc90dd25a1465b054dec82b6b65a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
