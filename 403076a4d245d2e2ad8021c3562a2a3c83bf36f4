@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fac14c9f_d66d0578",
+        "filename": "Tethering/src/com/android/networkstack/tethering/IOffloadHal.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-16T09:22:03Z",
+      "side": 1,
+      "message": "Per discussion, it\u0027s probably OK to do this in a follow-up CL.",
+      "parentUuid": "21db9966_5fbe40d8",
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c398a6b_76aef011",
@@ -102,6 +120,30 @@
       "side": 1,
       "message": "OffloadHardwareInterface: log information (function name and parameters)\nHIDL: log errors (if exception) and results (output from HIDL APIs)\nAIDL: log errors (if exception)\nThey are not fully duplicated. I can update it in a follow-up if needed.",
       "parentUuid": "7e18dd43_253550e9",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 80
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be33f885_adcf3de7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-16T09:22:03Z",
+      "side": 1,
+      "message": "Per discussion: log unconditionally in the AIDL call code, and remove this logging code? That will make most methods in this class just 1 line, and will hopefully make it easier to delete this class later (as suggested in the other comment).",
+      "parentUuid": "ac593dde_4a213d7d",
       "range": {
         "startLine": 129,
         "startChar": 8,
@@ -243,6 +285,30 @@
       "side": 1,
       "message": "Done. Updated as suggested.",
       "parentUuid": "d6145f23_5923d4da",
+      "range": {
+        "startLine": 345,
+        "startChar": 46,
+        "endLine": 345,
+        "endChar": 52
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0a249f9_4c4a75eb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-16T09:22:03Z",
+      "side": 1,
+      "message": "Thanks! I think you can simplify further by factoring out to a method? Someting like:\n\n\n    public int initOffload(OffloadHalCallback offloadCb) {\n        ...\n        final NativeHandle h1 \u003d mDeps.createConntrackSocket(\n                NF_NETLINK_CONNTRACK_NEW | NF_NETLINK_CONNTRACK_DESTROY);\n        final NativeHandle h2 \u003d mDeps.createConntrackSocket(\n                NF_NETLINK_CONNTRACK_UPDATE | NF_NETLINK_CONNTRACK_DESTROY);\n        final int version \u003d initWithHandles(h1, h2);\n\n        // Explicitly close FDs for HIDL. AIDL will pass the original FDs to the service,\n        // they shouldn\u0027t be closed here.\n        if (mIOffload.getVersion() \u003c OFFLOAD_HAL_VERSION_AIDL) {\n            maybeCloseFdInNativeHandles(h1, h2);\n        }\n    }\n        \n\n    private int initWithHandles(NativeHandle h1, NativeHandle h2) {\n        if (h1 \u003d\u003d null || h2 \u003d\u003d null) {\n            mLog.e(\"Failed to create socket.\");\n            return OFFLOAD_HAL_VERSION_NONE;\n        }\n        requestSocketDump(h1);\n        mOffloadHalCallback \u003d offloadCb;\n        if (!mIOffload.initOffload(h1, h2, mOffloadHalCallback)) {\n            mIOffload.stopOffload();\n            mLog.e(\"Failed to initialize offload.\");\n            return OFFLOAD_HAL_VERSION_NONE;\n        }\n        return mIOffload.getVersion();\n   }",
+      "parentUuid": "7584b649_06b0ce47",
       "range": {
         "startLine": 345,
         "startChar": 46,
