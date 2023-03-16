@@ -16,6 +16,24 @@
       "message": "Can you also run ./update_results.sh and add the generated Android.bp.swp to this CL? That\u0027s usually how we track changes / diffs to gen_android_bp.",
       "revId": "6cae15e3aaa9a281d29ab0fad7a2cf6b32fe5b45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95f78e0e_568a37e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-16T15:12:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ba320c7_d77a398d",
+      "revId": "6cae15e3aaa9a281d29ab0fad7a2cf6b32fe5b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
