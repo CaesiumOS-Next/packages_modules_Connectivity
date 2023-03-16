@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55cf246a_908400b2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-16T04:20:44Z",
+      "side": 1,
+      "message": "Could you add comment to describe why the this value is default to 120000L, is it due to rfc?",
+      "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1f52c64_bd71ba7c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-16T04:20:44Z",
+      "side": 1,
+      "message": "use DEFAULT_DELAY_TIME_MS? Also better to rename to nextCheckDelayMs to indicate the unit.",
+      "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c8e27c8_2db86477",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-16T04:20:44Z",
+      "side": 1,
+      "message": "isEmpty()",
+      "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09af0e4b_f3ab639c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-16T04:20:44Z",
+      "side": 1,
+      "message": "!isEmpty()",
+      "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dab53c17_57a8cd7d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-16T04:20:44Z",
+      "side": 1,
+      "message": "Could you adjust the build warning here?",
+      "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
