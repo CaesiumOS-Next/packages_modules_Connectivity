@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8119d354_d8671cab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-16T15:01:32Z",
+      "side": 1,
+      "message": "LGTM even though we\u0027re close to API freeze because this is just fixing a linter error (and making the API consistent with other android.net.http APIs).",
+      "revId": "5cdd07aa26389f414ec56f55aad966ad986eb95d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
