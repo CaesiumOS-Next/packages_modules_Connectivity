@@ -1,0 +1,4 @@
+androidx\..+
+kotlin\.test\..+
+org\.mockito\..+
+com\.android\.dx\.mockito\..+

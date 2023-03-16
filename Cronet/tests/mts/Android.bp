@@ -19,17 +19,24 @@ package {
 
 android_library {
     name: "NetHttpTestsLibPreJarJar",
-    srcs: ["//external/cronet:cronet_aml_javatests_sources"],
-    sdk_version: "test_current",
+    srcs: [
+        "//external/cronet:cronet_aml_javatests_sources"
+    ],
+    sdk_version: "module_current",
     min_sdk_version: "30",
     static_libs: [
+        "//external/cronet:cronet_aml_api_java",
+        "//external/cronet:cronet_testserver_utils",
         "androidx.test.ext.junit",
         "androidx.test.rules",
         "junit",
+        "truth",
     ],
     libs: [
         "android.test.base",
-        "framework-tethering-pre-jarjar",
+        "framework-connectivity.stubs.module_lib",
+        "framework-connectivity-t.stubs.module_lib",
+        // "framework-tethering-pre-jarjar"
     ],
     lint: { test: true }
 }
@@ -40,14 +47,80 @@ android_test {
         "CronetTestJavaDefaults",
         "mts-target-sdk-version-current",
      ],
-     static_libs: ["NetHttpTestsLibPreJarJar"],
-     jarjar_rules: ":framework-tethering-jarjar-rules",
-     jni_libs: [
-        "//external/cronet:cronet_aml_components_cronet_android_cronet_tests__testing"
+     static_libs: [
+        "//external/cronet:cronet_aml_java__testing",
+        "NetHttpTestsLibPreJarJar",
+        "CtsNetHttpTestsLib",
      ],
+     jarjar_rules: ":nethttp-test-jarjar-rules",
+     jni_libs: ["//external/cronet:cronet_aml_components_cronet_android_cronet_tests__testing"],
      test_suites: [
          "general-tests",
          "mts-tethering",
      ],
+
+     // Todo: delete me
+     jacoco: {
+        include_filter: [
+            "android.net.connectivity.org.chromium.net.**",
+            "android.net.connectivity.android.net.http.*"
+        ],
+        exclude_filter: [
+            "android.net.connectivity.org.chromium.net.Test*",
+            "android.net.connectivity.org.chromium.net.test.*",
+            "android.net.http.mts.*",
+            "android/net/connectivity/org/chromium/net/impl/IntegratedModeState*",
+            "android.net.connectivity.org.chromium.net.CronetUrlRequestTest*",
+            "android.net.connectivity.org.chromium.net.CronetUrlRequestContextTest*",
+            "android.net.connectivity.org.chromium.net.UrlResponseInfoTest*",
+            "android.net.connectivity.org.chromium.net.CronetOnboardingTest*",
+            "android.net.connectivity.org.chromium.net.RequestFinishedInfoTest*",
+            "android.net.connectivity.org.chromium.net.CronetTestRule*",
+            "android.net.connectivity.org.chromium.net.CronetTestUtil*",
+            "android.net.connectivity.org.chromium.net.QuicTest*",
+            "android.net.connectivity.org.chromium.net.GetStatusTest*",
+            "android.net.connectivity.org.chromium.net.DiskStorageTest*",
+            "android/net/connectivity/org/chromium/net/NativeTestServer*",
+            "android/net/connectivity/org/chromium/net/CronetStressTest*",
+            "android/net/connectivity/org/chromium/net/MockCertVerifier*",
+            "android/net/connectivity/org/chromium/net/MockUrlRequestJobFactory*",
+            "android/net/connectivity/org/chromium/net/CronetUploadTest*",
+            "android/net/connectivity/org/chromium/net/impl/CronetLoggerTest*",
+            "android/net/connectivity/org/chromium/net/CronetLoggerTestRule*",
+            "android/net/connectivity/org/chromium/net/ExperimentalOptionsTest*",
+            "android/net/connectivity/org/chromium/net/NetworkChangeNotifier*",
+            "android/net/connectivity/org/chromium/net/urlconnection/CronetInputStreamTest*",
+            "android/net/connectivity/org/chromium/net/urlconnection/CronetFixedModeOutputStreamTest*",
+            "android/net/connectivity/org/chromium/net/urlconnection/CronetBufferedOutputStreamTest*",
+            "android/net/connectivity/org/chromium/net/urlconnection/CronetChunkedOutputStreamTest*",
+            "android/net/connectivity/org/chromium/net/urlconnection/CronetHttpURLStreamHandlerTest*",
+            "android/net/connectivity/org/chromium/net/urlconnection/CronetURLStreamHandlerFactoryTest*",
+            "android/net/connectivity/org/chromium/net/urlconnection/MessageLoopTest*",
+            "android/net/connectivity/org/chromium/net/urlconnection/TestUtil*",
+            "android/net/connectivity/org/chromium/net/R.class",
+            "android/net/connectivity/org/chromium/net/R.xml",
+            "android/net/connectivity/org/chromium/net/R.style",
+        ],
+     }
 }
+
+java_genrule {
+    name: "nethttp-test-jarjar-rules",
+    tool_files: [
+        ":NetHttpTestsLibPreJarJar{.jar}",
+        ":CtsNetHttpTestsLib{.jar}",
+        "jarjar-excludes.txt",
+    ],
+    tools: [
+        "jarjar-rules-generator",
+    ],
+    out: ["nethttp_test_jarjar_rules.txt"],
+    cmd: "$(location jarjar-rules-generator) " +
+        "$(location :NetHttpTestsLibPreJarJar{.jar}) " +
+        "$(location :CtsNetHttpTestsLib{.jar}) " +
+        "--prefix android.net.connectivity " +
+        "--excludes $(location jarjar-excludes.txt) " +
+        "--output $(out)",
+}
+
 

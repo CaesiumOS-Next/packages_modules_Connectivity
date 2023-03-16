@@ -265,13 +265,13 @@ builtin_deps = {
         enable_zlib,
     '//third_party/zlib:zlib__testing':
         enable_zlib,
-    '//third_party/boringssl:boringssl':
-        enable_boringssl,
-    '//third_party/boringssl:boringssl_asm':
-        # Due to FIPS requirements, downstream BoringSSL has a different "shape" than upstream's.
-        # We're guaranteed that if X depends on :boringssl it will also depend on :boringssl_asm.
-        # Hence, always drop :boringssl_asm and handle the translation entirely in :boringssl.
-        always_disable,
+    # '//third_party/boringssl:boringssl':
+    #     enable_boringssl,
+    # '//third_party/boringssl:boringssl_asm':
+    #     # Due to FIPS requirements, downstream BoringSSL has a different "shape" than upstream's.
+    #     # We're guaranteed that if X depends on :boringssl it will also depend on :boringssl_asm.
+    #     # Hence, always drop :boringssl_asm and handle the translation entirely in :boringssl.
+    #     always_disable,
 }
 
 experimental_android_deps = {
@@ -1104,8 +1104,11 @@ class JniGeneratorSanitizer(BaseActionSanitizer):
     self._update_list_arg('--input_file', self._sanitize_filepath)
     self._update_list_arg('--input_file', self._add_location_tag_to_filepath)
     if not self.is_test_target:
-      # Only jarjar platform code
+      # jarjar test code to something else
       self._append_arg('--package_prefix', 'android.net.http.internal')
+    else:
+      # Only jarjar platform code
+      self._append_arg('--package_prefix', 'android.net.connectivity')
     super()._sanitize_args()
 
   def _sanitize_outputs(self):
@@ -1141,8 +1144,11 @@ class JniRegistrationGeneratorSanitizer(BaseActionSanitizer):
     # It might be better to remove sources by '--sources-exclusions'
     self._delete_value_arg('--sources-exclusions')
     if not self.is_test_target:
-      # Only jarjar platform code
-      self._append_arg('--package_prefix', 'android.net.http.internal')
+        # jarjar test code to something else
+        self._append_arg('--package_prefix', 'android.net.http.internal')
+    else:
+        # Only jarjar platform code
+        self._append_arg('--package_prefix', 'android.net.connectivity')
     super()._sanitize_args()
 
   def get_cmd(self):
@@ -1716,7 +1722,11 @@ def create_java_module(blueprint, gn, is_test_target):
   # accepted.
   module.javacflags.add("-Aorg.chromium.chrome.skipGenJni")
   if not is_test_target:
-    module.javacflags.add("-Apackage_prefix=android.net.http.internal")
+      # jarjar test code to something else
+      module.javacflags.add("-Apackage_prefix=android.net.http.internal")
+  else:
+    # jarjar platform code
+    module.javacflags.add("-Apackage_prefix=android.net.connectivity")
   for dep in get_non_api_java_actions(gn):
     target = gn.get_target(dep)
     if target.script == '//build/android/gyp/gcc_preprocess.py':
