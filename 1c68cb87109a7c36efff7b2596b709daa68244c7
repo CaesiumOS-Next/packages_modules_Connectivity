@@ -637,6 +637,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "898b3077_b675ae8b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalHidlImplTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-16T10:09:01Z",
+      "side": 1,
+      "message": "Per discussion - it sounds like the reason you didn\u0027t write this is because it\u0027s hard to pretend that the callback lambda passed to OffloadHalHidlImpl#setDataWarningAndLimit is called with the right parameters. Maybe you can use doAnswer for this? See for example NetworkMonitorTest#mockQuery.\n\nPerhaps like this?\n\n    doAnswer(invocation -\u003e {\n        invocation.getArgument(2).onValues(false, \"something went wrong\");\n        return null;\n    }).when(mIOffloadControlMock).getForwardedStats(anyString(), any());\n    assertFalse(mIOffloadHal.getForwardedStats(RMNET0));\n\nThe actual code here is generated from the HIDL file and looks like this:\n\n    @java.lang.FunctionalInterface\n    public interface getForwardedStatsCallback {\n        public void onValues(long rxBytes, long txBytes);\n    }\n\n\nYou can find it at:\n\nout/soong/.intermediates/hardware/interfaces/tetheroffload/control/1.0/android.hardware.tetheroffload.control-V1.0-java_gen_java/gen/srcs/android/hardware/tetheroffload/control/V1_0/IOffloadControl.java",
+      "parentUuid": "5888756a_dc7c7641",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 125,
+        "endChar": 37
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9fef67f0_307667df",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHardwareInterfaceTest.java",
         "patchSetId": 10

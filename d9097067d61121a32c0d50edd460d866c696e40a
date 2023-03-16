@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "817327d6_cbc641f2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalAidlImplTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-16T10:09:01Z",
+      "side": 1,
+      "message": "There\u0027s lots of code duplication between the HIDL and AIDL tests. It probably doesn\u0027t matter too much because this code will not change very often, but I think it would have been better to have just one test file that tested both the HIDL and AIDL methods. Something like:\n\n    public void doTestSetDataWarningAndLimitSuccess(boolean isAidl) throws Exception {\n        initAndValidateOffloadHal(isAidl, true);\n        final long warning \u003d 12345;\n        final long limit \u003d 67890;\n        doNothing().when(mIOffloadMock).setDataWarningAndLimit(anyString(), anyLong(), anyLong());\n        assertTrue(mIOffloadHal.setDataWarningAndLimit(RMNET0, warning, limit));\n        if (isAidl) {\n            verify(mIOffloadMock).setDataWarningAndLimit(eq(RMNET0), eq(warning), eq(limit));\n        } else {\n            verify(mIOffloadControlMock).setDataWarningAndLimit(eq(RMNET0), eq(warning), eq(limit));\n    }\n\n    @Test\n    public void testSetDataWarningAndLimitSuccessHidl() throws Exception {\n        doTestSetDataWarningAndLimitSuccess(false);\n    }\n\n    @Test\n    public void testSetDataWarningAndLimitSuccessAidl() throws Exception {\n        doTestSetDataWarningAndLimitSuccess(true);\n    }",
+      "range": {
+        "startLine": 201,
+        "startChar": 16,
+        "endLine": 201,
+        "endChar": 49
+      },
+      "revId": "d9097067d61121a32c0d50edd460d866c696e40a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fae7a22b_c39bf1b5",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalAidlImplTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-16T10:09:01Z",
+      "side": 1,
+      "message": "RemoteException is actually very rare and almost never thrown. It basically only happens when the process you\u0027re trying to call is dead. Suggest using another exception.",
+      "range": {
+        "startLine": 215,
+        "startChar": 16,
+        "endLine": 215,
+        "endChar": 37
+      },
+      "revId": "d9097067d61121a32c0d50edd460d866c696e40a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "304c47f1_5605efc5",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalHidlImplTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-16T10:09:01Z",
+      "side": 1,
+      "message": "fail(\"Nonexistent HAL version\");",
+      "range": {
+        "startLine": 91,
+        "startChar": 16,
+        "endLine": 91,
+        "endChar": 44
+      },
+      "revId": "d9097067d61121a32c0d50edd460d866c696e40a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
