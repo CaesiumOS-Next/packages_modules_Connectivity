@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eea18b07_3e1239d2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-17T07:58:44Z",
+      "side": 1,
+      "message": "@Nullable final?",
+      "range": {
+        "startLine": 148,
+        "startChar": 40,
+        "endLine": 148,
+        "endChar": 45
+      },
+      "revId": "710d2848c47dd5858ac7ecf9c9157c9395459d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b510ce45_c5852923",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-17T07:58:44Z",
+      "side": 1,
+      "message": "@Nullable final?",
+      "range": {
+        "startLine": 179,
+        "startChar": 47,
+        "endLine": 179,
+        "endChar": 52
+      },
+      "revId": "710d2848c47dd5858ac7ecf9c9157c9395459d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
