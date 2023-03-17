@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e880f28f_19d5a90f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-17T05:52:05Z",
+      "side": 1,
+      "message": "As you found out this also needs to be updated to only set the scope on link-local addresses",
+      "revId": "fa0bfbe00c5bec3657f1b7fc5aabc2cdb46c4c81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d0fae9_f45824ff",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-17T05:52:05Z",
+      "side": 1,
+      "message": "This won\u0027t pass on T without an updated module; I think at this point it\u0027s probably easier to mark this class as @ConnectivityModuleTest, so that we only run it with an updated Connectivity/Tethering module.\n\nAlso this won\u0027t pass on T with an updated module if the test target SDK \u003c U, as it would still use the old backend in that case. I think you can fix it by only doing the check if target SDK \u003e\u003d U, but in a separate CL (we might want to only cherry-pick CLs touching the new backend) you can also fix the addresses returned from the old backend.",
+      "revId": "fa0bfbe00c5bec3657f1b7fc5aabc2cdb46c4c81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
