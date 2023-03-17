@@ -154,6 +154,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8670e1f6_6dc11153",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalHidlImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T06:16:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be33f885_adcf3de7",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 80
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "babd8dc9_8495547c",
@@ -309,6 +333,30 @@
       "side": 1,
       "message": "Thanks! I think you can simplify further by factoring out to a method? Someting like:\n\n\n    public int initOffload(OffloadHalCallback offloadCb) {\n        ...\n        final NativeHandle h1 \u003d mDeps.createConntrackSocket(\n                NF_NETLINK_CONNTRACK_NEW | NF_NETLINK_CONNTRACK_DESTROY);\n        final NativeHandle h2 \u003d mDeps.createConntrackSocket(\n                NF_NETLINK_CONNTRACK_UPDATE | NF_NETLINK_CONNTRACK_DESTROY);\n        final int version \u003d initWithHandles(h1, h2);\n\n        // Explicitly close FDs for HIDL. AIDL will pass the original FDs to the service,\n        // they shouldn\u0027t be closed here.\n        if (mIOffload.getVersion() \u003c OFFLOAD_HAL_VERSION_AIDL) {\n            maybeCloseFdInNativeHandles(h1, h2);\n        }\n    }\n        \n\n    private int initWithHandles(NativeHandle h1, NativeHandle h2) {\n        if (h1 \u003d\u003d null || h2 \u003d\u003d null) {\n            mLog.e(\"Failed to create socket.\");\n            return OFFLOAD_HAL_VERSION_NONE;\n        }\n        requestSocketDump(h1);\n        mOffloadHalCallback \u003d offloadCb;\n        if (!mIOffload.initOffload(h1, h2, mOffloadHalCallback)) {\n            mIOffload.stopOffload();\n            mLog.e(\"Failed to initialize offload.\");\n            return OFFLOAD_HAL_VERSION_NONE;\n        }\n        return mIOffload.getVersion();\n   }",
       "parentUuid": "7584b649_06b0ce47",
+      "range": {
+        "startLine": 345,
+        "startChar": 46,
+        "endLine": 345,
+        "endChar": 52
+      },
+      "revId": "403076a4d245d2e2ad8021c3562a2a3c83bf36f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62472265_cb891c52",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T06:16:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0a249f9_4c4a75eb",
       "range": {
         "startLine": 345,
         "startChar": 46,

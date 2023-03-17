@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "71d74c34_e25b21cf",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalAidlImplTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T06:16:51Z",
+      "side": 1,
+      "message": "The doNothing code also needed to be differentiated between Aidl and Hidl. The code would be something like:\n```\npublic void doTestSetDataWarningAndLimitSuccess(boolean isAidl) throws Exception {\n    initAndValidateOffloadHal(isAidl, true);\n    final long warning \u003d 12345;\n    final long limit \u003d 67890;\n    if (isAidl) {\n        doNothing().when(mIOffloadMock).setDataWarningAndLimit(anyString(), anyLong(), anyLong());\n    } else {\n        doAnswer(invocation -\u003e {\n            ((android.hardware.tetheroffload.control.V1_1.IOffloadControl\n                    .setDataWarningAndLimitCallback) invocation.getArgument(3))\n                    .onValues(true, \"\");\n            return null;\n        }).when((android.hardware.tetheroffload.control.V1_1.IOffloadControl) mIOffloadControlMock)\n                .setDataWarningAndLimit(eq(RMNET0), eq(warning), eq(limit), any());\n    }\n    assertTrue(mIOffloadHal.setDataWarningAndLimit(RMNET0, warning, limit));\n    if (isAidl) {\n        verify(mIOffloadMock).setDataWarningAndLimit(eq(RMNET0), eq(warning), eq(limit));\n    } else {\n        verify(mIOffloadControlMock).setDataWarningAndLimit(eq(RMNET0), eq(warning), eq(limit));\n}    \n``` \nIn the latest patch, I merged the duplicated code in success and failure cases into a common test function, so if we combine the Aidl and Hidl unit test, the code would look like the following, not sure whether it is better since the HIDL test may not be updated again in the future. I can do it in the follow-up CL if needed.\n```\n    public void doXXXTest(boolean isAidl, boolen isSuccess) {\n        [common setup code]\n        // mock Aidl/Hidl API responses\n        if (isAidl) {\n            if (isSuccess) {\n            } else {\n            }\n        } else {\n            if (isSuccess) {\n            } else {\n            }\n        }\n        [common verify code]\n        // verify the parameters pass into Aidl/Hidl APIs\n        if (isAidl) {\n        } else {\n        }\n    }\n```",
+      "parentUuid": "817327d6_cbc641f2",
+      "range": {
+        "startLine": 201,
+        "startChar": 16,
+        "endLine": 201,
+        "endChar": 49
+      },
+      "revId": "d9097067d61121a32c0d50edd460d866c696e40a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fae7a22b_c39bf1b5",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalAidlImplTest.java",
         "patchSetId": 14
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-16T10:09:01Z",
       "side": 1,
       "message": "RemoteException is actually very rare and almost never thrown. It basically only happens when the process you\u0027re trying to call is dead. Suggest using another exception.",
+      "range": {
+        "startLine": 215,
+        "startChar": 16,
+        "endLine": 215,
+        "endChar": 37
+      },
+      "revId": "d9097067d61121a32c0d50edd460d866c696e40a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d699c7a9_16493734",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalAidlImplTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T06:16:51Z",
+      "side": 1,
+      "message": "Done. Removed RemoteException and added other Exceptions type in different places.",
+      "parentUuid": "fae7a22b_c39bf1b5",
       "range": {
         "startLine": 215,
         "startChar": 16,
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-16T10:09:01Z",
       "side": 1,
       "message": "fail(\"Nonexistent HAL version\");",
+      "range": {
+        "startLine": 91,
+        "startChar": 16,
+        "endLine": 91,
+        "endChar": 44
+      },
+      "revId": "d9097067d61121a32c0d50edd460d866c696e40a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f5a8aa_68e03ceb",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalHidlImplTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T06:16:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "304c47f1_5605efc5",
       "range": {
         "startLine": 91,
         "startChar": 16,

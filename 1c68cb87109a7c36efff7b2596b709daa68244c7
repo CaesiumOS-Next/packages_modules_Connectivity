@@ -542,6 +542,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba85ff33_c6fec86a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalAidlImplTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T06:16:51Z",
+      "side": 1,
+      "message": "Done, now throws difference Exceptions in difference places.",
+      "parentUuid": "c58e8ebb_f2a5bd3c",
+      "range": {
+        "startLine": 157,
+        "startChar": 16,
+        "endLine": 157,
+        "endChar": 44
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bde9c9bf_1e148d64",
@@ -555,6 +579,30 @@
       "writtenOn": "2023-03-09T06:39:59Z",
       "side": 1,
       "message": "Followup change is fine: could you also test other Exception ? For example: setLocalPrefixes could also throw illegalStateException and ServiceSpecificExcpetion. We could verify the return value when getting ServiceSpecificExcpetion. Also verify the code don\u0027t catch illegalStateException because we don\u0027t expect it to happen ?\n\nSame as other aidl api interface.",
+      "range": {
+        "startLine": 182,
+        "startChar": 16,
+        "endLine": 182,
+        "endChar": 43
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a335f57c_9264b872",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalAidlImplTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T06:16:51Z",
+      "side": 1,
+      "message": "Done, throws difference Exceptions in difference places.",
+      "parentUuid": "bde9c9bf_1e148d64",
       "range": {
         "startLine": 182,
         "startChar": 16,
@@ -649,6 +697,30 @@
       "side": 1,
       "message": "Per discussion - it sounds like the reason you didn\u0027t write this is because it\u0027s hard to pretend that the callback lambda passed to OffloadHalHidlImpl#setDataWarningAndLimit is called with the right parameters. Maybe you can use doAnswer for this? See for example NetworkMonitorTest#mockQuery.\n\nPerhaps like this?\n\n    doAnswer(invocation -\u003e {\n        invocation.getArgument(2).onValues(false, \"something went wrong\");\n        return null;\n    }).when(mIOffloadControlMock).getForwardedStats(anyString(), any());\n    assertFalse(mIOffloadHal.getForwardedStats(RMNET0));\n\nThe actual code here is generated from the HIDL file and looks like this:\n\n    @java.lang.FunctionalInterface\n    public interface getForwardedStatsCallback {\n        public void onValues(long rxBytes, long txBytes);\n    }\n\n\nYou can find it at:\n\nout/soong/.intermediates/hardware/interfaces/tetheroffload/control/1.0/android.hardware.tetheroffload.control-V1.0-java_gen_java/gen/srcs/android/hardware/tetheroffload/control/V1_0/IOffloadControl.java",
       "parentUuid": "5888756a_dc7c7641",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 125,
+        "endChar": 37
+      },
+      "revId": "1c68cb87109a7c36efff7b2596b709daa68244c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29464771_cd2068d4",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalHidlImplTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T06:16:51Z",
+      "side": 1,
+      "message": "Done. Also combined the duplicated code in test success and failure cases into a common test function.",
+      "parentUuid": "898b3077_b675ae8b",
       "range": {
         "startLine": 125,
         "startChar": 16,
