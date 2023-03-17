@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e65a569_12cd5cf2",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-03-17T00:50:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33ded6ec_ce6d1740",
+      "range": {
+        "startLine": 529,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 8
+      },
+      "revId": "fd654cccbd0913131e9f7ce448043e8564b380ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8617006c_44801f7a",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-16T23:12:09Z",
       "side": 1,
       "message": "Is this basically the same as doTestMigrateTunnel with just one extra parameter?\n\nOverloads are your friend here.",
+      "range": {
+        "startLine": 1244,
+        "startChar": 0,
+        "endLine": 1244,
+        "endChar": 56
+      },
+      "revId": "fd654cccbd0913131e9f7ce448043e8564b380ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28a743ae_48e0d6e2",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-03-17T00:50:25Z",
+      "side": 1,
+      "message": "In PS4, doTestMigrateTunnel and doTestMigrateTunnelWithEncapTypeChange has same inputs. I changed to create a shared method and let two methods call into the shared method in PS5.",
+      "parentUuid": "8617006c_44801f7a",
       "range": {
         "startLine": 1244,
         "startChar": 0,
