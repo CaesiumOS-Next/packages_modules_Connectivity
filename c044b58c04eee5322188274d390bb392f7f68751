@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c67d9208_12fba64d",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-03-17T00:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97d9405a_fbb89d16",
+      "range": {
+        "startLine": 367,
+        "startChar": 33,
+        "endLine": 367,
+        "endChar": 34
+      },
+      "revId": "c044b58c04eee5322188274d390bb392f7f68751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a515f87_6d095a34",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa545773_bf0db3f9",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-03-17T00:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a515f87_6d095a34",
+      "range": {
+        "startLine": 373,
+        "startChar": 19,
+        "endLine": 373,
+        "endChar": 34
+      },
+      "revId": "c044b58c04eee5322188274d390bb392f7f68751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3bb60b8_46582137",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-16T23:09:19Z",
       "side": 1,
       "message": "For consistency, let\u0027s just use the full brace style:\n\n```\nif () {\n  return...\n}\n```\n\nI think we use that code style in all the rest of our code, and am personally of the opinion it\u0027s less brittle",
+      "range": {
+        "startLine": 316,
+        "startChar": 33,
+        "endLine": 316,
+        "endChar": 34
+      },
+      "revId": "c044b58c04eee5322188274d390bb392f7f68751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c95fc7c_5597a1f8",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-03-17T00:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3bb60b8_46582137",
       "range": {
         "startLine": 316,
         "startChar": 33,
