@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03818969_bfd58256",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T04:24:42Z",
+      "side": 1,
+      "message": "sends messages to the state machine....",
+      "range": {
+        "startLine": 503,
+        "startChar": 52,
+        "endLine": 503,
+        "endChar": 72
+      },
+      "revId": "d761eae13cffa3d7887d4ac6f081842b668fea87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0ff7579_79065c52",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T04:24:42Z",
+      "side": 1,
+      "message": "returns",
+      "range": {
+        "startLine": 505,
+        "startChar": 75,
+        "endLine": 505,
+        "endChar": 83
+      },
+      "revId": "d761eae13cffa3d7887d4ac6f081842b668fea87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
