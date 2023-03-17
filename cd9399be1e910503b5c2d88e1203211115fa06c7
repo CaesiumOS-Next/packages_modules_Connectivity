@@ -46,6 +46,30 @@
       },
       "revId": "cd9399be1e910503b5c2d88e1203211115fa06c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca5751b5_236110e5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-17T07:54:48Z",
+      "side": 0,
+      "message": "Acknowledged",
+      "parentUuid": "1439354c_c8d6e4ec",
+      "range": {
+        "startLine": 208,
+        "startChar": 13,
+        "endLine": 208,
+        "endChar": 31
+      },
+      "revId": "cd9399be1e910503b5c2d88e1203211115fa06c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
