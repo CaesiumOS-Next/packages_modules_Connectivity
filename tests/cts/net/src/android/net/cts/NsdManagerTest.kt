@@ -96,6 +96,8 @@ import com.android.testutils.tryTest
 import com.android.testutils.waitForIdle
 import java.io.File
 import java.io.IOException
+import java.net.Inet6Address
+import java.net.InetAddress
 import java.net.NetworkInterface
 import java.net.ServerSocket
 import java.nio.charset.StandardCharsets
@@ -695,6 +697,15 @@ class NsdManagerTest {
         }
     }
 
+    private fun checkAddressScopeId(iface: TestNetworkInterface, address: List<InetAddress>) {
+        val ifaceIdx = NetworkInterface.getByName(iface.interfaceName).index
+        address.forEach {
+            if (it is Inet6Address) {
+                assertEquals(ifaceIdx, it.scopeId)
+            }
+        }
+    }
+
     @Test
     fun testNsdManager_ResolveOnNetwork() {
         // This test requires shims supporting T+ APIs (NsdServiceInfo.network)
@@ -730,6 +741,7 @@ class NsdManagerTest {
                 assertEquals(registeredInfo.serviceName, it.serviceName)
                 assertEquals(si.port, it.port)
                 assertEquals(testNetwork1.network, nsdShim.getNetwork(it))
+                checkAddressScopeId(testNetwork1.iface, it.hostAddresses)
             }
             // TODO: check that MDNS packets are sent only on testNetwork1.
         } cleanupStep {
@@ -969,6 +981,7 @@ class NsdManagerTest {
             for (hostAddress in hostAddresses) {
                 assertTrue(addresses.contains(hostAddress))
             }
+            checkAddressScopeId(testNetwork1.iface, serviceInfoCb.serviceInfo.hostAddresses)
         } cleanupStep {
             nsdManager.unregisterService(registrationRecord)
             registrationRecord.expectCallback<ServiceUnregistered>()
