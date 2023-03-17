@@ -75,3 +75,20 @@ java_library {
         "//packages/modules/IPsec/tests/iketests",
     ],
 }
+
+// Test building mDNS as a standalone, so that it can be imported into other repositories as-is.
+java_library {
+    name: "service-connectivity-mdns-standalone-build-test",
+    sdk_version: "core_platform",
+    srcs: [
+        "src/com/android/server/connectivity/mdns/**/*.java",
+    ],
+    static_libs: [
+        "net-utils-device-common-mdns-standalone-build-test",
+    ],
+    libs: [
+        "framework-annotations-lib",
+        "android_system_stubs_current",
+        "androidx.annotation_annotation",
+    ],
+}

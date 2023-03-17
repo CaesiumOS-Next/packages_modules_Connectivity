@@ -96,7 +96,7 @@ public class MdnsSocketProviderTest {
     private MdnsSocketProvider mSocketProvider;
     private NetworkCallback mNetworkCallback;
     private TetheringEventCallback mTetheringEventCallback;
-    private MdnsSocketProvider.NetLinkMonitorCallBack mNetLinkMonitorCallBack;
+    private SocketNetlinkMonitor.NetLinkMonitorCallBack mNetLinkMonitorCallBack;
 
     @Before
     public void setUp() throws IOException {
@@ -123,8 +123,8 @@ public class MdnsSocketProviderTest {
         final HandlerThread thread = new HandlerThread("MdnsSocketProviderTest");
         thread.start();
         mHandler = new Handler(thread.getLooper());
-        final ArgumentCaptor<MdnsSocketProvider.NetLinkMonitorCallBack> netLinkCb =
-                ArgumentCaptor.forClass(MdnsSocketProvider.NetLinkMonitorCallBack.class);
+        final ArgumentCaptor<SocketNetlinkMonitor.NetLinkMonitorCallBack> netLinkCb =
+                ArgumentCaptor.forClass(SocketNetlinkMonitor.NetLinkMonitorCallBack.class);
         doCallRealMethod().when(mDeps).getSocketNetlinkMonitor(any(), netLinkCb.capture());
         mSocketProvider = new MdnsSocketProvider(mContext, thread.getLooper(), mDeps);
         mNetLinkMonitorCallBack = netLinkCb.getValue();

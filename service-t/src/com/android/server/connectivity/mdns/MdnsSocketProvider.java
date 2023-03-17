@@ -30,16 +30,13 @@ import android.net.TetheringManager;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.os.Handler;
 import android.os.Looper;
-import android.system.OsConstants;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.LinkPropertiesUtils.CompareResult;
-import com.android.net.module.util.ip.NetlinkMonitor;
 import com.android.net.module.util.netlink.NetlinkConstants;
-import com.android.net.module.util.netlink.NetlinkMessage;
 import com.android.net.module.util.netlink.RtNetlinkAddressMessage;
 import com.android.net.module.util.netlink.StructIfaddrMsg;
 import com.android.server.connectivity.mdns.util.MdnsLogger;
@@ -74,7 +71,7 @@ public class MdnsSocketProvider {
     @NonNull private final Dependencies mDependencies;
     @NonNull private final NetworkCallback mNetworkCallback;
     @NonNull private final TetheringEventCallback mTetheringEventCallback;
-    @NonNull private final NetlinkMonitor mNetlinkMonitor;
+    @NonNull private final SocketNetlinkMonitor mNetlinkMonitor;
     private final ArrayMap<Network, SocketInfo> mNetworkSockets = new ArrayMap<>();
     private final ArrayMap<String, SocketInfo> mTetherInterfaceSockets = new ArrayMap<>();
     private final ArrayMap<Network, LinkProperties> mActiveNetworksLinkProperties =
@@ -172,22 +169,12 @@ public class MdnsSocketProvider {
 
         /*** Get a SocketNetlinkMonitor */
         public SocketNetlinkMonitor getSocketNetlinkMonitor(@NonNull final Handler handler,
-                @NonNull final NetLinkMonitorCallBack cb) {
-            return new SocketNetlinkMonitor(handler, cb);
+                @NonNull final SocketNetlinkMonitor.NetLinkMonitorCallBack cb) {
+            return new SocketNetlinkMonitor(handler, cb, LOGGER.mLog);
         }
     }
 
-    /**
-     * The callback interface for the netlink monitor messages.
-     */
-    public interface NetLinkMonitorCallBack {
-        /**
-         * Handles the RtNetlinkAddressMessage.
-         */
-        void processRtNetlinkAddressMessage(RtNetlinkAddressMessage msg);
-    }
-
-    private class NetLinkMessageProcessor implements NetLinkMonitorCallBack {
+    private class NetLinkMessageProcessor implements SocketNetlinkMonitor.NetLinkMonitorCallBack {
         @Override
         public void processRtNetlinkAddressMessage(RtNetlinkAddressMessage msg) {
             final StructIfaddrMsg ifaddrMsg = msg.getIfaddrHeader();
@@ -247,28 +234,6 @@ public class MdnsSocketProvider {
         }
     }
 
-    /**
-     * The netlink monitor for MdnsSocketProvider.
-     */
-    public static class SocketNetlinkMonitor extends NetlinkMonitor {
-
-        @NonNull final NetLinkMonitorCallBack mCb;
-
-        SocketNetlinkMonitor(@NonNull final Handler handler,
-                @NonNull final NetLinkMonitorCallBack cb) {
-            super(handler, LOGGER.mLog, TAG, OsConstants.NETLINK_ROUTE,
-                    NetlinkConstants.RTMGRP_IPV4_IFADDR | NetlinkConstants.RTMGRP_IPV6_IFADDR);
-            mCb = cb;
-        }
-
-        @Override
-        public void processNetlinkMessage(NetlinkMessage nlMsg, long whenMs) {
-            if (nlMsg instanceof RtNetlinkAddressMessage) {
-                mCb.processRtNetlinkAddressMessage((RtNetlinkAddressMessage) nlMsg);
-            }
-        }
-    }
-
     /*** Ensure that current running thread is same as given handler thread */
     public static void ensureRunningOnHandlerThread(Handler handler) {
         if (handler.getLooper().getThread() != Thread.currentThread()) {
@@ -300,7 +265,9 @@ public class MdnsSocketProvider {
      * Start netlink monitor.
      */
     public void startNetLinkMonitor() {
-        mHandler.post(mNetlinkMonitor::start);
+        if (mNetlinkMonitor.isSupported()) {
+            mHandler.post(mNetlinkMonitor::start);
+        }
     }
 
     private void maybeStopMonitoringSockets() {
