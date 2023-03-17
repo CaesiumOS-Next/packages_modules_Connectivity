@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df13874e_112c8004",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T05:08:10Z",
+      "side": 1,
+      "message": "returns",
+      "range": {
+        "startLine": 9,
+        "startChar": 39,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "c0bbe8a533f0e5a84392cfe4be6d5c3b869749da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfc8957d_dbe4b334",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T05:08:10Z",
+      "side": 1,
+      "message": "the handler",
+      "revId": "c0bbe8a533f0e5a84392cfe4be6d5c3b869749da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a14a859c_038b8339",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T05:08:10Z",
+      "side": 1,
+      "message": "does not start",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "c0bbe8a533f0e5a84392cfe4be6d5c3b869749da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adf91d99_153d574d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T05:08:10Z",
+      "side": 1,
+      "message": "allows",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 52
+      },
+      "revId": "c0bbe8a533f0e5a84392cfe4be6d5c3b869749da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72f13cb6_843e2069",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T05:08:10Z",
+      "side": 1,
+      "message": "and pass the thread to SMshim before the thread starts",
+      "range": {
+        "startLine": 13,
+        "startChar": 25,
+        "endLine": 13,
+        "endChar": 66
+      },
+      "revId": "c0bbe8a533f0e5a84392cfe4be6d5c3b869749da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
