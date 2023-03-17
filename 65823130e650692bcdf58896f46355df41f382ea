@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d678baf_e3f8bdee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T06:20:58Z",
+      "side": 1,
+      "message": "order",
+      "range": {
+        "startLine": 7,
+        "startChar": 37,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "65823130e650692bcdf58896f46355df41f382ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d652856a_33cfcfa3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T06:20:58Z",
+      "side": 1,
+      "message": "breaks",
+      "range": {
+        "startLine": 16,
+        "startChar": 36,
+        "endLine": 16,
+        "endChar": 41
+      },
+      "revId": "65823130e650692bcdf58896f46355df41f382ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d214af0b_f5a59004",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T06:20:58Z",
+      "side": 1,
+      "message": "remove it since it is not wifi specific",
+      "range": {
+        "startLine": 17,
+        "startChar": 34,
+        "endLine": 17,
+        "endChar": 38
+      },
+      "revId": "65823130e650692bcdf58896f46355df41f382ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36efb691_37b51eb6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T06:20:58Z",
+      "side": 1,
+      "message": "enabling",
+      "range": {
+        "startLine": 17,
+        "startChar": 28,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "65823130e650692bcdf58896f46355df41f382ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a90d41e_36f37023",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T06:20:58Z",
+      "side": 1,
+      "message": "The commit changes the timing of enqueuing the message, but does not change the callback order for asyncSM case because calling mTetherMainSM#sendMessage just puts the message into the queue. Since Tethering is single thread, the message will be processed after the thread executes #sendTetherStateChangedBroadcast.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 7
+      },
+      "revId": "65823130e650692bcdf58896f46355df41f382ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acf23f8c_233030a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-03-17T06:20:58Z",
+      "side": 1,
+      "message": "suggst to remove this",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 0
+      },
+      "revId": "65823130e650692bcdf58896f46355df41f382ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
