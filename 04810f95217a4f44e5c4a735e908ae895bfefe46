@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce04f11e_030e9eb5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-17T04:23:30Z",
+      "side": 1,
+      "message": "Approving API in case this needs to be merged urgently, but as commented on the bug, I don\u0027t think the suggested names are very good. I think the code would look better if we changed \"State\" to \"Option\" or if we just removed the suffix entirely.\n\nThink you could prepare a CL to do that?",
+      "revId": "04810f95217a4f44e5c4a735e908ae895bfefe46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
