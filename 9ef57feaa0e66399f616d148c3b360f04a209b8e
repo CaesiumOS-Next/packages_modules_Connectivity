@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b678f0e0_4eccc0aa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHalAidlImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T07:42:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00c3d253_8df05ac5",
+      "range": {
+        "startLine": 69,
+        "startChar": 60,
+        "endLine": 69,
+        "endChar": 67
+      },
+      "revId": "9ef57feaa0e66399f616d148c3b360f04a209b8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a99f876_429cfdbf",
@@ -87,6 +111,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8a09d4f_abb8d85b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalAidlImplTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T07:42:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42f95792_0834165c",
+      "range": {
+        "startLine": 141,
+        "startChar": 17,
+        "endLine": 141,
+        "endChar": 38
+      },
+      "revId": "9ef57feaa0e66399f616d148c3b360f04a209b8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66bf7571_62e88521",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalAidlImplTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T07:42:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a99f876_429cfdbf",
+      "range": {
+        "startLine": 141,
+        "startChar": 47,
+        "endLine": 141,
+        "endChar": 56
+      },
+      "revId": "9ef57feaa0e66399f616d148c3b360f04a209b8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcf3fd25_41ade586",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a082f98_08dd1d18",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalHidlImplTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T07:42:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcf3fd25_41ade586",
+      "range": {
+        "startLine": 139,
+        "startChar": 46,
+        "endLine": 139,
+        "endChar": 55
+      },
+      "revId": "9ef57feaa0e66399f616d148c3b360f04a209b8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81a9f467_d46f0785",
@@ -123,6 +219,30 @@
       "writtenOn": "2023-03-17T06:46:31Z",
       "side": 1,
       "message": "Given that this HAL version doesn\u0027t support this method, UnsupportedOperationException seems like it would be a better exception.",
+      "range": {
+        "startLine": 212,
+        "startChar": 21,
+        "endLine": 212,
+        "endChar": 45
+      },
+      "revId": "9ef57feaa0e66399f616d148c3b360f04a209b8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faa0381e_5f554ced",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHalHidlImplTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-03-17T07:42:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81a9f467_d46f0785",
       "range": {
         "startLine": 212,
         "startChar": 21,
