@@ -52,15 +52,8 @@ class NetworkTraceHandler : public perfetto::DataSource<NetworkTraceHandler> {
                    ::perfetto::protos::pbzero::TracePacket& dst);
 
   static internal::NetworkTracePoller sPoller;
-  bool mStarted;
-
-  // Values from config, see proto for details.
   uint32_t mPollMs;
-  uint32_t mInternLimit;
-  uint32_t mAggregationThreshold;
-  bool mDropLocalPort;
-  bool mDropRemotePort;
-  bool mDropTcpFlags;
+  bool mStarted;
 };
 
 }  // namespace bpf

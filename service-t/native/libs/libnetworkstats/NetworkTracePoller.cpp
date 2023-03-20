@@ -116,15 +116,11 @@ bool NetworkTracePoller::ConsumeAllLocked() {
     return false;
   }
 
-  std::vector<PacketTrace> packets;
-  base::Result<int> ret = mRingBuffer->ConsumeAll(
-      [&](const PacketTrace& pkt) { packets.push_back(pkt); });
+  base::Result<int> ret = mRingBuffer->ConsumeAll(mCallback);
   if (!ret.ok()) {
     ALOGW("Failed to poll ringbuf: %s", ret.error().message().c_str());
     return false;
   }
-
-  mCallback(packets);
 
   return true;
 }
