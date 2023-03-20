@@ -49,6 +49,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Set;
+
 @RunWith(AndroidJUnit4.class)
 public class HttpEngineTest {
     private static final String HOST = "source.android.com";
@@ -180,6 +185,32 @@ public class HttpEngineTest {
         // The former doesn't make sense for a CTS test as it would depend on the underlying
         // implementation. The latter is something we should support once we write a proper test
         // server.
+    }
+
+    private byte[] generateSomeSha256() {
+        byte[] sha256 = new byte[32];
+        Arrays.fill(sha256, (byte) 58);
+        return sha256;
+
+    }
+
+    private Date dateInFuture(int secondsIntoFuture) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, secondsIntoFuture);
+        return cal.getTime();
+    }
+
+    @Test
+    public void testHttpEngine_addPublicKeyPins() {
+        String url = mTestServer.getSuccessUrl();
+        mEngine = mEngineBuilder.addPublicKeyPins(
+                "http://localhost", Set.of(generateSomeSha256()), true, dateInFuture(100).toInstant()).build();
+
+        UrlRequest.Builder builder =
+                mEngine.newUrlRequestBuilder(url, mCallback.getExecutor(), mCallback);
+        mRequest = builder.build();
+        mRequest.start();
+        mCallback.expectCallback(ResponseStep.ON_FAILED);
     }
 
     @Test
