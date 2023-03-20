@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb1aca62_b5938b61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-20T02:25:11Z",
+      "side": 1,
+      "message": "metrics?\n\nCan you specify which metrics in the title? So that we can search the history easily from the title.\n\nE.g.\nAdding keepalive metrics protos in the Connectivity module",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "88eaf4550bb382ef5c6c17ab3f567b009d40d91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4e143a9_b5f4bf84",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-20T02:25:11Z",
+      "side": 1,
+      "message": "Nit: extra space",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "88eaf4550bb382ef5c6c17ab3f567b009d40d91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a12f533_ee2da09e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-20T02:25:11Z",
+      "side": 1,
+      "message": "Could you also add something like in the description?\n```\nCopy keepalive info metric\u0027s protos from stats/atoms.proto\ninto ConnectivityService module.\n```",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 34
+      },
+      "revId": "88eaf4550bb382ef5c6c17ab3f567b009d40d91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15517859_b4b0cbf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-20T02:25:11Z",
+      "side": 1,
+      "message": "LGTM assuming comments are addressed",
+      "revId": "88eaf4550bb382ef5c6c17ab3f567b009d40d91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
