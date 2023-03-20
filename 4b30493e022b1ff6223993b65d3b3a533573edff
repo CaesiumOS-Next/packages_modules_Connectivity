@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bb3b0c4_2ed05017",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-20T02:14:06Z",
+      "side": 1,
+      "message": "Nit: make `new int[0]` a const value to avoid creating it all the time?",
+      "range": {
+        "startLine": 322,
+        "startChar": 85,
+        "endLine": 322,
+        "endChar": 95
+      },
+      "revId": "4b30493e022b1ff6223993b65d3b3a533573edff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1324ad36_8e411956",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-20T02:14:06Z",
+      "side": 1,
+      "message": "I feels the comment is not fully explains the checking logic. Could you elaborate what is incompatible flags means in this context?",
+      "revId": "4b30493e022b1ff6223993b65d3b3a533573edff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
