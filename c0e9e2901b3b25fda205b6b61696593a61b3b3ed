@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2faa2393_84dc8772",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-20T16:40:15Z",
+      "side": 1,
+      "message": "LGTM, but please have follow up change to test multiple upstream update.",
+      "revId": "c0e9e2901b3b25fda205b6b61696593a61b3b3ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0636e9b_7d3e6f0e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-20T16:40:15Z",
+      "side": 1,
+      "message": "Separate change is fine, could you have a test to test switching upstream networks multiple times ?",
+      "revId": "c0e9e2901b3b25fda205b6b61696593a61b3b3ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
