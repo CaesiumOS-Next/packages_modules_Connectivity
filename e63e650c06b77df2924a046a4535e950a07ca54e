@@ -118,6 +118,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce207b4f_9ba28834",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-03-20T04:37:23Z",
+      "side": 1,
+      "message": "After a deeper look, I decide to revert the changes. Overall, I feel using the independent map could even make the logic cleaner rather than make it complicate. \nBecause even if we have ArrayMap\u003cString, Integer\u003e, we still need to have map look up and also update the index when necessary. The complexity could even increase than the current approach for using a separate ArrayMap\u003cString, Integer\u003e mIfaceNameToIndexMap \u003d new ArrayMap\u003c\u003e()",
+      "parentUuid": "11ba5bcf_c21ec7b0",
+      "revId": "e63e650c06b77df2924a046a4535e950a07ca54e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21282e27_0becf63c",
