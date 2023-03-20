@@ -116,6 +116,30 @@
       },
       "revId": "a02d0acd385dce337599c74f22b27b51fca81f76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51895329_bd9264a5",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-20T17:12:23Z",
+      "side": 1,
+      "message": "Change reverted",
+      "parentUuid": "a146bdc0_db3ed07a",
+      "range": {
+        "startLine": 469,
+        "startChar": 13,
+        "endLine": 469,
+        "endChar": 45
+      },
+      "revId": "a02d0acd385dce337599c74f22b27b51fca81f76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
