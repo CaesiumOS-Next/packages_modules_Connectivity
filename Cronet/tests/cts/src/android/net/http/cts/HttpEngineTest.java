@@ -339,4 +339,20 @@ public class HttpEngineTest {
     public void getVersionString_notEmpty() {
         assertThat(HttpEngine.getVersionString()).isNotEmpty();
     }
+
+    @Test
+    public void testHttpEngine_enableBrotli_brotliAdvertised() {
+        mEngine = mEngineBuilder.setEnableBrotli(true).build();
+        mRequest =
+                mEngine.newUrlRequestBuilder(
+                        mTestServer.getEchoHeadersUrl(), mCallback.getExecutor(), mCallback)
+                        .build();
+        mRequest.start();
+
+        mCallback.assumeCallback(ResponseStep.ON_SUCCEEDED);
+        UrlResponseInfo info = mCallback.mResponseInfo;
+        assertThat(info.getHeaders().getAsList().toString()).contains("gzip, deflate, br");
+        assertOKStatusCode(info);
+    }
+
 }
