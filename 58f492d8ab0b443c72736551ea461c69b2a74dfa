@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af6e9079_163b24cc",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-03-20T13:12:41Z",
+      "side": 1,
+      "message": "This means we\u0027ll skip the test entirely if one of the requests fails with a transient error. Can this and the verification below be extracted outside of the loop?",
+      "range": {
+        "startLine": 364,
+        "startChar": 0,
+        "endLine": 364,
+        "endChar": 64
+      },
+      "revId": "58f492d8ab0b443c72736551ea461c69b2a74dfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
