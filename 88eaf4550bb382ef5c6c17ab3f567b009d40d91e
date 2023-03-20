@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ac26089_54a97436",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-03-20T02:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4e143a9_b5f4bf84",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "88eaf4550bb382ef5c6c17ab3f567b009d40d91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce8241a2_63bacaf9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-03-20T02:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb1aca62_b5938b61",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "88eaf4550bb382ef5c6c17ab3f567b009d40d91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a12f533_ee2da09e",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-20T02:25:11Z",
       "side": 1,
       "message": "Could you also add something like in the description?\n```\nCopy keepalive info metric\u0027s protos from stats/atoms.proto\ninto ConnectivityService module.\n```",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 34
+      },
+      "revId": "88eaf4550bb382ef5c6c17ab3f567b009d40d91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bdb4269_0233639a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-03-20T02:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a12f533_ee2da09e",
       "range": {
         "startLine": 8,
         "startChar": 0,
