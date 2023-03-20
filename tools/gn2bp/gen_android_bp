@@ -235,6 +235,7 @@ def enable_zlib(module, arch):
     module.arch[arch].shared_libs.add('libz')
 
 def enable_boringssl(module, arch):
+  if module.is_genrule(): return
   if arch is None:
     shared_libs = module.shared_libs
   else:
