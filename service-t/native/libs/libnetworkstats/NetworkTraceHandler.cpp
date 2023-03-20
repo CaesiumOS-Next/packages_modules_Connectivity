@@ -59,12 +59,10 @@ void NetworkTraceHandler::InitPerfettoTracing() {
 // static
 NetworkTracePoller NetworkTraceHandler::sPoller(
     [](const std::vector<PacketTrace>& packets) {
-      // Trace calls the provided callback for each active session. The context
-      // gets a reference to the NetworkTraceHandler instance associated with
-      // the session and delegates writing. The corresponding handler will write
-      // with the setting specified in the trace config.
       NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
-        ctx.GetDataSourceLocked()->Write(packets, ctx);
+        for (const PacketTrace& pkt : packets) {
+          NetworkTraceHandler::Fill(pkt, *ctx.NewTracePacket());
+        }
       });
     });
 
@@ -92,13 +90,6 @@ void NetworkTraceHandler::OnStart(const StartArgs&) {
 void NetworkTraceHandler::OnStop(const StopArgs&) {
   if (mStarted) sPoller.Stop();
   mStarted = false;
-}
-
-void NetworkTraceHandler::Write(const std::vector<PacketTrace>& packets,
-                                NetworkTraceHandler::TraceContext& ctx) {
-  for (const PacketTrace& pkt : packets) {
-    Fill(pkt, *ctx.NewTracePacket());
-  }
 }
 
 // static class method
