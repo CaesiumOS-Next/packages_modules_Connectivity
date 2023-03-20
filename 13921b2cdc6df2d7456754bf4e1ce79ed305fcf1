@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b22ab1d4_042ab0f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-20T15:27:53Z",
+      "side": 1,
+      "message": "LGTM, but I\u0027m not very familiar with this code. I expect that Yuyang knows a lot more about it than I do.\n\nComment does not need to be addressed in this CL.",
+      "revId": "13921b2cdc6df2d7456754bf4e1ce79ed305fcf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fba72ddc_131acf6d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-20T15:27:53Z",
+      "side": 1,
+      "message": "Pre-existing, and not for this CL since I don\u0027t think SocketNetlinkMonitor actually does anything yet, but... why the post here instead of calling the mNetlinkMonitor.stop() directly? This code is already running on the handler thread, isn\u0027t it?",
+      "range": {
+        "startLine": 213,
+        "startChar": 12,
+        "endLine": 213,
+        "endChar": 49
+      },
+      "revId": "13921b2cdc6df2d7456754bf4e1ce79ed305fcf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
