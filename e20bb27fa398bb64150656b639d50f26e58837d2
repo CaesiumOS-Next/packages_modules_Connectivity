@@ -103,6 +103,23 @@
       "message": "Hello Team, can you please review this change? Thanks!",
       "revId": "e20bb27fa398bb64150656b639d50f26e58837d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7d015fa_b7711f55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1938090
+      },
+      "writtenOn": "2023-03-21T17:19:47Z",
+      "side": 1,
+      "message": "Hello Team, General Motors have a code freeze of 3/29 and this is blocking their build. Can you please review at your earliest convenience?",
+      "revId": "e20bb27fa398bb64150656b639d50f26e58837d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
