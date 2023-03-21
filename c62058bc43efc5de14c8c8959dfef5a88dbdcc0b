@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91940632_71fbf424",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-21T23:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83051a63_1d09f039",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 55
+      },
+      "revId": "c62058bc43efc5de14c8c8959dfef5a88dbdcc0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3aaa16af_1f683320",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-21T16:51:04Z",
       "side": 1,
       "message": "nit: net-http-test-jarjar-rules?",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "c62058bc43efc5de14c8c8959dfef5a88dbdcc0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da7dff86_a469b1b1",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-21T23:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3aaa16af_1f683320",
       "range": {
         "startLine": 21,
         "startChar": 13,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31c7e99c_7fa0d27e",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-21T23:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e729de0d_b5d174e3",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 79
+      },
+      "revId": "c62058bc43efc5de14c8c8959dfef5a88dbdcc0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33b46fa0_aa1dcc22",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3089a38_858a4abf",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-21T23:00:22Z",
+      "side": 1,
+      "message": "cc: https://android-review.git.corp.google.com/c/platform/external/cronet/+/2499896/comment/4968a8a6_67f05a24/",
+      "parentUuid": "33b46fa0_aa1dcc22",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 32
+      },
+      "revId": "c62058bc43efc5de14c8c8959dfef5a88dbdcc0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4030f0c8_020a5270",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-03-21T16:51:04Z",
       "side": 1,
       "message": "Why are these being excluded? Can you also add a comment?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 43
+      },
+      "revId": "c62058bc43efc5de14c8c8959dfef5a88dbdcc0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3295cd48_a5faa087",
+        "filename": "Cronet/tests/mts/jarjar_excludes.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-21T23:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4030f0c8_020a5270",
       "range": {
         "startLine": 3,
         "startChar": 0,
