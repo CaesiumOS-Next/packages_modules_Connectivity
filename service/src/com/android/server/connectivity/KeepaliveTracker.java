@@ -150,7 +150,7 @@ public class KeepaliveTracker {
 
         // Packet data.
         private final KeepalivePacketData mPacket;
-        private final int mInterval;
+        private final int mIntervalSec;
 
         // Whether the keepalive is started or not. The initial state is NOT_STARTED.
         private static final int NOT_STARTED = 1;
@@ -183,7 +183,7 @@ public class KeepaliveTracker {
 
             mNai = nai;
             mPacket = packet;
-            mInterval = interval;
+            mIntervalSec = interval;
             mType = type;
             mResumed = resumed;
 
@@ -241,7 +241,7 @@ public class KeepaliveTracker {
                     + IpUtils.addressAndPortToString(mPacket.getSrcAddress(), mPacket.getSrcPort())
                     + "->"
                     + IpUtils.addressAndPortToString(mPacket.getDstAddress(), mPacket.getDstPort())
-                    + " interval=" + mInterval
+                    + " interval=" + mIntervalSec
                     + " uid=" + mUid + " pid=" + mPid + " privileged=" + mPrivileged
                     + " packetData=" + HexDump.toHexString(mPacket.getPacket())
                     + " ]";
@@ -264,8 +264,8 @@ public class KeepaliveTracker {
             return mSlot;
         }
 
-        public int getKeepaliveInterval() {
-            return mInterval;
+        public int getKeepaliveIntervalSec() {
+            return mIntervalSec;
         }
 
         private int checkNetworkConnected() {
@@ -286,7 +286,7 @@ public class KeepaliveTracker {
         }
 
         private int checkInterval() {
-            if (mInterval < MIN_INTERVAL_SEC || mInterval > MAX_INTERVAL_SEC) {
+            if (mIntervalSec < MIN_INTERVAL_SEC || mIntervalSec > MAX_INTERVAL_SEC) {
                 return ERROR_INVALID_INTERVAL;
             }
             return SUCCESS;
@@ -362,7 +362,7 @@ public class KeepaliveTracker {
                     case TYPE_NATT:
                         final NattKeepalivePacketData nattData = (NattKeepalivePacketData) mPacket;
                         mNai.onAddNattKeepalivePacketFilter(slot, nattData);
-                        mNai.onStartNattSocketKeepalive(slot, mInterval, nattData);
+                        mNai.onStartNattSocketKeepalive(slot, mIntervalSec, nattData);
                         break;
                     case TYPE_TCP:
                         try {
@@ -374,7 +374,7 @@ public class KeepaliveTracker {
                         final TcpKeepalivePacketData tcpData = (TcpKeepalivePacketData) mPacket;
                         mNai.onAddTcpKeepalivePacketFilter(slot, tcpData);
                         // TODO: check result from apf and notify of failure as needed.
-                        mNai.onStartTcpSocketKeepalive(slot, mInterval, tcpData);
+                        mNai.onStartTcpSocketKeepalive(slot, mIntervalSec, tcpData);
                         break;
                     default:
                         Log.wtf(TAG, "Starting keepalive with unknown type: " + mType);
@@ -453,7 +453,7 @@ public class KeepaliveTracker {
          * Construct a new KeepaliveInfo from existing KeepaliveInfo with a new fd.
          */
         public KeepaliveInfo withFd(@NonNull FileDescriptor fd) throws InvalidSocketException {
-            return new KeepaliveInfo(mCallback, mNai, mPacket, mInterval, mType, fd,
+            return new KeepaliveInfo(mCallback, mNai, mPacket, mIntervalSec, mType, fd,
                     true /* resumed */);
         }
     }

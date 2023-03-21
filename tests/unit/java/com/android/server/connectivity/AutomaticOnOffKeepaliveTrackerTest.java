@@ -349,7 +349,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         final ArgumentCaptor<AlarmManager.OnAlarmListener> listenerCaptor =
                 ArgumentCaptor.forClass(AlarmManager.OnAlarmListener.class);
         verify(mAlarmManager).setExact(eq(AlarmManager.ELAPSED_REALTIME),
-                eq(Long.valueOf(ki.getKeepaliveInterval() * 1000 - ADJUST_TCP_POLLING_DELAY_MS)),
+                eq(Long.valueOf(ki.getKeepaliveIntervalSec() * 1000 - ADJUST_TCP_POLLING_DELAY_MS)),
                 any() /* tag */, listenerCaptor.capture(), eq(mTestHandler));
         final AlarmManager.OnAlarmListener listener = listenerCaptor.getValue();
 
