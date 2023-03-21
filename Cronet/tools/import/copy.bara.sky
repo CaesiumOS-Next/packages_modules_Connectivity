@@ -29,7 +29,7 @@ cronet_origin_files = glob(
         "build/buildflag.h",
         "chrome/VERSION",
         "components/cronet/**",
-        "components/grpc_suport/**",
+        "components/grpc_support/**",
         "components/metrics/**",
         "components/nacl/**",
         "components/prefs/**",
