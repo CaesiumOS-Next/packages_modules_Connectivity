@@ -22,6 +22,29 @@
       },
       "revId": "19e555925f695321a7ad182afc533257aa435efa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "becc5c1f_856cf9f4",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-03-21T22:33:17Z",
+      "side": 1,
+      "message": "If this is bound to the wrong network, what happens to the IPsec ESP packets. I seem to recall they still flow inbound/outbound properly?\n\nIs that covered by this test? It\u0027ll be useful to know that the above case always works, because we\u0027ll be relying on that for kernel mobike on the same socket.",
+      "range": {
+        "startLine": 1067,
+        "startChar": 36,
+        "endLine": 1067,
+        "endChar": 46
+      },
+      "revId": "19e555925f695321a7ad182afc533257aa435efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
