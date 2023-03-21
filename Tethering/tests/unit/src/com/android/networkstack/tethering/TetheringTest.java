@@ -387,7 +387,7 @@ public class TetheringTest {
 
         @Override
         public RouterAdvertisementDaemon getRouterAdvertisementDaemon(
-                InterfaceParams ifParams) {
+                Context context, InterfaceParams ifParams) {
             return mRouterAdvertisementDaemon;
         }
 
@@ -1088,7 +1088,7 @@ public class TetheringTest {
 
         sendIPv6TetherUpdates(upstreamState);
         assertSetIfaceToDadProxy(0 /* numOfCalls */, "" /* ifaceName */);
-        verify(mRouterAdvertisementDaemon, never()).buildNewRa(any(), notNull());
+        verify(mRouterAdvertisementDaemon, never()).buildNewRaAndSend(any(), notNull());
         verify(mDhcpServer, timeout(DHCPSERVER_START_TIMEOUT_MS).times(1)).startWithCallbacks(
                 any(), any());
     }
@@ -1118,7 +1118,7 @@ public class TetheringTest {
         sendIPv6TetherUpdates(upstreamState);
         // TODO: add interfaceParams to compare in verify.
         assertSetIfaceToDadProxy(1 /* numOfCalls */, TEST_MOBILE_IFNAME /* ifaceName */);
-        verify(mRouterAdvertisementDaemon, times(1)).buildNewRa(any(), notNull());
+        verify(mRouterAdvertisementDaemon, times(1)).buildNewRaAndSend(any(), notNull());
         verify(mNetd, times(1)).tetherApplyDnsInterfaces();
     }
 
@@ -1136,7 +1136,7 @@ public class TetheringTest {
 
         sendIPv6TetherUpdates(upstreamState);
         assertSetIfaceToDadProxy(1 /* numOfCalls */, TEST_MOBILE_IFNAME /* ifaceName */);
-        verify(mRouterAdvertisementDaemon, times(1)).buildNewRa(any(), notNull());
+        verify(mRouterAdvertisementDaemon, times(1)).buildNewRaAndSend(any(), notNull());
         verify(mNetd, times(1)).tetherApplyDnsInterfaces();
     }
 
@@ -1156,7 +1156,7 @@ public class TetheringTest {
 
         sendIPv6TetherUpdates(upstreamState);
         assertSetIfaceToDadProxy(1 /* numOfCalls */, TEST_MOBILE_IFNAME /* ifaceName */);
-        verify(mRouterAdvertisementDaemon, times(1)).buildNewRa(any(), notNull());
+        verify(mRouterAdvertisementDaemon, times(1)).buildNewRaAndSend(any(), notNull());
         verify(mNetd, times(1)).tetherApplyDnsInterfaces();
     }
 
@@ -3446,7 +3446,7 @@ public class TetheringTest {
                 any(), any());
         sendIPv6TetherUpdates(upstreamState);
         assertSetIfaceToDadProxy(1 /* numOfCalls */, TEST_MOBILE_IFNAME /* ifaceName */);
-        verify(mRouterAdvertisementDaemon).buildNewRa(any(), notNull());
+        verify(mRouterAdvertisementDaemon).buildNewRaAndSend(any(), notNull());
         verify(mNetd).tetherApplyDnsInterfaces();
     }
 
