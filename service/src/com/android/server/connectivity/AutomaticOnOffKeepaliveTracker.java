@@ -684,9 +684,11 @@ public class AutomaticOnOffKeepaliveTracker {
         final boolean useLowTimer = mTestLowTcpPollingTimerUntilMs > System.currentTimeMillis();
         // Adjust the polling interval to be smaller than the keepalive delay to preserve
         // some time for the system to restart the keepalive.
-        final int timer = ki.mKi.getKeepaliveInterval() * 1000 - ADJUST_TCP_POLLING_DELAY_MS;
+        final int timer = (int) ki.mKi.getKeepaliveInterval().getSeconds() * 1000
+                - ADJUST_TCP_POLLING_DELAY_MS;
         if (timer < 0) {
-            Log.wtf(TAG, "Unreasonable low keepalive delay: " + ki.mKi.getKeepaliveInterval());
+            Log.wtf(TAG, "Unreasonable low keepalive delay: "
+                    + ki.mKi.getKeepaliveInterval());
         }
         return useLowTimer
                 ? LOW_TCP_POLLING_INTERVAL_MS
