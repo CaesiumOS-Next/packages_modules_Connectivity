@@ -91,6 +91,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.net.INetd;
 import android.net.InetAddresses;
 import android.net.IpPrefix;
@@ -114,6 +115,7 @@ import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -473,6 +475,7 @@ public class BpfCoordinatorTest {
             ArgumentCaptor.forClass(ArrayList.class);
     private final TestLooper mTestLooper = new TestLooper();
     private final Handler mHandler = new Handler(mTestLooper.getLooper());
+    private final Context mContext = InstrumentationRegistry.getContext();
     private final IBpfMap<Tether4Key, Tether4Value> mBpfDownstream4Map =
             spy(new TestBpfMap<>(Tether4Key.class, Tether4Value.class));
     private final IBpfMap<Tether4Key, Tether4Value> mBpfUpstream4Map =
@@ -607,7 +610,7 @@ public class BpfCoordinatorTest {
     private IpServer makeAndStartIpServer(String interfaceName, BpfCoordinator bpfCoordinator)
             throws Exception {
         final LinkAddress testAddress = new LinkAddress("192.168.42.5/24");
-        when(mIpServerDeps.getRouterAdvertisementDaemon(any())).thenReturn(mRaDaemon);
+        when(mIpServerDeps.getRouterAdvertisementDaemon(any(), any())).thenReturn(mRaDaemon);
         when(mIpServerDeps.getInterfaceParams(DOWNSTREAM_IFACE)).thenReturn(
                 DOWNSTREAM_IFACE_PARAMS);
         when(mIpServerDeps.getInterfaceParams(UPSTREAM_IFACE)).thenReturn(UPSTREAM_IFACE_PARAMS);
@@ -621,7 +624,7 @@ public class BpfCoordinatorTest {
         doReturn(mIpNeighborMonitor).when(mIpServerDeps).getIpNeighborMonitor(any(), any(),
                 neighborEventCaptor.capture());
         final IpServer ipServer = new IpServer(
-                interfaceName, mHandler, TETHERING_WIFI, new SharedLog("test"), mNetd,
+                interfaceName, mContext, mHandler, TETHERING_WIFI, new SharedLog("test"), mNetd,
                 bpfCoordinator, mRoutingCoordinatorManager, mIpServerCallback, mTetherConfig,
                 mAddressCoordinator, mTetheringMetrics, mIpServerDeps);
         ipServer.start();
