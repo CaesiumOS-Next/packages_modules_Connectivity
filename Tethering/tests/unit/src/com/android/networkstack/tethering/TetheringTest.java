@@ -384,7 +384,7 @@ public class TetheringTest {
 
         @Override
         public RouterAdvertisementDaemon getRouterAdvertisementDaemon(
-                InterfaceParams ifParams) {
+                Context context, InterfaceParams ifParams) {
             return mRouterAdvertisementDaemon;
         }
 
