@@ -34,6 +34,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.when;
 
 import android.app.Instrumentation;
 import android.content.Context;
@@ -47,6 +48,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
+import android.os.SystemClock;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
@@ -72,6 +74,7 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.net.Inet6Address;
@@ -85,10 +88,18 @@ public final class RouterAdvertisementDaemonTest {
     private static final String TAG = RouterAdvertisementDaemonTest.class.getSimpleName();
     private static final int DATA_BUFFER_LEN = 4096;
     private static final int PACKET_TIMEOUT_MS = 5_000;
+    private static final int MS_PER_SEC = 1_000;
+    private static final int FAULT_TOLERANCE_MS = 300;
+    private static final int MAX_URGENT_RTR_ADVERTISEMENTS = 5;
+    private static final int TEST_MIN_RTR_ADV_INTERVAL_SEC = 2;
+    private static final int TEST_MAX_RTR_ADV_INTERVAL_SEC = 4;
+    private static final int TEST_MIN_DELAY_BETWEEN_RAS_SEC = 1;
 
     @Rule
     public final TapPacketReaderRule mTetheredReader = new TapPacketReaderRule(
             DATA_BUFFER_LEN, false /* autoStart */);
+
+    private final Context mContext = InstrumentationRegistry.getContext();
 
     private InterfaceParams mTetheredParams;
     private HandlerThread mHandlerThread;
@@ -97,6 +108,8 @@ public final class RouterAdvertisementDaemonTest {
     private RouterAdvertisementDaemon mRaDaemon;
 
     private static INetd sNetd;
+
+    @Mock private RouterAdvertisementDaemon.Dependencies mDeps;
 
     @BeforeClass
     public static void setupOnce() {
@@ -110,6 +123,10 @@ public final class RouterAdvertisementDaemonTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
+        when(mDeps.getMinRtrAdvIntervalSec()).thenReturn(TEST_MIN_RTR_ADV_INTERVAL_SEC);
+        when(mDeps.getMaxRtrAdvIntervalSec()).thenReturn(TEST_MAX_RTR_ADV_INTERVAL_SEC);
+        when(mDeps.getMinDelayBetweenRasSec()).thenReturn(TEST_MIN_DELAY_BETWEEN_RAS_SEC);
+
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
@@ -119,7 +136,7 @@ public final class RouterAdvertisementDaemonTest {
         // Looper must be prepared here since AndroidJUnitRunner runs tests on separate threads.
         if (Looper.myLooper() == null) Looper.prepare();
 
-        mRaDaemon = new RouterAdvertisementDaemon(mTetheredParams);
+        mRaDaemon = new RouterAdvertisementDaemon(mContext, mTetheredParams, mDeps);
         sNetd.networkAddInterface(INetd.LOCAL_NET_ID, mTetheredParams.name);
     }
 
@@ -339,5 +356,44 @@ public final class RouterAdvertisementDaemonTest {
         final ByteBuffer rs = createRsPacket("fe80::1122:3344:5566:7788");
         mTetheredPacketReader.sendResponse(rs);
         assertUnicastRaPacket(new TestRaPacket(null, params1));
+    }
+
+    @Test
+    public void testUnsolicitRouterAdvertisementTimers() throws Exception {
+        assertTrue(mRaDaemon.start());
+        final RaParams params = createRaParams("2001:1122:3344::5566");
+        mRaDaemon.buildNewRa(null, params);
+
+        // Validate the time interval between each RA.
+        // The interval between first MAX_URGENT_RTR_ADVERTISEMENTS RAs is
+        // TEST_MIN_DELAY_BETWEEN_RAS_SEC and becomes a random value in the range
+        // TEST_MIN_RTR_ADV_INTERVAL_SEC ~ TEST_MAX_RTR_ADV_INTERVAL_SEC afterwards.
+        long previousTime;
+        long currentTime;
+        long minExpectedTime;
+        long maxExpectedTime;
+        assertMulticastRaPacket(new TestRaPacket(null, params));
+        previousTime = SystemClock.elapsedRealtime();
+
+        for (int i = 1; i < MAX_URGENT_RTR_ADVERTISEMENTS + 5; ++i) {
+            minExpectedTime = previousTime + MS_PER_SEC * (i < MAX_URGENT_RTR_ADVERTISEMENTS
+                ? TEST_MIN_DELAY_BETWEEN_RAS_SEC
+                : TEST_MIN_RTR_ADV_INTERVAL_SEC)
+                - FAULT_TOLERANCE_MS;
+            maxExpectedTime = previousTime + MS_PER_SEC * (i < MAX_URGENT_RTR_ADVERTISEMENTS
+                ? TEST_MIN_DELAY_BETWEEN_RAS_SEC
+                : TEST_MAX_RTR_ADV_INTERVAL_SEC)
+                + FAULT_TOLERANCE_MS;
+            assertMulticastRaPacket(new TestRaPacket(null, params));
+            currentTime = SystemClock.elapsedRealtime();
+            String msg = String.format(
+                    "Loop %d: current time %d is not within expected time %d ~ %d",
+                    i, currentTime, minExpectedTime, maxExpectedTime);
+            assertTrue(msg, currentTime >= minExpectedTime);
+            assertTrue(msg, currentTime <= maxExpectedTime);
+            previousTime = currentTime;
+        }
+
+        mRaDaemon.stop();
     }
 }

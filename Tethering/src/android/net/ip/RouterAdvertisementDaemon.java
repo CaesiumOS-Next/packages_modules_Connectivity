@@ -34,6 +34,7 @@ import static com.android.net.module.util.NetworkStackConstants.RFC7421_PREFIX_L
 import static com.android.net.module.util.NetworkStackConstants.TAG_SYSTEM_NEIGHBOR;
 import static com.android.networkstack.tethering.util.TetheringUtils.getAllNodesForScopeId;
 
+import android.content.Context;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.MacAddress;
@@ -43,6 +44,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.os.SystemClock;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.system.StructTimeval;
@@ -52,7 +54,8 @@ import android.util.Pair;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.android.internal.annotations.GuardedBy;
+import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.util.WakeupMessage;
 import com.android.net.module.util.FdEventsReader;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.structs.Icmpv6Header;
@@ -84,11 +87,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Basic IPv6 Router Advertisement Daemon.
  *
- * TODO:
- *
- *     - Rewrite using Handler (and friends) so that AlarmManager can deliver
- *       "kick" messages when it's time to send a multicast RA.
- *
  * @hide
  */
 public class RouterAdvertisementDaemon {
@@ -114,34 +112,48 @@ public class RouterAdvertisementDaemon {
     private static final int DAY_IN_SECONDS = 86_400;
 
     // Commands for IpServer to control RouterAdvertisementDaemon
-    private static final int CMD_START        = 1;
-    private static final int CMD_STOP         = 2;
-    private static final int CMD_BUILD_NEW_RA = 3;
+    private static final int CMD_START             = 1;
+    private static final int CMD_STOP              = 2;
+    private static final int CMD_BUILD_NEW_RA      = 3;
+    // Command to send multicast RA
+    private static final int CMD_SEND_MULTICAST_RA = 4;
 
+    private final Context mContext;
     private final InterfaceParams mInterface;
+    private final Dependencies mDeps;
     private final InetSocketAddress mAllNodes;
-
-    // This lock is to protect the RA from being updated while being
-    // transmitted on another thread  (multicast or unicast).
-    //
-    // TODO: This should be handled with a more RCU-like approach.
-    private final Object mLock = new Object();
-    @GuardedBy("mLock")
-    private final byte[] mRA = new byte[IPV6_MIN_MTU];
-    @GuardedBy("mLock")
-    private int mRaLength;
-    @GuardedBy("mLock")
-    private final DeprecatedInfoTracker mDeprecatedInfoTracker;
-    @GuardedBy("mLock")
-    private RaParams mRaParams;
+    private final Random mRandom = new Random();
+    private final AtomicInteger mUrgentAnnouncements = new AtomicInteger(0);
 
     // To be accessed only from RaMessageHandler
+    private final DeprecatedInfoTracker mDeprecatedInfoTracker;
     private RsPacketListener mRsPacketListener;
+    private WakeupMessage mMulticastRaAlarm;
+    private RaParams mRaParams;
+    private final byte[] mRA = new byte[IPV6_MIN_MTU];
+    private int mRaLength;
 
     private volatile FileDescriptor mSocket;
-    private volatile MulticastTransmitter mMulticastTransmitter;
     private volatile RaMessageHandler mRaMessageHandler;
     private volatile HandlerThread mRaHandlerThread;
+
+    /** Dependencies for the RouterAdvertisementDaemon. Useful to be mocked in tests. */
+    public static class Dependencies {
+        /** Get MinRtrAdvInterval */
+        public int getMinRtrAdvIntervalSec() {
+            return MIN_RTR_ADV_INTERVAL_SEC;
+        }
+
+        /** Get MaxRtrAdvInterval */
+        public int getMaxRtrAdvIntervalSec() {
+            return MAX_RTR_ADV_INTERVAL_SEC;
+        }
+
+        /** Get MIN_DELAY_BETWEEN_RAS */
+        public int getMinDelayBetweenRasSec() {
+            return MIN_DELAY_BETWEEN_RAS_SEC;
+        }
+    }
 
     /** Encapsulate the RA parameters for RouterAdvertisementDaemon.*/
     public static class RaParams {
@@ -270,41 +282,60 @@ public class RouterAdvertisementDaemon {
 
         @Override
         public void handleMessage(Message msg) {
+            final long now = SystemClock.elapsedRealtime();
             switch (msg.what) {
                 case CMD_START:
                     mRsPacketListener = new RsPacketListener(this);
                     mRsPacketListener.start();
+                    mMulticastRaAlarm = makeWakeupMessage(
+                            "SEND_MULTICAST_RA", CMD_SEND_MULTICAST_RA);
+                    mMulticastRaAlarm.schedule(now + getNextMulticastTransmitDelayMs());
                     break;
                 case CMD_STOP:
+                    if (mMulticastRaAlarm != null) {
+                        mMulticastRaAlarm.cancel();
+                        mMulticastRaAlarm = null;
+                    }
                     if (mRsPacketListener != null) {
                         mRsPacketListener.stop();
                         mRsPacketListener = null;
                     }
                     break;
                 case CMD_BUILD_NEW_RA:
-                    synchronized (mLock) {
-                        // raInfo.first is deprecatedParams and raInfo.second is newParams.
-                        final Pair<RaParams, RaParams> raInfo = (Pair<RaParams, RaParams>) msg.obj;
-                        if (raInfo.first != null) {
-                            mDeprecatedInfoTracker.putPrefixes(raInfo.first.prefixes);
-                            mDeprecatedInfoTracker.putDnses(raInfo.first.dnses);
-                        }
-
-                        if (raInfo.second != null) {
-                            // Process information that is no longer deprecated.
-                            mDeprecatedInfoTracker.removePrefixes(raInfo.second.prefixes);
-                            mDeprecatedInfoTracker.removeDnses(raInfo.second.dnses);
-                        }
-                        mRaParams = raInfo.second;
-                        assembleRaLocked();
+                    // raInfo.first is deprecatedParams and raInfo.second is newParams.
+                    final Pair<RaParams, RaParams> raInfo = (Pair<RaParams, RaParams>) msg.obj;
+                    if (raInfo.first != null) {
+                        mDeprecatedInfoTracker.putPrefixes(raInfo.first.prefixes);
+                        mDeprecatedInfoTracker.putDnses(raInfo.first.dnses);
                     }
 
-                    maybeNotifyMulticastTransmitter();
+                    if (raInfo.second != null) {
+                        // Process information that is no longer deprecated.
+                        mDeprecatedInfoTracker.removePrefixes(raInfo.second.prefixes);
+                        mDeprecatedInfoTracker.removeDnses(raInfo.second.dnses);
+                    }
+                    mRaParams = raInfo.second;
+                    assembleRa();
+
+                    // Set to one fewer than the desired number, because as soon as
+                    // the CMD_BUILD_NEW_RA message is processed we immediately send
+                    // a RA and mUrgentAnnouncements is not examined until the next
+                    // mMulticastRaAlarm is scheduled (i.e. this way we send 4 and not 5).
+                    mUrgentAnnouncements.set(MAX_URGENT_RTR_ADVERTISEMENTS - 1);
+                    sendMulticastRa();
+                    break;
+                case CMD_SEND_MULTICAST_RA:
+                    sendMulticastRa();
                     break;
                 default:
                     Log.e(TAG, "Unknown message, cmd = " + String.valueOf(msg.what));
                     break;
             }
+        }
+
+        private WakeupMessage makeWakeupMessage(String cmdName, int cmd) {
+            cmdName = TAG + "." + mInterface.name + "." + cmdName;
+            return new WakeupMessage(mContext, this, cmdName, cmd);
         }
     }
 
@@ -351,8 +382,15 @@ public class RouterAdvertisementDaemon {
         }
     }
 
-    public RouterAdvertisementDaemon(InterfaceParams ifParams) {
+    public RouterAdvertisementDaemon(Context context, InterfaceParams ifParams) {
+        this(context, ifParams, new Dependencies());
+    }
+
+    @VisibleForTesting
+    public RouterAdvertisementDaemon(Context context, InterfaceParams ifParams, Dependencies deps) {
+        mContext = context;
         mInterface = ifParams;
+        mDeps = deps;
         mAllNodes = new InetSocketAddress(getAllNodesForScopeId(mInterface.index), 0);
         mDeprecatedInfoTracker = new DeprecatedInfoTracker();
     }
@@ -369,9 +407,6 @@ public class RouterAdvertisementDaemon {
             Log.e(TAG, "Failed to start RouterAdvertisementDaemon.");
             return false;
         }
-
-        mMulticastTransmitter = new MulticastTransmitter();
-        mMulticastTransmitter.start();
 
         mRaHandlerThread = new HandlerThread(TAG);
         mRaHandlerThread.start();
@@ -392,14 +427,9 @@ public class RouterAdvertisementDaemon {
         mRaMessageHandler = null;
 
         closeSocket();
-        // Wake up mMulticastTransmitter thread to interrupt a potential 1 day sleep before
-        // the thread's termination.
-        maybeNotifyMulticastTransmitter();
-        mMulticastTransmitter = null;
     }
 
-    @GuardedBy("mLock")
-    private void assembleRaLocked() {
+    private void assembleRa() {
         final ByteBuffer ra = ByteBuffer.wrap(mRA);
         ra.order(ByteOrder.BIG_ENDIAN);
 
@@ -458,13 +488,6 @@ public class RouterAdvertisementDaemon {
         // We have nothing worth announcing; indicate as much to maybeSendRA().
         if (!shouldSendRA) {
             mRaLength = 0;
-        }
-    }
-
-    private void maybeNotifyMulticastTransmitter() {
-        final MulticastTransmitter m = mMulticastTransmitter;
-        if (m != null) {
-            m.hup();
         }
     }
 
@@ -652,18 +675,29 @@ public class RouterAdvertisementDaemon {
         }
 
         try {
-            synchronized (mLock) {
-                if (mRaLength < ICMPV6_RA_HEADER_LEN) {
-                    // No actual RA to send.
-                    return;
-                }
-                Os.sendto(mSocket, mRA, 0, mRaLength, 0, dest);
+            if (mRaLength < ICMPV6_RA_HEADER_LEN) {
+                // No actual RA to send.
+                return;
             }
+            Os.sendto(mSocket, mRA, 0, mRaLength, 0, dest);
             Log.d(TAG, "RA sendto " + dest.getAddress().getHostAddress());
         } catch (ErrnoException | SocketException e) {
             if (isSocketValid()) {
                 Log.e(TAG, "sendto error: " + e);
             }
+        }
+    }
+
+    private void sendMulticastRa() {
+        maybeSendRA(mAllNodes);
+        if (mDeprecatedInfoTracker.decrementCounters()) {
+            // At least one deprecated PIO has been removed;
+            // reassemble the RA.
+            assembleRa();
+        }
+        if (mMulticastRaAlarm != null) {
+            final long now = SystemClock.elapsedRealtime();
+            mMulticastRaAlarm.schedule(now + getNextMulticastTransmitDelayMs());
         }
     }
 
@@ -680,62 +714,24 @@ public class RouterAdvertisementDaemon {
                 Message.obtain(mRaMessageHandler, cmd, obj));
     }
 
-    // TODO: Consider moving this to run on a provided Looper as a Handler,
-    // with WakeupMessage-style messages providing the timer driven input.
-    private final class MulticastTransmitter extends Thread {
-        private final Random mRandom = new Random();
-        private final AtomicInteger mUrgentAnnouncements = new AtomicInteger(0);
+    private int getNextMulticastTransmitDelaySec() {
+        boolean deprecationInProgress = false;
+        if (mRaLength < ICMPV6_RA_HEADER_LEN) {
+            // No actual RA to send; just sleep for 1 day.
+            return DAY_IN_SECONDS;
+        }
+        deprecationInProgress = !mDeprecatedInfoTracker.isEmpty();
 
-        @Override
-        public void run() {
-            while (isSocketValid()) {
-                try {
-                    Thread.sleep(getNextMulticastTransmitDelayMs());
-                } catch (InterruptedException ignored) {
-                    // Stop sleeping, immediately send an RA, and continue.
-                }
-
-                maybeSendRA(mAllNodes);
-                synchronized (mLock) {
-                    if (mDeprecatedInfoTracker.decrementCounters()) {
-                        // At least one deprecated PIO has been removed;
-                        // reassemble the RA.
-                        assembleRaLocked();
-                    }
-                }
-            }
+        final int urgentPending = mUrgentAnnouncements.getAndDecrement();
+        if ((urgentPending > 0) || deprecationInProgress) {
+            return mDeps.getMinDelayBetweenRasSec();
         }
 
-        public void hup() {
-            // Set to one fewer that the desired number, because as soon as
-            // the thread interrupt is processed we immediately send an RA
-            // and mUrgentAnnouncements is not examined until the subsequent
-            // sleep interval computation (i.e. this way we send 3 and not 4).
-            mUrgentAnnouncements.set(MAX_URGENT_RTR_ADVERTISEMENTS - 1);
-            interrupt();
-        }
+        return mDeps.getMinRtrAdvIntervalSec() + mRandom.nextInt(
+                mDeps.getMaxRtrAdvIntervalSec() - mDeps.getMinRtrAdvIntervalSec());
+    }
 
-        private int getNextMulticastTransmitDelaySec() {
-            boolean deprecationInProgress = false;
-            synchronized (mLock) {
-                if (mRaLength < ICMPV6_RA_HEADER_LEN) {
-                    // No actual RA to send; just sleep for 1 day.
-                    return DAY_IN_SECONDS;
-                }
-                deprecationInProgress = !mDeprecatedInfoTracker.isEmpty();
-            }
-
-            final int urgentPending = mUrgentAnnouncements.getAndDecrement();
-            if ((urgentPending > 0) || deprecationInProgress) {
-                return MIN_DELAY_BETWEEN_RAS_SEC;
-            }
-
-            return MIN_RTR_ADV_INTERVAL_SEC + mRandom.nextInt(
-                    MAX_RTR_ADV_INTERVAL_SEC - MIN_RTR_ADV_INTERVAL_SEC);
-        }
-
-        private long getNextMulticastTransmitDelayMs() {
-            return 1000 * (long) getNextMulticastTransmitDelaySec();
-        }
+    private long getNextMulticastTransmitDelayMs() {
+        return 1000 * (long) getNextMulticastTransmitDelaySec();
     }
 }
