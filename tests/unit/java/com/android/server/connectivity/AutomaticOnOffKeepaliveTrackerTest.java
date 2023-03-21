@@ -20,6 +20,8 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 
+import static com.android.server.connectivity.AutomaticOnOffKeepaliveTracker.ADJUST_TCP_POLLING_DELAY_MS;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -28,7 +30,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -94,6 +95,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     private static final int NETID_MASK = 0xffff;
     private static final int TIMEOUT_MS = 30_000;
     private static final int MOCK_RESOURCE_ID = 5;
+    private static final int TEST_KEEPALIVE_INTERVAL_SEC = 10;
     private AutomaticOnOffKeepaliveTracker mAOOKeepaliveTracker;
     private HandlerThread mHandlerThread;
 
@@ -334,7 +336,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         final KeepalivePacketData kpd = new NattKeepalivePacketData(srcAddress, srcPort,
                 dstAddress, dstPort, new byte[] {1});
         final KeepaliveInfo ki = mKeepaliveTracker.new KeepaliveInfo(cb, nai, kpd,
-                10 /* interval */, KeepaliveInfo.TYPE_NATT, fd);
+                TEST_KEEPALIVE_INTERVAL_SEC, KeepaliveInfo.TYPE_NATT, fd);
         mKeepaliveTracker.setReturnedKeepaliveInfo(ki);
 
         mAOOKeepaliveTracker.startNattKeepalive(nai, fd, 10 /* intervalSeconds */, cb,
@@ -342,10 +344,13 @@ public class AutomaticOnOffKeepaliveTrackerTest {
                 true /* automaticOnOffKeepalives */, underpinnedNetwork);
         HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
 
+        // Mock elapsed real time to verify the alarm timer.
+        doReturn(0L).when(mDependencies).getElapsedRealtime();
         final ArgumentCaptor<AlarmManager.OnAlarmListener> listenerCaptor =
                 ArgumentCaptor.forClass(AlarmManager.OnAlarmListener.class);
-        verify(mAlarmManager).setExact(eq(AlarmManager.ELAPSED_REALTIME), anyLong(),
-                any(), listenerCaptor.capture(), eq(mTestHandler));
+        verify(mAlarmManager).setExact(eq(AlarmManager.ELAPSED_REALTIME),
+                eq(Long.valueOf(ki.getKeepaliveInterval() * 1000 - ADJUST_TCP_POLLING_DELAY_MS)),
+                any() /* tag */, listenerCaptor.capture(), eq(mTestHandler));
         final AlarmManager.OnAlarmListener listener = listenerCaptor.getValue();
 
         // For realism, the listener should be posted on the handler

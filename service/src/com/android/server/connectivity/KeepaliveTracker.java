@@ -264,6 +264,10 @@ public class KeepaliveTracker {
             return mSlot;
         }
 
+        public int getKeepaliveInterval() {
+            return mInterval;
+        }
+
         private int checkNetworkConnected() {
             if (!mNai.networkInfo.isConnectedOrConnecting()) {
                 return ERROR_INVALID_NETWORK;
