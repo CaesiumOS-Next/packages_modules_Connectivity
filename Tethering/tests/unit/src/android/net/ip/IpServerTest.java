@@ -66,6 +66,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.net.INetd;
 import android.net.InetAddresses;
 import android.net.InterfaceConfigurationParcel;
@@ -87,6 +88,7 @@ import android.os.RemoteException;
 import android.os.test.TestLooper;
 import android.text.TextUtils;
 
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -188,6 +190,7 @@ public class IpServerTest {
 
     private TestLooper mLooper;
     private Handler mHandler;
+    private final Context mContext = InstrumentationRegistry.getContext();
     private final ArgumentCaptor<LinkProperties> mLinkPropertiesCaptor =
             ArgumentCaptor.forClass(LinkProperties.class);
     private IpServer mIpServer;
@@ -200,7 +203,7 @@ public class IpServerTest {
     private void initStateMachine(int interfaceType, boolean usingLegacyDhcp,
             boolean usingBpfOffload) throws Exception {
         when(mDependencies.getDadProxy(any(), any())).thenReturn(mDadProxy);
-        when(mDependencies.getRouterAdvertisementDaemon(any())).thenReturn(mRaDaemon);
+        when(mDependencies.getRouterAdvertisementDaemon(any(), any())).thenReturn(mRaDaemon);
         when(mDependencies.getInterfaceParams(IFACE_NAME)).thenReturn(TEST_IFACE_PARAMS);
         when(mDependencies.getInterfaceParams(UPSTREAM_IFACE)).thenReturn(UPSTREAM_IFACE_PARAMS);
         when(mDependencies.getInterfaceParams(UPSTREAM_IFACE2)).thenReturn(UPSTREAM_IFACE_PARAMS2);
@@ -306,9 +309,9 @@ public class IpServerTest {
     private IpServer createIpServer(final int interfaceType) {
         mLooper = new TestLooper();
         mHandler = new Handler(mLooper.getLooper());
-        return new IpServer(IFACE_NAME, mHandler, interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mRoutingCoordinatorManager, mCallback, mTetherConfig, mAddressCoordinator,
-                mTetheringMetrics, mDependencies);
+        return new IpServer(IFACE_NAME, mContext, mHandler, interfaceType, mSharedLog, mNetd,
+                mBpfCoordinator, mRoutingCoordinatorManager, mCallback, mTetherConfig,
+                mAddressCoordinator, mTetheringMetrics, mDependencies);
 
     }
 
@@ -849,7 +852,7 @@ public class IpServerTest {
         final ArgumentCaptor<RaParams> raParamsCaptor =
                 ArgumentCaptor.forClass(RaParams.class);
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE);
-        verify(mRaDaemon).buildNewRa(any(), raParamsCaptor.capture());
+        verify(mRaDaemon).buildNewRaAndSend(any(), raParamsCaptor.capture());
         final RaParams noV6Params = raParamsCaptor.getValue();
         assertEquals(65, noV6Params.hopLimit);
         reset(mRaDaemon);
@@ -858,19 +861,19 @@ public class IpServerTest {
                 INetd.IPV6, INetd.CONF, UPSTREAM_IFACE, "hop_limit")).thenReturn("64");
         final LinkProperties lp = buildIpv6OnlyLinkProperties(UPSTREAM_IFACE);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE, lp, 1);
-        verify(mRaDaemon).buildNewRa(any(), raParamsCaptor.capture());
+        verify(mRaDaemon).buildNewRaAndSend(any(), raParamsCaptor.capture());
         final RaParams nonCellularParams = raParamsCaptor.getValue();
         assertEquals(65, nonCellularParams.hopLimit);
         reset(mRaDaemon);
 
         dispatchTetherConnectionChanged(UPSTREAM_IFACE, null, 0);
-        verify(mRaDaemon).buildNewRa(any(), raParamsCaptor.capture());
+        verify(mRaDaemon).buildNewRaAndSend(any(), raParamsCaptor.capture());
         final RaParams noUpstream = raParamsCaptor.getValue();
         assertEquals(65, nonCellularParams.hopLimit);
         reset(mRaDaemon);
 
         dispatchTetherConnectionChanged(UPSTREAM_IFACE, lp, -1);
-        verify(mRaDaemon).buildNewRa(any(), raParamsCaptor.capture());
+        verify(mRaDaemon).buildNewRaAndSend(any(), raParamsCaptor.capture());
         final RaParams cellularParams = raParamsCaptor.getValue();
         assertEquals(63, cellularParams.hopLimit);
         reset(mRaDaemon);
