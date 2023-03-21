@@ -205,6 +205,16 @@ additional_args = {
             'libgtest_prod_headers',
         }),
     ],
+    'cronet_aml_third_party_libevent_libevent': [
+      ('local_include_dirs', {
+          'third_party/libevent/compat/',
+      }),
+    ],
+    'cronet_aml_third_party_libevent_libevent__testing': [
+      ('local_include_dirs', {
+        'third_party/libevent/compat/',
+      }),
+    ],
 }
 
 def always_disable(module, arch):
@@ -1421,8 +1431,8 @@ def set_module_include_dirs(module, cflags, include_dirs):
   module.local_include_dirs.update([gn_utils.label_to_path(d)
                                  for d in include_dirs if not d.startswith('//out')])
   # Remove prohibited include directories
-  module.local_include_dirs = [d for d in module.local_include_dirs
-                               if d not in local_include_dirs_denylist]
+  module.local_include_dirs = set([d for d in module.local_include_dirs
+                               if d not in local_include_dirs_denylist])
 
 
 def create_modules_from_target(blueprint, gn, gn_target_name, is_test_target):
