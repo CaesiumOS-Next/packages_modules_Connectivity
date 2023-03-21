@@ -61,6 +61,7 @@ function gn_desc() {
     "enable_jdk_library_desugaring=false"
     "exclude_unwind_tables=true"
     "symbol_level=1"
+    "use_allocator_shim=false"
   )
   gn_args+=("target_cpu = \"${1}\"")
 
