@@ -2850,7 +2850,7 @@ public class Tethering {
 
         mLog.i("adding IpServer for: " + iface);
         final TetherState tetherState = new TetherState(
-                new IpServer(iface, mHandler, interfaceType, mLog, mNetd, mBpfCoordinator,
+                new IpServer(iface, mContext, mHandler, interfaceType, mLog, mNetd, mBpfCoordinator,
                         mRoutingCoordinator, makeControlCallback(), mConfig,
                         mPrivateAddressCoordinator, mTetheringMetrics,
                         mDeps.getIpServerDependencies()), isNcm);
