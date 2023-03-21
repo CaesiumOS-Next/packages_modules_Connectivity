@@ -38,6 +38,7 @@ import static com.android.networkstack.tethering.UpstreamNetworkState.isVcnInter
 import static com.android.networkstack.tethering.util.PrefixUtils.asIpPrefix;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_IPSERVER;
 
+import android.content.Context;
 import android.net.INetd;
 import android.net.INetworkStackStatusCallback;
 import android.net.IpPrefix;
@@ -195,8 +196,9 @@ public class IpServer extends StateMachineShim {
         }
 
         /** Create a RouterAdvertisementDaemon instance to be used by IpServer.*/
-        public RouterAdvertisementDaemon getRouterAdvertisementDaemon(InterfaceParams ifParams) {
-            return new RouterAdvertisementDaemon(ifParams);
+        public RouterAdvertisementDaemon getRouterAdvertisementDaemon(@NonNull Context context,
+                @NonNull InterfaceParams ifParams) {
+            return new RouterAdvertisementDaemon(context, ifParams);
         }
 
         /** Get |ifName|'s interface information.*/
@@ -257,6 +259,7 @@ public class IpServer extends StateMachineShim {
     @NonNull
     private final LateSdk<RoutingCoordinatorManager> mRoutingCoordinator;
     private final Callback mCallback;
+    private final Context mContext;
     private final InterfaceController mInterfaceCtrl;
     private final PrivateAddressCoordinator mPrivateAddressCoordinator;
 
@@ -320,8 +323,8 @@ public class IpServer extends StateMachineShim {
     // TODO: Add a dependency object to pass the data members or variables from the tethering
     // object. It helps to reduce the arguments of the constructor.
     public IpServer(
-            String ifaceName, Handler handler, int interfaceType, SharedLog log,
-            INetd netd, @NonNull BpfCoordinator bpfCoordinator,
+            String ifaceName, @NonNull Context context, Handler handler, int interfaceType,
+            SharedLog log, INetd netd, @NonNull BpfCoordinator bpfCoordinator,
             @Nullable LateSdk<RoutingCoordinatorManager> routingCoordinator, Callback callback,
             TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
             TetheringMetrics tetheringMetrics, Dependencies deps) {
@@ -332,6 +335,7 @@ public class IpServer extends StateMachineShim {
         mBpfCoordinator = bpfCoordinator;
         mRoutingCoordinator = routingCoordinator;
         mCallback = callback;
+        mContext = context;
         mInterfaceCtrl = new InterfaceController(ifaceName, mNetd, mLog);
         mIfaceName = ifaceName;
         mInterfaceType = interfaceType;
@@ -732,7 +736,7 @@ public class IpServer extends StateMachineShim {
             return false;
         }
 
-        mRaDaemon = mDeps.getRouterAdvertisementDaemon(mInterfaceParams);
+        mRaDaemon = mDeps.getRouterAdvertisementDaemon(mContext, mInterfaceParams);
         if (!mRaDaemon.start()) {
             stopIPv6();
             return false;
@@ -1058,7 +1062,7 @@ public class IpServer extends StateMachineShim {
             configureLocalIPv6Dns(deprecatedParams.dnses,
                     (newParams != null) ? newParams.dnses : null);
 
-            mRaDaemon.buildNewRa(deprecatedParams, newParams);
+            mRaDaemon.buildNewRaAndSend(deprecatedParams, newParams);
         }
 
         mLastRaParams = newParams;
