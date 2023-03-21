@@ -1058,7 +1058,7 @@ public class IpServer extends StateMachineShim {
             configureLocalIPv6Dns(deprecatedParams.dnses,
                     (newParams != null) ? newParams.dnses : null);
 
-            mRaDaemon.buildNewRa(deprecatedParams, newParams);
+            mRaDaemon.buildNewRaAndSend(deprecatedParams, newParams);
         }
 
         mLastRaParams = newParams;
