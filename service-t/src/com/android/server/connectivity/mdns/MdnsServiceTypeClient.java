@@ -36,7 +36,6 @@ import java.net.Inet6Address;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -64,14 +63,10 @@ public class MdnsServiceTypeClient {
     private final Object lock = new Object();
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
-    private final boolean removeServiceAfterTtlExpires =
-            MdnsConfigs.removeServiceAfterTtlExpires();
-    private final boolean allowSearchOptionsToRemoveExpiredService =
-            MdnsConfigs.allowSearchOptionsToRemoveExpiredService();
-
     private final MdnsResponseDecoder.Clock clock;
 
     @Nullable private MdnsSearchOptions searchOptions;
+    @Nullable private MdnsServiceCache.ServiceExpiredCallback serviceExpiredCallback;
 
     // The session ID increases when startSendAndReceive() is called where we schedule a
     // QueryTask for
@@ -184,6 +179,35 @@ public class MdnsServiceTypeClient {
             @NonNull MdnsSearchOptions searchOptions) {
         synchronized (lock) {
             this.searchOptions = searchOptions;
+            if (serviceExpiredCallback == null) {
+                serviceExpiredCallback = new MdnsServiceCache.ServiceExpiredCallback() {
+                    @Override
+                    public void onServiceRecordExpired(@NonNull MdnsResponse previousResponse,
+                            @Nullable MdnsResponse newResponse) {
+                        for (int i = 0; i < listeners.size(); i++) {
+                            final MdnsServiceBrowserListener listener = listeners.keyAt(i);
+                            final String serviceInstanceName =
+                                    previousResponse.getServiceInstanceName();
+                            if (serviceInstanceName != null) {
+                                final MdnsServiceInfo serviceInfo =
+                                        buildMdnsServiceInfoFromResponse(
+                                                previousResponse, serviceTypeLabels);
+                                if (previousResponse.isComplete()
+                                        && (newResponse == null || !newResponse.isComplete())) {
+                                    sharedLog.log("onServiceRemoved: " + serviceInstanceName);
+                                    listener.onServiceRemoved(serviceInfo);
+                                }
+                                if (newResponse == null) {
+                                    sharedLog.log("onServiceNameRemoved: " + serviceInstanceName);
+                                    listener.onServiceNameRemoved(serviceInfo);
+                                }
+                            }
+                        }
+                    }
+                };
+                serviceCache.registerServiceExpiredCallback(
+                        serviceType, network, serviceExpiredCallback);
+            }
             if (listeners.put(listener, searchOptions) == null) {
                 for (MdnsResponse existingResponse :
                         serviceCache.getCachedServices(serviceType, network)) {
@@ -239,6 +263,10 @@ public class MdnsServiceTypeClient {
             if (listeners.isEmpty() && requestTaskFuture != null) {
                 requestTaskFuture.cancel(true);
                 requestTaskFuture = null;
+                // Unregister the expired callback.
+                if (serviceExpiredCallback != null) {
+                    serviceCache.unregisterServiceExpiredCallback(serviceExpiredCallback);
+                }
             }
             return listeners.isEmpty();
         }
@@ -337,15 +365,6 @@ public class MdnsServiceTypeClient {
             sharedLog.log("onServiceNameRemoved: " + serviceInstanceName);
             listener.onServiceNameRemoved(serviceInfo);
         }
-    }
-
-    private boolean shouldRemoveServiceAfterTtlExpires() {
-        if (removeServiceAfterTtlExpires) {
-            return true;
-        }
-        return allowSearchOptionsToRemoveExpiredService
-                && searchOptions != null
-                && searchOptions.removeExpiredService();
     }
 
     @VisibleForTesting
@@ -533,43 +552,6 @@ public class MdnsServiceTypeClient {
                     }
                 }
                 handler.post(() -> {
-                    if (shouldRemoveServiceAfterTtlExpires()) {
-                        Iterator<MdnsResponse> iter =
-                                serviceCache.getCachedServices(serviceType, network).iterator();
-                        while (iter.hasNext()) {
-                            MdnsResponse existingResponse = iter.next();
-                            final String serviceInstanceName =
-                                    existingResponse.getServiceInstanceName();
-                            if (existingResponse.hasServiceRecord()
-                                    && existingResponse
-                                    .getServiceRecord()
-                                    .getRemainingTTL(clock.elapsedRealtime())
-                                    == 0) {
-                                serviceCache.removeService(
-                                        serviceInstanceName, serviceType, network);
-                                for (int i = 0; i < listeners.size(); i++) {
-                                    if (!responseMatchesOptions(existingResponse,
-                                            listeners.valueAt(i))) {
-                                        continue;
-                                    }
-                                    final MdnsServiceBrowserListener listener = listeners.keyAt(i);
-                                    if (serviceInstanceName != null) {
-                                        final MdnsServiceInfo serviceInfo =
-                                                buildMdnsServiceInfoFromResponse(
-                                                        existingResponse, serviceTypeLabels);
-                                        if (existingResponse.isComplete()) {
-                                            sharedLog.log("TTL expired. onServiceRemoved: "
-                                                    + serviceInstanceName);
-                                            listener.onServiceRemoved(serviceInfo);
-                                        }
-                                        sharedLog.log("TTL expired. onServiceNameRemoved: "
-                                                + serviceInstanceName);
-                                        listener.onServiceNameRemoved(serviceInfo);
-                                    }
-                                }
-                            }
-                        }
-                    }
                     QueryTaskConfig config = this.config.getConfigForNextRun();
                     requestTaskFuture =
                             executor.schedule(
