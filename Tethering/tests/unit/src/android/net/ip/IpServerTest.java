@@ -306,9 +306,9 @@ public class IpServerTest {
     private IpServer createIpServer(final int interfaceType) {
         mLooper = new TestLooper();
         mHandler = new Handler(mLooper.getLooper());
-        return new IpServer(IFACE_NAME, mHandler, interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mRoutingCoordinatorManager, mCallback, mTetherConfig, mAddressCoordinator,
-                mTetheringMetrics, mDependencies);
+        return new IpServer(IFACE_NAME, mHandler, interfaceType, mSharedLog, mNetd,
+                mBpfCoordinator, mRoutingCoordinatorManager, mCallback, mTetherConfig,
+                mAddressCoordinator, mTetheringMetrics, mDependencies);
 
     }
 
@@ -849,7 +849,7 @@ public class IpServerTest {
         final ArgumentCaptor<RaParams> raParamsCaptor =
                 ArgumentCaptor.forClass(RaParams.class);
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE);
-        verify(mRaDaemon).buildNewRa(any(), raParamsCaptor.capture());
+        verify(mRaDaemon).buildNewRaAndSend(any(), raParamsCaptor.capture());
         final RaParams noV6Params = raParamsCaptor.getValue();
         assertEquals(65, noV6Params.hopLimit);
         reset(mRaDaemon);
@@ -858,19 +858,19 @@ public class IpServerTest {
                 INetd.IPV6, INetd.CONF, UPSTREAM_IFACE, "hop_limit")).thenReturn("64");
         final LinkProperties lp = buildIpv6OnlyLinkProperties(UPSTREAM_IFACE);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE, lp, 1);
-        verify(mRaDaemon).buildNewRa(any(), raParamsCaptor.capture());
+        verify(mRaDaemon).buildNewRaAndSend(any(), raParamsCaptor.capture());
         final RaParams nonCellularParams = raParamsCaptor.getValue();
         assertEquals(65, nonCellularParams.hopLimit);
         reset(mRaDaemon);
 
         dispatchTetherConnectionChanged(UPSTREAM_IFACE, null, 0);
-        verify(mRaDaemon).buildNewRa(any(), raParamsCaptor.capture());
+        verify(mRaDaemon).buildNewRaAndSend(any(), raParamsCaptor.capture());
         final RaParams noUpstream = raParamsCaptor.getValue();
         assertEquals(65, nonCellularParams.hopLimit);
         reset(mRaDaemon);
 
         dispatchTetherConnectionChanged(UPSTREAM_IFACE, lp, -1);
-        verify(mRaDaemon).buildNewRa(any(), raParamsCaptor.capture());
+        verify(mRaDaemon).buildNewRaAndSend(any(), raParamsCaptor.capture());
         final RaParams cellularParams = raParamsCaptor.getValue();
         assertEquals(63, cellularParams.hopLimit);
         reset(mRaDaemon);
