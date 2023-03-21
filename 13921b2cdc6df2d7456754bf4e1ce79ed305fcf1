@@ -39,6 +39,30 @@
       },
       "revId": "13921b2cdc6df2d7456754bf4e1ce79ed305fcf1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a74ac9cd_e52e65c8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-21T01:15:35Z",
+      "side": 1,
+      "message": "Yes, I think so. Thanks for pointing this out. Because the NetlinkMonitor part is a todo item, I didn\u0027t notice this problem before. Yuyang has made a change on NetlinkMonitor part by aosp/2490879 and this code is removed in that CL.",
+      "parentUuid": "fba72ddc_131acf6d",
+      "range": {
+        "startLine": 213,
+        "startChar": 12,
+        "endLine": 213,
+        "endChar": 49
+      },
+      "revId": "13921b2cdc6df2d7456754bf4e1ce79ed305fcf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
