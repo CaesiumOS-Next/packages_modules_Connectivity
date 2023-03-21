@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1025457f_3225f8a0",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-03-21T22:29:23Z",
+      "side": 1,
+      "message": "Question: Is this going to cause any NPEs? It seems like this used to be effectively non-null, but now we\u0027re introducing a null?\n\nShould we instead throw that IPv6 UDP encap is not supported? Or perhaps this is expected, since the equivalent was a port of \"0\" in the past?",
+      "range": {
+        "startLine": 319,
+        "startChar": 84,
+        "endLine": 319,
+        "endChar": 88
+      },
+      "revId": "19e555925f695321a7ad182afc533257aa435efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
