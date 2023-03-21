@@ -37,6 +37,7 @@ import static com.android.networkstack.tethering.UpstreamNetworkState.isVcnInter
 import static com.android.networkstack.tethering.util.PrefixUtils.asIpPrefix;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_IPSERVER;
 
+import android.content.Context;
 import android.net.INetd;
 import android.net.INetworkStackStatusCallback;
 import android.net.IpPrefix;
@@ -189,8 +190,9 @@ public class IpServer extends StateMachine {
         }
 
         /** Create a RouterAdvertisementDaemon instance to be used by IpServer.*/
-        public RouterAdvertisementDaemon getRouterAdvertisementDaemon(InterfaceParams ifParams) {
-            return new RouterAdvertisementDaemon(ifParams);
+        public RouterAdvertisementDaemon getRouterAdvertisementDaemon(Context context,
+                InterfaceParams ifParams) {
+            return new RouterAdvertisementDaemon(context, ifParams);
         }
 
         /** Get |ifName|'s interface information.*/
@@ -245,6 +247,7 @@ public class IpServer extends StateMachine {
     @NonNull
     private final BpfCoordinator mBpfCoordinator;
     private final Callback mCallback;
+    private final Context mContext;
     private final InterfaceController mInterfaceCtrl;
     private final PrivateAddressCoordinator mPrivateAddressCoordinator;
 
@@ -299,7 +302,7 @@ public class IpServer extends StateMachine {
     // TODO: Add a dependency object to pass the data members or variables from the tethering
     // object. It helps to reduce the arguments of the constructor.
     public IpServer(
-            String ifaceName, Looper looper, int interfaceType, SharedLog log,
+            String ifaceName, Context context, Looper looper, int interfaceType, SharedLog log,
             INetd netd, @NonNull BpfCoordinator coordinator, Callback callback,
             TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
             TetheringMetrics tetheringMetrics, Dependencies deps) {
@@ -308,6 +311,7 @@ public class IpServer extends StateMachine {
         mNetd = netd;
         mBpfCoordinator = coordinator;
         mCallback = callback;
+        mContext = context;
         mInterfaceCtrl = new InterfaceController(ifaceName, mNetd, mLog);
         mIfaceName = ifaceName;
         mInterfaceType = interfaceType;
@@ -697,7 +701,7 @@ public class IpServer extends StateMachine {
             return false;
         }
 
-        mRaDaemon = mDeps.getRouterAdvertisementDaemon(mInterfaceParams);
+        mRaDaemon = mDeps.getRouterAdvertisementDaemon(mContext, mInterfaceParams);
         if (!mRaDaemon.start()) {
             stopIPv6();
             return false;
