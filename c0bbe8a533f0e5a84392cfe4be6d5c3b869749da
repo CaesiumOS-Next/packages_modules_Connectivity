@@ -41,6 +41,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbb6b57f_17af9ea4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-21T08:31:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfc8957d_dbe4b334",
+      "revId": "c0bbe8a533f0e5a84392cfe4be6d5c3b869749da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d63977a_842f62f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-21T08:31:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df13874e_112c8004",
+      "range": {
+        "startLine": 9,
+        "startChar": 39,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "c0bbe8a533f0e5a84392cfe4be6d5c3b869749da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a14a859c_038b8339",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-03-17T05:08:10Z",
       "side": 1,
       "message": "does not start",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "c0bbe8a533f0e5a84392cfe4be6d5c3b869749da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8815cd1f_542e60e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-21T08:31:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a14a859c_038b8339",
       "range": {
         "startLine": 10,
         "startChar": 0,
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0829e17_e091d102",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-21T08:31:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adf91d99_153d574d",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 52
+      },
+      "revId": "c0bbe8a533f0e5a84392cfe4be6d5c3b869749da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72f13cb6_843e2069",
@@ -100,6 +190,30 @@
       "writtenOn": "2023-03-17T05:08:10Z",
       "side": 1,
       "message": "and pass the thread to SMshim before the thread starts",
+      "range": {
+        "startLine": 13,
+        "startChar": 25,
+        "endLine": 13,
+        "endChar": 66
+      },
+      "revId": "c0bbe8a533f0e5a84392cfe4be6d5c3b869749da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05e7c0a2_1e3b05cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-21T08:31:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72f13cb6_843e2069",
       "range": {
         "startLine": 13,
         "startChar": 25,
