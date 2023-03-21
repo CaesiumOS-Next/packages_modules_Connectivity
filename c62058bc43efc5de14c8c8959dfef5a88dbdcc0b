@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83051a63_1d09f039",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-21T16:51:04Z",
+      "side": 1,
+      "message": "Can you add a couple of sentences on the jarjar rules (and why they are being added).",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 55
+      },
+      "revId": "c62058bc43efc5de14c8c8959dfef5a88dbdcc0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aaa16af_1f683320",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-21T16:51:04Z",
+      "side": 1,
+      "message": "nit: net-http-test-jarjar-rules?",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "c62058bc43efc5de14c8c8959dfef5a88dbdcc0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e729de0d_b5d174e3",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-21T16:51:04Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s needed if android.net is already part of the exclude.",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 79
+      },
+      "revId": "c62058bc43efc5de14c8c8959dfef5a88dbdcc0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33b46fa0_aa1dcc22",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-21T16:51:04Z",
+      "side": 1,
+      "message": "Is this correct? What breaks here?",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 32
+      },
+      "revId": "c62058bc43efc5de14c8c8959dfef5a88dbdcc0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4030f0c8_020a5270",
+        "filename": "Cronet/tests/mts/jarjar_excludes.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-21T16:51:04Z",
+      "side": 1,
+      "message": "Why are these being excluded? Can you also add a comment?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 43
+      },
+      "revId": "c62058bc43efc5de14c8c8959dfef5a88dbdcc0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
