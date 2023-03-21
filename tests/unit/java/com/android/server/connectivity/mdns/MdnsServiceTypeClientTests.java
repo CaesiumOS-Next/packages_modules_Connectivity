@@ -178,7 +178,7 @@ public class MdnsServiceTypeClientTests {
         thread = new HandlerThread("MdnsServiceTypeClientTests");
         thread.start();
         handler = new Handler(thread.getLooper());
-        serviceCache = new MdnsServiceCache(thread.getLooper());
+        serviceCache = new MdnsServiceCache(thread.getLooper(), mockDecoderClock);
         client =
                 new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                         mockDecoderClock, mockNetwork, mockSharedLog, handler, serviceCache) {
@@ -937,8 +937,8 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testProcessResponse_Resolve() throws Exception {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockNetwork, mockSharedLog, handler, serviceCache);
+        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient,
+                currentThreadExecutor, mockNetwork, mockSharedLog, handler, serviceCache);
 
         final String instanceName = "service-instance";
         final String[] hostname = new String[] { "testhost "};
@@ -1041,8 +1041,8 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testProcessResponse_ResolveExcludesOtherServices() {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockNetwork, mockSharedLog, handler, serviceCache);
+        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient,
+                currentThreadExecutor, mockNetwork, mockSharedLog, handler, serviceCache);
 
         final String requestedInstance = "instance1";
         final String otherInstance = "instance2";
