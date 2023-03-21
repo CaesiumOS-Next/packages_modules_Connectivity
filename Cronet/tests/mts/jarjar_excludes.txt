@@ -1,0 +1,5 @@
+androidx\..+
+android\.net\..+
+org\.chromium\.base\..+
+org\.chromium\.net\..*Test.*(\$.+)?
+org\.chromium\.net\.NativeTestServer(\$.+)?
