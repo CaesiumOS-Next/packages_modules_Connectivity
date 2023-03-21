@@ -175,15 +175,15 @@ public class MdnsServiceTypeClientTests {
         thread = new HandlerThread("MdnsServiceTypeClientTests");
         thread.start();
         handler = new Handler(thread.getLooper());
-        serviceCache = new MdnsServiceCache(thread.getLooper());
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                        mockDecoderClock, mockNetwork, serviceCache) {
+        serviceCache = new MdnsServiceCache(thread.getLooper(), mockDecoderClock);
+        handler.post(() -> client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient,
+                currentThreadExecutor, mockDecoderClock, mockNetwork, serviceCache) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
                     }
-                };
+        });
+        HandlerUtils.waitForIdle(handler, DEFAULT_TIMEOUT);
     }
 
     @After
@@ -802,8 +802,9 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testProcessResponse_Resolve() throws Exception {
-        client = new MdnsServiceTypeClient(
-                SERVICE_TYPE, mockSocketClient, currentThreadExecutor, mockNetwork, serviceCache);
+        handler.post(() -> client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient,
+                    currentThreadExecutor, mockNetwork, serviceCache));
+        HandlerUtils.waitForIdle(handler, DEFAULT_TIMEOUT);
 
         final String instanceName = "service-instance";
         final String[] hostname = new String[] { "testhost "};
@@ -899,8 +900,9 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testProcessResponse_ResolveExcludesOtherServices() {
-        client = new MdnsServiceTypeClient(
-                SERVICE_TYPE, mockSocketClient, currentThreadExecutor, mockNetwork, serviceCache);
+        handler.post(() -> client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient,
+                currentThreadExecutor, mockNetwork, serviceCache));
+        HandlerUtils.waitForIdle(handler, DEFAULT_TIMEOUT);
 
         final String requestedInstance = "instance1";
         final String otherInstance = "instance2";

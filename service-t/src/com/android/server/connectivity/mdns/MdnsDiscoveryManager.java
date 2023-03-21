@@ -172,6 +172,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
             if (serviceTypeClient.stopSendAndReceive(listener)) {
                 // No listener is registered for the service type anymore, remove it from the list
                 // of the service type clients.
+                serviceTypeClient.close();
                 perNetworkServiceTypeClients.remove(serviceTypeClient);
                 if (perNetworkServiceTypeClients.isEmpty()) {
                     // No discovery request. Stops the socket client.

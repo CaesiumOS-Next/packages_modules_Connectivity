@@ -58,6 +58,7 @@ public class MdnsServiceTypeClient {
     @Nullable private final Network network;
     @NonNull private final MdnsServiceCache serviceCache;
     @NonNull private final List<MdnsResponse> servicesToResolve = new ArrayList<>();
+    @NonNull private final MdnsServiceCache.ServiceExpiredCallback serviceExpiredCallback;
     private final Object lock = new Object();
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
@@ -104,6 +105,29 @@ public class MdnsServiceTypeClient {
         this.clock = clock;
         this.network = network;
         this.serviceCache = serviceCache;
+        serviceExpiredCallback = new MdnsServiceCache.ServiceExpiredCallback() {
+            @Override
+            public void onServiceExpired(@NonNull MdnsResponse response) {
+                for (int i = 0; i < listeners.size(); i++) {
+                    final MdnsServiceBrowserListener listener = listeners.keyAt(i);
+                    final String serviceInstanceName = response.getServiceInstanceName();
+                    if (serviceInstanceName != null) {
+                        final MdnsServiceInfo serviceInfo =
+                                buildMdnsServiceInfoFromResponse(response, serviceTypeLabels);
+                        if (response.isComplete()) {
+                            listener.onServiceRemoved(serviceInfo);
+                        }
+                        listener.onServiceNameRemoved(serviceInfo);
+                    }
+                }
+            }
+        };
+        serviceCache.registerServiceExpiredCallback(serviceType, network, serviceExpiredCallback);
+    }
+
+    /*** Close this MdnsServiceTypeClient and unregister callbacks */
+    public void close() {
+        serviceCache.unregisterServiceExpiredCallback(serviceExpiredCallback);
     }
 
     private static MdnsServiceInfo buildMdnsServiceInfoFromResponse(
