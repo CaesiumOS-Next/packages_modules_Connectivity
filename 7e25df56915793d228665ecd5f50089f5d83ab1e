@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2091d255_11444e6a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-22T18:14:09Z",
+      "side": 1,
+      "message": "Will do.",
+      "parentUuid": "61dfe346_6116cc93",
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fb75928_7bb7e1ab",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f76e0fdb_7a33522c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-22T18:14:09Z",
+      "side": 1,
+      "message": "As much as I would love the challenge of converting this to Kotlin(I already took a course on this), I would prefer to complete the tests and make sure we have the setup and all the requirements ready before thinking about converting to Kotlin.\nI\u0027ll create a bug to convert to Kotlin so as not to lose sight of this.",
+      "parentUuid": "8fb75928_7bb7e1ab",
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "525cf081_5dd68295",
@@ -48,6 +84,30 @@
       "writtenOn": "2022-11-17T05:23:40Z",
       "side": 1,
       "message": "Are we planning on putting all Cronet tests inside CronetApiTest, or should this be renamed to CronetUrlRequestTest? My suggestion would be to split tests up into smaller classes. We can move generally useful or common code to frameworks/libs/net/common/testutils.",
+      "range": {
+        "startLine": 50,
+        "startChar": 13,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff57f3cf_f1f28ca1",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-22T18:14:09Z",
+      "side": 1,
+      "message": "Yeah I plan to split them out once I add more tests and to separate the utility libraries as needed. Thanks",
+      "parentUuid": "525cf081_5dd68295",
       "range": {
         "startLine": 50,
         "startChar": 13,
@@ -81,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "124d36ed_e1d946e4",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-22T18:14:09Z",
+      "side": 1,
+      "message": "Will do.",
+      "parentUuid": "40d40d7c_890e75a9",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 33
+      },
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "668a011a_777767b4",
@@ -94,6 +178,30 @@
       "writtenOn": "2022-11-17T05:23:40Z",
       "side": 1,
       "message": "I am not a big fan of this. This makes the test pretty hard to read. Let\u0027s find a way to make VerifyUrlRequestCallback more useful.\n\nI think VerifyUrlRequestCallback should be changed to use ArrayTrackRecord, see [EthernetStateListener](https://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/cts/net/src/android/net/cts/EthernetManagerTest.kt;l\u003d198), or [TestableNetworkCallback](https://source.corp.google.com/aosp-master/frameworks/libs/net/common/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt) for example.\n\nThis will allow the tests to look somewhat like:\n```\nfinal VerifyUrlRequestCallback cb \u003d new VerifyUrlRequestCallback();\nfinal UrlRequest request \u003d mCronetEngine.newUrlRequestBuilder(...).build();\nrequest.start();\ncb.expectCallbackA();\ncb.expectCallbackB();\ncb.expectOnSucceeded();\n```",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 8
+      },
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4232c766_1d600f12",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-22T18:14:09Z",
+      "side": 1,
+      "message": "I definitely agree. Overriding the callback each time isn\u0027t clean. I planned to restructure this to look like what we have on chromium, I waiting for when I have more tests but I guess that wasn\u0027t a good plan. Will restructure now and send a separate cl.\n\nThanks!",
+      "parentUuid": "668a011a_777767b4",
       "range": {
         "startLine": 106,
         "startChar": 8,
@@ -127,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f87e1748_97354bd6",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-22T18:14:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90e60840_37e08caf",
+      "range": {
+        "startLine": 141,
+        "startChar": 11,
+        "endLine": 141,
+        "endChar": 68
+      },
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a27f98f7_aadc5b76",
@@ -140,6 +272,30 @@
       "writtenOn": "2022-11-17T05:23:40Z",
       "side": 1,
       "message": "(I know this was preexisting, but) this should also just be \"UrlRequestCallback\"",
+      "range": {
+        "startLine": 154,
+        "startChar": 25,
+        "endLine": 154,
+        "endChar": 49
+      },
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f4ad3cc_c0c358a2",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-22T18:14:09Z",
+      "side": 1,
+      "message": "Done in aosp/2303180",
+      "parentUuid": "a27f98f7_aadc5b76",
       "range": {
         "startLine": 154,
         "startChar": 25,
