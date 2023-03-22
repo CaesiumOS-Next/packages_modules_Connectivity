@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a20dd84_cdf53b92",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-22T03:57:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae1d4306_ce5dca4e",
+      "range": {
+        "startLine": 53,
+        "startChar": 27,
+        "endLine": 53,
+        "endChar": 48
+      },
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef316bc4_8d89137d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-15T09:35:42Z",
       "side": 1,
       "message": "Calling this while holding the lock for mCallbacks and mCachedServices seems a bit dangerous. Could you take a handler as argument to post the callback ?\n\nIdeally the cache would be auto-cleared based on TTL without having to call checkAndNotifyTtlExpiredServices; the Handler is also necessary for that.",
+      "range": {
+        "startLine": 196,
+        "startChar": 36,
+        "endLine": 196,
+        "endChar": 52
+      },
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3138be5_b368614d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-22T03:57:41Z",
+      "side": 1,
+      "message": "Now, the expiration check is running on handler, so I think it\u0027s safe to post this callback directly.",
+      "parentUuid": "ef316bc4_8d89137d",
       "range": {
         "startLine": 196,
         "startChar": 36,
@@ -66,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce1da1f1_74e46ece",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-22T03:57:41Z",
+      "side": 1,
+      "message": "I update the design that TTL check will be triggered every 120s. But I\u0027m not sure how to use the SparseArray\u003cMdnsResponse\u003e that you suggest. The key-expiration date is an int that can be duplicated, so it might lose some responses during saving. Besides, I look up and check ttl time on all responses now, I\u0027m not sure how to make it more efficient by using another array for checking.",
+      "parentUuid": "cd7dc474_93321afb",
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35562c25_ae91e10b",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 3
@@ -77,6 +143,30 @@
       "writtenOn": "2023-03-15T09:35:42Z",
       "side": 1,
       "message": "Nit: maybe make it more generic like close() ? The caller shouldn\u0027t need to know what the serviceExpireCallback is, since it\u0027s internal to MdnsServiceTypeClient + MdnsServiceCache",
+      "range": {
+        "startLine": 134,
+        "startChar": 16,
+        "endLine": 134,
+        "endChar": 47
+      },
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aef739f5_da62fb29",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-22T03:57:41Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "35562c25_ae91e10b",
       "range": {
         "startLine": 134,
         "startChar": 16,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f5087c3_afd7fd08",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-22T03:57:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92b01814_a0943c88",
+      "range": {
+        "startLine": 108,
+        "startChar": 24,
+        "endLine": 108,
+        "endChar": 34
+      },
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07a5a74a_a6c0cb2d",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-03-15T09:35:42Z",
       "side": 1,
       "message": "Nit: unused ?",
+      "range": {
+        "startLine": 151,
+        "startChar": 21,
+        "endLine": 151,
+        "endChar": 31
+      },
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e785f4f_e0bbeefd",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-22T03:57:41Z",
+      "side": 1,
+      "message": "No, it\u0027s the default TTL time.",
+      "parentUuid": "07a5a74a_a6c0cb2d",
       "range": {
         "startLine": 151,
         "startChar": 21,
