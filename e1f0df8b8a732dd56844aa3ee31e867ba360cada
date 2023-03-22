@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20cb1b3d_be323e58",
+        "filename": "Cronet/tests/mts/jarjar_excludes.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-22T14:59:07Z",
+      "side": 1,
+      "message": "Oh, really? Do you know why? I thought it was the opposite, specifically the lack of compatibility guarantees would force you to jarjar.",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 45
+      },
+      "revId": "e1f0df8b8a732dd56844aa3ee31e867ba360cada",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
