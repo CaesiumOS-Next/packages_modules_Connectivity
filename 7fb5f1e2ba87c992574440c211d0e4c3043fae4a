@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c1c5013_478e16a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-22T08:44:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c58abdac_1cffe9b0",
+      "range": {
+        "startLine": 9,
+        "startChar": 39,
+        "endLine": 9,
+        "endChar": 56
+      },
+      "revId": "7fb5f1e2ba87c992574440c211d0e4c3043fae4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6891991_84bc5158",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-22T07:22:08Z",
       "side": 1,
       "message": "How about buildTemplateBluetooth buildTemplateProxy and buildTemplateEthernet?",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "7fb5f1e2ba87c992574440c211d0e4c3043fae4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa496ff4_468d49d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-22T08:44:58Z",
+      "side": 1,
+      "message": "As discussed in chat, these was already added back mainly in aosp/2450125",
+      "parentUuid": "c6891991_84bc5158",
       "range": {
         "startLine": 10,
         "startChar": 15,
@@ -70,6 +118,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aad0a0a9_22614864",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-22T08:44:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a84cc7b_56535c07",
+      "range": {
+        "startLine": 340,
+        "startChar": 16,
+        "endLine": 340,
+        "endChar": 30
+      },
+      "revId": "7fb5f1e2ba87c992574440c211d0e4c3043fae4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1f4114d_f0ef4b90",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-22T08:44:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a84cc7b_56535c07",
+      "range": {
+        "startLine": 340,
+        "startChar": 16,
+        "endLine": 340,
+        "endChar": 30
+      },
+      "revId": "7fb5f1e2ba87c992574440c211d0e4c3043fae4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b93fe1f_1390bad4",
@@ -83,6 +179,30 @@
       "writtenOn": "2023-03-22T07:22:08Z",
       "side": 1,
       "message": "Since this is not supported in U already, maybe we can just call normalize(NetworkTemplate template, List\u003cString[]\u003e mergedList) instead of separate them into 2 functions?",
+      "range": {
+        "startLine": 937,
+        "startChar": 5,
+        "endLine": 937,
+        "endChar": 24
+      },
+      "revId": "7fb5f1e2ba87c992574440c211d0e4c3043fae4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb17a1e9_f173cf67",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-22T08:44:58Z",
+      "side": 1,
+      "message": "This is @UnsupportedAppUsage for target SDK U+, but an app that targets T can still call this on U. Unfortunately I think this still needs to be supported on U because it was just marked @UnsupportedAppUsage on T",
+      "parentUuid": "7b93fe1f_1390bad4",
       "range": {
         "startLine": 937,
         "startChar": 5,
