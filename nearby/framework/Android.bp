@@ -50,6 +50,7 @@ java_library {
     ],
     static_libs: [
         "modules-utils-preconditions",
+        "androidx.annotation_annotation",
     ],
     visibility: ["//packages/modules/Connectivity/nearby/tests:__subpackages__"],
 }
