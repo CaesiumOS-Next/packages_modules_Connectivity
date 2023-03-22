@@ -154,11 +154,14 @@ public class KeepaliveTracker {
         private final Duration mInterval;
 
         // Whether the keepalive is started or not. The initial state is NOT_STARTED.
-        private static final int NOT_STARTED = 1;
+        @VisibleForTesting
+        public static final int NOT_STARTED = 1;
         private static final int STARTING = 2;
-        private static final int STARTED = 3;
+        @VisibleForTesting
+        public static final int STARTED = 3;
         private static final int STOPPING = 4;
-        private int mStartedState = NOT_STARTED;
+        @VisibleForTesting
+        public int mStartedState = NOT_STARTED;
         private int mStopReason = ERROR_STOP_REASON_UNINITIALIZED;
 
         KeepaliveInfo(@NonNull ISocketKeepaliveCallback callback,
