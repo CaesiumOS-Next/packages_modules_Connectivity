@@ -113,8 +113,10 @@ public class AutomaticOnOffKeepaliveTracker {
      *
      * When finishing keepalive, this object is deleted.
      */
-    private static final int STATE_ENABLED = 0;
-    private static final int STATE_SUSPENDED = 1;
+    @VisibleForTesting
+    public static final int STATE_ENABLED = 0;
+    @VisibleForTesting
+    public static final int STATE_SUSPENDED = 1;
     private static final int STATE_ALWAYS_ON = 2;
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(prefix = { "STATE_" }, value = {
@@ -179,8 +181,7 @@ public class AutomaticOnOffKeepaliveTracker {
         private final Network mUnderpinnedNetwork;
 
         AutomaticOnOffKeepalive(@NonNull final KeepaliveTracker.KeepaliveInfo ki,
-                final boolean autoOnOff, @NonNull Context context,
-                @Nullable Network underpinnedNetwork)
+                final boolean autoOnOff, @Nullable Network underpinnedNetwork)
                 throws InvalidSocketException {
             this.mKi = Objects.requireNonNull(ki);
             mCallback = ki.mCallback;
@@ -214,6 +215,16 @@ public class AutomaticOnOffKeepaliveTracker {
         @VisibleForTesting
         public ISocketKeepaliveCallback getCallback() {
             return mCallback;
+        }
+
+        @VisibleForTesting
+        public int getAutomaticOnOffState() {
+            return mAutomaticOnOffState;
+        }
+
+        @VisibleForTesting
+        public KeepaliveTracker.KeepaliveInfo getKi() {
+            return mKi;
         }
 
         public Network getNetwork() {
@@ -349,8 +360,18 @@ public class AutomaticOnOffKeepaliveTracker {
             mKeepaliveTracker.notifyErrorCallback(autoKi.mCallback, ERROR_INVALID_SOCKET);
             return;
         }
-        autoKi.mAutomaticOnOffState = STATE_ENABLED;
-        handleResumeKeepalive(newKi);
+
+        try {
+            // Renew the KeepaliveInfo inside AutomaticOnOffKeepalive.
+            final AutomaticOnOffKeepalive newAutoKi = new AutomaticOnOffKeepalive(
+                    newKi, true /* autoOnOff */, autoKi.mUnderpinnedNetwork);
+            newAutoKi.mAutomaticOnOffState = STATE_ENABLED;
+            mAutomaticOnOffKeepalives.remove(autoKi);
+            mAutomaticOnOffKeepalives.add(newAutoKi);
+            handleResumeKeepalive(newKi);
+        } catch (InvalidSocketException e) {
+            mKeepaliveTracker.notifyErrorCallback(autoKi.getCallback(), e.error);
+        }
     }
 
     /**
@@ -466,7 +487,7 @@ public class AutomaticOnOffKeepaliveTracker {
         if (null == ki) return;
         try {
             final AutomaticOnOffKeepalive autoKi = new AutomaticOnOffKeepalive(ki,
-                    automaticOnOffKeepalives, mContext, underpinnedNetwork);
+                    automaticOnOffKeepalives, underpinnedNetwork);
             mConnectivityServiceHandler.obtainMessage(NetworkAgent.CMD_START_SOCKET_KEEPALIVE,
                     // TODO : move ConnectivityService#encodeBool to a static lib.
                     automaticOnOffKeepalives ? 1 : 0, 0, autoKi).sendToTarget();
@@ -496,7 +517,7 @@ public class AutomaticOnOffKeepaliveTracker {
         if (null == ki) return;
         try {
             final AutomaticOnOffKeepalive autoKi = new AutomaticOnOffKeepalive(ki,
-                    automaticOnOffKeepalives, mContext, underpinnedNetwork);
+                    automaticOnOffKeepalives, underpinnedNetwork);
             mConnectivityServiceHandler.obtainMessage(NetworkAgent.CMD_START_SOCKET_KEEPALIVE,
                     // TODO : move ConnectivityService#encodeBool to a static lib.
                     automaticOnOffKeepalives ? 1 : 0, 0, autoKi).sendToTarget();
@@ -526,7 +547,7 @@ public class AutomaticOnOffKeepaliveTracker {
         try {
             final AutomaticOnOffKeepalive autoKi = new AutomaticOnOffKeepalive(ki,
                     false /* autoOnOff, tcp keepalives are never auto on/off */,
-                    mContext, null /* underpinnedNetwork, tcp keepalives do not refer to this */);
+                    null /* underpinnedNetwork, tcp keepalives do not refer to this */);
             mConnectivityServiceHandler.obtainMessage(CMD_START_SOCKET_KEEPALIVE, autoKi)
                     .sendToTarget();
         } catch (InvalidSocketException e) {
