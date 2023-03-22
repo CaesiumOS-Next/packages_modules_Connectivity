@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30bdd1b_67babec2",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-22T03:02:55Z",
+      "side": 1,
+      "message": "This is in a list that says \"Tests using hidden APIs\"; can you consolidate it on the top section where there is already an allow for Connectivity/nearby/service on line 142 (which can now be removed) ?",
+      "revId": "41228921c1537a1f77523cf3330a6333b29bef0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
