@@ -445,6 +445,7 @@ class Module(object):
     self.target['android_arm'] = Target('android_arm')
     self.target['android_arm64'] = Target('android_arm64')
     self.target['host'] = Target('host')
+    self.target['glibc'] = Target('glibc')
     self.stl = None
     self.cpp_std = None
     self.dist = dict()
@@ -1748,6 +1749,21 @@ def update_jni_registration_module(module, gn):
                       for source in get_non_api_java_sources(gn)
                       if source.endswith('.java')])
 
+
+def turn_off_parition_alloc_for_musl(module):
+  allocation_shim = "base/allocator/partition_allocator/shim/allocator_shim.cc"
+  parition_alloc_files = {
+    allocation_shim,
+    "base/allocator/partition_allocator/shim/allocator_shim_default_dispatch_to_glibc.cc",
+  }
+  module.srcs = module.srcs.difference(parition_alloc_files)
+  for arch in module.target.values():
+    arch.srcs = arch.srcs.difference(parition_alloc_files)
+  module.target['android'].srcs.update([allocation_shim])
+  if gn_utils.TESTING_SUFFIX in module.name:
+    # Production base is not compiled for host. No need to add glibc to it
+    module.target['glibc'].srcs.update(parition_alloc_files)
+
 def create_blueprint_for_targets(gn, targets, test_targets):
   """Generate a blueprint for a list of GN targets."""
   blueprint = Blueprint()
@@ -1807,6 +1823,8 @@ def create_blueprint_for_targets(gn, targets, test_targets):
   for module in blueprint.modules.values():
     if 'cronet_jni_registration' in module.name:
       update_jni_registration_module(module, gn)
+    if module.name in ['cronet_aml_base_base', 'cronet_aml_base_base' + gn_utils.TESTING_SUFFIX]:
+      turn_off_parition_alloc_for_musl(module)
 
   # Merge in additional hardcoded arguments.
   for module in blueprint.modules.values():
