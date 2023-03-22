@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c58abdac_1cffe9b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-22T07:22:08Z",
+      "side": 1,
+      "message": "nit: Maybe reference to aosp/2286634 if you think it is more clear.",
+      "range": {
+        "startLine": 9,
+        "startChar": 39,
+        "endLine": 9,
+        "endChar": 56
+      },
+      "revId": "7fb5f1e2ba87c992574440c211d0e4c3043fae4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6891991_84bc5158",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-22T07:22:08Z",
+      "side": 1,
+      "message": "How about buildTemplateBluetooth buildTemplateProxy and buildTemplateEthernet?",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "7fb5f1e2ba87c992574440c211d0e4c3043fae4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a84cc7b_56535c07",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-22T07:22:08Z",
+      "side": 1,
+      "message": "IIUC this is not needed since Set.of do the null check.",
+      "range": {
+        "startLine": 340,
+        "startChar": 16,
+        "endLine": 340,
+        "endChar": 30
+      },
+      "revId": "7fb5f1e2ba87c992574440c211d0e4c3043fae4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b93fe1f_1390bad4",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-22T07:22:08Z",
+      "side": 1,
+      "message": "Since this is not supported in U already, maybe we can just call normalize(NetworkTemplate template, List\u003cString[]\u003e mergedList) instead of separate them into 2 functions?",
+      "range": {
+        "startLine": 937,
+        "startChar": 5,
+        "endLine": 937,
+        "endChar": 24
+      },
+      "revId": "7fb5f1e2ba87c992574440c211d0e4c3043fae4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
