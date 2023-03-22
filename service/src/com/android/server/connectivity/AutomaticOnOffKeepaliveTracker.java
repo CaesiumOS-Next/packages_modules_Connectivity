@@ -113,8 +113,10 @@ public class AutomaticOnOffKeepaliveTracker {
      *
      * When finishing keepalive, this object is deleted.
      */
-    private static final int STATE_ENABLED = 0;
-    private static final int STATE_SUSPENDED = 1;
+    @VisibleForTesting
+    public static final int STATE_ENABLED = 0;
+    @VisibleForTesting
+    public static final int STATE_SUSPENDED = 1;
     private static final int STATE_ALWAYS_ON = 2;
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(prefix = { "STATE_" }, value = {
@@ -165,8 +167,11 @@ public class AutomaticOnOffKeepaliveTracker {
      * See the documentation for the states for more detail.
      */
     public class AutomaticOnOffKeepalive implements IBinder.DeathRecipient {
+        // A new AutomaticOnOffKeepalive is created in the callers' thread. The mKi should only be
+        // updated or accessed inside ConnectivityService handler thread after creating it as the
+        // KeepaliveInfos are handled in the handler thread.
         @NonNull
-        private final KeepaliveTracker.KeepaliveInfo mKi;
+        private KeepaliveTracker.KeepaliveInfo mKi;
         @NonNull
         private final ISocketKeepaliveCallback mCallback;
         @Nullable
@@ -213,6 +218,16 @@ public class AutomaticOnOffKeepaliveTracker {
         @VisibleForTesting
         public ISocketKeepaliveCallback getCallback() {
             return mCallback;
+        }
+
+        @VisibleForTesting
+        public int getAutomaticOnOffState() {
+            return mAutomaticOnOffState;
+        }
+
+        @VisibleForTesting
+        public KeepaliveTracker.KeepaliveInfo getKi() {
+            return mKi;
         }
 
         public Network getNetwork() {
@@ -348,6 +363,8 @@ public class AutomaticOnOffKeepaliveTracker {
             mKeepaliveTracker.notifyErrorCallback(autoKi.mCallback, ERROR_INVALID_SOCKET);
             return;
         }
+        // Renew the KeepaliveInfo inside AutomaticOnOffKeepalive.
+        autoKi.mKi = newKi;
         autoKi.mAutomaticOnOffState = STATE_ENABLED;
         handleResumeKeepalive(newKi);
     }
@@ -680,6 +697,7 @@ public class AutomaticOnOffKeepaliveTracker {
     }
 
     private long getTcpPollingIntervalMs(@NonNull AutomaticOnOffKeepalive ki) {
+        ensureRunningOnHandlerThread();
         final boolean useLowTimer = mTestLowTcpPollingTimerUntilMs > System.currentTimeMillis();
         // Adjust the polling interval to be smaller than the keepalive delay to preserve
         // some time for the system to restart the keepalive.
