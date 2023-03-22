@@ -21,6 +21,8 @@ import static android.net.ConnectivityManager.TYPE_MOBILE;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 
 import static com.android.server.connectivity.AutomaticOnOffKeepaliveTracker.ADJUST_TCP_POLLING_DELAY_MS;
+import static com.android.server.connectivity.AutomaticOnOffKeepaliveTracker.STATE_ENABLED;
+import static com.android.server.connectivity.AutomaticOnOffKeepaliveTracker.STATE_SUSPENDED;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -226,6 +228,15 @@ public class AutomaticOnOffKeepaliveTrackerTest {
             }
             return mKi;
         }
+
+        public void handleStopKeepalive(NetworkAgentInfo nai, int slot, int reason) {
+            mKi.mStartedState = KeepaliveInfo.NOT_STARTED;
+        }
+
+        public void handleStartKeepalive(KeepaliveInfo ki) {
+            ki.mStartedState = KeepaliveInfo.STARTED;
+            mKi = ki;
+        }
     }
 
     @Before
@@ -260,7 +271,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
 
     private final class AOOTestHandler extends Handler {
         public AutomaticOnOffKeepaliveTracker.AutomaticOnOffKeepalive mLastAutoKi = null;
-
+        private boolean mUnderpinnedNetworkFound = false;
         AOOTestHandler(@NonNull final Looper looper) {
             super(looper);
         }
@@ -275,8 +286,18 @@ public class AutomaticOnOffKeepaliveTrackerTest {
                 case NetworkAgent.CMD_MONITOR_AUTOMATIC_KEEPALIVE:
                     Log.d(TAG, "Test handler received CMD_MONITOR_AUTOMATIC_KEEPALIVE : " + msg);
                     mLastAutoKi = mAOOKeepaliveTracker.getKeepaliveForBinder((IBinder) msg.obj);
+                    if (mUnderpinnedNetworkFound) {
+                        mAOOKeepaliveTracker.handleMonitorAutomaticKeepalive(
+                                mLastAutoKi, mLastAutoKi.getUnderpinnedNetwork().netId);
+                    } else {
+                        mAOOKeepaliveTracker.handleMaybeResumeKeepalive(mLastAutoKi);
+                    }
                     break;
             }
+        }
+
+        public void setUnderpinnedNetworkFound(boolean found) {
+            mUnderpinnedNetworkFound = found;
         }
     }
 
@@ -309,7 +330,72 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     }
 
     @Test
+    public void testAutoOnOffKeepalive_resumeWithCorrectState() throws Exception {
+        final Network underpinnedNetwork = new Network(TEST_NETID);
+        final ISocketKeepaliveCallback cb = mock(ISocketKeepaliveCallback.class);
+
+        try (Socket socket = new Socket()) {
+            final KeepaliveInfo ki = startAutoKeepalive(socket, cb, underpinnedNetwork);
+
+            setupResponseWithoutSocketExisting();
+            mTestHandler.setUnderpinnedNetworkFound(true);
+            final AlarmManager.OnAlarmListener listener =
+                    getListenerAndVerifyAlarm(ki, cb, underpinnedNetwork);
+            assertEquals(STATE_SUSPENDED, mTestHandler.mLastAutoKi.getAutomaticOnOffState());
+
+            setupResponseWithSocketExisting();
+            processAlarmEvent(listener);
+            // Keepalive is expected to resume in the first alarm event. But the test can not get
+            // the correct autoKi. Trigger another alarm so that test handler can get the correct
+            // autoKi.
+            processAlarmEvent(listener);
+
+            assertEquals(STATE_ENABLED, mTestHandler.mLastAutoKi.getAutomaticOnOffState());
+            assertEquals(KeepaliveInfo.STARTED, mTestHandler.mLastAutoKi.getKi().mStartedState);
+        }
+    }
+
+    @Test
     public void testAlarm() throws Exception {
+        final Network underpinnedNetwork = mock(Network.class);
+        final ISocketKeepaliveCallback cb = mock(ISocketKeepaliveCallback.class);
+        try (Socket socket = new Socket()) {
+            final KeepaliveInfo ki = startAutoKeepalive(socket, cb, underpinnedNetwork);
+            getListenerAndVerifyAlarm(ki, cb, underpinnedNetwork);
+        }
+    }
+
+    private void processAlarmEvent(AlarmManager.OnAlarmListener listener) {
+        // For realism, the listener should be posted on the handler
+        mTestHandler.post(() -> listener.onAlarm());
+        // Wait for the listener to be called. The listener enqueues a message to the handler.
+        HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
+        // Wait for the message posted by the listener to be processed.
+        HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
+    }
+
+    private AlarmManager.OnAlarmListener getListenerAndVerifyAlarm(KeepaliveInfo ki,
+            ISocketKeepaliveCallback cb, Network underpinnedNetwork) {
+        // Mock elapsed real time to verify the alarm timer.
+        doReturn(0L).when(mDependencies).getElapsedRealtime();
+        final ArgumentCaptor<AlarmManager.OnAlarmListener> listenerCaptor =
+                ArgumentCaptor.forClass(AlarmManager.OnAlarmListener.class);
+        verify(mAlarmManager).setExact(eq(AlarmManager.ELAPSED_REALTIME),
+                eq(Long.valueOf(
+                        ki.getKeepaliveIntervalSec() * 1000 - ADJUST_TCP_POLLING_DELAY_MS)),
+                any() /* tag */, listenerCaptor.capture(), eq(mTestHandler));
+        final AlarmManager.OnAlarmListener listener = listenerCaptor.getValue();
+
+        processAlarmEvent(listener);
+
+        assertNotNull(mTestHandler.mLastAutoKi);
+        assertEquals(cb, mTestHandler.mLastAutoKi.getCallback());
+        assertEquals(underpinnedNetwork, mTestHandler.mLastAutoKi.getUnderpinnedNetwork());
+        return listener;
+    }
+
+    private KeepaliveInfo startAutoKeepalive(Socket socket, ISocketKeepaliveCallback cb,
+            Network underpinnedNetwork) throws Exception {
         final InetAddress srcAddress = InetAddress.getByAddress(
                 new byte[] { (byte) 192, 0, 0, (byte) 129 });
         final int srcPort = 12345;
@@ -325,13 +411,10 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         nai.linkProperties = new LinkProperties();
         nai.linkProperties.addLinkAddress(new LinkAddress(srcAddress, 24));
 
-        final Socket socket = new Socket();
         socket.bind(null);
         final FileDescriptor fd = socket.getFileDescriptor$();
         final IBinder binder = new Binder();
-        final ISocketKeepaliveCallback cb = mock(ISocketKeepaliveCallback.class);
         doReturn(binder).when(cb).asBinder();
-        final Network underpinnedNetwork = mock(Network.class);
 
         final KeepalivePacketData kpd = new NattKeepalivePacketData(srcAddress, srcPort,
                 dstAddress, dstPort, new byte[] {1});
@@ -344,26 +427,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
                 true /* automaticOnOffKeepalives */, underpinnedNetwork);
         HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
 
-        // Mock elapsed real time to verify the alarm timer.
-        doReturn(0L).when(mDependencies).getElapsedRealtime();
-        final ArgumentCaptor<AlarmManager.OnAlarmListener> listenerCaptor =
-                ArgumentCaptor.forClass(AlarmManager.OnAlarmListener.class);
-        verify(mAlarmManager).setExact(eq(AlarmManager.ELAPSED_REALTIME),
-                eq(ki.getKeepaliveInterval().getSeconds() * 1000L - ADJUST_TCP_POLLING_DELAY_MS),
-                any() /* tag */, listenerCaptor.capture(), eq(mTestHandler));
-        final AlarmManager.OnAlarmListener listener = listenerCaptor.getValue();
-
-        // For realism, the listener should be posted on the handler
-        mTestHandler.post(() -> listener.onAlarm());
-        // Wait for the listener to be called. The listener enqueues a message to the handler.
-        HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
-        // Wait for the message posted by the listener to be processed.
-        HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
-
-        assertNotNull(mTestHandler.mLastAutoKi);
-        assertEquals(cb, mTestHandler.mLastAutoKi.getCallback());
-        assertEquals(underpinnedNetwork, mTestHandler.mLastAutoKi.getUnderpinnedNetwork());
-        socket.close();
+        return ki;
     }
 
     private void setupResponseWithSocketExisting() throws Exception {
