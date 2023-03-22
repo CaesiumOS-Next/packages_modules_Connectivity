@@ -440,6 +440,22 @@ public class RouterAdvertisementDaemon {
             return;
         }
 
+        // As per RFC4861#6.2.5, the router SHOULD transmit one or more final multicast Router
+        // Advertisements on the interface before ceasing to be an advertising interface. Since the
+        // caller may shutdown or remove the interface immediately after calling stop(), we should
+        // wait until the CMD_STOP message has been processed successfully before return.
+        int waitLoopCount = 300; // maximal waiting time is 3 seconds
+        while (mRaMessageHandler.hasMessages(CMD_STOP)
+                && --waitLoopCount >= 0) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException ignored) {
+            }
+        }
+        if (mRaMessageHandler.hasMessages(CMD_STOP)) {
+            Log.e(TAG, "RaDaemon can't be stopped gracefully");
+        }
+
         mRaHandlerThread.quitSafely();
         mRaHandlerThread = null;
         mRaMessageHandler = null;
