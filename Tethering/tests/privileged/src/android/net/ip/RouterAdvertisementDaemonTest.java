@@ -178,6 +178,7 @@ public final class RouterAdvertisementDaemonTest {
                 return false;
             }
             final ByteBuffer buf = ByteBuffer.wrap(pkt);
+            final boolean hasRaParams = (mNewParams != null);
 
             // Parse Ethernet header
             final EthernetHeader ethHdr = Struct.parse(EthernetHeader.class, buf);
@@ -205,7 +206,8 @@ public final class RouterAdvertisementDaemonTest {
 
             // Parse RA header
             final RaHeader raHdr = Struct.parse(RaHeader.class, buf);
-            assertEquals(mNewParams.hopLimit, raHdr.hopLimit);
+            assertEquals(hasRaParams ? mNewParams.hopLimit : RaParams.DEFAULT_HOPLIMIT,
+                    raHdr.hopLimit);
 
             while (buf.position() < pkt.length) {
                 final int currentPos = buf.position();
@@ -225,7 +227,7 @@ public final class RouterAdvertisementDaemonTest {
 
                         final InetAddress address = InetAddress.getByAddress(pio.prefix);
                         final IpPrefix prefix = new IpPrefix(address, pio.prefixLen);
-                        if (mNewParams.prefixes.contains(prefix)) {
+                        if (mNewParams != null && mNewParams.prefixes.contains(prefix)) {
                             assertTrue(pio.validLifetime > 0);
                             assertTrue(pio.preferredLifetime > 0);
                         } else if (mOldParams != null && mOldParams.prefixes.contains(prefix)) {
@@ -393,5 +395,18 @@ public final class RouterAdvertisementDaemonTest {
         }
 
         mRaDaemon.stop();
+    }
+
+    @Test
+    public void testFinalMulticastRouterAdvertisement() throws Exception {
+        assertTrue(mRaDaemon.start());
+        final RaParams params = createRaParams("2001:1122:3344::5566");
+        mRaDaemon.buildNewRa(null, params);
+        assertMulticastRaPacket(new TestRaPacket(null, params));
+        mRaDaemon.buildNewRa(params, null);
+        mRaDaemon.stop();
+        // Verify that the final multicast Router Advertisement on the interface has been sent out
+        // before it ceasing to be an advertising interface.
+        assertMulticastRaPacket(new TestRaPacket(params, null));
     }
 }
