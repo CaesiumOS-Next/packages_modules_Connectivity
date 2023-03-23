@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9fb5b74_7cff5e5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-23T01:20:23Z",
+      "side": 1,
+      "message": "Lorenzo should +2 eventually, I have owners in CTS for cherry-picks, and for flake fixes only",
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "345dc263_74a8524a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2086,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-23T01:20:23Z",
+      "side": 1,
+      "message": "This test already checks it here, I think the rest of the test is supposed to still run otherwise",
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5de4449_94d56ae9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2721,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-23T01:20:23Z",
+      "side": 1,
+      "message": "This is already checked here",
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
