@@ -40,8 +40,12 @@ import android.net.NetworkTemplate.NETWORK_TYPE_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_NO
 import android.net.NetworkTemplate.OEM_MANAGED_YES
+import android.net.NetworkTemplate.WIFI_NETWORK_KEY_ALL
+import android.net.NetworkTemplate.buildTemplateCarrierMetered
 import android.net.NetworkTemplate.buildTemplateMobileAll
 import android.net.NetworkTemplate.buildTemplateMobileWildcard
+import android.net.NetworkTemplate.buildTemplateMobileWithRatType
+import android.net.NetworkTemplate.buildTemplateWifi
 import android.net.NetworkTemplate.buildTemplateWifiWildcard
 import android.net.NetworkTemplate.normalize
 import android.net.wifi.WifiInfo
@@ -50,16 +54,17 @@ import android.telephony.TelephonyManager
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.assertParcelSane
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertNotEquals
-import kotlin.test.assertTrue
 
 private const val TEST_IMSI1 = "imsi1"
 private const val TEST_IMSI2 = "imsi2"
@@ -70,6 +75,8 @@ private const val TEST_WIFI_KEY2 = "wifiKey2"
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class NetworkTemplateTest {
+    @get:Rule
+    private val ignoreRule = DevSdkIgnoreRule()
     private val mockContext = mock(Context::class.java)
     private val mockWifiInfo = mock(WifiInfo::class.java)
 
@@ -143,22 +150,32 @@ class NetworkTemplateTest {
         templateWifiWildcard.assertMatches(identWifiNullKey)
     }
 
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    fun testWifiMatches_LegacyBuilders() {
+        runWifiMatchesTest(
+                templateWifiKey1 = buildTemplateWifi(TEST_WIFI_KEY1),
+                templateWifiKey1Imsi1 = buildTemplateWifi(TEST_WIFI_KEY1, TEST_IMSI1),
+                templateWifiKeyAllImsi1 = buildTemplateWifi(WIFI_NETWORK_KEY_ALL, TEST_IMSI1))
+    }
+
     @Test
     fun testWifiMatches() {
-        val templateWifiKey1 = NetworkTemplate.Builder(MATCH_WIFI)
-                .setWifiNetworkKeys(setOf(TEST_WIFI_KEY1)).build()
-        val templateWifiKey1ImsiNull = NetworkTemplate.Builder(MATCH_WIFI)
-                .setSubscriberIds(setOf(null))
-                .setWifiNetworkKeys(setOf(TEST_WIFI_KEY1)).build()
-        val templateWifiKey1Imsi1 = NetworkTemplate.Builder(MATCH_WIFI)
-                .setSubscriberIds(setOf(TEST_IMSI1))
-                .setWifiNetworkKeys(setOf(TEST_WIFI_KEY1)).build()
-        val templateWifiKeyAllImsi1 = NetworkTemplate.Builder(MATCH_WIFI)
-                .setSubscriberIds(setOf(TEST_IMSI1)).build()
-        val templateNullWifiKey = NetworkTemplate(MATCH_WIFI,
-                emptyArray<String>() /* subscriberIds */, arrayOf(null) /* wifiNetworkKeys */,
-                METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL, OEM_MANAGED_ALL)
+        runWifiMatchesTest(
+                templateWifiKey1 = NetworkTemplate.Builder(MATCH_WIFI)
+                        .setWifiNetworkKeys(setOf(TEST_WIFI_KEY1)).build(),
+                templateWifiKey1Imsi1 = NetworkTemplate.Builder(MATCH_WIFI)
+                        .setSubscriberIds(setOf(TEST_IMSI1))
+                        .setWifiNetworkKeys(setOf(TEST_WIFI_KEY1)).build(),
+                templateWifiKeyAllImsi1 = NetworkTemplate.Builder(MATCH_WIFI)
+                        .setSubscriberIds(setOf(TEST_IMSI1)).build())
+    }
 
+    private fun runWifiMatchesTest(
+        templateWifiKey1: NetworkTemplate,
+        templateWifiKey1Imsi1: NetworkTemplate,
+        templateWifiKeyAllImsi1: NetworkTemplate
+    ) {
         val identMobile1 = buildNetworkIdentity(mockContext, buildMobileNetworkState(TEST_IMSI1),
                 false, TelephonyManager.NETWORK_TYPE_UMTS)
         val identWifiImsiNullKey1 = buildNetworkIdentity(
@@ -186,6 +203,9 @@ class NetworkTemplateTest {
 
         // Verify that template with WiFi Network Key1 and null imsi matches any network with
         // WiFi Network Key1 and null imsi.
+        val templateWifiKey1ImsiNull = NetworkTemplate.Builder(MATCH_WIFI)
+                .setSubscriberIds(setOf(null))
+                .setWifiNetworkKeys(setOf(TEST_WIFI_KEY1)).build()
         templateWifiKey1ImsiNull.assertDoesNotMatch(identMobile1)
         templateWifiKey1ImsiNull.assertMatches(identWifiImsiNullKey1)
         templateWifiKey1ImsiNull.assertDoesNotMatch(identWifiImsi1Key1)
@@ -212,16 +232,29 @@ class NetworkTemplateTest {
         // It should not match a template with wifiNetworkKeys is non-null.
         // Also, it should not match a template with wifiNetworkKeys that contains null.
         templateWifiKey1.assertDoesNotMatch(identWifiNullKey)
+        val templateNullWifiKey = NetworkTemplate(MATCH_WIFI,
+                emptyArray<String>() /* subscriberIds */, arrayOf(null) /* wifiNetworkKeys */,
+                METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL, OEM_MANAGED_ALL)
         templateNullWifiKey.assertDoesNotMatch(identWifiNullKey)
+    }
+
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    fun testMobileMatches_LegacyBuilders() {
+        runMobileMatchesTest(buildTemplateMobileWithRatType(TEST_IMSI2,
+                TelephonyManager.NETWORK_TYPE_UMTS, METERED_YES))
     }
 
     @Test
     fun testMobileMatches() {
-        val templateMobileImsi1 = buildTemplateMobileAll(TEST_IMSI1)
-        val templateMobileImsi2WithRatType = NetworkTemplate.Builder(MATCH_MOBILE)
+        runMobileMatchesTest(NetworkTemplate.Builder(MATCH_MOBILE)
                 .setMeteredness(METERED_YES)
                 .setSubscriberIds(setOf(TEST_IMSI2))
-                .setRatType(TelephonyManager.NETWORK_TYPE_UMTS).build()
+                .setRatType(TelephonyManager.NETWORK_TYPE_UMTS).build())
+    }
+
+    private fun runMobileMatchesTest(templateMobileImsi2WithRatType: NetworkTemplate) {
+        val templateMobileImsi1 = buildTemplateMobileAll(TEST_IMSI1)
 
         val mobileImsi1 = buildNetworkState(TYPE_MOBILE, TEST_IMSI1, null /* wifiKey */,
                 OEM_NONE, true /* metered */)
@@ -246,11 +279,23 @@ class NetworkTemplateTest {
         templateMobileImsi1.assertDoesNotMatch(identWifiImsi1Key1)
     }
 
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    fun testMobileWildcardMatches_LegacyBuilders() {
+        runMobileWildcardMatchesTest(
+                templateMobileNullImsiWithRatType = buildTemplateMobileWithRatType(null,
+                        TelephonyManager.NETWORK_TYPE_UMTS, METERED_ALL))
+    }
+
     @Test
     fun testMobileWildcardMatches() {
+        runMobileWildcardMatchesTest(
+                templateMobileNullImsiWithRatType = NetworkTemplate.Builder(MATCH_MOBILE)
+                        .setRatType(TelephonyManager.NETWORK_TYPE_UMTS).build())
+    }
+
+    private fun runMobileWildcardMatchesTest(templateMobileNullImsiWithRatType: NetworkTemplate) {
         val templateMobileWildcard = buildTemplateMobileWildcard()
-        val templateMobileNullImsiWithRatType = NetworkTemplate.Builder(MATCH_MOBILE)
-                .setRatType(TelephonyManager.NETWORK_TYPE_UMTS).build()
         val mobileImsi1 = buildMobileNetworkState(TEST_IMSI1)
         val identMobile1 = buildNetworkIdentity(mockContext, mobileImsi1,
                 false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
@@ -298,12 +343,22 @@ class NetworkTemplateTest {
         templateTestAll.assertMatches(identTest1)
     }
 
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    fun testCarrierMeteredMatches_LegacyBuilders() {
+        runCarrierMeteredMatchesTest(
+                templateCarrierImsi1Metered = buildTemplateCarrierMetered(TEST_IMSI1))
+    }
+
     @Test
     fun testCarrierMeteredMatches() {
-        val templateCarrierImsi1Metered = NetworkTemplate.Builder(MATCH_CARRIER)
-                .setMeteredness(METERED_YES)
-                .setSubscriberIds(setOf(TEST_IMSI1)).build()
+        runCarrierMeteredMatchesTest(
+                templateCarrierImsi1Metered = NetworkTemplate.Builder(MATCH_CARRIER)
+                        .setMeteredness(METERED_YES)
+                        .setSubscriberIds(setOf(TEST_IMSI1)).build())
+    }
 
+    private fun runCarrierMeteredMatchesTest(templateCarrierImsi1Metered: NetworkTemplate) {
         val mobileImsi1 = buildMobileNetworkState(TEST_IMSI1)
         val mobileImsi1Unmetered = buildNetworkState(TYPE_MOBILE, TEST_IMSI1,
                 null /* wifiKey */, OEM_NONE, false /* metered */)
@@ -336,36 +391,67 @@ class NetworkTemplateTest {
         templateCarrierImsi1Metered.assertDoesNotMatch(identCarrierWifiImsi1NonMetered)
     }
 
-    // TODO: Refactor this test to reduce the line of codes.
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    fun testRatTypeGroupMatches_LegacyBuilders() {
+        runRatTypeGroupMatchesTest(
+                templateUmtsMetered = buildTemplateMobileWithRatType(null,
+                        TelephonyManager.NETWORK_TYPE_UMTS, METERED_YES),
+                templateAllMetered = buildTemplateMobileWithRatType(null, NETWORK_TYPE_ALL,
+                        METERED_YES),
+                templateUnknownMetered =
+                buildTemplateMobileWithRatType(null, TelephonyManager.NETWORK_TYPE_UNKNOWN,
+                        METERED_YES),
+                templateUmtsNonMetered = buildTemplateMobileWithRatType(null,
+                        TelephonyManager.NETWORK_TYPE_UMTS, METERED_NO),
+                templateAllNonMetered = buildTemplateMobileWithRatType(null, NETWORK_TYPE_ALL,
+                        METERED_NO),
+                templateUnknownNonMetered =
+                buildTemplateMobileWithRatType(null, TelephonyManager.NETWORK_TYPE_UNKNOWN,
+                        METERED_NO))
+    }
+
     @Test
     fun testRatTypeGroupMatches() {
+        runRatTypeGroupMatchesTest(
+                templateUmtsMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                        .setMeteredness(METERED_YES)
+                        .setRatType(TelephonyManager.NETWORK_TYPE_UMTS).build(),
+                templateAllMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                        .setMeteredness(METERED_YES).build(),
+                templateUnknownMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                        .setMeteredness(METERED_YES)
+                        .setRatType(TelephonyManager.NETWORK_TYPE_UNKNOWN).build(),
+                templateUmtsNonMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                        .setMeteredness(METERED_NO)
+                        .setRatType(TelephonyManager.NETWORK_TYPE_UMTS).build(),
+                templateAllNonMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                        .setMeteredness(METERED_NO).build(),
+                templateUnknownNonMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                        .setMeteredness(METERED_NO)
+                        .setRatType(TelephonyManager.NETWORK_TYPE_UNKNOWN).build()
+        )
+    }
+
+    // TODO: Refactor this test to reduce the line of codes.
+    fun runRatTypeGroupMatchesTest(
+        templateUmtsMetered: NetworkTemplate,
+        templateAllMetered: NetworkTemplate,
+        templateUnknownMetered: NetworkTemplate,
+        // UMTS template that matches mobile identities with RAT in the same group with any IMSI.
+        // See {@link NetworkTemplate#getCollapsedRatType}.
+        templateUmtsNonMetered: NetworkTemplate,
+        // Normal template that matches mobile identities with any RAT and IMSI.
+        templateAllNonMetered: NetworkTemplate,
+        // Template with UNKNOWN RAT that matches mobile identities with RAT that cannot be
+        // determined.
+        templateUnknownNonMetered: NetworkTemplate,
+    ) {
         val stateMobileImsi1Metered = buildMobileNetworkState(TEST_IMSI1)
         val stateMobileImsi1NonMetered = buildNetworkState(TYPE_MOBILE, TEST_IMSI1,
                 null /* wifiKey */, OEM_NONE, false /* metered */)
         val stateMobileImsi2NonMetered = buildNetworkState(TYPE_MOBILE, TEST_IMSI2,
                 null /* wifiKey */, OEM_NONE, false /* metered */)
-
-        // Build UMTS template that matches mobile identities with RAT in the same
-        // group with any IMSI. See {@link NetworkTemplate#getCollapsedRatType}.
-        val templateUmtsMetered = NetworkTemplate.Builder(MATCH_MOBILE)
-                .setMeteredness(METERED_YES)
-                .setRatType(TelephonyManager.NETWORK_TYPE_UMTS).build()
-        // Build normal template that matches mobile identities with any RAT and IMSI.
-        val templateAllMetered = NetworkTemplate.Builder(MATCH_MOBILE)
-                .setMeteredness(METERED_YES).build()
-        // Build template with UNKNOWN RAT that matches mobile identities with RAT that
-        // cannot be determined.
-        val templateUnknownMetered = NetworkTemplate.Builder(MATCH_MOBILE)
-                .setMeteredness(METERED_YES)
-                .setRatType(TelephonyManager.NETWORK_TYPE_UNKNOWN).build()
-        val templateUmtsNonMetered = NetworkTemplate.Builder(MATCH_MOBILE)
-                .setMeteredness(METERED_NO)
-                .setRatType(TelephonyManager.NETWORK_TYPE_UMTS).build()
-        val templateAllNonMetered = NetworkTemplate.Builder(MATCH_MOBILE)
-                .setMeteredness(METERED_NO).build()
-        val templateUnknownNonMetered = NetworkTemplate.Builder(MATCH_MOBILE)
-                .setMeteredness(METERED_NO)
-                .setRatType(TelephonyManager.NETWORK_TYPE_UNKNOWN).build()
 
         val identUmtsMetered = buildNetworkIdentity(
                 mockContext, stateMobileImsi1Metered, false, TelephonyManager.NETWORK_TYPE_UMTS)
@@ -604,9 +690,30 @@ class NetworkTemplateTest {
         matchOemManagedIdent(TYPE_WIFI, MATCH_WIFI, identWifiKey = TEST_WIFI_KEY1)
     }
 
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    fun testNormalize_LegacyBuilders() {
+        runNormalizeTest(
+                templateCarrierImsi1 = buildTemplateCarrierMetered(TEST_IMSI1),
+                templateWifiKey1Imsi1 = buildTemplateWifi(TEST_WIFI_KEY1, TEST_IMSI1))
+    }
+
     @Test
     fun testNormalize() {
-        var mergedImsiList = arrayOf(TEST_IMSI1, TEST_IMSI2)
+        runNormalizeTest(
+                templateCarrierImsi1 = NetworkTemplate.Builder(MATCH_CARRIER)
+                        .setMeteredness(METERED_YES)
+                        .setSubscriberIds(setOf(TEST_IMSI1)).build(),
+                templateWifiKey1Imsi1 = NetworkTemplate.Builder(MATCH_WIFI)
+                        .setWifiNetworkKeys(setOf(TEST_WIFI_KEY1))
+                        .setSubscriberIds(setOf(TEST_IMSI1)).build())
+    }
+
+    private fun runNormalizeTest(
+        templateCarrierImsi1: NetworkTemplate,
+        templateWifiKey1Imsi1: NetworkTemplate
+    ) {
+        var mergedImsiList = listOf(arrayOf(TEST_IMSI1, TEST_IMSI2))
         val identMobileImsi1 = buildNetworkIdentity(mockContext,
                 buildMobileNetworkState(TEST_IMSI1), false /* defaultNetwork */,
                 TelephonyManager.NETWORK_TYPE_UMTS)
@@ -628,17 +735,11 @@ class NetworkTemplateTest {
             it.assertMatches(identMobileImsi2)
             it.assertDoesNotMatch(identMobileImsi3)
         }
-        val templateCarrierImsi1 = NetworkTemplate.Builder(MATCH_CARRIER)
-                .setMeteredness(METERED_YES)
-                .setSubscriberIds(setOf(TEST_IMSI1)).build()
         normalize(templateCarrierImsi1, mergedImsiList).also {
             it.assertMatches(identMobileImsi1)
             it.assertMatches(identMobileImsi2)
             it.assertDoesNotMatch(identMobileImsi3)
         }
-        val templateWifiKey1Imsi1 = NetworkTemplate.Builder(MATCH_WIFI)
-                .setWifiNetworkKeys(setOf(TEST_WIFI_KEY1))
-                .setSubscriberIds(setOf(TEST_IMSI1)).build()
         normalize(templateWifiKey1Imsi1, mergedImsiList).also {
             it.assertMatches(identWifiImsi1Key1)
             it.assertMatches(identWifiImsi2Key1)
