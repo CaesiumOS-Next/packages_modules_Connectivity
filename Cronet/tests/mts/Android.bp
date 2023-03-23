@@ -47,7 +47,7 @@ android_library {
     ],
     libs: [
         "android.test.base",
-        "framework-tethering-pre-jarjar",
+        "framework-tethering.impl",
     ],
     lint: { test: true }
 }
