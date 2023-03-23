@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2faefd5_4ebef8eb",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-23T09:22:15Z",
+      "side": 1,
+      "message": "See my comment below : this doesn\u0027t behave like the historical version of buildTemplateWifi for the same reason the other version of buildTemplateWifi also doesn\u0027t.\n\nAs opposed to the method below, I would argue it\u0027s a bugfix – after all, if you call this method you probably do want all wifi with this network key regardless of whether it has a subscriber ID. So I don\u0027t think we should change this. But see the comment below.",
+      "range": {
+        "startLine": 347,
+        "startChar": 17,
+        "endLine": 347,
+        "endChar": 22
+      },
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7019a4e3_4d8dbc7e",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-23T09:22:15Z",
+      "side": 1,
+      "message": "I think this won\u0027t behave as it did historically, at least strictly speaking.\n\nThe old code would actually try and match specifically a null subscriber ID if you called this with null, because the match rule would be EXACT_MATCH.\n\nSo for a line in the data usage that has both a wifi network key and a subscriber ID, it would now match, while it wouldn\u0027t match before.\n\nThis is unlikely to be a concrete issue, but if someone was to call this with null instead of the version above, it\u0027s likely because they actually want to exclude wifis with a subscriber ID (barring, of course, code organization reasons where they\u0027d want to unify the code paths and pass null when they don\u0027t have one in the hopes of getting them all)",
+      "range": {
+        "startLine": 373,
+        "startChar": 25,
+        "endLine": 373,
+        "endChar": 48
+      },
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89ad1c7c_36585212",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-23T09:22:15Z",
+      "side": 1,
+      "message": "This is @UnsupportedAppUsage with maxSDK \u003d T, so I think we can throw if SdkLevel.isAtLeastU.",
+      "range": {
+        "startLine": 942,
+        "startChar": 15,
+        "endLine": 942,
+        "endChar": 28
+      },
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ee28618_b4487a6f",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-23T09:22:15Z",
+      "side": 1,
+      "message": "This is no longer accurate as the new code no longer has a concept of a primary match.\n\nYou could write \"a new template that matches both A and B\".",
+      "range": {
+        "startLine": 955,
+        "startChar": 63,
+        "endLine": 956,
+        "endChar": 8
+      },
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d4d8399_da9bffb0",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-23T09:22:15Z",
+      "side": 1,
+      "message": "Should this doc not be on normalizeImpl ?",
+      "range": {
+        "startLine": 946,
+        "startChar": 0,
+        "endLine": 957,
+        "endChar": 6
+      },
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d3b92d7_775a7f36",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-23T09:22:15Z",
+      "side": 1,
+      "message": "+junyulai@google.com\n\nThis is identical to the current code but ISTM this is a bug : it will only take the first wifi key, but instead we should pass matchWifiNetworkKeys as is. Otherwise we\u0027ll drop any wifi key beyond the first.",
+      "range": {
+        "startLine": 987,
+        "startChar": 0,
+        "endLine": 988,
+        "endChar": 91
+      },
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
