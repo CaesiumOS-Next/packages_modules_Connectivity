@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0e30c907_3744265f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-23T09:50:49Z",
+      "side": 1,
+      "message": "Comment changes only",
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c2faefd5_4ebef8eb",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 3
@@ -66,6 +83,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89024641_c5ca28da",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-23T09:50:49Z",
+      "side": 1,
+      "message": "After discussion, concluded that it\u0027s unlikely that it would make a difference, and in cases where it does, callers would possibly not actually expect that wifi data that doesn\u0027t have a subscriber ID gets filtered out (set containing a null subscriber ID). So if the OEM is happy with the fix this should be enough.\n\nAlso, sets containing a null subscriberId are not well tested, so it would introduce separate risk.",
+      "parentUuid": "7019a4e3_4d8dbc7e",
+      "range": {
+        "startLine": 373,
+        "startChar": 25,
+        "endLine": 373,
+        "endChar": 48
+      },
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89ad1c7c_36585212",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 3
@@ -77,6 +118,30 @@
       "writtenOn": "2023-03-23T09:22:15Z",
       "side": 1,
       "message": "This is @UnsupportedAppUsage with maxSDK \u003d T, so I think we can throw if SdkLevel.isAtLeastU.",
+      "range": {
+        "startLine": 942,
+        "startChar": 15,
+        "endLine": 942,
+        "endChar": 28
+      },
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ae76ffd_64a8398e",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-23T09:50:49Z",
+      "side": 1,
+      "message": "As per in-person discussion, because this is maxTargetSdk \u003d T, this may still need to be callable on U",
+      "parentUuid": "89ad1c7c_36585212",
       "range": {
         "startLine": 942,
         "startChar": 15,
@@ -110,6 +175,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdf13a8b_d7d1132c",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-23T09:50:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ee28618_b4487a6f",
+      "range": {
+        "startLine": 955,
+        "startChar": 63,
+        "endLine": 956,
+        "endChar": 8
+      },
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d4d8399_da9bffb0",
@@ -123,6 +212,30 @@
       "writtenOn": "2023-03-23T09:22:15Z",
       "side": 1,
       "message": "Should this doc not be on normalizeImpl ?",
+      "range": {
+        "startLine": 946,
+        "startChar": 0,
+        "endLine": 957,
+        "endChar": 6
+      },
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1418f18_dc280d5b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-23T09:50:49Z",
+      "side": 1,
+      "message": "Added to normalizeImpl too",
+      "parentUuid": "7d4d8399_da9bffb0",
       "range": {
         "startLine": 946,
         "startChar": 0,
