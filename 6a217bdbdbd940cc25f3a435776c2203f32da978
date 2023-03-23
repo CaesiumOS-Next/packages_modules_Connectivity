@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "efdf24c4_b605fb83",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-23T02:38:06Z",
+      "side": 1,
+      "message": "This test tests cellular as well so it\u0027s not correct to skip it if the device does not support wifi.\n\nSuggest instead making verifyGetWifiBatteryStats return early when wifi is not supported.",
+      "range": {
+        "startLine": 102,
+        "startChar": 40,
+        "endLine": 102,
+        "endChar": 52
+      },
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "421e161b_7b742b1b",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-23T02:38:06Z",
+      "side": 1,
+      "message": "Instead of skipping this test if the device doesn\u0027t support wifi, suggest just using the default network. Get the network via:\n\n    final Network network \u003d mCm.getActiveNetwork();\n\nand rename \"wifiNetwork\" to just \"network\".",
+      "range": {
+        "startLine": 205,
+        "startChar": 40,
+        "endLine": 205,
+        "endChar": 52
+      },
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "345dc263_74a8524a",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 2
