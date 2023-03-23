@@ -115,10 +115,28 @@ Status BpfHandler::init(const char* cg2_path) {
     RETURN_IF_NOT_OK(initPrograms(cg2_path));
     RETURN_IF_NOT_OK(initMaps());
 
+    if (bpf::isAtLeastKernelVersion(4, 14, 0)) {
+        const int fd = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+        if (fd < 0) return netdutils::statusFromErrno(errno, "Failed to create udp6 socket.");
+
+        if (bpf::isAtLeastKernelVersion(5, 10, 168)) {
+            uint64_t rootNetNsCookie = 0;
+            socklen_t sz = sizeof(rootNetNsCookie);
+            if (getsockopt(fd, SOL_SOCKET, SO_NETNS_COOKIE, &rootNetNsCookie, &sz))
+                return netdutils::statusFromErrno(errno, "Failed to getsockopt SO_NETNS_COOKIE.");
+            if (sz != sizeof(rootNetNsCookie))
+                return netdutils::statusFromErrno(EMSGSIZE, "getsockopt SO_NETNS_COOKIE not u64?");
+            uint32_t index = 0;
+            mRootNetNsCookieMap.writeValue(index, rootNetNsCookie)
+        }
+        close(fd);
+    }
+
     return netdutils::status::ok;
 }
 
 Status BpfHandler::initMaps() {
+    RETURN_IF_NOT_OK(mRootNetNsCookieMap.init(ROOT_NETNS_COOKIE_MAP_PATH));
     RETURN_IF_NOT_OK(mStatsMapA.init(STATS_MAP_A_PATH));
     RETURN_IF_NOT_OK(mStatsMapB.init(STATS_MAP_B_PATH));
     RETURN_IF_NOT_OK(mConfigurationMap.init(CONFIGURATION_MAP_PATH));
