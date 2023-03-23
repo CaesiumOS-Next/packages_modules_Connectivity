@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c518136_a1d0341b",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1765,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-23T17:46:36Z",
+      "side": 1,
+      "message": "typo: partition",
+      "range": {
+        "startLine": 1765,
+        "startChar": 13,
+        "endLine": 1765,
+        "endChar": 20
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80a9ca4b_81dc282f",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1765,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-23T17:46:36Z",
+      "side": 1,
+      "message": "This would actually benefit from some more documentation on *how* partition_alloc is turned off for musl.",
+      "range": {
+        "startLine": 1765,
+        "startChar": 4,
+        "endLine": 1765,
+        "endChar": 36
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cede7de_255b6585",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1767,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-23T17:46:36Z",
+      "side": 1,
+      "message": "typo: partition 😊",
+      "range": {
+        "startLine": 1767,
+        "startChar": 1,
+        "endLine": 1767,
+        "endChar": 10
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90553002_5a2a309c",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1771,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-23T17:46:36Z",
+      "side": 1,
+      "message": "nit: if this is equivalent to:\n```\nmodule.srcs -\u003d partition_alloc_files\n```\nthen I would prefer it for readability.",
+      "range": {
+        "startLine": 1771,
+        "startChar": 2,
+        "endLine": 1771,
+        "endChar": 39
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90444833_f4914f07",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1774,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-23T17:46:36Z",
+      "side": 1,
+      "message": "(I haven\u0027t used Python in a hot minute), but is there srcs.add(allocation_shim) that would let you drop the []?",
+      "range": {
+        "startLine": 1774,
+        "startChar": 27,
+        "endLine": 1774,
+        "endChar": 38
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a12c631f_0d588e13",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1775,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-23T17:46:36Z",
+      "side": 1,
+      "message": "I don\u0027t understand, can you add a comment on why base_base__testing gets both partition_alloc_files and base_base gets allocation_shim files?",
+      "range": {
+        "startLine": 1775,
+        "startChar": 2,
+        "endLine": 1775,
+        "endChar": 44
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
