@@ -267,6 +267,30 @@
       },
       "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be48913c_49eb8525",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-23T09:55:56Z",
+      "side": 1,
+      "message": "That bug was introduced by aosp/1916817 at Jan/2022, probably not worth to fix it in this stage assuming no one is reporting related issue.",
+      "parentUuid": "0d3b92d7_775a7f36",
+      "range": {
+        "startLine": 987,
+        "startChar": 0,
+        "endLine": 988,
+        "endChar": 91
+      },
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
