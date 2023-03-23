@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d84cdf42_22ad344e",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1987505
+      },
+      "writtenOn": "2023-03-23T16:40:42Z",
+      "side": 1,
+      "message": "Suggested change is updated.",
+      "parentUuid": "efdf24c4_b605fb83",
+      "range": {
+        "startLine": 102,
+        "startChar": 40,
+        "endLine": 102,
+        "endChar": 52
+      },
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "421e161b_7b742b1b",
         "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2023-03-23T02:38:06Z",
       "side": 1,
       "message": "Instead of skipping this test if the device doesn\u0027t support wifi, suggest just using the default network. Get the network via:\n\n    final Network network \u003d mCm.getActiveNetwork();\n\nand rename \"wifiNetwork\" to just \"network\".",
+      "range": {
+        "startLine": 205,
+        "startChar": 40,
+        "endLine": 205,
+        "endChar": 52
+      },
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "278d3ef9_627c6db3",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1987505
+      },
+      "writtenOn": "2023-03-23T16:40:42Z",
+      "side": 1,
+      "message": "Thank you. Suggested change is updated.",
+      "parentUuid": "421e161b_7b742b1b",
       "range": {
         "startLine": 205,
         "startChar": 40,
@@ -83,6 +131,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26f6d228_4abe15ed",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2086,
+      "author": {
+        "id": 1987505
+      },
+      "writtenOn": "2023-03-23T16:40:42Z",
+      "side": 1,
+      "message": "Thank you. Updated accordingly.",
+      "parentUuid": "345dc263_74a8524a",
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5de4449_94d56ae9",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 2
@@ -94,6 +160,24 @@
       "writtenOn": "2023-03-23T01:20:23Z",
       "side": 1,
       "message": "This is already checked here",
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24b1ad4e_62c17ca1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2721,
+      "author": {
+        "id": 1987505
+      },
+      "writtenOn": "2023-03-23T16:40:42Z",
+      "side": 1,
+      "message": "Thank you. Updated accordingly.",
+      "parentUuid": "e5de4449_94d56ae9",
       "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
