@@ -34,6 +34,23 @@
       "parentUuid": "1de7a4dc_19e0fefa",
       "revId": "694295717c1966c222489e163642c2bd2592ddfa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df5c008a_4a242d3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-23T01:23:13Z",
+      "side": 1,
+      "message": "Note there\u0027s tests for jarjar_gen.py: https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/tools/gen_jarjar_test.py;drc\u003d0bd90f10b95e3f039bfe080c1d4ff027c9e01e2b;l\u003d31\n\nCan you add something there ?",
+      "revId": "694295717c1966c222489e163642c2bd2592ddfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
