@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d5a0f60_6e104919",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-23T06:11:33Z",
+      "side": 1,
+      "message": "Typo: properly",
+      "range": {
+        "startLine": 9,
+        "startChar": 61,
+        "endLine": 9,
+        "endChar": 62
+      },
+      "revId": "0046c0b517acf8ec40f2c7f108aa73b0eb587749",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f752f03c_02622e35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-23T06:11:33Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo needs to +2 for CTS changes",
+      "revId": "0046c0b517acf8ec40f2c7f108aa73b0eb587749",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
