@@ -96,6 +96,10 @@ static Status initPrograms(const char* cg2_path) {
     if (bpf::isAtLeastKernelVersion(4, 14, 0)) {
         RETURN_IF_NOT_OK(
                 attachProgramToCgroup(CGROUP_SOCKET_PROG_PATH, cg_fd, BPF_CGROUP_INET_SOCK_CREATE));
+
+        const int fd = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+        if (fd < 0) return netdutils::statusFromErrno(errno, "Failed to create udp6 socket.");
+        close(fd);
     }
     return netdutils::status::ok;
 }
@@ -119,6 +123,7 @@ Status BpfHandler::init(const char* cg2_path) {
 }
 
 Status BpfHandler::initMaps() {
+    RETURN_IF_NOT_OK(mRootNetNsCookieMap.init(ROOT_NETNS_COOKIE_MAP_PATH));
     RETURN_IF_NOT_OK(mStatsMapA.init(STATS_MAP_A_PATH));
     RETURN_IF_NOT_OK(mStatsMapB.init(STATS_MAP_B_PATH));
     RETURN_IF_NOT_OK(mConfigurationMap.init(CONFIGURATION_MAP_PATH));
