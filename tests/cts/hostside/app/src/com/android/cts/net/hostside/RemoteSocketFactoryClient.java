@@ -100,6 +100,20 @@ public class RemoteSocketFactoryClient {
         return fd;
     }
 
+    public FileDescriptor[] openLoopbackSocketFdPair(int timeoutMs)
+            throws RemoteException, ErrnoException, IOException {
+        // Dup the filedescriptor so ParcelFileDescriptor's finalizer doesn't garbage collect it
+        // and cause fd to become invalid. http://b/35927643.
+        final ParcelFileDescriptor[] pfds = mService.openLoopbackSocketFdPair(timeoutMs);
+        final FileDescriptor[] fds = {
+                Os.dup(pfds[0].getFileDescriptor()),
+                Os.dup(pfds[1].getFileDescriptor()),
+        };
+        pfds[0].close();
+        pfds[1].close();
+        return fds;
+    }
+
     public String getPackageName() throws RemoteException {
         return mService.getPackageName();
     }
