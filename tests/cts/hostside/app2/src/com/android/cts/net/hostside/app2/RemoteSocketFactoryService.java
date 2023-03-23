@@ -18,6 +18,7 @@ package com.android.cts.net.hostside.app2;
 
 import android.app.Service;
 import android.content.Intent;
+import android.net.InetAddresses;
 import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.Process;
@@ -26,6 +27,8 @@ import com.android.cts.net.hostside.IRemoteSocketFactory;
 
 import java.io.UncheckedIOException;
 import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
@@ -63,6 +66,30 @@ public class RemoteSocketFactoryService extends Service {
                 return ParcelFileDescriptor.fromDatagramSocket(s);
             } catch (SocketException e) {
                 throw new UncheckedIOException(e);
+            }
+        }
+
+        @Override
+        public ParcelFileDescriptor[] openLoopbackSocketFdPair(int timeoutMs) {
+            try {
+                final ServerSocket listen = new ServerSocket(0);
+                final Socket client = new Socket();
+                final InetSocketAddress sockAddr = new InetSocketAddress(
+                        InetAddresses.parseNumericAddress("::1"), listen.getLocalPort());
+                client.connect(sockAddr, timeoutMs);
+
+                listen.setSoTimeout(timeoutMs);
+                final Socket server = listen.accept();
+                listen.close();
+
+                client.setSoTimeout(timeoutMs);
+                server.setSoTimeout(timeoutMs);
+                return new ParcelFileDescriptor[]{
+                    ParcelFileDescriptor.fromSocket(server),
+                    ParcelFileDescriptor.fromSocket(client),
+                };
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e);
             }
         }
     };
