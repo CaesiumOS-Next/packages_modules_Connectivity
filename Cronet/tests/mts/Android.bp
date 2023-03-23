@@ -40,7 +40,7 @@ android_library {
     sdk_version: "module_current",
     min_sdk_version: "30",
     static_libs: [
-        "//external/cronet:cronet_testserver_utils",
+        "cronet_testserver_utils",
         "androidx.test.ext.junit",
         "androidx.test.rules",
         "junit",
