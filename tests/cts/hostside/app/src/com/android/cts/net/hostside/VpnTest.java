@@ -51,6 +51,7 @@ import static com.android.testutils.Cleanup.testAndCleanup;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.RecorderCallback.CallbackEntry.BLOCKED_STATUS_INT;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -1296,6 +1297,44 @@ public class VpnTest {
         for (FileDescriptor remoteFd: remoteFds) {
             assertSocketClosed(remoteFd, TEST_HOST);
         }
+    }
+
+    private void assertSocketPairOpen(FileDescriptor fd1, FileDescriptor fd2) {
+        testAndCleanup(() -> {
+            final int length = 50;
+            byte[] sendData = new byte[length];
+            byte[] receiveData = new byte[length];
+            Random random = new Random();
+            random.nextBytes(sendData);
+
+            Os.write(fd1, sendData, 0 /* byteOffset */, sendData.length);
+            Os.read(fd2, receiveData, 0 /* byteOffset */, length);
+            assertArrayEquals(sendData, receiveData);
+        }, /* cleanup */ () -> {
+                Os.close(fd1);
+                Os.close(fd2);
+            });
+    }
+
+    @Test
+    public void testSocketClosedLoopback() throws Exception {
+        assumeTrue(supportedHardware());
+        FileDescriptor remoteFd = openSocketFdInOtherApp(TEST_HOST, 80, TIMEOUT_MS);
+        FileDescriptor[] remoteLoopbackFds =
+                mRemoteSocketFactoryClient.openLoopbackSocketFdPair(TIMEOUT_MS);
+
+        // Shell app must not be put in here or it would kill the ADB-over-network use case
+        String allowedApps = mRemoteSocketFactoryClient.getPackageName() + "," + mPackageName;
+        startVpn(new String[]{"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
+                new String[]{"192.0.2.0/24", "2001:db8::/32"},
+                allowedApps, "", null, null /* underlyingNetworks */,
+                false /* isAlwaysMetered */);
+
+        // Non loopback sockets are closed
+        assertSocketClosed(remoteFd, TEST_HOST);
+
+        // Loopback sockets are not closed
+        assertSocketPairOpen(remoteLoopbackFds[0], remoteLoopbackFds[1]);
     }
 
     @Test

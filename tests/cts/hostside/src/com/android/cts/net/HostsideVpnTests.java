@@ -55,6 +55,10 @@ public class HostsideVpnTests extends HostsideNetworkTestCase {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testSocketClosed");
     }
 
+    public void testSocketClosedLoopback() throws Exception {
+        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testSocketClosedLoopback");
+    }
+
     public void testGetConnectionOwnerUidSecurity() throws Exception {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testGetConnectionOwnerUidSecurity");
     }
