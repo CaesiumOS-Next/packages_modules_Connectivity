@@ -51,6 +51,7 @@ import static com.android.testutils.Cleanup.testAndCleanup;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.RecorderCallback.CallbackEntry.BLOCKED_STATUS_INT;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -1273,12 +1274,31 @@ public class VpnTest {
         assertFalse(nc.hasTransport(TRANSPORT_VPN));
     }
 
+    private void assertSocketPairStillOpen(final FileDescriptor srcFd, final FileDescriptor dstFd) {
+        testAndCleanup(() -> {
+            final byte[] sendData = new byte[50];
+            final byte[] receiveData = new byte[sendData.length];
+            final Random random = new Random();
+            random.nextBytes(sendData);
+
+            Os.write(srcFd, sendData, 0 /* byteOffset */, sendData.length);
+            Os.read(dstFd, receiveData, 0 /* byteOffset */, receiveData.length);
+
+            assertArrayEquals(sendData, receiveData);
+        }, /* cleanup */ () -> {
+                Os.close(srcFd);
+                Os.close(dstFd);
+            });
+    }
+
     @Test
     public void testSocketClosed() throws Exception {
         assumeTrue(supportedHardware());
 
         final FileDescriptor localFd = openSocketFd(TEST_HOST, 80, TIMEOUT_MS);
         final List<FileDescriptor> remoteFds = new ArrayList<>();
+        final FileDescriptor[] remoteLoopbackFds =
+                mRemoteSocketFactoryClient.openLoopbackSocketFdPair(TIMEOUT_MS);
 
         for (int i = 0; i < 30; i++) {
             remoteFds.add(openSocketFdInOtherApp(TEST_HOST, 80, TIMEOUT_MS));
@@ -1296,6 +1316,9 @@ public class VpnTest {
         for (final FileDescriptor remoteFd: remoteFds) {
             assertSocketClosed(remoteFd, TEST_HOST);
         }
+
+        // Loopback sockets are not closed
+        assertSocketPairStillOpen(remoteLoopbackFds[0], remoteLoopbackFds[1]);
     }
 
     @Test
