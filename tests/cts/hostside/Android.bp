@@ -26,16 +26,31 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+java_library {
+    name: "framework-connectivity-module-lib-stubs-dexed-for-test",
+    static_libs: [
+        "framework-tethering.stubs.module_lib",
+        "framework-connectivity.stubs.module_lib",
+        "framework-connectivity-t.stubs.module_lib",
+    ],
+    compile_dex: true,
+    visibility: ["//visibility:private"],
+}
+
 java_test_host {
     name: "CtsHostsideNetworkTests",
     defaults: ["cts_defaults"],
     // Only compile source java files in this apk.
-    srcs: ["src/**/*.java"],
+    srcs: [
+        "src/**/*.java",
+        "src/**/*.kt",
+    ],
     libs: [
         "cts-tradefed",
         "tradefed",
     ],
     static_libs: [
+        "kotlin-test",
         "modules-utils-build-testing",
     ],
     // Tag this module as a cts test artifact
@@ -50,6 +65,14 @@ java_test_host {
         ":CtsHostsideNetworkCapTestsAppWithoutProperty",
         ":CtsHostsideNetworkCapTestsAppWithProperty",
         ":CtsHostsideNetworkCapTestsAppSdk33",
+        "connectivity-hiddenapi-flags.csv",
+        ":framework-connectivity-module-lib-stubs-dexed-for-test"
     ] + next_app_data,
+    required: [
+        "dexdump"
+    ],
+    java_resources: [
+        // ":com.android.tethering-bootclasspath-fragment{modular-hiddenapi/stub-flags.csv}",
+    ],
     per_testcase_directory: true,
 }
