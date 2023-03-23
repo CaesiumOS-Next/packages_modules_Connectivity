@@ -18,14 +18,21 @@ package com.android.cts.net.hostside.app2;
 
 import android.app.Service;
 import android.content.Intent;
+import android.net.InetAddresses;
 import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.Process;
+import android.system.Os;
+import android.system.OsConstants;
+import android.system.StructTimeval;
 
 import com.android.cts.net.hostside.IRemoteSocketFactory;
 
+import java.io.FileDescriptor;
 import java.io.UncheckedIOException;
 import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
@@ -63,6 +70,38 @@ public class RemoteSocketFactoryService extends Service {
                 return ParcelFileDescriptor.fromDatagramSocket(s);
             } catch (SocketException e) {
                 throw new UncheckedIOException(e);
+            }
+        }
+
+        @Override
+        public ParcelFileDescriptor[] openLoopbackSocketFdPair(int timeoutMs) {
+            try {
+                final ServerSocket listen = new ServerSocket(0);
+                final Socket client = new Socket();
+                final InetSocketAddress sockAddr = new InetSocketAddress(
+                        InetAddresses.parseNumericAddress("::1"), listen.getLocalPort());
+                client.connect(sockAddr, timeoutMs);
+
+                listen.setSoTimeout(timeoutMs);
+                final Socket server = listen.accept();
+                listen.close();
+
+                // Using Os.setsockoptTimeval instead of Socket#setSoTimeout since
+                // openLoopbackSocketFdPair returns fds. Socket#setSoTimeout keeps timeout value in
+                // Socket object and does not pass to FileDescriptor or kernel. So timeout value is
+                // ignored if read is called directly with fd.
+                final FileDescriptor clientFd = client.getFileDescriptor$();
+                final FileDescriptor serverFd = server.getFileDescriptor$();
+                Os.setsockoptTimeval(clientFd, OsConstants.SOL_SOCKET, OsConstants.SO_RCVTIMEO,
+                        StructTimeval.fromMillis(timeoutMs));
+                Os.setsockoptTimeval(serverFd, OsConstants.SOL_SOCKET, OsConstants.SO_RCVTIMEO,
+                        StructTimeval.fromMillis(timeoutMs));
+                return new ParcelFileDescriptor[]{
+                        ParcelFileDescriptor.dup(serverFd),
+                        ParcelFileDescriptor.dup(clientFd),
+                };
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e);
             }
         }
     };
