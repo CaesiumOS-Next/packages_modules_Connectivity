@@ -58,6 +58,7 @@ class BpfHandler {
     netdutils::Status initMaps();
     bool hasUpdateDeviceStatsPermission(uid_t uid);
 
+    BpfMap<uint32_t, uint64_t> mRootNetNsCookieMap;
     BpfMap<uint64_t, UidTagValue> mCookieTagMap;
     BpfMap<StatsKey, StatsValue> mStatsMapA;
     BpfMapRO<StatsKey, StatsValue> mStatsMapB;

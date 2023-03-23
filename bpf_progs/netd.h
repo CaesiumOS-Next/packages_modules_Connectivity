@@ -167,6 +167,7 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define UID_PERMISSION_MAP_PATH BPF_NETD_PATH "map_netd_uid_permission_map"
 #define PACKET_TRACE_RINGBUF_PATH BPF_NETD_PATH "map_netd_packet_trace_ringbuf"
 #define PACKET_TRACE_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_packet_trace_enabled_map"
+#define ... BPF_NETD_PATH "map_..._map"
 
 #endif // __cplusplus
 
