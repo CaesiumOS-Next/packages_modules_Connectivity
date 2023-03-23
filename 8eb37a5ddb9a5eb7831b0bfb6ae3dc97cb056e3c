@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cbf6f087_ad833206",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-23T09:32:16Z",
+      "side": 1,
+      "message": "We should reinstate the tests from https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2286634/14/framework-t/src/android/net/NetworkTemplate.java#46",
+      "revId": "8eb37a5ddb9a5eb7831b0bfb6ae3dc97cb056e3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c2faefd5_4ebef8eb",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 3
