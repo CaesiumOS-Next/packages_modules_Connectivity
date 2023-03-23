@@ -51,6 +51,42 @@
       "message": "Note there\u0027s tests for jarjar_gen.py: https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/tools/gen_jarjar_test.py;drc\u003d0bd90f10b95e3f039bfe080c1d4ff027c9e01e2b;l\u003d31\n\nCan you add something there ?",
       "revId": "694295717c1966c222489e163642c2bd2592ddfa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b47b61d_a952275d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-23T15:41:06Z",
+      "side": 1,
+      "message": "yes, see: aosp/2504556",
+      "parentUuid": "df5c008a_4a242d3f",
+      "revId": "694295717c1966c222489e163642c2bd2592ddfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94ed4577_85d160e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-23T15:41:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fca22a5b_3cc98943",
+      "revId": "694295717c1966c222489e163642c2bd2592ddfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
