@@ -51,6 +51,7 @@ import static com.android.testutils.Cleanup.testAndCleanup;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.RecorderCallback.CallbackEntry.BLOCKED_STATUS_INT;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -136,6 +137,7 @@ import java.io.Closeable;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -1295,6 +1297,41 @@ public class VpnTest {
         assertSocketStillOpen(localFd, TEST_HOST);
         for (FileDescriptor remoteFd: remoteFds) {
             assertSocketClosed(remoteFd, TEST_HOST);
+        }
+    }
+
+    private void checkTcpConnection(FileDescriptor fd1, FileDescriptor fd2)
+            throws InterruptedIOException, ErrnoException {
+        final int length = 50;
+        byte[] sendData = new byte[length];
+        byte[] receiveData = new byte[length];
+        Random random = new Random();
+        random.nextBytes(sendData);
+
+        Os.write(fd1, sendData, 0 /* byteOffset */, sendData.length);
+        Os.read(fd2, receiveData, 0 /* byteOffset */, length);
+        assertArrayEquals(sendData, receiveData);
+    }
+
+    @Test
+    public void testSocketClosedLoopback() throws Exception {
+        assumeTrue(supportedHardware());
+        FileDescriptor[] fds = mRemoteSocketFactoryClient.openLoopbackSocketFdPair(TIMEOUT_MS);
+        try {
+            checkTcpConnection(fds[0], fds[1]);
+
+            // Shell app must not be put in here or it would kill the ADB-over-network use case
+            String allowedApps = mRemoteSocketFactoryClient.getPackageName() + "," + mPackageName;
+            startVpn(new String[]{"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
+                    new String[]{"192.0.2.0/24", "2001:db8::/32"},
+                    allowedApps, "", null, null /* underlyingNetworks */,
+                    false /* isAlwaysMetered */);
+
+            // Loopback sockets are not closed
+            checkTcpConnection(fds[0], fds[1]);
+        } finally {
+            Os.close(fds[0]);
+            Os.close(fds[1]);
         }
     }
 
