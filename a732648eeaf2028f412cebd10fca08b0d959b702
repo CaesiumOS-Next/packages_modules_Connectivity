@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ed51bf9_e1a5dc91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-24T01:37:11Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "a732648eeaf2028f412cebd10fca08b0d959b702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f71f60fe_b29a4921",
+        "filename": "nearby/framework/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-24T01:37:11Z",
+      "side": 1,
+      "message": "This should go to \"libs\", not static_libs\n\nThe annotation .class files don\u0027t need to be/should not be included in the bootclasspath .jar, where they would be loaded by all other processes; you only need them at build time so other classes can be annotated",
+      "revId": "a732648eeaf2028f412cebd10fca08b0d959b702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
