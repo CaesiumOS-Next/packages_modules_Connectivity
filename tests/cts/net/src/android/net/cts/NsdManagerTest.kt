@@ -985,6 +985,22 @@ class NsdManagerTest {
         }
     }
 
+    @Test
+    fun testStopServiceResolutionFailedCallback() {
+        // This test requires shims supporting U+ APIs (NsdManager.stopServiceResolution)
+        assumeTrue(TestUtils.shouldTestUApis())
+
+        // It's hard to make ResolutionListener#onStopResolutionFailed callback sending because the
+        // stop operation is quite simple and works almost. Considering that this callback isn't
+        // expected to be sent at all at the moment, and this is just an interface with no
+        // implementation. To verify this callback, just call onStopResolutionFailed on the record
+        // directly then verifies it's received.
+        val resolveRecord = NsdResolveRecord()
+        resolveRecord.onStopResolutionFailed(
+                NsdServiceInfo(), NsdManager.FAILURE_OPERATION_NOT_RUNNING)
+        resolveRecord.expectCallback<StopResolutionFailed>()
+    }
+
     /**
      * Register a service and return its registration record.
      */
