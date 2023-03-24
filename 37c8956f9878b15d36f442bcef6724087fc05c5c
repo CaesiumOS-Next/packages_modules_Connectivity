@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c305b798_43d26970",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-24T00:47:31Z",
+      "side": 1,
+      "message": "generally LGTM",
+      "revId": "37c8956f9878b15d36f442bcef6724087fc05c5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9a2bacc_42dd1c29",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-24T00:47:31Z",
+      "side": 1,
+      "message": "Nit: While you\u0027re updating this, could you also update these variable to final?",
+      "range": {
+        "startLine": 1048,
+        "startChar": 8,
+        "endLine": 1049,
+        "endChar": 84
+      },
+      "revId": "37c8956f9878b15d36f442bcef6724087fc05c5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9501cee3_9c3ef99a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-24T00:47:31Z",
+      "side": 1,
+      "message": "What extra test coverage do you want to add in this test apart from testAppAllowed(with your change)? It seems to me the coverage is quite overlapping.",
+      "range": {
+        "startLine": 1279,
+        "startChar": 16,
+        "endLine": 1279,
+        "endChar": 32
+      },
+      "revId": "37c8956f9878b15d36f442bcef6724087fc05c5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc0c4620_2327453f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1282,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-24T00:47:31Z",
+      "side": 1,
+      "message": "Nit: final",
+      "range": {
+        "startLine": 1282,
+        "startChar": 8,
+        "endLine": 1282,
+        "endChar": 9
+      },
+      "revId": "37c8956f9878b15d36f442bcef6724087fc05c5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e700ceeb_539f5e1e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-24T00:47:31Z",
+      "side": 1,
+      "message": "Nit: final",
+      "range": {
+        "startLine": 1283,
+        "startChar": 8,
+        "endLine": 1283,
+        "endChar": 9
+      },
+      "revId": "37c8956f9878b15d36f442bcef6724087fc05c5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09aeed99_79c87ca7",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-24T00:47:31Z",
+      "side": 1,
+      "message": "As previous comment from Lorenzo, this comment should not valid anymore. Probably remove this comment.\n\nRefer to https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2369240/47..50/tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java#b1153",
+      "range": {
+        "startLine": 1289,
+        "startChar": 8,
+        "endLine": 1289,
+        "endChar": 91
+      },
+      "revId": "37c8956f9878b15d36f442bcef6724087fc05c5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ff3f783_a8d8dd10",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-24T00:47:31Z",
+      "side": 1,
+      "message": "Nit: final",
+      "range": {
+        "startLine": 1290,
+        "startChar": 8,
+        "endLine": 1290,
+        "endChar": 9
+      },
+      "revId": "37c8956f9878b15d36f442bcef6724087fc05c5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
