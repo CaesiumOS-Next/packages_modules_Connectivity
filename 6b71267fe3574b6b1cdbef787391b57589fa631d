@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1fb5f87_df6c96ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-24T10:40:58Z",
+      "side": 1,
+      "message": "I think this is doing either too much or too little.\n\nI don\u0027t think it\u0027s a bad idea to use Duration for this member, or generally. In fact I think it\u0027s a relatively good idea.\n\nBut I think it\u0027s a bad idea to use Duration only here and ints *everywhere else*. As of this change, I think this makes the code worse. If the patch was changing all the intervals to Durations in this area of the code, I would feel a lot better about this change. But as is, I don\u0027t think it\u0027s an improvement.",
+      "revId": "6b71267fe3574b6b1cdbef787391b57589fa631d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
