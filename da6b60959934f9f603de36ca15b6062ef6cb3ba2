@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7227abf5_e669e4e4",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-24T03:50:11Z",
+      "side": 1,
+      "message": "You could do a lot lighter by calling `hasSingleTransport(TRANSPORT_TEST)`",
+      "range": {
+        "startLine": 1142,
+        "startChar": 12,
+        "endLine": 1142,
+        "endChar": 75
+      },
+      "revId": "da6b60959934f9f603de36ca15b6062ef6cb3ba2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
