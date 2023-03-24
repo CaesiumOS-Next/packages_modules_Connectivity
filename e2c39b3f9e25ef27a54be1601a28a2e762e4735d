@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec6f898f_9430691a",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-24T06:06:06Z",
+      "side": 1,
+      "message": "It seems to me we don\u0027t test the null imsi with legacyBuilder case.\nDo we want to add test for it or\nDo we want to add TODO to say we changed the behavior of null IMSI somewhere in case we forget? Not necessary if we have ongoing patch to fix.",
+      "range": {
+        "startLine": 155,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 38
+      },
+      "revId": "e2c39b3f9e25ef27a54be1601a28a2e762e4735d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
