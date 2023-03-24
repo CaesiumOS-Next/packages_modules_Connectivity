@@ -55,6 +55,9 @@ import android.net.cts.NsdManagerTest.NsdServiceInfoCallbackRecord.ServiceInfoCa
 import android.net.cts.NsdManagerTest.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdatedLost
 import android.net.cts.NsdManagerTest.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.UnregisterCallbackSucceeded
 import android.net.cts.util.CtsNetUtils
+import android.net.nsd.INsdManager
+import android.net.nsd.INsdManagerCallback
+import android.net.nsd.INsdServiceConnector
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdManager.DiscoveryListener
 import android.net.nsd.NsdManager.RegistrationListener
@@ -63,6 +66,7 @@ import android.net.nsd.NsdServiceInfo
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.IBinder
 import android.os.Process.myTid
 import android.platform.test.annotations.AppModeFull
 import android.system.ErrnoException
@@ -983,6 +987,61 @@ class NsdManagerTest {
             nsdManager.stopServiceDiscovery(discoveryRecord)
             discoveryRecord.expectCallback<DiscoveryStopped>()
         }
+    }
+
+    private class FakeServiceConnector : INsdServiceConnector {
+        private var resolutionKey = 0
+        override fun asBinder(): IBinder = fail("asBinder should be unused in this test")
+        override fun startDaemon() = Unit
+        override fun registerService(key: Int, info: NsdServiceInfo?) = Unit
+        override fun unregisterService(key: Int) = Unit
+        override fun discoverServices(key: Int, info: NsdServiceInfo?) = Unit
+        override fun stopDiscovery(key: Int) = Unit
+        override fun resolveService(key: Int, info: NsdServiceInfo?) = run { resolutionKey = key }
+        override fun stopResolution(key: Int) = run { resolutionKey = key }
+        override fun registerServiceInfoCallback(key: Int, info: NsdServiceInfo?) = Unit
+        override fun unregisterServiceInfoCallback(key: Int) = Unit
+        fun getResolutionKey() = resolutionKey
+    }
+
+    /*** A fake NsdService that helps to test rarely callbacks. */
+    private class FakeService : INsdManager {
+        private var callbackField: INsdManagerCallback? = null
+        val connector = FakeServiceConnector()
+        val callback: INsdManagerCallback
+          get() = callbackField ?: fail("No INsdManagerCallback")
+
+        override fun asBinder(): IBinder = fail("asBinder should be unused in this test")
+
+        override fun connect(cb: INsdManagerCallback?, useJavaBackend: Boolean):
+                INsdServiceConnector {
+            this.callbackField = cb
+            return connector
+        }
+
+        fun notifyStopResolutionFailed() = callback.onStopResolutionFailed(
+                connector.getResolutionKey(), NsdManager.FAILURE_OPERATION_NOT_RUNNING)
+    }
+
+    @Test
+    fun testStopServiceResolutionFailed() {
+        // This test requires shims supporting U+ APIs (NsdManager.stopServiceResolution)
+        assumeTrue(TestUtils.shouldTestUApis())
+
+        // Create a fake service and use it to create a NsdManager
+        val fakeService = FakeService()
+        val nsdManager = NsdManager(context, fakeService)
+        val si = NsdServiceInfo()
+        si.serviceType = this@NsdManagerTest.serviceType
+        si.serviceName = this@NsdManagerTest.serviceName
+        si.port = 12345 // Test won't try to connect so port does not matter
+
+        // Simulate service resolution then stop it with a failure.
+        val resolveRecord = NsdResolveRecord()
+        nsdShim.resolveService(nsdManager, si, { it.run() }, resolveRecord)
+        nsdShim.stopServiceResolution(nsdManager, resolveRecord)
+        fakeService.notifyStopResolutionFailed()
+        resolveRecord.expectCallback<StopResolutionFailed>()
     }
 
     /**
