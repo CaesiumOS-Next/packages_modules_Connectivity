@@ -23,3 +23,9 @@ android\.net\.util\.KeepaliveUtils(\$.+)?
 
 # TODO (b/217115866): add jarjar rules for Nearby
 android\.nearby\..+
+
+# INsdManager / INsdManagerCallback / INsdServiceConnector are used in NsdManagerTest
+# TODO: move files to android.net.connectivity.visiblefortesting
+android\.net\.nsd\.INsdManager(\$.+)?
+android\.net\.nsd\.INsdManagerCallback(\$.+)?
+android\.net\.nsd\.INsdServiceConnector(\$.+)?
