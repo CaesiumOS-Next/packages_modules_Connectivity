@@ -120,6 +120,60 @@
       "message": "Hello Team, General Motors have a code freeze of 3/29 and this is blocking their build. Can you please review at your earliest convenience?",
       "revId": "e20bb27fa398bb64150656b639d50f26e58837d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f65cd0b5_78e6461e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-03-24T18:37:47Z",
+      "side": 1,
+      "message": "Sure, will try to address. given the bandwidth limitation may not get to it in time. \n\nThe partner has already applied this change and the test on the partner end `passes`.",
+      "parentUuid": "3c62798c_ab2cd2e8",
+      "revId": "e20bb27fa398bb64150656b639d50f26e58837d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5a30a78_d7d32979",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-03-24T18:37:47Z",
+      "side": 1,
+      "message": "One of our auto partner uses sc-v2 / 12L and a failure was observed on CTSonGSI for test ``\n\nbug : \n\nper ab/ - the original change was merged into `sc` line but I was unable to find this in android12-dev or android12l-dev - so created \n- aosp/ for android12-dev\n- aosp/ for android12l-dev",
+      "parentUuid": "443fa73b_229e657b",
+      "revId": "e20bb27fa398bb64150656b639d50f26e58837d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efbc60d7_b45cd103",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-03-24T18:37:47Z",
+      "side": 1,
+      "message": "the failure is also observed on 12L",
+      "parentUuid": "443fa73b_229e657b",
+      "revId": "e20bb27fa398bb64150656b639d50f26e58837d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
