@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9047cd40_d91133af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-24T10:48:58Z",
+      "side": 1,
+      "message": "This bug doesn\u0027t explain what\u0027s wrong. If you have a bug for this, write it here. If you don\u0027t have a bug for this, don\u0027t add this generic one.",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "50366218826ad7689b372130d4fc5a46de2e6b15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0a123fa_f683f4fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-24T10:48:58Z",
+      "side": 1,
+      "message": "I do not understand what this is trying to do. What state specifically is out of sync and why is this a problem ?\n\nAlso, I strongly object to removing the AutoKeepaliveInfo and re-creating one. The AutoKeepaliveInfo is the permanent object that represents an auto keepalive. We\u0027re sending these objects in messages liberally because it\u0027s an invariant of the code that an AutoKeepaliveInfo never changes. This patch breaks the invariant and will fail badly if stop() is called on the keepalive at the same time or something similar.",
+      "revId": "50366218826ad7689b372130d4fc5a46de2e6b15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
