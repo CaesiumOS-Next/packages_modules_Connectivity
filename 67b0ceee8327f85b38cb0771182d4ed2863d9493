@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bd1278c_7bd1b81f",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1765,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-03-24T11:41:21Z",
+      "side": 1,
+      "message": "This is a mistake from my side. `partition_alloc` is completely turned off for Cronet. However, `allocator_shims` is turned on. I had to disable `allocator_shims` only for musl libc.",
+      "parentUuid": "80a9ca4b_81dc282f",
+      "range": {
+        "startLine": 1765,
+        "startChar": 4,
+        "endLine": 1765,
+        "endChar": 36
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d775d713_f53ec6ab",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1765,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-03-24T11:41:21Z",
+      "side": 1,
+      "message": "It was `allocator_shims`. I fixed this.",
+      "parentUuid": "8c518136_a1d0341b",
+      "range": {
+        "startLine": 1765,
+        "startChar": 13,
+        "endLine": 1765,
+        "endChar": 20
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cede7de_255b6585",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-23T17:46:36Z",
       "side": 1,
       "message": "typo: partition 😊",
+      "range": {
+        "startLine": 1767,
+        "startChar": 1,
+        "endLine": 1767,
+        "endChar": 10
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f694ab84_fa1fb61b",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1767,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-03-24T11:41:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cede7de_255b6585",
       "range": {
         "startLine": 1767,
         "startChar": 1,
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b3082f0_505dfc00",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1771,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-03-24T11:41:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90553002_5a2a309c",
+      "range": {
+        "startLine": 1771,
+        "startChar": 2,
+        "endLine": 1771,
+        "endChar": 39
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90444833_f4914f07",
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7137f554_508326f5",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1774,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-03-24T11:41:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90444833_f4914f07",
+      "range": {
+        "startLine": 1774,
+        "startChar": 27,
+        "endLine": 1774,
+        "endChar": 38
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a12c631f_0d588e13",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-03-23T17:46:36Z",
       "side": 1,
       "message": "I don\u0027t understand, can you add a comment on why base_base__testing gets both partition_alloc_files and base_base gets allocation_shim files?",
+      "range": {
+        "startLine": 1775,
+        "startChar": 2,
+        "endLine": 1775,
+        "endChar": 44
+      },
+      "revId": "67b0ceee8327f85b38cb0771182d4ed2863d9493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a7f891b_2090abad",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1775,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-03-24T11:41:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a12c631f_0d588e13",
       "range": {
         "startLine": 1775,
         "startChar": 2,
