@@ -33,6 +33,24 @@
       "message": "This should go to \"libs\", not static_libs\n\nThe annotation .class files don\u0027t need to be/should not be included in the bootclasspath .jar, where they would be loaded by all other processes; you only need them at build time so other classes can be annotated",
       "revId": "a732648eeaf2028f412cebd10fca08b0d959b702",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "721312af_338dc8af",
+        "filename": "nearby/framework/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1900995
+      },
+      "writtenOn": "2023-03-24T05:41:21Z",
+      "side": 1,
+      "message": "Thanks for the detailed explanation. Done.",
+      "parentUuid": "f71f60fe_b29a4921",
+      "revId": "a732648eeaf2028f412cebd10fca08b0d959b702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
