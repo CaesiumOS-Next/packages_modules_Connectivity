@@ -254,6 +254,7 @@ override_apex {
     base: "com.android.tethering",
     package_name: "com.android.tethering.inprocess",
     enabled: enable_tethering_next_apex,
+    canned_fs_config: "canned_fs_config",
     bpfs: [
         "block.o",
         "clatd.o",
