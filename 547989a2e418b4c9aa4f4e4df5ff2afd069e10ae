@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df81a8c8_7a5b1b79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-25T15:13:56Z",
+      "side": 1,
+      "message": "Fails to build :-(\nI guess this isn\u0027t the problem.\n\nBuildbot Version: androidbuild_buildbot_20230314.00_RC00\nMachine: prod-2004-2129\n...\" build/soong/soong_ui.bash --make-mode TARGET_PRODUCT\u003daosp_arm64 TARGET_BUILD_VARIANT\u003duserdebug droid dist DIST_DIR\u003d/buildbot/dist_dirs/aosp-master-linux-aosp_arm64-userdebug/P53330778 platform_tests\nFAILED: out/soong/bp2build_files_marker\n...out/soong/globs-bp2build_files.ninja -t -l out/.module_paths/Android.bp.list --available_env out/soong/soong.environment.available --used_env out/soong/soong.environment.used.bp2build_files Android.bp\nerror: packages/modules/Connectivity/Tethering/apex/Android.bp:257:21: unrecognized property \"canned_fs_config\"\nninja: build stopped: subcommand failed.\n14:35:01 soong bootstrap failed with: exit status 1\nDumping rbe metrics...\n\nRBE Stats: Downloaded: 0 B, Uploaded: 0 B",
+      "revId": "547989a2e418b4c9aa4f4e4df5ff2afd069e10ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
