@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0242f922_0671691c",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-25T09:17:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67a02469_c18a591a",
+      "range": {
+        "startLine": 683,
+        "startChar": 17,
+        "endLine": 683,
+        "endChar": 38
+      },
+      "revId": "31519d371e3aaa3dc0675657410de215d8904048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "918c7cdd_cfad50c2",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-24T10:37:42Z",
       "side": 1,
       "message": "LOW_TCP_POLLING_INTERVAL_MS ?\n\nOr even, SocketKeepalive.MIN_INTERVAL_SEC ?",
+      "range": {
+        "startLine": 688,
+        "startChar": 20,
+        "endLine": 688,
+        "endChar": 21
+      },
+      "revId": "31519d371e3aaa3dc0675657410de215d8904048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7523c58f_ce81bc4b",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-25T09:17:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "918c7cdd_cfad50c2",
       "range": {
         "startLine": 688,
         "startChar": 20,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3991d2b_6cde26c5",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-25T09:17:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9853bc7e_78db5489",
+      "range": {
+        "startLine": 689,
+        "startChar": 37,
+        "endLine": 689,
+        "endChar": 38
+      },
+      "revId": "31519d371e3aaa3dc0675657410de215d8904048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e22e323_dbf1cd61",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-03-24T10:37:42Z",
       "side": 1,
       "message": "Here too MIN_INTERVAL_SEC is probably (marginally) safer",
+      "range": {
+        "startLine": 693,
+        "startChar": 34,
+        "endLine": 693,
+        "endChar": 61
+      },
+      "revId": "31519d371e3aaa3dc0675657410de215d8904048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "375cdf1d_90a93700",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-25T09:17:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e22e323_dbf1cd61",
       "range": {
         "startLine": 693,
         "startChar": 34,
@@ -139,6 +235,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74374b55_1be81cf2",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-25T09:17:12Z",
+      "side": 1,
+      "message": "Done but this time unit should be Second. Update to getKeepaliveIntervalSec",
+      "parentUuid": "831bb02f_52301764",
+      "range": {
+        "startLine": 267,
+        "startChar": 19,
+        "endLine": 267,
+        "endChar": 39
+      },
+      "revId": "31519d371e3aaa3dc0675657410de215d8904048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbd40a16_6888c9fe",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-25T09:17:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70c1b689_0d367946",
+      "range": {
+        "startLine": 267,
+        "startChar": 8,
+        "endLine": 267,
+        "endChar": 14
+      },
+      "revId": "31519d371e3aaa3dc0675657410de215d8904048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2c89659_ab7a2aa8",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-03-24T10:37:42Z",
       "side": 1,
       "message": "The problem with setting this to 0 is that if the code forgets adding the current time the test won\u0027t catch it. Can you set this to some arbitrary value, like the current value for today or something ?",
+      "range": {
+        "startLine": 348,
+        "startChar": 17,
+        "endLine": 348,
+        "endChar": 18
+      },
+      "revId": "31519d371e3aaa3dc0675657410de215d8904048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64f37fa1_1b822aff",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-25T09:17:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2c89659_ab7a2aa8",
       "range": {
         "startLine": 348,
         "startChar": 17,
@@ -203,6 +371,54 @@
         "startChar": 35,
         "endLine": 352,
         "endChar": 55
+      },
+      "revId": "31519d371e3aaa3dc0675657410de215d8904048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80579e32_b6e196db",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-25T09:17:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ef07d94_c3e576d3",
+      "range": {
+        "startLine": 352,
+        "startChar": 35,
+        "endLine": 352,
+        "endChar": 55
+      },
+      "revId": "31519d371e3aaa3dc0675657410de215d8904048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac8a6b56_92c3065f",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-25T09:17:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b0cafb0_a0021908",
+      "range": {
+        "startLine": 352,
+        "startChar": 16,
+        "endLine": 352,
+        "endChar": 96
       },
       "revId": "31519d371e3aaa3dc0675657410de215d8904048",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
