@@ -22,7 +22,7 @@
     <!-- NetHttpCoverageTests combines CtsNetHttpTestCases and NetHttpTests targets,
      so permissions and others are declared in their respective manifests -->
     <application tools:replace="android:label"
-                 android:label="NetHttp coverage tests">
+                 android:label="NetHttp coverage tests" >
         <uses-library android:name="android.test.runner" />
     </application>
     <instrumentation android:name="androidx.test.runner.AndroidJUnitRunner"

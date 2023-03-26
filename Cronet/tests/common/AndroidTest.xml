@@ -18,6 +18,14 @@
         <option name="test-file-name" value="NetHttpCoverageTests.apk" />
         <option name="install-arg" value="-t" />
     </target_preparer>
+
+    <!-- Push the testing data to the specified directory before running tests -->
+    <target_preparer class="com.android.tradefed.targetprep.PushFilePreparer">
+        <option name="push-file" key="data"
+                value="/storage/emulated/0/chromium_tests_root/components/cronet/testing/test_server/data" />
+        <option name="cleanup" value="false" />
+    </target_preparer>
+
     <option name="test-tag" value="NetHttpCoverageTests" />
     <!-- Tethering/Connectivity is a SDK 30+ module -->
     <!-- TODO Switch back to Sdk30 when b/270049141 is fixed -->

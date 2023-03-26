@@ -26,6 +26,7 @@ package {
 // go with merging NetHttp and Tethering targets.
 android_test {
     name: "NetHttpCoverageTests",
+    data: [":cronet_test_data"],
     defaults: ["CronetTestJavaDefaults"],
     enforce_default_target_sdk_version: true,
     min_sdk_version: "30",
