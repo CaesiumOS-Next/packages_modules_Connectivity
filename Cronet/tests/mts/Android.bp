@@ -60,6 +60,7 @@ android_test {
         "CronetTestJavaDefaults",
         "mts-target-sdk-version-current",
      ],
+     data: [":cronet_test_data"],
      static_libs: ["NetHttpTestsLibPreJarJar"],
      jarjar_rules: ":net-http-test-jarjar-rules",
      jni_libs: [
