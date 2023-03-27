@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55892142_64a2af2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-27T15:10:06Z",
+      "side": 1,
+      "message": "@prohr@google.com, I recognize the repetition in the AndroidTest.xml in common/ and mts/. Once we are done with enabling tests, NetHttpTests will be deleted and NetHttpCoverageTests becomes mts.",
+      "revId": "e27aef17bd89bc29448f406dc7690cb5aec8af8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
