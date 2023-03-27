@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8191b3d2_d75ce54d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-27T08:25:18Z",
+      "side": 1,
+      "message": "Update the bug and commit message",
+      "parentUuid": "9047cd40_d91133af",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "50366218826ad7689b372130d4fc5a46de2e6b15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a0a123fa_f683f4fe",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -54,6 +78,30 @@
       "writtenOn": "2023-03-27T05:57:04Z",
       "side": 1,
       "message": "As per offline sync : instead, let\u0027s make `AutomaticOnOffKeepalive.mKi` non-final and update it here.\n\nBe very careful of threading when you do this, and please make sure you comment on the member to explain the threading model.",
+      "range": {
+        "startLine": 369,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 53
+      },
+      "revId": "50366218826ad7689b372130d4fc5a46de2e6b15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0306498a_5f785237",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-27T08:25:18Z",
+      "side": 1,
+      "message": "updated and add comment.",
+      "parentUuid": "52082871_d5277e6a",
       "range": {
         "startLine": 369,
         "startChar": 0,
