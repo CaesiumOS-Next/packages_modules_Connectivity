@@ -16,6 +16,52 @@
       "message": "@prohr@google.com, I recognize the repetition in the AndroidTest.xml in common/ and mts/. Once we are done with enabling tests, NetHttpTests will be deleted and NetHttpCoverageTests becomes mts.",
       "revId": "e27aef17bd89bc29448f406dc7690cb5aec8af8d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "117d16fd_4a7183c5",
+        "filename": "Cronet/tests/common/AndroidTest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-27T16:49:36Z",
+      "side": 1,
+      "message": "what are the consequences of this?",
+      "range": {
+        "startLine": 26,
+        "startChar": 16,
+        "endLine": 26,
+        "endChar": 44
+      },
+      "revId": "e27aef17bd89bc29448f406dc7690cb5aec8af8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eed047c_5e6c3b14",
+        "filename": "Cronet/tests/mts/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-03-27T16:49:36Z",
+      "side": 1,
+      "message": "Is this still supported in the Android versions we are targeting?",
+      "range": {
+        "startLine": 26,
+        "startChar": 25,
+        "endLine": 26,
+        "endChar": 53
+      },
+      "revId": "e27aef17bd89bc29448f406dc7690cb5aec8af8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
