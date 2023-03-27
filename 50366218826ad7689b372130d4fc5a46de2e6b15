@@ -39,6 +39,29 @@
       "message": "I do not understand what this is trying to do. What state specifically is out of sync and why is this a problem ?\n\nAlso, I strongly object to removing the AutoKeepaliveInfo and re-creating one. The AutoKeepaliveInfo is the permanent object that represents an auto keepalive. We\u0027re sending these objects in messages liberally because it\u0027s an invariant of the code that an AutoKeepaliveInfo never changes. This patch breaks the invariant and will fail badly if stop() is called on the keepalive at the same time or something similar.",
       "revId": "50366218826ad7689b372130d4fc5a46de2e6b15",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52082871_d5277e6a",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-27T05:57:04Z",
+      "side": 1,
+      "message": "As per offline sync : instead, let\u0027s make `AutomaticOnOffKeepalive.mKi` non-final and update it here.\n\nBe very careful of threading when you do this, and please make sure you comment on the member to explain the threading model.",
+      "range": {
+        "startLine": 369,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 53
+      },
+      "revId": "50366218826ad7689b372130d4fc5a46de2e6b15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
