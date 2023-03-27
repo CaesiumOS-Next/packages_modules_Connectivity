@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2be357e_9dc13301",
+        "filename": "framework/jarjar-excludes.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-27T01:54:37Z",
+      "side": 1,
+      "message": "I call onStopResolutionFailed on the record directly, it doesn\u0027t need this exclusion now.",
+      "parentUuid": "f8d42e78_ceb4d80d",
+      "revId": "bf3281913002f367c4d4c7150f6aaf125502ae92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc075080_9fa8ec1c",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-24T03:46:10Z",
       "side": 1,
       "message": "Much of this may stop working if we change INsdServiceConnector methods in a module update (this isn\u0027t stable AIDL), so I don\u0027t think we can do this in CTS (for example, we wouldn\u0027t be able to rename one of the methods in V or W, because that would break U CTS).\n\nConsidering that this callback isn\u0027t expected to be sent at all at the moment, and this is just an interface with no implementation, I think the best you can do is just to call onStopResolutionFailed on the record directly...",
+      "revId": "bf3281913002f367c4d4c7150f6aaf125502ae92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65f3767e_6926c418",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-27T01:54:37Z",
+      "side": 1,
+      "message": "Ack. Update the test accordingly.",
+      "parentUuid": "fc075080_9fa8ec1c",
       "revId": "bf3281913002f367c4d4c7150f6aaf125502ae92",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
