@@ -112,11 +112,19 @@ public class RouterAdvertisementDaemon {
     private static final int DAY_IN_SECONDS = 86_400;
 
     // Commands for IpServer to control RouterAdvertisementDaemon
-    private static final int CMD_START             = 1;
-    private static final int CMD_STOP              = 2;
-    private static final int CMD_BUILD_NEW_RA      = 3;
+    private static final int CMD_START                     = 1;
+    private static final int CMD_STOP                      = 2;
+    private static final int CMD_BUILD_NEW_RA              = 3;
     // Command to send multicast RA
-    private static final int CMD_SEND_MULTICAST_RA = 4;
+    // Multicast RAs should be sent between MIN_RTR_ADV_INTERVAL_SEC and MAX_RTR_ADV_INTERVAL_SEC.
+    // In order to reduce power consumption, the following timers are set:
+    // 1. A wakeup alarm is set to MAX_RTR_ADV_INTERVAL_SEC
+    // 2. A non-wakeup delayed message is periodically sent to peek whether the current time is
+    // eligible (pass the MIN_RTR_ADV_INTERVAL_SEC) to send the multicast RA.
+    // The delayed message timer is set to MIN_RTR_ADV_INTERVAL_SEC / 10 since in some cases the
+    // system may suspended 90% of the time while in doze mode.
+    private static final int CMD_SEND_MULTICAST_RA         = 4;
+    private static final int CMD_PEEK_TO_SEND_MULTICAST_RA = 5;
 
     private final Context mContext;
     private final InterfaceParams mInterface;
@@ -129,6 +137,7 @@ public class RouterAdvertisementDaemon {
     private final DeprecatedInfoTracker mDeprecatedInfoTracker;
     private RsPacketListener mRsPacketListener;
     private WakeupMessage mMulticastRaAlarm;
+    private long mMulticastRaLastSentTimeMsec;
     private RaParams mRaParams;
     private final byte[] mRA = new byte[IPV6_MIN_MTU];
     private int mRaLength;
@@ -289,11 +298,12 @@ public class RouterAdvertisementDaemon {
                     mRsPacketListener.start();
                     mMulticastRaAlarm = makeWakeupMessage(
                             "SEND_MULTICAST_RA", CMD_SEND_MULTICAST_RA);
-                    mMulticastRaAlarm.schedule(now + getNextMulticastTransmitDelayMs());
+                    scheduleNextMulticastRaAlarm();
                     break;
                 case CMD_STOP:
                     if (mMulticastRaAlarm != null) {
                         mMulticastRaAlarm.cancel();
+                        this.removeMessages(CMD_SEND_MULTICAST_RA);
                         mMulticastRaAlarm = null;
                     }
                     if (mRsPacketListener != null) {
@@ -325,7 +335,21 @@ public class RouterAdvertisementDaemon {
                     sendMulticastRa();
                     break;
                 case CMD_SEND_MULTICAST_RA:
+                    mRaMessageHandler.removeMessages(CMD_PEEK_TO_SEND_MULTICAST_RA);
                     sendMulticastRa();
+                    break;
+                case CMD_PEEK_TO_SEND_MULTICAST_RA:
+                    long minRtrAdvIntervalMsec = 1000 * (long) mDeps.getMinRtrAdvIntervalSec();
+                    if (now - mMulticastRaLastSentTimeMsec >= minRtrAdvIntervalMsec) {
+                        mMulticastRaAlarm.cancel();
+                        // To prevent that the CMD_SEND_MULTICAST_RA has already been enqueued by
+                        // mMulticastRaAlarm but hasn't been processed yet.
+                        mRaMessageHandler.removeMessages(CMD_SEND_MULTICAST_RA);
+                        sendMulticastRa();
+                    } else {
+                        RouterAdvertisementDaemon.this.sendMessage(CMD_PEEK_TO_SEND_MULTICAST_RA,
+                                minRtrAdvIntervalMsec / 10);
+                    }
                     break;
                 default:
                     Log.e(TAG, "Unknown message, cmd = " + String.valueOf(msg.what));
@@ -688,50 +712,52 @@ public class RouterAdvertisementDaemon {
         }
     }
 
+    private void scheduleNextMulticastRaAlarm() {
+        if (mRaLength < ICMPV6_RA_HEADER_LEN) {
+            // No actual RA to send, just return.
+            return;
+        }
+        final long now = SystemClock.elapsedRealtime();
+        final boolean deprecationInProgress = !mDeprecatedInfoTracker.isEmpty();
+        final int urgentPending = mUrgentAnnouncements.getAndDecrement();
+        if (urgentPending > 0 || deprecationInProgress) {
+            mMulticastRaAlarm.schedule(now + 1000 * (long) mDeps.getMinDelayBetweenRasSec());
+        } else {
+            mMulticastRaAlarm.schedule(now + 1000 * (long) mDeps.getMaxRtrAdvIntervalSec());
+            sendMessage(CMD_PEEK_TO_SEND_MULTICAST_RA,
+                    (1000 * (long) mDeps.getMinRtrAdvIntervalSec()) / 10);
+        }
+    }
+
     private void sendMulticastRa() {
         maybeSendRA(mAllNodes);
+        mMulticastRaLastSentTimeMsec = SystemClock.elapsedRealtime();
         if (mDeprecatedInfoTracker.decrementCounters()) {
             // At least one deprecated PIO has been removed;
             // reassemble the RA.
             assembleRa();
         }
-        if (mMulticastRaAlarm != null) {
-            final long now = SystemClock.elapsedRealtime();
-            mMulticastRaAlarm.schedule(now + getNextMulticastTransmitDelayMs());
-        }
+        scheduleNextMulticastRaAlarm();
     }
 
     private boolean sendMessage(int cmd) {
-        return sendMessage(cmd, null);
+        return sendMessage(cmd, 0);
+    }
+
+    private boolean sendMessage(int cmd, long delayMillis) {
+        return sendMessage(cmd, null, delayMillis);
     }
 
     private boolean sendMessage(int cmd, @Nullable Object obj) {
+        return sendMessage(cmd, obj, 0);
+    }
+
+    private boolean sendMessage(int cmd, @Nullable Object obj, long delayMillis) {
         if (mRaMessageHandler == null) {
             return false;
         }
 
-        return mRaMessageHandler.sendMessage(
-                Message.obtain(mRaMessageHandler, cmd, obj));
-    }
-
-    private int getNextMulticastTransmitDelaySec() {
-        boolean deprecationInProgress = false;
-        if (mRaLength < ICMPV6_RA_HEADER_LEN) {
-            // No actual RA to send; just sleep for 1 day.
-            return DAY_IN_SECONDS;
-        }
-        deprecationInProgress = !mDeprecatedInfoTracker.isEmpty();
-
-        final int urgentPending = mUrgentAnnouncements.getAndDecrement();
-        if ((urgentPending > 0) || deprecationInProgress) {
-            return mDeps.getMinDelayBetweenRasSec();
-        }
-
-        return mDeps.getMinRtrAdvIntervalSec() + mRandom.nextInt(
-                mDeps.getMaxRtrAdvIntervalSec() - mDeps.getMinRtrAdvIntervalSec());
-    }
-
-    private long getNextMulticastTransmitDelayMs() {
-        return 1000 * (long) getNextMulticastTransmitDelaySec();
+        return mRaMessageHandler.sendMessageDelayed(
+                Message.obtain(mRaMessageHandler, cmd, obj), delayMillis);
     }
 }
