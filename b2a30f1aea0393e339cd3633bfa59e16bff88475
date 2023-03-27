@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e62c09a5_00bfd7eb",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-27T08:35:53Z",
+      "side": 1,
+      "message": "What do you mean by \"after creating it\" ? If the member is not final, the write in the constructor is not special. If it\u0027s not on the same thread, the write will not always be observed by other threads who will see null instead.\nPlease refer to the Java spec chapter 17.5 ; the constructor must run on the same thread if you want the writes to be visible. It\u0027s a common mistake to think the constructor is exempt from this constraint, and that causes crashes. The constructor is NOT exempt.",
+      "range": {
+        "startLine": 171,
+        "startChar": 73,
+        "endLine": 171,
+        "endChar": 90
+      },
+      "revId": "b2a30f1aea0393e339cd3633bfa59e16bff88475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc7865f9_5184146d",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-27T08:35:53Z",
+      "side": 1,
+      "message": "This is accessed with no protections at all here (on the handler thread) and in setUnderpinnedNetworkFound (not on the handler thread). This will cause the test to be flaky.",
+      "range": {
+        "startLine": 290,
+        "startChar": 24,
+        "endLine": 290,
+        "endChar": 48
+      },
+      "revId": "b2a30f1aea0393e339cd3633bfa59e16bff88475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
