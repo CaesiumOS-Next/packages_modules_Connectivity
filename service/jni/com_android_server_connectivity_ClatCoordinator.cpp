@@ -26,8 +26,11 @@
 #include <nativehelper/JNIHelp.h>
 #include <net/if.h>
 #include <spawn.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include <string>
+#include <unistd.h>
 
 #include <bpf/BpfMap.h>
 #include <bpf/BpfUtils.h>
@@ -45,7 +48,20 @@
 #define DEVICEPREFIX "v4-"
 
 namespace android {
+static const char* kClatdDir = "/apex/com.android.tethering/bin/for-system";
 static const char* kClatdPath = "/apex/com.android.tethering/bin/for-system/clatd";
+
+static void verifyClatdBinaryPermissions() {
+    struct stat s;
+    if (lstat(kClatdDir, &s)) abort();
+    if (s.st_mode & 07777 != 0750) abort();
+    if (s.st_uid != AID_ROOT) abort();
+    if (s.st_gid != AID_SYSTEM) abort();
+    if (lstat(kClatdPath, &s)) abort();
+    if (s.st_mode & 07777 != 0555) abort();
+    if (s.st_uid != AID_CLAT) abort();
+    if (s.st_gid != AID_CLAT) abort();
+}
 
 static void throwIOException(JNIEnv* env, const char* msg, int error) {
     jniThrowExceptionFmt(env, "java/io/IOException", "%s: %s", msg, strerror(error));
@@ -484,6 +500,7 @@ static const JNINativeMethod gMethods[] = {
 };
 
 int register_com_android_server_connectivity_ClatCoordinator(JNIEnv* env) {
+    verifyClatdBinaryPermissions();
     return jniRegisterNativeMethods(env,
             "android/net/connectivity/com/android/server/connectivity/ClatCoordinator",
             gMethods, NELEM(gMethods));
