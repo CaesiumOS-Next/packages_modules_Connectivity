@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba7cdf79_a1c84eb1",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-27T13:54:24Z",
+      "side": 1,
+      "message": "Update to always update in the handler thread.",
+      "parentUuid": "e62c09a5_00bfd7eb",
+      "range": {
+        "startLine": 171,
+        "startChar": 73,
+        "endLine": 171,
+        "endChar": 90
+      },
+      "revId": "b2a30f1aea0393e339cd3633bfa59e16bff88475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc7865f9_5184146d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-27T08:35:53Z",
       "side": 1,
       "message": "This is accessed with no protections at all here (on the handler thread) and in setUnderpinnedNetworkFound (not on the handler thread). This will cause the test to be flaky.",
+      "range": {
+        "startLine": 290,
+        "startChar": 24,
+        "endLine": 290,
+        "endChar": 48
+      },
+      "revId": "b2a30f1aea0393e339cd3633bfa59e16bff88475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89d6a21f_5ac65fda",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-27T13:54:24Z",
+      "side": 1,
+      "message": "Set this in handler thread as well.",
+      "parentUuid": "cc7865f9_5184146d",
       "range": {
         "startLine": 290,
         "startChar": 24,
