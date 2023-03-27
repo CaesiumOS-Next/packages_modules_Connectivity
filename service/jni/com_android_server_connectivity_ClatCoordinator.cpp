@@ -26,8 +26,12 @@
 #include <nativehelper/JNIHelp.h>
 #include <net/if.h>
 #include <spawn.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/xattr.h>
 #include <string>
+#include <unistd.h>
 
 #include <bpf/BpfMap.h>
 #include <bpf/BpfUtils.h>
@@ -45,7 +49,34 @@
 #define DEVICEPREFIX "v4-"
 
 namespace android {
-static const char* kClatdPath = "/apex/com.android.tethering/bin/for-system/clatd";
+static const char* kClatdDir = "/apex/com.android.tethering/bin/for-system";
+static const char* kClatdBin = "/apex/com.android.tethering/bin/for-system/clatd";
+
+#define ABORT(s ...) do { \
+  ALOGE(s); \
+  abort(); \
+} while(0)
+
+static void verifyClatdBinaryPermissions() {
+    struct stat s;
+    char b[64];
+
+    if (lstat(kClatdDir, &s)) ABORT("lstat clatd dir errno=%d", errno);
+    if (s.st_mode != (S_IFDIR|0750)) ABORT("clatd dir mode is %d", s.st_mode);
+    if (s.st_uid != AID_ROOT) ABORT("clatd dir uid is %d", s.st_uid);
+    if (s.st_gid != AID_SYSTEM) ABORT("clatd dir gid is %d", s.st_gid);
+
+    if (lgetxattr(kClatdDir, "security.selinux", &b, sizeof(b))) ABORT("clatd dir %d", errno);
+    if (strncmp("u:object_r:system_file:s0", b, sizeof(b))) ABORT("xattr clatd dir is %s", b);
+
+    if (lstat(kClatdBin, &s)) ABORT("lstat clatd bin errno=%d", errno);
+    if (s.st_mode != (S_IFREG|S_ISUID|S_ISGID|0755)) ABORT("clatd bin mode is %d", s.st_mode);
+    if (s.st_uid != AID_CLAT) ABORT("clatd bin uid is %d", s.st_uid);
+    if (s.st_gid != AID_CLAT) ABORT("clatd bin gid is %d", s.st_gid);
+
+    if (lgetxattr(kClatdBin, "security.selinux", &b, sizeof(b))) ABORT("clatd bin %d", errno);
+    if (strncmp("u:object_r:clatd_exec:s0", b, sizeof(b))) ABORT("xattr clatd bin is %s", b);
+}
 
 static void throwIOException(JNIEnv* env, const char* msg, int error) {
     jniThrowExceptionFmt(env, "java/io/IOException", "%s: %s", msg, strerror(error));
@@ -365,7 +396,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
 
     // 5. actually perform vfork/dup2/execve
     pid_t pid;
-    if (int ret = posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
+    if (int ret = posix_spawn(&pid, kClatdBin, &fa, &attr, (char* const*)args, nullptr)) {
         posix_spawnattr_destroy(&attr);
         posix_spawn_file_actions_destroy(&fa);
         throwIOException(env, "posix_spawn failed", ret);
@@ -484,6 +515,7 @@ static const JNINativeMethod gMethods[] = {
 };
 
 int register_com_android_server_connectivity_ClatCoordinator(JNIEnv* env) {
+    verifyClatdBinaryPermissions();
     return jniRegisterNativeMethods(env,
             "android/net/connectivity/com/android/server/connectivity/ClatCoordinator",
             gMethods, NELEM(gMethods));
