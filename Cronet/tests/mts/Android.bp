@@ -75,50 +75,6 @@ android_test {
          "general-tests",
          "mts-tethering",
      ],
-
-     // Todo: delete me
-     jacoco: {
-        include_filter: [
-            "android.net.connectivity.org.chromium.net.**",
-            "android.net.connectivity.android.net.http.*"
-        ],
-        exclude_filter: [
-            "android.net.connectivity.org.chromium.net.Test*",
-            "android.net.connectivity.org.chromium.net.test.*",
-            "android.net.http.mts.*",
-            "android/net/connectivity/org/chromium/net/impl/IntegratedModeState*",
-            "android.net.connectivity.org.chromium.net.CronetUrlRequestTest*",
-            "android.net.connectivity.org.chromium.net.CronetUrlRequestContextTest*",
-            "android.net.connectivity.org.chromium.net.UrlResponseInfoTest*",
-            "android.net.connectivity.org.chromium.net.CronetOnboardingTest*",
-            "android.net.connectivity.org.chromium.net.RequestFinishedInfoTest*",
-            "android.net.connectivity.org.chromium.net.CronetTestRule*",
-            "android.net.connectivity.org.chromium.net.CronetTestUtil*",
-            "android.net.connectivity.org.chromium.net.QuicTest*",
-            "android.net.connectivity.org.chromium.net.GetStatusTest*",
-            "android.net.connectivity.org.chromium.net.DiskStorageTest*",
-            "android/net/connectivity/org/chromium/net/NativeTestServer*",
-            "android/net/connectivity/org/chromium/net/CronetStressTest*",
-            "android/net/connectivity/org/chromium/net/MockCertVerifier*",
-            "android/net/connectivity/org/chromium/net/MockUrlRequestJobFactory*",
-            "android/net/connectivity/org/chromium/net/CronetUploadTest*",
-            "android/net/connectivity/org/chromium/net/impl/CronetLoggerTest*",
-            "android/net/connectivity/org/chromium/net/CronetLoggerTestRule*",
-            "android/net/connectivity/org/chromium/net/ExperimentalOptionsTest*",
-            "android/net/connectivity/org/chromium/net/NetworkChangeNotifier*",
-            "android/net/connectivity/org/chromium/net/urlconnection/CronetInputStreamTest*",
-            "android/net/connectivity/org/chromium/net/urlconnection/CronetFixedModeOutputStreamTest*",
-            "android/net/connectivity/org/chromium/net/urlconnection/CronetBufferedOutputStreamTest*",
-            "android/net/connectivity/org/chromium/net/urlconnection/CronetChunkedOutputStreamTest*",
-            "android/net/connectivity/org/chromium/net/urlconnection/CronetHttpURLStreamHandlerTest*",
-            "android/net/connectivity/org/chromium/net/urlconnection/CronetURLStreamHandlerFactoryTest*",
-            "android/net/connectivity/org/chromium/net/urlconnection/MessageLoopTest*",
-            "android/net/connectivity/org/chromium/net/urlconnection/TestUtil*",
-            "android/net/connectivity/org/chromium/net/R.class",
-            "android/net/connectivity/org/chromium/net/R.xml",
-            "android/net/connectivity/org/chromium/net/R.style",
-        ],
-     }
 }
 
 java_genrule {
