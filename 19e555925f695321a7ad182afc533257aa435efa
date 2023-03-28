@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cfc97af_1610babc",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-03-28T01:02:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77e62f77_c18759ed",
+      "range": {
+        "startLine": 319,
+        "startChar": 75,
+        "endLine": 319,
+        "endChar": 80
+      },
+      "revId": "19e555925f695321a7ad182afc533257aa435efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efca19e2_d1baaa16",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-03-28T01:02:41Z",
+      "side": 1,
+      "message": "I did some improvements. Previously, we always have `useEncap` and `encapSocket` in parallel and sometimes check `useEncap`, sometimes check `encapSocket`. In the new patch, `useEncap` is only used on deciding the nullability of `encapSocket` and then the later code will only check `encapSocket`.\n\nWe always check do null check of `encapSocket` before calling method on it. So it will not throw NPE.",
+      "parentUuid": "1025457f_3225f8a0",
+      "range": {
+        "startLine": 319,
+        "startChar": 84,
+        "endLine": 319,
+        "endChar": 88
+      },
+      "revId": "19e555925f695321a7ad182afc533257aa435efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "becc5c1f_856cf9f4",
