@@ -52,16 +52,17 @@ import com.android.net.module.util.NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_EX
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.assertParcelSane
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertNotEquals
-import kotlin.test.assertTrue
 
 private const val TEST_IMSI1 = "imsi1"
 private const val TEST_IMSI2 = "imsi2"
@@ -72,6 +73,8 @@ private const val TEST_WIFI_KEY2 = "wifiKey2"
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 class NetworkTemplateTest {
+    @get:Rule
+    val ignoreRule = DevSdkIgnoreRule()
     private val mockContext = mock(Context::class.java)
     private val mockWifiInfo = mock(WifiInfo::class.java)
 
@@ -179,6 +182,18 @@ class NetworkTemplateTest {
         templateWifiKeyAllImsi1.assertMatches(identWifiImsi1Key1)
         templateWifiKeyAllImsi1.assertDoesNotMatch(identWifiImsi2Key1)
         templateWifiKeyAllImsi1.assertMatches(identWifiImsi1Key2)
+    }
+
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    fun testBuildTemplateMobileAll_nullSubscriberId() {
+        val templateMobileAllWithNullImsi = buildTemplateMobileAll(null)
+        val setWithNull = HashSet<String?>().apply {
+            add(null)
+        }
+        val templateFromBuilder = NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES)
+            .setSubscriberIds(setWithNull).build()
+        assertEquals(templateFromBuilder, templateMobileAllWithNullImsi)
     }
 
     @Test

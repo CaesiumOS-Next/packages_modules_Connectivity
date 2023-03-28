@@ -32,18 +32,19 @@ import android.net.NetworkTemplate.MATCH_WIFI
 import android.net.NetworkTemplate.MATCH_WIFI_WILDCARD
 import android.net.NetworkTemplate.NETWORK_TYPE_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_ALL
+import android.os.Build
 import android.telephony.TelephonyManager
 import com.android.net.module.util.NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_ALL
 import com.android.net.module.util.NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_EXACT
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.SC_V2
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
 
 private const val TEST_IMSI1 = "imsi"
 private const val TEST_WIFI_KEY1 = "wifiKey1"
@@ -103,6 +104,34 @@ class NetworkTemplateTest {
             NetworkTemplate.Builder(MATCH_CARRIER).build()
         }
 
+<<<<<<< HEAD   (9dcf6f RateLimitTest: increase tolerance to 30%)
+=======
+        // Verify carrier and mobile template cannot contain one of subscriber Id is null.
+        assertFailsWith<IllegalArgumentException> {
+            NetworkTemplate.Builder(MATCH_CARRIER).setSubscriberIds(setOf(null)).build()
+        }
+        val firstSdk = Build.VERSION.DEVICE_INITIAL_SDK_INT
+        if (firstSdk > Build.VERSION_CODES.TIRAMISU) {
+            assertFailsWith<IllegalArgumentException> {
+                NetworkTemplate.Builder(MATCH_MOBILE).setSubscriberIds(setOf(null)).build()
+            }
+        } else {
+            NetworkTemplate.Builder(MATCH_MOBILE).setSubscriberIds(setOf(null)).build().let {
+                val expectedTemplate = NetworkTemplate(
+                    MATCH_MOBILE,
+                    arrayOfNulls<String>(1) /*subscriberIds*/,
+                    emptyArray<String>() /*wifiNetworkKey*/,
+                    METERED_ALL,
+                    ROAMING_ALL,
+                    DEFAULT_NETWORK_ALL,
+                    NETWORK_TYPE_ALL,
+                    OEM_MANAGED_ALL
+                )
+                assertEquals(expectedTemplate, it)
+            }
+        }
+
+>>>>>>> CHANGE (2c12f9 Do not crash when passing null into buildTemplateMobileAll)
         // Verify template which matches metered cellular networks,
         // regardless of IMSI. See buildTemplateMobileWildcard.
         NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES).build().let {

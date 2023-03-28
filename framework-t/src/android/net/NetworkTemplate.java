@@ -58,6 +58,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -189,9 +190,135 @@ public final class NetworkTemplate implements Parcelable {
      *
      * @hide
      */
+<<<<<<< HEAD   (9dcf6f RateLimitTest: increase tolerance to 30%)
     @UnsupportedAppUsage
     public static NetworkTemplate buildTemplateMobileAll(String subscriberId) {
         return new NetworkTemplate(MATCH_MOBILE, subscriberId, null);
+=======
+    @Deprecated
+    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.TIRAMISU,
+            publicAlternatives = "Use {@code Builder} instead.")
+    public static NetworkTemplate buildTemplateMobileAll(@NonNull String subscriberId) {
+        final Set<String> set;
+        // Prevent from crash for b/273963543, where the OEMs still call into this method
+        // with null subscriberId and get crashed.
+        final int firstSdk = Build.VERSION.DEVICE_INITIAL_SDK_INT;
+        if (firstSdk > Build.VERSION_CODES.TIRAMISU && subscriberId == null) {
+            throw new IllegalArgumentException("buildTemplateMobileAll does not accept null"
+                    + " subscriberId on Android U devices or above");
+        }
+        if (subscriberId == null) {
+            set = new HashSet<>();
+            set.add(null);
+        } else {
+            set = Set.of(subscriberId);
+        }
+        return new NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES)
+                .setSubscriberIds(set).build();
+    }
+
+    /**
+     * Template to match metered {@link ConnectivityManager#TYPE_MOBILE} networks,
+     * regardless of IMSI.
+     *
+     * @deprecated Use {@link Builder} to build a template.
+     * @hide
+     */
+    @Deprecated
+    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
+    public static NetworkTemplate buildTemplateMobileWildcard() {
+        return new NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES).build();
+    }
+
+    /**
+     * Template to match all metered {@link ConnectivityManager#TYPE_WIFI} networks,
+     * regardless of key of the wifi network.
+     *
+     * @deprecated Use {@link Builder} to build a template.
+     * @hide
+     */
+    @Deprecated
+    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.TIRAMISU,
+            publicAlternatives = "Use {@code Builder} instead.")
+    public static NetworkTemplate buildTemplateWifiWildcard() {
+        return new NetworkTemplate.Builder(MATCH_WIFI).build();
+    }
+
+    /**
+     * @deprecated Use {@link Builder} to build a template.
+     * @hide
+     */
+    @Deprecated
+    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.TIRAMISU,
+            publicAlternatives = "Use {@code Builder} instead.")
+    public static NetworkTemplate buildTemplateWifi() {
+        return buildTemplateWifiWildcard();
+    }
+
+    /**
+     * Template to combine all {@link ConnectivityManager#TYPE_ETHERNET} style
+     * networks together.
+     *
+     * @deprecated Use {@link Builder} to build a template.
+     * @hide
+     */
+    @Deprecated
+    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.TIRAMISU,
+            publicAlternatives = "Use {@code Builder} instead.")
+    public static NetworkTemplate buildTemplateEthernet() {
+        return new NetworkTemplate.Builder(MATCH_ETHERNET).build();
+    }
+
+    /**
+     * Template to combine all {@link ConnectivityManager#TYPE_BLUETOOTH} style
+     * networks together.
+     *
+     * @hide
+     */
+    // TODO(b/270089918): Remove this method. This can only be done after there are no more callers,
+    //  including in OEM code which can access this by linking against the framework.
+    public static NetworkTemplate buildTemplateBluetooth() {
+        if (SdkLevel.isAtLeastU()) {
+            throw new UnsupportedOperationException(
+                    "buildTemplateBluetooth is not supported on Android U devices or above");
+        }
+        return new NetworkTemplate.Builder(MATCH_BLUETOOTH).build();
+    }
+
+    /**
+     * Template to combine all {@link ConnectivityManager#TYPE_PROXY} style
+     * networks together.
+     *
+     * @hide
+     */
+    // TODO(b/270089918): Remove this method. This can only be done after there are no more callers,
+    //  including in OEM code which can access this by linking against the framework.
+    public static NetworkTemplate buildTemplateProxy() {
+        if (SdkLevel.isAtLeastU()) {
+            throw new UnsupportedOperationException(
+                    "buildTemplateProxy is not supported on Android U devices or above");
+        }
+        return new NetworkTemplate(MATCH_PROXY, null, null);
+    }
+
+    /**
+     * Template to match all metered carrier networks with the given IMSI.
+     *
+     * @hide
+     */
+    // TODO(b/273963543): Remove this method. This can only be done after there are no more callers,
+    //  including in OEM code which can access this by linking against the framework.
+    public static NetworkTemplate buildTemplateCarrierMetered(@NonNull String subscriberId) {
+        if (SdkLevel.isAtLeastU()) {
+            throw new UnsupportedOperationException(
+                    "buildTemplateCarrierMetered is not supported on Android U devices or above");
+        }
+        return new NetworkTemplate.Builder(MATCH_CARRIER)
+                // Set.of will throw if subscriberId is null
+                .setSubscriberIds(Set.of(subscriberId))
+                .setMeteredness(METERED_YES)
+                .build();
+>>>>>>> CHANGE (2c12f9 Do not crash when passing null into buildTemplateMobileAll)
     }
 
     /**
@@ -364,12 +491,36 @@ public final class NetworkTemplate implements Parcelable {
 
     private static void checkValidSubscriberIdMatchRule(int matchRule, int subscriberIdMatchRule) {
         switch (matchRule) {
+<<<<<<< HEAD   (9dcf6f RateLimitTest: increase tolerance to 30%)
             case MATCH_MOBILE:
             case MATCH_CARRIER:
                 // MOBILE and CARRIER templates must always specify a subscriber ID.
                 if (subscriberIdMatchRule == NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_ALL) {
                     throw new IllegalArgumentException("Invalid SubscriberIdMatchRule "
                             + "on match rule: " + getMatchRuleName(matchRule));
+=======
+            // CARRIER templates must always specify a valid subscriber ID.
+            // MOBILE templates can have empty matchSubscriberIds but it must not contain a null
+            // subscriber ID.
+            case MATCH_CARRIER:
+                if (matchSubscriberIds.length == 0) {
+                    throw new IllegalArgumentException("matchSubscriberIds may not contain"
+                            + " null for rule " + getMatchRuleName(matchRule));
+                }
+                if (CollectionUtils.contains(matchSubscriberIds, null)) {
+                    throw new IllegalArgumentException("matchSubscriberIds may not contain"
+                            + " null for rule " + getMatchRuleName(matchRule));
+                }
+                break;
+            case MATCH_MOBILE:
+                // Prevent from crash for b/273963543, where the OEMs still call into unsupported
+                // buildTemplateMobileAll with null subscriberId and get crashed.
+                final int firstSdk = Build.VERSION.DEVICE_INITIAL_SDK_INT;
+                if (firstSdk > Build.VERSION_CODES.TIRAMISU
+                        && CollectionUtils.contains(matchSubscriberIds, null)) {
+                    throw new IllegalArgumentException("checkValidMatchSubscriberIds list of ids"
+                            + " may not contain null for rule " + getMatchRuleName(matchRule));
+>>>>>>> CHANGE (2c12f9 Do not crash when passing null into buildTemplateMobileAll)
                 }
                 return;
             default:
