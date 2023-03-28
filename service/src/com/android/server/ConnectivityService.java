@@ -1495,6 +1495,26 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 throws SocketException, InterruptedIOException, ErrnoException {
             InetDiagMessage.destroyLiveTcpSocket(ranges, exemptUids);
         }
+
+        /**
+         * Call {@link InetDiagMessage#destroyLiveTcpSocketWithOwnerUids(Set)}
+         *
+         * @param ownerUids target uids to close sockets
+         */
+        public void destroyLiveTcpSocketWithOwnerUids(final Set<Integer> ownerUids)
+                throws SocketException, InterruptedIOException, ErrnoException {
+            InetDiagMessage.destroyLiveTcpSocketWithOwnerUids(ownerUids);
+        }
+
+        /**
+         * Call {@link InetDiagMessage#destroyLiveTcpSocketWithExcemptUids(Set)}
+         *
+         * @param exemptUids uids to skip destroy sockets
+         */
+        public void destroyLiveTcpSocketWithExemptUids(final Set<Integer> exemptUids)
+                throws SocketException, InterruptedIOException, ErrnoException {
+            InetDiagMessage.destroyLiveTcpSocketWithExcemptUids(exemptUids);
+        }
     }
 
     public ConnectivityService(Context context) {
@@ -11911,6 +11931,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return rule;
     }
 
+    private void closeSocketsForFirewallChainLocked(final int chain)
+            throws ErrnoException, SocketException, InterruptedIOException {
+        final Set<Integer> uids = mBpfNetMaps.getUidsWithNonDefaultRule(chain);
+        if (mBpfNetMaps.isFirewallAllowList(chain)) {
+            // Allowlist means the firewall denies all by default, uids must be explicitly allowed
+            // So, close socket owned by uids that are not explicitly allowed
+            mDeps.destroyLiveTcpSocketWithExemptUids(uids);
+        } else {
+            // Denylist means the firewall allows all by default, uids must be explicitly denied
+            // So, close socket owned by uids that are explicitly denied
+            mDeps.destroyLiveTcpSocketWithOwnerUids(uids);
+        }
+    }
+
     @Override
     public void setFirewallChainEnabled(final int chain, final boolean enable) {
         enforceNetworkStackOrSettingsPermission();
@@ -11919,6 +11953,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mBpfNetMaps.setChildChain(chain, enable);
         } catch (ServiceSpecificException e) {
             throw new IllegalStateException(e);
+        }
+
+        if (enable) {
+            try {
+                closeSocketsForFirewallChainLocked(chain);
+            } catch (ErrnoException | SocketException | InterruptedIOException e) {
+                Log.e(TAG, "Failed to close sockets after enabling chain (" + chain + "): " + e);
+            }
         }
     }
 
