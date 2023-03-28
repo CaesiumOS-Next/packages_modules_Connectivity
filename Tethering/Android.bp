@@ -116,7 +116,7 @@ android_library {
 
 // Due to b/143733063, APK can't access a jni lib that is in APEX (but not in the APK).
 cc_library {
-    name: "libcom_android_networkstack_tethering_util_jni",
+    name: "libandroid_net_tethering_com_android_net_module_util_jni",
     sdk_version: "30",
     apex_available: [
         "//apex_available:platform", // Used by InProcessTethering
@@ -164,7 +164,7 @@ java_defaults {
     name: "TetheringAppDefaults",
     privileged: true,
     jni_libs: [
-        "libcom_android_networkstack_tethering_util_jni",
+        "libandroid_net_tethering_com_android_net_module_util_jni",
     ],
     resource_dirs: [
         "res",
@@ -181,7 +181,7 @@ java_defaults {
     libs: [
         "framework-tethering.impl",
     ],
-    jarjar_rules: "jarjar-rules.txt",
+    jarjar_rules: ":tethering-jarjar-gen",
     optimize: {
         proguard_flags_files: ["proguard.flags"],
     },
@@ -269,4 +269,25 @@ genrule {
     cmd: "$(location stats-log-api-gen) --java $(out) --module network_tethering" +
          " --javaPackage com.android.networkstack.tethering.metrics --javaClass TetheringStatsLog",
     out: ["com/android/networkstack/tethering/metrics/TetheringStatsLog.java"],
+}
+
+java_genrule {
+    name: "tethering-jarjar-gen",
+    tool_files: [
+        ":TetheringApiStableLib{.jar}",
+        "jarjar-excludes.txt",
+    ],
+    tools: [
+        "jarjar-rules-generator",
+    ],
+    out: ["tethering_jarjar_rules.txt"],
+    cmd: "$(location jarjar-rules-generator) " +
+        "$(location :TetheringApiStableLib{.jar}) " +
+        "--prefix android.net.tethering " +
+        "--excludes $(location jarjar-excludes.txt) " +
+        "--output $(out)",
+    visibility: [
+        "//packages/modules/Connectivity/tests:__subpackages__",
+        "//packages/modules/Connectivity/Tethering/tests:__subpackages__",
+    ],
 }

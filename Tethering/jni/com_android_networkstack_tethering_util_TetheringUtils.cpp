@@ -175,7 +175,7 @@ static const JNINativeMethod gMethods[] = {
 
 int register_com_android_networkstack_tethering_util_TetheringUtils(JNIEnv* env) {
     return jniRegisterNativeMethods(env,
-            "com/android/networkstack/tethering/util/TetheringUtils",
+            "android/net/tethering/com/android/networkstack/tethering/util/TetheringUtils",
             gMethods, NELEM(gMethods));
 }
 

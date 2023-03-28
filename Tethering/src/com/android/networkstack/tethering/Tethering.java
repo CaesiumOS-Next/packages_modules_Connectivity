@@ -664,7 +664,7 @@ public class Tethering {
         processInterfaceStateChange(iface, false /* enabled */);
     }
 
-    void startTethering(final TetheringRequestParcel request, final String callerPkg,
+    public void startTethering(final TetheringRequestParcel request, final String callerPkg,
             final IIntResultListener listener) {
         mHandler.post(() -> {
             final TetheringRequestParcel unfinishedRequest = mActiveTetheringRequests.get(
@@ -689,7 +689,7 @@ public class Tethering {
         });
     }
 
-    void stopTethering(int type) {
+    public void stopTethering(int type) {
         mHandler.post(() -> {
             stopTetheringInternal(type);
         });
@@ -978,7 +978,7 @@ public class Tethering {
         }
     }
 
-    void tether(String iface, int requestedState, final IIntResultListener listener) {
+    public void tether(String iface, int requestedState, final IIntResultListener listener) {
         mHandler.post(() -> {
             try {
                 listener.onResult(tether(iface, requestedState));
@@ -1012,7 +1012,7 @@ public class Tethering {
         return TETHER_ERROR_NO_ERROR;
     }
 
-    void untether(String iface, final IIntResultListener listener) {
+    public void untether(String iface, final IIntResultListener listener) {
         mHandler.post(() -> {
             try {
                 listener.onResult(untether(iface));
@@ -1021,7 +1021,7 @@ public class Tethering {
         });
     }
 
-    int untether(String iface) {
+    public int untether(String iface) {
         if (DBG) Log.d(TAG, "Untethering " + iface);
         TetherState tetherState = mTetherStates.get(iface);
         if (tetherState == null) {
@@ -1036,7 +1036,7 @@ public class Tethering {
         return TETHER_ERROR_NO_ERROR;
     }
 
-    void untetherAll() {
+    public void untetherAll() {
         stopTethering(TETHERING_WIFI);
         stopTethering(TETHERING_WIFI_P2P);
         stopTethering(TETHERING_USB);
@@ -1045,7 +1045,7 @@ public class Tethering {
     }
 
     @VisibleForTesting
-    int getLastErrorForTest(String iface) {
+    public int getLastErrorForTest(String iface) {
         TetherState tetherState = mTetherStates.get(iface);
         if (tetherState == null) {
             Log.e(TAG, "Tried to getLastErrorForTest on an unknown iface :" + iface
@@ -1055,7 +1055,7 @@ public class Tethering {
         return tetherState.lastError;
     }
 
-    boolean isTetherProvisioningRequired() {
+    public boolean isTetherProvisioningRequired() {
         final TetheringConfiguration cfg = mConfig;
         return mEntitlementMgr.isTetherProvisioningRequired(cfg);
     }
@@ -1590,7 +1590,7 @@ public class Tethering {
         return mContext.getSystemService(Context.ETHERNET_SERVICE) != null;
     }
 
-    void setUsbTethering(boolean enable, IIntResultListener listener) {
+    public void setUsbTethering(boolean enable, IIntResultListener listener) {
         mHandler.post(() -> {
             try {
                 listener.onResult(setUsbTethering(enable));
@@ -2367,7 +2367,7 @@ public class Tethering {
     }
 
     /** Get the latest value of the tethering entitlement check. */
-    void requestLatestTetheringEntitlementResult(int type, ResultReceiver receiver,
+    public void requestLatestTetheringEntitlementResult(int type, ResultReceiver receiver,
             boolean showEntitlementUi) {
         if (receiver == null) return;
 
@@ -2378,7 +2378,7 @@ public class Tethering {
     }
 
     /** Register tethering event callback */
-    void registerTetheringEventCallback(ITetheringEventCallback callback) {
+    public void registerTetheringEventCallback(ITetheringEventCallback callback) {
         final boolean hasListPermission =
                 hasCallingPermission(NETWORK_SETTINGS)
                         || hasCallingPermission(PERMISSION_MAINLINE_NETWORK_STACK)
@@ -2419,7 +2419,7 @@ public class Tethering {
     }
 
     /** Unregister tethering event callback */
-    void unregisterTetheringEventCallback(ITetheringEventCallback callback) {
+    public void unregisterTetheringEventCallback(ITetheringEventCallback callback) {
         if (callback == null) {
             throw new NullPointerException();
         }
@@ -2563,7 +2563,7 @@ public class Tethering {
     // if ro.tether.denied = true we default to no tethering
     // gservices could set the secure setting to 1 though to enable it on a build where it
     // had previously been turned off.
-    boolean isTetheringAllowed() {
+    public boolean isTetheringAllowed() {
         final int defaultVal = mDeps.isTetheringDenied() ? 0 : 1;
         final boolean tetherSupported = Settings.Global.getInt(mContext.getContentResolver(),
                 Settings.Global.TETHER_SUPPORTED, defaultVal) != 0;
@@ -2571,7 +2571,7 @@ public class Tethering {
                 && !mUserManager.hasUserRestriction(UserManager.DISALLOW_CONFIG_TETHERING);
     }
 
-    boolean isTetheringSupported() {
+    public boolean isTetheringSupported() {
         return mSupportedTypeBitmap > 0;
     }
 
@@ -2676,7 +2676,7 @@ public class Tethering {
         pw.decreaseIndent();
     }
 
-    void dump(@NonNull FileDescriptor fd, @NonNull PrintWriter writer, @Nullable String[] args) {
+    public void dump(@NonNull FileDescriptor fd, @NonNull PrintWriter writer, @Nullable String[] args) {
         if (mContext.checkCallingOrSelfPermission(android.Manifest.permission.DUMP)
                 != PERMISSION_GRANTED) {
             writer.println("Permission Denial: can't dump.");
@@ -2854,7 +2854,7 @@ public class Tethering {
         return Arrays.copyOf(strarray, strarray.length);
     }
 
-    void setPreferTestNetworks(final boolean prefer, IIntResultListener listener) {
+    public void setPreferTestNetworks(final boolean prefer, IIntResultListener listener) {
         mHandler.post(() -> {
             mUpstreamNetworkMonitor.setPreferTestNetworks(prefer);
             try {

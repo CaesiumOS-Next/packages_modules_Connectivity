@@ -40,7 +40,7 @@ static const JNINativeMethod gMethods[] = {
 
 int register_com_android_networkstack_tethering_BpfCoordinator(JNIEnv* env) {
     return jniRegisterNativeMethods(env,
-            "com/android/networkstack/tethering/BpfCoordinator",
+            "android/net/tethering/com/android/networkstack/tethering/BpfCoordinator",
             gMethods, NELEM(gMethods));
 }
 

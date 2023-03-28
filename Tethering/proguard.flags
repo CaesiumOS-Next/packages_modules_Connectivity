@@ -7,11 +7,11 @@
     static final % EVENT_*;
 }
 
--keep class com.android.networkstack.tethering.util.BpfMap {
+-keep class android.net.tethering.com.android.net.module.util.BpfMap {
     native <methods>;
 }
 
--keep class com.android.networkstack.tethering.util.TcUtils {
+-keep class android.net.tethering.com.android.net.module.util.TcUtils {
     native <methods>;
 }
 

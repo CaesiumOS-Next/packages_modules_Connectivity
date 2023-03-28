@@ -45,9 +45,9 @@ public class TetheringUtils {
         (byte) 0xff, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
     };
 
-    /** The name should be com_android_networkstack_tethering_util_jni. */
+    /** The name should be android_net_tethering_com_android_net_module_util_jni. */
     public static String getTetheringJniLibraryName() {
-        return JniUtil.getJniLibraryName(TetheringUtils.class.getPackage());
+        return JniUtil.getJniLibraryName(JniUtil.class.getPackage());
     }
 
     /**
