@@ -16751,7 +16751,7 @@ public class ConnectivityServiceTest {
                 .setLinkUpstreamBandwidthKbps(20)
                 .setLinkDownstreamBandwidthKbps(10)
                 .setNetworkSpecifier(new EthernetNetworkSpecifier("foobar"))
-                .setTransportInfo(new WifiInfo.Builder().setBssid("AA:AA:AA:AA:AA:AA").build())
+                .setTransportInfo(makeWifiInfo("AA:AA:AA:AA:AA:AA"))
                 .setSignalStrength(-75)
                 .setSsid("SSID1")
                 .setRequestorUid(98765)
@@ -17514,9 +17514,9 @@ public class ConnectivityServiceTest {
                 .addCapability(NET_CAPABILITY_TRUSTED)
                 .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
                 .addTransportType(TRANSPORT_WIFI)
-                .setTransportInfo(new WifiInfo.Builder().setBssid(bssid1).build());
+                .setTransportInfo(makeWifiInfo(bssid1));
         NetworkCapabilities wifiNc2 = new NetworkCapabilities(wifiNc1)
-                .setTransportInfo(new WifiInfo.Builder().setBssid(bssid2).build());
+                .setTransportInfo(makeWifiInfo(bssid2));
         final LinkProperties wifiLp = new LinkProperties();
         wifiLp.setInterfaceName(WIFI_IFNAME);
         mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp, wifiNc1);
@@ -17614,6 +17614,17 @@ public class ConnectivityServiceTest {
         mDefaultNetworkCallback.expect(LOST, mCellAgent);
         mDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiAgent);
 
+    }
+
+    private WifiInfo makeWifiInfo(@NonNull String bssid) {
+        // Cannot access setNetworkKey since it is not exposed. Make mocked object instead.
+        final WifiInfo wifiInfo = mock(WifiInfo.class);
+        doReturn(bssid).when(wifiInfo).getBSSID();
+        doReturn(bssid).when(wifiInfo).getNetworkKey();
+        // WifiInfo overrides makeCopy to make a new clone when copying, this makes
+        // mocked WifiInfo stop working because fields cannot be mocked.
+        doReturn(wifiInfo).when(wifiInfo).makeCopy(anyLong());
+        return wifiInfo;
     }
 
     @Test

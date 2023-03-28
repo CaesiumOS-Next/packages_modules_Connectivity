@@ -3780,6 +3780,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             switch (msg.what) {
                 case NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED: {
                     nai.setDeclaredCapabilities((NetworkCapabilities) arg.second);
+                    maybeEnforceNonNullWifiNetworkKey((NetworkCapabilities) arg.second);
                     final NetworkCapabilities sanitized =
                             nai.getDeclaredCapabilitiesSanitized(mCarrierPrivilegeAuthenticator);
                     maybeUpdateWifiRoamTimestamp(nai, sanitized);
@@ -7749,6 +7750,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final NetworkCapabilities ncCopy = new NetworkCapabilities(networkCapabilities);
         final LinkProperties lpCopy = new LinkProperties(linkProperties);
 
+        // Checks wifi network key on the binder thread to get a useful call stack.
+        maybeEnforceNonNullWifiNetworkKey(ncCopy);
+
         // At this point the capabilities/properties are untrusted and unverified, e.g. checks that
         // the capabilities' access UIDs comply with security limitations. They will be sanitized
         // as the NAI registration finishes, in handleRegisterNetworkAgent(). This is
@@ -10326,6 +10330,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         if (!TextUtils.equals(((WifiInfo)prevInfo).getBSSID(), ((WifiInfo)newInfo).getBSSID())) {
             nai.lastRoamTime = SystemClock.elapsedRealtime();
+        }
+    }
+
+    private void maybeEnforceNonNullWifiNetworkKey(@NonNull NetworkCapabilities nc) {
+        // WifiInfo#getNetworkKey is not supported before T.
+        if (!SdkLevel.isAtLeastT()) return;
+        final TransportInfo info = nc.getTransportInfo();
+        if (!(info instanceof WifiInfo)) return;
+        if (((WifiInfo) info).getNetworkKey() == null) {
+            // Null wifiNetworkKey is unexpected but happened for unknown reason.
+            // Add log to catch this case whenever it is set. See b/266598304.
+            logwtf("Unexpected null wifi network key: " + nc);
         }
     }
 
