@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f6951d1_3e10a8c7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-28T08:16:14Z",
+      "side": 1,
+      "message": "More accurately this is not possible right ? Because the callback is only sent in very edge-case scenarios when the legacy implementation is used, and the legacy implementation is never used in the current AOSP builds.",
+      "range": {
+        "startLine": 994,
+        "startChar": 11,
+        "endLine": 995,
+        "endChar": 58
+      },
+      "revId": "d414f97ef47520dea15f455bb05d767dc47de640",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b921fbed_55d315a2",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-28T08:16:14Z",
+      "side": 1,
+      "message": "Nit: then verify it is received",
+      "range": {
+        "startLine": 998,
+        "startChar": 25,
+        "endLine": 998,
+        "endChar": 33
+      },
+      "revId": "d414f97ef47520dea15f455bb05d767dc47de640",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06611975_d9c5b6f7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-28T08:16:14Z",
+      "side": 1,
+      "message": "Could also check FAILURE_OPERATION_NOT_RUNNING code on the StopResolutionFailed object",
+      "revId": "d414f97ef47520dea15f455bb05d767dc47de640",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
