@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a74a4344_cce55e22",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-28T11:49:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2bf37f8_88dcf700",
+      "range": {
+        "startLine": 195,
+        "startChar": 36,
+        "endLine": 195,
+        "endChar": 43
+      },
+      "revId": "b3ecee50cd2746568078d5def10e232d0b1dd26d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9da56443_16a05e08",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-28T09:34:27Z",
       "side": 1,
       "message": "Isn\u0027t this \"null\" ? I think there is only one `buildTemplateMobile` so `null` should work, but if it doesn\u0027t for some reason that I\u0027m missing then you want `null as String`",
+      "range": {
+        "startLine": 220,
+        "startChar": 67,
+        "endLine": 220,
+        "endChar": 82
+      },
+      "revId": "b3ecee50cd2746568078d5def10e232d0b1dd26d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b3af64d_5905cf43",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-28T11:49:37Z",
+      "side": 1,
+      "message": "Done.\nNull as String doesn\u0027t build either, since the HashSet\u003cString\u003e doesn\u0027t take null String.",
+      "parentUuid": "9da56443_16a05e08",
       "range": {
         "startLine": 220,
         "startChar": 67,
