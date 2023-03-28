@@ -3699,6 +3699,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             switch (msg.what) {
                 case NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED: {
                     nai.setDeclaredCapabilities((NetworkCapabilities) arg.second);
+                    enforceNonNullWifiNetworkKey((NetworkCapabilities) arg.second);
                     final NetworkCapabilities sanitized =
                             nai.getDeclaredCapabilitiesSanitized(mCarrierPrivilegeAuthenticator);
                     maybeUpdateWifiRoamTimestamp(nai, sanitized);
@@ -7671,6 +7672,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (VDBG) log("Network Monitor created for " +  nai);
         // Store a copy of the declared capabilities.
         nai.setDeclaredCapabilities(nai.networkCapabilities);
+        enforceNonNullWifiNetworkKey(nai.networkCapabilities);
         // Make sure the LinkProperties and NetworkCapabilities reflect what the agent info said.
         nai.getAndSetNetworkCapabilities(mixInCapabilities(nai,
                 nai.getDeclaredCapabilitiesSanitized(mCarrierPrivilegeAuthenticator)));
@@ -10174,6 +10176,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         if (!TextUtils.equals(((WifiInfo)prevInfo).getBSSID(), ((WifiInfo)newInfo).getBSSID())) {
             nai.lastRoamTime = SystemClock.elapsedRealtime();
+        }
+    }
+
+    private void enforceNonNullWifiNetworkKey(@NonNull NetworkCapabilities nc) {
+        final TransportInfo info = nc.getTransportInfo();
+        if (!(info instanceof WifiInfo)) return;
+        if (((WifiInfo) info).getNetworkKey() == null) {
+            // Null wifiNetworkKey is unexpected but happened for unknown reason.
+            // Add log to catch this case whenever it is set. See b/266598304.
+            if (Build.isDebuggable()) {
+                throw new IllegalStateException("Unexpected null wifi network key: " + nc);
+            } else {
+                logwtf("Unexpected null wifi network key: " + nc);
+            }
         }
     }
 
