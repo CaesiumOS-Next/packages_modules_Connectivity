@@ -152,6 +152,8 @@ public class AutomaticOnOffKeepaliveTracker {
     // TODO: Remove this when TCP polling design is replaced with callback.
     private long mTestLowTcpPollingTimerUntilMs = 0;
 
+    private final KeepaliveStatsTracker mKeepaliveStatsTracker = new KeepaliveStatsTracker();
+
     /**
      * Information about a managed keepalive.
      *
@@ -392,6 +394,7 @@ public class AutomaticOnOffKeepaliveTracker {
      */
     public void handleStartKeepalive(Message message) {
         final AutomaticOnOffKeepalive autoKi = (AutomaticOnOffKeepalive) message.obj;
+        mKeepaliveStatsTracker.onStartKeepalive();
         mKeepaliveTracker.handleStartKeepalive(autoKi.mKi);
 
         // Add automatic on/off request into list to track its life cycle.
@@ -409,10 +412,12 @@ public class AutomaticOnOffKeepaliveTracker {
     }
 
     private void handleResumeKeepalive(@NonNull final KeepaliveTracker.KeepaliveInfo ki) {
+        mKeepaliveStatsTracker.onResumeKeepalive();
         mKeepaliveTracker.handleStartKeepalive(ki);
     }
 
     private void handlePauseKeepalive(@NonNull final KeepaliveTracker.KeepaliveInfo ki) {
+        mKeepaliveStatsTracker.onPauseKeepalive();
         // TODO : mKT.handleStopKeepalive should take a KeepaliveInfo instead
         mKeepaliveTracker.handleStopKeepalive(ki.getNai(), ki.getSlot(), SUCCESS_PAUSED);
     }
@@ -435,6 +440,7 @@ public class AutomaticOnOffKeepaliveTracker {
 
     private void cleanupAutoOnOffKeepalive(@NonNull final AutomaticOnOffKeepalive autoKi) {
         ensureRunningOnHandlerThread();
+        mKeepaliveStatsTracker.onStopKeepalive(autoKi.mAutomaticOnOffState != STATE_SUSPENDED);
         autoKi.close();
         if (null != autoKi.mAlarmListener) mAlarmManager.cancel(autoKi.mAlarmListener);
 
