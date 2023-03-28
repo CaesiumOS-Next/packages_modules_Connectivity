@@ -87,6 +87,7 @@ import static android.provider.Settings.Global.NETWORK_METERED_MULTIPATH_PREFERE
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
 import static android.system.OsConstants.AF_UNSPEC;
+import static android.system.OsConstants.ECONNABORTED;
 
 import static com.android.compatibility.common.util.SystemUtil.callWithShellPermissionIdentity;
 import static com.android.compatibility.common.util.SystemUtil.runShellCommand;
@@ -171,6 +172,8 @@ import android.os.VintfRuntimeInfo;
 import android.platform.test.annotations.AppModeFull;
 import android.provider.DeviceConfig;
 import android.provider.Settings;
+import android.system.ErrnoException;
+import android.system.Os;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -3520,6 +3523,270 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "Socket cannot bind in instant app mode")
     public void testFirewallBlockingOemDeny3() {
         doTestFirewallBlocking(FIREWALL_CHAIN_OEM_DENY_3, DENYLIST);
+    }
+
+    private void sendRequest(final FileDescriptor fd) throws Exception {
+        final byte[] request = CtsNetUtils.HTTP_REQUEST.getBytes(StandardCharsets.UTF_8);
+        final byte[] response = new byte[4096];
+
+        Os.write(fd, request, 0, request.length);
+        Os.read(fd, response, 0, response.length);
+
+        final String actual = new String(response, StandardCharsets.UTF_8);
+        assertTrue(actual.startsWith("HTTP/1.0 204 No Content\r\n"));
+    }
+
+    private void assertSocketOpen(final FileDescriptor fd) throws Exception {
+        sendRequest(fd);
+    }
+
+    private void assertSocketClosed(final FileDescriptor fd) throws Exception {
+        try {
+            sendRequest(fd);
+            fail("Socket is expected to be closed");
+        } catch (ErrnoException expected) {
+            assertEquals(ECONNABORTED, expected.errno);
+        }
+    }
+
+    private static final boolean EXPECT_OPEN = false;
+    private static final boolean EXPECT_CLOSE = true;
+
+    private void doTestFirewallCloseSocket(final int chain, final int rule, final int targetUid,
+            final boolean expectClose) {
+        runWithShellPermissionIdentity(() -> {
+            // Firewall chain status will be restored after the test.
+            final boolean wasChainEnabled = mCm.getFirewallChainEnabled(chain);
+            final int previousUidFirewallRule = mCm.getUidFirewallRule(chain, targetUid);
+            final Socket s = new Socket(TEST_HOST, HTTP_PORT);
+            s.setSoTimeout(SOCKET_TIMEOUT_MS);
+            final FileDescriptor fd = s.getFileDescriptor$();
+            testAndCleanup(() -> {
+                mCm.setFirewallChainEnabled(chain, false /* enable */);
+
+                try {
+                    mCm.setUidFirewallRule(chain, targetUid, rule);
+                } catch (IllegalStateException ignored) {
+                    // Removing match causes an exception when the rule entry for the uid does
+                    // not exist. But this is fine and can be ignored.
+                }
+
+                assertSocketOpen(fd);
+
+                mCm.setFirewallChainEnabled(chain, true /* enable */);
+
+                if (expectClose) {
+                    assertSocketClosed(fd);
+                } else {
+                    assertSocketOpen(fd);
+                }
+            }, /* cleanup */ () -> {
+                    // Restore the global chain status
+                    mCm.setFirewallChainEnabled(chain, wasChainEnabled);
+                }, /* cleanup */ () -> {
+                    // Restore the uid firewall rule status
+                    try {
+                        mCm.setUidFirewallRule(chain, targetUid, previousUidFirewallRule);
+                    } catch (IllegalStateException ignored) {
+                        // Removing match causes an exception when the rule entry for the uid does
+                        // not exist. But this is fine and can be ignored.
+                    }
+                }, /* cleanup */ () -> {
+                    Os.close(fd);
+                });
+        }, NETWORK_SETTINGS);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketDozableAllow() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_DOZABLE, FIREWALL_RULE_ALLOW,
+                Process.myUid(), EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketDozableDeny() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_DOZABLE, FIREWALL_RULE_DENY,
+                Process.myUid(), EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketDozableAllowOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_DOZABLE, FIREWALL_RULE_ALLOW,
+                Process.myUid() + 1, EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketDozableDenyOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_DOZABLE, FIREWALL_RULE_DENY,
+                Process.myUid() + 1, EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketPowersaveAllow() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_POWERSAVE, FIREWALL_RULE_ALLOW,
+                Process.myUid(), EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketPowersaveDeny() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_POWERSAVE, FIREWALL_RULE_DENY,
+                Process.myUid(), EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketPowersaveAllowOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_POWERSAVE, FIREWALL_RULE_ALLOW,
+                Process.myUid() + 1, EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketPowersaveDenyOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_POWERSAVE, FIREWALL_RULE_DENY,
+                Process.myUid() + 1, EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketRestrictedAllow() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_RESTRICTED, FIREWALL_RULE_ALLOW,
+                Process.myUid(), EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketRestrictedDeny() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_RESTRICTED, FIREWALL_RULE_DENY,
+                Process.myUid(), EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketRestrictedAllowOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_RESTRICTED, FIREWALL_RULE_ALLOW,
+                Process.myUid() + 1, EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketRestrictedDenyOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_RESTRICTED, FIREWALL_RULE_DENY,
+                Process.myUid() + 1, EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketLowPowerStandbyAllow() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_LOW_POWER_STANDBY, FIREWALL_RULE_ALLOW,
+                Process.myUid(), EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketLowPowerStandbyDeny() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_LOW_POWER_STANDBY, FIREWALL_RULE_DENY,
+                Process.myUid(), EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketLowPowerStandbyAllowOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_LOW_POWER_STANDBY, FIREWALL_RULE_ALLOW,
+                Process.myUid() + 1, EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketLowPowerStandbyDenyOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_LOW_POWER_STANDBY, FIREWALL_RULE_DENY,
+                Process.myUid() + 1, EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketStandbyAllow() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_STANDBY, FIREWALL_RULE_ALLOW,
+                Process.myUid(), EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketStandbyDeny() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_STANDBY, FIREWALL_RULE_DENY,
+                Process.myUid(), EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketStandbyAllowOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_STANDBY, FIREWALL_RULE_ALLOW,
+                Process.myUid() + 1, EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketStandbyDenyOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_STANDBY, FIREWALL_RULE_DENY,
+                Process.myUid() + 1, EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny1Allow() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_1, FIREWALL_RULE_ALLOW,
+                Process.myUid(), EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny1Deny() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_1, FIREWALL_RULE_DENY,
+                Process.myUid(), EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny1AllowOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_1, FIREWALL_RULE_ALLOW,
+                Process.myUid() + 1, EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny1DenyOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_1, FIREWALL_RULE_DENY,
+                Process.myUid() + 1, EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny2Allow() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_2, FIREWALL_RULE_ALLOW,
+                Process.myUid(), EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny2Deny() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_2, FIREWALL_RULE_DENY,
+                Process.myUid(), EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny2AllowOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_2, FIREWALL_RULE_ALLOW,
+                Process.myUid() + 1, EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny2DenyOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_2, FIREWALL_RULE_DENY,
+                Process.myUid() + 1, EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny3Allow() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_3, FIREWALL_RULE_ALLOW,
+                Process.myUid(), EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny3Deny() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_3, FIREWALL_RULE_DENY,
+                Process.myUid(), EXPECT_CLOSE);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny3AllowOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_3, FIREWALL_RULE_ALLOW,
+                Process.myUid() + 1, EXPECT_OPEN);
+    }
+
+    @Test @IgnoreUpTo(SC_V2) @ConnectivityModuleTest
+    public void testFirewallCloseSocketOemDeny3DenyOtherUid() {
+        doTestFirewallCloseSocket(FIREWALL_CHAIN_OEM_DENY_3, FIREWALL_RULE_DENY,
+                Process.myUid() + 1, EXPECT_OPEN);
     }
 
     private void assumeTestSApis() {
