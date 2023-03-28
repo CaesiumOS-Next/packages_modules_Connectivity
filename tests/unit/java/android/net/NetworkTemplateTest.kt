@@ -50,16 +50,16 @@ import android.telephony.TelephonyManager
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.assertParcelSane
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertNotEquals
-import kotlin.test.assertTrue
 
 private const val TEST_IMSI1 = "imsi1"
 private const val TEST_IMSI2 = "imsi2"
@@ -213,6 +213,17 @@ class NetworkTemplateTest {
         // Also, it should not match a template with wifiNetworkKeys that contains null.
         templateWifiKey1.assertDoesNotMatch(identWifiNullKey)
         templateNullWifiKey.assertDoesNotMatch(identWifiNullKey)
+    }
+
+    @Test
+    fun testBuildTemplateMobileAll_nullSubscriberId() {
+        val templateMobileAllWithNullImsi = buildTemplateMobileAll(null.toString())
+        val setWithNull = HashSet<String>().apply {
+            add(null.toString())
+        }
+        val templateFromBuilder = NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES)
+            .setSubscriberIds(setWithNull).build()
+        assertEquals(templateFromBuilder, templateMobileAllWithNullImsi)
     }
 
     @Test

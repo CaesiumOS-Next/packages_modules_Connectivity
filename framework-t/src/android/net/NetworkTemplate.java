@@ -59,6 +59,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
@@ -191,8 +192,10 @@ public final class NetworkTemplate implements Parcelable {
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.TIRAMISU,
             publicAlternatives = "Use {@code Builder} instead.")
     public static NetworkTemplate buildTemplateMobileAll(@NonNull String subscriberId) {
+        final Set<String> set = new HashSet<>();
+        set.add(subscriberId);
         return new NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES)
-                .setSubscriberIds(Set.of(subscriberId)).build();
+                .setSubscriberIds(set).build();
     }
 
     /**
