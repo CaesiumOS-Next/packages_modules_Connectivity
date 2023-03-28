@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c380a43_267ab675",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3704,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-28T03:00:00Z",
+      "side": 1,
+      "message": "Why is this not gotten from arg? Will this still be a grey area that the key might be removed by CS after sanitizing?(though we may not do that now)",
+      "range": {
+        "startLine": 3704,
+        "startChar": 42,
+        "endLine": 3704,
+        "endChar": 51
+      },
+      "revId": "104e3ea0f7969dfadf2cfad2a24a809bd04d9a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70c239e3_d9352cdc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10182,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-28T03:00:00Z",
+      "side": 1,
+      "message": "Nit: info?\n\nsince there is no old info inside this method",
+      "range": {
+        "startLine": 10182,
+        "startChar": 28,
+        "endLine": 10182,
+        "endChar": 35
+      },
+      "revId": "104e3ea0f7969dfadf2cfad2a24a809bd04d9a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea7c337e_31c69f55",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10185,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-28T03:00:00Z",
+      "side": 1,
+      "message": "Nit: period, not comma?",
+      "range": {
+        "startLine": 10185,
+        "startChar": 80,
+        "endLine": 10185,
+        "endChar": 81
+      },
+      "revId": "104e3ea0f7969dfadf2cfad2a24a809bd04d9a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b07981ab_851c4ca1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10187,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-28T03:00:00Z",
+      "side": 1,
+      "message": "Do you need a full NetworkCapabilities instead of just the TransportInfo?",
+      "range": {
+        "startLine": 10187,
+        "startChar": 58,
+        "endLine": 10187,
+        "endChar": 60
+      },
+      "revId": "104e3ea0f7969dfadf2cfad2a24a809bd04d9a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
