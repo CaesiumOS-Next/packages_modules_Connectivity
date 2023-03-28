@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f90dfb3d_274957b0",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-28T08:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d84cdf42_22ad344e",
+      "range": {
+        "startLine": 102,
+        "startChar": 40,
+        "endLine": 102,
+        "endChar": 52
+      },
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "421e161b_7b742b1b",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "Thank you. Suggested change is updated.",
       "parentUuid": "421e161b_7b742b1b",
+      "range": {
+        "startLine": 205,
+        "startChar": 40,
+        "endLine": 205,
+        "endChar": 52
+      },
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b57c057_b084fdf7",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-28T08:58:14Z",
+      "side": 1,
+      "message": "I don\u0027t think you need the if statement. Just say \n\n    final Network network \u003d mCm.getActiveNetwork();",
+      "parentUuid": "278d3ef9_627c6db3",
       "range": {
         "startLine": 205,
         "startChar": 40,

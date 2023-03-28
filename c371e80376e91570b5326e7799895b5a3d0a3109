@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96973770_1447e6e1",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-28T08:58:14Z",
+      "side": 1,
+      "message": "Why do we need this? Is it only so that the ensureWifiConnected at line 159 will cause a stats write? But if so, then this test will fail on cellular-only devices.\n\nMaybe we can achieve what line 159 is trying to do in some other way, such as disabling mobile data?",
+      "range": {
+        "startLine": 122,
+        "startChar": 12,
+        "endLine": 122,
+        "endChar": 53
+      },
+      "revId": "c371e80376e91570b5326e7799895b5a3d0a3109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4bb89d9_64c79381",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-28T08:58:14Z",
+      "side": 1,
+      "message": "This should run even if the device doesn\u0027t support wifi. I think we could do this as follows:\n\n1. First, get the default network using mCm.getActiveNetwork() and assign it to networkForPrivateDns.\n2. In line 1025, instead of calling makeWifiNetworkRequest(), just use an empty request for NET_CAPABILITY_INTERNET.\n3. In line 1041, instead of calling reconnectWifi, call mCm.reportNetworkConnectivity(true) and wait for network to become validated.\n\nCould you give that a try?",
+      "range": {
+        "startLine": 1019,
+        "startChar": 8,
+        "endLine": 1019,
+        "endChar": 67
+      },
+      "revId": "c371e80376e91570b5326e7799895b5a3d0a3109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a65618a6_306af2c8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-28T08:58:14Z",
+      "side": 1,
+      "message": "We should not skip this test if the device does not have wifi. I think we can do this by filing a request for a network we know doesn\u0027t exist (e.g., TRANSPORT_WIFI + NET_CAPABILITY_NOT_VPN|NET_CAPABILITY_MMS|NET_CAPABILITY_EIMS or something like that) and checking that onUnavailable is received. Then we can just delete from this test the code that disconnects and reconnects wifi.",
+      "range": {
+        "startLine": 1304,
+        "startChar": 8,
+        "endLine": 1304,
+        "endChar": 18
+      },
+      "revId": "c371e80376e91570b5326e7799895b5a3d0a3109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
