@@ -3701,6 +3701,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     nai.setDeclaredCapabilities((NetworkCapabilities) arg.second);
                     final NetworkCapabilities sanitized =
                             nai.getDeclaredCapabilitiesSanitized(mCarrierPrivilegeAuthenticator);
+                    enforceWifiNetworkKey(sanitized);
                     maybeUpdateWifiRoamTimestamp(nai, sanitized);
                     updateCapabilities(nai.getScore(), nai, sanitized);
                     break;
@@ -10174,6 +10175,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         if (!TextUtils.equals(((WifiInfo)prevInfo).getBSSID(), ((WifiInfo)newInfo).getBSSID())) {
             nai.lastRoamTime = SystemClock.elapsedRealtime();
+        }
+    }
+
+    private void enforceWifiNetworkKey(@NonNull NetworkCapabilities nc) {
+        final TransportInfo newInfo = nc.getTransportInfo();
+        if (!(newInfo instanceof WifiInfo)) return;
+        if (((WifiInfo) newInfo).getNetworkKey() == null) {
+            // Null wifiNetworkKey is unexpected but happened for unknown reason,
+            // Add log to catch this case whenever it is set. See b/266598304.
+            logwtf("Unexpected null wifi network key: " + nc);
         }
     }
 
