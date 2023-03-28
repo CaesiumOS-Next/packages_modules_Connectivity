@@ -61,6 +61,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -194,8 +195,19 @@ public final class NetworkTemplate implements Parcelable {
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.TIRAMISU,
             publicAlternatives = "Use {@code Builder} instead.")
     public static NetworkTemplate buildTemplateMobileAll(@NonNull String subscriberId) {
+        if (SdkLevel.isAtLeastU() && subscriberId == null) {
+            throw new IllegalArgumentException("buildTemplateMobileAll does not accept null"
+                    + " subscriberId on Android U devices or above");
+        }
+        final Set<String> set;
+        if (subscriberId == null) {
+            set = new HashSet<>();
+            set.add(null);
+        } else {
+            set = Set.of(subscriberId);
+        }
         return new NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES)
-                .setSubscriberIds(Set.of(subscriberId)).build();
+                .setSubscriberIds(set).build();
     }
 
     /**
