@@ -384,7 +384,6 @@ public class BpfNetMaps {
      * ALLOWLIST means the firewall denies all by default, uids must be explicitly allowed
      * DENYLIST means the firewall allows all by default, uids must be explicitly denyed
      */
-    @VisibleForTesting
     public boolean isFirewallAllowList(final int chain) {
         switch (chain) {
             case FIREWALL_CHAIN_DOZABLE:
@@ -743,6 +742,31 @@ public class BpfNetMaps {
             throw new ServiceSpecificException(e.errno,
                     "Unable to get uid rule status: " + Os.strerror(e.errno));
         }
+    }
+
+    /**
+     * Get uids that has non default rule on specified chain.
+     * Chains have type allowlist and denylist. See {@link #isFirewallAllowList(int)}.
+     * For allowlist chain, this function returns the uids that have FIREWALL_RULE_ALLOW.
+     * For denylist chain, this function returns the uids that have FIREWALL_RULE_DENY.
+     *
+     * Note that uids that has default rule can not be computed from the bpf map, since all the uids
+     * uids that does not have non default rule in bpf map is determined to have the default rule.
+     *
+     * @param childChain target chain
+     * @return Set of uids
+     */
+    public Set<Integer> getUidsWithNonDefaultRule(final int childChain) throws ErrnoException {
+        final long match = getMatchByFirewallChain(childChain);
+        Set<Integer> uids = new ArraySet<>();
+        synchronized (sUidOwnerMap) {
+            sUidOwnerMap.forEach((uid, val) -> {
+                if ((val.rule & match) != 0) {
+                    uids.add(uid.val);
+                }
+            });
+        }
+        return uids;
     }
 
     /**
