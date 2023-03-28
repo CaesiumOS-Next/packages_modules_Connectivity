@@ -78,6 +78,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
 /**
  * Manages automatic on/off socket keepalive requests.
  *
@@ -151,6 +152,8 @@ public class AutomaticOnOffKeepaliveTracker {
     private final ArrayList<AutomaticOnOffKeepalive> mAutomaticOnOffKeepalives = new ArrayList<>();
     // TODO: Remove this when TCP polling design is replaced with callback.
     private long mTestLowTcpPollingTimerUntilMs = 0;
+
+    private final KeepaliveStatsTracker mKeepaliveStatsTracker = new KeepaliveStatsTracker();
 
     /**
      * Information about a managed keepalive.
@@ -231,6 +234,10 @@ public class AutomaticOnOffKeepaliveTracker {
         @Override
         public void binderDied() {
             mConnectivityServiceHandler.post(() -> cleanupAutoOnOffKeepalive(this));
+        }
+
+        public boolean isActive() {
+            return mAutomaticOnOffState == STATE_ENABLED || mAutomaticOnOffState == STATE_ALWAYS_ON;
         }
 
         /** Close this automatic on/off keepalive */
