@@ -2556,14 +2556,17 @@ public class ConnectivityManagerTest {
             tetherEventCallback.assumeWifiTetheringSupported(mContext);
 
             final TestableNetworkCallback wifiCb = new TestableNetworkCallback();
-            mCtsNetUtils.ensureWifiConnected();
+            tetherUtils.startWifiTethering(tetherEventCallback);
             registerCallbackAndWaitForAvailable(makeWifiNetworkRequest(), wifiCb);
             // Update setting to verify the behavior.
             setAirplaneMode(true);
-            // Verify wifi lost to make sure airplane mode takes effect. This could
+            // Verify softap lost to make sure airplane mode takes effect. This could
             // prevent the race condition between airplane mode enabled and the followed
             // up wifi tethering enabled.
-            waitForLost(wifiCb);
+            runAsShell(NETWORK_SETTINGS, TETHER_PRIVILEGED, () -> {
+                tetherEventCallback.expectNoTetheringActive();
+            });
+
             // start wifi tethering
             tetherUtils.startWifiTethering(tetherEventCallback);
 
