@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d28eed99_2ef0f0dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-28T07:26:44Z",
+      "side": 1,
+      "message": "This is a flake fix, which is still showing in our flake dashboards (in particular for the mainline CTS baseline tests)",
+      "revId": "d68f84edf719120ce41d80751774bd9faa068b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
