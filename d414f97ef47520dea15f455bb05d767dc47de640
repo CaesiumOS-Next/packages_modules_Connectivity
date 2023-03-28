@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc67d91b_ec64cd13",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-28T11:52:48Z",
+      "side": 1,
+      "message": "Yes, it\u0027s not possilbe. Update comments accordingly.",
+      "parentUuid": "5f6951d1_3e10a8c7",
+      "range": {
+        "startLine": 994,
+        "startChar": 11,
+        "endLine": 995,
+        "endChar": 58
+      },
+      "revId": "d414f97ef47520dea15f455bb05d767dc47de640",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b921fbed_55d315a2",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "969ccf98_5fbbf0c5",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-28T11:52:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b921fbed_55d315a2",
+      "range": {
+        "startLine": 998,
+        "startChar": 25,
+        "endLine": 998,
+        "endChar": 33
+      },
+      "revId": "d414f97ef47520dea15f455bb05d767dc47de640",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06611975_d9c5b6f7",
@@ -60,6 +108,24 @@
       "writtenOn": "2023-03-28T08:16:14Z",
       "side": 1,
       "message": "Could also check FAILURE_OPERATION_NOT_RUNNING code on the StopResolutionFailed object",
+      "revId": "d414f97ef47520dea15f455bb05d767dc47de640",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53e14b44_bf70d40b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-03-28T11:52:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06611975_d9c5b6f7",
       "revId": "d414f97ef47520dea15f455bb05d767dc47de640",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
