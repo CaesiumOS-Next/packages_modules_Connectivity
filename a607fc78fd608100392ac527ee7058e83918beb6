@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feaee89e_c5ef1a11",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-28T13:05:50Z",
+      "side": 1,
+      "message": "I don\u0027t think you can do this because of the vendor freeze. If the caller is on the vendor partition you cannot demand that they update it upon upgrading to U.\n\nYou could do that with a test for the first SDK of the device.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 9
+      },
+      "revId": "a607fc78fd608100392ac527ee7058e83918beb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
