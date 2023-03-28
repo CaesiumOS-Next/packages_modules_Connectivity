@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1de080a6_5a393ad4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 12472,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-28T09:45:02Z",
+      "side": 1,
+      "message": "Nit: final",
+      "range": {
+        "startLine": 12472,
+        "startChar": 8,
+        "endLine": 12472,
+        "endChar": 9
+      },
+      "revId": "2dc2d97e8573b1ba6103765a36509f6232a322ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bbf2b0b_a4fe22cf",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 12476,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-28T09:45:02Z",
+      "side": 1,
+      "message": "NIt: eq() could be skipped if you do not have different matchers.",
+      "range": {
+        "startLine": 12476,
+        "startChar": 61,
+        "endLine": 12476,
+        "endChar": 64
+      },
+      "revId": "2dc2d97e8573b1ba6103765a36509f6232a322ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "667074ee_71a01377",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 12476,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-28T09:45:02Z",
+      "side": 1,
+      "message": "Nit: existing issue. time(1) is not necessary. Default without times() is 1 interaction.",
+      "range": {
+        "startLine": 12476,
+        "startChar": 30,
+        "endLine": 12476,
+        "endChar": 38
+      },
+      "revId": "2dc2d97e8573b1ba6103765a36509f6232a322ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86ea6623_4a6d01d6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 12476,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-03-28T09:45:02Z",
+      "side": 1,
+      "message": "I am not sure it\u0027s a good idea to spy a Dependencies class. We don\u0027t usually do so.\n\nIf you would like to verify the expected method invoked, you could have something like a counter(or members) to verify the method is called.",
+      "range": {
+        "startLine": 12476,
+        "startChar": 30,
+        "endLine": 12476,
+        "endChar": 38
+      },
+      "revId": "2dc2d97e8573b1ba6103765a36509f6232a322ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
