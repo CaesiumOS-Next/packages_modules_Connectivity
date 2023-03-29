@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63fc85e0_7425e5ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-03-29T00:17:43Z",
+      "side": 1,
+      "message": "Lint -1 was complaining a transient error when the dependency CL was checked in and this CL was just rebased on HEAD",
+      "revId": "0c442a6f7afa74b0aa9be24a1d4b92153f393ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
