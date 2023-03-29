@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "724a9dfc_8c6b39a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-03-29T23:17:19Z",
+      "side": 1,
+      "message": "Failing tests are unrelated and were already failed without this CL. Failing tests are listed as follows:\n- `android.net.cts.NetworkWatchlistTest#testGetWatchlistConfigHash` failed since \n  9709767 on 2023-03-08\n- `org.chromium.net.impl.CronetLoggerTest` b/275865153 failed since 9668634 on \n  2023-03-05",
+      "revId": "acd71e68a68f27c8f52806ae141ec74c1f87ef69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
