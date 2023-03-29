@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7cba3c0_1fb03e86",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 12472,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-29T08:19:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1de080a6_5a393ad4",
+      "range": {
+        "startLine": 12472,
+        "startChar": 8,
+        "endLine": 12472,
+        "endChar": 9
+      },
+      "revId": "2dc2d97e8573b1ba6103765a36509f6232a322ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bbf2b0b_a4fe22cf",
@@ -88,6 +112,78 @@
         "startChar": 30,
         "endLine": 12476,
         "endChar": 38
+      },
+      "revId": "2dc2d97e8573b1ba6103765a36509f6232a322ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9115ce1_2e934ab7",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 12476,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-29T08:19:18Z",
+      "side": 1,
+      "message": "I did spy Dependencies since I wanted to use inOrder with mMockNetd to verify the  order of function call.\nhttp://cs/aosp-master/packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d8473-8488;rcl\u003ddfd04e662c155552e2dd95fa916b3fe833563c07\n\nI saw some tests spy a dependencies\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java;l\u003d145\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/unit/java/com/android/server/connectivity/VpnTest.java;l\u003d334\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt;l\u003d206\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java;l\u003d294",
+      "parentUuid": "86ea6623_4a6d01d6",
+      "range": {
+        "startLine": 12476,
+        "startChar": 30,
+        "endLine": 12476,
+        "endChar": 38
+      },
+      "revId": "2dc2d97e8573b1ba6103765a36509f6232a322ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bba5267_f5b35e8b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 12476,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-29T08:19:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "667074ee_71a01377",
+      "range": {
+        "startLine": 12476,
+        "startChar": 30,
+        "endLine": 12476,
+        "endChar": 38
+      },
+      "revId": "2dc2d97e8573b1ba6103765a36509f6232a322ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1a2f932_a22639bb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 12476,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-03-29T08:19:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bbf2b0b_a4fe22cf",
+      "range": {
+        "startLine": 12476,
+        "startChar": 61,
+        "endLine": 12476,
+        "endChar": 64
       },
       "revId": "2dc2d97e8573b1ba6103765a36509f6232a322ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
