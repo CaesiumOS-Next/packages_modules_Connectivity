@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28e2dad3_307b7af9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-29T05:42:27Z",
+      "side": 1,
+      "message": "LGTM, but I think you should verify this works instead of build.\n\n./cts-tradefed run cts -m CtsHostsideNetworkTests",
+      "revId": "8b62d32f830402e046d730dd2a7b1c43f61ca877",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
