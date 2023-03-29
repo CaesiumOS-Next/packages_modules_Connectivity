@@ -16,6 +16,23 @@
       "message": "2 CLs are still missing and need to be cherry-picked into AOSP in order for this to work properly",
       "revId": "85f2cdbee762e5dd10ddfd8b41498f5aa552341c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d38ccdb_408ab737",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1937985
+      },
+      "writtenOn": "2023-03-29T00:47:08Z",
+      "side": 1,
+      "message": "Pre-submit failures are unrelated to changes",
+      "revId": "85f2cdbee762e5dd10ddfd8b41498f5aa552341c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
