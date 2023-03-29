@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c793b184_bb27d0b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-03-29T01:14:38Z",
+      "side": 1,
+      "message": "current cf_auto failure is due to code base being out of sync and not including recent selinux change\n\n03-29 00:59:51.494   745   745 E jniClatCoordinator: lstat \u0027/sys/fs/bpf/net_shared/prog_clatd_schedcls_egress4_clat_rawip\u0027 errno\u003d13\n--------- beginning of crash\n03-29 00:59:51.495   745   745 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 745 (system_server), pid 745 (system_server)\n03-29 00:59:51.491   745   745 I auditd  : type\u003d1400 audit(0.0:94): avc: denied { getattr } for comm\u003d\"system_server\" path\u003d\"/sys/fs/bpf/net_shared/prog_clatd_schedcls_egress4_clat_rawip\" dev\u003d\"bpf\" ino\u003d18693 scontext\u003du:r:system_server:s0 tcontext\u003du:object_r:fs_bpf_net_shared:s0 tclass\u003dfile permissive\u003d0\n03-29 00:59:51.491   745   745 W system_server: type\u003d1400 audit(0.0:94): avc: denied { getattr } for path\u003d\"/sys/fs/bpf/net_shared/prog_clatd_schedcls_egress4_clat_rawip\" dev\u003d\"bpf\" ino\u003d18693 scontext\u003du:r:system_server:s0 tcontext\u003du:object_r:fs_bpf_net_shared:s0 tclass\u003dfile permissive\u003d0",
+      "revId": "bd83011bf62d7520498309e19a7f0b1183f8efb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
