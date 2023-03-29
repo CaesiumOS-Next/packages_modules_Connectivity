@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7083b62_a1250d09",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-29T09:28:08Z",
+      "side": 1,
+      "message": "Is it better if we use the constructor instead?\nIf so we don\u0027t need the hack in the checkValidMatchSubscriberIds, and we don\u0027t need to change CTS for it.",
+      "range": {
+        "startLine": 212,
+        "startChar": 14,
+        "endLine": 213,
+        "endChar": 47
+      },
+      "revId": "e7dc9b84e1d0279337a4ff9228d651f6fc09bce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
