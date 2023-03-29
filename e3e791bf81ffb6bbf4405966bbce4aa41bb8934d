@@ -34,6 +34,24 @@
       "parentUuid": "89985dc3_101e6ad3",
       "revId": "e3e791bf81ffb6bbf4405966bbce4aa41bb8934d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4b438be_c50ad4b8",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-29T15:00:32Z",
+      "side": 0,
+      "message": "I knew I never fixed that! I just looked at the blame to confirm.\n\nclose() kept showing 0% even when I submitted the upload tests and I assumed I needed to explicity call .close() but I guess that\u0027s not the case, the dashboard just needed some time to propagate or something.\n\nAnyway, thanks for the refactor!",
+      "parentUuid": "c3a8ca82_d3ade5cb",
+      "revId": "e3e791bf81ffb6bbf4405966bbce4aa41bb8934d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
