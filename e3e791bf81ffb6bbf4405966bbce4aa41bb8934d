@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89985dc3_101e6ad3",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-03-29T11:47:30Z",
+      "side": 0,
+      "message": "This unfortunately is going to affect CTS coverage. UploadDataProvider.close is not abstract and hence needs to called explicitly in the test. This was in my radar to talk about but I forgot about it. Consider calling close in any of the test or adding a separate test.",
+      "revId": "e3e791bf81ffb6bbf4405966bbce4aa41bb8934d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
