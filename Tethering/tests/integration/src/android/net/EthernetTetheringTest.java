@@ -363,6 +363,7 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
 
             // Enable Ethernet tethering and check that it starts.
             tetheringEventCallback = enableEthernetTethering(iface, null /* any upstream */);
+            stopEthernetTethering();
         } finally {
             maybeUnregisterTetheringEventCallback(tetheringEventCallback);
         }

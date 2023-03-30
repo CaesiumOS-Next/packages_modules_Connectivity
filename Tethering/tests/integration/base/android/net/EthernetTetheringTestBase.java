@@ -215,6 +215,10 @@ public abstract class EthernetTetheringTestBase {
         }
     }
 
+    protected void stopEthernetTethering() {
+        mTm.stopTethering(TETHERING_ETHERNET);
+    }
+
     protected void cleanUp() throws Exception {
         setPreferTestNetworks(false);
 
