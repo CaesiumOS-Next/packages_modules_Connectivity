@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "912a639a_be0282f1",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-30T05:41:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f30ba37d_23de8525",
+      "range": {
+        "startLine": 442,
+        "startChar": 56,
+        "endLine": 442,
+        "endChar": 84
+      },
+      "revId": "e7dc9b84e1d0279337a4ff9228d651f6fc09bce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c05ba788_d6136573",
@@ -84,6 +108,30 @@
       "writtenOn": "2023-03-30T03:57:22Z",
       "side": 1,
       "message": "Considering Set.of(null) throws, I suggest you move this out of the assertFailsWith{} so that you can make sure it\u0027s `setSubscriberIds` that throws and not `setOf()`",
+      "range": {
+        "startLine": 101,
+        "startChar": 68,
+        "endLine": 101,
+        "endChar": 79
+      },
+      "revId": "e7dc9b84e1d0279337a4ff9228d651f6fc09bce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2cdf593_a60fd6ce",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-30T05:41:33Z",
+      "side": 1,
+      "message": "IIUC setOf(null) doesn\u0027t throw.\nIf so I think we should keep it as is?",
+      "parentUuid": "c05ba788_d6136573",
       "range": {
         "startLine": 101,
         "startChar": 68,
