@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b9ea096_86a49ae7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947190
+      },
+      "writtenOn": "2023-03-30T10:06:39Z",
+      "side": 1,
+      "message": "Testing on TV device, this patch make senses to me and can fix the CTS test error.",
+      "revId": "2040551d1892b3788e97a08ae1fbabf144cf1fcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
