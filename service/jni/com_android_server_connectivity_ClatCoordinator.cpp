@@ -129,8 +129,7 @@ static jint com_android_server_connectivity_ClatCoordinator_createTunInterface(J
                                                                                jstring tuniface) {
     ScopedUtfChars v4interface(env, tuniface);
 
-    // open the tun device in non blocking mode as required by clatd
-    jint fd = open("/dev/net/tun", O_RDWR | O_NONBLOCK | O_CLOEXEC);
+    jint fd = open("/dev/net/tun", O_RDWR | O_CLOEXEC);
     if (fd == -1) {
         jniThrowExceptionFmt(env, "java/io/IOException", "open tun device failed (%s)",
                              strerror(errno));
@@ -201,7 +200,7 @@ static jint com_android_server_connectivity_ClatCoordinator_openPacketSocket(JNI
 static jint com_android_server_connectivity_ClatCoordinator_openRawSocket6(JNIEnv* env,
                                                                            jclass clazz,
                                                                            jint mark) {
-    int sock = socket(AF_INET6, SOCK_RAW | SOCK_NONBLOCK | SOCK_CLOEXEC, IPPROTO_RAW);
+    int sock = socket(AF_INET6, SOCK_RAW | SOCK_CLOEXEC, IPPROTO_RAW);
     if (sock < 0) {
         throwIOException(env, "raw socket failed", errno);
         return -1;
