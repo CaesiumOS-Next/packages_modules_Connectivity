@@ -20,6 +20,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b52c0d82_a8251564",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-30T05:27:51Z",
+      "side": 1,
+      "message": "You could just use Math.max :-)",
+      "range": {
+        "startLine": 168,
+        "startChar": 17,
+        "endLine": 168,
+        "endChar": 36
+      },
+      "revId": "c0e9e2901b3b25fda205b6b61696593a61b3b3ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa4cd86e_31bc6025",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-30T05:27:51Z",
+      "side": 1,
+      "message": "This method just adds one event to the builder, right? If so, maybe it should be called addUpstreamEvent?",
+      "range": {
+        "startLine": 179,
+        "startChar": 17,
+        "endLine": 179,
+        "endChar": 37
+      },
+      "revId": "c0e9e2901b3b25fda205b6b61696593a61b3b3ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2880f470_f465db76",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-30T05:27:51Z",
+      "side": 1,
+      "message": "It looks like whenever updateStatsBuilderToWrite is called, then we will log an event with stopTime \u003d\u003d timeNow. I think it will do this even if the upstream is currently non-null. That seems confusing. If there is still a non-null upstream, then why log an event that says the upstream stopped? Should it instead log a fake stop time such as -1?\n\nOr is it the case that this method is only called when a downstream is stopped? If so then \"stopTime \u003d timeNow()\" is fine. But we should probably rename the method to make it clear that the downstream just stopped. Something like noteDownstreamStopped, perhaps?",
+      "range": {
+        "startLine": 216,
+        "startChar": 19,
+        "endLine": 216,
+        "endChar": 39
+      },
+      "revId": "c0e9e2901b3b25fda205b6b61696593a61b3b3ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03edc002_d0675e75",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-30T05:27:51Z",
+      "side": 1,
+      "message": "FWIW I don\u0027t think this can actually happen. Tethering will never use a VPN as its upstream network. Either delete code that checks for VPNs, or add a comment saying this cannot happen.",
+      "range": {
+        "startLine": 378,
+        "startChar": 32,
+        "endLine": 378,
+        "endChar": 52
+      },
+      "revId": "c0e9e2901b3b25fda205b6b61696593a61b3b3ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0636e9b_7d3e6f0e",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
         "patchSetId": 32
