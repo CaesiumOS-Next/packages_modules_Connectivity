@@ -22,6 +22,30 @@
       },
       "revId": "e7dc9b84e1d0279337a4ff9228d651f6fc09bce8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b016b950_0fac8fc5",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-03-30T02:06:38Z",
+      "side": 1,
+      "message": "No, checkValidMatchSubscriberIds is run in the constructor.",
+      "parentUuid": "f7083b62_a1250d09",
+      "range": {
+        "startLine": 212,
+        "startChar": 14,
+        "endLine": 213,
+        "endChar": 47
+      },
+      "revId": "e7dc9b84e1d0279337a4ff9228d651f6fc09bce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
