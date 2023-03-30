@@ -46,6 +46,52 @@
       },
       "revId": "e7dc9b84e1d0279337a4ff9228d651f6fc09bce8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f30ba37d_23de8525",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-30T03:57:22Z",
+      "side": 1,
+      "message": "This method name is private and therefore not very useful to somebody crashed by it. You probably should just say \"matchSubscriberIds may not contain null for rule \", since this works for the constructor too.",
+      "range": {
+        "startLine": 442,
+        "startChar": 56,
+        "endLine": 442,
+        "endChar": 84
+      },
+      "revId": "e7dc9b84e1d0279337a4ff9228d651f6fc09bce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c05ba788_d6136573",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-03-30T03:57:22Z",
+      "side": 1,
+      "message": "Considering Set.of(null) throws, I suggest you move this out of the assertFailsWith{} so that you can make sure it\u0027s `setSubscriberIds` that throws and not `setOf()`",
+      "range": {
+        "startLine": 101,
+        "startChar": 68,
+        "endLine": 101,
+        "endChar": 79
+      },
+      "revId": "e7dc9b84e1d0279337a4ff9228d651f6fc09bce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
