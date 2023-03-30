@@ -200,10 +200,10 @@ static __always_inline int is_system_uid(uint32_t uid) {
             }                                                                                  \
             if (egress) {                                                                      \
                 __sync_fetch_and_add(&value->txPackets, packets);                              \
-                __sync_fetch_and_add(&value->txBytes, bytes);                                  \
+                __sync_fetch_and_add(&value->txBytes, bytes * 2);                              \
             } else {                                                                           \
                 __sync_fetch_and_add(&value->rxPackets, packets);                              \
-                __sync_fetch_and_add(&value->rxBytes, bytes);                                  \
+                __sync_fetch_and_add(&value->rxBytes, bytes * 2);                              \
             }                                                                                  \
         }                                                                                      \
     }
