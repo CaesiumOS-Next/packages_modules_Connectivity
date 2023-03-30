@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce186cc2_13c1dbcd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10671,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-03-30T04:51:45Z",
+      "side": 1,
+      "message": "Nit: remove this +.",
+      "range": {
+        "startLine": 10671,
+        "startChar": 71,
+        "endLine": 10671,
+        "endChar": 77
+      },
+      "revId": "fe96dde2986be5100aecb0f46db7b89089869615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
