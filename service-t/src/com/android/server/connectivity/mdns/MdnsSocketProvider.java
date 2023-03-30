@@ -46,6 +46,7 @@ import java.io.IOException;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -150,10 +151,20 @@ public class MdnsSocketProvider {
     private static class SocketInfo {
         final MdnsInterfaceSocket mSocket;
         final List<LinkAddress> mAddresses;
+        final List<SocketCallback> mSocketCallbacks;
 
         SocketInfo(MdnsInterfaceSocket socket, List<LinkAddress> addresses) {
             mSocket = socket;
             mAddresses = new ArrayList<>(addresses);
+            mSocketCallbacks = new ArrayList<>();
+        }
+
+        public void addSocketCallback(@NonNull SocketCallback callback) {
+            mSocketCallbacks.add(callback);
+        }
+
+        public List<SocketCallback> getSocketCallbacks() {
+            return Collections.unmodifiableList(mSocketCallbacks);
         }
     }
 
@@ -326,19 +337,22 @@ public class MdnsSocketProvider {
                     networkInterface.getNetworkInterface(), MdnsConstants.MDNS_PORT, mLooper,
                     mPacketReadBuffer);
             final List<LinkAddress> addresses;
+            final SocketInfo info;
             if (network.netId == INetd.LOCAL_NET_ID) {
                 addresses = CollectionUtils.map(
                         networkInterface.getInterfaceAddresses(), LinkAddress::new);
-                mTetherInterfaceSockets.put(interfaceName, new SocketInfo(socket, addresses));
+                info = new SocketInfo(socket, addresses);
+                mTetherInterfaceSockets.put(interfaceName, info);
             } else {
                 addresses = lp.getLinkAddresses();
-                mNetworkSockets.put(network, new SocketInfo(socket, addresses));
+                info = new SocketInfo(socket, addresses);
+                mNetworkSockets.put(network, info);
             }
             // Try to join IPv4/IPv6 group.
             socket.joinGroup(addresses);
 
             // Notify the listeners which need this socket.
-            notifySocketCreated(network, socket, addresses);
+            notifySocketCreated(network, info, addresses);
         } catch (IOException e) {
             Log.e(TAG, "Create a socket failed with interface=" + interfaceName, e);
         }
@@ -351,25 +365,24 @@ public class MdnsSocketProvider {
         if (socketInfo == null) return;
 
         socketInfo.mSocket.destroy();
-        notifyInterfaceDestroyed(network, socketInfo.mSocket);
+        notifyInterfaceDestroyed(network, socketInfo);
     }
 
-    private void notifySocketCreated(Network network, MdnsInterfaceSocket socket,
+    private void notifySocketCreated(Network network, SocketInfo socketInfo,
             List<LinkAddress> addresses) {
         for (int i = 0; i < mCallbacksToRequestedNetworks.size(); i++) {
             final Network requestedNetwork = mCallbacksToRequestedNetworks.valueAt(i);
             if (isNetworkMatched(requestedNetwork, network)) {
-                mCallbacksToRequestedNetworks.keyAt(i).onSocketCreated(network, socket, addresses);
+                final SocketCallback callback = mCallbacksToRequestedNetworks.keyAt(i);
+                socketInfo.addSocketCallback(callback);
+                callback.onSocketCreated(network, socketInfo.mSocket, addresses);
             }
         }
     }
 
-    private void notifyInterfaceDestroyed(Network network, MdnsInterfaceSocket socket) {
-        for (int i = 0; i < mCallbacksToRequestedNetworks.size(); i++) {
-            final Network requestedNetwork = mCallbacksToRequestedNetworks.valueAt(i);
-            if (isNetworkMatched(requestedNetwork, network)) {
-                mCallbacksToRequestedNetworks.keyAt(i).onInterfaceDestroyed(network, socket);
-            }
+    private void notifyInterfaceDestroyed(Network network, SocketInfo socketInfo) {
+        for (SocketCallback callback : socketInfo.getSocketCallbacks()) {
+            callback.onInterfaceDestroyed(network, socketInfo.mSocket);
         }
     }
 
@@ -395,6 +408,7 @@ public class MdnsSocketProvider {
             }
             createSocket(network, lp);
         } else {
+            socketInfo.addSocketCallback(cb);
             // Notify the socket for requested network.
             cb.onSocketCreated(network, socketInfo.mSocket, socketInfo.mAddresses);
         }
@@ -406,6 +420,7 @@ public class MdnsSocketProvider {
             createSocket(
                     new Network(INetd.LOCAL_NET_ID), createLPForTetheredInterface(interfaceName));
         } else {
+            socketInfo.addSocketCallback(cb);
             // Notify the socket for requested network.
             cb.onSocketCreated(
                     new Network(INetd.LOCAL_NET_ID), socketInfo.mSocket, socketInfo.mAddresses);
@@ -421,6 +436,7 @@ public class MdnsSocketProvider {
      */
     public void requestSocket(@Nullable Network network, @NonNull SocketCallback cb) {
         ensureRunningOnHandlerThread(mHandler);
+        if (DBG) Log.d(TAG, "requestSocket: network=" + network);
         mCallbacksToRequestedNetworks.put(cb, network);
         if (network == null) {
             // Does not specify a required network, create sockets for all possible
@@ -445,7 +461,9 @@ public class MdnsSocketProvider {
     public void unrequestSocket(@NonNull SocketCallback cb) {
         ensureRunningOnHandlerThread(mHandler);
         mCallbacksToRequestedNetworks.remove(cb);
+        if (DBG) Log.d(TAG, "unrequestSocket");
         if (hasAllNetworksRequest()) {
+            if (DBG) Log.d(TAG, "Still has an all networks request.");
             // Still has a request for all networks (interfaces).
             return;
         }
@@ -457,7 +475,7 @@ public class MdnsSocketProvider {
             final SocketInfo info = mNetworkSockets.removeAt(i);
             info.mSocket.destroy();
             // Still notify to unrequester for socket destroy.
-            cb.onInterfaceDestroyed(network, info.mSocket);
+            notifyInterfaceDestroyed(network, info);
         }
 
         // Remove all sockets for tethering interface because these sockets do not have associated
@@ -467,7 +485,7 @@ public class MdnsSocketProvider {
             final SocketInfo info = mTetherInterfaceSockets.valueAt(i);
             info.mSocket.destroy();
             // Still notify to unrequester for socket destroy.
-            cb.onInterfaceDestroyed(new Network(INetd.LOCAL_NET_ID), info.mSocket);
+            notifyInterfaceDestroyed(new Network(INetd.LOCAL_NET_ID), info);
         }
         mTetherInterfaceSockets.clear();
 

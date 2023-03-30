@@ -262,7 +262,10 @@ public class MdnsSocketProviderTest {
 
         mHandler.post(() -> mNetworkCallback.onLost(TEST_NETWORK));
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        testCallback1.expectedNoCallback();
+        // testCallback1 should still receive an interface destroyed notification because previous
+        // unrequesting is skipped by having an all networks request.
+        testCallback1.expectedInterfaceDestroyedForNetwork(TEST_NETWORK);
+        // Active listeners should receive an interface destroyed notification as well.
         testCallback2.expectedInterfaceDestroyedForNetwork(TEST_NETWORK);
         testCallback3.expectedInterfaceDestroyedForNetwork(TEST_NETWORK);
 

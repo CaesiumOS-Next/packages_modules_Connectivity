@@ -72,6 +72,10 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         @Override
         public void onSocketCreated(@NonNull Network network,
                 @NonNull MdnsInterfaceSocket socket, @NonNull List<LinkAddress> addresses) {
+            if (DBG) {
+                Log.d(TAG, "onSocketCreated: network=" + network
+                        + ", socket=" + socket.getInterface().getName());
+            }
             // The socket may be already created by other request before, try to get the stored
             // ReadPacketHandler.
             ReadPacketHandler handler = mSocketPacketHandlers.get(socket);
@@ -88,6 +92,10 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         @Override
         public void onInterfaceDestroyed(@NonNull Network network,
                 @NonNull MdnsInterfaceSocket socket) {
+            if (DBG) {
+                Log.d(TAG, "onInterfaceDestroyed: network=" + network
+                        + ", socket=" + socket.getInterface().getName());
+            }
             mSocketPacketHandlers.remove(socket);
             mActiveNetworkSockets.remove(socket);
         }
@@ -164,7 +172,8 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
                 try {
                     socket.send(packet);
                 } catch (IOException e) {
-                    Log.e(TAG, "Failed to send a mDNS packet.", e);
+                    Log.e(TAG, "Failed to send a mDNS packet on network=" + network
+                            + ", socket=" + socket, e);
                 }
             }
         }
