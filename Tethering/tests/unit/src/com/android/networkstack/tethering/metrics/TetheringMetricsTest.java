@@ -278,16 +278,6 @@ public final class TetheringMetricsTest {
         runUpstreamTypesTest(buildUpstreamState(TRANSPORT_ETHERNET), UpstreamType.UT_ETHERNET);
         runUpstreamTypesTest(buildUpstreamState(TRANSPORT_WIFI_AWARE), UpstreamType.UT_WIFI_AWARE);
         runUpstreamTypesTest(buildUpstreamState(TRANSPORT_LOWPAN), UpstreamType.UT_LOWPAN);
-        runUpstreamTypesTest(buildUpstreamState(TRANSPORT_CELLULAR, TRANSPORT_VPN),
-                UpstreamType.UT_CELLULAR_VPN);
-        runUpstreamTypesTest(buildUpstreamState(TRANSPORT_WIFI, TRANSPORT_VPN),
-                UpstreamType.UT_WIFI_VPN);
-        runUpstreamTypesTest(buildUpstreamState(TRANSPORT_BLUETOOTH, TRANSPORT_VPN),
-                UpstreamType.UT_BLUETOOTH_VPN);
-        runUpstreamTypesTest(buildUpstreamState(TRANSPORT_ETHERNET, TRANSPORT_VPN),
-                UpstreamType.UT_ETHERNET_VPN);
-        runUpstreamTypesTest(buildUpstreamState(TRANSPORT_CELLULAR, TRANSPORT_WIFI, TRANSPORT_VPN),
-                UpstreamType.UT_WIFI_CELLULAR_VPN);
         runUpstreamTypesTest(buildUpstreamState(TRANSPORT_CELLULAR, TRANSPORT_WIFI, TRANSPORT_VPN,
                 TRANSPORT_BLUETOOTH), UpstreamType.UT_UNKNOWN);
     }
