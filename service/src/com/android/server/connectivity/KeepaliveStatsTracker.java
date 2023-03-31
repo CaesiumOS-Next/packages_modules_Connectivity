@@ -20,6 +20,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.metrics.DailykeepaliveInfoReported;
 import com.android.metrics.DurationForNumOfKeepalive;
 import com.android.metrics.DurationPerNumOfKeepalive;
 
@@ -159,11 +160,11 @@ public class KeepaliveStatsTracker {
     }
 
     /**
-     * Builds and returns DurationPerNumOfKeepalive proto
+     * Builds DailykeepaliveInfoReported and writes to statsd.
      *
-     * <p>TODO(b/273451360): Write DailykeepaliveInfoReported metrics to statsd
+     * @return the DailykeepaliveInfoReported proto that was written
      */
-    public DurationPerNumOfKeepalive writeKeepaliveMetrics() {
+    public DailykeepaliveInfoReported writeKeepaliveMetrics() {
         final long timeNow = mDependencies.getUptimeMillis();
         updateDurationsPerNumOfKeepalive(timeNow);
 
@@ -175,7 +176,13 @@ public class KeepaliveStatsTracker {
                         durationPerNumOfKeepalive.addDurationForNumOfKeepalive(
                                 durationForNumOfKeepalive));
 
-        return durationPerNumOfKeepalive.build();
+        final DailykeepaliveInfoReported.Builder dailyKeepaliveInfoReported =
+                DailykeepaliveInfoReported.newBuilder();
+
+        // TODO(b/273451360): fill all the other values and write to ConnectivityStatsLog.
+        dailyKeepaliveInfoReported.setDurationPerNumOfKeepalive(durationPerNumOfKeepalive);
+
+        return dailyKeepaliveInfoReported.build();
     }
 
     /** Resets the stored metrics but maintains the state of keepalives */
