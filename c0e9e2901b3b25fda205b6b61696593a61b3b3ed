@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c27a9bc5_35fb9c1e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-31T01:51:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b52c0d82_a8251564",
+      "range": {
+        "startLine": 168,
+        "startChar": 17,
+        "endLine": 168,
+        "endChar": 36
+      },
+      "revId": "c0e9e2901b3b25fda205b6b61696593a61b3b3ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa4cd86e_31bc6025",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-03-30T05:27:51Z",
       "side": 1,
       "message": "This method just adds one event to the builder, right? If so, maybe it should be called addUpstreamEvent?",
+      "range": {
+        "startLine": 179,
+        "startChar": 17,
+        "endLine": 179,
+        "endChar": 37
+      },
+      "revId": "c0e9e2901b3b25fda205b6b61696593a61b3b3ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad57bc67_aaa3cbb2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-31T01:51:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa4cd86e_31bc6025",
       "range": {
         "startLine": 179,
         "startChar": 17,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b692c666_da6c6614",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-31T01:51:55Z",
+      "side": 1,
+      "message": "This method is only called when a downstream is stopped.",
+      "parentUuid": "2880f470_f465db76",
+      "range": {
+        "startLine": 216,
+        "startChar": 19,
+        "endLine": 216,
+        "endChar": 39
+      },
+      "revId": "c0e9e2901b3b25fda205b6b61696593a61b3b3ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03edc002_d0675e75",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-03-30T05:27:51Z",
       "side": 1,
       "message": "FWIW I don\u0027t think this can actually happen. Tethering will never use a VPN as its upstream network. Either delete code that checks for VPNs, or add a comment saying this cannot happen.",
+      "range": {
+        "startLine": 378,
+        "startChar": 32,
+        "endLine": 378,
+        "endChar": 52
+      },
+      "revId": "c0e9e2901b3b25fda205b6b61696593a61b3b3ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a6d4af2_660bc23c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-03-31T01:51:55Z",
+      "side": 1,
+      "message": "I\u0027ll address this in a followup CL.",
+      "parentUuid": "03edc002_d0675e75",
       "range": {
         "startLine": 378,
         "startChar": 32,
