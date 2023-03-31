@@ -17,12 +17,15 @@
 package com.android.server.connectivity;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doReturn;
 
 import android.os.Build;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.metrics.DailykeepaliveInfoReported;
 import com.android.metrics.DurationForNumOfKeepalive;
 import com.android.metrics.DurationPerNumOfKeepalive;
 import com.android.testutils.DevSdkIgnoreRule;
@@ -38,6 +41,7 @@ import org.mockito.MockitoAnnotations;
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 public class KeepaliveStatsTrackerTest {
+    private static final int TEST_UID = 1234;
 
     private KeepaliveStatsTracker mKeepaliveStatsTracker;
     @Mock KeepaliveStatsTracker.Dependencies mDependencies;
@@ -87,18 +91,44 @@ public class KeepaliveStatsTrackerTest {
         }
     }
 
+    private void assertDailyKeepaliveInfoReported(
+            DailykeepaliveInfoReported dailyKeepaliveInfoReported,
+            int expectRequestsCount,
+            int expectAutoRequestsCount,
+            int[] expectAppUids,
+            int[] expectRegisteredDurations,
+            int[] expectActiveDurations) {
+        // TODO(b/273451360) Assert these values when they are filled.
+        assertFalse(dailyKeepaliveInfoReported.hasKeepaliveLifetimePerCarrier());
+        assertFalse(dailyKeepaliveInfoReported.hasKeepaliveRequests());
+        assertFalse(dailyKeepaliveInfoReported.hasAutomaticKeepaliveRequests());
+        assertFalse(dailyKeepaliveInfoReported.hasDistinctUserCount());
+        assertTrue(dailyKeepaliveInfoReported.getUidList().isEmpty());
+
+        final DurationPerNumOfKeepalive resultDurations =
+                dailyKeepaliveInfoReported.getDurationPerNumOfKeepalive();
+        assertDurationMetrics(expectRegisteredDurations, expectActiveDurations, resultDurations);
+    }
+
     @Test
     public void testNoKeepalive() {
         final int writeTime = 5000;
 
         setUptimeMillis(writeTime);
-        final DurationPerNumOfKeepalive resultDurations =
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
                 mKeepaliveStatsTracker.writeKeepaliveMetrics();
 
         // Expect that the durations are all in numOfKeepalive = 0.
         final int[] expectRegisteredDurations = new int[] {writeTime};
         final int[] expectActiveDurations = new int[] {writeTime};
-        assertDurationMetrics(expectRegisteredDurations, expectActiveDurations, resultDurations);
+
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported,
+                /* expectRequestsCount= */ 0,
+                /* expectAutoRequestsCount= */ 0,
+                /* expectAppUids= */ new int[0],
+                expectRegisteredDurations,
+                expectActiveDurations);
     }
 
     /* Diagram of test (not to scale):
@@ -116,14 +146,20 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive();
 
         setUptimeMillis(writeTime);
-        final DurationPerNumOfKeepalive resultDurations =
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
                 mKeepaliveStatsTracker.writeKeepaliveMetrics();
 
         // The keepalive is never stopped, expect the duration for numberOfKeepalive of 1 to range
         // from startTime to writeTime.
         final int[] expectRegisteredDurations = new int[] {startTime, writeTime - startTime};
         final int[] expectActiveDurations = new int[] {startTime, writeTime - startTime};
-        assertDurationMetrics(expectRegisteredDurations, expectActiveDurations, resultDurations);
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported,
+                /* expectRequestsCount= */ 1,
+                /* expectAutoRequestsCount= */ 1,
+                /* expectAppUids= */ new int[] {TEST_UID},
+                expectRegisteredDurations,
+                expectActiveDurations);
     }
 
     /* Diagram of test (not to scale):
@@ -145,7 +181,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onPauseKeepalive();
 
         setUptimeMillis(writeTime);
-        final DurationPerNumOfKeepalive resultDurations =
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
                 mKeepaliveStatsTracker.writeKeepaliveMetrics();
 
         // The keepalive is paused but not stopped, expect the registered duration for
@@ -154,7 +190,13 @@ public class KeepaliveStatsTrackerTest {
         final int[] expectRegisteredDurations = new int[] {startTime, writeTime - startTime};
         final int[] expectActiveDurations =
                 new int[] {startTime + (writeTime - pauseTime), pauseTime - startTime};
-        assertDurationMetrics(expectRegisteredDurations, expectActiveDurations, resultDurations);
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported,
+                /* expectRequestsCount= */ 1,
+                /* expectAutoRequestsCount= */ 1,
+                /* expectAppUids= */ new int[] {TEST_UID},
+                expectRegisteredDurations,
+                expectActiveDurations);
     }
 
     /* Diagram of test (not to scale):
@@ -180,7 +222,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onResumeKeepalive();
 
         setUptimeMillis(writeTime);
-        final DurationPerNumOfKeepalive resultDurations =
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
                 mKeepaliveStatsTracker.writeKeepaliveMetrics();
 
         // The keepalive is paused and resumed but not stopped, expect the registered duration for
@@ -192,7 +234,13 @@ public class KeepaliveStatsTrackerTest {
                     startTime + (resumeTime - pauseTime),
                     (pauseTime - startTime) + (writeTime - resumeTime)
                 };
-        assertDurationMetrics(expectRegisteredDurations, expectActiveDurations, resultDurations);
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported,
+                /* expectRequestsCount= */ 1,
+                /* expectAutoRequestsCount= */ 1,
+                /* expectAppUids= */ new int[] {TEST_UID},
+                expectRegisteredDurations,
+                expectActiveDurations);
     }
 
     /* Diagram of test (not to scale):
@@ -222,7 +270,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStopKeepalive(/* wasActive= */ true);
 
         setUptimeMillis(writeTime);
-        final DurationPerNumOfKeepalive resultDurations =
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
                 mKeepaliveStatsTracker.writeKeepaliveMetrics();
 
         // The keepalive is now stopped, expect the registered duration for numberOfKeepalive of 1
@@ -235,7 +283,13 @@ public class KeepaliveStatsTrackerTest {
                     startTime + (resumeTime - pauseTime) + (writeTime - stopTime),
                     (pauseTime - startTime) + (stopTime - resumeTime)
                 };
-        assertDurationMetrics(expectRegisteredDurations, expectActiveDurations, resultDurations);
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported,
+                /* expectRequestsCount= */ 1,
+                /* expectAutoRequestsCount= */ 1,
+                /* expectAppUids= */ new int[] {TEST_UID},
+                expectRegisteredDurations,
+                expectActiveDurations);
     }
 
     /* Diagram of test (not to scale):
@@ -261,7 +315,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStopKeepalive(/* wasActive= */ false);
 
         setUptimeMillis(writeTime);
-        final DurationPerNumOfKeepalive resultDurations =
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
                 mKeepaliveStatsTracker.writeKeepaliveMetrics();
 
         // The keepalive is stopped while paused, expect the registered duration for
@@ -274,7 +328,13 @@ public class KeepaliveStatsTrackerTest {
                     startTime + (writeTime - pauseTime),
                     (pauseTime - startTime)
                 };
-        assertDurationMetrics(expectRegisteredDurations, expectActiveDurations, resultDurations);
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported,
+                /* expectRequestsCount= */ 1,
+                /* expectAutoRequestsCount= */ 1,
+                /* expectAppUids= */ new int[] {TEST_UID},
+                expectRegisteredDurations,
+                expectActiveDurations);
     }
 
     /* Diagram of test (not to scale):
@@ -307,7 +367,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStopKeepalive(/* wasActive= */ true);
 
         setUptimeMillis(writeTime);
-        final DurationPerNumOfKeepalive resultDurations =
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
                 mKeepaliveStatsTracker.writeKeepaliveMetrics();
 
         final int[] expectRegisteredDurations =
@@ -319,7 +379,13 @@ public class KeepaliveStatsTrackerTest {
                             + /* sum of (Pause - Resume) */ (700)
                             + (stopTime - pauseResumeTimes[5])
                 };
-        assertDurationMetrics(expectRegisteredDurations, expectActiveDurations, resultDurations);
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported,
+                /* expectRequestsCount= */ 1,
+                /* expectAutoRequestsCount= */ 1,
+                /* expectAppUids= */ new int[] {TEST_UID},
+                expectRegisteredDurations,
+                expectActiveDurations);
     }
 
     /* Diagram of test (not to scale):
@@ -363,7 +429,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStopKeepalive(/* wasActive= */ true);
 
         setUptimeMillis(writeTime);
-        final DurationPerNumOfKeepalive resultDurations =
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
                 mKeepaliveStatsTracker.writeKeepaliveMetrics();
 
         // With two keepalives, the number of concurrent keepalives can vary from 0-2 depending on
@@ -376,6 +442,7 @@ public class KeepaliveStatsTrackerTest {
                     // 2 registered keepalives between keepalive2 start and keepalive1 stop.
                     stopTime1 - startTime2
                 };
+
         final int[] expectActiveDurations =
                 new int[] {
                     // 0 active keepalives when keepalive1 is paused before keepalive2 starts.
@@ -391,7 +458,13 @@ public class KeepaliveStatsTrackerTest {
                     // 2 active keepalives before keepalive2 is paused and before keepalive1 stops.
                     (pauseTime2 - resumeTime1) + (stopTime1 - resumeTime2)
                 };
-        assertDurationMetrics(expectRegisteredDurations, expectActiveDurations, resultDurations);
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported,
+                /* expectRequestsCount= */ 2,
+                /* expectAutoRequestsCount= */ 2,
+                /* expectAppUids= */ new int[] {TEST_UID},
+                expectRegisteredDurations,
+                expectActiveDurations);
     }
 
     /* Diagram of test (not to scale):
@@ -411,31 +484,50 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive();
 
         setUptimeMillis(writeTime);
-        final DurationPerNumOfKeepalive resultDurations =
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
                 mKeepaliveStatsTracker.writeKeepaliveMetrics();
 
         // Same expect as testOneKeepalive_startOnly
         final int[] expectRegisteredDurations = new int[] {startTime, writeTime - startTime};
         final int[] expectActiveDurations = new int[] {startTime, writeTime - startTime};
-        assertDurationMetrics(expectRegisteredDurations, expectActiveDurations, resultDurations);
 
-        final DurationPerNumOfKeepalive resultDurations2 =
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported,
+                /* expectRequestsCount= */ 1,
+                /* expectAutoRequestsCount= */ 1,
+                /* expectAppUids= */ new int[] {TEST_UID},
+                expectRegisteredDurations,
+                expectActiveDurations);
+
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported2 =
                 mKeepaliveStatsTracker.writeKeepaliveMetrics();
         // Expect the stored durations to be 0 but still contain the number of keepalive = 1.
-        assertDurationMetrics(new int[] {0, 0}, new int[] {0, 0}, resultDurations2);
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported2,
+                /* expectRequestsCount= */ 1,
+                /* expectAutoRequestsCount= */ 1,
+                /* expectAppUids= */ new int[] {TEST_UID},
+                /* expectRegisteredDurations= */ new int[] {0, 0},
+                /* expectActiveDurations= */ new int[] {0, 0});
 
         // Expect that the keepalive is still registered after resetting so it can be stopped.
         setUptimeMillis(stopTime);
         mKeepaliveStatsTracker.onStopKeepalive(/* wasActive= */ true);
 
         setUptimeMillis(writeTime2);
-        final DurationPerNumOfKeepalive resultDurations3 =
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported3 =
                 mKeepaliveStatsTracker.writeKeepaliveMetrics();
 
         final int[] expectRegisteredDurations2 =
                 new int[] {writeTime2 - stopTime, stopTime - writeTime};
         final int[] expectActiveDurations2 =
                 new int[] {writeTime2 - stopTime, stopTime - writeTime};
-        assertDurationMetrics(expectRegisteredDurations2, expectActiveDurations2, resultDurations3);
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported3,
+                /* expectRequestsCount= */ 1,
+                /* expectAutoRequestsCount= */ 1,
+                /* expectAppUids= */ new int[] {TEST_UID},
+                expectRegisteredDurations2,
+                expectActiveDurations2);
     }
 }
