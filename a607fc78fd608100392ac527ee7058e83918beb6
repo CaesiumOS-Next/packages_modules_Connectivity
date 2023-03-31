@@ -46,6 +46,30 @@
       },
       "revId": "a607fc78fd608100392ac527ee7058e83918beb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b84e40f_824c4e7d",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-03-31T07:26:16Z",
+      "side": 1,
+      "message": "Hmm I think we had this conversation earlier for the other methods and concluded that it was OK to be more restrictive, as we\u0027d respin a build if someone complains, and that would be useful information ?\n\nAlso as per UnofficialApisUsageTest (see GTS and the associated requirement), this shouldn\u0027t happen: the vendor partition is scanned for such hidden API usage\n\nDoesn\u0027t need to block this change though",
+      "parentUuid": "36fab6b0_3f314efa",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 9
+      },
+      "revId": "a607fc78fd608100392ac527ee7058e83918beb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
