@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e2e47f_72cfbaee",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2560,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-31T07:01:29Z",
+      "side": 1,
+      "message": "Oops, yes. Removed",
+      "parentUuid": "c3e9d304_0958ecd5",
+      "revId": "71122d6e8990b0d336d21f4fa994c2579425a4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23f9276b_53302c70",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-31T06:55:12Z",
       "side": 1,
       "message": "Could there be a race where the check here would verify callbacks that arrived before wifi tethering was enabled ?\n\nMaybe you should check that you get an active callback, and only after that get an inactive callback ?",
+      "revId": "71122d6e8990b0d336d21f4fa994c2579425a4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4143292_c0f2afae",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2567,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-03-31T07:01:29Z",
+      "side": 1,
+      "message": "l.2559 already do what you want. Calling TetherUtils#startWifiTethering will start wifi tethering and make sure wifi tethering active by getting active callback.",
+      "parentUuid": "23f9276b_53302c70",
       "revId": "71122d6e8990b0d336d21f4fa994c2579425a4a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
