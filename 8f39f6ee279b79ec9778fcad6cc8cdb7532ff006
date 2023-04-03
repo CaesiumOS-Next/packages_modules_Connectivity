@@ -33,6 +33,29 @@
       "message": "Previous version of this patchset modified CTS, but I believe that entire test has been removed since.  I\u0027m not sure what (if anything) else needs adjustment.",
       "revId": "8f39f6ee279b79ec9778fcad6cc8cdb7532ff006",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d8e3a7d_e3bb6c94",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-04-03T23:35:20Z",
+      "side": 1,
+      "message": "I don\u0027t understand why this is done even when is_ethernet is false. Am I missing something?",
+      "range": {
+        "startLine": 235,
+        "startChar": 35,
+        "endLine": 235,
+        "endChar": 49
+      },
+      "revId": "8f39f6ee279b79ec9778fcad6cc8cdb7532ff006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
