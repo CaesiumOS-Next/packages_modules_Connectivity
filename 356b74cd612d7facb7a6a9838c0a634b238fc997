@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59014f9a_c013e703",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-04-03T23:20:42Z",
+      "side": 1,
+      "message": "If these are existing annotations, then LGTM. Otherwise, I would suggest using SkipPresubmit for better documentation.",
+      "range": {
+        "startLine": 104,
+        "startChar": 11,
+        "endLine": 104,
+        "endChar": 65
+      },
+      "revId": "356b74cd612d7facb7a6a9838c0a634b238fc997",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
