@@ -162,6 +162,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50a6afd0_c395de07",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1987505
+      },
+      "writtenOn": "2023-04-03T14:02:38Z",
+      "side": 1,
+      "message": "Yes thank you. Updated the change.",
+      "parentUuid": "2b57c057_b084fdf7",
+      "range": {
+        "startLine": 205,
+        "startChar": 40,
+        "endLine": 205,
+        "endChar": 52
+      },
+      "revId": "6a217bdbdbd940cc25f3a435776c2203f32da978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "345dc263_74a8524a",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 2

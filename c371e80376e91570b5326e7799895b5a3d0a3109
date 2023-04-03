@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b8ec50f_db49368f",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1987505
+      },
+      "writtenOn": "2023-04-03T14:02:38Z",
+      "side": 1,
+      "message": "Here, it seems test case is making sure the wifi network is disconnected, so that it can be enabled at 159 line.\nWhen WiFi feature is disabled in the system, ensureWifiDisconnected method generates NPE. So, skipping its execution.\n\nLine 159 is handled by disabling the cell network. Pls check.",
+      "parentUuid": "96973770_1447e6e1",
+      "range": {
+        "startLine": 122,
+        "startChar": 12,
+        "endLine": 122,
+        "endChar": 53
+      },
+      "revId": "c371e80376e91570b5326e7799895b5a3d0a3109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4bb89d9_64c79381",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 3
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bfc59fec_52fc3cfa",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1987505
+      },
+      "writtenOn": "2023-04-03T14:02:38Z",
+      "side": 1,
+      "message": "Hi, updated the changes accordingly. Please check.",
+      "parentUuid": "e4bb89d9_64c79381",
+      "range": {
+        "startLine": 1019,
+        "startChar": 8,
+        "endLine": 1019,
+        "endChar": 67
+      },
+      "revId": "c371e80376e91570b5326e7799895b5a3d0a3109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a65618a6_306af2c8",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 3
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-28T08:58:14Z",
       "side": 1,
       "message": "We should not skip this test if the device does not have wifi. I think we can do this by filing a request for a network we know doesn\u0027t exist (e.g., TRANSPORT_WIFI + NET_CAPABILITY_NOT_VPN|NET_CAPABILITY_MMS|NET_CAPABILITY_EIMS or something like that) and checking that onUnavailable is received. Then we can just delete from this test the code that disconnects and reconnects wifi.",
+      "range": {
+        "startLine": 1304,
+        "startChar": 8,
+        "endLine": 1304,
+        "endChar": 18
+      },
+      "revId": "c371e80376e91570b5326e7799895b5a3d0a3109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c6efa1d_e9a10530",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1987505
+      },
+      "writtenOn": "2023-04-03T14:02:38Z",
+      "side": 1,
+      "message": "Hi, here the test is modified according to below two scenarios.\n1. WIFI not available - Then we can skip the wifi specific code and directly request for TRANSPORT_WIFI to test the network unavailability.\n2. WIFI available - this basically doesn\u0027t change from the previous implementation. Test case disconnects the wifi and then checks the network unavailability.",
+      "parentUuid": "a65618a6_306af2c8",
       "range": {
         "startLine": 1304,
         "startChar": 8,
