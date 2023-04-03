@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+#define NETWORK_TRACE_MAKE_VISIBLE_FOR_TESTING
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -87,6 +89,7 @@ class NetworkTraceHandlerTest : public testing::Test {
                            NetworkPacketTraceConfig config = {}) {
     auto session = StartTracing(config);
     NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
+      ctx.GetDataSourceLocked()->SetStartTime(0);  // Prevent filtering
       ctx.GetDataSourceLocked()->Write(input, ctx);
       ctx.Flush();
     });
@@ -350,6 +353,7 @@ TEST_F(NetworkTraceHandlerTest, Interning) {
   auto session = StartTracing(config);
 
   NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
+    ctx.GetDataSourceLocked()->SetStartTime(0);  // Prevent filtering
     ctx.GetDataSourceLocked()->Write(inputs[0], ctx);
     ctx.GetDataSourceLocked()->Write(inputs[1], ctx);
     ctx.GetDataSourceLocked()->Write(inputs[2], ctx);
@@ -389,6 +393,29 @@ TEST_F(NetworkTraceHandlerTest, Interning) {
   EXPECT_EQ(events[3].interned_data().packet_context().size(), 0);
   EXPECT_EQ(events[3].sequence_flags(),
             TracePacket::SEQ_NEEDS_INCREMENTAL_STATE);
+}
+
+TEST_F(NetworkTraceHandlerTest, FilterStalePackets) {
+  constexpr uint64_t kStartTime = 25;
+  std::vector<PacketTrace> input = {
+      PacketTrace{.timestampNs = 10},
+      PacketTrace{.timestampNs = 30},
+      PacketTrace{.timestampNs = 31},
+  };
+
+  auto session = StartTracing({});
+  NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
+    ctx.GetDataSourceLocked()->SetStartTime(kStartTime);
+    ctx.GetDataSourceLocked()->Write(input, ctx);
+    ctx.Flush();
+  });
+
+  std::vector<TracePacket> events;
+  ASSERT_TRUE(StopTracing(session.get(), &events));
+
+  ASSERT_EQ(events.size(), 2);
+  EXPECT_THAT(events[0].timestamp(), 30);
+  EXPECT_THAT(events[1].timestamp(), 31);
 }
 
 }  // namespace bpf

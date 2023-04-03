@@ -83,6 +83,10 @@ class NetworkTraceHandler
   void Write(const std::vector<PacketTrace>& packets,
              NetworkTraceHandler::TraceContext& ctx);
 
+#ifdef NETWORK_TRACE_MAKE_VISIBLE_FOR_TESTING
+  void SetStartTime(uint64_t time) { mStartTime = time; }
+#endif
+
  private:
   // Convert a PacketTrace into a Perfetto trace packet.
   void Fill(const PacketTrace& src,
@@ -96,6 +100,10 @@ class NetworkTraceHandler
   static internal::NetworkTracePoller sPoller;
   bool mStarted;
   bool mIsTest;
+
+  // The ring buffer can contain stale packets from whenever tracing last ran.
+  // To avoid recording these, save the start time and filter packets before it.
+  uint64_t mStartTime;
 
   // Values from config, see proto for details.
   uint32_t mPollMs;

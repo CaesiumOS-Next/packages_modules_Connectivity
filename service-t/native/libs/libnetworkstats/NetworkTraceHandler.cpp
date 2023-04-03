@@ -21,6 +21,7 @@
 #include <arpa/inet.h>
 #include <bpf/BpfUtils.h>
 #include <log/log.h>
+#include <perfetto/base/time.h>
 #include <perfetto/config/android/network_trace_config.pbzero.h>
 #include <perfetto/trace/android/network_trace.pbzero.h>
 #include <perfetto/trace/profiling/profile_packet.pbzero.h>
@@ -133,6 +134,10 @@ void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
   mDropLocalPort = config.drop_local_port();
   mDropRemotePort = config.drop_remote_port();
   mDropTcpFlags = config.drop_tcp_flags();
+
+  // OnStart runs after Perfetto enables tracing on a data source. To prevent
+  // events from being processed before this is set, handle this in setup.
+  mStartTime = perfetto::base::GetBootTimeNs().count();
 }
 
 void NetworkTraceHandler::OnStart(const StartArgs&) {
@@ -151,6 +156,8 @@ void NetworkTraceHandler::Write(const std::vector<PacketTrace>& packets,
   // TODO: remove this fallback once Perfetto stable has support for bundles.
   if (!mInternLimit && !mAggregationThreshold) {
     for (const PacketTrace& pkt : packets) {
+      if (pkt.timestampNs < mStartTime) continue;
+
       auto dst = ctx.NewTracePacket();
       dst->set_timestamp(pkt.timestampNs);
       auto* event = dst->set_network_packet();
@@ -163,6 +170,8 @@ void NetworkTraceHandler::Write(const std::vector<PacketTrace>& packets,
   uint64_t minTs = std::numeric_limits<uint64_t>::max();
   std::unordered_map<BundleKey, BundleDetails, BundleHash, BundleEq> bundles;
   for (const PacketTrace& pkt : packets) {
+    if (pkt.timestampNs < mStartTime) continue;
+
     BundleKey key = pkt;
 
     // Dropping fields should remove them from the output and remove them from
