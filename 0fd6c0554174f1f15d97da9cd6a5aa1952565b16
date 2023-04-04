@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19218bbb_5323e82b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-04T22:03:22Z",
+      "side": 1,
+      "message": "Approving for CTS as a \u0027flaky test fix\u0027",
+      "revId": "0fd6c0554174f1f15d97da9cd6a5aa1952565b16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
