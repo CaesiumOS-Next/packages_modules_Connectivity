@@ -16,6 +16,23 @@
       "message": "you sure this can\u0027t simply be fixed by calling synchronizeKernelRCU() after disabling the boolean? and then draining?",
       "revId": "4ca43c0818ba0441843c0bedfd876b1686ecb099",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cd43e7c_89f433ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-04T04:41:24Z",
+      "side": 1,
+      "message": "basically I think NetworkTracePoller::Stop() should call syncKernelRCU after .writeValue(0, false, BPF_ANY)\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2520542",
+      "revId": "4ca43c0818ba0441843c0bedfd876b1686ecb099",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
