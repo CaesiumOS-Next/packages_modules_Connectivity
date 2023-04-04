@@ -37,6 +37,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2f567b84_63fba717",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-04T05:46:47Z",
+      "side": 1,
+      "message": "Everytime I look at the failures it *looks* like they\u0027re unrelated, but I don\u0027t understand the new UI.\n\nThe 3 failures I see now:\nhttps://android-build.googleplex.com/builds/treetop/android-review/2370730?ref\u003dCOMMENT\u0026revision\u003d8\u0026attemptKey\u003dshowall\n\nhttps://android-build.corp.google.com/test_investigate/?invocationId\u003dI84500010146868489\u0026testResultId\u003dTR91028581699314688\nnetd_updatable_unit_test.BpfBasicTest.TestCloseSocketWithoutUntag\n\nhttps://android-build.corp.google.com/test_investigate/?invocationId\u003dI84500010146868489\u0026testResultId\u003dTR87628581699314699\ncom.android.networkstack.tethering\nBpfCoordinatorTest\ntestTetherOffloadClientAddRemove\n\nhttps://android-build.corp.google.com/test_investigate/?invocationId\u003dI84500010146868489\u0026testResultId\u003dTR78228581699314718\nnetd_updatable_unit_test(module-abi\u003dx86_64)\nnetd_updatable_unit_test\nBpfBasicTest\nTestCloseSocketWithoutUntag\n\nseem utterly unrelated flakes...",
+      "revId": "8f39f6ee279b79ec9778fcad6cc8cdb7532ff006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fe14399b_017483e0",
         "filename": "bpf_progs/offload.c",
         "patchSetId": 8
