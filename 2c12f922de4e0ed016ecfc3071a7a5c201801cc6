@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62e94105_053d96c0",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-04T01:29:32Z",
+      "side": 1,
+      "message": "Looks like this error message should still refer to an empty array ?",
+      "revId": "2c12f922de4e0ed016ecfc3071a7a5c201801cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
