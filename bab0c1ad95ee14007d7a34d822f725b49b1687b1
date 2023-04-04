@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "219fa85f_808d9187",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-04T06:25:00Z",
+      "side": 1,
+      "message": "Ok, I think I figured out the test move from CTS to MTS.\n\nI wonder if this will cause issues for *S* CTS as well, since offload.o bpf program does technically rollout to S+...\n\nBut I don\u0027t see it in S:\n\ngit cat-file -p remotes/aosp/android12-release:Tethering/tests/integration/src/android/net/CtsEthernetTetheringTest.java\n\nfatal: path \u0027Tethering/tests/integration/src/android/net/CtsEthernetTetheringTest.java\u0027 does not exist in \u0027remotes/aosp/android12-release\u0027\n\nI guess we\u0027ll deal with it when it comes to that. ?\n\nI think this should be here:\n\naosp2/packages/modules/Connectivity$ git cat-file -p remotes/aosp/android12-release:Tethering/tests/integration/src/android/net/EthernetTetheringTest.java | egrep SIZE\n\nathina:/mnt/zoom/maze/aosp2/packages/modules/Connectivity$ git cat-file -p remotes/aosp/android13-release:Tethering/tests/integration/src/android/net/EthernetTetheringTest.java | egrep SIZE\n    private static final int RX_UDP_PACKET_SIZE \u003d 30;\n    private static final int TX_UDP_PACKET_SIZE \u003d 44;\n            assertEquals(RX_UDP_PACKET_COUNT * RX_UDP_PACKET_SIZE, statsValue.rxBytes);\n            assertEquals(TX_UDP_PACKET_COUNT * TX_UDP_PACKET_SIZE, statsValue.txBytes);\n\nSo I think we\u0027ll be OK...",
+      "revId": "bab0c1ad95ee14007d7a34d822f725b49b1687b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
