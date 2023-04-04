@@ -68,6 +68,24 @@
       "parentUuid": "8cd43e7c_89f433ec",
       "revId": "4ca43c0818ba0441843c0bedfd876b1686ecb099",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18e8d81e_89b366a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-04T22:27:39Z",
+      "side": 1,
+      "message": "Any critical rcu locked code section started before synchronizeKernelRCU() is called is guaranteed to complete before it returns.\n\n(though yes, the actual userspace implementation of it is *terribly* hacky)\n\nWe use this same mechanism for flipping traffic accounting between the active and passive map (ie. write the newly active index into a one element bpf map storing the currently active index, call synchronizeKernelRCU() -- see TrafficController::swapActiveStatsMap()\n\nBasically all networking is done with rcu read lock held - since that\u0027s how we manage things like network namespace and network interface memory allocations.\n\nIn practice (due to implementation) I think this is \u0027roughly\u0027 equivalent to every cpu in the system not being in kernel mode any more or having transitioned out of it and re-entered during the rcu sync.  [but don\u0027t quote me on this]\n\nhttp://cs/h/prodkernel/kernel/release/9xx/+/next:kernel/bpf/helpers.c?l\u003d39\n\n/* If kernel subsystem is allowing eBPF programs to call this function,\n * inside its own verifier_ops-\u003eget_func_proto() callback it should return\n * bpf_map_lookup_elem_proto, so that verifier can properly check the arguments\n *\n * Different map implementations will rely on rcu in map methods\n * lookup/update/delete, therefore eBPF programs must run under rcu lock\n * if program is allowed to access maps, so check rcu_read_lock_held in\n * all three functions.\n */\nBPF_CALL_2(bpf_map_lookup_elem, struct bpf_map *, map, void *, key)\n{\n\tWARN_ON_ONCE(!rcu_read_lock_held() \u0026\u0026 !rcu_read_lock_bh_held());\n\treturn (unsigned long) DIRECT_CALL2(bpf_map_ops, map_lookup_elem,\n\t\t\tmap-\u003eops-\u003emap_lookup_elem, map, key);\n}",
+      "parentUuid": "f22862b3_1fdfe522",
+      "revId": "4ca43c0818ba0441843c0bedfd876b1686ecb099",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
