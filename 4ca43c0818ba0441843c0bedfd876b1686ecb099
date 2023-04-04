@@ -50,6 +50,24 @@
       "message": "hi",
       "revId": "4ca43c0818ba0441843c0bedfd876b1686ecb099",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f22862b3_1fdfe522",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-04-04T16:12:02Z",
+      "side": 1,
+      "message": "I was initially going to go in that direction, however can\u0027t there still be a race between setting the bool and draining?\n\nI.e. the BPF code is:\nif (!enabled) return\n// Fill in packet\n// Submit packet\n\nAnd the c++ code is:\n// Set bool to false\n// syncKernelRCU\n// Drain\n\nIn theory, the BPF code could be in the middle of filling while the c++ runs, and still insert into the ring buffer. Perhaps in practice it\u0027s a small enough gap/race that nothing would ever get through?\n\nI could also try draining before starting the poller, it\u0027s all mutex protected and a singleton, so unless something was very fast at starting then stopping, the drain should be reliable.",
+      "parentUuid": "8cd43e7c_89f433ec",
+      "revId": "4ca43c0818ba0441843c0bedfd876b1686ecb099",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
