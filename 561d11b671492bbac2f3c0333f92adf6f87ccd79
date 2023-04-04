@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e32fba6_ded629a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-04T10:18:47Z",
+      "side": 1,
+      "message": "LGTM assuming duplication addressed",
+      "revId": "561d11b671492bbac2f3c0333f92adf6f87ccd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "091524f5_a0d592ea",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-04T10:18:47Z",
+      "side": 1,
+      "message": "Nit: as per the below, suggest removeNetworkSocket",
+      "range": {
+        "startLine": 353,
+        "startChar": 17,
+        "endLine": 353,
+        "endChar": 29
+      },
+      "revId": "561d11b671492bbac2f3c0333f92adf6f87ccd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccc746c2_6c3e246b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-04T10:18:47Z",
+      "side": 1,
+      "message": "Nit: suggest removeTetherInterfaceSocket to make it more explicit that it doesn\u0027t support other sockets",
+      "range": {
+        "startLine": 361,
+        "startChar": 17,
+        "endLine": 361,
+        "endChar": 29
+      },
+      "revId": "561d11b671492bbac2f3c0333f92adf6f87ccd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73e959dc_bc675e3a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-04T10:18:47Z",
+      "side": 1,
+      "message": "This seems identical to `notifySocketCreated(null, socket, addresses)`, since when `network` is null, isNetworkMatched will return true if and only if `requestedNetwork` is null",
+      "revId": "561d11b671492bbac2f3c0333f92adf6f87ccd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef11702b_d12c18cf",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-04T10:18:47Z",
+      "side": 1,
+      "message": "Similarly this seems to be the same as notifyInterfaceDestroyed(null, socket)",
+      "revId": "561d11b671492bbac2f3c0333f92adf6f87ccd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
