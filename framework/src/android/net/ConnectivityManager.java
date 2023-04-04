@@ -6137,4 +6137,28 @@ public class ConnectivityManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    /**
+     * //TODO PerAppNetworkBlock description
+     * @hide
+     */
+    @SystemApi
+    @RequiresPermission(android.Manifest.permission.CONTROL_PER_APP_NETWORK_BLOCK_PREFERENCE)
+    public void setPerAppNetworkBlock(@NonNull PerAppNetworkBlockPreferences prefs) {
+        Objects.requireNonNull(prefs, "PerAppNetworkBlockPreferences must be non-null");
+        // final IOnCompleteListener listenerInternal = listener == null ? null :
+        //     new IOnCompleteListener.Stub() {
+        //         @Override
+        //         public void onComplete() {
+        //             executor.execute(listener::run);
+        //         }
+        //     };
+
+        try {
+            mService.setPerAppNetworkBlock(prefs);
+        } catch (RemoteException e) {
+            Log.e(TAG, "PerAppNetworkBlockPreferences() failed for preference: " + prefs.toString());
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }

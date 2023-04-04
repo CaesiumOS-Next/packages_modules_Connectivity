@@ -36,6 +36,7 @@ import android.net.NetworkScore;
 import android.net.NetworkState;
 import android.net.NetworkStateSnapshot;
 import android.net.OemNetworkPreferences;
+import android.net.PerAppNetworkBlockPreferences;
 import android.net.ProfileNetworkPreference;
 import android.net.ProxyInfo;
 import android.net.UidRange;
@@ -255,4 +256,6 @@ interface IConnectivityManager
     void setVpnNetworkPreference(String session, in UidRange[] ranges);
 
     void setTestLowTcpPollingTimerForKeepalive(long timeMs);
+
+    void setPerAppNetworkBlock(in PerAppNetworkBlockPreferences prefs);
 }

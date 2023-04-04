@@ -179,6 +179,7 @@ import android.net.NetworkTestResultParcelable;
 import android.net.NetworkUtils;
 import android.net.NetworkWatchlistManager;
 import android.net.OemNetworkPreferences;
+import android.net.PerAppNetworkBlockPreferences;
 import android.net.PrivateDnsConfigParcel;
 import android.net.ProfileNetworkPreference;
 import android.net.ProxyInfo;
@@ -513,6 +514,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // See {@link ConnectivitySettingsManager#setMobileDataPreferredUids}
     @VisibleForTesting
     static final int PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED = 30;
+    // TODO: PerAppNetworkBlock description
+    static final int PREFERENCE_ORDER_PER_APP_NETWORK_BLOCK = 40;
     // Preference order that signifies the network shouldn't be set as a default network for
     // the UIDs, only give them access to it. TODO : replace this with a boolean
     // in NativeUidRangeConfig
@@ -776,6 +779,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Event to use low TCP polling timer used in automatic on/off keepalive temporarily.
      */
     private static final int EVENT_SET_LOW_TCP_POLLING_UNTIL = 60;
+
+    /**
+     * TODO: PerAppNetworkBlock description
+     */
+    private static final int EVENT_SET_PER_APP_NETWORK_BLOCK_PREFERENCES = 61;
 
     /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
@@ -5708,6 +5716,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mKeepaliveTracker.handleSetTestLowTcpPollingTimer(time);
                     break;
                 }
+                case EVENT_SET_PER_APP_NETWORK_BLOCK_PREFERENCES:
+                    final PerAppNetworkBlockPreferences preferences =
+                        (PerAppNetworkBlockPreferences) msg.obj;
+                    handlePerAppAppNetworkBlockPreferences(preferences);
+                    break;
+
             }
         }
     }
@@ -6321,6 +6335,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (mOemNetworkPreferences.getNetworkPreferences().size() > 0) {
             handleSetOemNetworkPreference(mOemNetworkPreferences, null);
         }
+        if (mPerAppNetworkBlockPrefs.getPackagesToBlock().size() > 0) {
+            handlePerAppAppNetworkBlockPreferences(mPerAppNetworkBlockPrefs);
+        }
         updateProfileAllowedNetworks();
     }
 
@@ -6333,6 +6350,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (mOemNetworkPreferences.getNetworkPreferences().size() > 0) {
             handleSetOemNetworkPreference(mOemNetworkPreferences, null);
         }
+        if (mPerAppNetworkBlockPrefs.getPackagesToBlock().size() > 0) {
+            handlePerAppAppNetworkBlockPreferences(mPerAppNetworkBlockPrefs);
+        }
     }
 
     private void onPackageChanged(@NonNull final String packageName) {
@@ -6343,6 +6363,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // leaves a UID with a preference).
         if (isMappedInOemNetworkPreference(packageName)) {
             handleSetOemNetworkPreference(mOemNetworkPreferences, null);
+        }
+        if (mPerAppNetworkBlockPrefs.getPackagesToBlock().contains(packageName)) {
+            handlePerAppAppNetworkBlockPreferences(mPerAppNetworkBlockPrefs);
         }
 
         // Invalidates cache entry when the package is updated.
@@ -7384,6 +7407,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @NonNull
     private final LocalLog mOemNetworkPreferencesLogs =
             new LocalLog(MAX_OEM_NETWORK_PREFERENCE_LOGS);
+
+    // TODO: PerAppNetworkBlock description
+    @NonNull
+    private PerAppNetworkBlockPreferences mPerAppNetworkBlockPrefs =
+        new PerAppNetworkBlockPreferences();
 
     /**
      * Determine whether a given package has a mapping in the current OemNetworkPreferences.
@@ -11925,5 +11953,73 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public IBinder getCompanionDeviceManagerProxyService() {
         enforceNetworkStackPermission(mContext);
         return mCdmps;
+    }
+
+    @Override
+    public void setPerAppNetworkBlock(@NonNull PerAppNetworkBlockPreferences prefs) {
+        mContext.enforceCallingOrSelfPermission(
+            android.Manifest.permission.CONTROL_PER_APP_NETWORK_BLOCK_PREFERENCE,
+            "ConnectivityService"
+        );
+
+        mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_PER_APP_NETWORK_BLOCK_PREFERENCES, prefs));
+    }
+
+    private void handlePerAppAppNetworkBlockPreferences(@NonNull PerAppNetworkBlockPreferences prefs) {
+        if (VDBG || DDBG) {
+            log("Setting rules to block network for:" + prefs);
+        }
+
+        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_PER_APP_NETWORK_BLOCK);
+
+        mPerAppNetworkBlockPrefs = prefs;
+        Set<String> packagesToBlock = prefs.getPackagesToBlock();
+        if (packagesToBlock.isEmpty()) {
+            if (VDBG || DDBG) {
+                log("No packages to block network for");
+            }
+            return;
+        }
+        // Getting Users
+        final List<UserHandle> users =
+            mContext.getSystemService(UserManager.class).getUserHandles(true);
+        if (null == users || users.size() == 0) {
+            if (VDBG || DDBG) {
+                log("No users currently available for setting the OEM network preference.");
+            }
+            return;
+        }
+
+        final PackageManager pm = mContext.getPackageManager();
+        final Set<NetworkRequestInfo> nris = new ArraySet<>();
+
+        for (String packageName : packagesToBlock) {
+            for (UserHandle user : users) {
+                try {
+                    final int uid = pm.getApplicationInfoAsUser(packageName, 0, user).uid;
+                    final NetworkCapabilities netCap = getBlockedNetworkCapabilities(uid);
+                    final List<NetworkRequest> nrs = new ArrayList<>();
+                    nrs.add(new NetworkRequest(netCap, TYPE_NONE, nextNetworkRequestId(),
+                        NetworkRequest.Type.REQUEST));
+                    nris.add(new NetworkRequestInfo(Process.myUid(), nrs,
+                        PREFERENCE_ORDER_PER_APP_NETWORK_BLOCK));
+                } catch (PackageManager.NameNotFoundException e) {
+                    continue;
+                }
+            }
+        }
+        addPerAppDefaultNetworkRequests(nris);
+    }
+
+    private NetworkCapabilities getBlockedNetworkCapabilities(int uid) {
+        final NetworkCapabilities netCap = new NetworkCapabilities();
+        netCap.setRequestorUidAndPackageName(Process.myUid(),
+            mContext.getPackageName());
+        final Set<UidRange> ranges = new ArraySet<>();
+        ranges.add(new UidRange(uid, uid));
+        netCap.setUids(UidRange.toIntRanges(ranges));
+        netCap.removeCapability(NET_CAPABILITY_INTERNET);
+        netCap.addForbiddenCapability(NET_CAPABILITY_INTERNET);
+        return netCap;
     }
 }
