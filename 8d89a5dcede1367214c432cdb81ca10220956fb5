@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a81ae1aa_9d878691",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:47:05Z",
+      "side": 1,
+      "message": "I think MdnsMultinetworkSocketClient should be fixed instead, and this code should just be changed not to send any callback after unregistration (see other comments)",
+      "revId": "8d89a5dcede1367214c432cdb81ca10220956fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0950bbea_dc2670d3",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:47:05Z",
+      "side": 1,
+      "message": "Hmm this means that a client may receive a callback after unregistration (unrequestSocket), much later because it depends on other users of that interface. I don\u0027t think we should be sending callbacks long after unregistration: it\u0027s very unusual, would prevent objects from being freed (a reference to the callback is kept), and is likely to not be handled well by clients.\n\nI think it\u0027s the same discussion as: https://r.android.com/c/platform/packages/modules/Connectivity/+/2278027/8..14/service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java#b433\n\nInstead of doing that I think we should have MdnsMultinetworkSocketClient remove the socket from mActiveNetworkSockets/mSocketPacketHandlers when it calls unrequestSocket.",
+      "revId": "8d89a5dcede1367214c432cdb81ca10220956fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a523430_d5b7fe2d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:47:05Z",
+      "side": 1,
+      "message": "Because the callback was unregistered (unrequestsocket), I don\u0027t think this should be called: clients are likely not to expect callbacks after registration. Instead, a client that unrequests a socket needs to stop using it by themselves. This is what MdnsAdvertiser does (it unrequests the socket when it\u0027s done using it).",
+      "revId": "8d89a5dcede1367214c432cdb81ca10220956fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
