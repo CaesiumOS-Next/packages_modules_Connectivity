@@ -1,0 +1,221 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f65f5c9_39058214",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:02:48Z",
+      "side": 1,
+      "message": "Nit: mIfaceNameToLastIndexMap would more accurately reflect that a given name will have different indexes over time",
+      "range": {
+        "startLine": 89,
+        "startChar": 44,
+        "endLine": 89,
+        "endChar": 64
+      },
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "706ea035_46fdc36a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:02:48Z",
+      "side": 1,
+      "message": "Nit: can this be static ?",
+      "range": {
+        "startLine": 148,
+        "startChar": 14,
+        "endLine": 148,
+        "endChar": 15
+      },
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69e87e28_0f98c68a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:02:48Z",
+      "side": 1,
+      "message": "If I read the code correctly, we don\u0027t do this check when adding addresses to LinkProperties for \"normal upstream\" networks:\n\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/NetworkStack/src/android/net/ip/IpClientLinkObserver.java;drc\u003dd63e15d8506937a7e85fdff8f9d578ee444e71b9;l\u003d633\n\nAnd then we use all addresses from LinkProperties in handleLinkPropertiesChanged. So either something is missing there, or this check isn\u0027t necessary here ?",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2f96e58_dba81703",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:02:48Z",
+      "side": 1,
+      "message": "Nit: I think the code paths are sufficiently separate in this method that having 2 different methods (addOrUpdateInterfaceAddress / deleteInterfaceAddress) would be clearer",
+      "range": {
+        "startLine": 199,
+        "startChar": 16,
+        "endLine": 199,
+        "endChar": 27
+      },
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81b7b829_a724216c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:02:48Z",
+      "side": 1,
+      "message": "Nit: maybe have a comment to explain why netlink monitor isn\u0027t stopped here",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed4ee341_20887d44",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:02:48Z",
+      "side": 1,
+      "message": "This is used from processRtNetlinkAddressMessage -\u003e updateInterfaceAddress -\u003e maybeUpdateTetheringSocketAddress, which may be called regardless of start/stop status, so I don\u0027t think it should be cleared here. You could remove it at the same time you cleanup mIfaceIdxToLinkProperties.",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de660449_cf217657",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:02:48Z",
+      "side": 1,
+      "message": "After aosp/2519918, would it be possible to update mTetherInterfaceSockets to be a  ArrayMap\u003cNetworkKey, SocketInfo\u003e, where you\u0027d have different NetworkKey instances that contain the interface index ?\n\nThis way the interface index is already \"cached\" in the NetworkKey, so no need to maintain a mIfaceNameToIndexMap.\n\nI think it would remove the need for getAndUpdateInterfaceIndex, if you just call getNetworkInterfaceIndexByName in handleTetherInterfacesChanged or requestSocket (so just once before creating each socket). Also mTetherInterfaceSockets and mNetworkSockets could be merged to simplify logic.\n\nI\u0027m concerned about races when updating mIfaceNameToIndexMap, so I\u0027d rather have most of the code use interface indexes instead of converting from the name.",
+      "range": {
+        "startLine": 346,
+        "startChar": 44,
+        "endLine": 346,
+        "endChar": 67
+      },
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee6f6d53_7d3e7d87",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:02:48Z",
+      "side": 1,
+      "message": "Nit: this is not consistent with the IFACE_IDX_NOT_EXIST case; should this be Collections.emptyList() too ?",
+      "range": {
+        "startLine": 376,
+        "startChar": 28,
+        "endLine": 376,
+        "endChar": 45
+      },
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "712b3320_e313e44f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:02:48Z",
+      "side": 1,
+      "message": "Ifaces are added from the netlink callbacks, which are not synchronized with the tethering callbacks, so there could be races where an interface was toggled, and the 2nd ID gets removed here even though this is the callback for the first interface that has the 1st ID.\n\nI think adding/removing interfaces in updateInterfaceAddress would avoid that.",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98be50d7_bbcfa644",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:02:48Z",
+      "side": 1,
+      "message": "Nit: The \"Updated\" isn\u0027t very clear in this context; I think this constant should just be inlined in the test, as it\u0027s clearer why the flag is 1 there",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bc00ff9_89ae017f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T07:02:48Z",
+      "side": 1,
+      "message": "Could you return a mock NetlinkMonitor instead ? If the test is simulating calls to NetLinkMonitorCallBack, it shouldn\u0027t create a real NetlinkMonitor which can send callbacks too.",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
