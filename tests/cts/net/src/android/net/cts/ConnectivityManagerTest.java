@@ -2409,7 +2409,6 @@ public class ConnectivityManagerTest {
         }
     }
 
-    @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test
     public void testBlockedStatusCallback() throws Exception {
         // Cannot use @IgnoreUpTo(Build.VERSION_CODES.R) because this test also requires API 31
