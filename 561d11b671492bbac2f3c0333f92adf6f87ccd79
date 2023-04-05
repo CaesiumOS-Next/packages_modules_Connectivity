@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18d1630e_2884034b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-05T04:06:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e32fba6_ded629a6",
+      "revId": "561d11b671492bbac2f3c0333f92adf6f87ccd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "091524f5_a0d592ea",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-04-04T10:18:47Z",
       "side": 1,
       "message": "Nit: as per the below, suggest removeNetworkSocket",
+      "range": {
+        "startLine": 353,
+        "startChar": 17,
+        "endLine": 353,
+        "endChar": 29
+      },
+      "revId": "561d11b671492bbac2f3c0333f92adf6f87ccd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a0c1e8d_f5df77cd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-05T04:06:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "091524f5_a0d592ea",
       "range": {
         "startLine": 353,
         "startChar": 17,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "161cd4cc_90288bfb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-05T04:06:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccc746c2_6c3e246b",
+      "range": {
+        "startLine": 361,
+        "startChar": 17,
+        "endLine": 361,
+        "endChar": 29
+      },
+      "revId": "561d11b671492bbac2f3c0333f92adf6f87ccd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73e959dc_bc675e3a",
@@ -81,6 +147,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2522a6fa_14940400",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-05T04:06:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73e959dc_bc675e3a",
+      "revId": "561d11b671492bbac2f3c0333f92adf6f87ccd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef11702b_d12c18cf",
@@ -94,6 +178,24 @@
       "writtenOn": "2023-04-04T10:18:47Z",
       "side": 1,
       "message": "Similarly this seems to be the same as notifyInterfaceDestroyed(null, socket)",
+      "revId": "561d11b671492bbac2f3c0333f92adf6f87ccd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "544c66b5_39dedccd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-05T04:06:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef11702b_d12c18cf",
       "revId": "561d11b671492bbac2f3c0333f92adf6f87ccd79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
