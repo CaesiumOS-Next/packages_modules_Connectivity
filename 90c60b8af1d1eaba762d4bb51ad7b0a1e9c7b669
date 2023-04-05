@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e60aa95_9fc6cccd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-05T10:32:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1f456e6_0682eb25",
+      "revId": "90c60b8af1d1eaba762d4bb51ad7b0a1e9c7b669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84b3cd88_af8aeeb4",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f3705c9_948e3f48",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-05T10:32:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84b3cd88_af8aeeb4",
+      "revId": "90c60b8af1d1eaba762d4bb51ad7b0a1e9c7b669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3372c562_949e6474",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-04-05T09:39:11Z",
       "side": 1,
       "message": "Nit: add visibility: [\"//visibility:private\"]\n\nAlso to the above build rule, to avoid unexpected users of this",
+      "revId": "90c60b8af1d1eaba762d4bb51ad7b0a1e9c7b669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4640f38d_191a48a3",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-05T10:32:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3372c562_949e6474",
       "revId": "90c60b8af1d1eaba762d4bb51ad7b0a1e9c7b669",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
