@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "246e9530_1f649252",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T10:32:26Z",
+      "side": 1,
+      "message": "LGTM if the runAsShell is removed, but Lorenzo needs to +2 CTS changes",
+      "revId": "639567f4dd58914d0be423252e8a785912f7844b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c47e1a5_1082c9d9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2564,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T10:32:26Z",
+      "side": 1,
+      "message": "Is this actually necessary here ? expectNoTetheringActive only does a poll on an ArrayTrackRecord, no RPC",
+      "revId": "639567f4dd58914d0be423252e8a785912f7844b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
