@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37129c8e_e9c82c56",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-05T08:07:24Z",
+      "side": 1,
+      "message": "As per the analyzer, this won\u0027t actually be used because it\u0027s not the last value in the lambda, so it will just continue executing the next lines.\n\nYou probably want `return@check false`",
+      "range": {
+        "startLine": 406,
+        "startChar": 16,
+        "endLine": 406,
+        "endChar": 21
+      },
+      "revId": "009f7133fb69e9b71d9325ccfe5731b775644da7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
