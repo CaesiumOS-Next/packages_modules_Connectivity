@@ -33,6 +33,24 @@
       "message": "(if the goal is to prevent merging to tm-mainline-prod, then it\u0027s pointless since udc-dev will [eventually] use modules built from elsewhere [I think tm-mainline-prod initially] anyway)",
       "revId": "799d96734a6904122689c490de391d2ff049a36d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fb58828_f6e84e66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1944425
+      },
+      "writtenOn": "2023-04-05T19:31:10Z",
+      "side": 1,
+      "message": "Hi Maciej, yes, \"do not merge\" is to prevent merging to tm-mainline-prod. The reason is the code for the tool of resource shrinker is not in tm-mainline-prod, which means the build will fail in tm-mainline-prod for the building system doesn\u0027t understand `shrink_resources: true`.",
+      "parentUuid": "1aceaa74_cad464cc",
+      "revId": "799d96734a6904122689c490de391d2ff049a36d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
