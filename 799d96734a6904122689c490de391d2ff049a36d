@@ -69,6 +69,24 @@
       "tag": "mailMessageId\u003d\u003cCANP3RGcKJg9mj+FjN_k9v9Hz3YcQMqmi-rUcmw7UFTze3js30g@mail.gmail.com\u003e",
       "revId": "799d96734a6904122689c490de391d2ff049a36d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a5fafd1_8f1d30fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1944425
+      },
+      "writtenOn": "2023-04-05T21:28:07Z",
+      "side": 1,
+      "message": "I can talk to Rico to understand whether it is possible to do that, since there are lots of changes or Rico just needs to drop the latest build of the tool.",
+      "parentUuid": "6585f440_1738d455",
+      "revId": "799d96734a6904122689c490de391d2ff049a36d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
