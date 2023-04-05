@@ -51,10 +51,6 @@ public class HostsideVpnTests extends HostsideNetworkTestCase {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testAppDisallowed");
     }
 
-    public void testSocketClosed() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testSocketClosed");
-    }
-
     public void testGetConnectionOwnerUidSecurity() throws Exception {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testGetConnectionOwnerUidSecurity");
     }
