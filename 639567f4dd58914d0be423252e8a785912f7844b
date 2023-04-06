@@ -33,6 +33,24 @@
       "message": "Is this actually necessary here ? expectNoTetheringActive only does a poll on an ArrayTrackRecord, no RPC",
       "revId": "639567f4dd58914d0be423252e8a785912f7844b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fe9d929_7dfac07d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2564,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-04-06T02:48:57Z",
+      "side": 1,
+      "message": "Indeed.",
+      "parentUuid": "5c47e1a5_1082c9d9",
+      "revId": "639567f4dd58914d0be423252e8a785912f7844b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
