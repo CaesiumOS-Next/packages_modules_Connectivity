@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9edcaecf_db20ae0b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-06T07:35:44Z",
+      "side": 1,
+      "message": "As discussed in person, this is in hiddenapi-max-target-o-low-priority",
+      "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e5fd869_22714400",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-06T07:35:44Z",
+      "side": 1,
+      "message": "Also in the above file",
+      "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc942e9c_67adbd8b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-06T07:35:44Z",
+      "side": 1,
+      "message": "This is also in hiddenapi-max-target-o-low-priority.txt",
+      "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd52be04_6333c8ed",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-06T07:35:44Z",
+      "side": 1,
+      "message": "Also in hiddenapi-max-target-o-low-priority.txt",
+      "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58cec776_74533408",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-06T07:35:44Z",
+      "side": 1,
+      "message": "Also in the text file",
+      "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
