@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "341eaa82_e7a2b5b3",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T07:38:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9edcaecf_db20ae0b",
+      "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e5fd869_22714400",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-04-06T07:35:44Z",
       "side": 1,
       "message": "Also in the above file",
+      "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64661820_a7d78fac",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T07:38:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e5fd869_22714400",
       "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db13bb68_52618a90",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T07:38:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc942e9c_67adbd8b",
+      "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd52be04_6333c8ed",
@@ -69,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fc092b7_7728456c",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T07:38:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd52be04_6333c8ed",
+      "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58cec776_74533408",
@@ -82,6 +154,24 @@
       "writtenOn": "2023-04-06T07:35:44Z",
       "side": 1,
       "message": "Also in the text file",
+      "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ec77823_39b1b81b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T07:38:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58cec776_74533408",
       "revId": "deb804c4ebae4edf95c824be400c04a5516acb6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
