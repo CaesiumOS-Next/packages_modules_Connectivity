@@ -195,22 +195,8 @@ public final class NetworkTemplate implements Parcelable {
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.TIRAMISU,
             publicAlternatives = "Use {@code Builder} instead.")
     public static NetworkTemplate buildTemplateMobileAll(@NonNull String subscriberId) {
-        final Set<String> set;
-        // Prevent from crash for b/273963543, where the OEMs still call into this method
-        // with null subscriberId and get crashed.
-        final int firstSdk = Build.VERSION.DEVICE_INITIAL_SDK_INT;
-        if (firstSdk > Build.VERSION_CODES.TIRAMISU && subscriberId == null) {
-            throw new IllegalArgumentException("buildTemplateMobileAll does not accept null"
-                    + " subscriberId on Android U devices or above");
-        }
-        if (subscriberId == null) {
-            set = new HashSet<>();
-            set.add(null);
-        } else {
-            set = Set.of(subscriberId);
-        }
         return new NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES)
-                .setSubscriberIds(set).build();
+                .setSubscriberIds(setOf(subscriberId)).build();
     }
 
     /**
@@ -274,10 +260,7 @@ public final class NetworkTemplate implements Parcelable {
     // TODO(b/270089918): Remove this method. This can only be done after there are no more callers,
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateBluetooth() {
-        if (SdkLevel.isAtLeastU()) {
-            throw new UnsupportedOperationException(
-                    "buildTemplateBluetooth is not supported on Android U devices or above");
-        }
+        throwAboveU();
         return new NetworkTemplate.Builder(MATCH_BLUETOOTH).build();
     }
 
@@ -290,10 +273,7 @@ public final class NetworkTemplate implements Parcelable {
     // TODO(b/270089918): Remove this method. This can only be done after there are no more callers,
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateProxy() {
-        if (SdkLevel.isAtLeastU()) {
-            throw new UnsupportedOperationException(
-                    "buildTemplateProxy is not supported on Android U devices or above");
-        }
+        throwAboveU();
         return new NetworkTemplate(MATCH_PROXY, null, null);
     }
 
@@ -305,10 +285,7 @@ public final class NetworkTemplate implements Parcelable {
     // TODO(b/273963543): Remove this method. This can only be done after there are no more callers,
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateCarrierMetered(@NonNull String subscriberId) {
-        if (SdkLevel.isAtLeastU()) {
-            throw new UnsupportedOperationException(
-                    "buildTemplateCarrierMetered is not supported on Android U devices or above");
-        }
+        throwAboveU();
         return new NetworkTemplate.Builder(MATCH_CARRIER)
                 // Set.of will throw if subscriberId is null
                 .setSubscriberIds(Set.of(subscriberId))
@@ -327,10 +304,7 @@ public final class NetworkTemplate implements Parcelable {
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateMobileWithRatType(@Nullable String subscriberId,
             int ratType, int metered) {
-        if (SdkLevel.isAtLeastU()) {
-            throw new UnsupportedOperationException("buildTemplateMobileWithRatType is not "
-                    + "supported on Android U devices or above");
-        }
+        throwAboveU();
         return new NetworkTemplate.Builder(MATCH_MOBILE)
                 .setSubscriberIds(TextUtils.isEmpty(subscriberId)
                         ? Collections.emptySet()
@@ -340,6 +314,22 @@ public final class NetworkTemplate implements Parcelable {
                 .build();
     }
 
+    private static Set<String> setOf(@Nullable final String item) {
+        if (item == null) {
+            // Set.of will throw if item is null
+            final Set<String> set = new HashSet<>();
+            set.add(null);
+            return Collections.unmodifiableSet(set);
+        } else {
+            return Set.of(item);
+        }
+    }
+
+    private static void throwAboveU() {
+        if (SdkLevel.isAtLeastU()) {
+            throw new UnsupportedOperationException("Method not supported on Android U or above");
+        }
+    }
 
     /**
      * Template to match {@link ConnectivityManager#TYPE_WIFI} networks with the
@@ -352,13 +342,9 @@ public final class NetworkTemplate implements Parcelable {
     // TODO(b/273963543): Remove this method. This can only be done after there are no more callers,
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateWifi(@NonNull String wifiNetworkKey) {
-        if (SdkLevel.isAtLeastU()) {
-            throw new UnsupportedOperationException("buildTemplateWifi is not "
-                    + "supported on Android U devices or above");
-        }
+        throwAboveU();
         return new NetworkTemplate.Builder(MATCH_WIFI)
-                // Set.of will throw if wifiNetworkKey is null
-                .setWifiNetworkKeys(Set.of(wifiNetworkKey))
+                .setWifiNetworkKeys(setOf(wifiNetworkKey))
                 .build();
     }
 
@@ -379,17 +365,10 @@ public final class NetworkTemplate implements Parcelable {
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateWifi(@Nullable String wifiNetworkKey,
             @Nullable String subscriberId) {
-        if (SdkLevel.isAtLeastU()) {
-            throw new UnsupportedOperationException("buildTemplateWifi is not "
-                    + "supported on Android U devices or above");
-        }
+        throwAboveU();
         return new NetworkTemplate.Builder(MATCH_WIFI)
-                .setSubscriberIds(subscriberId == null
-                        ? Collections.emptySet()
-                        : Set.of(subscriberId))
-                .setWifiNetworkKeys(wifiNetworkKey == null
-                        ? Collections.emptySet()
-                        : Set.of(wifiNetworkKey))
+                .setSubscriberIds(setOf(subscriberId))
+                .setWifiNetworkKeys(setOf(wifiNetworkKey))
                 .build();
     }
 
@@ -471,10 +450,6 @@ public final class NetworkTemplate implements Parcelable {
         if (matchRule == 6 || matchRule == 7) {
             Log.e(TAG, "Use MATCH_MOBILE with empty subscriberIds or MATCH_WIFI with empty "
                     + "wifiNetworkKeys instead of template with matchRule=" + matchRule);
-            if (SdkLevel.isAtLeastU()) {
-                throw new UnsupportedOperationException(
-                        "Wildcard templates are not supported on Android U devices or above");
-            }
         }
     }
 
@@ -508,10 +483,7 @@ public final class NetworkTemplate implements Parcelable {
                 getMeterednessForBackwardsCompatibility(matchRule),
                 ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL,
                 OEM_MANAGED_ALL);
-        if (SdkLevel.isAtLeastU()) {
-            throw new UnsupportedOperationException(
-                    "This constructor is not supported on Android U devices or above");
-        }
+        throwAboveU();
     }
 
     /** @hide */
@@ -526,10 +498,7 @@ public final class NetworkTemplate implements Parcelable {
         this(getBackwardsCompatibleMatchRule(matchRule),
                 matchSubscriberIds == null ? new String[]{} : matchSubscriberIds,
                 matchWifiNetworkKeys, metered, roaming, defaultNetwork, ratType, oemManaged);
-        if (SdkLevel.isAtLeastU()) {
-            throw new UnsupportedOperationException(
-                    "This constructor is not supported on Android U devices or above");
-        }
+        throwAboveU();
     }
 
     /** @hide */
@@ -636,10 +605,7 @@ public final class NetworkTemplate implements Parcelable {
     //  including in OEM code which can access this by linking against the framework.
     /** @hide */
     public boolean isMatchRuleMobile() {
-        if (SdkLevel.isAtLeastU()) {
-            throw new UnsupportedOperationException(
-                    "isMatchRuleMobile is not supported on Android U devices or above");
-        }
+        throwAboveU();
         switch (mMatchRule) {
             case MATCH_MOBILE:
             // Old MATCH_MOBILE_WILDCARD
@@ -981,10 +947,7 @@ public final class NetworkTemplate implements Parcelable {
     // TODO(b/273963543): Remove this method. This can only be done after there are no more callers,
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate normalize(NetworkTemplate template, List<String[]> mergedList) {
-        if (SdkLevel.isAtLeastU()) {
-            throw new UnsupportedOperationException(
-                    "normalize is not supported on Android U devices or above");
-        }
+        throwAboveU();
         return normalizeImpl(template, mergedList);
     }
 
