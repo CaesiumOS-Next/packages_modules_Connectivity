@@ -43,6 +43,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4e462d2_11e58862",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-06T07:04:25Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9a7a1236_c028a50b",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 3
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4570ac5d_bbdb2e5f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-06T07:04:25Z",
+      "side": 1,
+      "message": "Could you add some descriptions for that should be stored in the DurationForNumOfKeepalive message?",
+      "range": {
+        "startLine": 41,
+        "startChar": 58,
+        "endLine": 41,
+        "endChar": 84
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90de9635_3805a962",
         "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
         "patchSetId": 4
@@ -122,6 +169,29 @@
         "startChar": 55,
         "endLine": 92,
         "endChar": 62
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b72c2258_60ddef4a",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-06T07:04:25Z",
+      "side": 1,
+      "message": "It looks to me this could be merged into updateDurationsPerNumOfKeepalive().",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 66
       },
       "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
