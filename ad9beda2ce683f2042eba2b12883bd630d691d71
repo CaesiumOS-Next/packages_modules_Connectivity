@@ -1,0 +1,308 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dffeae4_2bec5931",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "LGTM when comments are addressed. This is well written and well tested, thanks.",
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a7a1236_c028a50b",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "Also this class is not thread-safe at all – all methods must always be called on the same thread. Please add a comment to explain that.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 3
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90de9635_3805a962",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "This method name is very confusing because `System.currentTimeMillis()` is the most common way of getting time and it returns something with a different base than `uptimeMillis`, so this method name suggests it does exactly the opposite of what it does. Let\u0027s rename it to uptimeMillis.",
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "598783af_87241c43",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a common pattern in our code ; we usually just call the constructor inline in l.61.",
+      "range": {
+        "startLine": 57,
+        "startChar": 41,
+        "endLine": 57,
+        "endChar": 48
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdd45946_edc08d1b",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "This is necessarily a bug in our implementation right ? So you could just throw IllegalStateException. You could also throw if either is \u003c 0 if you want",
+      "range": {
+        "startLine": 73,
+        "startChar": 12,
+        "endLine": 73,
+        "endChar": 15
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "849fb00f_b9d5a15a",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "Please document what is the time base for this (in this case, SystemClock.uptimeMillis)",
+      "range": {
+        "startLine": 92,
+        "startChar": 55,
+        "endLine": 92,
+        "endChar": 62
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d86286c_f32badea",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "Considering this is has a numeric relationship with all the timestamps in the tests below I suggest you remove this constant and declare it in each test. Otherwise maintainers will have to look this up constantly, and if I make this 2000 all tests completely blow up.\n\nThis is especially true in the last test where the numeric value of `TEST_WRITE_TIME * 2` must have a specific relationship with the constants in the test",
+      "range": {
+        "startLine": 41,
+        "startChar": 29,
+        "endLine": 43,
+        "endChar": 0
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b354f715_ef655180",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "Please document what the numbers in the arrays are expected to mean",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 38
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f32bbc17_8c28c74e",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "This is `TEST_WRITE_TIME - pauseTime` (also easier to understand w.r.t. comment in l.252)",
+      "range": {
+        "startLine": 257,
+        "startChar": 32,
+        "endLine": 257,
+        "endChar": 85
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be039a8b_0d3fd55c",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "You can move this line out of the if()",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 58
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5075f5c2_03e957f5",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "Remove this blank line",
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75d44e9c_270b6c61",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "Dangling //",
+      "range": {
+        "startLine": 352,
+        "startChar": 8,
+        "endLine": 352,
+        "endChar": 10
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "291f4a0e_969021b3",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "AFAICT this is correct – I count the same times you do – but deserves some comments to help maintainers understand how this was computed. Likewise below.",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 357,
+        "endChar": 42
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5073474_405bc53c",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-06T05:01:04Z",
+      "side": 1,
+      "message": "As I was observing on TEST_WRITE_TIME, the constants are numeric but TEST_WRITE_TIME is symbolic. This is a problem because to read this test you actually have to know the numeric value of TEST_WRITE_TIME (namely, this test actively assumes that startTime \u003c TEST_WRITE_TIME \u003c stopTime \u003c TEST_WRITE_TIME * 2).\n\nJust have a local for TEST_WRITE_TIME which will make your test much clearer.",
+      "range": {
+        "startLine": 380,
+        "startChar": 29,
+        "endLine": 380,
+        "endChar": 33
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
