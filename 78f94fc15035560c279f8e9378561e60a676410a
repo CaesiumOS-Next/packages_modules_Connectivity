@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b0adf77_1a3a3f97",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-07T02:54:22Z",
+      "side": 1,
+      "message": "Good question :)\nUnfortunately UnsupportedAppUsage(maxTargetSdk \u003d O) means this is usable by apps targeting O, regardless of the OS version (so even on U, and even if the device launched with U).\n\nMaybe the comment can be made more explicit about that ?",
+      "parentUuid": "7afc4f6f_8abd2943",
+      "range": {
+        "startLine": 281,
+        "startChar": 52,
+        "endLine": 281,
+        "endChar": 80
+      },
+      "revId": "78f94fc15035560c279f8e9378561e60a676410a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9c7ebf3_0b7c076f",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 5
