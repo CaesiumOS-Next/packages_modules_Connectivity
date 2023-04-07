@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49da215b_d3ffe7bf",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-07T02:39:23Z",
+      "side": 1,
+      "message": "nit: Does above U usually mean U is not included? if yes, Maybe name it throwAtLeastU?",
+      "range": {
+        "startLine": 198,
+        "startChar": 29,
+        "endLine": 198,
+        "endChar": 35
+      },
+      "revId": "78f94fc15035560c279f8e9378561e60a676410a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7afc4f6f_8abd2943",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-07T02:39:23Z",
+      "side": 1,
+      "message": "Stupid question:\n why can\u0027t throwAboveU if it is @UnsupportedAppUsage(maxTargetSdk \u003d O) ?\n Does it mean we\u0027ll need to keep compatibility for apps that built against O framework which run on an U device? If so can we say throwIfInitSdkAtLeastU?",
+      "range": {
+        "startLine": 281,
+        "startChar": 52,
+        "endLine": 281,
+        "endChar": 80
+      },
+      "revId": "78f94fc15035560c279f8e9378561e60a676410a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9c7ebf3_0b7c076f",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-07T02:39:23Z",
+      "side": 1,
+      "message": "setOf?",
+      "range": {
+        "startLine": 330,
+        "startChar": 26,
+        "endLine": 330,
+        "endChar": 32
+      },
+      "revId": "78f94fc15035560c279f8e9378561e60a676410a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fec889f5_3df09782",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-07T02:39:23Z",
+      "side": 0,
+      "message": "Stupid question: This is still true, right? If so, why remove it?",
+      "range": {
+        "startLine": 360,
+        "startChar": 16,
+        "endLine": 360,
+        "endChar": 62
+      },
+      "revId": "6e12ac60b8704d2188713a573fed69fc8db79fcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
