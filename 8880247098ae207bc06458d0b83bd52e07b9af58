@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "162b4bb3_46fb53ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-07T03:54:19Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo should have a look since this is CTS",
+      "revId": "8880247098ae207bc06458d0b83bd52e07b9af58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
