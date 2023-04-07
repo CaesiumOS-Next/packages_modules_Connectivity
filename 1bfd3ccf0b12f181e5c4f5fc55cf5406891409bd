@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cf80ced_b71e54e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-07T03:38:45Z",
+      "side": 1,
+      "message": "+2 with nit that can be ignored.",
+      "revId": "1bfd3ccf0b12f181e5c4f5fc55cf5406891409bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92587766_600b8dee",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-07T03:38:45Z",
+      "side": 1,
+      "message": "subscriberId?",
+      "range": {
+        "startLine": 311,
+        "startChar": 40,
+        "endLine": 311,
+        "endChar": 54
+      },
+      "revId": "1bfd3ccf0b12f181e5c4f5fc55cf5406891409bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
