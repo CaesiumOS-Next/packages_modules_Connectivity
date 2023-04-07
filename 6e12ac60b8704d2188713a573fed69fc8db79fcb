@@ -46,6 +46,30 @@
       },
       "revId": "6e12ac60b8704d2188713a573fed69fc8db79fcb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7a6f7ce_4217f64e",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-07T02:56:40Z",
+      "side": 0,
+      "message": "It was lost in changing for comments. Restored.",
+      "parentUuid": "fec889f5_3df09782",
+      "range": {
+        "startLine": 360,
+        "startChar": 16,
+        "endLine": 360,
+        "endChar": 62
+      },
+      "revId": "6e12ac60b8704d2188713a573fed69fc8db79fcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
