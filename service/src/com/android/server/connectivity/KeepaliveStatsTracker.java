@@ -16,18 +16,30 @@
 
 package com.android.server.connectivity;
 
+import android.content.Context;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkSpecifier;
+import android.net.TelephonyNetworkSpecifier;
 import android.os.SystemClock;
+import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.util.Pair;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.metrics.DailykeepaliveInfoReported;
 import com.android.metrics.DurationForNumOfKeepalive;
 import com.android.metrics.DurationPerNumOfKeepalive;
+import com.android.metrics.KeepaliveLifetimeForCarrier;
+import com.android.metrics.KeepaliveLifetimePerCarrier;
+import com.android.net.module.util.BitUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-// TODO(b/273451360): Also track KeepaliveLifetimeForCarrier and DailykeepaliveInfoReported
+// TODO(b/273451360): Also track DailykeepaliveInfoReported
 /**
  * Tracks carrier and duration metrics of automatic on/off keepalives.
  *
@@ -38,13 +50,83 @@ import java.util.List;
 public class KeepaliveStatsTracker {
     private static final String TAG = KeepaliveStatsTracker.class.getSimpleName();
 
+    private final TelephonyManager mTelephonyManager;
+
     private final Dependencies mDependencies;
+
+    private static final class KeepaliveCarrierStats {
+        // The carrier ID for a keepalive, or TelephonyManager.UNKNOWN_CARRIER_ID(-1) if not set.
+        public final int carrierId;
+        // The transport types of the underlying network for each keepalive. A network may include
+        // multiple transport types. Each transfer type is represented by a different bit, defined
+        // in NetworkCapabilities
+        public final int transportTypes;
+        // The keepalive interval in millis.
+        public final int intervalMsec;
+
+        // The total time since the keepalive is started until it is stopped.
+        private int mLifetimeMsec = 0;
+        // The total time the keepalive is active (not suspended).
+        private int mActiveLifetimeMsec = 0;
+
+        // A timestamp of the most recent time the lifetime metrics was updated.
+        private long mTimestampSinceLastUpdateStats;
+
+        // A flag to indicate if the keepalive is active.
+        private boolean mActive = true;
+
+        public int getLifetimeMsec() {
+            return mLifetimeMsec;
+        }
+
+        public int getActiveLifetimeMsec() {
+            return mActiveLifetimeMsec;
+        }
+
+        public boolean isActive() {
+            return mActive;
+        }
+
+        KeepaliveCarrierStats(
+                int carrierId, int transportTypes, int intervalSeconds, long timeNow) {
+            this.carrierId = carrierId;
+            this.transportTypes = transportTypes;
+            this.intervalMsec = intervalSeconds * 1000;
+            mTimestampSinceLastUpdateStats = timeNow;
+        }
+
+        // Updates the lifetime metrics to the given time and sets the active state. This should be
+        // called whenever the active state of the keepalive changes.
+        public void updateLiftimeStatsAndSetActive(long timeNow, boolean active) {
+            final int durationIncrease = (int) (timeNow - mTimestampSinceLastUpdateStats);
+            mLifetimeMsec += durationIncrease;
+            if (mActive) mActiveLifetimeMsec += durationIncrease;
+
+            mTimestampSinceLastUpdateStats = timeNow;
+            mActive = active;
+        }
+
+        // Resets the lifetime metrics but does not reset the active/stopped state of the keepalive.
+        public void resetLifetimeStats() {
+            mLifetimeMsec = 0;
+            mActiveLifetimeMsec = 0;
+        }
+    }
+
     // List of duration stats metric where the index is the number of concurrent keepalives.
     // Each DurationForNumOfKeepalive message stores a registered duration and an active duration.
     // Registered duration is the total time spent with mNumRegisteredKeepalive == index.
     // Active duration is the total time spent with mNumActiveKeepalive == index.
     private final List<DurationForNumOfKeepalive.Builder> mDurationPerNumOfKeepalive =
             new ArrayList<>();
+
+    // Map of keepalives identified by the pair of <network, slot> to their lifetime stats.
+    private final Map<Pair<Network, Integer>, KeepaliveCarrierStats>
+            mKeepaliveCarrierStatsPerKeepalive = new HashMap<>();
+    // Map to aggregate the KeepaliveLifetimeForCarrier stats using
+    // Pair<Pair<carrierId, transportType>, IntervalsMsec> as the key.
+    final HashMap<Pair<Pair<Integer, Integer>, Integer>, KeepaliveLifetimeForCarrier.Builder>
+            mAggregateKeepaliveLifetime = new HashMap<>();
 
     private int mNumRegisteredKeepalive = 0;
     private int mNumActiveKeepalive = 0;
@@ -62,12 +144,13 @@ public class KeepaliveStatsTracker {
         }
     }
 
-    public KeepaliveStatsTracker() {
-        this(new Dependencies());
+    public KeepaliveStatsTracker(Context context) {
+        this(context, new Dependencies());
     }
 
     @VisibleForTesting
-    public KeepaliveStatsTracker(Dependencies dependencies) {
+    public KeepaliveStatsTracker(Context context, Dependencies dependencies) {
+        mTelephonyManager = context.getSystemService(TelephonyManager.class);
         mDependencies = dependencies;
         mTimestampSinceLastUpdateDurations = mDependencies.getUptimeMillis();
     }
@@ -125,43 +208,129 @@ public class KeepaliveStatsTracker {
         mTimestampSinceLastUpdateDurations = timeNow;
     }
 
+    private int getCarrierId(NetworkCapabilities networkCapabilities) {
+        if (mTelephonyManager != null) {
+            // Try to get the correct subscription id.
+            if (networkCapabilities != null) {
+                final NetworkSpecifier networkSpecifier = networkCapabilities.getNetworkSpecifier();
+                if (networkSpecifier instanceof TelephonyNetworkSpecifier) {
+                    final int subId =
+                            ((TelephonyNetworkSpecifier) networkSpecifier).getSubscriptionId();
+                    final TelephonyManager tmPerSubId =
+                            mTelephonyManager.createForSubscriptionId(subId);
+                    return tmPerSubId.getSimCarrierId();
+                }
+            }
+            return mTelephonyManager.getSimCarrierId();
+        }
+        return TelephonyManager.UNKNOWN_CARRIER_ID;
+    }
+
+    private int getTransportTypes(NetworkCapabilities networkCapabilities) {
+        if (networkCapabilities == null) {
+            // No transport type
+            return 0;
+        }
+        // Cast to int to follow proto definition.
+        return (int) BitUtils.packBits(networkCapabilities.getTransportTypes());
+    }
+
     /** Inform the KeepaliveStatsTracker a keepalive has just started and is active. */
-    public void onStartKeepalive() {
+    public void onStartKeepalive(
+            Network network, int slot, NetworkCapabilities nc, int intervalSeconds) {
+        if (mKeepaliveCarrierStatsPerKeepalive.containsKey(new Pair<>(network, slot))) {
+            Log.e(TAG, "Attempt to start keepalive stats on a known network, slot pair");
+            return;
+        }
         final long timeNow = mDependencies.getUptimeMillis();
         updateDurationsPerNumOfKeepalive(timeNow);
 
         mNumRegisteredKeepalive++;
         mNumActiveKeepalive++;
+
+        mKeepaliveCarrierStatsPerKeepalive.put(
+                new Pair<>(network, slot),
+                new KeepaliveCarrierStats(
+                        getCarrierId(nc), getTransportTypes(nc), intervalSeconds, timeNow));
     }
 
     /** Inform the KeepaliveStatsTracker a keepalive has just been paused. */
-    public void onPauseKeepalive() {
+    public void onPauseKeepalive(Network network, int slot) {
+        if (!mKeepaliveCarrierStatsPerKeepalive.containsKey(new Pair<>(network, slot))) {
+            Log.e(TAG, "Attempt to pause keepalive on an unknown network, slot pair");
+            return;
+        }
         final long timeNow = mDependencies.getUptimeMillis();
         updateDurationsPerNumOfKeepalive(timeNow);
 
         mNumActiveKeepalive--;
+
+        mKeepaliveCarrierStatsPerKeepalive
+                .get(new Pair<>(network, slot))
+                .updateLiftimeStatsAndSetActive(timeNow, /* active= */ false);
     }
 
     /** Inform the KeepaliveStatsTracker a keepalive has just been resumed. */
-    public void onResumeKeepalive() {
+    public void onResumeKeepalive(Network network, int slot) {
+        if (!mKeepaliveCarrierStatsPerKeepalive.containsKey(new Pair<>(network, slot))) {
+            Log.e(TAG, "Attempt to resume keepalive on an unknown network, slot pair");
+            return;
+        }
         final long timeNow = mDependencies.getUptimeMillis();
         updateDurationsPerNumOfKeepalive(timeNow);
 
         mNumActiveKeepalive++;
+        mKeepaliveCarrierStatsPerKeepalive
+                .get(new Pair<>(network, slot))
+                .updateLiftimeStatsAndSetActive(timeNow, /* active= */ true);
     }
 
     /** Inform the KeepaliveStatsTracker a keepalive has just been stopped. */
-    public void onStopKeepalive(boolean wasActive) {
+    public void onStopKeepalive(Network network, int slot) {
+        if (!mKeepaliveCarrierStatsPerKeepalive.containsKey(new Pair<>(network, slot))) {
+            Log.e(TAG, "Attempt to stop keepalive on an unknown network, slot pair");
+            return;
+        }
         final long timeNow = mDependencies.getUptimeMillis();
         updateDurationsPerNumOfKeepalive(timeNow);
 
         mNumRegisteredKeepalive--;
-        if (wasActive) mNumActiveKeepalive--;
+        final KeepaliveCarrierStats keepaliveCarrierStats =
+                mKeepaliveCarrierStatsPerKeepalive.get(new Pair<>(network, slot));
+        if (keepaliveCarrierStats.isActive()) mNumActiveKeepalive--;
+
+        keepaliveCarrierStats.updateLiftimeStatsAndSetActive(timeNow, /* active= */ false);
+        // add to the aggregate since it will be removed.
+        addToAggregateKeepaliveLifetime(keepaliveCarrierStats);
+        // free up the slot.
+        mKeepaliveCarrierStatsPerKeepalive.remove(new Pair<>(network, slot));
     }
 
-    /**
-     * Builds and returns DailykeepaliveInfoReported proto.
-     */
+    private void addToAggregateKeepaliveLifetime(KeepaliveCarrierStats keepaliveCarrierStats) {
+        final Pair<Pair<Integer, Integer>, Integer> key =
+                new Pair<>(
+                        new Pair<>(
+                                keepaliveCarrierStats.carrierId,
+                                keepaliveCarrierStats.transportTypes),
+                        keepaliveCarrierStats.intervalMsec);
+        final KeepaliveLifetimeForCarrier.Builder keepaliveLifetimeForCarrier =
+                mAggregateKeepaliveLifetime.getOrDefault(
+                        key,
+                        KeepaliveLifetimeForCarrier.newBuilder()
+                                .setCarrierId(keepaliveCarrierStats.carrierId)
+                                .setTransportTypes(keepaliveCarrierStats.transportTypes)
+                                .setIntervalsMsec(keepaliveCarrierStats.intervalMsec));
+        keepaliveLifetimeForCarrier.setLifetimeMsec(
+                keepaliveLifetimeForCarrier.getLifetimeMsec()
+                        + keepaliveCarrierStats.getLifetimeMsec());
+        keepaliveLifetimeForCarrier.setActiveLifetimeMsec(
+                keepaliveLifetimeForCarrier.getActiveLifetimeMsec()
+                        + keepaliveCarrierStats.getActiveLifetimeMsec());
+
+        mAggregateKeepaliveLifetime.put(key, keepaliveLifetimeForCarrier);
+    }
+
+    /** Builds and returns DailykeepaliveInfoReported proto. */
     public DailykeepaliveInfoReported buildKeepaliveMetrics() {
         final long timeNow = mDependencies.getUptimeMillis();
         updateDurationsPerNumOfKeepalive(timeNow);
@@ -174,11 +343,34 @@ public class KeepaliveStatsTracker {
                         durationPerNumOfKeepalive.addDurationForNumOfKeepalive(
                                 durationForNumOfKeepalive));
 
+        final KeepaliveLifetimePerCarrier.Builder keepaliveLifetimePerCarrier =
+                KeepaliveLifetimePerCarrier.newBuilder();
+
+        for (final KeepaliveCarrierStats keepaliveCarrierStats :
+                mKeepaliveCarrierStatsPerKeepalive.values()) {
+
+            // Ensure lifetime durations are correct up to now.
+            keepaliveCarrierStats.updateLiftimeStatsAndSetActive(
+                    timeNow, keepaliveCarrierStats.isActive());
+
+            // Aggregate the stats into mAggregateKeepaliveLifetime
+            addToAggregateKeepaliveLifetime(keepaliveCarrierStats);
+            // Reset the stats to avoid double counting.
+            keepaliveCarrierStats.resetLifetimeStats();
+        }
+
+        // Write keepalive carrier stats to the proto
+        for (final KeepaliveLifetimeForCarrier.Builder keepaliveLifetimeForCarrier :
+                mAggregateKeepaliveLifetime.values()) {
+            keepaliveLifetimePerCarrier.addKeepaliveLifetimeForCarrier(keepaliveLifetimeForCarrier);
+        }
+
         final DailykeepaliveInfoReported.Builder dailyKeepaliveInfoReported =
                 DailykeepaliveInfoReported.newBuilder();
 
         // TODO(b/273451360): fill all the other values and write to ConnectivityStatsLog.
         dailyKeepaliveInfoReported.setDurationPerNumOfKeepalive(durationPerNumOfKeepalive);
+        dailyKeepaliveInfoReported.setKeepaliveLifetimePerCarrier(keepaliveLifetimePerCarrier);
 
         return dailyKeepaliveInfoReported.build();
     }
@@ -187,5 +379,11 @@ public class KeepaliveStatsTracker {
     public void resetMetrics() {
         mDurationPerNumOfKeepalive.clear();
         ensureDurationPerNumOfKeepaliveSize();
+
+        mAggregateKeepaliveLifetime.clear();
+        // Reset the stats for existing keepalives
+        mKeepaliveCarrierStatsPerKeepalive
+                .values()
+                .forEach(keepaliveCarrierStats -> keepaliveCarrierStats.resetLifetimeStats());
     }
 }
