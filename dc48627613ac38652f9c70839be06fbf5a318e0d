@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "942d95c1_9bc6c5cd",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-07T01:34:20Z",
+      "side": 1,
+      "message": "Will this log confusing? The log here says \"Keepalive successfully resumed\" but there will be another log in handleResumeKeepalive() says \"Resume keepalive callback on nai\". Then the \"successfully resumed\" does not look true.\n\nWill it better to move the log in handleResumeKeepalive after mKeepaliveTracker.handleStartKeepalive(ki) and use the log here, such as:\n\n```\nprivate void handleResumeKeepalive(@NonNull final KeepaliveTracker.KeepaliveInfo ki) {\n        mKeepaliveTracker.handleStartKeepalive(ki);\n        mEventLog.log(\"Keepalive \" + ki.mCallback + \" on \" + ki.mNai\" + \"successfully resumed\" );\n    }\n```",
+      "range": {
+        "startLine": 358,
+        "startChar": 8,
+        "endLine": 358,
+        "endChar": 56
+      },
+      "revId": "dc48627613ac38652f9c70839be06fbf5a318e0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
