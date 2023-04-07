@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bd87d85_ee4c1c56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-07T07:44:20Z",
+      "side": 1,
+      "message": "This change seems correct (libnetd_updatable is indeed part of the exposed API surface), however I don\u0027t really understand why it\u0027s necessary from the current context.\n\nCould you detail what changes as a result of adding this, whether it affects the module or platform binaries, what the sdk is used for in the first place... Basically add a bit more context so someone looking at the git log can understand what it\u0027s for ?",
+      "revId": "c806df8f882860e3e8017f9a37bd5e1f3ff23895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
