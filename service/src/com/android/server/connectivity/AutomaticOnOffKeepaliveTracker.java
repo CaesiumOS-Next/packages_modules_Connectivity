@@ -177,7 +177,7 @@ public class AutomaticOnOffKeepaliveTracker {
     private static final int MAX_EVENTS_LOGS = 40;
     private final LocalLog mEventLog = new LocalLog(MAX_EVENTS_LOGS);
 
-    private final KeepaliveStatsTracker mKeepaliveStatsTracker = new KeepaliveStatsTracker();
+    private final KeepaliveStatsTracker mKeepaliveStatsTracker;
     /**
      * Information about a managed keepalive.
      *
@@ -242,7 +242,7 @@ public class AutomaticOnOffKeepaliveTracker {
         }
 
         public Network getNetwork() {
-            return mKi.getNai().network;
+            return mKi.getNai().network();
         }
 
         @Nullable
@@ -305,6 +305,7 @@ public class AutomaticOnOffKeepaliveTracker {
                 mContext, mConnectivityServiceHandler);
 
         mAlarmManager = mDependencies.getAlarmManager(context);
+        mKeepaliveStatsTracker = new KeepaliveStatsTracker(context);
     }
 
     private void startTcpPollingAlarm(@NonNull AutomaticOnOffKeepalive ki) {
@@ -422,8 +423,12 @@ public class AutomaticOnOffKeepaliveTracker {
     public void handleStartKeepalive(Message message) {
         final AutomaticOnOffKeepalive autoKi = (AutomaticOnOffKeepalive) message.obj;
         mEventLog.log("Start keepalive " + autoKi.mCallback + " on " + autoKi.getNetwork());
-        mKeepaliveStatsTracker.onStartKeepalive();
         mKeepaliveTracker.handleStartKeepalive(autoKi.mKi);
+        mKeepaliveStatsTracker.onStartKeepalive(
+                autoKi.getNetwork(),
+                autoKi.mKi.getSlot(),
+                autoKi.mKi.getNai().networkCapabilities,
+                autoKi.mKi.getKeepaliveIntervalSec());
 
         // Add automatic on/off request into list to track its life cycle.
         try {
@@ -440,14 +445,14 @@ public class AutomaticOnOffKeepaliveTracker {
     }
 
     private void handleResumeKeepalive(@NonNull final KeepaliveTracker.KeepaliveInfo ki) {
-        mKeepaliveStatsTracker.onResumeKeepalive();
+        mKeepaliveStatsTracker.onResumeKeepalive(ki.getNai().network(), ki.getSlot());
         mKeepaliveTracker.handleStartKeepalive(ki);
         mEventLog.log("Resumed successfully keepalive " + ki.mCallback + " on " + ki.mNai);
     }
 
     private void handlePauseKeepalive(@NonNull final KeepaliveTracker.KeepaliveInfo ki) {
         mEventLog.log("Suspend keepalive " + ki.mCallback + " on " + ki.mNai);
-        mKeepaliveStatsTracker.onPauseKeepalive();
+        mKeepaliveStatsTracker.onPauseKeepalive(ki.getNai().network(), ki.getSlot());
         // TODO : mKT.handleStopKeepalive should take a KeepaliveInfo instead
         mKeepaliveTracker.handleStopKeepalive(ki.getNai(), ki.getSlot(), SUCCESS_PAUSED);
     }
@@ -471,7 +476,7 @@ public class AutomaticOnOffKeepaliveTracker {
 
     private void cleanupAutoOnOffKeepalive(@NonNull final AutomaticOnOffKeepalive autoKi) {
         ensureRunningOnHandlerThread();
-        mKeepaliveStatsTracker.onStopKeepalive(autoKi.mAutomaticOnOffState != STATE_SUSPENDED);
+        mKeepaliveStatsTracker.onStopKeepalive(autoKi.getNetwork(), autoKi.mKi.getSlot());
         autoKi.close();
         if (null != autoKi.mAlarmListener) mAlarmManager.cancel(autoKi.mAlarmListener);
 

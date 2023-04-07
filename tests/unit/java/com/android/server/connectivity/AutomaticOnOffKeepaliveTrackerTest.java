@@ -314,8 +314,9 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         final int srcPort = 12345;
         final InetAddress dstAddress = InetAddress.getByAddress(new byte[] { 8, 8, 8, 8});
         final int dstPort = 12345;
-
         final NetworkAgentInfo nai = mock(NetworkAgentInfo.class);
+        // a non-null network is set since network.netId is needed for KeepaliveStatsTracker.
+        doReturn(new Network(123)).when(nai).network();
         nai.networkCapabilities = new NetworkCapabilities.Builder()
                 .addTransportType(TRANSPORT_CELLULAR).build();
         nai.networkInfo = new NetworkInfo(TYPE_MOBILE, 0 /* subtype */, "LTE", "LTE");
