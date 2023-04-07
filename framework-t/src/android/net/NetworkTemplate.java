@@ -195,7 +195,7 @@ public final class NetworkTemplate implements Parcelable {
         }
     }
 
-    private static void throwAboveU() {
+    private static void throwAtLeastU() {
         if (SdkLevel.isAtLeastU()) {
             throw new UnsupportedOperationException("Method not supported on Android U or above");
         }
@@ -278,7 +278,7 @@ public final class NetworkTemplate implements Parcelable {
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateBluetooth() {
         // TODO : this is part of hidden-o txt, does that mean it should be annotated with
-        // @UnsupportedAppUsage(maxTargetSdk = O) ? If yes, can't throwAboveU().
+        // @UnsupportedAppUsage(maxTargetSdk = O) ? If yes, can't throwAtLeastU().
         return new NetworkTemplate.Builder(MATCH_BLUETOOTH).build();
     }
 
@@ -292,7 +292,7 @@ public final class NetworkTemplate implements Parcelable {
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateProxy() {
         // TODO : this is part of hidden-o txt, does that mean it should be annotated with
-        // @UnsupportedAppUsage(maxTargetSdk = O) ? If yes, can't throwAboveU().
+        // @UnsupportedAppUsage(maxTargetSdk = O) ? If yes, can't throwAtLeastU().
         return new NetworkTemplate(MATCH_PROXY, null, null);
     }
 
@@ -304,7 +304,7 @@ public final class NetworkTemplate implements Parcelable {
     // TODO(b/273963543): Remove this method. This can only be done after there are no more callers,
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateCarrierMetered(@NonNull String subscriberId) {
-        throwAboveU();
+        throwAtLeastU();
         return new NetworkTemplate.Builder(MATCH_CARRIER)
                 // Set.of will throw if subscriberId is null
                 .setSubscriberIds(Set.of(subscriberId))
@@ -323,7 +323,7 @@ public final class NetworkTemplate implements Parcelable {
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateMobileWithRatType(@Nullable String subscriberId,
             int ratType, int metered) {
-        throwAboveU();
+        throwAtLeastU();
         return new NetworkTemplate.Builder(MATCH_MOBILE)
                 .setSubscriberIds(TextUtils.isEmpty(subscriberId)
                         ? Collections.emptySet()
@@ -345,8 +345,9 @@ public final class NetworkTemplate implements Parcelable {
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateWifi(@NonNull String wifiNetworkKey) {
         // TODO : this is part of hidden-o txt, does that mean it should be annotated with
-        // @UnsupportedAppUsage(maxTargetSdk = O) ? If yes, can't throwAboveU().
+        // @UnsupportedAppUsage(maxTargetSdk = O) ? If yes, can't throwAtLeastU().
         return new NetworkTemplate.Builder(MATCH_WIFI)
+                // Set.of will throw if wifiNetworkKey is null
                 .setWifiNetworkKeys(Set.of(wifiNetworkKey))
                 .build();
     }
@@ -368,7 +369,7 @@ public final class NetworkTemplate implements Parcelable {
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate buildTemplateWifi(@Nullable String wifiNetworkKey,
             @Nullable String subscriberId) {
-        throwAboveU();
+        throwAtLeastU();
         return new NetworkTemplate.Builder(MATCH_WIFI)
                 .setSubscriberIds(setOf(subscriberId))
                 .setWifiNetworkKeys(wifiNetworkKey == null
@@ -489,7 +490,7 @@ public final class NetworkTemplate implements Parcelable {
                 ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL,
                 OEM_MANAGED_ALL);
         // TODO : this is part of hidden-o txt, does that mean it should be annotated with
-        // @UnsupportedAppUsage(maxTargetSdk = O) ? If yes, can't throwAboveU().
+        // @UnsupportedAppUsage(maxTargetSdk = O) ? If yes, can't throwAtLeastU().
     }
 
     /** @hide */
@@ -504,7 +505,7 @@ public final class NetworkTemplate implements Parcelable {
         this(getBackwardsCompatibleMatchRule(matchRule),
                 matchSubscriberIds == null ? new String[]{} : matchSubscriberIds,
                 matchWifiNetworkKeys, metered, roaming, defaultNetwork, ratType, oemManaged);
-        throwAboveU();
+        throwAtLeastU();
     }
 
     /** @hide */
@@ -612,7 +613,7 @@ public final class NetworkTemplate implements Parcelable {
     /** @hide */
     public boolean isMatchRuleMobile() {
         // TODO : this is part of hidden-o txt, does that mean it should be annotated with
-        // @UnsupportedAppUsage(maxTargetSdk = O) ? If yes, can't throwAboveU().
+        // @UnsupportedAppUsage(maxTargetSdk = O) ? If yes, can't throwAtLeastU().
         switch (mMatchRule) {
             case MATCH_MOBILE:
             // Old MATCH_MOBILE_WILDCARD
@@ -954,7 +955,7 @@ public final class NetworkTemplate implements Parcelable {
     // TODO(b/273963543): Remove this method. This can only be done after there are no more callers,
     //  including in OEM code which can access this by linking against the framework.
     public static NetworkTemplate normalize(NetworkTemplate template, List<String[]> mergedList) {
-        throwAboveU();
+        throwAtLeastU();
         return normalizeImpl(template, mergedList);
     }
 
