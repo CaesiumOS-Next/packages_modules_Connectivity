@@ -103,6 +103,23 @@
       "message": "I just posted another patch that drains the buffer. With that and the kernel synchronization you added, both of these should work. If you prefer the other route, I\u0027ll abandon this patch.",
       "revId": "4ca43c0818ba0441843c0bedfd876b1686ecb099",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ec38a68_8a0e6665",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-08T07:51:04Z",
+      "side": 1,
+      "message": "Do you think this is (still) useful (infra) to have?\nOr is this entirely superfluous now?",
+      "revId": "4ca43c0818ba0441843c0bedfd876b1686ecb099",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
