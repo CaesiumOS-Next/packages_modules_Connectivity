@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e187f5fd_6cbcb0dc",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-08T23:04:55Z",
+      "side": 1,
+      "message": "note that this one is already blocking...",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 67
+      },
+      "revId": "923c75a332d53d525c6abfc74f76e70058e8bcca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
