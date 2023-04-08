@@ -16,6 +16,24 @@
       "message": "I think we generally keep one line break between methods, is this a voluntary change ? A style refactoring should probably be done in a separate change anyway.",
       "revId": "417acd3f683705fd2deba298fac5e9ec98f31aa0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f0df21e_f8b3127b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 0,
+      "message": "Thanks, removed the unexpected line change.",
+      "parentUuid": "39ef481d_79441617",
+      "revId": "417acd3f683705fd2deba298fac5e9ec98f31aa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4769a9af_6a8fb274",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f65f5c9_39058214",
+      "range": {
+        "startLine": 89,
+        "startChar": 44,
+        "endLine": 89,
+        "endChar": 64
+      },
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "706ea035_46fdc36a",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-05T07:02:48Z",
       "side": 1,
       "message": "Nit: can this be static ?",
+      "range": {
+        "startLine": 148,
+        "startChar": 14,
+        "endLine": 148,
+        "endChar": 15
+      },
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eda2c54_91f7a4b5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 1,
+      "message": "Thanks, I would like to leave it non-static. Otherwise, we will need the powermockito in the Test class to mock it properly.",
+      "parentUuid": "706ea035_46fdc36a",
       "range": {
         "startLine": 148,
         "startChar": 14,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bafdf7c_63a215db",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 1,
+      "message": "Sorry for the confusing logic here.\n\nThe idea here is to keep track of all the netlink message and use it to create the link property. The call stack is `processRtNetlinkAddressMessage` -\u003e `updateInterfaceAddress` -\u003e `maybeUpdateTetheringSocketAddress`. \n\nIn `maybeUpdateTetheringSocketAddress`, we check wehther the link property change is for certain tethering interface or not. So the normal upperstream network won\u0027t trigger any `updateSocketInfoAddress`.\n\nWe cannot determine wether the NetLinkMessage is for normal upper stream network or tehtering downstream network when we receive the message. Because at that time, we might not receive the callback from NetworkCallback or TetheringEventCallback yet, so we need to cache every netlink update for future usage.",
+      "parentUuid": "69e87e28_0f98c68a",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2f96e58_dba81703",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-04-05T07:02:48Z",
       "side": 1,
       "message": "Nit: I think the code paths are sufficiently separate in this method that having 2 different methods (addOrUpdateInterfaceAddress / deleteInterfaceAddress) would be clearer",
+      "range": {
+        "startLine": 199,
+        "startChar": 16,
+        "endLine": 199,
+        "endChar": 27
+      },
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b774cc6f_a160efb6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2f96e58_dba81703",
       "range": {
         "startLine": 199,
         "startChar": 16,
@@ -104,6 +194,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2b9cc58_e39ee015",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b7b829_a724216c",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed4ee341_20887d44",
@@ -121,6 +229,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5afa4658_83896983",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 1,
+      "message": "Ah, good catch! Yes it shouldn\u0027t be cleaned.",
+      "parentUuid": "ed4ee341_20887d44",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de660449_cf217657",
@@ -134,6 +260,30 @@
       "writtenOn": "2023-04-05T07:02:48Z",
       "side": 1,
       "message": "After aosp/2519918, would it be possible to update mTetherInterfaceSockets to be a  ArrayMap\u003cNetworkKey, SocketInfo\u003e, where you\u0027d have different NetworkKey instances that contain the interface index ?\n\nThis way the interface index is already \"cached\" in the NetworkKey, so no need to maintain a mIfaceNameToIndexMap.\n\nI think it would remove the need for getAndUpdateInterfaceIndex, if you just call getNetworkInterfaceIndexByName in handleTetherInterfacesChanged or requestSocket (so just once before creating each socket). Also mTetherInterfaceSockets and mNetworkSockets could be merged to simplify logic.\n\nI\u0027m concerned about races when updating mIfaceNameToIndexMap, so I\u0027d rather have most of the code use interface indexes instead of converting from the name.",
+      "range": {
+        "startLine": 346,
+        "startChar": 44,
+        "endLine": 346,
+        "endChar": 67
+      },
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "119cfafd_0499a581",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 1,
+      "message": "I think we have discussed the similar point in the previous comment. \n\nIt won\u0027t simplify the logic because when creating the NetworkKey, because you will need to have the conversion between interfaceIdx and interfaceName in one place anyway. We also need to maintain the mLocalOnlyInterfaces and mTetheredInterfaces separately. Changing this place will result in managing mLocalOnlyInterfaces and mTetheredInterfaces separately.\n\nI have tired the merging the mTetherInterfaceSockets and mNetworkSockets before but it make the code even more complicated. So I revert it back.\n\nAlso, put the index into the NetworkKey is like a `cache` the index -\u003e ifaceName mapping. It will facing similar race condition you mentioned in other comment.\n\nI gave up cache on anything. Maybe we can talk offline to have better consensus on it.",
+      "parentUuid": "de660449_cf217657",
       "range": {
         "startLine": 346,
         "startChar": 44,
@@ -167,6 +317,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98dc76da_35dcb3c1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee6f6d53_7d3e7d87",
+      "range": {
+        "startLine": 376,
+        "startChar": 28,
+        "endLine": 376,
+        "endChar": 45
+      },
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "712b3320_e313e44f",
@@ -180,6 +354,24 @@
       "writtenOn": "2023-04-05T07:02:48Z",
       "side": 1,
       "message": "Ifaces are added from the netlink callbacks, which are not synchronized with the tethering callbacks, so there could be races where an interface was toggled, and the 2nd ID gets removed here even though this is the callback for the first interface that has the 1st ID.\n\nI think adding/removing interfaces in updateInterfaceAddress would avoid that.",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b637ca27_e2a27cf7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 1,
+      "message": "Doing the coversion in `updateInterfaceAddress` will have similar issue.\n\nThe `updateInterfaceAddress` using index and will need the ifaceName to know if it is a tethering interface or not. The ifaceName will get updated in the tethering interface callback. So the unsync situation will just happened reversely.\n\nIt seems like the cache related race condition is really non-trivial. I believe the logic I have here is right but it is too hard to explain it to others(maybe I also miss other cases). \n\nTo make the logic more confident, I removed the cache. Always get the latest up to date ifaceIndexName. I hope it will make the logic less complicated.",
+      "parentUuid": "712b3320_e313e44f",
       "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -201,6 +393,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55af84a0_0e8c5215",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 1,
+      "message": "Thanks, renamed it to LINKADDRV6_FLAG_CHANGE.",
+      "parentUuid": "98be50d7_bbcfa644",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3bc00ff9_89ae017f",
@@ -214,6 +424,24 @@
       "writtenOn": "2023-04-05T07:02:48Z",
       "side": 1,
       "message": "Could you return a mock NetlinkMonitor instead ? If the test is simulating calls to NetLinkMonitorCallBack, it shouldn\u0027t create a real NetlinkMonitor which can send callbacks too.",
+      "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "486b737f_41b05e9f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-08T04:10:39Z",
+      "side": 1,
+      "message": "Thanks, Update to use the TestSocketMonitor. I don\u0027t want to completely mock it because I also want to get some unit test coverage on the NetLinkMessage processing logic.",
+      "parentUuid": "3bc00ff9_89ae017f",
       "revId": "6ee4442e9891201186514a0912b325656c7d12bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
