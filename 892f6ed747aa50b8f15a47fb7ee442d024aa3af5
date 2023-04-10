@@ -16,6 +16,24 @@
       "message": "Generally LGTM, except this fails over 1000 tests so we can\u0027t submit it as is. Any thoughts on how we can do this? Maybe we can put it behind a flag, and roll that flag out to googlers?",
       "revId": "892f6ed747aa50b8f15a47fb7ee442d024aa3af5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31d4aa86_a9829050",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-10T06:33:57Z",
+      "side": 1,
+      "message": "I\u0027m suspecting the problem could be the race between how wifi reports CONNECTED state and reports capabilities changed. If so the problem cannot be detected by the proposed log.\nSee https://b.corp.google.com/issues/273136192#comment10 for more detail.",
+      "parentUuid": "7fbd40fb_c5ddc6db",
+      "revId": "892f6ed747aa50b8f15a47fb7ee442d024aa3af5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
