@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50faeaef_f681fab8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-10T23:54:08Z",
+      "side": 1,
+      "message": "If this is known to cause crashes on only a couple of devices or device form factors, do you instead want to disable the crashes on these devices only?",
+      "revId": "8d2391a6aa5cbecbbaea63dafe9653c8d424ea7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
