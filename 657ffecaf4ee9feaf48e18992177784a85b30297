@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "707d249e_b5ab1722",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-10T03:22:10Z",
+      "side": 1,
+      "message": "Nit: do you want to put some descriptions here to explain why you want to replace the implementation? Partners may not have permission to see the linked bug. They will not be able to know the reason why we do this change.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 2
+      },
+      "revId": "657ffecaf4ee9feaf48e18992177784a85b30297",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "123c3538_80d49f46",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1494,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-10T03:22:10Z",
+      "side": 1,
+      "message": "Nit: maybe specify the nullability",
+      "range": {
+        "startLine": 1493,
+        "startChar": 41,
+        "endLine": 1494,
+        "endChar": 45
+      },
+      "revId": "657ffecaf4ee9feaf48e18992177784a85b30297",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e1e8067_3a363bb3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2155,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-10T03:22:10Z",
+      "side": 1,
+      "message": "Optional: Have a comment inside says do nothing here so that we know the method is empty is not  because we forget the implement it.",
+      "range": {
+        "startLine": 2155,
+        "startChar": 47,
+        "endLine": 2155,
+        "endChar": 48
+      },
+      "revId": "657ffecaf4ee9feaf48e18992177784a85b30297",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
