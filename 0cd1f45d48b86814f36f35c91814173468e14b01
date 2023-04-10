@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "909d51c2_d53e931b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2174,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-10T03:07:00Z",
+      "side": 1,
+      "message": "Similar question as the comment in the implementation: If we would like to trigger migration when the the the address of the LP is not the same, maybe we need to also verify that adding another v4 address will trigger MOBILE. This is what we do in the implementation.",
+      "range": {
+        "startLine": 2170,
+        "startChar": 8,
+        "endLine": 2174,
+        "endChar": 80
+      },
+      "revId": "0cd1f45d48b86814f36f35c91814173468e14b01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
