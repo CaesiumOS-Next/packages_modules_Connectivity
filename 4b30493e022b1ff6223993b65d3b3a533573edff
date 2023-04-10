@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de31c4b8_0050c242",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-10T10:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bb3b0c4_2ed05017",
+      "range": {
+        "startLine": 322,
+        "startChar": 85,
+        "endLine": 322,
+        "endChar": 95
+      },
+      "revId": "4b30493e022b1ff6223993b65d3b3a533573edff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1324ad36_8e411956",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-03-20T02:14:06Z",
       "side": 1,
       "message": "I feels the comment is not fully explains the checking logic. Could you elaborate what is incompatible flags means in this context?",
+      "revId": "4b30493e022b1ff6223993b65d3b3a533573edff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a07f5c82_5b8734b4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-10T10:16:21Z",
+      "side": 1,
+      "message": "I realized I am not fully understand the logic before. After carefully read the code, the comment matched the code. Withdraw the comment.",
+      "parentUuid": "1324ad36_8e411956",
       "revId": "4b30493e022b1ff6223993b65d3b3a533573edff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
