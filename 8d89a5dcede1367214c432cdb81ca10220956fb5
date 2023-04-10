@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79ec0405_33d62b9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-10T03:05:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a81ae1aa_9d878691",
+      "revId": "8d89a5dcede1367214c432cdb81ca10220956fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0950bbea_dc2670d3",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "715b457e_cecdef0c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-10T03:05:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0950bbea_dc2670d3",
+      "revId": "8d89a5dcede1367214c432cdb81ca10220956fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a523430_d5b7fe2d",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-04-05T07:47:05Z",
       "side": 1,
       "message": "Because the callback was unregistered (unrequestsocket), I don\u0027t think this should be called: clients are likely not to expect callbacks after registration. Instead, a client that unrequests a socket needs to stop using it by themselves. This is what MdnsAdvertiser does (it unrequests the socket when it\u0027s done using it).",
+      "revId": "8d89a5dcede1367214c432cdb81ca10220956fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f6d8301_5763282b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-10T03:05:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7a523430_d5b7fe2d",
       "revId": "8d89a5dcede1367214c432cdb81ca10220956fb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
