@@ -26,6 +26,7 @@ import android.net.Network;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.ArrayMap;
+import android.util.ArraySet;
 import android.util.Log;
 
 import java.io.IOException;
@@ -34,7 +35,8 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetSocketAddress;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * The {@link MdnsMultinetworkSocketClient} manages the multinetwork socket for mDns
@@ -48,9 +50,8 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
     @NonNull private final Handler mHandler;
     @NonNull private final MdnsSocketProvider mSocketProvider;
 
-    private final Map<MdnsServiceBrowserListener, InterfaceSocketCallback> mRequestedNetworks =
+    private final ArrayMap<MdnsServiceBrowserListener, InterfaceSocketCallback> mRequestedNetworks =
             new ArrayMap<>();
-    private final ArrayMap<MdnsInterfaceSocket, Network> mActiveNetworkSockets = new ArrayMap<>();
     private final ArrayMap<MdnsInterfaceSocket, ReadPacketHandler> mSocketPacketHandlers =
             new ArrayMap<>();
     private MdnsSocketClientBase.Callback mCallback = null;
@@ -62,8 +63,35 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         mSocketProvider = provider;
     }
 
+    private class NetworkSocket {
+        private final MdnsInterfaceSocket mSocket;
+        private final Network mNetwork;
+
+        NetworkSocket(@NonNull MdnsInterfaceSocket socket, @NonNull Network network) {
+            mSocket = socket;
+            mNetwork = network;
+        }
+
+        @Override public int hashCode() {
+            return Objects.hash(mSocket, mNetwork);
+        }
+
+        @Override public boolean equals(Object other) {
+            if (this == other) {
+                return true;
+            }
+            if (!(other instanceof NetworkSocket)) {
+                return false;
+            }
+            final NetworkSocket networkSocket = (NetworkSocket) other;
+            return Objects.equals(mSocket.getInterface(), networkSocket.mSocket.getInterface())
+                    && Objects.equals(mNetwork, networkSocket.mNetwork);
+        }
+    }
+
     private class InterfaceSocketCallback implements MdnsSocketProvider.SocketCallback {
         private final SocketCreationCallback mSocketCreationCallback;
+        private final Set<NetworkSocket> mNetworkSockets = new ArraySet<>();
 
         InterfaceSocketCallback(SocketCreationCallback socketCreationCallback) {
             mSocketCreationCallback = socketCreationCallback;
@@ -81,7 +109,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
                 mSocketPacketHandlers.put(socket, handler);
             }
             socket.addPacketHandler(handler);
-            mActiveNetworkSockets.put(socket, network);
+            mNetworkSockets.add(new NetworkSocket(socket, network));
             mSocketCreationCallback.onSocketCreated(network);
         }
 
@@ -89,7 +117,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         public void onInterfaceDestroyed(@NonNull Network network,
                 @NonNull MdnsInterfaceSocket socket) {
             mSocketPacketHandlers.remove(socket);
-            mActiveNetworkSockets.remove(socket);
+            mNetworkSockets.remove(new NetworkSocket(socket, network));
         }
     }
 
@@ -150,17 +178,25 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         mSocketProvider.unrequestSocket(callback);
     }
 
+    private Set<NetworkSocket> getActiveNetworkSockets() {
+        final Set<NetworkSocket> networkSockets = new ArraySet<>();
+        for (int i = 0; i < mRequestedNetworks.size(); i++) {
+            final InterfaceSocketCallback callback = mRequestedNetworks.valueAt(i);
+            networkSockets.addAll(callback.mNetworkSockets);
+        }
+        return networkSockets;
+    }
+
     private void sendMdnsPacket(@NonNull DatagramPacket packet, @Nullable Network targetNetwork) {
         final boolean isIpv6 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
                 instanceof Inet6Address;
         final boolean isIpv4 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
                 instanceof Inet4Address;
-        for (int i = 0; i < mActiveNetworkSockets.size(); i++) {
-            final MdnsInterfaceSocket socket = mActiveNetworkSockets.keyAt(i);
-            final Network network = mActiveNetworkSockets.valueAt(i);
+        for (NetworkSocket networkSocket : getActiveNetworkSockets()) {
+            final MdnsInterfaceSocket socket = networkSocket.mSocket;
             // Check ip capability and network before sending packet
             if (((isIpv6 && socket.hasJoinedIpv6()) || (isIpv4 && socket.hasJoinedIpv4()))
-                    && isNetworkMatched(targetNetwork, network)) {
+                    && isNetworkMatched(targetNetwork, networkSocket.mNetwork)) {
                 try {
                     socket.send(packet);
                 } catch (IOException e) {
