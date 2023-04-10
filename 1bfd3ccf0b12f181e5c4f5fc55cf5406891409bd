@@ -39,6 +39,30 @@
       },
       "revId": "1bfd3ccf0b12f181e5c4f5fc55cf5406891409bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "344df5aa_2ab93851",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-10T01:39:36Z",
+      "side": 1,
+      "message": "Oops, submitted before I saw this. aosp/2526882 addresses it",
+      "parentUuid": "92587766_600b8dee",
+      "range": {
+        "startLine": 311,
+        "startChar": 40,
+        "endLine": 311,
+        "endChar": 54
+      },
+      "revId": "1bfd3ccf0b12f181e5c4f5fc55cf5406891409bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
