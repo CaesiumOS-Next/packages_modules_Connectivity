@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e56fcda7_fa73af46",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-04-10T03:56:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d0efe26_27c0f7f4",
+      "range": {
+        "startLine": 357,
+        "startChar": 7,
+        "endLine": 357,
+        "endChar": 58
+      },
+      "revId": "988c70b231b8e8b9806fda4ba7287b850fffff05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90135a0e_15c078bb",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-10T03:09:48Z",
       "side": 1,
       "message": "if (nc.hasTransport(TRANSPORT_CELLULAR)) return UpstreamType.UT_CELLULAR;\n        if (nc.hasTransport(TRANSPORT_WIFI)) return UpstreamType.UT_WIFI;\n        if (nc.hasTransport(TRANSPORT_BLUETOOTH)) return UpstreamType.UT_BLUETOOTH;\n        if (nc.hasTransport(TRANSPORT_ETHERNET)) return UpstreamType.UT_ETHERNET;\n        if (nc.hasTransport(TRANSPORT_WIFI_AWARE)) return UpstreamType.UT_WIFI_AWARE;\n        if (nc.hasTransport(TRANSPORT_LOWPAN)) return UpstreamType.UT_LOWPAN;",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 52
+      },
+      "revId": "988c70b231b8e8b9806fda4ba7287b850fffff05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58e1b259_07da2a43",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-04-10T03:56:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90135a0e_15c078bb",
       "range": {
         "startLine": 359,
         "startChar": 0,
