@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a87fc04f_87760748",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1594833
+      },
+      "writtenOn": "2023-04-11T13:53:48Z",
+      "side": 1,
+      "message": "Should be IllegalStateException, correct the commit message.",
+      "parentUuid": "02773ab0_8bacdd3a",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 65
+      },
+      "revId": "62b860325a5afcff9c013fcc01fc23b46126619e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "972a8b76_2be1208e",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-10T09:02:34Z",
       "side": 1,
       "message": "1. IIUC this doesn\u0027t build.\nShould it be IllegalStateException e  instead, right?\n\n2. Can you print a log to indicate this is happening?\n Log.e(TAG, \"shutdownLocked: error when unregister tethering, ignored. e\u003d\" + e);",
+      "range": {
+        "startLine": 951,
+        "startChar": 38,
+        "endLine": 951,
+        "endChar": 39
+      },
+      "revId": "62b860325a5afcff9c013fcc01fc23b46126619e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03f84c01_9c3caf5c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 1594833
+      },
+      "writtenOn": "2023-04-11T13:53:48Z",
+      "side": 1,
+      "message": "1. fix the obvious mistake, sorry for that.\n\n2. Added log as recommanded",
+      "parentUuid": "972a8b76_2be1208e",
       "range": {
         "startLine": 951,
         "startChar": 38,
