@@ -74,8 +74,6 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
      */
     public static final String IFACE_VT = "vt_data0";
 
-    /** {@link #uid} value when UID details unavailable. */
-    public static final int UID_ALL = -1;
     /** Special UID value for data usage by tethering. */
     public static final int UID_TETHERING = -5;
 
@@ -83,8 +81,6 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
      * {@link #tag} value matching any tag.
      * @hide
      */
-    // TODO: Rename TAG_ALL to TAG_ANY.
-    public static final int TAG_ALL = -1;
     /** {@link #set} value for all sets combined, not including debug sets. */
     public static final int SET_ALL = -1;
     /** {@link #set} value where background data is accounted. */
@@ -116,12 +112,6 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
     })
     public @interface State {
     }
-
-    /**
-     * Include all interfaces when filtering
-     * @hide
-     */
-    public @Nullable static final String[] INTERFACES_ALL = null;
 
     /** {@link #tag} value for total data across all tags. */
     public static final int TAG_NONE = 0;
