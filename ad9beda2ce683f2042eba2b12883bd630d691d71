@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58a6c179_da7de6aa",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4e462d2_11e58862",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 3
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4570ac5d_bbdb2e5f",
@@ -78,6 +102,30 @@
       "writtenOn": "2023-04-06T07:04:25Z",
       "side": 1,
       "message": "Could you add some descriptions for that should be stored in the DurationForNumOfKeepalive message?",
+      "range": {
+        "startLine": 41,
+        "startChar": 58,
+        "endLine": 41,
+        "endChar": 84
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34b3048e_1df84ec5",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4570ac5d_bbdb2e5f",
       "range": {
         "startLine": 41,
         "startChar": 58,
@@ -105,6 +153,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a731d73_2bfd5f69",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90de9635_3805a962",
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "598783af_87241c43",
@@ -118,6 +184,30 @@
       "writtenOn": "2023-04-06T05:01:04Z",
       "side": 1,
       "message": "I don\u0027t think this is a common pattern in our code ; we usually just call the constructor inline in l.61.",
+      "range": {
+        "startLine": 57,
+        "startChar": 41,
+        "endLine": 57,
+        "endChar": 48
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8de1594_ad1c5cc3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "598783af_87241c43",
       "range": {
         "startLine": 57,
         "startChar": 41,
@@ -151,6 +241,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3218d6f7_c42c1cc0",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdd45946_edc08d1b",
+      "range": {
+        "startLine": 73,
+        "startChar": 12,
+        "endLine": 73,
+        "endChar": 15
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "849fb00f_b9d5a15a",
@@ -164,6 +278,30 @@
       "writtenOn": "2023-04-06T05:01:04Z",
       "side": 1,
       "message": "Please document what is the time base for this (in this case, SystemClock.uptimeMillis)",
+      "range": {
+        "startLine": 92,
+        "startChar": 55,
+        "endLine": 92,
+        "endChar": 62
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f1c24c3_69ca86d2",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "849fb00f_b9d5a15a",
       "range": {
         "startLine": 92,
         "startChar": 55,
@@ -197,6 +335,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbbb249e_0dda8230",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Acknowledged, it will be used here in later cls.",
+      "parentUuid": "b72c2258_60ddef4a",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 66
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d86286c_f32badea",
@@ -210,6 +372,30 @@
       "writtenOn": "2023-04-06T05:01:04Z",
       "side": 1,
       "message": "Considering this is has a numeric relationship with all the timestamps in the tests below I suggest you remove this constant and declare it in each test. Otherwise maintainers will have to look this up constantly, and if I make this 2000 all tests completely blow up.\n\nThis is especially true in the last test where the numeric value of `TEST_WRITE_TIME * 2` must have a specific relationship with the constants in the test",
+      "range": {
+        "startLine": 41,
+        "startChar": 29,
+        "endLine": 43,
+        "endChar": 0
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af28605a_70c40f1d",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d86286c_f32badea",
       "range": {
         "startLine": 41,
         "startChar": 29,
@@ -243,6 +429,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3900928_5a438367",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b354f715_ef655180",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 38
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f32bbc17_8c28c74e",
@@ -256,6 +466,30 @@
       "writtenOn": "2023-04-06T05:01:04Z",
       "side": 1,
       "message": "This is `TEST_WRITE_TIME - pauseTime` (also easier to understand w.r.t. comment in l.252)",
+      "range": {
+        "startLine": 257,
+        "startChar": 32,
+        "endLine": 257,
+        "endChar": 85
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1f372d9_5a07664d",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f32bbc17_8c28c74e",
       "range": {
         "startLine": 257,
         "startChar": 32,
@@ -289,6 +523,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46c5d18c_2bb752c6",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be039a8b_0d3fd55c",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 58
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5075f5c2_03e957f5",
@@ -306,6 +564,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad23e4c7_b08cce48",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5075f5c2_03e957f5",
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75d44e9c_270b6c61",
@@ -319,6 +595,30 @@
       "writtenOn": "2023-04-06T05:01:04Z",
       "side": 1,
       "message": "Dangling //",
+      "range": {
+        "startLine": 352,
+        "startChar": 8,
+        "endLine": 352,
+        "endChar": 10
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9037ba87_22d6af7d",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75d44e9c_270b6c61",
       "range": {
         "startLine": 352,
         "startChar": 8,
@@ -352,6 +652,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab975aff_94b11629",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "291f4a0e_969021b3",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 357,
+        "endChar": 42
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5073474_405bc53c",
@@ -365,6 +689,30 @@
       "writtenOn": "2023-04-06T05:01:04Z",
       "side": 1,
       "message": "As I was observing on TEST_WRITE_TIME, the constants are numeric but TEST_WRITE_TIME is symbolic. This is a problem because to read this test you actually have to know the numeric value of TEST_WRITE_TIME (namely, this test actively assumes that startTime \u003c TEST_WRITE_TIME \u003c stopTime \u003c TEST_WRITE_TIME * 2).\n\nJust have a local for TEST_WRITE_TIME which will make your test much clearer.",
+      "range": {
+        "startLine": 380,
+        "startChar": 29,
+        "endLine": 380,
+        "endChar": 33
+      },
+      "revId": "ad9beda2ce683f2042eba2b12883bd630d691d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "026044ad_424fd739",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-11T10:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5073474_405bc53c",
       "range": {
         "startLine": 380,
         "startChar": 29,
