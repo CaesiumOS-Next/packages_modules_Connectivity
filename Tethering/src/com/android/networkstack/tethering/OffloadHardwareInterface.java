@@ -281,22 +281,6 @@ public class OffloadHardwareInterface {
         }
     }
 
-    private int initWithHandles(NativeHandle h1, NativeHandle h2) {
-        if (h1 == null || h2 == null) {
-            mLog.e("Failed to create socket.");
-            return OFFLOAD_HAL_VERSION_NONE;
-        }
-
-        requestSocketDump(h1);
-        if (!mIOffload.initOffload(h1, h2, mOffloadHalCallback)) {
-            mIOffload.stopOffload();
-            mLog.e("Failed to initialize offload.");
-            return OFFLOAD_HAL_VERSION_NONE;
-        }
-
-        return mIOffload.getVersion();
-    }
-
     /**
      * Initialize the tethering offload HAL.
      *
@@ -325,16 +309,25 @@ public class OffloadHardwareInterface {
                 NF_NETLINK_CONNTRACK_NEW | NF_NETLINK_CONNTRACK_DESTROY);
         final NativeHandle h2 = mDeps.createConntrackSocket(
                 NF_NETLINK_CONNTRACK_UPDATE | NF_NETLINK_CONNTRACK_DESTROY);
+        if (h1 == null || h2 == null) {
+            maybeCloseFdInNativeHandles(h1, h2);
+            mLog.e("Failed to create socket.");
+            return OFFLOAD_HAL_VERSION_NONE;
+        }
 
         mOffloadHalCallback = offloadCb;
-        final int version = initWithHandles(h1, h2);
-
-        // Explicitly close FDs for HIDL. AIDL will pass the original FDs to the service,
-        // they shouldn't be closed here.
-        if (version < OFFLOAD_HAL_VERSION_AIDL) {
-            maybeCloseFdInNativeHandles(h1, h2);
+        requestSocketDump(h1);
+        if (!mIOffload.initOffload(h1, h2, mOffloadHalCallback)) {
+            mIOffload.stopOffload();
+            // Explicitly close FDs for HIDL. AIDL will pass the original FDs to the service,
+            // they shouldn't be closed here.
+            if (mIOffload.getVersion() < OFFLOAD_HAL_VERSION_AIDL) {
+                maybeCloseFdInNativeHandles(h1, h2);
+            }
+            mLog.e("Failed to initialize offload.");
+            return OFFLOAD_HAL_VERSION_NONE;
         }
-        return version;
+        return mIOffload.getVersion();
     }
 
     /** Stop the tethering offload HAL. */
