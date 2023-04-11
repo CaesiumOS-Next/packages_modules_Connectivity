@@ -331,7 +331,8 @@ public class OffloadHardwareInterface {
 
         // Explicitly close FDs for HIDL. AIDL will pass the original FDs to the service,
         // they shouldn't be closed here.
-        if (version < OFFLOAD_HAL_VERSION_AIDL) {
+        if ((version < OFFLOAD_HAL_VERSION_AIDL) && 
+                (mIOffload.getVersion() != OFFLOAD_HAL_VERSION_AIDL)) {
             maybeCloseFdInNativeHandles(h1, h2);
         }
         return version;
