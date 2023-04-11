@@ -51,7 +51,13 @@
 
 namespace android {
 
+<<<<<<< PATCH SET (c3360c enable abort() in permission verification)
+bool fatal = false;
+
+#define ALOGF(s ...) do { ALOGE(s); fatal = true; } while(0)
+=======
 #define ALOGF(s ...) do { ALOGE(s); abort(); } while(0)
+>>>>>>> BASE      (a0ea74 Merge "Revert "temporarily remove abort() to facilitate debu)
 
 enum verify { VERIFY_DIR, VERIFY_BIN, VERIFY_PROG, VERIFY_MAP_RO, VERIFY_MAP_RW };
 
@@ -138,6 +144,7 @@ static void verifyClatPerms() {
 
 #undef V2
 
+    if (fatal) abort();
 }
 
 #undef V
