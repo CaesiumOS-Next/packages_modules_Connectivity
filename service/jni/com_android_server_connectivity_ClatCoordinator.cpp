@@ -51,7 +51,9 @@
 
 namespace android {
 
-#define ALOGF(s ...) do { ALOGE(s); } while(0)
+bool fatal = false;
+
+#define ALOGF(s ...) do { ALOGE(s); fatal = true; } while(0)
 
 enum verify { VERIFY_DIR, VERIFY_BIN, VERIFY_PROG, VERIFY_MAP_RO, VERIFY_MAP_RW };
 
@@ -62,6 +64,10 @@ static void verifyPerms(const char * const path,
     struct stat s = {};
 
     if (lstat(path, &s)) ALOGF("lstat '%s' errno=%d", path, errno);
+    if ((mode == (S_IFDIR|0750)) && (s.st_mode == (S_IFDIR|0751))) {
+        ALOGE("flattened apex dir o+x st_mode hack triggered!");
+        s.st_mode &= ~1;
+    };
     if (s.st_mode != mode) ALOGF("'%s' mode is 0%o != 0%o", path, s.st_mode, mode);
     if (s.st_uid != uid) ALOGF("'%s' uid is %d != %d", path, s.st_uid, uid);
     if (s.st_gid != gid) ALOGF("'%s' gid is %d != %d", path, s.st_gid, gid);
@@ -138,6 +144,7 @@ static void verifyClatPerms() {
 
 #undef V2
 
+    if (fatal) abort();
 }
 
 #undef V
