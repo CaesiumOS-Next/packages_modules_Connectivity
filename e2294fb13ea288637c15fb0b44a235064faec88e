@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd04700c_42a8157a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-11T07:32:46Z",
+      "side": 0,
+      "message": "Nit: This method is used on MulticastNetworkInterfaceProvider internally now. Maybe also make it to the private method.",
+      "range": {
+        "startLine": 134,
+        "startChar": 53,
+        "endLine": 134,
+        "endChar": 71
+      },
+      "revId": "e2294fb13ea288637c15fb0b44a235064faec88e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ac46f5e_a9dda3c8",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-11T07:32:46Z",
+      "side": 0,
+      "message": "Is any reason to remove this check? getNetworkInterface() is called when creating a MdnsInterfaceSocket.",
+      "range": {
+        "startLine": 241,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 61
+      },
+      "revId": "e2294fb13ea288637c15fb0b44a235064faec88e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a259157e_2e0d5fd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-11T07:32:46Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "3c60888011befae92913cb83eb452866fad0833f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfae427e_7c7af724",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-11T07:32:46Z",
+      "side": 1,
+      "message": "This seems to be redundant because of l.107.",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 98
+      },
+      "revId": "3c60888011befae92913cb83eb452866fad0833f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
