@@ -16,10 +16,6 @@
 
 package com.android.server.net;
 
-import static android.net.NetworkStats.INTERFACES_ALL;
-import static android.net.NetworkStats.TAG_ALL;
-import static android.net.NetworkStats.UID_ALL;
-
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
@@ -177,7 +173,7 @@ public class NetworkStatsFactory {
     }
 
     public NetworkStats readNetworkStatsDetail() throws IOException {
-        return readNetworkStatsDetail(UID_ALL, INTERFACES_ALL, TAG_ALL);
+        return readNetworkStatsDetail();
     }
 
     @GuardedBy("mPersistentDataLock")
@@ -213,8 +209,7 @@ public class NetworkStatsFactory {
             requestSwapActiveStatsMapLocked();
             // Stats are always read from the inactive map, so they must be read after the
             // swap
-            final NetworkStats stats = mDeps.getNetworkStatsDetail(
-                    UID_ALL, INTERFACES_ALL, TAG_ALL);
+            final NetworkStats stats = mDeps.getNetworkStatsDetail();
             // BPF stats are incremental; fold into mPersistSnapshot.
             mPersistSnapshot.setElapsedRealtime(stats.getElapsedRealtime());
             mPersistSnapshot.combineAllValues(stats);
@@ -301,8 +296,7 @@ public class NetworkStatsFactory {
      * are expected to monotonically increase since device boot.
      */
     @VisibleForTesting
-    public static native int nativeReadNetworkStatsDetail(NetworkStats stats, int limitUid,
-            String[] limitIfaces, int limitTag);
+    public static native int nativeReadNetworkStatsDetail(NetworkStats stats);
 
     @VisibleForTesting
     public static native int nativeReadNetworkStatsDev(NetworkStats stats);
