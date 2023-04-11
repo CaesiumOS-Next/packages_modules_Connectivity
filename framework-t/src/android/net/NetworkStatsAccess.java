@@ -125,9 +125,14 @@ public final class NetworkStatsAccess {
 
         final int appId = UserHandle.getAppId(callingUid);
 
-        final boolean isNetworkStack = context.checkPermission(
+        final boolean hasNetworkStackPermission = context.checkPermission(
                 android.Manifest.permission.NETWORK_STACK, callingPid, callingUid)
                 == PERMISSION_GRANTED;
+        final boolean hasMainlineNetworkStackPermission = context.checkPermission(
+                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, callingPid, callingUid)
+                == PERMISSION_GRANTED;
+        final boolean isNetworkStack =
+                hasNetworkStackPermission || hasMainlineNetworkStackPermission;
 
         if (hasCarrierPrivileges || isDeviceOwner
                 || appId == Process.SYSTEM_UID || isNetworkStack) {
