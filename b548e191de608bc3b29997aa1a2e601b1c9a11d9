@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54c736cf_fb5c83bb",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-11T19:32:09Z",
+      "side": 1,
+      "message": "This is the only non-test call site.\n\nIndeed, because the jni implementation at the bottom of this unconditionally calls clear() on the inactive stats map (after dumping it), any *other* call site would be a bug.\n\nThis is because clear() and swapActiveStatsMap (3 lines higher) have to be paired, and this is the only swapActiveStatsMap call.\n(see cs/ p:aosp-master requestSwapActiveStatsMapLocked )\n\nAny other use is either pointless (because it\u0027s called on an already empty inactive stats map, and thus returns nothing) or wrong (because it\u0027s doing filtering and outright discarding some of the statistics data due to the filters) or wrong (because it\u0027s not doing filtering, but also not doing the rest of the accumulation logic down below).",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 69
+      },
+      "revId": "b548e191de608bc3b29997aa1a2e601b1c9a11d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
