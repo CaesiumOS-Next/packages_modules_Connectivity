@@ -120,7 +120,7 @@ public class EntitlementManager {
         mEntitlementCacheValue = new SparseIntArray();
         mPermissionChangeCallback = callback;
         mHandler = h;
-        if (SdkLevel.isAtLeastU()) {
+        if (SdkLevel.isAtLeastT()) {
             mContext.registerReceiver(mReceiver, new IntentFilter(ACTION_PROVISIONING_ALARM),
                     null, mHandler, RECEIVER_NOT_EXPORTED);
         } else {
