@@ -7913,9 +7913,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void wakeupModifyInterface(String iface, NetworkAgentInfo nai, boolean add) {
-        // Marks are only available on WiFi interfaces. Checking for
+        // Marks are only available on WiFi/Modem interfaces. Checking for
         // marks on unsupported interfaces is harmless.
-        if (!nai.networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+        if (!nai.networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) &&
+                !nai.networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
             return;
         }
 
