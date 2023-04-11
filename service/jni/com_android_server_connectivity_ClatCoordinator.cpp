@@ -51,7 +51,9 @@
 
 namespace android {
 
-#define ALOGF(s ...) do { ALOGE(s); abort(); } while(0)
+bool fatal = false;
+
+#define ALOGF(s ...) do { ALOGE(s); fatal = true; } while(0)
 
 enum verify { VERIFY_DIR, VERIFY_BIN, VERIFY_PROG, VERIFY_MAP_RO, VERIFY_MAP_RW };
 
@@ -138,6 +140,7 @@ static void verifyClatPerms() {
 
 #undef V2
 
+    if (fatal) abort();
 }
 
 #undef V
