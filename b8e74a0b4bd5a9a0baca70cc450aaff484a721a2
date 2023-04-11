@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "277ea2c1_72e6c0ba",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1273,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-11T06:51:02Z",
+      "side": 1,
+      "message": "Wait why does this change ?",
+      "range": {
+        "startLine": 1273,
+        "startChar": 34,
+        "endLine": 1273,
+        "endChar": 47
+      },
+      "revId": "b8e74a0b4bd5a9a0baca70cc450aaff484a721a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
