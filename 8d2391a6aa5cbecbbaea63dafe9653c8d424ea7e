@@ -16,6 +16,23 @@
       "message": "If this is known to cause crashes on only a couple of devices or device form factors, do you instead want to disable the crashes on these devices only?",
       "revId": "8d2391a6aa5cbecbbaea63dafe9653c8d424ea7e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3583cb71_06c5d513",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-11T00:02:42Z",
+      "side": 1,
+      "message": "We\u0027re seeing two different failures atm.\n\nOne is (presumably) caused by the missing 1 line kernel patch, that is now fixed (though not sure if on the right 5.4 device kernel branch), and pending kernel prebuilt generation/submit.  That should also fix the VTS failures that device has been seeing.\n\nThe other is more subtle/fundamental as it\u0027s on a 5.15 kernel - which already has the relevant patch.\n\nSomething is mutating 40750 perms of the .../for-system directory into 40751.\n\nI\u0027m *guessing* this is on non-mainline-updatable-apex builds (perhaps that means flattened apex???)... but also pending more debugging information.\nI\u0027m guessing it\u0027s a build system failure (ie. build is not honouring fs_canned_config for the for-system directory... again...).\n\nBut hard to say.",
+      "revId": "8d2391a6aa5cbecbbaea63dafe9653c8d424ea7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
