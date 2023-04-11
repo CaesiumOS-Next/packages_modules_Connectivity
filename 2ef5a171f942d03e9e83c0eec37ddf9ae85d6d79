@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97700469_93de7bd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-11T05:50:05Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "2ef5a171f942d03e9e83c0eec37ddf9ae85d6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a778808b_84e37e6a",
+        "filename": "framework-t/src/android/net/NetworkStatsAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-11T05:50:05Z",
+      "side": 1,
+      "message": "Add holding NetworkStack permissions?",
+      "range": {
+        "startLine": 103,
+        "startChar": 29,
+        "endLine": 103,
+        "endChar": 30
+      },
+      "revId": "2ef5a171f942d03e9e83c0eec37ddf9ae85d6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
