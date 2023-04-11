@@ -51,6 +51,23 @@
       "parentUuid": "3583cb71_06c5d513",
       "revId": "8d2391a6aa5cbecbbaea63dafe9653c8d424ea7e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e347fd3_138e0f66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-11T00:20:57Z",
+      "side": 1,
+      "message": "(we have confirmation it builds, and it can\u0027t make things worse, plan is to revert this ASAP, but let\u0027s get udc-dev working again on the failing devices to unblock people)",
+      "revId": "8d2391a6aa5cbecbbaea63dafe9653c8d424ea7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
