@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc6c80d6_be03d166",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-12T03:43:40Z",
+      "side": 1,
+      "message": "Ok sounds reasonable. I will revert the change back.",
+      "parentUuid": "92ac2021_23945273",
+      "revId": "3c60888011befae92913cb83eb452866fad0833f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfae427e_7c7af724",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-04-11T07:32:46Z",
       "side": 1,
       "message": "This seems to be redundant because of l.107.",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 98
+      },
+      "revId": "3c60888011befae92913cb83eb452866fad0833f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e59d32ac_600b6001",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-12T03:43:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfae427e_7c7af724",
       "range": {
         "startLine": 114,
         "startChar": 8,
