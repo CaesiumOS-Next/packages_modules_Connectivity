@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92ac2021_23945273",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-12T03:28:42Z",
+      "side": 1,
+      "message": "This is a tradeoff between runtime to create/GC an empty array on each socket creation (not often), and keeping a member in memory all the time (4 or 8 bytes ?).\n\nI think it\u0027s not an obvious tradeoff, and probably not worth the micro-optimization/additional code (not a usual pattern in our code). It\u0027s not a big deal either way though.",
+      "revId": "3c60888011befae92913cb83eb452866fad0833f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfae427e_7c7af724",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
         "patchSetId": 2
