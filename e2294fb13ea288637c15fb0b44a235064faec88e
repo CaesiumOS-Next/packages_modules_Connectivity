@@ -69,6 +69,30 @@
       },
       "revId": "e2294fb13ea288637c15fb0b44a235064faec88e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc0e3369_1257b7b4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-12T03:44:14Z",
+      "side": 0,
+      "message": "I think it seems to be removed by accident. I added it back.",
+      "parentUuid": "4ac46f5e_a9dda3c8",
+      "range": {
+        "startLine": 241,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 61
+      },
+      "revId": "e2294fb13ea288637c15fb0b44a235064faec88e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
