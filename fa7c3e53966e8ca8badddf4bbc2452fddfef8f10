@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d68294f_c3a07206",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-04-12T08:02:59Z",
+      "side": 1,
+      "message": "This comment should be deleted or rephrase because it does not provide any useful information for the reader to understand the logic below.\n\nor change the comment: Once tethering supports VPN as upstream, identify the VPN transport for UT_*_VPN type.",
+      "range": {
+        "startLine": 363,
+        "startChar": 8,
+        "endLine": 363,
+        "endChar": 55
+      },
+      "revId": "fa7c3e53966e8ca8badddf4bbc2452fddfef8f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
