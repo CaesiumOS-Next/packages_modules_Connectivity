@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03820634_7defd3c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-12T19:51:43Z",
+      "side": 1,
+      "message": "flattened apex out-of-process and in-process tethering build system fixes have landed (which should fix one device), and the kernel was updated on the other device (it now passes VTS).",
+      "revId": "da0f9afffda7ff589b93953298b3118b6a818783",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
