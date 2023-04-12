@@ -126,7 +126,12 @@ int parseBpfNetworkStatsDetailInternal(std::vector<stats_line>* lines,
         if (!statsEntry.ok()) {
             return base::ResultError(statsEntry.error().message(), statsEntry.error().code());
         }
-        lines->push_back(populateStatsEntry(key, statsEntry.value(), ifname));
+        stats_line newLine = populateStatsEntry(key, statsEntry.value(), ifname);
+        lines->push_back(newLine);
+        if (newLine.tag) {
+            newLine.tag = 0;
+            lines->push_back(newLine);
+        }
         return Result<void>();
     };
     Result<void> res = statsMap.iterate(processDetailUidStats);
