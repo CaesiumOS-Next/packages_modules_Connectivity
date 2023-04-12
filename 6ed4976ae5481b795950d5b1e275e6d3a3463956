@@ -16,6 +16,23 @@
       "message": "The blame layer got broken when the test was moved out of `/cts` but it looks like it was actually me that added the potentially flakey code in https://r.android.com/977890 , sorry",
       "revId": "6ed4976ae5481b795950d5b1e275e6d3a3463956",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d74d8af1_2e919206",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-12T03:39:17Z",
+      "side": 1,
+      "message": "Sorry for the late review, thanks for fixing the flake !",
+      "revId": "6ed4976ae5481b795950d5b1e275e6d3a3463956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
