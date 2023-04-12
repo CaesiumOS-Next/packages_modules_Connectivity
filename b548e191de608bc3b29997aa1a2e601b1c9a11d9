@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8ee57b45_d6cd4afb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-12T02:37:40Z",
+      "side": 1,
+      "message": "LGTM since we do filtering at java side already.\nNot sure if you want 2nd reviewer to have a look before merging.",
+      "revId": "b548e191de608bc3b29997aa1a2e601b1c9a11d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5bbbc915_2b046753",
         "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStatsTest.cpp",
         "patchSetId": 9
@@ -36,6 +53,29 @@
         "startChar": 29,
         "endLine": 232,
         "endChar": 30
+      },
+      "revId": "b548e191de608bc3b29997aa1a2e601b1c9a11d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a043b8_59ca5a82",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/BpfNetworkStats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-12T02:37:40Z",
+      "side": 1,
+      "message": "Stupid question: why comment out instead of delete it?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 29
       },
       "revId": "b548e191de608bc3b29997aa1a2e601b1c9a11d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
