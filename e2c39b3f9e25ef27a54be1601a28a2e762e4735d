@@ -22,6 +22,30 @@
       },
       "revId": "e2c39b3f9e25ef27a54be1601a28a2e762e4735d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a754557_740d34ec",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-12T06:44:19Z",
+      "side": 1,
+      "message": "Done now that the null behavior was restored",
+      "parentUuid": "ec6f898f_9430691a",
+      "range": {
+        "startLine": 155,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 38
+      },
+      "revId": "e2c39b3f9e25ef27a54be1601a28a2e762e4735d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
