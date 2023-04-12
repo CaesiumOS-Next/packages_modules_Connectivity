@@ -35,6 +35,7 @@ import android.net.TetheringManager.TetheringEventCallback;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.ArrayMap;
+import android.util.IndentingPrintWriter;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -42,7 +43,6 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.LinkPropertiesUtils.CompareResult;
 import com.android.net.module.util.SharedLog;
-import com.android.server.connectivity.mdns.util.MdnsLogger;
 
 import java.io.IOException;
 import java.net.NetworkInterface;
@@ -66,7 +66,7 @@ public class MdnsSocketProvider {
     // But 1440 should generally be enough because of standard Ethernet.
     // Note: mdnsresponder mDNSEmbeddedAPI.h uses 8940 for Ethernet jumbo frames.
     private static final int READ_BUFFER_SIZE = 2048;
-    private static final MdnsLogger LOGGER = new MdnsLogger(TAG);
+    private static final SharedLog LOGGER = new SharedLog(TAG);
     private static final int IFACE_IDX_NOT_EXIST = -1;
     @NonNull private final Context mContext;
     @NonNull private final Looper mLooper;
@@ -132,7 +132,7 @@ public class MdnsSocketProvider {
             }
         };
 
-        mSocketNetlinkMonitor = mDependencies.createSocketNetlinkMonitor(mHandler, LOGGER.mLog,
+        mSocketNetlinkMonitor = mDependencies.createSocketNetlinkMonitor(mHandler, LOGGER,
                 new NetLinkMessageProcessor());
     }
 
@@ -258,7 +258,7 @@ public class MdnsSocketProvider {
             Log.d(TAG, "Already monitoring sockets.");
             return;
         }
-        if (DBG) Log.d(TAG, "Start monitoring sockets.");
+        LOGGER.i("Start monitoring sockets.");
         mContext.getSystemService(ConnectivityManager.class).registerNetworkCallback(
                 new NetworkRequest.Builder().clearCapabilities().build(),
                 mNetworkCallback, mHandler);
@@ -312,7 +312,7 @@ public class MdnsSocketProvider {
             Log.d(TAG, "Monitoring sockets hasn't been started.");
             return;
         }
-        if (DBG) Log.d(TAG, "Try to stop monitoring sockets.");
+        LOGGER.i("Try to stop monitoring sockets.");
         mRequestStop = true;
         maybeStopMonitoringSockets();
     }
@@ -431,10 +431,8 @@ public class MdnsSocketProvider {
                 return;
             }
 
-            if (DBG) {
-                Log.d(TAG, "Create a socket on network:" + networkKey
-                        + " with interfaceName:" + interfaceName);
-            }
+            LOGGER.i("Create a socket on network:" + networkKey
+                    + " with interfaceName:" + interfaceName);
             final MdnsInterfaceSocket socket = mDependencies.createMdnsInterfaceSocket(
                     networkInterface.getNetworkInterface(), MdnsConstants.MDNS_PORT, mLooper,
                     mPacketReadBuffer);
@@ -455,7 +453,7 @@ public class MdnsSocketProvider {
                 notifySocketCreated(((NetworkAsKey) networkKey).mNetwork, socket, addresses);
             }
         } catch (IOException e) {
-            Log.e(TAG, "Create a socket failed with interface=" + interfaceName, e);
+            LOGGER.e("Create a socket failed with interface=" + interfaceName, e);
         }
     }
 
@@ -484,7 +482,7 @@ public class MdnsSocketProvider {
             // transports above in priority.
             return iface.supportsMulticast();
         } catch (SocketException e) {
-            Log.e(TAG, "Error checking interface flags", e);
+            LOGGER.e("Error checking interface flags", e);
             return false;
         }
     }
@@ -495,6 +493,7 @@ public class MdnsSocketProvider {
 
         socketInfo.mSocket.destroy();
         notifyInterfaceDestroyed(network, socketInfo.mSocket);
+        LOGGER.log("Remove network socket. network:" + network);
     }
 
     private void removeTetherInterfaceSocket(String interfaceName) {
@@ -502,6 +501,7 @@ public class MdnsSocketProvider {
         if (socketInfo == null) return;
         socketInfo.mSocket.destroy();
         notifyInterfaceDestroyed(null /* network */, socketInfo.mSocket);
+        LOGGER.log("Remove tether interface socket. interfaceName:" + interfaceName);
     }
 
     private void notifySocketCreated(Network network, MdnsInterfaceSocket socket,
@@ -610,6 +610,7 @@ public class MdnsSocketProvider {
             info.mSocket.destroy();
             // Still notify to unrequester for socket destroy.
             cb.onInterfaceDestroyed(network, info.mSocket);
+            LOGGER.log("Remove network socket after unrequestSocket. network:" + network);
         }
 
         // Remove all sockets for tethering interface because these sockets do not have associated
@@ -620,11 +621,18 @@ public class MdnsSocketProvider {
             info.mSocket.destroy();
             // Still notify to unrequester for socket destroy.
             cb.onInterfaceDestroyed(null /* network */, info.mSocket);
+            LOGGER.log("Remove tether interface socket after unrequestSocket. interface:"
+                    + mTetherInterfaceSockets.keyAt(i));
         }
         mTetherInterfaceSockets.clear();
 
         // Try to unregister network callback.
         maybeStopMonitoringSockets();
+    }
+
+    /** Dump info to dumpsys */
+    public void dump(IndentingPrintWriter pw) {
+        LOGGER.reverseDump(pw);
     }
 
     /*** Callbacks for listening socket changes */
