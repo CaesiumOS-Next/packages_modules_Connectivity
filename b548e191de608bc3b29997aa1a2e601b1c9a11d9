@@ -83,6 +83,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "14c9ddb4_c00b465b",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/BpfNetworkStats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-12T05:03:26Z",
+      "side": 1,
+      "message": "I wasn\u0027t sure if it\u0027s better to:\n- leave it\n- comment it out\n- delete it\n\nObviously it\u0027s not used, since it compiles, so all 3 work, but logically it\u0027s the same sort of constant as the surrounding other ones, so it seemed wrong to have only a partial set of them defined.\n\nUltimately I forgot about it, but I think I\u0027ll leave it commented out.\nWe do use UID_ALL in the tests...",
+      "parentUuid": "02a043b8_59ca5a82",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 29
+      },
+      "revId": "b548e191de608bc3b29997aa1a2e601b1c9a11d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "54c736cf_fb5c83bb",
         "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
         "patchSetId": 9
