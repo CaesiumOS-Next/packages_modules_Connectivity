@@ -114,8 +114,10 @@ public class AutomaticOnOffKeepaliveTracker {
      *
      * When finishing keepalive, this object is deleted.
      */
-    private static final int STATE_ENABLED = 0;
-    private static final int STATE_SUSPENDED = 1;
+    @VisibleForTesting
+    public static final int STATE_ENABLED = 0;
+    @VisibleForTesting
+    public static final int STATE_SUSPENDED = 1;
     private static final int STATE_ALWAYS_ON = 2;
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(prefix = { "STATE_" }, value = {
@@ -217,6 +219,16 @@ public class AutomaticOnOffKeepaliveTracker {
         @VisibleForTesting
         public ISocketKeepaliveCallback getCallback() {
             return mCallback;
+        }
+
+        @VisibleForTesting
+        public int getAutomaticOnOffState() {
+            return mAutomaticOnOffState;
+        }
+
+        @VisibleForTesting
+        public KeepaliveTracker.KeepaliveInfo getKi() {
+            return mKi;
         }
 
         public Network getNetwork() {
