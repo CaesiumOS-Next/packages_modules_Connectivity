@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4974960_5ff31e60",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-13T01:27:37Z",
+      "side": 1,
+      "message": "You should probably throw here and stop running the following code. Otherwise, you will get IndexOutOfBoundsException while you\u0027re trying to access it.",
+      "range": {
+        "startLine": 105,
+        "startChar": 12,
+        "endLine": 105,
+        "endChar": 17
+      },
+      "revId": "b1f0e31625f99809927a7e8de6bb16b1370c5b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46b375ac_1641bf3a",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-13T01:27:37Z",
+      "side": 1,
+      "message": "Nit: You may write to statsd in the follow up commit but this method behaves as a buildKeepaliveMetrics currently. You can rename it to write in the commit that actually do so.\n\nIt\u0027s confusing name at this commit.",
+      "range": {
+        "startLine": 166,
+        "startChar": 37,
+        "endLine": 166,
+        "endChar": 58
+      },
+      "revId": "b1f0e31625f99809927a7e8de6bb16b1370c5b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fcf7570_198211dd",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-13T01:27:37Z",
+      "side": 1,
+      "message": "Why this is removed in the latest patch? The data will stay inside the list.",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 16
+      },
+      "revId": "b1f0e31625f99809927a7e8de6bb16b1370c5b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "231974d8_346c1c76",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-13T01:27:37Z",
+      "side": 1,
+      "message": "Nit: style\n```\n/**\n *   xxxxxxxxxx\n */\n```",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 7
+      },
+      "revId": "b1f0e31625f99809927a7e8de6bb16b1370c5b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
