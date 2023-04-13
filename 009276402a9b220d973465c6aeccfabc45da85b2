@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "956e84ca_bafc4cd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "I\u0027ll need another serious pass at this after you address all comments.",
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3a75592_6c713d9c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "fet",
+      "range": {
+        "startLine": 100,
+        "startChar": 28,
+        "endLine": 100,
+        "endChar": 30
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c538ce0_2a2e7b44",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "Can you specify how you\u0027re supposed to use this ?\n\nIn particular I am a bit concerned that when this is called, mTimestampSinceLastUpdateStats is not reset, which means we\u0027ll upload stats dating from the last update and that might be arbitrarily far in the past ; the time that wasn\u0027t recorded will instead be recorded in the next update. So for example, suppose you collect metrics at midnight every day :\n• start a keepalive at 00:00 immediately after collecting\n• keep it started the whole day\n• next collection will still have lifetime 0 and active lifetime 0\n• Then at 02:00 stop the keepalive\n• next collection will have 26h of lifetime\n\nThis doesn\u0027t sound like what we want, which to me means that you must update the lifetime at the same time you reset the stats. If that\u0027s true, there is likely a way you can guarantee that statically (e.g. return a snapshot as you reset).",
+      "range": {
+        "startLine": 109,
+        "startChar": 10,
+        "endLine": 109,
+        "endChar": 38
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c26b7440_9132d2ba",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "Why not make your own data class instead ? This looks extremely wasteful (a custom int+int+int is 32 bytes, while this is 112 bytes) and pretty unwieldly.",
+      "range": {
+        "startLine": 127,
+        "startChar": 7,
+        "endLine": 127,
+        "endChar": 58
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03168d70_13d5a8e5",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "Generally our code user return-early, rather than large if blocks. Get the corner cases out of the way first so developers can concentrate on the beefy code path, and reduce nesting.\n\n    if (null \u003d\u003d mTelephonyManager) return UNKNOWN_CARRIER_ID;\n    if (null \u003d\u003d networkCapabilities) return getSimCarrierId;\n    // rest of the code",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 40
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe8e820e_5bb4164a",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "Can this actually happen ?",
+      "range": {
+        "startLine": 212,
+        "startChar": 12,
+        "endLine": 212,
+        "endChar": 37
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94e745b1_329ef381",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "This is a two-way cross-process call to the phone process : you can\u0027t afford to do this on the connectivity thread. I\u0027m afraid you\u0027ll probably need to have listeners and caches instead.",
+      "range": {
+        "startLine": 221,
+        "startChar": 38,
+        "endLine": 221,
+        "endChar": 53
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c9e9cca_8b2aa573",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "Is this ever supposed to happen, or is that always a bug ?",
+      "range": {
+        "startLine": 230,
+        "startChar": 12,
+        "endLine": 230,
+        "endChar": 39
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df91b68d_5ef860a7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "Consider introducing something like :\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2460069/1/framework/src/android/net/NetworkCapabilities.java#818\n\n...which I was meaning for exactly the same use case.",
+      "range": {
+        "startLine": 235,
+        "startChar": 8,
+        "endLine": 235,
+        "endChar": 80
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68cd223f_eafadd45",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "Please add nullability annotations to all your new arguments",
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1fc42a0_71e82903",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "This ends up being relatively expensive (especially as you create one here and an identical one in l.269, and likewise in other methods)\n\nYou could exploit the fact that the network ID is a 16-bit int and the slot will never be over 256, so you could make an int out of these and use a SparseIntArray. Then you\u0027d have a helper method to make the int out of the 2 values. If you do that please comment carefully because it\u0027s not necessarily super obvious that it will always fit.\n\nAnother option is to have a SparseIntArray indexed only by the netId, containing arrays. You can do that because the number of hardware slots is known at boot time and can\u0027t change.",
+      "range": {
+        "startLine": 259,
+        "startChar": 55,
+        "endLine": 259,
+        "endChar": 80
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ba72032_92c031b6",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T08:31:34Z",
+      "side": 1,
+      "message": "Unfortunately this is very expensive too, because the object has to be created before the method is called. Can you make it so that we don\u0027t build this huge object if it\u0027s not necessary ?",
+      "range": {
+        "startLine": 317,
+        "startChar": 24,
+        "endLine": 320,
+        "endChar": 78
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
