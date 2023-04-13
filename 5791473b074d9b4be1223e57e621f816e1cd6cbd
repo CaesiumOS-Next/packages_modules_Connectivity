@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "102285b6_48e9ec0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T07:47:20Z",
+      "side": 1,
+      "message": "I think this is trying to do too much with too little. The tooling in this file is not really adequate to do this kind of test, so I think we should beef up the tooling so it becomes more natural and less ad-hoc to write these tests.",
+      "revId": "5791473b074d9b4be1223e57e621f816e1cd6cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a55ddf25_a30b8a5f",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T07:47:20Z",
+      "side": 1,
+      "message": "This is a code smell. In particular, you\u0027re mocking some methods on the spy while this is overriding other methods, and that makes things really difficult to follow. Normally you should not mix spies and mocks, especially not when you control the spied class, but even less when it\u0027s defined right here. Just override the method you need to have it behave like you want instead of using a mix of overrides and Mockito.doReturn.\n\nISTM you want to check that methods are called in order. TrackRecord is a tool we developed for the purposes of doing this and will let you do make much finer checks and offer a lot of useful tooling. You should have a custom class embarking an ArrayTrackRecord like we have in other places in our code when we need to check this kind of thing.",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 57
+      },
+      "revId": "5791473b074d9b4be1223e57e621f816e1cd6cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bed5014c_26b2ab4b",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T07:47:20Z",
+      "side": 1,
+      "message": "This is initialized on the wrong thread\n\nAlso it would be much cleaner if it was an instance of Network.",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 8
+      },
+      "revId": "5791473b074d9b4be1223e57e621f816e1cd6cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16a977fe_2961cd40",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T07:47:20Z",
+      "side": 1,
+      "message": "Consider using `HandlerUtils.visibleOnHandlerThread` if you need some change to be visible there.",
+      "range": {
+        "startLine": 392,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 5
+      },
+      "revId": "5791473b074d9b4be1223e57e621f816e1cd6cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df14f30d_eed2a5fd",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-13T07:47:20Z",
+      "side": 1,
+      "message": "Also consider removing this field and instead having a TrackRecord for the handler events. That will let you not only see the last auto KI in a thread-safe way, but also query all the previous auto KIs which would let you write tests with multiple auto KIs. You\u0027ll also make things a lot easier to write by obviating the need for knowing when to wait for the handler.",
+      "range": {
+        "startLine": 420,
+        "startChar": 35,
+        "endLine": 420,
+        "endChar": 46
+      },
+      "revId": "5791473b074d9b4be1223e57e621f816e1cd6cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
