@@ -35,6 +35,23 @@
       "parentUuid": "ffd10cbd_4c524586",
       "revId": "432915370791f4e7a73977b0bd4be9cc0b8f5eb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c02f90_e157b777",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7919,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2023-04-13T20:35:29Z",
+      "side": 1,
+      "message": "@Mahesh,\nCan we add a SdkLevel check for U here as Lorenzo pointed out?",
+      "revId": "432915370791f4e7a73977b0bd4be9cc0b8f5eb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
