@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b1d810c_d2bb0d9c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-13T04:59:26Z",
+      "side": 1,
+      "message": "The ensureDurationPerNumOfKeepaliveSize function is called directly after this so it should not have any IndexOutOfBoundsException and can still run but it might be storing inaccurate metrics.",
+      "parentUuid": "c4974960_5ff31e60",
+      "range": {
+        "startLine": 105,
+        "startChar": 12,
+        "endLine": 105,
+        "endChar": 17
+      },
+      "revId": "b1f0e31625f99809927a7e8de6bb16b1370c5b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46b375ac_1641bf3a",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-13T01:27:37Z",
       "side": 1,
       "message": "Nit: You may write to statsd in the follow up commit but this method behaves as a buildKeepaliveMetrics currently. You can rename it to write in the commit that actually do so.\n\nIt\u0027s confusing name at this commit.",
+      "range": {
+        "startLine": 166,
+        "startChar": 37,
+        "endLine": 166,
+        "endChar": 58
+      },
+      "revId": "b1f0e31625f99809927a7e8de6bb16b1370c5b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1529035e_ca4e9c82",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-13T04:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46b375ac_1641bf3a",
       "range": {
         "startLine": 166,
         "startChar": 37,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2ba7ef2_12809b52",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-13T04:59:26Z",
+      "side": 1,
+      "message": "I think this method was not really expected to reset the metrics. The resetMetrics method is just separated now. This method will just build the metrics and maybe in the method writing to statsd, it can also call reset.",
+      "parentUuid": "0fcf7570_198211dd",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 16
+      },
+      "revId": "b1f0e31625f99809927a7e8de6bb16b1370c5b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "231974d8_346c1c76",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-04-13T01:27:37Z",
       "side": 1,
       "message": "Nit: style\n```\n/**\n *   xxxxxxxxxx\n */\n```",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 7
+      },
+      "revId": "b1f0e31625f99809927a7e8de6bb16b1370c5b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6364ecf8_4dbb4c1d",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-13T04:59:26Z",
+      "side": 1,
+      "message": "Acknowledged, added the top blank linke. It is not a javadoc so I think this is fine.",
+      "parentUuid": "231974d8_346c1c76",
       "range": {
         "startLine": 104,
         "startChar": 4,
