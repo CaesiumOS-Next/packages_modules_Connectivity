@@ -33,7 +33,10 @@
 namespace {
 constexpr int MAXPACKET = 8 * 1024;
 constexpr int PTON_MAX = 16;
-constexpr int TIMEOUT_MS = 10000;
+// TODO(b/277663385): Increased timeout until cuttlefish's mac80211_hwsim
+// support NL80211_FEATURE_LOW_PRIORITY_SCAN which is expected to reduce tx
+// latency during scan.
+constexpr int TIMEOUT_MS = 20000;
 
 int getAsyncResponse(int fd, int timeoutMs, int* rcode, uint8_t* buf, size_t bufLen) {
     struct pollfd wait_fd[1];
