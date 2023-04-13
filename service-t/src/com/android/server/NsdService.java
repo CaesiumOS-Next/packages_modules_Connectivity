@@ -56,10 +56,12 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
 import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.PermissionUtils;
+import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.mdns.ExecutorProvider;
 import com.android.server.connectivity.mdns.MdnsAdvertiser;
 import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
@@ -159,6 +161,7 @@ public class NsdService extends INsdManager.Stub {
     private final MdnsSocketProvider mMdnsSocketProvider;
     @NonNull
     private final MdnsAdvertiser mAdvertiser;
+    private final SharedLog mServiceLogs = new SharedLog(TAG);
     // WARNING : Accessing these values in any thread is not safe, it must only be changed in the
     // state machine thread. If change this outside state machine, it will need to introduce
     // synchronization.
@@ -179,6 +182,8 @@ public class NsdService extends INsdManager.Stub {
     private int mUniqueId = 1;
     // The count of the connected legacy clients.
     private int mLegacyClientCount = 0;
+    // The number of client that ever connected.
+    private int mClientNumberId = 1;
 
     private static class MdnsListener implements MdnsServiceBrowserListener {
         protected final int mClientId;
@@ -332,6 +337,7 @@ public class NsdService extends INsdManager.Stub {
             mMDnsManager.startDaemon();
             mIsDaemonStarted = true;
             maybeScheduleStop();
+            mServiceLogs.log("Start daemon");
         }
 
         private void maybeStopDaemon() {
@@ -342,6 +348,7 @@ public class NsdService extends INsdManager.Stub {
             mMDnsManager.unregisterEventListener(mMDnsEventCallback);
             mMDnsManager.stopDaemon();
             mIsDaemonStarted = false;
+            mServiceLogs.log("Stop daemon");
         }
 
         private boolean isAnyRequestActive() {
@@ -401,7 +408,8 @@ public class NsdService extends INsdManager.Stub {
                         final INsdManagerCallback cb = arg.callback;
                         try {
                             cb.asBinder().linkToDeath(arg.connector, 0);
-                            cInfo = new ClientInfo(cb, arg.useJavaBackend);
+                            cInfo = new ClientInfo(cb, arg.useJavaBackend,
+                                    mServiceLogs.forSubComponent("Client-" + mClientNumberId++));
                             mClients.put(arg.connector, cInfo);
                         } catch (RemoteException e) {
                             Log.w(TAG, "Client " + clientId + " has already died");
@@ -628,6 +636,8 @@ public class NsdService extends INsdManager.Stub {
                                     listenServiceType, listener, options);
                             storeDiscoveryManagerRequestMap(clientId, id, listener, clientInfo);
                             clientInfo.onDiscoverServicesStarted(clientId, info);
+                            clientInfo.log("Register a DiscoveryListener " + id
+                                    + " for service type:" + listenServiceType);
                         } else {
                             maybeStartDaemon();
                             if (discoverServices(id, info)) {
@@ -669,6 +679,7 @@ public class NsdService extends INsdManager.Stub {
                         if (request instanceof DiscoveryManagerRequest) {
                             stopDiscoveryManagerRequest(request, clientId, id, clientInfo);
                             clientInfo.onStopDiscoverySucceeded(clientId);
+                            clientInfo.log("Unregister the DiscoveryListener " + id);
                         } else {
                             removeRequestMap(clientId, id, clientInfo);
                             if (stopServiceDiscovery(id)) {
@@ -804,6 +815,8 @@ public class NsdService extends INsdManager.Stub {
                             mMdnsDiscoveryManager.registerListener(
                                     resolveServiceType, listener, options);
                             storeDiscoveryManagerRequestMap(clientId, id, listener, clientInfo);
+                            clientInfo.log("Register a ResolutionListener " + id
+                                    + " for service type:" + resolveServiceType);
                         } else {
                             if (clientInfo.mResolvedService != null) {
                                 clientInfo.onResolveServiceFailed(
@@ -846,6 +859,7 @@ public class NsdService extends INsdManager.Stub {
                         if (request instanceof DiscoveryManagerRequest) {
                             stopDiscoveryManagerRequest(request, clientId, id, clientInfo);
                             clientInfo.onStopResolutionSucceeded(clientId);
+                            clientInfo.log("Unregister the ResolutionListener " + id);
                         } else {
                             removeRequestMap(clientId, id, clientInfo);
                             if (stopResolveService(id)) {
@@ -891,6 +905,8 @@ public class NsdService extends INsdManager.Stub {
                         mMdnsDiscoveryManager.registerListener(
                                 resolveServiceType, listener, options);
                         storeDiscoveryManagerRequestMap(clientId, id, listener, clientInfo);
+                        clientInfo.log("Register a ServiceInfoListener " + id
+                                + " for service type:" + resolveServiceType);
                         break;
                     }
                     case NsdManager.UNREGISTER_SERVICE_CALLBACK: {
@@ -914,6 +930,7 @@ public class NsdService extends INsdManager.Stub {
                         if (request instanceof DiscoveryManagerRequest) {
                             stopDiscoveryManagerRequest(request, clientId, id, clientInfo);
                             clientInfo.onServiceInfoCallbackUnregistered(clientId);
+                            clientInfo.log("Unregister the ServiceInfoListener " + id);
                         } else {
                             loge("Unregister failed with non-DiscoveryManagerRequest.");
                         }
@@ -1757,15 +1774,39 @@ public class NsdService extends INsdManager.Stub {
     }
 
     @Override
-    public void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
-        if (!PermissionUtils.checkDumpPermission(mContext, TAG, pw)) return;
+    public void dump(FileDescriptor fd, PrintWriter writer, String[] args) {
+        if (!PermissionUtils.checkDumpPermission(mContext, TAG, writer)) return;
 
-        for (ClientInfo client : mClients.values()) {
-            pw.println("Client Info");
-            pw.println(client);
-        }
-
+        final IndentingPrintWriter pw = new IndentingPrintWriter(writer, "  ");
+        // Dump state machine logs
         mNsdStateMachine.dump(fd, pw, args);
+
+        // Dump service and clients logs
+        pw.println();
+        pw.increaseIndent();
+        mServiceLogs.reverseDump(pw);
+        pw.decreaseIndent();
+
+        // Dump advertiser related logs
+        pw.println();
+        pw.println("Advertiser:");
+        pw.increaseIndent();
+        mAdvertiser.dump(pw);
+        pw.decreaseIndent();
+
+        // Dump discoverymanager related logs
+        pw.println();
+        pw.println("DiscoveryManager:");
+        pw.increaseIndent();
+        mMdnsDiscoveryManager.dump(pw);
+        pw.decreaseIndent();
+
+        // Dump socketprovider related logs
+        pw.println();
+        pw.println("SocketProvider:");
+        pw.increaseIndent();
+        mMdnsSocketProvider.dump(pw);
+        pw.decreaseIndent();
     }
 
     private abstract static class ClientRequest {
@@ -1816,11 +1857,14 @@ public class NsdService extends INsdManager.Stub {
         private boolean mIsPreSClient = false;
         // The flag of using java backend if the client's target SDK >= U
         private final boolean mUseJavaBackend;
+        // Store client logs
+        private final SharedLog mClientLogs;
 
-        private ClientInfo(INsdManagerCallback cb, boolean useJavaBackend) {
+        private ClientInfo(INsdManagerCallback cb, boolean useJavaBackend, SharedLog sharedLog) {
             mCb = cb;
             mUseJavaBackend = useJavaBackend;
-            if (DBG) Log.d(TAG, "New client");
+            mClientLogs = sharedLog;
+            mClientLogs.log("New client. useJavaBackend=" + useJavaBackend);
         }
 
         @Override
@@ -1858,6 +1902,7 @@ public class NsdService extends INsdManager.Stub {
         // Remove any pending requests from the global map when we get rid of a client,
         // and send cancellations to the daemon.
         private void expungeAllRequests() {
+            mClientLogs.log("Client unregistered. expungeAllRequests!");
             // TODO: to keep handler responsive, do not clean all requests for that client at once.
             for (int i = 0; i < mClientRequests.size(); i++) {
                 final int clientId = mClientRequests.keyAt(i);
@@ -1910,6 +1955,10 @@ public class NsdService extends INsdManager.Stub {
                 }
             }
             return -1;
+        }
+
+        private void log(String message) {
+            mClientLogs.log(message);
         }
 
         void onDiscoverServicesStarted(int listenerKey, NsdServiceInfo info) {
