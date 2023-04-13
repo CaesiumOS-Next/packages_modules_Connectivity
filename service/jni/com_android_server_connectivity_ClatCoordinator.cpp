@@ -500,7 +500,7 @@ static void stopClatdProcess(int pid) {
     if (ret == 0) {
         ALOGE("Failed to SIGTERM clatd pid=%d, try SIGKILL", pid);
         // TODO: fix that kill failed or waitpid doesn't return.
-        kill(pid, SIGKILL);
+        if (kill(pid, SIGKILL)) ALOGE("failed to SIGKILL clatd pid=%d", pid);
         ret = waitpid(pid, &status, 0);
     }
     if (ret == -1) {
