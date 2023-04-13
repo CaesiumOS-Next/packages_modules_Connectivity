@@ -22,6 +22,30 @@
       },
       "revId": "fa7c3e53966e8ca8badddf4bbc2452fddfef8f10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce138c89_d9896e72",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-04-13T02:04:42Z",
+      "side": 1,
+      "message": "I would like to delete the comment first since already leave a TODO here.",
+      "parentUuid": "7d68294f_c3a07206",
+      "range": {
+        "startLine": 363,
+        "startChar": 8,
+        "endLine": 363,
+        "endChar": 55
+      },
+      "revId": "fa7c3e53966e8ca8badddf4bbc2452fddfef8f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
