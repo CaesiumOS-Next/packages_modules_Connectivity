@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cda58ee_69159b52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-13T08:17:54Z",
+      "side": 1,
+      "message": "exists in Linux 4.9\n\n/git/AND49Q ((f9b8314c6464...))$ git grep IFF_TUN_EXCL\ndrivers/net/tun.c:1761:         if (ifr-\u003eifr_flags \u0026 IFF_TUN_EXCL)\ninclude/uapi/linux/if_tun.h:67:#define IFF_TUN_EXCL     0x8000",
+      "revId": "9ae604a1994dc9a40d4339aebbf74009c54ef3d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
