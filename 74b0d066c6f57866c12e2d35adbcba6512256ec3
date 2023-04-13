@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd7a71ca_3993f2be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-13T06:06:06Z",
+      "side": 1,
+      "message": "It can also fail with ESRCH if the process has exited in the meantime. I\u0027m not sure if the code handles this case (it seems to call waitpid() unconditionally); should it?",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "74b0d066c6f57866c12e2d35adbcba6512256ec3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
