@@ -23,6 +23,7 @@ import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.assumeTrue;
 
 import android.app.Instrumentation;
 import android.content.BroadcastReceiver;
@@ -150,6 +151,9 @@ public final class PacProxyManagerTest {
     @AppModeFull(reason = "Instant apps can't bind sockets to localhost for a test proxy server")
     @Test
     public void testSetCurrentProxyScriptUrl() throws Exception {
+        // Devices without WebView/JavaScript cannot support PAC proxies
+        assumeTrue(mContext.getPackageManager().hasSystemFeature("android.software.webview"));
+
         // Register a PacProxyInstalledListener
         final TestPacProxyInstalledListener listener = new TestPacProxyInstalledListener();
         final Executor executor = (Runnable r) -> r.run();
