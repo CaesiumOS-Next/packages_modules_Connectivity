@@ -150,6 +150,9 @@ public final class PacProxyManagerTest {
     @AppModeFull(reason = "Instant apps can't bind sockets to localhost for a test proxy server")
     @Test
     public void testSetCurrentProxyScriptUrl() throws Exception {
+        if (!mContext.getPackageManager().hasSystemFeature("android.software.webview")) {
+            return;
+        }
         // Register a PacProxyInstalledListener
         final TestPacProxyInstalledListener listener = new TestPacProxyInstalledListener();
         final Executor executor = (Runnable r) -> r.run();
