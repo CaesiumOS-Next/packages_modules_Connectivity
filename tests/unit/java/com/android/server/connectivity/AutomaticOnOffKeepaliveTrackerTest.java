@@ -277,8 +277,8 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         @Override
         public void handleMessage(@NonNull final Message msg) {
             switch (msg.what) {
-                case NetworkAgent.CMD_START_SOCKET_KEEPALIVE:
-                    Log.d(TAG, "Test handler received CMD_START_SOCKET_KEEPALIVE : " + msg);
+                case NetworkAgent.CMD_REQUEST_START_KEEPALIVE:
+                    Log.d(TAG, "Test handler received CMD_REQUEST_START_KEEPALIVE : " + msg);
                     mAOOKeepaliveTracker.handleStartKeepalive(msg);
                     break;
                 case NetworkAgent.CMD_MONITOR_AUTOMATIC_KEEPALIVE:
