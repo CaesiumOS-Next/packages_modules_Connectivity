@@ -22,6 +22,30 @@
       },
       "revId": "74b0d066c6f57866c12e2d35adbcba6512256ec3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "355cf36c_265e3e7c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-13T06:48:59Z",
+      "side": 1,
+      "message": "https://linux.die.net/man/2/waitpid\n\nErrors\nECHILD\n(for wait()) The calling process does not have any unwaited-for children.\n\nECHILD\n\n(for waitpid() or waitid()) The process specified by pid (waitpid()) or idtype and id (waitid()) does not exist or is not a child of the calling process. (This can happen for one\u0027s own child if the action for SIGCHLD is set to SIG_IGN. See also the Linux Notes section about threads.)\n\n\nso if kill fails with ESRCH, waitpid() would at best fail with ECHILD.\n\nthat said, this should be the only spot that waits on the child, so it should work regardless\n\nbasically I think there\u0027s a zombie until waitpid on our child\u0027s pid gets called.",
+      "parentUuid": "dd7a71ca_3993f2be",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "74b0d066c6f57866c12e2d35adbcba6512256ec3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
