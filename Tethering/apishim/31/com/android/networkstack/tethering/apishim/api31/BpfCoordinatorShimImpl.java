@@ -202,7 +202,7 @@ public class BpfCoordinatorShimImpl
             @NonNull MacAddress outDstMac, int mtu) {
         if (!isInitialized()) return false;
 
-        final TetherUpstream6Key key = new TetherUpstream6Key(downstreamIfindex, inDstMac);
+        final TetherUpstream6Key key = new TetherUpstream6Key(downstreamIfindex, inDstMac, 0);
         final Tether6Value value = new Tether6Value(upstreamIfindex, outSrcMac,
                 outDstMac, OsConstants.ETH_P_IPV6, mtu);
         try {
@@ -219,7 +219,7 @@ public class BpfCoordinatorShimImpl
             @NonNull MacAddress inDstMac) {
         if (!isInitialized()) return false;
 
-        final TetherUpstream6Key key = new TetherUpstream6Key(downstreamIfindex, inDstMac);
+        final TetherUpstream6Key key = new TetherUpstream6Key(downstreamIfindex, inDstMac, 0);
         try {
             mBpfUpstream6Map.deleteEntry(key);
         } catch (ErrnoException e) {
