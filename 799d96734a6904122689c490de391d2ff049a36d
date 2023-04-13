@@ -87,6 +87,24 @@
       "parentUuid": "6585f440_1738d455",
       "revId": "799d96734a6904122689c490de391d2ff049a36d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3263bfcc_ca311e28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1944425
+      },
+      "writtenOn": "2023-04-13T15:31:48Z",
+      "side": 1,
+      "message": "I have checked with Rico. So there are ways to cherry pick the changes to support resource shrinking to tm-mainline-dev, but it will need lots of work. So then let\u0027s defer this change, until we switch to udc-mainine-prod. Does this sound good to you?",
+      "parentUuid": "4a5fafd1_8f1d30fd",
+      "revId": "799d96734a6904122689c490de391d2ff049a36d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
