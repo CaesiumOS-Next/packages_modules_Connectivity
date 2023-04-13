@@ -1293,12 +1293,12 @@ public class VpnTest extends VpnTestBase {
     }
 
     private void verifyVpnManagerEvent(String sessionKey, String category, int errorClass,
-            int errorCode, String[] packageName, VpnProfileState... profileState) {
+            int errorCode, String[] packageName, @NonNull VpnProfileState... profileState) {
         final Context userContext =
                 mContext.createContextAsUser(UserHandle.of(PRIMARY_USER.id), 0 /* flags */);
         final ArgumentCaptor<Intent> intentArgumentCaptor = ArgumentCaptor.forClass(Intent.class);
 
-        final int verifyTimes = (profileState == null) ? 1 : profileState.length;
+        final int verifyTimes = profileState.length;
         verify(userContext, times(verifyTimes)).startService(intentArgumentCaptor.capture());
 
         for (int i = 0; i < verifyTimes; i++) {
@@ -1329,10 +1329,8 @@ public class VpnTest extends VpnTestBase {
                         VpnManager.EXTRA_UNDERLYING_LINK_PROPERTIES));
             }
 
-            if (profileState != null) {
-                assertEquals(profileState[i], intent.getParcelableExtra(
-                        VpnManager.EXTRA_VPN_PROFILE_STATE, VpnProfileState.class));
-            }
+            assertEquals(profileState[i], intent.getParcelableExtra(
+                    VpnManager.EXTRA_VPN_PROFILE_STATE, VpnProfileState.class));
         }
         reset(userContext);
     }
@@ -1341,7 +1339,9 @@ public class VpnTest extends VpnTestBase {
         // CATEGORY_EVENT_DEACTIVATED_BY_USER is not an error event, so both of errorClass and
         // errorCode won't be set.
         verifyVpnManagerEvent(sessionKey, VpnManager.CATEGORY_EVENT_DEACTIVATED_BY_USER,
-                -1 /* errorClass */, -1 /* errorCode */, packageName, null /* profileState */);
+                -1 /* errorClass */, -1 /* errorCode */, packageName,
+                new VpnProfileState(VpnProfileState.STATE_CONNECTED,
+                        sessionKey, false /* alwaysOn */, false /* lockdown */));
     }
 
     private void verifyAlwaysOnStateChanged(String[] packageName, VpnProfileState... profileState) {
@@ -1365,6 +1365,7 @@ public class VpnTest extends VpnTestBase {
         // Test the case that the user deactivates the vpn in vpn app.
         final String sessionKey1 = vpn.startVpnProfile(TEST_VPN_PKG);
         verifyPlatformVpnIsActivated(TEST_VPN_PKG);
+        vpn.updateState(DetailedState.CONNECTED, TAG);
         vpn.stopVpnProfile(TEST_VPN_PKG);
         verifyPlatformVpnIsDeactivated(TEST_VPN_PKG);
         verifyPowerSaveTempWhitelistApp(TEST_VPN_PKG);
@@ -1375,6 +1376,7 @@ public class VpnTest extends VpnTestBase {
         // Test the case that the user chooses another vpn and the original one is replaced.
         final String sessionKey2 = vpn.startVpnProfile(TEST_VPN_PKG);
         verifyPlatformVpnIsActivated(TEST_VPN_PKG);
+        vpn.updateState(DetailedState.CONNECTED, TAG);
         vpn.prepare(TEST_VPN_PKG, "com.new.vpn" /* newPackage */, TYPE_VPN_PLATFORM);
         verifyPlatformVpnIsDeactivated(TEST_VPN_PKG);
         verifyPowerSaveTempWhitelistApp(TEST_VPN_PKG);
@@ -1561,6 +1563,7 @@ public class VpnTest extends VpnTestBase {
                 .getRedactedLinkPropertiesForPackage(any(), anyInt(), anyString());
 
         final String sessionKey = vpn.startVpnProfile(TEST_VPN_PKG);
+        vpn.updateState(DetailedState.CONNECTED, TAG);
         final NetworkCallback cb = triggerOnAvailableAndGetCallback();
 
         verifyInterfaceSetCfgWithFlags(IF_STATE_UP);
@@ -1586,7 +1589,8 @@ public class VpnTest extends VpnTestBase {
         verifyPowerSaveTempWhitelistApp(TEST_VPN_PKG);
         reset(mDeviceIdleInternal);
         verifyVpnManagerEvent(sessionKey, category, errorType, errorCode,
-                new String[] {TEST_VPN_PKG}, null /* profileState */);
+                new String[] {TEST_VPN_PKG}, new VpnProfileState(VpnProfileState.STATE_CONNECTED,
+                        sessionKey, false /* alwaysOn */, false /* lockdown */));
         if (errorType == VpnManager.ERROR_CLASS_NOT_RECOVERABLE) {
             verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS))
                     .unregisterNetworkCallback(eq(cb));
