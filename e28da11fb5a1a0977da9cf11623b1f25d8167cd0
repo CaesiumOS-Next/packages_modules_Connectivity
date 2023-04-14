@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d59e8a90_87b62f87",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-14T04:07:14Z",
+      "side": 1,
+      "message": "It looks like there\u0027s an API constant for this: PackageManager.FEATURE_WEBVIEW",
+      "range": {
+        "startLine": 155,
+        "startChar": 66,
+        "endLine": 155,
+        "endChar": 90
+      },
+      "revId": "e28da11fb5a1a0977da9cf11623b1f25d8167cd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
