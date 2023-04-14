@@ -16,6 +16,23 @@
       "message": "it seems to me like if we want to make the tests more legible, we need to do that in follow ups to keep all the other tests consistent too, since we\u0027d need to change function arguments, etc...",
       "revId": "ce7431f1fc767b17659c01ca1cee3248114baaec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2d7d1af_9f7d014c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-14T10:01:09Z",
+      "side": 1,
+      "message": "I think my only concern now is the readibility.\nBut for c++ is it better to have cken@ to review it as well?",
+      "revId": "ce7431f1fc767b17659c01ca1cee3248114baaec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
