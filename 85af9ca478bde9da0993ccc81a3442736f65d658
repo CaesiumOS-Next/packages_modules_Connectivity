@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f25227ca_ce64bd5d",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-14T04:28:43Z",
+      "side": 1,
+      "message": "I think it would be best to give information to apps so they have a way to handle this case (they wouldn\u0027t know what to do with \"this may be broken sometimes\"); e.g. telling them that the devices that don\u0027t support it are the ones that don\u0027t have PackageManager.FEATURE_WEBVIEW.",
+      "range": {
+        "startLine": 703,
+        "startChar": 47,
+        "endLine": 703,
+        "endChar": 48
+      },
+      "revId": "85af9ca478bde9da0993ccc81a3442736f65d658",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
