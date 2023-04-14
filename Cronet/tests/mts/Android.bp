@@ -36,6 +36,7 @@ java_genrule {
 
 android_library {
     name: "NetHttpTestsLibPreJarJar",
+    defaults: ["CronetTestJavaDefaults"],
     srcs: [":cronet_aml_javatests_sources"],
     sdk_version: "module_current",
     min_sdk_version: "30",
