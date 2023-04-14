@@ -28,6 +28,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager.MultipathPreference;
 import android.os.Binder;
 import android.os.Build;
@@ -696,16 +697,31 @@ public class ConnectivitySettingsManager {
     /**
      * Set global http proxy settings from given {@link ProxyInfo}.
      *
+     * <p class="note">
+     * While a {@link ProxyInfo} for a PAC proxy can be specified, not all devices support
+     * PAC proxies. In particular, smaller devices like watches often do not have the capabilities
+     * necessary to interpret the PAC file. In such cases, calling this API with a PAC proxy
+     * will throw UnsupportedOperationException.
+     * </p>
+     *
      * @param context The {@link Context} to set the setting.
      * @param proxyInfo The {@link ProxyInfo} for global http proxy settings which build from
      *                    {@link ProxyInfo#buildPacProxy(Uri)} or
      *                    {@link ProxyInfo#buildDirectProxy(String, int, List)}
+     * @throws UnsupportedOperationException if |proxyInfo| codes for a PAC proxy but the system
+     *                                       does not support PAC proxies.
      */
     public static void setGlobalProxy(@NonNull Context context, @NonNull ProxyInfo proxyInfo) {
         final String host = proxyInfo.getHost();
         final int port = proxyInfo.getPort();
         final String exclusionList = proxyInfo.getExclusionListAsString();
         final String pacFileUrl = proxyInfo.getPacFileUrl().toString();
+
+        if (!TextUtils.isEmpty(pacFileUrl)
+                && !context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WEBVIEW)) {
+            throw new UnsupportedOperationException("PAC files are not supported on devices"
+                    + " without webview support");
+        }
 
         if (TextUtils.isEmpty(pacFileUrl)) {
             Settings.Global.putString(context.getContentResolver(), GLOBAL_HTTP_PROXY_HOST, host);
