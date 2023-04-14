@@ -23,3 +23,6 @@ android\.net\.util\.KeepaliveUtils(\$.+)?
 
 # TODO (b/217115866): add jarjar rules for Nearby
 android\.nearby\..+
+
+# Don't touch anything that's already under android.net.http
+android\.net\.http\..+
