@@ -555,7 +555,7 @@ public class IpServer extends StateMachine {
             .setDhcpLeaseTimeSecs(DHCP_LEASE_TIME_SECS)
             .setDnsServers(dnsServer)
             .setServerAddr(serverAddr)
-            .setMetered(true)
+            .setMetered(false)
             .setSingleClientAddr(clientAddr)
             .setChangePrefixOnDecline(changePrefixOnDecline)
             .setLeasesSubnetPrefixLength(subnetPrefixLength);
