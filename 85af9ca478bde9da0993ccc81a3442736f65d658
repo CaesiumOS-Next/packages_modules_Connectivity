@@ -22,6 +22,30 @@
       },
       "revId": "85af9ca478bde9da0993ccc81a3442736f65d658",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e9fd80c_cf6f37ca",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-14T04:55:35Z",
+      "side": 1,
+      "message": "Updated to just throw in that case",
+      "parentUuid": "f25227ca_ce64bd5d",
+      "range": {
+        "startLine": 703,
+        "startChar": 47,
+        "endLine": 703,
+        "endChar": 48
+      },
+      "revId": "85af9ca478bde9da0993ccc81a3442736f65d658",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
