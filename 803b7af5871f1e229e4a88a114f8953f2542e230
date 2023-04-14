@@ -119,6 +119,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1186c99_f7ca2b66",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStatsTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-14T07:40:21Z",
+      "side": 1,
+      "message": "well... sort \u0026 group/accumulate is really all that it does.\n\nperhaps the most readable change we could make is reorder the arguments to expectStatsLineEqual\n\nexpectStatsLineEqual(value3, IFACE_NAME1, TEST_UID1, TEST_COUNTERSET0, TEST_TAG,     lines[2]);\n\nwould become:\n\nexpectStatsLineIs(lines[2], IFACE_NAME1, TEST_UID1, TEST_TAG, TEST_COUNTERSET0, value3);\n\nwhich is perhaps more natural... (line, keys in sort order, value)\n\nbut that would change the entire file all over the place,\nso should probably be a follow-up - if we even decide it is worth it?",
+      "parentUuid": "2de3e1fd_3bb1297d",
+      "range": {
+        "startLine": 457,
+        "startChar": 30,
+        "endLine": 457,
+        "endChar": 31
+      },
+      "revId": "803b7af5871f1e229e4a88a114f8953f2542e230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aeaf9815_6ea771df",
         "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStatsTest.cpp",
         "patchSetId": 6
@@ -130,6 +154,30 @@
       "writtenOn": "2023-04-14T02:48:18Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 529,
+        "startChar": 25,
+        "endLine": 529,
+        "endChar": 31
+      },
+      "revId": "803b7af5871f1e229e4a88a114f8953f2542e230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6c7ca93_0959973f",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStatsTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-14T07:40:21Z",
+      "side": 1,
+      "message": "would a operator*(StatsValue, int) and operator+(StatsValue, StatsValuie) help?",
+      "parentUuid": "aeaf9815_6ea771df",
       "range": {
         "startLine": 529,
         "startChar": 25,
