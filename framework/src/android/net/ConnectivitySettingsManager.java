@@ -696,6 +696,13 @@ public class ConnectivitySettingsManager {
     /**
      * Set global http proxy settings from given {@link ProxyInfo}.
      *
+     * <p class="note">
+     * While a {@link ProxyInfo} for a PAC proxy can be specified, not all devices support
+     * PAC proxies. In particular, smaller devices like watches often do not have the capabilities
+     * necessary to interpret the PAC file. In such cases, calling this API with a PAC proxy
+     * may point apps to a non-functional proxy.
+     * </p>
+     *
      * @param context The {@link Context} to set the setting.
      * @param proxyInfo The {@link ProxyInfo} for global http proxy settings which build from
      *                    {@link ProxyInfo#buildPacProxy(Uri)} or
