@@ -22,6 +22,30 @@
       },
       "revId": "5864b59462ee43225a8ce2302f7711e90f171bcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3878b08_bda52eb2",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-14T07:26:06Z",
+      "side": 0,
+      "message": "IMHO, it\u0027s needless, just makes the code longer, and actually harder to read (just because of larger number of characters to parse).  In practice resize() of course already does (effectively) exactly this check internally anyway.",
+      "parentUuid": "bc6edaea_f9298696",
+      "range": {
+        "startLine": 251,
+        "startChar": 4,
+        "endLine": 251,
+        "endChar": 42
+      },
+      "revId": "5864b59462ee43225a8ce2302f7711e90f171bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
