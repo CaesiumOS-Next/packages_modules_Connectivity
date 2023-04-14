@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bd7f8c5f_b17a3dbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-14T07:45:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fe703cb_d2dd9d5f",
+      "range": {
+        "startLine": 12,
+        "startChar": 20,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "97cbc37ca6226c85aa3a23c861f476142b560e50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "96989e44_ef3be26b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2023-04-14T03:45:21Z",
       "side": 1,
       "message": "If this is used only between AutomatiOnOffKeepaliveTracker and ConnectivityService, why is it defined in NetworkAgent ?",
+      "range": {
+        "startLine": 464,
+        "startChar": 28,
+        "endLine": 464,
+        "endChar": 55
+      },
+      "revId": "97cbc37ca6226c85aa3a23c861f476142b560e50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfe902ed_bf6fa09f",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-14T07:45:33Z",
+      "side": 1,
+      "message": "Add the event to AutomatiOnOffKeepaliveTracker",
+      "parentUuid": "ab6925d7_97163e71",
       "range": {
         "startLine": 464,
         "startChar": 28,
