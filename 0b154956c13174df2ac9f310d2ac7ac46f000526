@@ -39,6 +39,30 @@
       },
       "revId": "0b154956c13174df2ac9f310d2ac7ac46f000526",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a93cad22_fd8a73dc",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1059936
+      },
+      "writtenOn": "2023-04-14T03:54:53Z",
+      "side": 1,
+      "message": "In that case, I think assumeTrue is the correct function to use here, without the inverted boolean.\n\nDone.",
+      "parentUuid": "02fe6285_cf0ef7a4",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 154,
+        "endChar": 18
+      },
+      "revId": "0b154956c13174df2ac9f310d2ac7ac46f000526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
