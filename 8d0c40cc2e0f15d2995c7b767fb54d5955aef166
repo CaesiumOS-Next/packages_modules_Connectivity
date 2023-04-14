@@ -3,6 +3,144 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08802331_4ef4d27e",
+        "filename": "framework/src/android/net/LinkAddress.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-14T04:38:13Z",
+      "side": 1,
+      "message": "ISTM this description doesn\u0027t match the method name.",
+      "range": {
+        "startLine": 496,
+        "startChar": 7,
+        "endLine": 496,
+        "endChar": 47
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf435199_f5e2a6d4",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-14T04:38:13Z",
+      "side": 1,
+      "message": "Do we really need to start NetLinkMonitor on boot? If the module is installed on the T platform, the NetLinkMonitor will keep tracking address updates even if the new backend is never used. Can we start NetLinkMonitor when it calls startMonitoringSockets()?",
+      "range": {
+        "startLine": 1335,
+        "startChar": 8,
+        "endLine": 1335,
+        "endChar": 63
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66fbfb47_d199b493",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-14T04:38:13Z",
+      "side": 1,
+      "message": "Nit: This method seem to be very similar to getNetworkInterfaceByName(), only get the index from NetworkInterface. How about add getIndex() to NetworkInterfaceWrapper? You can mock the interface index for NetworkInterfaceWrapper as well.",
+      "range": {
+        "startLine": 160,
+        "startChar": 19,
+        "endLine": 160,
+        "endChar": 49
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a028921f_79962121",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-14T04:38:13Z",
+      "side": 1,
+      "message": "Nit: This always returns true now, can we remove this redundant check? or it can return false in the future?",
+      "range": {
+        "startLine": 280,
+        "startChar": 12,
+        "endLine": 280,
+        "endChar": 47
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97e30a1d_c8d74c50",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-14T04:38:13Z",
+      "side": 1,
+      "message": "Nit: Suggest put this comment to l.300 or l.307 because the stop will be processed only if the request is empty below.",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 72
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "975620ea_7e22cafd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-14T04:38:13Z",
+      "side": 1,
+      "message": "IIUC this can simplify to \n```\nfinal LinkProperties linkProperties \u003d\n        new LinkProperties(mIfaceIdxToLinkProperties.get(ifaceIndex)); \nlinkProperties.setInterfaceName(interfaceName);\n```",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 394,
+        "endChar": 51
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61d388f6_7c2dc762",
         "filename": "service-t/src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",
         "patchSetId": 10
@@ -38,6 +176,52 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "61d388f6_7c2dc762",
+      "range": {
+        "startLine": 44,
+        "startChar": 10,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cffccfb9_1cc9c89b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-14T04:38:13Z",
+      "side": 1,
+      "message": "Does this need to be public?",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 10
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21af1de4_29c63d21",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-14T04:38:13Z",
+      "side": 1,
+      "message": "final",
       "range": {
         "startLine": 44,
         "startChar": 10,
@@ -97,6 +281,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "800c8e9c_5e8b5937",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-14T04:38:13Z",
+      "side": 1,
+      "message": "The constructor marks this argument as @NonNull.",
+      "range": {
+        "startLine": 146,
+        "startChar": 89,
+        "endLine": 146,
+        "endChar": 93
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac3bac48_04ae2b9e",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
         "patchSetId": 10
@@ -126,6 +333,29 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "ac3bac48_04ae2b9e",
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f803c2a0_4b87b459",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-14T04:38:13Z",
+      "side": 1,
+      "message": "I\u0027m not a big fan for this. I think you can just use the NetLinkMonitorCallBack for testing directly. And create SocketNetlinkMonitorTest to verify the SocketNetlinkMonitor#processRtNetlinkAddressMessage().",
+      "range": {
+        "startLine": 153,
+        "startChar": 7,
+        "endLine": 153,
+        "endChar": 82
+      },
       "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
