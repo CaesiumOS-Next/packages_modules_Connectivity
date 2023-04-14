@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b3b67b5_c85db23c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-14T03:32:11Z",
+      "side": 1,
+      "message": "LGTM when comment is addressed",
+      "revId": "0b154956c13174df2ac9f310d2ac7ac46f000526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02fe6285_cf0ef7a4",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-14T03:32:11Z",
+      "side": 1,
+      "message": "We should use `org.junit.assumeFalse()` instead – this will report the test as skipped instead of succeeded, which is more accurate.\n\nInterestingly I find that the captive portal test are skipped on watches in a different way https://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/cts/net/src/android/net/cts/CaptivePortalTest.kt;l\u003d143?q\u003dcaptiveportaltest.kt\n\n...but I think the way you\u0027re testing here is superior to what we have there.",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 154,
+        "endChar": 18
+      },
+      "revId": "0b154956c13174df2ac9f310d2ac7ac46f000526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
