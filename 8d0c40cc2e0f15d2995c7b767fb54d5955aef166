@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d388f6_7c2dc762",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-14T04:02:50Z",
+      "side": 1,
+      "message": "Nit: final\n\nSee comment in the test on how to make this private final",
+      "range": {
+        "startLine": 44,
+        "startChar": 10,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "544fc1e0_0cc3a7dc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-14T04:02:50Z",
+      "side": 1,
+      "message": "Could you avoid this by using processNetlinkMessage ? It\u0027s best to avoid VisibleForTesting when possible (it basically means \"I\u0027d make this private if I could but...\")",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 22
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac3bac48_04ae2b9e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-14T04:02:50Z",
+      "side": 1,
+      "message": "I think you can avoid using setNetLinkMonitorCallBack and make mCb private final by doing:\n\n    doAnswer(inv -\u003e \n        new TestNetlinkMonitor(inv.getArgument(0), inv.getArgument(1), inv.getArgument(2))\n        .when(mDeps).createSocketNetlinkMonitor(any(), any(), any());",
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
