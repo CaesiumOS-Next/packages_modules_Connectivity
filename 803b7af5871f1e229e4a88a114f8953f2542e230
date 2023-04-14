@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc93c5ba_eb324dd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-14T02:48:18Z",
+      "side": 1,
+      "message": "Just to double confirm: Is it a no-op refactoring that move this duplication code from bpf to libnetworkstats?",
+      "revId": "803b7af5871f1e229e4a88a114f8953f2542e230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc819939_c45379f1",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-14T02:48:18Z",
+      "side": 1,
+      "message": "Maybe put some comments to give some context here? (Maybe also in the commit message?)",
+      "revId": "803b7af5871f1e229e4a88a114f8953f2542e230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e3ce3cb_c968c3f3",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStatsTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-14T02:48:18Z",
+      "side": 1,
+      "message": "By reading l.458~l.466, I don\u0027t really follow whether it is correct.\nIs it better to name these variables in more readible way?\ne.g. value2plus3, valueDouble1Plus2?\nOr add more comment about what we are asserting?\n\nAlso for other similar variable names.",
+      "range": {
+        "startLine": 418,
+        "startChar": 20,
+        "endLine": 418,
+        "endChar": 21
+      },
+      "revId": "803b7af5871f1e229e4a88a114f8953f2542e230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2de3e1fd_3bb1297d",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStatsTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-14T02:48:18Z",
+      "side": 1,
+      "message": "Is it better if we explain more about the expected behavior here?",
+      "range": {
+        "startLine": 457,
+        "startChar": 30,
+        "endLine": 457,
+        "endChar": 31
+      },
+      "revId": "803b7af5871f1e229e4a88a114f8953f2542e230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeaf9815_6ea771df",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStatsTest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-14T02:48:18Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 529,
+        "startChar": 25,
+        "endLine": 529,
+        "endChar": 31
+      },
+      "revId": "803b7af5871f1e229e4a88a114f8953f2542e230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
