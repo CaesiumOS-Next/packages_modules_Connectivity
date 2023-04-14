@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d070191_9c550ef3",
+        "filename": "framework/jarjar-excludes.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-04-14T10:43:52Z",
+      "side": 1,
+      "message": "Without this, atest CtsNetHttpTestCase failed\n```\nSTACKTRACE:\njava.lang.IllegalAccessError: Method \u0027void android.net.http.UrlRequest$Builder.\u003cinit\u003e()\u0027 is inaccessible to class \u0027android.net.connectivity.android.net.http.ExperimentalUrlRequest$Builder\u0027 (declaration of \u0027android.net.connectivity.android.net.http.ExperimentalUrlRequest$Builder\u0027 appears in /apex/com.android.tethering/javalib/framework-connectivity.jar)\n\tat android.net.connectivity.android.net.http.ExperimentalUrlRequest$Builder.\u003cinit\u003e(ExperimentalUrlRequest.java:35)\n\tat android.net.connectivity.org.chromium.net.impl.UrlRequestBuilderImpl.\u003cinit\u003e(UrlRequestBuilderImpl.java:89)\n\tat android.net.connectivity.org.chromium.net.impl.CronetEngineBase.newUrlRequestBuilder(CronetEngineBase.java:114)\n\tat android.net.connectivity.org.chromium.net.impl.CronetEngineBase.newUrlRequestBuilder(CronetEngineBase.java:28)\n\tat android.net.http.cts.UrlResponseInfoTest.testUrlResponseInfo_apisReturnCorrectInfo(UrlResponseInfoTest.kt:43)\n```",
+      "revId": "0e1c7c4e23df17398897da4b8607c687eb2ef69a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
