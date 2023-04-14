@@ -30,7 +30,6 @@ cronet_java_prejarjar_defaults = "CronetJavaPrejarjarDefaultsEnabled"
 java_sdk_library {
     name: "framework-tethering",
     defaults: [
-        "CronetJavaDefaults",
         "framework-tethering-defaults",
     ],
     impl_library_visibility: [
@@ -111,7 +110,6 @@ java_library {
   name: "framework-tethering-pre-jarjar",
   defaults: [
     "framework-tethering-defaults",
-    "CronetJavaPrejarjarDefaults",
   ],
 }
 
