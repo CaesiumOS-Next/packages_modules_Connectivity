@@ -22,6 +22,30 @@
       },
       "revId": "9aa09447a790b35fc85d71efb4437907f5516a9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1cf2bd9_799f8ebb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 7671,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-04-14T09:29:45Z",
+      "side": 1,
+      "message": "Done but not in setDeclaredCapabilities since that still runs on handler thread.",
+      "parentUuid": "c7c75d5a_cb3fb149",
+      "range": {
+        "startLine": 7671,
+        "startChar": 17,
+        "endLine": 7671,
+        "endChar": 43
+      },
+      "revId": "9aa09447a790b35fc85d71efb4437907f5516a9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
