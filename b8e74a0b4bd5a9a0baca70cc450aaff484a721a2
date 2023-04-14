@@ -63,6 +63,30 @@
       },
       "revId": "b8e74a0b4bd5a9a0baca70cc450aaff484a721a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f9cb481_d8c18f88",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1273,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-14T07:36:24Z",
+      "side": 1,
+      "message": "Done. This was because createVpn used to cause the ownerUID to be the UID from PRIMARY_USER(\u003d27), but establish() is checking the ownerUID against Binder.getCallerUid() and failed, so this test was in effect unvalidated.\n\nThere are two ways to deal with this. One is to mock Binder.getCallerUid() (by moving it to the dependencies), which would be a relatively large unrelated change in this patch which already contains a lot of retooling. The other, which I adopted, is to simply create the VPN with user 0 instead just for this test.",
+      "parentUuid": "91a2b41a_4e2a91c2",
+      "range": {
+        "startLine": 1273,
+        "startChar": 34,
+        "endLine": 1273,
+        "endChar": 47
+      },
+      "revId": "b8e74a0b4bd5a9a0baca70cc450aaff484a721a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
