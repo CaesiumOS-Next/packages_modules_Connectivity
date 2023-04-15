@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e0aa1cf_5296878d",
+        "filename": "framework/src/android/net/LinkAddress.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-15T13:14:12Z",
+      "side": 1,
+      "message": "Updated the comment.",
+      "parentUuid": "08802331_4ef4d27e",
+      "range": {
+        "startLine": 496,
+        "startChar": 7,
+        "endLine": 496,
+        "endChar": 47
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf435199_f5e2a6d4",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-14T04:38:13Z",
       "side": 1,
       "message": "Do we really need to start NetLinkMonitor on boot? If the module is installed on the T platform, the NetLinkMonitor will keep tracking address updates even if the new backend is never used. Can we start NetLinkMonitor when it calls startMonitoringSockets()?",
+      "range": {
+        "startLine": 1335,
+        "startChar": 8,
+        "endLine": 1335,
+        "endChar": 63
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42077bf4_c13ea91e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-15T13:14:12Z",
+      "side": 1,
+      "message": "Thanks. We do need to start the netlink monitor when the service start. If we call this inside startMonitoringSockets(), we will miss the netlink events happened before because the startMonitoringSockets() will be called if some app actually call NsdService. However, the tethering interface can went up anytime.",
+      "parentUuid": "bf435199_f5e2a6d4",
       "range": {
         "startLine": 1335,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad732455_78688112",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-15T13:14:12Z",
+      "side": 1,
+      "message": "Thanks, I understand there is a duplicate the code. However, I think it will be better to leave the code as it. Because if we refactor the code to only use getNetworkInterfaceByName(), we still need to handle the null/exception on the caller side. Overall the code complexity is not changed.",
+      "parentUuid": "66fbfb47_d199b493",
+      "range": {
+        "startLine": 160,
+        "startChar": 19,
+        "endLine": 160,
+        "endChar": 49
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a028921f_79962121",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-04-14T04:38:13Z",
       "side": 1,
       "message": "Nit: This always returns true now, can we remove this redundant check? or it can return false in the future?",
+      "range": {
+        "startLine": 280,
+        "startChar": 12,
+        "endLine": 280,
+        "endChar": 47
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12ac04b7_64bfabfc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-15T13:14:12Z",
+      "side": 1,
+      "message": "This check is required as in the GMSCore side, they need to create another implementation with isSupported() \u003d false;",
+      "parentUuid": "a028921f_79962121",
       "range": {
         "startLine": 280,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8117cfb5_842bfed2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-15T13:14:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97e30a1d_c8d74c50",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 72
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "975620ea_7e22cafd",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-04-14T04:38:13Z",
       "side": 1,
       "message": "IIUC this can simplify to \n```\nfinal LinkProperties linkProperties \u003d\n        new LinkProperties(mIfaceIdxToLinkProperties.get(ifaceIndex)); \nlinkProperties.setInterfaceName(interfaceName);\n```",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 394,
+        "endChar": 51
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d61dffb4_815e033d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-15T13:14:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "975620ea_7e22cafd",
       "range": {
         "startLine": 381,
         "startChar": 8,
@@ -232,6 +376,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d523e284_7d416e07",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-15T13:14:12Z",
+      "side": 1,
+      "message": "Acknowledged. Not applicable anymore due to recent refractory.",
+      "parentUuid": "cffccfb9_1cc9c89b",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 10
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2afea955_a96df44d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-15T13:14:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21af1de4_29c63d21",
+      "range": {
+        "startLine": 44,
+        "startChar": 10,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "544fc1e0_0cc3a7dc",
@@ -302,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76cc5181_be551499",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-15T13:14:12Z",
+      "side": 1,
+      "message": "Acknowledged. Not applicable anymore due to recent refractory.",
+      "parentUuid": "800c8e9c_5e8b5937",
+      "range": {
+        "startLine": 146,
+        "startChar": 89,
+        "endLine": 146,
+        "endChar": 93
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac3bac48_04ae2b9e",
@@ -350,6 +566,30 @@
       "writtenOn": "2023-04-14T04:38:13Z",
       "side": 1,
       "message": "I\u0027m not a big fan for this. I think you can just use the NetLinkMonitorCallBack for testing directly. And create SocketNetlinkMonitorTest to verify the SocketNetlinkMonitor#processRtNetlinkAddressMessage().",
+      "range": {
+        "startLine": 153,
+        "startChar": 7,
+        "endLine": 153,
+        "endChar": 82
+      },
+      "revId": "8d0c40cc2e0f15d2995c7b767fb54d5955aef166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e73a0db_2910526b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-15T13:14:12Z",
+      "side": 1,
+      "message": "Acknowledged. Not applicable anymore due to recent refractory.",
+      "parentUuid": "f803c2a0_4b87b459",
       "range": {
         "startLine": 153,
         "startChar": 7,
