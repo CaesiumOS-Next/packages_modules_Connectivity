@@ -699,7 +699,6 @@ public final class NetworkCapabilities implements Parcelable {
      * them, the {@link NetworkCallback} instance must be created with the
      * {@link NetworkCallback#FLAG_INCLUDE_LOCAL_NETWORKS} flag.
      * </p>
-     * @hide
      */
     public static final int NET_CAPABILITY_LOCAL_NETWORK = 36;
 

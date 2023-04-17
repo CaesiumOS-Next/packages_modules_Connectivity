@@ -3868,7 +3868,6 @@ public class ConnectivityManager {
          * To see only local agents, also include
          * {@link NetworkCapabilities#NET_CAPABILITY_LOCAL_NETWORK} in the {@link NetworkRequest}.
          * </p>
-         * @hide
          */
         public static final int FLAG_INCLUDE_LOCAL_NETWORKS = 1 << 1;
 
