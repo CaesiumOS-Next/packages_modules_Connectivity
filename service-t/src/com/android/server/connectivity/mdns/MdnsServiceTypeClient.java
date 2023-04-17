@@ -279,16 +279,16 @@ public class MdnsServiceTypeClient {
         for (int i = 0; i < listeners.size(); i++) {
             final MdnsServiceBrowserListener listener = listeners.keyAt(i);
             if (newServiceFound) {
-                sharedLog.log("onServiceNameDiscovered: " + serviceInstanceName);
+                sharedLog.log("onServiceNameDiscovered: " + serviceInfo);
                 listener.onServiceNameDiscovered(serviceInfo);
             }
 
             if (response.isComplete()) {
                 if (newServiceFound || serviceBecomesComplete) {
-                    sharedLog.log("onServiceFound: " + serviceInstanceName);
+                    sharedLog.log("onServiceFound: " + serviceInfo);
                     listener.onServiceFound(serviceInfo);
                 } else {
-                    sharedLog.log("onServiceUpdated: " + serviceInstanceName);
+                    sharedLog.log("onServiceUpdated: " + serviceInfo);
                     listener.onServiceUpdated(serviceInfo);
                 }
             }
@@ -305,10 +305,10 @@ public class MdnsServiceTypeClient {
             final MdnsServiceInfo serviceInfo =
                     buildMdnsServiceInfoFromResponse(response, serviceTypeLabels);
             if (response.isComplete()) {
-                sharedLog.log("onServiceRemoved: " + serviceInstanceName);
+                sharedLog.log("onServiceRemoved: " + serviceInfo);
                 listener.onServiceRemoved(serviceInfo);
             }
-            sharedLog.log("onServiceNameRemoved: " + serviceInstanceName);
+            sharedLog.log("onServiceNameRemoved: " + serviceInfo);
             listener.onServiceNameRemoved(serviceInfo);
         }
     }
@@ -521,19 +521,17 @@ public class MdnsServiceTypeClient {
                             iter.remove();
                             for (int i = 0; i < listeners.size(); i++) {
                                 final MdnsServiceBrowserListener listener = listeners.keyAt(i);
-                                String serviceInstanceName =
-                                        existingResponse.getServiceInstanceName();
-                                if (serviceInstanceName != null) {
+                                if (existingResponse.getServiceInstanceName() != null) {
                                     final MdnsServiceInfo serviceInfo =
                                             buildMdnsServiceInfoFromResponse(
                                                     existingResponse, serviceTypeLabels);
                                     if (existingResponse.isComplete()) {
                                         sharedLog.log("TTL expired. onServiceRemoved: "
-                                                + serviceInstanceName);
+                                                + serviceInfo);
                                         listener.onServiceRemoved(serviceInfo);
                                     }
                                     sharedLog.log("TTL expired. onServiceNameRemoved: "
-                                            + serviceInstanceName);
+                                            + serviceInfo);
                                     listener.onServiceNameRemoved(serviceInfo);
                                 }
                             }
