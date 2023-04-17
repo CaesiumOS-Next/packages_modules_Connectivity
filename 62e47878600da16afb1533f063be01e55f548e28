@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32525f71_41573079",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-17T21:16:07Z",
+      "side": 1,
+      "message": "packages/modules/Connectivity/framework/jni/android_net_NetworkUtils.cpp:26:10: fatal error: \u0027bpf/BpfClassic.h\u0027 file not found\n#include \u003cbpf/BpfClassic.h\u003e",
+      "revId": "62e47878600da16afb1533f063be01e55f548e28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
