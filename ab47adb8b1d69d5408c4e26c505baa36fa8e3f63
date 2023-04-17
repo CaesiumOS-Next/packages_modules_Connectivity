@@ -33,6 +33,24 @@
       "message": "As discussed offline, can you change the api_dir in there to be the default for the enabled config, and cronet_disabled for the disabled config ?\n\nConsidering that Connectivity/framework/api/ in all branches should contain cronet ~next month, this would allow only removing the added cronet_disabled directory at that time, without touching Connectivity/framework/api/.",
       "revId": "ab47adb8b1d69d5408c4e26c505baa36fa8e3f63",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a97bfec7_50e2578d",
+        "filename": "framework/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-04-17T08:24:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f14b6346_add072a3",
+      "revId": "ab47adb8b1d69d5408c4e26c505baa36fa8e3f63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
