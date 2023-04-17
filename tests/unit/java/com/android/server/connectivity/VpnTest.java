@@ -1293,12 +1293,12 @@ public class VpnTest extends VpnTestBase {
     }
 
     private void verifyVpnManagerEvent(String sessionKey, String category, int errorClass,
-            int errorCode, String[] packageName, @NonNull VpnProfileState... profileState) {
+            int errorCode, String[] packageName, VpnProfileState... profileState) {
         final Context userContext =
                 mContext.createContextAsUser(UserHandle.of(PRIMARY_USER.id), 0 /* flags */);
         final ArgumentCaptor<Intent> intentArgumentCaptor = ArgumentCaptor.forClass(Intent.class);
 
-        final int verifyTimes = profileState.length;
+        final int verifyTimes = (profileState == null) ? 1 : profileState.length;
         verify(userContext, times(verifyTimes)).startService(intentArgumentCaptor.capture());
 
         for (int i = 0; i < verifyTimes; i++) {
@@ -1329,8 +1329,10 @@ public class VpnTest extends VpnTestBase {
                         VpnManager.EXTRA_UNDERLYING_LINK_PROPERTIES));
             }
 
-            assertEquals(profileState[i], intent.getParcelableExtra(
-                    VpnManager.EXTRA_VPN_PROFILE_STATE, VpnProfileState.class));
+            if (profileState != null) {
+                assertEquals(profileState[i], intent.getParcelableExtra(
+                        VpnManager.EXTRA_VPN_PROFILE_STATE, VpnProfileState.class));
+            }
         }
         reset(userContext);
     }
@@ -1339,11 +1341,7 @@ public class VpnTest extends VpnTestBase {
         // CATEGORY_EVENT_DEACTIVATED_BY_USER is not an error event, so both of errorClass and
         // errorCode won't be set.
         verifyVpnManagerEvent(sessionKey, VpnManager.CATEGORY_EVENT_DEACTIVATED_BY_USER,
-                -1 /* errorClass */, -1 /* errorCode */, packageName,
-                // VPN NetworkAgnet does not switch to CONNECTED in the test, and the state is not
-                // important here. Verify that the state as it is, i.e. CONNECTING state.
-                new VpnProfileState(VpnProfileState.STATE_CONNECTING,
-                        sessionKey, false /* alwaysOn */, false /* lockdown */));
+                -1 /* errorClass */, -1 /* errorCode */, packageName, null /* profileState */);
     }
 
     private void verifyAlwaysOnStateChanged(String[] packageName, VpnProfileState... profileState) {
@@ -1588,10 +1586,7 @@ public class VpnTest extends VpnTestBase {
         verifyPowerSaveTempWhitelistApp(TEST_VPN_PKG);
         reset(mDeviceIdleInternal);
         verifyVpnManagerEvent(sessionKey, category, errorType, errorCode,
-                // VPN NetworkAgnet does not switch to CONNECTED in the test, and the state is not
-                // important here. Verify that the state as it is, i.e. CONNECTING state.
-                new String[] {TEST_VPN_PKG}, new VpnProfileState(VpnProfileState.STATE_CONNECTING,
-                        sessionKey, false /* alwaysOn */, false /* lockdown */));
+                new String[] {TEST_VPN_PKG}, null /* profileState */);
         if (errorType == VpnManager.ERROR_CLASS_NOT_RECOVERABLE) {
             verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS))
                     .unregisterNetworkCallback(eq(cb));
