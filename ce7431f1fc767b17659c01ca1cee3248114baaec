@@ -90,6 +90,30 @@
       },
       "revId": "ce7431f1fc767b17659c01ca1cee3248114baaec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9098cd9b_33636530",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-17T19:30:11Z",
+      "side": 1,
+      "message": "https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2541491",
+      "parentUuid": "ddcfbedd_4cb990e0",
+      "range": {
+        "startLine": 248,
+        "startChar": 17,
+        "endLine": 248,
+        "endChar": 22
+      },
+      "revId": "ce7431f1fc767b17659c01ca1cee3248114baaec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
