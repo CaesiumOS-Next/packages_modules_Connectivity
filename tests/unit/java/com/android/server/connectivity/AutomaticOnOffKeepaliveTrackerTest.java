@@ -47,6 +47,7 @@ import android.net.LinkProperties;
 import android.net.MarkMaskParcel;
 import android.net.NattKeepalivePacketData;
 import android.net.Network;
+import android.net.NetworkAgent;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Binder;
@@ -267,11 +268,11 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         @Override
         public void handleMessage(@NonNull final Message msg) {
             switch (msg.what) {
-                case AutomaticOnOffKeepaliveTracker.CMD_REQUEST_START_KEEPALIVE:
-                    Log.d(TAG, "Test handler received CMD_REQUEST_START_KEEPALIVE : " + msg);
+                case NetworkAgent.CMD_START_SOCKET_KEEPALIVE:
+                    Log.d(TAG, "Test handler received CMD_START_SOCKET_KEEPALIVE : " + msg);
                     mAOOKeepaliveTracker.handleStartKeepalive(msg);
                     break;
-                case AutomaticOnOffKeepaliveTracker.CMD_MONITOR_AUTOMATIC_KEEPALIVE:
+                case NetworkAgent.CMD_MONITOR_AUTOMATIC_KEEPALIVE:
                     Log.d(TAG, "Test handler received CMD_MONITOR_AUTOMATIC_KEEPALIVE : " + msg);
                     mLastAutoKi = mAOOKeepaliveTracker.getKeepaliveForBinder((IBinder) msg.obj);
                     break;
