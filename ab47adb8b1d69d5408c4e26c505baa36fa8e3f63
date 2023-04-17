@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8602a653_ef8cee81",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T08:17:54Z",
+      "side": 1,
+      "message": "Note this will conflict with aosp/2535699",
+      "revId": "ab47adb8b1d69d5408c4e26c505baa36fa8e3f63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f14b6346_add072a3",
+        "filename": "framework/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T08:17:54Z",
+      "side": 1,
+      "message": "As discussed offline, can you change the api_dir in there to be the default for the enabled config, and cronet_disabled for the disabled config ?\n\nConsidering that Connectivity/framework/api/ in all branches should contain cronet ~next month, this would allow only removing the added cronet_disabled directory at that time, without touching Connectivity/framework/api/.",
+      "revId": "ab47adb8b1d69d5408c4e26c505baa36fa8e3f63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
