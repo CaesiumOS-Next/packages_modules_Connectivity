@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d598d528_f3c8f3cd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T03:23:42Z",
+      "side": 1,
+      "message": "Can this be removed ? All usages should probably go to the SharedLog.\n\nThis would touch a lot of stuff so can be done in another change.",
+      "range": {
+        "startLine": 181,
+        "startChar": 51,
+        "endLine": 181,
+        "endChar": 57
+      },
+      "revId": "4e8e36e958d64df6b90d340593200dae743ec17c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
