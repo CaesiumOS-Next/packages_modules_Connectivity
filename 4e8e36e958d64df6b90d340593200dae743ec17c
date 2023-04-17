@@ -22,6 +22,30 @@
       },
       "revId": "4e8e36e958d64df6b90d340593200dae743ec17c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3546591_63bfa27e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T07:56:58Z",
+      "side": 1,
+      "message": "Acknowledged. Will remove this tag in a followup change.",
+      "parentUuid": "d598d528_f3c8f3cd",
+      "range": {
+        "startLine": 181,
+        "startChar": 51,
+        "endLine": 181,
+        "endChar": 57
+      },
+      "revId": "4e8e36e958d64df6b90d340593200dae743ec17c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
