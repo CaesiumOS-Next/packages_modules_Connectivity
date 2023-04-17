@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eaac21c_4c8986af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T03:18:45Z",
+      "side": 1,
+      "message": "Suggestions could be done in a followup",
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1491dfbd_34edcbd7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T03:18:45Z",
+      "side": 1,
+      "message": "How about having a single SharedLog in NsdService, and making subcomponents for provider / advertiser / socketprovider ? Otherwise each logger has 500 maxRecords, so 1500 records in total, which take more memory (they keep more history, but maybe we don\u0027t need that much)\n\nCould be done in a followup",
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05ecd6d1_7ef0e6da",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T03:18:45Z",
+      "side": 1,
+      "message": "maybeStopMonitoringSocket is also called from unrequestSocket; I think this log can move to inside maybeStopMonitoringSocket (maybe only log when it actually stops)",
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8929495a_3776295c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T03:18:45Z",
+      "side": 1,
+      "message": "General note: the SharedLogs logs are kept in memory, so shorter strings can be slightly better if they\u0027re just as descriptive. For example this could say \"Create sock on net $networkKey, ifName $interfaceName\" (same for other logs)",
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bf8e40a_cb9ac5c0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T03:18:45Z",
+      "side": 1,
+      "message": "Nit: if the destroy is LOGGER.log, this should probably be LOGGER.log too",
+      "range": {
+        "startLine": 434,
+        "startChar": 12,
+        "endLine": 434,
+        "endChar": 20
+      },
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66beeb23_392bc47b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T03:18:45Z",
+      "side": 1,
+      "message": "A LOGGER.log for this even would probably be useful, to compare the timing of requests and actual creation. Same for unrequestSocket",
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cbbd004_cd0a566f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T03:18:45Z",
+      "side": 1,
+      "message": "Same as the parent change, this probably needs to be just PrintWriter so the standalone build can pass",
+      "range": {
+        "startLine": 634,
+        "startChar": 21,
+        "endLine": 634,
+        "endChar": 41
+      },
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
