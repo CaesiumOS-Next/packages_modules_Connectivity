@@ -429,6 +429,7 @@ public final class NetworkCapabilities implements Parcelable {
             NET_CAPABILITY_MMTEL,
             NET_CAPABILITY_PRIORITIZE_LATENCY,
             NET_CAPABILITY_PRIORITIZE_BANDWIDTH,
+            NET_CAPABILITY_LOCAL_NETWORK,
     })
     public @interface NetCapability { }
 
@@ -690,7 +691,19 @@ public final class NetworkCapabilities implements Parcelable {
      */
     public static final int NET_CAPABILITY_PRIORITIZE_BANDWIDTH = 35;
 
-    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_PRIORITIZE_BANDWIDTH;
+    /**
+     * This is a local network, e.g. a tethering downstream or a P2P direct network.
+     *
+     * <p>
+     * Note that local networks are not sent to callbacks by default. To receive callbacks about
+     * them, the {@link NetworkCallback} instance must be created with the
+     * {@link NetworkCallback#FLAG_INCLUDE_LOCAL_NETWORKS} flag.
+     * </p>
+     * @hide
+     */
+    public static final int NET_CAPABILITY_LOCAL_NETWORK = 36;
+
+    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_LOCAL_NETWORK;
 
     // Set all bits up to the MAX_NET_CAPABILITY-th bit
     private static final long ALL_VALID_CAPABILITIES = (2L << MAX_NET_CAPABILITY) - 1;

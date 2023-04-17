@@ -39,6 +39,7 @@ import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
+import static android.net.ConnectivityManager.NetworkCallback.FLAG_INCLUDE_LOCAL_NETWORKS;
 import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
 import static android.net.ConnectivityManager.TYPE_ETHERNET;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
@@ -67,6 +68,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
@@ -6947,6 +6949,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private void ensureNcAndCallbackFlagsConsistency(@NonNull final NetworkCapabilities caps,
+            final @NetworkCallback.Flag int flags) {
+        final boolean includeLocal = 0 != (flags & FLAG_INCLUDE_LOCAL_NETWORKS);
+        final boolean listenLocal = caps.hasCapability(NET_CAPABILITY_LOCAL_NETWORK);
+        if (listenLocal && !includeLocal) {
+            // This check helps developers who found NET_CAPABILITY_LOCAL_NETWORK and include
+            // it but can't figure out why they don't get callbacks because they didn't know
+            // about FLAG_INCLUDE_LOCAL_NETWORKS. Such a combination is not really illegal or
+            // invalid in principle, but it will never be useful since the system would never
+            // send callbacks, so it's more helpful to reject outright with a clear error message.
+            throw new IllegalArgumentException("Listening for NET_CAPABILITY_LOCAL_NETWORK"
+                    + " requires passing FLAG_INCLUDE_LOCAL_NETWORKS to the callback");
+        }
+    }
+
     // This checks that the passed capabilities either do not request a
     // specific SSID/SignalStrength, or the calling app has permission to do so.
     private void ensureSufficientPermissionsForRequest(NetworkCapabilities nc,
@@ -7074,6 +7091,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Unsupported request type " + reqTypeInt);
         }
+        ensureNcAndCallbackFlagsConsistency(networkCapabilities, callbackFlags);
         switch (reqType) {
             case TRACK_DEFAULT:
                 // If the request type is TRACK_DEFAULT, the passed {@code networkCapabilities}
@@ -7382,6 +7400,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
+        ensureNcAndCallbackFlagsConsistency(networkCapabilities, callbackFlags);
         ensureSufficientPermissionsForRequest(networkCapabilities,
                 Binder.getCallingPid(), callingUid, callingPackageName);
         restrictRequestUidsForCallerAndSetRequestorInfo(nc, callingUid, callingPackageName);

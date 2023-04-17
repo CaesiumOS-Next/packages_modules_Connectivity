@@ -3875,18 +3875,36 @@ public class ConnectivityManager {
         // this flag if the app targets SDK < S (to maintain backwards compatibility).
         public static final int FLAG_INCLUDE_LOCATION_INFO = 1 << 0;
 
+        /**
+         * Inclusion of this flag means this network callback will also see local networks matching
+         * requests.
+         * <p>
+         * Local networks like a tethering downstream have Network instances, but they are not
+         * sent to instances of NetworkCallback by default for backward compatibility. Include this
+         * flag to see callbacks about the local agents.
+         * </p>
+         * <p>
+         * To see only local agents, also include
+         * {@link NetworkCapabilities#NET_CAPABILITY_LOCAL_NETWORK} in the {@link NetworkRequest}.
+         * </p>
+         * @hide
+         */
+        public static final int FLAG_INCLUDE_LOCAL_NETWORKS = 1 << 1;
+
         /** @hide */
         @Retention(RetentionPolicy.SOURCE)
         @IntDef(flag = true, prefix = "FLAG_", value = {
                 FLAG_NONE,
-                FLAG_INCLUDE_LOCATION_INFO
+                FLAG_INCLUDE_LOCATION_INFO,
+                FLAG_INCLUDE_LOCAL_NETWORKS,
         })
         public @interface Flag { }
 
         /**
          * All the valid flags for error checking.
          */
-        private static final int VALID_FLAGS = FLAG_INCLUDE_LOCATION_INFO;
+        private static final int VALID_FLAGS = FLAG_INCLUDE_LOCATION_INFO
+                | FLAG_INCLUDE_LOCAL_NETWORKS;
 
         public NetworkCallback() {
             this(FLAG_NONE);
