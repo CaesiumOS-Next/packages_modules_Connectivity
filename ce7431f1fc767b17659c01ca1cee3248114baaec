@@ -50,6 +50,29 @@
       "message": "okay, I\u0027ll make some test improvements in a followup as that is not really related to this change",
       "revId": "ce7431f1fc767b17659c01ca1cee3248114baaec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddcfbedd_4cb990e0",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-04-17T19:08:05Z",
+      "side": 1,
+      "message": "nit: since you are already touching this, might as well change this to use operator[] instead of at(), which does not perform a bounds check (which is unnecessary as a) we already check that the index is within bounds and b) I am not sure what happens if a bounds check fails with exceptions turned off).",
+      "range": {
+        "startLine": 248,
+        "startChar": 17,
+        "endLine": 248,
+        "endChar": 22
+      },
+      "revId": "ce7431f1fc767b17659c01ca1cee3248114baaec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
