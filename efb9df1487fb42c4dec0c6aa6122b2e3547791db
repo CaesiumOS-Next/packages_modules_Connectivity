@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "944d0e1d_514df33c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T02:37:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d760a76_16db78a8",
+      "range": {
+        "startLine": 340,
+        "startChar": 30,
+        "endLine": 340,
+        "endChar": 42
+      },
+      "revId": "efb9df1487fb42c4dec0c6aa6122b2e3547791db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "034338c7_82700469",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-13T09:48:07Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 351,
+        "startChar": 35,
+        "endLine": 351,
+        "endChar": 41
+      },
+      "revId": "efb9df1487fb42c4dec0c6aa6122b2e3547791db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "863ad691_31123cdd",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T02:37:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "034338c7_82700469",
       "range": {
         "startLine": 351,
         "startChar": 35,
