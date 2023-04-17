@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bee09b17_0464b9a2",
+        "filename": "framework-t/api/module-lib-current.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T06:38:52Z",
+      "side": 1,
+      "message": "Nit: \"record\" sounds a bit like it\u0027s a mDNS record; maybe OffloadServiceInfo ?",
+      "range": {
+        "startLine": 221,
+        "startChar": 21,
+        "endLine": 221,
+        "endChar": 34
+      },
+      "revId": "77d2eb10c56419a51c0e6afd90aac981624943b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5859bf51_87e8f2d2",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T06:38:52Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is sufficient for media components; does it need to be just @SystemApi, if they build against system_current (?)",
+      "range": {
+        "startLine": 332,
+        "startChar": 41,
+        "endLine": 332,
+        "endChar": 57
+      },
+      "revId": "77d2eb10c56419a51c0e6afd90aac981624943b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b2f08a5_c3373702",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T06:38:52Z",
+      "side": 1,
+      "message": "Nit: @NonNull, @NonNull (also on onOffloadsUpdated)",
+      "range": {
+        "startLine": 346,
+        "startChar": 34,
+        "endLine": 346,
+        "endChar": 36
+      },
+      "revId": "77d2eb10c56419a51c0e6afd90aac981624943b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc71f2c8_c68e554e",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T06:38:52Z",
+      "side": 1,
+      "message": "Nit: NsdManager (NsdService shouldn\u0027t be visible from the API documentation)",
+      "range": {
+        "startLine": 358,
+        "startChar": 37,
+        "endLine": 358,
+        "endChar": 47
+      },
+      "revId": "77d2eb10c56419a51c0e6afd90aac981624943b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5ca833d_a43bfb90",
+        "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T06:38:52Z",
+      "side": 1,
+      "message": "Nit: label",
+      "range": {
+        "startLine": 36,
+        "startChar": 11,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "77d2eb10c56419a51c0e6afd90aac981624943b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ac1415b_4074375b",
+        "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T06:38:52Z",
+      "side": 1,
+      "message": "I think this needs to be \"_http\" and \"_tcp\" ?",
+      "range": {
+        "startLine": 39,
+        "startChar": 47,
+        "endLine": 39,
+        "endChar": 59
+      },
+      "revId": "77d2eb10c56419a51c0e6afd90aac981624943b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6000ee6d_37c854f4",
+        "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T06:38:52Z",
+      "side": 1,
+      "message": "Did you mean transmit ?\n\nBut how would the service know ? Maybe there should be a flag in registerOffloadEngine for offload features ?\n\nSomething like \"int offloadCapabilities\" and OFFLOAD_CAPABILITY_TRANSMIT / OFFLOAD_CAPABILITY_FILTER_QUERIES / OFFLOAD_CAPABILITY_FILTER_REPLIES maybe ?",
+      "range": {
+        "startLine": 48,
+        "startChar": 54,
+        "endLine": 48,
+        "endChar": 64
+      },
+      "revId": "77d2eb10c56419a51c0e6afd90aac981624943b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5f77de1_438ba91b",
+        "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T06:38:52Z",
+      "side": 1,
+      "message": "Typo: if",
+      "range": {
+        "startLine": 48,
+        "startChar": 18,
+        "endLine": 48,
+        "endChar": 20
+      },
+      "revId": "77d2eb10c56419a51c0e6afd90aac981624943b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
