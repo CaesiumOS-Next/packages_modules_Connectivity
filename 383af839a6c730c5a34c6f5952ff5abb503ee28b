@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33fdc9f6_d6021f5f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T07:44:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58881bd2_d0d44404",
+      "revId": "383af839a6c730c5a34c6f5952ff5abb503ee28b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2591d9a_54da51ca",
@@ -81,6 +99,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0280cdb3_038952fe",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T07:44:57Z",
+      "side": 1,
+      "message": "Acknowledged. Replace to PrintWriter.",
+      "parentUuid": "8cf543f3_de91bcf2",
+      "range": {
+        "startLine": 199,
+        "startChar": 34,
+        "endLine": 199,
+        "endChar": 54
+      },
+      "revId": "383af839a6c730c5a34c6f5952ff5abb503ee28b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e5f5f86_46e9cfc6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T07:44:57Z",
+      "side": 1,
+      "message": "Acknowledged. Removed.",
+      "parentUuid": "f2591d9a_54da51ca",
+      "range": {
+        "startLine": 199,
+        "startChar": 11,
+        "endLine": 199,
+        "endChar": 23
+      },
+      "revId": "383af839a6c730c5a34c6f5952ff5abb503ee28b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f576f41_e05e5a31",
@@ -94,6 +160,24 @@
       "writtenOn": "2023-04-17T02:52:02Z",
       "side": 1,
       "message": "It would be useful to have some summary of the service attributes here, like IP addresses in particular, to diagnose issues. Maybe in a separate change ?",
+      "revId": "383af839a6c730c5a34c6f5952ff5abb503ee28b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "051a00c8_d3361196",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T07:44:57Z",
+      "side": 1,
+      "message": "Will add some summary of the service attributes in a follow up change.",
+      "parentUuid": "3f576f41_e05e5a31",
       "revId": "383af839a6c730c5a34c6f5952ff5abb503ee28b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
