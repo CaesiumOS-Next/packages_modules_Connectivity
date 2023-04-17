@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ddcb708_49cae1f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T02:52:02Z",
+      "side": 1,
+      "message": "LGTM, comments can mostly be done in a followup (but as per the errorprone check this needs to be respun to avoid breaking the mdns standalone build)",
+      "revId": "383af839a6c730c5a34c6f5952ff5abb503ee28b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58881bd2_d0d44404",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T02:52:02Z",
+      "side": 1,
+      "message": "This should probably be upgraded to a LOGGER.i, since it\u0027s not frequent and important for debugging (same for unregisterListener)",
+      "revId": "383af839a6c730c5a34c6f5952ff5abb503ee28b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2591d9a_54da51ca",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T02:52:02Z",
+      "side": 1,
+      "message": "The SharedLog doc says that reverseDump can be called on any thread, so this shouldn\u0027t be necessary",
+      "range": {
+        "startLine": 199,
+        "startChar": 11,
+        "endLine": 199,
+        "endChar": 23
+      },
+      "revId": "383af839a6c730c5a34c6f5952ff5abb503ee28b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cf543f3_de91bcf2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T02:52:02Z",
+      "side": 1,
+      "message": "The mdns standalone build isn\u0027t happy with this, I think you can just use PrintWriter ?",
+      "range": {
+        "startLine": 199,
+        "startChar": 34,
+        "endLine": 199,
+        "endChar": 54
+      },
+      "revId": "383af839a6c730c5a34c6f5952ff5abb503ee28b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f576f41_e05e5a31",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-17T02:52:02Z",
+      "side": 1,
+      "message": "It would be useful to have some summary of the service attributes here, like IP addresses in particular, to diagnose issues. Maybe in a separate change ?",
+      "revId": "383af839a6c730c5a34c6f5952ff5abb503ee28b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
