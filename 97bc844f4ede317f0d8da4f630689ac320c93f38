@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3567eb15_80019d3d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T07:56:46Z",
+      "side": 1,
+      "message": "Will address this in a followup.",
+      "parentUuid": "1491dfbd_34edcbd7",
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "05ecd6d1_7ef0e6da",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
         "patchSetId": 3
@@ -48,6 +66,24 @@
       "writtenOn": "2023-04-17T03:18:45Z",
       "side": 1,
       "message": "maybeStopMonitoringSocket is also called from unrequestSocket; I think this log can move to inside maybeStopMonitoringSocket (maybe only log when it actually stops)",
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a79ffaa3_861300af",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T07:56:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05ecd6d1_7ef0e6da",
       "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -92,6 +128,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cc09992_73244d90",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T07:56:46Z",
+      "side": 1,
+      "message": "Acknowledged. Update the log to shorten strings.",
+      "parentUuid": "8929495a_3776295c",
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3baeea5a_abf7bbb0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T07:56:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5bf8e40a_cb9ac5c0",
+      "range": {
+        "startLine": 434,
+        "startChar": 12,
+        "endLine": 434,
+        "endChar": 20
+      },
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66beeb23_392bc47b",
@@ -122,6 +200,30 @@
       "writtenOn": "2023-04-17T03:18:45Z",
       "side": 1,
       "message": "Same as the parent change, this probably needs to be just PrintWriter so the standalone build can pass",
+      "range": {
+        "startLine": 634,
+        "startChar": 21,
+        "endLine": 634,
+        "endChar": 41
+      },
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1d3efca_77f2afe5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-17T07:56:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cbbd004_cd0a566f",
       "range": {
         "startLine": 634,
         "startChar": 21,
