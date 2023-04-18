@@ -288,11 +288,8 @@ public class OffloadHalHidlImpl implements IOffloadHal {
         IOffloadConfig config = null;
         try {
             config = IOffloadConfig.getService(true /*retry*/);
-        } catch (RemoteException e) {
+        } catch (RemoteException | NoSuchElementException e) {
             log.e("getIOffloadConfig error " + e);
-            return null;
-        } catch (NoSuchElementException e) {
-            log.i("getIOffloadConfig Tether Offload HAL not present/implemented");
             return null;
         }
 

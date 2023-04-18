@@ -307,7 +307,7 @@ public class OffloadHardwareInterface {
         if (mIOffload == null) {
             mIOffload = mDeps.getOffload();
             if (mIOffload == null) {
-                mLog.i("No tethering offload HAL service found.");
+                mLog.e("No tethering offload HAL service found.");
                 return OFFLOAD_HAL_VERSION_NONE;
             }
             mLog.i("Tethering offload version "
