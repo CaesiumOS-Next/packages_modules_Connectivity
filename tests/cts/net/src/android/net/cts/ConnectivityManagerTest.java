@@ -3395,6 +3395,8 @@ public class ConnectivityManagerTest {
                     + " uidFirewallRule=" + mCm.getUidFirewallRule(chain, Process.myUid()));
         }
 
+        dstSock.receive(pkt);
+
         if (expectBlock) {
             fail("Expect to be blocked by firewall but sending packet was not blocked:"
                     + " chain=" + chain
@@ -3402,7 +3404,6 @@ public class ConnectivityManagerTest {
                     + " uidFirewallRule=" + mCm.getUidFirewallRule(chain, Process.myUid()));
         }
 
-        dstSock.receive(pkt);
         assertArrayEquals(sendData, pkt.getData());
     }
 
