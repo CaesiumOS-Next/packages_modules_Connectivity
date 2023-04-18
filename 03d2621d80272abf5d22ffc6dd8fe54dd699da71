@@ -16,6 +16,29 @@
       "message": "Hi @hansson@google.com\nAs we discussed, I’m trying to move cronet from framework-tethering to framework-connectivity.\nBut since cronet api is already in sdk/extension/7, I’m getting build failure in internal branches.\n```\nYou have tried to change the API from what has been previously released in\nan SDK.  Please fix the errors listed above.\n```\nHow should I fix this error?\nCan we remove `framework-tethering.txt` in sdk/extension/7 to avoid build error, and update `framework-connectivity.txt` after the cronet move?",
       "revId": "03d2621d80272abf5d22ffc6dd8fe54dd699da71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "179b165f_1e7004df",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2023-04-18T09:31:58Z",
+      "side": 1,
+      "message": "This can be removed since we are depending on `framework-connectivity-pre-jarjar`",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 33
+      },
+      "revId": "03d2621d80272abf5d22ffc6dd8fe54dd699da71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
