@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e609227c_4ca4cf55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-18T10:06:57Z",
+      "side": 1,
+      "message": "How is it that we can have 2 networks with the same interface name ? This will generally not work in a lot of places in netd. We should discuss with the WiFi folks to understand how this happens.",
+      "revId": "8736cd95ba906afbda7fbb36989567a453d5eecc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e4d05b7_ace717c6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 11028,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-18T10:06:57Z",
+      "side": 1,
+      "message": "I don\u0027t think this is fine because there is now a spell of time where activity is not tracked.\n\nInstead, if the interface is the same, we should just replace the old rule.",
+      "range": {
+        "startLine": 11020,
+        "startChar": 0,
+        "endLine": 11028,
+        "endChar": 13
+      },
+      "revId": "8736cd95ba906afbda7fbb36989567a453d5eecc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
