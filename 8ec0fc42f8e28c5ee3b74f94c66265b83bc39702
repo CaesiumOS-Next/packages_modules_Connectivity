@@ -16,6 +16,46 @@
       "message": "see b/259199087",
       "revId": "8ec0fc42f8e28c5ee3b74f94c66265b83bc39702",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d3f6fbe_53354bb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-18T06:37:59Z",
+      "side": 1,
+      "message": "Furthermore, as mentioned on the linked bug, this doesn\u0027t actually work correctly:\n\nNot dropping FIN doesn\u0027t mean we won\u0027t drop the ACK that it in turn generates, which means the FIN will *still* be retransmitted.\n\n-\u003e SYN\n\u003c- SYN/ACK\n-\u003e ACK\n\nestablished\n\ndoze enabled\n\none side terminates connection, sends FIN, it now passes through the rules\n(if it\u0027s us generating FIN, we just woke the modem/wifi chip up)\n\nthe reply ACK is *NOT* (necessarily) FIN marked and is thus still dropped by the rules\n\nFIN gets resent a few times, if it was us sending it in the first place... we wake the modem/wifi chip up a few more times to rexmit it",
+      "revId": "8ec0fc42f8e28c5ee3b74f94c66265b83bc39702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e6adfc3_cac7a423",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-18T06:37:59Z",
+      "side": 1,
+      "message": "(a) this doesn\u0027t mention RST, but for some reason now mentions FIN,\n(b) is an incorrect comment",
+      "range": {
+        "startLine": 333,
+        "startChar": 74,
+        "endLine": 333,
+        "endChar": 81
+      },
+      "revId": "8ec0fc42f8e28c5ee3b74f94c66265b83bc39702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
