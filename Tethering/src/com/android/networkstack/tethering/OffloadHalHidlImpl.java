@@ -288,8 +288,11 @@ public class OffloadHalHidlImpl implements IOffloadHal {
         IOffloadConfig config = null;
         try {
             config = IOffloadConfig.getService(true /*retry*/);
-        } catch (RemoteException | NoSuchElementException e) {
+        } catch (RemoteException e) {
             log.e("getIOffloadConfig error " + e);
+            return null;
+        } catch (NoSuchElementException e) {
+            log.w("getIOffloadConfig error " + e);
             return null;
         }
 
