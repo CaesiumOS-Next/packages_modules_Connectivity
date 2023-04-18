@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fb109a2_c1f31d10",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-18T04:36:48Z",
+      "side": 1,
+      "message": "Could we have a utility method to do this? Something like:\n\n    Inet6Address maybeSetScopeId(Inet6Address addr, int scopeid) {\n\nAnother usage was just added in aosp/2539990 .",
+      "range": {
+        "startLine": 1221,
+        "startChar": 0,
+        "endLine": 1225,
+        "endChar": 61
+      },
+      "revId": "aa0e9602bb4e845bd84984e130b9a432d8afa40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
