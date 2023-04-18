@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aab3de67_72a9f145",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-18T06:48:03Z",
+      "side": 1,
+      "message": "Thoughts?\n\nIt is less obviously wrong then allowing egress FINs as well...\nso maybe it\u0027s even correct...",
+      "revId": "bd18e977fdfb90f9f26094172250b23eb1d748c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
