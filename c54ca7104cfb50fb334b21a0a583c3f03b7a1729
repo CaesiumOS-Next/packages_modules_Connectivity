@@ -16,6 +16,24 @@
       "message": "let\u0027s put it here instead.\n\nreceive() throwing would be weird",
       "revId": "c54ca7104cfb50fb334b21a0a583c3f03b7a1729",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "659216c4_89fc6dab",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3398,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-18T07:18:53Z",
+      "side": 1,
+      "message": "or put the receive in a 2nd try block",
+      "parentUuid": "244fe1eb_75aeec97",
+      "revId": "c54ca7104cfb50fb334b21a0a583c3f03b7a1729",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
