@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26e4a877_8b012d0c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-18T12:26:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3a75592_6c713d9c",
+      "range": {
+        "startLine": 100,
+        "startChar": 28,
+        "endLine": 100,
+        "endChar": 30
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c538ce0_2a2e7b44",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "620ea613_71964617",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-18T12:26:22Z",
+      "side": 1,
+      "message": "Good point, this issue is also present when resetting duration metrics, mTimestampSinceLastUpdateDurations is also not updated when reset is called.\n\nNow it resets mTimestampSinceLastUpdateStats and resetMetrics is now buildAndResetMetrics.",
+      "parentUuid": "4c538ce0_2a2e7b44",
+      "range": {
+        "startLine": 109,
+        "startChar": 10,
+        "endLine": 109,
+        "endChar": 38
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c26b7440_9132d2ba",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-04-13T08:31:34Z",
       "side": 1,
       "message": "Why not make your own data class instead ? This looks extremely wasteful (a custom int+int+int is 32 bytes, while this is 112 bytes) and pretty unwieldly.",
+      "range": {
+        "startLine": 127,
+        "startChar": 7,
+        "endLine": 127,
+        "endChar": 58
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fdbe458_4bfa5aef",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-18T12:26:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c26b7440_9132d2ba",
       "range": {
         "startLine": 127,
         "startChar": 7,
@@ -133,6 +205,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30f52b5c_f49f5bd7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-18T12:26:22Z",
+      "side": 1,
+      "message": "I think there are tests that mock Context but do not mock the telephony manager so it is possible. Specifically, AutomaticOnOffKeepaliveTrackerTest#testAlarm.",
+      "parentUuid": "fe8e820e_5bb4164a",
+      "range": {
+        "startLine": 212,
+        "startChar": 12,
+        "endLine": 212,
+        "endChar": 37
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71e93cc2_3798d2d7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-18T12:26:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03168d70_13d5a8e5",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 40
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94e745b1_329ef381",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-04-13T08:31:34Z",
       "side": 1,
       "message": "This is a two-way cross-process call to the phone process : you can\u0027t afford to do this on the connectivity thread. I\u0027m afraid you\u0027ll probably need to have listeners and caches instead.",
+      "range": {
+        "startLine": 221,
+        "startChar": 38,
+        "endLine": 221,
+        "endChar": 53
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bca97aee_fda5b454",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-18T12:26:22Z",
+      "side": 1,
+      "message": "To do in follow up cl.",
+      "parentUuid": "94e745b1_329ef381",
       "range": {
         "startLine": 221,
         "startChar": 38,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a00a9e0e_63bc61ea",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-18T12:26:22Z",
+      "side": 1,
+      "message": "It should not happen. Added NonNull annotation.",
+      "parentUuid": "4c9e9cca_8b2aa573",
+      "range": {
+        "startLine": 230,
+        "startChar": 12,
+        "endLine": 230,
+        "endChar": 39
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df91b68d_5ef860a7",
@@ -192,6 +360,30 @@
       "writtenOn": "2023-04-13T08:31:34Z",
       "side": 1,
       "message": "Consider introducing something like :\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2460069/1/framework/src/android/net/NetworkCapabilities.java#818\n\n...which I was meaning for exactly the same use case.",
+      "range": {
+        "startLine": 235,
+        "startChar": 8,
+        "endLine": 235,
+        "endChar": 80
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0adbbe31_669c75d8",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-18T12:26:22Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "df91b68d_5ef860a7",
       "range": {
         "startLine": 235,
         "startChar": 8,
@@ -219,6 +411,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5b2f83b_e6ecc0b5",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-18T12:26:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68cd223f_eafadd45",
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1fc42a0_71e82903",
@@ -242,6 +452,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7e11a2e_088fbaff",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-18T12:26:22Z",
+      "side": 1,
+      "message": "Made it into a SparseArray indexed by netId containing SparseArrays indexed by slot (netId -\u003e (slot -\u003e KeepaliveStats)). \nAs per discussion, there is no guarantee on the size of the advertised number of slots defined in config_networkSupportedKeepaliveCount, so arrays may waste way too much space.",
+      "parentUuid": "e1fc42a0_71e82903",
+      "range": {
+        "startLine": 259,
+        "startChar": 55,
+        "endLine": 259,
+        "endChar": 80
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ba72032_92c031b6",
@@ -255,6 +489,30 @@
       "writtenOn": "2023-04-13T08:31:34Z",
       "side": 1,
       "message": "Unfortunately this is very expensive too, because the object has to be created before the method is called. Can you make it so that we don\u0027t build this huge object if it\u0027s not necessary ?",
+      "range": {
+        "startLine": 317,
+        "startChar": 24,
+        "endLine": 320,
+        "endChar": 78
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fd6003b_fad56cf0",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-18T12:26:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ba72032_92c031b6",
       "range": {
         "startLine": 317,
         "startChar": 24,
