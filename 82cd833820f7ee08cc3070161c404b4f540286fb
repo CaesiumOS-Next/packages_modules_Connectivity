@@ -81,6 +81,30 @@
       },
       "revId": "82cd833820f7ee08cc3070161c404b4f540286fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee701fc8_60467efc",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3398,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-18T09:33:06Z",
+      "side": 1,
+      "message": "Thanks.\n\nFYI you meant to use \u0027throw\u0027 not \u0027through\u0027 here.",
+      "parentUuid": "1c161cf5_1c46a09f",
+      "range": {
+        "startLine": 3398,
+        "startChar": 0,
+        "endLine": 3398,
+        "endChar": 29
+      },
+      "revId": "82cd833820f7ee08cc3070161c404b4f540286fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
