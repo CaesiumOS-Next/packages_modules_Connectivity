@@ -3385,6 +3385,8 @@ public class ConnectivityManagerTest {
                 InetAddresses.parseNumericAddress("::1"), dstSock.getLocalPort());
         try {
             srcSock.send(pkt);
+            dstSock.receive(pkt);
+            assertArrayEquals(sendData, pkt.getData());
         } catch (IOException e) {
             if (expectBlock) {
                 return;
@@ -3401,9 +3403,6 @@ public class ConnectivityManagerTest {
                     + " chainEnabled=" + mCm.getFirewallChainEnabled(chain)
                     + " uidFirewallRule=" + mCm.getUidFirewallRule(chain, Process.myUid()));
         }
-
-        dstSock.receive(pkt);
-        assertArrayEquals(sendData, pkt.getData());
     }
 
     private static final boolean EXPECT_PASS = false;
