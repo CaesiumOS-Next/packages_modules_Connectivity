@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "788764f8_3c67b699",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-18T02:51:49Z",
+      "side": 1,
+      "message": "Clean revert for fixing bb",
+      "revId": "8ffe82358ffda35827a9dfdd1b0611754d6c5a1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
