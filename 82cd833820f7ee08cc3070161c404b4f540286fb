@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "274dbd37_0eac6aa6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-04-18T09:04:17Z",
+      "side": 1,
+      "message": "I have moved assertArrayEquals to before the `if (expectBlock)`.",
+      "parentUuid": "d3e7c5ad_1440be0c",
+      "revId": "82cd833820f7ee08cc3070161c404b4f540286fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dd6a927c_39c5cc53",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 4
@@ -31,6 +49,30 @@
       "writtenOn": "2023-04-18T07:49:02Z",
       "side": 1,
       "message": "i wonder if this can block forever now and cause timeouts...\noh well, it\u0027s only going to matter for cases which would already fail anyway",
+      "range": {
+        "startLine": 3398,
+        "startChar": 0,
+        "endLine": 3398,
+        "endChar": 29
+      },
+      "revId": "82cd833820f7ee08cc3070161c404b4f540286fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c161cf5_1c46a09f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3398,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-04-18T09:04:17Z",
+      "side": 1,
+      "message": "dstSock.setTimeout is called in doTestFirewallBlocking.\nSo, if dstSock does not receive the pkt in 100ms, this will through `SocketTimeoutException`.",
+      "parentUuid": "dd6a927c_39c5cc53",
       "range": {
         "startLine": 3398,
         "startChar": 0,
