@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "890c2891_ac44ac86",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_util_TetheringUtils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-18T05:18:35Z",
+      "side": 1,
+      "message": "the BPF_LOAD_IPV6_* macros want the ipv6 header definition from here, not from netinet/ip6.h",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "658a61d78f3528a36fad18b49a1fbaf105f37cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "568ee99f_40ed200e",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_util_TetheringUtils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-18T05:18:35Z",
+      "side": 1,
+      "message": "while the rest of the file wants icmp6 related stuff from here...\nand not the \u0027icmp6hdr\u0027 struct one can get from linux uapi headers",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 26
+      },
+      "revId": "658a61d78f3528a36fad18b49a1fbaf105f37cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
