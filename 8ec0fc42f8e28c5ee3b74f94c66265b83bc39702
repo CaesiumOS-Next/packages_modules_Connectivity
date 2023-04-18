@@ -74,6 +74,30 @@
       },
       "revId": "8ec0fc42f8e28c5ee3b74f94c66265b83bc39702",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57de7ca8_78a863b9",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1092843
+      },
+      "writtenOn": "2023-04-18T06:51:34Z",
+      "side": 1,
+      "message": "Fixed comment; but sounds this is not the approach to take, can discuss offline. Thanks!",
+      "parentUuid": "2e6adfc3_cac7a423",
+      "range": {
+        "startLine": 333,
+        "startChar": 74,
+        "endLine": 333,
+        "endChar": 81
+      },
+      "revId": "8ec0fc42f8e28c5ee3b74f94c66265b83bc39702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
