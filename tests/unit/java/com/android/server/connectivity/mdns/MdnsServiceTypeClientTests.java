@@ -998,7 +998,7 @@ public class MdnsServiceTypeClientTests {
     @Test
     public void testProcessResponse_ResolveExcludesOtherServices() {
         client = new MdnsServiceTypeClient(
-                SERVICE_TYPE, mockSocketClient, currentThreadExecutor, mockNetwork);
+                SERVICE_TYPE, mockSocketClient, currentThreadExecutor, mockNetwork, mockSharedLog);
 
         final String requestedInstance = "instance1";
         final String otherInstance = "instance2";
