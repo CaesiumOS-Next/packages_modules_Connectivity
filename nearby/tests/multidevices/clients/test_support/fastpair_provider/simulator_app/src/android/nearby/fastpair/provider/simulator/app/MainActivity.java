@@ -657,9 +657,7 @@ public class MainActivity extends Activity {
 
             int desiredIoCapability = getIoCapabilityFromModelId(modelId);
 
-            mBluetoothController.setIoCapability(
-                    /*ioCapabilityClassic=*/ desiredIoCapability,
-                    /*ioCapabilityBLE=*/ desiredIoCapability);
+            mBluetoothController.setIoCapability(desiredIoCapability);
 
             runOnUiThread(() -> {
                 updateStringStatusView(
