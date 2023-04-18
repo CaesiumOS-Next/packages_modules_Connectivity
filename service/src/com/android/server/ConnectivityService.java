@@ -11017,11 +11017,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
          */
         public void updateDataActivityTracking(NetworkAgentInfo newNetwork,
                 NetworkAgentInfo oldNetwork) {
-            if (newNetwork != null) {
-                setupDataActivityTracking(newNetwork);
-            }
+            // Remove old rule first before adding new one so that the interface tracking will not
+            // be unexpected removed from mActiveIdleTimers if the interfaces of oldNetwork and
+            // newNetwork are the same.
             if (oldNetwork != null) {
                 removeDataActivityTracking(oldNetwork);
+            }
+            if (newNetwork != null) {
+                setupDataActivityTracking(newNetwork);
             }
         }
 
