@@ -330,7 +330,7 @@ static __always_inline inline bool skip_owner_match(struct __sk_buff* skb, const
     } else {
         return false;
     }
-    return flag & TCP_FLAG_RST;  // false on read failure
+    return flag & (TCP_FLAG_RST | TCP_FLAG_FIN);  // false on read failure or FIN
 }
 
 static __always_inline inline BpfConfig getConfig(uint32_t configKey) {
