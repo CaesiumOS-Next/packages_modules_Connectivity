@@ -187,6 +187,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3da521b_7969f5da",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-18T01:09:52Z",
+      "side": 1,
+      "message": "Done in aosp/2539671",
+      "parentUuid": "66beeb23_392bc47b",
+      "revId": "97bc844f4ede317f0d8da4f630689ac320c93f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cbbd004_cd0a566f",
