@@ -16,6 +16,29 @@
       "message": "actually move the assert on packet contents too\n\nnot enough to see send succeed - we also want to know w\u0027ere not getting garbage",
       "revId": "82cd833820f7ee08cc3070161c404b4f540286fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd6a927c_39c5cc53",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3398,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-18T07:49:02Z",
+      "side": 1,
+      "message": "i wonder if this can block forever now and cause timeouts...\noh well, it\u0027s only going to matter for cases which would already fail anyway",
+      "range": {
+        "startLine": 3398,
+        "startChar": 0,
+        "endLine": 3398,
+        "endChar": 29
+      },
+      "revId": "82cd833820f7ee08cc3070161c404b4f540286fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
