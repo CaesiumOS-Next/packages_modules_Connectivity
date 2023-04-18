@@ -33,6 +33,23 @@
       "message": "Hey Ross, this is a flake fix in android13-tests-dev, can you provide DrNo ?\n\nThe flake is showing in our dashboards for continuous testing of CTS 13, and it probably affects OEMs testing.",
       "revId": "d68f84edf719120ce41d80751774bd9faa068b7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcdcd456_e661a6f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-18T07:07:04Z",
+      "side": 1,
+      "message": "Hey Ross, is that something we could cherry-pick to android13-tests-dev, to avoid flakes when running that suite ?",
+      "revId": "d68f84edf719120ce41d80751774bd9faa068b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
