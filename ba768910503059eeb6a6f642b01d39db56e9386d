@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6005f5d0_4d713acb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3375,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-18T11:03:08Z",
+      "side": 1,
+      "message": "Looks like TH fails with \"java.lang.AssertionError: Attempting to send msg more than 1000ms into the future: 1992\"",
+      "revId": "ba768910503059eeb6a6f642b01d39db56e9386d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
