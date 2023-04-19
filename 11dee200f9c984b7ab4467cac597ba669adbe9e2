@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63086b9c_a3f7e6a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-19T11:22:54Z",
+      "side": 1,
+      "message": "TH infra failure: one of the builds panic\u0027ed during the build.",
+      "revId": "11dee200f9c984b7ab4467cac597ba669adbe9e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
