@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7b070fa_0c3c8865",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-19T06:46:33Z",
+      "side": 1,
+      "message": "I think this is caused by the design we introduced(NetworkAgent.unregisterAfterReplacement). It delays the unregister and provide a replacement by another agent for a very similar network (e.g., same Wi-Fi SSID).\n\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/framework/src/android/net/NetworkAgent.java;l\u003d1029?q\u003dunregisterAfterReplacement\u0026ss\u003dandroid%2Fplatform%2Fsuperproject\n\nIt\u0027s sort of WAI in the implementation.",
+      "parentUuid": "e609227c_4ca4cf55",
+      "revId": "8736cd95ba906afbda7fbb36989567a453d5eecc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e4d05b7_ace717c6",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 2
@@ -31,6 +49,30 @@
       "writtenOn": "2023-04-18T10:06:57Z",
       "side": 1,
       "message": "I don\u0027t think this is fine because there is now a spell of time where activity is not tracked.\n\nInstead, if the interface is the same, we should just replace the old rule.",
+      "range": {
+        "startLine": 11020,
+        "startChar": 0,
+        "endLine": 11028,
+        "endChar": 13
+      },
+      "revId": "8736cd95ba906afbda7fbb36989567a453d5eecc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc4d42fb_ebb61fd4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 11028,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-19T06:46:33Z",
+      "side": 1,
+      "message": "Replace the rule will also need to send a remove command and add command to netd. The behavior is actually the as here.  \n\nThe possible way to do this is we can skip this update if the interface and the idle timer are the same. This may cover most of this case since I expect timer should be usually the same but we need to add a condition check(to check both interface and timer are not changed) here which I think it increases the complexity of the logic. \n\nThis is mostly about the statistic in the battery life which do not have a visible user impact. Command to update the iptables rule should be finished in couple ms. Do you think it\u0027s worthy doing such a check?",
+      "parentUuid": "7e4d05b7_ace717c6",
       "range": {
         "startLine": 11020,
         "startChar": 0,
