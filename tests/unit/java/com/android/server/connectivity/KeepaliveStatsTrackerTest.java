@@ -22,12 +22,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.telephony.CarrierConfigManager;
+import android.telephony.CarrierConfigManager.CarrierConfigChangeListener;
 import android.telephony.TelephonyManager;
 
 import androidx.test.filters.SmallTest;
@@ -43,6 +49,8 @@ import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -58,11 +66,17 @@ public class KeepaliveStatsTrackerTest {
             new NetworkCapabilities.Builder()
                     .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                     .build();
+
+    private Handler mHandler;
     private KeepaliveStatsTracker mKeepaliveStatsTracker;
 
     @Mock private Context mContext;
     @Mock private KeepaliveStatsTracker.Dependencies mDependencies;
     @Mock private TelephonyManager mTelephonyManager;
+    @Mock private CarrierConfigManager mCarrierConfigManager;
+
+    @Captor private ArgumentCaptor<CarrierConfigChangeListener> mCarrierConfigListenerCaptor;
+    private CarrierConfigChangeListener mCarrierConfigChangeListener;
 
     private static final class KeepaliveCarrierStats {
         public final int carrierId;
@@ -100,11 +114,22 @@ public class KeepaliveStatsTrackerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockService(mContext, TelephonyManager.class, Context.TELEPHONY_SERVICE, mTelephonyManager);
+        mockService(
+                mContext,
+                CarrierConfigManager.class,
+                Context.CARRIER_CONFIG_SERVICE,
+                mCarrierConfigManager);
 
         doReturn(TEST_CARRIER_ID).when(mTelephonyManager).getSimCarrierId();
 
+        mHandler = new Handler(Looper.getMainLooper());
+
         setUptimeMillis(0);
-        mKeepaliveStatsTracker = new KeepaliveStatsTracker(mContext, mDependencies);
+        mKeepaliveStatsTracker = new KeepaliveStatsTracker(mContext, mHandler, mDependencies);
+
+        verify(mCarrierConfigManager)
+                .registerCarrierConfigChangeListener(any(), mCarrierConfigListenerCaptor.capture());
+        mCarrierConfigChangeListener = mCarrierConfigListenerCaptor.getValue();
     }
 
     private void setUptimeMillis(long time) {
