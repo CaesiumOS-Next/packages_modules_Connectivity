@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c34b1f33_d8ea43a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1166043
+      },
+      "writtenOn": "2023-04-19T03:01:28Z",
+      "side": 1,
+      "message": "This is blocking SDK finalization. We had to pause it to accomodate this change. Please merge ASAP",
+      "revId": "73e2e87d5629f5b555f1cc4b3649a846d6c02127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
