@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b300acb_01948327",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-19T19:14:31Z",
+      "side": 1,
+      "message": "3 TH failures on java files when the CL is trivial C++ changes",
+      "revId": "d3fe154610dbc56e02068047126571ebae9bbab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
