@@ -311,7 +311,8 @@ public class AutomaticOnOffKeepaliveTracker {
                 mContext, mConnectivityServiceHandler);
 
         mAlarmManager = mDependencies.getAlarmManager(context);
-        mKeepaliveStatsTracker = new KeepaliveStatsTracker(handler);
+        mKeepaliveStatsTracker =
+                mDependencies.newKeepaliveStatsTracker(context, handler);
     }
 
     private void startTcpPollingAlarm(@NonNull AutomaticOnOffKeepalive ki) {
@@ -890,6 +891,14 @@ public class AutomaticOnOffKeepaliveTracker {
         public KeepaliveTracker newKeepaliveTracker(@NonNull Context context,
                 @NonNull Handler connectivityserviceHander) {
             return new KeepaliveTracker(mContext, connectivityserviceHander);
+        }
+
+        /**
+         * Construct a new KeepaliveStatsTracker.
+         */
+        public KeepaliveStatsTracker newKeepaliveStatsTracker(@NonNull Context context,
+                @NonNull Handler connectivityserviceHander) {
+            return new KeepaliveStatsTracker(context, connectivityserviceHander);
         }
 
         /**
