@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "166a1b38_bc650485",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-19T20:50:52Z",
+      "side": 1,
+      "message": "Both TH failures are unrelated (and are showing up on both this change and another one)",
+      "revId": "99a1a26a2f9e1e096212843528bbfce102d5da04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
