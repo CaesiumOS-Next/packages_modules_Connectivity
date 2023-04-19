@@ -16,17 +16,27 @@
 
 package com.android.server.connectivity;
 
+import static com.android.testutils.ContextUtils.mockService;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.TelephonyNetworkSpecifier;
 import android.os.Build;
-import android.telephony.TelephonyManager;
+import android.os.Handler;
+import android.os.Looper;
+import android.telephony.CarrierConfigManager;
+import android.telephony.CarrierConfigManager.CarrierConfigChangeListener;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 
 import androidx.test.filters.SmallTest;
 
@@ -41,8 +51,12 @@ import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.List;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
@@ -50,17 +64,40 @@ import org.mockito.MockitoAnnotations;
 public class KeepaliveStatsTrackerTest {
     private static final int TEST_KEEPALIVE_INTERVAL_SEC = 3;
     private static final int TEST_UID = 1234;
-    // Carrier id not yet implemented, assume it returns unknown for now.
-    private static final int TEST_CARRIER_ID = TelephonyManager.UNKNOWN_CARRIER_ID;
+    private static final int TEST_SUB_ID_1 = 1;
+    private static final int TEST_SUB_ID_2 = 2;
+    private static final int TEST_CARRIER_ID_1 = 135;
+    private static final int TEST_CARRIER_ID_2 = 246;
     private static final Network TEST_NETWORK = new Network(123);
-    private static final NetworkCapabilities TEST_NETWORK_CAPABILITIES =
-            new NetworkCapabilities.Builder()
-                    .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
-                    .build();
+    private static final NetworkCapabilities TEST_NETWORK_CAPABILITIES_1 =
+            buildNetworkCapabilities(TEST_SUB_ID_1);
+    private static final NetworkCapabilities TEST_NETWORK_CAPABILITIES_2 =
+            buildNetworkCapabilities(TEST_SUB_ID_2);
+
+    private static NetworkCapabilities buildNetworkCapabilities(int subId) {
+        final TelephonyNetworkSpecifier telephonyNetworkSpecifier =
+                new TelephonyNetworkSpecifier.Builder().setSubscriptionId(subId).build();
+        return new NetworkCapabilities.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                .setNetworkSpecifier(telephonyNetworkSpecifier)
+                .build();
+    }
+
+    private Handler mHandler;
     private KeepaliveStatsTracker mKeepaliveStatsTracker;
 
     @Mock private Context mContext;
     @Mock private KeepaliveStatsTracker.Dependencies mDependencies;
+    @Mock private CarrierConfigManager mCarrierConfigManager;
+    @Mock private SubscriptionManager mSubscriptionManager;
+
+    @Captor private ArgumentCaptor<CarrierConfigChangeListener> mCarrierConfigListenerCaptor;
+
+    private CarrierConfigChangeListener getCarrierConfigChangeListener() {
+        verify(mCarrierConfigManager)
+                .registerCarrierConfigChangeListener(any(), mCarrierConfigListenerCaptor.capture());
+        return mCarrierConfigListenerCaptor.getValue();
+    }
 
     private static final class KeepaliveCarrierStats {
         public final int carrierId;
@@ -86,7 +123,7 @@ public class KeepaliveStatsTrackerTest {
     // Use the default test carrier id, transportType and keepalive interval.
     private KeepaliveCarrierStats getDefaultCarrierStats(int lifetimeMsec, int activeLifetimeMsec) {
         return new KeepaliveCarrierStats(
-                TEST_CARRIER_ID,
+                TEST_CARRIER_ID_1,
                 // Cellular transport type
                 /* transportTypes= */ 1,
                 TEST_KEEPALIVE_INTERVAL_SEC * 1000,
@@ -97,8 +134,36 @@ public class KeepaliveStatsTrackerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        mockService(
+                mContext,
+                SubscriptionManager.class,
+                Context.TELEPHONY_SUBSCRIPTION_SERVICE,
+                mSubscriptionManager);
+        mockService(
+                mContext,
+                CarrierConfigManager.class,
+                Context.CARRIER_CONFIG_SERVICE,
+                mCarrierConfigManager);
+
+        final SubscriptionInfo subInfo1 =
+                new SubscriptionInfo.Builder()
+                        .setId(TEST_SUB_ID_1)
+                        .setCarrierId(TEST_CARRIER_ID_1)
+                        .build();
+        final SubscriptionInfo subInfo2 =
+                new SubscriptionInfo.Builder()
+                        .setId(TEST_SUB_ID_2)
+                        .setCarrierId(TEST_CARRIER_ID_2)
+                        .build();
+
+        doReturn(List.of(subInfo1, subInfo2))
+                .when(mSubscriptionManager)
+                .getActiveSubscriptionInfoList();
+
+        mHandler = new Handler(Looper.getMainLooper());
+
         setUptimeMillis(0);
-        mKeepaliveStatsTracker = new KeepaliveStatsTracker(mContext, mDependencies);
+        mKeepaliveStatsTracker = new KeepaliveStatsTracker(mContext, mHandler, mDependencies);
     }
 
     private void setUptimeMillis(long time) {
@@ -244,7 +309,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         setUptimeMillis(writeTime);
@@ -281,7 +346,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         setUptimeMillis(pauseTime);
@@ -324,7 +389,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         setUptimeMillis(pauseTime);
@@ -374,7 +439,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         setUptimeMillis(pauseTime);
@@ -427,7 +492,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         setUptimeMillis(pauseTime);
@@ -475,7 +540,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         for (int i = 0; i < pauseResumeTimes.length; i++) {
@@ -537,7 +602,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         setUptimeMillis(pauseTime1);
@@ -547,7 +612,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 2,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         setUptimeMillis(resumeTime1);
@@ -624,7 +689,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         setUptimeMillis(writeTime);
@@ -694,13 +759,13 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         final int intervalSec2 = 2;
         setUptimeMillis(startTime2);
         mKeepaliveStatsTracker.onStartKeepalive(
-                TEST_NETWORK, /* slot= */ 2, TEST_NETWORK_CAPABILITIES, intervalSec2);
+                TEST_NETWORK, /* slot= */ 2, TEST_NETWORK_CAPABILITIES_2, intervalSec2);
 
         setUptimeMillis(stopTime1);
         mKeepaliveStatsTracker.onStopKeepalive(TEST_NETWORK, /* slot= */ 1);
@@ -730,7 +795,7 @@ public class KeepaliveStatsTrackerTest {
                 getDefaultCarrierStats(stopTime1 - startTime1, stopTime1 - startTime1);
         final KeepaliveCarrierStats expectKeepaliveCarrierStats2 =
                 new KeepaliveCarrierStats(
-                        TEST_CARRIER_ID,
+                        TEST_CARRIER_ID_2,
                         /* (cellular) transportTypes= */ 1,
                         intervalSec2 * 1000,
                         writeTime - startTime2,
@@ -755,7 +820,7 @@ public class KeepaliveStatsTrackerTest {
         // Only the keepalive with interval of intervalSec2 is present.
         final KeepaliveCarrierStats expectKeepaliveCarrierStats3 =
                 new KeepaliveCarrierStats(
-                        TEST_CARRIER_ID,
+                        TEST_CARRIER_ID_2,
                         /* (cellular) transportTypes= */ 1,
                         intervalSec2 * 1000,
                         writeTime2 - writeTime,
@@ -778,7 +843,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         // Attempt to use the same (network, slot)
@@ -786,7 +851,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         setUptimeMillis(writeTime);
@@ -817,7 +882,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         setUptimeMillis(stopTime);
@@ -828,7 +893,7 @@ public class KeepaliveStatsTrackerTest {
         mKeepaliveStatsTracker.onStartKeepalive(
                 TEST_NETWORK,
                 /* slot= */ 1,
-                TEST_NETWORK_CAPABILITIES,
+                TEST_NETWORK_CAPABILITIES_1,
                 TEST_KEEPALIVE_INTERVAL_SEC);
 
         setUptimeMillis(writeTime);
@@ -855,5 +920,40 @@ public class KeepaliveStatsTrackerTest {
                 new KeepaliveCarrierStats[] {
                     getDefaultCarrierStats(expectRegisteredDurations[1], expectActiveDurations[1])
                 });
+    }
+
+    @Test
+    public void testCarrierIdChange_changeBeforeStart() {
+        final CarrierConfigChangeListener carrierConfigChangeListener =
+                getCarrierConfigChangeListener();
+        carrierConfigChangeListener.onCarrierConfigChanged(
+                /* slotIndex= */ 1, TEST_SUB_ID_1, TEST_CARRIER_ID_2, /* specificCarrierId= */ -1);
+
+        // Ignore durations for this test.
+        final int startTime = 5000;
+        final int writeTime = 5000;
+
+        setUptimeMillis(startTime);
+        mKeepaliveStatsTracker.onStartKeepalive(
+                TEST_NETWORK,
+                /* slot= */ 1,
+                TEST_NETWORK_CAPABILITIES_1,
+                TEST_KEEPALIVE_INTERVAL_SEC);
+        setUptimeMillis(writeTime);
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
+                mKeepaliveStatsTracker.buildKeepaliveMetrics();
+
+        final KeepaliveCarrierStats expectKeepaliveCarrierStats =
+                new KeepaliveCarrierStats(
+                        TEST_CARRIER_ID_2,
+                        /* transportTypes= */ 1,
+                        TEST_KEEPALIVE_INTERVAL_SEC * 1000,
+                        /* lifetimeMsec= */ 0,
+                        /* activeLifetimeMsec= */ 0);
+        assertDailyKeepaliveInfoReported(
+                dailyKeepaliveInfoReported,
+                /* expectRegisteredDurations= */ new int[] {startTime, 0},
+                /* expectActiveDurations= */ new int[] {startTime, 0},
+                new KeepaliveCarrierStats[] {expectKeepaliveCarrierStats});
     }
 }
