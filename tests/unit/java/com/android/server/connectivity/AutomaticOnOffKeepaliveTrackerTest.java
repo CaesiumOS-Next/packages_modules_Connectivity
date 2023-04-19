@@ -116,6 +116,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @Mock NetworkAgentInfo mNai;
     @Mock ISocketKeepaliveCallback mSocketKeepaliveCallback;
     @Mock Network mUnderpinnedNetwork;
+    @Mock KeepaliveStatsTracker mKeepaliveStatsTracker;
 
     TestKeepaliveTracker mKeepaliveTracker;
     AOOTestHandler mTestHandler;
@@ -288,6 +289,9 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         mTestHandler = new AOOTestHandler(mHandlerThread.getLooper());
         mKeepaliveTracker = new TestKeepaliveTracker(mCtx, mTestHandler);
         doReturn(mKeepaliveTracker).when(mDependencies).newKeepaliveTracker(mCtx, mTestHandler);
+        doReturn(mKeepaliveStatsTracker)
+                .when(mDependencies)
+                .newKeepaliveStatsTracker(mCtx, mTestHandler);
         doReturn(true).when(mDependencies).isFeatureEnabled(any(), anyBoolean());
         mAOOKeepaliveTracker =
                 new AutomaticOnOffKeepaliveTracker(mCtx, mTestHandler, mDependencies);
