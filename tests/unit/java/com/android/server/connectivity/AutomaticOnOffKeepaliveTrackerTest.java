@@ -33,6 +33,7 @@ import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.longThat;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.ignoreStubs;
@@ -61,6 +62,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
+import android.telephony.SubscriptionManager;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.util.Log;
 
@@ -115,6 +117,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @Mock Context mCtx;
     @Mock AlarmManager mAlarmManager;
     @Mock NetworkAgentInfo mNai;
+    @Mock SubscriptionManager mSubscriptionManager;
 
     TestKeepaliveTracker mKeepaliveTracker;
     AOOTestHandler mTestHandler;
@@ -272,9 +275,21 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         }
     }
 
+    private <T> void mockService(String serviceName, Class<T> serviceClass, T service) {
+        doReturn(serviceName).when(mCtx).getSystemServiceName(serviceClass);
+        doReturn(service).when(mCtx).getSystemService(serviceName);
+        if (mCtx.getSystemService(serviceClass) == null) {
+            // Test is using mockito-extended
+            doCallRealMethod().when(mCtx).getSystemService(serviceClass);
+        }
+    }
+
     @Before
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        mockService(Context.TELEPHONY_SUBSCRIPTION_SERVICE, SubscriptionManager.class,
+                mSubscriptionManager);
 
         mNai.networkCapabilities =
                 new NetworkCapabilities.Builder().addTransportType(TRANSPORT_CELLULAR).build();
