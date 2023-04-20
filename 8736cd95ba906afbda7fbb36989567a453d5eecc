@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91d9d1ae_b531ab71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-20T07:14:27Z",
+      "side": 1,
+      "message": "Indeed – this is a case that we didn\u0027t have before. Unfortunately that means a lot of things other than the idle timer will break I think. We may need to remove the interface from the LinkProperties, which means in turn we may need not to send that update to LinkProperties to apps.\n\nThat would be for another patch though.",
+      "parentUuid": "c7b070fa_0c3c8865",
+      "revId": "8736cd95ba906afbda7fbb36989567a453d5eecc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e4d05b7_ace717c6",
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "Replace the rule will also need to send a remove command and add command to netd. The behavior is actually the as here.  \n\nThe possible way to do this is we can skip this update if the interface and the idle timer are the same. This may cover most of this case since I expect timer should be usually the same but we need to add a condition check(to check both interface and timer are not changed) here which I think it increases the complexity of the logic. \n\nThis is mostly about the statistic in the battery life which do not have a visible user impact. Command to update the iptables rule should be finished in couple ms. Do you think it\u0027s worthy doing such a check?",
       "parentUuid": "7e4d05b7_ace717c6",
+      "range": {
+        "startLine": 11020,
+        "startChar": 0,
+        "endLine": 11028,
+        "endChar": 13
+      },
+      "revId": "8736cd95ba906afbda7fbb36989567a453d5eecc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1f84900_f7013c7a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 11028,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-20T07:14:27Z",
+      "side": 1,
+      "message": "No, replacing the rule can\u0027t be a remove/add. This ends up shelling out to `iptables`, with remove using `-D` and add setup using `-A`, and I\u0027m saying we need to be using `-R`.\n\nI agree with you that if the interface and idle timer are the same we can skip the update, but if not then we need to replace.\n\nThat being said, if the only case where the interface is the same is the `unregisterAfterReplacement` case, then that interface is already dead and it doesn\u0027t matter if we do it in the other order, which means it\u0027s technically possible to do it in the current order, except if the iface name is the same in which case we can do it in your new order. That means no new netd call.\n\nIt is however very ugly and ad-hoc. Removing the interface from the LP is a much cleaner and much more comprehensive solution.",
+      "parentUuid": "dc4d42fb_ebb61fd4",
       "range": {
         "startLine": 11020,
         "startChar": 0,
