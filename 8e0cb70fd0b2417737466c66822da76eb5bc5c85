@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88d6d60b_4b8fe21b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-04-20T17:10:35Z",
+      "side": 1,
+      "message": "Previously, before supporting the AIDL HAL interface, OffloadController always stopped offload config and offload control, and OffloadHardwareInterface never stopped offload itself. Perhaps we should go back to the original design? OffloadController will call stopOffload() if initOffload returns OFFLOAD_HAL_VERSION_NONE.\nKH, WDYT ?",
+      "parentUuid": "3d773b3f_526513e4",
+      "revId": "8e0cb70fd0b2417737466c66822da76eb5bc5c85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70de272b_a443e3dc",
         "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
         "patchSetId": 3
@@ -31,6 +49,30 @@
       "writtenOn": "2023-04-20T12:21:15Z",
       "side": 1,
       "message": "Change to \u0027stopOffload();\u0027, this prevents mIOffload.stopOffload() to be called again in OffloadController.",
+      "range": {
+        "startLine": 321,
+        "startChar": 12,
+        "endLine": 321,
+        "endChar": 36
+      },
+      "revId": "8e0cb70fd0b2417737466c66822da76eb5bc5c85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7be1c668_01ef4a7b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-04-20T17:10:35Z",
+      "side": 1,
+      "message": "If we all agree to my previous suggestion, we can remove the l.321, mIOffload.stopOffload().",
+      "parentUuid": "70de272b_a443e3dc",
       "range": {
         "startLine": 321,
         "startChar": 12,
