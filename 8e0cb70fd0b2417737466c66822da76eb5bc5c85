@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d773b3f_526513e4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-04-20T12:21:15Z",
+      "side": 1,
+      "message": "Add \u0027mIOffload \u003d null;\u0027, this prevents mIOffload.stopOffload() to be called when h1/h2 \u003d null.",
+      "revId": "8e0cb70fd0b2417737466c66822da76eb5bc5c85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70de272b_a443e3dc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-04-20T12:21:15Z",
+      "side": 1,
+      "message": "Change to \u0027stopOffload();\u0027, this prevents mIOffload.stopOffload() to be called again in OffloadController.",
+      "range": {
+        "startLine": 321,
+        "startChar": 12,
+        "endLine": 321,
+        "endChar": 36
+      },
+      "revId": "8e0cb70fd0b2417737466c66822da76eb5bc5c85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
