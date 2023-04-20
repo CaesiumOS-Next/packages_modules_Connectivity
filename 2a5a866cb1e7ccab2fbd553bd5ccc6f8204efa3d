@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73547769_dfd62ab9",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-04-20T17:07:03Z",
+      "side": 1,
+      "message": "nit: Log.i takes a throwable as a third parameter.\n```\nLog.i(TAG, \"shutdownLocked: error when unregister tethering, ignored.\", e);\n```",
+      "range": {
+        "startLine": 952,
+        "startChar": 12,
+        "endLine": 952,
+        "endChar": 18
+      },
+      "revId": "2a5a866cb1e7ccab2fbd553bd5ccc6f8204efa3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
