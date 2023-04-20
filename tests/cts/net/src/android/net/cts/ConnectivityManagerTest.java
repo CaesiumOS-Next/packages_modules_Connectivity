@@ -2552,6 +2552,9 @@ public class ConnectivityManagerTest {
                 tetherUtils.registerTetheringEventCallback();
         try {
             tetherEventCallback.assumeWifiTetheringSupported(mContext);
+            // To ensure that the hotspot is always disabled in APM even if the
+            // "keep WiFi on in APM" flag is on, disable the WiFi setting.
+            mCtsNetUtils.disableWifi();
 
             tetherUtils.startWifiTethering(tetherEventCallback);
             // Update setting to verify the behavior.
