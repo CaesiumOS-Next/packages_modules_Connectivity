@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f79421_a0052532",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-20T08:19:10Z",
+      "side": 1,
+      "message": "TH found failure in IpSecManagerTunnelTest is due to pre-fix 6.1 kernel, which has since been reverted.",
+      "revId": "b6232eb6f06e1a2ad9f9b0d549791905971fed0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
