@@ -70,6 +70,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c63e93_7f031c7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-04-20T18:01:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20c392c9_94cb990c",
+      "revId": "9debcc0d588f88502ffb000f00b8ce586284a9e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2af986b_62726229",
@@ -83,6 +101,30 @@
       "writtenOn": "2023-01-31T06:36:32Z",
       "side": 1,
       "message": "Wow, that\u0027s really new. Do we even only have one cuttlefish kernel that\u0027s new enough to run these tests on? If not, then the tests might be skipped everywhere, and as a result, bitrot...",
+      "range": {
+        "startLine": 402,
+        "startChar": 43,
+        "endLine": 402,
+        "endChar": 48
+      },
+      "revId": "9debcc0d588f88502ffb000f00b8ce586284a9e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00cb1cbb_7a17af88",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-04-20T18:01:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2af986b_62726229",
       "range": {
         "startLine": 402,
         "startChar": 43,
