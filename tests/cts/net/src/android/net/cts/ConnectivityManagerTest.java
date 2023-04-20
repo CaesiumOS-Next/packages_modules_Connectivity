@@ -2552,6 +2552,7 @@ public class ConnectivityManagerTest {
                 tetherUtils.registerTetheringEventCallback();
         try {
             tetherEventCallback.assumeWifiTetheringSupported(mContext);
+            mCtsNetUtils.disableWifi();
 
             tetherUtils.startWifiTethering(tetherEventCallback);
             // Update setting to verify the behavior.
