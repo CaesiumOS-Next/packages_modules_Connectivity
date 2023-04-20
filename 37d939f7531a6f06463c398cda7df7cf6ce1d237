@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "469bb8b9_2cf9a57f",
+        "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1993882
+      },
+      "writtenOn": "2023-04-20T13:09:50Z",
+      "side": 1,
+      "message": "Why is this a single String while the other fields provide the possibility of multiple ?\nCAST for example responds to \"_googlecast._tcp.local\" but also to \"{some random UUID}._googlecast._tcp.local\".\nI\u0027m not sure if this is planned to be handled by NsdManager, but it is a case they have.",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ece4cc3_ef5b9c36",
         "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
         "patchSetId": 14
