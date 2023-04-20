@@ -255,6 +255,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ab07598_60904da3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "In this case, can you just mock the telephony manager in that test as what the test needs?",
+      "parentUuid": "30f52b5c_f49f5bd7",
+      "range": {
+        "startLine": 212,
+        "startChar": 12,
+        "endLine": 212,
+        "endChar": 37
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "94e745b1_329ef381",
         "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
         "patchSetId": 9

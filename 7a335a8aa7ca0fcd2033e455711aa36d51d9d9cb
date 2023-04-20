@@ -3,6 +3,207 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "fdde5386_2dc32512",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "Initial review, not detail look at the test yet. Will do another run later",
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c5e3c78_d02cc510",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 3217,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "Nit: extra empty line",
+      "range": {
+        "startLine": 3217,
+        "startChar": 0,
+        "endLine": 3217,
+        "endChar": 1
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "029c56de_a161d3b8",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "transport?",
+      "range": {
+        "startLine": 64,
+        "startChar": 42,
+        "endLine": 64,
+        "endChar": 50
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5d898c7_4fac3217",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "Optional: isKeepaliveAlive()\n\nIf this method is added in a Keepalive class, then it\u0027s clear that this mean Keepalive is alive. But I think it\u0027s not clear to see a isAlive() method in a *Stats class. I will wonder if that is stats alive?",
+      "range": {
+        "startLine": 89,
+        "startChar": 23,
+        "endLine": 89,
+        "endChar": 31
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f658570e_9166b583",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "Notet that this is added in U. You may not rely on this since this is module code.",
+      "range": {
+        "startLine": 247,
+        "startChar": 38,
+        "endLine": 247,
+        "endChar": 65
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4a09a1a_7e6cdbbc",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "In the definition of proto, it should be TelephonyManager.UNKNOWN_CARRIER_ID(-1) if not cell.",
+      "range": {
+        "startLine": 255,
+        "startChar": 19,
+        "endLine": 255,
+        "endChar": 55
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b608202_46b0d98d",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "This may be worthy to have a helper method since it duplicates in 3 places.",
+      "range": {
+        "startLine": 299,
+        "startChar": 12,
+        "endLine": 300,
+        "endChar": 71
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2e64093_52198af4",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "What does this mean? Should be called in this method or should be called by caller? \n\nIt does not seem to be the first case. But it\u0027s also not all true for the second case. It does not call in onStopKeepalive.",
+      "range": {
+        "startLine": 359,
+        "startChar": 18,
+        "endLine": 359,
+        "endChar": 73
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e61092ac_06266167",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "When will this be called?\n\nAlso, you may want to update the doc to match what it does now",
+      "range": {
+        "startLine": 441,
+        "startChar": 38,
+        "endLine": 441,
+        "endChar": 58
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bc9c6438_1fbaab61",
         "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
         "patchSetId": 10
@@ -14,6 +215,52 @@
       "writtenOn": "2023-04-18T12:26:22Z",
       "side": 1,
       "message": "This line needed to be added to keep this test passing,",
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94a95cc0_dd6b5438",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "You could just do `doReturn(new Network(123)).when(nai).network();` since the network variable does not used anymore here.\n\nI think if you need to add this comment here. You may want to put the comment in the code to describe why it\u0027s necessary.",
+      "range": {
+        "startLine": 319,
+        "startChar": 8,
+        "endLine": 319,
+        "endChar": 43
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84e72b75_dfeece71",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-20T13:54:38Z",
+      "side": 1,
+      "message": "0 for cellular network instead? It\u0027s more realistic. The carrier id should -1 for non-cell network",
+      "range": {
+        "startLine": 93,
+        "startChar": 37,
+        "endLine": 93,
+        "endChar": 39
+      },
       "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
