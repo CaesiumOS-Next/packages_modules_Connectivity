@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54e8266d_a750938c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-04-20T06:16:43Z",
+      "side": 1,
+      "message": "Perhaps downgrade log level to i because it is likely to get this exception as intended.",
+      "range": {
+        "startLine": 952,
+        "startChar": 16,
+        "endLine": 952,
+        "endChar": 17
+      },
+      "revId": "668b16ffd15b6b0b1205909adc0e47b8cb1ce5a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
