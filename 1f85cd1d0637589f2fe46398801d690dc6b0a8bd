@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56da512b_a7c075fa",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T07:42:17Z",
+      "side": 1,
+      "message": "To be more correct on downstream interfaces, this should probably be a class that can hold either a Network or an interfaceIndex. Then you can have the cache be per-tethering interface. NetworkAsKey in the SocketProvider should probably be changed into that.\n\nBut today MdnsServiceTypeClient is per-Network, with a single MdnsServiceTypeClient for tethered interfaces I think ? This would first need to be refactored to be per-NetworkAsKey. This should be in a separate change.",
+      "range": {
+        "startLine": 46,
+        "startChar": 24,
+        "endLine": 46,
+        "endChar": 31
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b883bfd_209fd2bc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T07:42:17Z",
+      "side": 1,
+      "message": "Note toLowerCase() is different from DNS case-insensitive definition\ne.g. \"RÉMI\".toLowerCase() is \"rémi\"\n\nBut https://www.rfc-editor.org/rfc/rfc6762#page-46 says that \"Accented characters are *not* defined to be automatically equivalent to their unaccented counterparts\". So the \"DNS lowercase\" here should be \"rÉmi\"\n\nSo basically: to calculate the \"DNS lowercase\" you look at each UTF-8 (or UTF-16 for Java) character; if they\u0027re in range 0x41 to 0x5A (A-Z) you add 0x20, so they\u0027re transformed into a-z. Otherwise they are kept as-is.\n\nYuyang has b/272194544 open where he\u0027d probably need to use such utils, so you can sync with him.\n\n(Yes I know, aosp/2474710 is wrong and needs to be fixed too !)",
+      "range": {
+        "startLine": 49,
+        "startChar": 48,
+        "endLine": 49,
+        "endChar": 62
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b656dd2_c31fa140",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T07:42:17Z",
+      "side": 1,
+      "message": "Nit: @NonNull (also on mHandler)",
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34113b4f_38f28219",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T07:42:17Z",
+      "side": 1,
+      "message": "This will be modified in addService, which would affect the Set that was returned previously\n\nMaybe use Collections.unmodifiableSet(new ArraySet\u003c\u003e(mCachedServices.get(key)))\n\nWe should also make sure MdnsResponse isn\u0027t modified while it\u0027s cached. Probably it should be made immutable... Maybe you can file a bug for that ?",
+      "range": {
+        "startLine": 91,
+        "startChar": 46,
+        "endLine": 91,
+        "endChar": 70
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63ed4225_d5e32293",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T07:42:17Z",
+      "side": 1,
+      "message": "Nit: just Collections.emptySet() (this would be consistent with the unmodifiableSet above)",
+      "range": {
+        "startLine": 92,
+        "startChar": 18,
+        "endLine": 92,
+        "endChar": 35
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4376b4d_fa9b35a1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T07:42:17Z",
+      "side": 1,
+      "message": "Also this should use different casing rules",
+      "range": {
+        "startLine": 98,
+        "startChar": 28,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2214d983_d13d2b56",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T07:42:17Z",
+      "side": 1,
+      "message": "getCachedServices doesn\u0027t make a copy of the response, but this does, which isn\u0027t very consistent.\n\nI think you can skip making a copy to make it consistent, if current users aren\u0027t modifying it. And as mentioned earlier have a bug to make MdnsResponse immutable.",
+      "range": {
+        "startLine": 122,
+        "startChar": 34,
+        "endLine": 122,
+        "endChar": 60
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e13ba1fe_0b300ed2",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T07:42:17Z",
+      "side": 1,
+      "message": "Do you need this if you\u0027ve got the next method ? Maybe it could just be a single runOnHandler method ?",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 32
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50f2d381_34ffde5a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T07:42:17Z",
+      "side": 1,
+      "message": "Nit: it would be useful to verify the contents of the response when there\u0027s 2 items too",
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
