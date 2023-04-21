@@ -22,6 +22,30 @@
       },
       "revId": "2a5a866cb1e7ccab2fbd553bd5ccc6f8204efa3d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f75867b7_233aa66a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1594833
+      },
+      "writtenOn": "2023-04-21T04:14:15Z",
+      "side": 1,
+      "message": "Hi Patrick,\n\nBefore we modifying this, we would like to confirm that if print stack trace in Log.i level is properly.\n\nWe use information level here as we just need to know here occuring an exception but we don\u0027t would like to further handle it, so print what kind of exception should be enough. If we think the exception here need more attention or information, maybe increase log level to d or w as well?",
+      "parentUuid": "73547769_dfd62ab9",
+      "range": {
+        "startLine": 952,
+        "startChar": 12,
+        "endLine": 952,
+        "endChar": 18
+      },
+      "revId": "2a5a866cb1e7ccab2fbd553bd5ccc6f8204efa3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
