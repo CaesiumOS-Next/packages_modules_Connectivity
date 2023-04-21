@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a3602c3_27608692",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T09:15:20Z",
+      "side": 1,
+      "message": "Possible NPE here ?",
+      "range": {
+        "startLine": 234,
+        "startChar": 55,
+        "endLine": 234,
+        "endChar": 70
+      },
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2419412_7df85064",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T09:15:20Z",
+      "side": 1,
+      "message": "You should be able to break out of the loop if this isn\u0027t the case, since the responses are ordered by TTL (that\u0027s the main advantage of using a TreeSet)",
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "693c1e65_6b359d18",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T09:15:20Z",
+      "side": 1,
+      "message": "This could NPE if there\u0027s no service record right ?",
+      "range": {
+        "startLine": 246,
+        "startChar": 70,
+        "endLine": 246,
+        "endChar": 85
+      },
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d21e99da_e21c8d3c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T09:15:20Z",
+      "side": 1,
+      "message": "This looks like the comparator could return different results depending on the time, which is a bit scary but thankfully not the case.\n\nCould you just call getRemainingTTL with 0 ? This should still return the same ordering right ?",
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5d339c6_cc049d32",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T09:15:20Z",
+      "side": 1,
+      "message": "But then if 2 services have no service record, a \u003c b and b \u003c a are both true; this will break stuff.\n\nI think you should consider A \u003c B if A has a record and not B, and A \u003d\u003d B if they both have no record.\n\nThat said the logic should actually look at the minimum TTL among all records. Or you could just keep using an ArraySet and iterate on all items to simplify the code...",
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5744ff0_4e79d83d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T09:15:20Z",
+      "side": 1,
+      "message": "compareTo ?",
+      "range": {
+        "startLine": 281,
+        "startChar": 47,
+        "endLine": 281,
+        "endChar": 53
+      },
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66fcd9a6_6311fc17",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T09:15:20Z",
+      "side": 1,
+      "message": "Could you use a mock handler, or a mock postDelayed method instead ? With timeouts in the order of 100s of ms, this will likely be flaky",
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
