@@ -33,6 +33,10 @@ import java.util.Objects;
 
 /** An mDNS response. */
 public class MdnsResponse {
+    // RFC6762.10 the recommended TTL value for Multicast DNS resource records with a host name as
+    // the resource record's name (e.g., A, AAAA, HINFO) or a host name contained within the
+    // resource record's rdata (e.g., SRV, reverse mapping PTR record) SHOULD be 120 seconds.
+    public static final long DEFAULT_TTL_TIME_MS = 120000L;
     private final List<MdnsRecord> records;
     private final List<MdnsPointerRecord> pointerRecords;
     private MdnsServiceRecord serviceRecord;
@@ -344,6 +348,20 @@ public class MdnsResponse {
     @NonNull
     public String[] getServiceName() {
         return serviceName;
+    }
+
+    /** Get the lowest remaining ttl time from received records */
+    public long getLowestTtlTime(long now) {
+        long lowestTtl = DEFAULT_TTL_TIME_MS;
+        // TODO: Check other records(A, AAAA, TXT) ttl time.
+        // Check ttl time on serviceRecord.
+        if (hasServiceRecord()) {
+            long ttl = serviceRecord.getRemainingTTL(now);
+            if (ttl < lowestTtl) {
+                lowestTtl = ttl;
+            }
+        }
+        return lowestTtl;
     }
 
     /**
