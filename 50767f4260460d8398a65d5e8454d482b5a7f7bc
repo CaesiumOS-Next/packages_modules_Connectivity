@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83242639_22e547f1",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-04-21T15:05:22Z",
+      "side": 1,
+      "message": "We could add the previous version as an MTS test. MTS is not required to be run by OEMs. As it happens, I am working on an annotation to exclude specific tests from CTS and run them in MTS only.",
+      "range": {
+        "startLine": 224,
+        "startChar": 16,
+        "endLine": 224,
+        "endChar": 41
+      },
+      "revId": "50767f4260460d8398a65d5e8454d482b5a7f7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
