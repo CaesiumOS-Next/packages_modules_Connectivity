@@ -29,9 +29,11 @@ import android.util.ArraySet;
 import com.android.internal.annotations.VisibleForTesting;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * The {@link MdnsServiceCache} manages the service which discovers from each socket and cache these
@@ -74,7 +76,7 @@ public class MdnsServiceCache {
      * A map of cached services. Key is composed of service name, type and network. Value is the
      * service which use the service type to discover from each socket.
      */
-    private final ArrayMap<CacheKey, Set<MdnsResponse>> mCachedServices = new ArrayMap<>();
+    private final ArrayMap<CacheKey, TreeSet<MdnsResponse>> mCachedServices = new ArrayMap<>();
     /**
      * A map of service expire callbacks. Key is the callback listener and value is the listened
      * service type.
@@ -152,7 +154,8 @@ public class MdnsServiceCache {
             @NonNull MdnsResponse response) {
         ensureRunningOnHandlerThread(mHandler);
         final Set<MdnsResponse> responses = mCachedServices.computeIfAbsent(
-                new CacheKey(serviceType, network), key -> new ArraySet<>());
+                new CacheKey(serviceType, network),
+                key -> new TreeSet<>(new ServiceTtlComparator(mClock)));
         // Remove existing service if present.
         final MdnsResponse existing =
                 findMatchedResponse(responses, response.getServiceInstanceName());
@@ -220,9 +223,10 @@ public class MdnsServiceCache {
     @VisibleForTesting
     void checkAndNotifyTtlExpiredServices() {
         final long now = mClock.elapsedRealtime();
+        long nextCheckDelay = DEFAULT_TTL_TIME_MS;
         for (int i = 0; i < mCachedServices.size(); i++) {
             final CacheKey key = mCachedServices.keyAt(i);
-            final Set<MdnsResponse> responses = mCachedServices.valueAt(i);
+            final TreeSet<MdnsResponse> responses = mCachedServices.valueAt(i);
             final Iterator<MdnsResponse> iterator = responses.iterator();
             while (iterator.hasNext()) {
                 final MdnsResponse response = iterator.next();
@@ -237,9 +241,45 @@ public class MdnsServiceCache {
             if (responses.isEmpty()) {
                 // Remove the serviceType if no response.
                 mCachedServices.removeAt(i);
+            } else {
+                // Update the next check delay
+                final long ttl = responses.first().getServiceRecord().getRemainingTTL(now);
+                if (ttl < nextCheckDelay) {
+                    // Don't trigger expiration check frequently. Consider a tolerance of +50ms.
+                    nextCheckDelay = ttl < 50L ? 50L : ttl;
+                }
             }
         }
-        mHandler.postDelayed(this::checkAndNotifyTtlExpiredServices, DEFAULT_TTL_TIME_MS);
+        mHandler.postDelayed(this::checkAndNotifyTtlExpiredServices, nextCheckDelay);
+    }
+
+    /*** Comparator for MdnsResponse's order */
+    private static class ServiceTtlComparator implements Comparator<MdnsResponse> {
+        private final MdnsResponseDecoder.Clock mClock;
+
+        ServiceTtlComparator(@NonNull MdnsResponseDecoder.Clock clock) {
+            mClock = clock;
+        }
+
+        @Override
+        public int compare(MdnsResponse o1, MdnsResponse o2) {
+            // Can't do comparison if any of response or service record is null.
+            if (o1 == null || o2 == null
+                    || !o1.hasServiceRecord() || !o2.hasServiceRecord()) {
+                return -1;
+            }
+
+            final long now = mClock.elapsedRealtime();
+            final long diff = (o1.getServiceRecord().getRemainingTTL(now)
+                    - o2.getServiceRecord().getRemainingTTL(now));
+            // Order by remaining ttl time
+            if (diff != 0L) {
+                return (int) diff;
+            }
+            // If the remaining ttl time is same then check the service instance name to determine
+            // whether they are same response.
+            return o1.getServiceInstanceName().equals(o2.getServiceInstanceName()) ? 0 : -1;
+        }
     }
 
     /*** Callbacks for listening service expiration */

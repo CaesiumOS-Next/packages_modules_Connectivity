@@ -705,6 +705,32 @@ public class MdnsServiceTypeClientTests {
     }
 
     @Test
+    public void processResponse_shouldRemoveAfterTtlTimeExpired() throws Exception {
+        //MdnsConfigsFlagsImpl.allowSearchOptionsToRemoveExpiredService.override(true);
+        final String serviceInstanceName = "service-instance-1";
+        startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
+
+        // Process the initial response.
+        processResponse(createResponse(
+                serviceInstanceName, "192.168.1.1", 5353, /* subtype= */ "ABCDE",
+                Collections.emptyMap(), TEST_TTL), INTERFACE_INDEX, mockNetwork);
+
+        // Trigger service ttl expiration check
+        serviceCache.checkAndNotifyTtlExpiredServices();
+
+        // Verify removed callback was not called.
+        verifyServiceRemovedNoCallback(mockListenerOne);
+
+        // Simulate the case where the response is after TTL and trigger the check again
+        doReturn(TEST_ELAPSED_REALTIME + TEST_TTL + 1L).when(mockDecoderClock).elapsedRealtime();
+        serviceCache.checkAndNotifyTtlExpiredServices();
+
+        // Verify removed callback was called.
+        verifyServiceRemovedCallback(mockListenerOne, serviceInstanceName, SERVICE_TYPE_LABELS,
+                INTERFACE_INDEX, mockNetwork);
+    }
+
+    @Test
     public void testProcessResponse_InOrder() throws Exception {
         final String serviceName = "service-instance";
         final String ipV4Address = "192.0.2.0";

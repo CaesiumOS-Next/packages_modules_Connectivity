@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import org.junit.After
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -91,6 +92,7 @@ class MdnsServiceCacheTest {
     @Before
     fun setUp() {
         thread.start()
+        doReturn(TEST_ELAPSED_REALTIME_MS).`when`(clock).elapsedRealtime()
     }
 
     @After
@@ -174,14 +176,14 @@ class MdnsServiceCacheTest {
         addService(SERVICE_TYPE_1, network,
             createResponse(SERVICE_NAME_1, SERVICE_TYPE_1, 1L /* ttlTime */))
         addService(SERVICE_TYPE_1, network,
-            createResponse(SERVICE_NAME_2, SERVICE_TYPE_1, 21L /* ttlTime */))
+            createResponse(SERVICE_NAME_2, SERVICE_TYPE_1, 201L /* ttlTime */))
         addService(SERVICE_TYPE_2, network,
-            createResponse(SERVICE_NAME_3, SERVICE_TYPE_2, 11L /* ttlTime */))
+            createResponse(SERVICE_NAME_3, SERVICE_TYPE_2, 101L /* ttlTime */))
         assertEquals(2, getServices(SERVICE_TYPE_1, network).size)
         assertEquals(1, getServices(SERVICE_TYPE_2, network).size)
 
-        // Simulate the case where the response is after TTL then check expired services.
-        doReturn(TEST_ELAPSED_REALTIME_MS + 10L).`when`(clock).elapsedRealtime()
+        // Simulate the case where the first service is expired then trigger the service check.
+        doReturn(TEST_ELAPSED_REALTIME_MS + 100L).`when`(clock).elapsedRealtime()
         runningOnHandler { serviceCache.checkAndNotifyTtlExpiredServices() }
         // Expect SERVICE_NAME_1 expired.
         callback1.expectedServiceExpired(SERVICE_NAME_1)
@@ -189,9 +191,10 @@ class MdnsServiceCacheTest {
         assertEquals(1, getServices(SERVICE_TYPE_1, network).size)
         assertEquals(1, getServices(SERVICE_TYPE_2, network).size)
 
-        // Simulate the case where the response is after TTL then check expired services.
-        doReturn(TEST_ELAPSED_REALTIME_MS + 20L).`when`(clock).elapsedRealtime()
-        runningOnHandler { serviceCache.checkAndNotifyTtlExpiredServices() }
+        // Simulate the case where the second service is expired then wait for the scheduling
+        // service check.
+        doReturn(TEST_ELAPSED_REALTIME_MS + 200L).`when`(clock).elapsedRealtime()
+        handler.waitForDelayedMessage(what = null, timeoutMs = 100L)
         // Expect SERVICE_NAME_3 expired.
         callback1.assertNoCallback()
         callback2.expectedServiceExpired(SERVICE_NAME_3)
@@ -228,5 +231,25 @@ class MdnsServiceCacheTest {
             arrayOf("hostname"))
         response.serviceRecord = serviceRecord
         return response
+    }
+
+    private fun Handler.waitForDelayedMessage(what: Int?, timeoutMs: Long) {
+        fun hasMatchingMessages() =
+                if (what == null) hasMessagesOrCallbacks() else hasMessages(what)
+        val expiry = System.currentTimeMillis() + timeoutMs
+        var delay = 5L
+        while (System.currentTimeMillis() < expiry && hasMatchingMessages()) {
+            // None of Handler, Looper, Message and MessageQueue expose any way to retrieve
+            // the time when the next (let alone the last) message will be processed, so
+            // short of examining the internals with reflection sleep() is the only solution.
+            Thread.sleep(delay)
+            delay = (delay * 2)
+                    .coerceAtMost(expiry - System.currentTimeMillis())
+                    .coerceAtMost(200L)
+        }
+
+        val timeout = expiry - System.currentTimeMillis()
+        if (timeout <= 0) Assert.fail("Delayed message did not process yet after ${timeoutMs}ms")
+        waitForIdle(timeout)
     }
 }
