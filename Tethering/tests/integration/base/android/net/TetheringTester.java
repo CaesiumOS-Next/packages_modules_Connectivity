@@ -628,7 +628,7 @@ public final class TetheringTester {
         return false;
     }
 
-    private void sendUploadPacket(ByteBuffer packet) throws Exception {
+    public void sendUploadPacket(ByteBuffer packet) throws Exception {
         mDownstreamReader.sendResponse(packet);
     }
 
