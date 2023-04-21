@@ -37,7 +37,6 @@ import static com.android.net.module.util.NetworkStackConstants.ICMP_CHECKSUM_OF
 import static com.android.net.module.util.NetworkStackConstants.IPV4_CHECKSUM_OFFSET;
 import static com.android.net.module.util.NetworkStackConstants.IPV4_HEADER_MIN_LEN;
 import static com.android.net.module.util.NetworkStackConstants.IPV4_LENGTH_OFFSET;
-import static com.android.testutils.MiscAsserts.assertThrows;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -871,10 +870,10 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
         final ByteBuffer packet = ByteBuffer.wrap(ZeroLengthDhcpPacket);
         tester.sendUploadPacket(packet);
 
-        // Create another downstream tethered device to verify that upstream DHCP server has closed
-        // the listening socket and stopped reading packet, then we will get TimeoutException.
+        // Create another downstream tethered device to verify that upstream DHCP server doesn't
+        // close the listening socket and stop reading packet, then we can still create a second
+        // downstream tethered device successfully.
         final MacAddress macAddress = MacAddress.fromString("11:22:33:44:55:66");
-        assertThrows(TimeoutException.class,
-                () -> tester.createTetheredDevice(macAddress, false /* hasIpv6 */));
+        assertNotNull(tester.createTetheredDevice(macAddress, false /* hasIpv6 */));
     }
 }
