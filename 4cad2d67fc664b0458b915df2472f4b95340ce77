@@ -16,6 +16,29 @@
       "message": "Original CL is aosp/2401050",
       "revId": "4cad2d67fc664b0458b915df2472f4b95340ce77",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7755db17_d317cdfb",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T06:53:39Z",
+      "side": 1,
+      "message": "This is called in the constructor, which is called in ConnectivityService constructor, which is called before the PackageManager is ready.\n\nIn this case, before aosp/2428741 lands, the override using a module name would crash",
+      "range": {
+        "startLine": 838,
+        "startChar": 23,
+        "endLine": 838,
+        "endChar": 39
+      },
+      "revId": "4cad2d67fc664b0458b915df2472f4b95340ce77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
