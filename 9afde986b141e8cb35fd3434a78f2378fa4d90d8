@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76a81b06_00ae7e5e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T08:31:13Z",
+      "side": 1,
+      "message": "Can you document what the threading model is ?\n\nI think this should only be accessed on the looper thread, if record expiration is going to be checked on that handler ? In that case, can you add checkThread calls to every method that uses it ?\n\nYou\u0027ll probably need to make sure MdnsDiscoveryManager calls processResponse on the looper thread (since MdnsMultinetworkSocketClient already does it, you could check if Thread.getCurrentThread() \u003d\u003d looper.getThread(), and post to a handler otherwise)",
+      "revId": "9afde986b141e8cb35fd3434a78f2378fa4d90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b74e73fb_37560342",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T08:31:13Z",
+      "side": 1,
+      "message": "I find it more error-prone to have this as a member, compared to the current code that generates it in QueryTask:\n - It\u0027s not clear what the threading model is for this\n - It\u0027s not clear when it needs to be updated; easy to forget to update it so error-prone\n \nIIUC you\u0027re trying to avoid access to the cache on the QueryTask thread, but you end up using this member on multiple threads @GuardedBy(\"lock\"), which is a bit error-prone.\n\nI think you could do something like:\n\n - Add this as an argument to QueryTask constructor\n - Instead of calling executor.schedule(new QueryTask(config)...) in QueryTask, use handler.postDelayed(handleSendQuery), where handleSendQuery will build the QueryTask (on the handler thread) and call executor.submit.\n \nThis should allow us to get rid of the lock, as otherwise it\u0027s still needed for requestTaskFuture.",
+      "revId": "9afde986b141e8cb35fd3434a78f2378fa4d90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8ee3c5c_ba6d6b7e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T08:31:13Z",
+      "side": 1,
+      "message": "Note: if this happened, the following code should use executor.schedule instead of executor.submit, to avoid sending queries immediately even though the response was in cache (may happen if a resolve is requested just after a discover).\n\nThis can probably be in a another change though.",
+      "revId": "9afde986b141e8cb35fd3434a78f2378fa4d90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88114ce0_ca85309e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T08:31:13Z",
+      "side": 1,
+      "message": "This should be stopped in tearDown too",
+      "revId": "9afde986b141e8cb35fd3434a78f2378fa4d90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

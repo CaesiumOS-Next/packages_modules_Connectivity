@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f53942ad_90985e23",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T08:31:13Z",
+      "side": 0,
+      "message": "I think this needs to stay; otherwise this is breaking some exit notifications.\n\nI think the code can assume that the flag is true, not false.\nIf the cache should only be accessed on the looper thread, this can be posted to a handler on that looper.",
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54ac9845_dc32caee",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T08:31:13Z",
+      "side": 0,
+      "message": "This should probably remove the service now",
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
