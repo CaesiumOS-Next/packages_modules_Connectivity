@@ -26,6 +26,7 @@ import static org.mockito.Mockito.when;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.Network;
+import android.os.HandlerThread;
 import android.text.TextUtils;
 import android.util.Pair;
 
@@ -76,7 +77,10 @@ public class MdnsDiscoveryManagerTests {
         when(mockServiceTypeClientTwo.getServiceTypeLabels())
                 .thenReturn(TextUtils.split(SERVICE_TYPE_2, "\\."));
 
-        discoveryManager = new MdnsDiscoveryManager(executorProvider, socketClient) {
+        final HandlerThread thread = new HandlerThread("MdnsDiscoveryManagerTests");
+        thread.start();
+        discoveryManager = new MdnsDiscoveryManager(
+                executorProvider, socketClient, thread.getLooper()) {
                     @Override
                     MdnsServiceTypeClient createServiceTypeClient(@NonNull String serviceType,
                             @Nullable Network network) {

@@ -23,6 +23,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.net.Network;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -50,6 +51,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
 
     @GuardedBy("this")
     @NonNull private final PerNetworkServiceTypeClients perNetworkServiceTypeClients;
+    @NonNull private final MdnsServiceCache serviceCache;
 
     private static class PerNetworkServiceTypeClients {
         private final ArrayMap<Pair<String, Network>, MdnsServiceTypeClient> clients =
@@ -100,10 +102,11 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
     }
 
     public MdnsDiscoveryManager(@NonNull ExecutorProvider executorProvider,
-            @NonNull MdnsSocketClientBase socketClient) {
+            @NonNull MdnsSocketClientBase socketClient, @NonNull Looper looper) {
         this.executorProvider = executorProvider;
         this.socketClient = socketClient;
         perNetworkServiceTypeClients = new PerNetworkServiceTypeClients();
+        serviceCache = new MdnsServiceCache(looper);
     }
 
     /**
@@ -203,6 +206,6 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
             @Nullable Network network) {
         return new MdnsServiceTypeClient(
                 serviceType, socketClient,
-                executorProvider.newServiceTypeClientSchedulerExecutor(), network);
+                executorProvider.newServiceTypeClientSchedulerExecutor(), network, serviceCache);
     }
 }
