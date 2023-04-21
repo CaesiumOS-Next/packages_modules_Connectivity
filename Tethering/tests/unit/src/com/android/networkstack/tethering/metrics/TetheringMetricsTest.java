@@ -150,13 +150,10 @@ public final class TetheringMetricsTest {
     }
 
     private void addUpstreamEvent(UpstreamEvents.Builder upstreamEvents,
-            final UpstreamType expectedResult, final long duration, final long txBytes,
-                    final long rxBytes) {
+            final UpstreamType expectedResult, final long duration) {
         UpstreamEvent.Builder upstreamEvent = UpstreamEvent.newBuilder()
                 .setUpstreamType(expectedResult)
-                .setDurationMillis(duration)
-                .setTxBytes(txBytes)
-                .setRxBytes(rxBytes);
+                .setDurationMillis(duration);
         upstreamEvents.addUpstreamEvent(upstreamEvent);
     }
 
@@ -167,7 +164,7 @@ public final class TetheringMetricsTest {
         incrementCurrentTime(duration);
         UpstreamEvents.Builder upstreamEvents = UpstreamEvents.newBuilder();
         // Set UpstreamType as NO_NETWORK because the upstream type has not been changed.
-        addUpstreamEvent(upstreamEvents, UpstreamType.UT_NO_NETWORK, duration, 0L, 0L);
+        addUpstreamEvent(upstreamEvents, UpstreamType.UT_NO_NETWORK, duration);
         updateErrorAndSendReport(type, TETHER_ERROR_NO_ERROR);
 
         verifyReport(expectedResult, ErrorCode.EC_NO_ERROR, UserType.USER_UNKNOWN,
@@ -196,7 +193,7 @@ public final class TetheringMetricsTest {
         updateErrorAndSendReport(TETHERING_WIFI, errorCode);
 
         UpstreamEvents.Builder upstreamEvents = UpstreamEvents.newBuilder();
-        addUpstreamEvent(upstreamEvents, UpstreamType.UT_WIFI, duration, 0L, 0L);
+        addUpstreamEvent(upstreamEvents, UpstreamType.UT_WIFI, duration);
         verifyReport(DownstreamType.DS_TETHERING_WIFI, expectedResult, UserType.USER_UNKNOWN,
                     upstreamEvents, getElapsedRealtime());
         reset(mTetheringMetrics);
@@ -238,7 +235,7 @@ public final class TetheringMetricsTest {
 
         UpstreamEvents.Builder upstreamEvents = UpstreamEvents.newBuilder();
         // Set UpstreamType as NO_NETWORK because the upstream type has not been changed.
-        addUpstreamEvent(upstreamEvents, UpstreamType.UT_NO_NETWORK, duration, 0L, 0L);
+        addUpstreamEvent(upstreamEvents, UpstreamType.UT_NO_NETWORK, duration);
         verifyReport(DownstreamType.DS_TETHERING_WIFI, ErrorCode.EC_NO_ERROR, expectedResult,
                     upstreamEvents, getElapsedRealtime());
         reset(mTetheringMetrics);
@@ -263,7 +260,7 @@ public final class TetheringMetricsTest {
         updateErrorAndSendReport(TETHERING_WIFI, TETHER_ERROR_NO_ERROR);
 
         UpstreamEvents.Builder upstreamEvents = UpstreamEvents.newBuilder();
-        addUpstreamEvent(upstreamEvents, expectedResult, duration, 0L, 0L);
+        addUpstreamEvent(upstreamEvents, expectedResult, duration);
         verifyReport(DownstreamType.DS_TETHERING_WIFI, ErrorCode.EC_NO_ERROR,
                 UserType.USER_UNKNOWN, upstreamEvents, getElapsedRealtime());
         reset(mTetheringMetrics);
@@ -299,7 +296,7 @@ public final class TetheringMetricsTest {
 
         UpstreamEvents.Builder wifiTetheringUpstreamEvents = UpstreamEvents.newBuilder();
         addUpstreamEvent(wifiTetheringUpstreamEvents, UpstreamType.UT_NO_NETWORK,
-                currentTimeMillis() - wifiTetheringStartTime, 0L, 0L);
+                currentTimeMillis() - wifiTetheringStartTime);
         verifyReport(DownstreamType.DS_TETHERING_WIFI, ErrorCode.EC_DHCPSERVER_ERROR,
                 UserType.USER_SETTINGS, wifiTetheringUpstreamEvents,
                 currentTimeMillis() - wifiTetheringStartTime);
@@ -308,7 +305,7 @@ public final class TetheringMetricsTest {
 
         UpstreamEvents.Builder usbTetheringUpstreamEvents = UpstreamEvents.newBuilder();
         addUpstreamEvent(usbTetheringUpstreamEvents, UpstreamType.UT_NO_NETWORK,
-                currentTimeMillis() - usbTetheringStartTime, 0L, 0L);
+                currentTimeMillis() - usbTetheringStartTime);
 
         verifyReport(DownstreamType.DS_TETHERING_USB, ErrorCode.EC_ENABLE_FORWARDING_ERROR,
                 UserType.USER_SYSTEMUI, usbTetheringUpstreamEvents,
@@ -318,7 +315,7 @@ public final class TetheringMetricsTest {
 
         UpstreamEvents.Builder bluetoothTetheringUpstreamEvents = UpstreamEvents.newBuilder();
         addUpstreamEvent(bluetoothTetheringUpstreamEvents, UpstreamType.UT_NO_NETWORK,
-                currentTimeMillis() - bluetoothTetheringStartTime, 0L, 0L);
+                currentTimeMillis() - bluetoothTetheringStartTime);
         verifyReport(DownstreamType.DS_TETHERING_BLUETOOTH, ErrorCode.EC_TETHER_IFACE_ERROR,
                 UserType.USER_GMS, bluetoothTetheringUpstreamEvents,
                 currentTimeMillis() - bluetoothTetheringStartTime);
@@ -339,7 +336,7 @@ public final class TetheringMetricsTest {
 
         UpstreamEvents.Builder usbTetheringUpstreamEvents = UpstreamEvents.newBuilder();
         addUpstreamEvent(usbTetheringUpstreamEvents, UpstreamType.UT_WIFI,
-                currentTimeMillis() - usbTetheringStartTime, 0L, 0L);
+                currentTimeMillis() - usbTetheringStartTime);
         verifyReport(DownstreamType.DS_TETHERING_USB, ErrorCode.EC_NO_ERROR,
                 UserType.USER_SYSTEMUI, usbTetheringUpstreamEvents,
                 currentTimeMillis() - usbTetheringStartTime);
@@ -348,7 +345,7 @@ public final class TetheringMetricsTest {
 
         UpstreamEvents.Builder wifiTetheringUpstreamEvents = UpstreamEvents.newBuilder();
         addUpstreamEvent(wifiTetheringUpstreamEvents, UpstreamType.UT_WIFI,
-                currentTimeMillis() - wifiUpstreamStartTime, 0L, 0L);
+                currentTimeMillis() - wifiUpstreamStartTime);
         verifyReport(DownstreamType.DS_TETHERING_WIFI, ErrorCode.EC_NO_ERROR,
                 UserType.USER_SETTINGS, wifiTetheringUpstreamEvents,
                 currentTimeMillis() - wifiTetheringStartTime);
@@ -371,9 +368,9 @@ public final class TetheringMetricsTest {
         updateErrorAndSendReport(TETHERING_WIFI, TETHER_ERROR_NO_ERROR);
 
         UpstreamEvents.Builder upstreamEvents = UpstreamEvents.newBuilder();
-        addUpstreamEvent(upstreamEvents, UpstreamType.UT_WIFI, wifiDuration, 0L, 0L);
-        addUpstreamEvent(upstreamEvents, UpstreamType.UT_BLUETOOTH, bluetoothDuration, 0L, 0L);
-        addUpstreamEvent(upstreamEvents, UpstreamType.UT_CELLULAR, celltoothDuration, 0L, 0L);
+        addUpstreamEvent(upstreamEvents, UpstreamType.UT_WIFI, wifiDuration);
+        addUpstreamEvent(upstreamEvents, UpstreamType.UT_BLUETOOTH, bluetoothDuration);
+        addUpstreamEvent(upstreamEvents, UpstreamType.UT_CELLULAR, celltoothDuration);
 
         verifyReport(DownstreamType.DS_TETHERING_WIFI, ErrorCode.EC_NO_ERROR,
                 UserType.USER_SETTINGS, upstreamEvents,

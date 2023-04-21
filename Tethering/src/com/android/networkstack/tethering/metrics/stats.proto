@@ -21,21 +21,13 @@ package com.android.networkstack.tethering.metrics;
 
 import "frameworks/proto_logging/stats/enums/stats/connectivity/tethering.proto";
 
-/**
- * Represents an event that logs information about a successful switch to an upstream network.
- */
+// Logs each upstream for a successful switch over
 message UpstreamEvent {
-  // Indicates the transport type of network.
+  // Transport type of upstream network
   optional .android.stats.connectivity.UpstreamType upstream_type = 1;
 
-  // The duration of network usage.
+  // A time period that an upstream continued
   optional int64 duration_millis = 2;
-
-  // The amount of data received from tethered clients.
-  optional int64 tx_bytes = 3;
-
-  // The amount of data received from remote.
-  optional int64 rx_bytes = 4;
 }
 
 message UpstreamEvents {
