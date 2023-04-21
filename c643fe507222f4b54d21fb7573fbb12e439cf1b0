@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "693b72b0_b34e0584",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-21T06:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55cf246a_908400b2",
+      "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1f52c64_bd71ba7c",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-16T04:20:44Z",
       "side": 1,
       "message": "use DEFAULT_DELAY_TIME_MS? Also better to rename to nextCheckDelayMs to indicate the unit.",
+      "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20abc431_714b34d3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-21T06:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1f52c64_bd71ba7c",
       "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08c8dc40_51f93011",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-21T06:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c8e27c8_2db86477",
+      "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09af0e4b_f3ab639c",
@@ -69,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "709e88f9_9ad19bf5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-21T06:35:54Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "09af0e4b_f3ab639c",
+      "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dab53c17_57a8cd7d",
@@ -82,6 +154,24 @@
       "writtenOn": "2023-03-16T04:20:44Z",
       "side": 1,
       "message": "Could you adjust the build warning here?",
+      "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6764102b_788d703c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-21T06:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dab53c17_57a8cd7d",
       "revId": "c643fe507222f4b54d21fb7573fbb12e439cf1b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
