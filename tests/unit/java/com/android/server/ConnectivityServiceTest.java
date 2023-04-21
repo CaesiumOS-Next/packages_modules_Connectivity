@@ -2072,7 +2072,7 @@ public class ConnectivityServiceTest {
                 case ConnectivityFlags.NO_REMATCH_ALL_REQUESTS_ON_REGISTER:
                     return true;
                 default:
-                    return super.isFeatureEnabled(context, name, defaultEnabled);
+                    return super.isFeatureEnabled(context, name);
             }
         }
 
