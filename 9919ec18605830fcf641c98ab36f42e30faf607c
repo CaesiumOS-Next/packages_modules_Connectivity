@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc918d2c_16946be1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-21T08:33:05Z",
+      "side": 1,
+      "message": "\u003e If running with MdnsSocketClient, MdnsServiceTypeClient will be accessed from different threads (send/receive). But we don\u0027t use that code now, maybe resolve the problem when upstreaming\n\nNoted some comments in the next change, but I think we shouldn\u0027t break the MdnsSocketClient. It is now downstream of this code actually, since there\u0027s a job configured to copy this code over there, and we shouldn\u0027t break it on the next import.",
+      "parentUuid": "6c51c5b0_12fe3647",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "9919ec18605830fcf641c98ab36f42e30faf607c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af77051a_f4845a33",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
         "patchSetId": 3
