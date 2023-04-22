@@ -153,6 +153,7 @@ import android.net.IOnCompleteListener;
 import android.net.IQosCallback;
 import android.net.ISocketKeepaliveCallback;
 import android.net.InetAddresses;
+import android.net.InterfaceActivityParcel;
 import android.net.IpMemoryStore;
 import android.net.IpPrefix;
 import android.net.LinkProperties;
@@ -10790,10 +10791,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private class NetdCallback extends BaseNetdUnsolicitedEventListener {
+        // This callback is called on T- devices
+        // On U+ devices, onInterfaceClassActivityChangedParcel is called
         @Override
         public void onInterfaceClassActivityChanged(boolean isActive, int transportType,
                 long timestampNs, int uid) {
             mNetworkActivityTracker.setAndReportNetworkActive(isActive, transportType, timestampNs);
+        }
+
+        // This callback is called on U+ devices
+        // On T- devices, onInterfaceClassActivityChanged is called
+        @Override
+        public void onInterfaceClassActivityChangedParcel(InterfaceActivityParcel activity) {
+            mNetworkActivityTracker.setAndReportNetworkActive(activity.isActive,
+                    activity.transportType, activity.timestampNs);
         }
 
         @Override
@@ -10928,6 +10939,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         /**
+         * Get label for interface idle timer
+         *
+         * @param iface interface name
+         * @param type interface transport type
+         * @return label string
+         */
+        private String getIdleTimerLabel(final String iface, final int type) {
+            if (!SdkLevel.isAtLeastU()) {
+                return Integer.toString(type);
+            }
+            return iface + "/" + type;
+        }
+
+        /**
          * Setup data activity tracking for the given network.
          *
          * Every {@code setupDataActivityTracking} should be paired with a
@@ -10963,7 +10988,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         // Networks start up.
                         mNetworkActive = true;
                         mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
-                        mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
+                        mNetd.idletimerAddInterface(iface, timeout, getIdleTimerLabel(iface, type));
                         reportNetworkActive();
                     }
                 } catch (Exception e) {
@@ -10997,7 +11022,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     final IdleTimerParams params = mActiveIdleTimers.remove(iface);
                     // The call fails silently if no idle timer setup for this interface
                     mNetd.idletimerRemoveInterface(iface, params.timeout,
-                            Integer.toString(params.transportType));
+                            getIdleTimerLabel(iface, type));
                 }
             } catch (Exception e) {
                 // You shall not crash!
