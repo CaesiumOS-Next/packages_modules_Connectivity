@@ -153,6 +153,7 @@ import android.net.IOnCompleteListener;
 import android.net.IQosCallback;
 import android.net.ISocketKeepaliveCallback;
 import android.net.InetAddresses;
+import android.net.InterfaceActivityParcel;
 import android.net.IpMemoryStore;
 import android.net.IpPrefix;
 import android.net.LinkProperties;
@@ -315,6 +316,8 @@ import java.io.Writer;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10790,10 +10793,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private class NetdCallback extends BaseNetdUnsolicitedEventListener {
+        // This callback is called on T- devices
+        // On U+ devices, onInterfaceClassActivityChangedParcel is called
         @Override
         public void onInterfaceClassActivityChanged(boolean isActive, int transportType,
                 long timestampNs, int uid) {
             mNetworkActivityTracker.setAndReportNetworkActive(isActive, transportType, timestampNs);
+        }
+
+        // This callback is called on U+ devices
+        // On T- devices, onInterfaceClassActivityChanged is called
+        @Override
+        public void onInterfaceClassActivityChangedParcel(InterfaceActivityParcel activity) {
+            mNetworkActivityTracker.setAndReportNetworkActive(activity.isActive,
+                    activity.transportType, activity.timestampNs);
         }
 
         @Override
@@ -10928,6 +10941,32 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         /**
+         * Get label for interface idle timer
+         *
+         * @param iface interface name
+         * @param type interface transport type
+         * @return
+         */
+        private String getIdleTimerLabel(final String iface, final int type) {
+            if (!SdkLevel.isAtLeastU()) {
+                return Integer.toString(type);
+            }
+
+            int ifindex = 0;
+            try {
+                final NetworkInterface ni = NetworkInterface.getByName(iface);
+                if (ni != null) {
+                    ifindex = ni.getIndex();
+                } else {
+                    Log.e(TAG, "Failed to get interface for " + iface);
+                }
+            } catch (SocketException e) {
+                Log.e(TAG, "Failed to get interface index for " + iface + ": " + e);
+            }
+            return ifindex + "-" + type;
+        }
+
+        /**
          * Setup data activity tracking for the given network.
          *
          * Every {@code setupDataActivityTracking} should be paired with a
@@ -10963,7 +11002,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         // Networks start up.
                         mNetworkActive = true;
                         mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
-                        mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
+                        mNetd.idletimerAddInterface(iface, timeout, getIdleTimerLabel(iface, type));
                         reportNetworkActive();
                     }
                 } catch (Exception e) {
@@ -10997,7 +11036,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     final IdleTimerParams params = mActiveIdleTimers.remove(iface);
                     // The call fails silently if no idle timer setup for this interface
                     mNetd.idletimerRemoveInterface(iface, params.timeout,
-                            Integer.toString(params.transportType));
+                            getIdleTimerLabel(iface, type));
                 }
             } catch (Exception e) {
                 // You shall not crash!
