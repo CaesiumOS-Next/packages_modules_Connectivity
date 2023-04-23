@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8196848_0c95ad8a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-04-23T07:03:47Z",
+      "side": 1,
+      "message": "The issue here is we need to differentiate the returning of OFFLOAD_HAL_VERSION_NONE is caused by mIOffload.initOffload() failure or h1/h2 is null, only the former case we need to call mIOffload.stopOffload().",
+      "parentUuid": "88d6d60b_4b8fe21b",
+      "revId": "8e0cb70fd0b2417737466c66822da76eb5bc5c85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70de272b_a443e3dc",
         "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
         "patchSetId": 3
