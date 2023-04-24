@@ -208,6 +208,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99033e2e_23b65ee7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-24T02:24:32Z",
+      "side": 1,
+      "message": "In your case, what your want to know is not carrierconfig change listener. I think SubscriptionManager.OnSubscriptionsChangedListener is good for your case.",
+      "parentUuid": "d2766c2f_4db0a886",
+      "range": {
+        "startLine": 247,
+        "startChar": 38,
+        "endLine": 247,
+        "endChar": 65
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4a09a1a_7e6cdbbc",
         "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
         "patchSetId": 10
