@@ -22,6 +22,30 @@
       },
       "revId": "aa0e9602bb4e845bd84984e130b9a432d8afa40b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56f63ae2_64244782",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-24T05:38:39Z",
+      "side": 1,
+      "message": "Done the refactor.\n\nhttps://android-review.git.corp.google.com/q/topic:%22refactor-scope-id%22\n\nPlease kindly help with the review.",
+      "parentUuid": "7fb109a2_c1f31d10",
+      "range": {
+        "startLine": 1221,
+        "startChar": 0,
+        "endLine": 1225,
+        "endChar": 61
+      },
+      "revId": "aa0e9602bb4e845bd84984e130b9a432d8afa40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
