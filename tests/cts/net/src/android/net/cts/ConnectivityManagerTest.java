@@ -313,6 +313,16 @@ public class ConnectivityManagerTest {
     private static final String LOCALHOST_HOSTNAME = "localhost";
     // Re-connecting to the AP, obtaining an IP address, revalidating can take a long time
     private static final long WIFI_CONNECT_TIMEOUT_MS = 60_000L;
+    /* Values used to track whether Wi-Fi should remain on in airplane mode
+     * Key: Settings.Secure WIFI_APM_STATE
+     * Values:
+     *     WIFI_TURNS_OFF_IN_APM
+     *     WIFI_REMAINS_ON_IN_APM
+     *
+     * This key should be aligned with WifiSettingsStore.WIFI_APM_STATE.
+     */
+    private static final String WIFI_APM_STATE = "wifi_apm_state";
+    private static final int WIFI_TURNS_OFF_IN_APM = 0;
 
     private Context mContext;
     private Instrumentation mInstrumentation;
@@ -2133,10 +2143,21 @@ public class ConnectivityManagerTest {
             registerCallbackAndWaitForAvailable(makeCellNetworkRequest(), telephonyCb);
         }
 
+        // If the Settings.Secure.WIFI_APM_STATE is set to WIFI_REMAINS_ON_IN_APM(1), wifi will
+        // not disconnect when airplane mode is enabled. Store the value and set the intended value
+        // later.
+        final int wifiApmState = Settings.Secure.getInt(
+                mContext.getContentResolver(), WIFI_APM_STATE, WIFI_TURNS_OFF_IN_APM);
         try {
             // Verify we cannot set Airplane Mode without correct permission:
             assertThrows(SecurityException.class, () -> setAndVerifyAirplaneMode(true));
-
+            // Set the Settings.Secure.WIFI_APM_STATE key to WIFI_TURNS_OFF_IN_APM, so that
+            // wifi will always disconnect when airplance is enabled to verify setting airplane mode
+            // working as expected.
+            Settings.Secure.putInt(mContext.getContentResolver(), WIFI_APM_STATE,
+                    WIFI_TURNS_OFF_IN_APM);
+            assertEquals(WIFI_TURNS_OFF_IN_APM, Settings.Secure.getInt(
+                    mContext.getContentResolver(), WIFI_APM_STATE, WIFI_TURNS_OFF_IN_APM));
             // disable airplane mode again to reach a known state
             runShellCommand("cmd connectivity airplane-mode disable");
 
@@ -2162,6 +2183,7 @@ public class ConnectivityManagerTest {
             // Restore the previous state of airplane mode and permissions:
             runShellCommand("cmd connectivity airplane-mode "
                     + (isAirplaneModeEnabled ? "enable" : "disable"));
+            Settings.Secure.putInt(mContext.getContentResolver(), WIFI_APM_STATE, wifiApmState);
         }
     }
 
