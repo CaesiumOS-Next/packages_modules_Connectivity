@@ -2112,7 +2112,12 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "NETWORK_AIRPLANE_MODE permission can't be granted to instant apps")
     @Test
     public void testSetAirplaneMode() throws Exception{
-        final boolean supportWifi = mPackageManager.hasSystemFeature(FEATURE_WIFI);
+        // Starting from T, wifi supports airplane mode enhancement which may not disconnect wifi
+        // when airplane mode is on.
+        // The behavior refers to hidden API(see Settings.Secure.WIFI_APM_STATE) which should be
+        // prevented from referring in the test. Thus, stop verifying wifi on T+ device.
+        final boolean supportWifi = mPackageManager.hasSystemFeature(FEATURE_WIFI)
+                && !SdkLevel.isAtLeastT();
         final boolean supportTelephony = mPackageManager.hasSystemFeature(FEATURE_TELEPHONY);
         // store the current state of airplane mode
         final boolean isAirplaneModeEnabled = isAirplaneModeEnabled();
