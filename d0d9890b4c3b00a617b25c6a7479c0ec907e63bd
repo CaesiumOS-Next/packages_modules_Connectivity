@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2462fc0_24500123",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-24T09:49:43Z",
+      "side": 1,
+      "message": "This is a hidden API usage from CTS, I think we should avoid relying on hidden APIs especially if they\u0027re in Wifi and not connectivity.\n\n(Also this doesn\u0027t exist up to T; the test should work anyway but it would be better to note what happens in that case)",
+      "revId": "d0d9890b4c3b00a617b25c6a7479c0ec907e63bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18c34b20_f8e35237",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2154,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-24T09:49:43Z",
+      "side": 1,
+      "message": "This modifies behavior of the device to not match actual behavior; I think this should be avoided because it doesn\u0027t test actual behavior of the device. If wifi doesn\u0027t normally disconnect on airplane mode, that behavior should be tested.",
+      "revId": "d0d9890b4c3b00a617b25c6a7479c0ec907e63bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
