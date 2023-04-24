@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e1e3679_44b19b8b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-04-24T08:43:47Z",
+      "side": 1,
+      "message": "Discussed offline with @markchien@google.com, add \"mIOffload \u003d null;\" here.",
+      "parentUuid": "b8196848_0c95ad8a",
+      "revId": "8e0cb70fd0b2417737466c66822da76eb5bc5c85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70de272b_a443e3dc",
         "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
         "patchSetId": 3
@@ -96,6 +114,53 @@
         "startChar": 12,
         "endLine": 321,
         "endChar": 36
+      },
+      "revId": "8e0cb70fd0b2417737466c66822da76eb5bc5c85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16d37224_9db0744c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-04-24T08:43:47Z",
+      "side": 1,
+      "message": "Discussed offline with @markchien@google.com, remove \"mIOffload.stopOffload();\" here, let OffloadController call stopOffload() after initOffload() fail.",
+      "parentUuid": "7be1c668_01ef4a7b",
+      "range": {
+        "startLine": 321,
+        "startChar": 12,
+        "endLine": 321,
+        "endChar": 36
+      },
+      "revId": "8e0cb70fd0b2417737466c66822da76eb5bc5c85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbc65643_2f2c7a69",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-04-24T08:43:47Z",
+      "side": 1,
+      "message": "A mistake in my previous suggestion. This should be moved out, because in HIDL case, h1\u0026h2 needed to be closed no matter initOffload() success or not. Suggested code would be like:\n```\n        requestSocketDump(h1);\n        int version \u003d mIOffload.getVersion();\n        if (!mIOffload.initOffload(h1, h2, mOffloadHalCallback)) {\n            mLog.e(\"Failed to initialize offload.\");\n            version \u003d OFFLOAD_HAL_VERSION_NONE;\n        }\n\n        // Explicitly close FDs for HIDL. AIDL will pass the original FDs to the service,\n        // they shouldn\u0027t be closed here.\n        if (mIOffload.getVersion() \u003c OFFLOAD_HAL_VERSION_AIDL) {\n            maybeCloseFdInNativeHandles(h1, h2);\n        }\n        return version;\n```",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 13
       },
       "revId": "8e0cb70fd0b2417737466c66822da76eb5bc5c85",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
