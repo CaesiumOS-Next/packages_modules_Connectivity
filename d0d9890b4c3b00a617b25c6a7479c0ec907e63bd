@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "234254c9_dc4cf675",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-24T13:58:48Z",
+      "side": 1,
+      "message": "remove the reference.",
+      "parentUuid": "d2462fc0_24500123",
+      "revId": "d0d9890b4c3b00a617b25c6a7479c0ec907e63bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18c34b20_f8e35237",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-04-24T09:49:43Z",
       "side": 1,
       "message": "This modifies behavior of the device to not match actual behavior; I think this should be avoided because it doesn\u0027t test actual behavior of the device. If wifi doesn\u0027t normally disconnect on airplane mode, that behavior should be tested.",
+      "revId": "d0d9890b4c3b00a617b25c6a7479c0ec907e63bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc988df7_7af986d5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2154,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-24T13:58:48Z",
+      "side": 1,
+      "message": "I update the test to stop verifying wifi connection status. The actual behavior depends on the hidden method. I agree that we should prevent from referring hidden method. If we\u0027re not going to refer the the hidden method, we can not verify exact behavior. The original test was designed to verify the required permission for setting airplane mode. I think that removing the connection status verification should be no harm to the test. See if it works to you.",
+      "parentUuid": "18c34b20_f8e35237",
       "revId": "d0d9890b4c3b00a617b25c6a7479c0ec907e63bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
