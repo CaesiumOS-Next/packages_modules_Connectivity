@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90136a56_e3055dfb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-24T10:22:46Z",
+      "side": 1,
+      "message": "LGTM for CTS OWNERS.",
+      "revId": "c3cd222f8dd64b35f50c8745286ad771adff9d35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95430ac0_e05ddfec",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2544,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-24T10:22:46Z",
+      "side": 1,
+      "message": "13",
+      "range": {
+        "startLine": 2544,
+        "startChar": 19,
+        "endLine": 2544,
+        "endChar": 21
+      },
+      "revId": "c3cd222f8dd64b35f50c8745286ad771adff9d35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72d76c23_58f39d6f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-24T10:22:46Z",
+      "side": 1,
+      "message": "That\u0027s true. But also this code is not mainline before S anyway. So U CTS doesn\u0027t need to test it. That\u0027s a better reason. Also elsewhere.",
+      "range": {
+        "startLine": 1674,
+        "startChar": 7,
+        "endLine": 1674,
+        "endChar": 80
+      },
+      "revId": "c3cd222f8dd64b35f50c8745286ad771adff9d35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
