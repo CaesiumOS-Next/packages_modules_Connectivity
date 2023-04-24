@@ -33,19 +33,19 @@ import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.EPERM;
 
-import static com.android.server.BpfNetMaps.DOZABLE_MATCH;
-import static com.android.server.BpfNetMaps.HAPPY_BOX_MATCH;
-import static com.android.server.BpfNetMaps.IIF_MATCH;
-import static com.android.server.BpfNetMaps.LOCKDOWN_VPN_MATCH;
-import static com.android.server.BpfNetMaps.LOW_POWER_STANDBY_MATCH;
-import static com.android.server.BpfNetMaps.NO_MATCH;
-import static com.android.server.BpfNetMaps.OEM_DENY_1_MATCH;
-import static com.android.server.BpfNetMaps.OEM_DENY_2_MATCH;
-import static com.android.server.BpfNetMaps.OEM_DENY_3_MATCH;
-import static com.android.server.BpfNetMaps.PENALTY_BOX_MATCH;
-import static com.android.server.BpfNetMaps.POWERSAVE_MATCH;
-import static com.android.server.BpfNetMaps.RESTRICTED_MATCH;
-import static com.android.server.BpfNetMaps.STANDBY_MATCH;
+import static com.android.net.module.util.BpfConstants.DOZABLE_MATCH;
+import static com.android.net.module.util.BpfConstants.HAPPY_BOX_MATCH;
+import static com.android.net.module.util.BpfConstants.IIF_MATCH;
+import static com.android.net.module.util.BpfConstants.LOCKDOWN_VPN_MATCH;
+import static com.android.net.module.util.BpfConstants.LOW_POWER_STANDBY_MATCH;
+import static com.android.net.module.util.BpfConstants.NO_MATCH;
+import static com.android.net.module.util.BpfConstants.OEM_DENY_1_MATCH;
+import static com.android.net.module.util.BpfConstants.OEM_DENY_2_MATCH;
+import static com.android.net.module.util.BpfConstants.OEM_DENY_3_MATCH;
+import static com.android.net.module.util.BpfConstants.PENALTY_BOX_MATCH;
+import static com.android.net.module.util.BpfConstants.POWERSAVE_MATCH;
+import static com.android.net.module.util.BpfConstants.RESTRICTED_MATCH;
+import static com.android.net.module.util.BpfConstants.STANDBY_MATCH;
 import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
 
 import static org.junit.Assert.assertEquals;
@@ -71,6 +71,7 @@ import android.util.IndentingPrintWriter;
 import androidx.test.filters.SmallTest;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.BpfUtils;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.Struct.S32;
 import com.android.net.module.util.Struct.U32;
@@ -169,7 +170,7 @@ public final class BpfNetMapsTest {
     private long getMatch(final List<Integer> chains) {
         long match = 0;
         for (final int chain: chains) {
-            match |= mBpfNetMaps.getMatchByFirewallChain(chain);
+            match |= BpfUtils.getMatchByFirewallChain(chain);
         }
         return match;
     }
@@ -238,7 +239,7 @@ public final class BpfNetMapsTest {
     private void doTestSetChildChain(final List<Integer> testChains) throws Exception {
         long expectedMatch = 0;
         for (final int chain: testChains) {
-            expectedMatch |= mBpfNetMaps.getMatchByFirewallChain(chain);
+            expectedMatch |= BpfUtils.getMatchByFirewallChain(chain);
         }
 
         assertEquals(0, mConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY).val);
@@ -608,7 +609,7 @@ public final class BpfNetMapsTest {
         mUidOwnerMap.updateEntry(new S32(TEST_UID), new UidOwnerValue(TEST_IF_INDEX, IIF_MATCH));
 
         for (final int chain: testChains) {
-            final int ruleToAddMatch = mBpfNetMaps.isFirewallAllowList(chain)
+            final int ruleToAddMatch = BpfUtils.isFirewallAllowList(chain)
                     ? FIREWALL_RULE_ALLOW : FIREWALL_RULE_DENY;
             mBpfNetMaps.setUidRule(chain, TEST_UID, ruleToAddMatch);
         }
@@ -616,7 +617,7 @@ public final class BpfNetMapsTest {
         checkUidOwnerValue(TEST_UID, TEST_IF_INDEX, IIF_MATCH | getMatch(testChains));
 
         for (final int chain: testChains) {
-            final int ruleToRemoveMatch = mBpfNetMaps.isFirewallAllowList(chain)
+            final int ruleToRemoveMatch = BpfUtils.isFirewallAllowList(chain)
                     ? FIREWALL_RULE_DENY : FIREWALL_RULE_ALLOW;
             mBpfNetMaps.setUidRule(chain, TEST_UID, ruleToRemoveMatch);
         }
@@ -696,11 +697,11 @@ public final class BpfNetMapsTest {
         for (final int chain: FIREWALL_CHAINS) {
             final String testCase = "EnabledChains: " + enableChains + " CheckedChain: " + chain;
             if (enableChains.contains(chain)) {
-                final int expectedRule = mBpfNetMaps.isFirewallAllowList(chain)
+                final int expectedRule = BpfUtils.isFirewallAllowList(chain)
                         ? FIREWALL_RULE_ALLOW : FIREWALL_RULE_DENY;
                 assertEquals(testCase, expectedRule, mBpfNetMaps.getUidRule(chain, TEST_UID));
             } else {
-                final int expectedRule = mBpfNetMaps.isFirewallAllowList(chain)
+                final int expectedRule = BpfUtils.isFirewallAllowList(chain)
                         ? FIREWALL_RULE_DENY : FIREWALL_RULE_ALLOW;
                 assertEquals(testCase, expectedRule, mBpfNetMaps.getUidRule(chain, TEST_UID));
             }
@@ -743,7 +744,7 @@ public final class BpfNetMapsTest {
     public void testGetUidRuleNoEntry() throws Exception {
         mUidOwnerMap.clear();
         for (final int chain: FIREWALL_CHAINS) {
-            final int expectedRule = mBpfNetMaps.isFirewallAllowList(chain)
+            final int expectedRule = BpfUtils.isFirewallAllowList(chain)
                     ? FIREWALL_RULE_DENY : FIREWALL_RULE_ALLOW;
             assertEquals(expectedRule, mBpfNetMaps.getUidRule(chain, TEST_UID));
         }

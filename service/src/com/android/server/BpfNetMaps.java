@@ -35,6 +35,25 @@ import static android.system.OsConstants.ENODEV;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
 
+import static com.android.net.module.util.BpfConstants.CONFIGURATION_MAP_PATH;
+import static com.android.net.module.util.BpfConstants.COOKIE_TAG_MAP_PATH;
+import static com.android.net.module.util.BpfConstants.CURRENT_STATS_MAP_CONFIGURATION_KEY;
+import static com.android.net.module.util.BpfConstants.DOZABLE_MATCH;
+import static com.android.net.module.util.BpfConstants.HAPPY_BOX_MATCH;
+import static com.android.net.module.util.BpfConstants.IIF_MATCH;
+import static com.android.net.module.util.BpfConstants.LOCKDOWN_VPN_MATCH;
+import static com.android.net.module.util.BpfConstants.LOW_POWER_STANDBY_MATCH;
+import static com.android.net.module.util.BpfConstants.NO_MATCH;
+import static com.android.net.module.util.BpfConstants.OEM_DENY_1_MATCH;
+import static com.android.net.module.util.BpfConstants.OEM_DENY_2_MATCH;
+import static com.android.net.module.util.BpfConstants.OEM_DENY_3_MATCH;
+import static com.android.net.module.util.BpfConstants.PENALTY_BOX_MATCH;
+import static com.android.net.module.util.BpfConstants.POWERSAVE_MATCH;
+import static com.android.net.module.util.BpfConstants.RESTRICTED_MATCH;
+import static com.android.net.module.util.BpfConstants.STANDBY_MATCH;
+import static com.android.net.module.util.BpfConstants.UID_OWNER_MAP_PATH;
+import static com.android.net.module.util.BpfConstants.UID_PERMISSION_MAP_PATH;
+import static com.android.net.module.util.BpfConstants.UID_RULES_CONFIGURATION_KEY;
 import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
 
 import android.app.StatsManager;
@@ -56,6 +75,7 @@ import com.android.modules.utils.BackgroundThread;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfDump;
 import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.BpfUtils;
 import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.Struct;
@@ -105,16 +125,6 @@ public class BpfNetMaps {
     // BpfNetMaps is an only writer of this entry.
     private static final Object sCurrentStatsMapConfigLock = new Object();
 
-    private static final String CONFIGURATION_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
-    private static final String UID_OWNER_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_uid_owner_map";
-    private static final String UID_PERMISSION_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_uid_permission_map";
-    private static final String COOKIE_TAG_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_cookie_tag_map";
-    private static final S32 UID_RULES_CONFIGURATION_KEY = new S32(0);
-    private static final S32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new S32(1);
     private static final long UID_RULES_DEFAULT_CONFIGURATION = 0;
     private static final long STATS_SELECT_MAP_A = 0;
     private static final long STATS_SELECT_MAP_B = 1;
@@ -124,22 +134,6 @@ public class BpfNetMaps {
     private static IBpfMap<S32, UidOwnerValue> sUidOwnerMap = null;
     private static IBpfMap<S32, U8> sUidPermissionMap = null;
     private static IBpfMap<CookieTagMapKey, CookieTagMapValue> sCookieTagMap = null;
-
-    // LINT.IfChange(match_type)
-    @VisibleForTesting public static final long NO_MATCH = 0;
-    @VisibleForTesting public static final long HAPPY_BOX_MATCH = (1 << 0);
-    @VisibleForTesting public static final long PENALTY_BOX_MATCH = (1 << 1);
-    @VisibleForTesting public static final long DOZABLE_MATCH = (1 << 2);
-    @VisibleForTesting public static final long STANDBY_MATCH = (1 << 3);
-    @VisibleForTesting public static final long POWERSAVE_MATCH = (1 << 4);
-    @VisibleForTesting public static final long RESTRICTED_MATCH = (1 << 5);
-    @VisibleForTesting public static final long LOW_POWER_STANDBY_MATCH = (1 << 6);
-    @VisibleForTesting public static final long IIF_MATCH = (1 << 7);
-    @VisibleForTesting public static final long LOCKDOWN_VPN_MATCH = (1 << 8);
-    @VisibleForTesting public static final long OEM_DENY_1_MATCH = (1 << 9);
-    @VisibleForTesting public static final long OEM_DENY_2_MATCH = (1 << 10);
-    @VisibleForTesting public static final long OEM_DENY_3_MATCH = (1 << 11);
-    // LINT.ThenChange(packages/modules/Connectivity/bpf_progs/netd.h)
 
     private static final List<Pair<Integer, String>> PERMISSION_LIST = Arrays.asList(
             Pair.create(PERMISSION_INTERNET, "PERMISSION_INTERNET"),
@@ -351,57 +345,6 @@ public class BpfNetMaps {
         mDeps = deps;
     }
 
-    /**
-     * Get corresponding match from firewall chain.
-     */
-    @VisibleForTesting
-    public long getMatchByFirewallChain(final int chain) {
-        switch (chain) {
-            case FIREWALL_CHAIN_DOZABLE:
-                return DOZABLE_MATCH;
-            case FIREWALL_CHAIN_STANDBY:
-                return STANDBY_MATCH;
-            case FIREWALL_CHAIN_POWERSAVE:
-                return POWERSAVE_MATCH;
-            case FIREWALL_CHAIN_RESTRICTED:
-                return RESTRICTED_MATCH;
-            case FIREWALL_CHAIN_LOW_POWER_STANDBY:
-                return LOW_POWER_STANDBY_MATCH;
-            case FIREWALL_CHAIN_OEM_DENY_1:
-                return OEM_DENY_1_MATCH;
-            case FIREWALL_CHAIN_OEM_DENY_2:
-                return OEM_DENY_2_MATCH;
-            case FIREWALL_CHAIN_OEM_DENY_3:
-                return OEM_DENY_3_MATCH;
-            default:
-                throw new ServiceSpecificException(EINVAL, "Invalid firewall chain: " + chain);
-        }
-    }
-
-    /**
-     * Get if the chain is allow list or not.
-     *
-     * ALLOWLIST means the firewall denies all by default, uids must be explicitly allowed
-     * DENYLIST means the firewall allows all by default, uids must be explicitly denyed
-     */
-    @VisibleForTesting
-    public boolean isFirewallAllowList(final int chain) {
-        switch (chain) {
-            case FIREWALL_CHAIN_DOZABLE:
-            case FIREWALL_CHAIN_POWERSAVE:
-            case FIREWALL_CHAIN_RESTRICTED:
-            case FIREWALL_CHAIN_LOW_POWER_STANDBY:
-                return true;
-            case FIREWALL_CHAIN_STANDBY:
-            case FIREWALL_CHAIN_OEM_DENY_1:
-            case FIREWALL_CHAIN_OEM_DENY_2:
-            case FIREWALL_CHAIN_OEM_DENY_3:
-                return false;
-            default:
-                throw new ServiceSpecificException(EINVAL, "Invalid firewall chain: " + chain);
-        }
-    }
-
     private void maybeThrow(final int err, final String msg) {
         if (err != 0) {
             throw new ServiceSpecificException(err, msg + ": " + Os.strerror(err));
@@ -560,7 +503,7 @@ public class BpfNetMaps {
         throwIfPreT("setChildChain is not available on pre-T devices");
 
         if (sEnableJavaBpfMap) {
-            final long match = getMatchByFirewallChain(childChain);
+            final long match = BpfUtils.getMatchByFirewallChain(childChain);
             try {
                 synchronized (sUidRulesConfigBpfMapLock) {
                     final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
@@ -589,7 +532,7 @@ public class BpfNetMaps {
     public boolean isChainEnabled(final int childChain) {
         throwIfPreT("isChainEnabled is not available on pre-T devices");
 
-        final long match = getMatchByFirewallChain(childChain);
+        final long match = BpfUtils.getMatchByFirewallChain(childChain);
         try {
             final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
             return (config.val & match) != 0;
@@ -622,7 +565,7 @@ public class BpfNetMaps {
         if (sEnableJavaBpfMap) {
             final long match;
             try {
-                match = getMatchByFirewallChain(chain);
+                match = BpfUtils.getMatchByFirewallChain(chain);
             } catch (ServiceSpecificException e) {
                 // Throws IllegalArgumentException to keep the behavior of
                 // ConnectivityManager#replaceFirewallChain API
@@ -704,8 +647,8 @@ public class BpfNetMaps {
         throwIfPreT("setUidRule is not available on pre-T devices");
 
         if (sEnableJavaBpfMap) {
-            final long match = getMatchByFirewallChain(childChain);
-            final boolean isAllowList = isFirewallAllowList(childChain);
+            final long match = BpfUtils.getMatchByFirewallChain(childChain);
+            final boolean isAllowList = BpfUtils.isFirewallAllowList(childChain);
             final boolean add = (firewallRule == FIREWALL_RULE_ALLOW && isAllowList)
                     || (firewallRule == FIREWALL_RULE_DENY && !isAllowList);
 
@@ -733,8 +676,8 @@ public class BpfNetMaps {
     public int getUidRule(final int childChain, final int uid) {
         throwIfPreT("isUidChainEnabled is not available on pre-T devices");
 
-        final long match = getMatchByFirewallChain(childChain);
-        final boolean isAllowList = isFirewallAllowList(childChain);
+        final long match = BpfUtils.getMatchByFirewallChain(childChain);
+        final boolean isAllowList = BpfUtils.isFirewallAllowList(childChain);
         try {
             final UidOwnerValue uidMatch = sUidOwnerMap.getValue(new S32(uid));
             final boolean isMatchEnabled = uidMatch != null && (uidMatch.rule & match) != 0;
