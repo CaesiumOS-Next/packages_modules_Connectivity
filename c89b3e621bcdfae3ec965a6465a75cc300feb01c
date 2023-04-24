@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8e9f246_85ef6889",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-24T03:11:20Z",
+      "side": 1,
+      "message": "Done, though this doesn\u0027t actually work because of jarjar. You need\n\n    atest \u0027FrameworksNetTests:android.net.connectivity.com.android.server.connectivity.VpnTest\u0027\n\nwhich is a mouthful",
+      "parentUuid": "7b532cff_19ad4799",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 10
+      },
+      "revId": "c89b3e621bcdfae3ec965a6465a75cc300feb01c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72403388_a8392fb7",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-21T23:21:57Z",
       "side": 1,
       "message": "As long as consistent, /shrug/ but shouldn\u0027t this be lowercase after an underscore as we do with the start of a method?\n\nI know g3 uses that convention, I\u0027ve not seen a recommendation either way in Android, so up to you.\n\ngo/java-style#s5.2.3-method-names",
+      "range": {
+        "startLine": 2125,
+        "startChar": 41,
+        "endLine": 2125,
+        "endChar": 42
+      },
+      "revId": "c89b3e621bcdfae3ec965a6465a75cc300feb01c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38fb45a5_d0750a6b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2125,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-24T03:11:20Z",
+      "side": 1,
+      "message": "Local consistency trumps all.\n\nBesides the g3 style guide is 100% irrelevant here.",
+      "parentUuid": "72403388_a8392fb7",
       "range": {
         "startLine": 2125,
         "startChar": 41,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09588acc_34cf359a",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2167,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-24T03:11:20Z",
+      "side": 1,
+      "message": "Added a comment",
+      "parentUuid": "b1acc535_8d84a923",
+      "range": {
+        "startLine": 2167,
+        "startChar": 38,
+        "endLine": 2167,
+        "endChar": 42
+      },
+      "revId": "c89b3e621bcdfae3ec965a6465a75cc300feb01c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac96606f_a3ca2c6c",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-04-21T23:21:57Z",
       "side": 1,
       "message": "Ditto; should these be constants that can be used in other tests for the actual carrier config reading?",
+      "range": {
+        "startLine": 2175,
+        "startChar": 16,
+        "endLine": 2175,
+        "endChar": 19
+      },
+      "revId": "c89b3e621bcdfae3ec965a6465a75cc300feb01c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61de7ecc_8190c13b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2175,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-24T03:11:20Z",
+      "side": 1,
+      "message": "There is a comment here \"should be ignored\", is that not clear enough ? Tried to clarify",
+      "parentUuid": "ac96606f_a3ca2c6c",
       "range": {
         "startLine": 2175,
         "startChar": 16,
