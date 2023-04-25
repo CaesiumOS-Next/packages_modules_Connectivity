@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "391f36ec_f4bdd578",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-25T05:59:52Z",
+      "side": 1,
+      "message": "supernit : missing `*`",
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c5e3c78_d02cc510",
         "filename": "framework/src/android/net/NetworkCapabilities.java",
         "patchSetId": 10
@@ -60,6 +77,29 @@
         "startChar": 0,
         "endLine": 3217,
         "endChar": 1
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6708225d_18195975",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-25T05:59:52Z",
+      "side": 1,
+      "message": "This is neither better nor worse but what is the reason you changed this ?",
+      "range": {
+        "startLine": 245,
+        "startChar": 39,
+        "endLine": 245,
+        "endChar": 41
       },
       "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -148,6 +188,30 @@
       "writtenOn": "2023-04-21T12:54:20Z",
       "side": 1,
       "message": "Done",
+      "parentUuid": "e5d898c7_4fac3217",
+      "range": {
+        "startLine": 89,
+        "startChar": 23,
+        "endLine": 89,
+        "endChar": 31
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf0ec461_112ead62",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-25T05:59:52Z",
+      "side": 1,
+      "message": "+1",
       "parentUuid": "e5d898c7_4fac3217",
       "range": {
         "startLine": 89,

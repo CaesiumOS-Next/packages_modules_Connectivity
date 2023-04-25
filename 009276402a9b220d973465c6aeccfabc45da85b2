@@ -350,6 +350,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f591a64_24c59e3a",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-25T05:59:52Z",
+      "side": 1,
+      "message": "No I don\u0027t think so. You can always make cleanups in followups, but this threatens the stability of the system. I don\u0027t think we can afford to have a patch level where the system is unstable.\n\nWhat you can do is *remove* this completely and have it not work yet, and then make it work in a followup. But making a synchronous call to the telephony process on the CS thread is not acceptable, even temporarily.",
+      "parentUuid": "bca97aee_fda5b454",
+      "range": {
+        "startLine": 221,
+        "startChar": 38,
+        "endLine": 221,
+        "endChar": 53
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4c9e9cca_8b2aa573",
         "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
         "patchSetId": 9
