@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f4d2fb6_adf01b43",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17649,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-25T04:44:56Z",
+      "side": 1,
+      "message": "Nit : the two tests above create the LP from the previous one. It would be more consistent to do the same here and `setInterfaceName(null)`, as well as avoid unintended LP changes if somebody goes and adds something to the LP at the start of the test.\n\nSame thing in l.17670.",
+      "range": {
+        "startLine": 17649,
+        "startChar": 33,
+        "endLine": 17649,
+        "endChar": 47
+      },
+      "revId": "b3aa1ee522771ac0c78c2e554aa5a06273bc53d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc236453_845ea227",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17676,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-25T04:44:56Z",
+      "side": 1,
+      "message": "Do you want to also check that `never()).interfaceSetMtu(eq(WIFI_IFNAME), anyInt())` ?",
+      "range": {
+        "startLine": 17676,
+        "startChar": 55,
+        "endLine": 17676,
+        "endChar": 65
+      },
+      "revId": "b3aa1ee522771ac0c78c2e554aa5a06273bc53d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
