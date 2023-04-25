@@ -3528,6 +3528,26 @@ public class TetheringTest {
         assertEquals(expectedTypes.size() > 0, mTethering.isTetheringSupported());
         callback.expectSupportedTetheringTypes(expectedTypes);
     }
+
+    @Test
+    public void testIpv4AddressForSapAndLohsConcurrency() throws Exception {
+        doReturn(true).when(mConfig).isUseSapAndLohsConcurrently();
+        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+
+        ArgumentCaptor<InterfaceConfigurationParcel> ifaceConfigCaptor =
+                ArgumentCaptor.forClass(InterfaceConfigurationParcel.class);
+        verify(mNetd).interfaceSetCfg(ifaceConfigCaptor.capture());
+        final String hotspotAddress = ifaceConfigCaptor.getValue().ipv4Addr;
+
+        mTethering.interfaceStatusChanged(TEST_WLAN2_IFNAME, true);
+        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN2_IFNAME, IFACE_IP_MODE_LOCAL_ONLY);
+
+        ifaceConfigCaptor = ArgumentCaptor.forClass(InterfaceConfigurationParcel.class);
+        verify(mNetd, times(2)).interfaceSetCfg(ifaceConfigCaptor.capture());
+        final String localOnlyAddress = ifaceConfigCaptor.getValue().ipv4Addr;
+        assertFalse(hotspotAddress.equals(localOnlyAddress));
+    }
     // TODO: Test that a request for hotspot mode doesn't interfere with an
     // already operating tethering mode interface.
 }
