@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a8cce37_dea153e2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-25T07:42:45Z",
+      "side": 1,
+      "message": "Acknowledged. I filed the b/278018903 to track this problem.",
+      "parentUuid": "56da512b_a7c075fa",
+      "range": {
+        "startLine": 46,
+        "startChar": 24,
+        "endLine": 46,
+        "endChar": 31
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b883bfd_209fd2bc",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-21T07:42:17Z",
       "side": 1,
       "message": "Note toLowerCase() is different from DNS case-insensitive definition\ne.g. \"RÉMI\".toLowerCase() is \"rémi\"\n\nBut https://www.rfc-editor.org/rfc/rfc6762#page-46 says that \"Accented characters are *not* defined to be automatically equivalent to their unaccented counterparts\". So the \"DNS lowercase\" here should be \"rÉmi\"\n\nSo basically: to calculate the \"DNS lowercase\" you look at each UTF-8 (or UTF-16 for Java) character; if they\u0027re in range 0x41 to 0x5A (A-Z) you add 0x20, so they\u0027re transformed into a-z. Otherwise they are kept as-is.\n\nYuyang has b/272194544 open where he\u0027d probably need to use such utils, so you can sync with him.\n\n(Yes I know, aosp/2474710 is wrong and needs to be fixed too !)",
+      "range": {
+        "startLine": 49,
+        "startChar": 48,
+        "endLine": 49,
+        "endChar": 62
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59b91990_6b005442",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-25T07:42:45Z",
+      "side": 1,
+      "message": "Add toDnsLowerCase method as your suggestion.",
+      "parentUuid": "6b883bfd_209fd2bc",
       "range": {
         "startLine": 49,
         "startChar": 48,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "096d08b9_9f85d86a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-25T07:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b656dd2_c31fa140",
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34113b4f_38f28219",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-04-21T07:42:17Z",
       "side": 1,
       "message": "This will be modified in addService, which would affect the Set that was returned previously\n\nMaybe use Collections.unmodifiableSet(new ArraySet\u003c\u003e(mCachedServices.get(key)))\n\nWe should also make sure MdnsResponse isn\u0027t modified while it\u0027s cached. Probably it should be made immutable... Maybe you can file a bug for that ?",
+      "range": {
+        "startLine": 91,
+        "startChar": 46,
+        "endLine": 91,
+        "endChar": 70
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f122a5a4_0075f39b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-25T07:42:45Z",
+      "side": 1,
+      "message": "Update to Collections.unmodifiableSet(new ArraySet\u003c\u003e(mCachedServices.get(key))). Will file a bug later.",
+      "parentUuid": "34113b4f_38f28219",
       "range": {
         "startLine": 91,
         "startChar": 46,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de7fddac_7185bf65",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-25T07:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63ed4225_d5e32293",
+      "range": {
+        "startLine": 92,
+        "startChar": 18,
+        "endLine": 92,
+        "endChar": 35
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4376b4d_fa9b35a1",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-04-21T07:42:17Z",
       "side": 1,
       "message": "Also this should use different casing rules",
+      "range": {
+        "startLine": 98,
+        "startChar": 28,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7363444e_8e2250e8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-25T07:42:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f4376b4d_fa9b35a1",
       "range": {
         "startLine": 98,
         "startChar": 28,
@@ -158,6 +296,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c1f7c20_4424f0da",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-25T07:42:45Z",
+      "side": 1,
+      "message": "Update getCachedServices to make a copy there, which align the design. Will file a bug later.",
+      "parentUuid": "2214d983_d13d2b56",
+      "range": {
+        "startLine": 122,
+        "startChar": 34,
+        "endLine": 122,
+        "endChar": 60
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b014dbd_16de6b04",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
         "patchSetId": 6
@@ -169,6 +331,30 @@
       "writtenOn": "2023-04-21T08:06:28Z",
       "side": 1,
       "message": "Nit: addOrUpdateService ? It looked a bit weird in the commit that uses this method otherwise.",
+      "range": {
+        "startLine": 131,
+        "startChar": 16,
+        "endLine": 131,
+        "endChar": 26
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8db7dbb9_7e49943a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-25T07:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b014dbd_16de6b04",
       "range": {
         "startLine": 131,
         "startChar": 16,
@@ -202,6 +388,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "935ae420_96dfabb0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-25T07:42:45Z",
+      "side": 1,
+      "message": "No, I can use the runningOnHandlerAndReturn for all operations. Remvoed.",
+      "parentUuid": "e13ba1fe_0b300ed2",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 32
+      },
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50f2d381_34ffde5a",
@@ -215,6 +425,24 @@
       "writtenOn": "2023-04-21T07:42:17Z",
       "side": 1,
       "message": "Nit: it would be useful to verify the contents of the response when there\u0027s 2 items too",
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "870abe29_570141e9",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-25T07:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50f2d381_34ffde5a",
       "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
