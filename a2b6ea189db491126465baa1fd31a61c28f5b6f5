@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24a20a45_d6597390",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-25T20:51:48Z",
+      "side": 1,
+      "message": "Based partially off of Lorenzo\u0027s comments on https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2510196",
+      "revId": "a2b6ea189db491126465baa1fd31a61c28f5b6f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
