@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "959c7855_1c815307",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17574,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-25T08:19:22Z",
+      "side": 1,
+      "message": "Added a call to sendLinkProperties as well.",
+      "parentUuid": "f2475f03_c41de5bb",
+      "range": {
+        "startLine": 17574,
+        "startChar": 16,
+        "endLine": 17574,
+        "endChar": 66
+      },
+      "revId": "b3aa1ee522771ac0c78c2e554aa5a06273bc53d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eadab206_bdcacb68",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-25T05:47:24Z",
       "side": 1,
       "message": "This test should not connect the wifi agent? Or did you mean to create another test?",
+      "range": {
+        "startLine": 17581,
+        "startChar": 19,
+        "endLine": 17581,
+        "endChar": 26
+      },
+      "revId": "b3aa1ee522771ac0c78c2e554aa5a06273bc53d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94a8f3eb_2c5dd3e6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17581,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-25T08:19:22Z",
+      "side": 1,
+      "message": "Made the test check what happens both before and after the connect.",
+      "parentUuid": "eadab206_bdcacb68",
       "range": {
         "startLine": 17581,
         "startChar": 19,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9bd1438_adce5ffb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17593,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-25T08:19:22Z",
+      "side": 1,
+      "message": "Made the test check what happens both before and after the connect.",
+      "parentUuid": "11b08834_2416e0cc",
+      "range": {
+        "startLine": 17593,
+        "startChar": 19,
+        "endLine": 17593,
+        "endChar": 26
+      },
+      "revId": "b3aa1ee522771ac0c78c2e554aa5a06273bc53d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f4d2fb6_adf01b43",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a007a157_c603703e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17649,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-25T08:19:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f4d2fb6_adf01b43",
+      "range": {
+        "startLine": 17649,
+        "startChar": 33,
+        "endLine": 17649,
+        "endChar": 47
+      },
+      "revId": "b3aa1ee522771ac0c78c2e554aa5a06273bc53d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc236453_845ea227",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-04-25T04:44:56Z",
       "side": 1,
       "message": "Do you want to also check that `never()).interfaceSetMtu(eq(WIFI_IFNAME), anyInt())` ?",
+      "range": {
+        "startLine": 17676,
+        "startChar": 55,
+        "endLine": 17676,
+        "endChar": 65
+      },
+      "revId": "b3aa1ee522771ac0c78c2e554aa5a06273bc53d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc9e44c_c3a92d7a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17676,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-25T08:19:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc236453_845ea227",
       "range": {
         "startLine": 17676,
         "startChar": 55,
