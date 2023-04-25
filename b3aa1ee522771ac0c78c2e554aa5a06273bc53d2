@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2475f03_c41de5bb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17574,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-25T05:47:24Z",
+      "side": 1,
+      "message": "Nit: Since this test does not call/test sendLinkProperties(), I think it should have a different name, maybe testSetInterfaceMtuBeforeConnect?",
+      "range": {
+        "startLine": 17574,
+        "startChar": 16,
+        "endLine": 17574,
+        "endChar": 66
+      },
+      "revId": "b3aa1ee522771ac0c78c2e554aa5a06273bc53d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eadab206_bdcacb68",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17581,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-25T05:47:24Z",
+      "side": 1,
+      "message": "This test should not connect the wifi agent? Or did you mean to create another test?",
+      "range": {
+        "startLine": 17581,
+        "startChar": 19,
+        "endLine": 17581,
+        "endChar": 26
+      },
+      "revId": "b3aa1ee522771ac0c78c2e554aa5a06273bc53d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11b08834_2416e0cc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17593,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-25T05:47:24Z",
+      "side": 1,
+      "message": "This test should not connect the wifi agent? Or did you mean to create another test?",
+      "range": {
+        "startLine": 17593,
+        "startChar": 19,
+        "endLine": 17593,
+        "endChar": 26
+      },
+      "revId": "b3aa1ee522771ac0c78c2e554aa5a06273bc53d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f4d2fb6_adf01b43",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 2
