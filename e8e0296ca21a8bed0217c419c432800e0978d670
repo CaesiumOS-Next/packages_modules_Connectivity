@@ -22,6 +22,30 @@
       },
       "revId": "e8e0296ca21a8bed0217c419c432800e0978d670",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b6b6a6c_18b3d321",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-25T10:19:11Z",
+      "side": 1,
+      "message": "This code is mainline, and as such it\u0027s non-existence on S- devices doesn\u0027t matter.\n\nWhat matters is that it ships as part of the Tethering module and thus may well\nend up on mainline enabled S- devices.\n\nNow, I agree that we\u0027d like your statement to be true in spirit...\nand for this code to not trigger/run on S-.\n\nHowever, if your statement was correct (and this code never executed), we should be able to replace this return statement with abort(), see: https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2561150\n\nand yet that blows up quite spectacularly...\n\nI think the problem is in onload.cpp [ http://cs/h/android/platform/superproject/+/master:packages/modules/Connectivity/service/jni/onload.cpp?l\u003d41 ] where the ClatCoordinator jni registration function gets called outside of the if T+ statement (8 lines lower).\n\nIt seems like that should be changed... Although that\u0027s a scarier change, because the current state of things is shipping to S- and works.",
+      "parentUuid": "9ffb194e_19f4867a",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 49
+      },
+      "revId": "e8e0296ca21a8bed0217c419c432800e0978d670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
