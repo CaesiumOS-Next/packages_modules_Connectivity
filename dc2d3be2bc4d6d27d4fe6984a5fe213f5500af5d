@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7802fd4_49650935",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2117,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-25T03:42:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0133557_d986d803",
+      "range": {
+        "startLine": 2117,
+        "startChar": 24,
+        "endLine": 2117,
+        "endChar": 33
+      },
+      "revId": "dc2d3be2bc4d6d27d4fe6984a5fe213f5500af5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "253aebd1_76dc2525",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-04-25T03:17:24Z",
       "side": 1,
       "message": "Nit: \"verifyWifi\" (or similar) would be more accurate now",
+      "range": {
+        "startLine": 2119,
+        "startChar": 22,
+        "endLine": 2119,
+        "endChar": 33
+      },
+      "revId": "dc2d3be2bc4d6d27d4fe6984a5fe213f5500af5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c95d7dd7_d0c1b97e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2119,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-25T03:42:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "253aebd1_76dc2525",
       "range": {
         "startLine": 2119,
         "startChar": 22,
