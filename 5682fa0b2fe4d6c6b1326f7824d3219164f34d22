@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39f808d5_b93b3989",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2557,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2023-04-25T16:36:42Z",
+      "side": 1,
+      "message": "That seems reasonable - but it then assumes that Tethering remains on since there\u0027s cell (which is probably correct). \n\nAlternatively reset the WiFi APM interactino:\n- Enable WiFi\n- Enable APM\n- Disable WiFi\n- Disable APM\n\nAt this point we\u0027re back to the old behavior: WiFi will be disabled on next APM.",
+      "range": {
+        "startLine": 2557,
+        "startChar": 25,
+        "endLine": 2557,
+        "endChar": 36
+      },
+      "revId": "5682fa0b2fe4d6c6b1326f7824d3219164f34d22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
