@@ -115,7 +115,7 @@ static void verifyClatPerms() {
     // This relies on the kernel and bpfloader.
 
     // Clat BPF was only mainlined during T.
-    if (!modules::sdklevel::IsAtLeastT()) return;
+    if (!modules::sdklevel::IsAtLeastT()) abort();
 
     V("/sys/fs/bpf", S_IFDIR|S_ISVTX|0777, ROOT, ROOT, "fs_bpf", DIR);
     V("/sys/fs/bpf/net_shared", S_IFDIR|S_ISVTX|0777, ROOT, ROOT, "fs_bpf_net_shared", DIR);
