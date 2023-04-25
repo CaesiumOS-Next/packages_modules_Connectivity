@@ -40,9 +40,11 @@ import com.android.metrics.KeepaliveLifetimePerCarrier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.Executors;
 
 // TODO(b/273451360): Also track DailykeepaliveInfoReported
@@ -72,6 +74,10 @@ public class KeepaliveStatsTracker {
         public final int transportTypes;
         // The keepalive interval in millis.
         public final int intervalMs;
+        // The uid of the app that requested the keepalive.
+        public final int appUid;
+        // Indicates if the keepalive can be paused/resumed.
+        public final boolean isAutomaticOnOff;
 
         // Snapshot of the lifetime stats
         public static class LifetimeStats {
@@ -114,10 +120,18 @@ public class KeepaliveStatsTracker {
             return mKeepaliveActive;
         }
 
-        KeepaliveStats(int carrierId, int transportTypes, int intervalSeconds, long timeNow) {
+        KeepaliveStats(
+                int carrierId,
+                int transportTypes,
+                int intervalSeconds,
+                int appUid,
+                boolean isAutomaticOnOff,
+                long timeNow) {
             this.carrierId = carrierId;
             this.transportTypes = transportTypes;
             this.intervalMs = intervalSeconds * 1000;
+            this.appUid = appUid;
+            this.isAutomaticOnOff = isAutomaticOnOff;
             mLastUpdateLifetimeTimestamp = timeNow;
         }
 
@@ -211,6 +225,10 @@ public class KeepaliveStatsTracker {
     // Map to aggregate the KeepaliveLifetimeForCarrier stats using LifetimeKey as the key.
     final Map<LifetimeKey, KeepaliveLifetimeForCarrier.Builder> mAggregateKeepaliveLifetime =
             new HashMap<>();
+
+    private final Set<Integer> mAppUids = new HashSet<Integer>();
+    private int mNumKeepaliveRequests = 0;
+    private int mNumAutomaticKeepaliveRequests = 0;
 
     private int mNumRegisteredKeepalive = 0;
     private int mNumActiveKeepalive = 0;
@@ -349,14 +367,20 @@ public class KeepaliveStatsTracker {
             @NonNull Network network,
             int slot,
             @NonNull NetworkCapabilities nc,
-            int intervalSeconds) {
+            int intervalSeconds,
+            int appUid,
+            boolean isAutomaticOnOff) {
         ensureRunningOnHandlerThread();
-
         final int keepaliveId = getKeepaliveId(network, slot);
         if (mKeepaliveStatsPerId.contains(keepaliveId)) {
             throw new IllegalArgumentException(
                     "Attempt to start keepalive stats on a known network, slot pair");
         }
+
+        mNumKeepaliveRequests++;
+        if (isAutomaticOnOff) mNumAutomaticKeepaliveRequests++;
+        mAppUids.add(appUid);
+
         final long timeNow = mDependencies.getUptimeMillis();
         updateDurationsPerNumOfKeepalive(timeNow);
 
@@ -365,7 +389,12 @@ public class KeepaliveStatsTracker {
 
         final KeepaliveStats newKeepaliveStats =
                 new KeepaliveStats(
-                        getCarrierId(nc), getTransportTypes(nc), intervalSeconds, timeNow);
+                        getCarrierId(nc),
+                        getTransportTypes(nc),
+                        intervalSeconds,
+                        appUid,
+                        isAutomaticOnOff,
+                        timeNow);
 
         mKeepaliveStatsPerId.put(keepaliveId, newKeepaliveStats);
     }
@@ -522,9 +551,12 @@ public class KeepaliveStatsTracker {
         final DailykeepaliveInfoReported.Builder dailyKeepaliveInfoReported =
                 DailykeepaliveInfoReported.newBuilder();
 
-        // TODO(b/273451360): fill all the other values and write to ConnectivityStatsLog.
         dailyKeepaliveInfoReported.setDurationPerNumOfKeepalive(durationPerNumOfKeepalive);
         dailyKeepaliveInfoReported.setKeepaliveLifetimePerCarrier(keepaliveLifetimePerCarrier);
+        dailyKeepaliveInfoReported.setKeepaliveRequests(mNumKeepaliveRequests);
+        dailyKeepaliveInfoReported.setAutomaticKeepaliveRequests(mNumAutomaticKeepaliveRequests);
+        dailyKeepaliveInfoReported.setDistinctUserCount(mAppUids.size());
+        dailyKeepaliveInfoReported.addAllUid(mAppUids);
 
         return dailyKeepaliveInfoReported.build();
     }
@@ -541,12 +573,22 @@ public class KeepaliveStatsTracker {
         final DailykeepaliveInfoReported metrics = buildKeepaliveMetrics(timeNow);
 
         mDurationPerNumOfKeepalive.clear();
+        mAggregateKeepaliveLifetime.clear();
+        mAppUids.clear();
+        mNumKeepaliveRequests = 0;
+        mNumAutomaticKeepaliveRequests = 0;
+
+        // Update the metrics with the existing keepalives.
         ensureDurationPerNumOfKeepaliveSize();
 
         mAggregateKeepaliveLifetime.clear();
         // Reset the stats for existing keepalives
         for (int i = 0; i < mKeepaliveStatsPerId.size(); i++) {
-            mKeepaliveStatsPerId.valueAt(i).resetLifetimeStats(timeNow);
+            final KeepaliveStats keepaliveStats = mKeepaliveStatsPerId.valueAt(i);
+            keepaliveStats.resetLifetimeStats(timeNow);
+            mAppUids.add(keepaliveStats.appUid);
+            mNumKeepaliveRequests++;
+            if (keepaliveStats.isAutomaticOnOff) mNumAutomaticKeepaliveRequests++;
         }
 
         return metrics;

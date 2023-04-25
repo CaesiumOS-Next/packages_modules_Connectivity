@@ -40,6 +40,7 @@ import android.net.ISocketKeepaliveCallback;
 import android.net.MarkMaskParcel;
 import android.net.Network;
 import android.net.SocketKeepalive.InvalidSocketException;
+import android.os.Binder;
 import android.os.FileUtils;
 import android.os.Handler;
 import android.os.IBinder;
@@ -448,7 +449,9 @@ public class AutomaticOnOffKeepaliveTracker {
                     autoKi.getNetwork(),
                     autoKi.mKi.getSlot(),
                     autoKi.mKi.getNai().networkCapabilities,
-                    autoKi.mKi.getKeepaliveIntervalSec());
+                    autoKi.mKi.getKeepaliveIntervalSec(),
+                    Binder.getCallingUid(),
+                    STATE_ALWAYS_ON != autoKi.mAutomaticOnOffState);
         }
 
         // Add automatic on/off request into list to track its life cycle.
