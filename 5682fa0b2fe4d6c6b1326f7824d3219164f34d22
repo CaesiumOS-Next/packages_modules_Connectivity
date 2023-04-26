@@ -22,6 +22,30 @@
       },
       "revId": "5682fa0b2fe4d6c6b1326f7824d3219164f34d22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e6cc2d_76020a05",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2557,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-04-26T03:17:10Z",
+      "side": 1,
+      "message": "Thanks for sharing, I prefer just disable wifi. The alternative reset the wifi APM option is much complicated. To manage the timing between changing WiFi and APM, we need to know when the APM change takes effect.",
+      "parentUuid": "39f808d5_b93b3989",
+      "range": {
+        "startLine": 2557,
+        "startChar": 25,
+        "endLine": 2557,
+        "endChar": 36
+      },
+      "revId": "5682fa0b2fe4d6c6b1326f7824d3219164f34d22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
