@@ -1,0 +1,250 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c5bf2b5_beb57f3e",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "You\u0027ll probably need a bit more details/background, considering that this will be exposed as API (part of the API review is to review the javadoc)",
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ced0b329_59a10413",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "Nit: add Objects.requireNonNull check (otherwise it could NPE when processing the callback). Probably for each argument.",
+      "range": {
+        "startLine": 386,
+        "startChar": 73,
+        "endLine": 386,
+        "endChar": 79
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b51ea05_02944387",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "This should probably be javadoc on the getters (would be required for exposing as API).\n\nAlso maybe detail what \"offloaded first\" means; basically if the engine is not capable of offloading everything, the higher priority should be preferred ?",
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdc0b0a3_e79eafca",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "This contradicts \"Small int number means high priority\". Did you mean \"higher priority\" or \"smaller priority number\" ? (I\u0027d find the 2nd one less confusing considering the context)",
+      "range": {
+        "startLine": 52,
+        "startChar": 31,
+        "endLine": 52,
+        "endChar": 53
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddb24b5e_77291998",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "I don\u0027t think we should guess the interface from the network here. The source of truth for Network -\u003e interfaces is the callback provided by MdnsSocketProvider; this should be used instead of post-guessing from the Network. Having 2 different paths guessing the association will lead to inconsistencies (for example, what if the interface doesn\u0027t have the multicast flag at this time, so it isn\u0027t actually being used for advertising ?)\n\nI think getting the interface from MdnsAdvertiser should be fairly easy if you make another version of onRegisterServiceSucceeded that is called for every registration on each interface (onRegisterServiceSucceededOnInterface ?), and has the interface as argument. You just need to relay the MdnsInterfaceAdvertiser.Callback.onRegisterServiceSucceeded call from MdnsAdvertiser.",
+      "range": {
+        "startLine": 1543,
+        "startChar": 45,
+        "endLine": 1543,
+        "endChar": 68
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90712035_2c87d993",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1559,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "Also the packet will be different per interface (different address records) so it needs to be provided via per-interface callbacks",
+      "range": {
+        "startLine": 1559,
+        "startChar": 32,
+        "endLine": 1559,
+        "endChar": 36
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fd15eaa_feb25b00",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "Nit: maybe be more explicit on what needs to be done to resolve the TODO; I think we\u0027d define overlayable resources in ServiceConnectivityResources that set the priority based on interface name (regex ?)",
+      "range": {
+        "startLine": 1560,
+        "startChar": 58,
+        "endLine": 1560,
+        "endChar": 67
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "652f8bb6_31645132",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1755,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "finishBroadcast won\u0027t be called in that case (I think it needs to be ?). Maybe use try/finally ?",
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab49b166_b02a1061",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1762,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "This is also going to be difficult if you don\u0027t use per-interface callbacks for onRegisterServiceSucceeded, because you don\u0027t know if  a given interface is done probing or not. Probing can finish at different timings on different interfaces, especially since they may be brought up at different times.",
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aba271d4_e3ea716a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "See other comments about having per-interface callbacks; I think this could be called from InterfaceAdvertiserRequest.removeService and InterfaceAdvertiserRequest.onAdvertiserDestroyed with the interface provided.",
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "743ea741_8f47c469",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "Nit: small p",
+      "range": {
+        "startLine": 356,
+        "startChar": 29,
+        "endLine": 356,
+        "endChar": 30
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b1de42c_4fd80bb8",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:12:19Z",
+      "side": 1,
+      "message": "Nit: since this is verifying that the packet is null, better use other modes",
+      "range": {
+        "startLine": 887,
+        "startChar": 41,
+        "endLine": 887,
+        "endChar": 68
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
