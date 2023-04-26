@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da8d0935_224c2c0c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T04:05:01Z",
+      "side": 1,
+      "message": "Since the \"only one response per instance name\" invariant is maintained manually, you could just use an ArrayList instead of an ArraySet (the Set functionalities aren\u0027t used here)",
+      "range": {
+        "startLine": 142,
+        "startChar": 18,
+        "endLine": 142,
+        "endChar": 24
+      },
+      "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46220937_f2a07bc7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T04:05:01Z",
+      "side": 1,
+      "message": "Nit: add a private constructor since this is just for static utils",
+      "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74c06af5_19b82539",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T04:05:01Z",
+      "side": 1,
+      "message": "Nit: Add @NonNull annotations",
+      "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4821e7b6_f98c9418",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T04:05:01Z",
+      "side": 1,
+      "message": "You should probably use the Kotlin util:\n\n    inline fun \u003cT\u003e Iterable\u003cT\u003e.any(\n        predicate: (T) -\u003e Boolean\n    ): Boolean\n    \nSee: https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/any.html",
+      "range": {
+        "startLine": 108,
+        "startChar": 30,
+        "endLine": 108,
+        "endChar": 47
+      },
+      "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5b3c8b3_0d2029ff",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T04:05:01Z",
+      "side": 1,
+      "message": "Let\u0027s also have a test for strings containing supplementary characters (see https://docs.oracle.com/javase/8/docs/api/java/lang/Character.html). So for example:\n\n    // Unicode characters 0x10000 (𐀀), 0x10001 (𐀁), 0x10041 (𐁁)\n    // Note the last 2 bytes of 0x10041 are identical to \u0027A\u0027, but it should\n    // remain unchanged.\n    assertEquals(\"test: --\u003e\\ud800\\udc00 \\ud800\\udc01 \\ud800\\udc41\u003c-- \",\n        toDnsLowerCase(\"Test: --\u003e\\ud800\\udc00 \\ud800\\udc01 \\ud800\\udc41\u003c-- \"));\n\nSame for equalsIgnoreDnsCase.\n\nThe code should still work for these, because String.length is the number of unicode code units (not the number of characters), and charAt returns surrogate pairs (0xD800 and 0xDC41, not 0x0001 and 0x0041).",
+      "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
