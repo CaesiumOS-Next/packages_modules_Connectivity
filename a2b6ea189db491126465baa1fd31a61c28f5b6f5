@@ -39,6 +39,30 @@
       },
       "revId": "a2b6ea189db491126465baa1fd31a61c28f5b6f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5037527_1e8849e3",
+        "filename": "service/jni/onload.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-26T19:18:10Z",
+      "side": 1,
+      "message": "Hmm, I guess the mainline S offload stuff doesn\u0027t use this then.",
+      "parentUuid": "8c2b1f34_07b9cd5c",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 46
+      },
+      "revId": "a2b6ea189db491126465baa1fd31a61c28f5b6f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
