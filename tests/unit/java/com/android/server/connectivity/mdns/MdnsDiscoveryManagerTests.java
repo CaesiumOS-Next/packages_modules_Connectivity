@@ -20,6 +20,7 @@ import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -189,6 +190,45 @@ public class MdnsDiscoveryManagerTests {
         verify(mockServiceTypeClientOne1, never()).processResponse(
                 responseForSubtype, ifIndex, NETWORK_2);
         verify(mockServiceTypeClientTwo2).processResponse(responseForSubtype, ifIndex, NETWORK_2);
+    }
+
+    @Test
+    public void testSocketCreatedAndDestroyed() throws IOException {
+        final MdnsSearchOptions options1 =
+                MdnsSearchOptions.newBuilder().setNetwork(NETWORK_1).build();
+        final SocketCreationCallback callback = expectSocketCreationCallback(
+                SERVICE_TYPE_1, mockListenerOne, options1);
+        callback.onSocketCreated(NETWORK_1);
+        verify(mockServiceTypeClientOne1).startSendAndReceive(mockListenerOne, options1);
+
+        final MdnsSearchOptions options2 =
+                MdnsSearchOptions.newBuilder().setNetwork(NETWORK_2).build();
+        final SocketCreationCallback callback2 = expectSocketCreationCallback(
+                SERVICE_TYPE_2, mockListenerTwo, options2);
+        callback2.onSocketCreated(NETWORK_2);
+        verify(mockServiceTypeClientTwo2).startSendAndReceive(mockListenerTwo, options2);
+
+        final MdnsPacket response = createMdnsPacket(SERVICE_TYPE_1);
+        final int ifIndex = 1;
+        discoveryManager.onResponseReceived(response, ifIndex, null /* network */);
+        verify(mockServiceTypeClientOne1).processResponse(response, ifIndex, null /* network */);
+        verify(mockServiceTypeClientTwo2).processResponse(response, ifIndex, null /* network */);
+
+        callback.onSocketDestroyed(NETWORK_1);
+        verify(mockServiceTypeClientOne1).notifyAllServicesRemoved();
+        discoveryManager.onResponseReceived(response, ifIndex, null /* network */);
+        verify(mockServiceTypeClientOne1, times(1))
+                .processResponse(response, ifIndex, null /* network */);
+        verify(mockServiceTypeClientTwo2, times(2))
+                .processResponse(response, ifIndex, null /* network */);
+
+        callback2.onSocketDestroyed(NETWORK_1);
+        verify(mockServiceTypeClientTwo2, never()).notifyAllServicesRemoved();
+        discoveryManager.onResponseReceived(response, ifIndex, null /* network */);
+        verify(mockServiceTypeClientOne1, times(1))
+                .processResponse(response, ifIndex, null /* network */);
+        verify(mockServiceTypeClientTwo2, times(3))
+                .processResponse(response, ifIndex, null /* network */);
     }
 
     private MdnsPacket createMdnsPacket(String serviceType) {
