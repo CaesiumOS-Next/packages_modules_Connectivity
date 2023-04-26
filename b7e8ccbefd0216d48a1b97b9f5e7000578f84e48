@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e423243_30aae290",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-04-26T17:42:38Z",
+      "side": 1,
+      "message": "Maybe just say \"This change centralized some common test codes to verifyHotspotClientUpdate() to facilitate the following commit for softap+lohs.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 8
+      },
+      "revId": "b7e8ccbefd0216d48a1b97b9f5e7000578f84e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
