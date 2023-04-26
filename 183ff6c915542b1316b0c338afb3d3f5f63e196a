@@ -96,6 +96,24 @@
       "message": "Let\u0027s also have a test for strings containing supplementary characters (see https://docs.oracle.com/javase/8/docs/api/java/lang/Character.html). So for example:\n\n    // Unicode characters 0x10000 (𐀀), 0x10001 (𐀁), 0x10041 (𐁁)\n    // Note the last 2 bytes of 0x10041 are identical to \u0027A\u0027, but it should\n    // remain unchanged.\n    assertEquals(\"test: --\u003e\\ud800\\udc00 \\ud800\\udc01 \\ud800\\udc41\u003c-- \",\n        toDnsLowerCase(\"Test: --\u003e\\ud800\\udc00 \\ud800\\udc01 \\ud800\\udc41\u003c-- \"));\n\nSame for equalsIgnoreDnsCase.\n\nThe code should still work for these, because String.length is the number of unicode code units (not the number of characters), and charAt returns surrogate pairs (0xD800 and 0xDC41, not 0x0001 and 0x0041).",
       "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c2d4e1a_cbabcb5a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T05:53:25Z",
+      "side": 1,
+      "message": "And while we\u0027re at it, maybe some characters where the first surrogate is not \\ud800, like:\n\n    assertEquals(\"test: \u003e\" +\n    \"\\ud83c\\udff4\\udb40\\udc67\\udb40\\udc62\\udb40\\udc77\\udb40\\udc6c\\udb40\\udc73\\udb40\\udc7f\u003c\",\n        toDnsLowerCase(\"Test: \u003e\" +\n    \"\\ud83c\\udff4\\udb40\\udc67\\udb40\\udc62\\udb40\\udc77\\udb40\\udc6c\\udb40\\udc73\\udb40\\udc7f\u003c\"));\n\n\n(Yes that\u0027s just one symbol, it\u0027s the flag of Wales)",
+      "parentUuid": "e5b3c8b3_0d2029ff",
+      "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
