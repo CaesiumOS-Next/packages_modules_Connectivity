@@ -107,6 +107,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ff0dbb_5490e61f",
+        "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1993882
+      },
+      "writtenOn": "2023-04-26T10:21:22Z",
+      "side": 1,
+      "message": "It is workable, but it depends then on how one interprets the separation of labels. But fine. Anyway in the 1st iteration of the offload service, I\u0027m parsing the raw packet and generating the Matching criterias directly from every available qname.\nIt also allows me to check if the packet is somehow well formed.",
+      "parentUuid": "71a7dcd2_df3349f9",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ece4cc3_ef5b9c36",
