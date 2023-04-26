@@ -1056,6 +1056,58 @@ public class MdnsServiceTypeClientTests {
         inOrder.verify(mockListenerTwo).onServiceRemoved(matchServiceName(otherInstance));
     }
 
+    @Test
+    public void testNotifyAllServicesRemoved() {
+        client = new MdnsServiceTypeClient(
+                SERVICE_TYPE, mockSocketClient, currentThreadExecutor, mockNetwork, mockSharedLog);
+
+        final String requestedInstance = "instance1";
+        final String otherInstance = "instance2";
+        final String ipV4Address = "192.0.2.0";
+        final String ipV6Address = "2001:db8::";
+
+        final MdnsSearchOptions resolveOptions = MdnsSearchOptions.newBuilder()
+                // Use different case in the options
+                .setResolveInstanceName("Instance1").build();
+
+        client.startSendAndReceive(mockListenerOne, resolveOptions);
+        client.startSendAndReceive(mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
+
+        // Complete response from instanceName
+        client.processResponse(createResponse(
+                        requestedInstance, ipV4Address, 5353, SERVICE_TYPE_LABELS,
+                        Collections.emptyMap() /* textAttributes */, TEST_TTL),
+                INTERFACE_INDEX, mockNetwork);
+
+        // Complete response from otherInstanceName
+        client.processResponse(createResponse(
+                        otherInstance, ipV4Address, 5353, SERVICE_TYPE_LABELS,
+                        Collections.emptyMap() /* textAttributes */, TEST_TTL),
+                INTERFACE_INDEX, mockNetwork);
+
+        client.notifyAllServicesRemoved();
+
+        // mockListenerOne gets notified for the requested instance
+        verify(mockListenerOne).onServiceNameDiscovered(matchServiceName(requestedInstance));
+        verify(mockListenerOne).onServiceFound(matchServiceName(requestedInstance));
+        verify(mockListenerOne, never()).onServiceFound(matchServiceName(otherInstance));
+        verify(mockListenerOne, never()).onServiceNameDiscovered(matchServiceName(otherInstance));
+        verify(mockListenerOne).onServiceRemoved(matchServiceName(requestedInstance));
+        verify(mockListenerOne).onServiceNameRemoved(matchServiceName(requestedInstance));
+        verify(mockListenerOne, never()).onServiceRemoved(matchServiceName(otherInstance));
+        verify(mockListenerOne, never()).onServiceNameRemoved(matchServiceName(otherInstance));
+
+        // mockListenerTwo gets notified for both though
+        verify(mockListenerTwo).onServiceNameDiscovered(matchServiceName(requestedInstance));
+        verify(mockListenerTwo).onServiceFound(matchServiceName(requestedInstance));
+        verify(mockListenerTwo).onServiceFound(matchServiceName(otherInstance));
+        verify(mockListenerTwo).onServiceNameDiscovered(matchServiceName(otherInstance));
+        verify(mockListenerTwo).onServiceRemoved(matchServiceName(requestedInstance));
+        verify(mockListenerTwo).onServiceNameRemoved(matchServiceName(requestedInstance));
+        verify(mockListenerTwo).onServiceRemoved(matchServiceName(otherInstance));
+        verify(mockListenerTwo).onServiceNameRemoved(matchServiceName(otherInstance));
+    }
+
     private static MdnsServiceInfo matchServiceName(String name) {
         return argThat(info -> info.getServiceInstanceName().equals(name));
     }

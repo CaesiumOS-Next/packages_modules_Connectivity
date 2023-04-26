@@ -239,20 +239,18 @@ public class MdnsServiceTypeClient {
      */
     public synchronized void processResponse(@NonNull MdnsPacket packet, int interfaceIndex,
             Network network) {
-        synchronized (lock) {
-            // Augment the list of current known responses, and generated responses for resolve
-            // requests if there is no known response
-            final List<MdnsResponse> currentList = new ArrayList<>(instanceNameToResponse.values());
-            currentList.addAll(makeResponsesForResolveIfUnknown(interfaceIndex, network));
-            final ArraySet<MdnsResponse> modifiedResponses = responseDecoder.augmentResponses(
-                    packet, currentList, interfaceIndex, network);
+        // Augment the list of current known responses, and generated responses for resolve
+        // requests if there is no known response
+        final List<MdnsResponse> currentList = new ArrayList<>(instanceNameToResponse.values());
+        currentList.addAll(makeResponsesForResolveIfUnknown(interfaceIndex, network));
+        final ArraySet<MdnsResponse> modifiedResponses = responseDecoder.augmentResponses(
+                packet, currentList, interfaceIndex, network);
 
-            for (MdnsResponse modified : modifiedResponses) {
-                if (modified.isGoodbye()) {
-                    onGoodbyeReceived(modified.getServiceInstanceName());
-                } else {
-                    onResponseModified(modified);
-                }
+        for (MdnsResponse modified : modifiedResponses) {
+            if (modified.isGoodbye()) {
+                onGoodbyeReceived(modified.getServiceInstanceName());
+            } else {
+                onResponseModified(modified);
             }
         }
     }
@@ -260,6 +258,25 @@ public class MdnsServiceTypeClient {
     public synchronized void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode) {
         for (int i = 0; i < listeners.size(); i++) {
             listeners.keyAt(i).onFailedToParseMdnsResponse(receivedPacketNumber, errorCode);
+        }
+    }
+
+    /** Notify all services are removed because the socket is destroyed. */
+    public synchronized void notifyAllServicesRemoved() {
+        for (MdnsResponse response : instanceNameToResponse.values()) {
+            final String name = response.getServiceInstanceName();
+            for (int i = 0; i < listeners.size(); i++) {
+                if (!responseMatchesOptions(response, listeners.valueAt(i))) continue;
+                final MdnsServiceBrowserListener listener = listeners.keyAt(i);
+                final MdnsServiceInfo serviceInfo =
+                        buildMdnsServiceInfoFromResponse(response, serviceTypeLabels);
+                if (response.isComplete()) {
+                    sharedLog.log("Socket destroyed. onServiceRemoved: " + name);
+                    listener.onServiceRemoved(serviceInfo);
+                }
+                sharedLog.log("Socket destroyed. onServiceNameRemoved: " + name);
+                listener.onServiceNameRemoved(serviceInfo);
+            }
         }
     }
 
