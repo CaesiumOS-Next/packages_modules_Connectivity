@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99575923_1b14d455",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2556,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T05:58:53Z",
+      "side": 1,
+      "message": "Your explanation in the commit message will be necessary for other people reading this code later I think, because the wifi behavior is really not obvious. Maybe add it here too ?",
+      "revId": "aa5869b8a0f35d36bf451ad5f941a54e2c956638",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

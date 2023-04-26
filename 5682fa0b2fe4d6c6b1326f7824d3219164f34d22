@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66a9a7c0_c170c1ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T05:58:53Z",
+      "side": 1,
+      "message": "This runs before each test module, not each test case; the test case should ensure that it doesn\u0027t change state. Actually this will cause tearDown to fail if the device doesn\u0027t support mobile data (no default network).",
+      "range": {
+        "startLine": 16,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 34
+      },
+      "revId": "5682fa0b2fe4d6c6b1326f7824d3219164f34d22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39f808d5_b93b3989",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 4
