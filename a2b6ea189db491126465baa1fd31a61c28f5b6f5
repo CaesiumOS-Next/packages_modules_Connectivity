@@ -16,6 +16,29 @@
       "message": "Based partially off of Lorenzo\u0027s comments on https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2510196",
       "revId": "a2b6ea189db491126465baa1fd31a61c28f5b6f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c2b1f34_07b9cd5c",
+        "filename": "service/jni/onload.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-04-26T18:17:08Z",
+      "side": 1,
+      "message": "This could also be done for BpfNetMaps, see: https://source.corp.google.com/aosp-master/packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java;l\u003d83",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 46
+      },
+      "revId": "a2b6ea189db491126465baa1fd31a61c28f5b6f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
