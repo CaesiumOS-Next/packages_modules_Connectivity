@@ -203,6 +203,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "603619c9_68f61cc1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-26T10:18:17Z",
+      "side": 1,
+      "message": "for each affected mPendingRegistrations, after checking that interfaceAdvertiser.isProbing(regId) is false\n\nYou could also rename MdnsInterfaceAdvertiser.Callback.onRegisterServiceSucceeded to onProbingSucceeded, so the \"registered\" (onProbingSucceeded) \"unregister\" (!isProbing) checks are clearly the same.",
+      "parentUuid": "aba271d4_e3ea716a",
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "743ea741_8f47c469",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 16
