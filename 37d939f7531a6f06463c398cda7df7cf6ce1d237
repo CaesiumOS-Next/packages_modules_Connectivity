@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a41b35f2_198a0b97",
+        "filename": "framework-t/api/module-lib-current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-26T08:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51feb916_61ef5cde",
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "469bb8b9_2cf9a57f",
@@ -65,6 +83,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71a7dcd2_df3349f9",
+        "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-26T08:55:33Z",
+      "side": 1,
+      "message": "In NsdManager API, the service name is only one label.\nFor service type it can be multiple labels.\n\nIn cast use case the service type is \"_googlecast._tcp.local\" \nThe service name is \"{some random UUID}\".\n\n\"_googlecast._tcp.local\"  will be a qname in PTR query.\n\"{some random UUID}._googlecast._tcp.local\" will be a qname is SRV/TXT query.\n\nBoth will be trigger the offload reply.",
+      "parentUuid": "469bb8b9_2cf9a57f",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ece4cc3_ef5b9c36",
@@ -78,6 +120,30 @@
       "writtenOn": "2023-04-17T06:38:52Z",
       "side": 1,
       "message": "Nullable ?",
+      "range": {
+        "startLine": 120,
+        "startChar": 5,
+        "endLine": 120,
+        "endChar": 12
+      },
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92866423_b0189ff9",
+        "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-26T08:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ece4cc3_ef5b9c36",
       "range": {
         "startLine": 120,
         "startChar": 5,
@@ -105,6 +171,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f657d89b_3f91cb23",
+        "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-26T08:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8647c40f_283d1d43",
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7d8f5ec_8ecb0190",
@@ -118,6 +202,30 @@
       "writtenOn": "2023-04-17T06:38:52Z",
       "side": 1,
       "message": "HexDump.toHexString would be more efficient/reusable, but I think this may be a bit too big ? Maybe just say whether it\u0027s null and the bytes count ?",
+      "range": {
+        "startLine": 131,
+        "startChar": 43,
+        "endLine": 131,
+        "endChar": 77
+      },
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c4b8375_4a05fe54",
+        "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-26T08:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7d8f5ec_8ecb0190",
       "range": {
         "startLine": 131,
         "startChar": 43,
@@ -145,6 +253,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "148e00c8_b27d29cc",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-26T08:55:33Z",
+      "side": 1,
+      "message": "Thanks, as discussed, move the offload start code to `onRegisterServiceSucceeded`.",
+      "parentUuid": "59acfbf9_f267d9dd",
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dc8b81e_b9e0b597",
@@ -158,6 +284,30 @@
       "writtenOn": "2023-04-17T06:38:52Z",
       "side": 1,
       "message": "Since this is going to send the whole list every time, maybe this method shouldn\u0027t take the list as argument, and should build it itself ?\n\nUnless you use another common method to build the list and always use it to build the argument",
+      "range": {
+        "startLine": 1700,
+        "startChar": 43,
+        "endLine": 1700,
+        "endChar": 83
+      },
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "974113cd_f8e3596b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1700,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-26T08:55:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2dc8b81e_b9e0b597",
       "range": {
         "startLine": 1700,
         "startChar": 43,
@@ -185,6 +335,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9351f2c7_1e45e7f1",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-26T08:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a14a54b3_33668493",
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82d15244_8ea3635c",
@@ -198,6 +366,30 @@
       "writtenOn": "2023-04-17T06:38:52Z",
       "side": 1,
       "message": "This should probably take the interface identifier as argument; you should have it in registerService (for mdnsresponder), and as per above comment you can get it for MdnsAdvertiser when registering in the callbacks. This should avoid guessing the interface twice (here and in registerService for example)",
+      "range": {
+        "startLine": 1744,
+        "startChar": 77,
+        "endLine": 1744,
+        "endChar": 78
+      },
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49ff14b7_97da1ee8",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1744,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-26T08:55:33Z",
+      "side": 1,
+      "message": "As we discussed, we won\u0027t support mdnsresponder for hardware offload due to multiple limitation. So I am going to kept the argument like it for now.",
+      "parentUuid": "82d15244_8ea3635c",
       "range": {
         "startLine": 1744,
         "startChar": 77,
@@ -225,6 +417,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88f140d9_da3cb07c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1755,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-26T08:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a9764f9_4d146b58",
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c96a929b_cabc2a64",
@@ -238,6 +448,30 @@
       "writtenOn": "2023-04-17T06:38:52Z",
       "side": 1,
       "message": "Nit: extra space",
+      "range": {
+        "startLine": 888,
+        "startChar": 26,
+        "endLine": 888,
+        "endChar": 27
+      },
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac3e72e1_49ab484b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-26T08:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c96a929b_cabc2a64",
       "range": {
         "startLine": 888,
         "startChar": 26,
