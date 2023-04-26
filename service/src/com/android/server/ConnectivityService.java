@@ -5987,13 +5987,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mProxyTracker.setDefaultProxy(proxy);
     }
 
-    // If the proxy has changed from oldLp to newLp, resend proxy broadcast. This method gets called
-    // when any network changes proxy.
+    // If the proxy has changed from oldLp to newLp, or if the network just connected, send proxy
+    // broadcast. This method gets called when any connected network changes proxy.
     // TODO: Remove usage of broadcast extras as they are deprecated and not applicable in a
     // multi-network world where an app might be bound to a non-default network.
-    private void updateProxy(@NonNull LinkProperties newLp, @Nullable LinkProperties oldLp) {
-        ProxyInfo newProxyInfo = newLp.getHttpProxy();
-        ProxyInfo oldProxyInfo = oldLp == null ? null : oldLp.getHttpProxy();
+    private void maybeUpdateProxy(boolean isConnected, boolean wasConnected,
+            @NonNull LinkProperties newLp, @Nullable LinkProperties oldLp) {
+        ProxyInfo newProxyInfo = isConnected ? newLp.getHttpProxy() : null;
+        ProxyInfo oldProxyInfo = (wasConnected && oldLp != null) ? oldLp.getHttpProxy() : null;
 
         if (!ProxyTracker.proxyInfoEqual(newProxyInfo, oldProxyInfo)) {
             mProxyTracker.sendProxyBroadcast();
@@ -7824,7 +7825,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (isDefaultNetwork(networkAgent)) {
             handleApplyDefaultProxy(newLp.getHttpProxy());
         } else {
-            updateProxy(newLp, oldLp);
+            maybeUpdateProxy(networkAgent.everConnected(), networkAgent.everConnected(),
+                    newLp, oldLp);
         }
 
         updateWakeOnLan(newLp);
