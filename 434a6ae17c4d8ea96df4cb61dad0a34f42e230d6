@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c78560b8_acfaba14",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10807,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-04-26T09:20:40Z",
+      "side": 1,
+      "message": "Is it possible that transport in networkAgent.networkCapabilities changes between `setupDataActivityTracking` and `onInterfaceClassActivityChanged`?\nI\u0027m assuming it\u0027s not possible.",
+      "revId": "434a6ae17c4d8ea96df4cb61dad0a34f42e230d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
