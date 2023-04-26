@@ -16,8 +16,6 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="tethered_notification_title" msgid="6426563586025792944">"টিথারিং বা হটস্পট চালু আছে"</string>
-    <string name="tethered_notification_message" msgid="64800879503420696">"সেট-আপ করতে ট্যাপ করুন।"</string>
     <string name="disable_tether_notification_title" msgid="3004509127903564191">"টিথারিং বন্ধ করা আছে"</string>
     <string name="disable_tether_notification_message" msgid="6717523799293901476">"বিশদে জানতে অ্যাডমিনের সাথে যোগাযোগ করুন"</string>
     <string name="notification_channel_tethering_status" msgid="2663463891530932727">"হটস্পট ও টিথারিং স্ট্যাটাস"</string>

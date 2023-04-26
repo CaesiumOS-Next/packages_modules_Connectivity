@@ -21,5 +21,4 @@
     <string name="no_upstream_notification_disable_button" msgid="2613861474440640595">"Izklopi dostopno točko"</string>
     <string name="upstream_roaming_notification_title" msgid="3633925855626231152">"Dostopna točka je vklopljena"</string>
     <string name="upstream_roaming_notification_message" msgid="1396837704184358258">"Med gostovanjem lahko nastanejo dodatni stroški"</string>
-    <string name="upstream_roaming_notification_continue_button" msgid="5324117849715705638">"Naprej"</string>
 </resources>

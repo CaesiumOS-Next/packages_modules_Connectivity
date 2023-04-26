@@ -21,5 +21,4 @@
     <string name="no_upstream_notification_disable_button" msgid="2613861474440640595">"핫스팟 사용 중지"</string>
     <string name="upstream_roaming_notification_title" msgid="3633925855626231152">"핫스팟 사용 중"</string>
     <string name="upstream_roaming_notification_message" msgid="1396837704184358258">"로밍 중에는 추가 요금이 발생할 수 있습니다."</string>
-    <string name="upstream_roaming_notification_continue_button" msgid="5324117849715705638">"계속"</string>
 </resources>

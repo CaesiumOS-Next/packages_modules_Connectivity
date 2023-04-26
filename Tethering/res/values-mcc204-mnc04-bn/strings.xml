@@ -21,5 +21,4 @@
     <string name="no_upstream_notification_disable_button" msgid="2613861474440640595">"হটস্পট বন্ধ করুন"</string>
     <string name="upstream_roaming_notification_title" msgid="3633925855626231152">"হটস্পট চালু আছে"</string>
     <string name="upstream_roaming_notification_message" msgid="1396837704184358258">"রোমিংয়ের সময় অতিরিক্ত চার্জ করা হতে পারে"</string>
-    <string name="upstream_roaming_notification_continue_button" msgid="5324117849715705638">"চালিয়ে যান"</string>
 </resources>
