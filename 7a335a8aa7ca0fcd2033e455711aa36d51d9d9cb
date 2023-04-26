@@ -482,6 +482,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "61a1c35c_c2a8de09",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-26T02:21:53Z",
+      "side": 1,
+      "message": "I mean I am not sure why buildKeepaliveMetrics needs to put together with resetMetrics. Why these two action should be placed together? Why caller does not call resetMetrics and buildKeepaliveMetrics? From current patch, I cannot see how it will be used, i.e. I am hard to tell what should be the correct logic inside this method.",
+      "parentUuid": "f6f1ee62_6e360ff2",
+      "range": {
+        "startLine": 441,
+        "startChar": 38,
+        "endLine": 441,
+        "endChar": 58
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bc9c6438_1fbaab61",
