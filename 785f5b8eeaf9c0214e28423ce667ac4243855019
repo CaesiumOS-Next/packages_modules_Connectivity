@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af5eb6a1_bfeeae7f",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-26T05:20:59Z",
+      "side": 1,
+      "message": "Suggest to put this in a leading commit. This could be in a separated commit to reduce your commit size a little bit.",
+      "range": {
+        "startLine": 1350,
+        "startChar": 4,
+        "endLine": 1361,
+        "endChar": 0
+      },
+      "revId": "785f5b8eeaf9c0214e28423ce667ac4243855019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "23781f42_7bf45e58",
         "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
         "patchSetId": 11
@@ -221,6 +244,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b39ab038_4c8d0ac7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-26T05:20:59Z",
+      "side": 1,
+      "message": "Nit: Could you specify the nullability? @NonNull",
+      "range": {
+        "startLine": 348,
+        "startChar": 49,
+        "endLine": 348,
+        "endChar": 50
+      },
+      "revId": "785f5b8eeaf9c0214e28423ce667ac4243855019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9c60b8d_8252b99e",
         "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
         "patchSetId": 11
@@ -237,6 +283,29 @@
         "startChar": 16,
         "endLine": 412,
         "endChar": 47
+      },
+      "revId": "785f5b8eeaf9c0214e28423ce667ac4243855019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a705ad_58090518",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-26T05:20:59Z",
+      "side": 1,
+      "message": "Nit: Probably address this warning to remove unused parameter.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 39
       },
       "revId": "785f5b8eeaf9c0214e28423ce667ac4243855019",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
