@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6da8095_681b128e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-26T07:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da8d0935_224c2c0c",
+      "range": {
+        "startLine": 142,
+        "startChar": 18,
+        "endLine": 142,
+        "endChar": 24
+      },
+      "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46220937_f2a07bc7",
@@ -58,6 +82,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8bc6642_a57f20ff",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-26T07:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46220937_f2a07bc7",
+      "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "431fb356_2aaa578d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-26T07:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74c06af5_19b82539",
+      "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4821e7b6_f98c9418",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-04-26T04:05:01Z",
       "side": 1,
       "message": "You should probably use the Kotlin util:\n\n    inline fun \u003cT\u003e Iterable\u003cT\u003e.any(\n        predicate: (T) -\u003e Boolean\n    ): Boolean\n    \nSee: https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/any.html",
+      "range": {
+        "startLine": 108,
+        "startChar": 30,
+        "endLine": 108,
+        "endChar": 47
+      },
+      "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d29386_db873846",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-26T07:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4821e7b6_f98c9418",
       "range": {
         "startLine": 108,
         "startChar": 30,
@@ -112,6 +196,24 @@
       "side": 1,
       "message": "And while we\u0027re at it, maybe some characters where the first surrogate is not \\ud800, like:\n\n    assertEquals(\"test: \u003e\" +\n    \"\\ud83c\\udff4\\udb40\\udc67\\udb40\\udc62\\udb40\\udc77\\udb40\\udc6c\\udb40\\udc73\\udb40\\udc7f\u003c\",\n        toDnsLowerCase(\"Test: \u003e\" +\n    \"\\ud83c\\udff4\\udb40\\udc67\\udb40\\udc62\\udb40\\udc77\\udb40\\udc6c\\udb40\\udc73\\udb40\\udc7f\u003c\"));\n\n\n(Yes that\u0027s just one symbol, it\u0027s the flag of Wales)",
       "parentUuid": "e5b3c8b3_0d2029ff",
+      "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32d0f4f7_53ff747f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-26T07:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c2d4e1a_cbabcb5a",
       "revId": "183ff6c915542b1316b0c338afb3d3f5f63e196a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
