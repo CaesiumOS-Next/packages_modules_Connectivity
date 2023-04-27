@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18052da1_3ecd9eff",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-04-27T03:58:46Z",
+      "side": 1,
+      "message": "There are 10 retries inside runDhcp so that we need to wait 5 seconds to get TimeoutException. We need to retry because we don\u0027t have a way to let the test know when the DHCP server is created. In this case, we have already simulated one client, which means the DHCP server is already created.\n\nMaybe have a util function in TetheringTester to avoid retry:\n\n    public boolean testDhcpServerAlive(MacAddress mac) {\n        sendDhcpDiscover(mac.toByteArray());\n        return getNextDhcpPacket() !\u003d null;\n    }\n    \nThen, do assertFalse(tester.testDhcpServerAlive(macAddress)) here",
+      "range": {
+        "startLine": 877,
+        "startChar": 8,
+        "endLine": 878,
+        "endChar": 84
+      },
+      "revId": "055a2957e4d14394e2af514cd3973a4d012d5524",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
