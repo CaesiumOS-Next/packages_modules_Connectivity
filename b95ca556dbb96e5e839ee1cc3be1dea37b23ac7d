@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daa8c1cb_d54b7112",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17606,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-27T06:02:15Z",
+      "side": 1,
+      "message": "This is unexpected and deserves a TODO, but as we discussed offline since the production code has this right already and updates the test maybe it doesn\u0027t matter",
+      "range": {
+        "startLine": 17606,
+        "startChar": 8,
+        "endLine": 17606,
+        "endChar": 66
+      },
+      "revId": "b95ca556dbb96e5e839ee1cc3be1dea37b23ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
