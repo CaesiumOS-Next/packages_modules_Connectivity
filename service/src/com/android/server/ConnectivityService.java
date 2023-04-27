@@ -5695,7 +5695,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 }
                 case EVENT_REPORT_NETWORK_ACTIVITY:
-                    mNetworkActivityTracker.handleReportNetworkActivity();
+                    final NetworkActivityParams arg = (NetworkActivityParams) msg.obj;
+                    mNetworkActivityTracker.handleReportNetworkActivity(arg);
                     break;
                 case EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED:
                     handleMobileDataPreferredUidsChanged();
@@ -10814,11 +10815,24 @@ public class ConnectivityService extends IConnectivityManager.Stub
         notifyDataStallSuspected(p, network.getNetId());
     }
 
+    private static final class NetworkActivityParams {
+        public final boolean active;
+        public final int transportType;
+        public final long tsNanos;
+
+        NetworkActivityParams(boolean active, int transportType, long tsNanos) {
+            this.active = active;
+            this.transportType = transportType;
+            this.tsNanos = tsNanos;
+        }
+    }
+
     private class NetdCallback extends BaseNetdUnsolicitedEventListener {
         @Override
         public void onInterfaceClassActivityChanged(boolean isActive, int transportType,
                 long timestampNs, int uid) {
-            mNetworkActivityTracker.setAndReportNetworkActive(isActive, transportType, timestampNs);
+            mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY,
+                    new NetworkActivityParams(isActive, transportType, transportType)));
         }
 
         @Override
@@ -10872,27 +10886,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mHandler = handler;
         }
 
-        public void setAndReportNetworkActive(boolean active, int transportType, long tsNanos) {
-            sendDataActivityBroadcast(transportTypeToLegacyType(transportType), active, tsNanos);
-            synchronized (mActiveIdleTimers) {
-                mNetworkActive = active;
-                // If there are no idle timers, it means that system is not monitoring
-                // activity, so the system default network for those default network
-                // unspecified apps is always considered active.
-                //
-                // TODO: If the mActiveIdleTimers is empty, netd will actually not send
-                // any network activity change event. Whenever this event is received,
-                // the mActiveIdleTimers should be always not empty. The legacy behavior
-                // is no-op. Remove to refer to mNetworkActive only.
-                if (mNetworkActive || mActiveIdleTimers.isEmpty()) {
-                    mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY));
-                }
-            }
-        }
-
-        // The network activity should only be updated from ConnectivityService handler thread
-        // when mActiveIdleTimers lock is held.
-        @GuardedBy("mActiveIdleTimers")
         private void reportNetworkActive() {
             final int length = mNetworkActivityListeners.beginBroadcast();
             if (DDBG) log("reportNetworkActive, notify " + length + " listeners");
@@ -10909,9 +10902,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        @GuardedBy("mActiveIdleTimers")
-        public void handleReportNetworkActivity() {
-            synchronized (mActiveIdleTimers) {
+        public void handleReportNetworkActivity(NetworkActivityParams params) {
+            sendDataActivityBroadcast(
+                    transportTypeToLegacyType(params.transportType), params.active, params.tsNanos);
+            mNetworkActive = params.active;
+            // If there are no idle timers, it means that system is not monitoring
+            // activity, so the system default network for those default network
+            // unspecified apps is always considered active.
+            //
+            // TODO: If the mActiveIdleTimers is empty, netd will actually not send
+            // any network activity change event. Whenever this event is received,
+            // the mActiveIdleTimers should be always not empty. The legacy behavior
+            // is no-op. Remove to refer to mNetworkActive only.
+            if (mNetworkActive || mActiveIdleTimers.isEmpty()) {
                 reportNetworkActive();
             }
         }
@@ -11018,8 +11021,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             try {
                 updateRadioPowerState(false /* isActive */, type);
+                final IdleTimerParams params;
                 synchronized (mActiveIdleTimers) {
-                    final IdleTimerParams params = mActiveIdleTimers.remove(iface);
+                    params = mActiveIdleTimers.remove(iface);
                     // The call fails silently if no idle timer setup for this interface
                     mNetd.idletimerRemoveInterface(iface, params.timeout,
                             Integer.toString(params.transportType));
