@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e92c1a49_4acd462c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 10041,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-27T08:44:02Z",
+      "side": 1,
+      "message": "If this is only for backward compatibility with CTS13, why do we allow it to NETWORK_SETTINGS ?",
+      "range": {
+        "startLine": 10041,
+        "startChar": 41,
+        "endLine": 10041,
+        "endChar": 86
+      },
+      "revId": "ae8050813028b09ed448c42a3830e5632396bc21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01cdf149_79515974",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-27T08:44:02Z",
+      "side": 1,
+      "message": "How did it use to pass then ?",
+      "range": {
+        "startLine": 1674,
+        "startChar": 5,
+        "endLine": 1674,
+        "endChar": 59
+      },
+      "revId": "ae8050813028b09ed448c42a3830e5632396bc21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

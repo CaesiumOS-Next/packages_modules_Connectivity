@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea93785a_17516342",
+        "filename": "framework/src/android/net/apf/ApfCapabilities.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-27T08:44:02Z",
+      "side": 0,
+      "message": "This change is unrelated to this patch right ?\n\nIdeally it should be in another patch then (though I don\u0027t think you should bother now that this is written)",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 52
+      },
+      "revId": "8d4be7178946dbb9be8d16c5e8c4b70f099360bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
