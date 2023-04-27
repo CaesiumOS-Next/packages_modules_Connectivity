@@ -39,6 +39,30 @@
       },
       "revId": "4cad2d67fc664b0458b915df2472f4b95340ce77",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "066cce68_f9b31f97",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-04-27T07:15:28Z",
+      "side": 1,
+      "message": "I have rebased this CL on top of https://android-review.git.corp.google.com/q/topic:%22isfeatureenabled_onboot%22",
+      "parentUuid": "7755db17_d317cdfb",
+      "range": {
+        "startLine": 838,
+        "startChar": 23,
+        "endLine": 838,
+        "endChar": 39
+      },
+      "revId": "4cad2d67fc664b0458b915df2472f4b95340ce77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
