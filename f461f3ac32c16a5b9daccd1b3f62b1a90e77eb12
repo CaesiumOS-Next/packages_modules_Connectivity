@@ -16,6 +16,23 @@
       "message": "How curious...\n\ntm-qpr-dev-plus-aosp (not that we care about that branch) fails to build with:\n\nlogs/build_error.log on branch git_tm-qpr-dev-plus-aosp on target aosp_bramble-userdebug at P55460931\nDownload\nView full file\nFAILED: out/soong/build.ninja\ncd \"$(dirname \"out/host/linux-x86/bin/soong_build\")\" \u0026\u0026 BUILDER\u003d\"$PWD/$(basename \"out/host/linux-x86/bin/soong_build\")\" \u0026\u0026 cd / \u0026\u0026 env -i  \"$BUILDER\"     --top \"$TOP\"     --soong_out \"out/soong\"     --out \"out\"     -o out/soong/build.ninja --bazel-mode --globListDir build --globFile out/soong/globs-build.ninja -t -l out/.module_paths/Android.bp.list --available_env out/soong/soong.environment.available --used_env out/soong/soong.environment.used.build Android.bp\nThe target device is aosp_bramble, add codec2 servcie vintf fragment\nerror: packages/modules/Connectivity/Tethering/apex/Android.bp:90:1: \"com.android.tethering\" depends on undefined module \"TetheringInProcessFlag\".\nOr did you mean [\"TetheringOutOfProcessFlag\"]?\nninja: build stopped: subcommand failed.\n19:49:50 soong bootstrap failed with: exit status 1\nDumping rbe metrics...\n\nRBE Stats: Downloaded: 0 B, Uploaded: 0 B\n\n--\n\nbut the above afaict is a lie.  Because com.android.tethering does not depend on TetheringInProcessFlag - it pulls in TetheringOutOfProcessFlag\n\nat least that\u0027s what I see when I look at the tm-qpr-dev-plus-aosp source...\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/+/tm-qpr-dev-plus-aosp:packages/modules/Connectivity/Tethering/apex/Android.bp;l\u003d22?q\u003dTetheringInProcessFlag\u0026ss\u003dh%2Fgoogleplex-android%2Fplatform%2Fsuperproject%2F%2B%2Ftm-qpr-dev-plus-aosp:packages%2Fmodules%2FConnectivity%2F",
       "revId": "f461f3ac32c16a5b9daccd1b3f62b1a90e77eb12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ee83387_6e9f7118",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-27T20:24:19Z",
+      "side": 1,
+      "message": "https://googleplex-android.googlesource.com/platform/packages/modules/Connectivity/+/refs/heads/tm-qpr-dev-plus-aosp/Tethering/apex/Android.bp",
+      "revId": "f461f3ac32c16a5b9daccd1b3f62b1a90e77eb12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
