@@ -18,6 +18,11 @@ package com.android.server.connectivity;
 
 import static android.system.OsConstants.*;
 
+import static com.android.net.module.util.NetworkStackConstants.ICMP_HEADER_LEN;
+import static com.android.net.module.util.NetworkStackConstants.IPV4_HEADER_MIN_LEN;
+import static com.android.net.module.util.NetworkStackConstants.IPV6_HEADER_LEN;
+import static com.android.net.module.util.NetworkStackConstants.IPV6_MIN_MTU;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.InetAddresses;
@@ -100,7 +105,6 @@ public class NetworkDiagnostics {
     private static final InetAddress TEST_DNS4 = InetAddresses.parseNumericAddress("8.8.8.8");
     private static final InetAddress TEST_DNS6 = InetAddresses.parseNumericAddress(
             "2001:4860:4860::8888");
-
     // For brevity elsewhere.
     private static final long now() {
         return SystemClock.elapsedRealtime();
@@ -173,6 +177,8 @@ public class NetworkDiagnostics {
     }
 
     private final Map<InetAddress, Measurement> mIcmpChecks = new HashMap<>();
+    private final Map<Pair<InetAddress, Integer>, Measurement> mExplicitLengthIcmpChecks =
+            new HashMap<>();
     private final Map<Pair<InetAddress, InetAddress>, Measurement> mExplicitSourceIcmpChecks =
             new HashMap<>();
     private final Map<InetAddress, Measurement> mDnsUdpChecks = new HashMap<>();
@@ -205,17 +211,21 @@ public class NetworkDiagnostics {
             mLinkProperties.addDnsServer(TEST_DNS6);
         }
 
+        final int mtu = mLinkProperties.getMtu();
         for (RouteInfo route : mLinkProperties.getRoutes()) {
             if (route.getType() == RouteInfo.RTN_UNICAST && route.hasGateway()) {
                 InetAddress gateway = route.getGateway();
                 prepareIcmpMeasurement(gateway);
+                prepareExplicitLengthIcmpMeasurement(gateway, mtu);
                 if (route.isIPv6Default()) {
                     prepareExplicitSourceIcmpMeasurements(gateway);
                 }
             }
         }
+
         for (InetAddress nameserver : mLinkProperties.getDnsServers()) {
             prepareIcmpMeasurement(nameserver);
+            prepareExplicitLengthIcmpMeasurement(nameserver, mtu);
             prepareDnsMeasurement(nameserver);
 
             // Unlike the DnsResolver which doesn't do certificate validation in opportunistic mode,
@@ -263,9 +273,32 @@ public class NetworkDiagnostics {
 
     private void prepareIcmpMeasurement(InetAddress target) {
         if (!mIcmpChecks.containsKey(target)) {
-            Measurement measurement = new Measurement();
-            measurement.thread = new Thread(new IcmpCheck(target, measurement));
+            final Measurement measurement = new Measurement();
+            measurement.thread = new Thread(new IcmpCheck(target, 0, measurement));
             mIcmpChecks.put(target, measurement);
+        }
+    }
+
+    private static int getHeaderLen(@NonNull InetAddress addr) {
+        return ICMP_HEADER_LEN
+                + ((addr instanceof Inet6Address) ? IPV6_HEADER_LEN : IPV4_HEADER_MIN_LEN);
+    }
+
+    private void prepareExplicitLengthIcmpMeasurement(@NonNull InetAddress target, int mtu) {
+        final int header = getHeaderLen(target);
+        addExplicitLengthIcmpMeasurement(target, mtu - header);
+        // v6 only and prevent sending duplicate icmp.
+        if ((mtu != IPV6_MIN_MTU) && target instanceof Inet6Address) {
+            addExplicitLengthIcmpMeasurement(target, IPV6_MIN_MTU - header);
+        }
+    }
+
+    private void addExplicitLengthIcmpMeasurement(@NonNull InetAddress target, int length) {
+        final Pair<InetAddress, Integer> lenTarget = new Pair<>(target, Integer.valueOf(length));
+        if (!mExplicitLengthIcmpChecks.containsKey(lenTarget)) {
+            final Measurement measurement = new Measurement();
+            measurement.thread = new Thread(new IcmpCheck(target, length, measurement));
+            mExplicitLengthIcmpChecks.put(lenTarget, measurement);
         }
     }
 
@@ -276,7 +309,7 @@ public class NetworkDiagnostics {
                 Pair<InetAddress, InetAddress> srcTarget = new Pair<>(source, target);
                 if (!mExplicitSourceIcmpChecks.containsKey(srcTarget)) {
                     Measurement measurement = new Measurement();
-                    measurement.thread = new Thread(new IcmpCheck(source, target, measurement));
+                    measurement.thread = new Thread(new IcmpCheck(source, target, 0, measurement));
                     mExplicitSourceIcmpChecks.put(srcTarget, measurement);
                 }
             }
@@ -302,12 +335,15 @@ public class NetworkDiagnostics {
     }
 
     private int totalMeasurementCount() {
-        return mIcmpChecks.size() + mExplicitSourceIcmpChecks.size() + mDnsUdpChecks.size()
-                + mDnsTlsChecks.size();
+        return mIcmpChecks.size() + mExplicitLengthIcmpChecks.size()
+                + mExplicitSourceIcmpChecks.size() + mDnsUdpChecks.size() + mDnsTlsChecks.size();
     }
 
     private void startMeasurements() {
         for (Measurement measurement : mIcmpChecks.values()) {
+            measurement.thread.start();
+        }
+        for (Measurement measurement : mExplicitLengthIcmpChecks.values()) {
             measurement.thread.start();
         }
         for (Measurement measurement : mExplicitSourceIcmpChecks.values()) {
@@ -339,6 +375,12 @@ public class NetworkDiagnostics {
                 measurements.add(entry.getValue());
             }
         }
+        for (Map.Entry<Pair<InetAddress, Integer>, Measurement> entry :
+                mExplicitLengthIcmpChecks.entrySet()) {
+            if (entry.getKey().first instanceof Inet4Address) {
+                measurements.add(entry.getValue());
+            }
+        }
         for (Map.Entry<Pair<InetAddress, InetAddress>, Measurement> entry :
                 mExplicitSourceIcmpChecks.entrySet()) {
             if (entry.getKey().first instanceof Inet4Address) {
@@ -359,6 +401,12 @@ public class NetworkDiagnostics {
         // IPv6 measurements second.
         for (Map.Entry<InetAddress, Measurement> entry : mIcmpChecks.entrySet()) {
             if (entry.getKey() instanceof Inet6Address) {
+                measurements.add(entry.getValue());
+            }
+        }
+        for (Map.Entry<Pair<InetAddress, Integer>, Measurement> entry :
+                mExplicitLengthIcmpChecks.entrySet()) {
+            if (entry.getKey().first instanceof Inet6Address) {
                 measurements.add(entry.getValue());
             }
         }
@@ -489,8 +537,10 @@ public class NetworkDiagnostics {
         private static final int PACKET_BUFSIZE = 512;
         private final int mProtocol;
         private final int mIcmpType;
+        private final int mDataSize;
 
-        public IcmpCheck(InetAddress source, InetAddress target, Measurement measurement) {
+        IcmpCheck(InetAddress source, InetAddress target, int length,
+                Measurement measurement) {
             super(source, target, measurement);
 
             if (mAddressFamily == AF_INET6) {
@@ -502,12 +552,12 @@ public class NetworkDiagnostics {
                 mIcmpType = NetworkConstants.ICMPV4_ECHO_REQUEST_TYPE;
                 mMeasurement.description = "ICMPv4";
             }
-
+            mDataSize = (length > 0 ? length : 0);
             mMeasurement.description += " dst{" + mTarget.getHostAddress() + "}";
         }
 
-        public IcmpCheck(InetAddress target, Measurement measurement) {
-            this(null, target, measurement);
+        IcmpCheck(InetAddress target, int length, Measurement measurement) {
+            this(null, target, length, measurement);
         }
 
         @Override
@@ -520,12 +570,22 @@ public class NetworkDiagnostics {
                 mMeasurement.recordFailure(e.toString());
                 return;
             }
-            mMeasurement.description += " src{" + socketAddressToString(mSocketAddress) + "}";
+            mMeasurement.description += " src{" + socketAddressToString(mSocketAddress)
+                    + "} size=" + mDataSize;
 
             // Build a trivial ICMP packet.
-            final byte[] icmpPacket = {
-                    (byte) mIcmpType, 0, 0, 0, 0, 0, 0, 0  // ICMP header
-            };
+            final byte[] data = new byte[mDataSize];
+            final byte[] icmpPacket = new byte[ICMP_HEADER_LEN + mDataSize];
+            // icmp header
+            icmpPacket[0] = (byte) mIcmpType;
+            icmpPacket[1] = (byte) 0;    // code
+            icmpPacket[2] = (byte) 0;    // Checksum
+            icmpPacket[3] = (byte) 0;
+            icmpPacket[4] = (byte) 0;    // Rest of the header
+            icmpPacket[5] = (byte) 0;
+            icmpPacket[6] = (byte) 0;
+            icmpPacket[7] = (byte) 0;
+            System.arraycopy(data, 0, icmpPacket, ICMP_HEADER_LEN, mDataSize);
 
             int count = 0;
             mMeasurement.startTime = now();
