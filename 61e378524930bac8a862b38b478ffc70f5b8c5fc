@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "096d8a1b_4bb343b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-27T15:22:23Z",
+      "side": 1,
+      "message": "Feels like this CL is doing too much in one go.  You could easily split the logic for adding a length to icmp packets from the logic to actually use it.",
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19debe74_9cae6902",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-27T15:22:23Z",
+      "side": 1,
+      "message": "this final confuses me, with the modification in the next line...",
+      "range": {
+        "startLine": 277,
+        "startChar": 12,
+        "endLine": 277,
+        "endChar": 17
+      },
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5826ff_ca63bc8a",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-27T15:22:23Z",
+      "side": 1,
+      "message": "This isn\u0027t technically correct, as this is only for ipv4...\n\nProbably needs some comments about why this works for ipv6.",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 30
+      },
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc3f1ead_c821de24",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-27T15:22:23Z",
+      "side": 1,
+      "message": "does this actually work?\n\nWhat about ipv4 mapped ipv6 addresses?",
+      "range": {
+        "startLine": 285,
+        "startChar": 25,
+        "endLine": 285,
+        "endChar": 35
+      },
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9902ea3a_c958611c",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-27T15:22:23Z",
+      "side": 1,
+      "message": "the old format seems better... why is this being rewritten...\n\naren\u0027t even just 2 lines enough?\n\nfinal byte[] icmpPacket \u003d new byte[ICMP_HEADER_LEN + mDataSize];\nicmpPacket[0] \u003d (byte)mIcmpType;",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 12
+      },
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cd9d791_e96fe249",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-27T15:22:23Z",
+      "side": 1,
+      "message": "what is this doing?",
+      "range": {
+        "startLine": 591,
+        "startChar": 0,
+        "endLine": 591,
+        "endChar": 78
+      },
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
