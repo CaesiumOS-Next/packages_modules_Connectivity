@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3f00d00_0e6f9bab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-04-27T06:01:20Z",
+      "side": 1,
+      "message": "LGTM, but it is better to be split into two CLs. Also added Lorenzo as reviewer.",
+      "revId": "64388a5bf975935a5c4027fcbbb9ff6f03616821",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c66e7027_797c3a3c",
