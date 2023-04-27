@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "711f9dea_a2f13b76",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-27T08:12:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "391f36ec_f4bdd578",
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c5e3c78_d02cc510",
@@ -95,6 +113,30 @@
       "writtenOn": "2023-04-25T05:59:52Z",
       "side": 1,
       "message": "This is neither better nor worse but what is the reason you changed this ?",
+      "range": {
+        "startLine": 245,
+        "startChar": 39,
+        "endLine": 245,
+        "endChar": 41
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5503b1bf_c06be22a",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-27T08:12:07Z",
+      "side": 1,
+      "message": "Since we will be using network.netId, in tests, we need to mock the network object for a given NAI mock. (See AutomaticOnOffKeepaliveTrackerTest line.319) This is easily done with `doReturn(new Network(...)).when(nai).network()`. It is much harder to mock when accessed by the field.",
+      "parentUuid": "6708225d_18195975",
       "range": {
         "startLine": 245,
         "startChar": 39,
@@ -223,6 +265,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65ffec7b_ee759ddd",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-27T08:12:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf0ec461_112ead62",
+      "range": {
+        "startLine": 89,
+        "startChar": 23,
+        "endLine": 89,
+        "endChar": 31
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f658570e_9166b583",
@@ -284,6 +350,30 @@
       "side": 1,
       "message": "In your case, what your want to know is not carrierconfig change listener. I think SubscriptionManager.OnSubscriptionsChangedListener is good for your case.",
       "parentUuid": "d2766c2f_4db0a886",
+      "range": {
+        "startLine": 247,
+        "startChar": 38,
+        "endLine": 247,
+        "endChar": 65
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "474b346b_9cf97eea",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-27T08:12:07Z",
+      "side": 1,
+      "message": "Acknowledged with thanks.",
+      "parentUuid": "99033e2e_23b65ee7",
       "range": {
         "startLine": 247,
         "startChar": 38,
@@ -496,6 +586,30 @@
       "side": 1,
       "message": "I mean I am not sure why buildKeepaliveMetrics needs to put together with resetMetrics. Why these two action should be placed together? Why caller does not call resetMetrics and buildKeepaliveMetrics? From current patch, I cannot see how it will be used, i.e. I am hard to tell what should be the correct logic inside this method.",
       "parentUuid": "f6f1ee62_6e360ff2",
+      "range": {
+        "startLine": 441,
+        "startChar": 38,
+        "endLine": 441,
+        "endChar": 58
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5d8d8fe_fdf7d6d9",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-27T08:12:07Z",
+      "side": 1,
+      "message": "This was to address the comment that before resetting the metrics, it is safer to call build to ensure that the metrics have been updated. e.g. reset metrics previously would not call updateDurationsPerNumOfKeepalive so it is possible that the timestamp is not updated. \n\nBy combining the two actions, the caller cannot forget to update the metrics. \nAnd `mTimestampSinceLastUpdateDurations \u003d timeNow;` is actually not needed anymore.\n\nMaybe this was unnecessary?",
+      "parentUuid": "61a1c35c_c2a8de09",
       "range": {
         "startLine": 441,
         "startChar": 38,

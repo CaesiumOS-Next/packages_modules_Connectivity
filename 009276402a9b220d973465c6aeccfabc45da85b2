@@ -372,6 +372,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff95e8e2_d54a87b7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-04-27T08:12:07Z",
+      "side": 1,
+      "message": "Done, removed completely with only returning UNKNOWN_CARRIER_ID.",
+      "parentUuid": "5f591a64_24c59e3a",
+      "range": {
+        "startLine": 221,
+        "startChar": 38,
+        "endLine": 221,
+        "endChar": 53
+      },
+      "revId": "009276402a9b220d973465c6aeccfabc45da85b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c9e9cca_8b2aa573",
