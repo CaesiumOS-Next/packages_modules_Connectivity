@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf2e9b60_9bb6f635",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-27T15:08:15Z",
+      "side": 1,
+      "message": "LGTM assume Jean is also OK with this",
+      "revId": "13189e957d91faed65c06b35bfc2e29c1456c751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
