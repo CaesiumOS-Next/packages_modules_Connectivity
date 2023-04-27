@@ -5695,7 +5695,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 }
                 case EVENT_REPORT_NETWORK_ACTIVITY:
-                    mNetworkActivityTracker.handleReportNetworkActivity();
+                    final NetworkActivityParams arg = (NetworkActivityParams) msg.obj;
+                    mNetworkActivityTracker.handleReportNetworkActivity(arg);
                     break;
                 case EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED:
                     handleMobileDataPreferredUidsChanged();
@@ -10815,10 +10816,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private class NetdCallback extends BaseNetdUnsolicitedEventListener {
+        // This can be called from non handler thread
         @Override
         public void onInterfaceClassActivityChanged(boolean isActive, int transportType,
                 long timestampNs, int uid) {
-            mNetworkActivityTracker.setAndReportNetworkActive(isActive, transportType, timestampNs);
+            mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY,
+                    new NetworkActivityParams(isActive, transportType, transportType)));
         }
 
         @Override
@@ -10838,6 +10841,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private final LegacyNetworkActivityTracker mNetworkActivityTracker;
 
+    private static final class NetworkActivityParams {
+        public final boolean active;
+        public final int transportType;
+        public final long tsNanos;
+
+        NetworkActivityParams(boolean active, int transportType, long tsNanos) {
+            this.active = active;
+            this.transportType = transportType;
+            this.tsNanos = tsNanos;
+        }
+    }
+
     /**
      * Class used for updating network activity tracking with netd and notify network activity
      * changes.
@@ -10849,9 +10864,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private final RemoteCallbackList<INetworkActivityListener> mNetworkActivityListeners =
                 new RemoteCallbackList<>();
         // Indicate the current system default network activity is active or not.
-        @GuardedBy("mActiveIdleTimers")
         private boolean mNetworkActive;
-        @GuardedBy("mActiveIdleTimers")
         private final ArrayMap<String, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
         private final Handler mHandler;
 
@@ -10872,27 +10885,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mHandler = handler;
         }
 
-        public void setAndReportNetworkActive(boolean active, int transportType, long tsNanos) {
-            sendDataActivityBroadcast(transportTypeToLegacyType(transportType), active, tsNanos);
-            synchronized (mActiveIdleTimers) {
-                mNetworkActive = active;
-                // If there are no idle timers, it means that system is not monitoring
-                // activity, so the system default network for those default network
-                // unspecified apps is always considered active.
-                //
-                // TODO: If the mActiveIdleTimers is empty, netd will actually not send
-                // any network activity change event. Whenever this event is received,
-                // the mActiveIdleTimers should be always not empty. The legacy behavior
-                // is no-op. Remove to refer to mNetworkActive only.
-                if (mNetworkActive || mActiveIdleTimers.isEmpty()) {
-                    mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY));
-                }
-            }
-        }
-
-        // The network activity should only be updated from ConnectivityService handler thread
-        // when mActiveIdleTimers lock is held.
-        @GuardedBy("mActiveIdleTimers")
         private void reportNetworkActive() {
             final int length = mNetworkActivityListeners.beginBroadcast();
             if (DDBG) log("reportNetworkActive, notify " + length + " listeners");
@@ -10909,9 +10901,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        @GuardedBy("mActiveIdleTimers")
-        public void handleReportNetworkActivity() {
-            synchronized (mActiveIdleTimers) {
+        public void handleReportNetworkActivity(NetworkActivityParams params) {
+            sendDataActivityBroadcast(
+                    transportTypeToLegacyType(params.transportType), params.active, params.tsNanos);
+            mNetworkActive = params.active;
+            if (mNetworkActive) {
                 reportNetworkActive();
             }
         }
@@ -10984,13 +10978,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             if (timeout > 0 && iface != null) {
                 try {
-                    synchronized (mActiveIdleTimers) {
-                        // Networks start up.
-                        mNetworkActive = true;
-                        mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
-                        mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
-                        reportNetworkActive();
-                    }
+                    // Networks start up.
+                    mNetworkActive = true;
+                    mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
+                    mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
+                    reportNetworkActive();
                 } catch (Exception e) {
                     // You shall not crash!
                     loge("Exception in setupDataActivityTracking " + e);
@@ -11018,12 +11010,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             try {
                 updateRadioPowerState(false /* isActive */, type);
-                synchronized (mActiveIdleTimers) {
-                    final IdleTimerParams params = mActiveIdleTimers.remove(iface);
-                    // The call fails silently if no idle timer setup for this interface
-                    mNetd.idletimerRemoveInterface(iface, params.timeout,
-                            Integer.toString(params.transportType));
-                }
+                final IdleTimerParams params = mActiveIdleTimers.remove(iface);
+                // The call fails silently if no idle timer setup for this interface
+                mNetd.idletimerRemoveInterface(iface, params.timeout,
+                        Integer.toString(params.transportType));
             } catch (Exception e) {
                 // You shall not crash!
                 loge("Exception in removeDataActivityTracking " + e);
@@ -11033,6 +11023,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         /**
          * Update data activity tracking when network state is updated.
          */
+        // In my understanding, this is only called from hunder thread
         public void updateDataActivityTracking(NetworkAgentInfo newNetwork,
                 NetworkAgentInfo oldNetwork) {
             if (newNetwork != null) {
@@ -11057,36 +11048,42 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
+        // This can be called from non handler thread. But accessing without lock cause issue?
+        // isEmpty() might return wronge value if concurrent put, remove is called?
+        // if map size is 1 and call conccurent map.put, there is no guarantee that isEmpty does
+        // not return true.
         public boolean isDefaultNetworkActive() {
-            synchronized (mActiveIdleTimers) {
-                // If there are no idle timers, it means that system is not monitoring activity,
-                // so the default network is always considered active.
-                //
-                // TODO : Distinguish between the cases where mActiveIdleTimers is empty because
-                // tracking is disabled (negative idle timer value configured), or no active default
-                // network. In the latter case, this reports active but it should report inactive.
-                return mNetworkActive || mActiveIdleTimers.isEmpty();
-            }
+            // If there are no idle timers, it means that system is not monitoring activity,
+            // so the default network is always considered active.
+            //
+            // TODO : Distinguish between the cases where mActiveIdleTimers is empty because
+            // tracking is disabled (negative idle timer value configured), or no active default
+            // network. In the latter case, this reports active but it should report inactive.
+            return mNetworkActive || mActiveIdleTimers.isEmpty();
         }
 
+        // This can be called from non handler threads but does not touch mActiveIdleTimers
         public void registerNetworkActivityListener(@NonNull INetworkActivityListener l) {
             mNetworkActivityListeners.register(l);
         }
 
+        // This can be called from non handler threads but does not touch mActiveIdleTimers
         public void unregisterNetworkActivityListener(@NonNull INetworkActivityListener l) {
             mNetworkActivityListeners.unregister(l);
         }
 
+        // This can be called from non handler threads.
+        // Iterating mActiveIdleTimers could be an issue? It seems other codes have similar code
+        // (e.g. mAutomaticOnOffKeepalives in AutomaticOnOffKeepaliveTracker). So it might be fine?
+        // Or do we need to acquire lock for mActiveIdleTimers update?
         public void dump(IndentingPrintWriter pw) {
-            synchronized (mActiveIdleTimers) {
-                pw.print("mNetworkActive="); pw.println(mNetworkActive);
-                pw.println("Idle timers:");
-                for (HashMap.Entry<String, IdleTimerParams> ent : mActiveIdleTimers.entrySet()) {
-                    pw.print("  "); pw.print(ent.getKey()); pw.println(":");
-                    final IdleTimerParams params = ent.getValue();
-                    pw.print("    timeout="); pw.print(params.timeout);
-                    pw.print(" type="); pw.println(params.transportType);
-                }
+            pw.print("mNetworkActive="); pw.println(mNetworkActive);
+            pw.println("Idle timers:");
+            for (HashMap.Entry<String, IdleTimerParams> ent : mActiveIdleTimers.entrySet()) {
+                pw.print("  "); pw.print(ent.getKey()); pw.println(":");
+                final IdleTimerParams params = ent.getValue();
+                pw.print("    timeout="); pw.print(params.timeout);
+                pw.print(" type="); pw.println(params.transportType);
             }
         }
     }
