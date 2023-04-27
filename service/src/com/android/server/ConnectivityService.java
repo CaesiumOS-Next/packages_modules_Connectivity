@@ -1622,7 +1622,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mUserAllContext.registerReceiver(mPackageIntentReceiver, packageIntentFilter,
                 null /* broadcastPermission */, mHandler);
 
-        mNetworkActivityTracker = new LegacyNetworkActivityTracker(mContext, mHandler, mNetd);
+        mNetworkActivityTracker = new LegacyNetworkActivityTracker(mContext, mNetd);
 
         final NetdCallback netdCallback = new NetdCallback();
         try {
@@ -5695,7 +5695,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 }
                 case EVENT_REPORT_NETWORK_ACTIVITY:
-                    mNetworkActivityTracker.handleReportNetworkActivity();
+                    final NetworkActivityParams arg = (NetworkActivityParams) msg.obj;
+                    mNetworkActivityTracker.handleReportNetworkActivity(arg);
                     break;
                 case EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED:
                     handleMobileDataPreferredUidsChanged();
@@ -10815,11 +10816,24 @@ public class ConnectivityService extends IConnectivityManager.Stub
         notifyDataStallSuspected(p, network.getNetId());
     }
 
+    private static final class NetworkActivityParams {
+        public final boolean isActive;
+        public final int transportType;
+        public final long timestampNs;
+
+        NetworkActivityParams(boolean isActive, int transportType, long timestampNs) {
+            this.isActive = isActive;
+            this.transportType = transportType;
+            this.timestampNs = timestampNs;
+        }
+    }
+
     private class NetdCallback extends BaseNetdUnsolicitedEventListener {
         @Override
         public void onInterfaceClassActivityChanged(boolean isActive, int transportType,
                 long timestampNs, int uid) {
-            mNetworkActivityTracker.setAndReportNetworkActive(isActive, transportType, timestampNs);
+            mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY,
+                    new NetworkActivityParams(isActive, transportType, timestampNs)));
         }
 
         @Override
@@ -10854,7 +10868,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private boolean mNetworkActive;
         @GuardedBy("mActiveIdleTimers")
         private final ArrayMap<String, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
-        private final Handler mHandler;
 
         private static class IdleTimerParams {
             public final int timeout;
@@ -10866,34 +10879,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        LegacyNetworkActivityTracker(@NonNull Context context, @NonNull Handler handler,
-                @NonNull INetd netd) {
+        LegacyNetworkActivityTracker(@NonNull Context context, @NonNull INetd netd) {
             mContext = context;
             mNetd = netd;
-            mHandler = handler;
         }
 
-        public void setAndReportNetworkActive(boolean active, int transportType, long tsNanos) {
-            sendDataActivityBroadcast(transportTypeToLegacyType(transportType), active, tsNanos);
-            synchronized (mActiveIdleTimers) {
-                mNetworkActive = active;
-                // If there are no idle timers, it means that system is not monitoring
-                // activity, so the system default network for those default network
-                // unspecified apps is always considered active.
-                //
-                // TODO: If the mActiveIdleTimers is empty, netd will actually not send
-                // any network activity change event. Whenever this event is received,
-                // the mActiveIdleTimers should be always not empty. The legacy behavior
-                // is no-op. Remove to refer to mNetworkActive only.
-                if (mNetworkActive || mActiveIdleTimers.isEmpty()) {
-                    mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY));
-                }
-            }
-        }
-
-        // The network activity should only be updated from ConnectivityService handler thread
-        // when mActiveIdleTimers lock is held.
-        @GuardedBy("mActiveIdleTimers")
         private void reportNetworkActive() {
             final int length = mNetworkActivityListeners.beginBroadcast();
             if (DDBG) log("reportNetworkActive, notify " + length + " listeners");
@@ -10910,9 +10900,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        @GuardedBy("mActiveIdleTimers")
-        public void handleReportNetworkActivity() {
-            synchronized (mActiveIdleTimers) {
+        public void handleReportNetworkActivity(NetworkActivityParams params) {
+            sendDataActivityBroadcast(transportTypeToLegacyType(params.transportType),
+                    params.isActive, params.timestampNs);
+            mNetworkActive = params.isActive;
+            // If there are no idle timers, it means that system is not monitoring
+            // activity, so the system default network for those default network
+            // unspecified apps is always considered active.
+            //
+            // TODO: If the mActiveIdleTimers is empty, netd will actually not send
+            // any network activity change event. Whenever this event is received,
+            // the mActiveIdleTimers should be always not empty. The legacy behavior
+            // is no-op. Remove to refer to mNetworkActive only.
+            if (mNetworkActive || mActiveIdleTimers.isEmpty()) {
                 reportNetworkActive();
             }
         }
@@ -10990,8 +10990,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         mNetworkActive = true;
                         mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
                         mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
-                        reportNetworkActive();
                     }
+                    reportNetworkActive();
                 } catch (Exception e) {
                     // You shall not crash!
                     loge("Exception in setupDataActivityTracking " + e);
