@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "251fbba6_0870084b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2627,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-27T14:45:58Z",
+      "side": 1,
+      "message": "Nit: test log?",
+      "range": {
+        "startLine": 2627,
+        "startChar": 8,
+        "endLine": 2627,
+        "endChar": 42
+      },
+      "revId": "a06dc9cdc93b3e5205104b4b2268d303afcc78e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "475ac293_d6d68a55",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2687,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-27T14:45:58Z",
+      "side": 1,
+      "message": "3?",
+      "range": {
+        "startLine": 2687,
+        "startChar": 21,
+        "endLine": 2687,
+        "endChar": 22
+      },
+      "revId": "a06dc9cdc93b3e5205104b4b2268d303afcc78e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
