@@ -16,6 +16,24 @@
       "message": "Please add tests in ConnectivityServiceTest.",
       "revId": "7564228e3f18bcb2b2666f0703712d6ebfe56e1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf09747a_e7c7f4fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2023-04-27T05:02:27Z",
+      "side": 1,
+      "message": "https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2567470",
+      "parentUuid": "45962846_c650289a",
+      "revId": "7564228e3f18bcb2b2666f0703712d6ebfe56e1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
