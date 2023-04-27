@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96a4c396_ed627a12",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-27T10:36:14Z",
+      "side": 1,
+      "message": "There is a lot of duplicated if/else statement check. Could we make it a function?",
+      "revId": "69e332aba639c69c5ce8173c22587d8d11814755",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
