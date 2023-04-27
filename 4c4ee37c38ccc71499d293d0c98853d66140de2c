@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a210aa46_725524ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-27T07:59:02Z",
+      "side": 1,
+      "message": "This looks to me a little bit more complex than need be ; we could just document maybeUpdateProxy to take null for oldLp if the old network was not connected. This sounds like a natural contract for that method, probably a more natural one than to leave that decision to this method.\n\nThe followup has this new `applyInitialLinkProperties()` which simply calls `updateLinkProperties` with a null oldLp. I don\u0027t know if the general direction is going to be to separate the two methods or consecrate that `updateLinkProperties` with a null oldLp is the way to do one-time init, but either way a null oldLp passed to maybeUpdateProxy looks simpler to me.",
+      "range": {
+        "startLine": 15,
+        "startChar": 21,
+        "endLine": 15,
+        "endChar": 51
+      },
+      "revId": "4c4ee37c38ccc71499d293d0c98853d66140de2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "420f0755_80d72dcf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-27T07:59:02Z",
+      "side": 1,
+      "message": "In fact I think it probably fixes a bug.\n\nThere is one corner case that is obfuscated now : if the agent is registered with some properties and updates them before it connects with a different proxy, I think the old code would send the proxy broadcast. I think your code fixes this.\n\nHowever, I think it could be made much clearer by just not calling maybeUpdateProxy if !networkAgent.everConnected().",
+      "range": {
+        "startLine": 17,
+        "startChar": 23,
+        "endLine": 17,
+        "endChar": 28
+      },
+      "revId": "4c4ee37c38ccc71499d293d0c98853d66140de2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
