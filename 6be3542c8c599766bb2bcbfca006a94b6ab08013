@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6470ec5_1cfbbd4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-28T08:53:47Z",
+      "side": 1,
+      "message": "Let\u0027s get the underlying patch (or hopefully two) finished and merged first.\n\nthis one still feels confusing to me.",
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfcf6d38_3b090543",
@@ -95,6 +112,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6613386c_36094b98",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-28T08:53:47Z",
+      "side": 1,
+      "message": "probably l3size is a better name?",
+      "parentUuid": "dfbf6c5f_d61c8168",
+      "range": {
+        "startLine": 291,
+        "startChar": 87,
+        "endLine": 291,
+        "endChar": 90
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84def0fd_e3bf5ca8",
         "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
         "patchSetId": 5
@@ -111,6 +152,29 @@
         "startChar": 8,
         "endLine": 295,
         "endChar": 54
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa535d30_92ecd80e",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-28T08:53:47Z",
+      "side": 1,
+      "message": "is this even the right spot to be doing this adjustment?\n\nshouldn\u0027t this just throw if length \u003c 0 ?",
+      "range": {
+        "startLine": 561,
+        "startChar": 0,
+        "endLine": 561,
+        "endChar": 50
       },
       "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
