@@ -16,8 +16,11 @@
 
 package com.android.cts.net.hostside;
 
+import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isDataSaverSupported;
 import static com.android.cts.net.hostside.Property.DOZE_MODE;
 import static com.android.cts.net.hostside.Property.NOT_LOW_RAM_DEVICE;
+
+import static org.junit.Assume.assumeTrue;
 
 import android.os.SystemClock;
 
@@ -70,6 +73,9 @@ abstract class AbstractDozeModeTestCase extends AbstractRestrictBackgroundNetwor
 
     @Test
     public void testBackgroundNetworkAccess_whitelisted() throws Exception {
+        // Skip the test if data saver mode is not supported.
+        assumeTrue(isDataSaverSupported());
+
         setDozeMode(true);
         assertBackgroundNetworkAccess(false);
 
@@ -91,6 +97,9 @@ abstract class AbstractDozeModeTestCase extends AbstractRestrictBackgroundNetwor
 
     @Test
     public void testBackgroundNetworkAccess_disabled() throws Exception {
+        // Skip the test if data saver mode is not supported.
+        assumeTrue(isDataSaverSupported());
+
         assertBackgroundNetworkAccess(true);
 
         assertsForegroundAlwaysHasNetworkAccess();

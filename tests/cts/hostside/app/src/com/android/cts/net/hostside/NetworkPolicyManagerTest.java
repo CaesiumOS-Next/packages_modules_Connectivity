@@ -20,6 +20,7 @@ import static android.os.Process.SYSTEM_UID;
 
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.assertIsUidRestrictedOnMeteredNetworks;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.assertNetworkingBlockedStatusForUid;
+import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isDataSaverSupported;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isUidNetworkingBlocked;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.setRestrictBackground;
 import static com.android.cts.net.hostside.Property.BATTERY_SAVER_MODE;
@@ -27,6 +28,7 @@ import static com.android.cts.net.hostside.Property.DATA_SAVER_MODE;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -64,6 +66,9 @@ public class NetworkPolicyManagerTest extends AbstractRestrictBackgroundNetworkT
 
     @Test
     public void testIsUidNetworkingBlocked_withUidNotBlocked() throws Exception {
+        // Skip the test if data saver mode is not supported.
+        assumeTrue(isDataSaverSupported());
+
         // Refer to NetworkPolicyManagerService#isUidNetworkingBlockedInternal(), this test is to
         // test the cases of non-metered network and uid not matched by any rule.
         // If mUid is not blocked by data saver mode or power saver mode, no matter the network is
@@ -155,6 +160,9 @@ public class NetworkPolicyManagerTest extends AbstractRestrictBackgroundNetworkT
 
     @Test
     public void testIsUidNetworkingBlocked_withRestrictedNetworkingMode() throws Exception {
+        // Skip the test if data saver mode is not supported.
+        assumeTrue(isDataSaverSupported());
+
         // Refer to NetworkPolicyManagerService#isUidNetworkingBlockedInternal(), this test is to
         // test the cases of restricted networking mode enabled.
         try {
