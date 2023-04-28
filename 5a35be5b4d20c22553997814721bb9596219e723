@@ -46,6 +46,30 @@
       },
       "revId": "5a35be5b4d20c22553997814721bb9596219e723",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea101650_88a56347",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T09:09:47Z",
+      "side": 0,
+      "message": "Separate it to different commit",
+      "parentUuid": "b6cc70b3_6210cd0c",
+      "range": {
+        "startLine": 493,
+        "startChar": 8,
+        "endLine": 493,
+        "endChar": 14
+      },
+      "revId": "5a35be5b4d20c22553997814721bb9596219e723",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

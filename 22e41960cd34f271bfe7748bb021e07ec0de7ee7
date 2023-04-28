@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bcc1f21_a1330911",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T09:09:47Z",
+      "side": 1,
+      "message": "Update to preliminary",
+      "parentUuid": "36a1432f_f34f1dc3",
+      "range": {
+        "startLine": 10,
+        "startChar": 5,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "22e41960cd34f271bfe7748bb021e07ec0de7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83274d1d_9c85f00d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-28T08:15:14Z",
       "side": 1,
       "message": "Payload",
+      "range": {
+        "startLine": 494,
+        "startChar": 27,
+        "endLine": 494,
+        "endChar": 31
+      },
+      "revId": "22e41960cd34f271bfe7748bb021e07ec0de7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d838e59_e6d71969",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T09:09:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83274d1d_9c85f00d",
       "range": {
         "startLine": 494,
         "startChar": 27,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15559e4b_4adebb71",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T09:09:47Z",
+      "side": 1,
+      "message": "Yes, it\u0027s effectively the -s flag to ping/ping6. Add comment.",
+      "parentUuid": "2df1388c_239e0445",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 96
+      },
+      "revId": "22e41960cd34f271bfe7748bb021e07ec0de7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f461ae6_828c114e",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-04-28T08:48:25Z",
       "side": 1,
       "message": "this could use a comment about v4 vs v6 both using 8 (perhaps \u0027for simplicity\u0027 or \u0027to match ping/ping6 behaviour\u0027,\nsince ifirc (unlike v4) the minimum icmpv6 header is only 4 bytes",
+      "range": {
+        "startLine": 530,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 76
+      },
+      "revId": "22e41960cd34f271bfe7748bb021e07ec0de7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4e4f7d0_f0a66733",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T09:09:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f461ae6_828c114e",
       "range": {
         "startLine": 530,
         "startChar": 0,
