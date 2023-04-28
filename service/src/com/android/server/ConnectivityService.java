@@ -10818,22 +10818,24 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private static final class NetworkActivityParams {
         public final boolean isActive;
-        public final int transportType;
+        public final int label;
         public final long timestampNs;
+        public final int uid;
 
-        NetworkActivityParams(boolean isActive, int transportType, long timestampNs) {
+        NetworkActivityParams(boolean isActive, int label, long timestampNs, int uid) {
             this.isActive = isActive;
-            this.transportType = transportType;
+            this.label = label;
             this.timestampNs = timestampNs;
+            this.uid = uid;
         }
     }
 
     private class NetdCallback extends BaseNetdUnsolicitedEventListener {
         @Override
-        public void onInterfaceClassActivityChanged(boolean isActive, int transportType,
+        public void onInterfaceClassActivityChanged(boolean isActive, int label,
                 long timestampNs, int uid) {
             mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY,
-                    new NetworkActivityParams(isActive, transportType, timestampNs)));
+                    new NetworkActivityParams(isActive, label, timestampNs, uid)));
         }
 
         @Override
@@ -10873,10 +10875,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private static class IdleTimerParams {
             public final int timeout;
             public final int transportType;
+            public final int netId;
 
-            IdleTimerParams(int timeout, int transport) {
+            IdleTimerParams(int timeout, int transport, int netId) {
                 this.timeout = timeout;
                 this.transportType = transport;
+                this.netId = netId;
             }
         }
 
@@ -10904,7 +10908,31 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         public void handleReportNetworkActivity(NetworkActivityParams params) {
-            sendDataActivityBroadcast(transportTypeToLegacyType(params.transportType),
+            int transportType = -1;
+
+            // On T-, transportType is used as an idle timer label.
+            // On U+, netId is used as an idle timer label.
+            if (!SdkLevel.isAtLeastU()) {
+                transportType = params.label;
+            } else {
+                // Size of mActiveIdleTimers is at most 1 here. So iterate to find the transport
+                // type for the netId
+                for (HashMap.Entry<String, IdleTimerParams> ent: mActiveIdleTimers.entrySet()) {
+                    if (ent.getValue().netId == params.label) {
+                        transportType = ent.getValue().transportType;
+                        break;
+                    }
+                }
+                if (transportType == -1) {
+                    // Possibly this network is no longer a default network.
+                    return;
+                }
+                // On U+, BatteryStatsService doesn't register callback and track interface
+                // activity. ConnectivityService reports power state to BatteryStatsService.
+                updateRadioPowerState(params.isActive, transportType, params.uid);
+            }
+
+            sendDataActivityBroadcast(transportTypeToLegacyType(transportType),
                     params.isActive, params.timestampNs);
             mNetworkActive = params.isActive;
             // If there are no idle timers, it means that system is not monitoring
@@ -10957,6 +10985,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         /**
+         * Get label for interface idle timer
+         */
+        private String getIdleTimerLabel(final int netId, final int type) {
+            return Integer.toString(SdkLevel.isAtLeastU() ? netId : type);
+        }
+
+        /**
          * Setup data activity tracking for the given network.
          *
          * Every {@code setupDataActivityTracking} should be paired with a
@@ -10964,6 +10999,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
          */
         private void setupDataActivityTracking(NetworkAgentInfo networkAgent) {
             final String iface = networkAgent.linkProperties.getInterfaceName();
+            final int netId = networkAgent.network.netId;
 
             final int timeout;
             final int type;
@@ -10984,15 +11020,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 return; // do not track any other networks
             }
 
-            updateRadioPowerState(true /* isActive */, type);
+            updateRadioPowerState(true /* isActive */, type, NO_UID);
 
             if (timeout > 0 && iface != null) {
                 try {
                     synchronized (mActiveIdleTimers) {
                         // Networks start up.
                         mNetworkActive = true;
-                        mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
-                        mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
+                        mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type, netId));
+                        mNetd.idletimerAddInterface(iface, timeout, getIdleTimerLabel(netId, type));
                     }
                     reportNetworkActive();
                 } catch (Exception e) {
@@ -11007,6 +11043,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
          */
         private void removeDataActivityTracking(NetworkAgentInfo networkAgent) {
             final String iface = networkAgent.linkProperties.getInterfaceName();
+            final int netId = networkAgent.network.netId;
             final NetworkCapabilities caps = networkAgent.networkCapabilities;
 
             if (iface == null) return;
@@ -11021,12 +11058,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
 
             try {
-                updateRadioPowerState(false /* isActive */, type);
+                updateRadioPowerState(false /* isActive */, type, NO_UID);
                 synchronized (mActiveIdleTimers) {
                     final IdleTimerParams params = mActiveIdleTimers.remove(iface);
                     // The call fails silently if no idle timer setup for this interface
                     mNetd.idletimerRemoveInterface(iface, params.timeout,
-                            Integer.toString(params.transportType));
+                            getIdleTimerLabel(netId, params.transportType));
                 }
             } catch (Exception e) {
                 // You shall not crash!
@@ -11047,14 +11084,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        private void updateRadioPowerState(boolean isActive, int transportType) {
+        private void updateRadioPowerState(boolean isActive, int transportType, int uid) {
             final BatteryStatsManager bs = mContext.getSystemService(BatteryStatsManager.class);
             switch (transportType) {
                 case NetworkCapabilities.TRANSPORT_CELLULAR:
-                    bs.reportMobileRadioPowerState(isActive, NO_UID);
+                    bs.reportMobileRadioPowerState(isActive, uid);
                     break;
                 case NetworkCapabilities.TRANSPORT_WIFI:
-                    bs.reportWifiRadioPowerState(isActive, NO_UID);
+                    bs.reportWifiRadioPowerState(isActive, uid);
                     break;
                 default:
                     logw("Untracked transport type:" + transportType);
@@ -11089,7 +11126,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     pw.print("  "); pw.print(ent.getKey()); pw.println(":");
                     final IdleTimerParams params = ent.getValue();
                     pw.print("    timeout="); pw.print(params.timeout);
-                    pw.print(" type="); pw.println(params.transportType);
+                    pw.print(" type="); pw.print(params.transportType);
+                    pw.print(" netId="); pw.println(params.netId);
                 }
             }
         }
