@@ -16,12 +16,15 @@
 
 package com.android.cts.net.hostside;
 
+import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isDataSaverSupported;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.setRestrictBackground;
 import static com.android.cts.net.hostside.Property.APP_STANDBY_MODE;
 import static com.android.cts.net.hostside.Property.BATTERY_SAVER_MODE;
 import static com.android.cts.net.hostside.Property.DATA_SAVER_MODE;
 import static com.android.cts.net.hostside.Property.DOZE_MODE;
 import static com.android.cts.net.hostside.Property.METERED_NETWORK;
+
+import static org.junit.Assume.assumeTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -73,6 +76,9 @@ public class AbstractExpeditedJobTest extends AbstractRestrictBackgroundNetworkT
     @Test
     @RequiredProperties({APP_STANDBY_MODE})
     public void testNetworkAccess_appIdleState() throws Exception {
+        // Skip the test if data saver mode is not supported.
+        assumeTrue(isDataSaverSupported());
+
         turnBatteryOn();
         assertBackgroundNetworkAccess(true);
         assertExpeditedJobHasNetworkAccess();

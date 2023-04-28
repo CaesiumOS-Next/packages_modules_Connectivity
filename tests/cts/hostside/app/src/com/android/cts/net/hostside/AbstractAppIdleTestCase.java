@@ -16,10 +16,12 @@
 
 package com.android.cts.net.hostside;
 
+import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isDataSaverSupported;
 import static com.android.cts.net.hostside.Property.APP_STANDBY_MODE;
 import static com.android.cts.net.hostside.Property.BATTERY_SAVER_MODE;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeTrue;
 
 import android.os.SystemClock;
 
@@ -44,6 +46,9 @@ abstract class AbstractAppIdleTestCase extends AbstractRestrictBackgroundNetwork
         turnBatteryOn();
 
         registerBroadcastReceiver();
+
+        // Skip the test if data saver mode is not supported.
+        assumeTrue(isDataSaverSupported());
     }
 
     @After
