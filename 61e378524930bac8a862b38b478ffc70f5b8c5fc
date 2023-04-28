@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d2aabc5_a7b290ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T02:39:50Z",
+      "side": 1,
+      "message": "split the logic for adding a length to aosp/2569950",
+      "parentUuid": "096d8a1b_4bb343b8",
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19debe74_9cae6902",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-04-27T15:22:23Z",
       "side": 1,
       "message": "this final confuses me, with the modification in the next line...",
+      "range": {
+        "startLine": 277,
+        "startChar": 12,
+        "endLine": 277,
+        "endChar": 17
+      },
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80ecf7fe_d2400569",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T02:39:50Z",
+      "side": 1,
+      "message": "Remove to keep as it was.",
+      "parentUuid": "19debe74_9cae6902",
       "range": {
         "startLine": 277,
         "startChar": 12,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87697ea2_e9791638",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T02:39:50Z",
+      "side": 1,
+      "message": "Add comment. See if it\u0027s OK to you",
+      "parentUuid": "fb5826ff_ca63bc8a",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 30
+      },
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc3f1ead_c821de24",
         "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
         "patchSetId": 3
@@ -77,6 +143,30 @@
       "writtenOn": "2023-04-27T15:22:23Z",
       "side": 1,
       "message": "does this actually work?\n\nWhat about ipv4 mapped ipv6 addresses?",
+      "range": {
+        "startLine": 285,
+        "startChar": 25,
+        "endLine": 285,
+        "endChar": 35
+      },
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc5c69e4_398cab1f",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T02:39:50Z",
+      "side": 1,
+      "message": "It\u0027s generally used in NetworkDiagnostic. As long as it should be sent as with v6, it should use v6 header. I do not think of possible exception here. Do you observe anything might be broken here?",
+      "parentUuid": "bc3f1ead_c821de24",
       "range": {
         "startLine": 285,
         "startChar": 25,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1195956_b0c7d733",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T02:39:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9902ea3a_c958611c",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 12
+      },
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cd9d791_e96fe249",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-04-27T15:22:23Z",
       "side": 1,
       "message": "what is this doing?",
+      "range": {
+        "startLine": 591,
+        "startChar": 0,
+        "endLine": 591,
+        "endChar": 78
+      },
+      "revId": "61e378524930bac8a862b38b478ffc70f5b8c5fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ede6ca4_76a16f97",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T02:39:50Z",
+      "side": 1,
+      "message": "Sorry, this is redundant work. Removed",
+      "parentUuid": "1cd9d791_e96fe249",
       "range": {
         "startLine": 591,
         "startChar": 0,
