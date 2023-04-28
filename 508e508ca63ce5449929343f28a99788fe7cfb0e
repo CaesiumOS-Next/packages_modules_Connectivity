@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a2bf9ef_3ebab2bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-04-28T02:00:15Z",
+      "side": 1,
+      "message": "Note for DrNo: this is a no-op refactor. Cherry-picks are necessary to avoid merge conflicts.",
+      "revId": "508e508ca63ce5449929343f28a99788fe7cfb0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
