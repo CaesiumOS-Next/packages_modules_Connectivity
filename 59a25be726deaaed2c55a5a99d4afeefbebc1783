@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4798bbeb_f73586c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-28T03:17:29Z",
+      "side": 1,
+      "message": "+2 assume the comment is adjusted.",
+      "revId": "59a25be726deaaed2c55a5a99d4afeefbebc1783",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87a1ea22_b252d22a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-28T03:17:29Z",
+      "side": 1,
+      "message": "please address the error prone.",
+      "range": {
+        "startLine": 66,
+        "startChar": 18,
+        "endLine": 66,
+        "endChar": 31
+      },
+      "revId": "59a25be726deaaed2c55a5a99d4afeefbebc1783",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31d9678d_1dc4e7e3",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-28T03:17:29Z",
+      "side": 1,
+      "message": "here as well",
+      "range": {
+        "startLine": 182,
+        "startChar": 14,
+        "endLine": 182,
+        "endChar": 28
+      },
+      "revId": "59a25be726deaaed2c55a5a99d4afeefbebc1783",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
