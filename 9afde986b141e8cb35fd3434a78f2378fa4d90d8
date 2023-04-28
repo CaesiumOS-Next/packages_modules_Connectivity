@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "694e965e_3cb93be0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-28T14:18:43Z",
+      "side": 1,
+      "message": "Document the threading model and MdnsDiscoveryManager calls processResponse on the looper thread now (Done in previous change aosp/2564915)",
+      "parentUuid": "76a81b06_00ae7e5e",
+      "revId": "9afde986b141e8cb35fd3434a78f2378fa4d90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b74e73fb_37560342",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-04-21T08:31:13Z",
       "side": 1,
       "message": "I find it more error-prone to have this as a member, compared to the current code that generates it in QueryTask:\n - It\u0027s not clear what the threading model is for this\n - It\u0027s not clear when it needs to be updated; easy to forget to update it so error-prone\n \nIIUC you\u0027re trying to avoid access to the cache on the QueryTask thread, but you end up using this member on multiple threads @GuardedBy(\"lock\"), which is a bit error-prone.\n\nI think you could do something like:\n\n - Add this as an argument to QueryTask constructor\n - Instead of calling executor.schedule(new QueryTask(config)...) in QueryTask, use handler.postDelayed(handleSendQuery), where handleSendQuery will build the QueryTask (on the handler thread) and call executor.submit.\n \nThis should allow us to get rid of the lock, as otherwise it\u0027s still needed for requestTaskFuture.",
+      "revId": "9afde986b141e8cb35fd3434a78f2378fa4d90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91954e35_f4a236c9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-28T14:18:43Z",
+      "side": 1,
+      "message": "\u003e Add this as an argument to QueryTask constructor\n\nDone. Build the resolevd response when create a new QueryTask.\n\n\u003e Instead of calling executor.schedule(new QueryTask(config)...) in QueryTask, use handler.postDelayed(handleSendQuery), where handleSendQuery will build the QueryTask (on the handler thread) and call executor.submit.\n\nTo not break the current tests(handler#postDelayed is hard to control the timer), I post exipiration check and scheduling task to handler, and deal with on looper thread.",
+      "parentUuid": "b74e73fb_37560342",
       "revId": "9afde986b141e8cb35fd3434a78f2378fa4d90d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a188c77_90b00ca2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-28T14:18:43Z",
+      "side": 1,
+      "message": "Not quite sure what\u0027s the problem you mention here.",
+      "parentUuid": "f8ee3c5c_ba6d6b7e",
+      "revId": "9afde986b141e8cb35fd3434a78f2378fa4d90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88114ce0_ca85309e",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
         "patchSetId": 1
@@ -65,6 +119,24 @@
       "writtenOn": "2023-04-21T08:31:13Z",
       "side": 1,
       "message": "This should be stopped in tearDown too",
+      "revId": "9afde986b141e8cb35fd3434a78f2378fa4d90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff899067_f7f12cc0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-28T14:18:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88114ce0_ca85309e",
       "revId": "9afde986b141e8cb35fd3434a78f2378fa4d90d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

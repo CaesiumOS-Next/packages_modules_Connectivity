@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96cd3fe7_4ecd9781",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-28T14:18:43Z",
+      "side": 0,
+      "message": "Acknowledged",
+      "parentUuid": "f53942ad_90985e23",
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54ac9845_dc32caee",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-04-21T08:31:13Z",
       "side": 0,
       "message": "This should probably remove the service now",
+      "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4f7341c_0e01ed16",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-04-28T14:18:43Z",
+      "side": 0,
+      "message": "No, we still can\u0027t not set the config. But I will have expiration check in sbusequnct change.",
+      "parentUuid": "54ac9845_dc32caee",
       "revId": "1f85cd1d0637589f2fe46398801d690dc6b0a8bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
