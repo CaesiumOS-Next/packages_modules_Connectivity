@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36a1432f_f34f1dc3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-28T08:15:14Z",
+      "side": 1,
+      "message": "Do you maybe mean \"initial\" or \"preliminary\" ?",
+      "range": {
+        "startLine": 10,
+        "startChar": 5,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "22e41960cd34f271bfe7748bb021e07ec0de7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83274d1d_9c85f00d",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-28T08:15:14Z",
+      "side": 1,
+      "message": "Payload",
+      "range": {
+        "startLine": 494,
+        "startChar": 27,
+        "endLine": 494,
+        "endChar": 31
+      },
+      "revId": "22e41960cd34f271bfe7748bb021e07ec0de7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
