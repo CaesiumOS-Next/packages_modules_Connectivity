@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "769e205c_297f6621",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-04-28T20:00:35Z",
+      "side": 0,
+      "message": "Can this be deleted as well?",
+      "range": {
+        "startLine": 202,
+        "startChar": 15,
+        "endLine": 202,
+        "endChar": 44
+      },
+      "revId": "b94a8eb9adaa4550b02896aaab9d1376a643fdef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
