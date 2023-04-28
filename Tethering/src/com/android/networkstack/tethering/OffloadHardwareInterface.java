@@ -310,6 +310,7 @@ public class OffloadHardwareInterface {
         final NativeHandle h2 = mDeps.createConntrackSocket(
                 NF_NETLINK_CONNTRACK_UPDATE | NF_NETLINK_CONNTRACK_DESTROY);
         if (h1 == null || h2 == null) {
+            mIOffload = null;
             maybeCloseFdInNativeHandles(h1, h2);
             mLog.e("Failed to create socket.");
             return OFFLOAD_HAL_VERSION_NONE;
@@ -319,7 +320,6 @@ public class OffloadHardwareInterface {
         requestSocketDump(h1);
         int version = mIOffload.getVersion();
         if (!mIOffload.initOffload(h1, h2, mOffloadHalCallback)) {
-            mIOffload.stopOffload();
             mLog.e("Failed to initialize offload.");
             version = OFFLOAD_HAL_VERSION_NONE;
         }
