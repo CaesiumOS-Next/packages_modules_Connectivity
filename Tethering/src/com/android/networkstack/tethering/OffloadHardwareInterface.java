@@ -320,7 +320,6 @@ public class OffloadHardwareInterface {
         requestSocketDump(h1);
         int version = mIOffload.getVersion();
         if (!mIOffload.initOffload(h1, h2, mOffloadHalCallback)) {
-            mIOffload.stopOffload();
             mLog.e("Failed to initialize offload.");
             version = OFFLOAD_HAL_VERSION_NONE;
         }
