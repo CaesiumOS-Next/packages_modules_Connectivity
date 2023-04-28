@@ -18,6 +18,8 @@ package com.android.server.connectivity;
 
 import static android.system.OsConstants.*;
 
+import static com.android.net.module.util.NetworkStackConstants.ICMP_HEADER_LEN;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.InetAddresses;
@@ -264,7 +266,7 @@ public class NetworkDiagnostics {
     private void prepareIcmpMeasurement(InetAddress target) {
         if (!mIcmpChecks.containsKey(target)) {
             Measurement measurement = new Measurement();
-            measurement.thread = new Thread(new IcmpCheck(target, measurement));
+            measurement.thread = new Thread(new IcmpCheck(target, 0, measurement));
             mIcmpChecks.put(target, measurement);
         }
     }
@@ -276,7 +278,7 @@ public class NetworkDiagnostics {
                 Pair<InetAddress, InetAddress> srcTarget = new Pair<>(source, target);
                 if (!mExplicitSourceIcmpChecks.containsKey(srcTarget)) {
                     Measurement measurement = new Measurement();
-                    measurement.thread = new Thread(new IcmpCheck(source, target, measurement));
+                    measurement.thread = new Thread(new IcmpCheck(source, target, 0, measurement));
                     mExplicitSourceIcmpChecks.put(srcTarget, measurement);
                 }
             }
@@ -489,8 +491,9 @@ public class NetworkDiagnostics {
         private static final int PACKET_BUFSIZE = 512;
         private final int mProtocol;
         private final int mIcmpType;
+        private final int mDataSize;
 
-        public IcmpCheck(InetAddress source, InetAddress target, Measurement measurement) {
+        IcmpCheck(InetAddress source, InetAddress target, int length, Measurement measurement) {
             super(source, target, measurement);
 
             if (mAddressFamily == AF_INET6) {
@@ -502,12 +505,12 @@ public class NetworkDiagnostics {
                 mIcmpType = NetworkConstants.ICMPV4_ECHO_REQUEST_TYPE;
                 mMeasurement.description = "ICMPv4";
             }
-
+            mDataSize = length;
             mMeasurement.description += " dst{" + mTarget.getHostAddress() + "}";
         }
 
-        public IcmpCheck(InetAddress target, Measurement measurement) {
-            this(null, target, measurement);
+        IcmpCheck(InetAddress target, int length, Measurement measurement) {
+            this(null, target, length, measurement);
         }
 
         @Override
@@ -520,12 +523,12 @@ public class NetworkDiagnostics {
                 mMeasurement.recordFailure(e.toString());
                 return;
             }
-            mMeasurement.description += " src{" + socketAddressToString(mSocketAddress) + "}";
+            mMeasurement.description += " src{" + socketAddressToString(mSocketAddress) + "}"
+                    + "} size=" + mDataSize;
 
             // Build a trivial ICMP packet.
-            final byte[] icmpPacket = {
-                    (byte) mIcmpType, 0, 0, 0, 0, 0, 0, 0  // ICMP header
-            };
+            final byte[] icmpPacket = new byte[ICMP_HEADER_LEN + mDataSize];
+            icmpPacket[0] = (byte) mIcmpType;
 
             int count = 0;
             mMeasurement.startTime = now();
