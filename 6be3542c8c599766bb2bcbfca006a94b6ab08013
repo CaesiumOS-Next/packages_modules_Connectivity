@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfcf6d38_3b090543",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-28T08:27:33Z",
+      "side": 1,
+      "message": "Do you need this old one ? Can\u0027t it be just folded into the ones with a 0-size length ? ISTM we should completely remove this, rename mExplicitLengthIcmpChecks to mIcmpChecks, and just add an entry for 0 every time. That would simplify the code a great deal.",
+      "range": {
+        "startLine": 180,
+        "startChar": 48,
+        "endLine": 180,
+        "endChar": 59
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "198315fc_c61bce6b",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-28T08:27:33Z",
+      "side": 1,
+      "message": "I don\u0027t think I understand this. Wouldn\u0027t it be much simpler saying something like\n\n    if (addr instanceof Inet6Address) {\n      return v6xx + v6yy\n    } else {\n      return v4xx + v4yy\n    }",
+      "range": {
+        "startLine": 284,
+        "startChar": 8,
+        "endLine": 286,
+        "endChar": 58
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfbf6c5f_d61c8168",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-28T08:27:33Z",
+      "side": 1,
+      "message": "It looks very bizarre to call this \"mtu\" if you\u0027re preparing an \"ICMP measurement with an explicit length\". What\u0027s the mtu to do with that ?",
+      "range": {
+        "startLine": 291,
+        "startChar": 87,
+        "endLine": 291,
+        "endChar": 90
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "997a1278_e7bb98c7",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-28T08:27:33Z",
+      "side": 1,
+      "message": "Maybe \"Payload\" is simpler than \"explicit length\"",
+      "range": {
+        "startLine": 291,
+        "startChar": 24,
+        "endLine": 291,
+        "endChar": 38
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84def0fd_e3bf5ca8",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-28T08:27:33Z",
+      "side": 1,
+      "message": "I found this very difficult to understand, suggested wording :\n\n    If v6, make another measurement with the full v6 min MTU, unless that\u0027s what\n    was done above",
+      "range": {
+        "startLine": 295,
+        "startChar": 8,
+        "endLine": 295,
+        "endChar": 54
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
