@@ -18,6 +18,69 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0145208_256d8f40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-28T01:26:00Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "86eef07e730516d11a17a0147fe40870b2ee29ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0072e20b_9f067be3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10633,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-28T01:26:00Z",
+      "side": 1,
+      "message": "Hmm. This is not useful, and depending on what the BPF code does, it might (maybe, maybe not?) result in double-counting wakeups. We should probably ensure that stacked interfaces don\u0027t get wakeup packet rules. Perhaps we can ensure the wakeup packet code calls getInterfaces() instead of getAllInterfaces()? Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 10633,
+        "startChar": 52,
+        "endLine": 10633,
+        "endChar": 70
+      },
+      "revId": "86eef07e730516d11a17a0147fe40870b2ee29ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a8e8533_8ee3ab73",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10763,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-04-28T01:26:00Z",
+      "side": 1,
+      "message": "You do this lots of times. Factor out to a helper method?\n\n    private void verifyWakeupDelInterface(String iface) {\n        verify(mMockNetd).wakeupDelInterface(eq(iface), anyString(), anyInt(),\n                    anyInt());\n    }",
+      "range": {
+        "startLine": 10760,
+        "startChar": 0,
+        "endLine": 10763,
+        "endChar": 9
+      },
+      "revId": "86eef07e730516d11a17a0147fe40870b2ee29ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36479ac4_571fa871",
