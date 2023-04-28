@@ -24,7 +24,6 @@ import static com.android.testutils.MiscAsserts.assertStringContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -41,8 +40,6 @@ import com.android.server.connectivity.metrics.nano.IpConnectivityLogClass.IpCon
 import com.android.server.connectivity.metrics.nano.IpConnectivityLogClass.IpConnectivityLog;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
-
-import libcore.util.EmptyArray;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -63,8 +60,7 @@ public class NetdEventListenerServiceTest {
     private static final String EXAMPLE_IPV4 = "192.0.2.1";
     private static final String EXAMPLE_IPV6 = "2001:db8:1200::2:1";
 
-    private static final Network TEST_WIFI_NETWORK = new Network(5391);
-    private static final Network TEST_CELL_NETWORK = new Network(5832);
+    private static final long NET_HANDLE = new Network(5391).getNetworkHandle();
 
     private static final byte[] MAC_ADDR =
             {(byte)0x84, (byte)0xc9, (byte)0xb2, (byte)0x6a, (byte)0xed, (byte)0x4b};
@@ -82,8 +78,6 @@ public class NetdEventListenerServiceTest {
     public void setUp() {
         mCm = mock(ConnectivityManager.class);
         mService = new NetdEventListenerService(mCm);
-        doReturn(CAPABILITIES_WIFI).when(mCm).getNetworkCapabilities(TEST_WIFI_NETWORK);
-        doReturn(CAPABILITIES_CELL).when(mCm).getNetworkCapabilities(TEST_CELL_NETWORK);
     }
 
     @Test
@@ -117,25 +111,19 @@ public class NetdEventListenerServiceTest {
         wakeupEvent(iface, uids[5], v4, tcp, mac, srcIp, dstIp, sport, dport, now);
         wakeupEvent(iface, uids[6], v6, udp, mac, srcIp6, dstIp6, sport, dport, now);
         wakeupEvent(iface, uids[7], v6, tcp, mac, srcIp6, dstIp6, sport, dport, now);
-        wakeupEvent("rmnet0", uids[8], v6, udp, EmptyArray.BYTE, srcIp6, dstIp6, sport, dport, now,
-                TEST_CELL_NETWORK);
+        wakeupEvent(iface, uids[8], v6, udp, mac, srcIp6, dstIp6, sport, dport, now);
 
         String[] events2 = remove(listNetdEvent(), baseline);
-        int expectedLength2 = uids.length + 2; // +2 for the WakeupStats headers
+        int expectedLength2 = uids.length + 1; // +1 for the WakeupStats line
         assertEquals(expectedLength2, events2.length);
-
         assertStringContains(events2[0], "WakeupStats");
-        assertStringContains(events2[0], "rmnet0");
+        assertStringContains(events2[0], "wlan0");
+        assertStringContains(events2[0], "0x800");
         assertStringContains(events2[0], "0x86dd");
-
-        assertStringContains(events2[1], "WakeupStats");
-        assertStringContains(events2[1], "wlan0");
-        assertStringContains(events2[1], "0x800");
-        assertStringContains(events2[1], "0x86dd");
         for (int i = 0; i < uids.length; i++) {
-            String got = events2[i + 2];
+            String got = events2[i+1];
             assertStringContains(got, "WakeupEvent");
-            assertStringContains(got, ((i == 8) ? "rmnet0" : "wlan0"));
+            assertStringContains(got, "wlan0");
             assertStringContains(got, "uid: " + uids[i]);
         }
 
@@ -146,13 +134,11 @@ public class NetdEventListenerServiceTest {
         }
 
         String[] events3 = remove(listNetdEvent(), baseline);
-        int expectedLength3 = BUFFER_LENGTH + 2; // +2 for the WakeupStats headers
+        int expectedLength3 = BUFFER_LENGTH + 1; // +1 for the WakeupStats line
         assertEquals(expectedLength3, events3.length);
-        assertStringContains(events3[0], "WakeupStats");
-        assertStringContains(events3[0], "rmnet0");
-        assertStringContains(events3[1], "WakeupStats");
-        assertStringContains(events3[1], "wlan0");
-        for (int i = 2; i < expectedLength3; i++) {
+        assertStringContains(events2[0], "WakeupStats");
+        assertStringContains(events2[0], "wlan0");
+        for (int i = 1; i < expectedLength3; i++) {
             String got = events3[i];
             assertStringContains(got, "WakeupEvent");
             assertStringContains(got, "wlan0");
@@ -187,24 +173,19 @@ public class NetdEventListenerServiceTest {
         final int icmp6 = 58;
 
         wakeupEvent("wlan0", 1000, v4, tcp, mac, srcIp, dstIp, sport, dport, now);
-        wakeupEvent("rmnet0", 10123, v4, tcp, mac, srcIp, dstIp, sport, dport, now,
-                TEST_CELL_NETWORK);
+        wakeupEvent("rmnet0", 10123, v4, tcp, mac, srcIp, dstIp, sport, dport, now);
         wakeupEvent("wlan0", 1000, v4, udp, mac, srcIp, dstIp, sport, dport, now);
-        wakeupEvent("rmnet0", 10008, v4, tcp, EmptyArray.BYTE, srcIp, dstIp, sport, dport, now,
-                TEST_CELL_NETWORK);
+        wakeupEvent("rmnet0", 10008, v4, tcp, mac, srcIp, dstIp, sport, dport, now);
         wakeupEvent("wlan0", -1, v6, icmp6, mac, srcIp6, dstIp6, sport, dport, now);
         wakeupEvent("wlan0", 10008, v4, tcp, mac, srcIp, dstIp, sport, dport, now);
-        wakeupEvent("rmnet0", 1000, v4, tcp, mac, srcIp, dstIp, sport, dport, now,
-                TEST_CELL_NETWORK);
+        wakeupEvent("rmnet0", 1000, v4, tcp, mac, srcIp, dstIp, sport, dport, now);
         wakeupEvent("wlan0", 10004, v4, udp, mac, srcIp, dstIp, sport, dport, now);
         wakeupEvent("wlan0", 1000, v6, tcp, mac, srcIp6, dstIp6, sport, dport, now);
         wakeupEvent("wlan0", 0, v6, udp, mac, srcIp6, dstIp6, sport, dport, now);
         wakeupEvent("wlan0", -1, v6, icmp6, mac, srcIp6, dstIp6, sport, dport, now);
-        wakeupEvent("rmnet0", 10052, v4, tcp, mac, srcIp, dstIp, sport, dport, now,
-                TEST_CELL_NETWORK);
+        wakeupEvent("rmnet0", 10052, v4, tcp, mac, srcIp, dstIp, sport, dport, now);
         wakeupEvent("wlan0", 0, v6, udp, mac, srcIp6, dstIp6, sport, dport, now);
-        wakeupEvent("rmnet0", 1000, v6, tcp, null, srcIp6, dstIp6, sport, dport, now,
-                TEST_CELL_NETWORK);
+        wakeupEvent("rmnet0", 1000, v6, tcp, mac, srcIp6, dstIp6, sport, dport, now);
         wakeupEvent("wlan0", 1010, v4, udp, mac, srcIp, dstIp, sport, dport, now);
 
         String got = flushStatistics();
@@ -233,7 +214,7 @@ public class NetdEventListenerServiceTest {
                 "    >",
                 "    l2_broadcast_count: 0",
                 "    l2_multicast_count: 0",
-                "    l2_unicast_count: 3",
+                "    l2_unicast_count: 5",
                 "    no_uid_wakeups: 0",
                 "    non_application_wakeups: 0",
                 "    root_wakeups: 0",
@@ -518,13 +499,8 @@ public class NetdEventListenerServiceTest {
     }
 
     void wakeupEvent(String iface, int uid, int ether, int ip, byte[] mac, String srcIp,
-            String dstIp, int sport, int dport, long now) {
-        wakeupEvent(iface, uid, ether, ip, mac, srcIp, dstIp, sport, dport, now, TEST_WIFI_NETWORK);
-    }
-
-    void wakeupEvent(String iface, int uid, int ether, int ip, byte[] mac, String srcIp,
-            String dstIp, int sport, int dport, long now, Network network) {
-        String prefix = network.getNetworkHandle() + ":" + iface;
+            String dstIp, int sport, int dport, long now) throws Exception {
+        String prefix = NET_HANDLE + ":" + iface;
         mService.onWakeupEvent(prefix, uid, ether, ip, mac, srcIp, dstIp, sport, dport, now);
     }
 
