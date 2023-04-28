@@ -151,6 +151,8 @@ import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALID
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_SUCCESS;
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.IPPROTO_TCP;
+import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_HIGH;
+import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_LOW;
 
 import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED;
@@ -617,8 +619,8 @@ public class ConnectivityServiceTest {
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
-    final BatteryStatsManager mBatteryStatsManager =
-            new BatteryStatsManager(mock(IBatteryStats.class));
+    final IBatteryStats mIBatteryStats = mock(IBatteryStats.class);
+    final BatteryStatsManager mBatteryStatsManager = new BatteryStatsManager(mIBatteryStats);
 
     private ArgumentCaptor<ResolverParamsParcel> mResolverParamsParcelCaptor =
             ArgumentCaptor.forClass(ResolverParamsParcel.class);
@@ -10489,6 +10491,10 @@ public class ConnectivityServiceTest {
         }
     }
 
+    private String getIdleTimerLabel(int netId, int type) {
+        return Integer.toString(SdkLevel.isAtLeastU() ? netId : type);
+    }
+
     @Test
     public void testStackedLinkProperties() throws Exception {
         final LinkAddress myIpv4 = new LinkAddress("1.2.3.4/24");
@@ -10731,7 +10737,7 @@ public class ConnectivityServiceTest {
         networkCallback.expect(LOST, mCellAgent);
         networkCallback.assertNoCallback();
         verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(Integer.toString(TRANSPORT_CELLULAR)));
+                eq(getIdleTimerLabel(cellNetId, TRANSPORT_CELLULAR)));
         verify(mMockNetd).networkDestroy(cellNetId);
         if (SdkLevel.isAtLeastU()) {
             verify(mMockNetd).setNetworkAllowlist(any());
@@ -10791,7 +10797,7 @@ public class ConnectivityServiceTest {
         }
 
         verify(mMockNetd).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(Integer.toString(TRANSPORT_CELLULAR)));
+                eq(getIdleTimerLabel(cellNetId, TRANSPORT_CELLULAR)));
         verify(mMockNetd).networkDestroy(cellNetId);
         if (SdkLevel.isAtLeastU()) {
             verify(mMockNetd).setNetworkAllowlist(any());
@@ -11036,6 +11042,10 @@ public class ConnectivityServiceTest {
         mWiFiAgent.connect(true);
         networkCallback.expectAvailableThenValidatedCallbacks(mWiFiAgent);
         assertTrue(mCm.isDefaultNetworkActive());
+        if (SdkLevel.isAtLeastU()) {
+            verify(mIBatteryStats).noteWifiRadioPowerState(
+                    eq(DC_POWER_STATE_HIGH), anyLong() /* timestampNs */, eq(-1) /* uid */);
+        }
 
         final CompletableFuture<Boolean> onNetworkActiveFuture = new CompletableFuture<>();
         final ConnectivityManager.OnNetworkActiveListener listener =
@@ -11047,20 +11057,30 @@ public class ConnectivityServiceTest {
         verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
 
         // Interface became inactive
+        final int idleTimerLabel = SdkLevel.isAtLeastU()
+                ? mCellAgent.getNetwork().netId : TRANSPORT_WIFI;
         netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
-                TRANSPORT_WIFI, 1234 /* timestamp */, -1 /* uid */);
+                idleTimerLabel, 1234 /* timestamp */, -1 /* uid */);
         mServiceContext.expectDataActivityBroadcast(
                 TYPE_WIFI, false /* isActive */, 1234 /* tsNanos */);
         assertFalse(onNetworkActiveFuture.isDone());
         assertFalse(mCm.isDefaultNetworkActive());
+        if (SdkLevel.isAtLeastU()) {
+            verify(mIBatteryStats).noteWifiRadioPowerState(
+                    eq(DC_POWER_STATE_LOW), anyLong() /* timestampNs */, eq(-1) /* uid */);
+        }
 
         // Interface became active
         netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
-                TRANSPORT_WIFI, 5678 /* timestamp */, TEST_PACKAGE_UID);
+                idleTimerLabel, 5678 /* timestamp */, TEST_PACKAGE_UID);
         mServiceContext.expectDataActivityBroadcast(
                 TYPE_WIFI, true /* isActive */, 5678 /* tsNanos */);
         assertTrue(onNetworkActiveFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCm.isDefaultNetworkActive());
+        if (SdkLevel.isAtLeastU()) {
+            verify(mIBatteryStats).noteWifiRadioPowerState(
+                    eq(DC_POWER_STATE_HIGH), anyLong() /* timestampNs */, eq(-1) /* uid */);
+        }
     }
 
     @Test
@@ -11078,6 +11098,10 @@ public class ConnectivityServiceTest {
         mCellAgent.connect(true);
         networkCallback.expectAvailableThenValidatedCallbacks(mCellAgent);
         assertTrue(mCm.isDefaultNetworkActive());
+        if (SdkLevel.isAtLeastU()) {
+            verify(mIBatteryStats).noteMobileRadioPowerState(
+                    eq(DC_POWER_STATE_HIGH), anyLong() /* timestampNs */, eq(-1) /* uid */);
+        }
 
         final CompletableFuture<Boolean> onNetworkActiveFuture = new CompletableFuture<>();
         final ConnectivityManager.OnNetworkActiveListener listener =
@@ -11089,20 +11113,30 @@ public class ConnectivityServiceTest {
         verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
 
         // Interface became inactive
+        final int idleTimerLabel = SdkLevel.isAtLeastU()
+                ? mCellAgent.getNetwork().netId : TRANSPORT_CELLULAR;
         netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
-                TRANSPORT_CELLULAR, 1234 /* timestamp */, -1 /* uid */);
+                idleTimerLabel, 1234 /* timestamp */, -1 /* uid */);
         mServiceContext.expectDataActivityBroadcast(
                 TYPE_MOBILE, false /* isActive */, 1234 /* tsNanos */);
         assertFalse(onNetworkActiveFuture.isDone());
         assertFalse(mCm.isDefaultNetworkActive());
+        if (SdkLevel.isAtLeastU()) {
+            verify(mIBatteryStats).noteMobileRadioPowerState(
+                    eq(DC_POWER_STATE_LOW), anyLong() /* timestampNs */, eq(-1) /* uid */);
+        }
 
         // Interface became active
         netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
-                TRANSPORT_CELLULAR, 5678 /* timestamp */, TEST_PACKAGE_UID);
+                idleTimerLabel, 5678 /* timestamp */, TEST_PACKAGE_UID);
         mServiceContext.expectDataActivityBroadcast(
                 TYPE_MOBILE, true /* isActive */, 5678 /* tsNanos */);
         assertTrue(onNetworkActiveFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCm.isDefaultNetworkActive());
+        if (SdkLevel.isAtLeastU()) {
+            verify(mIBatteryStats).noteMobileRadioPowerState(
+                    eq(DC_POWER_STATE_LOW), anyLong() /* timestampNs */, eq(TEST_PACKAGE_UID));
+        }
     }
 
     @Test
@@ -11114,15 +11148,19 @@ public class ConnectivityServiceTest {
         mCm.registerNetworkCallback(networkRequest, networkCallback);
 
         mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        final String cellIdletimerLabel = getIdleTimerLabel(
+                mCellAgent.getNetwork().netId, TRANSPORT_CELLULAR);
         final LinkProperties cellLp = new LinkProperties();
         cellLp.setInterfaceName(MOBILE_IFNAME);
         mCellAgent.sendLinkProperties(cellLp);
         mCellAgent.connect(true);
         networkCallback.expectAvailableThenValidatedCallbacks(mCellAgent);
         verify(mMockNetd, times(1)).idletimerAddInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(Integer.toString(TRANSPORT_CELLULAR)));
+                eq(cellIdletimerLabel));
 
         mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        String wifiIdletimerLabel = getIdleTimerLabel(
+                mWiFiAgent.getNetwork().netId, TRANSPORT_WIFI);
         final LinkProperties wifiLp = new LinkProperties();
         wifiLp.setInterfaceName(WIFI_IFNAME);
         mWiFiAgent.sendLinkProperties(wifiLp);
@@ -11133,9 +11171,9 @@ public class ConnectivityServiceTest {
         networkCallback.expectLosing(mCellAgent);
         networkCallback.expectCaps(mWiFiAgent, c -> c.hasCapability(NET_CAPABILITY_VALIDATED));
         verify(mMockNetd, times(1)).idletimerAddInterface(eq(WIFI_IFNAME), anyInt(),
-                eq(Integer.toString(TRANSPORT_WIFI)));
+                eq(wifiIdletimerLabel));
         verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(Integer.toString(TRANSPORT_CELLULAR)));
+                eq(cellIdletimerLabel));
 
         // Disconnect wifi and switch back to cell
         reset(mMockNetd);
@@ -11143,13 +11181,14 @@ public class ConnectivityServiceTest {
         networkCallback.expect(LOST, mWiFiAgent);
         assertNoCallbacks(networkCallback);
         verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(WIFI_IFNAME), anyInt(),
-                eq(Integer.toString(TRANSPORT_WIFI)));
+                eq(wifiIdletimerLabel));
         verify(mMockNetd, times(1)).idletimerAddInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(Integer.toString(TRANSPORT_CELLULAR)));
+                eq(cellIdletimerLabel));
 
         // reconnect wifi
         reset(mMockNetd);
         mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        wifiIdletimerLabel = getIdleTimerLabel(mWiFiAgent.getNetwork().netId, TRANSPORT_WIFI);
         wifiLp.setInterfaceName(WIFI_IFNAME);
         mWiFiAgent.sendLinkProperties(wifiLp);
         mWiFiAgent.connect(true);
@@ -11157,9 +11196,9 @@ public class ConnectivityServiceTest {
         networkCallback.expectLosing(mCellAgent);
         networkCallback.expectCaps(mWiFiAgent, c -> c.hasCapability(NET_CAPABILITY_VALIDATED));
         verify(mMockNetd, times(1)).idletimerAddInterface(eq(WIFI_IFNAME), anyInt(),
-                eq(Integer.toString(TRANSPORT_WIFI)));
+                eq(wifiIdletimerLabel));
         verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(Integer.toString(TRANSPORT_CELLULAR)));
+                eq(cellIdletimerLabel));
 
         // Disconnect cell
         reset(mMockNetd);
@@ -11170,7 +11209,7 @@ public class ConnectivityServiceTest {
         // unexpectedly before network being removed.
         waitForIdle();
         verify(mMockNetd, times(0)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(Integer.toString(TRANSPORT_CELLULAR)));
+                eq(cellIdletimerLabel));
         verify(mMockNetd, times(1)).networkDestroy(eq(mCellAgent.getNetwork().netId));
         verify(mMockDnsResolver, times(1)).destroyNetworkCache(eq(mCellAgent.getNetwork().netId));
 
@@ -11179,7 +11218,7 @@ public class ConnectivityServiceTest {
         mWiFiAgent.disconnect();
         b.expectBroadcast();
         verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(WIFI_IFNAME), anyInt(),
-                eq(Integer.toString(TRANSPORT_WIFI)));
+                eq(wifiIdletimerLabel));
 
         // Clean up
         mCm.unregisterNetworkCallback(networkCallback);
