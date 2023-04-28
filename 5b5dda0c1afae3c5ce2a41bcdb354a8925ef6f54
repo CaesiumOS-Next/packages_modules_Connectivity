@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5e2ec13_64770c3d",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T10:04:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5693c13e_26c23c20",
+      "range": {
+        "startLine": 511,
+        "startChar": 79,
+        "endLine": 511,
+        "endChar": 80
+      },
+      "revId": "5b5dda0c1afae3c5ce2a41bcdb354a8925ef6f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "508b16b2_dcca3dd8",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-28T09:45:02Z",
       "side": 1,
       "message": "instead of here?",
+      "range": {
+        "startLine": 529,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 47
+      },
+      "revId": "5b5dda0c1afae3c5ce2a41bcdb354a8925ef6f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a24b87b6_ac235bfa",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T10:04:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "508b16b2_dcca3dd8",
       "range": {
         "startLine": 529,
         "startChar": 0,
@@ -83,6 +131,54 @@
       "writtenOn": "2023-04-28T09:45:02Z",
       "side": 1,
       "message": "space before (",
+      "range": {
+        "startLine": 532,
+        "startChar": 72,
+        "endLine": 532,
+        "endChar": 73
+      },
+      "revId": "5b5dda0c1afae3c5ce2a41bcdb354a8925ef6f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00a45d51_7a292cba",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T10:04:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf1e69da_dfe463a6",
+      "range": {
+        "startLine": 532,
+        "startChar": 34,
+        "endLine": 532,
+        "endChar": 49
+      },
+      "revId": "5b5dda0c1afae3c5ce2a41bcdb354a8925ef6f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f55a56_49c668e0",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T10:04:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5eb40809_113d5b4b",
       "range": {
         "startLine": 532,
         "startChar": 72,
