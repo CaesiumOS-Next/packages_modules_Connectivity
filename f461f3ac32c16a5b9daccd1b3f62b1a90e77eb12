@@ -33,6 +33,23 @@
       "message": "https://googleplex-android.googlesource.com/platform/packages/modules/Connectivity/+/refs/heads/tm-qpr-dev-plus-aosp/Tethering/apex/Android.bp",
       "revId": "f461f3ac32c16a5b9daccd1b3f62b1a90e77eb12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edb4621d_2ad7ea35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-28T11:56:19Z",
+      "side": 1,
+      "message": "I can\u0027t make sense of the tm-qpr-dev-plus-aosp build failure.\n\ncd packages/modules/Connectivity/\ngit remote update\ngit checkout goog/tm-qpr-dev-plus-aosp\ngit fetch https://android.googlesource.com/platform/packages/modules/Connectivity refs/changes/93/2565793/4\ngit cherry-pick FETCH_HEAD\ngit grep TetheringInProcessFlag\n\nno hits... so how can it fail to build with:\n\nerror: packages/modules/Connectivity/Tethering/apex/Android.bp:90:1: \"com.android.tethering\" depends on undefined module \"TetheringInProcessFlag\".\nOr did you mean [\"TetheringOutOfProcessFlag\"]?\n\nwhen TetheringInProcessFlag was deleted by this very change!?!?!?!",
+      "revId": "f461f3ac32c16a5b9daccd1b3f62b1a90e77eb12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
