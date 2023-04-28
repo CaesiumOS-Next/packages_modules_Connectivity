@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d04b43c7_5da84ebe",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2672,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-04-28T10:04:38Z",
+      "side": 1,
+      "message": "This is flaky and can\u0027t be checked in before it\u0027s fixed",
+      "range": {
+        "startLine": 2672,
+        "startChar": 0,
+        "endLine": 2672,
+        "endChar": 55
+      },
+      "revId": "9f15a90c9b60ae74db8ce2808dd569a7b6e37145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
