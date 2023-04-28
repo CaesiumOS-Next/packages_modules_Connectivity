@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07e11660_0b381960",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T11:09:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfcf6d38_3b090543",
+      "range": {
+        "startLine": 180,
+        "startChar": 48,
+        "endLine": 180,
+        "endChar": 59
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "198315fc_c61bce6b",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-04-28T08:27:33Z",
       "side": 1,
       "message": "I don\u0027t think I understand this. Wouldn\u0027t it be much simpler saying something like\n\n    if (addr instanceof Inet6Address) {\n      return v6xx + v6yy\n    } else {\n      return v4xx + v4yy\n    }",
+      "range": {
+        "startLine": 284,
+        "startChar": 8,
+        "endLine": 286,
+        "endChar": 58
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99761b61_30833939",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T11:09:04Z",
+      "side": 1,
+      "message": "Done. This comment here is to explain why we just use ICMP v4 header length. We can use v6 header for sure but in the design of NetworkDiagnostics. Extra 4 bytes(message) body will be filled in. The result is also 8. For simplicity, just use the same constant and add comment here and l.570 to explain it.",
+      "parentUuid": "198315fc_c61bce6b",
       "range": {
         "startLine": 284,
         "startChar": 8,
@@ -134,6 +182,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5279bbfc_078f16dd",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T11:09:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "997a1278_e7bb98c7",
+      "range": {
+        "startLine": 291,
+        "startChar": 24,
+        "endLine": 291,
+        "endChar": 38
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41e8056e_a6ce4ac7",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T11:09:04Z",
+      "side": 1,
+      "message": "Combining with the newer patchset, I update the name to targetNetworkMtu. Method will send full size MTU probe. I think the naming should match here. Test will calculate the payload based on the MTU size.",
+      "parentUuid": "6613386c_36094b98",
+      "range": {
+        "startLine": 291,
+        "startChar": 87,
+        "endLine": 291,
+        "endChar": 90
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84def0fd_e3bf5ca8",
@@ -157,6 +253,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75c1321b_2b34d9f7",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T11:09:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84def0fd_e3bf5ca8",
+      "range": {
+        "startLine": 295,
+        "startChar": 8,
+        "endLine": 295,
+        "endChar": 54
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa535d30_92ecd80e",
@@ -170,6 +290,30 @@
       "writtenOn": "2023-04-28T08:53:47Z",
       "side": 1,
       "message": "is this even the right spot to be doing this adjustment?\n\nshouldn\u0027t this just throw if length \u003c 0 ?",
+      "range": {
+        "startLine": 561,
+        "startChar": 0,
+        "endLine": 561,
+        "endChar": 50
+      },
+      "revId": "6be3542c8c599766bb2bcbfca006a94b6ab08013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64d4ccbb_63e0a180",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-04-28T11:09:04Z",
+      "side": 1,
+      "message": "Move the check before adding the measure to skip payload size is less than 0 case.\n\nThis is testing code. Maybe do not need to throw here. See if it works to you.",
+      "parentUuid": "aa535d30_92ecd80e",
       "range": {
         "startLine": 561,
         "startChar": 0,
