@@ -45,6 +45,52 @@
       },
       "revId": "22e41960cd34f271bfe7748bb021e07ec0de7ee7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2df1388c_239e0445",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-28T08:48:25Z",
+      "side": 1,
+      "message": "maybe desirable to add comment that \u0027length\u0027 is effectively the -s flag to ping/ping6\n(please confirm that it *is*)\n\nhttps://linux.die.net/man/8/ping\nhttps://linux.die.net/man/8/ping6\n\n-s packetsize\nSpecifies the number of data bytes to be sent. The default is 56, which translates into 64 ICMP data bytes when combined with the 8 bytes of ICMP header data.",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 96
+      },
+      "revId": "22e41960cd34f271bfe7748bb021e07ec0de7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f461ae6_828c114e",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-28T08:48:25Z",
+      "side": 1,
+      "message": "this could use a comment about v4 vs v6 both using 8 (perhaps \u0027for simplicity\u0027 or \u0027to match ping/ping6 behaviour\u0027,\nsince ifirc (unlike v4) the minimum icmpv6 header is only 4 bytes",
+      "range": {
+        "startLine": 530,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 76
+      },
+      "revId": "22e41960cd34f271bfe7748bb021e07ec0de7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
