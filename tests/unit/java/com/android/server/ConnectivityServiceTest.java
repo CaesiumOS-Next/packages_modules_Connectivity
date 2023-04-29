@@ -44,14 +44,18 @@ import static android.content.pm.PackageManager.GET_PERMISSIONS;
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.ConnectivityManager.ACTION_CAPTIVE_PORTAL_SIGN_IN;
+import static android.net.ConnectivityManager.ACTION_DATA_ACTIVITY_CHANGE;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_DATA_SAVER;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRICTED;
 import static android.net.ConnectivityManager.BLOCKED_REASON_BATTERY_SAVER;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
+import static android.net.ConnectivityManager.EXTRA_DEVICE_TYPE;
+import static android.net.ConnectivityManager.EXTRA_IS_ACTIVE;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_TYPE;
+import static android.net.ConnectivityManager.EXTRA_REALTIME_NS;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_1;
@@ -374,6 +378,7 @@ import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.ArrayTrackRecord;
+import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.NetworkMonitorUtils;
@@ -876,6 +881,25 @@ public class ConnectivityServiceTest {
                 }
             }
             super.sendStickyBroadcast(intent, options);
+        }
+
+        private final ArrayTrackRecord<Intent>.ReadHead mOrderedBroadcastAsUserHistory =
+                new ArrayTrackRecord<Intent>().newReadHead();
+
+        public void expectDataActivityBroadcast(int deviceType, boolean isActive, long tsNanos) {
+            assertNotNull(mOrderedBroadcastAsUserHistory.poll(BROADCAST_TIMEOUT_MS,
+                    intent -> intent.getAction().equals(ACTION_DATA_ACTIVITY_CHANGE)
+                            && intent.getIntExtra(EXTRA_DEVICE_TYPE, -1) == deviceType
+                            && intent.getBooleanExtra(EXTRA_IS_ACTIVE, !isActive) == isActive
+                            && intent.getLongExtra(EXTRA_REALTIME_NS, -1) == tsNanos
+            ));
+        }
+
+        @Override
+        public void sendOrderedBroadcastAsUser(Intent intent, UserHandle user,
+                String receiverPermission, BroadcastReceiver resultReceiver,
+                Handler scheduler, int initialCode, String initialData, Bundle initialExtras) {
+            mOrderedBroadcastAsUserHistory.add(intent);
         }
     }
 
@@ -10995,6 +11019,90 @@ public class ConnectivityServiceTest {
         // ... but still, check that even if it did, clatd would not be started.
         verify(mMockNetd, never()).clatdStart(anyString(), anyString());
         assertTrue("Nat464Xlat was not IDLE", !clat.isStarted());
+    }
+
+    @Test
+    public void testInterfaceClassActivityChangedWifi() throws Exception {
+        final TestNetworkCallback networkCallback = new TestNetworkCallback();
+        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .build();
+        mCm.registerNetworkCallback(networkRequest, networkCallback);
+
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        mWiFiAgent.sendLinkProperties(wifiLp);
+        mWiFiAgent.connect(true);
+        networkCallback.expectAvailableThenValidatedCallbacks(mWiFiAgent);
+        assertTrue(mCm.isDefaultNetworkActive());
+
+        final CompletableFuture<Boolean> onNetworkActiveFuture = new CompletableFuture<>();
+        final ConnectivityManager.OnNetworkActiveListener listener =
+                () -> onNetworkActiveFuture.complete(true);
+        mCm.addDefaultNetworkActiveListener(listener);
+
+        ArgumentCaptor<BaseNetdUnsolicitedEventListener> netdCallbackCaptor =
+                ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
+        verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
+
+        // Interface is inactive
+        netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
+                TRANSPORT_WIFI, 1234 /* timestamp */, -1 /* uid */);
+        mServiceContext.expectDataActivityBroadcast(
+                TYPE_WIFI, false /* isActive */, 1234 /* tsNanos */);
+        assertFalse(onNetworkActiveFuture.isDone());
+        assertFalse(mCm.isDefaultNetworkActive());
+
+        // Interface is active
+        netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
+                TRANSPORT_WIFI, 5678 /* timestamp */, TEST_PACKAGE_UID);
+        mServiceContext.expectDataActivityBroadcast(
+                TYPE_WIFI, true /* isActive */, 5678 /* tsNanos */);
+        assertTrue(onNetworkActiveFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertTrue(mCm.isDefaultNetworkActive());
+    }
+
+    @Test
+    public void testInterfaceClassActivityChangedCellular() throws Exception {
+        final TestNetworkCallback networkCallback = new TestNetworkCallback();
+        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .build();
+        mCm.registerNetworkCallback(networkRequest, networkCallback);
+
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        mCellAgent.sendLinkProperties(cellLp);
+        mCellAgent.connect(true);
+        networkCallback.expectAvailableThenValidatedCallbacks(mCellAgent);
+        assertTrue(mCm.isDefaultNetworkActive());
+
+        final CompletableFuture<Boolean> onNetworkActiveFuture = new CompletableFuture<>();
+        final ConnectivityManager.OnNetworkActiveListener listener =
+                () -> onNetworkActiveFuture.complete(true);
+        mCm.addDefaultNetworkActiveListener(listener);
+
+        ArgumentCaptor<BaseNetdUnsolicitedEventListener> netdCallbackCaptor =
+                ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
+        verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
+
+        // Interface is inactive
+        netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
+                TRANSPORT_CELLULAR, 1234 /* timestamp */, -1 /* uid */);
+        mServiceContext.expectDataActivityBroadcast(
+                TYPE_MOBILE, false /* isActive */, 1234 /* tsNanos */);
+        assertFalse(onNetworkActiveFuture.isDone());
+        assertFalse(mCm.isDefaultNetworkActive());
+
+        // Interface is active
+        netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
+                TRANSPORT_CELLULAR, 5678 /* timestamp */, TEST_PACKAGE_UID);
+        mServiceContext.expectDataActivityBroadcast(
+                TYPE_MOBILE, true /* isActive */, 5678 /* tsNanos */);
+        assertTrue(onNetworkActiveFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertTrue(mCm.isDefaultNetworkActive());
     }
 
     @Test
