@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8c976bf_ef538eef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-04-29T19:23:13Z",
+      "side": 1,
+      "message": "seeing same build (unrelated link issue) failure on https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2574030?tab\u003dchecks which is a comment only change in the same file",
+      "revId": "e51c81ad19f5ab3a052cab61319550023d5c0998",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
