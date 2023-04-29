@@ -46,14 +46,18 @@ import static android.content.pm.PackageManager.GET_PERMISSIONS;
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.ConnectivityManager.ACTION_CAPTIVE_PORTAL_SIGN_IN;
+import static android.net.ConnectivityManager.ACTION_DATA_ACTIVITY_CHANGE;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_DATA_SAVER;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRICTED;
 import static android.net.ConnectivityManager.BLOCKED_REASON_BATTERY_SAVER;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
+import static android.net.ConnectivityManager.EXTRA_DEVICE_TYPE;
+import static android.net.ConnectivityManager.EXTRA_IS_ACTIVE;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_TYPE;
+import static android.net.ConnectivityManager.EXTRA_REALTIME_NS;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_1;
@@ -378,6 +382,7 @@ import com.android.internal.util.WakeupMessage;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
 import com.android.net.module.util.ArrayTrackRecord;
+import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.NetworkMonitorUtils;
@@ -536,6 +541,7 @@ public class ConnectivityServiceTest {
     private static final String WIFI_IFNAME = "test_wlan0";
     private static final String WIFI_WOL_IFNAME = "test_wlan_wol";
     private static final String VPN_IFNAME = "tun10042";
+    private static final String ETHERNET_IFNAME = "eth0";
     private static final String TEST_PACKAGE_NAME = "com.android.test.package";
     private static final int TEST_PACKAGE_UID = 123;
     private static final int TEST_PACKAGE_UID2 = 321;
@@ -885,6 +891,25 @@ public class ConnectivityServiceTest {
                 }
             }
             super.sendStickyBroadcast(intent, options);
+        }
+
+        private final ArrayTrackRecord<Intent>.ReadHead mOrderedBroadcastAsUserHistory =
+                new ArrayTrackRecord<Intent>().newReadHead();
+
+        public void expectDataActivityBroadcast(int deviceType, boolean isActive, long tsNanos) {
+            assertNotNull(mOrderedBroadcastAsUserHistory.poll(BROADCAST_TIMEOUT_MS,
+                    intent -> intent.getAction().equals(ACTION_DATA_ACTIVITY_CHANGE)
+                            && intent.getIntExtra(EXTRA_DEVICE_TYPE, -1) == deviceType
+                            && intent.getBooleanExtra(EXTRA_IS_ACTIVE, !isActive) == isActive
+                            && intent.getLongExtra(EXTRA_REALTIME_NS, -1) == tsNanos
+            ));
+        }
+
+        @Override
+        public void sendOrderedBroadcastAsUser(Intent intent, UserHandle user,
+                String receiverPermission, BroadcastReceiver resultReceiver,
+                Handler scheduler, int initialCode, String initialData, Bundle initialExtras) {
+            mOrderedBroadcastAsUserHistory.add(intent);
         }
     }
 
@@ -11187,6 +11212,110 @@ public class ConnectivityServiceTest {
         // ... but still, check that even if it did, clatd would not be started.
         verify(mMockNetd, never()).clatdStart(anyString(), anyString());
         assertTrue("Nat464Xlat was not IDLE", !clat.isStarted());
+    }
+
+    private void doTestInterfaceClassActivityChanged(final int transportType)
+            throws Exception {
+        final int legacyType = transportType == TRANSPORT_CELLULAR ? TYPE_MOBILE : TYPE_WIFI;
+        final ConditionVariable onNetworkActiveCv = new ConditionVariable();
+        final ConnectivityManager.OnNetworkActiveListener listener = onNetworkActiveCv::open;
+        mCm.addDefaultNetworkActiveListener(listener);
+
+        ArgumentCaptor<BaseNetdUnsolicitedEventListener> netdCallbackCaptor =
+                ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
+        verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
+
+        // Interface goes to inactive state
+        netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
+                transportType, TIMESTAMP, -1 /* uid */);
+        mServiceContext.expectDataActivityBroadcast(legacyType, false /* isActive */, TIMESTAMP);
+        assertFalse(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
+        assertFalse(mCm.isDefaultNetworkActive());
+
+        // Interface goes to active state
+        netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
+                transportType, TIMESTAMP, TEST_PACKAGE_UID);
+        mServiceContext.expectDataActivityBroadcast(legacyType, true /* isActive */, TIMESTAMP);
+        assertTrue(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
+        assertTrue(mCm.isDefaultNetworkActive());
+
+        mCm.removeDefaultNetworkActiveListener(listener);
+    }
+
+    @Test
+    public void testInterfaceClassActivityChangedWifi() throws Exception {
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiAgent.connect(true);
+        // New default network activity is considered active
+        assertTrue(mCm.isDefaultNetworkActive());
+
+        doTestInterfaceClassActivityChanged(TRANSPORT_WIFI);
+    }
+
+    @Test
+    public void testInterfaceClassActivityChangedCellular() throws Exception {
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
+        mCellAgent.connect(true);
+        // New default network activity is considered active
+        assertTrue(mCm.isDefaultNetworkActive());
+
+        doTestInterfaceClassActivityChanged(TRANSPORT_CELLULAR);
+    }
+
+    @Test
+    public void testOnNetworkActiveNewDefaultNetwork() throws Exception {
+        final ConditionVariable onNetworkActiveCv = new ConditionVariable();
+        final ConnectivityManager.OnNetworkActiveListener listener = onNetworkActiveCv::open;
+        mCm.addDefaultNetworkActiveListener(listener);
+
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
+        mCellAgent.connect(true);
+        assertTrue(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
+        assertTrue(mCm.isDefaultNetworkActive());
+
+        mCm.removeDefaultNetworkActiveListener(listener);
+    }
+
+    @Test
+    public void testOnNetworkActiveNewDefaultNetworkEthernet() throws Exception {
+        final ConditionVariable onNetworkActiveCv = new ConditionVariable();
+        final ConnectivityManager.OnNetworkActiveListener listener = onNetworkActiveCv::open;
+        mCm.addDefaultNetworkActiveListener(listener);
+
+        final LinkProperties ethernetLp = new LinkProperties();
+        ethernetLp.setInterfaceName(ETHERNET_IFNAME);
+        mEthernetAgent = new TestNetworkAgentWrapper(TRANSPORT_ETHERNET, ethernetLp);
+        mEthernetAgent.connect(true);
+        // LegacyNetworkActivityTracker call onNetworkActive callback only for network that tracker
+        // add idle timer to. And tracker does not set idle timer to ethernet network.
+        // onNetworkActive is not called when the ethernet becomes a default network
+        assertFalse(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
+        assertTrue(mCm.isDefaultNetworkActive());
+
+        mCm.removeDefaultNetworkActiveListener(listener);
+    }
+
+    @Test
+    public void testIsDefaultNetworkActiveNoDefaultNetwork() throws Exception {
+        // isDefaultNetworkActive returns true if there is no default network, which is known issue.
+        assertTrue(mCm.isDefaultNetworkActive());
+
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
+        mCellAgent.connect(true);
+        assertTrue(mCm.isDefaultNetworkActive());
+
+        mCellAgent.disconnect();
+        waitForIdle();
+
+        assertTrue(mCm.isDefaultNetworkActive());
     }
 
     @Test
