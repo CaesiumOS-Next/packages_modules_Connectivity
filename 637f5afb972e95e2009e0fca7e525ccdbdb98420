@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12a33236_bb195a5a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c5bf2b5_beb57f3e",
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ced0b329_59a10413",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-04-26T10:12:19Z",
       "side": 1,
       "message": "Nit: add Objects.requireNonNull check (otherwise it could NPE when processing the callback). Probably for each argument.",
+      "range": {
+        "startLine": 386,
+        "startChar": 73,
+        "endLine": 386,
+        "endChar": 79
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fe688ae_8b229e6a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ced0b329_59a10413",
       "range": {
         "startLine": 386,
         "startChar": 73,
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "248e0cd4_89f7dd46",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b51ea05_02944387",
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdc0b0a3_e79eafca",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-04-26T10:12:19Z",
       "side": 1,
       "message": "This contradicts \"Small int number means high priority\". Did you mean \"higher priority\" or \"smaller priority number\" ? (I\u0027d find the 2nd one less confusing considering the context)",
+      "range": {
+        "startLine": 52,
+        "startChar": 31,
+        "endLine": 52,
+        "endChar": 53
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bac3c38e_57505f20",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Done. Rewrite the text to reduce the ambiguity.",
+      "parentUuid": "bdc0b0a3_e79eafca",
       "range": {
         "startLine": 52,
         "startChar": 31,
@@ -104,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "961bffd4_17938102",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Done. Refactored the code based on the offline discussion.",
+      "parentUuid": "ddb24b5e_77291998",
+      "range": {
+        "startLine": 1543,
+        "startChar": 45,
+        "endLine": 1543,
+        "endChar": 68
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90712035_2c87d993",
@@ -117,6 +225,30 @@
       "writtenOn": "2023-04-26T10:12:19Z",
       "side": 1,
       "message": "Also the packet will be different per interface (different address records) so it needs to be provided via per-interface callbacks",
+      "range": {
+        "startLine": 1559,
+        "startChar": 32,
+        "endLine": 1559,
+        "endChar": 36
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61569b61_9aee7cd5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1559,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Done. Move the packet construction to MdnsAdvertiser will allow we set this value per interface.",
+      "parentUuid": "90712035_2c87d993",
       "range": {
         "startLine": 1559,
         "startChar": 32,
@@ -150,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f183415_458f3b6e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fd15eaa_feb25b00",
+      "range": {
+        "startLine": 1560,
+        "startChar": 58,
+        "endLine": 1560,
+        "endChar": 67
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "652f8bb6_31645132",
@@ -167,6 +323,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06e2a76e_4ac4b1b0",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1755,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "652f8bb6_31645132",
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab49b166_b02a1061",
@@ -180,6 +354,24 @@
       "writtenOn": "2023-04-26T10:12:19Z",
       "side": 1,
       "message": "This is also going to be difficult if you don\u0027t use per-interface callbacks for onRegisterServiceSucceeded, because you don\u0027t know if  a given interface is done probing or not. Probing can finish at different timings on different interfaces, especially since they may be brought up at different times.",
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d96f1fd1_1c52bc74",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1762,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ab49b166_b02a1061",
       "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -219,6 +411,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d02fe34_727b85b3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "603619c9_68f61cc1",
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "743ea741_8f47c469",
@@ -242,6 +452,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d17094a6_23b086e7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "743ea741_8f47c469",
+      "range": {
+        "startLine": 356,
+        "startChar": 29,
+        "endLine": 356,
+        "endChar": 30
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b1de42c_4fd80bb8",
@@ -255,6 +489,30 @@
       "writtenOn": "2023-04-26T10:12:19Z",
       "side": 1,
       "message": "Nit: since this is verifying that the packet is null, better use other modes",
+      "range": {
+        "startLine": 887,
+        "startChar": 41,
+        "endLine": 887,
+        "endChar": 68
+      },
+      "revId": "637f5afb972e95e2009e0fca7e525ccdbdb98420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76821c93_0162339d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-04-30T09:05:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b1de42c_4fd80bb8",
       "range": {
         "startLine": 887,
         "startChar": 41,
