@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4522cb22_30ee4f83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-01T11:06:59Z",
+      "side": 1,
+      "message": "Someone else should review this.\n\nAlso note that there\u0027s instanceof v4/v6 checks all over the code.\nAssuming v4 mapped v6 can even happen, it should probably be normalized at ingress to all this code, and not in getHeaderLen",
+      "revId": "85eb328b741c08eff82ca19458757c9c0dbf806f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd60d22a_a45ce424",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-01T11:06:59Z",
+      "side": 1,
+      "message": "Hmm normally a route could have a mtu property that overrides the link property.\nIs that not the case here?",
+      "range": {
+        "startLine": 214,
+        "startChar": 49,
+        "endLine": 216,
+        "endChar": 81
+      },
+      "revId": "85eb328b741c08eff82ca19458757c9c0dbf806f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
