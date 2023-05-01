@@ -50,12 +50,45 @@ public class MdnsUtils {
     }
 
     /**
+     * Convert the array of labels to DNS case-insensitive lowercasae
+     */
+    public static String[] toDnsLabelsLowerCase(@NonNull String[] labels) {
+        final String[] outStrings = new String[labels.length];
+        for (int i = 0; i < labels.length; ++i) {
+            outStrings[i] = toDnsLowerCase(labels[i]);
+        }
+        return outStrings;
+    }
+
+    /**
      * Compare two strings by DNS case-insensitive lowercase.
      */
     public static boolean equalsIgnoreDnsCase(@NonNull String a, @NonNull String b) {
         if (a.length() != b.length()) return false;
         for (int i = 0; i < a.length(); i++) {
             if (toDnsLowerCase(a.charAt(i)) != toDnsLowerCase(b.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Compare two set of DNS labels by DNS case-insensitive lowercase.
+     */
+    public static boolean equalsDnsLabelIgnoreDnsCase(@NonNull String[] a, @NonNull String[] b) {
+        if (a == b) {
+            return true;
+        }
+        if (a == null || b == null) {
+            return false;
+        }
+        int length = a.length;
+        if (b.length != length) {
+            return false;
+        }
+        for (int i = 0; i < length; i++) {
+            if (!equalsIgnoreDnsCase(a[i], b[i])) {
                 return false;
             }
         }

@@ -24,6 +24,7 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -271,12 +272,13 @@ public abstract class MdnsRecord {
 
         MdnsRecord otherRecord = (MdnsRecord) other;
 
-        return Arrays.equals(name, otherRecord.name) && (type == otherRecord.type);
+        return MdnsUtils.equalsDnsLabelIgnoreDnsCase(name, otherRecord.name) && (type
+                == otherRecord.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Arrays.hashCode(name), type);
+        return Objects.hash(Arrays.hashCode(MdnsUtils.toDnsLabelsLowerCase(name)), type);
     }
 
     /**
@@ -311,13 +313,13 @@ public abstract class MdnsRecord {
 
             Key otherKey = (Key) other;
 
-            return (recordType == otherKey.recordType) && Arrays.equals(recordName,
-                    otherKey.recordName);
+            return (recordType == otherKey.recordType) && MdnsUtils.equalsDnsLabelIgnoreDnsCase(
+                    recordName, otherKey.recordName);
         }
 
         @Override
         public int hashCode() {
-            return (recordType * 31) + Arrays.hashCode(recordName);
+            return (recordType * 31) + Arrays.hashCode(MdnsUtils.toDnsLabelsLowerCase(recordName));
         }
     }
 }
