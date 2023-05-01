@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73ade49d_92a75f41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T01:42:06Z",
+      "side": 1,
+      "message": "Thanks for the cleanup ! Note that while I think this is great for V, I don\u0027t think we can cherry-pick to U because there are U platform requirements that still state that InProcessTethering must be used in some configurations (like U watches, cars etc)",
+      "revId": "7a03c187f596049db96acdae3f00dc6ff5e9e672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
