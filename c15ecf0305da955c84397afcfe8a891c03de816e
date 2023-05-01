@@ -1,0 +1,416 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1115e05_d99a3d4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "LGTM assuming non-nits addressed, wrote a bunch of nits but I think it looks good\n\nLorenzo should approve for API+1",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee7eb087_b0313203",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: empty line after the first documentation line for javadoc parsing",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f788bf1_1247e009",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: more accurately, to receive the offload callbacks (actual offload won\u0027t be done on the executor)",
+      "range": {
+        "startLine": 393,
+        "startChar": 48,
+        "endLine": 393,
+        "endChar": 69
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac722966_1a4ffc41",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: receive offload callbacks or similar ?",
+      "range": {
+        "startLine": 394,
+        "startChar": 46,
+        "endLine": 394,
+        "endChar": 66
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5ef929e_c6ebce32",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: maybe say it\u0027s one of OffloadEngine.OFFLOAD_CAPABILITY_*",
+      "range": {
+        "startLine": 395,
+        "startChar": 55,
+        "endLine": 395,
+        "endChar": 67
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c2b4fb2_80133ac1",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Supernit: this sounds like the system will use this as a signal that the hardware can\u0027t offload anymore and do something about it; which isn\u0027t really true considering that the system can\u0027t even assume that something is offloaded even if a callback is registered. Maybe just say the caller unregisters when it doesn\u0027t want to receive the callbacks anymore ?",
+      "range": {
+        "startLine": 427,
+        "startChar": 58,
+        "endLine": 428,
+        "endChar": 23
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdc5111f_e517be5c",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "As discussed offline, this probably needs another field to indicate the kind of offload to do (reply to queries, or let queries through, or let replies through). Otherwise APF which would have capabilities to filter queries and replies wouldn\u0027t know if it needs to let through the queries, or the replies.\n\nMaybe something like \"final long mOffloadType\" which would match OFFLOAD_CAPABILITY_* ?",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15e9e459_d74b8561",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "This should return a copy to avoid the caller modifying internal state by modifying contents of the array\n\nBut actually I remembered this guideline saying that APIs shouldn\u0027t use arrays in the first place: https://android.googlesource.com/platform/developers/docs/+/975a589941f728f6c6ce6fbbd7517ca854bc61ba/api-guidelines/index.md#methods-prefer-collection-over-array\n\nStill using an array would probably be OK if it was consistent with NsdServiceInfo, but actually NsdServiceInfo just uses String for the service type.\n\nTechnically the service type can\u0027t contain dots as per the RFC. So the problem is more about the hostname, which in theory could have labels containing dots.\n\nUsing a hostname with dots would probably be a horrible idea though... So maybe it\u0027s just simpler to use String and disallow labels with dots altogether ?",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e32c074a_c9ba2300",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: move to the javadoc\n\nAnd the javadoc should be one line, then line break, then details (first line gets on the summary table in the documentation site, the rest goes to the description section)",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f821c6e3_13f75956",
+        "filename": "framework/jarjar-excludes.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: I think the TODO is going to stick in the U branch, so better make it clearer to avoid people thinking that they can also add an exclusion because their use-case is similar.\n\nMaybe something like \"TODO: OffloadServiceInfo is being added as an API, but wasn\u0027t an API yet in the first module versions targeting U. Do not jarjar it such versions so that tests do not have to cover both cases. This will be removed in an upcoming change marking it as API.\"",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "636a6955_deb6ff5b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1565,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: so this would be for CAPABILITY_FILTER_QUERIES so that the probe replies I seen I think ? Better add it to the comment to clarify",
+      "range": {
+        "startLine": 1564,
+        "startChar": 91,
+        "endLine": 1565,
+        "endChar": 28
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17e0fbfa_4f758df5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: Objects.requireNonNull here (actually it\u0027s more important here than in NsdManager, sorry).\n\nSometimes we receive bugs with people running testing that does raw Binder transactions, passing null to various arguments (like a fuzzing test). It may crash the system if NPE is thrown on the handler thread rather than here during the binder call. That\u0027s generally not considered a security issue but still...",
+      "range": {
+        "startLine": 1726,
+        "startChar": 49,
+        "endLine": 1726,
+        "endChar": 58
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f7f2353_5e0abed5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1737,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "I don\u0027t think you\u0027re supposed to throw a RemoteException yourself; rather you throw a regular exception within the Binder transaction, and Binder wraps it in a RemoteException when that call finishes, giving it to the caller (setting the cause field as the original exception maybe ?)\n\nJust IllegalArgumentException or similar would work I think.",
+      "range": {
+        "startLine": 1737,
+        "startChar": 38,
+        "endLine": 1737,
+        "endChar": 53
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39e973c3_5d5faf57",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: Collection.removeIf would be a bit simpler\n\nhttps://docs.oracle.com/javase/8/docs/api/java/util/Collection.html#removeIf-java.util.function.Predicate-\n\nAlthough it won\u0027t break at the first item, in practice there won\u0027t be many (most likely just 1)\n\nOr you could use CollectionUtils.indexOf (https://cs.android.com/android/platform/superproject/+/master:frameworks/libs/net/common/framework/com/android/net/module/util/CollectionUtils.java;drc\u003df5f402462551317629d05fb23c55d68a2eec7797;l\u003d105) and overwrite the item at that position if it existed. If there *were* a lot of items (which isn\u0027t the case) it would be slightly faster.\nOr CollectionUtils.indexOf + List.remove, if you want to break at the first item.\n\nUp to you if you prefer the current code though.",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4188da0f_c060a7f6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: unused",
+      "range": {
+        "startLine": 308,
+        "startChar": 31,
+        "endLine": 308,
+        "endChar": 43
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a93b1585_a30a0227",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Supernit: extra space",
+      "range": {
+        "startLine": 311,
+        "startChar": 59,
+        "endLine": 311,
+        "endChar": 60
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f717a8c6_ebc4086c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: needs to be\n\nBut more accurately, when offload should stop for a service ?",
+      "range": {
+        "startLine": 474,
+        "startChar": 33,
+        "endLine": 474,
+        "endChar": 46
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "779f33d5_82321e94",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: getSocketInterfaceName ? InterfaceSocketName makes me think it\u0027s a \"socket name\"",
+      "range": {
+        "startLine": 349,
+        "startChar": 18,
+        "endLine": 349,
+        "endChar": 40
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9ec3660_7d188867",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "Nit: times(1) is the default, so you shouldn\u0027t need to specify it unless it\u0027s useful for readability",
+      "range": {
+        "startLine": 142,
+        "startChar": 17,
+        "endLine": 142,
+        "endChar": 27
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c3c2f97_635f5ea7",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-01T03:58:19Z",
+      "side": 1,
+      "message": "It would be useful to have .equals in OffloadServiceInfo; NsdServiceInfo doesn\u0027t because adding it at this point may break apps that rely on reference equality (maybe)\n\nThat should probably be in a separate change though.",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
