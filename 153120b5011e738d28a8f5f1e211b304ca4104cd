@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72745fcf_2b5fe19d",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-01T02:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69075831_77f96a6e",
+      "range": {
+        "startLine": 217,
+        "startChar": 16,
+        "endLine": 217,
+        "endChar": 38
+      },
+      "revId": "153120b5011e738d28a8f5f1e211b304ca4104cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48ed4021_898d16c1",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-28T11:19:25Z",
       "side": 1,
       "message": "try to structure code so functions use functions above them, it\u0027s easier to read.",
+      "range": {
+        "startLine": 298,
+        "startChar": 23,
+        "endLine": 298,
+        "endChar": 35
+      },
+      "revId": "153120b5011e738d28a8f5f1e211b304ca4104cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "473cdb74_187f0501",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-01T02:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48ed4021_898d16c1",
       "range": {
         "startLine": 298,
         "startChar": 23,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44eb1f58_deb92f0d",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-01T02:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9f0d623_ff307a18",
+      "range": {
+        "startLine": 299,
+        "startChar": 11,
+        "endLine": 299,
+        "endChar": 12
+      },
+      "revId": "153120b5011e738d28a8f5f1e211b304ca4104cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5670ebe0_cdd02f4f",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-01T02:19:45Z",
+      "side": 1,
+      "message": "update to padding. I see the next 4 bytes are message body in https://datatracker.ietf.org/doc/html/rfc4443#section-2.1, so I call it message body.",
+      "parentUuid": "4fa803c8_1767c536",
+      "range": {
+        "startLine": 299,
+        "startChar": 80,
+        "endLine": 299,
+        "endChar": 92
+      },
+      "revId": "153120b5011e738d28a8f5f1e211b304ca4104cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64ea6cdc_4674e154",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-04-28T11:19:25Z",
       "side": 1,
       "message": "these instanceof v4/v6 checks make me uncomfortable.\n\nHow does this work in java?\n\nIs ::ffff:10.1.2.3 an instance of Inet4Address and not Inet6Address?\n(perhaps by virtue of automatic downconversion or something)\n\nDo we have something else to guarantee we won\u0027t get ipv4 mapped ipv6 addresses?\n\nIs there an assertion somewhere?\n\n--\n\nI guess a similar question about 0.0.0.0 and :: - is there a guarantee we won\u0027t have to deal with those?  ie. an assertion somewhere?",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 12
+      },
+      "revId": "153120b5011e738d28a8f5f1e211b304ca4104cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5594d45b_5121e9e9",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-01T02:19:45Z",
+      "side": 1,
+      "message": "Use InetAddress.getbyAddess() to ensure no IPv4 mapped v6(will be tranlated to Inet4Address for this case).",
+      "parentUuid": "64ea6cdc_4674e154",
       "range": {
         "startLine": 303,
         "startChar": 0,
