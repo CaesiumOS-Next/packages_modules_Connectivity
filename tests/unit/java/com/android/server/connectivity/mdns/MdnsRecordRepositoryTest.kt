@@ -43,6 +43,7 @@ import org.junit.runner.RunWith
 
 private const val TEST_SERVICE_ID_1 = 42
 private const val TEST_SERVICE_ID_2 = 43
+private const val TEST_SERVICE_ID_3 = 44
 private const val TEST_PORT = 12345
 private val TEST_HOSTNAME = arrayOf("Android_000102030405060708090A0B0C0D0E0F", "local")
 private val TEST_ADDRESSES = listOf(
@@ -59,6 +60,12 @@ private val TEST_SERVICE_1 = NsdServiceInfo().apply {
 private val TEST_SERVICE_2 = NsdServiceInfo().apply {
     serviceType = "_testservice._tcp"
     serviceName = "MyOtherTestService"
+    port = TEST_PORT
+}
+
+private val TEST_SERVICE_3 = NsdServiceInfo().apply {
+    serviceType = "_TESTSERVICE._tcp"
+    serviceName = "MyTESTSERVICE"
     port = TEST_PORT
 }
 
@@ -121,6 +128,9 @@ class MdnsRecordRepositoryTest {
         repository.addService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
         assertFailsWith(NameConflictException::class) {
             repository.addService(TEST_SERVICE_ID_2, TEST_SERVICE_1)
+        }
+        assertFailsWith(NameConflictException::class) {
+            repository.addService(TEST_SERVICE_ID_3, TEST_SERVICE_3)
         }
     }
 
@@ -317,6 +327,96 @@ class MdnsRecordRepositoryTest {
         assertContentEquals(expectedV4, getReverseDnsAddress(parseNumericAddress("192.0.2.123")))
     }
 
+    private fun checkGetReply(reply: MdnsRecordRepository.ReplyInfo?) {
+        assertNotNull(reply)
+        // Source address is IPv4
+        assertEquals(MdnsConstants.getMdnsIPv4Address(), reply.destination.address)
+        assertEquals(MdnsConstants.MDNS_PORT, reply.destination.port)
+
+        // TTLs as per RFC6762 10.
+        val longTtl = 4_500_000L
+        val shortTtl = 120_000L
+        val serviceName = arrayOf("MyTestService", "_testservice", "_tcp", "local")
+
+        assertEquals(listOf(
+            MdnsPointerRecord(
+                arrayOf("_testservice", "_tcp", "local"),
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                longTtl,
+                serviceName),
+        ), reply.answers)
+
+        assertEquals(listOf(
+            MdnsTextRecord(
+                serviceName,
+                0L /* receiptTimeMillis */,
+                true /* cacheFlush */,
+                longTtl,
+                listOf() /* entries */),
+            MdnsServiceRecord(
+                serviceName,
+                0L /* receiptTimeMillis */,
+                true /* cacheFlush */,
+                shortTtl,
+                0 /* servicePriority */,
+                0 /* serviceWeight */,
+                TEST_PORT,
+                TEST_HOSTNAME),
+            MdnsInetAddressRecord(
+                TEST_HOSTNAME,
+                0L /* receiptTimeMillis */,
+                true /* cacheFlush */,
+                shortTtl,
+                TEST_ADDRESSES[0].address),
+            MdnsInetAddressRecord(
+                TEST_HOSTNAME,
+                0L /* receiptTimeMillis */,
+                true /* cacheFlush */,
+                shortTtl,
+                TEST_ADDRESSES[1].address),
+            MdnsInetAddressRecord(
+                TEST_HOSTNAME,
+                0L /* receiptTimeMillis */,
+                true /* cacheFlush */,
+                shortTtl,
+                TEST_ADDRESSES[2].address),
+            MdnsNsecRecord(
+                serviceName,
+                0L /* receiptTimeMillis */,
+                true /* cacheFlush */,
+                longTtl,
+                serviceName /* nextDomain */,
+                intArrayOf(MdnsRecord.TYPE_TXT, MdnsRecord.TYPE_SRV)),
+            MdnsNsecRecord(
+                TEST_HOSTNAME,
+                0L /* receiptTimeMillis */,
+                true /* cacheFlush */,
+                shortTtl,
+                TEST_HOSTNAME /* nextDomain */,
+                intArrayOf(MdnsRecord.TYPE_A, MdnsRecord.TYPE_AAAA)),
+        ), reply.additionalAnswers)
+    }
+
+    @Test
+    fun testGetReplyCaseInsensitive() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME)
+        repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        val questionsCaseInSensitive =
+            listOf(MdnsPointerRecord(arrayOf("_TESTSERVICE", "_TCP", "local"),
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                // TTL and data is empty for a question
+                0L /* ttlMillis */,
+                null /* pointer */))
+        val queryCaseInsensitive = MdnsPacket(0 /* flags */, questionsCaseInSensitive,
+            listOf() /* answers */, listOf() /* authorityRecords */,
+            listOf() /* additionalRecords */)
+        val src = InetSocketAddress(parseNumericAddress("192.0.2.123"), 5353)
+        val replyCaseInsensitive = repository.getReply(queryCaseInsensitive, src)
+        checkGetReply(replyCaseInsensitive)
+    }
+
     @Test
     fun testGetReply() {
         val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME)
@@ -331,75 +431,7 @@ class MdnsRecordRepositoryTest {
                 listOf() /* authorityRecords */, listOf() /* additionalRecords */)
         val src = InetSocketAddress(parseNumericAddress("192.0.2.123"), 5353)
         val reply = repository.getReply(query, src)
-
-        assertNotNull(reply)
-        // Source address is IPv4
-        assertEquals(MdnsConstants.getMdnsIPv4Address(), reply.destination.address)
-        assertEquals(MdnsConstants.MDNS_PORT, reply.destination.port)
-
-        // TTLs as per RFC6762 10.
-        val longTtl = 4_500_000L
-        val shortTtl = 120_000L
-        val serviceName = arrayOf("MyTestService", "_testservice", "_tcp", "local")
-
-        assertEquals(listOf(
-                MdnsPointerRecord(
-                        arrayOf("_testservice", "_tcp", "local"),
-                        0L /* receiptTimeMillis */,
-                        false /* cacheFlush */,
-                        longTtl,
-                        serviceName),
-        ), reply.answers)
-
-        assertEquals(listOf(
-            MdnsTextRecord(
-                    serviceName,
-                    0L /* receiptTimeMillis */,
-                    true /* cacheFlush */,
-                    longTtl,
-                    listOf() /* entries */),
-            MdnsServiceRecord(
-                    serviceName,
-                    0L /* receiptTimeMillis */,
-                    true /* cacheFlush */,
-                    shortTtl,
-                    0 /* servicePriority */,
-                    0 /* serviceWeight */,
-                    TEST_PORT,
-                    TEST_HOSTNAME),
-            MdnsInetAddressRecord(
-                    TEST_HOSTNAME,
-                    0L /* receiptTimeMillis */,
-                    true /* cacheFlush */,
-                    shortTtl,
-                    TEST_ADDRESSES[0].address),
-            MdnsInetAddressRecord(
-                    TEST_HOSTNAME,
-                    0L /* receiptTimeMillis */,
-                    true /* cacheFlush */,
-                    shortTtl,
-                    TEST_ADDRESSES[1].address),
-            MdnsInetAddressRecord(
-                    TEST_HOSTNAME,
-                    0L /* receiptTimeMillis */,
-                    true /* cacheFlush */,
-                    shortTtl,
-                    TEST_ADDRESSES[2].address),
-            MdnsNsecRecord(
-                    serviceName,
-                    0L /* receiptTimeMillis */,
-                    true /* cacheFlush */,
-                    longTtl,
-                    serviceName /* nextDomain */,
-                    intArrayOf(MdnsRecord.TYPE_TXT, MdnsRecord.TYPE_SRV)),
-            MdnsNsecRecord(
-                    TEST_HOSTNAME,
-                    0L /* receiptTimeMillis */,
-                    true /* cacheFlush */,
-                    shortTtl,
-                    TEST_HOSTNAME /* nextDomain */,
-                    intArrayOf(MdnsRecord.TYPE_A, MdnsRecord.TYPE_AAAA)),
-        ), reply.additionalAnswers)
+        checkGetReply(reply)
     }
 
     @Test
@@ -428,6 +460,34 @@ class MdnsRecordRepositoryTest {
 
         assertEquals(setOf(TEST_SERVICE_ID_1, TEST_SERVICE_ID_2),
                 repository.getConflictingServices(packet))
+    }
+
+    @Test
+    fun testGetConflictingServicesCaseInsensitive() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME)
+        repository.addService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        repository.addService(TEST_SERVICE_ID_2, TEST_SERVICE_2)
+
+        val packet = MdnsPacket(
+            0 /* flags */,
+            emptyList() /* questions */,
+            listOf(
+                MdnsServiceRecord(
+                    arrayOf("MYTESTSERVICE", "_TESTSERVICE", "_tcp", "local"),
+                    0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */,
+                    0 /* servicePriority */, 0 /* serviceWeight */,
+                    TEST_SERVICE_1.port + 1,
+                    TEST_HOSTNAME),
+                MdnsTextRecord(
+                    arrayOf("MYOTHERTESTSERVICE", "_TESTSERVICE", "_tcp", "local"),
+                    0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */,
+                    listOf(TextEntry.fromString("somedifferent=entry"))),
+            ) /* answers */,
+            emptyList() /* authorityRecords */,
+            emptyList() /* additionalRecords */)
+
+        assertEquals(setOf(TEST_SERVICE_ID_1, TEST_SERVICE_ID_2),
+            repository.getConflictingServices(packet))
     }
 
     @Test

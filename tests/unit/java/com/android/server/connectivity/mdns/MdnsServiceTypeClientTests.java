@@ -1004,10 +1004,11 @@ public class MdnsServiceTypeClientTests {
         final String otherInstance = "instance2";
         final String ipV4Address = "192.0.2.0";
         final String ipV6Address = "2001:db8::";
+        final String capitalizedRequestInstance = "Instance1";
 
         final MdnsSearchOptions resolveOptions = MdnsSearchOptions.newBuilder()
                 // Use different case in the options
-                .setResolveInstanceName("Instance1").build();
+                .setResolveInstanceName(capitalizedRequestInstance).build();
 
         client.startSendAndReceive(mockListenerOne, resolveOptions);
         client.startSendAndReceive(mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
@@ -1035,8 +1036,9 @@ public class MdnsServiceTypeClientTests {
                 Collections.emptyMap(), 0L /* ttl */), INTERFACE_INDEX, mockNetwork);
 
         // mockListenerOne gets notified for the requested instance
-        verify(mockListenerOne).onServiceNameDiscovered(matchServiceName(requestedInstance));
-        verify(mockListenerOne).onServiceFound(matchServiceName(requestedInstance));
+        verify(mockListenerOne).onServiceNameDiscovered(
+                matchServiceName(capitalizedRequestInstance));
+        verify(mockListenerOne).onServiceFound(matchServiceName(capitalizedRequestInstance));
 
         // ...but does not get any callback for the other instance
         verify(mockListenerOne, never()).onServiceFound(matchServiceName(otherInstance));
@@ -1047,8 +1049,9 @@ public class MdnsServiceTypeClientTests {
         // mockListenerTwo gets notified for both though
         final InOrder inOrder = inOrder(mockListenerTwo);
         inOrder.verify(mockListenerTwo).onServiceNameDiscovered(
-                matchServiceName(requestedInstance));
-        inOrder.verify(mockListenerTwo).onServiceFound(matchServiceName(requestedInstance));
+                matchServiceName(capitalizedRequestInstance));
+        inOrder.verify(mockListenerTwo).onServiceFound(
+                matchServiceName(capitalizedRequestInstance));
 
         inOrder.verify(mockListenerTwo).onServiceNameDiscovered(matchServiceName(otherInstance));
         inOrder.verify(mockListenerTwo).onServiceFound(matchServiceName(otherInstance));
