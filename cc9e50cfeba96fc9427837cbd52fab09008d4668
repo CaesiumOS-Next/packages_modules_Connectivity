@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "472cf03f_0b8d5a3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-05-02T18:27:35Z",
+      "side": 1,
+      "message": "Could you clarify what this means? We already skip data-saver related tests on devices that don\u0027t support data saver using the logic at https://source.corp.google.com/h/googleplex-android/platform/superproject/+/master:packages/modules/Connectivity/tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java;l\u003d115;drc\u003df55188807d29c91a88391b8a65c8743067744f0d which follows the CDD language. If you think that logic is not accurate, let us know. But I don\u0027t see why we should AppStandby related tests just because data-saver is not supported.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "cc9e50cfeba96fc9427837cbd52fab09008d4668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
