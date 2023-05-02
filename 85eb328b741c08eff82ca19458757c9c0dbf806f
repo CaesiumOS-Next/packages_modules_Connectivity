@@ -39,6 +39,121 @@
       },
       "revId": "85eb328b741c08eff82ca19458757c9c0dbf806f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0991930d_b15e9035",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-02T01:54:06Z",
+      "side": 1,
+      "message": "Let\u0027s clarify that this is not about the spec or anything, but something that our code always does – write the name of the function that always does it",
+      "range": {
+        "startLine": 276,
+        "startChar": 56,
+        "endLine": 276,
+        "endChar": 93
+      },
+      "revId": "85eb328b741c08eff82ca19458757c9c0dbf806f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ebef250_ef992682",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-02T01:54:06Z",
+      "side": 1,
+      "message": "Please rework this sentence – \"the diagnostic packets\" can\u0027t be the subject of this verb because they don\u0027t do anything",
+      "range": {
+        "startLine": 277,
+        "startChar": 55,
+        "endLine": 277,
+        "endChar": 59
+      },
+      "revId": "85eb328b741c08eff82ca19458757c9c0dbf806f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2348992_c64ab189",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-02T01:54:06Z",
+      "side": 1,
+      "message": "Likewise please rework the S-V-O structure. This is understandable but hard to parse ; e.g. \"it\u0027s fine to use the v4 header size in the length calculation\"",
+      "range": {
+        "startLine": 278,
+        "startChar": 27,
+        "endLine": 278,
+        "endChar": 29
+      },
+      "revId": "85eb328b741c08eff82ca19458757c9c0dbf806f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4eec5bb_c2923719",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-02T01:54:06Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 283,
+        "startChar": 64,
+        "endLine": 283,
+        "endChar": 65
+      },
+      "revId": "85eb328b741c08eff82ca19458757c9c0dbf806f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "025c4637_c6006870",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-02T01:54:06Z",
+      "side": 1,
+      "message": "Please either :\n• Make this illegal with `throw IllegalArgumentException` and make sure it\u0027s never called with a negative arg\n• Keep this check but explain why it can happen in the comment in l.304",
+      "range": {
+        "startLine": 305,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 35
+      },
+      "revId": "85eb328b741c08eff82ca19458757c9c0dbf806f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
