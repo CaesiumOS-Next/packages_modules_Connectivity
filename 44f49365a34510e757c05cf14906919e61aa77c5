@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6418d881_b4e2dec0",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1993882
+      },
+      "writtenOn": "2023-05-02T09:00:02Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 120,
+        "startChar": 53,
+        "endLine": 120,
+        "endChar": 54
+      },
+      "revId": "44f49365a34510e757c05cf14906919e61aa77c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05adcf26_2e4b8918",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1993882
+      },
+      "writtenOn": "2023-05-02T09:00:02Z",
+      "side": 1,
+      "message": "Can we make this represented by an hex string instead ? I think it would be more convenient.",
+      "range": {
+        "startLine": 175,
+        "startChar": 42,
+        "endLine": 175,
+        "endChar": 77
+      },
+      "revId": "44f49365a34510e757c05cf14906919e61aa77c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
