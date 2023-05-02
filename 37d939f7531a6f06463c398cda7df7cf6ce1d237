@@ -131,6 +131,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b37bcb1_2ec9e02e",
+        "filename": "framework-t/src/android/net/nsd/OffloadRecord.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T07:40:09Z",
+      "side": 1,
+      "message": "FYI, we updated the API again to use String instead of String[] to complain with the API guideline.\n\nhttps://android.googlesource.com/platform/developers/docs/+/975a589941f728f6c6ce6fbbd7517ca854bc61ba/api-guidelines/index.md#methods-prefer-collection-over-array",
+      "parentUuid": "a4ff0dbb_5490e61f",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "37d939f7531a6f06463c398cda7df7cf6ce1d237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ece4cc3_ef5b9c36",
