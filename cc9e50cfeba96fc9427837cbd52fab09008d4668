@@ -22,6 +22,30 @@
       },
       "revId": "cc9e50cfeba96fc9427837cbd52fab09008d4668",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "231896cd_d0c859dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1901791
+      },
+      "writtenOn": "2023-05-02T19:35:59Z",
+      "side": 1,
+      "message": "For more details about these tests on Wear, please take a look at https://b.corp.google.com/issues/279840893#comment2 and https://b.corp.google.com/issues/279840893#comment1.\n\nFrom https://cs.android.com/android/platform/superproject/+/android13-tests-dev:packages/modules/Connectivity/tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java:\n```\n  public static boolean isDataSaverSupported() {\n        if (isWear()) {\n            return false;\n        }\n```\nThis always return to false on Wear, removing the check `isWear()` will cause a crash by assert() in the same function, I am not sure if the `RESTRICT_BACKGROUND_STATUS_DISABLED` should be returned for unsupported data saver device instead of this.\n \nOn Wear, Data saver is enabled by default, and some functions likes ` setRestrictBackground*` won\u0027t work on Wear.\n\nSome tests related to AppStandby like testDozeModeMetered_disabled, which requires restrict background to be working. \nNote: `adb shell cmd netpolicy set restrict-background false` is required to make all the tests pass without this commit.\n\nError logs:\n\n```\ncom.android.cts.net.hostside.AppIdleMeteredTest#testBackgroundNetworkAccess_disabled:\njava.lang.AssertionError: Invalid state for 10482; expectAvailable\u003dtrue after 5 attempts.\nLast error: Connection state mismatch: expected CONNECTED/CONNECTED, got DISCONNECTED/BLOCKED\nnetworkInfo: [type: WIFI[], state: DISCONNECTED/BLOCKED, reason: (unspecified), extra: (none), failover: false, available: true, roaming: false]\nconnectionCheckDetails: HTTP response for http://example.com: 200\n\nat org.junit.Assert.fail(Assert.java:89)\nat com.android.cts.net.hostside.AbstractRestrictBackgroundNetworkTestCase.assertNetworkAccess(AbstractRestrictBackgroundNetworkTestCase.java:433)\nat com.android.cts.net.hostside.AbstractRestrictBackgroundNetworkTestCase.assertBackgroundNetworkAccess(AbstractRestrictBackgroundNetworkTestCase.java:283)\nat com.android.cts.net.hostside.AbstractAppIdleTestCase.testBackgroundNetworkAccess_disabled(AbstractAppIdleTestCase.java:141)\nat com.android.cts.net.hostside.AppIdleMeteredTest.testBackgroundNetworkAccess_disabled(AppIdleMeteredTest.java:21)\n```",
+      "parentUuid": "472cf03f_0b8d5a3c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "cc9e50cfeba96fc9427837cbd52fab09008d4668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
