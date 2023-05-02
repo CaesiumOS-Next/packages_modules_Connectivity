@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "970d6a92_008113eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "gg",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee7eb087_b0313203",
@@ -35,6 +52,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92475e17_ac009b9d",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee7eb087_b0313203",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f788bf1_1247e009",
@@ -48,6 +83,30 @@
       "writtenOn": "2023-05-01T03:58:19Z",
       "side": 1,
       "message": "Nit: more accurately, to receive the offload callbacks (actual offload won\u0027t be done on the executor)",
+      "range": {
+        "startLine": 393,
+        "startChar": 48,
+        "endLine": 393,
+        "endChar": 69
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eb81a4c_48ab6017",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f788bf1_1247e009",
       "range": {
         "startLine": 393,
         "startChar": 48,
@@ -81,6 +140,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "424ce150_12f4f6b4",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac722966_1a4ffc41",
+      "range": {
+        "startLine": 394,
+        "startChar": 46,
+        "endLine": 394,
+        "endChar": 66
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5ef929e_c6ebce32",
@@ -94,6 +177,30 @@
       "writtenOn": "2023-05-01T03:58:19Z",
       "side": 1,
       "message": "Nit: maybe say it\u0027s one of OffloadEngine.OFFLOAD_CAPABILITY_*",
+      "range": {
+        "startLine": 395,
+        "startChar": 55,
+        "endLine": 395,
+        "endChar": 67
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be4627fb_bde1825a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5ef929e_c6ebce32",
       "range": {
         "startLine": 395,
         "startChar": 55,
@@ -127,6 +234,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6d51a5f_0a3c9e27",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c2b4fb2_80133ac1",
+      "range": {
+        "startLine": 427,
+        "startChar": 58,
+        "endLine": 428,
+        "endChar": 23
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdc5111f_e517be5c",
@@ -140,6 +271,24 @@
       "writtenOn": "2023-05-01T03:58:19Z",
       "side": 1,
       "message": "As discussed offline, this probably needs another field to indicate the kind of offload to do (reply to queries, or let queries through, or let replies through). Otherwise APF which would have capabilities to filter queries and replies wouldn\u0027t know if it needs to let through the queries, or the replies.\n\nMaybe something like \"final long mOffloadType\" which would match OFFLOAD_CAPABILITY_* ?",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c336cc1_e266da14",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdc5111f_e517be5c",
       "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -161,6 +310,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f743779d_07a5e4dc",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15e9e459_d74b8561",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e32c074a_c9ba2300",
@@ -174,6 +341,24 @@
       "writtenOn": "2023-05-01T03:58:19Z",
       "side": 1,
       "message": "Nit: move to the javadoc\n\nAnd the javadoc should be one line, then line break, then details (first line gets on the summary table in the documentation site, the rest goes to the description section)",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a88b765_1cf4ef5d",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e32c074a_c9ba2300",
       "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -195,6 +380,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "670e8e89_a11eb8d2",
+        "filename": "framework/jarjar-excludes.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f821c6e3_13f75956",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "636a6955_deb6ff5b",
@@ -208,6 +411,30 @@
       "writtenOn": "2023-05-01T03:58:19Z",
       "side": 1,
       "message": "Nit: so this would be for CAPABILITY_FILTER_QUERIES so that the probe replies I seen I think ? Better add it to the comment to clarify",
+      "range": {
+        "startLine": 1564,
+        "startChar": 91,
+        "endLine": 1565,
+        "endChar": 28
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daa6b914_739ac5ba",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1565,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "636a6955_deb6ff5b",
       "range": {
         "startLine": 1564,
         "startChar": 91,
@@ -241,6 +468,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c04886ff_446cdc89",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17e0fbfa_4f758df5",
+      "range": {
+        "startLine": 1726,
+        "startChar": 49,
+        "endLine": 1726,
+        "endChar": 58
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f7f2353_5e0abed5",
@@ -254,6 +505,30 @@
       "writtenOn": "2023-05-01T03:58:19Z",
       "side": 1,
       "message": "I don\u0027t think you\u0027re supposed to throw a RemoteException yourself; rather you throw a regular exception within the Binder transaction, and Binder wraps it in a RemoteException when that call finishes, giving it to the caller (setting the cause field as the original exception maybe ?)\n\nJust IllegalArgumentException or similar would work I think.",
+      "range": {
+        "startLine": 1737,
+        "startChar": 38,
+        "endLine": 1737,
+        "endChar": 53
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fdf664f_b10b071d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1737,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f7f2353_5e0abed5",
       "range": {
         "startLine": 1737,
         "startChar": 38,
@@ -281,6 +556,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29e09b18_bc227f36",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39e973c3_5d5faf57",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4188da0f_c060a7f6",
@@ -294,6 +587,30 @@
       "writtenOn": "2023-05-01T03:58:19Z",
       "side": 1,
       "message": "Nit: unused",
+      "range": {
+        "startLine": 308,
+        "startChar": 31,
+        "endLine": 308,
+        "endChar": 43
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7b1e16f_7187d1c8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4188da0f_c060a7f6",
       "range": {
         "startLine": 308,
         "startChar": 31,
@@ -327,6 +644,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "173b58de_87b8b018",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a93b1585_a30a0227",
+      "range": {
+        "startLine": 311,
+        "startChar": 59,
+        "endLine": 311,
+        "endChar": 60
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f717a8c6_ebc4086c",
@@ -340,6 +681,30 @@
       "writtenOn": "2023-05-01T03:58:19Z",
       "side": 1,
       "message": "Nit: needs to be\n\nBut more accurately, when offload should stop for a service ?",
+      "range": {
+        "startLine": 474,
+        "startChar": 33,
+        "endLine": 474,
+        "endChar": 46
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eed3190b_c9866127",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f717a8c6_ebc4086c",
       "range": {
         "startLine": 474,
         "startChar": 33,
@@ -373,6 +738,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f82b8e0_ef9a6fb8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "779f33d5_82321e94",
+      "range": {
+        "startLine": 349,
+        "startChar": 18,
+        "endLine": 349,
+        "endChar": 40
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9ec3660_7d188867",
@@ -396,6 +785,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e12cc7e9_fd0ee2e5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9ec3660_7d188867",
+      "range": {
+        "startLine": 142,
+        "startChar": 17,
+        "endLine": 142,
+        "endChar": 27
+      },
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c3c2f97_635f5ea7",
@@ -409,6 +822,24 @@
       "writtenOn": "2023-05-01T03:58:19Z",
       "side": 1,
       "message": "It would be useful to have .equals in OffloadServiceInfo; NsdServiceInfo doesn\u0027t because adding it at this point may break apps that rely on reference equality (maybe)\n\nThat should probably be in a separate change though.",
+      "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f2fd7d8_dabdef4a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-02T03:47:17Z",
+      "side": 1,
+      "message": "Done. added the equals method.",
+      "parentUuid": "3c3c2f97_635f5ea7",
       "revId": "c15ecf0305da955c84397afcfe8a891c03de816e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
