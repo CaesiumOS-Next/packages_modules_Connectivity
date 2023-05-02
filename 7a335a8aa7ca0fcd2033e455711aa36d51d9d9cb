@@ -147,6 +147,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "995b9fcf_a4989839",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-02T02:32:31Z",
+      "side": 1,
+      "message": "Ah I see, that makes a lot of sense. Thanks.",
+      "parentUuid": "5503b1bf_c06be22a",
+      "range": {
+        "startLine": 245,
+        "startChar": 39,
+        "endLine": 245,
+        "endChar": 41
+      },
+      "revId": "7a335a8aa7ca0fcd2033e455711aa36d51d9d9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "029c56de_a161d3b8",
