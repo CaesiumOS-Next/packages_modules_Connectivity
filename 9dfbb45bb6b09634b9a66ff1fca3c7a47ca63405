@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "041b5358_fe25353e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-02T17:08:30Z",
+      "side": 1,
+      "message": "224.0.0.0/4 - multicast\n\nhttps://en.wikipedia.org/wiki/Multicast_address\n224.0.0.0 to 224.0.0.255\tLocal subnetwork[2]\tNot routable",
+      "revId": "9dfbb45bb6b09634b9a66ff1fca3c7a47ca63405",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
