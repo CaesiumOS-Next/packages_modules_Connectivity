@@ -30,6 +30,7 @@ cc_library {
     ],
     shared_libs: [
         "libbase",
+        "libcutils",
         "liblog",
     ],
     static_libs: [
