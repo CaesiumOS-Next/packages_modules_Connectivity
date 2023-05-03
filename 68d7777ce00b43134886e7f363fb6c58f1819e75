@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d56137da_76f8955d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2023-05-03T15:04:40Z",
+      "side": 1,
+      "message": "Added a public-facing bug: https://issuetracker.google.com/issues/280462382",
+      "revId": "68d7777ce00b43134886e7f363fb6c58f1819e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
