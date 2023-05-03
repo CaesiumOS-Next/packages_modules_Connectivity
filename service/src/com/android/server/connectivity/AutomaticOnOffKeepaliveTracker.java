@@ -393,12 +393,27 @@ public class AutomaticOnOffKeepaliveTracker {
     }
 
     /**
+     * Find the AutomaticOnOffKeepalive associated with a given network and slot.
+     * @return the keepalive associated with this network and slot, or null if none
+     */
+    @Nullable
+    private AutomaticOnOffKeepalive getKeepaliveForNetworkSlot(@NonNull Network network, int slot) {
+        ensureRunningOnHandlerThread();
+
+        return CollectionUtils.findFirst(mAutomaticOnOffKeepalives,
+            it -> it.match(network, slot));
+    }
+
+    /**
      * Handle keepalive events from lower layer.
      *
      * Forward to KeepaliveTracker.
      */
     public void handleEventSocketKeepalive(@NonNull NetworkAgentInfo nai, int slot, int reason) {
-        mKeepaliveTracker.handleEventSocketKeepalive(nai, slot, reason);
+        if (mKeepaliveTracker.handleEventSocketKeepalive(nai, slot, reason)) {
+            // Should cleanup the keepalive
+            cleanupAutoOnOffKeepalive(nai.network(), slot);
+        }
     }
 
     /**
@@ -421,9 +436,12 @@ public class AutomaticOnOffKeepaliveTracker {
      */
     public void handleStartKeepalive(Message message) {
         final AutomaticOnOffKeepalive autoKi = (AutomaticOnOffKeepalive) message.obj;
+        if (!mKeepaliveTracker.handleStartKeepalive(autoKi.mKi)) {
+            // failed to start keepalive.
+            return;
+        }
         mEventLog.log("Start keepalive " + autoKi.mCallback + " on " + autoKi.getNetwork());
         mKeepaliveStatsTracker.onStartKeepalive();
-        mKeepaliveTracker.handleStartKeepalive(autoKi.mKi);
 
         // Add automatic on/off request into list to track its life cycle.
         try {
@@ -440,8 +458,11 @@ public class AutomaticOnOffKeepaliveTracker {
     }
 
     private void handleResumeKeepalive(@NonNull final KeepaliveTracker.KeepaliveInfo ki) {
+        if (!mKeepaliveTracker.handleStartKeepalive(ki)) {
+            mEventLog.log("Failed to resume keepalive " + ki.mCallback + " on " + ki.mNai);
+            return;
+        }
         mKeepaliveStatsTracker.onResumeKeepalive();
-        mKeepaliveTracker.handleStartKeepalive(ki);
         mEventLog.log("Resumed successfully keepalive " + ki.mCallback + " on " + ki.mNai);
     }
 
@@ -481,6 +502,15 @@ public class AutomaticOnOffKeepaliveTracker {
         if (!mAutomaticOnOffKeepalives.remove(autoKi)) return;
 
         autoKi.mKi.mCallback.asBinder().unlinkToDeath(autoKi, 0);
+    }
+
+    private void cleanupAutoOnOffKeepalive(@NonNull final Network network, int slot) {
+        final AutomaticOnOffKeepalive autoKi = getKeepaliveForNetworkSlot(network, slot);
+        if (autoKi == null) {
+            Log.e(TAG, "Attempt cleanup on unknown network, slot");
+            return;
+        }
+        cleanupAutoOnOffKeepalive(autoKi);
     }
 
     /**
@@ -604,7 +634,11 @@ public class AutomaticOnOffKeepaliveTracker {
      * Forward to KeepaliveTracker.
      */
     public void handleCheckKeepalivesStillValid(NetworkAgentInfo nai) {
-        mKeepaliveTracker.handleCheckKeepalivesStillValid(nai);
+        final List<Integer> invalidSlots = mKeepaliveTracker.handleCheckKeepalivesStillValid(nai);
+        for (int slot : invalidSlots) {
+            // Should cleanup the keepalive
+            cleanupAutoOnOffKeepalive(nai.network(), slot);
+        }
     }
 
     @VisibleForTesting
