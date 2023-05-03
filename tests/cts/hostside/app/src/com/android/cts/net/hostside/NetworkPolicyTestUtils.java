@@ -337,7 +337,7 @@ public class NetworkPolicyTestUtils {
     }
 
     public static void setRestrictBackground(boolean enabled) {
-        if (!isDataSaverSupported()) {
+        if (!isDataSaverSupported() && !isWear()) {
             return;
         }
         setRestrictBackgroundInternal(enabled);
