@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65e7dde2_574cb2da",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:10Z",
+      "side": 1,
+      "message": "Done in aosp/2489355.",
+      "parentUuid": "85b73e66_36faeaca",
+      "range": {
+        "startLine": 94,
+        "startChar": 69,
+        "endLine": 94,
+        "endChar": 88
+      },
+      "revId": "5c9c41f6956a1466d904d76fa9186df2ac697bc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b71c0c53_caa4f565",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cf0d3c8_2c0e5cbc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:10Z",
+      "side": 1,
+      "message": "Done in aosp/2489355",
+      "parentUuid": "d06821cc_4fbc793e",
+      "range": {
+        "startLine": 242,
+        "startChar": 69,
+        "endLine": 242,
+        "endChar": 88
+      },
+      "revId": "5c9c41f6956a1466d904d76fa9186df2ac697bc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "331cd647_92a6ab61",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-04-21T08:59:28Z",
       "side": 1,
       "message": "As noted above other things than service expiration can happen (one address lost, or all addresses lost so the response is no longer \"complete\", etc).\n\nConsidering that, for implementing other callbacks later I think you\u0027ll need something more generic, like:\n\n     onServiceRecordExpired(@NonNull MdnsResponse previousResponse, @Nullable MdnsResponse newResponse)\n     \nThis should allow MdnsServiceTypeClient to send the appropriate callbacks; for example if previousResponse.isComplete() and newResponse \u003d\u003d null || !newResponse.isComplete(), onServiceRemoved (but not onServiceNameRemoved). Or if newResponse \u003d\u003d null, onServiceNameRemoved.",
+      "range": {
+        "startLine": 248,
+        "startChar": 21,
+        "endLine": 248,
+        "endChar": 37
+      },
+      "revId": "5c9c41f6956a1466d904d76fa9186df2ac697bc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58f8d887_d58d0eef",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:10Z",
+      "side": 1,
+      "message": "Make sense. Update the design accordingly.",
+      "parentUuid": "331cd647_92a6ab61",
       "range": {
         "startLine": 248,
         "startChar": 21,
@@ -104,6 +176,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df84065c_55f9af35",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:10Z",
+      "side": 1,
+      "message": "Move the callback registration/unregistration to start/stop sending, it should be a reasonable place to call these methods and no need to create a new method.",
+      "parentUuid": "e1e1e41e_b649061b",
+      "revId": "5c9c41f6956a1466d904d76fa9186df2ac697bc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9c90f1a_0fef921f",
@@ -121,6 +211,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62b02fc2_4372469f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:10Z",
+      "side": 1,
+      "message": "Acknowledged. Removed.",
+      "parentUuid": "b9c90f1a_0fef921f",
+      "revId": "5c9c41f6956a1466d904d76fa9186df2ac697bc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19db1814_9edc6344",
@@ -134,6 +242,30 @@
       "writtenOn": "2023-04-21T08:59:28Z",
       "side": 1,
       "message": "Since runningOnHandler blocks until the method has finished running, I don\u0027t think this is needed: when runningOnHandler returns, nothing is running so there won\u0027t be other callbacks",
+      "range": {
+        "startLine": 85,
+        "startChar": 47,
+        "endLine": 85,
+        "endChar": 69
+      },
+      "revId": "5c9c41f6956a1466d904d76fa9186df2ac697bc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ff129c2_f253f526",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:10Z",
+      "side": 1,
+      "message": "Acknowledged. Removed.",
+      "parentUuid": "19db1814_9edc6344",
       "range": {
         "startLine": 85,
         "startChar": 47,
