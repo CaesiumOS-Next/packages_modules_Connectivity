@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86612d52_ebd07400",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-03T02:53:27Z",
+      "side": 1,
+      "message": "This line also needed to be moved to the second CL. Adding it to avoid calling mIOffload.stopOffload() in stopOffload() when initOffload() failure is caused by h1/h2 \u003d\u003d null (which means it didn\u0027t call mIOffload.initOffload()).",
+      "range": {
+        "startLine": 313,
+        "startChar": 12,
+        "endLine": 313,
+        "endChar": 29
+      },
+      "revId": "a8b3b42cbde89b5fa79bbabe63ee6e3f77110b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
