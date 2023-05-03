@@ -16,6 +16,161 @@
       "message": "Added a public-facing bug: https://issuetracker.google.com/issues/280462382",
       "revId": "68d7777ce00b43134886e7f363fb6c58f1819e75",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed8baf81_41e3cb7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-03T20:48:05Z",
+      "side": 1,
+      "message": "Jean, is this a bug? working as intended? Weird interaction of some sort with the local network bypass feature?\n\nWho should be looking at this?\n\nI don\u0027t feel I even know what behaviour the various VPN combinations should result in... but I do agree that it seems wrong that outbound is blocked, but ingress still works...",
+      "revId": "68d7777ce00b43134886e7f363fb6c58f1819e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebb43688_00418f53",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 7976,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-03T20:48:05Z",
+      "side": 1,
+      "message": "the change to make this return a boolean could be split out into a precursor change\n\n(I\u0027m trying to get this into small enough pieces that I can understand it well enough to review/merge it)",
+      "range": {
+        "startLine": 7976,
+        "startChar": 0,
+        "endLine": 7976,
+        "endChar": 74
+      },
+      "revId": "68d7777ce00b43134886e7f363fb6c58f1819e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b30a15fc_f6488654",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 7977,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-03T20:48:05Z",
+      "side": 1,
+      "message": "was this NonNull annotation wrong?\nhow is there not a newLp \u003d\u003d null check being added?",
+      "range": {
+        "startLine": 7977,
+        "startChar": 44,
+        "endLine": 7977,
+        "endChar": 52
+      },
+      "revId": "68d7777ce00b43134886e7f363fb6c58f1819e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a500b1d_217ad586",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 8117,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-03T20:48:05Z",
+      "side": 1,
+      "message": "the change to add \u0027boolean force\u0027 could be a precursor.\n\nsome comment about what exactly it means to force would be useful.\n\nhow is a force operation different from a non-force one?\nwhy would one want to force things?",
+      "range": {
+        "startLine": 8117,
+        "startChar": 0,
+        "endLine": 8117,
+        "endChar": 98
+      },
+      "revId": "68d7777ce00b43134886e7f363fb6c58f1819e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79a5808f_b4101da0",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-03T20:48:05Z",
+      "side": 1,
+      "message": "might be more readable to have a ADD\u003dtrue REMOVE\u003dfalse constants.",
+      "range": {
+        "startLine": 1019,
+        "startChar": 0,
+        "endLine": 1019,
+        "endChar": 82
+      },
+      "revId": "68d7777ce00b43134886e7f363fb6c58f1819e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d1221e8_895bfd09",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-03T20:48:05Z",
+      "side": 1,
+      "message": "please sort to match function arg order",
+      "range": {
+        "startLine": 1020,
+        "startChar": 0,
+        "endLine": 1020,
+        "endChar": 46
+      },
+      "revId": "68d7777ce00b43134886e7f363fb6c58f1819e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5abc0c1_f30ad925",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-03T20:48:05Z",
+      "side": 1,
+      "message": "if this is nullable, then should the:\n  if (iface !\u003d null)\ncheck be here instead of at the 2 call sites up above?",
+      "range": {
+        "startLine": 1126,
+        "startChar": 40,
+        "endLine": 1126,
+        "endChar": 48
+      },
+      "revId": "68d7777ce00b43134886e7f363fb6c58f1819e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
