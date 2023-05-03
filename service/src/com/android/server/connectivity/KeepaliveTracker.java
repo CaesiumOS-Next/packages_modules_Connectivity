@@ -60,6 +60,7 @@ import android.util.Pair;
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.HexDump;
 import com.android.net.module.util.IpUtils;
 
@@ -69,7 +70,9 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Manages socket keepalive requests.
@@ -349,11 +352,15 @@ public class KeepaliveTracker {
             }
         }
 
-        void start(int slot) {
+        /**
+         * Attempt to start the keepalive on the given slot and returns whether the keepalive is
+         * successfully starting.
+         */
+        boolean start(int slot) {
             // BINDER_DIED can happen if the binder died before the KeepaliveInfo was created and
             // the constructor set the state to BINDER_DIED. If that's the case, the KI is already
             // cleaned up.
-            if (BINDER_DIED == mStartedState) return;
+            if (BINDER_DIED == mStartedState) return false;
             mSlot = slot;
             int error = isValid();
             if (error == SUCCESS) {
@@ -369,7 +376,7 @@ public class KeepaliveTracker {
                             mTcpController.startSocketMonitor(mFd, this, mSlot);
                         } catch (InvalidSocketException e) {
                             handleStopKeepalive(mNai, mSlot, ERROR_INVALID_SOCKET);
-                            return;
+                            return false;
                         }
                         final TcpKeepalivePacketData tcpData = (TcpKeepalivePacketData) mPacket;
                         mNai.onAddTcpKeepalivePacketFilter(slot, tcpData);
@@ -379,12 +386,13 @@ public class KeepaliveTracker {
                     default:
                         Log.wtf(TAG, "Starting keepalive with unknown type: " + mType);
                         handleStopKeepalive(mNai, mSlot, error);
-                        return;
+                        return false;
                 }
                 mStartedState = STARTING;
+                return true;
             } else {
                 handleStopKeepalive(mNai, mSlot, error);
-                return;
+                return false;
             }
         }
 
@@ -445,6 +453,8 @@ public class KeepaliveTracker {
             }
         }
 
+        // TODO: This does not clean up the autoKi in AutomaticOnOffKeepaliveTracker and it is not
+        // possible without a big refactor.
         void onFileDescriptorInitiatedStop(final int socketKeepaliveReason) {
             handleStopKeepalive(mNai, mSlot, socketKeepaliveReason);
         }
@@ -488,11 +498,11 @@ public class KeepaliveTracker {
     /**
      * Handle start keepalives with the message.
      */
-    public void handleStartKeepalive(KeepaliveInfo ki) {
+    public boolean handleStartKeepalive(KeepaliveInfo ki) {
         NetworkAgentInfo nai = ki.getNai();
         int slot = findFirstFreeSlot(nai);
         mKeepalives.get(nai).put(slot, ki);
-        ki.start(slot);
+        return ki.start(slot);
     }
 
     public void handleStopAllKeepalives(NetworkAgentInfo nai, int reason) {
@@ -597,7 +607,12 @@ public class KeepaliveTracker {
         }
     }
 
-    public void handleCheckKeepalivesStillValid(NetworkAgentInfo nai) {
+    /**
+     * Check all keepalives on the network are still valid and stops non valid keepalives.
+     *
+     * @return the list of slots that have been stopped.
+     */
+    public @NonNull List<Integer> handleCheckKeepalivesStillValid(NetworkAgentInfo nai) {
         HashMap <Integer, KeepaliveInfo> networkKeepalives = mKeepalives.get(nai);
         if (networkKeepalives != null) {
             ArrayList<Pair<Integer, Integer>> invalidKeepalives = new ArrayList<>();
@@ -610,11 +625,13 @@ public class KeepaliveTracker {
             for (Pair<Integer, Integer> slotAndError: invalidKeepalives) {
                 handleStopKeepalive(nai, slotAndError.first, slotAndError.second);
             }
+            return CollectionUtils.map(invalidKeepalives, pair -> pair.first);
         }
+        return Collections.emptyList();
     }
 
-    /** Handle keepalive events from lower layer. */
-    public void handleEventSocketKeepalive(@NonNull NetworkAgentInfo nai, int slot, int reason) {
+    /** Handle keepalive events from lower layer, returns whether to clean up the keepalive. */
+    public boolean handleEventSocketKeepalive(@NonNull NetworkAgentInfo nai, int slot, int reason) {
         KeepaliveInfo ki = null;
         try {
             ki = mKeepalives.get(nai).get(slot);
@@ -622,7 +639,7 @@ public class KeepaliveTracker {
         if (ki == null) {
             Log.e(TAG, "Event " + NetworkAgent.EVENT_SOCKET_KEEPALIVE + "," + slot + "," + reason
                     + " for unknown keepalive " + slot + " on " + nai.toShortString());
-            return;
+            return false;
         }
 
         // This can be called in a number of situations :
@@ -660,6 +677,7 @@ public class KeepaliveTracker {
                         + ": " + reason);
                 // The message indicated some error trying to start: do call handleStopKeepalive.
                 handleStopKeepalive(nai, slot, reason);
+                return true;
             }
         } else if (KeepaliveInfo.STOPPING == ki.mStartedState) {
             // The message indicated result of stopping : clean up keepalive slots.
@@ -667,10 +685,12 @@ public class KeepaliveTracker {
                     + " stopped: " + reason);
             ki.mStartedState = KeepaliveInfo.NOT_STARTED;
             cleanupStoppedKeepalive(nai, slot);
+            // Do not return true here because that will mean autoKi will cleanup upon pause.
         } else {
             Log.wtf(TAG, "Event " + NetworkAgent.EVENT_SOCKET_KEEPALIVE + "," + slot + "," + reason
                     + " for keepalive in wrong state: " + ki.toString());
         }
+        return false;
     }
 
     /**
