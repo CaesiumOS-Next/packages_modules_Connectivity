@@ -18,6 +18,8 @@ package com.android.server.connectivity;
 
 import static android.system.OsConstants.*;
 
+import static com.android.net.module.util.NetworkStackConstants.PRIVATE_DNS_PORT;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.InetAddresses;
@@ -675,7 +677,6 @@ public class NetworkDiagnostics {
     private class DnsTlsCheck extends DnsUdpCheck {
         private static final int TCP_CONNECT_TIMEOUT_MS = 2500;
         private static final int TCP_TIMEOUT_MS = 2000;
-        private static final int DNS_TLS_PORT = 853;
         private static final int DNS_HEADER_SIZE = 12;
 
         private final String mHostname;
@@ -714,7 +715,8 @@ public class NetworkDiagnostics {
             final byte[] dnsPacket = getDnsQueryPacket(sixRandomDigits);
 
             mMeasurement.startTime = now();
-            sslSocket.connect(new InetSocketAddress(mTarget, DNS_TLS_PORT), TCP_CONNECT_TIMEOUT_MS);
+            sslSocket.connect(new InetSocketAddress(mTarget, PRIVATE_DNS_PORT),
+                    TCP_CONNECT_TIMEOUT_MS);
 
             // Synchronous call waiting for the TLS handshake complete.
             sslSocket.startHandshake();
