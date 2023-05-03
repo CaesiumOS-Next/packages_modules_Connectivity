@@ -23,6 +23,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -470,8 +471,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @Test
     public void testStartNattKeepalive_invalidInterval() throws Exception {
         doStartNattKeepalive(TEST_KEEPALIVE_INVALID_INTERVAL_SEC);
-        // TODO: Should be null, no keepalive should be stored.
-        assertNotNull(getAutoKi());
+        assertNull(getAutoKi());
 
         verify(mSocketKeepaliveCallback, never()).onStarted();
         verify(mSocketKeepaliveCallback, never()).onStopped();
@@ -489,8 +489,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
 
         networkAgentStoppedKeepalive();
 
-        // TODO: Should be null, should cleanup on starting failure.
-        assertNotNull(getAutoKi());
+        assertNull(getAutoKi());
 
         verify(mSocketKeepaliveCallback, never()).onStarted();
         verify(mSocketKeepaliveCallback, never()).onStopped();
@@ -513,8 +512,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
 
         networkAgentStoppedKeepalive();
 
-        // TODO: Should be null, keepalives that are no longer valid should be cleaned up.
-        assertNotNull(getAutoKi());
+        assertNull(getAutoKi());
 
         verify(mSocketKeepaliveCallback, never()).onStopped();
         verify(mSocketKeepaliveCallback).onError(SocketKeepalive.ERROR_INVALID_IP_ADDRESS);
