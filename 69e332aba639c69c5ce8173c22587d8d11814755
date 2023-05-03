@@ -16,6 +16,24 @@
       "message": "There is a lot of duplicated if/else statement check. Could we make it a function?",
       "revId": "69e332aba639c69c5ce8173c22587d8d11814755",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67cc8db4_0ecfb698",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:49:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96a4c396_ed627a12",
+      "revId": "69e332aba639c69c5ce8173c22587d8d11814755",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
