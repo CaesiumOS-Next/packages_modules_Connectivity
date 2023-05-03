@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34263b28_9b8d76cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-03T04:27:16Z",
+      "side": 1,
+      "message": "Maybe something describes what\u0027s going to be done in this CL, like \"Avoid calling stopOffload twice or without initOffload\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "a658e9e071341a5f41f8a201919d2385591f0063",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
