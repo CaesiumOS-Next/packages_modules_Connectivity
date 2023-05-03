@@ -41,6 +41,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "912ed95c_688e82bb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:21Z",
+      "side": 1,
+      "message": "No, it checks the `response.hasServiceRecord()` above.",
+      "parentUuid": "1a3602c3_27608692",
+      "range": {
+        "startLine": 234,
+        "startChar": 55,
+        "endLine": 234,
+        "endChar": 70
+      },
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "285c426b_81f8f917",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2419412_7df85064",
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "693c1e65_6b359d18",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-04-21T09:15:20Z",
       "side": 1,
       "message": "This could NPE if there\u0027s no service record right ?",
+      "range": {
+        "startLine": 246,
+        "startChar": 70,
+        "endLine": 246,
+        "endChar": 85
+      },
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6576c5f_0b72ce7c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:21Z",
+      "side": 1,
+      "message": "Replace by the newly added method `getLowestTtlTime`",
+      "parentUuid": "693c1e65_6b359d18",
       "range": {
         "startLine": 246,
         "startChar": 70,
@@ -81,6 +147,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88fdbb3c_dc566589",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:21Z",
+      "side": 1,
+      "message": "Good point. Use your suggestion on newly added method `getLowestTtlTime`",
+      "parentUuid": "d21e99da_e21c8d3c",
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5d339c6_cc049d32",
@@ -94,6 +178,24 @@
       "writtenOn": "2023-04-21T09:15:20Z",
       "side": 1,
       "message": "But then if 2 services have no service record, a \u003c b and b \u003c a are both true; this will break stuff.\n\nI think you should consider A \u003c B if A has a record and not B, and A \u003d\u003d B if they both have no record.\n\nThat said the logic should actually look at the minimum TTL among all records. Or you could just keep using an ArraySet and iterate on all items to simplify the code...",
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5081f7b7_15879e34",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:21Z",
+      "side": 1,
+      "message": "Use the newly added method getLowestTtlTime instead. It\u0027s simple to comapre the lowest ttl time now.",
+      "parentUuid": "f5d339c6_cc049d32",
       "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -121,6 +223,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cb670b5_6a46c5e2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:21Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "c5744ff0_4e79d83d",
+      "range": {
+        "startLine": 281,
+        "startChar": 47,
+        "endLine": 281,
+        "endChar": 53
+      },
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66fcd9a6_6311fc17",
@@ -134,6 +260,24 @@
       "writtenOn": "2023-04-21T09:15:20Z",
       "side": 1,
       "message": "Could you use a mock handler, or a mock postDelayed method instead ? With timeouts in the order of 100s of ms, this will likely be flaky",
+      "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af342457_ece7568c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-03T02:50:21Z",
+      "side": 1,
+      "message": "No, ` postDelayed` is the final method, it can not be mocked. Enlarge the timeout to prevent the flake.",
+      "parentUuid": "66fcd9a6_6311fc17",
       "revId": "337ef7f9bb9b608f382d4c5364f99376d8625c93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
