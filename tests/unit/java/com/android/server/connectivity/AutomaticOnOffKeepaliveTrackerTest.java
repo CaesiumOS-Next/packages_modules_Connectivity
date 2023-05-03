@@ -23,6 +23,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -455,8 +456,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     public void testStartNattKeepalive_invalidInterval() throws Exception {
         final long time = SystemClock.elapsedRealtime();
         doStartNattKeepalive(mNattKpd, 9 /* intervalSeconds */, time);
-        // TODO: Should be null, no Keepalive should be stored.
-        assertNotNull(getAutoKi());
+        assertNull(getAutoKi());
 
         verify(mSocketKeepaliveCallback, never()).onStarted();
         verify(mSocketKeepaliveCallback, never()).onStopped();
@@ -469,8 +469,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         doStartNattKeepalive(mNattKpd, TEST_KEEPALIVE_INTERVAL_SEC, time);
         // Network agent returns an error.
         triggerEventKeepalive(1 /* slot */, SocketKeepalive.ERROR_HARDWARE_ERROR);
-        // TODO: Should be null, should cleanup on starting failure.
-        assertNotNull(getAutoKi());
+        assertNull(getAutoKi());
 
         verify(mNai).onStopSocketKeepalive(1 /* slot */);
         verify(mNai).onRemoveKeepalivePacketFilter(1 /* slot */);
@@ -497,8 +496,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         mTestHandler.post(() -> mAOOKeepaliveTracker.handleCheckKeepalivesStillValid(mNai));
         HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
 
-        // TODO: Should be null, keepalives that are no longer valid should be cleaned up.
-        assertNotNull(getAutoKi());
+        assertNull(getAutoKi());
 
         verify(mNai).onStopSocketKeepalive(1 /* slot */);
         verify(mNai).onRemoveKeepalivePacketFilter(1 /* slot */);
