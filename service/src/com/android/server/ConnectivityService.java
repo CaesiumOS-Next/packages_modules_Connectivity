@@ -17,6 +17,7 @@
 package com.android.server;
 
 import static android.Manifest.permission.RECEIVE_DATA_ACTIVITY_CHANGE;
+import static android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_FROZEN;
 import static android.content.pm.PackageManager.FEATURE_BLUETOOTH;
 import static android.content.pm.PackageManager.FEATURE_WATCH;
 import static android.content.pm.PackageManager.FEATURE_WIFI;
@@ -110,6 +111,8 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
+import android.app.ActivityManager.UidFrozenStateChangedCallback;
 import android.app.AppOpsManager;
 import android.app.BroadcastOptions;
 import android.app.PendingIntent;
@@ -336,6 +339,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.StringJoiner;
 import java.util.TreeSet;
+import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -785,6 +789,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Event to use low TCP polling timer used in automatic on/off keepalive temporarily.
      */
     private static final int EVENT_SET_LOW_TCP_POLLING_UNTIL = 60;
+
+    /**
+     * Event to inform the ConnectivityService handler when a uid has been frozen or unfrozen.
+     */
+    private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
 
     /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
@@ -1690,6 +1699,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mCdmps = new CompanionDeviceManagerProxyService(context);
         } else {
             mCdmps = null;
+        }
+
+        if (SdkLevel.isAtLeastU()
+                && mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION)) {
+            final ActivityManager activityManager =
+                    mContext.getSystemService(ActivityManager.class);
+            activityManager.registerUidFrozenStateChangedCallback(
+                    (Runnable r) -> r.run(), mFrozenStateChangedCallback);
         }
     }
 
@@ -2858,6 +2875,63 @@ public class ConnectivityService extends IConnectivityManager.Stub
         maybeNotifyNetworkBlockedForNewState(uid, blockedReasons);
         setUidBlockedReasons(uid, blockedReasons);
     }
+
+    private final class UidFrozenStateChangedExecutor implements Executor {
+        public void execute(Runnable r) {
+            r.run();
+        }
+    }
+
+    static final class UidFrozenStateChangedArgs {
+        final int[] mUids;
+        final int[] mFrozenStates;
+
+        UidFrozenStateChangedArgs(int[] uids, int[] frozenStates) {
+            mUids = uids;
+            mFrozenStates = frozenStates;
+        }
+    }
+
+    private final UidFrozenStateChangedCallback mFrozenStateChangedCallback =
+            new UidFrozenStateChangedCallback() {
+        @Override
+        public void onUidFrozenStateChanged(int[] uids, int[] frozenStates) {
+            if (uids.length != frozenStates.length) {
+                Log.wtf(TAG, "uids has length " + uids.length + " but frozenStates has length "
+                        + frozenStates.length);
+                return;
+            }
+
+            final UidFrozenStateChangedArgs args =
+                    new UidFrozenStateChangedArgs(uids, frozenStates);
+
+            mHandler.sendMessage(
+                    mHandler.obtainMessage(EVENT_UID_FROZEN_STATE_CHANGED, args));
+        }
+    };
+
+    private void handleFrozenUids(int[] uids, int[] frozenStates) {
+        final ArraySet<Range<Integer>> ranges = new ArraySet<>();
+
+        for (int i = 0; i < uids.length; i++) {
+            if (frozenStates[i] == UID_FROZEN_STATE_FROZEN) {
+                Integer uidAsInteger = Integer.valueOf(uids[i]);
+                ranges.add(new Range(uidAsInteger, uidAsInteger));
+            }
+        }
+
+        if (!ranges.isEmpty()) {
+            final Set<Integer> exemptUids = new ArraySet<>();
+            try {
+                mDeps.destroyLiveTcpSockets(ranges, exemptUids);
+            } catch (Exception e) {
+                loge("Exception in socket destroy: " + e);
+            }
+        }
+    }
+
+    @VisibleForTesting
+    static final String KEY_DESTROY_FROZEN_SOCKETS_VERSION = "destroy_frozen_sockets_version";
 
     private void enforceInternetPermission() {
         mContext.enforceCallingOrSelfPermission(
@@ -5722,6 +5796,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mKeepaliveTracker.handleSetTestLowTcpPollingTimer(time);
                     break;
                 }
+                case EVENT_UID_FROZEN_STATE_CHANGED:
+                    UidFrozenStateChangedArgs args = (UidFrozenStateChangedArgs) msg.obj;
+                    handleFrozenUids(args.mUids, args.mFrozenStates);
+                    break;
             }
         }
     }
