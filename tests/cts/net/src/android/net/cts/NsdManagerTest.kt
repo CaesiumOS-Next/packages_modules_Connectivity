@@ -1354,9 +1354,13 @@ class NsdManagerTest {
             assertEquals(1, it.attributes.size)
             assertArrayEquals("testvalue".encodeToByteArray(), it.attributes["testkey"])
         }
-        assertEquals(
-                setOf(parseNumericAddress("192.0.2.123"), parseNumericAddress("2001:db8::123")),
-                serviceResolved.serviceInfo.hostAddresses.toSet())
+        // The resolved addresses will be sorted by rfc6724 and the testNetwork1 is a IPv6-only
+        // network. So that the IPv6 address is listed first in host addresses.
+        assertEquals(parseNumericAddress("2001:db8::123"),
+                serviceResolved.serviceInfo.hostAddresses[0])
+        assertEquals(parseNumericAddress("192.0.2.123"),
+                serviceResolved.serviceInfo.hostAddresses[1])
+        assertEquals(parseNumericAddress("2001:db8::123"), serviceResolved.serviceInfo.host)
     }
 
     private fun buildConflictingAnnouncement(): ByteBuffer {

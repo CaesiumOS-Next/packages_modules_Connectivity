@@ -53,6 +53,7 @@ import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.net.nsd.OffloadEngine;
 import android.net.nsd.OffloadServiceInfo;
+import android.net.util.DnsUtils;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Handler;
@@ -1486,7 +1487,8 @@ public class NsdService extends INsdManager.Stub {
                 Log.wtf(TAG, "Invalid ipv6 address", e);
             }
         }
-        return addresses;
+        // Sort the addresses based on what the device is able to connect to (RFC6724).
+        return DnsUtils.rfc6724Sort(serviceInfo.getNetwork(), addresses);
     }
 
     private static void setServiceNetworkForCallback(NsdServiceInfo info, int netId, int ifaceIdx) {
