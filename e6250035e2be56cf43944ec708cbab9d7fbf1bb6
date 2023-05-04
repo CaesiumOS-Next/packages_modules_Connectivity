@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad3216af_f6806f7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-04T03:03:27Z",
+      "side": 1,
+      "message": "LGTM, assuming the comments have been addressed.",
+      "revId": "e6250035e2be56cf43944ec708cbab9d7fbf1bb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5320eec_fc2b92fb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-04T03:03:27Z",
+      "side": 1,
+      "message": "final.",
+      "range": {
+        "startLine": 379,
+        "startChar": 11,
+        "endLine": 379,
+        "endChar": 12
+      },
+      "revId": "e6250035e2be56cf43944ec708cbab9d7fbf1bb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7b04f10_f6734512",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-04T03:03:27Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Build Warnings: \u0027setter for host: InetAddress!\u0027 is deprecated. Deprecated in Java\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    \u0027setter for host: InetAddress!\u0027 is deprecated. Deprecated in Java\n        host \u003d TEST_ADDR\n        ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P55697924/targets/errorprone, but may also be present on other builds.\n\nMaybe use `hostAddresses`",
+      "range": {
+        "startLine": 68,
+        "startChar": 5,
+        "endLine": 68,
+        "endChar": 20
+      },
+      "revId": "e6250035e2be56cf43944ec708cbab9d7fbf1bb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9865dd56_1562f0d4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-04T03:03:27Z",
+      "side": 1,
+      "message": "Nit: \"${LONG_ALL_NETWORKS_SERVICE.serviceName.dropLast(4)} (2)\"",
+      "range": {
+        "startLine": 227,
+        "startChar": 12,
+        "endLine": 227,
+        "endChar": 70
+      },
+      "revId": "e6250035e2be56cf43944ec708cbab9d7fbf1bb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83d0a080_4930b3ea",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-04T03:03:27Z",
+      "side": 1,
+      "message": "Also test the service name that is not truncated.",
+      "range": {
+        "startLine": 72,
+        "startChar": 61,
+        "endLine": 72,
+        "endChar": 62
+      },
+      "revId": "e6250035e2be56cf43944ec708cbab9d7fbf1bb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
