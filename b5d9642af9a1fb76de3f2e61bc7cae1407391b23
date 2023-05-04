@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1d88427_c14eb513",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-04T07:37:08Z",
+      "side": 1,
+      "message": "I pass the isLocalOnly flag to PrivateAddressCoordinator because IpServer enters STATE_LOCAL_ONLY when it calls PrivateAddressCoordinator, but its state is still STATE_INITIAL. IpServer already has a servingMode() method that is equivalent to your suggested isLocalOnly() method. To use the suggested way, we need to mark the state at the beginning of entering instead of the state entered completely, which is a risk behavior change.\n\n    public int servingMode() {\n        return mServingMode;\n    }",
+      "parentUuid": "f6bfe1f7_a3a95c96",
+      "range": {
+        "startLine": 1180,
+        "startChar": 30,
+        "endLine": 1180,
+        "endChar": 42
+      },
+      "revId": "b5d9642af9a1fb76de3f2e61bc7cae1407391b23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c38769b4_8603eb23",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a68b65a_ca5dec95",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-04T07:37:08Z",
+      "side": 1,
+      "message": "Oops, done",
+      "parentUuid": "c38769b4_8603eb23",
+      "range": {
+        "startLine": 393,
+        "startChar": 35,
+        "endLine": 393,
+        "endChar": 98
+      },
+      "revId": "b5d9642af9a1fb76de3f2e61bc7cae1407391b23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d060348_aeb191c0",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-04T06:07:19Z",
       "side": 1,
       "message": "extra space",
+      "range": {
+        "startLine": 432,
+        "startChar": 20,
+        "endLine": 432,
+        "endChar": 21
+      },
+      "revId": "b5d9642af9a1fb76de3f2e61bc7cae1407391b23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f7b80df_b245834a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-04T07:37:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d060348_aeb191c0",
       "range": {
         "startLine": 432,
         "startChar": 20,
