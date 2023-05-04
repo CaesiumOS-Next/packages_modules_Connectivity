@@ -30,6 +30,9 @@ import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.NETWORK_SETUP_WIZARD;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.PACKET_KEEPALIVE_OFFLOAD;
+import static android.Manifest.permission.READ_DEVICE_CONFIG;
+import static android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_FROZEN;
+import static android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_UNFROZEN;
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.content.Intent.ACTION_PACKAGE_ADDED;
 import static android.content.Intent.ACTION_PACKAGE_REMOVED;
@@ -224,6 +227,8 @@ import static java.util.Arrays.asList;
 import android.Manifest;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.app.ActivityManager;
+import android.app.ActivityManager.UidFrozenStateChangedCallback;
 import android.app.AlarmManager;
 import android.app.AppOpsManager;
 import android.app.BroadcastOptions;
@@ -609,6 +614,7 @@ public class ConnectivityServiceTest {
     @Mock CarrierPrivilegeAuthenticator mCarrierPrivilegeAuthenticator;
     @Mock TetheringManager mTetheringManager;
     @Mock BroadcastOptionsShim mBroadcastOptionsShim;
+    @Mock ActivityManager mActivityManager;
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
@@ -732,6 +738,7 @@ public class ConnectivityServiceTest {
             if (Context.BATTERY_STATS_SERVICE.equals(name)) return mBatteryStatsManager;
             if (Context.PAC_PROXY_SERVICE.equals(name)) return mPacProxyManager;
             if (Context.TETHERING_SERVICE.equals(name)) return mTetheringManager;
+            if (Context.ACTIVITY_SERVICE.equals(name)) return mActivityManager;
             return super.getSystemService(name);
         }
 
@@ -1845,6 +1852,10 @@ public class ConnectivityServiceTest {
         mServiceContext.setPermission(CONTROL_OEM_PAID_NETWORK_PREFERENCE, PERMISSION_GRANTED);
         mServiceContext.setPermission(PACKET_KEEPALIVE_OFFLOAD, PERMISSION_GRANTED);
         mServiceContext.setPermission(CONNECTIVITY_USE_RESTRICTED_NETWORKS, PERMISSION_GRANTED);
+
+        /* Allow us to read the destroy_frozen_sockets flag */
+        InstrumentationRegistry.getInstrumentation().getUiAutomation()
+                .adoptShellPermissionIdentity(READ_DEVICE_CONFIG);
 
         mAlarmManagerThread = new HandlerThread("TestAlarmManager");
         mAlarmManagerThread.start();
@@ -17832,5 +17843,36 @@ public class ConnectivityServiceTest {
 
         verify(mMockNetd, never()).wakeupAddInterface(eq(ethernetIface), anyString(), anyInt(),
                 anyInt());
+    }
+
+    private static final int TEST_FROZEN_UID = 1000;
+    private static final int TEST_UNFROZEN_UID = 2000;
+
+    /**
+     * Send a UidFrozenStateChanged message to ConnectivityService. Verify that only the frozen UID
+     * gets passed to socketDestroy().
+     */
+    @Test
+    public void testFrozenUidSocketDestroy() throws Exception {
+        ArgumentCaptor<UidFrozenStateChangedCallback> callbackArg =
+                ArgumentCaptor.forClass(UidFrozenStateChangedCallback.class);
+        ArgumentCaptor<Executor> executorArg = ArgumentCaptor.forClass(Executor.class);
+
+        verify(mActivityManager).registerUidFrozenStateChangedCallback(executorArg.capture(),
+                callbackArg.capture());
+
+        final int[] uids = {TEST_FROZEN_UID, TEST_UNFROZEN_UID};
+        final int[] frozenStates = {UID_FROZEN_STATE_FROZEN, UID_FROZEN_STATE_UNFROZEN};
+
+        callbackArg.getValue().onUidFrozenStateChanged(uids, frozenStates);
+
+        waitForIdle();
+
+        final ArgumentCaptor<Set> exemptUidCaptor = ArgumentCaptor.forClass(Set.class);
+        final UidRange frozenUidRange = new UidRange(TEST_FROZEN_UID, TEST_FROZEN_UID);
+        final Set<UidRange> ranges = Collections.singleton(frozenUidRange);
+
+        verify(mDeps).destroyLiveTcpSockets(eq(UidRange.toIntRanges(ranges)),
+                exemptUidCaptor.capture());
     }
 }
