@@ -53,6 +53,7 @@ import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.net.nsd.OffloadEngine;
 import android.net.nsd.OffloadServiceInfo;
+import android.net.util.DnsUtils;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Handler;
@@ -129,6 +130,11 @@ public class NsdService extends INsdManager.Stub {
      * implementation.
      */
     private static final String MDNS_ADVERTISER_VERSION = "mdns_advertiser_version";
+
+    /**
+     * Enable rfc 6724 sort for resolved addresses.
+     */
+    private static final String RFC_6724_SORT_VERSION = "rfc_6724_sort_version";
 
     /**
      * Comma-separated list of type:flag mappings indicating the flags to use to allowlist
@@ -1478,7 +1484,8 @@ public class NsdService extends INsdManager.Stub {
                                 Log.e(TAG, "Invalid attribute", e);
                             }
                         }
-                        final List<InetAddress> addresses = getInetAddresses(serviceInfo);
+                        final List<InetAddress> addresses = getInetAddresses(
+                                serviceInfo, mDeps.isRFC6724SortEnabled(mContext));
                         if (addresses.size() != 0) {
                             info.setHostAddresses(addresses);
                             request.setServiceFromCache(event.mIsServiceFromCache);
@@ -1513,7 +1520,8 @@ public class NsdService extends INsdManager.Stub {
                             }
                         }
 
-                        final List<InetAddress> addresses = getInetAddresses(serviceInfo);
+                        final List<InetAddress> addresses = getInetAddresses(
+                                serviceInfo, mDeps.isRFC6724SortEnabled(mContext));
                         info.setHostAddresses(addresses);
                         clientInfo.onServiceUpdated(clientRequestId, info, request);
                         // Set the ServiceFromCache flag only if the service is actually being
@@ -1536,7 +1544,8 @@ public class NsdService extends INsdManager.Stub {
     }
 
     @NonNull
-    private static List<InetAddress> getInetAddresses(@NonNull MdnsServiceInfo serviceInfo) {
+    private static List<InetAddress> getInetAddresses(@NonNull MdnsServiceInfo serviceInfo,
+            boolean isRFC6724SortEnabled) {
         final List<String> v4Addrs = serviceInfo.getIpv4Addresses();
         final List<String> v6Addrs = serviceInfo.getIpv6Addresses();
         final List<InetAddress> addresses = new ArrayList<>(v4Addrs.size() + v6Addrs.size());
@@ -1556,7 +1565,12 @@ public class NsdService extends INsdManager.Stub {
                 Log.wtf(TAG, "Invalid ipv6 address", e);
             }
         }
-        return addresses;
+        if (isRFC6724SortEnabled) {
+            // Sort the addresses based on what the device is able to connect to (RFC6724).
+            return DnsUtils.rfc6724Sort(serviceInfo.getNetwork(), addresses);
+        } else {
+            return addresses;
+        }
     }
 
     private static void setServiceNetworkForCallback(NsdServiceInfo info, int netId, int ifaceIdx) {
@@ -1715,6 +1729,18 @@ public class NsdService extends INsdManager.Stub {
             return isAtLeastU() || DeviceConfigUtils.isTetheringFeatureEnabled(context,
                     NAMESPACE_TETHERING, MDNS_ADVERTISER_VERSION,
                     DeviceConfigUtils.TETHERING_MODULE_NAME, false /* defaultEnabled */);
+        }
+
+        /**
+         * Check whether the rfc 6724 sort feature is enabled.
+         *
+         * @param context The global context information about an app environment.
+         * @return true if the rfc 6724 sort feature is enabled.
+         */
+        public boolean isRFC6724SortEnabled(Context context) {
+            return DeviceConfigUtils.isTetheringFeatureEnabled(context,
+                    NAMESPACE_TETHERING, RFC_6724_SORT_VERSION,
+                    DeviceConfigUtils.TETHERING_MODULE_NAME, true /* defaultEnabled */);
         }
 
         /**
