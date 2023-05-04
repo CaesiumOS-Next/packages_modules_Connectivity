@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1866967_bea58e20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-04T11:50:05Z",
+      "side": 1,
+      "message": "listeners?",
+      "range": {
+        "startLine": 18,
+        "startChar": 35,
+        "endLine": 18,
+        "endChar": 41
+      },
+      "revId": "80744ae79d1ddd5f71e0383dc38a27f38792ee1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1d4f80b_5c5a638c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-04T11:50:05Z",
+      "side": 1,
+      "message": "behind? or use under?",
+      "range": {
+        "startLine": 77,
+        "startChar": 70,
+        "endLine": 77,
+        "endChar": 76
+      },
+      "revId": "80744ae79d1ddd5f71e0383dc38a27f38792ee1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6444a77a_90800828",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-04T11:50:05Z",
+      "side": 1,
+      "message": "behind? or use under?",
+      "range": {
+        "startLine": 79,
+        "startChar": 75,
+        "endLine": 79,
+        "endChar": 81
+      },
+      "revId": "80744ae79d1ddd5f71e0383dc38a27f38792ee1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e086eeb_25e62722",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2724,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-04T11:50:05Z",
+      "side": 1,
+      "message": "Just thinking how to eliminate the change in ConnectedClientsTrackers, because it doesn\u0027t need to care about whether it is localOnly or not.\nOption 1:\nStore last hotspot clients and last localOnly clients in Tethering, if one of them callback, concat with the other one before passing to updateConnectedClients.\nOption 2:\nUse different ConnectedClientsTrackers for hotspot clients and localOnly clients",
+      "range": {
+        "startLine": 2723,
+        "startChar": 8,
+        "endLine": 2724,
+        "endChar": 47
+      },
+      "revId": "80744ae79d1ddd5f71e0383dc38a27f38792ee1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
