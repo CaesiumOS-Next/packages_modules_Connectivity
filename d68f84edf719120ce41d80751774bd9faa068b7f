@@ -50,6 +50,23 @@
       "message": "Hey Ross, is that something we could cherry-pick to android13-tests-dev, to avoid flakes when running that suite ?",
       "revId": "d68f84edf719120ce41d80751774bd9faa068b7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "013d9041_b84036e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1244622
+      },
+      "writtenOn": "2023-05-04T19:10:07Z",
+      "side": 1,
+      "message": "CL needs owner CR+2.",
+      "revId": "d68f84edf719120ce41d80751774bd9faa068b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
