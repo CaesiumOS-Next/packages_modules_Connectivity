@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7e78905_2bc8b6ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-04T05:34:54Z",
+      "side": 1,
+      "message": "LGTM, but please check with Remi to see if they have any comments.",
+      "revId": "a58914b5485d2c55cb8e4ec48b08a6f61d263e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
