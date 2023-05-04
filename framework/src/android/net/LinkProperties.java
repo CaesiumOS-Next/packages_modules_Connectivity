@@ -1457,8 +1457,8 @@ public final class LinkProperties implements Parcelable {
      */
     public boolean isIdenticalPcscfs(@NonNull LinkProperties target) {
         Collection<InetAddress> targetPcscfs = target.getPcscfServers();
-        return (mPcscfs.size() == targetPcscfs.size()) ?
-                    mPcscfs.containsAll(targetPcscfs) : false;
+        // list order is important, compare one by one
+        return targetPcscfs.equals(mPcscfs);
     }
 
     /**
