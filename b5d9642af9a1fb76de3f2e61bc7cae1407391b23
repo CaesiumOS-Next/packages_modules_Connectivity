@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6bfe1f7_a3a95c96",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-04T06:07:19Z",
+      "side": 1,
+      "message": "isLocalOnly is passed among many functions but it actually only used in PrivateAddressCoordinator, I think it can be simplified by providing a function in IpServer for PrivateAddressCoordinator to call, just like IpServer.interfaceType.\n\npublic bool isLocalOnly() {\n    return mServingMode \u003d\u003d STATE_LOCAL_ONLY;\n}",
+      "range": {
+        "startLine": 1180,
+        "startChar": 30,
+        "endLine": 1180,
+        "endChar": 42
+      },
+      "revId": "b5d9642af9a1fb76de3f2e61bc7cae1407391b23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c38769b4_8603eb23",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-04T06:07:19Z",
+      "side": 1,
+      "message": "Should be \"isLocalOnly ? AddressKey.TYPE_LOCAL : AddressKey.TYPE_INTERNET;\"",
+      "range": {
+        "startLine": 393,
+        "startChar": 35,
+        "endLine": 393,
+        "endChar": 98
+      },
+      "revId": "b5d9642af9a1fb76de3f2e61bc7cae1407391b23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d060348_aeb191c0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-04T06:07:19Z",
+      "side": 1,
+      "message": "extra space",
+      "range": {
+        "startLine": 432,
+        "startChar": 20,
+        "endLine": 432,
+        "endChar": 21
+      },
+      "revId": "b5d9642af9a1fb76de3f2e61bc7cae1407391b23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
