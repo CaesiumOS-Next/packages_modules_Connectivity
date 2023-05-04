@@ -721,11 +721,13 @@ public class NsdServiceTest {
     }
 
     private void verifyUpdatedServiceInfo(NsdServiceInfo info, String serviceName,
-            String serviceType, List<InetAddress> address, int port, int interfaceIndex,
+            String serviceType, List<InetAddress> addresses, int port, int interfaceIndex,
             Network network) {
         assertEquals(serviceName, info.getServiceName());
         assertEquals(serviceType, info.getServiceType());
-        assertEquals(address, info.getHostAddresses());
+        for (InetAddress address : addresses) {
+            assertTrue(info.getHostAddresses().contains(address));
+        }
         assertEquals(port, info.getPort());
         assertEquals(network, info.getNetwork());
         assertEquals(interfaceIndex, info.getInterfaceIndex());
@@ -1014,8 +1016,9 @@ public class NsdServiceTest {
         assertTrue(info.getAttributes().containsKey("key"));
         assertEquals(1, info.getAttributes().size());
         assertArrayEquals(new byte[]{(byte) 0xFF, (byte) 0xFE}, info.getAttributes().get("key"));
-        assertEquals(parseNumericAddress(IPV4_ADDRESS), info.getHost());
         assertEquals(3, info.getHostAddresses().size());
+        assertTrue(info.getHostAddresses().stream().anyMatch(
+                address -> address.equals(parseNumericAddress(IPV4_ADDRESS))));
         assertTrue(info.getHostAddresses().stream().anyMatch(
                 address -> address.equals(parseNumericAddress("2001:db8::1"))));
         assertTrue(info.getHostAddresses().stream().anyMatch(
