@@ -20,7 +20,7 @@ package {
 java_genrule {
     name: "net-http-test-jarjar-rules",
     tool_files: [
-        ":NetHttpTestsLibPreJarJar{.jar}",
+        ":cronet_java_tests{.jar}",
         "jarjar_excludes.txt",
     ],
     tools: [
@@ -28,31 +28,10 @@ java_genrule {
     ],
     out: ["net_http_test_jarjar_rules.txt"],
     cmd: "$(location jarjar-rules-generator) " +
-        "$(location :NetHttpTestsLibPreJarJar{.jar}) " +
+        "$(location :cronet_java_tests{.jar}) " +
         "--prefix android.net.connectivity " +
         "--excludes $(location jarjar_excludes.txt) " +
         "--output $(out)",
-}
-
-android_library {
-    name: "NetHttpTestsLibPreJarJar",
-    srcs: [":cronet_aml_javatests_sources"],
-    sdk_version: "module_current",
-    min_sdk_version: "30",
-    static_libs: [
-        "cronet_testserver_utils",
-        "androidx.test.ext.junit",
-        "androidx.test.rules",
-        "junit",
-        "truth",
-    ],
-    libs: [
-        "android.test.base",
-        "framework-connectivity-pre-jarjar",
-        // android.net.TrafficStats apis
-        "framework-connectivity-t",
-    ],
-    lint: { test: true }
 }
 
 android_test {
@@ -60,7 +39,7 @@ android_test {
      defaults: [
         "mts-target-sdk-version-current",
      ],
-     static_libs: ["NetHttpTestsLibPreJarJar"],
+     static_libs: ["cronet_java_tests"],
      jarjar_rules: ":net-http-test-jarjar-rules",
      jni_libs: [
         "cronet_aml_components_cronet_android_cronet_tests__testing"
