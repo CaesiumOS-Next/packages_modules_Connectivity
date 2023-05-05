@@ -22,6 +22,30 @@
       },
       "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83953bac_4fa6e665",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-05T07:45:21Z",
+      "side": 1,
+      "message": "I don\u0027t think the mRawOffloadPacket can be used to reply two different {QNAMES,QTYPES}. It basically only contains the PTR, SRV, TXT, A/AAAA record for single {QNAME, QTYPE}. If there are two different {QNAME, QTYPE} pair, it will be two different mRawOffloadPacket. We are not plan to merge two mRawOffloadPacket into one to make it contains multiple QNAME, QTYPE record.",
+      "parentUuid": "44d70d37_306ade42",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
