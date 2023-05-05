@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44d70d37_306ade42",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1993882
+      },
+      "writtenOn": "2023-05-05T07:32:27Z",
+      "side": 1,
+      "message": "Sorry to come back to this, but this is not inline with the objectives of the offload. I want to be able to respond the same offload packet for different service names and types. \nThis API does not reflect that. If I imagine how to use this API and want to make the same packet answer for 2 or more different {QNAMES,QTYPES} I\u0027ll do 2 calls with different mServiceNames. Which will result in 2 insertion with the same data, that is bad for memory by design. Do you expect the offload engine to check if the rawpacket is the same for 2 OffloadServiceInfo and merge them behind the scene ?",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
