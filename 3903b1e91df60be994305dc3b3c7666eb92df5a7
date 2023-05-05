@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d99220d_a0e2bf70",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1459,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-05T12:23:36Z",
+      "side": 0,
+      "message": "side note: this old logic doesn\u0027t look quite correct.\n\nMy understanding is a Java collection can contain duplicate elements,\nso theoretically this would return true for\ntargetPcscfs \u003d\u003d {\"a\", \"a\"}\nmPcscfs \u003d\u003d {\"a\", \"b\"}\nsince the sizes are equal and both \"a\"s are in the second set.\n\nIn practice:\n\nList\u003cInetAddress\u003e getPcscfServers() returns Collections.unmodifiableList(mPcscfs);\nwhere\nArrayList\u003cInetAddress\u003e mPcscfs\n\nso it\u0027s not immediately obvious there are no duplicates.",
+      "range": {
+        "startLine": 1459,
+        "startChar": 0,
+        "endLine": 1459,
+        "endChar": 72
+      },
+      "revId": "3903b1e91df60be994305dc3b3c7666eb92df5a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

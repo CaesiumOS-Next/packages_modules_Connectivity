@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7facb539_c1977a42",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1462,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-05T12:23:36Z",
+      "side": 1,
+      "message": "https://errorprone.info/bugpattern/CollectionUndefinedEquality\n\nyeah I was worried about this...\n\nI wonder if this means we\u0027d need to use more specific types for mPcscfs and/or targetPcscfs in order for this to be safe.\n\nMaybe just change Collection to List in line 1459??",
+      "range": {
+        "startLine": 1462,
+        "startChar": 4,
+        "endLine": 1462,
+        "endChar": 5
+      },
+      "revId": "8d4a8adc24440cc0062e7310aa9bc64811836c99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
