@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b61c59d1_13dd338f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-05T03:23:47Z",
+      "side": 1,
+      "message": "I believe we stop legacy upstream preferred list selection from Android T+. In T, config_tether_upstream_automatic must be true otherwise T CTS will fail. Changing config_tether_upstream_automatic to false from U onwards will not actually make tethering use legacy upstream preferred list selection.\n\nThus, modify the code in legacy upstream preferred list selection flow is useless for T+ devices.",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 89
+      },
+      "revId": "5638ff02b78d0b7b42f4e78e69bfde1ffc4e819a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
