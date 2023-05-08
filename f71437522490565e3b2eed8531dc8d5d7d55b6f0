@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5b0ee79_160869b2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-05-08T03:25:28Z",
+      "side": 1,
+      "message": "Sure - what will we do about the non-AOSP patch though?",
+      "parentUuid": "76851e49_32de507a",
+      "revId": "f71437522490565e3b2eed8531dc8d5d7d55b6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "900c8e2c_e47f3e07",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3
