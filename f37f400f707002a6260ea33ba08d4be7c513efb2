@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0538145b_3b30f451",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-05-08T16:41:01Z",
+      "side": 1,
+      "message": "You can use LongSparseLongArray to map integers (widened to longs) to longs, thus avoiding the boxed types Integer and Long.",
+      "range": {
+        "startLine": 943,
+        "startChar": 54,
+        "endLine": 943,
+        "endChar": 62
+      },
+      "revId": "f37f400f707002a6260ea33ba08d4be7c513efb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63ce3d7f_7eb66158",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-05-08T16:41:01Z",
+      "side": 1,
+      "message": "I thought we wanted to do something like wait for when the modem is in high power before killing the socket",
+      "revId": "f37f400f707002a6260ea33ba08d4be7c513efb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "084c0c87_060420b6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2928,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-05-08T16:41:01Z",
+      "side": 1,
+      "message": "Another option is not to store the time in a map, and instead just rely on handler delayed delivery.\nOn freeze, schedule a message with code EVENT_DESTROY_FROZEN_APP_SOCKETS and an Object reference to the uid to be frozen as an Integer. On unfreeze, remove messages with code EVENT_DESTROY_FROZEN_APP_SOCKETS and an object reference to the same uid integer. Then when EVENT_DESTROY_FROZEN_APP_SOCKETS arrives just kill sockets for the uid indiscriminately.",
+      "revId": "f37f400f707002a6260ea33ba08d4be7c513efb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fe6518a_ddc64f72",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-05-08T16:41:01Z",
+      "side": 1,
+      "message": "You could use this to avoid an allocation and ensure that this is really used as an immutable by the callee:\nhttps://developer.android.com/reference/java/util/Collections#emptySet()",
+      "revId": "f37f400f707002a6260ea33ba08d4be7c513efb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
