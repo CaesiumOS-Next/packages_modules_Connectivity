@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74617673_47d21f1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-08T07:17:03Z",
+      "side": 1,
+      "message": "I have also found some places where case-insensitive matching may be needed. Could you please take a look at these places below?\n\n```\nMdnsServiceTypeClient.java:\nreturn options.getResolveInstanceName().equalsIgnoreCase(response.getServiceInstanceName());\n\nMdnsProber.java:\nreturn CollectionUtils.any(records, r -\u003e Arrays.equals(name, r.getName()));\n\nMdnsPacketWriter.java:\nif (Arrays.equals(existingLabels, labels)) {\n\nMdnsServiceInfo.java:\nreturn key.equals(otherEntry.key) \u0026\u0026 Arrays.equals(value, otherEntry.value);\n\nMdnsDiscoveryManager.java:\nif (serviceType.equals(perNetworkServiceType.first)) {\n\n```",
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caae0cdc_0966c9c9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsPointerRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-08T07:17:03Z",
+      "side": 1,
+      "message": "Using `equalsIgnoreDnsCase`.",
+      "range": {
+        "startLine": 64,
+        "startChar": 54,
+        "endLine": 64,
+        "endChar": 97
+      },
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1603005_03cf129d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-08T07:17:03Z",
+      "side": 1,
+      "message": "Using `equalsIgnoreDnsCase`.",
+      "range": {
+        "startLine": 140,
+        "startChar": 26,
+        "endLine": 140,
+        "endChar": 32
+      },
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abc0c3d1_b192d25c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-08T07:17:03Z",
+      "side": 1,
+      "message": "If you convert the `recordName` to all lowercase letters using the `MdnsUtils.toDnsLabelsLowerCase()` before storing it, you do not need to change the `equals()` and `hashCode()` methods.",
+      "range": {
+        "startLine": 302,
+        "startChar": 30,
+        "endLine": 302,
+        "endChar": 40
+      },
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47fda067_b6ae50da",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-08T07:17:03Z",
+      "side": 1,
+      "message": "This is unexpected behavior because the `a` and `b` arrays are marked as non-null.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 9
+      },
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07ba21cc_2dfcebfa",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-08T07:17:03Z",
+      "side": 1,
+      "message": "Maybe also test the service type that includes subtypes.",
+      "range": {
+        "startLine": 303,
+        "startChar": 4,
+        "endLine": 303,
+        "endChar": 5
+      },
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
