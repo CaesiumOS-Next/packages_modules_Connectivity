@@ -797,6 +797,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
 
     /**
+     * Event to destroy frozen app sockets.
+     */
+    private static final int EVENT_MAYBE_DESTROY_FROZEN_APP_SOCKETS = 62;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -934,6 +939,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @GuardedBy("mSelfCertifiedCapabilityCache")
     private final Map<String, ApplicationSelfCertifiedNetworkCapabilities>
             mSelfCertifiedCapabilityCache = new HashMap<>();
+
+    private final Map<Integer, Long> mFrozenApp = new ArrayMap<>();
+    private static final int FROZEN_APP_SOCKET_DESTROY_DELAY_MS = 60_000;
 
     /**
      * Implements support for the legacy "one network per network type" model.
@@ -2912,18 +2920,49 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     };
 
-    private void handleFrozenUids(int[] uids, int[] frozenStates) {
+    private void maybeDestroyFrozenAppSockets() {
+        // We can update this to Set<Integer> after aosp/2512520
         final Set<UidRange> ranges = new ArraySet<>();
+        final long currentTimeMs = SystemClock.elapsedRealtime();
 
-        for (int i = 0; i < uids.length; i++) {
-            if (frozenStates[i] == UID_FROZEN_STATE_FROZEN) {
-                ranges.add(new UidRange(uids[i], uids[i]));
+        for (Map.Entry<Integer, Long> entry: mFrozenApp.entrySet()) {
+            if (currentTimeMs - entry.getValue() > FROZEN_APP_SOCKET_DESTROY_DELAY_MS) {
+                final int uid = entry.getKey();
+                ranges.add(new UidRange(uid, uid));
             }
         }
 
         if (!ranges.isEmpty()) {
             final Set<Integer> exemptUids = new ArraySet<>();
-            maybeCloseSockets(null, ranges, exemptUids);
+            try {
+                mDeps.destroyLiveTcpSockets(UidRange.toIntRanges(ranges), exemptUids);
+            } catch (Exception e) {
+                loge("Exception in socket destroy: ", e);
+            }
+            for (UidRange range: ranges) {
+                mFrozenApp.remove(range.start);
+            }
+        }
+
+    }
+
+    private void handleFrozenUids(int[] uids, int[] frozenStates) {
+        final long currentTimeMs = SystemClock.elapsedRealtime();
+        boolean hasFrozenApp = false;
+
+        for (int i = 0; i < uids.length; i++) {
+            if (frozenStates[i] == UID_FROZEN_STATE_FROZEN) {
+                mFrozenApp.put(uids[i], currentTimeMs);
+                hasFrozenApp = true;
+            } else {
+                mFrozenApp.remove(uids[i]);
+            }
+        }
+
+        if (hasFrozenApp) {
+            mHandler.sendMessageDelayed(
+                    mHandler.obtainMessage(EVENT_MAYBE_DESTROY_FROZEN_APP_SOCKETS),
+                    FROZEN_APP_SOCKET_DESTROY_DELAY_MS);
         }
     }
 
@@ -5804,6 +5843,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_UID_FROZEN_STATE_CHANGED:
                     UidFrozenStateChangedArgs args = (UidFrozenStateChangedArgs) msg.obj;
                     handleFrozenUids(args.mUids, args.mFrozenStates);
+                    break;
+                case EVENT_MAYBE_DESTROY_FROZEN_APP_SOCKETS:
+                    maybeDestroyFrozenAppSockets();
                     break;
             }
         }
