@@ -166,6 +166,7 @@ public class TetheringConfiguration {
     private final int mP2pLeasesSubnetPrefixLength;
 
     private final boolean mEnableWearTethering;
+    private final boolean mUseSapAndLohsConcurrently;
 
     private final int mUsbTetheringFunction;
     protected final ContentResolver mContentResolver;
@@ -244,6 +245,10 @@ public class TetheringConfiguration {
         mP2pLeasesSubnetPrefixLength = getP2pLeasesSubnetPrefixLengthFromRes(res, configLog);
 
         mEnableWearTethering = shouldEnableWearTethering(ctx);
+
+        // WifiManager separates STA and LOHS callback after T.
+        mUseSapAndLohsConcurrently = SdkLevel.isAtLeastT() && getResourceBoolean(res,
+                R.bool.config_sap_lohs_use_different_ipv4_address, false /* defaultValue */);
 
         configLog.log(toString());
     }
@@ -333,6 +338,11 @@ public class TetheringConfiguration {
         return mEnableWearTethering;
     }
 
+    /** Return whether support softap and localOnlyHotspot enabled at the same time. */
+    public boolean isUseSapAndLohsConcurrently() {
+        return mUseSapAndLohsConcurrently;
+    }
+
     /** Does the dumping.*/
     public void dump(PrintWriter pw) {
         pw.print("activeDataSubId: ");
@@ -383,6 +393,9 @@ public class TetheringConfiguration {
 
         pw.print("mUsbTetheringFunction: ");
         pw.println(isUsingNcm() ? "NCM" : "RNDIS");
+
+        pw.print("useSapAndLohsConcurrently: ");
+        pw.println(mUseSapAndLohsConcurrently);
     }
 
     /** Returns the string representation of this object.*/
