@@ -97,6 +97,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef58adaa_f321c993",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T03:46:07Z",
+      "side": 1,
+      "message": "As for aosp/2554390 , we can not run experiment correctly without aosp/2554390.\nSo, we need to cherry-pick. \nAnd if there are other CLs this CL depends on, I can try to cherry-pick them to udc-dev.",
+      "parentUuid": "286ae367_f59d7733",
+      "revId": "f71437522490565e3b2eed8531dc8d5d7d55b6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "900c8e2c_e47f3e07",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3
