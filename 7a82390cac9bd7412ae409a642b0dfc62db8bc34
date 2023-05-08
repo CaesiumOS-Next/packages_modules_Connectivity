@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a15e513f_e9b0ca7c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 3528,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T08:48:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17981b7d_e238ca2e",
+      "range": {
+        "startLine": 3528,
+        "startChar": 17,
+        "endLine": 3528,
+        "endChar": 28
+      },
+      "revId": "7a82390cac9bd7412ae409a642b0dfc62db8bc34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c49ec3f8_bfe722d8",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-05T22:21:10Z",
       "side": 1,
       "message": "This will fail with something like: expected true, got false. Could you add an error message to assertTrue in sendRequest?",
+      "range": {
+        "startLine": 3540,
+        "startChar": 8,
+        "endLine": 3540,
+        "endChar": 28
+      },
+      "revId": "7a82390cac9bd7412ae409a642b0dfc62db8bc34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59cf024b_44788945",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 3540,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T08:48:53Z",
+      "side": 1,
+      "message": "Done, add failure message to CtsNetUtils#testHttpRequest",
+      "parentUuid": "c49ec3f8_bfe722d8",
       "range": {
         "startLine": 3540,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92933eb5_ed2ae2d5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 3568,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T08:48:53Z",
+      "side": 1,
+      "message": "Yes, this strange behavior was in native code and I did not change this in Java implementation to keep the current behavior.\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2135056/comment/ae3d98ee_30259d77/\n\nAfter we remove the old code path, I will try to change this behavior.",
+      "parentUuid": "872de041_96b5523b",
+      "range": {
+        "startLine": 3568,
+        "startChar": 25,
+        "endLine": 3568,
+        "endChar": 54
+      },
+      "revId": "7a82390cac9bd7412ae409a642b0dfc62db8bc34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee176d68_d2d3d727",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-05T22:21:10Z",
       "side": 1,
       "message": "nit: the indentation looks inconsistent here",
+      "range": {
+        "startLine": 3580,
+        "startChar": 0,
+        "endLine": 3592,
+        "endChar": 19
+      },
+      "revId": "7a82390cac9bd7412ae409a642b0dfc62db8bc34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "197fb9be_889f039a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 3592,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T08:48:53Z",
+      "side": 1,
+      "message": "I agree this indentation looks strange.\nBut linter complaint if I changed this indentation.\nThis is consistent with other codes.\nhttp://cs/aosp-master/packages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java;l\u003d2716-2729;rcl\u003dd05885bbeba8147012a2fb77e688ff17bbfdfb87",
+      "parentUuid": "ee176d68_d2d3d727",
       "range": {
         "startLine": 3580,
         "startChar": 0,
