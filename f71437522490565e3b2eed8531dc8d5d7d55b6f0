@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e32e64d_274ca396",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T03:11:40Z",
+      "side": 1,
+      "message": "nits: I think now this event is used for all the frozen state changes including unfrozen.",
+      "range": {
+        "startLine": 796,
+        "startChar": 55,
+        "endLine": 796,
+        "endChar": 82
+      },
+      "revId": "f71437522490565e3b2eed8531dc8d5d7d55b6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76851e49_32de507a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T03:11:40Z",
+      "side": 1,
+      "message": "aosp/2554390 is merged now.\nSo, we can directly use `mDeps.isFeatureEnabled` here and we can remove `updateDestroyFrozenSockets`",
+      "revId": "f71437522490565e3b2eed8531dc8d5d7d55b6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "900c8e2c_e47f3e07",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1716,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T03:11:40Z",
+      "side": 1,
+      "message": "We can directly call `context.getSystemService(ActivityManager.class)` now since MockContext#getSystemService returns mocked ActivityManager.",
+      "range": {
+        "startLine": 1716,
+        "startChar": 51,
+        "endLine": 1716,
+        "endChar": 76
+      },
+      "revId": "f71437522490565e3b2eed8531dc8d5d7d55b6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c107391_081c66d8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2907,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T03:11:40Z",
+      "side": 1,
+      "message": "nits: I prefer removing `@NonNull` from `uids` or adding `@NonNull` to `frozenStates`.",
+      "range": {
+        "startLine": 2907,
+        "startChar": 44,
+        "endLine": 2907,
+        "endChar": 52
+      },
+      "revId": "f71437522490565e3b2eed8531dc8d5d7d55b6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf0469de_edfc639d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2927,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T03:11:40Z",
+      "side": 1,
+      "message": "We can directly call `mDeps.destroyLiveTcpSockets` instead of changing maybeCloseSockets.",
+      "revId": "f71437522490565e3b2eed8531dc8d5d7d55b6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ea66eb2_0b675d50",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1857,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T03:11:40Z",
+      "side": 1,
+      "message": "After update this CL to use `Dependencies.isFeatureEnabled`, I think we don\u0027t need this.",
+      "revId": "f71437522490565e3b2eed8531dc8d5d7d55b6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a7bd93a_2a11526d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17856,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T03:11:40Z",
+      "side": 1,
+      "message": "Maybe we need to add `@IgnoreUpTo(Build.VERSION_CODES.T)`?\nSince this test does not pass on T-.",
+      "range": {
+        "startLine": 17856,
+        "startChar": 16,
+        "endLine": 17856,
+        "endChar": 42
+      },
+      "revId": "f71437522490565e3b2eed8531dc8d5d7d55b6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1d63fef_477cbcc7",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17865,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-08T03:11:40Z",
+      "side": 1,
+      "message": "Can this be `any()` since we don\u0027t use `executorArg` later?",
+      "range": {
+        "startLine": 17865,
+        "startChar": 71,
+        "endLine": 17865,
+        "endChar": 92
+      },
+      "revId": "f71437522490565e3b2eed8531dc8d5d7d55b6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
