@@ -166,4 +166,13 @@ public class ProcNetTest extends DeviceTestCase implements IBuildReceiver, IDevi
             assertTrue(interval <= upperBoundSec);
         }
     }
+
+    /**
+     *
+     */
+    public void testCongestionControl() throws Exception {
+        String path = "/proc/sys/net/ipv4/tcp_congestion_control"
+        String value = mDevice.executeAdbCommand("shell", "cat", path).trim()
+        assertEquals(value, "cubic");
+    }
 }
