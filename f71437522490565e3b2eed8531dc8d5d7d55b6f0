@@ -79,6 +79,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "286ae367_f59d7733",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-05-08T03:36:51Z",
+      "side": 1,
+      "message": "That a reasonable path.\n\nQuestion though - I can\u0027t just cherry-pick this patch to udc-dev - there\u0027s at least two series of patches this depends on. Who will be cherry-picking those?\n\nAlternatively, we can just carry the patch feedback to the udc-dev patch minus the changes which can\u0027t happen there (yet) because of missing pre-requisite patches.",
+      "parentUuid": "d0818060_e60b8069",
+      "revId": "f71437522490565e3b2eed8531dc8d5d7d55b6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "900c8e2c_e47f3e07",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3
