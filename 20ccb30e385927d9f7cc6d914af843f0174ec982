@@ -1,6 +1,92 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "722ea5c0_378e2091",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-08T09:38:59Z",
+      "side": 1,
+      "message": "LGTM assuming non-nits addressed. Lorenzo should look at the API and CTS",
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bd4295f_d13c7fb6",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 21
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-08T09:38:59Z",
+      "side": 1,
+      "message": "Nit: the standalone build may need more than offload classes in the future, so I\u0027d suggest a more generic name like \"framework-connectivity-t-mdns-standalone-build-sources\" or similar. In any case it would probably be good to have a comment explaining the filegroup lists files that are necessary for verifying building mdns as a standalone, for use with service-connectivity-mdns-standalone-build-test",
+      "range": {
+        "startLine": 86,
+        "startChar": 11,
+        "endLine": 86,
+        "endChar": 33
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65ce410d_f11566cb",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-08T09:38:59Z",
+      "side": 1,
+      "message": "This should be \u003e\u003d",
+      "range": {
+        "startLine": 373,
+        "startChar": 22,
+        "endLine": 373,
+        "endChar": 23
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bb6e7c6_20b0d535",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-08T09:38:59Z",
+      "side": 1,
+      "message": "Nit: {@link OffloadServiceInfo#getRawOffloadPacket()}, mRawOffloadPacket is private so shouldn\u0027t be mentioned in javadoc\n\nBut this probably won\u0027t fit in one line (first section needs to be one line), so you could say:\n\n    /**\n     * Indicates the OffloadEngine can transmit offload packets for the mDns queries.\n     *\n     * @see OffloadServiceInfo#getRawOffloadPacket()\n     */",
+      "range": {
+        "startLine": 34,
+        "startChar": 52,
+        "endLine": 34,
+        "endChar": 69
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44d70d37_306ade42",
@@ -44,6 +130,120 @@
         "endLine": 42,
         "endChar": 41
       },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52cf22e9_b00d2abc",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-08T09:38:59Z",
+      "side": 1,
+      "message": "Nit: type singular (and name singular in hostname)",
+      "range": {
+        "startLine": 52,
+        "startChar": 30,
+        "endLine": 52,
+        "endChar": 35
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87b287af_b3a98e0b",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-08T09:38:59Z",
+      "side": 1,
+      "message": "Nit: I think this comment should be on toString ?",
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eefc5a6_9d2a9d16",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-08T09:38:59Z",
+      "side": 1,
+      "message": "Actually this should also notify of offload stop, since this isn\u0027t advertising anymore. The next onOffloadStartOrUpdate will be for a different name, so you\u0027d end up with offload that\u0027s started but not stopped.\n\nProbably you should make restartProbingForConflict return a boolean, to return false if the service isn\u0027t registered there. Then you can do `if (restartProbing) { onOffloadStop }`\n\nI\u0027ve got aosp/2397457 to test conflicts behavior, I\u0027m currently trying to rebase it, you should probably add a test for that once it lands.",
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "355c78dc_f96fa484",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-08T09:38:59Z",
+      "side": 1,
+      "message": "Nit: I think this would be based on service type ?",
+      "range": {
+        "startLine": 596,
+        "startChar": 71,
+        "endLine": 597,
+        "endChar": 34
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "911567d0_02348b8c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-08T09:38:59Z",
+      "side": 1,
+      "message": "OFFLOAD_CAPABILITY_TRANSMIT shouldn\u0027t really have a null packet, I think it would be better to remove this assertion for now. Otherwise CTS may break with newer module updates.",
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c28bf5dd_a63d4e0d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-08T09:38:59Z",
+      "side": 1,
+      "message": "Nit: maybe add a comment that the offload callbacks are only supported with the new backend, enabled with target SDK U+",
       "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
