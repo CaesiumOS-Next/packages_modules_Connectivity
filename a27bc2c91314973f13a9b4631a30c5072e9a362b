@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d6d047a_e9ac68c8",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-08T08:51:42Z",
+      "side": 1,
+      "message": "This does not include time in deep sleep, so the durations in metrics are likely to be incorrect. Should this be elapsedRealtime instead ?",
+      "range": {
+        "startLine": 60,
+        "startChar": 31,
+        "endLine": 60,
+        "endChar": 43
+      },
+      "revId": "a27bc2c91314973f13a9b4631a30c5072e9a362b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
