@@ -136,6 +136,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f442d17_969ed9e0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2926,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-09T09:17:36Z",
+      "side": 1,
+      "message": "We discussed this in Core Networking / Power sync and also in meeting with Shai.\nMy understanding is freezer will not freeze app aggressively and app is frozen only when app has small possibility to be unfrozen later.\nIn this case, I don’t think we need to have a default delay.\nWe only need a delay for waiting modem high-power state.\n\nWill we have metrics to know if freeze judging logic is working as we expect in the fields?\nI’m thinking how we can confirm destroying socket is not harming user experience.",
+      "parentUuid": "25999394_e05b3909",
+      "range": {
+        "startLine": 2926,
+        "startChar": 22,
+        "endLine": 2926,
+        "endChar": 43
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0477a5b2_adf248fd",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 4
