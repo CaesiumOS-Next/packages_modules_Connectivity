@@ -51,6 +51,24 @@
       "parentUuid": "fc1564bb_b1613316",
       "revId": "a58914b5485d2c55cb8e4ec48b08a6f61d263e8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64c7ff78_47fbc5e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-09T09:57:39Z",
+      "side": 1,
+      "message": "Oh I see, this isn\u0027t \"test wifi networks\", it\u0027s really just test networks, since MATCH_TEST won\u0027t match wifi networks (it\u0027s either test or wifi, can\u0027t be both like with transports).\n\nSGTM then, sorry for the confusion.",
+      "parentUuid": "6dca31b2_ba4cff3b",
+      "revId": "a58914b5485d2c55cb8e4ec48b08a6f61d263e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
