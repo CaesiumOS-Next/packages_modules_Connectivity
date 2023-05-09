@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef7a1f58_c48da6a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1629753
+      },
+      "writtenOn": "2023-05-09T03:05:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61759da0_262a2bff",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 110
+      },
+      "revId": "8cb2adcec95b6d7f492b7c1ad3fb53bf28fed97c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4789a6c4_f1e8e1b0",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-09T02:32:51Z",
       "side": 1,
       "message": "Add space after \".\".",
+      "range": {
+        "startLine": 9,
+        "startChar": 40,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "8cb2adcec95b6d7f492b7c1ad3fb53bf28fed97c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81da5463_1c114ac6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1629753
+      },
+      "writtenOn": "2023-05-09T03:05:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4789a6c4_f1e8e1b0",
       "range": {
         "startLine": 9,
         "startChar": 40,
@@ -77,6 +125,30 @@
       "writtenOn": "2023-05-09T02:32:51Z",
       "side": 1,
       "message": "I think this will fail to compile because it is adding a public API method. You need to add an @hide comment, something like:\n\n/**\n * Indicates whether this network is suspended.\n * @hide\n */",
+      "range": {
+        "startLine": 336,
+        "startChar": 4,
+        "endLine": 336,
+        "endChar": 15
+      },
+      "revId": "8cb2adcec95b6d7f492b7c1ad3fb53bf28fed97c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7f99386_5472cf48",
+        "filename": "framework/src/android/net/NetworkInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1629753
+      },
+      "writtenOn": "2023-05-09T03:05:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f832afa_9e2457b2",
       "range": {
         "startLine": 336,
         "startChar": 4,
