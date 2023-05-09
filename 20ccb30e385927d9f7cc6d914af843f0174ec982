@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b534ba_621c32ff",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 21
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T04:15:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bd4295f_d13c7fb6",
+      "range": {
+        "startLine": 86,
+        "startChar": 11,
+        "endLine": 86,
+        "endChar": 33
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65ce410d_f11566cb",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1addbdf7_79aa6416",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T04:15:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65ce410d_f11566cb",
+      "range": {
+        "startLine": 373,
+        "startChar": 22,
+        "endLine": 373,
+        "endChar": 23
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bb6e7c6_20b0d535",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-05-08T09:38:59Z",
       "side": 1,
       "message": "Nit: {@link OffloadServiceInfo#getRawOffloadPacket()}, mRawOffloadPacket is private so shouldn\u0027t be mentioned in javadoc\n\nBut this probably won\u0027t fit in one line (first section needs to be one line), so you could say:\n\n    /**\n     * Indicates the OffloadEngine can transmit offload packets for the mDns queries.\n     *\n     * @see OffloadServiceInfo#getRawOffloadPacket()\n     */",
+      "range": {
+        "startLine": 34,
+        "startChar": 52,
+        "endLine": 34,
+        "endChar": 69
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae446fc7_edfce61e",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T04:15:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bb6e7c6_20b0d535",
       "range": {
         "startLine": 34,
         "startChar": 52,
@@ -157,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e17bea22_0eec9afc",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T04:15:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52cf22e9_b00d2abc",
+      "range": {
+        "startLine": 52,
+        "startChar": 30,
+        "endLine": 52,
+        "endChar": 35
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87b287af_b3a98e0b",
@@ -174,6 +270,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05d9a7f8_cfab2752",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T04:15:53Z",
+      "side": 1,
+      "message": "Oops, fixed.",
+      "parentUuid": "87b287af_b3a98e0b",
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9eefc5a6_9d2a9d16",
@@ -187,6 +301,24 @@
       "writtenOn": "2023-05-08T09:38:59Z",
       "side": 1,
       "message": "Actually this should also notify of offload stop, since this isn\u0027t advertising anymore. The next onOffloadStartOrUpdate will be for a different name, so you\u0027d end up with offload that\u0027s started but not stopped.\n\nProbably you should make restartProbingForConflict return a boolean, to return false if the service isn\u0027t registered there. Then you can do `if (restartProbing) { onOffloadStop }`\n\nI\u0027ve got aosp/2397457 to test conflicts behavior, I\u0027m currently trying to rebase it, you should probably add a test for that once it lands.",
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd734d67_775d1f55",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T04:15:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9eefc5a6_9d2a9d16",
       "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -214,6 +346,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae31442b_ad1136f1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T04:15:53Z",
+      "side": 1,
+      "message": "Ah, that\u0027t right. Fixed.",
+      "parentUuid": "355c78dc_f96fa484",
+      "range": {
+        "startLine": 596,
+        "startChar": 71,
+        "endLine": 597,
+        "endChar": 34
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "911567d0_02348b8c",
@@ -231,6 +387,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4853e99_69a373cd",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T04:15:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "911567d0_02348b8c",
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c28bf5dd_a63d4e0d",
@@ -244,6 +418,24 @@
       "writtenOn": "2023-05-08T09:38:59Z",
       "side": 1,
       "message": "Nit: maybe add a comment that the offload callbacks are only supported with the new backend, enabled with target SDK U+",
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a2ee317_5e93d139",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T04:15:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c28bf5dd_a63d4e0d",
       "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
