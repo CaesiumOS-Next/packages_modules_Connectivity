@@ -16,6 +16,23 @@
       "message": "LGTM, but please check with Remi to see if they have any comments.",
       "revId": "a58914b5485d2c55cb8e4ec48b08a6f61d263e8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc1564bb_b1613316",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-09T06:07:58Z",
+      "side": 1,
+      "message": "That makes the test less realistic, and we wouldn\u0027t be able to check the expected behavior when location is off; would it be possible to just make sure the test enables location ?",
+      "revId": "a58914b5485d2c55cb8e4ec48b08a6f61d263e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
