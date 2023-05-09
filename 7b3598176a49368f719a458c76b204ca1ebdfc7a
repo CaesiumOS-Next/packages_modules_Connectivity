@@ -112,6 +112,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25999394_e05b3909",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2926,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-05-09T03:09:25Z",
+      "side": 1,
+      "message": "This was discussed at today\u0027s Core Networking / Power sync. @motomuman@google.com could you reinforce our latest position here please?",
+      "parentUuid": "61ac182f_1e4267ca",
+      "range": {
+        "startLine": 2926,
+        "startChar": 22,
+        "endLine": 2926,
+        "endChar": 43
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0477a5b2_adf248fd",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 4
