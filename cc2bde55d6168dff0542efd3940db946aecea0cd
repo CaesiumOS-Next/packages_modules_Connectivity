@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "661f7511_00b8bf4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-09T07:24:44Z",
+      "side": 1,
+      "message": "LGTM so Lorenzo can have a look at the API, but you probably should remove the random URL pasted :)\n\nOr actually, since this doesn\u0027t add the API you could merge it... But Lorenzo will have to look at the API CL afterwards though.",
+      "revId": "cc2bde55d6168dff0542efd3940db946aecea0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41011937_58d7294f",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-09T07:24:44Z",
+      "side": 1,
+      "message": "Bad paste ? :)",
+      "range": {
+        "startLine": 350,
+        "startChar": 93,
+        "endLine": 350,
+        "endChar": 207
+      },
+      "revId": "cc2bde55d6168dff0542efd3940db946aecea0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c2cda89_35e7a845",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-09T07:24:44Z",
+      "side": 1,
+      "message": "Nit: you could actually factor this out with the identical code in removeService",
+      "revId": "cc2bde55d6168dff0542efd3940db946aecea0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
