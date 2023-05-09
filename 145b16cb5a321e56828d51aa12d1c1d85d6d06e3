@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f54ec35e_028a5382",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T06:15:22Z",
+      "side": 1,
+      "message": "Can this happen? If this code only listens to callbacks, then onCapabilitiesChanged will always have been called. Might want to add a WTF if the transports aren\u0027t present.",
+      "range": {
+        "startLine": 322,
+        "startChar": 62,
+        "endLine": 322,
+        "endChar": 72
+      },
+      "revId": "145b16cb5a321e56828d51aa12d1c1d85d6d06e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
