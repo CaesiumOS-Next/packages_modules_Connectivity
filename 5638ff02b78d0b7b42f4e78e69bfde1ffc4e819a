@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da83feea_cb529dde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T01:44:46Z",
+      "side": 1,
+      "message": "As Mark said, this is legacy code that only runs on older Android versions so modifying it isn\u0027t really useful.\n\nAs for the suggestion of making this work in automatic mode - the \n\nBy design, tethering never uses the VPN as upstream network, for a few reasons:\n\n1. VPNs are per-user and per-profile, and per-app. Different users on the device can simultaneously use different VPNs, and (as an example) work profile traffic never goes through the personal VPN and vice versa. Additionally, individual VPN apps can choose whether to allow individual other apps to use the VPN. Tethered traffic doesn\u0027t fit into this model.\n\n2. Many carriers have requirements around sending tethering traffic through given interfaces (e.g., DUN) and it\u0027s not possible to meet these requirements if the traffic is sent through the VPN.\n\n3. There is no way to route IPv6 traffic correctly through a split-tunnel VPN. In order to do this correctly, the tethered client would need different source addresses for traffic that needs to go through the VPN and for traffic that needs to go natively. There is no way to communicate this to the tethered device.\n\nThese problems are not impossible to work around, but doing so is a much larger effort than just changing the tethering code to pick an arbitrary VPN network as an upstream.",
+      "revId": "5638ff02b78d0b7b42f4e78e69bfde1ffc4e819a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b61c59d1_13dd338f",
