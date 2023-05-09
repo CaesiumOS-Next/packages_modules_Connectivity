@@ -334,6 +334,17 @@ public class NetworkInfo implements Parcelable {
     }
 
     /**
+     * Indicates whether this network is suspended.
+     * @hide
+     */
+    @Deprecated
+    public boolean isSuspended() {
+        synchronized (this) {
+            return mState == State.SUSPENDED;
+        }
+    }
+
+    /**
      * Indicates whether network connectivity is possible. A network is unavailable
      * when a persistent or semi-persistent condition prevents the possibility
      * of connecting to that network. Examples include
