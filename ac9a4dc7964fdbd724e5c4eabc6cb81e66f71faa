@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eca0bf6c_510c3bf3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-09T10:22:54Z",
+      "side": 1,
+      "message": "You are correct, we don\u0027t need `lock` here. I copied the code from `processResponse()`, which has the same problem. Thanks for pointing out this problem, remove `lock` from both places.",
+      "parentUuid": "0eca0f6a_df5ec632",
+      "range": {
+        "startLine": 268,
+        "startChar": 8,
+        "endLine": 268,
+        "endChar": 27
+      },
+      "revId": "ac9a4dc7964fdbd724e5c4eabc6cb81e66f71faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4283dbeb_b4d572ea",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b96140ee_84a403f3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-09T10:22:54Z",
+      "side": 1,
+      "message": "Yes, you can see the onGoodbyeReceived(), it\u0027s a same design here.",
+      "parentUuid": "4283dbeb_b4d572ea",
+      "revId": "ac9a4dc7964fdbd724e5c4eabc6cb81e66f71faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca3e467d_e6ef380a",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-05-09T01:50:15Z",
       "side": 1,
       "message": "It will be better to add comment to explain why previous is \n```\nverify(mockServiceTypeClientOne1, times(1))\n                .processResponse(response, ifIndex, null /* network */);\n        verify(mockServiceTypeClientTwo2, times(2))\n                .processResponse(response, ifIndex, null /* network */);\n```\n\nand now it is \n```\nverify(mockServiceTypeClientOne1, times(1))\n                .processResponse(response, ifIndex, null /* network */);\n        verify(mockServiceTypeClientTwo2, times(3))\n                .processResponse(response, ifIndex, null /* network */);\n```",
+      "revId": "ac9a4dc7964fdbd724e5c4eabc6cb81e66f71faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "210d583d_b5ff03a1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-09T10:22:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca3e467d_e6ef380a",
       "revId": "ac9a4dc7964fdbd724e5c4eabc6cb81e66f71faa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
