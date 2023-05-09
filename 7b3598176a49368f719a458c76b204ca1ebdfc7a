@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "820efb6a_03af42d3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-05-09T18:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "335fe967_7cdf25f7",
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ac1ef4f_58a6f58d",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-05-09T02:18:53Z",
       "side": 1,
       "message": "We still need `SdkLevel.isAtLeastU()`, I think.",
+      "range": {
+        "startLine": 1711,
+        "startChar": 11,
+        "endLine": 1711,
+        "endChar": 12
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6eaf645_c62c14ec",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1711,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-05-09T18:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ac1ef4f_58a6f58d",
       "range": {
         "startLine": 1711,
         "startChar": 11,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b913b3b_a482f436",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-05-09T18:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96d6eb7d_1c74a968",
+      "range": {
+        "startLine": 1715,
+        "startChar": 20,
+        "endLine": 1715,
+        "endChar": 55
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c12c947c_1e09f26f",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-05-09T02:14:01Z",
       "side": 1,
       "message": "If frozenStates is not the same length as UIDs this will crash the system with IndexOutOfBoundsException or similar. That would be a bug in CachedAppOptimizer, of course, but still, maybe add a check for that here and log a WTF if the two are different lengths?",
+      "range": {
+        "startLine": 2917,
+        "startChar": 28,
+        "endLine": 2917,
+        "endChar": 31
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e547d1b8_28998a5f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2917,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-05-09T18:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c12c947c_1e09f26f",
       "range": {
         "startLine": 2917,
         "startChar": 28,
@@ -195,6 +285,30 @@
       "writtenOn": "2023-05-09T02:14:01Z",
       "side": 1,
       "message": "You probably want \"+\" here instead of \",\". Using \",\" means the whole stack trace will be logged, but the stack trace here is the same 100% of the time - it always called from the message queue.",
+      "range": {
+        "startLine": 2928,
+        "startChar": 52,
+        "endLine": 2928,
+        "endChar": 53
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c49030dd_7ba84c55",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2928,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-05-09T18:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0477a5b2_adf248fd",
       "range": {
         "startLine": 2928,
         "startChar": 52,
