@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4283dbeb_b4d572ea",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T01:46:36Z",
+      "side": 1,
+      "message": "If a response isComplete() both onServiceRemoved and onServiceNameRemoved is expected to be called?",
+      "revId": "ac9a4dc7964fdbd724e5c4eabc6cb81e66f71faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
