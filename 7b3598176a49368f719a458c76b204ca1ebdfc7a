@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96d6eb7d_1c74a968",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T02:14:01Z",
+      "side": 1,
+      "message": "This class isn\u0027t really necessary, you can just use \"r -\u003e r.run()\".",
+      "range": {
+        "startLine": 1715,
+        "startChar": 20,
+        "endLine": 1715,
+        "endChar": 55
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c12c947c_1e09f26f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2917,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T02:14:01Z",
+      "side": 1,
+      "message": "If frozenStates is not the same length as UIDs this will crash the system with IndexOutOfBoundsException or similar. That would be a bug in CachedAppOptimizer, of course, but still, maybe add a check for that here and log a WTF if the two are different lengths?",
+      "range": {
+        "startLine": 2917,
+        "startChar": 28,
+        "endLine": 2917,
+        "endChar": 31
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61ac182f_1e4267ca",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2926,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T02:14:01Z",
+      "side": 1,
+      "message": "We don\u0027t need to address this in this CL, but FWIW I don\u0027t think it\u0027s a good idea to force-close sockets immediately after the app is frozen. Doing so will impose a latency penalty on the app after it\u0027s unfrozen (plus risk displaying errors to the user) and we should probably not do that unless the app has been frozen for a while.\n\nFrom a networking perspective I think something like one minute seems reasonable. Since from a power and performance perspective you probably want the ability to freeze apps much sooner than that, we probably need a delay here in the networking code.\n\nAnother reason not to do the close immediately in this method is that we plan to ensure that if the connections are on cellular we need to wait until the modem is in a high-power state before we can actually close the connections (otherwise, the socket close will burn power to send the RST packets).",
+      "range": {
+        "startLine": 2926,
+        "startChar": 22,
+        "endLine": 2926,
+        "endChar": 43
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0477a5b2_adf248fd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2928,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T02:14:01Z",
+      "side": 1,
+      "message": "You probably want \"+\" here instead of \",\". Using \",\" means the whole stack trace will be logged, but the stack trace here is the same 100% of the time - it always called from the message queue.",
+      "range": {
+        "startLine": 2928,
+        "startChar": 52,
+        "endLine": 2928,
+        "endChar": 53
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a96ebc44_8dcb3773",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2934,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T02:14:01Z",
+      "side": 1,
+      "message": "Is this named consistently with our other flags? I think many of them end in _VERSION.",
+      "range": {
+        "startLine": 2934,
+        "startChar": 24,
+        "endLine": 2934,
+        "endChar": 50
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
