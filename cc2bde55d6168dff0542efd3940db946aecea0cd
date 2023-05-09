@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f514682_ba7150b0",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T08:05:14Z",
+      "side": 1,
+      "message": "Oops, thanks for catch it.",
+      "parentUuid": "41011937_58d7294f",
+      "range": {
+        "startLine": 350,
+        "startChar": 93,
+        "endLine": 350,
+        "endChar": 207
+      },
+      "revId": "cc2bde55d6168dff0542efd3940db946aecea0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c2cda89_35e7a845",
@@ -54,6 +78,24 @@
       "writtenOn": "2023-05-09T07:24:44Z",
       "side": 1,
       "message": "Nit: you could actually factor this out with the identical code in removeService",
+      "revId": "cc2bde55d6168dff0542efd3940db946aecea0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d30e3e72_3bc2cb63",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T08:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c2cda89_35e7a845",
       "revId": "cc2bde55d6168dff0542efd3940db946aecea0cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
