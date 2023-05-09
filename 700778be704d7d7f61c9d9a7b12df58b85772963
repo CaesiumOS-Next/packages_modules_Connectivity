@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c31fbc2_fc63c009",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T06:15:12Z",
+      "side": 1,
+      "message": "There\u0027s a bug here: when an address becomes deprecated it will never be deleted any more.",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "700778be704d7d7f61c9d9a7b12df58b85772963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
