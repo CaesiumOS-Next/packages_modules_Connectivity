@@ -71,6 +71,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "72313a5e_d4eb5c87",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T06:14:49Z",
+      "side": 1,
+      "message": "I believe that this is because tagged data and untagged data are kept separately? For example, data that contains the tags is only kept for a shorter time than data that contains only the UID. Maybe update this comment?",
+      "range": {
+        "startLine": 132,
+        "startChar": 60,
+        "endLine": 132,
+        "endChar": 85
+      },
+      "revId": "ce7431f1fc767b17659c01ca1cee3248114baaec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ddcfbedd_4cb990e0",
         "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
         "patchSetId": 8
