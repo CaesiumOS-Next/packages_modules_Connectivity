@@ -33,6 +33,24 @@
       "message": "That makes the test less realistic, and we wouldn\u0027t be able to check the expected behavior when location is off; would it be possible to just make sure the test enables location ?",
       "revId": "a58914b5485d2c55cb8e4ec48b08a6f61d263e8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dca31b2_ba4cff3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-09T06:28:23Z",
+      "side": 1,
+      "message": "No I think, the template nor the test should need location permission as they are not really location related:\n\nIdeally, we would have a method like NetworkTemplate.Builder(MATCH_TEST).setTestNetworkIdentifier(...), which is similar to setWifiNetworkKey or setSubscriberId, which are for wifi and mobile networks respectively.\n\nHowever, since this feature is only for testing, we decided that it was not worth creating a new field. This is because we would need to store NetworkIdentity on the disk, which would make the file larger. The field would only be used for testing, and it would always be null for real users.\n\nInstead, we reused setWifiNetworkKey to store the identifier of test networks.\n\nAs you can see, there is no location leak problem for test networks or mobile networks, similar to setSubscriberId. Therefore, I believe that enforcing location permission for testing networks is a wrong behavior.\n\nWDYT?",
+      "parentUuid": "fc1564bb_b1613316",
+      "revId": "a58914b5485d2c55cb8e4ec48b08a6f61d263e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
