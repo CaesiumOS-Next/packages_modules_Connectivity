@@ -357,6 +357,24 @@
       "message": "nits: we can just return true.",
       "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e331cde9_fc15600a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2092,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-05-09T18:15:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8933a46f_d468b6f0",
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
