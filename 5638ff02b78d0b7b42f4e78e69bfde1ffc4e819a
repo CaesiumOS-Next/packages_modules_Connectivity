@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b99dd6_0b826c00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1994575
+      },
+      "writtenOn": "2023-05-09T14:45:47Z",
+      "side": 1,
+      "message": "Thank you for the in depth explanation. I knew about 1. but not about the other points. I suppose I will abandon this change and leave the issue open in case it is something you decide to pursue down the line.",
+      "parentUuid": "da83feea_cb529dde",
+      "revId": "5638ff02b78d0b7b42f4e78e69bfde1ffc4e819a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b61c59d1_13dd338f",
@@ -55,6 +73,30 @@
       "side": 1,
       "message": "Thank you for the information. The main goal behind this patch was to give OEMs the option to add VPNs as a tethering upstream. I can make runtime code to support this with `config_tether_upstream_automatic` set to true. In order to not change the default behaviour, an overlay, a user-configurable setting, a system property (etc) could be used for this purpose. Would that be an acceptable change? If so what route would be preferable?",
       "parentUuid": "b61c59d1_13dd338f",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 89
+      },
+      "revId": "5638ff02b78d0b7b42f4e78e69bfde1ffc4e819a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afbb8d2c_f87bae4e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1994575
+      },
+      "writtenOn": "2023-05-09T14:45:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d3ea9a54_51e899aa",
       "range": {
         "startLine": 111,
         "startChar": 8,
