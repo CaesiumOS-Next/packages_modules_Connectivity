@@ -344,6 +344,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6440d47_26daf0f4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2934,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-05-09T20:05:47Z",
+      "side": 1,
+      "message": "Let\u0027s rewrite as:\n```\nstatic final String KEY_DESTROY_FROZEN_SOCKETS_VERSION \u003d \"destroy_frozen_sockets_version\";\n```",
+      "parentUuid": "a96ebc44_8dcb3773",
+      "range": {
+        "startLine": 2934,
+        "startChar": 24,
+        "endLine": 2934,
+        "endChar": 50
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8933a46f_d468b6f0",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 4
