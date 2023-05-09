@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0eca0f6a_df5ec632",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T01:54:15Z",
+      "side": 1,
+      "message": "Actually I am not very sure why we need `lock` here. It seems the method is already synchronized and the lock is used to guarad the `requestTaskFuture` but we don\u0027t use `requestTaskFuture` in thsi code path?",
+      "range": {
+        "startLine": 268,
+        "startChar": 8,
+        "endLine": 268,
+        "endChar": 27
+      },
+      "revId": "ac9a4dc7964fdbd724e5c4eabc6cb81e66f71faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4283dbeb_b4d572ea",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 2
