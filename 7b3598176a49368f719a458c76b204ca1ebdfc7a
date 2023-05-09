@@ -158,6 +158,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d420da96_a8379538",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2926,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-05-09T17:03:21Z",
+      "side": 1,
+      "message": "Resolving this for now per yesterday\u0027s conversation.\nLet\u0027s do work to set up a study in followup changes.",
+      "parentUuid": "8f442d17_969ed9e0",
+      "range": {
+        "startLine": 2926,
+        "startChar": 22,
+        "endLine": 2926,
+        "endChar": 43
+      },
+      "revId": "7b3598176a49368f719a458c76b204ca1ebdfc7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0477a5b2_adf248fd",
