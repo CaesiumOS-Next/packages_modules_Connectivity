@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61759da0_262a2bff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T02:32:51Z",
+      "side": 1,
+      "message": "The first line of the commit message should be a brief summary. Also, please limit line length. Something like:\n\nFix agents disconnecting in SUSPENDED state.\n\nNetwork state is not changed to disconnected when a networkagent\nis disconnected and network state is SUSPENDED.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 110
+      },
+      "revId": "8cb2adcec95b6d7f492b7c1ad3fb53bf28fed97c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4789a6c4_f1e8e1b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T02:32:51Z",
+      "side": 1,
+      "message": "Add space after \".\".",
+      "range": {
+        "startLine": 9,
+        "startChar": 40,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "8cb2adcec95b6d7f492b7c1ad3fb53bf28fed97c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ecc0920_90241653",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T02:32:51Z",
+      "side": 1,
+      "message": "Fix generally LGTM but please address comments. Once you have addressed them we can start presubmit and ensure that all the automated tests run. Right now I think we can\u0027t run them because the code won\u0027t compile.",
+      "revId": "8cb2adcec95b6d7f492b7c1ad3fb53bf28fed97c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f832afa_9e2457b2",
+        "filename": "framework/src/android/net/NetworkInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-09T02:32:51Z",
+      "side": 1,
+      "message": "I think this will fail to compile because it is adding a public API method. You need to add an @hide comment, something like:\n\n/**\n * Indicates whether this network is suspended.\n * @hide\n */",
+      "range": {
+        "startLine": 336,
+        "startChar": 4,
+        "endLine": 336,
+        "endChar": 15
+      },
+      "revId": "8cb2adcec95b6d7f492b7c1ad3fb53bf28fed97c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
