@@ -22,6 +22,30 @@
       },
       "revId": "41ced9d2259f60d8c0152bcab11e1a6e0e3d694f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6d2558b_e0b3fa3b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-09T05:44:54Z",
+      "side": 1,
+      "message": "Yes. If tethering and wifi network are both existed. For example, the user turns on the hotspot and the upstream network is a Wi-Fi.",
+      "parentUuid": "71a50c84_41274ab0",
+      "range": {
+        "startLine": 86,
+        "startChar": 20,
+        "endLine": 86,
+        "endChar": 46
+      },
+      "revId": "41ced9d2259f60d8c0152bcab11e1a6e0e3d694f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
