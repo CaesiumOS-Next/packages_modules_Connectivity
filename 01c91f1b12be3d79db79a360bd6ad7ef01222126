@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43b5f87f_677923f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T08:27:38Z",
+      "side": 1,
+      "message": "Thanks for the detailed check.\n\n\u003eMdnsServiceTypeClient.java:\n\u003ereturn options.getResolveInstanceName().equalsIgnoreCase(response.getServiceInstanceName());\n\nLooks like it alreayd use case sensitive check.\n\n\u003eMdnsProber.java:\n\u003ereturn CollectionUtils.any(records, r -\u003e Arrays.equals(name, r.getName()));\n\nDone.\n\n\u003eMdnsPacketWriter.java:\n\u003eif (Arrays.equals(existingLabels, labels)) {\n\nDone.\n\n\u003eMdnsServiceInfo.java:\n\u003ereturn key.equals(otherEntry.key) \u0026\u0026 Arrays.equals(value, otherEntry.value);\n\nNo,  the case insensitive matching only applies to label, it doesn\u0027t apply to the text entry.\n\n\u003eMdnsDiscoveryManager.java:\n\u003eif (serviceType.equals(perNetworkServiceType.first)) {\n\n`PerNetworkServiceTypeClients` use the serviceType as a key. So I think the correct approach is to covert it to lower case when put it into map.",
+      "parentUuid": "74617673_47d21f1c",
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "caae0cdc_0966c9c9",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-05-08T07:17:03Z",
       "side": 1,
       "message": "Using `equalsIgnoreDnsCase`.",
+      "range": {
+        "startLine": 64,
+        "startChar": 54,
+        "endLine": 64,
+        "endChar": 97
+      },
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a53bdc9_65066e46",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsPointerRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T08:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caae0cdc_0966c9c9",
       "range": {
         "startLine": 64,
         "startChar": 54,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1781d128_0cfe3698",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T08:27:38Z",
+      "side": 1,
+      "message": "Done. Good catch! Also added test coverage for this function.",
+      "parentUuid": "f1603005_03cf129d",
+      "range": {
+        "startLine": 140,
+        "startChar": 26,
+        "endLine": 140,
+        "endChar": 32
+      },
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abc0c3d1_b192d25c",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-05-08T07:17:03Z",
       "side": 1,
       "message": "If you convert the `recordName` to all lowercase letters using the `MdnsUtils.toDnsLabelsLowerCase()` before storing it, you do not need to change the `equals()` and `hashCode()` methods.",
+      "range": {
+        "startLine": 302,
+        "startChar": 30,
+        "endLine": 302,
+        "endChar": 40
+      },
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cf5e7f5_f3af7cf7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T08:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abc0c3d1_b192d25c",
       "range": {
         "startLine": 302,
         "startChar": 30,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2b73f8f_492d56f1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T08:27:38Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "47fda067_b6ae50da",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 9
+      },
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07ba21cc_2dfcebfa",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-05-08T07:17:03Z",
       "side": 1,
       "message": "Maybe also test the service type that includes subtypes.",
+      "range": {
+        "startLine": 303,
+        "startChar": 4,
+        "endLine": 303,
+        "endChar": 5
+      },
+      "revId": "01c91f1b12be3d79db79a360bd6ad7ef01222126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5f4cdbc_d137bd42",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-09T08:27:38Z",
+      "side": 1,
+      "message": "I refactored the code into a util function to make the test easier. \nI feel adding too many raw packet in the test case can reduce the test readability.",
+      "parentUuid": "07ba21cc_2dfcebfa",
       "range": {
         "startLine": 303,
         "startChar": 4,
