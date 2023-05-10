@@ -210,8 +210,11 @@ public class AutomaticOnOffKeepaliveTracker {
             this.mKi = Objects.requireNonNull(ki);
             mCallback = ki.mCallback;
             mUnderpinnedNetwork = underpinnedNetwork;
-            if (autoOnOff && mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION,
-                    true /* defaultEnabled */)) {
+
+            final boolean enabled = BinderUtils.withCleanCallingIdentity(
+                    () -> mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION,
+                    true /* defaultEnabled */));
+            if (autoOnOff && enabled) {
                 mAutomaticOnOffState = STATE_ENABLED;
                 if (null == ki.mFd) {
                     throw new IllegalArgumentException("fd can't be null with automatic "
