@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0bd4b92_b40ddf0a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 3616,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-05-10T18:21:53Z",
+      "side": 1,
+      "message": "Maybe it\u0027s enough to test this for each an allowlist and denylist chain, rather than every chain?",
+      "range": {
+        "startLine": 3615,
+        "startChar": 0,
+        "endLine": 3616,
+        "endChar": 55
+      },
+      "revId": "38ea953bd4a3b59c8f6e4fc9f277565ed7b3ebee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf08fced_81317ae0",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 16
@@ -14,6 +37,30 @@
       "writtenOn": "2023-05-10T18:14:07Z",
       "side": 1,
       "message": "I don\u0027t understand why this is expected. The socket is owned by our uid -- why is it closed when setting up a DOZABLE rule for a different uid?",
+      "range": {
+        "startLine": 3630,
+        "startChar": 16,
+        "endLine": 3630,
+        "endChar": 49
+      },
+      "revId": "38ea953bd4a3b59c8f6e4fc9f277565ed7b3ebee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "387397dd_5131b371",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 3630,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-05-10T18:21:53Z",
+      "side": 1,
+      "message": "Oh, I see: \n        if (getFirewallType(chain) \u003d\u003d FIREWALL_ALLOWLIST) {\n            // Close all sockets on all non-system UIDs...\n\nNow that I think about it, I guess that makes sense.",
+      "parentUuid": "cf08fced_81317ae0",
       "range": {
         "startLine": 3630,
         "startChar": 16,
