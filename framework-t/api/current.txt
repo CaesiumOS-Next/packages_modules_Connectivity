@@ -252,6 +252,7 @@ package android.net.nsd {
     method public String getServiceName();
     method public String getServiceType();
     method public void removeAttribute(String);
+    method public void setAttribute(@NonNull String, @Nullable byte[]);
     method public void setAttribute(String, String);
     method @Deprecated public void setHost(java.net.InetAddress);
     method public void setHostAddresses(@NonNull java.util.List<java.net.InetAddress>);
