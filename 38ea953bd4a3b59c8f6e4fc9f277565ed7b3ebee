@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf08fced_81317ae0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 3630,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-05-10T18:14:07Z",
+      "side": 1,
+      "message": "I don\u0027t understand why this is expected. The socket is owned by our uid -- why is it closed when setting up a DOZABLE rule for a different uid?",
+      "range": {
+        "startLine": 3630,
+        "startChar": 16,
+        "endLine": 3630,
+        "endChar": 49
+      },
+      "revId": "38ea953bd4a3b59c8f6e4fc9f277565ed7b3ebee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
