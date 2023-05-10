@@ -16,8 +16,11 @@
 
 package android.net.nsd;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -199,5 +202,47 @@ public class NsdServiceInfoTest {
             return;
         }
         fail("NsdServiceInfo.getTxtRecord did not return null but " + Arrays.toString(txtRecord));
+    }
+
+    @Test
+    public void setAttribute_nullBinaryValue_throwsNullPointerException() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        assertThrows(NullPointerException.class, () -> info.setAttribute("a", null));
+    }
+
+    @Test
+    public void setAttribute_nullKey_throwsIllegalArgument() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        assertThrows(IllegalArgumentException.class, () -> info.setAttribute(null, new byte[]{0}));
+    }
+
+    @Test
+    public void setAttribute_emptyKey_throwsIllegalArgument() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        assertThrows(IllegalArgumentException.class, () -> info.setAttribute("", new byte[]{0}));
+    }
+
+    @Test
+    public void setAttribute_setTheSameKeyTwice_secondSetWins() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setAttribute("a", new byte[]{0x1a, 0x2a});
+        info.setAttribute("a", new byte[]{0x1b, 0x2b});
+
+        assertThat(info.getAttributes()).containsExactly("a", new byte[]{0x1b, 0x2b});
+    }
+
+    @Test
+    public void setAttribute_validKeyValue_attributeCanBeRetrievedBack() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setAttribute("a", new byte[]{0x1a, 0x2a});
+        info.setAttribute("b", new byte[]{0x1b, 0x2b});
+
+        assertThat(info.getAttributes()).containsExactly(
+                "a", new byte[]{0x1a, 0x2a}, "b", new byte[]{0x1b, 0x2b});
     }
 }
