@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc2e7bf5_763b0564",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-10T08:14:32Z",
+      "side": 1,
+      "message": "Can you add a check/throw if this isn\u0027t the handler thread here ? It depends on how MdnsMultinetworkSocketClient was created, so even though it should be the case, there\u0027s no good guarantee in this class.",
+      "revId": "3ad1345494aa60c3a8c637af9a12f6821d78da83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
