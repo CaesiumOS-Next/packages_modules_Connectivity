@@ -116,6 +116,7 @@ apex {
         "block.o",
         "clatd.o",
         "dscpPolicy.o",
+        "events.o",
         "netd.o",
         "offload.o",
         "offload@btf.o",
