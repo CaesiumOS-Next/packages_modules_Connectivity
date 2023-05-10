@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac65f495_73b9618f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-10T07:43:29Z",
+      "side": 0,
+      "message": "Why is it OK to remove this lock ? I think instanceNameToResponse is basically @GuardedBy(\"lock\"), since it\u0027s used in various threads but always with the lock held.",
+      "revId": "bdf82a2aa0d7447de75fdcca60734936b926e25e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
