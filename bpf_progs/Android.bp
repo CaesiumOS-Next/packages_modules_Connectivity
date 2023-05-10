@@ -83,6 +83,17 @@ bpf {
 }
 
 bpf {
+    name: "events.o",
+    srcs: ["events.c"],
+    btf: true,
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+    sub_dir: "net_shared",
+}
+
+bpf {
     name: "offload.o",
     srcs: ["offload.c"],
     cflags: [
