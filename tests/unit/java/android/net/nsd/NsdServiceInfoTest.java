@@ -16,8 +16,11 @@
 
 package android.net.nsd;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -199,5 +202,100 @@ public class NsdServiceInfoTest {
             return;
         }
         fail("NsdServiceInfo.getTxtRecord did not return null but " + Arrays.toString(txtRecord));
+    }
+
+    @Test
+    public void setAttribute_nullBinaryValue_throwsNullPointerException() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        assertThrows(NullPointerException.class, () -> info.setAttribute("a", (byte[])null));
+    }
+
+    @Test
+    public void setAttribute_emptyBinaryValue_success() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setAttribute("a", new byte[]{});
+
+        assertThat(info.getAttributes().get("a")).isEqualTo(new byte[]{});
+    }
+
+    @Test
+    public void setAttribute_nullKey_throwsIllegalArgument() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        assertThrows(IllegalArgumentException.class, () -> info.setAttribute(null, new byte[]{0}));
+    }
+
+    @Test
+    public void setAttribute_emptyKey_throwsIllegalArgument() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        assertThrows(IllegalArgumentException.class, () -> info.setAttribute("", new byte[]{0}));
+    }
+
+    @Test
+    public void setAttribute_keyIncludesNotPrintableAscii_throwsIllegalArgumentException() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        assertThrows(IllegalArgumentException.class,
+                () -> info.setAttribute("\u0019", new byte[]{0}));
+        assertThrows(IllegalArgumentException.class,
+                () -> info.setAttribute("\u007F", new byte[]{0}));
+    }
+
+    @Test
+    public void setAttribute_keyIncludesEqualSign_throwsIllegalArgumentException() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        assertThrows(IllegalArgumentException.class, () -> info.setAttribute("=", new byte[]{0}));
+    }
+
+    @Test
+    public void setAttribute_keyValueTotalLengthIsTooLong_throwsIllegalArgumentException() {
+        NsdServiceInfo info = new NsdServiceInfo();
+        final String key = "a".repeat(128);
+        final byte[] value = new byte[127];
+
+        assertThrows(IllegalArgumentException.class, () -> info.setAttribute(key, value));
+    }
+
+    @Test
+    public void setAttribute_totalTxtRecordSizeIsTooLarge_throwsIllegalArgumentException() {
+        NsdServiceInfo info = new NsdServiceInfo();
+        final byte[] value = new byte[127];
+
+        info.setAttribute("a".repeat(127), value);
+        info.setAttribute("b".repeat(127), value);
+        info.setAttribute("c".repeat(127), value);
+        info.setAttribute("d".repeat(127), value);
+        info.setAttribute("e".repeat(127), value);
+        assertThat(info.getTxtRecord().length).isEqualTo(1280); // 1280 = 5 * (127 + 127 + 1 + 1)
+
+        // The upper bound size of TXT record (1300 bytes) is exceeded
+        assertThrows(IllegalArgumentException.class,
+                () -> info.setAttribute("f".repeat(127), value));
+    }
+
+    @Test
+    public void setAttribute_setTheSameKeyTwice_secondSetWins() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setAttribute("a", new byte[]{0x1a, 0x2a});
+        info.setAttribute("a", new byte[]{0x1b, 0x2b});
+
+        assertThat(info.getAttributes().get("a")).isEqualTo(new byte[]{0x1b, 0x2b});
+    }
+
+    @Test
+    public void setAttribute_validKeyValue_attributesCanBeRetrievedBack() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setAttribute("a", new byte[]{0x1a, 0x2a});
+        info.setAttribute("b", new byte[]{0x1b, 0x2b});
+
+        assertThat(info.getAttributes()).hasSize(2);
+        assertThat(info.getAttributes().get("a")).isEqualTo(new byte[]{0x1a, 0x2a});
+        assertThat(info.getAttributes().get("b")).isEqualTo(new byte[]{0x1b, 0x2b});
     }
 }
