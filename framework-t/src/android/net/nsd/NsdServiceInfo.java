@@ -18,7 +18,6 @@ package android.net.nsd;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.compat.annotation.UnsupportedAppUsage;
 import android.net.Network;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -226,9 +225,22 @@ public final class NsdServiceInfo implements Parcelable {
         }
     }
 
-    /** @hide */
-    @UnsupportedAppUsage
-    public void setAttribute(String key, byte[] value) {
+    /**
+     * Add a service attribute as a key/value pair.
+     *
+     * <p> Service attributes are included as DNS-SD TXT record pairs.
+     *
+     * <p> The key must be US-ASCII printable characters, excluding the '=' character. {@code
+     * value} may be {@code null} or an empty byte array but {@code key} cannot be {@code null} or
+     * empty. The total length of key + value must be less than 255 bytes.
+     *
+     * <p> Keys should be short, ideally no more than 9 characters, and unique per instance of
+     * {@link NsdServiceInfo}.  Calling {@link #setAttribute} twice with the same key will overwrite
+     * first value.
+     *
+     * @see #setAttribute(String, String) for adding UTF-8 string values
+     */
+    public void setAttribute(@NonNull String key, @Nullable byte[] value) {
         if (TextUtils.isEmpty(key)) {
             throw new IllegalArgumentException("Key cannot be empty");
         }
