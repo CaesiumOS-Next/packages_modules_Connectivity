@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A class representing service information for network service discovery
@@ -226,12 +227,26 @@ public final class NsdServiceInfo implements Parcelable {
         }
     }
 
-    /** @hide */
-    @UnsupportedAppUsage
-    public void setAttribute(String key, byte[] value) {
+    /**
+     * Add a service attribute as a key/value pair.
+     *
+     * <p> Service attributes are included as DNS-SD TXT record pairs.
+     *
+     * <p> The key must be US-ASCII printable characters, excluding the '=' character. {@code
+     * value} may be an empty byte array but {@code key} cannot be {@code null} empty. The total
+     * length of key + value must be less than 255 bytes.
+     *
+     * <p> Keys should be short, ideally no more than 9 characters, and unique per instance of
+     * {@link NsdServiceInfo}.  Calling {@link #setAttribute} twice with the same key will overwrite
+     * first value.
+     *
+     * @see setAttribute(String, String) for adding UTF-8 string values
+     */
+    public void setAttribute(@NonNull String key, @NonNull byte[] value) {
         if (TextUtils.isEmpty(key)) {
             throw new IllegalArgumentException("Key cannot be empty");
         }
+        Objects.requireNonNull(value, "Value cannot be null");
 
         // Key must be printable US-ASCII, excluding =.
         for (int i = 0; i < key.length(); ++i) {
@@ -280,7 +295,7 @@ public final class NsdServiceInfo implements Parcelable {
      */
     public void setAttribute(String key, String value) {
         try {
-            setAttribute(key, value == null ? (byte []) null : value.getBytes("UTF-8"));
+            setAttribute(key, value == null ? new byte[]{} : value.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {
             throw new IllegalArgumentException("Value must be UTF-8");
         }
