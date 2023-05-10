@@ -210,6 +210,7 @@ public class AutomaticOnOffKeepaliveTracker {
             this.mKi = Objects.requireNonNull(ki);
             mCallback = ki.mCallback;
             mUnderpinnedNetwork = underpinnedNetwork;
+
             if (autoOnOff && mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION,
                     true /* defaultEnabled */)) {
                 mAutomaticOnOffState = STATE_ENABLED;
@@ -586,9 +587,8 @@ public class AutomaticOnOffKeepaliveTracker {
         // Reading DeviceConfig will check if the calling uid and calling package name are the same.
         // Clear calling identity to align the calling uid and package so that it won't fail if cts
         // would like to do the dump()
-        final boolean featureEnabled = BinderUtils.withCleanCallingIdentity(
-                () -> mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION,
-                        true /* defaultEnabled */));
+        final boolean featureEnabled = mDependencies.isFeatureEnabled(
+                AUTOMATIC_ON_OFF_KEEPALIVE_VERSION, true /* defaultEnabled */);
         pw.println("AutomaticOnOff enabled: " + featureEnabled);
         pw.increaseIndent();
         for (AutomaticOnOffKeepalive autoKi : mAutomaticOnOffKeepalives) {
@@ -841,8 +841,9 @@ public class AutomaticOnOffKeepaliveTracker {
          * @return whether the feature is enabled
          */
         public boolean isFeatureEnabled(@NonNull final String name, final boolean defaultEnabled) {
-            return DeviceConfigUtils.isFeatureEnabled(mContext, NAMESPACE_TETHERING, name,
-                    defaultEnabled);
+            return BinderUtils.withCleanCallingIdentity(() ->
+                    DeviceConfigUtils.isFeatureEnabled(mContext, NAMESPACE_TETHERING, name,
+                    defaultEnabled));
         }
 
         /**
