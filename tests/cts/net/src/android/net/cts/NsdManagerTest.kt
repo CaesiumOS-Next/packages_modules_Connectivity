@@ -497,6 +497,10 @@ class NsdManagerTest {
         val registeredInfo = registrationRecord.expectCallback<ServiceRegistered>(
                 REGISTRATION_TIMEOUT_MS).serviceInfo
 
+        // Only service name is included in ServiceRegistered callbacks
+        assertNull(registeredInfo.serviceType)
+        assertEquals(si.serviceName, registeredInfo.serviceName)
+
         val discoveryRecord = NsdDiscoveryRecord()
         // Test discovering without an Executor
         nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, discoveryRecord)
@@ -506,11 +510,15 @@ class NsdManagerTest {
 
         // Expect a service record to be discovered
         val foundInfo = discoveryRecord.waitForServiceDiscovered(registeredInfo.serviceName)
+        // Discovered service types have a dot at the end
+        assertEquals("$serviceType.", foundInfo.serviceType)
 
         // Test resolving without an Executor
         val resolveRecord = NsdResolveRecord()
         nsdManager.resolveService(foundInfo, resolveRecord)
         val resolvedService = resolveRecord.expectCallback<ServiceResolved>().serviceInfo
+        assertEquals(".$serviceType", resolvedService.serviceType)
+        assertEquals(registeredInfo.serviceName, resolvedService.serviceName)
 
         // Check Txt attributes
         assertEquals(8, resolvedService.attributes.size)
@@ -538,9 +546,11 @@ class NsdManagerTest {
         registrationRecord.expectCallback<ServiceUnregistered>()
 
         // Expect a callback for service lost
-        discoveryRecord.expectCallbackEventually<ServiceLost> {
+        val lostCb = discoveryRecord.expectCallbackEventually<ServiceLost> {
             it.serviceInfo.serviceName == serviceName
         }
+        // Lost service types have a dot at the end
+        assertEquals("$serviceType.", lostCb.serviceInfo.serviceType)
 
         // Register service again to see if NsdManager can discover it
         val si2 = NsdServiceInfo()
@@ -638,6 +648,8 @@ class NsdManagerTest {
 
             val serviceDiscovered = discoveryRecord.expectCallback<ServiceFound>()
             assertEquals(registeredInfo1.serviceName, serviceDiscovered.serviceInfo.serviceName)
+            // Discovered service types have a dot at the end
+            assertEquals("$serviceType.", serviceDiscovered.serviceInfo.serviceType)
             assertEquals(testNetwork1.network, nsdShim.getNetwork(serviceDiscovered.serviceInfo))
 
             // Unregister, then register the service back: it should be lost and found again
@@ -650,6 +662,7 @@ class NsdManagerTest {
             val registeredInfo2 = registerService(registrationRecord, si, executor)
             val serviceDiscovered2 = discoveryRecord.expectCallback<ServiceFound>()
             assertEquals(registeredInfo2.serviceName, serviceDiscovered2.serviceInfo.serviceName)
+            assertEquals("$serviceType.", serviceDiscovered2.serviceInfo.serviceType)
             assertEquals(testNetwork1.network, nsdShim.getNetwork(serviceDiscovered2.serviceInfo))
 
             // Teardown, then bring back up a network on the test interface: the service should
@@ -665,6 +678,7 @@ class NsdManagerTest {
             val newNetwork = newAgent.network ?: fail("Registered agent should have a network")
             val serviceDiscovered3 = discoveryRecord.expectCallback<ServiceFound>()
             assertEquals(registeredInfo2.serviceName, serviceDiscovered3.serviceInfo.serviceName)
+            assertEquals("$serviceType.", serviceDiscovered3.serviceInfo.serviceType)
             assertEquals(newNetwork, nsdShim.getNetwork(serviceDiscovered3.serviceInfo))
         } cleanupStep {
             nsdManager.stopServiceDiscovery(discoveryRecord)
