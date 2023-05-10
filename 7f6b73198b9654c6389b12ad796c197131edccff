@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdbfe3b3_9c54f724",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-10T08:30:18Z",
+      "side": 1,
+      "message": "The main behavior difference here is that MdnsServiceTypeClient can be created with already populated cache, and it will immediately answer queries based on cache.\n\nCould you have some test that verifies that ? For example you could have one in MdnsServiceTypeClientTests that checks that if you create with a non-empty cache, and a matching query arrives, it\u0027s answered from the cache.",
+      "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8cfa2a8_b02adf91",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-10T08:30:18Z",
+      "side": 1,
+      "message": "Could you replace all of these with \"throw if not looper thread\" ? See comment further down about removing requestTaskFuture.",
+      "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e91622f8_c8a33930",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-10T08:30:18Z",
+      "side": 1,
+      "message": "Note this means the QueryTask should be run immediately immediately after being created (not be scheduled in advance). Because the result of \"makeResponsesForResolveIfUnknown\" depends on answers that were received before it is called, so to take into account all answers before sending the query, it needs to be called just before sending it.\n\nOtherwise, you\u0027d end up with:\n - First QueryTask is created, mDNS query sent\n - Next QueryTask is scheduled for 1s later. There\u0027s still no known response for the service, so an incomplete resolve response is created.\n - Service replies after 100ms\n - 900ms later, second QueryTask is run, but it doesn\u0027t take into the account the earlier reply.\n \nWhat should happen is:\n - First QueryTask is created, mDNS query sent\n - Message is scheduled to create the next QueryTask in 1s\n - Service replies after 100ms\n - 900ms later, second QueryTask is created, and uses the last reply data. Then it\u0027s executed immediately on the Executor.",
+      "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88596a78_c31b5709",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-10T08:30:18Z",
+      "side": 1,
+      "message": "Can you move this to a separate method ? It has a bit too many levels of indentation",
+      "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fc985c1_d5e0584b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-10T08:30:18Z",
+      "side": 1,
+      "message": "This is racy because now stopSendAndReceive could cancel the requestTaskFuture after handler.post was called, but before the handler executed this block. Then requestTaskFuture gets re-scheduled when the handler executes this block, so the \"cancel\" didn\u0027t work and discovery keeps running.\n\nI think you could:\n\n - Take a looper as argument instead of Handler for in the MdnsServiceTypeClient constructor\n - Use a subclass of Handler that overrides handleMessage. It would call executor.submit with a new QueryTask every time a new message (MSG_START_QUERYTASK ?) is processed; and probably do the \"remove service after TTL expires\" thing too.\n - Instead of handler.post here, use handler.sendMessageDelayed with MSG_START_QUERYTASK\n - Delete requestTaskFuture. Use handler.removeMessages to cancel pending tasks instead, making sure that it is called from the handler thread.",
+      "range": {
+        "startLine": 574,
+        "startChar": 20,
+        "endLine": 574,
+        "endChar": 37
+      },
+      "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aebe918e_2a623ee4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-10T08:30:18Z",
+      "side": 1,
+      "message": "I think that\u0027s the bug mentioned in earlier comments though, not expected behavior",
+      "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
