@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72949dfc_8da67edc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-10T07:42:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1866967_bea58e20",
+      "range": {
+        "startLine": 18,
+        "startChar": 35,
+        "endLine": 18,
+        "endChar": 41
+      },
+      "revId": "80744ae79d1ddd5f71e0383dc38a27f38792ee1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1d4f80b_5c5a638c",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-04T11:50:05Z",
       "side": 1,
       "message": "behind? or use under?",
+      "range": {
+        "startLine": 77,
+        "startChar": 70,
+        "endLine": 77,
+        "endChar": 76
+      },
+      "revId": "80744ae79d1ddd5f71e0383dc38a27f38792ee1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1a1bf4c_26dfebf8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-10T07:42:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1d4f80b_5c5a638c",
       "range": {
         "startLine": 77,
         "startChar": 70,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4012e69c_9daaca82",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-10T07:42:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6444a77a_90800828",
+      "range": {
+        "startLine": 79,
+        "startChar": 75,
+        "endLine": 79,
+        "endChar": 81
+      },
+      "revId": "80744ae79d1ddd5f71e0383dc38a27f38792ee1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e086eeb_25e62722",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-04T11:50:05Z",
       "side": 1,
       "message": "Just thinking how to eliminate the change in ConnectedClientsTrackers, because it doesn\u0027t need to care about whether it is localOnly or not.\nOption 1:\nStore last hotspot clients and last localOnly clients in Tethering, if one of them callback, concat with the other one before passing to updateConnectedClients.\nOption 2:\nUse different ConnectedClientsTrackers for hotspot clients and localOnly clients",
+      "range": {
+        "startLine": 2723,
+        "startChar": 8,
+        "endLine": 2724,
+        "endChar": 47
+      },
+      "revId": "80744ae79d1ddd5f71e0383dc38a27f38792ee1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fa4da8a_3095c382",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2724,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-10T07:42:59Z",
+      "side": 1,
+      "message": "I don\u0027t want to avoid touching ConnectedClientsTrackers, replied inline\n\nOption 1:\nStore last hotspot clients and last localOnly clients in Tethering, if one of them callback, concat with the other one before passing to updateConnectedClients.\n\n\u003e This option make the Tethering layer stores client information, which should be the original response for ConnectedClientsTracker. This duplicates wifi client information between Tethering and ConnectedClientsTracker, as ConnectedClientsTracker stores wifi client and localOnly together, but Tethering stores them separately. Also requires an additional concatenation operation on the Tethering side.\n\nOption 2:\nUse different ConnectedClientsTrackers for hotspot clients and localOnly clients\n\n\u003e ConnectedClientsTrackers tracks the client infos for all tethering type, it is not only for hotspot client and localOnly clients. Thus, separate ConnectedClientsTrackers for hotspot clients and localOnly clients looks weird.",
+      "parentUuid": "8e086eeb_25e62722",
       "range": {
         "startLine": 2723,
         "startChar": 8,
