@@ -262,6 +262,10 @@ public class KeepaliveTracker {
             }
         }
 
+        public int getType() {
+            return mType;
+        }
+
         public int getSlot() {
             return mSlot;
         }
