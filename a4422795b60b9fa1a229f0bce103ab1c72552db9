@@ -39,6 +39,30 @@
       },
       "revId": "a4422795b60b9fa1a229f0bce103ab1c72552db9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2726899e_4a8ca723",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-10T02:20:18Z",
+      "side": 1,
+      "message": "Make sense. Update the design accordingly.",
+      "parentUuid": "34927ba0_ac273c05",
+      "range": {
+        "startLine": 114,
+        "startChar": 12,
+        "endLine": 114,
+        "endChar": 37
+      },
+      "revId": "a4422795b60b9fa1a229f0bce103ab1c72552db9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
