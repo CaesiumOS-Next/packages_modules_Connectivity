@@ -16,6 +16,24 @@
       "message": "Why is it OK to remove this lock ? I think instanceNameToResponse is basically @GuardedBy(\"lock\"), since it\u0027s used in various threads but always with the lock held.",
       "revId": "bdf82a2aa0d7447de75fdcca60734936b926e25e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b56dbdb_6fa596c8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-10T13:53:02Z",
+      "side": 0,
+      "message": "I initially believed that the `instanceNameToResponse` is @GuardedBy(\"this\") and `requestTaskFuture` is @GuardedBy(\"lock\"). However, after reviewing the code in other methods, I realized that the `instanceNameToResponse` is actually @GuardedBy(\"lock\"). Thanks for pointing this out. I\u0027ll add the lock back to processResponse().",
+      "parentUuid": "ac65f495_73b9618f",
+      "revId": "bdf82a2aa0d7447de75fdcca60734936b926e25e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "323a1d79_9534ec21",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-10T13:53:02Z",
+      "side": 1,
+      "message": "I initially believed that the instanceNameToResponse is @GuardedBy(\"this\") and requestTaskFuture is @GuardedBy(\"lock\"). However, after reviewing the code in other methods, I realized that the instanceNameToResponse is actually @GuardedBy(\"lock\"). Thanks for pointing this out. This method doesn\u0027t need to add `synchronized`, so I\u0027ll remove it. In adddtion, I\u0027ll remove all `synchronized` in a followup change.",
+      "parentUuid": "c36c5396_694e7175",
+      "range": {
+        "startLine": 265,
+        "startChar": 11,
+        "endLine": 265,
+        "endChar": 23
+      },
+      "revId": "86653027b4722c3a297c350bdae3d155b3b37206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "352de1ba_c9c63978",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-10T07:43:29Z",
       "side": 1,
       "message": "One1 and Two2 looks weird, maybe you could have another CL to rename it since this is pre-existing ?",
+      "range": {
+        "startLine": 211,
+        "startChar": 36,
+        "endLine": 211,
+        "endChar": 40
+      },
+      "revId": "86653027b4722c3a297c350bdae3d155b3b37206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd582b43_98da8d92",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-10T13:53:02Z",
+      "side": 1,
+      "message": "I\u0027ll rename them in a followup change.",
+      "parentUuid": "352de1ba_c9c63978",
       "range": {
         "startLine": 211,
         "startChar": 36,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ba51d76_47e0d981",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-10T13:53:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91403ebd_4d11408c",
+      "range": {
+        "startLine": 1067,
+        "startChar": 0,
+        "endLine": 1067,
+        "endChar": 48
+      },
+      "revId": "86653027b4722c3a297c350bdae3d155b3b37206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9ec23f3_9f326372",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca8a11f2_b1cf2669",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-10T13:53:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9ec23f3_9f326372",
+      "range": {
+        "startLine": 1091,
+        "startChar": 32,
+        "endLine": 1091,
+        "endChar": 55
+      },
+      "revId": "86653027b4722c3a297c350bdae3d155b3b37206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5061ddd_5e11df6b",
@@ -106,6 +202,24 @@
       "writtenOn": "2023-05-10T07:43:29Z",
       "side": 1,
       "message": "Nit: having the never() after the positive verifications would be more readable I think\n\nverify().onServiceNameDiscovered()\nverify().onServiceFound()\nverify().onServiceRemoved()\nverify().onServiceNameRemoved()\nverify(never()).X\nverify(never()).Y\nverify(never()).Z",
+      "revId": "86653027b4722c3a297c350bdae3d155b3b37206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a95150e_ceb5b4c1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-10T13:53:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5061ddd_5e11df6b",
       "revId": "86653027b4722c3a297c350bdae3d155b3b37206",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
