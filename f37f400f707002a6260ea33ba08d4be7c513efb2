@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a4d9e88_8de8bf02",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-10T07:17:03Z",
+      "side": 1,
+      "message": "Thank you for your comments!\nI will reflect your comments on CL I will upload for optimizing socket destroy with modem state.",
+      "parentUuid": "0538145b_3b30f451",
+      "range": {
+        "startLine": 943,
+        "startChar": 54,
+        "endLine": 943,
+        "endChar": 62
+      },
+      "revId": "f37f400f707002a6260ea33ba08d4be7c513efb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "63ce3d7f_7eb66158",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 2
