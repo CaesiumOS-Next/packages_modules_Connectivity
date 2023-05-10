@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5238eb38_b9220e04",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 2601,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-10T11:01:50Z",
+      "side": 1,
+      "message": "Done. It wasn\u0027t the same because setCreated is only called at the end of the process of creating the network. So when applyInitialLinkProperties runs, isCreated() returns false and this code doesn\u0027t run.\n\nFixed this by ensuring that in the new codepath, updateNetworkInfo calls setCreated before calling applyInitialLinkProperties. This shouldn\u0027t change any behaviour because isCreated is currently called only on the handler thread.\n\nNow, of course, this method has the first usage of isCreated outside the handler thread. It\u0027s not substantially worse than it was before, because the previous code already called everConnected outside the handler thread, which is similarly technically incorrect.",
+      "parentUuid": "b99122f4_c7518722",
+      "range": {
+        "startLine": 2601,
+        "startChar": 24,
+        "endLine": 2601,
+        "endChar": 80
+      },
+      "revId": "75df6b7e91f8456fa7e308fbacddf87b4c7a1664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec18a1f4_3ca170ef",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-06T05:21:01Z",
       "side": 1,
       "message": "Do we not need to assert the LP if atLeastU ?",
+      "range": {
+        "startLine": 1314,
+        "startChar": 10,
+        "endLine": 1314,
+        "endChar": 14
+      },
+      "revId": "75df6b7e91f8456fa7e308fbacddf87b4c7a1664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c55a6956_8faa17cf",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-10T11:01:50Z",
+      "side": 1,
+      "message": "It\u0027s not necessary. The reason we call assertLinkPropertiesEventuallyNotNull is to ensure that the network has been created (updated the comment to clarify - it says \"connected\", but the network doesn\u0027t connect because markConnected is never called). In the new codepath, we can just wait for OnNetworkCreated.",
+      "parentUuid": "ec18a1f4_3ca170ef",
       "range": {
         "startLine": 1314,
         "startChar": 10,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86a61baf_a3022afb",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 1459,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-10T11:01:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee1f2d0d_2a7ac748",
+      "revId": "75df6b7e91f8456fa7e308fbacddf87b4c7a1664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2ada49d_8c621004",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-05-06T05:21:01Z",
       "side": 1,
       "message": "else assert empty ?",
+      "range": {
+        "startLine": 3788,
+        "startChar": 8,
+        "endLine": 3788,
+        "endChar": 9
+      },
+      "revId": "75df6b7e91f8456fa7e308fbacddf87b4c7a1664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a804f55f_d4e874cb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 3788,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-10T11:01:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2ada49d_8c621004",
       "range": {
         "startLine": 3788,
         "startChar": 8,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f37f1e6_985226e1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 15053,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-10T11:01:50Z",
+      "side": 1,
+      "message": "There is no timeout in expectNativeNetworkCreated. But this is indeed not necessary, because connect() waits for a NetworkCallback.",
+      "parentUuid": "61814fed_62a0b544",
+      "range": {
+        "startLine": 15053,
+        "startChar": 16,
+        "endLine": 15053,
+        "endChar": 27
+      },
+      "revId": "75df6b7e91f8456fa7e308fbacddf87b4c7a1664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4ce8357_f4da67ab",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-05-06T05:21:01Z",
       "side": 1,
       "message": "Mistake ?",
+      "range": {
+        "startLine": 15091,
+        "startChar": 16,
+        "endLine": 15091,
+        "endChar": 33
+      },
+      "revId": "75df6b7e91f8456fa7e308fbacddf87b4c7a1664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ea2b1a6_e61b8849",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 15091,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-10T11:01:50Z",
+      "side": 1,
+      "message": "Oops. Done",
+      "parentUuid": "d4ce8357_f4da67ab",
       "range": {
         "startLine": 15091,
         "startChar": 16,
@@ -156,6 +294,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebfeb995_ccad5305",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 15098,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-10T11:01:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "921d7486_be085bb3",
+      "range": {
+        "startLine": 15098,
+        "startChar": 16,
+        "endLine": 15098,
+        "endChar": 27
+      },
+      "revId": "75df6b7e91f8456fa7e308fbacddf87b4c7a1664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df09cbb2_961ae13b",
@@ -169,6 +331,30 @@
       "writtenOn": "2023-05-06T05:21:01Z",
       "side": 1,
       "message": "I find this name misleading because after T it will verify the MTU was NOT set.\n\nSuggest something like `verifyMtuSetOnWifiBeforeConnect()` (resp. after) or something.\n\nPossibly if you can test for `.created()` you can even merge these two methods and call it `verifyMtuSetOnWifiAgreesWithCreateImmediately` or so.",
+      "range": {
+        "startLine": 17629,
+        "startChar": 17,
+        "endLine": 17629,
+        "endChar": 49
+      },
+      "revId": "75df6b7e91f8456fa7e308fbacddf87b4c7a1664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4071bb2_b2c1fc8e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 17629,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-10T11:01:50Z",
+      "side": 1,
+      "message": "Renamed to \"...OnlyUpToT\" and the one below to \"...OnlyStartingFromU\".",
+      "parentUuid": "df09cbb2_961ae13b",
       "range": {
         "startLine": 17629,
         "startChar": 17,
