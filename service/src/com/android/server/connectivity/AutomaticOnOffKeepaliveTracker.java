@@ -441,7 +441,9 @@ public class AutomaticOnOffKeepaliveTracker {
             return;
         }
         mEventLog.log("Start keepalive " + autoKi.mCallback + " on " + autoKi.getNetwork());
-        mKeepaliveStatsTracker.onStartKeepalive();
+        if (shouldTrackKeepaliveStats(autoKi.mKi)) {
+            mKeepaliveStatsTracker.onStartKeepalive();
+        }
 
         // Add automatic on/off request into list to track its life cycle.
         try {
@@ -462,13 +464,17 @@ public class AutomaticOnOffKeepaliveTracker {
             mEventLog.log("Failed to resume keepalive " + ki.mCallback + " on " + ki.mNai);
             return;
         }
-        mKeepaliveStatsTracker.onResumeKeepalive();
+        if (shouldTrackKeepaliveStats(ki)) {
+            mKeepaliveStatsTracker.onResumeKeepalive();
+        }
         mEventLog.log("Resumed successfully keepalive " + ki.mCallback + " on " + ki.mNai);
     }
 
     private void handlePauseKeepalive(@NonNull final KeepaliveTracker.KeepaliveInfo ki) {
         mEventLog.log("Suspend keepalive " + ki.mCallback + " on " + ki.mNai);
-        mKeepaliveStatsTracker.onPauseKeepalive();
+        if (shouldTrackKeepaliveStats(ki)) {
+            mKeepaliveStatsTracker.onPauseKeepalive();
+        }
         // TODO : mKT.handleStopKeepalive should take a KeepaliveInfo instead
         mKeepaliveTracker.handleStopKeepalive(ki.getNai(), ki.getSlot(), SUCCESS_PAUSED);
     }
@@ -492,7 +498,9 @@ public class AutomaticOnOffKeepaliveTracker {
 
     private void cleanupAutoOnOffKeepalive(@NonNull final AutomaticOnOffKeepalive autoKi) {
         ensureRunningOnHandlerThread();
-        mKeepaliveStatsTracker.onStopKeepalive(autoKi.mAutomaticOnOffState != STATE_SUSPENDED);
+        if (shouldTrackKeepaliveStats(autoKi.mKi)) {
+            mKeepaliveStatsTracker.onStopKeepalive(autoKi.mAutomaticOnOffState != STATE_SUSPENDED);
+        }
         autoKi.close();
         if (null != autoKi.mAlarmListener) mAlarmManager.cancel(autoKi.mAlarmListener);
 
@@ -511,6 +519,10 @@ public class AutomaticOnOffKeepaliveTracker {
             return;
         }
         cleanupAutoOnOffKeepalive(autoKi);
+    }
+
+    private boolean shouldTrackKeepaliveStats(@NonNull final KeepaliveTracker.KeepaliveInfo ki) {
+        return ki.getType() == KeepaliveTracker.KeepaliveInfo.TYPE_NATT;
     }
 
     /**
