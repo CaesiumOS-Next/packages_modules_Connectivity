@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ca275d7_4f562456",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-11T06:54:21Z",
+      "side": 1,
+      "message": "This won\u0027t be happy (will throw) if getServiceInstanceName returned null, in particular for an empty instance name. I\u0027m not sure that check is valuable, maybe it should be removed, but as-is it\u0027s still a potential crash...\n\nMaybe just add `if (name \u003d\u003d null) continue;` to the outer loop ?",
+      "range": {
+        "startLine": 275,
+        "startChar": 28,
+        "endLine": 275,
+        "endChar": 60
+      },
+      "revId": "a67eef79507ec5e2e4bf5cef88ebb6462539be7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
