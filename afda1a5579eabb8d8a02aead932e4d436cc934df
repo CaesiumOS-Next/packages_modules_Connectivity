@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e52efd71_b8f1e71d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-11T14:30:28Z",
+      "side": 1,
+      "message": "Actually I think this a step in the wrong direction.\n\nisFeatureEnabled is a utility method and it should not be responsible for clearing the caller identity. Clearing caller identity should happen in methods that process binder IPCs, not general utility methods. Otherwise if the utility method is called from the wrong place it could create a security issue.\n\nI think the right fix here is to find out what binder IPC is causing the permission problem and clearing the calling identity in the IPC method itself.",
+      "revId": "afda1a5579eabb8d8a02aead932e4d436cc934df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
