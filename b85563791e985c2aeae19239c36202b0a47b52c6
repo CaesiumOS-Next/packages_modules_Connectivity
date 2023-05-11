@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5513f75_d72a5a20",
+        "filename": "service-t/native/libs/libnetworkstats/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-05-11T00:08:46Z",
+      "side": 1,
+      "message": "IIUC, shared libraries like this are pulled into the Apex so that there\u0027s no dependency on the OS version. There is a step during the train build that de-dupes certain base libraries. However, the Tethering Apex already had a dependency on this elsewhere so it has no change to binary size.\n\nAnd yes, it\u0027s needed for ATRACE_INT, ATRACE_INT is the standard platform tracing mechanism which writes into the ftrace buffers for tools such as Perfetto to read.",
+      "parentUuid": "96238f2c_9a52b4b5",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 20
+      },
+      "revId": "b85563791e985c2aeae19239c36202b0a47b52c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d545385_b66c0e23",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-10T22:57:39Z",
       "side": 1,
       "message": "this seems weird... \u0026* should be a no-op",
+      "range": {
+        "startLine": 158,
+        "startChar": 8,
+        "endLine": 158,
+        "endChar": 11
+      },
+      "revId": "b85563791e985c2aeae19239c36202b0a47b52c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a5cda2b_929b2e4b",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTraceHandler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-05-11T00:08:46Z",
+      "side": 1,
+      "message": "`GetDataSourceLocked` returns a `LockedHandle\u003cT\u003e` which wraps the raw pointer and holds a lock until the handle is destroyed. Unfortunately, the type doesn\u0027t have a `.get()` to get the raw pointer, but it does have `operator*` used here. I\u0027ve added a comment here to clarify.",
+      "parentUuid": "6d545385_b66c0e23",
       "range": {
         "startLine": 158,
         "startChar": 8,
