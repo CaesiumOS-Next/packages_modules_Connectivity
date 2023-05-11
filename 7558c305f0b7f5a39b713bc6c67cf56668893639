@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee141650_28bd3932",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-11T02:59:31Z",
+      "side": 1,
+      "message": "Do we need to return here for an unexpected service type? If not, the app may receive this unexpected service type in NsdServiceInfo.",
+      "range": {
+        "startLine": 1112,
+        "startChar": 94,
+        "endLine": 1112,
+        "endChar": 95
+      },
+      "revId": "7558c305f0b7f5a39b713bc6c67cf56668893639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10f63141_018f2cfb",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-11T02:59:31Z",
+      "side": 1,
+      "message": "Do you want to add service type check here?",
+      "revId": "7558c305f0b7f5a39b713bc6c67cf56668893639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aa115e4_c1a0da87",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-11T02:59:31Z",
+      "side": 1,
+      "message": "Is it possible to modify line 997 to `\"_service._tcp.local\".split(\"\\\\.\")` to fix this problem now? Or do we need to update something else as well?",
+      "range": {
+        "startLine": 1016,
+        "startChar": 30,
+        "endLine": 1016,
+        "endChar": 84
+      },
+      "revId": "7558c305f0b7f5a39b713bc6c67cf56668893639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
