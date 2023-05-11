@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b076949_6718741f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-11T10:41:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee141650_28bd3932",
+      "range": {
+        "startLine": 1112,
+        "startChar": 94,
+        "endLine": 1112,
+        "endChar": 95
+      },
+      "revId": "7558c305f0b7f5a39b713bc6c67cf56668893639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10f63141_018f2cfb",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d60834cf_372a0478",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-11T10:41:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10f63141_018f2cfb",
+      "revId": "7558c305f0b7f5a39b713bc6c67cf56668893639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9aa115e4_c1a0da87",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-05-11T02:59:31Z",
       "side": 1,
       "message": "Is it possible to modify line 997 to `\"_service._tcp.local\".split(\"\\\\.\")` to fix this problem now? Or do we need to update something else as well?",
+      "range": {
+        "startLine": 1016,
+        "startChar": 30,
+        "endLine": 1016,
+        "endChar": 84
+      },
+      "revId": "7558c305f0b7f5a39b713bc6c67cf56668893639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b1f9153_04ad12ba",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-11T10:41:20Z",
+      "side": 1,
+      "message": "Yes this would fix it in the test, but it wouldn\u0027t correspond to actual behavior. I\u0027ve got another change on top that actually fixes it (and this test)",
+      "parentUuid": "9aa115e4_c1a0da87",
       "range": {
         "startLine": 1016,
         "startChar": 30,
