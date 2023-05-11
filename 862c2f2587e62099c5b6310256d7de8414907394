@@ -33,6 +33,29 @@
       "message": "100.1.201.172",
       "revId": "862c2f2587e62099c5b6310256d7de8414907394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ce1695a_980e297b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 10917,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-11T03:08:26Z",
+      "side": 1,
+      "message": "If you do not fully remove the lock, I think you still need the synchronization here. CM#isDefaultNetworkActive will call from any processes to access isDefaultNetworkActive(). IIUC, it will be a threading issue w/o synchronization while accessing mNetworkActive/mActiveIdleTimers",
+      "range": {
+        "startLine": 10906,
+        "startChar": 12,
+        "endLine": 10917,
+        "endChar": 13
+      },
+      "revId": "862c2f2587e62099c5b6310256d7de8414907394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
