@@ -28,6 +28,7 @@ import android.util.Pair;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.SharedLog;
 
 import java.net.Inet4Address;
@@ -35,6 +36,7 @@ import java.net.Inet6Address;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -205,9 +207,20 @@ public class MdnsServiceTypeClient {
 
     private boolean responseMatchesOptions(@NonNull MdnsResponse response,
             @NonNull MdnsSearchOptions options) {
-        if (options.getResolveInstanceName() == null) return true;
-        // DNS is case-insensitive, so ignore case in the comparison
-        return options.getResolveInstanceName().equalsIgnoreCase(response.getServiceInstanceName());
+        final boolean matchesInstanceName = options.getResolveInstanceName() == null
+                // DNS is case-insensitive, so ignore case in the comparison
+                || options.getResolveInstanceName().equalsIgnoreCase(
+                        response.getServiceInstanceName());
+
+        // If discovery is requiring some subtypes, the response must have one that matches a
+        // requested one.
+        final List<String> responseSubtypes = response.getSubtypes() == null
+                ? Collections.emptyList() : response.getSubtypes();
+        final boolean matchesSubtype = options.getSubtypes().size() == 0
+                || CollectionUtils.any(options.getSubtypes(), requiredSub ->
+                CollectionUtils.any(responseSubtypes, requiredSub::equalsIgnoreCase));
+
+        return matchesInstanceName && matchesSubtype;
     }
 
     /**
