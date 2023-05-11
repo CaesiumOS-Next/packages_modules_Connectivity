@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "496fdab8_d1dcab33",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-11T14:07:35Z",
+      "side": 1,
+      "message": "Is this expected to be called outside KeepaliveStatsTracker? i.e. is this method required to be public? This may be revalant to the comment below. Should the thread check be done in the public methods?",
+      "range": {
+        "startLine": 435,
+        "startChar": 47,
+        "endLine": 435,
+        "endChar": 68
+      },
+      "revId": "82e2da8dd84cb536330a109c917fd46b6f713e79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

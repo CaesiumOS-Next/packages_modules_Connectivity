@@ -508,6 +508,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c48882f5_36c98130",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-11T14:07:35Z",
+      "side": 1,
+      "message": "Not done? I think ensureRunningOnHandlerThread should be checked in `buildAndResetMetrics`, not `buildKeepaliveMetrics` which is a private method. Though it\u0027s true now that calling into buildAndResetMetrics will check the thread, the thread check will be missing if `buildKeepaliveMetrics` is removed from buildAndResetMetrics someday.",
+      "parentUuid": "88ff350d_76874b9d",
+      "range": {
+        "startLine": 484,
+        "startChar": 20,
+        "endLine": 484,
+        "endChar": 46
+      },
+      "revId": "0c75ffe489f1b36c01c740c3d1f63ff3f7029c92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7249942d_46b60160",
         "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
         "patchSetId": 12
