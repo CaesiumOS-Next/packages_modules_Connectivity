@@ -213,7 +213,10 @@ public final class EntitlementManagerTest {
         }
 
         @Override
-        PendingIntent createRecheckAlarmIntent() {
+        protected PendingIntent createRecheckAlarmIntent(final Intent intent) {
+            assertEquals(EntitlementManager.ACTION_PROVISIONING_ALARM, intent.getAction());
+            assertEquals(TEST_PACKAGE_NAME, intent.getPackage());
+
             return mAlarmIntent;
         }
     }
