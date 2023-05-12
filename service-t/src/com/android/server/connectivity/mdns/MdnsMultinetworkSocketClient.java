@@ -103,7 +103,9 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         private void notifySocketDestroyed(@NonNull MdnsInterfaceSocket socket) {
             mSocketPacketHandlers.remove(socket);
             mActiveNetworkSockets.remove(socket);
-            mSocketCreationCallback.onSocketDestroyed(mNetwork);
+            if (!mActiveNetworkSockets.containsValue(mNetwork)) {
+                mSocketCreationCallback.onAllSocketsDestroyed(mNetwork);
+            }
         }
 
         void onNetworkUnrequested() {
