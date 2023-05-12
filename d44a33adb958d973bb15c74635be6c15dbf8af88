@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "062c3208_20f0cf7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-12T09:15:36Z",
+      "side": 1,
+      "message": "LGTM, feel free to address comments in a follow-up.",
+      "revId": "d44a33adb958d973bb15c74635be6c15dbf8af88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ae93e13_fe473a75",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-12T09:15:36Z",
+      "side": 1,
+      "message": "the",
+      "range": {
+        "startLine": 753,
+        "startChar": 79,
+        "endLine": 753,
+        "endChar": 80
+      },
+      "revId": "d44a33adb958d973bb15c74635be6c15dbf8af88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f582962_7710edda",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-12T09:15:36Z",
+      "side": 1,
+      "message": "This comment suggests that this is a valid combination, but that the map cannot represent it correctly. But it\u0027s not a valid combination. An allowlist chain is a list of UIDs  that is allowed. It does not, and cannot, contain UIDs that are denied.\n\nMaybe just remove this comment?",
+      "range": {
+        "startLine": 770,
+        "startChar": 48,
+        "endLine": 770,
+        "endChar": 49
+      },
+      "revId": "d44a33adb958d973bb15c74635be6c15dbf8af88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2a7919e_39075c84",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-12T09:15:36Z",
+      "side": 1,
+      "message": "denied",
+      "range": {
+        "startLine": 787,
+        "startChar": 82,
+        "endLine": 787,
+        "endChar": 88
+      },
+      "revId": "d44a33adb958d973bb15c74635be6c15dbf8af88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe9e41b2_a4b966c1",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-12T09:15:36Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 789,
+        "startChar": 7,
+        "endLine": 789,
+        "endChar": 11
+      },
+      "revId": "d44a33adb958d973bb15c74635be6c15dbf8af88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d05a54_3fc65577",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 11944,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-12T09:15:36Z",
+      "side": 1,
+      "message": "Would be good to know how long this takes to see if it\u0027s worth optimizing. Once you\u0027ve submitted the CL, can you see how long it takes? Would be good to know if this is better or worse than the old codepath. That used cheaper data structures (SparseIntArray vs BpfMap) but it also relied on IPCs.",
+      "range": {
+        "startLine": 11944,
+        "startChar": 17,
+        "endLine": 11944,
+        "endChar": 51
+      },
+      "revId": "d44a33adb958d973bb15c74635be6c15dbf8af88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
