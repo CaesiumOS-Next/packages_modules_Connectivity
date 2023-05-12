@@ -129,6 +129,7 @@ private const val NO_CALLBACK_TIMEOUT_MS = 200L
 // tried sequentially
 private const val REGISTRATION_TIMEOUT_MS = 10_000L
 private const val DBG = false
+private const val TEST_PORT = 12345
 
 private val nsdShim = NsdShimImpl.newInstance()
 
@@ -434,6 +435,13 @@ class NsdManagerTest {
         })
         agent.sendLinkProperties(lp)
         return agent
+    }
+
+    private fun makeTestServiceInfo(network: Network? = null) = NsdServiceInfo().also {
+        it.serviceType = serviceType
+        it.serviceName = serviceName
+        it.network = network
+        it.port = TEST_PORT
     }
 
     @After
@@ -1046,6 +1054,52 @@ class NsdManagerTest {
                 NsdServiceInfo(), NsdManager.FAILURE_OPERATION_NOT_RUNNING)
         val failedCb = resolveRecord.expectCallback<StopResolutionFailed>()
         assertEquals(NsdManager.FAILURE_OPERATION_NOT_RUNNING, failedCb.errorCode)
+    }
+
+    @Test
+    fun testSubtypeAdvertisingAndDiscovery() {
+        val si = makeTestServiceInfo(network = testNetwork1.network)
+        // Test "_type._tcp.local,_subtype" syntax with the registration
+        si.serviceType = si.serviceType + ",_subtype"
+
+        val registrationRecord = NsdRegistrationRecord()
+
+        val baseTypeDiscoveryRecord = NsdDiscoveryRecord()
+        val subtypeDiscoveryRecord = NsdDiscoveryRecord()
+        val otherSubtypeDiscoveryRecord = NsdDiscoveryRecord()
+        tryTest {
+            registerService(registrationRecord, si)
+
+            // Test "_subtype._type._tcp.local" syntax with discovery. Note this is not
+            // "_subtype._sub._type._tcp.local".
+            nsdManager.discoverServices(serviceType,
+                    NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, baseTypeDiscoveryRecord)
+            nsdManager.discoverServices("_othersubtype.$serviceType",
+                    NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, otherSubtypeDiscoveryRecord)
+            nsdManager.discoverServices("_subtype.$serviceType",
+                    NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, subtypeDiscoveryRecord)
+
+            subtypeDiscoveryRecord.waitForServiceDiscovered(
+                    serviceName, serviceType, testNetwork1.network)
+            baseTypeDiscoveryRecord.waitForServiceDiscovered(
+                    serviceName, serviceType, testNetwork1.network)
+            otherSubtypeDiscoveryRecord.expectCallback<DiscoveryStarted>()
+            // The subtype callback was registered later but called, no need for an extra delay
+            otherSubtypeDiscoveryRecord.assertNoCallback(timeoutMs = 0)
+        } cleanupStep {
+            nsdManager.stopServiceDiscovery(baseTypeDiscoveryRecord)
+            nsdManager.stopServiceDiscovery(subtypeDiscoveryRecord)
+            nsdManager.stopServiceDiscovery(otherSubtypeDiscoveryRecord)
+
+            baseTypeDiscoveryRecord.expectCallback<DiscoveryStopped>()
+            subtypeDiscoveryRecord.expectCallback<DiscoveryStopped>()
+            otherSubtypeDiscoveryRecord.expectCallback<DiscoveryStopped>()
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
+        }
     }
 
     /**
