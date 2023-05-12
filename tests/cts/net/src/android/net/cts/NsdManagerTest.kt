@@ -1271,6 +1271,52 @@ class NsdManagerTest {
                 resolvedCb.serviceInfo.hostAddresses.toSet())
     }
 
+    @Test
+    fun testSubtypeAdvertisingAndDiscovery() {
+        val si = makeTestServiceInfo(network = testNetwork1.network)
+        // Test "_type._tcp.local,_subtype" syntax with the registration
+        si.serviceType = si.serviceType + ",_subtype"
+
+        val registrationRecord = NsdRegistrationRecord()
+
+        val baseTypeDiscoveryRecord = NsdDiscoveryRecord()
+        val subtypeDiscoveryRecord = NsdDiscoveryRecord()
+        val otherSubtypeDiscoveryRecord = NsdDiscoveryRecord()
+        tryTest {
+            registerService(registrationRecord, si)
+
+            // Test "_subtype._type._tcp.local" syntax with discovery. Note this is not
+            // "_subtype._sub._type._tcp.local".
+            nsdManager.discoverServices(serviceType,
+                    NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, baseTypeDiscoveryRecord)
+            nsdManager.discoverServices("_othersubtype.$serviceType",
+                    NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, otherSubtypeDiscoveryRecord)
+            nsdManager.discoverServices("_subtype.$serviceType",
+                    NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, subtypeDiscoveryRecord)
+
+            subtypeDiscoveryRecord.waitForServiceDiscovered(
+                    serviceName, serviceType, testNetwork1.network)
+            baseTypeDiscoveryRecord.waitForServiceDiscovered(
+                    serviceName, serviceType, testNetwork1.network)
+            otherSubtypeDiscoveryRecord.expectCallback<DiscoveryStarted>()
+            // The subtype callback was registered later but called, no need for an extra delay
+            otherSubtypeDiscoveryRecord.assertNoCallback(timeoutMs = 0)
+        } cleanupStep {
+            nsdManager.stopServiceDiscovery(baseTypeDiscoveryRecord)
+            nsdManager.stopServiceDiscovery(subtypeDiscoveryRecord)
+            nsdManager.stopServiceDiscovery(otherSubtypeDiscoveryRecord)
+
+            baseTypeDiscoveryRecord.expectCallback<DiscoveryStopped>()
+            subtypeDiscoveryRecord.expectCallback<DiscoveryStopped>()
+            otherSubtypeDiscoveryRecord.expectCallback<DiscoveryStopped>()
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
+        }
+    }
+
     private fun buildConflictingAnnouncement(): ByteBuffer {
         /*
         Generated with:
