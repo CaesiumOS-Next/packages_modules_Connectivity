@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6181f2fb_b83b8f8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-12T01:44:00Z",
+      "side": 1,
+      "message": "LGTM, assuming the comments have been addressed.",
+      "revId": "e50d5a2194966dfd75d5555e974e8564b7703f06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8008e75b_578f924f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-12T01:44:00Z",
+      "side": 1,
+      "message": "Why does this change from `serviceTyp`e to `typeAndSubtype`?",
+      "range": {
+        "startLine": 610,
+        "startChar": 32,
+        "endLine": 610,
+        "endChar": 46
+      },
+      "revId": "e50d5a2194966dfd75d5555e974e8564b7703f06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07d2bb09_332742e9",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-12T01:44:00Z",
+      "side": 1,
+      "message": "Nit: Update the description to match the current design.",
+      "range": {
+        "startLine": 1337,
+        "startChar": 11,
+        "endLine": 1340,
+        "endChar": 81
+      },
+      "revId": "e50d5a2194966dfd75d5555e974e8564b7703f06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f64c640d_22304b12",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1351,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-12T01:44:00Z",
+      "side": 1,
+      "message": "Nit: The valid type must not have `local` in the end.",
+      "range": {
+        "startLine": 1351,
+        "startChar": 65,
+        "endLine": 1351,
+        "endChar": 70
+      },
+      "revId": "e50d5a2194966dfd75d5555e974e8564b7703f06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89879769_88fe1f70",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-12T01:44:00Z",
+      "side": 1,
+      "message": "Use MdnsUtils.equalsIgnoreDnsCase?",
+      "range": {
+        "startLine": 212,
+        "startChar": 52,
+        "endLine": 212,
+        "endChar": 68
+      },
+      "revId": "e50d5a2194966dfd75d5555e974e8564b7703f06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85ecd6d3_94cf0691",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1288,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-12T01:44:00Z",
+      "side": 1,
+      "message": "Nit: Rename to `testParseTypeAndSubtype`",
+      "range": {
+        "startLine": 1288,
+        "startChar": 16,
+        "endLine": 1288,
+        "endChar": 40
+      },
+      "revId": "e50d5a2194966dfd75d5555e974e8564b7703f06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
