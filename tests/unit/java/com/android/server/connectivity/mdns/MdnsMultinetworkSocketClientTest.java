@@ -28,6 +28,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import android.net.InetAddresses;
 import android.net.Network;
@@ -253,6 +254,25 @@ public class MdnsMultinetworkSocketClientTest {
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
 
         verify(mProvider).unrequestSocket(callback);
-        verify(mSocketCreationCallback, times(2)).onSocketDestroyed(null /* network */);
+        verify(mSocketCreationCallback).onAllSocketsDestroyed(null /* network */);
+    }
+
+    @Test
+    public void testSocketCreatedAndDestroyed_NullNetwork() throws IOException {
+        final MdnsInterfaceSocket otherSocket = mock(MdnsInterfaceSocket.class);
+        final SocketCallback callback = expectSocketCallback(null /* network */);
+        doReturn(createEmptyNetworkInterface()).when(mSocket).getInterface();
+        doReturn(createEmptyNetworkInterface()).when(otherSocket).getInterface();
+
+        callback.onSocketCreated(null /* network */, mSocket, List.of());
+        verify(mSocketCreationCallback).onSocketCreated(null);
+        callback.onSocketCreated(null /* network */, otherSocket, List.of());
+        verify(mSocketCreationCallback, times(2)).onSocketCreated(null);
+
+        // Notify socket destroyed
+        callback.onInterfaceDestroyed(null /* network */, mSocket);
+        verifyNoMoreInteractions(mSocketCreationCallback);
+        callback.onInterfaceDestroyed(null /* network */, otherSocket);
+        verify(mSocketCreationCallback).onAllSocketsDestroyed(null /* network */);
     }
 }
