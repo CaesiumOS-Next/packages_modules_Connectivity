@@ -90,7 +90,10 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
                 @NonNull MdnsInterfaceSocket socket) {
             mSocketPacketHandlers.remove(socket);
             mActiveNetworkSockets.remove(socket);
-            mSocketCreationCallback.onSocketDestroyed(network);
+
+            if (!mActiveNetworkSockets.containsValue(network)) {
+                mSocketCreationCallback.onAllSocketsDestroyed(network);
+            }
         }
     }
 
