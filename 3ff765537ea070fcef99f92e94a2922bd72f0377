@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3af10b71_49e7e1aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-12T08:47:28Z",
+      "side": 1,
+      "message": "LGTM but please see the comment about the timeout. You can fix that in another CL if you like.",
+      "revId": "3ff765537ea070fcef99f92e94a2922bd72f0377",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "513271d8_90bf4369",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-12T08:47:28Z",
+      "side": 1,
+      "message": "This seems a bit short for anything involving network activity. It might cause the test to be flaky.\n\nIf this timeout is only ever hit when the test fails, then I would suggest increasing it - say, 5s or 10s.",
+      "range": {
+        "startLine": 282,
+        "startChar": 58,
+        "endLine": 282,
+        "endChar": 62
+      },
+      "revId": "3ff765537ea070fcef99f92e94a2922bd72f0377",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fc839a6_46d23274",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 3571,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-12T08:47:28Z",
+      "side": 1,
+      "message": "Nit: CLOSED. (\"Close\" means something that is not far away.)",
+      "range": {
+        "startLine": 3571,
+        "startChar": 40,
+        "endLine": 3571,
+        "endChar": 45
+      },
+      "revId": "3ff765537ea070fcef99f92e94a2922bd72f0377",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
