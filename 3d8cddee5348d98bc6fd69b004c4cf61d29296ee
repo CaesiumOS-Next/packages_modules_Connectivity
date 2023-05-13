@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63354e34_749209a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2000123
+      },
+      "writtenOn": "2023-05-13T08:32:46Z",
+      "side": 1,
+      "message": "We need to allow following rules in firewall to pass this CTS\n\n-A OUTPUT -p udp --dport 500 -j ACCEPT\n-A OUTPUT -p udp --dport 4500 -j ACCEPT\n-A OUTPUT -p udp --sport 500 -j ACCEPT\n-A OUTPUT -p udp --sport 4500 -j ACCEPT\n\n-A INPUT -m policy --pol ipsec --dir in -j ACCEPT\n-A OUTPUT -m policy --pol ipsec --dir out -j ACCEPT\n\n-A INPUT -i ipsec+ -p esp -j ACCEPT\n-A INPUT -i testtun+ -p esp -j ACCEPT\n-A OUTPUT -o ipsec+ -p esp -j ACCEPT\n-A OUTPUT -o testtun+ -p esp -j ACCEPT\n\n-A INPUT -i ipsec+ -p udp -j ACCEPT\n-A OUTPUT -o ipsec+ -p udp -j ACCEPT\n-A INPUT -i testtun+ -p udp -j ACCEPT\n-A OUTPUT -o testtun+ -p udp -j ACCEPT",
+      "revId": "3d8cddee5348d98bc6fd69b004c4cf61d29296ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
