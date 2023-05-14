@@ -1,98 +1,10 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package android.net.ip;
-
-import static android.net.util.NetworkConstants.RFC7421_PREFIX_LENGTH;
-import static android.system.OsConstants.AF_INET6;
-import static android.system.OsConstants.IPPROTO_ICMPV6;
-import static android.system.OsConstants.SOCK_RAW;
-import static android.system.OsConstants.SOL_SOCKET;
-import static android.system.OsConstants.SO_SNDTIMEO;
-
-import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_SLLA;
-import static com.android.net.module.util.NetworkStackConstants.ICMPV6_RA_HEADER_LEN;
-import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
-import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_SOLICITATION;
-import static com.android.net.module.util.NetworkStackConstants.IPV6_MIN_MTU;
-import static com.android.net.module.util.NetworkStackConstants.PIO_FLAG_AUTONOMOUS;
-import static com.android.net.module.util.NetworkStackConstants.PIO_FLAG_ON_LINK;
-import static com.android.net.module.util.NetworkStackConstants.TAG_SYSTEM_NEIGHBOR;
-import static com.android.networkstack.tethering.util.TetheringUtils.getAllNodesForScopeId;
-
-import android.net.IpPrefix;
-import android.net.LinkAddress;
-import android.net.MacAddress;
-import android.net.TrafficStats;
-import android.net.util.SocketUtils;
-import android.system.ErrnoException;
-import android.system.Os;
-import android.system.StructTimeval;
-import android.util.Log;
-
-import com.android.internal.annotations.GuardedBy;
-import com.android.net.module.util.InterfaceParams;
-import com.android.net.module.util.structs.Icmpv6Header;
-import com.android.net.module.util.structs.LlaOption;
-import com.android.net.module.util.structs.MtuOption;
-import com.android.net.module.util.structs.PrefixInformationOption;
-import com.android.net.module.util.structs.RaHeader;
-import com.android.net.module.util.structs.RdnssOption;
-import com.android.networkstack.tethering.util.TetheringUtils;
-
-import java.io.FileDescriptor;
-import java.io.IOException;
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.SocketException;
-import java.nio.BufferOverflowException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
-/**
- * Basic IPv6 Router Advertisement Daemon.
- *
- * TODO:
- *
- *     - Rewrite using Handler (and friends) so that AlarmManager can deliver
- *       "kick" messages when it's time to send a multicast RA.
- *
- * @hide
+
  */
 public class RouterAdvertisementDaemon {
     private static final String TAG = RouterAdvertisementDaemon.class.getSimpleName();
 
-    // Summary of various timers and lifetimes.
-    private static final int MIN_RTR_ADV_INTERVAL_SEC = 300;
-    private static final int MAX_RTR_ADV_INTERVAL_SEC = 600;
-    // In general, router, prefix, and DNS lifetimes are all advised to be
-    // greater than or equal to 3 * MAX_RTR_ADV_INTERVAL.  Here, we quadruple
-    // that to allow for multicast packet loss.
-    //
-    // This MAX_RTR_ADV_INTERVAL_SEC and DEFAULT_LIFETIME are also consistent
-    // with the https://tools.ietf.org/html/rfc7772#section-4 discussion of
     // "approximately 7 RAs per hour".
     private static final int DEFAULT_LIFETIME = 12 * MAX_RTR_ADV_INTERVAL_SEC;
     // From https://tools.ietf.org/html/rfc4861#section-10 .
@@ -129,6 +41,9 @@ public class RouterAdvertisementDaemon {
         // Tethered traffic will have the hop limit properly decremented.
         // Consequently, set the hoplimit greater by one than the upstream
         // unicast hop limit.
+        //
+        // TODO: Dynamically pass down the IPV6_UNICAST_HOPS value from the
+        // upstream interface for more correct behaviour.
         static final byte DEFAULT_HOPLIMIT = 65;
 
         public boolean hasDefaultRoute;
