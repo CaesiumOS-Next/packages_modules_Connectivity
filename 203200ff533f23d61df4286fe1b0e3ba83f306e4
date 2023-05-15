@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4ddab18_7d817752",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-15T05:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65738f25_b0be3b9b",
+      "range": {
+        "startLine": 441,
+        "startChar": 8,
+        "endLine": 444,
+        "endChar": 9
+      },
+      "revId": "203200ff533f23d61df4286fe1b0e3ba83f306e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e7ea4fd_d8c2283e",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-11T14:07:35Z",
       "side": 1,
       "message": "Nit: I think it\u0027s usually ended with _SEC, so may be TEST_KEEPALIVE_INTERVAL2_SEC or OTHER_KEEPALIVE_INTERVAL_SEC.",
+      "range": {
+        "startLine": 59,
+        "startChar": 29,
+        "endLine": 59,
+        "endChar": 58
+      },
+      "revId": "203200ff533f23d61df4286fe1b0e3ba83f306e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e3b36cd_633d910d",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-15T05:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e7ea4fd_d8c2283e",
       "range": {
         "startLine": 59,
         "startChar": 29,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01cd9a27_38a637e3",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-15T05:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf0fb2aa_9a0b3cfb",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 13
+      },
+      "revId": "203200ff533f23d61df4286fe1b0e3ba83f306e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86b03c05_07a439eb",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-11T14:07:35Z",
       "side": 1,
       "message": "Nit: make it a constant.",
+      "range": {
+        "startLine": 144,
+        "startChar": 47,
+        "endLine": 144,
+        "endChar": 51
+      },
+      "revId": "203200ff533f23d61df4286fe1b0e3ba83f306e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "366c5b79_7e965bfe",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-15T05:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86b03c05_07a439eb",
       "range": {
         "startLine": 144,
         "startChar": 47,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4574082d_63d8d85f",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-15T05:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f79d98a_837a2ba8",
+      "range": {
+        "startLine": 199,
+        "startChar": 16,
+        "endLine": 200,
+        "endChar": 64
+      },
+      "revId": "203200ff533f23d61df4286fe1b0e3ba83f306e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a6f0670_3fd87b96",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-05-11T14:07:35Z",
       "side": 1,
       "message": "Nit: /* slot\u003d */ 1\n\nor your could make a constanst `TEST_SLOT \u003d 1` and replace all places used it. It\u0027s clear that the parameter is a slot and then you do not need to add this comment.",
+      "range": {
+        "startLine": 202,
+        "startChar": 32,
+        "endLine": 202,
+        "endChar": 33
+      },
+      "revId": "203200ff533f23d61df4286fe1b0e3ba83f306e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5309a2be_1c21c636",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-15T05:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a6f0670_3fd87b96",
       "range": {
         "startLine": 202,
         "startChar": 32,

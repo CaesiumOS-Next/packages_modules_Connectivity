@@ -22,6 +22,30 @@
       },
       "revId": "82e2da8dd84cb536330a109c917fd46b6f713e79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52cef947_9df6e382",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-15T05:43:43Z",
+      "side": 1,
+      "message": "I guess it is not required since the main use case would be to build and reset at once, but it would be nice for tests if the metrics can be built without resetting? \n\nAdded @VisibleForTesting.",
+      "parentUuid": "496fdab8_d1dcab33",
+      "range": {
+        "startLine": 435,
+        "startChar": 47,
+        "endLine": 435,
+        "endChar": 68
+      },
+      "revId": "82e2da8dd84cb536330a109c917fd46b6f713e79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

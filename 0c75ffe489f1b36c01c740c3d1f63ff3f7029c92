@@ -530,6 +530,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "046f7e71_2651679b",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-15T05:43:43Z",
+      "side": 1,
+      "message": "Done. Do you think this applies to onResumeKeepalive and onPauseKeepalive? I think for that case it is fine to check the thread in onKeepaliveActive.",
+      "parentUuid": "c48882f5_36c98130",
+      "range": {
+        "startLine": 484,
+        "startChar": 20,
+        "endLine": 484,
+        "endChar": 46
+      },
+      "revId": "0c75ffe489f1b36c01c740c3d1f63ff3f7029c92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7249942d_46b60160",
