@@ -18,10 +18,12 @@ package android.net.nsd;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import android.annotation.IntRange;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.net.Network;
+import android.net.nsd.NsdManager.RegistrationListener;
 import android.net.nsd.NsdManager.ResolveListener;
 import android.net.nsd.NsdManager.ServiceInfoCallback;
 import android.os.Parcel;
@@ -67,6 +69,8 @@ public final class NsdServiceInfo implements Parcelable {
     private Network mNetwork;
 
     private int mInterfaceIndex;
+
+    private long mTtlSeconds;
 
     public NsdServiceInfo() {
     }
@@ -431,6 +435,37 @@ public final class NsdServiceInfo implements Parcelable {
         return Collections.unmodifiableList(mSubtypes);
     }
 
+    /**
+     * Sets the time interval that the resource record may be cached on a DNS resolver before the
+     * source of the information should again be consulted.
+     *
+     * If this method is not called or {@code ttlSeconds} is {@code 0}, default TTL values will
+     * be used for this service when it's registered.
+     *
+     * @param ttlSeconds the maximum time (in seconds) that the DNS resource records will be cached
+     *
+     * @see NsdManager#registerService(NsdServiceInfo, int, RegistrationListener)
+     * @see NsdManager#registerService(NsdServiceInfo, int, Executor, RegistrationListener)
+     *
+     * @hide used by only packages/modules/Connectivity/thread
+     */
+    public void setTtlSeconds(@IntRange(from = 0, to = 0xffffffffL) long ttlSeconds) {
+        mTtlSeconds = ttlSeconds;
+    }
+
+    /**
+     * Returns the time interval that the resource record may be cached on a DNS resolver before
+     * the source of the information should again be consulted.
+     *
+     * In case multiple resource records of this service have different TTL values, the minimum one
+     * is returned by this method.
+     *
+     * @hide used by only packages/modules/Connectivity/thread
+     */
+    public long getTtlSeconds() {
+        return mTtlSeconds;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -439,7 +474,8 @@ public final class NsdServiceInfo implements Parcelable {
                 .append(", subtypes: ").append(TextUtils.join(", ", mSubtypes))
                 .append(", hostAddresses: ").append(TextUtils.join(", ", mHostAddresses))
                 .append(", port: ").append(mPort)
-                .append(", network: ").append(mNetwork);
+                .append(", network: ").append(mNetwork)
+                .append(", ttl: ").append(mTtlSeconds);
 
         byte[] txtRecord = getTxtRecord();
         sb.append(", txtRecord: ").append(new String(txtRecord, StandardCharsets.UTF_8));
@@ -478,6 +514,7 @@ public final class NsdServiceInfo implements Parcelable {
         for (InetAddress address : mHostAddresses) {
             InetAddressUtils.parcelInetAddress(dest, address, flags);
         }
+        dest.writeLong(mTtlSeconds);
     }
 
     /** Implement the Parcelable interface */
@@ -509,6 +546,7 @@ public final class NsdServiceInfo implements Parcelable {
                 for (int i = 0; i < size; i++) {
                     info.mHostAddresses.add(InetAddressUtils.unparcelInetAddress(in));
                 }
+                info.setTtlSeconds(in.readLong());
                 return info;
             }
 

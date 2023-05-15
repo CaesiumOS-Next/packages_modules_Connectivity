@@ -69,9 +69,9 @@ public class MdnsRecordRepository {
     // TTL for records with a host name as the resource record's name (e.g., A, AAAA, HINFO) or a
     // host name contained within the resource record's rdata (e.g., SRV, reverse mapping PTR
     // record)
-    private static final long NAME_RECORDS_TTL_MILLIS = TimeUnit.SECONDS.toMillis(120);
+    private static final long DEFAULT_NAME_RECORDS_TTL_MILLIS = TimeUnit.SECONDS.toMillis(120);
     // TTL for other records
-    private static final long NON_NAME_RECORDS_TTL_MILLIS = TimeUnit.MINUTES.toMillis(75);
+    private static final long DEFAULT_NON_NAME_RECORDS_TTL_MILLIS = TimeUnit.MINUTES.toMillis(75);
 
     // Top-level domain for link-local queries, as per RFC6762 3.
     private static final String LOCAL_TLD = "local";
@@ -194,6 +194,11 @@ public class MdnsRecordRepository {
 
             final String[] serviceType = splitServiceType(serviceInfo);
             final String[] serviceName = splitFullyQualifiedName(serviceInfo, serviceType);
+            final long ttlMillis  = TimeUnit.SECONDS.toMillis(serviceInfo.getTtlSeconds());
+            final long nonNameRecordsTtlMillis =
+                    ttlMillis != 0 ? ttlMillis : DEFAULT_NON_NAME_RECORDS_TTL_MILLIS;
+            final long nameRecordsTtlMillis =
+                    ttlMillis != 0 ? ttlMillis : DEFAULT_NAME_RECORDS_TTL_MILLIS;
 
             // Service PTR records
             ptrRecords = new ArrayList<>(serviceInfo.getSubtypes().size() + 1);
@@ -203,7 +208,7 @@ public class MdnsRecordRepository {
                             serviceType,
                             0L /* receiptTimeMillis */,
                             false /* cacheFlush */,
-                            NON_NAME_RECORDS_TTL_MILLIS,
+                            DEFAULT_NON_NAME_RECORDS_TTL_MILLIS,
                             serviceName),
                     true /* sharedName */, true /* probing */));
             for (String subtype : serviceInfo.getSubtypes()) {
@@ -213,7 +218,7 @@ public class MdnsRecordRepository {
                             constructFullSubtype(serviceType, subtype),
                             0L /* receiptTimeMillis */,
                             false /* cacheFlush */,
-                            NON_NAME_RECORDS_TTL_MILLIS,
+                            DEFAULT_NON_NAME_RECORDS_TTL_MILLIS,
                             serviceName),
                     true /* sharedName */, true /* probing */));
             }
@@ -223,7 +228,7 @@ public class MdnsRecordRepository {
                     new MdnsServiceRecord(serviceName,
                             0L /* receiptTimeMillis */,
                             true /* cacheFlush */,
-                            NAME_RECORDS_TTL_MILLIS, 0 /* servicePriority */, 0 /* serviceWeight */,
+                            nameRecordsTtlMillis, 0 /* servicePriority */, 0 /* serviceWeight */,
                             serviceInfo.getPort(),
                             deviceHostname),
                     false /* sharedName */, true /* probing */);
@@ -233,7 +238,7 @@ public class MdnsRecordRepository {
                     new MdnsTextRecord(serviceName,
                             0L /* receiptTimeMillis */,
                             true /* cacheFlush */, // Service name is verified unique after probing
-                            NON_NAME_RECORDS_TTL_MILLIS,
+                            nonNameRecordsTtlMillis,
                             attrsToTextEntries(serviceInfo.getAttributes())),
                     false /* sharedName */, true /* probing */);
 
@@ -248,7 +253,7 @@ public class MdnsRecordRepository {
                             DNS_SD_SERVICE_TYPE,
                             0L /* receiptTimeMillis */,
                             false /* cacheFlush */,
-                            NON_NAME_RECORDS_TTL_MILLIS,
+                            nonNameRecordsTtlMillis,
                             serviceType),
                     true /* sharedName */, true /* probing */));
 
@@ -277,7 +282,7 @@ public class MdnsRecordRepository {
                             revDnsAddr,
                             0L /* receiptTimeMillis */,
                             true /* cacheFlush */,
-                            NAME_RECORDS_TTL_MILLIS,
+                            DEFAULT_NAME_RECORDS_TTL_MILLIS,
                             mDeviceHostname),
                     false /* sharedName */, false /* probing */));
 
@@ -287,7 +292,7 @@ public class MdnsRecordRepository {
                             mDeviceHostname,
                             0L /* receiptTimeMillis */,
                             true /* cacheFlush */,
-                            NAME_RECORDS_TTL_MILLIS,
+                            DEFAULT_NAME_RECORDS_TTL_MILLIS,
                             addr.getAddress()),
                     false /* sharedName */, false /* probing */));
         }
@@ -583,7 +588,7 @@ public class MdnsRecordRepository {
                     true /* cacheFlush */,
                     // TODO: RFC6762 6.1: "In general, the TTL given for an NSEC record SHOULD
                     // be the same as the TTL that the record would have had, had it existed."
-                    NAME_RECORDS_TTL_MILLIS,
+                    DEFAULT_NAME_RECORDS_TTL_MILLIS,
                     question.getName(),
                     new int[] { question.getType() }));
         }
