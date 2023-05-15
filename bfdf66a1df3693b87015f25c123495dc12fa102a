@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74affa65_c8aae20d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-15T08:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12fa5cde_443bc9da",
+      "range": {
+        "startLine": 106,
+        "startChar": 54,
+        "endLine": 106,
+        "endChar": 62
+      },
+      "revId": "bfdf66a1df3693b87015f25c123495dc12fa102a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21b7d62b_c424c3dc",
@@ -84,6 +108,30 @@
       "writtenOn": "2023-05-15T06:02:24Z",
       "side": 1,
       "message": "As I mentioned in my comment on MdnsMultinetworkSocketClient, if you add one more onSocketCreated callback with a non-null network, the onSocketDestroyed callbacks will always be called with a null network.",
+      "range": {
+        "startLine": 195,
+        "startChar": 68,
+        "endLine": 195,
+        "endChar": 72
+      },
+      "revId": "bfdf66a1df3693b87015f25c123495dc12fa102a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "320dba28_666bb27f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-15T08:58:34Z",
+      "side": 1,
+      "message": "Added your tests from aosp/2514842",
+      "parentUuid": "1de9563d_457d1257",
       "range": {
         "startLine": 195,
         "startChar": 68,
