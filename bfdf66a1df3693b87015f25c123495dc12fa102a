@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "12fa5cde_443bc9da",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-15T06:02:24Z",
+      "side": 1,
+      "message": "I believe that using the requested network here is not correct. For example, if a user requests a socket with a null network, they will receive three `onSocketCreated` callbacks. If the socket is then unrequested, `onSocketDestroyed` will be called three times with a null network. Instead, you should pass the network that is returned from onSocketCreated/onInterfaceDestroyed. For the onUnrequested case, I think you should store the network in mCallbackSockets.",
+      "range": {
+        "startLine": 106,
+        "startChar": 54,
+        "endLine": 106,
+        "endChar": 62
+      },
+      "revId": "bfdf66a1df3693b87015f25c123495dc12fa102a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21b7d62b_c424c3dc",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
         "patchSetId": 2
@@ -43,6 +66,29 @@
         "startChar": 13,
         "endLine": 109,
         "endChar": 26
+      },
+      "revId": "bfdf66a1df3693b87015f25c123495dc12fa102a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1de9563d_457d1257",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-15T06:02:24Z",
+      "side": 1,
+      "message": "As I mentioned in my comment on MdnsMultinetworkSocketClient, if you add one more onSocketCreated callback with a non-null network, the onSocketDestroyed callbacks will always be called with a null network.",
+      "range": {
+        "startLine": 195,
+        "startChar": 68,
+        "endLine": 195,
+        "endChar": 72
       },
       "revId": "bfdf66a1df3693b87015f25c123495dc12fa102a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
