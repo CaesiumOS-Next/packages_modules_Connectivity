@@ -22,6 +22,30 @@
       },
       "revId": "65329898759d35abefd477924088b9921aca6b42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ca749b3_e10998be",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-15T13:40:45Z",
+      "side": 1,
+      "message": "You are right, it was not needed.",
+      "parentUuid": "1a817eb3_6d1c5885",
+      "range": {
+        "startLine": 297,
+        "startChar": 8,
+        "endLine": 297,
+        "endChar": 59
+      },
+      "revId": "65329898759d35abefd477924088b9921aca6b42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
