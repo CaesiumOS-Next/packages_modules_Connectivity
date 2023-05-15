@@ -159,6 +159,8 @@ public final class NsdManager {
                 "com.android.net.flags.nsd_subtypes_support_enabled";
         static final String ADVERTISE_REQUEST_API =
                 "com.android.net.flags.advertise_request_api";
+        static final String NSD_CUSTOM_TTL_ENABLED =
+                "com.android.net.flags.nsd_custom_ttl_enabled";
     }
 
     /**
@@ -304,6 +306,13 @@ public final class NsdManager {
 
     /** Dns based service discovery protocol */
     public static final int PROTOCOL_DNS_SD = 0x0001;
+
+    /**
+     * The minimum TTL seconds which is allowed for a service registration.
+     *
+     * @hide
+     */
+    public static final long TTL_SECONDS_MIN = 30L;
 
     private static final SparseArray<String> EVENT_NAMES = new SparseArray<>();
     static {
