@@ -253,6 +253,7 @@ package android.net.nsd {
     method public String getServiceName();
     method public String getServiceType();
     method @NonNull public java.util.Set<java.lang.String> getSubtypes();
+    method public int getTtlSeconds();
     method public void removeAttribute(String);
     method public void setAttribute(@NonNull String, @Nullable byte[]);
     method public void setAttribute(String, String);
@@ -263,6 +264,7 @@ package android.net.nsd {
     method public void setServiceName(String);
     method public void setServiceType(String);
     method public void setSubtypes(@NonNull java.util.Set<java.lang.String>);
+    method public void setTtlSeconds(int);
     method public void writeToParcel(android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.nsd.NsdServiceInfo> CREATOR;
   }

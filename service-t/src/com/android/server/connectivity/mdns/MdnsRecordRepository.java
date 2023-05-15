@@ -183,6 +183,11 @@ public class MdnsRecordRepository {
 
             final String[] serviceType = splitServiceType(serviceInfo);
             final String[] serviceName = splitFullyQualifiedName(serviceInfo, serviceType);
+            final long serviceTtlMillis  = TimeUnit.SECONDS.toMillis(serviceInfo.getTtlSeconds());
+            final long nonNameRecordsTtlMillis =
+                    serviceTtlMillis != 0 ? serviceTtlMillis : NON_NAME_RECORDS_TTL_MILLIS;
+            final long nameRecordsTtlMillis =
+                    serviceTtlMillis != 0 ? serviceTtlMillis : NAME_RECORDS_TTL_MILLIS;
 
             // Service PTR records
             List<String[]> ptrNames = new ArrayList<>();
@@ -198,7 +203,7 @@ public class MdnsRecordRepository {
                                     ptrName,
                                     0L /* receiptTimeMillis */,
                                     false /* cacheFlush */,
-                                    NON_NAME_RECORDS_TTL_MILLIS,
+                                    nonNameRecordsTtlMillis,
                                     serviceName),
                             true /* sharedName */, true /* probing */)).toList();
 
@@ -207,7 +212,7 @@ public class MdnsRecordRepository {
                     new MdnsServiceRecord(serviceName,
                             0L /* receiptTimeMillis */,
                             true /* cacheFlush */,
-                            NAME_RECORDS_TTL_MILLIS, 0 /* servicePriority */, 0 /* serviceWeight */,
+                            nameRecordsTtlMillis, 0 /* servicePriority */, 0 /* serviceWeight */,
                             serviceInfo.getPort(),
                             deviceHostname),
                     false /* sharedName */, true /* probing */);
@@ -217,7 +222,7 @@ public class MdnsRecordRepository {
                     new MdnsTextRecord(serviceName,
                             0L /* receiptTimeMillis */,
                             true /* cacheFlush */, // Service name is verified unique after probing
-                            NON_NAME_RECORDS_TTL_MILLIS,
+                            nonNameRecordsTtlMillis,
                             attrsToTextEntries(serviceInfo.getAttributes())),
                     false /* sharedName */, true /* probing */);
 
@@ -232,7 +237,7 @@ public class MdnsRecordRepository {
                             DNS_SD_SERVICE_TYPE,
                             0L /* receiptTimeMillis */,
                             false /* cacheFlush */,
-                            NON_NAME_RECORDS_TTL_MILLIS,
+                            nonNameRecordsTtlMillis,
                             serviceType),
                     true /* sharedName */, true /* probing */));
 
