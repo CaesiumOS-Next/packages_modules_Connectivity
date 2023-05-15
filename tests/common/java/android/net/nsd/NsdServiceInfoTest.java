@@ -197,4 +197,18 @@ public class NsdServiceInfoTest {
 
         assertEquals(List.of("_thread", "_matter"), info.getSubtypes());
     }
+
+    @Test
+    public void testTtl_validValues_success() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setTtlSeconds(0);
+        assertThat(info.getTtlSeconds()).isEqualTo(0);
+
+        info.setTtlSeconds(120);
+        assertThat(info.getTtlSeconds()).isEqualTo(120);
+
+        info.setTtlSeconds(0xffffffffL);
+        assertThat(info.getTtlSeconds()).isEqualTo(0xffffffffL);
+    }
 }
