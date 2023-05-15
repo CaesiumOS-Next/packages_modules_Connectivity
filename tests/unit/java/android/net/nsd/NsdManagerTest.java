@@ -52,6 +52,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.Duration;
+
 @DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
@@ -219,6 +221,23 @@ public class NsdManagerTest {
         int key4 = getRequestKey(req -> verify(mServiceConn).registerService(req.capture(), any()));
         mCallback.onRegisterServiceSucceeded(key4, request);
         verify(listener, timeout(mTimeoutMs).times(1)).onServiceRegistered(request);
+    }
+
+    @Test
+    public void testRegisterServiceWithCustomTtl() throws Exception {
+        final NsdManager manager = mManager;
+        final NsdServiceInfo info = new NsdServiceInfo("another_name2", "another_type2");
+        info.setPort(2203);
+        final AdvertisingRequest request = new AdvertisingRequest.Builder(info, PROTOCOL)
+                .setTtlDuration(Duration.ofSeconds(30)).build();
+        final NsdManager.RegistrationListener listener = mock(
+                NsdManager.RegistrationListener.class);
+
+        manager.registerService(request, Runnable::run, listener);
+
+        AdvertisingRequest capturedRequest = getAdvertisingRequest(
+                req -> verify(mServiceConn).registerService(any(), req.capture()));
+        assertEquals(request, capturedRequest);
     }
 
     private void doTestRegisterService() throws Exception {
@@ -453,6 +472,14 @@ public class NsdManagerTest {
     int getRequestKey(ThrowingConsumer<ArgumentCaptor<Integer>> verifier)
             throws Exception {
         final ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
+        verifier.accept(captor);
+        return captor.getValue();
+    }
+
+    AdvertisingRequest getAdvertisingRequest(
+            ThrowingConsumer<ArgumentCaptor<AdvertisingRequest>> verifier) throws Exception {
+        final ArgumentCaptor<AdvertisingRequest> captor =
+                ArgumentCaptor.forClass(AdvertisingRequest.class);
         verifier.accept(captor);
         return captor.getValue();
     }
