@@ -24,7 +24,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import android.net.InetAddresses;
@@ -77,12 +79,16 @@ public class MdnsMultinetworkSocketClientTest {
     }
 
     private SocketCallback expectSocketCallback() {
+        return expectSocketCallback(mNetwork);
+    }
+
+    private SocketCallback expectSocketCallback(Network network) {
         final ArgumentCaptor<SocketCallback> callbackCaptor =
                 ArgumentCaptor.forClass(SocketCallback.class);
         mHandler.post(() -> mSocketClient.notifyNetworkRequested(
-                mListener, mNetwork, mSocketCreationCallback));
+                mListener, network, mSocketCreationCallback));
         verify(mProvider, timeout(DEFAULT_TIMEOUT))
-                .requestSocket(eq(mNetwork), callbackCaptor.capture());
+                .requestSocket(eq(network), callbackCaptor.capture());
         return callbackCaptor.getValue();
     }
 
@@ -168,5 +174,24 @@ public class MdnsMultinetworkSocketClientTest {
                         0 /* serviceWeight */, 31234 /* servicePort */,
                         new String[] { "Android", "local" } /* serviceHost */)
         ), response.answers);
+    }
+
+    @Test
+    public void testNotifyNetworkUnrequested_NullNetwork() {
+        final MdnsInterfaceSocket otherSocket = mock(MdnsInterfaceSocket.class);
+        final SocketCallback callback = expectSocketCallback(null /* network */);
+        doReturn(createEmptyNetworkInterface()).when(mSocket).getInterface();
+        doReturn(createEmptyNetworkInterface()).when(otherSocket).getInterface();
+
+        callback.onSocketCreated(null /* network */, mSocket, List.of());
+        verify(mSocketCreationCallback).onSocketCreated(null);
+        callback.onSocketCreated(null /* network */, otherSocket, List.of());
+        verify(mSocketCreationCallback, times(2)).onSocketCreated(null);
+
+        mHandler.post(() -> mSocketClient.notifyNetworkUnrequested(mListener));
+        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
+
+        verify(mProvider).unrequestSocket(callback);
+        verify(mSocketCreationCallback, times(2)).onSocketDestroyed(null /* network */);
     }
 }
