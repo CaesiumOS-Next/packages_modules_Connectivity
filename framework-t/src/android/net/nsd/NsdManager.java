@@ -28,6 +28,7 @@ import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
+import android.annotation.SystemApi;
 import android.annotation.SystemService;
 import android.app.compat.CompatChanges;
 import android.content.Context;
@@ -363,7 +364,7 @@ public final class NsdManager {
      *
      * @hide
      */
-    //@SystemApi
+    @SystemApi
     @RequiresPermission(anyOf = {NETWORK_SETTINGS, PERMISSION_MAINLINE_NETWORK_STACK,
             NETWORK_STACK})
     public void registerOffloadEngine(@NonNull String ifaceName, @NonNull Executor executor,
@@ -399,7 +400,7 @@ public final class NsdManager {
      *
      * @hide
      */
-    //@SystemApi
+    @SystemApi
     @RequiresPermission(anyOf = {NETWORK_SETTINGS, PERMISSION_MAINLINE_NETWORK_STACK,
             NETWORK_STACK})
     public void unregisterOffloadEngine(@NonNull OffloadEngine engine) {
