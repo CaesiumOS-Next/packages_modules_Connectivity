@@ -26,6 +26,7 @@ import android.net.Network;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.ArrayMap;
+import android.util.ArraySet;
 import android.util.Log;
 
 import java.io.IOException;
@@ -63,10 +64,16 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
     }
 
     private class InterfaceSocketCallback implements MdnsSocketProvider.SocketCallback {
+        @NonNull
         private final SocketCreationCallback mSocketCreationCallback;
+        @NonNull
+        private final ArraySet<MdnsInterfaceSocket> mCallbackSockets = new ArraySet<>();
+        @Nullable
+        private final Network mNetwork;
 
-        InterfaceSocketCallback(SocketCreationCallback socketCreationCallback) {
+        InterfaceSocketCallback(SocketCreationCallback socketCreationCallback, Network network) {
             mSocketCreationCallback = socketCreationCallback;
+            mNetwork = network;
         }
 
         @Override
@@ -83,16 +90,30 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
             socket.addPacketHandler(handler);
             mActiveNetworkSockets.put(socket, network);
             mSocketCreationCallback.onSocketCreated(network);
+            mCallbackSockets.add(socket);
         }
 
         @Override
         public void onInterfaceDestroyed(@Nullable Network network,
                 @NonNull MdnsInterfaceSocket socket) {
+            notifySocketDestroyed(socket);
+            mCallbackSockets.remove(socket);
+        }
+
+        private void notifySocketDestroyed(@NonNull MdnsInterfaceSocket socket) {
             mSocketPacketHandlers.remove(socket);
             mActiveNetworkSockets.remove(socket);
-            mSocketCreationCallback.onSocketDestroyed(network);
+            mSocketCreationCallback.onSocketDestroyed(mNetwork);
+        }
+
+        void onUnrequested() {
+            for (MdnsInterfaceSocket socket : mCallbackSockets) {
+                notifySocketDestroyed(socket);
+            }
+            mCallbackSockets.clear();
         }
     }
+
 
     private class ReadPacketHandler implements MulticastPacketReader.PacketHandler {
         private final Network mNetwork;
@@ -134,7 +155,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         }
 
         if (DBG) Log.d(TAG, "notifyNetworkRequested: network=" + network);
-        callback = new InterfaceSocketCallback(socketCreationCallback);
+        callback = new InterfaceSocketCallback(socketCreationCallback, network);
         mRequestedNetworks.put(listener, callback);
         mSocketProvider.requestSocket(network, callback);
     }
@@ -149,6 +170,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
             return;
         }
         mSocketProvider.unrequestSocket(callback);
+        callback.onUnrequested();
     }
 
     private void sendMdnsPacket(@NonNull DatagramPacket packet, @Nullable Network targetNetwork) {
