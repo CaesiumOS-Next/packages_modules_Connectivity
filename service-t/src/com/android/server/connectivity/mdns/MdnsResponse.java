@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /** An mDNS response. */
 public class MdnsResponse {
@@ -263,6 +264,14 @@ public class MdnsResponse {
     @Nullable
     public Network getNetwork() {
         return network;
+    }
+
+    /** Returns the minimum TTL value (in seconds) of all DNS resource records in this response. */
+    public int getMinTtlSeconds() {
+        return records.stream()
+                      .mapToInt(record -> (int) TimeUnit.MILLISECONDS.toSeconds(record.getTtl()))
+                      .min()
+                      .orElse(0);
     }
 
     /** Gets all IPv6 address records. */
