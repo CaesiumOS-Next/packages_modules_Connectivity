@@ -158,6 +158,8 @@ public final class NsdManager {
                 "com.android.net.flags.nsd_subtypes_support_enabled";
         static final String ADVERTISE_REQUEST_API =
                 "com.android.net.flags.advertise_request_api";
+        static final String NSD_CUSTOM_TTL_ENABLED =
+                "com.android.net.flags.nsd_custom_ttl_enabled";
     }
 
     /**
