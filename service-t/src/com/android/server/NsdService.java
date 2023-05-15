@@ -1010,6 +1010,15 @@ public class NsdService extends INsdManager.Stub {
                                 break;
                             }
 
+                            long ttlSeconds = serviceInfo.getTtlSeconds();
+                            if (ttlSeconds < 0 || ttlSeconds > 0xffffffffL) {
+                                mServiceLogs.e("ttlSeconds exceeds allowed ranged (value = "
+                                        + ttlSeconds + ", allowedRange = [0, 0xffffffff])");
+                                clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
+                                    NsdManager.FAILURE_BAD_PARAMETERS, false /* isLegacy */);
+                                break;
+                            }
+
                             serviceInfo.setSubtypes(subtypes);
 
                             maybeStartMonitoringSockets();
@@ -1509,6 +1518,7 @@ public class NsdService extends INsdManager.Stub {
                         network == null ? INetd.LOCAL_NET_ID : network.netId,
                         serviceInfo.getInterfaceIndex());
                 servInfo.setSubtypes(serviceInfo.getSubtypes());
+                servInfo.setTtlSeconds(serviceInfo.getTtlSeconds());
                 return servInfo;
             }
 
