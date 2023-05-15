@@ -273,7 +273,8 @@ public class MdnsServiceTypeClient {
                 textStrings,
                 textEntries,
                 response.getInterfaceIndex(),
-                response.getNetwork());
+                response.getNetwork(),
+                response.getMinTtlSeconds());
     }
 
     /**
