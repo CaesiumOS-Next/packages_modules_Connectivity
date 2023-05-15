@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2923a33_15cd1707",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-15T06:20:19Z",
+      "side": 1,
+      "message": "As I comments in previous change, this should be the retunred network from onSocketCreated/onInterfaceDestroyed.",
+      "range": {
+        "startLine": 106,
+        "startChar": 53,
+        "endLine": 106,
+        "endChar": 61
+      },
+      "revId": "615e46455110b7a6464b8ab6fe90fb4f02d9a0a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
