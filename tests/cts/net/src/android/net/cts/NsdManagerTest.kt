@@ -1419,6 +1419,48 @@ class NsdManagerTest {
         return packetBuilder.finalizePacket()
     }
 
+    @Test
+    fun testAdvertisingAndDiscovery_customTtlIsRespected() {
+        val si = makeTestServiceInfo(network = testNetwork1.network)
+        si.ttlSeconds = 30
+
+        val registrationRecord = NsdRegistrationRecord()
+        val baseTypeDiscoveryRecord = NsdDiscoveryRecord()
+        tryTest {
+            registerService(registrationRecord, si)
+
+            nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, baseTypeDiscoveryRecord)
+
+            val serviceFound = baseTypeDiscoveryRecord.waitForServiceDiscovered(
+                    serviceName, serviceType, testNetwork1.network)
+            assertEquals(30, serviceFound.getTtlSeconds())
+        } cleanupStep {
+            nsdManager.stopServiceDiscovery(baseTypeDiscoveryRecord)
+            baseTypeDiscoveryRecord.expectCallback<DiscoveryStopped>()
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
+        }
+    }
+
+    @Test
+    fun testAdvertising_invalidCustomTtl_failsWithBadParameters() {
+        runInvalidTtlValueTest(invalidTtlSeconds = -1)
+        runInvalidTtlValueTest(invalidTtlSeconds = 29)
+        runInvalidTtlValueTest(invalidTtlSeconds = 0xffffffffL + 1)
+    }
+
+    private fun runInvalidTtlValueTest(invalidTtlSeconds: Long) {
+        val si = makeTestServiceInfo(network = testNetwork1.network)
+        si.ttlSeconds = invalidTtlSeconds
+
+        val record = NsdRegistrationRecord()
+        nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, Executor { it.run() }, record)
+
+        val failedCb = record.expectCallback<RegistrationFailed>(REGISTRATION_TIMEOUT_MS)
+        assertEquals(NsdManager.FAILURE_BAD_PARAMETERS, failedCb.errorCode)
+    }
+
     /**
      * Register a service and return its registration record.
      */
