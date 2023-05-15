@@ -17,6 +17,7 @@
 package android.net.nsd;
 
 import android.annotation.NonNull;
+import android.annotation.SystemApi;
 
 /**
  * OffloadEngine is an interface for mDns hardware offloading.
@@ -28,7 +29,7 @@ import android.annotation.NonNull;
  *
  * @hide
  */
-//@SystemApi
+@SystemApi
 public interface OffloadEngine {
     /**
      * Indicates the OffloadEngine can transmit offload packets for the mDns queries.

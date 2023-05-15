@@ -18,6 +18,7 @@ package android.net.nsd;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.SystemApi;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -32,7 +33,7 @@ import java.util.Objects;
  *
  * @hide
  */
-// @SystemApi
+@SystemApi
 public final class OffloadServiceInfo implements Parcelable {
     @NonNull
     private final String mServiceName;

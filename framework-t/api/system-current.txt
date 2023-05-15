@@ -348,3 +348,33 @@ package android.net.netstats.provider {
 
 }
 
+package android.net.nsd {
+
+  public final class NsdManager {
+    method @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_SETTINGS, android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, android.Manifest.permission.NETWORK_STACK}) public void registerOffloadEngine(@NonNull String, @NonNull java.util.concurrent.Executor, @NonNull android.net.nsd.OffloadEngine, long);
+    method @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_SETTINGS, android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, android.Manifest.permission.NETWORK_STACK}) public void unregisterOffloadEngine(@NonNull android.net.nsd.OffloadEngine);
+  }
+
+  public interface OffloadEngine {
+    method public void addOrUpdateOffloadServiceInfo(@NonNull android.net.nsd.OffloadServiceInfo);
+    method public void removeOffloadServiceInfo(@NonNull android.net.nsd.OffloadServiceInfo);
+    field public static final int OFFLOAD_CAPABILITY_FILTER_QUERIES = 2; // 0x2
+    field public static final int OFFLOAD_CAPABILITY_FILTER_REPLIES = 4; // 0x4
+    field public static final int OFFLOAD_CAPABILITY_TRANSMIT = 1; // 0x1
+  }
+
+  public final class OffloadServiceInfo implements android.os.Parcelable {
+    ctor public OffloadServiceInfo(@NonNull String, @NonNull String, @NonNull String, @Nullable byte[], int, long);
+    method public int describeContents();
+    method @NonNull public String getDeviceHostName();
+    method public long getOffloadType();
+    method public int getPriority();
+    method @Nullable public byte[] getRawOffloadPacket();
+    method @NonNull public String getServiceName();
+    method @NonNull public String getServiceType();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.nsd.OffloadServiceInfo> CREATOR;
+  }
+
+}
+
