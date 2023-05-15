@@ -198,4 +198,28 @@ public class NsdServiceInfoTest {
 
         assertEquals(Set.of("_thread", "_matter"), info.getSubtypes());
     }
+
+    @Test
+    public void testTtl_validValues_success() {
+        NsdServiceInfo info1 = new NsdServiceInfo();
+        NsdServiceInfo info2 = new NsdServiceInfo();
+        NsdServiceInfo info3 = new NsdServiceInfo();
+
+        info1.setTtlSeconds(0);
+        info2.setTtlSeconds(120);
+        info3.setTtlSeconds(0xffffffffL);
+
+        assertEquals(0, info1.getTtlSeconds());
+        assertEquals(120, info2.getTtlSeconds());
+        assertEquals(0xffffffffL, info3.getTtlSeconds());
+    }
+
+    @Test
+    public void testSetTtl_invalidValues_throwsIllegalArgument() {
+        NsdServiceInfo info1 = new NsdServiceInfo();
+        NsdServiceInfo info2 = new NsdServiceInfo();
+
+        assertThrows(IllegalArgumentException.class, () -> info1.setTtlSeconds(-1));
+        assertThrows(IllegalArgumentException.class, () -> info2.setTtlSeconds(0x100000000L));
+    }
 }

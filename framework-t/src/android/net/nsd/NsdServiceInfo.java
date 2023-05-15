@@ -19,12 +19,15 @@ package android.net.nsd;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import android.annotation.FlaggedApi;
+import android.annotation.IntRange;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.net.Network;
+import android.net.nsd.NsdManager.RegistrationListener;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.Process;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.ArraySet;
@@ -65,6 +68,9 @@ public final class NsdServiceInfo implements Parcelable {
     private Network mNetwork;
 
     private int mInterfaceIndex;
+
+    // Represents the TTL of all resource records of a non-zero value is set
+    private long mTtlSeconds;
 
     public NsdServiceInfo() {
         mSubtypes = new ArraySet<>();
@@ -447,6 +453,46 @@ public final class NsdServiceInfo implements Parcelable {
         return Collections.unmodifiableSet(mSubtypes);
     }
 
+    /**
+     * Sets the time interval that the resource records may be cached on a DNS resolver before the
+     * source of the information should again be consulted.
+     *
+     * If this method is not called or {@code ttlSeconds} is {@code 0}, default TTL values will be
+     * used for this service when it's registered. Otherwise, the {@code ttlSeconds} will be used
+     * for all resource records of this service.
+     *
+     * When registering a service, {@link NsdManager#FAILURE_BAD_PARAMETERS} will be returned if
+     * {@code ttlSeconds} is smaller than {@link NsdManager#TTL_SECONDS_MIN}
+     *
+     * @param ttlSeconds the maximum time (in seconds) that the DNS resource records will be cached
+     *
+     * @see #getTtlSeconds
+     * @see NsdManager#registerService(NsdServiceInfo, int, RegistrationListener)
+     * @see NsdManager#registerService(NsdServiceInfo, int, Executor, RegistrationListener)
+     */
+    @FlaggedApi(NsdManager.Flags.NSD_CUSTOM_TTL_ENABLED)
+    public void setTtlSeconds(@IntRange(from = 0, to = 0xffffffffL) long ttlSeconds) {
+        if (ttlSeconds < 0 || ttlSeconds > 0xffffffffL) {
+            throw new IllegalArgumentException(
+                    "ttlSeconds exceeds the allowed range (value = " + ttlSeconds
+                            + ", allowedRanged = [0, 0xffffffffL])");
+        }
+        mTtlSeconds = ttlSeconds;
+    }
+
+    /**
+     * Returns the time interval that the resource records may be cached on a DNS resolver before
+     * the source of the information should again be consulted.
+     *
+     * In case multiple resource records of this service have different TTL values, the minimum one
+     * is returned by this method.
+     */
+    @FlaggedApi(NsdManager.Flags.NSD_CUSTOM_TTL_ENABLED)
+    @IntRange(from = 0, to = 0xffffffffL)
+    public long getTtlSeconds() {
+        return mTtlSeconds;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -455,7 +501,8 @@ public final class NsdServiceInfo implements Parcelable {
                 .append(", subtypes: ").append(TextUtils.join(", ", mSubtypes))
                 .append(", hostAddresses: ").append(TextUtils.join(", ", mHostAddresses))
                 .append(", port: ").append(mPort)
-                .append(", network: ").append(mNetwork);
+                .append(", network: ").append(mNetwork)
+                .append(", ttl: ").append(mTtlSeconds);
 
         byte[] txtRecord = getTxtRecord();
         sb.append(", txtRecord: ").append(new String(txtRecord, StandardCharsets.UTF_8));
@@ -494,6 +541,7 @@ public final class NsdServiceInfo implements Parcelable {
         for (InetAddress address : mHostAddresses) {
             InetAddressUtils.parcelInetAddress(dest, address, flags);
         }
+        dest.writeLong(mTtlSeconds);
     }
 
     /** Implement the Parcelable interface */
@@ -523,6 +571,7 @@ public final class NsdServiceInfo implements Parcelable {
                 for (int i = 0; i < size; i++) {
                     info.mHostAddresses.add(InetAddressUtils.unparcelInetAddress(in));
                 }
+                info.setTtlSeconds(in.readLong());
                 return info;
             }
 
