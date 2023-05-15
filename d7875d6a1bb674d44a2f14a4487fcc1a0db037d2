@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2f92acb_f2446538",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T10:45:18Z",
+      "side": 1,
+      "message": "Nit: just\n```\nmNattKpd \u003d new NattKeepalivePacketData(\n        srcAddress, srcPort, dstAddress, dstPort, new byte[] {1});\n```",
+      "range": {
+        "startLine": 253,
+        "startChar": 8,
+        "endLine": 255,
+        "endChar": 82
+      },
+      "revId": "d7875d6a1bb674d44a2f14a4487fcc1a0db037d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "349a992d_4eee5113",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T10:45:18Z",
+      "side": 1,
+      "message": "Nit: reason\n\nto align with what it is",
+      "range": {
+        "startLine": 351,
+        "startChar": 53,
+        "endLine": 351,
+        "endChar": 58
+      },
+      "revId": "d7875d6a1bb674d44a2f14a4487fcc1a0db037d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86bdc2bc_a91d2c7b",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T10:45:18Z",
+      "side": 1,
+      "message": "I think it\u0027s clearer to return NattKeepalivePacketData in this method, instead of taking a global non-final variable as parameter.",
+      "range": {
+        "startLine": 356,
+        "startChar": 17,
+        "endLine": 356,
+        "endChar": 37
+      },
+      "revId": "d7875d6a1bb674d44a2f14a4487fcc1a0db037d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af35217f_0b41d7c7",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T10:45:18Z",
+      "side": 1,
+      "message": "You should be able to get it from mTestHandler.mLastAutoKi(similar to l.400). Is there any trouble using that design?",
+      "range": {
+        "startLine": 430,
+        "startChar": 4,
+        "endLine": 435,
+        "endChar": 5
+      },
+      "revId": "d7875d6a1bb674d44a2f14a4487fcc1a0db037d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f49e818_32db2ef6",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T10:45:18Z",
+      "side": 1,
+      "message": "This is not used in the following testing except being taken as a parameter to doStartNattKeepalive(). Suggest to move this into the doStartNattKeepalive().\n\nIf you will use it in the following patch, you could move it out in the following commit. In this comment, it does not make sense to put it here.",
+      "range": {
+        "startLine": 439,
+        "startChar": 8,
+        "endLine": 439,
+        "endChar": 56
+      },
+      "revId": "d7875d6a1bb674d44a2f14a4487fcc1a0db037d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ebe86fd_e8cc55d5",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T10:45:18Z",
+      "side": 1,
+      "message": "`Keepalive`\n\nIt\u0027s not network agent started successfully",
+      "range": {
+        "startLine": 449,
+        "startChar": 11,
+        "endLine": 449,
+        "endChar": 24
+      },
+      "revId": "d7875d6a1bb674d44a2f14a4487fcc1a0db037d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e60b0eac_c9932613",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T10:45:18Z",
+      "side": 1,
+      "message": "Nit: replace with a constant will be clearer,e.g. INVALID_INTERVAL",
+      "range": {
+        "startLine": 460,
+        "startChar": 39,
+        "endLine": 460,
+        "endChar": 62
+      },
+      "revId": "d7875d6a1bb674d44a2f14a4487fcc1a0db037d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6088cdb0_d07eed13",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T10:45:18Z",
+      "side": 1,
+      "message": "Nit: replaced with constant, e.g. TEST_SLOT",
+      "range": {
+        "startLine": 478,
+        "startChar": 43,
+        "endLine": 478,
+        "endChar": 55
+      },
+      "revId": "d7875d6a1bb674d44a2f14a4487fcc1a0db037d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be161629_e3c39320",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T10:45:18Z",
+      "side": 1,
+      "message": "Stop keepalive successfully",
+      "range": {
+        "startLine": 480,
+        "startChar": 11,
+        "endLine": 480,
+        "endChar": 57
+      },
+      "revId": "d7875d6a1bb674d44a2f14a4487fcc1a0db037d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4aca831_ea4e11d5",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T10:45:18Z",
+      "side": 1,
+      "message": "question: why the order of the verification is different here(different from l.484 - l.485)",
+      "range": {
+        "startLine": 511,
+        "startChar": 8,
+        "endLine": 512,
+        "endChar": 62
+      },
+      "revId": "d7875d6a1bb674d44a2f14a4487fcc1a0db037d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
