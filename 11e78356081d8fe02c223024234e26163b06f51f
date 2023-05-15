@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7733bcf3_b86f751c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T14:25:59Z",
+      "side": 1,
+      "message": "This method should return expected value. If there is something about autoKi, it should be handled in AutomaticOnOffKeepaliveTracker.",
+      "range": {
+        "startLine": 697,
+        "startChar": 12,
+        "endLine": 697,
+        "endChar": 93
+      },
+      "revId": "11e78356081d8fe02c223024234e26163b06f51f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

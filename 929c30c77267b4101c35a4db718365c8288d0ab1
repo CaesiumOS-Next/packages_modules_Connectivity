@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88f1d29b_1710418e",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-15T14:25:59Z",
+      "side": 1,
+      "message": "I think this does not need to ensure running thread on a private method. This check may be probably done in public methods only.",
+      "range": {
+        "startLine": 401,
+        "startChar": 8,
+        "endLine": 401,
+        "endChar": 36
+      },
+      "revId": "929c30c77267b4101c35a4db718365c8288d0ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
