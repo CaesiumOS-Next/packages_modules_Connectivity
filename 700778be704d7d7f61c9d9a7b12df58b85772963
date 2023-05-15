@@ -22,6 +22,30 @@
       },
       "revId": "700778be704d7d7f61c9d9a7b12df58b85772963",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f684fb_d3f00264",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-15T08:07:04Z",
+      "side": 1,
+      "message": "Handled in aosp/2588506",
+      "parentUuid": "5c31fbc2_fc63c009",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "700778be704d7d7f61c9d9a7b12df58b85772963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
