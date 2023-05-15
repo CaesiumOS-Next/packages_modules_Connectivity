@@ -199,4 +199,18 @@ public class NsdServiceInfoTest {
 
         assertThat(info.getSubtypes()).containsExactly("_thread", "_matter");
     }
+
+    @Test
+    public void testTtl_validValues_success() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setTtlSeconds(0);
+        assertThat(info.getTtlSeconds()).isEqualTo(0);
+
+        info.setTtlSeconds(120);
+        assertThat(info.getTtlSeconds()).isEqualTo(120);
+
+        info.setTtlSeconds(0xffffffffL);
+        assertThat(info.getTtlSeconds()).isEqualTo(0xffffffffL);
+    }
 }
