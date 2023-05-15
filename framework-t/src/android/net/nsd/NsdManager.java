@@ -153,6 +153,8 @@ public final class NsdManager {
                 "com.android.net.flags.register_nsd_offload_engine_api";
         static final String NSD_SUBTYPES_SUPPORT_ENABLED =
                 "com.android.net.flags.nsd_subtypes_support_enabled";
+        static final String NSD_CUSTOM_TTL_ENABLED =
+                "com.android.net.flags.nsd_custom_ttl_enabled";
     }
 
     /**
