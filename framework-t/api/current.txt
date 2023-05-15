@@ -215,6 +215,7 @@ package android.net.nsd {
     method public long getAdvertisingConfig();
     method public int getProtocolType();
     method @NonNull public android.net.nsd.NsdServiceInfo getServiceInfo();
+    method @FlaggedApi("com.android.net.flags.nsd_custom_ttl_enabled") @NonNull public java.time.Duration getTtlDuration();
     method public void writeToParcel(@NonNull android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.nsd.AdvertisingRequest> CREATOR;
     field public static final long NSD_ADVERTISING_UPDATE_ONLY = 1L; // 0x1L
@@ -224,6 +225,7 @@ package android.net.nsd {
     ctor public AdvertisingRequest.Builder(@NonNull android.net.nsd.NsdServiceInfo, int);
     method @NonNull public android.net.nsd.AdvertisingRequest build();
     method @NonNull public android.net.nsd.AdvertisingRequest.Builder setAdvertisingConfig(long);
+    method @FlaggedApi("com.android.net.flags.nsd_custom_ttl_enabled") @NonNull public android.net.nsd.AdvertisingRequest.Builder setTtlDuration(@NonNull java.time.Duration);
   }
 
   @FlaggedApi("com.android.net.flags.nsd_subtypes_support_enabled") public final class DiscoveryRequest implements android.os.Parcelable {
