@@ -218,4 +218,18 @@ public class NsdServiceInfoTest {
         assertThat(subtypes).hasSize(1);
         assertThat(subtypes).containsAnyOf("_thread", "_THREAD", "_ThrEad");
     }
+
+    @Test
+    public void testTtl() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setTtlSeconds(-1);
+        assertThat(info.getTtlSeconds()).isEqualTo(-1);
+
+        info.setTtlSeconds(0);
+        assertThat(info.getTtlSeconds()).isEqualTo(0);
+
+        info.setTtlSeconds(120);
+        assertThat(info.getTtlSeconds()).isEqualTo(120);
+    }
 }
