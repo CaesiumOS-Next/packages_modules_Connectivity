@@ -1509,6 +1509,7 @@ public class NsdService extends INsdManager.Stub {
                         network == null ? INetd.LOCAL_NET_ID : network.netId,
                         serviceInfo.getInterfaceIndex());
                 servInfo.setSubtypes(serviceInfo.getSubtypes());
+                servInfo.setTtlSeconds(serviceInfo.getTtlSeconds());
                 return servInfo;
             }
 
