@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f02d5693_6a8c5a39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-15T03:27:16Z",
+      "side": 1,
+      "message": "Maybe we can wait for a bit before submitting this, as there\u0027s other changes that should go first so they can be cherry-picked without cherry-picking this one",
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36e73f25_d889088f",
         "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
         "patchSetId": 5
