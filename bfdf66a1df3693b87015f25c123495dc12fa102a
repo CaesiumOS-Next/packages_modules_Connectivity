@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21b7d62b_c424c3dc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-15T05:33:02Z",
+      "side": 1,
+      "message": "nit: maybe better to rename it to `unNetworkUnrequested`?",
+      "range": {
+        "startLine": 109,
+        "startChar": 13,
+        "endLine": 109,
+        "endChar": 26
+      },
+      "revId": "bfdf66a1df3693b87015f25c123495dc12fa102a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
