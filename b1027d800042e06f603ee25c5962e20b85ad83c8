@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da862a22_0220002f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-15T10:24:56Z",
+      "side": 1,
+      "message": "LGTM, assuming the comment addressed.",
+      "revId": "b1027d800042e06f603ee25c5962e20b85ad83c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bc68afa_8d4d3473",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-15T10:24:56Z",
+      "side": 1,
+      "message": "Please fix this ERROR reported by Build Warnings: no suitable method found for expectSocketCallback(\u003cnull\u003e)\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    no suitable method found for expectSocketCallback(\u003cnull\u003e)\n            final SocketCallback callback \u003d expectSocketCallback(null /* network */);\n                                            ^\n        method MdnsMultinetworkSocketClientTest.expectSocketCallback() is not applicable\n          (actual and formal argument lists differ in length)\n        method MdnsMultinetworkSocketClientTest.expectSocketCallback(MdnsServiceBrowserListener,Network) is not applicable\n          (actual and formal argument lists differ in length)\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P56656204/targets/errorprone, but may also be present on other builds.",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 81
+      },
+      "revId": "b1027d800042e06f603ee25c5962e20b85ad83c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
