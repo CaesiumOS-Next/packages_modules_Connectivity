@@ -252,6 +252,7 @@ package android.net.nsd {
     field public static final int NSD_STATE_DISABLED = 1; // 0x1
     field public static final int NSD_STATE_ENABLED = 2; // 0x2
     field public static final int PROTOCOL_DNS_SD = 1; // 0x1
+    field @FlaggedApi("com.android.net.flags.nsd_custom_ttl_enabled") public static final long TTL_SECONDS_MIN = 30L; // 0x1eL
   }
 
   public static interface NsdManager.DiscoveryListener {
@@ -295,6 +296,7 @@ package android.net.nsd {
     method public String getServiceName();
     method public String getServiceType();
     method @FlaggedApi("com.android.net.flags.nsd_subtypes_support_enabled") @NonNull public java.util.Set<java.lang.String> getSubtypes();
+    method @FlaggedApi("com.android.net.flags.nsd_custom_ttl_enabled") @IntRange(from=0, to=4294967295L) public long getTtlSeconds();
     method public void removeAttribute(String);
     method public void setAttribute(String, String);
     method @Deprecated public void setHost(java.net.InetAddress);
@@ -304,6 +306,7 @@ package android.net.nsd {
     method public void setServiceName(String);
     method public void setServiceType(String);
     method @FlaggedApi("com.android.net.flags.nsd_subtypes_support_enabled") public void setSubtypes(@NonNull java.util.Set<java.lang.String>);
+    method @FlaggedApi("com.android.net.flags.nsd_custom_ttl_enabled") public void setTtlSeconds(@IntRange(from=0, to=4294967295L) long);
     method public void writeToParcel(android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.nsd.NsdServiceInfo> CREATOR;
   }
