@@ -18,6 +18,7 @@ package android.net.nsd;
 
 import android.annotation.IntDef;
 import android.annotation.NonNull;
+import android.annotation.SystemApi;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -32,7 +33,7 @@ import java.lang.annotation.RetentionPolicy;
  *
  * @hide
  */
-//@SystemApi
+@SystemApi
 public interface OffloadEngine {
     /**
      * Indicates the OffloadEngine can reply offload packets for the mDns queries.
@@ -54,6 +55,9 @@ public interface OffloadEngine {
      */
     int OFFLOAD_CAPABILITY_BYPASS_MULTICAST_FILTERING = 1 << 3;
 
+    /**
+     * @hide
+     */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(flag = true, prefix = {"OFFLOAD_"}, value = {
             OFFLOAD_CAPABILITY_REPLY,
