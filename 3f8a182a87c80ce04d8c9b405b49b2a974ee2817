@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10f06885_0628ea35",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-15T03:30:43Z",
+      "side": 1,
+      "message": "Can you add a test to MdnsSocketProviderTest that would catch the problem here ?",
+      "revId": "3f8a182a87c80ce04d8c9b405b49b2a974ee2817",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
