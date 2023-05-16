@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9500e21d_a03d6020",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c858733_0d798978",
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7c2f45dd_448651be",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -52,6 +70,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33d9a06e_a86f2725",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Make sense, I will wait for all other changes being cherry-picked first.",
+      "parentUuid": "f02d5693_6a8c5a39",
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36e73f25_d889088f",
@@ -75,6 +111,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17ab7949_202c7015",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36e73f25_d889088f",
+      "range": {
+        "startLine": 56,
+        "startChar": 59,
+        "endLine": 56,
+        "endChar": 69
+      },
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "433fd5a8_2ee0f22f",
@@ -88,6 +148,30 @@
       "writtenOn": "2023-05-15T03:25:10Z",
       "side": 1,
       "message": "This is a bit more specific than that, since it checks length and subtype.\n\nMaybe call it typeEqualsOrIsSubtype or similar ? And document/rename so that \"a\" is the base type, and \"b\" is the type or subtype",
+      "range": {
+        "startLine": 101,
+        "startChar": 26,
+        "endLine": 101,
+        "endChar": 61
+      },
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7544acbb_ae35f786",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "433fd5a8_2ee0f22f",
       "range": {
         "startLine": 101,
         "startChar": 26,
@@ -132,6 +216,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e9a5efa_a96ad84b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f93c5fb1_59a1ac65",
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e294a81c_e34584fd",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73241127_b21ae9f7",
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8950fbc_da31a581",
@@ -145,6 +265,24 @@
       "writtenOn": "2023-05-15T03:25:10Z",
       "side": 1,
       "message": "This should point to testservice._testtype._tcp.local; the fully qualified service instance name does not include subtypes",
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94fcaf9f_6cebfe1d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8950fbc_da31a581",
       "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -166,6 +304,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fb8b374_59b5b64b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Oops, fixed.",
+      "parentUuid": "2da17666_7a9a4880",
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d8b5eb9_c3ff7ab9",
@@ -179,6 +335,30 @@
       "writtenOn": "2023-05-15T03:25:10Z",
       "side": 1,
       "message": "Nit: this does more than check that there\u0027s an IPv6 address, since it checks inet4 addresses as well. Maybe just \"verifyResponse\" or \"assertResponseHasAddresses\" or similar ?",
+      "range": {
+        "startLine": 272,
+        "startChar": 17,
+        "endLine": 272,
+        "endChar": 37
+      },
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8961a768_aa4ea9a3",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d8b5eb9_c3ff7ab9",
       "range": {
         "startLine": 272,
         "startChar": 17,
@@ -212,6 +392,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d83c5740_0f09502b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a0883d5_85d65617",
+      "range": {
+        "startLine": 273,
+        "startChar": 24,
+        "endLine": 273,
+        "endChar": 33
+      },
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "faa972cb_f08e1071",
@@ -235,6 +439,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6589031d_9b35b6a9",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faa972cb_f08e1071",
+      "range": {
+        "startLine": 95,
+        "startChar": 65,
+        "endLine": 95,
+        "endChar": 89
+      },
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "264d9128_dba57526",
@@ -248,6 +476,24 @@
       "writtenOn": "2023-05-15T03:25:10Z",
       "side": 1,
       "message": "This needs a bit more checks, for example for a._other._type._tcp.local (not _sub), or a.b._sub._type._tcp.local (suffix but not valid subtype), or _sub._type._tcp.local (an instance name called \"_sub\")\n\nAnd cases where the 2nd argument is shorter than the first (empty array or size 1 for example)",
+      "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1339e2b_0a5dbf6a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-16T02:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "264d9128_dba57526",
       "revId": "d4b3ea231d4dccd9c998f9739da325735067ac8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
