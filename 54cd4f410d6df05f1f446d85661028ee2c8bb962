@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4329906a_4ac93483",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-16T02:12:11Z",
+      "side": 1,
+      "message": "Nit: Unused. You may not need this variable.  See the warning from error prone.",
+      "range": {
+        "startLine": 387,
+        "startChar": 38,
+        "endLine": 387,
+        "endChar": 41
+      },
+      "revId": "54cd4f410d6df05f1f446d85661028ee2c8bb962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
