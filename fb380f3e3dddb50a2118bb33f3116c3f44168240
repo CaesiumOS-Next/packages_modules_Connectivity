@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "215417dc_cfb61700",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-16T10:05:06Z",
+      "side": 1,
+      "message": "LGTM but chiachang should have a look.",
+      "revId": "fb380f3e3dddb50a2118bb33f3116c3f44168240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
