@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "446c0f99_e280bd7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-16T08:50:03Z",
+      "side": 1,
+      "message": "LGTM but needs Lorenzo to +2 too.",
+      "revId": "f5ff1719366be94a7e3cfa1cbbbc6ae058926ece",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
