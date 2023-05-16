@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c8e800a_7891f3ac",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1915,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-16T04:11:16Z",
+      "side": 1,
+      "message": "Please do not do this. This is a custom class and it can do its own stuff. Spying on your own class is a very reliable indicator of a bad code smell :\n- You\u0027re trying to see if the production code is calling a method on your dependencies. What does that even mean ? The dependencies object is here explicitly to let you track this !\n- You\u0027re allowing other developers to do things like when() on the dependencies object, fragmenting the implementation in multiple places. It becomes completely impossible to tell what code gets called.\n\nPlease revert this. If you need to know what was called, make sure your dependencies object implements this in the way it needs. https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2588507/3/tests/unit/java/com/android/server/ConnectivityServiceTest.java#2182 is an example.",
+      "range": {
+        "startLine": 1915,
+        "startChar": 39,
+        "endLine": 1915,
+        "endChar": 67
+      },
+      "revId": "93a2218e41384d106f1c14c239e1bf4795af43d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
