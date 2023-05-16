@@ -37,43 +37,50 @@
 #include <android/multinetwork.h>
 #include <nativehelper/JNIHelp.h>
 
+// Throwing exception more than once causes the tests to crash because ART's JNI
+// disallows it (See CheckThread in check_jni.cc).
+static bool canThrowException = true;
+
 #define LOGD(fmt, ...) \
         __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, fmt, ##__VA_ARGS__)
 
 // Since the tests in this file commonly pass expression statements as parameters to these macros,
 // get the returned value of the statements to avoid statement double-called.
-#define EXPECT_GE(env, actual_stmt, expected_stmt, msg)              \
-    do {                                                             \
-        const auto expected = (expected_stmt);                       \
-        const auto actual = (actual_stmt);                           \
-        if (actual < expected) {                                     \
-            jniThrowExceptionFmt(env, "java/lang/AssertionError",    \
-                    "%s:%d: %s EXPECT_GE: expected %d, got %d",      \
-                    __FILE__, __LINE__, msg, expected, actual);      \
-        }                                                            \
-    } while (0)
+#define EXPECT_GE(env, actual_stmt, expected_stmt, msg)                        \
+  do {                                                                         \
+    const auto expected = (expected_stmt);                                     \
+    const auto actual = (actual_stmt);                                         \
+    if (actual < expected && canThrowException) {                              \
+      jniThrowExceptionFmt(env, "java/lang/AssertionError",                    \
+                           "%s:%d: %s EXPECT_GE: expected %d, got %d",         \
+                           __FILE__, __LINE__, msg, expected, actual);         \
+      canThrowException = false;                                               \
+    }                                                                          \
+  } while (0)
 
-#define EXPECT_GT(env, actual_stmt, expected_stmt, msg)              \
-    do {                                                             \
-        const auto expected = (expected_stmt);                       \
-        const auto actual = (actual_stmt);                           \
-        if (actual <= expected) {                                    \
-            jniThrowExceptionFmt(env, "java/lang/AssertionError",    \
-                    "%s:%d: %s EXPECT_GT: expected %d, got %d",      \
-                    __FILE__, __LINE__, msg, expected, actual);      \
-        }                                                            \
-    } while (0)
+#define EXPECT_GT(env, actual_stmt, expected_stmt, msg)                        \
+  do {                                                                         \
+    const auto expected = (expected_stmt);                                     \
+    const auto actual = (actual_stmt);                                         \
+    if (actual <= expected && canThrowException) {                             \
+      jniThrowExceptionFmt(env, "java/lang/AssertionError",                    \
+                           "%s:%d: %s EXPECT_GT: expected %d, got %d",         \
+                           __FILE__, __LINE__, msg, expected, actual);         \
+      canThrowException = false;                                               \
+    }                                                                          \
+  } while (0)
 
-#define EXPECT_EQ(env, expected_stmt, actual_stmt, msg)              \
-    do {                                                             \
-        const auto expected = (expected_stmt);                       \
-        const auto actual = (actual_stmt);                           \
-        if (actual != expected) {                                    \
-            jniThrowExceptionFmt(env, "java/lang/AssertionError",    \
-                    "%s:%d: %s EXPECT_EQ: expected %d, got %d",      \
-                    __FILE__, __LINE__, msg, expected, actual);      \
-        }                                                            \
-    } while (0)
+#define EXPECT_EQ(env, expected_stmt, actual_stmt, msg)                        \
+  do {                                                                         \
+    const auto expected = (expected_stmt);                                     \
+    const auto actual = (actual_stmt);                                         \
+    if (actual != expected && canThrowException) {                             \
+      jniThrowExceptionFmt(env, "java/lang/AssertionError",                    \
+                           "%s:%d: %s EXPECT_EQ: expected %d, got %d",         \
+                           __FILE__, __LINE__, msg, expected, actual);         \
+      canThrowException = false;                                               \
+    }                                                                          \
+  } while (0)
 
 static const int MAXPACKET = 8 * 1024;
 static const int TIMEOUT_MS = 15000;
