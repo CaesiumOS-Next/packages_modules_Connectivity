@@ -975,14 +975,9 @@ class EthernetManagerTest {
 
     @Test
     fun testUpdateConfiguration_withLinkDown() {
-        assumeChangingCarrierSupported()
-        // createInterface without carrier is racy, so create it and then remove carrier.
-        val iface = createInterface()
+        assumeCreateInterfaceWithoutCarrierSupported()
+        val iface = createInterface(false /* hasCarrier */)
         val cb = requestNetwork(ETH_REQUEST)
-        cb.expect<Available>()
-
-        iface.setCarrierEnabled(false)
-        cb.eventuallyExpectLost()
 
         updateConfiguration(iface, STATIC_IP_CONFIGURATION, TEST_CAPS).expectResult(iface.name)
         cb.assertNoCallback()
