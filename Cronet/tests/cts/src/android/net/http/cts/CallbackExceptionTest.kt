@@ -32,6 +32,8 @@ import kotlin.test.assertSame
 import kotlin.test.assertTrue
 import org.junit.runner.RunWith
 
+import android.util.Log;
+
 @RunWith(AndroidJUnit4::class)
 class CallbackExceptionTest {
 
@@ -52,15 +54,22 @@ class CallbackExceptionTest {
         val httpEngine = HttpEngine.Builder(context).build()
         val callback = TestUrlRequestCallback()
         callback.setFailure(FailureType.THROW_SYNC, ResponseStep.ON_RESPONSE_STARTED)
+        Log.w("TEST", "BEFORE request build");
         val request = httpEngine
             .newUrlRequestBuilder(server.successUrl, callback.executor, callback)
             .build()
+        Log.w("TEST", "AFTER request build");
 
+        Log.w("TEST", "BEFORE request start");
         request.start()
+        Log.w("TEST", "AFTER request start");
         callback.blockForDone()
+        Log.w("TEST", "AFTER request end");
 
         assertTrue(request.isDone)
+        Log.w("TEST", "AFTER isdone");
         assertIs<CallbackException>(callback.mError)
+        Log.w("TEST", "AFTER callbackexceptino check");
         server.shutdown()
         httpEngine.shutdown()
     }
