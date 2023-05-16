@@ -37,6 +37,10 @@
 #include <android/multinetwork.h>
 #include <nativehelper/JNIHelp.h>
 
+// Throwing exception more than once causes the tests to crash because ART's JNI
+// disallows it (See CheckThread in check_jni.cc).
+static bool canThrowException = true;
+
 #define LOGD(fmt, ...) \
         __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, fmt, ##__VA_ARGS__)
 
@@ -46,10 +50,11 @@
     do {                                                             \
         const auto expected = (expected_stmt);                       \
         const auto actual = (actual_stmt);                           \
-        if (actual < expected) {                                     \
+        if (actual < expected && canThrowException) {                \
             jniThrowExceptionFmt(env, "java/lang/AssertionError",    \
                     "%s:%d: %s EXPECT_GE: expected %d, got %d",      \
                     __FILE__, __LINE__, msg, expected, actual);      \
+            canThrowException = false;                               \
         }                                                            \
     } while (0)
 
@@ -57,10 +62,11 @@
     do {                                                             \
         const auto expected = (expected_stmt);                       \
         const auto actual = (actual_stmt);                           \
-        if (actual <= expected) {                                    \
+        if (actual <= expected && canThrowException) {               \
             jniThrowExceptionFmt(env, "java/lang/AssertionError",    \
                     "%s:%d: %s EXPECT_GT: expected %d, got %d",      \
                     __FILE__, __LINE__, msg, expected, actual);      \
+            canThrowException = false;                               \
         }                                                            \
     } while (0)
 
@@ -68,10 +74,11 @@
     do {                                                             \
         const auto expected = (expected_stmt);                       \
         const auto actual = (actual_stmt);                           \
-        if (actual != expected) {                                    \
+        if (actual != expected && canThrowException) {               \
             jniThrowExceptionFmt(env, "java/lang/AssertionError",    \
                     "%s:%d: %s EXPECT_EQ: expected %d, got %d",      \
                     __FILE__, __LINE__, msg, expected, actual);      \
+            canThrowException = false;                               \
         }                                                            \
     } while (0)
 
