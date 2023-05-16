@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "175cd46c_3b31d95f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-16T07:29:55Z",
+      "side": 1,
+      "message": "I would suggest passing the packageName into this function, because it is a little weird that the function name is to \u0027create intent\u0027, but we still need to pass in the intent itself. If we change it to passing the packageName, this function becomes \u0027create intent with provided packageName\u0027.",
+      "range": {
+        "startLine": 462,
+        "startChar": 28,
+        "endLine": 462,
+        "endChar": 73
+      },
+      "revId": "4e0ac1b4615305576b2efa9cdae738e2c7e344a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
