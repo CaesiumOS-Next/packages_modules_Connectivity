@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eec9e7f_c561d803",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-16T17:16:52Z",
+      "side": 1,
+      "message": "x",
+      "range": {
+        "startLine": 12,
+        "startChar": 75,
+        "endLine": 12,
+        "endChar": 78
+      },
+      "revId": "f9ee72c2242e2c0b9c62beb44da5583d9bf45f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
