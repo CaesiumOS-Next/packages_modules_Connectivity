@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "502d28e8_98e546eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-16T10:08:39Z",
+      "side": 1,
+      "message": "nit: Not for this CL but is it better to document how to find these dependencies somewhere, so people without context can know how it is related and fix it?",
+      "range": {
+        "startLine": 20,
+        "startChar": 29,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "fb380f3e3dddb50a2118bb33f3116c3f44168240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "215417dc_cfb61700",
