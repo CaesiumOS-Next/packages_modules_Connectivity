@@ -16,6 +16,23 @@
       "message": "Why create this revert CL?",
       "revId": "2dbba6496e70fd7fe650702d25bf5074d5d00530",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c01b1a7_bba74400",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-16T03:58:26Z",
+      "side": 1,
+      "message": "I don\u0027t see the reason of revert and this is not pure revert which also remove all the import which cause the build break.",
+      "revId": "2dbba6496e70fd7fe650702d25bf5074d5d00530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
