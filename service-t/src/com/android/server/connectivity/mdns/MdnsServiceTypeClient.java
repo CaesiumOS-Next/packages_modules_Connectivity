@@ -18,19 +18,17 @@ package com.android.server.connectivity.mdns;
 
 import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.Network;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Pair;
 
-import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.SharedLog;
@@ -46,7 +44,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 
 /**
@@ -56,7 +53,8 @@ import java.util.concurrent.ScheduledExecutorService;
 public class MdnsServiceTypeClient {
 
     private static final int DEFAULT_MTU = 1500;
-
+    @VisibleForTesting
+    static final int EVENT_START_QUERYTASK = 1;
     private final String serviceType;
     private final String[] serviceTypeLabels;
     private final MdnsSocketClientBase socketClient;
@@ -66,6 +64,8 @@ public class MdnsServiceTypeClient {
     @NonNull private final SharedLog sharedLog;
     @NonNull
     private final Handler handler;
+    @NonNull
+    private final Dependencies dependencies;
     private final Object lock = new Object();
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
@@ -84,9 +84,48 @@ public class MdnsServiceTypeClient {
     // new subtypes. It stays the same between packets for same subtypes.
     private long currentSessionId = 0;
 
-    @GuardedBy("lock")
-    @Nullable
-    private Future<?> requestTaskFuture;
+    private class QueryTaskHandler extends Handler {
+        QueryTaskHandler(Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case EVENT_START_QUERYTASK:
+                    handleStartQueryTask((QueryTaskConfig) msg.obj);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Dependencies of MdnsServiceTypeClient, for injection in tests.
+     */
+    @VisibleForTesting
+    public static class Dependencies {
+        /**
+         * @see Handler#sendMessageDelayed(Message, long)
+         */
+        public void sendMessageDelayed(@NonNull Handler handler, @NonNull Message message,
+                long delayMillis) {
+            handler.sendMessageDelayed(message, delayMillis);
+        }
+
+        /**
+         * @see Handler#removeMessages(int)
+         */
+        public void removeMessages(@NonNull Handler handler, int what) {
+            handler.removeMessages(what);
+        }
+
+        /**
+         * @see Handler#hasMessages(int)
+         */
+        public boolean hasMessages(@NonNull Handler handler, int what) {
+            return handler.hasMessages(what);
+        }
+    }
 
     /**
      * Constructor of {@link MdnsServiceTypeClient}.
@@ -102,7 +141,7 @@ public class MdnsServiceTypeClient {
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper) {
         this(serviceType, socketClient, executor, new MdnsResponseDecoder.Clock(), network,
-                sharedLog, looper);
+                sharedLog, looper, new Dependencies());
     }
 
     @VisibleForTesting
@@ -113,7 +152,8 @@ public class MdnsServiceTypeClient {
             @NonNull MdnsResponseDecoder.Clock clock,
             @Nullable Network network,
             @NonNull SharedLog sharedLog,
-            @NonNull Looper looper) {
+            @NonNull Looper looper,
+            @NonNull Dependencies dependencies) {
         this.serviceType = serviceType;
         this.socketClient = socketClient;
         this.executor = executor;
@@ -122,7 +162,8 @@ public class MdnsServiceTypeClient {
         this.clock = clock;
         this.network = network;
         this.sharedLog = sharedLog;
-        this.handler = new Handler(looper);
+        this.handler = new QueryTaskHandler(looper);
+        this.dependencies = dependencies;
     }
 
     private static MdnsServiceInfo buildMdnsServiceInfoFromResponse(
@@ -202,8 +243,8 @@ public class MdnsServiceTypeClient {
                 }
             }
             // Cancel the next scheduled periodical task.
-            if (requestTaskFuture != null) {
-                requestTaskFuture.cancel(true);
+            if (dependencies.hasMessages(handler, EVENT_START_QUERYTASK)) {
+                dependencies.removeMessages(handler, EVENT_START_QUERYTASK);
             }
             // Keep tracking the ScheduledFuture for the task so we can cancel it if caller is not
             // interested anymore.
@@ -213,11 +254,15 @@ public class MdnsServiceTypeClient {
                     ++currentSessionId,
                     searchOptions.getNetwork());
             if (hadReply) {
-                requestTaskFuture = scheduleNextRunLocked(taskConfig);
+                scheduleNextRunLocked(taskConfig);
             } else {
-                requestTaskFuture = executor.submit(new QueryTask(taskConfig));
+                handleStartQueryTask(taskConfig);
             }
         }
+    }
+
+    private void handleStartQueryTask(@NonNull QueryTaskConfig config) {
+        executor.submit(new QueryTask(config));
     }
 
     private boolean responseMatchesOptions(@NonNull MdnsResponse response,
@@ -253,9 +298,8 @@ public class MdnsServiceTypeClient {
             if (listeners.remove(listener) == null) {
                 return listeners.isEmpty();
             }
-            if (listeners.isEmpty() && requestTaskFuture != null) {
-                requestTaskFuture.cancel(true);
-                requestTaskFuture = null;
+            if (listeners.isEmpty() && dependencies.hasMessages(handler, EVENT_START_QUERYTASK)) {
+                dependencies.removeMessages(handler, EVENT_START_QUERYTASK);
             }
             return listeners.isEmpty();
         }
@@ -313,9 +357,8 @@ public class MdnsServiceTypeClient {
                 }
             }
 
-            if (requestTaskFuture != null) {
-                requestTaskFuture.cancel(true);
-                requestTaskFuture = null;
+            if (dependencies.hasMessages(handler, EVENT_START_QUERYTASK)) {
+                dependencies.removeMessages(handler, EVENT_START_QUERYTASK);
             }
         }
     }
@@ -563,14 +606,6 @@ public class MdnsServiceTypeClient {
                     }
                 }
 
-                if (MdnsConfigs.shouldCancelScanTaskWhenFutureIsNull()) {
-                    if (requestTaskFuture == null) {
-                        // If requestTaskFuture is set to null, the task is cancelled. We can't use
-                        // isCancelled() here because this QueryTask is different from the future
-                        // that is returned from executor.schedule(). See b/71646910.
-                        return;
-                    }
-                }
                 if ((result != null)) {
                     for (int i = 0; i < listeners.size(); i++) {
                         listeners.keyAt(i).onDiscoveryQuerySent(result.second, result.first);
@@ -609,14 +644,17 @@ public class MdnsServiceTypeClient {
                         }
                     }
                 }
-                requestTaskFuture = scheduleNextRunLocked(this.config);
+                scheduleNextRunLocked(this.config);
             }
         }
     }
 
     @NonNull
-    private Future<?> scheduleNextRunLocked(@NonNull QueryTaskConfig lastRunConfig) {
+    private void scheduleNextRunLocked(@NonNull QueryTaskConfig lastRunConfig) {
         QueryTaskConfig config = lastRunConfig.getConfigForNextRun();
-        return executor.schedule(new QueryTask(config), config.timeToRunNextTaskInMs, MILLISECONDS);
+        dependencies.sendMessageDelayed(
+                handler,
+                handler.obtainMessage(EVENT_START_QUERYTASK, config),
+                config.timeToRunNextTaskInMs);
     }
 }
