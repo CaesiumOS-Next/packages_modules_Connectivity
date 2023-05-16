@@ -16,11 +16,15 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
+
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.Network;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.ArraySet;
@@ -60,6 +64,8 @@ public class MdnsServiceTypeClient {
     private final ScheduledExecutorService executor;
     @Nullable private final Network network;
     @NonNull private final SharedLog sharedLog;
+    @NonNull
+    private final Handler handler;
     private final Object lock = new Object();
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
@@ -93,9 +99,10 @@ public class MdnsServiceTypeClient {
             @NonNull MdnsSocketClientBase socketClient,
             @NonNull ScheduledExecutorService executor,
             @Nullable Network network,
-            @NonNull SharedLog sharedLog) {
+            @NonNull SharedLog sharedLog,
+            @NonNull Looper looper) {
         this(serviceType, socketClient, executor, new MdnsResponseDecoder.Clock(), network,
-                sharedLog);
+                sharedLog, looper);
     }
 
     @VisibleForTesting
@@ -105,7 +112,8 @@ public class MdnsServiceTypeClient {
             @NonNull ScheduledExecutorService executor,
             @NonNull MdnsResponseDecoder.Clock clock,
             @Nullable Network network,
-            @NonNull SharedLog sharedLog) {
+            @NonNull SharedLog sharedLog,
+            @NonNull Looper looper) {
         this.serviceType = serviceType;
         this.socketClient = socketClient;
         this.executor = executor;
@@ -114,6 +122,7 @@ public class MdnsServiceTypeClient {
         this.clock = clock;
         this.network = network;
         this.sharedLog = sharedLog;
+        this.handler = new Handler(looper);
     }
 
     private static MdnsServiceInfo buildMdnsServiceInfoFromResponse(
@@ -176,6 +185,7 @@ public class MdnsServiceTypeClient {
     public void startSendAndReceive(
             @NonNull MdnsServiceBrowserListener listener,
             @NonNull MdnsSearchOptions searchOptions) {
+        ensureRunningOnHandlerThread(handler);
         synchronized (lock) {
             this.searchOptions = searchOptions;
             boolean hadReply = false;
@@ -238,6 +248,7 @@ public class MdnsServiceTypeClient {
      * listener}. Otherwise returns {@code false}.
      */
     public boolean stopSendAndReceive(@NonNull MdnsServiceBrowserListener listener) {
+        ensureRunningOnHandlerThread(handler);
         synchronized (lock) {
             if (listeners.remove(listener) == null) {
                 return listeners.isEmpty();
@@ -250,15 +261,12 @@ public class MdnsServiceTypeClient {
         }
     }
 
-    public String[] getServiceTypeLabels() {
-        return serviceTypeLabels;
-    }
-
     /**
      * Process an incoming response packet.
      */
     public synchronized void processResponse(@NonNull MdnsPacket packet, int interfaceIndex,
             Network network) {
+        ensureRunningOnHandlerThread(handler);
         synchronized (lock) {
             // Augment the list of current known responses, and generated responses for resolve
             // requests if there is no known response
@@ -278,6 +286,7 @@ public class MdnsServiceTypeClient {
     }
 
     public synchronized void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode) {
+        ensureRunningOnHandlerThread(handler);
         for (int i = 0; i < listeners.size(); i++) {
             listeners.keyAt(i).onFailedToParseMdnsResponse(receivedPacketNumber, errorCode);
         }
@@ -285,6 +294,7 @@ public class MdnsServiceTypeClient {
 
     /** Notify all services are removed because the socket is destroyed. */
     public void notifySocketDestroyed() {
+        ensureRunningOnHandlerThread(handler);
         synchronized (lock) {
             for (MdnsResponse response : instanceNameToResponse.values()) {
                 final String name = response.getServiceInstanceName();
