@@ -171,8 +171,8 @@ public abstract class TetheringDependencies {
     /**
      * Get a reference to the TetheringMetrics to be used by tethering.
      */
-    public TetheringMetrics getTetheringMetrics() {
-        return new TetheringMetrics();
+    public TetheringMetrics getTetheringMetrics(Context ctx) {
+        return new TetheringMetrics(ctx);
     }
 
     /**

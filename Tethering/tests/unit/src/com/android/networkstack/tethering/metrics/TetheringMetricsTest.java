@@ -46,10 +46,16 @@ import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
 import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
+import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.net.NetworkCapabilities;
 import android.stats.connectivity.DownstreamType;
 import android.stats.connectivity.ErrorCode;
@@ -64,11 +70,13 @@ import com.android.networkstack.tethering.UpstreamNetworkState;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public final class TetheringMetricsTest {
+    private static final String TAG = TetheringMetricsTest.class.getSimpleName();
     private static final String TEST_CALLER_PKG = "com.test.caller.pkg";
     private static final String SETTINGS_PKG = "com.android.settings";
     private static final String SYSTEMUI_PKG = "com.android.systemui";
@@ -76,18 +84,26 @@ public final class TetheringMetricsTest {
     private static final long TEST_START_TIME = 1670395936033L;
     private static final long SECOND_IN_MILLIS = 1_000L;
 
-    private TetheringMetrics mTetheringMetrics;
     private final NetworkTetheringReported.Builder mStatsBuilder =
             NetworkTetheringReported.newBuilder();
 
+    private TetheringMetrics mTetheringMetrics;
     private long mElapsedRealtime;
+
+    @Mock private Context mContext;
+    @Mock private NetworkStatsManager mNetworkStatsManager;
 
     private class MockTetheringMetrics extends TetheringMetrics {
         @Override
         public void write(final NetworkTetheringReported reported) {}
+
         @Override
         public long timeNow() {
             return currentTimeMillis();
+        }
+
+        MockTetheringMetrics(final Context context) {
+            super(context);
         }
     }
 
@@ -111,7 +127,11 @@ public final class TetheringMetricsTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mTetheringMetrics = spy(new MockTetheringMetrics());
+
+        doReturn(mNetworkStatsManager).when(mContext).getSystemService(NetworkStatsManager.class);
+        doReturn(null).when(mNetworkStatsManager).queryDetailsForUidTagState(any(), anyLong(),
+                anyLong(), anyInt(), anyInt(), anyInt());
+        mTetheringMetrics = spy(new MockTetheringMetrics(mContext));
         mElapsedRealtime = 0L;
     }
 
