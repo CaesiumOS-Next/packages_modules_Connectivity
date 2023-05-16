@@ -45,6 +45,8 @@ android_library {
         "androidx.test.rules",
         "junit",
         "truth",
+	"cronet_aml_java_chromium",
+	"cronet_aml_api_java_chromium",
     ],
     libs: [
         "android.test.base",
@@ -61,9 +63,9 @@ android_test {
         "mts-target-sdk-version-current",
      ],
      static_libs: ["NetHttpTestsLibPreJarJar"],
-     jarjar_rules: ":net-http-test-jarjar-rules",
      jni_libs: [
-        "cronet_aml_components_cronet_android_cronet_tests__testing"
+        "cronet_aml_components_cronet_android_cronet_tests__testing",
+	"cronet_aml_components_cronet_android_cronet__testing",
      ],
      test_suites: [
          "general-tests",
