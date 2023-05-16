@@ -233,6 +233,31 @@
       "keywords": ["sim"]
     }
   ],
+  "kernel-presubmit": [
+    {
+      "name": "CtsNetTestCases",
+      "options": [
+        {
+          "exclude-annotation": "com.android.testutils.SkipPresubmit"
+        },
+        {
+          "exclude-annotation": "androidx.test.filters.RequiresDevice"
+        }
+      ]
+    },
+    // Also run CtsNetTestCasesLatestSdk to ensure tests using older shims pass.
+    {
+      "name": "CtsNetTestCasesLatestSdk",
+      "options": [
+        {
+          "exclude-annotation": "com.android.testutils.SkipPresubmit"
+        },
+        {
+          "exclude-annotation": "androidx.test.filters.RequiresDevice"
+        }
+      ]
+    }
+  ],
   "imports": [
     {
       "path": "frameworks/base/core/java/android/net"
