@@ -517,7 +517,7 @@ public class TetheringTest {
         }
 
         @Override
-        public TetheringMetrics getTetheringMetrics() {
+        public TetheringMetrics getTetheringMetrics(Context ctx) {
             return mTetheringMetrics;
         }
 
