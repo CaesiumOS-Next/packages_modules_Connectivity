@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.too
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
@@ -457,9 +457,8 @@ public class IpSecManagerTest extends IpSecBaseTest {
             long newUidRxPackets = TrafficStats.getUidRxPackets(Os.getuid());
 
             assertEquals(expectedTxByteDelta, newUidTxBytes - uidTxBytes);
-            assertTrue(
-                    newUidRxBytes - uidRxBytes >= minRxByteDelta
-                            && newUidRxBytes - uidRxBytes <= maxRxByteDelta);
+            assertTrue("Not enough bytes", newUidRxBytes - uidRxBytes >= minRxByteDelta);
+            assertTrue("Too many bytes", newUidRxBytes - uidRxBytes <= maxRxByteDelta);
             assertEquals(expectedTxPacketDelta, newUidTxPackets - uidTxPackets);
             assertEquals(expectedRxPacketDelta, newUidRxPackets - uidRxPackets);
         }
