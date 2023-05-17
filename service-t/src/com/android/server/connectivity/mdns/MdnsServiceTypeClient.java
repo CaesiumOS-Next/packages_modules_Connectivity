@@ -40,10 +40,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -66,10 +64,13 @@ public class MdnsServiceTypeClient {
     @NonNull private final SharedLog sharedLog;
     @NonNull private final Handler handler;
     @NonNull private final Dependencies dependencies;
+    /**
+     * The service caches for each socket. It should be accessed from looper thread only.
+     */
+    @NonNull private final MdnsServiceCache serviceCache;
     private final Object lock = new Object();
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
-    private final Map<String, MdnsResponse> instanceNameToResponse = new HashMap<>();
     private final boolean removeServiceAfterTtlExpires =
             MdnsConfigs.removeServiceAfterTtlExpires();
     private final boolean allowSearchOptionsToRemoveExpiredService =
@@ -149,9 +150,10 @@ public class MdnsServiceTypeClient {
             @NonNull ScheduledExecutorService executor,
             @Nullable Network network,
             @NonNull SharedLog sharedLog,
-            @NonNull Looper looper) {
+            @NonNull Looper looper,
+            @NonNull MdnsServiceCache serviceCache) {
         this(serviceType, socketClient, executor, new MdnsResponseDecoder.Clock(), network,
-                sharedLog, looper, new Dependencies());
+                sharedLog, looper, new Dependencies(), serviceCache);
     }
 
     @VisibleForTesting
@@ -163,7 +165,8 @@ public class MdnsServiceTypeClient {
             @Nullable Network network,
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper,
-            @NonNull Dependencies dependencies) {
+            @NonNull Dependencies dependencies,
+            @NonNull MdnsServiceCache serviceCache) {
         this.serviceType = serviceType;
         this.socketClient = socketClient;
         this.executor = executor;
@@ -174,6 +177,7 @@ public class MdnsServiceTypeClient {
         this.sharedLog = sharedLog;
         this.handler = new QueryTaskHandler(looper);
         this.dependencies = dependencies;
+        this.serviceCache = serviceCache;
     }
 
     private static MdnsServiceInfo buildMdnsServiceInfoFromResponse(
@@ -240,7 +244,8 @@ public class MdnsServiceTypeClient {
         this.searchOptions = searchOptions;
         boolean hadReply = false;
         if (listeners.put(listener, searchOptions) == null) {
-            for (MdnsResponse existingResponse : instanceNameToResponse.values()) {
+            for (MdnsResponse existingResponse :
+                    serviceCache.getCachedServices(serviceType, network)) {
                 if (!responseMatchesOptions(existingResponse, searchOptions)) continue;
                 final MdnsServiceInfo info =
                         buildMdnsServiceInfoFromResponse(existingResponse, serviceTypeLabels);
@@ -329,7 +334,8 @@ public class MdnsServiceTypeClient {
         ensureRunningOnHandlerThread(handler);
         // Augment the list of current known responses, and generated responses for resolve
         // requests if there is no known response
-        final List<MdnsResponse> currentList = new ArrayList<>(instanceNameToResponse.values());
+        final List<MdnsResponse> currentList =
+                new ArrayList<>(serviceCache.getCachedServices(serviceType, network));
         currentList.addAll(makeResponsesForResolveIfUnknown(interfaceIndex, network));
         final ArraySet<MdnsResponse> modifiedResponses = responseDecoder.augmentResponses(
                 packet, currentList, interfaceIndex, network);
@@ -356,7 +362,7 @@ public class MdnsServiceTypeClient {
     /** Notify all services are removed because the socket is destroyed. */
     public void notifySocketDestroyed() {
         ensureRunningOnHandlerThread(handler);
-        for (MdnsResponse response : instanceNameToResponse.values()) {
+        for (MdnsResponse response : serviceCache.getCachedServices(serviceType, network)) {
             final String name = response.getServiceInstanceName();
             if (name == null) continue;
             for (int i = 0; i < listeners.size(); i++) {
@@ -381,18 +387,18 @@ public class MdnsServiceTypeClient {
     private void onResponseModified(@NonNull MdnsResponse response) {
         final String serviceInstanceName = response.getServiceInstanceName();
         final MdnsResponse currentResponse =
-                instanceNameToResponse.get(serviceInstanceName);
+                serviceCache.getCachedService(serviceInstanceName, serviceType, network);
 
         boolean newServiceFound = false;
         boolean serviceBecomesComplete = false;
         if (currentResponse == null) {
             newServiceFound = true;
             if (serviceInstanceName != null) {
-                instanceNameToResponse.put(serviceInstanceName, response);
+                serviceCache.addOrUpdateService(serviceType, network, response);
             }
         } else {
             boolean before = currentResponse.isComplete();
-            instanceNameToResponse.put(serviceInstanceName, response);
+            serviceCache.addOrUpdateService(serviceType, network, response);
             boolean after = response.isComplete();
             serviceBecomesComplete = !before && after;
         }
@@ -420,7 +426,8 @@ public class MdnsServiceTypeClient {
     }
 
     private void onGoodbyeReceived(@Nullable String serviceInstanceName) {
-        final MdnsResponse response = instanceNameToResponse.remove(serviceInstanceName);
+        final MdnsResponse response =
+                serviceCache.removeService(serviceInstanceName, serviceType, network);
         if (response == null) {
             return;
         }
@@ -555,7 +562,8 @@ public class MdnsServiceTypeClient {
             if (resolveName == null) {
                 continue;
             }
-            MdnsResponse knownResponse = instanceNameToResponse.get(resolveName);
+            MdnsResponse knownResponse =
+                    serviceCache.getCachedService(resolveName, serviceType, network);
             if (knownResponse == null) {
                 final ArrayList<String> instanceFullName = new ArrayList<>(
                         serviceTypeLabels.length + 1);
@@ -572,22 +580,24 @@ public class MdnsServiceTypeClient {
 
     private void tryRemoveServiceAfterTtlExpires() {
         if (shouldRemoveServiceAfterTtlExpires()) {
-            Iterator<MdnsResponse> iter = instanceNameToResponse.values().iterator();
+            Iterator<MdnsResponse> iter =
+                    serviceCache.getCachedServices(serviceType, network).iterator();
             while (iter.hasNext()) {
                 MdnsResponse existingResponse = iter.next();
+                final String serviceInstanceName = existingResponse.getServiceInstanceName();
                 if (existingResponse.hasServiceRecord()
                         && existingResponse
                         .getServiceRecord()
                         .getRemainingTTL(clock.elapsedRealtime())
                         == 0) {
-                    iter.remove();
+                    serviceCache.removeService(serviceInstanceName, serviceType, network);
                     for (int i = 0; i < listeners.size(); i++) {
                         if (!responseMatchesOptions(existingResponse,
                                 listeners.valueAt(i)))  {
                             continue;
                         }
                         final MdnsServiceBrowserListener listener = listeners.keyAt(i);
-                        if (existingResponse.getServiceInstanceName() != null) {
+                        if (serviceInstanceName != null) {
                             final MdnsServiceInfo serviceInfo =
                                     buildMdnsServiceInfoFromResponse(
                                             existingResponse, serviceTypeLabels);
