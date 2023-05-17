@@ -304,6 +304,11 @@ public class ConnectivityManagerTest {
             "config_reservedPrivilegedKeepaliveSlots";
     private static final String TEST_RESTRICTED_NW_IFACE_NAME = "test-restricted-nw";
 
+    private static final String NETWORK_WAKEUP_PACKET_MARK_RES_NAME =
+            "config_networkWakeupPacketMark";
+    private static final String NETWORK_WAKEUP_PACKET_MASK_RES_NAME =
+            "config_networkWakeupPacketMask";
+
     private static final LinkAddress TEST_LINKADDR = new LinkAddress(
             InetAddresses.parseNumericAddress("2001:db8::8"), 64);
 
@@ -1487,6 +1492,18 @@ public class ConnectivityManagerTest {
         if (0 != meteredPref && 0 != unmeteredPref) return 0;
         if (1 != meteredPref && 1 != unmeteredPref) return 1;
         return 2;
+    }
+
+    /**
+     * Verify that config_networkWakeupPacketMark/Mask make sense.
+     */
+    @Test
+    public void testNetworkWakeupPacketMarkAndMask() throws Exception {
+        int mark = getIntResourceForName(NETWORK_WAKEUP_PACKET_MARK_RES_NAME);
+        int mask = getIntResourceForName(NETWORK_WAKEUP_PACKET_MASK_RES_NAME);
+        assertEquals(mark, mask);
+        int valid = 0x80000000;  // yes, really
+        assertTrue(mark == 0 || mark == valid);
     }
 
     /**
