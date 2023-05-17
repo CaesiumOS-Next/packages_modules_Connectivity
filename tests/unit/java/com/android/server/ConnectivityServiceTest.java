@@ -388,6 +388,7 @@ import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
 import com.android.server.ConnectivityService.ConnectivityDiagnosticsCallbackInfo;
 import com.android.server.ConnectivityService.NetworkRequestInfo;
 import com.android.server.ConnectivityServiceTest.ConnectivityServiceDependencies.ReportedInterfaces;
+import com.android.server.ConnectivityServiceTest.ConnectivityServiceDependencies.SocketDestroy;
 import com.android.server.connectivity.ApplicationSelfCertifiedNetworkCapabilities;
 import com.android.server.connectivity.AutomaticOnOffKeepaliveTracker;
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator;
@@ -615,6 +616,7 @@ public class ConnectivityServiceTest {
     @Mock TetheringManager mTetheringManager;
     @Mock BroadcastOptionsShim mBroadcastOptionsShim;
     @Mock ActivityManager mActivityManager;
+    @Mock SocketDestroy mSocketDestroy;
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
@@ -1865,7 +1867,7 @@ public class ConnectivityServiceTest {
         final Context mockResContext = mock(Context.class);
         doReturn(mResources).when(mockResContext).getResources();
         ConnectivityResources.setResourcesContextForTest(mockResContext);
-        mDeps = spy(new ConnectivityServiceDependencies(mockResContext));
+        mDeps = new ConnectivityServiceDependencies(mockResContext);
         mAutoOnOffKeepaliveDependencies =
                 new AutomaticOnOffKeepaliveTrackerDependencies(mServiceContext);
         mService = new ConnectivityService(mServiceContext,
@@ -1928,8 +1930,7 @@ public class ConnectivityServiceTest {
                 R.integer.config_networkWakeupPacketMark);
     }
 
-    // ConnectivityServiceDependencies is public to use Mockito.spy
-    public class ConnectivityServiceDependencies extends ConnectivityService.Dependencies {
+    class ConnectivityServiceDependencies extends ConnectivityService.Dependencies {
         final ConnectivityResources mConnRes;
 
         ConnectivityServiceDependencies(final Context mockResContext) {
@@ -2168,15 +2169,22 @@ public class ConnectivityServiceTest {
             }
         }
 
+        // Class to be mocked and used to verify socketDestroy methods call
+        class SocketDestroy {
+            public void destroyLiveTcpSockets(final Set<Range<Integer>> ranges,
+                    final Set<Integer> exemptUids){}
+            public void destroyLiveTcpSocketsByOwnerUids(final Set<Integer> ownerUids){}
+        }
+
         @Override
         public void destroyLiveTcpSockets(final Set<Range<Integer>> ranges,
                 final Set<Integer> exemptUids) {
-            // This function is empty since the invocation of this method is verified by mocks
+            mSocketDestroy.destroyLiveTcpSockets(ranges, exemptUids);
         }
 
         @Override
         public void destroyLiveTcpSocketsByOwnerUids(final Set<Integer> ownerUids) {
-            // This function is empty since the invocation of this method is verified by mocks
+            mSocketDestroy.destroyLiveTcpSocketsByOwnerUids(ownerUids);
         }
     }
 
@@ -10276,21 +10284,19 @@ public class ConnectivityServiceTest {
 
     private void doTestSetFirewallChainEnabledCloseSocket(final int chain,
             final boolean isAllowList) throws Exception {
-        reset(mDeps);
-
         mCm.setFirewallChainEnabled(chain, true /* enabled */);
         final Set<Integer> uids =
                 new ArraySet<>(List.of(TEST_PACKAGE_UID, TEST_PACKAGE_UID2));
         if (isAllowList) {
             final Set<Range<Integer>> range = new ArraySet<>(
                     List.of(new Range<>(Process.FIRST_APPLICATION_UID, Integer.MAX_VALUE)));
-            verify(mDeps).destroyLiveTcpSockets(range, uids);
+            verify(mSocketDestroy).destroyLiveTcpSockets(range, uids);
         } else {
-            verify(mDeps).destroyLiveTcpSocketsByOwnerUids(uids);
+            verify(mSocketDestroy).destroyLiveTcpSocketsByOwnerUids(uids);
         }
 
         mCm.setFirewallChainEnabled(chain, false /* enabled */);
-        verifyNoMoreInteractions(mDeps);
+        verifyNoMoreInteractions(mSocketDestroy);
     }
 
     @Test @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
@@ -12627,10 +12633,10 @@ public class ConnectivityServiceTest {
 
     private void assertVpnUidRangesUpdated(boolean add, Set<UidRange> vpnRanges, int exemptUid)
             throws Exception {
-        InOrder inOrder = inOrder(mMockNetd, mDeps);
+        InOrder inOrder = inOrder(mMockNetd, mSocketDestroy);
         final Set<Integer> exemptUidSet = new ArraySet<>(List.of(exemptUid, Process.VPN_UID));
 
-        inOrder.verify(mDeps).destroyLiveTcpSockets(UidRange.toIntRanges(vpnRanges),
+        inOrder.verify(mSocketDestroy).destroyLiveTcpSockets(UidRange.toIntRanges(vpnRanges),
                 exemptUidSet);
 
         if (add) {
@@ -12643,7 +12649,7 @@ public class ConnectivityServiceTest {
                             toUidRangeStableParcels(vpnRanges), PREFERENCE_ORDER_VPN));
         }
 
-        inOrder.verify(mDeps).destroyLiveTcpSockets(UidRange.toIntRanges(vpnRanges),
+        inOrder.verify(mSocketDestroy).destroyLiveTcpSockets(UidRange.toIntRanges(vpnRanges),
                 exemptUidSet);
     }
 
@@ -17984,7 +17990,7 @@ public class ConnectivityServiceTest {
         final UidRange frozenUidRange = new UidRange(TEST_FROZEN_UID, TEST_FROZEN_UID);
         final Set<UidRange> ranges = Collections.singleton(frozenUidRange);
 
-        verify(mDeps).destroyLiveTcpSockets(eq(UidRange.toIntRanges(ranges)),
+        verify(mSocketDestroy).destroyLiveTcpSockets(eq(UidRange.toIntRanges(ranges)),
                 eq(exemptUids));
     }
 }
