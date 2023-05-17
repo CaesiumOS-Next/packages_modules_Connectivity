@@ -1331,11 +1331,16 @@ public class MdnsServiceTypeClientTests {
     }
 
     private void verifyAndDispatchDelayedMessage(int times) {
+        // Verify the post() has been called.
+        final ArgumentCaptor<Runnable> runnableCaptor = ArgumentCaptor.forClass(Runnable.class);
+        verify(mockDeps, times(times)).post(any(), runnableCaptor.capture());
+        final Runnable runnable = runnableCaptor.getValue();
+        runOnHandler(runnable);
+
+        // Verify the task has been scheduled.
         final ArgumentCaptor<Handler> handlerCaptor = ArgumentCaptor.forClass(Handler.class);
         final ArgumentCaptor<Message> messageCaptor = ArgumentCaptor.forClass(Message.class);
         final ArgumentCaptor<Long> delayCaptor = ArgumentCaptor.forClass(Long.class);
-
-        // Verify the task has been scheduled.
         verify(mockDeps, times(times)).sendMessageDelayed(
                 handlerCaptor.capture(), messageCaptor.capture(), delayCaptor.capture());
         final Message message = messageCaptor.getValue();
