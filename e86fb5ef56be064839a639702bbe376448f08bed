@@ -16,6 +16,23 @@
       "message": "LGTM",
       "revId": "e86fb5ef56be064839a639702bbe376448f08bed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c96a3747_85f0733a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-17T05:52:58Z",
+      "side": 1,
+      "message": "I think it\u0027s worth noting that it\u0027s possible that someone (OEM, apps ?) could theoretically be depending on receiving this broadcast before, but I don\u0027t think there\u0027s a practical way to use it, and it would be depending on very internal mechanisms, so I think it\u0027s OK.",
+      "revId": "e86fb5ef56be064839a639702bbe376448f08bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
