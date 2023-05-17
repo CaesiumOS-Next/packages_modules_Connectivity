@@ -793,6 +793,7 @@ public class MdnsServiceTypeClientTests {
         // Simulate the case where the response is under TTL.
         doReturn(TEST_ELAPSED_REALTIME + TEST_TTL - 1L).when(mockDecoderClock).elapsedRealtime();
         firstMdnsTask.run();
+        verifyMessagePost(1 /* times */);
 
         // Verify removed callback was not called.
         verifyServiceRemovedNoCallback(mockListenerOne);
@@ -800,6 +801,7 @@ public class MdnsServiceTypeClientTests {
         // Simulate the case where the response is after TTL.
         doReturn(TEST_ELAPSED_REALTIME + TEST_TTL + 1L).when(mockDecoderClock).elapsedRealtime();
         firstMdnsTask.run();
+        verifyMessagePost(2 /* times */);
 
         // Verify removed callback was called.
         verifyServiceRemovedCallback(
@@ -1130,8 +1132,8 @@ public class MdnsServiceTypeClientTests {
         inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingMulticastResponse(
                 renewalQueryCaptor.capture(),
                 eq(socketKey), eq(false));
-        inOrder.verify(mockListenerOne).onDiscoveryQuerySent(any(), anyInt());
         verifyDelayedMessageScheduled(3 /* times */);
+        inOrder.verify(mockListenerOne).onDiscoveryQuerySent(any(), anyInt());
 
         final MdnsPacket renewalPacket = MdnsPacket.parse(
                 new MdnsPacketReader(renewalQueryCaptor.getValue()));
@@ -1416,12 +1418,20 @@ public class MdnsServiceTypeClientTests {
         verifyDelayedMessageScheduled(index + 1 /* times */);
     }
 
+    private void verifyMessagePost(int times) {
+        final ArgumentCaptor<Runnable> runnableCaptor = ArgumentCaptor.forClass(Runnable.class);
+        verify(mockDeps, times(times)).post(any(), runnableCaptor.capture());
+        final Runnable runnable = runnableCaptor.getValue();
+        runOnHandler(runnable);
+    }
+
     private void verifyDelayedMessageScheduled(int times) {
+        verifyMessagePost(times);
+
+        // Verify the task has been scheduled.
         final ArgumentCaptor<Handler> handlerCaptor = ArgumentCaptor.forClass(Handler.class);
         final ArgumentCaptor<Message> messageCaptor = ArgumentCaptor.forClass(Message.class);
         final ArgumentCaptor<Long> delayCaptor = ArgumentCaptor.forClass(Long.class);
-
-        // Verify the task has been scheduled.
         verify(mockDeps, times(times)).sendMessageDelayed(
                 handlerCaptor.capture(), messageCaptor.capture(), delayCaptor.capture());
         delayMessage = messageCaptor.getValue();
