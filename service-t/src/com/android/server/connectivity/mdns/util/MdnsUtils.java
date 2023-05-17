@@ -29,6 +29,7 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 /**
  * Mdns utility functions.
@@ -151,5 +152,45 @@ public class MdnsUtils {
         // return code here, this method truncates the name on purpose).
         encoder.encode(CharBuffer.wrap(originalName), out, true /* endOfInput */);
         return new String(out.array(), 0, out.position(), utf8);
+    }
+
+    /**
+     * A class to identify socket
+     */
+    public static class SocketKey {
+        @Nullable private final Network mNetwork;
+        private final int mInterfaceIndex;
+
+        public SocketKey(@Nullable Network network, int interfaceIndex) {
+            mNetwork = network;
+            mInterfaceIndex = interfaceIndex;
+        }
+
+        public Network getNetwork() {
+            return mNetwork;
+        }
+
+        public int getInterfaceIndex() {
+            return mInterfaceIndex;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(mNetwork, mInterfaceIndex);
+        }
+
+        @Override
+        public boolean equals(@Nullable Object other) {
+            if (!(other instanceof SocketKey)) {
+                return false;
+            }
+            return Objects.equals(mNetwork, ((SocketKey) other).mNetwork)
+                    && mInterfaceIndex == ((SocketKey) other).mInterfaceIndex;
+        }
+
+        @Override
+        public String toString() {
+            return "SocketKey{ network=" + mNetwork + " interfaceIndex=" + mInterfaceIndex + " }";
+        }
     }
 }

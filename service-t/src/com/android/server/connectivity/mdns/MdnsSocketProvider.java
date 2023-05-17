@@ -20,6 +20,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
+import static com.android.server.connectivity.mdns.util.MdnsUtils.SocketKey;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.isNetworkMatched;
 
@@ -179,6 +180,11 @@ public class MdnsSocketProvider {
                 @NonNull final SharedLog log,
                 @NonNull final NetLinkMonitorCallBack cb) {
             return SocketNetLinkMonitorFactory.createNetLinkMonitor(handler, log, cb);
+        }
+
+        /*** Get interface index by given socket */
+        public int getInterfaceIndex(@NonNull MdnsInterfaceSocket socket) {
+            return socket.getInterface().getIndex();
         }
     }
     /**
@@ -500,7 +506,9 @@ public class MdnsSocketProvider {
         for (int i = 0; i < mCallbacksToRequestedNetworks.size(); i++) {
             final Network requestedNetwork = mCallbacksToRequestedNetworks.valueAt(i);
             if (isNetworkMatched(requestedNetwork, network)) {
-                mCallbacksToRequestedNetworks.keyAt(i).onSocketCreated(network, socket, addresses);
+                final int ifaceIndex = mDependencies.getInterfaceIndex(socket);
+                mCallbacksToRequestedNetworks.keyAt(i)
+                        .onSocketCreated(new SocketKey(network, ifaceIndex), socket, addresses);
             }
         }
     }
@@ -509,7 +517,9 @@ public class MdnsSocketProvider {
         for (int i = 0; i < mCallbacksToRequestedNetworks.size(); i++) {
             final Network requestedNetwork = mCallbacksToRequestedNetworks.valueAt(i);
             if (isNetworkMatched(requestedNetwork, network)) {
-                mCallbacksToRequestedNetworks.keyAt(i).onInterfaceDestroyed(network, socket);
+                final int ifaceIndex = mDependencies.getInterfaceIndex(socket);
+                mCallbacksToRequestedNetworks.keyAt(i)
+                        .onInterfaceDestroyed(new SocketKey(network, ifaceIndex), socket);
             }
         }
     }
@@ -519,8 +529,9 @@ public class MdnsSocketProvider {
         for (int i = 0; i < mCallbacksToRequestedNetworks.size(); i++) {
             final Network requestedNetwork = mCallbacksToRequestedNetworks.valueAt(i);
             if (isNetworkMatched(requestedNetwork, network)) {
+                final int ifaceIndex = mDependencies.getInterfaceIndex(socket);
                 mCallbacksToRequestedNetworks.keyAt(i)
-                        .onAddressesChanged(network, socket, addresses);
+                        .onAddressesChanged(new SocketKey(network, ifaceIndex), socket, addresses);
             }
         }
     }
@@ -537,7 +548,9 @@ public class MdnsSocketProvider {
             createSocket(new NetworkAsKey(network), lp);
         } else {
             // Notify the socket for requested network.
-            cb.onSocketCreated(network, socketInfo.mSocket, socketInfo.mAddresses);
+            final int ifaceIndex = mDependencies.getInterfaceIndex(socketInfo.mSocket);
+            cb.onSocketCreated(
+                    new SocketKey(network, ifaceIndex), socketInfo.mSocket, socketInfo.mAddresses);
         }
     }
 
@@ -550,8 +563,9 @@ public class MdnsSocketProvider {
                     createLPForTetheredInterface(interfaceName, ifaceIndex));
         } else {
             // Notify the socket for requested network.
-            cb.onSocketCreated(
-                    null /* network */, socketInfo.mSocket, socketInfo.mAddresses);
+            final int ifaceIndex = mDependencies.getInterfaceIndex(socketInfo.mSocket);
+            cb.onSocketCreated(new SocketKey(null /* network */, ifaceIndex), socketInfo.mSocket,
+                    socketInfo.mAddresses);
         }
     }
 
@@ -623,13 +637,13 @@ public class MdnsSocketProvider {
     /*** Callbacks for listening socket changes */
     public interface SocketCallback {
         /*** Notify the socket is created */
-        default void onSocketCreated(@Nullable Network network, @NonNull MdnsInterfaceSocket socket,
-                @NonNull List<LinkAddress> addresses) {}
+        default void onSocketCreated(@NonNull SocketKey socketKey,
+                @NonNull MdnsInterfaceSocket socket, @NonNull List<LinkAddress> addresses) {}
         /*** Notify the interface is destroyed */
-        default void onInterfaceDestroyed(@Nullable Network network,
+        default void onInterfaceDestroyed(@NonNull SocketKey socketKey,
                 @NonNull MdnsInterfaceSocket socket) {}
         /*** Notify the addresses is changed on the network */
-        default void onAddressesChanged(@Nullable Network network,
+        default void onAddressesChanged(@NonNull SocketKey socketKey,
                 @NonNull MdnsInterfaceSocket socket, @NonNull List<LinkAddress> addresses) {}
     }
 

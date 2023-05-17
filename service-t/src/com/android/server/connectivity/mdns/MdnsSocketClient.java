@@ -28,6 +28,7 @@ import android.text.format.DateUtils;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.connectivity.mdns.util.MdnsLogger;
+import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -423,7 +424,8 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
             LOGGER.w(String.format("Error while decoding %s packet (%d): %d",
                     responseType, packetNumber, e.code));
             if (callback != null) {
-                callback.onFailedToParseMdnsResponse(packetNumber, e.code, network);
+                callback.onFailedToParseMdnsResponse(packetNumber, e.code,
+                        new MdnsUtils.SocketKey(network, interfaceIndex));
             }
             return e.code;
         }
@@ -433,7 +435,8 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
         }
 
         if (callback != null) {
-            callback.onResponseReceived(response, interfaceIndex, network);
+            callback.onResponseReceived(
+                    response, new MdnsUtils.SocketKey(network, interfaceIndex));
         }
 
         return MdnsResponseErrorCode.SUCCESS;

@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.util.MdnsUtils.SocketKey;
+
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 import android.annotation.NonNull;
@@ -58,7 +60,7 @@ public class MdnsServiceTypeClient {
     private final MdnsSocketClientBase socketClient;
     private final MdnsResponseDecoder responseDecoder;
     private final ScheduledExecutorService executor;
-    @Nullable private final Network network;
+    @NonNull private final SocketKey socketKey;
     @NonNull private final SharedLog sharedLog;
     private final Object lock = new Object();
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
@@ -92,9 +94,9 @@ public class MdnsServiceTypeClient {
             @NonNull String serviceType,
             @NonNull MdnsSocketClientBase socketClient,
             @NonNull ScheduledExecutorService executor,
-            @Nullable Network network,
+            @NonNull SocketKey socketKey,
             @NonNull SharedLog sharedLog) {
-        this(serviceType, socketClient, executor, new MdnsResponseDecoder.Clock(), network,
+        this(serviceType, socketClient, executor, new MdnsResponseDecoder.Clock(), socketKey,
                 sharedLog);
     }
 
@@ -104,7 +106,7 @@ public class MdnsServiceTypeClient {
             @NonNull MdnsSocketClientBase socketClient,
             @NonNull ScheduledExecutorService executor,
             @NonNull MdnsResponseDecoder.Clock clock,
-            @Nullable Network network,
+            @NonNull SocketKey socketKey,
             @NonNull SharedLog sharedLog) {
         this.serviceType = serviceType;
         this.socketClient = socketClient;
@@ -112,7 +114,7 @@ public class MdnsServiceTypeClient {
         this.serviceTypeLabels = TextUtils.split(serviceType, "\\.");
         this.responseDecoder = new MdnsResponseDecoder(clock, serviceTypeLabels);
         this.clock = clock;
-        this.network = network;
+        this.socketKey = socketKey;
         this.sharedLog = sharedLog;
     }
 

@@ -16,6 +16,9 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSocket.INTERFACE_INDEX_UNSPECIFIED;
+import static com.android.server.connectivity.mdns.util.MdnsUtils.SocketKey;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.Network;
@@ -65,7 +68,7 @@ public interface MdnsSocketClientBase {
     /*** Notify that the given network is requested for mdns discovery / resolution */
     default void notifyNetworkRequested(@NonNull MdnsServiceBrowserListener listener,
             @Nullable Network network, @NonNull SocketCreationCallback socketCreationCallback) {
-        socketCreationCallback.onSocketCreated(network);
+        socketCreationCallback.onSocketCreated(new SocketKey(network, INTERFACE_INDEX_UNSPECIFIED));
     }
 
     /*** Notify that the network is unrequested */
@@ -74,20 +77,19 @@ public interface MdnsSocketClientBase {
     /*** Callback for mdns response  */
     interface Callback {
         /*** Receive a mdns response */
-        void onResponseReceived(@NonNull MdnsPacket packet, int interfaceIndex,
-                @Nullable Network network);
+        void onResponseReceived(@NonNull MdnsPacket packet, @NonNull SocketKey socketKey);
 
         /*** Parse a mdns response failed */
         void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode,
-                @Nullable Network network);
+                @NonNull SocketKey socketKey);
     }
 
     /*** Callback for requested socket creation  */
     interface SocketCreationCallback {
         /*** Notify requested socket is created */
-        void onSocketCreated(@Nullable Network network);
+        void onSocketCreated(@NonNull SocketKey socketKey);
 
         /*** Notify requested socket is destroyed */
-        void onAllSocketsDestroyed(@Nullable Network network);
+        void onAllSocketsDestroyed(@NonNull SocketKey socketKey);
     }
 }

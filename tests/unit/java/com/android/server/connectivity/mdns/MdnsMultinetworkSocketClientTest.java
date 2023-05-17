@@ -21,7 +21,6 @@ import static com.android.server.connectivity.mdns.MulticastPacketReader.PacketH
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
@@ -38,6 +37,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 
 import com.android.net.module.util.HexDump;
+import com.android.server.connectivity.mdns.util.MdnsUtils;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
@@ -67,12 +67,15 @@ public class MdnsMultinetworkSocketClientTest {
     @Mock private MdnsServiceBrowserListener mListener;
     @Mock private MdnsSocketClientBase.Callback mCallback;
     @Mock private MdnsSocketClientBase.SocketCreationCallback mSocketCreationCallback;
+    @Mock private MdnsUtils.SocketKey mSocketKey;
     private MdnsMultinetworkSocketClient mSocketClient;
     private Handler mHandler;
 
     @Before
     public void setUp() throws SocketException {
         MockitoAnnotations.initMocks(this);
+        doReturn(mNetwork).when(mSocketKey).getNetwork();
+
         final HandlerThread thread = new HandlerThread("MdnsMultinetworkSocketClientTest");
         thread.start();
         mHandler = new Handler(thread.getLooper());
@@ -117,8 +120,8 @@ public class MdnsMultinetworkSocketClientTest {
         doReturn(true).when(mSocket).hasJoinedIpv6();
         doReturn(createEmptyNetworkInterface()).when(mSocket).getInterface();
         // Notify socket created
-        callback.onSocketCreated(mNetwork, mSocket, List.of());
-        verify(mSocketCreationCallback).onSocketCreated(mNetwork);
+        callback.onSocketCreated(mSocketKey, mSocket, List.of());
+        verify(mSocketCreationCallback).onSocketCreated(mSocketKey);
 
         // Send packet to IPv4 with target network and verify sending has been called.
         mSocketClient.sendMulticastPacket(ipv4Packet, mNetwork);
@@ -149,8 +152,8 @@ public class MdnsMultinetworkSocketClientTest {
 
         doReturn(createEmptyNetworkInterface()).when(mSocket).getInterface();
         // Notify socket created
-        callback.onSocketCreated(mNetwork, mSocket, List.of());
-        verify(mSocketCreationCallback).onSocketCreated(mNetwork);
+        callback.onSocketCreated(mSocketKey, mSocket, List.of());
+        verify(mSocketCreationCallback).onSocketCreated(mSocketKey);
 
         final ArgumentCaptor<PacketHandler> handlerCaptor =
                 ArgumentCaptor.forClass(PacketHandler.class);
@@ -161,7 +164,7 @@ public class MdnsMultinetworkSocketClientTest {
         handler.handlePacket(data, data.length, null /* src */);
         final ArgumentCaptor<MdnsPacket> responseCaptor =
                 ArgumentCaptor.forClass(MdnsPacket.class);
-        verify(mCallback).onResponseReceived(responseCaptor.capture(), anyInt(), any());
+        verify(mCallback).onResponseReceived(responseCaptor.capture(), any());
         final MdnsPacket response = responseCaptor.getValue();
         assertEquals(0, response.questions.size());
         assertEquals(0, response.additionalRecords.size());
@@ -189,8 +192,8 @@ public class MdnsMultinetworkSocketClientTest {
         doReturn(true).when(mSocket).hasJoinedIpv6();
         doReturn(createEmptyNetworkInterface()).when(mSocket).getInterface();
         // Notify socket created
-        callback.onSocketCreated(mNetwork, mSocket, List.of());
-        verify(mSocketCreationCallback).onSocketCreated(mNetwork);
+        callback.onSocketCreated(mSocketKey, mSocket, List.of());
+        verify(mSocketCreationCallback).onSocketCreated(mSocketKey);
 
         // Send IPv4 packet and verify sending has been called.
         mSocketClient.sendMulticastPacket(ipv4Packet);
@@ -199,17 +202,17 @@ public class MdnsMultinetworkSocketClientTest {
 
         // Request another socket with null network
         final MdnsServiceBrowserListener listener2 = mock(MdnsServiceBrowserListener.class);
-        final Network network2 = mock(Network.class);
+        final MdnsUtils.SocketKey socketKey2 = mock(MdnsUtils.SocketKey.class);
         final MdnsInterfaceSocket socket2 = mock(MdnsInterfaceSocket.class);
         final SocketCallback callback2 = expectSocketCallback(listener2, null);
         doReturn(true).when(socket2).hasJoinedIpv4();
         doReturn(true).when(socket2).hasJoinedIpv6();
         doReturn(createEmptyNetworkInterface()).when(socket2).getInterface();
         // Notify socket created for two networks.
-        callback2.onSocketCreated(mNetwork, mSocket, List.of());
-        callback2.onSocketCreated(network2, socket2, List.of());
-        verify(mSocketCreationCallback, times(2)).onSocketCreated(mNetwork);
-        verify(mSocketCreationCallback).onSocketCreated(network2);
+        callback2.onSocketCreated(mSocketKey, mSocket, List.of());
+        callback2.onSocketCreated(socketKey2, socket2, List.of());
+        verify(mSocketCreationCallback, times(2)).onSocketCreated(mSocketKey);
+        verify(mSocketCreationCallback).onSocketCreated(socketKey2);
 
         // Send IPv4 packet and verify sending to two sockets.
         mSocketClient.sendMulticastPacket(ipv4Packet);
@@ -246,17 +249,17 @@ public class MdnsMultinetworkSocketClientTest {
         doReturn(createEmptyNetworkInterface()).when(mSocket).getInterface();
         doReturn(createEmptyNetworkInterface()).when(otherSocket).getInterface();
 
-        callback.onSocketCreated(null /* network */, mSocket, List.of());
-        verify(mSocketCreationCallback).onSocketCreated(null);
-        callback.onSocketCreated(null /* network */, otherSocket, List.of());
-        verify(mSocketCreationCallback, times(2)).onSocketCreated(null);
+        callback.onSocketCreated(mSocketKey, mSocket, List.of());
+        verify(mSocketCreationCallback).onSocketCreated(mSocketKey);
+        callback.onSocketCreated(mSocketKey, otherSocket, List.of());
+        verify(mSocketCreationCallback, times(2)).onSocketCreated(mSocketKey);
 
-        verify(mSocketCreationCallback, never()).onAllSocketsDestroyed(null /* network */);
+        verify(mSocketCreationCallback, never()).onAllSocketsDestroyed(mSocketKey);
         mHandler.post(() -> mSocketClient.notifyNetworkUnrequested(mListener));
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
 
         verify(mProvider).unrequestSocket(callback);
-        verify(mSocketCreationCallback).onAllSocketsDestroyed(null /* network */);
+        verify(mSocketCreationCallback).onAllSocketsDestroyed(mSocketKey);
     }
 
     @Test
@@ -266,15 +269,15 @@ public class MdnsMultinetworkSocketClientTest {
         doReturn(createEmptyNetworkInterface()).when(mSocket).getInterface();
         doReturn(createEmptyNetworkInterface()).when(otherSocket).getInterface();
 
-        callback.onSocketCreated(null /* network */, mSocket, List.of());
-        verify(mSocketCreationCallback).onSocketCreated(null);
-        callback.onSocketCreated(null /* network */, otherSocket, List.of());
-        verify(mSocketCreationCallback, times(2)).onSocketCreated(null);
+        callback.onSocketCreated(mSocketKey, mSocket, List.of());
+        verify(mSocketCreationCallback).onSocketCreated(mSocketKey);
+        callback.onSocketCreated(mSocketKey, otherSocket, List.of());
+        verify(mSocketCreationCallback, times(2)).onSocketCreated(mSocketKey);
 
         // Notify socket destroyed
-        callback.onInterfaceDestroyed(null /* network */, mSocket);
+        callback.onInterfaceDestroyed(mSocketKey, mSocket);
         verifyNoMoreInteractions(mSocketCreationCallback);
-        callback.onInterfaceDestroyed(null /* network */, otherSocket);
-        verify(mSocketCreationCallback).onAllSocketsDestroyed(null /* network */);
+        callback.onInterfaceDestroyed(mSocketKey, otherSocket);
+        verify(mSocketCreationCallback).onAllSocketsDestroyed(mSocketKey);
     }
 }
