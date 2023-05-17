@@ -304,6 +304,11 @@ public class ConnectivityManagerTest {
             "config_reservedPrivilegedKeepaliveSlots";
     private static final String TEST_RESTRICTED_NW_IFACE_NAME = "test-restricted-nw";
 
+    private static final String NETWORK_WAKEUP_PACKET_MARK_RES_NAME =
+            "config_networkWakeupPacketMark";
+    private static final String NETWORK_WAKEUP_PACKET_MASK_RES_NAME =
+            "config_networkWakeupPacketMask";
+
     private static final LinkAddress TEST_LINKADDR = new LinkAddress(
             InetAddresses.parseNumericAddress("2001:db8::8"), 64);
 
@@ -1538,6 +1543,34 @@ public class ConnectivityManagerTest {
                     oldMeteredMultipathPreference);
             setWifiMeteredStatus(ssid, oldMeteredSetting);
         }
+    }
+
+    /**
+     * Verify that config_networkWakeupPacketMark/Mask make sense.
+     *
+     * See system/netd/include/Fwmark.h which reserves the bottom 21 bits of skb->mark
+     * for netid, etc... so out of necessity these have to be in the top 11 bits.
+     *
+     * In practice the only values that really make sense are either:
+     *   mark == mask == 0 (disabled)
+     * or (mark == mask) being one of the top 11 available bits, for example:
+     *   mark == mask == 0x80000000 (enabled, using top-most bit)
+     * (only a single bit makes sense, as this is really just a boolean signal,
+     *  and only the topmost is known to be used on any real devices)
+     *
+     * If other sensible values exist (for example using another of the top 11 bits)
+     * in the world, we'll hopefully get CTS failure complaints and learn about them...
+     * and either get things changed to use 0x80000000, or adjust this test to be more
+     * lenient.
+     */
+    @Test
+    public void testNetworkWakeupPacketMarkAndMask() throws Exception {
+        int mark = getIntResourceForName(NETWORK_WAKEUP_PACKET_MARK_RES_NAME);
+        int mask = getIntResourceForName(NETWORK_WAKEUP_PACKET_MASK_RES_NAME);
+        assertEquals(mark, mask);
+        if (mark == 0) return; // Disabled
+        int valid = 0x80000000;  // u32
+        assertEquals(mark, valid);
     }
 
     // TODO: move the following socket keep alive test to dedicated test class.
