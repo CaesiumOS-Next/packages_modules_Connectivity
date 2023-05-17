@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04a251fa_22afe562",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-17T03:20:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8cfa2a8_b02adf91",
+      "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e91622f8_c8a33930",
@@ -52,6 +70,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bb1de86_84f50131",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-17T03:20:55Z",
+      "side": 1,
+      "message": "After changing the code to use handler.sendMessageDelayed instead of requestTaskFuture, this problem should no longer occur.",
+      "parentUuid": "e91622f8_c8a33930",
+      "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88596a78_c31b5709",
@@ -65,6 +101,24 @@
       "writtenOn": "2023-05-10T08:30:18Z",
       "side": 1,
       "message": "Can you move this to a separate method ? It has a bit too many levels of indentation",
+      "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52e766d0_124dc455",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-17T03:20:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88596a78_c31b5709",
       "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -92,6 +146,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "167bdf07_98f4be6e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-17T03:20:55Z",
+      "side": 1,
+      "message": "Thanks for your suggestion. It\u0027s really helpful. Update the desgin accordingly.",
+      "parentUuid": "9fc985c1_d5e0584b",
+      "range": {
+        "startLine": 574,
+        "startChar": 20,
+        "endLine": 574,
+        "endChar": 37
+      },
+      "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aebe918e_2a623ee4",
@@ -105,6 +183,24 @@
       "writtenOn": "2023-05-10T08:30:18Z",
       "side": 1,
       "message": "I think that\u0027s the bug mentioned in earlier comments though, not expected behavior",
+      "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c716c442_99d87b2c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-17T03:20:55Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "aebe918e_2a623ee4",
       "revId": "7f6b73198b9654c6389b12ad796c197131edccff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
