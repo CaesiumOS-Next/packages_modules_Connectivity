@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b166741_2508f0ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2023-05-17T19:08:43Z",
+      "side": 1,
+      "message": "CL needs owner review vote by test owner, thanks",
+      "revId": "49eb710f2be521affab4a4be6a77ceb7797d78c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
