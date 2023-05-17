@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31b2d91a_1bb26b1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-17T03:03:28Z",
+      "side": 1,
+      "message": "For (internal) future reference that\u0027s http://shortn/_inmpqygu3d",
+      "range": {
+        "startLine": 33,
+        "startChar": 12,
+        "endLine": 33,
+        "endChar": 20
+      },
+      "revId": "43d33ee76067f1d3bd8932ec78cd2640657ee217",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
