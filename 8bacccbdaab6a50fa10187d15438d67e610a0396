@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ae9ae4a_6589f10a",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-17T22:18:09Z",
+      "side": 1,
+      "message": "note this boosts the kernel requirement from 5.0+ to 6.0+\n\nThis effectively demotes this test from running on most devices to almost none.\n\n(cuttlefish is 6.1, and some vendor may launch a 6.1 device a few months *after* U goes public)\n\nBasically, after this change, this isn\u0027t really a CTS test, and is rather simply a module integration test.",
+      "range": {
+        "startLine": 978,
+        "startChar": 8,
+        "endLine": 978,
+        "endChar": 52
+      },
+      "revId": "8bacccbdaab6a50fa10187d15438d67e610a0396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
