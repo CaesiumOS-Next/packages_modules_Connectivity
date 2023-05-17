@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b20496f_e3f2e3c8",
+        "filename": "tests/cts/netpermission/internetpermission/AndroidTest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-17T04:18:36Z",
+      "side": 1,
+      "message": "Actually I renamed it to ConnectivityTestTargetPreparer in aosp/2561250 ^^\u0027",
+      "range": {
+        "startLine": 27,
+        "startChar": 50,
+        "endLine": 27,
+        "endChar": 81
+      },
+      "revId": "20bebf4580681ac6b8724d11095f4dc684046b22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
