@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6767bbea_a90228ca",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-17T12:34:56Z",
+      "side": 1,
+      "message": "Done. Also changed LifetimeKey in KeepaliveStatsTracker.",
+      "parentUuid": "e4ab616d_3f92f6db",
+      "range": {
+        "startLine": 105,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 51
+      },
+      "revId": "25008d13b4b2039dee453dba6bb213dd4c504751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c55d5e9_308b7344",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "349d455e_60ccc142",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-17T12:34:56Z",
+      "side": 1,
+      "message": "Done. Also changed LifetimeKey in KeepaliveStatsTracker.",
+      "parentUuid": "8c55d5e9_308b7344",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 115,
+        "endChar": 26
+      },
+      "revId": "25008d13b4b2039dee453dba6bb213dd4c504751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1d1ae65_843460b5",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-05-17T06:01:29Z",
       "side": 1,
       "message": "Optional: \nYou could translate the array to HashSet and compare the length.\nE.g.\n```\nfinal Set\u003cObject\u003e s \u003d new HashSet\u003cObject\u003e(Arrays.asList(arr));\nreturn (s.size() \u003d\u003d arr.length);\n```",
+      "range": {
+        "startLine": 299,
+        "startChar": 8,
+        "endLine": 303,
+        "endChar": 9
+      },
+      "revId": "25008d13b4b2039dee453dba6bb213dd4c504751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50b276fa_7cf88029",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-17T12:34:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1d1ae65_843460b5",
       "range": {
         "startLine": 299,
         "startChar": 8,
