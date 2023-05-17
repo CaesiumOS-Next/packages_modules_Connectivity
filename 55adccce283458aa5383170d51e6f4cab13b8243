@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91a79684_d5e82860",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-17T12:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5346c4d6_90207f09",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 1
+      },
+      "revId": "55adccce283458aa5383170d51e6f4cab13b8243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7a7fe63_3441d85f",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-15T14:25:59Z",
       "side": 1,
       "message": "Should this happen? If it\u0027s possible, please put a comment here to explain it.\n\nBut this should probably not happen. If it happens, it may be a bug. I.e. we may not need this check. It should never happen.",
+      "range": {
+        "startLine": 509,
+        "startChar": 8,
+        "endLine": 509,
+        "endChar": 29
+      },
+      "revId": "55adccce283458aa5383170d51e6f4cab13b8243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a938f744_9ac462f5",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-17T12:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7a7fe63_3441d85f",
       "range": {
         "startLine": 509,
         "startChar": 8,
