@@ -16,6 +16,24 @@
       "message": "assumeTrue(mark !\u003d 0);\nassumeTrue(mask !\u003d 0);\nassertEquals...",
       "revId": "3653b085596016062d065dd84a86d7033a2645a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0233b718_6f87a4e2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-17T23:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b00579a9_6bd61912",
+      "revId": "3653b085596016062d065dd84a86d7033a2645a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
