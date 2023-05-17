@@ -22,6 +22,30 @@
       },
       "revId": "0b634a8f683e5e06a944c89e235236975b6f82bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba0cb21c_651ea335",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-17T12:33:50Z",
+      "side": 1,
+      "message": "now used in `HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);`",
+      "parentUuid": "e42d7d1a_5ea5d23a",
+      "range": {
+        "startLine": 49,
+        "startChar": 29,
+        "endLine": 49,
+        "endChar": 39
+      },
+      "revId": "0b634a8f683e5e06a944c89e235236975b6f82bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
