@@ -4,3 +4,7 @@ file:platform/packages/modules/Connectivity:master:/OWNERS_core_networking_xts
 
 # IPsec
 per-file **IpSec* = benedictwong@google.com, nharold@google.com
+
+# Temporary ownership to improve ethernet code quality
+per-file net/src/android/net/cts/EthernetManagerTest.kt = prohr@google.com #{LAST_RESORT_SUGGESTION}
+
