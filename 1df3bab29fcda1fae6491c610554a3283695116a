@@ -49,6 +49,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b1dd1930_62ac203b",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T08:28:23Z",
+      "side": 1,
+      "message": "Should we do these only if isLocalOnly is false? I know that the LOHS APIs only support wifi, but the TetheringManager system APIs do support things like TETHERING_ETHERNET + CONNECTIVITY_SCOPE_LOCAL, right. So something like:\n\n    if (!isLocalOnly) {\n        if (mStaticIpv4ServerAddr !\u003d null) return mStaticIpv4ServerAddr;\n\n        if (shouldNotConfigureBluetoothInterface()) return new LinkAddress(BLUETOOTH_IFACE_ADDR);\n    }",
+      "range": {
+        "startLine": 684,
+        "startChar": 0,
+        "endLine": 686,
+        "endChar": 97
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44f78206_0860f5f1",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T08:28:23Z",
+      "side": 1,
+      "message": "If this class is not to be used directly, can you make it abstract? That would also allow you to get rid of the boolean. Something like:\n\n    abstract class BaseServingState extends State {\n\n        protected abstract boolean handleNewPrefixRequest(@NonNull IpPrefix currentPrefix);\n\nbut also see suggestions right below.",
+      "range": {
+        "startLine": 1179,
+        "startChar": 4,
+        "endLine": 1179,
+        "endChar": 9
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f42a9606_68f22788",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 9
@@ -60,6 +106,30 @@
       "writtenOn": "2023-05-18T05:49:43Z",
       "side": 1,
       "message": "I think it would be better to have an int for the type. This boolean looks really bolted on instead of integrated in the design.",
+      "range": {
+        "startLine": 1180,
+        "startChar": 30,
+        "endLine": 1180,
+        "endChar": 42
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b71f4a5_23cf5606",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T08:28:23Z",
+      "side": 1,
+      "message": "We could call it mDesiredInterfaceState (or mDesiredServingState) and use STATE_TETHERED and STATE_LOCAL_ONLY.\n\nIf you did that, then you could change LocalHotspotState#enter and TetheredState#enter to do:\n\n    sendInterfaceState(mDesiredServingState);\n\nYou could even move LocalHotspotState#enter and TetheredState#enter to BaseServingState#enter, because they would be identical except for the log line.",
+      "parentUuid": "f42a9606_68f22788",
       "range": {
         "startLine": 1180,
         "startChar": 30,
@@ -95,6 +165,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b64f2c35_6e77a62f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T08:28:23Z",
+      "side": 1,
+      "message": "Why this if? Can\u0027t we just always pass the scope in from the caller and get rid of isUseSapAndLohsConcurrently()? It means that the LOHS and wifi tethering on a given device will get different IP addresses but I think that\u0027s fine. Apps can\u0027t depend on the values of these addresses anyway, because we randomize them on every boot...",
+      "range": {
+        "startLine": 392,
+        "startChar": 8,
+        "endLine": 392,
+        "endChar": 78
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74b39ab8_7136c9ed",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T08:28:23Z",
+      "side": 1,
+      "message": "I don\u0027t think this method should exist. There are only a few callers and it\u0027s much more readable if they explicitly pass in the type that they need.",
+      "range": {
+        "startLine": 400,
+        "startChar": 23,
+        "endLine": 400,
+        "endChar": 36
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4dac36c1_9ccef651",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 9
@@ -118,6 +234,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3663b077_d2043676",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T08:28:23Z",
+      "side": 1,
+      "message": "+1. This is an internal private method and it should always know whether the requested address is for local-only or not.",
+      "parentUuid": "4dac36c1_9ccef651",
+      "range": {
+        "startLine": 405,
+        "startChar": 31,
+        "endLine": 405,
+        "endChar": 37
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "928e292e_ef93599e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T08:28:23Z",
+      "side": 1,
+      "message": "This is not an internet address. Those are global and these are private.\n\nIn fact, why have these constants at all? Can we just use the CONNECTIVITY_SCOPE_xxx constants? In fact, I\u0027d modify the code to make the caller pass in those constants instead of using an isLocalOnly boolean.",
+      "range": {
+        "startLine": 406,
+        "startChar": 31,
+        "endLine": 406,
+        "endChar": 39
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8554a047_2a0f0336",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 9
@@ -129,6 +292,30 @@
       "writtenOn": "2023-05-18T05:49:43Z",
       "side": 1,
       "message": "This naming is not clear. IIUC `mType` is the downstream type, while `mExtendType` is the upstream type. If that\u0027s accurate, why not `mDownstreamType` and `mUpstreamType` ?",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 38
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f413643_11f29418",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T08:28:23Z",
+      "side": 1,
+      "message": "If I\u0027m reading the code correctly, then mType is the tethering type, so I think mType is a reasonable name. Elsewhere, this file uses interfaceType, so perhaps mTetheringType or mInterfaceType would be better?\n\nmExtendType is the connectivity scope so should probably be called mScope.",
+      "parentUuid": "8554a047_2a0f0336",
       "range": {
         "startLine": 409,
         "startChar": 0,
