@@ -84,7 +84,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
             }
             socket.addPacketHandler(handler);
             mActiveNetworkSockets.put(socket, socketKey);
-            mSocketCreationCallback.onSocketCreated(socketKey.getNetwork());
+            mSocketCreationCallback.onSocketCreated(socketKey);
         }
 
         @Override
@@ -97,7 +97,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         private void notifySocketDestroyed(@NonNull MdnsInterfaceSocket socket) {
             final SocketKey socketKey = mActiveNetworkSockets.remove(socket);
             if (!isAnySocketActive(socketKey)) {
-                mSocketCreationCallback.onAllSocketsDestroyed(socketKey.getNetwork());
+                mSocketCreationCallback.onAllSocketsDestroyed(socketKey);
             }
         }
 
@@ -208,7 +208,8 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         return mHandler.getLooper();
     }
 
-    private void sendMdnsPacket(@NonNull DatagramPacket packet, @Nullable Network targetNetwork) {
+    private void sendMdnsPacket(@NonNull DatagramPacket packet,
+            @NonNull SocketKey targetSocketKey) {
         final boolean isIpv6 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
                 instanceof Inet6Address;
         final boolean isIpv4 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
@@ -216,13 +217,10 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         final ArrayMap<MdnsInterfaceSocket, SocketKey> activeSockets = getActiveSockets();
         for (int i = 0; i < activeSockets.size(); i++) {
             final MdnsInterfaceSocket socket = activeSockets.keyAt(i);
-            final Network network = activeSockets.valueAt(i).getNetwork();
-            // Check ip capability and network before sending packet
+            final SocketKey socketKey = activeSockets.valueAt(i);
+            // Check ip capability and socket before sending packet
             if (((isIpv6 && socket.hasJoinedIpv6()) || (isIpv4 && socket.hasJoinedIpv4()))
-                    // Contrary to MdnsUtils.isNetworkMatched, only send packets targeting
-                    // the null network to interfaces that have the null network (tethering
-                    // downstream interfaces).
-                    && Objects.equals(network, targetNetwork)) {
+                    && Objects.equals(socketKey, targetSocketKey)) {
                 try {
                     socket.send(packet);
                 } catch (IOException e) {
@@ -242,35 +240,31 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
             if (e.code != MdnsResponseErrorCode.ERROR_NOT_RESPONSE_MESSAGE) {
                 Log.e(TAG, e.getMessage(), e);
                 if (mCallback != null) {
-                    mCallback.onFailedToParseMdnsResponse(
-                            packetNumber, e.code, socketKey.getNetwork());
+                    mCallback.onFailedToParseMdnsResponse(packetNumber, e.code, socketKey);
                 }
             }
             return;
         }
 
         if (mCallback != null) {
-            mCallback.onResponseReceived(
-                    response, socketKey.getInterfaceIndex(), socketKey.getNetwork());
+            mCallback.onResponseReceived(response, socketKey);
         }
     }
 
     /**
-     * Sends a mDNS request packet via given network that asks for multicast response. Null network
-     * means sending packet via all networks.
+     * Sends a mDNS request packet via given socket key that asks for multicast response.
      */
     @Override
-    public void sendMulticastPacket(@NonNull DatagramPacket packet, @Nullable Network network) {
-        mHandler.post(() -> sendMdnsPacket(packet, network));
+    public void sendMulticastPacket(@NonNull DatagramPacket packet, @NonNull SocketKey socketKey) {
+        mHandler.post(() -> sendMdnsPacket(packet, socketKey));
     }
 
     /**
-     * Sends a mDNS request packet via given network that asks for unicast response. Null network
-     * means sending packet via all networks.
+     * Sends a mDNS request packet via given socket key that asks for unicast response.
      */
     @Override
-    public void sendUnicastPacket(@NonNull DatagramPacket packet, @Nullable Network network) {
+    public void sendUnicastPacket(@NonNull DatagramPacket packet, @NonNull SocketKey socketKey) {
         // TODO: Separate unicast packet.
-        mHandler.post(() -> sendMdnsPacket(packet, network));
+        mHandler.post(() -> sendMdnsPacket(packet, socketKey));
     }
 }

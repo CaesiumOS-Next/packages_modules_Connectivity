@@ -40,20 +40,14 @@ public interface MdnsSocketClientBase {
     void setCallback(@Nullable Callback callback);
 
     /**
-     * Send a mDNS request packet via given network that asks for multicast response.
-     *
-     * <p>The socket client may use a null network to identify some or all interfaces, in which case
-     * passing null sends the packet to these.
+     * Send a mDNS request packet via given socket key that asks for multicast response.
      */
-    void sendMulticastPacket(@NonNull DatagramPacket packet, @Nullable Network network);
+    void sendMulticastPacket(@NonNull DatagramPacket packet, @NonNull SocketKey socketKey);
 
     /**
-     * Send a mDNS request packet via given network that asks for unicast response.
-     *
-     * <p>The socket client may use a null network to identify some or all interfaces, in which case
-     * passing null sends the packet to these.
+     * Send a mDNS request packet via given socket key that asks for unicast response.
      */
-    void sendUnicastPacket(@NonNull DatagramPacket packet, @Nullable Network network);
+    void sendUnicastPacket(@NonNull DatagramPacket packet, @NonNull SocketKey socketKey);
 
     /*** Notify that the given network is requested for mdns discovery / resolution */
     void notifyNetworkRequested(@NonNull MdnsServiceBrowserListener listener,
@@ -68,22 +62,22 @@ public interface MdnsSocketClientBase {
     }
 
     /*** Callback for mdns response  */
+    /*** Callback for mdns response  */
     interface Callback {
         /*** Receive a mdns response */
-        void onResponseReceived(@NonNull MdnsPacket packet, int interfaceIndex,
-                @Nullable Network network);
+        void onResponseReceived(@NonNull MdnsPacket packet, @NonNull SocketKey socketKey);
 
         /*** Parse a mdns response failed */
         void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode,
-                @Nullable Network network);
+                @NonNull SocketKey socketKey);
     }
 
     /*** Callback for requested socket creation  */
     interface SocketCreationCallback {
         /*** Notify requested socket is created */
-        void onSocketCreated(@Nullable Network network);
+        void onSocketCreated(@NonNull SocketKey socketKey);
 
         /*** Notify requested socket is destroyed */
-        void onAllSocketsDestroyed(@Nullable Network network);
+        void onAllSocketsDestroyed(@NonNull SocketKey socketKey);
     }
 }

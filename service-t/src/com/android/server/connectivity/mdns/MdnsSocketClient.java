@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSocket.INTERFACE_INDEX_UNSPECIFIED;
+
 import android.Manifest.permission;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -209,21 +211,15 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
     }
 
     @Override
-    public void sendMulticastPacket(@NonNull DatagramPacket packet, @Nullable Network network) {
-        if (network != null) {
-            throw new IllegalArgumentException("This socket client does not support sending to "
-                    + "specific networks");
-        }
-        sendMulticastPacket(packet);
+    public void sendMulticastPacket(@NonNull DatagramPacket packet, @NonNull SocketKey socketKey) {
+        throw new IllegalArgumentException("This socket client does not support sending to "
+                    + "specific socket");
     }
 
     @Override
-    public void sendUnicastPacket(@NonNull DatagramPacket packet, @Nullable Network network) {
-        if (network != null) {
-            throw new IllegalArgumentException("This socket client does not support sending to "
-                    + "specific networks");
-        }
-        sendUnicastPacket(packet);
+    public void sendUnicastPacket(@NonNull DatagramPacket packet, @NonNull SocketKey socketKey) {
+        throw new IllegalArgumentException("This socket client does not support sending to "
+                + "specific socket");
     }
 
     @Override
@@ -235,7 +231,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
             throw new IllegalArgumentException("This socket client does not support requesting "
                     + "specific networks");
         }
-        socketCreationCallback.onSocketCreated(null);
+        socketCreationCallback.onSocketCreated(new SocketKey(multicastSocket.getInterfaceIndex()));
     }
 
     private void sendMdnsPacket(DatagramPacket packet, Queue<DatagramPacket> packetQueueToUse) {
@@ -427,7 +423,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
                             packet,
                             responseType,
                             /* interfaceIndex= */ (socket == null || !propagateInterfaceIndex)
-                                    ? MdnsSocket.INTERFACE_INDEX_UNSPECIFIED
+                                    ? INTERFACE_INDEX_UNSPECIFIED
                                     : socket.getInterfaceIndex(),
                             /* network= */ socket.getNetwork());
                 }
@@ -451,7 +447,8 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
             LOGGER.w(String.format("Error while decoding %s packet (%d): %d",
                     responseType, packetNumber, e.code));
             if (callback != null) {
-                callback.onFailedToParseMdnsResponse(packetNumber, e.code, network);
+                callback.onFailedToParseMdnsResponse(packetNumber, e.code,
+                        new SocketKey(network, interfaceIndex));
             }
             return e.code;
         }
@@ -461,7 +458,8 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
         }
 
         if (callback != null) {
-            callback.onResponseReceived(response, interfaceIndex, network);
+            callback.onResponseReceived(
+                    response, new SocketKey(network, interfaceIndex));
         }
 
         return MdnsResponseErrorCode.SUCCESS;
