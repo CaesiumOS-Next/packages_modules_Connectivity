@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06fe8650_42d85b87",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-05-18T05:27:55Z",
+      "side": 1,
+      "message": "It looks like the `jniThrowExceptionFmt` does not make native code return to Java immediately. Should we change it to ASSERT_GE and call `return` after `jniThrowExceptionFmt`?\n\nThe function of EXPECT_ in gtest will \n(1) dump information\n(2) let the test continue\n(3) fail the test\n\nThis change makes all EXPECT_ meaningless except for the first call. If so, why not just trigger an exception and return to Java?",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 17
+      },
+      "revId": "d278950e9d0fa0cf1c66e8545d97e9b545db9051",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
