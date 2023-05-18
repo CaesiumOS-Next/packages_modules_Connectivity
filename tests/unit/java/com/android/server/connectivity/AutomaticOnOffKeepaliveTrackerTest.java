@@ -35,6 +35,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import android.app.AlarmManager;
@@ -107,6 +108,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     private HandlerThread mHandlerThread;
     private Network mNetwork;
     private IBinder mBinder;
+    private IBinder mBinder2;
     private Socket mSocket;
     private FileDescriptor mFd;
 
@@ -116,6 +118,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @Mock AlarmManager mAlarmManager;
     @Mock NetworkAgentInfo mNai;
     @Mock ISocketKeepaliveCallback mSocketKeepaliveCallback;
+    @Mock ISocketKeepaliveCallback mSocketKeepaliveCallback2;
     @Mock Network mUnderpinnedNetwork;
 
     TestKeepaliveTracker mKeepaliveTracker;
@@ -259,7 +262,9 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         mSocket.bind(null);
         mFd = mSocket.getFileDescriptor$();
         mBinder = new Binder();
+        mBinder2 = new Binder();
         doReturn(mBinder).when(mSocketKeepaliveCallback).asBinder();
+        doReturn(mBinder2).when(mSocketKeepaliveCallback2).asBinder();
 
         doReturn(PERMISSION_GRANTED).when(mCtx).checkPermission(any() /* permission */,
                 anyInt() /* pid */, anyInt() /* uid */);
@@ -346,8 +351,8 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
     }
 
-    private NattKeepalivePacketData doStartNattKeepalive(int intervalSeconds, long time)
-            throws Exception {
+    private NattKeepalivePacketData doStartNattKeepalive(
+            ISocketKeepaliveCallback cb, int intervalSeconds, long time) throws Exception {
         final InetAddress srcAddress = InetAddress.getByAddress(
                 new byte[] { (byte) 192, 0, 0, (byte) 129 });
         final int srcPort = 12345;
@@ -359,18 +364,28 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         mNai.linkProperties = new LinkProperties();
         mNai.linkProperties.addLinkAddress(new LinkAddress(srcAddress, 24));
 
-        final KeepaliveInfo ki = mKeepaliveTracker.new KeepaliveInfo(mSocketKeepaliveCallback, mNai,
+        final KeepaliveInfo ki = mKeepaliveTracker.new KeepaliveInfo(cb, mNai,
                 kpd, intervalSeconds, KeepaliveInfo.TYPE_NATT, mFd);
         mKeepaliveTracker.setReturnedKeepaliveInfo(ki);
 
         doReturn(time).when(mDependencies).getElapsedRealtime();
 
         mAOOKeepaliveTracker.startNattKeepalive(mNai, mFd, intervalSeconds,
-                mSocketKeepaliveCallback, srcAddress.toString(), srcPort, dstAddress.toString(),
+                cb, srcAddress.toString(), srcPort, dstAddress.toString(),
                 dstPort, true /* automaticOnOffKeepalives */, mUnderpinnedNetwork);
         HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
 
         return kpd;
+    }
+
+    private NattKeepalivePacketData doStartNattKeepalive(ISocketKeepaliveCallback cb)
+            throws Exception {
+        return doStartNattKeepalive(cb, TEST_KEEPALIVE_INTERVAL_SEC, SystemClock.elapsedRealtime());
+    }
+
+    private NattKeepalivePacketData doStartNattKeepalive(int intervalSeconds, long time)
+            throws Exception {
+        return doStartNattKeepalive(mSocketKeepaliveCallback, intervalSeconds, time);
     }
 
     private NattKeepalivePacketData doStartNattKeepalive(int intervalSeconds) throws Exception {
@@ -378,7 +393,27 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     }
 
     private NattKeepalivePacketData doStartNattKeepalive() throws Exception {
-        return doStartNattKeepalive(TEST_KEEPALIVE_INTERVAL_SEC);
+        return doStartNattKeepalive(TEST_KEEPALIVE_INTERVAL_SEC, SystemClock.elapsedRealtime());
+    }
+
+    private void doPauseKeepalive(AutomaticOnOffKeepalive autoKi) throws Exception {
+        setupResponseWithoutSocketExisting();
+        mTestHandler.post(
+                () -> mAOOKeepaliveTracker.handleMonitorAutomaticKeepalive(autoKi, TEST_NETID));
+        HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
+    }
+
+    private void doResumeKeepalive(AutomaticOnOffKeepalive autoKi) throws Exception {
+        setupResponseWithSocketExisting();
+        mTestHandler.post(
+                () -> mAOOKeepaliveTracker.handleMonitorAutomaticKeepalive(autoKi, TEST_NETID));
+        HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
+    }
+
+    private void doStopKeepalive(AutomaticOnOffKeepalive autoKi) throws Exception {
+        mTestHandler.post(
+                () -> mAOOKeepaliveTracker.handleStopKeepalive(autoKi, SocketKeepalive.SUCCESS));
+        HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
     }
 
     @Test
@@ -434,30 +469,43 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     }
 
     private AutomaticOnOffKeepalive getAutoKi() {
+        return getAutoKi(mBinder);
+    }
+
+    private AutomaticOnOffKeepalive getAutoKi(IBinder binder) {
         mAutoKi = null;
-        mTestHandler.post(() -> mAutoKi = mAOOKeepaliveTracker.getKeepaliveForBinder(mBinder));
+        mTestHandler.post(() -> mAutoKi = mAOOKeepaliveTracker.getKeepaliveForBinder(binder));
         HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
         return mAutoKi;
     }
 
-    private void networkAgentStartedKeepalive(final NattKeepalivePacketData kpd) throws Exception {
-        verify(mNai).onStartNattSocketKeepalive(TEST_SLOT, TEST_KEEPALIVE_INTERVAL_SEC, kpd);
-        verify(mNai).onAddNattKeepalivePacketFilter(TEST_SLOT, kpd);
-        // Network agent started the keepalive successfully.
-        triggerEventKeepalive(TEST_SLOT, SocketKeepalive.SUCCESS);
+    private void networkAgentStartedKeepalive(final NattKeepalivePacketData kpd, int count)
+            throws Exception {
+        networkAgentStartedKeepalive(TEST_SLOT, kpd, count);
     }
 
-    private void networkAgentStoppedKeepalive() throws Exception {
-        verify(mNai).onStopSocketKeepalive(TEST_SLOT);
-        verify(mNai).onRemoveKeepalivePacketFilter(TEST_SLOT);
-        // Network agent stops the keepalive successfully.
-        triggerEventKeepalive(TEST_SLOT, SocketKeepalive.SUCCESS);
+    private void networkAgentStartedKeepalive(
+            int slot, final NattKeepalivePacketData kpd, int count) throws Exception {
+        verify(mNai, times(count))
+                .onStartNattSocketKeepalive(slot, TEST_KEEPALIVE_INTERVAL_SEC, kpd);
+        verify(mNai, times(count)).onAddNattKeepalivePacketFilter(slot, kpd);
+        triggerEventKeepalive(slot, SocketKeepalive.SUCCESS);
+    }
+
+    private void networkAgentStoppedKeepalive(int count) throws Exception {
+        networkAgentStoppedKeepalive(TEST_SLOT, count);
+    }
+
+    private void networkAgentStoppedKeepalive(int slot, int count) throws Exception {
+        verify(mNai, times(count)).onStopSocketKeepalive(slot);
+        verify(mNai, times(count)).onRemoveKeepalivePacketFilter(slot);
+        triggerEventKeepalive(slot, SocketKeepalive.SUCCESS);
     }
 
     @Test
     public void testStartNattKeepalive_valid() throws Exception {
         final NattKeepalivePacketData kpd = doStartNattKeepalive();
-        networkAgentStartedKeepalive(kpd);
+        networkAgentStartedKeepalive(kpd, 1 /* count */);
 
         final AutomaticOnOffKeepalive autoKi = getAutoKi();
         assertNotNull(autoKi);
@@ -487,7 +535,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         // Network agent returns an error, fails to start the keepalive.
         triggerEventKeepalive(TEST_SLOT, SocketKeepalive.ERROR_HARDWARE_ERROR);
 
-        networkAgentStoppedKeepalive();
+        networkAgentStoppedKeepalive(1 /* count */);
 
         assertNull(getAutoKi());
 
@@ -500,7 +548,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     public void testHandleCheckKeepalivesStillValid_linkPropertiesChanged() throws Exception {
         // Successful start of NATT keepalive.
         final NattKeepalivePacketData kpd = doStartNattKeepalive();
-        networkAgentStartedKeepalive(kpd);
+        networkAgentStartedKeepalive(kpd, 1 /* count */);
         verify(mSocketKeepaliveCallback).onStarted();
 
         // Source address is removed from link properties by clearing.
@@ -510,11 +558,169 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         mTestHandler.post(() -> mAOOKeepaliveTracker.handleCheckKeepalivesStillValid(mNai));
         HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
 
-        networkAgentStoppedKeepalive();
+        networkAgentStoppedKeepalive(1 /* count */);
 
         assertNull(getAutoKi());
 
         verify(mSocketKeepaliveCallback, never()).onStopped();
         verify(mSocketKeepaliveCallback).onError(SocketKeepalive.ERROR_INVALID_IP_ADDRESS);
+    }
+
+    @Test
+    public void testStopKeepalive() throws Exception {
+        // Successful start of NATT keepalive.
+        final NattKeepalivePacketData kpd = doStartNattKeepalive();
+        networkAgentStartedKeepalive(kpd, 1 /* count */);
+        verify(mSocketKeepaliveCallback).onStarted();
+
+        doStopKeepalive(getAutoKi());
+        networkAgentStoppedKeepalive(1 /* count */);
+
+        assertNull(getAutoKi());
+        verify(mSocketKeepaliveCallback).onStopped();
+    }
+
+    @Test
+    public void testPauseKeepalive() throws Exception {
+        // Successful start of NATT keepalive.
+        final NattKeepalivePacketData kpd = doStartNattKeepalive();
+        networkAgentStartedKeepalive(kpd, 1 /* count */);
+        verify(mSocketKeepaliveCallback).onStarted();
+
+        doPauseKeepalive(getAutoKi());
+
+        networkAgentStoppedKeepalive(1 /* count */);
+        verify(mSocketKeepaliveCallback).onPaused();
+
+        // Pausing does not cleanup the autoKi
+        assertNotNull(getAutoKi());
+
+        doStopKeepalive(getAutoKi());
+        // The keepalive is already stopped, the count should remain 1.
+        verify(mNai, times(1)).onStopSocketKeepalive(TEST_SLOT);
+        verify(mNai, times(1)).onRemoveKeepalivePacketFilter(TEST_SLOT);
+
+        // Stopping while paused still calls onStopped.
+        verify(mSocketKeepaliveCallback).onStopped();
+        // autoKi is cleaned up.
+        assertNull(getAutoKi());
+
+        verify(mSocketKeepaliveCallback, never()).onError(anyInt());
+    }
+
+    @Test
+    public void testResumeKeepalive() throws Exception {
+        // Successful start of NATT keepalive.
+        final NattKeepalivePacketData kpd = doStartNattKeepalive();
+        networkAgentStartedKeepalive(kpd, 1 /* count */);
+        verify(mSocketKeepaliveCallback).onStarted();
+
+        doPauseKeepalive(getAutoKi());
+        networkAgentStoppedKeepalive(1 /* count */);
+        verify(mSocketKeepaliveCallback).onPaused();
+
+        doResumeKeepalive(getAutoKi());
+        networkAgentStartedKeepalive(kpd, 2 /* count */);
+        assertNotNull(getAutoKi());
+
+        verify(mSocketKeepaliveCallback).onResumed();
+        verify(mSocketKeepaliveCallback, never()).onError(anyInt());
+    }
+
+    @Test
+    public void testResumeKeepalive_startingFailureHardwareError() throws Exception {
+        // Successful start of NATT keepalive.
+        final NattKeepalivePacketData kpd = doStartNattKeepalive();
+        networkAgentStartedKeepalive(kpd, 1 /* count */);
+        verify(mSocketKeepaliveCallback).onStarted();
+
+        doPauseKeepalive(getAutoKi());
+        networkAgentStoppedKeepalive(1 /* count */);
+        verify(mSocketKeepaliveCallback).onPaused();
+
+        doResumeKeepalive(getAutoKi());
+        // Network agent returns error on starting the keepalive.
+        triggerEventKeepalive(TEST_SLOT, SocketKeepalive.ERROR_HARDWARE_ERROR);
+
+        networkAgentStoppedKeepalive(2 /* count */);
+
+        assertNull(getAutoKi());
+        verify(mSocketKeepaliveCallback, never()).onStopped();
+        verify(mSocketKeepaliveCallback).onError(SocketKeepalive.ERROR_HARDWARE_ERROR);
+    }
+
+    @Test
+    public void testStopAllKeepalives() throws Exception {
+        final NattKeepalivePacketData kpd1 = doStartNattKeepalive(mSocketKeepaliveCallback);
+        final NattKeepalivePacketData kpd2 = doStartNattKeepalive(mSocketKeepaliveCallback2);
+        networkAgentStartedKeepalive(TEST_SLOT, kpd1, 1 /* count */);
+        networkAgentStartedKeepalive(TEST_SLOT + 1, kpd2, 1 /* count */);
+
+        verify(mSocketKeepaliveCallback).onStarted();
+        verify(mSocketKeepaliveCallback2).onStarted();
+
+        // Pause the first keepalive
+        doPauseKeepalive(getAutoKi(mBinder));
+
+        mTestHandler.post(() -> mAOOKeepaliveTracker.handleStopAllKeepalives(
+                mNai, SocketKeepalive.ERROR_INVALID_NETWORK));
+        HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
+
+        // Note that networkAgentStoppedKeepalive is not called since the network agent is assumed
+        // to be disconnected for a handleStopAllKeepalives call.
+        assertNull(getAutoKi(mBinder));
+        assertNull(getAutoKi(mBinder2));
+
+        verify(mSocketKeepaliveCallback, never()).onStopped();
+        verify(mSocketKeepaliveCallback2, never()).onStopped();
+        // TODO: should call onError with ERROR_INVALID_NETWORK
+        verify(mSocketKeepaliveCallback, never()).onError(anyInt());
+        verify(mSocketKeepaliveCallback2).onError(SocketKeepalive.ERROR_INVALID_NETWORK);
+    }
+
+    @Test
+    public void testTwoKeepalives_startAfterPause() throws Exception {
+        final NattKeepalivePacketData kpd1 = doStartNattKeepalive(mSocketKeepaliveCallback);
+        networkAgentStartedKeepalive(kpd1, 1 /* count */);
+        verify(mSocketKeepaliveCallback).onStarted();
+        assertNotNull(getAutoKi(mBinder));
+
+        final AutomaticOnOffKeepalive autoKi1  = getAutoKi(mBinder);
+        doPauseKeepalive(autoKi1);
+        networkAgentStoppedKeepalive(TEST_SLOT, 1 /* count */);
+        verify(mSocketKeepaliveCallback).onPaused();
+        assertNotNull(getAutoKi(mBinder));
+
+        // Start the second keepalive while the first is paused.
+        final NattKeepalivePacketData kpd2 = doStartNattKeepalive(mSocketKeepaliveCallback2);
+        // The slot used is TEST_SLOT since it is now a free slot.
+        networkAgentStartedKeepalive(TEST_SLOT, kpd2, 2 /* count */);
+        verify(mSocketKeepaliveCallback2).onStarted();
+        assertNotNull(getAutoKi(mBinder2));
+
+        doResumeKeepalive(autoKi1);
+        // The next free slot is TEST_SLOT + 1.
+        networkAgentStartedKeepalive(TEST_SLOT + 1, kpd1, 1 /* count */);
+        verify(mSocketKeepaliveCallback).onResumed();
+
+        doStopKeepalive(autoKi1);
+        // TODO: The slot should be consistent with the networkAgentStartedKeepalive directly above.
+        networkAgentStoppedKeepalive(TEST_SLOT, 2 /* count */);
+        // TODO: onStopped should only be called on the first keepalive callback.
+        verify(mSocketKeepaliveCallback, never()).onStopped();
+        verify(mSocketKeepaliveCallback2).onStopped();
+        assertNull(getAutoKi(mBinder));
+
+        assertNotNull(getAutoKi(mBinder2));
+        doStopKeepalive(getAutoKi(mBinder2));
+        // This slot should be consistent with its corresponding networkAgentStartedKeepalive.
+        // TODO: The count should be 1 more than the previous call on this slot(count=3). Currently,
+        // the keepalive is unexpectedly already stopped above.
+        networkAgentStoppedKeepalive(TEST_SLOT, 2 /* count */);
+        verify(mSocketKeepaliveCallback2).onStopped();
+        assertNull(getAutoKi(mBinder2));
+
+        verify(mSocketKeepaliveCallback, never()).onError(anyInt());
+        verify(mSocketKeepaliveCallback2, never()).onError(anyInt());
     }
 }
