@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77b5d9dc_940b2486",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T07:46:17Z",
+      "side": 1,
+      "message": "LOHS",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "72e36ac6f9c7b3f9f4a1fae0284092c40d9a0b94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "699e1e48_74724d3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T07:46:17Z",
+      "side": 1,
+      "message": "This seems complicated to implement and prone to race conditions.\n\nAlso - will existing users of onClientsChanged expect to see local-only clients in the callback? If not, then I guess they could get confused, and assume that all local-only clients are actually tethered clients.\n\nCan we do better than this? If currently onClientsChanged *only* reports tethered devices (not local-only), then we should add a new onLocalOnlyClientsChanged that reports only local-only clients.\n\nIf onClientsChanged currently reports results for local-only clients as well, then we should at least add something to TetheredClient or to onClientsChanged that allows the caller to know where this client is. Maybe we could add a TetheringInterface member to TetheredClient?",
+      "range": {
+        "startLine": 19,
+        "startChar": 31,
+        "endLine": 22,
+        "endChar": 27
+      },
+      "revId": "72e36ac6f9c7b3f9f4a1fae0284092c40d9a0b94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1700614_8d8ddddb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T07:46:17Z",
+      "side": 1,
+      "message": "Why can\u0027t this just be \"new LocalOnlyHotspotCallback\" all the time?",
+      "range": {
+        "startLine": 488,
+        "startChar": 12,
+        "endLine": 489,
+        "endChar": 71
+      },
+      "revId": "72e36ac6f9c7b3f9f4a1fae0284092c40d9a0b94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dd974b7_3d70fe7e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1965,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T07:46:17Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this method clear the list of tethered clients, or the list of local-only clients, depending on whether the IpServer that became inactive was tethering or local-only?\n\nAs far as I can tell, this updateConnectedClients will call ConnectedClientsTracker#updateConnectedClients. That code *tries* to remove the clients from IpServers that don\u0027t have IP addresses, but then it does this:\n\n        // Add connected WiFi clients that do not have any known address\n        for (MacAddress client : wifiClientMacs) {\n            if (clientsMap.containsKey(client)) continue;\n            clientsMap.put(client, new TetheredClient(\n                    client, Collections.emptyList() /* addresses */, TETHERING_WIFI));\n        }\n\nwhich will put the clients back.\n\nIf the above is correct, then I think there\u0027s a bug in this code that when an IpServer goes down, all the clients that it had are still in the list, but without IP addresses.\n\nAm I reading this correctly? Do we have a test for this already? If not, can you add one?",
+      "range": {
+        "startLine": 1965,
+        "startChar": 12,
+        "endLine": 1965,
+        "endChar": 34
+      },
+      "revId": "72e36ac6f9c7b3f9f4a1fae0284092c40d9a0b94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
