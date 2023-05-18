@@ -80,6 +80,30 @@
       },
       "revId": "862c2f2587e62099c5b6310256d7de8414907394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5974e3f_8a7f0d30",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 10917,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-18T02:48:13Z",
+      "side": 1,
+      "message": "If you need to do SuppressWarnings in l.11044, I think it\u0027s a hint that this requires the lock there.\n\nFor example, If CS is just finishing the handle sendDataActivityBroadcast but not yet update the mNetworkActive in l.11048. App calls is isDefaultNetworkActive(). It get the old value since no one hold the lock. The results from broadcast received by app and the synchronized call to CS are different.\n\nYes, this could only happen in very low probability, but we do not have this issue in the previous design. That\u0027s why I think it\u0027s an issue.",
+      "parentUuid": "02b6a385_340fc4bd",
+      "range": {
+        "startLine": 10906,
+        "startChar": 12,
+        "endLine": 10917,
+        "endChar": 13
+      },
+      "revId": "862c2f2587e62099c5b6310256d7de8414907394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
