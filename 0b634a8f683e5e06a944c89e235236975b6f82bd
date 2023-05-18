@@ -46,6 +46,30 @@
       },
       "revId": "0b634a8f683e5e06a944c89e235236975b6f82bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74a03482_9e639d47",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-18T03:12:15Z",
+      "side": 1,
+      "message": "Do you need a 30s timeout here? It was 3s in previous design. 30s seems too long. \nPlease correct the timeout if it\u0027s not intended.",
+      "parentUuid": "ba0cb21c_651ea335",
+      "range": {
+        "startLine": 49,
+        "startChar": 29,
+        "endLine": 49,
+        "endChar": 39
+      },
+      "revId": "0b634a8f683e5e06a944c89e235236975b6f82bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
