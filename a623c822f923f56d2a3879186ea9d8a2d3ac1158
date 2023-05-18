@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbbe95c6_225c4861",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-18T11:34:07Z",
+      "side": 1,
+      "message": "nit: could you make sure the annotation style is aligned with the context of the code?\n\nmaybe better to have\n\n```\n@NonNull private final Handler handler\n```",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 12
+      },
+      "revId": "a623c822f923f56d2a3879186ea9d8a2d3ac1158",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
