@@ -22,6 +22,30 @@
       },
       "revId": "d278950e9d0fa0cf1c66e8545d97e9b545db9051",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1080b872_7daab323",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-05-18T08:44:53Z",
+      "side": 1,
+      "message": "\u003e Should we change it to ASSERT_GE and call return after jniThrowExceptionFmt?\n\nYes, if it\u0027s possible. Do you have any suggestions how to make it generic to achieve early return that can be called by functions of different return type?\n\nThis change will suppress the errors other than the first one. Except the first error, I feel that any subsequent error is not important.",
+      "parentUuid": "06fe8650_42d85b87",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 17
+      },
+      "revId": "d278950e9d0fa0cf1c66e8545d97e9b545db9051",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
