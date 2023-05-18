@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c34b21_1d44d530",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-18T05:49:43Z",
+      "side": 1,
+      "message": "Here too, prefel `isGlobal` because isGlobal\u003dfalse is understandable while isLocalOnly\u003dfalse is unclear",
+      "range": {
+        "startLine": 408,
+        "startChar": 38,
+        "endLine": 408,
+        "endChar": 49
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ce0404_d39e1f54",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-18T05:49:43Z",
+      "side": 1,
+      "message": "not used\n\nBy the way why is it not used ?",
+      "range": {
+        "startLine": 619,
+        "startChar": 52,
+        "endLine": 619,
+        "endChar": 59
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f42a9606_68f22788",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-18T05:49:43Z",
+      "side": 1,
+      "message": "I think it would be better to have an int for the type. This boolean looks really bolted on instead of integrated in the design.",
+      "range": {
+        "startLine": 1180,
+        "startChar": 30,
+        "endLine": 1180,
+        "endChar": 42
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7388dc9f_8ec51894",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-18T05:49:43Z",
+      "side": 1,
+      "message": "/* global */",
+      "range": {
+        "startLine": 1278,
+        "startChar": 18,
+        "endLine": 1278,
+        "endChar": 22
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dac36c1_9ccef651",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-18T05:49:43Z",
+      "side": 1,
+      "message": "`IGNORE` doesn\u0027t make a lot of sense here ; this is what you use when the feature is not supported right ? Maybe `UNSUPPORTED` then ? Or `ANY` ?",
+      "range": {
+        "startLine": 405,
+        "startChar": 31,
+        "endLine": 405,
+        "endChar": 37
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8554a047_2a0f0336",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-18T05:49:43Z",
+      "side": 1,
+      "message": "This naming is not clear. IIUC `mType` is the downstream type, while `mExtendType` is the upstream type. If that\u0027s accurate, why not `mDownstreamType` and `mUpstreamType` ?",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 38
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3b761c6_e3ed5f11",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-18T05:49:43Z",
+      "side": 1,
+      "message": "Can we update callers rather than have this unclear implicit meaning to the version without argument ?",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "006666d8_f059e74c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-18T05:49:43Z",
+      "side": 1,
+      "message": "Note that you can pass multiple arguments to `thenReturn` or `doReturn` to define in one go multiple values to be returned subsequently. e.g.\n\n    when(mPAC.getRandomInt()).thenReturn(5, 9, 11, 3);\n    assertEquals(5, mPAC.getRandomInt());\n    assertEquals(9, mPAC.getRandomInt());\n    assertEquals(11, mPAC.getRandomInt());\n    assertEquals(3, mPAC.getRandomInt());",
+      "range": {
+        "startLine": 563,
+        "startChar": 56,
+        "endLine": 563,
+        "endChar": 86
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fe53fc3_2fd29657",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-18T05:49:43Z",
+      "side": 1,
+      "message": "Random question : is it useful to reuse the same address like this even when the type is different ? Wouldn\u0027t it be less risky to return a different one ?",
+      "range": {
+        "startLine": 571,
+        "startChar": 40,
+        "endLine": 571,
+        "endChar": 44
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
