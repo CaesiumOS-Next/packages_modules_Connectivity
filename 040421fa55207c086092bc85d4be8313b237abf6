@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9251130b_4d2808f7",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-18T02:06:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df886a25_69bafe41",
+      "range": {
+        "startLine": 27,
+        "startChar": 16,
+        "endLine": 27,
+        "endChar": 23
+      },
+      "revId": "040421fa55207c086092bc85d4be8313b237abf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01806dfd_03a0a3bf",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-05-17T03:44:41Z",
       "side": 1,
       "message": "Nit: linkAddrV4 since it\u0027s a class member, otherwise you can move it out of the class (just below the imports) to make it a static final field and keep it uppercase",
+      "range": {
+        "startLine": 30,
+        "startChar": 16,
+        "endLine": 30,
+        "endChar": 26
+      },
+      "revId": "040421fa55207c086092bc85d4be8313b237abf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eb09889_375adfd4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-18T02:06:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01806dfd_03a0a3bf",
       "range": {
         "startLine": 30,
         "startChar": 16,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "721dc14a_383eb982",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-18T02:06:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4232090d_14094649",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 16
+      },
+      "revId": "040421fa55207c086092bc85d4be8313b237abf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85446b56_8ea6b039",
@@ -100,6 +172,24 @@
       "writtenOn": "2023-05-17T03:44:41Z",
       "side": 1,
       "message": "Unused ?",
+      "revId": "040421fa55207c086092bc85d4be8313b237abf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a3bbbf6_e1106ddc",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-18T02:06:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85446b56_8ea6b039",
       "revId": "040421fa55207c086092bc85d4be8313b237abf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -127,6 +217,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d264452c_ba9b92ae",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-18T02:06:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91177fbd_79f9ce6f",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 47
+      },
+      "revId": "040421fa55207c086092bc85d4be8313b237abf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a06863b_6d07c0aa",
@@ -140,6 +254,24 @@
       "writtenOn": "2023-05-17T03:44:41Z",
       "side": 1,
       "message": "If the test fails this won\u0027t run, so it\u0027s generally better to put the start() and quit() (or better quitSafely()) in @Before setUp() and @After tearDown() methods that are always run",
+      "revId": "040421fa55207c086092bc85d4be8313b237abf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50248c81_5fc5a678",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-18T02:06:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a06863b_6d07c0aa",
       "revId": "040421fa55207c086092bc85d4be8313b237abf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
