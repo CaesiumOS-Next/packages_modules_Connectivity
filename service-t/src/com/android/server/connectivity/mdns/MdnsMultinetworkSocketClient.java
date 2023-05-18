@@ -85,7 +85,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
             }
             socket.addPacketHandler(handler);
             mActiveNetworkSockets.put(socket, socketKey);
-            mSocketCreationCallback.onSocketCreated(socketKey.getNetwork());
+            mSocketCreationCallback.onSocketCreated(socketKey);
         }
 
         @Override
@@ -98,7 +98,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         private void notifySocketDestroyed(@NonNull MdnsInterfaceSocket socket) {
             final SocketKey socketKey = mActiveNetworkSockets.remove(socket);
             if (!isAnySocketActive(socketKey)) {
-                mSocketCreationCallback.onAllSocketsDestroyed(socketKey.getNetwork());
+                mSocketCreationCallback.onAllSocketsDestroyed(socketKey);
             }
         }
 
@@ -235,16 +235,14 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
             if (e.code != MdnsResponseErrorCode.ERROR_NOT_RESPONSE_MESSAGE) {
                 Log.e(TAG, e.getMessage(), e);
                 if (mCallback != null) {
-                    mCallback.onFailedToParseMdnsResponse(
-                            packetNumber, e.code, socketKey.getNetwork());
+                    mCallback.onFailedToParseMdnsResponse(packetNumber, e.code, socketKey);
                 }
             }
             return;
         }
 
         if (mCallback != null) {
-            mCallback.onResponseReceived(
-                    response, socketKey.getInterfaceIndex(), socketKey.getNetwork());
+            mCallback.onResponseReceived(response, socketKey);
         }
     }
 
