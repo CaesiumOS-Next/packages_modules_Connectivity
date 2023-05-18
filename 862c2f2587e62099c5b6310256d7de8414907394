@@ -104,6 +104,30 @@
       },
       "revId": "862c2f2587e62099c5b6310256d7de8414907394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "901200fa_77944c36",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 10917,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-18T03:09:42Z",
+      "side": 1,
+      "message": "We could have that issue in the current code, right?\nCurrent code send the broadcast before acquiring the lock.\n```\npublic void setAndReportNetworkActive(boolean active, int transportType, long tsNanos) {\n  sendDataActivityBroadcast(transportTypeToLegacyType(transportType), active, tsNanos);\n    synchronized (mActiveIdleTimers) {\n       mNetworkActive \u003d active;\n```\n\nBut that could be a issue, thanks for pointing this out.",
+      "parentUuid": "e5974e3f_8a7f0d30",
+      "range": {
+        "startLine": 10906,
+        "startChar": 12,
+        "endLine": 10917,
+        "endChar": 13
+      },
+      "revId": "862c2f2587e62099c5b6310256d7de8414907394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
