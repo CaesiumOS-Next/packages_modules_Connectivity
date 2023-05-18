@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d75ded2c_1b62b4c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-05-18T04:45:36Z",
+      "side": 1,
+      "message": "Current test case covers concurrent MODE_Tethered and MODE_Local_only, maybe we need to extend the test to stop one of them and verify the other are still working.",
+      "range": {
+        "startLine": 10,
+        "startChar": 13,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "7ada64f65ccb4f8f610a2415ec6c50ca307a6af4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
