@@ -128,6 +128,30 @@
       },
       "revId": "862c2f2587e62099c5b6310256d7de8414907394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0ee04c4_9978e0b7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 10917,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-18T03:54:48Z",
+      "side": 1,
+      "message": "For this specific issue, I think sending broadcast after `mNetworkActive \u003d activityParams.isActive` is enough.\n\nLinter complained about `handleReportNetworkActivity` since we have `@GuardedBy` annotation to `mNetworkActive` and `mActiveIdleTimers` \nBut after this CL,  only `isDefaultNetworkActive` and `dump` are called form non handler thread.\nThey only have read access to `mNetworkActive` and `mActiveIdleTimers`.\n\n`mNetworkActive` and `mActiveIdleTimers` are updated only from handler thread.\nSo, I don’t think we need lock in following cases.\n1. Read access to them from handler thread\n2. Update only `mNetworkActive` from handler thread \n\nIf above my thought is correct, I think we can go one of following direction\n1. Remove @GuardedBy annotation and acquire lock when needed.\n2. Keep @GuardedBy annotation and suppress lint when lock is not needed.\n3. Keep @GuardedBy annotation and ignore lint warning when lock is not needed.\n4. Keep @GuardedBy annotation and acquire lock at all access.\n\nI prefer 1 or 3 now but I want to ask feedback.",
+      "parentUuid": "901200fa_77944c36",
+      "range": {
+        "startLine": 10906,
+        "startChar": 12,
+        "endLine": 10917,
+        "endChar": 13
+      },
+      "revId": "862c2f2587e62099c5b6310256d7de8414907394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
