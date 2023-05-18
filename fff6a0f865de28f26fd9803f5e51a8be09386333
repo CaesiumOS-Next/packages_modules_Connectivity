@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd2b234e_c66b1fe9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3549,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2023-05-18T04:49:24Z",
+      "side": 1,
+      "message": "maybe we need to ensure the prefix is different",
+      "range": {
+        "startLine": 3549,
+        "startChar": 42,
+        "endLine": 3549,
+        "endChar": 58
+      },
+      "revId": "fff6a0f865de28f26fd9803f5e51a8be09386333",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
