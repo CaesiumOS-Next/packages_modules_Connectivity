@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "851c1ce6_34064685",
+        "filename": "Tethering/res/values/config.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T07:50:23Z",
+      "side": 1,
+      "message": "Why don\u0027t we do this all the time? I don\u0027t see a reason to use the same subnet for tethering that we do for local-only, even when the two cannot run at the same time.",
+      "range": {
+        "startLine": 207,
+        "startChar": 60,
+        "endLine": 208,
+        "endChar": 67
+      },
+      "revId": "a3066b302c4eba9b35c5fbee57db86ea76fb186e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "731e1fc7_49eebefb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-18T07:50:23Z",
+      "side": 1,
+      "message": "\"is use\" isn\u0027t really good grammar. concurrentSapAndLohsSupported?",
+      "range": {
+        "startLine": 342,
+        "startChar": 19,
+        "endLine": 342,
+        "endChar": 24
+      },
+      "revId": "a3066b302c4eba9b35c5fbee57db86ea76fb186e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
