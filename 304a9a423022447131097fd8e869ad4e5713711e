@@ -16,6 +16,24 @@
       "message": "Actually after thinking about this some more and discussing with Remi I think we don\u0027t need a flag. We can just use the correct behaviour all the time.",
       "revId": "304a9a423022447131097fd8e869ad4e5713711e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b994127_d6b0794a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T09:07:25Z",
+      "side": 1,
+      "message": "Understood, let me abandon this.",
+      "parentUuid": "2d306212_65d72333",
+      "revId": "304a9a423022447131097fd8e869ad4e5713711e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
