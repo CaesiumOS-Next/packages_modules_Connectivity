@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66ba360e_8b8ccc96",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-19T07:43:44Z",
+      "side": 1,
+      "message": "Why do you not to do this inside KeepaliveStatsTracker?",
+      "range": {
+        "startLine": 451,
+        "startChar": 20,
+        "endLine": 451,
+        "endChar": 43
+      },
+      "revId": "d80b49c7858b16fa454ff18aa55db0dae7662849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "692cd53d_e88a9bc6",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-19T07:43:44Z",
+      "side": 1,
+      "message": "is an automatic keepalive",
+      "range": {
+        "startLine": 79,
+        "startChar": 38,
+        "endLine": 79,
+        "endChar": 59
+      },
+      "revId": "d80b49c7858b16fa454ff18aa55db0dae7662849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f2799ac_5815feb6",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-19T07:43:44Z",
+      "side": 1,
+      "message": "Optional: isAutoKeepalive?",
+      "range": {
+        "startLine": 80,
+        "startChar": 29,
+        "endLine": 80,
+        "endChar": 45
+      },
+      "revId": "d80b49c7858b16fa454ff18aa55db0dae7662849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "256b8dc1_7615eb40",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-19T07:43:44Z",
+      "side": 1,
+      "message": "Could you also add tests for `false` case?\n\nAlso for multiple uids case.",
+      "range": {
+        "startLine": 257,
+        "startChar": 24,
+        "endLine": 257,
+        "endChar": 28
+      },
+      "revId": "d80b49c7858b16fa454ff18aa55db0dae7662849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
