@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75ad8fc4_9706fd7d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "347a6044_73c6f041",
+      "range": {
+        "startLine": 77,
+        "startChar": 70,
+        "endLine": 77,
+        "endChar": 76
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5baa66b_4516435c",
@@ -73,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9df5d9a_cc002500",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Thanks for bringing this up. I\u0027ll have follow changes to fix this.\nPlease to have separate functions which one is passing changed wifiClients list, another one for no-changed wifiClients.",
+      "parentUuid": "a5baa66b_4516435c",
+      "range": {
+        "startLine": 78,
+        "startChar": 26,
+        "endLine": 78,
+        "endChar": 63
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8465d515_a136e14c",
         "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
         "patchSetId": 4
@@ -84,6 +132,30 @@
       "writtenOn": "2023-05-18T05:27:57Z",
       "side": 1,
       "message": "Same",
+      "range": {
+        "startLine": 79,
+        "startChar": 75,
+        "endLine": 79,
+        "endChar": 81
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a36dd874_05453324",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8465d515_a136e14c",
       "range": {
         "startLine": 79,
         "startChar": 75,
@@ -119,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37b1c835_cec72998",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Ack, will address it by separate change because this is not related this change.",
+      "parentUuid": "7f70815a_5705354d",
+      "range": {
+        "startLine": 118,
+        "startChar": 48,
+        "endLine": 118,
+        "endChar": 61
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfad70a8_e74d033e",
         "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
         "patchSetId": 4
@@ -130,6 +226,30 @@
       "writtenOn": "2023-05-18T05:27:57Z",
       "side": 1,
       "message": "Is this still correct ? Now a client could disconnect from hotspot and connect to LOHS and this would return `false`.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 62
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a91d5580_4215d30c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "If client switch from hotspot to LOHS, I believe there is disconnected WifiClient event from hotspot then connect event from LOHS.\nAlso we don\u0027t provide the API for TetheringManager\u0027s user to distinguish client between hotspot and LOHS. hotspot and LOHS both map to TETHERING_WIFI.\n\nRefer TetheredClient#getTetheringType(), https://source.corp.google.com/h/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/common/TetheringLib/src/android/net/TetheredClient.java;l\u003d82\n\nIf wifi stack support seamless client switch between hotspot and LOHS. From current API perspective, it still be fine to return false here because there is no TetheredClient change.",
+      "parentUuid": "bfad70a8_e74d033e",
       "range": {
         "startLine": 119,
         "startChar": 0,
@@ -163,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "772fb90b_774da45f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "No, this still not be a problem because hotspot and LOHS use the same tethering type TETHERING_WIFI.",
+      "parentUuid": "2edbd189_65799762",
+      "range": {
+        "startLine": 135,
+        "startChar": 32,
+        "endLine": 137,
+        "endChar": 39
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a50b0bd2_ef360ae4",
@@ -186,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d513863_20358fc1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a50b0bd2_ef360ae4",
+      "range": {
+        "startLine": 181,
+        "startChar": 46,
+        "endLine": 181,
+        "endChar": 47
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5a9a207_394f0cdf",
@@ -199,6 +367,30 @@
       "writtenOn": "2023-05-18T05:27:57Z",
       "side": 1,
       "message": "\"not local only\" isn\u0027t very clear. Suggest inverting the logic and naming this mIsGlobal, because \"not global\" is clearly local. Alternatively, store the scope as an int.",
+      "range": {
+        "startLine": 579,
+        "startChar": 22,
+        "endLine": 579,
+        "endChar": 29
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "468cedde_77a43cf1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "This is removed.",
+      "parentUuid": "b5a9a207_394f0cdf",
       "range": {
         "startLine": 579,
         "startChar": 22,
@@ -256,6 +448,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22081b7a_4b9aafc0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2716,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "change to maybeDhcpLeasesChanged",
+      "parentUuid": "295f85bd_0cd3d415",
+      "range": {
+        "startLine": 2716,
+        "startChar": 17,
+        "endLine": 2716,
+        "endChar": 39
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27cb2e88_ffe6c140",
@@ -269,6 +485,30 @@
       "writtenOn": "2023-05-18T05:27:57Z",
       "side": 1,
       "message": "did not change",
+      "range": {
+        "startLine": 2717,
+        "startChar": 35,
+        "endLine": 2717,
+        "endChar": 36
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daa1fe6c_be1a80f1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2717,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27cb2e88_ffe6c140",
       "range": {
         "startLine": 2717,
         "startChar": 35,
@@ -302,6 +542,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2311d634_47261591",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/ConnectedClientsTrackerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cafc70e_d0bd316b",
+      "range": {
+        "startLine": 73,
+        "startChar": 38,
+        "endLine": 73,
+        "endChar": 61
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9783f19c_91ed5d86",
@@ -315,6 +579,30 @@
       "writtenOn": "2023-05-18T05:27:57Z",
       "side": 1,
       "message": "Likewise, prefer \"global\" because it\u0027s much clearer what it means when false",
+      "range": {
+        "startLine": 81,
+        "startChar": 38,
+        "endLine": 81,
+        "endChar": 49
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d937e3fa_2503539c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/ConnectedClientsTrackerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9783f19c_91ed5d86",
       "range": {
         "startLine": 81,
         "startChar": 38,
@@ -348,6 +636,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3786ec12_12bba9c0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/ConnectedClientsTrackerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84b9c247_8a23abee",
+      "range": {
+        "startLine": 91,
+        "startChar": 82,
+        "endLine": 91,
+        "endChar": 86
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1217955f_18b1fb0c",
@@ -361,6 +673,30 @@
       "writtenOn": "2023-05-18T05:27:57Z",
       "side": 1,
       "message": "Likewise, to clarify you should specify `wifiClients \u003d `",
+      "range": {
+        "startLine": 95,
+        "startChar": 20,
+        "endLine": 95,
+        "endChar": 26
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91932d17_2292fdbc",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/ConnectedClientsTrackerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1217955f_18b1fb0c",
       "range": {
         "startLine": 95,
         "startChar": 20,
@@ -394,6 +730,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11f49576_03bccf2e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/ConnectedClientsTrackerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e43145c_11fc3f53",
+      "range": {
+        "startLine": 148,
+        "startChar": 42,
+        "endLine": 148,
+        "endChar": 51
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65dfa4cb_64e44af7",
@@ -407,6 +767,30 @@
       "writtenOn": "2023-05-18T05:27:57Z",
       "side": 1,
       "message": "Shouldn\u0027t you have\n\n    doReturn(emptyList()).`when`(server2).allLeases\n\nbefore this, for realism ? Or, if the lease is kept, having a comment saying the client disconnects but the lease is kept so don\u0027t update them",
+      "range": {
+        "startLine": 159,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 35
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8437e554_b9ca6894",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/ConnectedClientsTrackerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65dfa4cb_64e44af7",
       "range": {
         "startLine": 159,
         "startChar": 8,
@@ -453,6 +837,54 @@
       "writtenOn": "2023-05-18T05:27:57Z",
       "side": 1,
       "message": "This will also accept if clients were removed, so \"new\" doesn\u0027t look appropriate ; assertClientsChanged or something",
+      "range": {
+        "startLine": 193,
+        "startChar": 22,
+        "endLine": 193,
+        "endChar": 25
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "130ec37b_6a2e282c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/ConnectedClientsTrackerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Thanks, let me have separate change to fix this.",
+      "parentUuid": "23db6c4d_6eb350d1",
+      "range": {
+        "startLine": 193,
+        "startChar": 16,
+        "endLine": 193,
+        "endChar": 22
+      },
+      "revId": "9ac9122e9e0ff7f1bb33727a80349964e7c2ab06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ad3ee45_a7d3fd69",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/ConnectedClientsTrackerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-19T07:13:28Z",
+      "side": 1,
+      "message": "Ack, will also name as suggested wording by separate change.",
+      "parentUuid": "7e799753_f02f199e",
       "range": {
         "startLine": 193,
         "startChar": 22,
