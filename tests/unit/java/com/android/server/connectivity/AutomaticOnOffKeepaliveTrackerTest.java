@@ -673,8 +673,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
 
         verify(mSocketKeepaliveCallback, never()).onStopped();
         verify(mSocketKeepaliveCallback2, never()).onStopped();
-        // TODO: should call onError with ERROR_INVALID_NETWORK
-        verify(mSocketKeepaliveCallback, never()).onError(anyInt());
+        verify(mSocketKeepaliveCallback).onError(SocketKeepalive.ERROR_INVALID_NETWORK);
         verify(mSocketKeepaliveCallback2).onError(SocketKeepalive.ERROR_INVALID_NETWORK);
     }
 
