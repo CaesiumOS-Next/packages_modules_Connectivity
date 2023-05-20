@@ -441,17 +441,15 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb, boo
     uint32_t mapSettingKey = CURRENT_STATS_MAP_CONFIGURATION_KEY;
     uint32_t* selectedMap = bpf_configuration_map_lookup_elem(&mapSettingKey);
 
-    // Use asm("%0 &= 1" : "+r"(match)) before return match,
-    // to help kernel's bpf verifier, so that it can be 100% certain
-    // that the returned value is always BPF_NOMATCH(0) or BPF_MATCH(1).
-    if (!selectedMap) {
-        asm("%0 &= 1" : "+r"(match));
-        return match;
-    }
+    if (!selectedMap) return PASS;  // cannot happen, needed to keep bpf verifier happy
 
     do_packet_tracing(skb, egress, uid, tag, enable_tracing, kver);
     update_stats_with_config(*selectedMap, skb, &key, egress, kver);
     update_app_uid_stats_map(skb, &uid, egress, kver);
+
+    // Use asm("%0 &= 1" : "+r"(match)) before return match,
+    // to help kernel's bpf verifier, so that it can be 100% certain
+    // that the returned value is always BPF_NOMATCH(0) or BPF_MATCH(1).
     asm("%0 &= 1" : "+r"(match));
     return match;
 }
