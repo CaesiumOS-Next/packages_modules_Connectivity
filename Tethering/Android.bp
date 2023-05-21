@@ -232,6 +232,7 @@ sdk {
         "com.android.tethering",
     ],
     native_shared_libs: [
+        "lib4network_stack",
         "libnetd_updatable",
     ],
 }

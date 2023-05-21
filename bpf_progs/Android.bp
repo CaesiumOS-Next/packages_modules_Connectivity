@@ -46,6 +46,7 @@ cc_library_headers {
     ],
     visibility: [
         "//packages/modules/Connectivity/netd",
+        "//packages/modules/Connectivity/network_stack",
         "//packages/modules/Connectivity/service",
         "//packages/modules/Connectivity/service/native/libs/libclat",
         "//packages/modules/Connectivity/Tethering",
