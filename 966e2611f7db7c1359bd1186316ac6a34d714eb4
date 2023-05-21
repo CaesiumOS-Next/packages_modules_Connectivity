@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8daa175_3a6b5a37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-21T19:21:30Z",
+      "side": 1,
+      "message": "also seen:\njava.lang.AssertionError: QueryResult(tag\u003dTAG_NONE state\u003dSTATE_FOREGROUND total\u003d256238): 256238 not within 10% of 229782\nwhich is 11.51%",
+      "revId": "966e2611f7db7c1359bd1186316ac6a34d714eb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
