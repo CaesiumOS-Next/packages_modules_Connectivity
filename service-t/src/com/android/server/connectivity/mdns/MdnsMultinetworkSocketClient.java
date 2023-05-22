@@ -28,6 +28,8 @@ import android.os.Looper;
 import android.util.ArrayMap;
 import android.util.Log;
 
+import com.android.net.module.util.SharedLog;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.Inet4Address;
@@ -46,6 +48,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
 
     @NonNull private final Handler mHandler;
     @NonNull private final MdnsSocketProvider mSocketProvider;
+    @NonNull private final SharedLog mLog;
 
     private final ArrayMap<MdnsServiceBrowserListener, InterfaceSocketCallback> mRequestedNetworks =
             new ArrayMap<>();
@@ -54,8 +57,9 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
     private MdnsSocketClientBase.Callback mCallback = null;
     private int mReceivedPacketNumber = 0;
 
-    public MdnsMultinetworkSocketClient(@NonNull Looper looper,
+    public MdnsMultinetworkSocketClient(@NonNull SharedLog log, @NonNull Looper looper,
             @NonNull MdnsSocketProvider provider) {
+        mLog = log;
         mHandler = new Handler(looper);
         mSocketProvider = provider;
     }
@@ -217,6 +221,11 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
             // Check ip capability and network before sending packet
             if (((isIpv6 && socket.hasJoinedIpv6()) || (isIpv4 && socket.hasJoinedIpv4()))
                     && isNetworkMatched(targetNetwork, network)) {
+                mLog.log("Sending packet of size " + packet.getLength()
+                        + " to " + packet.getSocketAddress()
+                        + ", net " + network
+                        + ", socket " + Integer.toHexString(socket.hashCode())
+                        + ", tid " + Thread.currentThread().getId());
                 try {
                     socket.send(packet);
                 } catch (IOException e) {
