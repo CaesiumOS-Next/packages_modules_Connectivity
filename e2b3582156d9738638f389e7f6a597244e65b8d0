@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef2164cf_5766c4a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-22T07:03:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b34198f1_f3c43d2d",
+      "range": {
+        "startLine": 9,
+        "startChar": 17,
+        "endLine": 9,
+        "endChar": 24
+      },
+      "revId": "e2b3582156d9738638f389e7f6a597244e65b8d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bffe7eab_f0b864ab",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81cff217_86447a82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-22T07:03:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bffe7eab_f0b864ab",
+      "range": {
+        "startLine": 13,
+        "startChar": 27,
+        "endLine": 13,
+        "endChar": 34
+      },
+      "revId": "e2b3582156d9738638f389e7f6a597244e65b8d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc5fc84e_a7545862",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-22T05:51:09Z",
       "side": 1,
       "message": "call",
+      "range": {
+        "startLine": 592,
+        "startChar": 25,
+        "endLine": 592,
+        "endChar": 31
+      },
+      "revId": "e2b3582156d9738638f389e7f6a597244e65b8d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e68c154_8d9a66ac",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-22T07:03:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc5fc84e_a7545862",
       "range": {
         "startLine": 592,
         "startChar": 25,
