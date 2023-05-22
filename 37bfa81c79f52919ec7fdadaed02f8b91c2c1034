@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86188199_c4bd8407",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-22T05:29:25Z",
+      "side": 1,
+      "message": "Nit: Instead of changing the `config.network` variable to `network` in the QueryTask#run, you can simply update the `searchOptions.getNetwork()` to `network` here. This can avoid creating an unused variable `config.network`, which need to be removed.",
+      "range": {
+        "startLine": 204,
+        "startChar": 20,
+        "endLine": 204,
+        "endChar": 46
+      },
+      "revId": "37bfa81c79f52919ec7fdadaed02f8b91c2c1034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
