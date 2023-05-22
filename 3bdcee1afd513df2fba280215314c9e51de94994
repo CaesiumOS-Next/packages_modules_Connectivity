@@ -135,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61c2e180_3cbd1054",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-22T07:06:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8b15655_1b8e02e7",
+      "range": {
+        "startLine": 1006,
+        "startChar": 8,
+        "endLine": 1006,
+        "endChar": 9
+      },
+      "revId": "3bdcee1afd513df2fba280215314c9e51de94994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40fcf4cc_32573067",
@@ -148,6 +172,30 @@
       "writtenOn": "2023-02-20T13:05:12Z",
       "side": 1,
       "message": "Nit: Shouldn\u0027t you discover services on testNetwork1 only?",
+      "range": {
+        "startLine": 1038,
+        "startChar": 23,
+        "endLine": 1038,
+        "endChar": 39
+      },
+      "revId": "3bdcee1afd513df2fba280215314c9e51de94994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9533bfd7_3c40d202",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-22T07:06:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40fcf4cc_32573067",
       "range": {
         "startLine": 1038,
         "startChar": 23,
