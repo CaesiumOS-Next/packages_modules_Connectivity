@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d446126_acb5c304",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-22T06:25:37Z",
+      "side": 1,
+      "message": "I think it is better to reword sentence here. what is \"this is\" referring to is not very clear in the context. Maybe explicitly mention \"send packet over null network\"?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "6675031d5a593b9be8e319e80335de0ecd1eba4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "862e2219_ddc63b0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-22T06:25:37Z",
+      "side": 1,
+      "message": "LGTM assume comment is adjusted.",
+      "revId": "6675031d5a593b9be8e319e80335de0ecd1eba4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "160746ae_a39d99ce",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-22T06:25:37Z",
+      "side": 1,
+      "message": "I think we need more comment here to mentioned the times(1) is the call makde when sending over nonnull network. Otherwise, it could be a little bit confusing and looks like another send call is made.",
+      "range": {
+        "startLine": 254,
+        "startChar": 24,
+        "endLine": 254,
+        "endChar": 32
+      },
+      "revId": "6675031d5a593b9be8e319e80335de0ecd1eba4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
