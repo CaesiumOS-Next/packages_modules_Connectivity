@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45f1ab4c_6b11d4f8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-22T02:52:41Z",
+      "side": 1,
+      "message": "\"Before T\" or \"Before Android T\"",
+      "range": {
+        "startLine": 100,
+        "startChar": 15,
+        "endLine": 100,
+        "endChar": 28
+      },
+      "revId": "cdd5afd054becd5af4341b69526903df8fe34edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0742e35e_7ddb38e2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-22T02:52:41Z",
+      "side": 1,
+      "message": "Is that the actual reason? Or is the reason that registerLocalOnlyHotspotSoftApCallback didn\u0027t exist before T?",
+      "range": {
+        "startLine": 100,
+        "startChar": 58,
+        "endLine": 100,
+        "endChar": 65
+      },
+      "revId": "cdd5afd054becd5af4341b69526903df8fe34edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9ef41c4_a23e8c0f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-22T02:52:41Z",
+      "side": 1,
+      "message": "\"mac\" or \"clientMac\"",
+      "range": {
+        "startLine": 132,
+        "startChar": 24,
+        "endLine": 132,
+        "endChar": 30
+      },
+      "revId": "cdd5afd054becd5af4341b69526903df8fe34edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3171e11_88c17f1b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-22T02:52:41Z",
+      "side": 1,
+      "message": "No need to check for wifiManager !\u003d null in two places. Suggest:\n\n    if (wifiManager !\u003d null) {\n        wifiManager.registerSoftApCallback(mExecutor, new TetheringSoftApCallback());\n        if (SdkLevel.isAtLeastT()) {\n            // register the local-only callback as well.",
+      "range": {
+        "startLine": 483,
+        "startChar": 0,
+        "endLine": 486,
+        "endChar": 59
+      },
+      "revId": "cdd5afd054becd5af4341b69526903df8fe34edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
