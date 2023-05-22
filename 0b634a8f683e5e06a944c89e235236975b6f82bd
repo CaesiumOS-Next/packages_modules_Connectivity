@@ -70,6 +70,30 @@
       },
       "revId": "0b634a8f683e5e06a944c89e235236975b6f82bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f00dceda_2d7624fa",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:18:38Z",
+      "side": 1,
+      "message": "I agree with Hansen : considering the timeout is not incurred in the success case, it\u0027s better if it\u0027s long to avoid flakiness due to various reasons (heavy instrumentation, GC pause etc)",
+      "parentUuid": "74a03482_9e639d47",
+      "range": {
+        "startLine": 49,
+        "startChar": 29,
+        "endLine": 49,
+        "endChar": 39
+      },
+      "revId": "0b634a8f683e5e06a944c89e235236975b6f82bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

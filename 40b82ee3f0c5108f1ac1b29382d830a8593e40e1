@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98133b39_773e2a8c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:18:38Z",
+      "side": 1,
+      "message": "Is this not\n\n    final DailykeepaliveInfoReported metrics \u003d buildKeepaliveMetrics();\n\n?\nIf so, you don\u0027t need the private method, you can just keep the previous architecture",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 82
+      },
+      "revId": "40b82ee3f0c5108f1ac1b29382d830a8593e40e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f65cb79d_f3234b68",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:18:38Z",
+      "side": 1,
+      "message": "Since this is the only use of the handler member, you should probably just store the thread",
+      "range": {
+        "startLine": 232,
+        "startChar": 12,
+        "endLine": 232,
+        "endChar": 63
+      },
+      "revId": "40b82ee3f0c5108f1ac1b29382d830a8593e40e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f9512d8_90c368a6",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:18:38Z",
+      "side": 1,
+      "message": "I trust you\u0027ve seen my comments on your other changes suggesting to use a version of `visibleOnHandlerThread` that takes a ThrowingSupplier.",
+      "range": {
+        "startLine": 76,
+        "startChar": 17,
+        "endLine": 76,
+        "endChar": 35
+      },
+      "revId": "40b82ee3f0c5108f1ac1b29382d830a8593e40e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06aa1680_758b3766",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:18:38Z",
+      "side": 1,
+      "message": "I trust you\u0027ve seen my comments on your other changes requesting not to use members for this kind of use case.",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 43
+      },
+      "revId": "40b82ee3f0c5108f1ac1b29382d830a8593e40e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
