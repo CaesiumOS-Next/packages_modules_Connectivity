@@ -39,6 +39,30 @@
       },
       "revId": "9f15a90c9b60ae74db8ce2808dd569a7b6e37145",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b410dc76_3b5d9609",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2672,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-22T13:31:51Z",
+      "side": 1,
+      "message": "I think the problem is that accessing mEventChanges in Vpn is not thread safe. Calling dump() may happen before the cap change is logged into mEventChanges. We may need to wait for the cap change really logged into mEventChanges before calling dump() or synchronized the access of the mEventChanges.",
+      "parentUuid": "d04b43c7_5da84ebe",
+      "range": {
+        "startLine": 2672,
+        "startChar": 0,
+        "endLine": 2672,
+        "endChar": 55
+      },
+      "revId": "9f15a90c9b60ae74db8ce2808dd569a7b6e37145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
