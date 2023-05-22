@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53f0b8a4_73813588",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78c34b21_1d44d530",
+      "range": {
+        "startLine": 408,
+        "startChar": 38,
+        "endLine": 408,
+        "endChar": 49
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68ce0404_d39e1f54",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-18T05:49:43Z",
       "side": 1,
       "message": "not used\n\nBy the way why is it not used ?",
+      "range": {
+        "startLine": 619,
+        "startChar": 52,
+        "endLine": 619,
+        "endChar": 59
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99081950_dcf444a1",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Because this only used to request ipv4 address and this is stop function.",
+      "parentUuid": "68ce0404_d39e1f54",
       "range": {
         "startLine": 619,
         "startChar": 52,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cfd1c3f_7c43b58a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "No, we shouldn\u0027t do this. they are used to configure a static address rather than request a LinkAddress from PrivateAddressCoordinator.\n\nmStaticIpv4ServerAddr: this is used for static address configuration and be specified from TetheringRequest. This configuration is not related to scope.\n\nshouldNotConfigureBluetoothInterface: current we only support global mode of bluetooth tethering which means isLocalOnly always be false for bluetooth. Thus, checking isLocalOnly is unnecessary. \n\n    private boolean shouldNotConfigureBluetoothInterface() {\n        // Before T, bluetooth tethering configures the interface elsewhere.\n        return (mInterfaceType \u003d\u003d TetheringManager.TETHERING_BLUETOOTH) \u0026\u0026 !SdkLevel.isAtLeastT();\n    }",
+      "parentUuid": "b1dd1930_62ac203b",
+      "range": {
+        "startLine": 684,
+        "startChar": 0,
+        "endLine": 686,
+        "endChar": 97
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44f78206_0860f5f1",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-18T08:28:23Z",
       "side": 1,
       "message": "If this class is not to be used directly, can you make it abstract? That would also allow you to get rid of the boolean. Something like:\n\n    abstract class BaseServingState extends State {\n\n        protected abstract boolean handleNewPrefixRequest(@NonNull IpPrefix currentPrefix);\n\nbut also see suggestions right below.",
+      "range": {
+        "startLine": 1179,
+        "startChar": 4,
+        "endLine": 1179,
+        "endChar": 9
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af3aa4c2_19f6cbeb",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Fixed by aosp/2597611.",
+      "parentUuid": "44f78206_0860f5f1",
       "range": {
         "startLine": 1179,
         "startChar": 4,
@@ -140,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b52c72d3_f9c1bb95",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Fixed by aosp/2597611.",
+      "parentUuid": "5b71f4a5_23cf5606",
+      "range": {
+        "startLine": 1180,
+        "startChar": 30,
+        "endLine": 1180,
+        "endChar": 42
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7388dc9f_8ec51894",
@@ -153,6 +273,30 @@
       "writtenOn": "2023-05-18T05:49:43Z",
       "side": 1,
       "message": "/* global */",
+      "range": {
+        "startLine": 1278,
+        "startChar": 18,
+        "endLine": 1278,
+        "endChar": 22
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "024bdc21_01b0d364",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Fixed by aosp/2597611.",
+      "parentUuid": "7388dc9f_8ec51894",
       "range": {
         "startLine": 1278,
         "startChar": 18,
@@ -186,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c36ba47a_3c83388e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b64f2c35_6e77a62f",
+      "range": {
+        "startLine": 392,
+        "startChar": 8,
+        "endLine": 392,
+        "endChar": 78
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74b39ab8_7136c9ed",
@@ -199,6 +367,30 @@
       "writtenOn": "2023-05-18T08:28:23Z",
       "side": 1,
       "message": "I don\u0027t think this method should exist. There are only a few callers and it\u0027s much more readable if they explicitly pass in the type that they need.",
+      "range": {
+        "startLine": 400,
+        "startChar": 23,
+        "endLine": 400,
+        "endChar": 36
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "287e043b_a2757601",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74b39ab8_7136c9ed",
       "range": {
         "startLine": 400,
         "startChar": 23,
@@ -256,6 +448,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62c1c0ed_6929e6f3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Per suggestion, use CONNECTIVITY_SCOPE_xxx",
+      "parentUuid": "3663b077_d2043676",
+      "range": {
+        "startLine": 405,
+        "startChar": 31,
+        "endLine": 405,
+        "endChar": 37
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "928e292e_ef93599e",
@@ -269,6 +485,30 @@
       "writtenOn": "2023-05-18T08:28:23Z",
       "side": 1,
       "message": "This is not an internet address. Those are global and these are private.\n\nIn fact, why have these constants at all? Can we just use the CONNECTIVITY_SCOPE_xxx constants? In fact, I\u0027d modify the code to make the caller pass in those constants instead of using an isLocalOnly boolean.",
+      "range": {
+        "startLine": 406,
+        "startChar": 31,
+        "endLine": 406,
+        "endChar": 39
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1070776b_601778fd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "928e292e_ef93599e",
       "range": {
         "startLine": 406,
         "startChar": 31,
@@ -326,6 +566,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60834d2a_b85731a3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f413643_11f29418",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 38
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3b761c6_e3ed5f11",
@@ -339,6 +603,30 @@
       "writtenOn": "2023-05-18T05:49:43Z",
       "side": 1,
       "message": "Can we update callers rather than have this unclear implicit meaning to the version without argument ?",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90f616dc_73269c9a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3b761c6_e3ed5f11",
       "range": {
         "startLine": 109,
         "startChar": 0,
@@ -372,6 +660,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d0a27e6_cf86fde0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Wow, thanks for sharing.",
+      "parentUuid": "006666d8_f059e74c",
+      "range": {
+        "startLine": 563,
+        "startChar": 56,
+        "endLine": 563,
+        "endChar": 86
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fe53fc3_2fd29657",
@@ -385,6 +697,30 @@
       "writtenOn": "2023-05-18T05:49:43Z",
       "side": 1,
       "message": "Random question : is it useful to reuse the same address like this even when the type is different ? Wouldn\u0027t it be less risky to return a different one ?",
+      "range": {
+        "startLine": 571,
+        "startChar": 40,
+        "endLine": 571,
+        "endChar": 44
+      },
+      "revId": "1df3bab29fcda1fae6491c610554a3283695116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22e2a204_bcdea35a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:54:26Z",
+      "side": 1,
+      "message": "Each type has its own cached address. The actual meaning of this argument is to use the cached address if there is one for the given type. If the type is different and there is no cached address, the coordinator will generate a new random address.\n\nSo the true value here can test whether LOHS and SAP use same cache value if isUseSapAndLohsConcurrently() return false.",
+      "parentUuid": "8fe53fc3_2fd29657",
       "range": {
         "startLine": 571,
         "startChar": 40,
