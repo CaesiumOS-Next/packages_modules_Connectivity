@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03fed6f5_e9376798",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitorTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-22T08:48:42Z",
+      "side": 1,
+      "message": "If RTM_NEWADDR is sent now to update the address and set it deprecated, this won\u0027t send any callback right ?\n\nI find it a bit strange that SocketNetlinkMonitor guarantees that you won\u0027t get deprecated addresses at the time they are added, but they can get deprecated later, and there aren\u0027t removed callbacks until RTM_DELADDR.\n\nIs that expected ?",
+      "revId": "9d778c7fe78f19868bb6bfdf3d547ebec1e92000",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
