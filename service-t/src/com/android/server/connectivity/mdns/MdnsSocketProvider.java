@@ -523,10 +523,11 @@ public class MdnsSocketProvider {
                 return;
             }
 
-            mSharedLog.log("Create socket on net:" + networkKey + ", ifName:" + interfaceName);
             final MdnsInterfaceSocket socket = mDependencies.createMdnsInterfaceSocket(
                     networkInterface.getNetworkInterface(), MdnsConstants.MDNS_PORT, mLooper,
                     mPacketReadBuffer);
+            mSharedLog.log("Created socket " + Integer.toHexString(socket.hashCode())
+                    + " on net:" + networkKey + ", ifName:" + interfaceName);
             final List<LinkAddress> addresses = lp.getLinkAddresses();
             // TODO: technically transport types are mutable, although generally not in ways that
             // would meaningfully impact the logic using it here. Consider updating logic to
@@ -586,7 +587,8 @@ public class MdnsSocketProvider {
         socketInfo.mSocket.destroy();
         notifyInterfaceDestroyed(network, socketInfo.mSocket);
         mSocketRequestMonitor.onSocketDestroyed(network, socketInfo.mSocket);
-        mSharedLog.log("Remove socket on net:" + network);
+        mSharedLog.log("Remove socket " + Integer.toHexString(socketInfo.mSocket.hashCode())
+                + " on net:" + network);
     }
 
     private void removeTetherInterfaceSocket(String interfaceName) {
@@ -595,7 +597,8 @@ public class MdnsSocketProvider {
         socketInfo.mSocket.destroy();
         notifyInterfaceDestroyed(null /* network */, socketInfo.mSocket);
         mSocketRequestMonitor.onSocketDestroyed(null /* network */, socketInfo.mSocket);
-        mSharedLog.log("Remove socket on ifName:" + interfaceName);
+        mSharedLog.log("Remove socket " + Integer.toHexString(socketInfo.mSocket.hashCode())
+                + " on ifName:" + interfaceName);
     }
 
     private void notifySocketCreated(Network network, SocketInfo socketInfo) {
@@ -681,7 +684,8 @@ public class MdnsSocketProvider {
      */
     public void requestSocket(@Nullable Network network, @NonNull SocketCallback cb) {
         ensureRunningOnHandlerThread(mHandler);
-        mSharedLog.log("requestSocket for net:" + network);
+        mSharedLog.log("requestSocket for net:" + network + ", request "
+                + Integer.toHexString(cb.hashCode()));
         mCallbacksToRequestedNetworks.put(cb, network);
         if (network == null) {
             // Does not specify a required network, create sockets for all possible
@@ -710,7 +714,7 @@ public class MdnsSocketProvider {
     /*** Unrequest the socket */
     public void unrequestSocket(@NonNull SocketCallback cb) {
         ensureRunningOnHandlerThread(mHandler);
-        mSharedLog.log("unrequestSocket");
+        mSharedLog.log("unrequestSocket for " + Integer.toHexString(cb.hashCode()));
         mCallbacksToRequestedNetworks.remove(cb);
         if (hasAllNetworksRequest()) {
             // Still has a request for all networks (interfaces).
@@ -724,7 +728,8 @@ public class MdnsSocketProvider {
             final SocketInfo info = mNetworkSockets.removeAt(i);
             info.mSocket.destroy();
             mSocketRequestMonitor.onSocketDestroyed(network, info.mSocket);
-            mSharedLog.log("Remove socket on net:" + network + " after unrequestSocket");
+            mSharedLog.log("Remove socket " + Integer.toHexString(info.mSocket.hashCode())
+                    + " on net:" + network + " after unrequestSocket");
         }
 
         // Remove all sockets for tethering interface because these sockets do not have associated
@@ -734,7 +739,8 @@ public class MdnsSocketProvider {
             final SocketInfo info = mTetherInterfaceSockets.valueAt(i);
             info.mSocket.destroy();
             mSocketRequestMonitor.onSocketDestroyed(null /* network */, info.mSocket);
-            mSharedLog.log("Remove socket on ifName:" + mTetherInterfaceSockets.keyAt(i)
+            mSharedLog.log("Remove socket " + Integer.toHexString(info.mSocket.hashCode())
+                    + " on ifName:" + mTetherInterfaceSockets.keyAt(i)
                     + " after unrequestSocket");
         }
         mTetherInterfaceSockets.clear();
