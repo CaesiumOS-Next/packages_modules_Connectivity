@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c10f8f7_f7594275",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:12:02Z",
+      "side": 1,
+      "message": "I don\u0027t understand why we want to do this. Don\u0027t we want metrics about TCP keepalives too ?",
+      "revId": "a48b7fd4190e4f5e0ede6bb5061af95604258e66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
