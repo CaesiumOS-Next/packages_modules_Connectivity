@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2e17bc7_90cd6665",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "When having the choice between using a member and a local containing the same thing, please use the local.",
+      "range": {
+        "startLine": 309,
+        "startChar": 55,
+        "endLine": 309,
+        "endChar": 63
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a96aa4b_63d62262",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "Do you really need a whole long-lived thread for this ? I understand you don\u0027t want to call getActiveSubscriptionInfoList on the handler thread, but you could do this on the system server bg thread (`com.android.internal.os.BackgroundThread.getExecutor()` is available I think ?) or even a direct executor (`r -\u003e r.run()`) which will run on the binder thread",
+      "range": {
+        "startLine": 246,
+        "startChar": 26,
+        "endLine": 246,
+        "endChar": 49
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "575e7de5_4537ded5",
         "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
         "patchSetId": 7
@@ -19,6 +65,76 @@
         "startChar": 52,
         "endLine": 251,
         "endChar": 81
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "239ed33e_e06c28d2",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s completely true : if null, we still need to clear the cache.",
+      "parentUuid": "575e7de5_4537ded5",
+      "range": {
+        "startLine": 251,
+        "startChar": 52,
+        "endLine": 251,
+        "endChar": 81
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8b4893a_be6fab71",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "This is incorrect : wifi networks can also have carrier IDs in the case of carrier wifi.\nSample code : https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2465633/1/service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java#179",
+      "range": {
+        "startLine": 320,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 0
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1234be6_3d2f6fd7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "I think it\u0027s guaranteed that this never does an IPC, but you should probably write a comment about it. By the way if the default subscription changes, will there be a call to `onSubscriptionsChanged` ? If so you can remove all risks by caching that too.",
+      "range": {
+        "startLine": 333,
+        "startChar": 36,
+        "endLine": 333,
+        "endChar": 60
       },
       "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -49,6 +165,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a47172b6_f53f54e6",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "You must not do this here because this is running on the connectivity thread.\n\nIf you\u0027re really worried about this, you could have a complex system of keeping a queue of remaining work to do but you won\u0027t ever be able to completely solve this because in principle you could have a different carrier ID for a slot and then you can\u0027t know whether it will change in the future.\n\nFrankly I don\u0027t think this is going to happen often enough to skew the metrics. I think using UNKNOWN_CARRIER_ID here like Hansen is doing is better, and we can just ignore this in the metrics.",
+      "parentUuid": "86f666d4_d564ffed",
+      "range": {
+        "startLine": 332,
+        "startChar": 8,
+        "endLine": 334,
+        "endChar": 53
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d9583d1_56e153f8",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "Let\u0027s be a little bit more specific because NCs are used all over our code for many different things. Suggest `buildNetworkCapabilitiesWithSubId` or similar.",
+      "range": {
+        "startLine": 88,
+        "startChar": 39,
+        "endLine": 88,
+        "endChar": 63
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29500eed_352cf481",
         "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
         "patchSetId": 7
@@ -60,6 +223,30 @@
       "writtenOn": "2023-05-19T07:04:28Z",
       "side": 1,
       "message": "Does this need to be global?\n\nYou could create and capture it in getOnSubscriptionsChangedListener(). You only maintain the life cycle of the object inside the method.",
+      "range": {
+        "startLine": 110,
+        "startChar": 67,
+        "endLine": 110,
+        "endChar": 82
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "909779b1_bccf4d49",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "29500eed_352cf481",
       "range": {
         "startLine": 110,
         "startChar": 67,
@@ -111,6 +298,122 @@
         "startChar": 8,
         "endLine": 193,
         "endChar": 69
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a76daa5_b0d6cc95",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "See the doc for addOnSubscriptionsChangedListener :\n\n     * The onSubscriptionChanged method will also be triggered once initially\n     * when calling this function.\n\nYou are supposed to be guaranteed a call to this upon registration. If not, we can\u0027t guarantee much, so I think Hansen\u0027s reasoning is good here and if we observe that we don\u0027t get a call then we need to file a bug and get SubscriptionManager fixed.\n\nIf you\u0027re really really concerned one thing you could do is to have the tracker wait for the first call before it\u0027s ready but I think that\u0027s difficult to write and not very useful in practice. In the end, it\u0027s only an extremely rare corner case which ends up with sending a data point with UNKNOWN_CARRIER_ID which we\u0027ll ignore.",
+      "parentUuid": "207a234c_a575989a",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 69
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd0261e4_93e5d76e",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "Considering you\u0027re setting this up in a counter-intuitive way (subinfo 2 with ID_1), I think it might be easier to understand if you re-set up the full list here even if that makes you re-do stuff that was done in `setUp()`. When I read this I have to go back to setUp() to see what other stuff will return.",
+      "range": {
+        "startLine": 955,
+        "startChar": 0,
+        "endLine": 956,
+        "endChar": 67
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f484c448_ac04afba",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "Want to make the test a tad more realistic by making the diff non-zero ?",
+      "range": {
+        "startLine": 964,
+        "startChar": 30,
+        "endLine": 964,
+        "endChar": 31
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c1a3b72_c969890d",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "Could you please specify the NC here too ? It will help reading this code ; here I have to look up what\u0027s passed when you omit the argument to understand the test.",
+      "range": {
+        "startLine": 966,
+        "startChar": 49,
+        "endLine": 966,
+        "endChar": 51
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ecabe5b_fdd8afc6",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:51:44Z",
+      "side": 1,
+      "message": "1 \u003c\u003c CELL",
+      "range": {
+        "startLine": 985,
+        "startChar": 46,
+        "endLine": 985,
+        "endChar": 47
       },
       "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
