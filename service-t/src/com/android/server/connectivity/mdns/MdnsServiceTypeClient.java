@@ -522,7 +522,7 @@ public class MdnsServiceTypeClient {
                 // Only the names are used to know which queries to send, other parameters like
                 // interfaceIndex do not matter.
                 servicesToResolve = makeResponsesForResolveIfUnknown(
-                        0 /* interfaceIndex */, config.network);
+                        0 /* interfaceIndex */, network);
                 sendDiscoveryQueries = servicesToResolve.size() < listeners.size();
             }
             Pair<Integer, List<String>> result;
@@ -535,7 +535,7 @@ public class MdnsServiceTypeClient {
                                 config.subtypes,
                                 config.expectUnicastResponse,
                                 config.transactionId,
-                                config.network,
+                                network,
                                 sendDiscoveryQueries,
                                 servicesToResolve)
                                 .call();
