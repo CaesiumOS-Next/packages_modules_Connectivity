@@ -1391,8 +1391,8 @@ public class NsdService extends INsdManager.Stub {
         // Netlink monitor starts on boot, and intentionally never stopped, to ensure that all
         // address events are received.
         handler.post(mMdnsSocketProvider::startNetLinkMonitor);
-        mMdnsSocketClient =
-                new MdnsMultinetworkSocketClient(handler.getLooper(), mMdnsSocketProvider);
+        mMdnsSocketClient = new MdnsMultinetworkSocketClient(
+                LOGGER.forSubComponent("MMSocketClient"), handler.getLooper(), mMdnsSocketProvider);
         mMdnsDiscoveryManager = deps.makeMdnsDiscoveryManager(new ExecutorProvider(),
                 mMdnsSocketClient, LOGGER.forSubComponent("MdnsDiscoveryManager"),
                 handler.getLooper());
