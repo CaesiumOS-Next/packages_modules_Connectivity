@@ -46,6 +46,30 @@
       },
       "revId": "d278950e9d0fa0cf1c66e8545d97e9b545db9051",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "212da249_33d7ea60",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-05-22T07:45:44Z",
+      "side": 1,
+      "message": "Hmm, it looks like there is no way to do it if macro is used in functions with different return types.",
+      "parentUuid": "1080b872_7daab323",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 17
+      },
+      "revId": "d278950e9d0fa0cf1c66e8545d97e9b545db9051",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
