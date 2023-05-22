@@ -16,6 +16,23 @@
       "message": "busted bastards",
       "revId": "83dde6b40acd478e25476c6899a7b3aa9405c9ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "525bb63c_c19a83b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-22T17:42:19Z",
+      "side": 1,
+      "message": "TH failing on a broken test at head: b/283625537",
+      "revId": "83dde6b40acd478e25476c6899a7b3aa9405c9ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
