@@ -42,6 +42,7 @@ java_defaults {
         "framework-wifi",
         "framework-bluetooth",
         "unsupportedappusage",
+        "android.net.ipsec.ike",
     ],
     defaults_visibility: ["//visibility:private"],
 }

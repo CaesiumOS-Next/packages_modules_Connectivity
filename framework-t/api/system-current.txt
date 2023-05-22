@@ -348,3 +348,25 @@ package android.net.netstats.provider {
 
 }
 
+package android.net.vcnmainline {
+
+  public class VcnManager {
+    method @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY) public void addVcnNetworkPolicyChangeListener(@NonNull java.util.concurrent.Executor, @NonNull android.net.vcnmainline.VcnManager.VcnNetworkPolicyChangeListener);
+    method @NonNull @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY) public android.net.vcnmainline.VcnNetworkPolicyResult applyVcnNetworkPolicy(@NonNull android.net.NetworkCapabilities, @NonNull android.net.LinkProperties);
+    method @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY) public void removeVcnNetworkPolicyChangeListener(@NonNull android.net.vcnmainline.VcnManager.VcnNetworkPolicyChangeListener);
+  }
+
+  public static interface VcnManager.VcnNetworkPolicyChangeListener {
+    method public void onPolicyChanged();
+  }
+
+  public final class VcnNetworkPolicyResult implements android.os.Parcelable {
+    method public int describeContents();
+    method @NonNull public android.net.NetworkCapabilities getNetworkCapabilities();
+    method public boolean isTeardownRequested();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.vcnmainline.VcnNetworkPolicyResult> CREATOR;
+  }
+
+}
+

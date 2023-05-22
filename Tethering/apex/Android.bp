@@ -222,6 +222,7 @@ bootclasspath_fragment {
             "android.net.http",
             "android.net.netstats",
             "android.net.util",
+            "android.net.vcnmainline",
         ],
 
         // The following packages and all their subpackages currently only

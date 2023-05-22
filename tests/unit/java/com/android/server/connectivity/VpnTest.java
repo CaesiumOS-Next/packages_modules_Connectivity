@@ -142,7 +142,7 @@ import android.net.ipsec.ike.exceptions.IkeNetworkLostException;
 import android.net.ipsec.ike.exceptions.IkeNonProtocolException;
 import android.net.ipsec.ike.exceptions.IkeProtocolException;
 import android.net.ipsec.ike.exceptions.IkeTimeoutException;
-import android.net.vcn.VcnTransportInfo;
+import android.net.vcnmainline.VcnTransportInfo;
 import android.net.wifi.WifiInfo;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -176,7 +176,7 @@ import com.android.internal.util.HexDump;
 import com.android.server.DeviceIdleInternal;
 import com.android.server.IpSecService;
 import com.android.server.VpnTestBase;
-import com.android.server.vcn.util.PersistableBundleUtils;
+import com.android.server.vcnmainline.util.PersistableBundleUtils;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 

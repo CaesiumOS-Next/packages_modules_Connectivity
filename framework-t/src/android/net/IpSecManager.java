@@ -294,21 +294,23 @@ public class IpSecManager {
         }
     }
 
+    // public void tryIkeParams(@NonNull android.net.ipsec.ike.IkeSessionParams params){}
+
     /**
      * Reserve a random SPI for traffic bound to or from the specified destination address.
      *
      * <p>If successful, this SPI is guaranteed available until released by a call to {@link
      * SecurityParameterIndex#close()}.
      *
-     * @param destinationAddress the destination address for traffic bearing the requested SPI.
-     *     For inbound traffic, the destination should be an address currently assigned on-device.
+     * @param destinationAddress the destination address for traffic bearing the requested SPI. For
+     *     inbound traffic, the destination should be an address currently assigned on-device.
      * @return the reserved SecurityParameterIndex
-     * @throws ResourceUnavailableException indicating that too many SPIs are
-     *     currently allocated for this user
+     * @throws ResourceUnavailableException indicating that too many SPIs are currently allocated
+     *     for this user
      */
     @NonNull
     public SecurityParameterIndex allocateSecurityParameterIndex(
-                @NonNull InetAddress destinationAddress) throws ResourceUnavailableException {
+            @NonNull InetAddress destinationAddress) throws ResourceUnavailableException {
         try {
             return new SecurityParameterIndex(
                     mService,

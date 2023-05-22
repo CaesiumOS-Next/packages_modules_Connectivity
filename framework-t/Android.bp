@@ -42,6 +42,8 @@ java_defaults {
     srcs: [
         ":framework-connectivity-tiramisu-updatable-sources",
         ":framework-nearby-java-sources",
+        ":framework-mainline-vcn-util-sources",
+        ":framework-vcn-shared-srcs",
     ],
     libs: [
         "unsupportedappusage",
@@ -53,6 +55,7 @@ java_defaults {
         // of sdk_version: "module_current" above.
         "framework-bluetooth",
         "framework-wifi",
+        "android.net.ipsec.ike",
         // Compile against the entire implementation of framework-connectivity,
         // including hidden methods. This is safe because if framework-connectivity-t is
         // on the bootclasspath (i.e., T), then framework-connectivity is also on the
@@ -88,6 +91,7 @@ java_library {
     libs: [
         "framework-bluetooth",
         "framework-wifi",
+        "android.net.ipsec.ike",
         "framework-connectivity-pre-jarjar",
     ],
     visibility: ["//packages/modules/Connectivity:__subpackages__"],
@@ -109,9 +113,11 @@ java_sdk_library {
     stub_only_libs: [
         // Use prebuilt framework-connectivity stubs to avoid circular dependencies
         "sdk_module-lib_current_framework-connectivity",
+        "sdk_system_current_android.net.ipsec.ike",
     ],
     libs: [
         "sdk_module-lib_current_framework-connectivity",
+        "sdk_system_current_android.net.ipsec.ike",
     ],
     permitted_packages: [
         "android.app.usage",

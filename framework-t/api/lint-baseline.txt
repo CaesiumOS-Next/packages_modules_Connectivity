@@ -41,6 +41,10 @@ MissingBuildMethod: android.net.IpSecTransform.Builder:
     android.net.IpSecTransform.Builder does not declare a `build()` method, but builder classes are expected to
 
 
+MissingGetterMatchingBuilder: android.net.vcnmainline.VcnGatewayConnectionConfig.Builder#addGatewayOption(int):
+    android.net.vcnmainline.VcnGatewayConnectionConfig does not declare a `getGatewayOptions()` method matching method android.net.vcnmainline.VcnGatewayConnectionConfig.Builder.addGatewayOption(int)
+
+
 MissingNullability: android.app.usage.NetworkStatsManager#queryDetails(int, String, long, long):
     Missing nullability on method `queryDetails` return
 MissingNullability: android.app.usage.NetworkStatsManager#querySummary(int, String, long, long):

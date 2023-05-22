@@ -57,6 +57,7 @@ java_library {
         "service-nearby-pre-jarjar",
         "ServiceConnectivityResources",
         "unsupportedappusage",
+        "android.net.ipsec.ike",
     ],
     static_libs: [
         // Do not add static_libs here if they are already included in framework-connectivity
