@@ -235,6 +235,30 @@
       },
       "revId": "72e36ac6f9c7b3f9f4a1fae0284092c40d9a0b94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d61e8277_aa68e599",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1965,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:48:04Z",
+      "side": 1,
+      "message": "After speaking with Martin, I think there are some confusions and lets make it clear.\nTethering expects that WiFi softap (localonly) callback informs us whether the WiFi client is still active.\nIf SAP(or LOHS) is disabled, WiFi should call onConnectedClientsChanged to notify tethering which client(MAC) is removed.\nBack to your question, if WiFi behavior correctly.\nIf we have both SAP and LOHS running, and LOHS goes down, do the LOHS MAC addresses get removed?\n--\u003e Yes, LOHS MAC addresses get removed\nIf we have both SAP and LOHS running, and SAP goes down, do the SAP MAC addresses get removed?\n--\u003e Yes, SAP MAC addresses get removed\n\nThere is a possibility that the tethering will receive the WiFi AP state change intent before receiving the onConnectedClientsChanged callback, in which case the wifiClientMacs will be put back to the clientsMap, but the WiFi client will eventually be cleared when the onConnectedClientsChanged callback is received.\n\nIf both the SoftAp and LOHS are running, and the LOHS(or SAP) goes down without calling the onConnectedClientsChanged(empty_client) method, I think this is a WiFi bug.",
+      "parentUuid": "1993cab0_ff22072f",
+      "range": {
+        "startLine": 1965,
+        "startChar": 12,
+        "endLine": 1965,
+        "endChar": 34
+      },
+      "revId": "72e36ac6f9c7b3f9f4a1fae0284092c40d9a0b94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

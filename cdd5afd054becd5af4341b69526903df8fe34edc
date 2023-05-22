@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae5b587e_bdb5e985",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:48:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45f1ab4c_6b11d4f8",
+      "range": {
+        "startLine": 100,
+        "startChar": 15,
+        "endLine": 100,
+        "endChar": 28
+      },
+      "revId": "cdd5afd054becd5af4341b69526903df8fe34edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23ab1b19_3e345a32",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:48:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0742e35e_7ddb38e2",
+      "range": {
+        "startLine": 100,
+        "startChar": 58,
+        "endLine": 100,
+        "endChar": 65
+      },
+      "revId": "cdd5afd054becd5af4341b69526903df8fe34edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9ef41c4_a23e8c0f",
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38f74f5e_9139c37d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:48:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9ef41c4_a23e8c0f",
+      "range": {
+        "startLine": 132,
+        "startChar": 24,
+        "endLine": 132,
+        "endChar": 30
+      },
+      "revId": "cdd5afd054becd5af4341b69526903df8fe34edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3171e11_88c17f1b",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-22T02:52:41Z",
       "side": 1,
       "message": "No need to check for wifiManager !\u003d null in two places. Suggest:\n\n    if (wifiManager !\u003d null) {\n        wifiManager.registerSoftApCallback(mExecutor, new TetheringSoftApCallback());\n        if (SdkLevel.isAtLeastT()) {\n            // register the local-only callback as well.",
+      "range": {
+        "startLine": 483,
+        "startChar": 0,
+        "endLine": 486,
+        "endChar": 59
+      },
+      "revId": "cdd5afd054becd5af4341b69526903df8fe34edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "885826e4_51d5809e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-22T05:48:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3171e11_88c17f1b",
       "range": {
         "startLine": 483,
         "startChar": 0,
