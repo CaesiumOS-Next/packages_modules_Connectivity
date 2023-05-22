@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3003c425_e855d981",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:07:57Z",
+      "side": 1,
+      "message": "Can you clarify what is tested here ? This seems to read \"verify incorrect behavior\", which is not very understandable",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "20d09785709c028f08dbf1bb78e83bee5158cc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5222e453_4ce07b96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:07:57Z",
+      "side": 1,
+      "message": "Gave only a cursory look – I think this will change significantly following comments on earlier patches, so I\u0027ll have to look at it in detail when that\u0027s done",
+      "revId": "20d09785709c028f08dbf1bb78e83bee5158cc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2251538_c1133df0",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:07:57Z",
+      "side": 1,
+      "message": "Okay this is exactly what I was scared about in my comment on the previous change. When you need 2 of this, it becomes really messy, you multiply members with identical names and things become hard to manage.\n\nHopefully this disappears after you address my previous comment.",
+      "range": {
+        "startLine": 111,
+        "startChar": 20,
+        "endLine": 111,
+        "endChar": 28
+      },
+      "revId": "20d09785709c028f08dbf1bb78e83bee5158cc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a83794fc_36c5525b",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:07:57Z",
+      "side": 1,
+      "message": "Can we do a little bit better than just \"not null\" ? E.g. test the correct binder or something.",
+      "revId": "20d09785709c028f08dbf1bb78e83bee5158cc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
