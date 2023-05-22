@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "321ff67b_51ef4489",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T05:39:49Z",
+      "side": 1,
+      "message": "Can you please also address the comment on b/281484381 :\n• The constant should be commented saying \"there is no such hardware slot, or no keepalive running on this slot\"\n\nIt can be in a followup.",
+      "revId": "f977ae00bdb7541e9e68b25597ae669395d7be59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
