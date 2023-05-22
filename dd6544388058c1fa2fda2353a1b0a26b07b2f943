@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caac4c62_f3db9525",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T03:06:46Z",
+      "side": 1,
+      "message": "Nit : since the only thing you\u0027re doing with this is getting the looper and then the thread, you could only store a ref to the thread and save some performance.",
+      "range": {
+        "startLine": 52,
+        "startChar": 27,
+        "endLine": 52,
+        "endChar": 34
+      },
+      "revId": "dd6544388058c1fa2fda2353a1b0a26b07b2f943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4eec861_7e832d23",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T03:06:46Z",
+      "side": 1,
+      "message": "This doesn\u0027t make a lot of sense in a number of ways :\n• The name suggests it will run on the handler thread but not wait. This is especially bad as there is `Activity#runOnUiThread` which posts and doesn\u0027t wait.\n• This doesn\u0027t allow passing a runnable that throws a checked exception, reducing the utility.\n• This transforms the exception into an assert fail, which obfuscates the error\n• I\u0027m not even sure there is sufficient memory barriers for the thread running this to observe the write – I think there is, but I\u0027m not completely sure.\n• We already have methods doing this that have none of these drawbacks.\n\nYou can use HandlerUtils.visibleOnHandlerThread. That\u0027s what you need right ? You need the runnable to do something and that effect to be *visible* on the handler thread ? If not, you can have a wrapper with a more appropriate name, since the method *does* what you need apparently.",
+      "range": {
+        "startLine": 145,
+        "startChar": 17,
+        "endLine": 145,
+        "endChar": 35
+      },
+      "revId": "dd6544388058c1fa2fda2353a1b0a26b07b2f943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d0c78da_04bc6cb5",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T03:06:46Z",
+      "side": 1,
+      "message": "Why do this in a member ? This looks error-prone.\n\nOne thing you could, which would be much nicer, is to change visibleOnHandlerThread to take a ThrowingProducer\u003cT\u003e instead of a ThrowingRunnable and have it return the value. I wish I had thought of this when I wrote it but now that I see your code it\u0027s pretty obvious.\n\nThen you can remove the member completely and say\n\n    private ... {\n      setUptimeMillis(time);\n      return visibleOnHandlerThread(() -\u003e mKeepaliveStatsTracker.buildKeepaliveMetrics();\n    }",
+      "range": {
+        "startLine": 160,
+        "startChar": 8,
+        "endLine": 160,
+        "endChar": 35
+      },
+      "revId": "dd6544388058c1fa2fda2353a1b0a26b07b2f943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16180573_6b98fbb4",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T03:06:46Z",
+      "side": 1,
+      "message": "Not sure what a \"unique array\" is. Maybe `assertNoDuplicates`",
+      "range": {
+        "startLine": 298,
+        "startChar": 23,
+        "endLine": 298,
+        "endChar": 34
+      },
+      "revId": "dd6544388058c1fa2fda2353a1b0a26b07b2f943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a727e8b_ed224d68",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T03:06:46Z",
+      "side": 1,
+      "message": "Heh, you found it necessary to explain exactly what I was pointing out above in a comment :)",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 58
+      },
+      "revId": "dd6544388058c1fa2fda2353a1b0a26b07b2f943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b16e7b8e_80593cc3",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T03:06:46Z",
+      "side": 1,
+      "message": "AssertionError is not something you\u0027re supposed to catch in a test : it means you\u0027re catching the result of a fail(), which makes no sense. This is because you\u0027re calling fail() with the actual exception instead of throwing it. You should have thrown it so you can actually test that it\u0027s the exception you expect. This will be solved when you use visibleOnHandlerThread instead",
+      "range": {
+        "startLine": 831,
+        "startChar": 16,
+        "endLine": 831,
+        "endChar": 30
+      },
+      "revId": "dd6544388058c1fa2fda2353a1b0a26b07b2f943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f0c5861_0d38e04c",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T03:06:46Z",
+      "side": 1,
+      "message": "This is even worse, you have a global member to remember that exception !",
+      "range": {
+        "startLine": 834,
+        "startChar": 53,
+        "endLine": 834,
+        "endChar": 69
+      },
+      "revId": "dd6544388058c1fa2fda2353a1b0a26b07b2f943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
