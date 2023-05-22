@@ -22,6 +22,30 @@
       },
       "revId": "37bfa81c79f52919ec7fdadaed02f8b91c2c1034",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95058d6f_d38d1609",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-22T05:59:57Z",
+      "side": 1,
+      "message": "Oh right that\u0027s better - thanks !",
+      "parentUuid": "86188199_c4bd8407",
+      "range": {
+        "startLine": 204,
+        "startChar": 20,
+        "endLine": 204,
+        "endChar": 46
+      },
+      "revId": "37bfa81c79f52919ec7fdadaed02f8b91c2c1034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
