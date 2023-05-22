@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e9fad80_0a33b689",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-22T03:01:16Z",
+      "side": 1,
+      "message": "This doesn\u0027t delete the address when it\u0027s deprecated though, it only deletes it when RTM_DELADDR is received\n\nTo make sure the cache only contains non-deprecated addresses, I think you should delete the address when you get an update (RTM_NEWADDR) where it\u0027s not preferred ?\n\nSo:\n!RTM_NEWADDR \u0026\u0026 !RTM_DELADDR -\u003e log error\nRTM_NEWADDR \u0026\u0026 isPreferred -\u003e add or update\nElse -\u003e delete if exists",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "2f8e5c37463dcaca048ef014673a95172899ba35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "271ee194_25d7d817",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitorTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-22T03:01:16Z",
+      "side": 1,
+      "message": "I think it would be better to cover the whole scenario of an address that gets deprecated: so RTM_NEWADDR with a valid address, then another RTM_NEWADDR where it\u0027s deprecated",
+      "revId": "2f8e5c37463dcaca048ef014673a95172899ba35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
