@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "457fe9bf_088e45f9",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T05:05:30Z",
+      "side": 1,
+      "message": "It would be nice to have a log that there was a failed start here. Ideally you\u0027d have the reason in the log, which means you\u0027d have to return a reason from handleStartKeepalive (or log inside of there, but I think that\u0027s much harder to understand)",
+      "range": {
+        "startLine": 441,
+        "startChar": 21,
+        "endLine": 441,
+        "endChar": 22
+      },
+      "revId": "1e0a2577644746b0b05569643140fd3a7f78082e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94ce80d4_37abf629",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T05:05:30Z",
+      "side": 1,
+      "message": "Can we have the reason ?",
+      "range": {
+        "startLine": 460,
+        "startChar": 22,
+        "endLine": 460,
+        "endChar": 25
+      },
+      "revId": "1e0a2577644746b0b05569643140fd3a7f78082e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e28a4ea7_9940d2b3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T05:05:30Z",
+      "side": 1,
+      "message": "This doesn\u0027t affect UDP, but it is a large bug that affects TCP keepalive and that we had not noticed. Thanks for noticing this ; can you please file a bug for this and refer to it in this comment ?",
+      "range": {
+        "startLine": 457,
+        "startChar": 17,
+        "endLine": 457,
+        "endChar": 84
+      },
+      "revId": "1e0a2577644746b0b05569643140fd3a7f78082e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82c8f72c_4e938973",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T05:05:30Z",
+      "side": 1,
+      "message": "I mean, you could give this KI a ref to its autoKi and call a method there. It\u0027s not a big refactor – but I agree, it\u0027s very ugly. If you already know how to make it clean, let\u0027s go with your way instead",
+      "range": {
+        "startLine": 457,
+        "startChar": 89,
+        "endLine": 458,
+        "endChar": 42
+      },
+      "revId": "1e0a2577644746b0b05569643140fd3a7f78082e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c275ee8_06c192ee",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T05:05:30Z",
+      "side": 1,
+      "message": "This is only called in AutomaticOnOffKeepaliveTracker#handleCheckKeepalivesStillValid. It sounds to me like a much better way of handling this would be to remove this method and move its implementation to the caller. You should be able to rewrite the loop over the `mAutomaticOnOffKeepalives` array in the same way :\n\n    for (final AutomaticOnOffKeepalive autoKi : mAutomaticOnOffKeepalives) {\n      final KeepaliveTracker.KeepaliveInfo ki \u003d autoKi.mKi;\n      if (!nai.equals(ki.mNai)) continue;\n        final int reason \u003d ki.isValid();\n        if (SUCCESS !\u003d reason) handleStopKeepalive(autoKi, reason);\n      }\n    }\n\nYou\u0027ll have to make `isValid` public but I think it\u0027s fine. You\u0027ll probably have to gather them in an array to stop them at the end like is done in this method (as opposed to my snippet) because handleStopKeepalive will mutate `mAutomaticOnOffKeepalives`\n\nThis will also let you remove a lot of the supporting methods you had to add to AutoOnOffKeepaliveTracker I think.",
+      "range": {
+        "startLine": 619,
+        "startChar": 34,
+        "endLine": 619,
+        "endChar": 65
+      },
+      "revId": "1e0a2577644746b0b05569643140fd3a7f78082e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "527966a3_2ba78d97",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T05:05:30Z",
+      "side": 1,
+      "message": "Moot if you implement my comment above, but suggestion : you can save some performance by checking emptiness first here, since this is called for each change of link properties but there are almost never invalid keepalives. It could look like :\n\n    if (invalidKeepalives.size() \u003d\u003d 0) return Collections.emptyList();\n    final ArrayList\u003cInteger\u003e invalidSlots \u003d new ArrayList\u003c\u003e();\n    for (Pair\u003cInteger, Integer\u003e slotAndError: invalidKeepalives) {\n      handleStopKeepalive(nai, slotAndError.first, slotAndError.second);\n      invalidSlots.add(slotAndError.first);\n    }\n    return invalidSlots;\n\nI appreciate the intention of making an unmodifiable list but in practice this comes from a locally-generated array so nothing bad can possibly come from modifying it, therefore the unmodifiable wrapper is pure overhead. If you want you can have a comment about that.",
+      "range": {
+        "startLine": 628,
+        "startChar": 12,
+        "endLine": 628,
+        "endChar": 13
+      },
+      "revId": "1e0a2577644746b0b05569643140fd3a7f78082e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47bea13b_ebd5fff0",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T05:05:30Z",
+      "side": 1,
+      "message": "Something looks wrong ; if you exit through line 697 this calls KI#cleanup and then you return false, which calls AutoKI#cleanup. But if you exit through l.700, it\u0027s only AutoKI#cleanup.\n\nI think we should at least have a return in both branches to clarify that both cases have been considered appropriately, but returning the reason here is also useful to clarify what happens in AutoKI when this is not success.\n\nIn fact, there is also a more holistic way of arguing for this : in practice this method returns whether the autoKI should cleanup, when it should not know about it. That\u0027s another way to see why returning the reason is probably a better idea.",
+      "range": {
+        "startLine": 702,
+        "startChar": 15,
+        "endLine": 702,
+        "endChar": 20
+      },
+      "revId": "1e0a2577644746b0b05569643140fd3a7f78082e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
