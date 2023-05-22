@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75c1f8d0_ac740d1b",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:01:21Z",
+      "side": 1,
+      "message": "This style of testing where you hold everything in members makes things difficult to read generally because in each method you don\u0027t know what happened to that object before. It also makes it hard in the future to test with multiple of any of these – suppose we want a test with 2 networks, or 2 sockets, how do we do that ? We can\u0027t reuse any of your existing setup, we have to rewrite everything.\n\nPlease consider better locality. For example you could have a data class and have doStartNattKeepalive return all the objects it has set up for the use of callers, instead of doing this pass-by-member style of call.\n\nNote that some of these are even completely useless as members : mNetwork is only used as a local in `setUp()` (the compiler warns about that), and mFd could just be read in doStartNattKeepalive instead of setUp and be kept local.\n\nI\u0027m not saying that members don\u0027t have their uses, but I guess my essential message is : please don\u0027t use a member as a means to pass an argument between methods.",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 31
+      },
+      "revId": "9a797bba90267e18a3de16b11a7a7079da504d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6611513_ec6a3ed2",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:01:21Z",
+      "side": 1,
+      "message": "optional : use visibleOnHandlerThread",
+      "range": {
+        "startLine": 343,
+        "startChar": 21,
+        "endLine": 343,
+        "endChar": 25
+      },
+      "revId": "9a797bba90267e18a3de16b11a7a7079da504d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54e65817_7af7c7be",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:01:21Z",
+      "side": 1,
+      "message": "See my comment on your other change about this ; please do not use members for this kind of use case. If you don\u0027t use a more general utility like visibleOnHandlerThread (which I suggested you modify to return a \u003cT\u003e, and I think it\u0027s best here), for this kind of use case please use a CompletableFuture.",
+      "range": {
+        "startLine": 436,
+        "startChar": 8,
+        "endLine": 436,
+        "endChar": 23
+      },
+      "revId": "9a797bba90267e18a3de16b11a7a7079da504d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4255054_535eb9ed",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-22T07:01:21Z",
+      "side": 1,
+      "message": "It\u0027s really unclear what this does. It verifies some stuff, but then it triggers an event. It\u0027s not clear why these are grouped in a method ; what do they have to do with each other ? And this is pretty apparent in the naming : I expect you had trouble finding a good name for this method.\n\nFrom the method name maintainers should be able to deduce what the method does. Here, `networkAgentStartedKeepalive` does not suggest it checks anything, nor that it will trigger an event, so it\u0027s not a good name. In fact, it doesn\u0027t really suggest anything ; if I ever saw a method like this I\u0027d think it\u0027s a callback that signals the agent started the keepalive or something.\n\nI think you can\u0027t name this method clearly considering its content. Consider removing the trigger() step from this method, at which point you can call it `verify***` and clarify what it does.",
+      "range": {
+        "startLine": 442,
+        "startChar": 17,
+        "endLine": 442,
+        "endChar": 45
+      },
+      "revId": "9a797bba90267e18a3de16b11a7a7079da504d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
