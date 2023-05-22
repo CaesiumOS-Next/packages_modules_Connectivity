@@ -16,6 +16,24 @@
       "message": "I don\u0027t understand why we want to do this. Don\u0027t we want metrics about TCP keepalives too ?",
       "revId": "a48b7fd4190e4f5e0ede6bb5061af95604258e66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dcd3e5f_44d980e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-22T08:04:58Z",
+      "side": 1,
+      "message": "My bad. I though we would like to track NATT keepalives.",
+      "parentUuid": "6c10f8f7_f7594275",
+      "revId": "a48b7fd4190e4f5e0ede6bb5061af95604258e66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
