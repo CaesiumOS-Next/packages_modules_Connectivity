@@ -22,6 +22,10 @@ import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_LOWPAN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
+import static android.net.NetworkTemplate.MATCH_BLUETOOTH;
+import static android.net.NetworkTemplate.MATCH_ETHERNET;
+import static android.net.NetworkTemplate.MATCH_MOBILE;
+import static android.net.NetworkTemplate.MATCH_WIFI;
 import static android.net.TetheringManager.TETHERING_BLUETOOTH;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringManager.TETHERING_NCM;
@@ -48,6 +52,7 @@ import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 import android.annotation.Nullable;
 import android.content.Context;
 import android.net.NetworkCapabilities;
+import android.net.NetworkTemplate;
 import android.stats.connectivity.DownstreamType;
 import android.stats.connectivity.ErrorCode;
 import android.stats.connectivity.UpstreamType;
@@ -401,5 +406,32 @@ public class TetheringMetrics {
                 return true;
         }
         return false;
+    }
+
+    /**
+     * Build NetworkTemplate for the given upstream type.
+     *
+     * @param type the upstream type
+     * @return A NetworkTemplate object with a corresponding match rule or null if the usage is not
+     * supported for the upstream type.
+     */
+    @Nullable
+    public static NetworkTemplate buildNetworkTemplateForUpstreamType(UpstreamType type) {
+        if (!isUsageSupportedForUpstreamType(type)) return null;
+
+        switch (type) {
+            case UT_CELLULAR:
+                return new NetworkTemplate.Builder(MATCH_MOBILE).build();
+            case UT_WIFI:
+                return new NetworkTemplate.Builder(MATCH_WIFI).build();
+            case UT_BLUETOOTH:
+                return new NetworkTemplate.Builder(MATCH_BLUETOOTH).build();
+            case UT_ETHERNET:
+                return new NetworkTemplate.Builder(MATCH_ETHERNET).build();
+            default:
+                Log.d(TAG, "Unsupported UpstreamType: " + type.name());
+                break;
+        }
+        return null;
     }
 }
