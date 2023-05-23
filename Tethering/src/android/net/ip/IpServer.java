@@ -283,6 +283,8 @@ public class IpServer extends StateMachine {
     private List<TetheredClient> mDhcpLeases = Collections.emptyList();
 
     private int mLastIPv6UpstreamIfindex = 0;
+    @NonNull
+    private Set<IpPrefix> mLastIPv6UpstreamPrefixes = Collections.emptySet();
 
     private class MyNeighborEventConsumer implements IpNeighborMonitor.NeighborEventConsumer {
         public void accept(NeighborEvent e) {
@@ -377,6 +379,19 @@ public class IpServer extends StateMachine {
     /** The address which IpServer is using. */
     public LinkAddress getAddress() {
         return mIpv4Address;
+    }
+
+    /** Get the IPv6 prefixes of the upstream interface */
+    @NonNull
+    public Set<IpPrefix> getUpstreamIpv6Prefixes() {
+        final Set<IpPrefix> prefixes = new HashSet<>();
+        if (mLastIPv6LinkProperties != null) {
+            for (LinkAddress linkAddr : mLastIPv6LinkProperties.getLinkAddresses()) {
+                if (linkAddr.getPrefixLength() != RFC7421_PREFIX_LENGTH) continue;
+                prefixes.add(new IpPrefix(linkAddr.getAddress(), linkAddr.getPrefixLength()));
+            }
+        }
+        return Collections.unmodifiableSet(prefixes);
     }
 
     /**
@@ -786,8 +801,12 @@ public class IpServer extends StateMachine {
         // TODO: avoid this dependencies and move this logic into BpfCoordinator.
         mLastIPv6LinkProperties = v6only;
 
-        updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, upstreamIfIndex, null);
+        final Set<IpPrefix> upstreamPrefixes = getUpstreamIpv6Prefixes();
+        updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, mLastIPv6UpstreamPrefixes,
+                upstreamIfIndex, upstreamPrefixes, null);
         mLastIPv6UpstreamIfindex = upstreamIfIndex;
+        mLastIPv6UpstreamPrefixes = upstreamPrefixes;
+
         if (mDadProxy != null) {
             mDadProxy.setUpstreamIface(upstreamIfaceParams);
         }
@@ -913,12 +932,12 @@ public class IpServer extends StateMachine {
         mBpfCoordinator.tetherOffloadRuleClear(this);
     }
 
-    private void updateIpv6ForwardingRule(int newIfindex) {
+    private void updateIpv6ForwardingRule(int newIfindex, Set<IpPrefix> newPrefixes) {
         // TODO: Perhaps remove this protection check.
         // See the related comment in #addIpv6ForwardingRule.
         if (!mUsingBpfOffload) return;
 
-        mBpfCoordinator.tetherOffloadRuleUpdate(this, newIfindex);
+        mBpfCoordinator.tetherOffloadRuleUpdate(this, newIfindex, newPrefixes);
     }
 
     private boolean isIpv6VcnNetworkInterface() {
@@ -929,8 +948,9 @@ public class IpServer extends StateMachine {
 
     // Handles all updates to IPv6 forwarding rules. These can currently change only if the upstream
     // changes or if a neighbor event is received.
-    private void updateIpv6ForwardingRules(int prevUpstreamIfindex, int upstreamIfindex,
-            NeighborEvent e) {
+    private void updateIpv6ForwardingRules(int prevUpstreamIfindex,
+            @NonNull Set<IpPrefix> prevUpstreamPrefixes, int upstreamIfindex,
+            @NonNull Set<IpPrefix> upstreamPrefixes, NeighborEvent e) {
         // If no longer have an upstream or it is virtual network, clear forwarding rules and do
         // nothing else.
         // TODO: Rather than always clear rules, ensure whether ipv6 ever enable first.
@@ -939,10 +959,11 @@ public class IpServer extends StateMachine {
             return;
         }
 
-        // If the upstream interface has changed, remove all rules and re-add them with the new
-        // upstream interface.
-        if (prevUpstreamIfindex != upstreamIfindex) {
-            updateIpv6ForwardingRule(upstreamIfindex);
+        // If the upstream interface or prefixes has changed, remove all rules and re-add them with
+        // the new upstream interface and prefixes.
+        if (prevUpstreamIfindex != upstreamIfindex
+                || !prevUpstreamPrefixes.equals(upstreamPrefixes)) {
+            updateIpv6ForwardingRule(upstreamIfindex, upstreamPrefixes);
         }
 
         // If we're here to process a NeighborEvent, do so now.
@@ -957,7 +978,11 @@ public class IpServer extends StateMachine {
         // Do this here instead of in the Ipv6ForwardingRule constructor to ensure that we never
         // add rules with a null MAC, only delete them.
         MacAddress dstMac = e.isValid() ? e.macAddr : NULL_MAC_ADDRESS;
-        Ipv6ForwardingRule rule = new Ipv6ForwardingRule(upstreamIfindex,
+        IpPrefix sourcePrefix = PrefixUtils.findMatchedPrefix(upstreamPrefixes, e.ip);
+        // This may happen if we handle the upstream prefixes change before we handle the neighbor
+        // events, and the old forwarding rules would be deleted before then.
+        if (sourcePrefix == null) return;
+        Ipv6ForwardingRule rule = new Ipv6ForwardingRule(upstreamIfindex, sourcePrefix,
                 mInterfaceParams.index, (Inet6Address) e.ip, mInterfaceParams.macAddr, dstMac);
         if (e.isValid()) {
             addIpv6ForwardingRule(rule);
@@ -995,7 +1020,8 @@ public class IpServer extends StateMachine {
         if (mInterfaceParams != null
                 && mInterfaceParams.index == e.ifindex
                 && mInterfaceParams.hasMacAddress) {
-            updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, mLastIPv6UpstreamIfindex, e);
+            updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, mLastIPv6UpstreamPrefixes,
+                    mLastIPv6UpstreamIfindex, mLastIPv6UpstreamPrefixes, e);
             updateClientInfoIpv4(e);
         }
     }

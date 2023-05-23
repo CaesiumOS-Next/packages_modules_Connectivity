@@ -79,6 +79,7 @@ import com.android.net.module.util.netlink.ConntrackMessage;
 import com.android.net.module.util.netlink.NetlinkConstants;
 import com.android.net.module.util.netlink.NetlinkUtils;
 import com.android.networkstack.tethering.apishim.common.BpfCoordinatorShim;
+import com.android.networkstack.tethering.util.PrefixUtils;
 import com.android.networkstack.tethering.util.TetheringUtils.ForwardedStats;
 
 import java.io.IOException;
@@ -612,13 +613,14 @@ public class BpfCoordinator {
         // When the first rule is added to an upstream, setup upstream forwarding and data limit.
         maybeSetLimit(rule.upstreamIfindex);
 
-        if (!isAnyRuleFromDownstreamToUpstream(rule.downstreamIfindex, rule.upstreamIfindex)) {
+        if (!isAnyRuleFromDownstreamToUpstream(rule.downstreamIfindex, rule.upstreamIfindex,
+                rule.sourcePrefix)) {
             final int downstream = rule.downstreamIfindex;
             final int upstream = rule.upstreamIfindex;
             // TODO: support upstream forwarding on non-point-to-point interfaces.
             // TODO: get the MTU from LinkProperties and update the rules when it changes.
             if (!mBpfCoordinatorShim.startUpstreamIpv6Forwarding(downstream, upstream,
-                    IPV6_ZERO_PREFIX64, rule.srcMac, NULL_MAC_ADDRESS, NULL_MAC_ADDRESS,
+                    rule.sourcePrefix, rule.srcMac, NULL_MAC_ADDRESS, NULL_MAC_ADDRESS,
                     NetworkStackConstants.ETHER_MTU)) {
                 mLog.e("Failed to enable upstream IPv6 forwarding from "
                         + getIfName(downstream) + " to " + getIfName(upstream));
@@ -656,11 +658,12 @@ public class BpfCoordinator {
         }
 
         // If no more rules between this upstream and downstream, stop upstream forwarding.
-        if (!isAnyRuleFromDownstreamToUpstream(rule.downstreamIfindex, rule.upstreamIfindex)) {
+        if (!isAnyRuleFromDownstreamToUpstream(rule.downstreamIfindex, rule.upstreamIfindex,
+                rule.sourcePrefix)) {
             final int downstream = rule.downstreamIfindex;
             final int upstream = rule.upstreamIfindex;
             if (!mBpfCoordinatorShim.stopUpstreamIpv6Forwarding(downstream, upstream,
-                    IPV6_ZERO_PREFIX64, rule.srcMac)) {
+                    rule.sourcePrefix, rule.srcMac)) {
                 mLog.e("Failed to disable upstream IPv6 forwarding from "
                         + getIfName(downstream) + " to " + getIfName(upstream));
             }
@@ -692,7 +695,8 @@ public class BpfCoordinator {
      * Update existing forwarding rules to new upstream for a given downstream.
      * Note that this can be only called on handler thread.
      */
-    public void tetherOffloadRuleUpdate(@NonNull final IpServer ipServer, int newUpstreamIfindex) {
+    public void tetherOffloadRuleUpdate(@NonNull final IpServer ipServer, int newUpstreamIfindex,
+            @NonNull final Set<IpPrefix> newUpstreamPrefixes) {
         if (!isUsingBpf()) return;
 
         final LinkedHashMap<Inet6Address, Ipv6ForwardingRule> rules = mIpv6ForwardingRules.get(
@@ -716,7 +720,10 @@ public class BpfCoordinator {
             tetherOffloadRuleRemove(ipServer, rule);
         }
         for (final Ipv6ForwardingRule rule : rulesCopy) {
-            tetherOffloadRuleAdd(ipServer, rule.onNewUpstream(newUpstreamIfindex));
+            Ipv6ForwardingRule newRule = rule.onNewUpstream(newUpstreamIfindex,
+                    newUpstreamPrefixes);
+            if (newRule == null) continue;
+            tetherOffloadRuleAdd(ipServer, newRule);
         }
     }
 
@@ -1422,15 +1429,15 @@ public class BpfCoordinator {
         //
         // upstream6 key and value:
         //
-        // +------+-------------+
-        // | TetherUpstream6Key |
-        // +------+------+------+
-        // |field |iif   |dstMac|
-        // |      |      |      |
-        // +------+------+------+
-        // |value |downst|downst|
-        // |      |ream  |ream  |
-        // +------+------+------+
+        // +------+--------------------+
+        // |    TetherUpstream6Key     |
+        // +------+------+------+------+
+        // |field |iif   |dstMac|prefix|
+        // |      |      |      |      |
+        // +------+------+------+------+
+        // |value |downst|downst|upstre|
+        // |      |ream  |ream  |am    |
+        // +------+------+------+------+
         //
         // +------+----------------------------------+
         // |      |Tether6Value                      |
@@ -1465,6 +1472,7 @@ public class BpfCoordinator {
         // +------+------+------+------+------+------+
         //
         public final int upstreamIfindex;
+        public final IpPrefix sourcePrefix;
         public final int downstreamIfindex;
 
         // TODO: store a ClientInfo object instead of storing address, srcMac, and dstMac directly.
@@ -1475,21 +1483,25 @@ public class BpfCoordinator {
         @NonNull
         public final MacAddress dstMac;
 
-        public Ipv6ForwardingRule(int upstreamIfindex, int downstreamIfIndex,
-                @NonNull Inet6Address address, @NonNull MacAddress srcMac,
+        public Ipv6ForwardingRule(int upstreamIfindex, @NonNull IpPrefix sourcePrefix,
+                int downstreamIfIndex, @NonNull Inet6Address address, @NonNull MacAddress srcMac,
                 @NonNull MacAddress dstMac) {
             this.upstreamIfindex = upstreamIfindex;
+            this.sourcePrefix = sourcePrefix;
             this.downstreamIfindex = downstreamIfIndex;
             this.address = address;
             this.srcMac = srcMac;
             this.dstMac = dstMac;
         }
 
-        /** Return a new rule object which updates with new upstream index. */
-        @NonNull
-        public Ipv6ForwardingRule onNewUpstream(int newUpstreamIfindex) {
-            return new Ipv6ForwardingRule(newUpstreamIfindex, downstreamIfindex, address, srcMac,
-                    dstMac);
+        /** Return a new rule object which updates with new upstream. */
+        @Nullable
+        public Ipv6ForwardingRule onNewUpstream(int newUpstreamIfindex,
+                Set<IpPrefix> newUpstreamPrefixes) {
+            IpPrefix sourcePrefix = PrefixUtils.findMatchedPrefix(newUpstreamPrefixes, address);
+            if (sourcePrefix == null) return null;
+            return new Ipv6ForwardingRule(newUpstreamIfindex, sourcePrefix, downstreamIfindex,
+                    address, srcMac, dstMac);
         }
 
         /**
@@ -1531,6 +1543,7 @@ public class BpfCoordinator {
             if (!(o instanceof Ipv6ForwardingRule)) return false;
             Ipv6ForwardingRule that = (Ipv6ForwardingRule) o;
             return this.upstreamIfindex == that.upstreamIfindex
+                    && Objects.equals(this.sourcePrefix, that.sourcePrefix)
                     && this.downstreamIfindex == that.downstreamIfindex
                     && Objects.equals(this.address, that.address)
                     && Objects.equals(this.srcMac, that.srcMac)
@@ -1541,12 +1554,14 @@ public class BpfCoordinator {
         public int hashCode() {
             // TODO: if this is ever used in production code, don't pass ifindices
             // to Objects.hash() to avoid autoboxing overhead.
-            return Objects.hash(upstreamIfindex, downstreamIfindex, address, srcMac, dstMac);
+            return Objects.hash(upstreamIfindex, sourcePrefix, downstreamIfindex, address,
+                    srcMac, dstMac);
         }
 
         @Override
         public String toString() {
             return "upstreamIfindex: " + upstreamIfindex
+                    + ", sourcePrefix: " + sourcePrefix
                     + ", downstreamIfindex: " + downstreamIfindex
                     + ", address: " + address.getHostAddress()
                     + ", srcMac: " + srcMac
@@ -1972,12 +1987,14 @@ public class BpfCoordinator {
         return false;
     }
 
-    private boolean isAnyRuleFromDownstreamToUpstream(int downstreamIfindex, int upstreamIfindex) {
+    private boolean isAnyRuleFromDownstreamToUpstream(int downstreamIfindex, int upstreamIfindex,
+            IpPrefix sourcePrefix) {
         for (LinkedHashMap<Inet6Address, Ipv6ForwardingRule> rules : mIpv6ForwardingRules
                 .values()) {
             for (Ipv6ForwardingRule rule : rules.values()) {
                 if (downstreamIfindex == rule.downstreamIfindex
-                        && upstreamIfindex == rule.upstreamIfindex) {
+                        && upstreamIfindex == rule.upstreamIfindex
+                        && sourcePrefix.equals(rule.sourcePrefix)) {
                     return true;
                 }
             }
