@@ -46,6 +46,7 @@ import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
 import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -378,5 +379,22 @@ public final class TetheringMetricsTest {
         verifyReport(DownstreamType.DS_TETHERING_WIFI, ErrorCode.EC_NO_ERROR,
                 UserType.USER_SETTINGS, upstreamEvents,
                 currentTimeMillis() - wifiTetheringStartTime);
+    }
+
+    private void runTransportSupportedTest(final UpstreamType upstreamType,
+            final boolean expectedResult) throws Exception {
+        boolean result = mTetheringMetrics.isTransportSupported(upstreamType);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testTransportSupported() throws Exception {
+        runTransportSupportedTest(UpstreamType.UT_CELLULAR, true);
+        runTransportSupportedTest(UpstreamType.UT_WIFI, true);
+        runTransportSupportedTest(UpstreamType.UT_BLUETOOTH, true);
+        runTransportSupportedTest(UpstreamType.UT_ETHERNET, true);
+        runTransportSupportedTest(UpstreamType.UT_WIFI_AWARE, false);
+        runTransportSupportedTest(UpstreamType.UT_LOWPAN, false);
+        runTransportSupportedTest(UpstreamType.UT_UNKNOWN, false);
     }
 }
