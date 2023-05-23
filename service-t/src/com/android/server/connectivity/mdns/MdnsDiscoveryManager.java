@@ -26,6 +26,7 @@ import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.net.Network;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -53,6 +54,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
 
     @NonNull private final PerNetworkServiceTypeClients perNetworkServiceTypeClients;
     @NonNull private final Handler handler;
+    @Nullable private final HandlerThread mHandlerThread;
 
     private static class PerNetworkServiceTypeClients {
         private final ArrayMap<Pair<String, Network>, MdnsServiceTypeClient> clients =
@@ -119,6 +121,18 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         this.sharedLog = sharedLog;
         perNetworkServiceTypeClients = new PerNetworkServiceTypeClients();
         handler = new Handler(looper);
+        mHandlerThread = null;
+    }
+
+    public MdnsDiscoveryManager(@NonNull ExecutorProvider executorProvider,
+            @NonNull MdnsSocketClientBase socketClient, @NonNull SharedLog sharedLog) {
+        this.executorProvider = executorProvider;
+        this.socketClient = socketClient;
+        this.sharedLog = sharedLog;
+        perNetworkServiceTypeClients = new PerNetworkServiceTypeClients();
+        mHandlerThread = new HandlerThread(MdnsDiscoveryManager.class.getSimpleName());
+        mHandlerThread.start();
+        handler = new Handler(mHandlerThread.getLooper());
     }
 
     private void checkAndRunOnHandlerThread(@NonNull Runnable function) {
@@ -126,6 +140,15 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
             function.run();
         } else {
             handler.post(function);
+        }
+    }
+
+    /**
+     * Do the cleanup of the MdnsDiscoveryManager
+     */
+    public void shutDown() {
+        if (mHandlerThread != null) {
+            mHandlerThread.quitSafely();
         }
     }
 

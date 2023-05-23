@@ -137,6 +137,13 @@ public class MdnsDiscoveryManagerTests {
     }
 
     @Test
+    public void constructor_withoutLooper() {
+        MdnsDiscoveryManager discoveryManager1 = new MdnsDiscoveryManager(executorProvider,
+                socketClient, sharedLog);
+        discoveryManager1.shutDown();
+    }
+
+    @Test
     public void registerListener_unregisterListener() throws IOException {
         final MdnsSearchOptions options =
                 MdnsSearchOptions.newBuilder().setNetwork(null /* network */).build();
