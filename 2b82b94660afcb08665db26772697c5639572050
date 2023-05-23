@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede812dd_4a30253e",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-23T07:21:28Z",
+      "side": 1,
+      "message": "Move into RaMessageHandler because this is the CMD of RaMessageHandler ?",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 43
+      },
+      "revId": "2b82b94660afcb08665db26772697c5639572050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b59916d_306f5992",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-23T07:21:28Z",
+      "side": 1,
+      "message": "Since this is private inner class and the Message is created by Message.obtain. You probably could call msg.recycle() to return this instance to the global pool.",
+      "range": {
+        "startLine": 287,
+        "startChar": 12,
+        "endLine": 287,
+        "endChar": 13
+      },
+      "revId": "2b82b94660afcb08665db26772697c5639572050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d85b53a3_258571ba",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-23T07:21:28Z",
+      "side": 1,
+      "message": "Why not make mSolicitor final ? Instead of new InetSocketAddress every time, you can just:\n\n    protected final InetSocketAddress mSolicitor;\n    ...\n    final int read \u003d Os.recvfrom(\n                    fd, packetBuffer.mBytes, 0, packetBuffer.mBytes.length, 0, packetBuffer.mSolicitor);",
+      "range": {
+        "startLine": 296,
+        "startChar": 36,
+        "endLine": 296,
+        "endChar": 46
+      },
+      "revId": "2b82b94660afcb08665db26772697c5639572050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7577455a_140262d5",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-23T07:21:28Z",
+      "side": 1,
+      "message": "question: original validations is length \u003c 1, now it become length \u003d\u003d0. Is this fine ?",
+      "range": {
+        "startLine": 330,
+        "startChar": 23,
+        "endLine": 330,
+        "endChar": 34
+      },
+      "revId": "2b82b94660afcb08665db26772697c5639572050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94533cbc_fbbf8da6",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-23T07:21:28Z",
+      "side": 1,
+      "message": "You can move this into RaMessageHandler, then you just simplify the sendMessage function:\n\n    private boolean sendMessage(int cmd) {\n        return sendMessage(Message.obtain(this, cmd));\n    }\n    \nOr just use mRaMessageHandler.sendMessage(Message.obtain(mRaMessageHandler, cmd))",
+      "revId": "2b82b94660afcb08665db26772697c5639572050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
