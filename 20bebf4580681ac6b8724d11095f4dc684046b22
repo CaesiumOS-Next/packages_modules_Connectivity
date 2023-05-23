@@ -22,6 +22,30 @@
       },
       "revId": "20bebf4580681ac6b8724d11095f4dc684046b22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c0b3bd4_63109d86",
+        "filename": "tests/cts/netpermission/internetpermission/AndroidTest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-23T06:10:00Z",
+      "side": 1,
+      "message": "Updated. Thanks for your reminder.",
+      "parentUuid": "9b20496f_e3f2e3c8",
+      "range": {
+        "startLine": 27,
+        "startChar": 50,
+        "endLine": 27,
+        "endChar": 81
+      },
+      "revId": "20bebf4580681ac6b8724d11095f4dc684046b22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
