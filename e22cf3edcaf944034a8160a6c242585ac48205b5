@@ -22,6 +22,30 @@
       },
       "revId": "e22cf3edcaf944034a8160a6c242585ac48205b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "220057e4_4e9e8455",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-23T05:09:32Z",
+      "side": 1,
+      "message": "Update the doc.",
+      "parentUuid": "819a5730_f99916da",
+      "range": {
+        "startLine": 152,
+        "startChar": 69,
+        "endLine": 153,
+        "endChar": 63
+      },
+      "revId": "e22cf3edcaf944034a8160a6c242585ac48205b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
