@@ -123,7 +123,6 @@ public class BpfCoordinator {
     private static final int DUMP_TIMEOUT_MS = 10_000;
     private static final MacAddress NULL_MAC_ADDRESS = MacAddress.fromString(
             "00:00:00:00:00:00");
-    private static final IpPrefix IPV6_ZERO_PREFIX64 = new IpPrefix("::/64");
     private static final String TETHER_DOWNSTREAM4_MAP_PATH = makeMapPath(DOWNSTREAM, 4);
     private static final String TETHER_UPSTREAM4_MAP_PATH = makeMapPath(UPSTREAM, 4);
     private static final String TETHER_DOWNSTREAM6_FS_PATH = makeMapPath(DOWNSTREAM, 6);
@@ -263,8 +262,10 @@ public class BpfCoordinator {
     // - Must only be modified by that IpServer.
     // - Is created when the IpServer adds its first rule, and deleted when the IpServer deletes its
     //   last rule (or clears its rules)
-    // - Each upstream rule in the ArraySet is corresponding to an upstream interface.
-    private final ArrayMap<IpServer, ArraySet<Ipv6UpstreamRule>>
+    // - Each upstream rule in the LinkedHashSet is corresponding to an upstream interface.
+    //   Note: using LinkedHashSet because the tests in BpfCoordinatorTest needs predictable
+    //   iteration order.
+    private final ArrayMap<IpServer, LinkedHashSet<Ipv6UpstreamRule>>
             mIpv6UpstreamRules = new ArrayMap<>();
 
     // Map of downstream client maps. Each of these maps represents the IPv4 clients for a given
@@ -649,8 +650,8 @@ public class BpfCoordinator {
         // When the first rule is added to an upstream, setup upstream forwarding and data limit.
         maybeSetLimit(rule.upstreamIfindex);
 
-        ArraySet<Ipv6UpstreamRule> rules = mIpv6UpstreamRules.computeIfAbsent(
-                ipServer, k -> new ArraySet<Ipv6UpstreamRule>());
+        LinkedHashSet<Ipv6UpstreamRule> rules = mIpv6UpstreamRules.computeIfAbsent(
+                ipServer, k -> new LinkedHashSet<Ipv6UpstreamRule>());
         rules.add(rule);
     }
 
@@ -662,7 +663,7 @@ public class BpfCoordinator {
     private void clearIpv6UpstreamRules(@NonNull final IpServer ipServer) {
         if (!isUsingBpf()) return;
 
-        final ArraySet<Ipv6UpstreamRule> upstreamRules = mIpv6UpstreamRules.remove(ipServer);
+        final LinkedHashSet<Ipv6UpstreamRule> upstreamRules = mIpv6UpstreamRules.remove(ipServer);
         if (upstreamRules == null) return;
 
         int upstreamIfindex = 0;
@@ -756,16 +757,19 @@ public class BpfCoordinator {
      * is nonzero, reapply them to the new upstream.
      * Note that this can be only called on handler thread.
      */
-    public void updateAllIpv6Rules(@NonNull final IpServer ipServer, int newUpstreamIfindex) {
+    public void updateAllIpv6Rules(@NonNull final IpServer ipServer, int newUpstreamIfindex,
+            @NonNull final Set<IpPrefix> newUpstreamPrefixes) {
         if (!isUsingBpf()) return;
 
         // Update IPv6 upstream rules.
         clearIpv6UpstreamRules(ipServer);
         final InterfaceParams interfaceParams = ipServer.getInterfaceParams();
         if (newUpstreamIfindex != 0 && interfaceParams != null && interfaceParams.macAddr != null) {
-            addIpv6UpstreamRule(ipServer, new Ipv6UpstreamRule(
-                    newUpstreamIfindex, interfaceParams.index, IPV6_ZERO_PREFIX64,
-                    interfaceParams.macAddr, NULL_MAC_ADDRESS, NULL_MAC_ADDRESS));
+            for (final IpPrefix ipPrefix : newUpstreamPrefixes) {
+                addIpv6UpstreamRule(ipServer, new Ipv6UpstreamRule(
+                        newUpstreamIfindex, interfaceParams.index, ipPrefix,
+                        interfaceParams.macAddr, NULL_MAC_ADDRESS, NULL_MAC_ADDRESS));
+            }
         }
 
         // Update IPv6 downstream rules. Remove the old ones before adding the new rules, otherwise
@@ -1237,9 +1241,17 @@ public class BpfCoordinator {
     }
 
     private String ipv6UpstreamRuleToString(TetherUpstream6Key key, Tether6Value value) {
-        return String.format("%d(%s) [%s] -> %d(%s) %04x [%s] [%s]",
-                key.iif, getIfName(key.iif), key.dstMac, value.oif, getIfName(value.oif),
-                value.ethProto, value.ethSrcMac, value.ethDstMac);
+        final ByteBuffer prefixBuffer = ByteBuffer.allocate(16).order(ByteOrder.BIG_ENDIAN);
+        prefixBuffer.putLong(key.src64);
+        IpPrefix sourcePrefix;
+        try {
+            sourcePrefix = new IpPrefix(InetAddress.getByAddress(prefixBuffer.array()), 64);
+        } catch (UnknownHostException e) {
+            sourcePrefix = new IpPrefix("::/64");
+        }
+        return String.format("%d(%s) [%s] [%s] -> %d(%s) %04x [%s] [%s]",
+                key.iif, getIfName(key.iif), key.dstMac, sourcePrefix, value.oif,
+                getIfName(value.oif), value.ethProto, value.ethSrcMac, value.ethDstMac);
     }
 
     private void dumpIpv6UpstreamRules(IndentingPrintWriter pw) {
@@ -1289,8 +1301,8 @@ public class BpfCoordinator {
     // TODO: use dump utils with headerline and lambda which prints key and value to reduce
     // duplicate bpf map dump code.
     private void dumpBpfForwardingRulesIpv6(IndentingPrintWriter pw) {
-        pw.println("IPv6 Upstream: iif(iface) [inDstMac] -> oif(iface) etherType [outSrcMac] "
-                + "[outDstMac]");
+        pw.println("IPv6 Upstream: iif(iface) [inDstMac] [sourcePrefix] -> oif(iface) etherType "
+                + "[outSrcMac] [outDstMac]");
         pw.increaseIndent();
         dumpIpv6UpstreamRules(pw);
         pw.decreaseIndent();
@@ -2021,7 +2033,7 @@ public class BpfCoordinator {
     }
 
     private int getInterfaceIndexFromRules(@NonNull String ifName) {
-        for (ArraySet<Ipv6UpstreamRule> rules : mIpv6UpstreamRules.values()) {
+        for (LinkedHashSet<Ipv6UpstreamRule> rules : mIpv6UpstreamRules.values()) {
             for (Ipv6UpstreamRule rule : rules) {
                 final int upstreamIfindex = rule.upstreamIfindex;
                 if (TextUtils.equals(ifName, mInterfaceNames.get(upstreamIfindex))) {
@@ -2113,7 +2125,7 @@ public class BpfCoordinator {
     // TODO: Rename to isAnyIpv6RuleOnUpstream and define an isAnyRuleOnUpstream method that called
     // both isAnyIpv6RuleOnUpstream and mBpfCoordinatorShim.isAnyIpv4RuleOnUpstream.
     private boolean isAnyRuleOnUpstream(int upstreamIfindex) {
-        for (ArraySet<Ipv6UpstreamRule> rules : mIpv6UpstreamRules.values()) {
+        for (LinkedHashSet<Ipv6UpstreamRule> rules : mIpv6UpstreamRules.values()) {
             for (Ipv6UpstreamRule rule : rules) {
                 if (upstreamIfindex == rule.upstreamIfindex) return true;
             }
