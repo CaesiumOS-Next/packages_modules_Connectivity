@@ -20,6 +20,7 @@ import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -76,7 +77,7 @@ public class MdnsDiscoveryManagerTests {
             Pair.create(SERVICE_TYPE_2, NETWORK_2);
 
     @Mock private ExecutorProvider executorProvider;
-    @Mock private MdnsSocketClientBase socketClient;
+    @Mock private MdnsMultinetworkSocketClient mMultiNetworkSocketClient;
     @Mock private MdnsServiceTypeClient mockServiceTypeClientType1NullNetwork;
     @Mock private MdnsServiceTypeClient mockServiceTypeClientType1Network1;
     @Mock private MdnsServiceTypeClient mockServiceTypeClientType2NullNetwork;
@@ -97,8 +98,9 @@ public class MdnsDiscoveryManagerTests {
         thread = new HandlerThread("MdnsDiscoveryManagerTests");
         thread.start();
         handler = new Handler(thread.getLooper());
-        discoveryManager = new MdnsDiscoveryManager(executorProvider, socketClient, sharedLog,
-                    thread.getLooper()) {
+        doReturn(thread.getLooper()).when(mMultiNetworkSocketClient).getLooper();
+        discoveryManager = new MdnsDiscoveryManager(executorProvider, mMultiNetworkSocketClient,
+                sharedLog) {
                     @Override
                     MdnsServiceTypeClient createServiceTypeClient(@NonNull String serviceType,
                             @Nullable Network network) {
@@ -141,8 +143,8 @@ public class MdnsDiscoveryManagerTests {
         final ArgumentCaptor<SocketCreationCallback> callbackCaptor =
                 ArgumentCaptor.forClass(SocketCreationCallback.class);
         runOnHandler(() -> discoveryManager.registerListener(serviceType, listener, options));
-        verify(socketClient).startDiscovery();
-        verify(socketClient).notifyNetworkRequested(
+        verify(mMultiNetworkSocketClient).startDiscovery();
+        verify(mMultiNetworkSocketClient).notifyNetworkRequested(
                 eq(listener), eq(options.getNetwork()), callbackCaptor.capture());
         return callbackCaptor.getValue();
     }
@@ -160,7 +162,7 @@ public class MdnsDiscoveryManagerTests {
                 .thenReturn(true);
         runOnHandler(() -> discoveryManager.unregisterListener(SERVICE_TYPE_1, mockListenerOne));
         verify(mockServiceTypeClientType1NullNetwork).stopSendAndReceive(mockListenerOne);
-        verify(socketClient).stopDiscovery();
+        verify(mMultiNetworkSocketClient).stopDiscovery();
     }
 
     @Test
