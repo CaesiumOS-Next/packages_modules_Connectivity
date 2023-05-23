@@ -16,6 +16,7 @@
 
 package com.android.networkstack.tethering.util;
 
+import android.annotation.Nullable;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
@@ -23,6 +24,7 @@ import android.net.util.NetworkConstants;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -85,5 +87,23 @@ public class PrefixUtils {
 
     private static IpPrefix pfx(String prefixStr) {
         return new IpPrefix(prefixStr);
+    }
+
+    /**
+     * Find the prefix from a collection of prefixes that first matches a given address.
+     * May return null if no prefixes are applicable.
+     *
+     * @param prefixes the collection of IpPrefixes to chose from
+     * @param address the InetAddress to find
+     * @return the IpPrefix from the collection that first matches the given address
+     */
+    @Nullable
+    public static IpPrefix findMatchedPrefix(@Nullable Collection<IpPrefix> prefixes,
+            @Nullable InetAddress address) {
+        if (prefixes == null || address == null) return null;
+        for (IpPrefix prefix : prefixes) {
+            if (prefix.contains(address)) return prefix;
+        }
+        return null;
     }
 }
