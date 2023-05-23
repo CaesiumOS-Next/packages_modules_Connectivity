@@ -37,6 +37,7 @@ import static com.android.networkstack.tethering.util.TetheringUtils.getTetherin
 
 import android.app.usage.NetworkStatsManager;
 import android.net.INetd;
+import android.net.IpPrefix;
 import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.NetworkStats;
@@ -615,8 +616,9 @@ public class BpfCoordinator {
             final int upstream = rule.upstreamIfindex;
             // TODO: support upstream forwarding on non-point-to-point interfaces.
             // TODO: get the MTU from LinkProperties and update the rules when it changes.
-            if (!mBpfCoordinatorShim.startUpstreamIpv6Forwarding(downstream, upstream, rule.srcMac,
-                    NULL_MAC_ADDRESS, NULL_MAC_ADDRESS, NetworkStackConstants.ETHER_MTU)) {
+            if (!mBpfCoordinatorShim.startUpstreamIpv6Forwarding(downstream, upstream,
+                    rule.sourcePrefixes, rule.srcMac, NULL_MAC_ADDRESS, NULL_MAC_ADDRESS,
+                    NetworkStackConstants.ETHER_MTU)) {
                 mLog.e("Failed to enable upstream IPv6 forwarding from "
                         + getIfName(downstream) + " to " + getIfName(upstream));
             }
@@ -689,7 +691,8 @@ public class BpfCoordinator {
      * Update existing forwarding rules to new upstream for a given downstream.
      * Note that this can be only called on handler thread.
      */
-    public void tetherOffloadRuleUpdate(@NonNull final IpServer ipServer, int newUpstreamIfindex) {
+    public void tetherOffloadRuleUpdate(@NonNull final IpServer ipServer, int newUpstreamIfindex,
+            @NonNull final Set<IpPrefix> newUpstreamPrefixes) {
         if (!isUsingBpf()) return;
 
         final LinkedHashMap<Inet6Address, Ipv6ForwardingRule> rules = mIpv6ForwardingRules.get(
@@ -713,7 +716,8 @@ public class BpfCoordinator {
             tetherOffloadRuleRemove(ipServer, rule);
         }
         for (final Ipv6ForwardingRule rule : rulesCopy) {
-            tetherOffloadRuleAdd(ipServer, rule.onNewUpstream(newUpstreamIfindex));
+            tetherOffloadRuleAdd(ipServer,
+                    rule.onNewUpstream(newUpstreamIfindex, newUpstreamPrefixes));
         }
     }
 
@@ -1419,15 +1423,15 @@ public class BpfCoordinator {
         //
         // upstream6 key and value:
         //
-        // +------+-------------+
-        // | TetherUpstream6Key |
-        // +------+------+------+
-        // |field |iif   |dstMac|
-        // |      |      |      |
-        // +------+------+------+
-        // |value |downst|downst|
-        // |      |ream  |ream  |
-        // +------+------+------+
+        // +------+--------------------+
+        // |    TetherUpstream6Key     |
+        // +------+------+------+------+
+        // |field |iif   |dstMac|prefix|
+        // |      |      |      |      |
+        // +------+------+------+------+
+        // |value |downst|downst|upstre|
+        // |      |ream  |ream  |am    |
+        // +------+------+------+------+
         //
         // +------+----------------------------------+
         // |      |Tether6Value                      |
@@ -1462,6 +1466,7 @@ public class BpfCoordinator {
         // +------+------+------+------+------+------+
         //
         public final int upstreamIfindex;
+        public final Set<IpPrefix> sourcePrefixes;
         public final int downstreamIfindex;
 
         // TODO: store a ClientInfo object instead of storing address, srcMac, and dstMac directly.
@@ -1472,10 +1477,11 @@ public class BpfCoordinator {
         @NonNull
         public final MacAddress dstMac;
 
-        public Ipv6ForwardingRule(int upstreamIfindex, int downstreamIfIndex,
-                @NonNull Inet6Address address, @NonNull MacAddress srcMac,
+        public Ipv6ForwardingRule(int upstreamIfindex, Set<IpPrefix> sourcePrefixes,
+                int downstreamIfIndex, @NonNull Inet6Address address, @NonNull MacAddress srcMac,
                 @NonNull MacAddress dstMac) {
             this.upstreamIfindex = upstreamIfindex;
+            this.sourcePrefixes = sourcePrefixes;
             this.downstreamIfindex = downstreamIfIndex;
             this.address = address;
             this.srcMac = srcMac;
@@ -1484,9 +1490,10 @@ public class BpfCoordinator {
 
         /** Return a new rule object which updates with new upstream index. */
         @NonNull
-        public Ipv6ForwardingRule onNewUpstream(int newUpstreamIfindex) {
-            return new Ipv6ForwardingRule(newUpstreamIfindex, downstreamIfindex, address, srcMac,
-                    dstMac);
+        public Ipv6ForwardingRule onNewUpstream(int newUpstreamIfindex,
+                Set<IpPrefix> newUpstreamPrefixes) {
+            return new Ipv6ForwardingRule(newUpstreamIfindex, newUpstreamPrefixes,
+                    downstreamIfindex, address, srcMac, dstMac);
         }
 
         /**
@@ -1528,6 +1535,7 @@ public class BpfCoordinator {
             if (!(o instanceof Ipv6ForwardingRule)) return false;
             Ipv6ForwardingRule that = (Ipv6ForwardingRule) o;
             return this.upstreamIfindex == that.upstreamIfindex
+                    && Objects.equals(this.sourcePrefixes, that.sourcePrefixes)
                     && this.downstreamIfindex == that.downstreamIfindex
                     && Objects.equals(this.address, that.address)
                     && Objects.equals(this.srcMac, that.srcMac)
@@ -1538,12 +1546,14 @@ public class BpfCoordinator {
         public int hashCode() {
             // TODO: if this is ever used in production code, don't pass ifindices
             // to Objects.hash() to avoid autoboxing overhead.
-            return Objects.hash(upstreamIfindex, downstreamIfindex, address, srcMac, dstMac);
+            return Objects.hash(upstreamIfindex, sourcePrefixes, downstreamIfindex, address,
+                    srcMac, dstMac);
         }
 
         @Override
         public String toString() {
             return "upstreamIfindex: " + upstreamIfindex
+                    + ", sourcePrefixes: " + sourcePrefixes
                     + ", downstreamIfindex: " + downstreamIfindex
                     + ", address: " + address.getHostAddress()
                     + ", srcMac: " + srcMac

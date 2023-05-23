@@ -17,7 +17,9 @@
 package com.android.networkstack.tethering.apishim.api31;
 
 import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED;
+import static android.net.util.NetworkConstants.RFC7421_PREFIX_LENGTH;
 
+import android.net.IpPrefix;
 import android.net.MacAddress;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -48,6 +50,12 @@ import com.android.networkstack.tethering.TetherUpstream6Key;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Bpf coordinator class for API shims.
@@ -196,20 +204,32 @@ public class BpfCoordinatorShimImpl
         return true;
     }
 
+    @Nullable
+    private TetherUpstream6Key makeUpstream6Key(int downstreamIfindex, @NonNull MacAddress inDstMac,
+            @NonNull IpPrefix sourcePrefix) {
+        if (sourcePrefix.getPrefixLength() != RFC7421_PREFIX_LENGTH) return null;
+        byte[] prefixBytes = Arrays.copyOf(sourcePrefix.getRawAddress(), 8);
+        long prefix64 = ByteBuffer.wrap(prefixBytes).order(ByteOrder.BIG_ENDIAN).getLong();
+        return new TetherUpstream6Key(downstreamIfindex, inDstMac, prefix64);
+    }
+
     @Override
     public boolean startUpstreamIpv6Forwarding(int downstreamIfindex, int upstreamIfindex,
-            @NonNull MacAddress inDstMac, @NonNull MacAddress outSrcMac,
-            @NonNull MacAddress outDstMac, int mtu) {
-        if (!isInitialized()) return false;
+            @NonNull Set<IpPrefix> sourcePrefixes, @NonNull MacAddress inDstMac,
+            @NonNull MacAddress outSrcMac, @NonNull MacAddress outDstMac, int mtu) {
+        if (!isInitialized() || sourcePrefixes.size() == 0) return false;
 
-        final TetherUpstream6Key key = new TetherUpstream6Key(downstreamIfindex, inDstMac, 0);
-        final Tether6Value value = new Tether6Value(upstreamIfindex, outSrcMac,
-                outDstMac, OsConstants.ETH_P_IPV6, mtu);
-        try {
-            mBpfUpstream6Map.insertEntry(key, value);
-        } catch (ErrnoException | IllegalStateException e) {
-            mLog.e("Could not insert upstream6 entry: " + e);
-            return false;
+        TetherUpstream6Key key;
+        for (IpPrefix ipPrefix : sourcePrefixes) {
+            if ((key = makeUpstream6Key(downstreamIfindex, inDstMac, ipPrefix)) == null) continue;
+            final Tether6Value value = new Tether6Value(upstreamIfindex, outSrcMac,
+                    outDstMac, OsConstants.ETH_P_IPV6, mtu);
+            try {
+                mBpfUpstream6Map.insertEntry(key, value);
+            } catch (ErrnoException | IllegalStateException e) {
+                mLog.e("Could not insert upstream6 entry: " + e);
+                return false;
+            }
         }
         return true;
     }
@@ -219,9 +239,16 @@ public class BpfCoordinatorShimImpl
             @NonNull MacAddress inDstMac) {
         if (!isInitialized()) return false;
 
-        final TetherUpstream6Key key = new TetherUpstream6Key(downstreamIfindex, inDstMac, 0);
+        List<TetherUpstream6Key> toBeRemoved = new ArrayList<>();
         try {
-            mBpfUpstream6Map.deleteEntry(key);
+            mBpfUpstream6Map.forEach((key, value) -> {
+                if (key.iif == downstreamIfindex && key.dstMac.equals(inDstMac)) {
+                    toBeRemoved.add(key);
+                }
+            });
+            for (TetherUpstream6Key key : toBeRemoved) {
+                mBpfUpstream6Map.deleteEntry(key);
+            }
         } catch (ErrnoException e) {
             mLog.e("Could not delete upstream IPv6 entry: " + e);
             return false;

@@ -16,6 +16,7 @@
 
 package com.android.networkstack.tethering.apishim.common;
 
+import android.net.IpPrefix;
 import android.net.MacAddress;
 import android.util.SparseArray;
 
@@ -28,6 +29,8 @@ import com.android.net.module.util.bpf.Tether4Value;
 import com.android.net.module.util.bpf.TetherStatsValue;
 import com.android.networkstack.tethering.BpfCoordinator.Dependencies;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
+
+import java.util.Set;
 
 /**
  * Bpf coordinator class for API shims.
@@ -79,14 +82,15 @@ public abstract class BpfCoordinatorShim {
 
      * @param downstreamIfindex the downstream interface index
      * @param upstreamIfindex the upstream interface index
+     * @param sourcePrefixes the valid source IPv6 prefixes
      * @param inDstMac the destination MAC address to use for XDP
      * @param outSrcMac the source MAC address to use for packets
      * @param outDstMac the destination MAC address to use for packets
      * @return true if operation succeeded or was a no-op, false otherwise
      */
     public abstract boolean startUpstreamIpv6Forwarding(int downstreamIfindex, int upstreamIfindex,
-            @NonNull MacAddress inDstMac, @NonNull MacAddress outSrcMac,
-            @NonNull MacAddress outDstMac, int mtu);
+            @NonNull Set<IpPrefix> sourcePrefixes, @NonNull MacAddress inDstMac,
+            @NonNull MacAddress outSrcMac, @NonNull MacAddress outDstMac, int mtu);
 
     /**
      * Stops IPv6 forwarding between the specified interfaces.
