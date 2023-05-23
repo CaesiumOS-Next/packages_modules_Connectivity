@@ -18,6 +18,7 @@ package android.net;
 
 import static android.net.ConnectivityManager.NETID_UNSET;
 
+import android.annotation.Nullable;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.os.Build;
 import android.system.ErrnoException;
@@ -33,6 +34,7 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Collection;
 import java.util.Locale;
 import java.util.TreeSet;
 
@@ -426,4 +428,21 @@ public class NetworkUtils {
         return routedIPCount;
     }
 
+    /**
+     * Find the prefix from a Collection of prefixes that first matches a given address.
+     * May return null if no prefixes are applicable.
+     *
+     * @param prefixes a Collection of IpPrefixes to chose from
+     * @param address the InetAddress your trying to find to
+     * @return the IpPrefix from the Collection that first matches the given address
+     */
+    @Nullable
+    public static IpPrefix findMatchedPrefix(@Nullable Collection<IpPrefix> prefixes,
+            @Nullable InetAddress address) {
+        if (prefixes == null || address == null) return null;
+        for (IpPrefix prefix : prefixes) {
+            if (prefix.contains(address)) return prefix;
+        }
+        return null;
+    }
 }
