@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9bf8d79_0f962b03",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-23T10:01:15Z",
+      "side": 1,
+      "message": "See other comment: This method may not necessary anymore.",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 9
+      },
+      "revId": "a6db7df5e88b9ee6799db595b1c0b733b11a8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70ed7443_7cd42bfa",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-23T10:01:15Z",
+      "side": 1,
+      "message": "I think this should be put in a standalone file. It shouldn\u0027t belongs to the MdnsUtils. Also, it is better to add the comment to describe the context why we need the SocketKey.",
+      "revId": "a6db7df5e88b9ee6799db595b1c0b733b11a8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74a0cd2b_917310c0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-23T10:01:15Z",
+      "side": 1,
+      "message": "I feel `NetworkKey` is a better name than `SocketKey`? Because the key is for network instead of socket.",
+      "range": {
+        "startLine": 160,
+        "startChar": 24,
+        "endLine": 160,
+        "endChar": 33
+      },
+      "revId": "a6db7df5e88b9ee6799db595b1c0b733b11a8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21522299_5053ba2e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-23T10:01:15Z",
+      "side": 1,
+      "message": "Discussed with Remi offline, we shouldn\u0027t require both `Network` and `interfaceIndex` when constructing this object.\nWe should have two constructor, one take interfaceIndex(for downstream tethering interface) the other take Network (for other interface).",
+      "range": {
+        "startLine": 164,
+        "startChar": 6,
+        "endLine": 164,
+        "endChar": 73
+      },
+      "revId": "a6db7df5e88b9ee6799db595b1c0b733b11a8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
