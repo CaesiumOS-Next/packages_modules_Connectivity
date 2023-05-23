@@ -140,10 +140,13 @@ import java.io.StringWriter;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(AndroidJUnit4.class)
@@ -175,6 +178,8 @@ public class BpfCoordinatorTest {
     private static final MacAddress MAC_A = MacAddress.fromString("00:00:00:00:00:0a");
     private static final MacAddress MAC_B = MacAddress.fromString("11:22:33:00:00:0b");
 
+    private static final List<IpPrefix> UPSTREAM_PREFIXES =
+            new ArrayList(Arrays.asList(new IpPrefix("2001:db8::/64")));
     private static final InetAddress NEIGH_A = InetAddresses.parseNumericAddress("2001:db8::1");
     private static final InetAddress NEIGH_B = InetAddresses.parseNumericAddress("2001:db8::2");
 
@@ -641,19 +646,31 @@ public class BpfCoordinatorTest {
     private void verifyStartUpstreamIpv6Forwarding(@Nullable InOrder inOrder, int downstreamIfIndex,
             MacAddress downstreamMac, int upstreamIfindex) throws Exception {
         if (!mDeps.isAtLeastS()) return;
-        final TetherUpstream6Key key = new TetherUpstream6Key(downstreamIfIndex, downstreamMac, 0);
-        final Tether6Value value = new Tether6Value(upstreamIfindex,
-                MacAddress.ALL_ZEROS_ADDRESS, MacAddress.ALL_ZEROS_ADDRESS,
-                ETH_P_IPV6, NetworkStackConstants.ETHER_MTU);
-        verifyWithOrder(inOrder, mBpfUpstream6Map).insertEntry(key, value);
+        for (IpPrefix ipPrefix : UPSTREAM_PREFIXES) {
+            final byte[] prefixBytes = Arrays.copyOf(ipPrefix.getRawAddress(), 8);
+            final long prefix64 =
+                    ByteBuffer.wrap(prefixBytes).order(ByteOrder.BIG_ENDIAN).getLong();
+            final TetherUpstream6Key key =
+                    new TetherUpstream6Key(downstreamIfIndex, downstreamMac, prefix64);
+            final Tether6Value value = new Tether6Value(upstreamIfindex,
+                    MacAddress.ALL_ZEROS_ADDRESS, MacAddress.ALL_ZEROS_ADDRESS,
+                    ETH_P_IPV6, NetworkStackConstants.ETHER_MTU);
+            verifyWithOrder(inOrder, mBpfUpstream6Map).insertEntry(key, value);
+        }
     }
 
     private void verifyStopUpstreamIpv6Forwarding(@Nullable InOrder inOrder, int downstreamIfIndex,
             MacAddress downstreamMac)
             throws Exception {
         if (!mDeps.isAtLeastS()) return;
-        final TetherUpstream6Key key = new TetherUpstream6Key(downstreamIfIndex, downstreamMac, 0);
-        verifyWithOrder(inOrder, mBpfUpstream6Map).deleteEntry(key);
+        for (IpPrefix ipPrefix : UPSTREAM_PREFIXES) {
+            final byte[] prefixBytes = Arrays.copyOf(ipPrefix.getRawAddress(), 8);
+            final long prefix64 =
+                    ByteBuffer.wrap(prefixBytes).order(ByteOrder.BIG_ENDIAN).getLong();
+            final TetherUpstream6Key key =
+                    new TetherUpstream6Key(downstreamIfIndex, downstreamMac, prefix64);
+            verifyWithOrder(inOrder, mBpfUpstream6Map).deleteEntry(key);
+        }
     }
 
     private void verifyNoUpstreamIpv6ForwardingChange(@Nullable InOrder inOrder) throws Exception {
@@ -976,10 +993,10 @@ public class BpfCoordinatorTest {
     }
 
     @NonNull
-    private static Ipv6ForwardingRule buildTestForwardingRule(
-            int upstreamIfindex, @NonNull InetAddress address, @NonNull MacAddress dstMac) {
-        return new Ipv6ForwardingRule(upstreamIfindex, DOWNSTREAM_IFINDEX, (Inet6Address) address,
-                DOWNSTREAM_MAC, dstMac);
+    private static Ipv6ForwardingRule buildTestForwardingRule(int upstreamIfindex,
+            @NonNull InetAddress address, @NonNull MacAddress dstMac) {
+        return new Ipv6ForwardingRule(upstreamIfindex, UPSTREAM_PREFIXES, DOWNSTREAM_IFINDEX,
+                (Inet6Address) address, DOWNSTREAM_MAC, dstMac);
     }
 
     @Test
@@ -1147,7 +1164,7 @@ public class BpfCoordinatorTest {
 
         // Update the existing rules for upstream changes. The rules are removed and re-added one
         // by one for updating upstream interface index by #tetherOffloadRuleUpdate.
-        coordinator.tetherOffloadRuleUpdate(mIpServer, mobileIfIndex);
+        coordinator.tetherOffloadRuleUpdate(mIpServer, mobileIfIndex, UPSTREAM_PREFIXES);
         verifyTetherOffloadRuleRemove(inOrder, ethernetRuleA);
         verifyTetherOffloadRuleRemove(inOrder, ethernetRuleB);
         verifyStopUpstreamIpv6Forwarding(inOrder, DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC);
@@ -1228,7 +1245,8 @@ public class BpfCoordinatorTest {
         assertEquals(1, rules.size());
 
         // The rule can't be updated.
-        coordinator.tetherOffloadRuleUpdate(mIpServer, rule.upstreamIfindex + 1 /* new */);
+        coordinator.tetherOffloadRuleUpdate(mIpServer, rule.upstreamIfindex + 1 /* new */,
+                UPSTREAM_PREFIXES);
         verifyNeverTetherOffloadRuleRemove();
         verifyNeverTetherOffloadRuleAdd();
         rules = coordinator.getForwardingRulesForTesting().get(mIpServer);
@@ -2140,8 +2158,9 @@ public class BpfCoordinatorTest {
     @Test
     public void testIpv6ForwardingRuleToString() throws Exception {
         final Ipv6ForwardingRule rule = buildTestForwardingRule(UPSTREAM_IFINDEX, NEIGH_A, MAC_A);
-        assertEquals("upstreamIfindex: 1001, downstreamIfindex: 2001, address: 2001:db8::1, "
-                + "srcMac: 12:34:56:78:90:ab, dstMac: 00:00:00:00:00:0a", rule.toString());
+        assertEquals("upstreamIfindex: 1001, upstreamPrefixes: [2001:db8::/64], "
+                + "downstreamIfindex: 2001, address: 2001:db8::1, srcMac: 12:34:56:78:90:ab, "
+                + "dstMac: 00:00:00:00:00:0a", rule.toString());
     }
 
     private void verifyDump(@NonNull final BpfCoordinator coordinator) {
