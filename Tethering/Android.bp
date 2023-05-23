@@ -37,6 +37,7 @@ java_defaults {
         "connectivity-internal-api-util",
         "framework-configinfrastructure",
         "framework-connectivity.stubs.module_lib",
+        "framework-connectivity-pre-jarjar",
         "framework-connectivity-t.stubs.module_lib",
         "framework-statsd.stubs.module_lib",
         "framework-wifi",
