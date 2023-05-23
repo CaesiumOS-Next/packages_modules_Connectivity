@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb81f82f_53aa63cc",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-23T07:14:09Z",
+      "side": 1,
+      "message": "this is moved verbatim from a few dozen lines lower\n\nI think it\u0027s user error for this to be true though.\n\nkernel\u0027s pid_t is a signed int.",
+      "parentUuid": "39f904b4_700398ee",
+      "range": {
+        "startLine": 490,
+        "startChar": 7,
+        "endLine": 490,
+        "endChar": 16
+      },
+      "revId": "93b7631b31bf375868aa73ae86630279dc838a28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcd3b464_4e7e89b0",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-23T04:35:56Z",
       "side": 1,
       "message": "IllegalArgumentException seems better here? It\u0027s not a checked exception, so the compiler won\u0027t complain if the caller doesn\u0027t catch it. But if the caller passes an invalid argument, then IllegalArgumentException is more appropriate.",
+      "range": {
+        "startLine": 491,
+        "startChar": 35,
+        "endLine": 491,
+        "endChar": 54
+      },
+      "revId": "93b7631b31bf375868aa73ae86630279dc838a28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df242141_a4672c28",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-05-23T07:14:09Z",
+      "side": 1,
+      "message": "this was cut\u0027n\u0027paste refactoring...\nI doubt it should ever happen...\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2599572",
+      "parentUuid": "bcd3b464_4e7e89b0",
       "range": {
         "startLine": 491,
         "startChar": 35,
