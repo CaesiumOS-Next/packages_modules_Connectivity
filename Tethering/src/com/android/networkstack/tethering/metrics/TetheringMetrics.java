@@ -401,4 +401,20 @@ public class TetheringMetrics {
 
         return UpstreamType.UT_UNKNOWN;
     }
+
+    /**
+     * Check whether the usage is supported for the given upstream type.
+     *
+     * @param type the upstream type
+     */
+    public static boolean isUsageSupportedForUpstreamType(@NonNull UpstreamType type) {
+        switch(type) {
+            case UT_CELLULAR:
+            case UT_WIFI:
+            case UT_BLUETOOTH:
+            case UT_ETHERNET:
+                return true;
+        }
+        return false;
+    }
 }
