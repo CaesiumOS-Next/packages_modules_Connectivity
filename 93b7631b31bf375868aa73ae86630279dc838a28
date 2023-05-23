@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39f904b4_700398ee",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-23T04:35:56Z",
+      "side": 1,
+      "message": "Is this guaranteed never to happen? Remember that Java doesn\u0027t have unsigned integers.",
+      "range": {
+        "startLine": 490,
+        "startChar": 7,
+        "endLine": 490,
+        "endChar": 16
+      },
+      "revId": "93b7631b31bf375868aa73ae86630279dc838a28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcd3b464_4e7e89b0",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-23T04:35:56Z",
+      "side": 1,
+      "message": "IllegalArgumentException seems better here? It\u0027s not a checked exception, so the compiler won\u0027t complain if the caller doesn\u0027t catch it. But if the caller passes an invalid argument, then IllegalArgumentException is more appropriate.",
+      "range": {
+        "startLine": 491,
+        "startChar": 35,
+        "endLine": 491,
+        "endChar": 54
+      },
+      "revId": "93b7631b31bf375868aa73ae86630279dc838a28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
