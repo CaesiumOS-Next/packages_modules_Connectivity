@@ -693,30 +693,26 @@ public class AutomaticOnOffKeepaliveTrackerTest {
 
         // Start the second keepalive while the first is paused.
         final NattKeepalivePacketData kpd2 = doStartNattKeepalive(mSocketKeepaliveCallback2);
-        // The slot used is TEST_SLOT since it is now a free slot.
-        networkAgentStartedKeepalive(TEST_SLOT, kpd2, 2 /* count */);
+        // The slot used is TEST_SLOT + 1 since TEST_SLOT is being taken by the paused keepalive.
+        networkAgentStartedKeepalive(TEST_SLOT + 1, kpd2, 1 /* count */);
         verify(mSocketKeepaliveCallback2).onStarted();
         assertNotNull(getAutoKi(mBinder2));
 
         doResumeKeepalive(autoKi1);
-        // The next free slot is TEST_SLOT + 1.
-        networkAgentStartedKeepalive(TEST_SLOT + 1, kpd1, 1 /* count */);
+        // Resume on TEST_SLOT.
+        networkAgentStartedKeepalive(TEST_SLOT, kpd1, 2 /* count */);
         verify(mSocketKeepaliveCallback).onResumed();
 
         doStopKeepalive(autoKi1);
-        // TODO: The slot should be consistent with the networkAgentStartedKeepalive directly above.
         networkAgentStoppedKeepalive(TEST_SLOT, 2 /* count */);
-        // TODO: onStopped should only be called on the first keepalive callback.
-        verify(mSocketKeepaliveCallback, never()).onStopped();
-        verify(mSocketKeepaliveCallback2).onStopped();
+        verify(mSocketKeepaliveCallback).onStopped();
+        verify(mSocketKeepaliveCallback2, never()).onStopped();
         assertNull(getAutoKi(mBinder));
 
         assertNotNull(getAutoKi(mBinder2));
         doStopKeepalive(getAutoKi(mBinder2));
         // This slot should be consistent with its corresponding networkAgentStartedKeepalive.
-        // TODO: The count should be 1 more than the previous call on this slot(count=3). Currently,
-        // the keepalive is unexpectedly already stopped above.
-        networkAgentStoppedKeepalive(TEST_SLOT, 2 /* count */);
+        networkAgentStoppedKeepalive(TEST_SLOT + 1, 1 /* count */);
         verify(mSocketKeepaliveCallback2).onStopped();
         assertNull(getAutoKi(mBinder2));
 
