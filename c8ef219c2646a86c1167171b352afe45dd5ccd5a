@@ -16,6 +16,24 @@
       "message": "LGTM but I think we should get approval on aosp/2536890 to confirm this is the wanted behavior before merging",
       "revId": "c8ef219c2646a86c1167171b352afe45dd5ccd5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "229ddede_2103f096",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-23T02:33:54Z",
+      "side": 1,
+      "message": "aosp/2536890 is merged",
+      "parentUuid": "d73f6964_8c8ecb1f",
+      "revId": "c8ef219c2646a86c1167171b352afe45dd5ccd5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
