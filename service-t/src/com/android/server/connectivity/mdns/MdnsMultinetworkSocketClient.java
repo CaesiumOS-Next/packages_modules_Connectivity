@@ -160,6 +160,11 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         }
     }
 
+    @Override
+    public void startDiscovery() throws IOException {
+        // There is no global state to initialize. So do nothing here.
+    }
+
     /*** Set callback for receiving mDns response */
     @Override
     public void setCallback(@Nullable MdnsSocketClientBase.Callback callback) {
@@ -203,6 +208,13 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         // onNetworkUnrequested does cleanups based on mRequestedNetworks, only remove afterwards
         mRequestedNetworks.remove(listener);
         mSocketProvider.unrequestSocket(callback);
+    }
+
+    /**
+     * Get the looper that used by MdnsMultinetworkSocketClient.
+     */
+    public Looper getLooper() {
+        return mHandler.getLooper();
     }
 
     private void sendMdnsPacket(@NonNull DatagramPacket packet, @Nullable Network targetNetwork) {
