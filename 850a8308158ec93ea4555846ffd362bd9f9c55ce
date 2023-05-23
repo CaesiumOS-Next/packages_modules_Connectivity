@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a7de626_ac8233bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-23T09:03:29Z",
+      "side": 1,
+      "message": "+2 Assume comment is adjusted.",
+      "revId": "850a8308158ec93ea4555846ffd362bd9f9c55ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16d9ed91_b6891641",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-23T09:03:29Z",
+      "side": 1,
+      "message": "Please fix the error prone",
+      "revId": "850a8308158ec93ea4555846ffd362bd9f9c55ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
