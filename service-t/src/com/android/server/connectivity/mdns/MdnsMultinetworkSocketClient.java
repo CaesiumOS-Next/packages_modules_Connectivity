@@ -205,6 +205,13 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         mSocketProvider.unrequestSocket(callback);
     }
 
+    /**
+     * Get the looper that used by MdnsMultinetworkSocketClient.
+     */
+    public Looper getLooper() {
+        return mHandler.getLooper();
+    }
+
     private void sendMdnsPacket(@NonNull DatagramPacket packet, @Nullable Network targetNetwork) {
         final boolean isIpv6 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
                 instanceof Inet6Address;
