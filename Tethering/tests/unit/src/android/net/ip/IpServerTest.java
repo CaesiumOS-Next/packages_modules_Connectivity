@@ -145,8 +145,12 @@ import org.mockito.MockitoAnnotations;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -182,6 +186,15 @@ public class IpServerTest {
 
     private final LinkAddress mTestAddress = new LinkAddress("192.168.42.5/24");
     private final IpPrefix mBluetoothPrefix = new IpPrefix("192.168.44.0/24");
+
+    private static final Set<LinkAddress> UPSTREAM_ADDRESSES =
+            new HashSet(Arrays.asList(new LinkAddress("2001:db8::168/64")));
+    private static final Set<IpPrefix> UPSTREAM_PREFIXES =
+            new HashSet(Arrays.asList(new IpPrefix("2001:db8::/64")));
+    private static final Set<LinkAddress> UPSTREAM_ADDRESSES2 = new HashSet(Arrays.asList(
+            new LinkAddress("2001:db8::168/64"), new LinkAddress("2012:abcd::168/64")));
+    private static final Set<IpPrefix> UPSTREAM_PREFIXES2 = new HashSet(Arrays.asList(
+            new IpPrefix("2001:db8::/64"), new IpPrefix("2012:abcd::/64")));
 
     @Mock private INetd mNetd;
     @Mock private IpServer.Callback mCallback;
@@ -260,24 +273,28 @@ public class IpServerTest {
 
     private void initTetheredStateMachine(int interfaceType, String upstreamIface)
             throws Exception {
-        initTetheredStateMachine(interfaceType, upstreamIface, false,
+        initTetheredStateMachine(interfaceType, upstreamIface, null, null, false,
                 DEFAULT_USING_BPF_OFFLOAD);
     }
 
     private void initTetheredStateMachine(int interfaceType, String upstreamIface,
+            Set<LinkAddress> upstreamAddresses, Set<IpPrefix> upstreamPrefixes,
             boolean usingLegacyDhcp, boolean usingBpfOffload) throws Exception {
         initStateMachine(interfaceType, usingLegacyDhcp, usingBpfOffload);
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
         if (upstreamIface != null) {
             LinkProperties lp = new LinkProperties();
             lp.setInterfaceName(upstreamIface);
+            if (upstreamAddresses != null) {
+                lp.setLinkAddresses(upstreamAddresses);
+            }
             dispatchTetherConnectionChanged(upstreamIface, lp, 0);
-            if (usingBpfOffload) {
+            if (usingBpfOffload && upstreamPrefixes != null) {
                 InterfaceParams interfaceParams = mDependencies.getInterfaceParams(upstreamIface);
                 assertNotNull("missing upstream interface: " + upstreamIface, interfaceParams);
-                verifyUpstreamIpv6ForwardingRuleAdd(null, interfaceParams.index);
+                verifyUpstreamIpv6ForwardingRulesAdd(null, interfaceParams.index, upstreamPrefixes);
             } else {
-                verifyNoUpstreamIpv6ForwardingRuleChange(null);
+                verifyNoUpstreamIpv6ForwardingRulesChange(null);
             }
         }
         reset(mNetd, mCallback, mAddressCoordinator, mBpfCoordinator);
@@ -818,8 +835,8 @@ public class IpServerTest {
 
     @Test
     public void doesNotStartDhcpServerIfDisabled() throws Exception {
-        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, true /* usingLegacyDhcp */,
-                DEFAULT_USING_BPF_OFFLOAD);
+        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, null, null,
+                true /* usingLegacyDhcp */, DEFAULT_USING_BPF_OFFLOAD);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE);
 
         verify(mDependencies, never()).makeDhcpServer(any(), any(), any());
@@ -988,26 +1005,34 @@ public class IpServerTest {
         }
     }
 
-    private void verifyUpstreamIpv6ForwardingRuleAdd(@Nullable InOrder inOrder, int upstreamIfindex)
-            throws Exception {
+    private void verifyUpstreamIpv6ForwardingRulesAdd(@Nullable InOrder inOrder,
+            int upstreamIfindex, @NonNull Set<IpPrefix> upstreamPrefixes) throws Exception {
         if (!mBpfDeps.isAtLeastS()) return;
-        final TetherUpstream6Key key = new TetherUpstream6Key(TEST_IFACE_PARAMS.index,
-                TEST_IFACE_PARAMS.macAddr, 0);
-        final Tether6Value value = new Tether6Value(upstreamIfindex,
-                MacAddress.ALL_ZEROS_ADDRESS, MacAddress.ALL_ZEROS_ADDRESS,
-                ETH_P_IPV6, NetworkStackConstants.ETHER_MTU);
-        verifyWithOrder(inOrder, mBpfUpstream6Map).insertEntry(key, value);
+        for (IpPrefix upstreamPrefix : upstreamPrefixes) {
+            byte[] prefixBytes = Arrays.copyOf(upstreamPrefix.getRawAddress(), 8);
+            long prefix64 = ByteBuffer.wrap(prefixBytes).order(ByteOrder.BIG_ENDIAN).getLong();
+            final TetherUpstream6Key key = new TetherUpstream6Key(TEST_IFACE_PARAMS.index,
+                    TEST_IFACE_PARAMS.macAddr, prefix64);
+            final Tether6Value value = new Tether6Value(upstreamIfindex,
+                    MacAddress.ALL_ZEROS_ADDRESS, MacAddress.ALL_ZEROS_ADDRESS, ETH_P_IPV6,
+                    NetworkStackConstants.ETHER_MTU);
+            verifyWithOrder(inOrder, mBpfUpstream6Map).insertEntry(key, value);
+        }
     }
 
-    private void verifyUpstreamIpv6ForwardingRuleRemove(@Nullable InOrder inOrder)
-            throws Exception {
+    private void verifyUpstreamIpv6ForwardingRulesRemove(@Nullable InOrder inOrder,
+            @NonNull Set<IpPrefix> upstreamPrefixes) throws Exception {
         if (!mBpfDeps.isAtLeastS()) return;
-        final TetherUpstream6Key key = new TetherUpstream6Key(TEST_IFACE_PARAMS.index,
-                TEST_IFACE_PARAMS.macAddr, 0);
-        verifyWithOrder(inOrder, mBpfUpstream6Map).deleteEntry(key);
+        for (IpPrefix upstreamPrefix : upstreamPrefixes) {
+            byte[] prefixBytes = Arrays.copyOf(upstreamPrefix.getRawAddress(), 8);
+            long prefix64 = ByteBuffer.wrap(prefixBytes).order(ByteOrder.BIG_ENDIAN).getLong();
+            final TetherUpstream6Key key = new TetherUpstream6Key(TEST_IFACE_PARAMS.index,
+                    TEST_IFACE_PARAMS.macAddr, prefix64);
+            verifyWithOrder(inOrder, mBpfUpstream6Map).deleteEntry(key);
+        }
     }
 
-    private void verifyNoUpstreamIpv6ForwardingRuleChange(@Nullable InOrder inOrder)
+    private void verifyNoUpstreamIpv6ForwardingRulesChange(@Nullable InOrder inOrder)
             throws Exception {
         if (!mBpfDeps.isAtLeastS()) return;
         if (inOrder != null) {
@@ -1046,8 +1071,8 @@ public class IpServerTest {
 
     @Test
     public void addRemoveipv6ForwardingRules() throws Exception {
-        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, false /* usingLegacyDhcp */,
-                DEFAULT_USING_BPF_OFFLOAD);
+        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, UPSTREAM_ADDRESSES,
+                UPSTREAM_PREFIXES, false /* usingLegacyDhcp */, DEFAULT_USING_BPF_OFFLOAD);
 
         final int myIfindex = TEST_IFACE_PARAMS.index;
         final int notMyIfindex = myIfindex - 1;
@@ -1108,7 +1133,7 @@ public class IpServerTest {
                 UPSTREAM_IFINDEX, UPSTREAM_IFACE_PARAMS.macAddr, neighB, macNull);
         resetNetdBpfMapAndCoordinator();
 
-        // Upstream changes result in updating the rules.
+        // Upstream interface changes result in updating the rules.
         recvNewNeigh(myIfindex, neighA, NUD_REACHABLE, macA);
         recvNewNeigh(myIfindex, neighB, NUD_REACHABLE, macB);
         resetNetdBpfMapAndCoordinator();
@@ -1116,14 +1141,36 @@ public class IpServerTest {
         InOrder inOrder = inOrder(mNetd, mBpfUpstream6Map, mBpfDownstream6Map);
         LinkProperties lp = new LinkProperties();
         lp.setInterfaceName(UPSTREAM_IFACE2);
+        lp.setLinkAddresses(UPSTREAM_ADDRESSES);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE2, lp, -1);
-        verify(mBpfCoordinator).tetherOffloadRuleUpdate(mIpServer, UPSTREAM_IFINDEX2);
-        verifyUpstreamIpv6ForwardingRuleRemove(inOrder);
-        verifyUpstreamIpv6ForwardingRuleAdd(inOrder, UPSTREAM_IFINDEX2);
+        verify(mBpfCoordinator).tetherOffloadRuleUpdate(mIpServer, UPSTREAM_IFINDEX2,
+                UPSTREAM_PREFIXES);
+        verifyUpstreamIpv6ForwardingRulesRemove(inOrder, UPSTREAM_PREFIXES);
+        verifyUpstreamIpv6ForwardingRulesAdd(inOrder, UPSTREAM_IFINDEX2, UPSTREAM_PREFIXES);
         verifyTetherOffloadRuleRemove(inOrder,
                 UPSTREAM_IFINDEX, UPSTREAM_IFACE_PARAMS.macAddr, neighA, macA);
         verifyTetherOffloadRuleRemove(inOrder,
                 UPSTREAM_IFINDEX, UPSTREAM_IFACE_PARAMS.macAddr, neighB, macB);
+        verifyTetherOffloadRuleAdd(inOrder,
+                UPSTREAM_IFINDEX2, UPSTREAM_IFACE_PARAMS2.macAddr, neighA, macA);
+        verifyTetherOffloadRuleAdd(inOrder,
+                UPSTREAM_IFINDEX2, UPSTREAM_IFACE_PARAMS2.macAddr, neighB, macB);
+        verifyNoUpstreamIpv6ForwardingRulesChange(inOrder);
+        resetNetdBpfMapAndCoordinator();
+
+        // Upstream link addresses change result in updating the rules.
+        LinkProperties lp2 = new LinkProperties();
+        lp2.setInterfaceName(UPSTREAM_IFACE2);
+        lp2.setLinkAddresses(UPSTREAM_ADDRESSES2);
+        dispatchTetherConnectionChanged(UPSTREAM_IFACE2, lp2, -1);
+        verify(mBpfCoordinator).tetherOffloadRuleUpdate(
+                mIpServer, UPSTREAM_IFINDEX2, UPSTREAM_PREFIXES2);
+        verifyUpstreamIpv6ForwardingRulesRemove(inOrder, UPSTREAM_PREFIXES);
+        verifyUpstreamIpv6ForwardingRulesAdd(inOrder, UPSTREAM_IFINDEX2, UPSTREAM_PREFIXES2);
+        verifyTetherOffloadRuleRemove(inOrder,
+                UPSTREAM_IFINDEX2, UPSTREAM_IFACE_PARAMS2.macAddr, neighA, macA);
+        verifyTetherOffloadRuleRemove(inOrder,
+                UPSTREAM_IFINDEX2, UPSTREAM_IFACE_PARAMS2.macAddr, neighB, macB);
         verifyTetherOffloadRuleAdd(inOrder,
                 UPSTREAM_IFINDEX2, UPSTREAM_IFACE_PARAMS2.macAddr, neighA, macA);
         verifyTetherOffloadRuleAdd(inOrder,
@@ -1137,7 +1184,7 @@ public class IpServerTest {
         // - processMessage CMD_IPV6_TETHER_UPDATE for the IPv6 upstream is lost.
         // See dispatchTetherConnectionChanged.
         verify(mBpfCoordinator, times(2)).tetherOffloadRuleClear(mIpServer);
-        verifyUpstreamIpv6ForwardingRuleRemove(inOrder);
+        verifyUpstreamIpv6ForwardingRulesRemove(inOrder, UPSTREAM_PREFIXES2);
         verifyTetherOffloadRuleRemove(null,
                 UPSTREAM_IFINDEX2, UPSTREAM_IFACE_PARAMS2.macAddr, neighA, macA);
         verifyTetherOffloadRuleRemove(null,
@@ -1150,13 +1197,13 @@ public class IpServerTest {
         recvNewNeigh(myIfindex, neighA, NUD_REACHABLE, macA);
         // Clear function is called by #updateIpv6ForwardingRules for the IPv6 upstream is lost.
         verify(mBpfCoordinator).tetherOffloadRuleClear(mIpServer);
-        verifyNoUpstreamIpv6ForwardingRuleChange(null);
+        verifyNoUpstreamIpv6ForwardingRulesChange(null);
         verifyNoMoreInteractions(mBpfCoordinator, mNetd, mBpfDownstream6Map, mBpfUpstream6Map);
 
         // Rules can be added again once upstream IPv6 connectivity is available.
         lp.setInterfaceName(UPSTREAM_IFACE);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE, lp, -1);
-        verifyUpstreamIpv6ForwardingRuleAdd(null, UPSTREAM_IFINDEX);
+        verifyUpstreamIpv6ForwardingRulesAdd(null, UPSTREAM_IFINDEX, UPSTREAM_PREFIXES);
         recvNewNeigh(myIfindex, neighB, NUD_REACHABLE, macB);
         verify(mBpfCoordinator).tetherOffloadRuleAdd(
                 mIpServer, makeDownstreamForwardingRule(UPSTREAM_IFINDEX, neighB, macB));
@@ -1170,7 +1217,7 @@ public class IpServerTest {
         // If upstream IPv6 connectivity is lost, rules are removed.
         resetNetdBpfMapAndCoordinator();
         dispatchTetherConnectionChanged(UPSTREAM_IFACE, null, 0);
-        verifyUpstreamIpv6ForwardingRuleRemove(null);
+        verifyUpstreamIpv6ForwardingRulesRemove(null, UPSTREAM_PREFIXES);
         verify(mBpfCoordinator).tetherOffloadRuleClear(mIpServer);
         verifyTetherOffloadRuleRemove(null,
                 UPSTREAM_IFINDEX, UPSTREAM_IFACE_PARAMS.macAddr, neighB, macB);
@@ -1178,7 +1225,7 @@ public class IpServerTest {
         // When the interface goes down, rules are removed.
         lp.setInterfaceName(UPSTREAM_IFACE);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE, lp, -1);
-        verifyUpstreamIpv6ForwardingRuleAdd(null, UPSTREAM_IFINDEX);
+        verifyUpstreamIpv6ForwardingRulesAdd(null, UPSTREAM_IFINDEX, UPSTREAM_PREFIXES);
         recvNewNeigh(myIfindex, neighA, NUD_REACHABLE, macA);
         recvNewNeigh(myIfindex, neighB, NUD_REACHABLE, macB);
         verify(mBpfCoordinator).tetherOffloadRuleAdd(
@@ -1194,7 +1241,7 @@ public class IpServerTest {
         mIpServer.stop();
         mLooper.dispatchAll();
         verify(mBpfCoordinator).tetherOffloadRuleClear(mIpServer);
-        verifyUpstreamIpv6ForwardingRuleRemove(null);
+        verifyUpstreamIpv6ForwardingRulesRemove(null, UPSTREAM_PREFIXES);
         verifyTetherOffloadRuleRemove(null,
                 UPSTREAM_IFINDEX, UPSTREAM_IFACE_PARAMS.macAddr, neighA, macA);
         verifyTetherOffloadRuleRemove(null,
@@ -1219,8 +1266,8 @@ public class IpServerTest {
 
         // [1] Enable BPF offload.
         // A neighbor that is added or deleted causes the rule to be added or removed.
-        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, false /* usingLegacyDhcp */,
-                true /* usingBpfOffload */);
+        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, UPSTREAM_ADDRESSES,
+                UPSTREAM_PREFIXES, false /* usingLegacyDhcp */, true /* usingBpfOffload */);
         resetNetdBpfMapAndCoordinator();
 
         recvNewNeigh(myIfindex, neigh, NUD_REACHABLE, macA);
@@ -1239,8 +1286,8 @@ public class IpServerTest {
 
         // [2] Disable BPF offload.
         // A neighbor that is added or deleted doesn’t cause the rule to be added or removed.
-        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, false /* usingLegacyDhcp */,
-                false /* usingBpfOffload */);
+        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, UPSTREAM_ADDRESSES,
+                UPSTREAM_PREFIXES, false /* usingLegacyDhcp */, false /* usingBpfOffload */);
         resetNetdBpfMapAndCoordinator();
 
         recvNewNeigh(myIfindex, neigh, NUD_REACHABLE, macA);
@@ -1255,15 +1302,15 @@ public class IpServerTest {
 
         // Upstream IPv6 connectivity lost doesn't cause the rule to be added or removed.
         dispatchTetherConnectionChanged(UPSTREAM_IFACE, null, 0);
-        verifyNoUpstreamIpv6ForwardingRuleChange(null);
+        verifyNoUpstreamIpv6ForwardingRulesChange(null);
         verifyNeverTetherOffloadRuleRemove();
         resetNetdBpfMapAndCoordinator();
     }
 
     @Test
     public void doesNotStartIpNeighborMonitorIfBpfOffloadDisabled() throws Exception {
-        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, false /* usingLegacyDhcp */,
-                false /* usingBpfOffload */);
+        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, null, null,
+                false /* usingLegacyDhcp */, false /* usingBpfOffload */);
 
         // IP neighbor monitor doesn't start if BPF offload is disabled.
         verify(mIpNeighborMonitor, never()).start();
@@ -1545,8 +1592,8 @@ public class IpServerTest {
     // TODO: move to BpfCoordinatorTest once IpNeighborMonitor is migrated to BpfCoordinator.
     @Test
     public void addRemoveTetherClient() throws Exception {
-        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, false /* usingLegacyDhcp */,
-                DEFAULT_USING_BPF_OFFLOAD);
+        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, null, null,
+                false /* usingLegacyDhcp */, DEFAULT_USING_BPF_OFFLOAD);
 
         final int myIfindex = TEST_IFACE_PARAMS.index;
         final int notMyIfindex = myIfindex - 1;

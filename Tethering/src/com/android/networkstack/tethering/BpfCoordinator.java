@@ -122,7 +122,6 @@ public class BpfCoordinator {
     private static final int DUMP_TIMEOUT_MS = 10_000;
     private static final MacAddress NULL_MAC_ADDRESS = MacAddress.fromString(
             "00:00:00:00:00:00");
-    private static final IpPrefix IPV6_ZERO_PREFIX64 = new IpPrefix("::/64");
     private static final String TETHER_DOWNSTREAM4_MAP_PATH = makeMapPath(DOWNSTREAM, 4);
     private static final String TETHER_UPSTREAM4_MAP_PATH = makeMapPath(UPSTREAM, 4);
     private static final String TETHER_DOWNSTREAM6_FS_PATH = makeMapPath(DOWNSTREAM, 6);
@@ -734,7 +733,8 @@ public class BpfCoordinator {
      * Update existing forwarding rules to new upstream for a given downstream.
      * Note that this can be only called on handler thread.
      */
-    public void tetherOffloadRuleUpdate(@NonNull final IpServer ipServer, int newUpstreamIfindex) {
+    public void tetherOffloadRuleUpdate(@NonNull final IpServer ipServer, int newUpstreamIfindex,
+            @NonNull final Set<IpPrefix> newUpstreamPrefixes) {
         if (!isUsingBpf()) return;
 
         // Update upstream forwarding rules
@@ -749,9 +749,11 @@ public class BpfCoordinator {
         }
         final InterfaceParams interfaceParams = ipServer.getInterfaceParams();
         if (newUpstreamIfindex != 0 && interfaceParams != null && interfaceParams.macAddr != null) {
-            tetherOffloadRuleAdd(ipServer, new Ipv6UpstreamForwardingRule(
-                    newUpstreamIfindex, interfaceParams.index, IPV6_ZERO_PREFIX64,
-                    interfaceParams.macAddr, NULL_MAC_ADDRESS, NULL_MAC_ADDRESS));
+            for (final IpPrefix ipPrefix : newUpstreamPrefixes) {
+                tetherOffloadRuleAdd(ipServer, new Ipv6UpstreamForwardingRule(
+                        newUpstreamIfindex, interfaceParams.index, ipPrefix,
+                        interfaceParams.macAddr, NULL_MAC_ADDRESS, NULL_MAC_ADDRESS));
+            }
         }
 
         // Update downstream forwarding rules
@@ -1234,9 +1236,17 @@ public class BpfCoordinator {
     }
 
     private String ipv6UpstreamRuleToString(TetherUpstream6Key key, Tether6Value value) {
-        return String.format("%d(%s) [%s] -> %d(%s) %04x [%s] [%s]",
-                key.iif, getIfName(key.iif), key.dstMac, value.oif, getIfName(value.oif),
-                value.ethProto, value.ethSrcMac, value.ethDstMac);
+        final ByteBuffer prefixBuffer = ByteBuffer.allocate(16).order(ByteOrder.BIG_ENDIAN);
+        prefixBuffer.putLong(key.src64);
+        IpPrefix sourcePrefix;
+        try {
+            sourcePrefix = new IpPrefix(InetAddress.getByAddress(prefixBuffer.array()), 64);
+        } catch (UnknownHostException e) {
+            sourcePrefix = new IpPrefix("::/64");
+        }
+        return String.format("%d(%s) [%s] [%s] -> %d(%s) %04x [%s] [%s]",
+                key.iif, getIfName(key.iif), key.dstMac, sourcePrefix, value.oif,
+                getIfName(value.oif), value.ethProto, value.ethSrcMac, value.ethDstMac);
     }
 
     private void dumpIpv6UpstreamRules(IndentingPrintWriter pw) {
@@ -1286,8 +1296,8 @@ public class BpfCoordinator {
     // TODO: use dump utils with headerline and lambda which prints key and value to reduce
     // duplicate bpf map dump code.
     private void dumpBpfForwardingRulesIpv6(IndentingPrintWriter pw) {
-        pw.println("IPv6 Upstream: iif(iface) [inDstMac] -> oif(iface) etherType [outSrcMac] "
-                + "[outDstMac]");
+        pw.println("IPv6 Upstream: iif(iface) [inDstMac] [sourcePrefix] -> oif(iface) etherType "
+                + "[outSrcMac] [outDstMac]");
         pw.increaseIndent();
         dumpIpv6UpstreamRules(pw);
         pw.decreaseIndent();
