@@ -147,8 +147,9 @@ public class KeepaliveTracker {
         public static final int TYPE_TCP = 2;
 
         // Keepalive slot. A small integer that identifies this keepalive among the ones handled
-        // by this network.
-        private int mSlot = NO_KEEPALIVE;
+        // by this network. This is initialized to NO_KEEPALIVE for new keepalives, but to the
+        // old slot for resumed keepalives.
+        private int mSlot;
 
         // Packet data.
         private final KeepalivePacketData mPacket;
@@ -168,15 +169,19 @@ public class KeepaliveTracker {
                 int interval,
                 int type,
                 @Nullable FileDescriptor fd) throws InvalidSocketException {
-            this(callback, nai, packet, interval, type, fd, false /* resumed */);
+            this(callback, nai, packet, Binder.getCallingPid(), Binder.getCallingUid(), interval,
+                    type, fd, NO_KEEPALIVE /* slot */, false /* resumed */);
         }
 
         KeepaliveInfo(@NonNull ISocketKeepaliveCallback callback,
                 @NonNull NetworkAgentInfo nai,
                 @NonNull KeepalivePacketData packet,
+                int pid,
+                int uid,
                 int interval,
                 int type,
                 @Nullable FileDescriptor fd,
+                int slot,
                 boolean resumed) throws InvalidSocketException {
             mCallback = callback;
             mPid = Binder.getCallingPid();
@@ -187,6 +192,7 @@ public class KeepaliveTracker {
             mPacket = packet;
             mInterval = interval;
             mType = type;
+            mSlot = slot;
             mResumed = resumed;
 
             // For SocketKeepalive, a dup of fd is kept in mFd so the source port from which the
@@ -464,8 +470,8 @@ public class KeepaliveTracker {
          * Construct a new KeepaliveInfo from existing KeepaliveInfo with a new fd.
          */
         public KeepaliveInfo withFd(@NonNull FileDescriptor fd) throws InvalidSocketException {
-            return new KeepaliveInfo(mCallback, mNai, mPacket, mInterval, mType, fd,
-                    true /* resumed */);
+            return new KeepaliveInfo(mCallback, mNai, mPacket, mPid, mUid, mInterval, mType,
+                    fd, mSlot, true /* resumed */);
         }
     }
 
@@ -504,7 +510,9 @@ public class KeepaliveTracker {
      */
     public boolean handleStartKeepalive(KeepaliveInfo ki) {
         NetworkAgentInfo nai = ki.getNai();
-        int slot = findFirstFreeSlot(nai);
+        // If this was a paused keepalive, then reuse the same slot that was kept for it. Otherwise,
+        // use the first free slot for this network agent.
+        final int slot = NO_KEEPALIVE != ki.mSlot ? ki.mSlot : findFirstFreeSlot(nai);
         mKeepalives.get(nai).put(slot, ki);
         return ki.start(slot);
     }
@@ -552,17 +560,22 @@ public class KeepaliveTracker {
             return;
         }
 
-        // Remove the keepalive from hash table so the slot can be considered available when reusing
-        // it.
-        networkKeepalives.remove(slot);
-        Log.d(TAG, "Remove keepalive " + slot + " on " + networkName + ", "
-                + networkKeepalives.size() + " remains.");
+        // If the keepalive was stopped for good, remove it from the hash table so the slot can
+        // be considered available when reusing it. If it was only a pause, let it sit in the map
+        // so it sits on the slot.
+        final int reason = ki.mStopReason;
+        if (reason != SUCCESS_PAUSED) {
+            networkKeepalives.remove(slot);
+            Log.d(TAG, "Remove keepalive " + slot + " on " + networkName + ", "
+                    + networkKeepalives.size() + " remains.");
+        } else {
+            Log.d(TAG, "Pause keepalive " + slot + " on " + networkName + ", keep slot reserved");
+        }
         if (networkKeepalives.isEmpty()) {
             mKeepalives.remove(nai);
         }
 
         // Notify app that the keepalive is stopped.
-        final int reason = ki.mStopReason;
         if (reason == SUCCESS) {
             try {
                 ki.mCallback.onStopped();
@@ -608,8 +621,8 @@ public class KeepaliveTracker {
     /**
      * Finalize a paused keepalive.
      *
-     * This will simply send the onStopped() callback after checking that this keepalive is
-     * indeed paused.
+     * This will send the onStopped() callback after checking that this keepalive is indeed paused,
+     * and free the slot.
      *
      * @param ki the keepalive to finalize
      */
@@ -617,11 +630,19 @@ public class KeepaliveTracker {
         if (SUCCESS_PAUSED != ki.mStopReason) {
             throw new IllegalStateException("Keepalive is not paused");
         }
+
         try {
             ki.mCallback.onStopped();
         } catch (RemoteException e) {
             Log.w(TAG, "Discarded onStopped callback while finalizing paused keepalive");
         }
+
+        final HashMap<Integer, KeepaliveInfo> networkKeepalives = mKeepalives.get(ki.mNai);
+        if (networkKeepalives == null) {
+            Log.e(TAG, "Attempt to finalize keepalive on nonexistent network " + ki.mNai);
+            return;
+        }
+        networkKeepalives.remove(ki.mSlot);
     }
 
     /**
