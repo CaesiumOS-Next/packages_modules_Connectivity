@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "819a5730_f99916da",
+        "filename": "framework/src/android/net/SocketKeepalive.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-23T02:16:40Z",
+      "side": 1,
+      "message": "This is no longer true. If no keepalive running on this slot, then it\u0027s not a programming error.",
+      "range": {
+        "startLine": 152,
+        "startChar": 69,
+        "endLine": 153,
+        "endChar": 63
+      },
+      "revId": "e22cf3edcaf944034a8160a6c242585ac48205b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
