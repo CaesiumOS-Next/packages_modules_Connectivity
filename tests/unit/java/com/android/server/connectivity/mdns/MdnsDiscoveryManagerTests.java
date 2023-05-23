@@ -72,7 +72,8 @@ public class MdnsDiscoveryManagerTests {
             Pair.create(SERVICE_TYPE_2, NETWORK_2);
 
     @Mock private ExecutorProvider executorProvider;
-    @Mock private MdnsSocketClientBase socketClient;
+    @Mock private MdnsMultinetworkSocketClient mMultiNetworkSocketClient;
+    @Mock private MdnsSocketClient mMdnsSocketClient;
     @Mock private MdnsServiceTypeClient mockServiceTypeClientOne;
     @Mock private MdnsServiceTypeClient mockServiceTypeClientOne1;
     @Mock private MdnsServiceTypeClient mockServiceTypeClientTwo;
@@ -92,8 +93,9 @@ public class MdnsDiscoveryManagerTests {
         thread = new HandlerThread("MdnsDiscoveryManagerTests");
         thread.start();
         handler = new Handler(thread.getLooper());
-        discoveryManager = new MdnsDiscoveryManager(executorProvider, socketClient, sharedLog,
-                    thread.getLooper()) {
+        when(mMultiNetworkSocketClient.getLooper()).thenReturn(thread.getLooper());
+        discoveryManager = new MdnsDiscoveryManager(executorProvider, mMultiNetworkSocketClient,
+                sharedLog) {
                     @Override
                     MdnsServiceTypeClient createServiceTypeClient(@NonNull String serviceType,
                             @Nullable Network network) {
@@ -130,10 +132,17 @@ public class MdnsDiscoveryManagerTests {
         final ArgumentCaptor<SocketCreationCallback> callbackCaptor =
                 ArgumentCaptor.forClass(SocketCreationCallback.class);
         runOnHandler(() -> discoveryManager.registerListener(serviceType, listener, options));
-        verify(socketClient).startDiscovery();
-        verify(socketClient).notifyNetworkRequested(
+        verify(mMultiNetworkSocketClient).startDiscovery();
+        verify(mMultiNetworkSocketClient).notifyNetworkRequested(
                 eq(listener), eq(options.getNetwork()), callbackCaptor.capture());
         return callbackCaptor.getValue();
+    }
+
+    @Test
+    public void constructor_withoutLooper() {
+        MdnsDiscoveryManager discoveryManager1 = new MdnsDiscoveryManager(executorProvider,
+                mMdnsSocketClient, sharedLog);
+        discoveryManager1.shutDown();
     }
 
     @Test
@@ -148,7 +157,7 @@ public class MdnsDiscoveryManagerTests {
         when(mockServiceTypeClientOne.stopSendAndReceive(mockListenerOne)).thenReturn(true);
         runOnHandler(() -> discoveryManager.unregisterListener(SERVICE_TYPE_1, mockListenerOne));
         verify(mockServiceTypeClientOne).stopSendAndReceive(mockListenerOne);
-        verify(socketClient).stopDiscovery();
+        verify(mMultiNetworkSocketClient).stopDiscovery();
     }
 
     @Test
