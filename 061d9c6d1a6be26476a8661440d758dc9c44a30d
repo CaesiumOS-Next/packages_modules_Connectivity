@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5775c91_634e2c47",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-23T02:44:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e390fb2_a37a933d",
+      "range": {
+        "startLine": 95,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "061d9c6d1a6be26476a8661440d758dc9c44a30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "367411cb_b2a7c08c",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-18T11:57:19Z",
       "side": 1,
       "message": "Do we need to call ensureRunningOnHandlerThread() in this function?",
+      "range": {
+        "startLine": 264,
+        "startChar": 17,
+        "endLine": 264,
+        "endChar": 37
+      },
+      "revId": "061d9c6d1a6be26476a8661440d758dc9c44a30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62f4f062_66d10c27",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-23T02:44:13Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to call ensureRunningOnHandlerThread() here because the method name already indicates that it is called on the handler thread (We ensure that all access to this method is running on the handler thread).",
+      "parentUuid": "367411cb_b2a7c08c",
       "range": {
         "startLine": 264,
         "startChar": 17,
