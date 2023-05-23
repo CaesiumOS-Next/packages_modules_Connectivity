@@ -22,6 +22,10 @@ import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_LOWPAN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
+import static android.net.NetworkTemplate.MATCH_BLUETOOTH;
+import static android.net.NetworkTemplate.MATCH_ETHERNET;
+import static android.net.NetworkTemplate.MATCH_MOBILE;
+import static android.net.NetworkTemplate.MATCH_WIFI;
 import static android.net.TetheringManager.TETHERING_BLUETOOTH;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringManager.TETHERING_NCM;
@@ -47,11 +51,14 @@ import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 import android.net.NetworkCapabilities;
+import android.net.NetworkTemplate;
+import android.os.Build;
 import android.stats.connectivity.DownstreamType;
 import android.stats.connectivity.ErrorCode;
 import android.stats.connectivity.UpstreamType;
@@ -61,8 +68,11 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.networkstack.tethering.UpstreamNetworkState;
+import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -70,6 +80,8 @@ import org.mockito.MockitoAnnotations;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public final class TetheringMetricsTest {
+    @Rule public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
+
     private static final String TEST_CALLER_PKG = "com.test.caller.pkg";
     private static final String SETTINGS_PKG = "com.android.settings";
     private static final String SYSTEMUI_PKG = "com.android.systemui";
@@ -396,5 +408,31 @@ public final class TetheringMetricsTest {
         runTransportSupportedTest(UpstreamType.UT_WIFI_AWARE, false);
         runTransportSupportedTest(UpstreamType.UT_LOWPAN, false);
         runTransportSupportedTest(UpstreamType.UT_UNKNOWN, false);
+    }
+
+    private void runBuildNetworkTemplate(final UpstreamType upstreamType, final int expectedResult)
+            throws Exception {
+        try {
+            NetworkTemplate template = mTetheringMetrics.buildNetworkTemplate(upstreamType);
+            assertEquals(expectedResult, template.getMatchRule());
+        } catch (IllegalArgumentException e) {
+            if (!e.getMessage().startsWith("Unsupported UpstreamType")) {
+                fail("Unexpected IllegalArgumentException: " + e.getMessage());
+            }
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testBuildNetworkTemplate() throws Exception {
+        final int invalidMatchRule = -1;
+
+        runBuildNetworkTemplate(UpstreamType.UT_CELLULAR, MATCH_MOBILE);
+        runBuildNetworkTemplate(UpstreamType.UT_WIFI, MATCH_WIFI);
+        runBuildNetworkTemplate(UpstreamType.UT_BLUETOOTH, MATCH_BLUETOOTH);
+        runBuildNetworkTemplate(UpstreamType.UT_ETHERNET, MATCH_ETHERNET);
+        runBuildNetworkTemplate(UpstreamType.UT_WIFI_AWARE, invalidMatchRule);
+        runBuildNetworkTemplate(UpstreamType.UT_LOWPAN, invalidMatchRule);
+        runBuildNetworkTemplate(UpstreamType.UT_UNKNOWN, invalidMatchRule);
     }
 }

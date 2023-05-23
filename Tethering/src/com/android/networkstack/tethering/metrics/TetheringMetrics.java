@@ -22,6 +22,10 @@ import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_LOWPAN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
+import static android.net.NetworkTemplate.MATCH_BLUETOOTH;
+import static android.net.NetworkTemplate.MATCH_ETHERNET;
+import static android.net.NetworkTemplate.MATCH_MOBILE;
+import static android.net.NetworkTemplate.MATCH_WIFI;
 import static android.net.TetheringManager.TETHERING_BLUETOOTH;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringManager.TETHERING_NCM;
@@ -47,6 +51,7 @@ import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 
 import android.annotation.Nullable;
 import android.net.NetworkCapabilities;
+import android.net.NetworkTemplate;
 import android.stats.connectivity.DownstreamType;
 import android.stats.connectivity.ErrorCode;
 import android.stats.connectivity.UpstreamType;
@@ -389,5 +394,29 @@ public class TetheringMetrics {
                 break;
         }
         return isSupported;
+    }
+
+    protected NetworkTemplate buildNetworkTemplate(UpstreamType type) {
+        NetworkTemplate template = null;
+
+        // NetworkTemplate does not support |TRANSPORT_WIFI_AWARE| and |TRANSPORT_LOWPAN| as valid
+        // transport type.
+        switch (type) {
+            case UT_CELLULAR:
+                template = new NetworkTemplate.Builder(MATCH_MOBILE).build();
+                break;
+            case UT_WIFI:
+                template = new NetworkTemplate.Builder(MATCH_WIFI).build();
+                break;
+            case UT_BLUETOOTH:
+                template = new NetworkTemplate.Builder(MATCH_BLUETOOTH).build();
+                break;
+            case UT_ETHERNET:
+                template = new NetworkTemplate.Builder(MATCH_ETHERNET).build();
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported UpstreamType: " + type.name());
+        }
+        return template;
     }
 }
