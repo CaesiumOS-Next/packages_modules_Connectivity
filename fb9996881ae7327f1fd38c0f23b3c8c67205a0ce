@@ -237,6 +237,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6d2491b_ba03688e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10504,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-23T10:48:41Z",
+      "side": 1,
+      "message": "Ack, although that is kind of bad because it means in the mean time apps still use the old, outdated value. We could send a broadcast with a null proxy info, but that\u0027s also wrong...",
+      "parentUuid": "9b17273e_83a04a17",
+      "range": {
+        "startLine": 10504,
+        "startChar": 8,
+        "endLine": 10504,
+        "endChar": 29
+      },
+      "revId": "fb9996881ae7327f1fd38c0f23b3c8c67205a0ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a522a102_f7a33853",
