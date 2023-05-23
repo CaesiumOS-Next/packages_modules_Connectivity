@@ -33,6 +33,29 @@
       "message": "I think it\u0027s worth noting that it\u0027s possible that someone (OEM, apps ?) could theoretically be depending on receiving this broadcast before, but I don\u0027t think there\u0027s a practical way to use it, and it would be depending on very internal mechanisms, so I think it\u0027s OK.",
       "revId": "e86fb5ef56be064839a639702bbe376448f08bed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07d38634_04a8a3ed",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-23T10:08:54Z",
+      "side": 1,
+      "message": "Instead of using an intent for this, why not just use the version for setExact that uses an OnAlarmListener? That\u0027s easier to use than a pendingintent, and likely faster. The only drawback is that if tethering crashes the alarm won\u0027t be there any more, but generally, when tethering crashes the system reboots anyway, so the PendingIntent wouldn\u0027t be there either.",
+      "range": {
+        "startLine": 479,
+        "startChar": 20,
+        "endLine": 479,
+        "endChar": 45
+      },
+      "revId": "e86fb5ef56be064839a639702bbe376448f08bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
