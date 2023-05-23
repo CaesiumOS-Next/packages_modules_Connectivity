@@ -374,4 +374,20 @@ public class TetheringMetrics {
 
         return UpstreamType.UT_UNKNOWN;
     }
+
+    protected boolean isTransportSupported(UpstreamType type) {
+        boolean isSupported = false;
+        switch(type) {
+            case UT_CELLULAR:
+            case UT_WIFI:
+            case UT_BLUETOOTH:
+            case UT_ETHERNET:
+                isSupported = true;
+                break;
+            default:
+                isSupported = false;
+                break;
+        }
+        return isSupported;
+    }
 }
