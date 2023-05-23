@@ -283,6 +283,8 @@ public class IpServer extends StateMachine {
     private List<TetheredClient> mDhcpLeases = Collections.emptyList();
 
     private int mLastIPv6UpstreamIfindex = 0;
+    @NonNull
+    private Set<IpPrefix> mLastIPv6UpstreamPrefixes = Collections.emptySet();
 
     private class MyNeighborEventConsumer implements IpNeighborMonitor.NeighborEventConsumer {
         public void accept(NeighborEvent e) {
@@ -762,13 +764,8 @@ public class IpServer extends StateMachine {
 
             if (params.hasDefaultRoute) params.hopLimit = getHopLimit(upstreamIface, ttlAdjustment);
 
-            for (LinkAddress linkAddr : v6only.getLinkAddresses()) {
-                if (linkAddr.getPrefixLength() != RFC7421_PREFIX_LENGTH) continue;
-
-                final IpPrefix prefix = new IpPrefix(
-                        linkAddr.getAddress(), linkAddr.getPrefixLength());
-                params.prefixes.add(prefix);
-
+            params.prefixes = getTetherableIpv6Prefixes(v6only);
+            for (IpPrefix prefix : params.prefixes) {
                 final Inet6Address dnsServer = getLocalDnsIpFor(prefix);
                 if (dnsServer != null) {
                     params.dnses.add(dnsServer);
@@ -791,8 +788,12 @@ public class IpServer extends StateMachine {
         // TODO: avoid this dependencies and move this logic into BpfCoordinator.
         mLastIPv6LinkProperties = v6only;
 
-        updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, upstreamIfIndex);
+        final Set<IpPrefix> upstreamPrefixes = params != null ? params.prefixes : Set.of();
+        updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, mLastIPv6UpstreamPrefixes,
+                upstreamIfIndex, upstreamPrefixes);
         mLastIPv6UpstreamIfindex = upstreamIfIndex;
+        mLastIPv6UpstreamPrefixes = upstreamPrefixes;
+
         if (mDadProxy != null) {
             mDadProxy.setUpstreamIface(upstreamIfaceParams);
         }
@@ -918,12 +919,12 @@ public class IpServer extends StateMachine {
         mBpfCoordinator.tetherOffloadRuleClear(this);
     }
 
-    private void updateIpv6ForwardingRule(int newIfindex) {
+    private void updateIpv6ForwardingRule(int newIfindex, Set<IpPrefix> newPrefixes) {
         // TODO: Perhaps remove this protection check.
         // See the related comment in #addIpv6ForwardingRule.
         if (!mUsingBpfOffload) return;
 
-        mBpfCoordinator.tetherOffloadRuleUpdate(this, newIfindex);
+        mBpfCoordinator.tetherOffloadRuleUpdate(this, newIfindex, newPrefixes);
     }
 
     private boolean isIpv6VcnNetworkInterface() {
@@ -932,8 +933,10 @@ public class IpServer extends StateMachine {
         return isVcnInterface(mLastIPv6LinkProperties.getInterfaceName());
     }
 
-    // Handles updates to IPv6 forwarding rules if the upstream changes.
-    private void updateIpv6ForwardingRules(int prevUpstreamIfindex, int upstreamIfindex) {
+    // Handles updates to IPv6 forwarding rules if the upstream and/or its prefixes change.
+    private void updateIpv6ForwardingRules(int prevUpstreamIfindex,
+            @NonNull Set<IpPrefix> prevUpstreamPrefixes, int upstreamIfindex,
+            @NonNull Set<IpPrefix> upstreamPrefixes) {
         // If no longer have an upstream or it is virtual network, clear forwarding rules and do
         // nothing else.
         // TODO: Rather than always clear rules, ensure whether ipv6 ever enable first.
@@ -942,10 +945,11 @@ public class IpServer extends StateMachine {
             return;
         }
 
-        // If the upstream interface has changed, remove all rules and re-add them with the new
-        // upstream interface.
-        if (prevUpstreamIfindex != upstreamIfindex) {
-            updateIpv6ForwardingRule(upstreamIfindex);
+        // If the upstream interface or its prefixes has changed, remove all rules and re-add them
+        // with the new upstream interface and prefixes.
+        if (prevUpstreamIfindex != upstreamIfindex
+                || !prevUpstreamPrefixes.equals(upstreamPrefixes)) {
+            updateIpv6ForwardingRule(upstreamIfindex, upstreamPrefixes);
         }
     }
 
@@ -1547,5 +1551,17 @@ public class IpServer extends StateMachine {
             if (random == value) return dflt;
         }
         return random;
+    }
+
+    /** Get IPv6 prefixes from LinkProperties */
+    @NonNull
+    private HashSet<IpPrefix> getTetherableIpv6Prefixes(
+            @NonNull LinkProperties ipv6LinkProperties) {
+        final HashSet<IpPrefix> prefixes = new HashSet<>();
+        for (LinkAddress linkAddr : ipv6LinkProperties.getLinkAddresses()) {
+            if (linkAddr.getPrefixLength() != RFC7421_PREFIX_LENGTH) continue;
+            prefixes.add(new IpPrefix(linkAddr.getAddress(), RFC7421_PREFIX_LENGTH));
+        }
+        return prefixes;
     }
 }

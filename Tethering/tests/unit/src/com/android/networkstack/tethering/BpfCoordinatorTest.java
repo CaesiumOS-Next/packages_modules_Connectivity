@@ -141,11 +141,15 @@ import java.io.StringWriter;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -178,6 +182,15 @@ public class BpfCoordinatorTest {
     private static final MacAddress MAC_A = MacAddress.fromString("00:00:00:00:00:0a");
     private static final MacAddress MAC_B = MacAddress.fromString("11:22:33:00:00:0b");
 
+    private static final IpPrefix UPSTREAM_PREFIX1 = new IpPrefix("2001:db8::/64");
+    private static final IpPrefix UPSTREAM_PREFIX2 = new IpPrefix("2012:abcd::/64");
+    // Use LinkedHashSet to ensure the processing order in BpfCoordinator so that we can use
+    // inOrder.verify() to verify the interactions.
+    private static final Set<IpPrefix> UPSTREAM_PREFIXES1 =
+            new LinkedHashSet(Arrays.asList(UPSTREAM_PREFIX1));
+    private static final Set<IpPrefix> UPSTREAM_PREFIXES2 =
+            new LinkedHashSet(Arrays.asList(UPSTREAM_PREFIX1, UPSTREAM_PREFIX2));
+
     private static final InetAddress NEIGH_A = InetAddresses.parseNumericAddress("2001:db8::1");
     private static final InetAddress NEIGH_B = InetAddresses.parseNumericAddress("2001:db8::2");
 
@@ -195,7 +208,6 @@ public class BpfCoordinatorTest {
     private static final Inet4Address XLAT_LOCAL_IPV4ADDR =
             (Inet4Address) InetAddresses.parseNumericAddress("192.0.0.46");
     private static final IpPrefix NAT64_IP_PREFIX = new IpPrefix("64:ff9b::/96");
-    private static final IpPrefix IPV6_ZERO_PREFIX = new IpPrefix("::/64");
 
     // Generally, public port and private port are the same in the NAT conntrack message.
     // TODO: consider using different private port and public port for testing.
@@ -776,13 +788,13 @@ public class BpfCoordinatorTest {
         // BpfCoordinator#tetherOffloadRuleAdd and BpfCoordinator#tetherOffloadGetAndClearStats.
         // The #verifyTetherOffloadGetAndClearStats can't distinguish who has ever called
         // mBpfStatsMap#getValue and get a wrong calling count which counts all.
-        final InOrder inOrder = inOrder(mNetd, mBpfUpstream6Map, mBpfLimitMap, mBpfStatsMap,
-                mBpfDownstream6Map);
+        final InOrder inOrder = inOrder(mNetd, mBpfUpstream6Map, mBpfDownstream6Map, mBpfLimitMap,
+                mBpfStatsMap);
         final Ipv6UpstreamForwardingRule upstreamRule = buildTestUpstreamForwardingRule(
-                mobileIfIndex, DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC);
+                mobileIfIndex, DOWNSTREAM_IFINDEX, UPSTREAM_PREFIX1, DOWNSTREAM_MAC);
         final Ipv6DownstreamForwardingRule downstreamRule = buildTestDownstreamForwardingRule(
                 mobileIfIndex, NEIGH_A, MAC_A);
-        coordinator.tetherOffloadRuleUpdate(mIpServer, mobileIfIndex);
+        coordinator.tetherOffloadRuleUpdate(mIpServer, mobileIfIndex, UPSTREAM_PREFIXES1);
         verifyTetherOffloadRuleAdd(inOrder, upstreamRule);
         verifyTetherOffloadSetInterfaceQuota(inOrder, mobileIfIndex, QUOTA_UNLIMITED,
                 true /* isInit */);
@@ -792,7 +804,7 @@ public class BpfCoordinatorTest {
         // Removing the last rule on current upstream immediately sends the cleanup stuff to netd.
         updateStatsEntryForTetherOffloadGetAndClearStats(
                 buildTestTetherStatsParcel(mobileIfIndex, 0, 0, 0, 0));
-        coordinator.tetherOffloadRuleUpdate(mIpServer, 0);
+        coordinator.tetherOffloadRuleUpdate(mIpServer, 0, Set.of());
         verifyTetherOffloadRuleRemove(inOrder, upstreamRule);
         verifyTetherOffloadGetAndClearStats(inOrder, mobileIfIndex);
         verifyTetherOffloadRuleRemove(inOrder, downstreamRule);
@@ -993,9 +1005,10 @@ public class BpfCoordinatorTest {
 
     @NonNull
     private static Ipv6UpstreamForwardingRule buildTestUpstreamForwardingRule(
-            int upstreamIfindex, int downstreamIfindex, @NonNull MacAddress inDstMac) {
+            int upstreamIfindex, int downstreamIfindex, @NonNull IpPrefix sourcePrefix,
+            @NonNull MacAddress inDstMac) {
         return new Ipv6UpstreamForwardingRule(upstreamIfindex, downstreamIfindex,
-                IPV6_ZERO_PREFIX, inDstMac, MacAddress.ALL_ZEROS_ADDRESS,
+                sourcePrefix, inDstMac, MacAddress.ALL_ZEROS_ADDRESS,
                 MacAddress.ALL_ZEROS_ADDRESS);
     }
 
@@ -1050,9 +1063,9 @@ public class BpfCoordinatorTest {
         // Set the unlimited quota as default if the service has never applied a data limit for a
         // given upstream. Note that the data limit only be applied on an upstream which has rules.
         final Ipv6UpstreamForwardingRule rule = buildTestUpstreamForwardingRule(
-                mobileIfIndex, DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC);
+                mobileIfIndex, DOWNSTREAM_IFINDEX, UPSTREAM_PREFIX1, DOWNSTREAM_MAC);
         final InOrder inOrder = inOrder(mNetd, mBpfUpstream6Map, mBpfLimitMap, mBpfStatsMap);
-        coordinator.tetherOffloadRuleUpdate(mIpServer, mobileIfIndex);
+        coordinator.tetherOffloadRuleUpdate(mIpServer, mobileIfIndex, UPSTREAM_PREFIXES1);
         verifyTetherOffloadRuleAdd(inOrder, rule);
         verifyTetherOffloadSetInterfaceQuota(inOrder, mobileIfIndex, QUOTA_UNLIMITED,
                 true /* isInit */);
@@ -1100,28 +1113,28 @@ public class BpfCoordinatorTest {
 
         // Adding the first rule on current upstream immediately sends the quota to netd.
         final Ipv6UpstreamForwardingRule ruleA = buildTestUpstreamForwardingRule(
-                mobileIfIndex, DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC);
-        coordinator.tetherOffloadRuleUpdate(mIpServer, mobileIfIndex);
+                mobileIfIndex, DOWNSTREAM_IFINDEX, UPSTREAM_PREFIX1, DOWNSTREAM_MAC);
+        coordinator.tetherOffloadRuleUpdate(mIpServer, mobileIfIndex, UPSTREAM_PREFIXES1);
         verifyTetherOffloadRuleAdd(inOrder, ruleA);
         verifyTetherOffloadSetInterfaceQuota(inOrder, mobileIfIndex, limit, true /* isInit */);
         inOrder.verifyNoMoreInteractions();
 
         // Adding the second rule on current upstream does not send the quota to netd.
         final Ipv6UpstreamForwardingRule ruleB = buildTestUpstreamForwardingRule(
-                mobileIfIndex, DOWNSTREAM_IFINDEX2, DOWNSTREAM_MAC2);
-        coordinator.tetherOffloadRuleUpdate(mIpServer2, mobileIfIndex);
+                mobileIfIndex, DOWNSTREAM_IFINDEX2, UPSTREAM_PREFIX1, DOWNSTREAM_MAC2);
+        coordinator.tetherOffloadRuleUpdate(mIpServer2, mobileIfIndex, UPSTREAM_PREFIXES1);
         verifyTetherOffloadRuleAdd(inOrder, ruleB);
         verifyNeverTetherOffloadSetInterfaceQuota(inOrder);
 
         // Removing the second rule on current upstream does not send the quota to netd.
-        coordinator.tetherOffloadRuleUpdate(mIpServer2, 0);
+        coordinator.tetherOffloadRuleUpdate(mIpServer2, 0, Set.of());
         verifyTetherOffloadRuleRemove(inOrder, ruleB);
         verifyNeverTetherOffloadSetInterfaceQuota(inOrder);
 
         // Removing the last rule on current upstream immediately sends the cleanup stuff to netd.
         updateStatsEntryForTetherOffloadGetAndClearStats(
                 buildTestTetherStatsParcel(mobileIfIndex, 0, 0, 0, 0));
-        coordinator.tetherOffloadRuleUpdate(mIpServer, 0);
+        coordinator.tetherOffloadRuleUpdate(mIpServer, 0, Set.of());
         verifyTetherOffloadRuleRemove(inOrder, ruleA);
         verifyTetherOffloadGetAndClearStats(inOrder, mobileIfIndex);
         inOrder.verifyNoMoreInteractions();
@@ -1140,8 +1153,8 @@ public class BpfCoordinatorTest {
         coordinator.addUpstreamNameToLookupTable(ethIfIndex, ethIface);
         coordinator.addUpstreamNameToLookupTable(mobileIfIndex, mobileIface);
 
-        final InOrder inOrder = inOrder(mNetd, mBpfUpstream6Map, mBpfLimitMap, mBpfStatsMap,
-                mBpfDownstream6Map);
+        final InOrder inOrder = inOrder(mNetd, mBpfUpstream6Map, mBpfDownstream6Map, mBpfLimitMap,
+                mBpfStatsMap);
 
         // Before the rule test, here are the additional actions while the rules are changed.
         // - After adding the first rule on a given upstream, the coordinator adds a data limit.
@@ -1153,13 +1166,13 @@ public class BpfCoordinatorTest {
         // [1] Adding rules on the upstream Ethernet.
         // Note that the default data limit is applied after the first rule is added.
         final Ipv6UpstreamForwardingRule ethernetUpstreamRule = buildTestUpstreamForwardingRule(
-                ethIfIndex, DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC);
+                ethIfIndex, DOWNSTREAM_IFINDEX, UPSTREAM_PREFIX1, DOWNSTREAM_MAC);
         final Ipv6DownstreamForwardingRule ethernetRuleA = buildTestDownstreamForwardingRule(
                 ethIfIndex, NEIGH_A, MAC_A);
         final Ipv6DownstreamForwardingRule ethernetRuleB = buildTestDownstreamForwardingRule(
                 ethIfIndex, NEIGH_B, MAC_B);
 
-        coordinator.tetherOffloadRuleUpdate(mIpServer, ethIfIndex);
+        coordinator.tetherOffloadRuleUpdate(mIpServer, ethIfIndex, UPSTREAM_PREFIXES1);
         verifyTetherOffloadRuleAdd(inOrder, ethernetUpstreamRule);
         verifyTetherOffloadSetInterfaceQuota(inOrder, ethIfIndex, QUOTA_UNLIMITED,
                 true /* isInit */);
@@ -1169,8 +1182,10 @@ public class BpfCoordinatorTest {
         verifyTetherOffloadRuleAdd(inOrder, ethernetRuleB);
 
         // [2] Update the existing rules from Ethernet to cellular.
-        final Ipv6UpstreamForwardingRule mobileUpstreamRule = buildTestUpstreamForwardingRule(
-                mobileIfIndex, DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC);
+        final Ipv6UpstreamForwardingRule mobileUpstreamRule1 = buildTestUpstreamForwardingRule(
+                mobileIfIndex, DOWNSTREAM_IFINDEX, UPSTREAM_PREFIX1, DOWNSTREAM_MAC);
+        final Ipv6UpstreamForwardingRule mobileUpstreamRule2 = buildTestUpstreamForwardingRule(
+                mobileIfIndex, DOWNSTREAM_IFINDEX, UPSTREAM_PREFIX2, DOWNSTREAM_MAC);
         final Ipv6DownstreamForwardingRule mobileRuleA = buildTestDownstreamForwardingRule(
                 mobileIfIndex, NEIGH_A, MAC_A);
         final Ipv6DownstreamForwardingRule mobileRuleB = buildTestDownstreamForwardingRule(
@@ -1179,13 +1194,14 @@ public class BpfCoordinatorTest {
                 buildTestTetherStatsParcel(ethIfIndex, 10, 20, 30, 40));
 
         // Update the existing rules for upstream changes. The rules are removed and re-added one
-        // by one for updating upstream interface index by #tetherOffloadRuleUpdate.
-        coordinator.tetherOffloadRuleUpdate(mIpServer, mobileIfIndex);
+        // by one for updating upstream interface index and prefixes by #tetherOffloadRuleUpdate.
+        coordinator.tetherOffloadRuleUpdate(mIpServer, mobileIfIndex, UPSTREAM_PREFIXES2);
         verifyTetherOffloadRuleRemove(inOrder, ethernetUpstreamRule);
         verifyTetherOffloadGetAndClearStats(inOrder, ethIfIndex);
-        verifyTetherOffloadRuleAdd(inOrder, mobileUpstreamRule);
+        verifyTetherOffloadRuleAdd(inOrder, mobileUpstreamRule1);
         verifyTetherOffloadSetInterfaceQuota(inOrder, mobileIfIndex, QUOTA_UNLIMITED,
                 true /* isInit */);
+        verifyTetherOffloadRuleAdd(inOrder, mobileUpstreamRule2);
         verifyTetherOffloadRuleRemove(inOrder, ethernetRuleA);
         verifyTetherOffloadRuleRemove(inOrder, ethernetRuleB);
         verifyTetherOffloadRuleAdd(inOrder, mobileRuleA);
@@ -1195,7 +1211,8 @@ public class BpfCoordinatorTest {
         updateStatsEntryForTetherOffloadGetAndClearStats(
                 buildTestTetherStatsParcel(mobileIfIndex, 50, 60, 70, 80));
         coordinator.tetherOffloadRuleClear(mIpServer);
-        verifyTetherOffloadRuleRemove(inOrder, mobileUpstreamRule);
+        verifyTetherOffloadRuleRemove(inOrder, mobileUpstreamRule1);
+        verifyTetherOffloadRuleRemove(inOrder, mobileUpstreamRule2);
         verifyTetherOffloadGetAndClearStats(inOrder, mobileIfIndex);
         verifyTetherOffloadRuleRemove(inOrder, mobileRuleA);
         verifyTetherOffloadRuleRemove(inOrder, mobileRuleB);
@@ -1261,7 +1278,8 @@ public class BpfCoordinatorTest {
         assertEquals(1, rules.size());
 
         // The rule can't be updated.
-        coordinator.tetherOffloadRuleUpdate(mIpServer, rule.upstreamIfindex + 1 /* new */);
+        coordinator.tetherOffloadRuleUpdate(mIpServer, rule.upstreamIfindex + 1 /* new */,
+                UPSTREAM_PREFIXES1);
         verifyNeverTetherOffloadRuleRemove();
         verifyNeverTetherOffloadRuleAdd();
         rules = coordinator.getDownstreamForwardingRulesForTesting().get(mIpServer);
@@ -1701,14 +1719,14 @@ public class BpfCoordinatorTest {
     public void testAddDevMapRule6() throws Exception {
         final BpfCoordinator coordinator = makeBpfCoordinator();
 
-        coordinator.tetherOffloadRuleUpdate(mIpServer, UPSTREAM_IFINDEX);
+        coordinator.tetherOffloadRuleUpdate(mIpServer, UPSTREAM_IFINDEX, UPSTREAM_PREFIXES1);
         verify(mBpfDevMap).updateEntry(eq(new TetherDevKey(UPSTREAM_IFINDEX)),
                 eq(new TetherDevValue(UPSTREAM_IFINDEX)));
         verify(mBpfDevMap).updateEntry(eq(new TetherDevKey(DOWNSTREAM_IFINDEX)),
                 eq(new TetherDevValue(DOWNSTREAM_IFINDEX)));
         clearInvocations(mBpfDevMap);
 
-        coordinator.tetherOffloadRuleUpdate(mIpServer2, UPSTREAM_IFINDEX);
+        coordinator.tetherOffloadRuleUpdate(mIpServer2, UPSTREAM_IFINDEX, UPSTREAM_PREFIXES1);
         verify(mBpfDevMap).updateEntry(eq(new TetherDevKey(DOWNSTREAM_IFINDEX2)),
                 eq(new TetherDevValue(DOWNSTREAM_IFINDEX2)));
         verify(mBpfDevMap, never()).updateEntry(eq(new TetherDevKey(UPSTREAM_IFINDEX)),
@@ -2177,8 +2195,8 @@ public class BpfCoordinatorTest {
                 + "srcMac: 12:34:56:78:90:ab, dstMac: 00:00:00:00:00:0a",
                 downstreamRule.toString());
         final Ipv6UpstreamForwardingRule upstreamRule = buildTestUpstreamForwardingRule(
-                UPSTREAM_IFINDEX, DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC);
-        assertEquals("upstreamIfindex: 1001, downstreamIfindex: 2001, sourcePrefix: ::/64, "
+                UPSTREAM_IFINDEX, DOWNSTREAM_IFINDEX, UPSTREAM_PREFIX1, DOWNSTREAM_MAC);
+        assertEquals("upstreamIfindex: 1001, downstreamIfindex: 2001, sourcePrefix: 2001:db8::/64, "
                 + "inDstMac: 12:34:56:78:90:ab, outSrcMac: 00:00:00:00:00:00, "
                 + "outDstMac: 00:00:00:00:00:00", upstreamRule.toString());
     }
@@ -2231,8 +2249,10 @@ public class BpfCoordinatorTest {
                 UPSTREAM_IFINDEX, NEIGH_A, MAC_A);
         mBpfDownstream6Map.insertEntry(rule.makeTetherDownstream6Key(), rule.makeTether6Value());
 
+        final byte[] prefixBytes = Arrays.copyOf(UPSTREAM_PREFIX1.getRawAddress(), 8);
+        final long prefix64 = ByteBuffer.wrap(prefixBytes).order(ByteOrder.BIG_ENDIAN).getLong();
         final TetherUpstream6Key upstream6Key = new TetherUpstream6Key(DOWNSTREAM_IFINDEX,
-                DOWNSTREAM_MAC, 0);
+                DOWNSTREAM_MAC, prefix64);
         final Tether6Value upstream6Value = new Tether6Value(UPSTREAM_IFINDEX,
                 MacAddress.ALL_ZEROS_ADDRESS, MacAddress.ALL_ZEROS_ADDRESS,
                 ETH_P_IPV6, NetworkStackConstants.ETHER_MTU);
