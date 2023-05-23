@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2a9eacc_2519ef81",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6108,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-23T04:49:10Z",
+      "side": 1,
+      "message": "That was a mistake on my part. Yeah `preferBadWifi` is irrelevant, but I eventually opted for testing all 4 combinations with a comment.",
+      "parentUuid": "d8d2b779_448bb0d3",
+      "range": {
+        "startLine": 6108,
+        "startChar": 34,
+        "endLine": 6108,
+        "endChar": 43
+      },
+      "revId": "aef103479054c68d67d4b3b3e3eba48fa96b71b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba588ed5_540fda77",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-05-17T06:58:41Z",
       "side": 1,
       "message": "Consider a slightly more lax version to avoid flakiness. the midpoint between 8000 and 20000 is 14000 so you could use that instead of 10000.",
+      "range": {
+        "startLine": 6110,
+        "startChar": 37,
+        "endLine": 6110,
+        "endChar": 43
+      },
+      "revId": "aef103479054c68d67d4b3b3e3eba48fa96b71b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a66b0fc9_8fa41fb8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6110,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-23T04:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba588ed5_540fda77",
       "range": {
         "startLine": 6110,
         "startChar": 37,
