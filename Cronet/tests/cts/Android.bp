@@ -53,6 +53,7 @@ android_test {
     defaults: [
         "cts_defaults",
     ],
+    enforce_default_target_sdk_version: true,
     sdk_version: "test_current",
     static_libs: ["CtsNetHttpTestsLib"],
     // Tag this as a cts test artifact
