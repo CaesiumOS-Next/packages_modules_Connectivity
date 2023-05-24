@@ -50,6 +50,23 @@
       "message": "... with one comment.",
       "revId": "e831288b0ffc6a5dfb066c65052bdb8cf62fbb80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10ab7be7_9e925ff6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2023-05-24T23:52:59Z",
+      "side": 1,
+      "message": "please resolve CL comments",
+      "revId": "e831288b0ffc6a5dfb066c65052bdb8cf62fbb80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
