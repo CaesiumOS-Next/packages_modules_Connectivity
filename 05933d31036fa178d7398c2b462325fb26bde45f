@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3235dd4_101f9e99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T10:32:37Z",
+      "side": 1,
+      "message": "LGTM. Feel free to address comment in a follow-up.",
+      "revId": "05933d31036fa178d7398c2b462325fb26bde45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cbf1039_7864975e",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T10:32:37Z",
+      "side": 1,
+      "message": "Pre-existing, so no need to fix in this CL, but I think this is wrong for two reasons.\n\n1. I don\u0027t think it\u0027s valid to call transitionTo in the enter method. IIRC doing so causes a Log.wtf?\n2. I *think* the transitionTo takes effect when the method returns. If so, then we will log the message at line 1132, and then we will call sendInterfaceState with mDesiredInterfaceState. This will send incorrect callbacks that say the code went into LOCAL_ONLY or TETHERED, before immediately transitioning into mInitialState, which sends a callback for AVAILABLE. So you probably want a return statement after line 1129?\n\nIn order to achieve a similar effect to calling transitionTo here, you can call deferMessage, which will run immediately after this method returns. Something like:\n\n    if (mLastError !\u003d TETHER_ERROR_NO_ERROR) {\n        deferMessage(obtainMessage(CMD_START_SERVING_ERROR));\n        return;\n    }\n\nand below in processMessage:\n\n\n    case CMD_START_SERVING_ERROR:\n        // mLastError is already set.\n        transitionTo(mInitialState);\n        break;",
+      "range": {
+        "startLine": 1130,
+        "startChar": 12,
+        "endLine": 1130,
+        "endChar": 13
+      },
+      "revId": "05933d31036fa178d7398c2b462325fb26bde45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
