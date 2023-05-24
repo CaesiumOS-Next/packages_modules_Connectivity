@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "903286fd_0e8d70ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-24T06:53:26Z",
+      "side": 1,
+      "message": "After building, can you also try:\n\n    aapt dump badging $ANDROID_PRODUCT_OUT/testcases/ConnectivityCoverageTests/arm64/ConnectivityCoverageTests.apk | grep targetSdk\n    \nAnd check that you get \"33\" or \"34\" ?",
+      "revId": "bf832a70148dcc45d7646209cd6476f519b29aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31e3b25c_be6c42e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-24T06:53:26Z",
+      "side": 1,
+      "message": "n",
+      "revId": "bf832a70148dcc45d7646209cd6476f519b29aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
