@@ -153,6 +153,8 @@ import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALID
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_SUCCESS;
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.IPPROTO_TCP;
+import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_HIGH;
+import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_LOW;
 
 import static com.android.server.ConnectivityService.KEY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
@@ -625,8 +627,8 @@ public class ConnectivityServiceTest {
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
-    final BatteryStatsManager mBatteryStatsManager =
-            new BatteryStatsManager(mock(IBatteryStats.class));
+    final IBatteryStats mIBatteryStats = mock(IBatteryStats.class);
+    final BatteryStatsManager mBatteryStatsManager = new BatteryStatsManager(mIBatteryStats);
 
     private ArgumentCaptor<ResolverParamsParcel> mResolverParamsParcelCaptor =
             ArgumentCaptor.forClass(ResolverParamsParcel.class);
@@ -11240,6 +11242,8 @@ public class ConnectivityServiceTest {
         mCellAgent.sendLinkProperties(cellLp);
         mCellAgent.connect(true);
         cellNetworkCallback.expectAvailableThenValidatedCallbacks(mCellAgent);
+        verify(mIBatteryStats).noteMobileRadioPowerState(
+                eq(DC_POWER_STATE_HIGH), anyLong() /* timestampNs */, eq(-1) /* uid */);
 
         // Connect Wi-Fi network
         mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
@@ -11247,6 +11251,8 @@ public class ConnectivityServiceTest {
         wifiLp.setInterfaceName(WIFI_IFNAME);
         mWiFiAgent.sendLinkProperties(wifiLp);
         mWiFiAgent.connect(true);
+        verify(mIBatteryStats).noteWifiRadioPowerState(
+                eq(DC_POWER_STATE_HIGH), anyLong() /* timestampNs */, eq(-1) /* uid */);
 
         // Cellular network should keep connected
         cellNetworkCallback.assertNoCallback();
@@ -11270,6 +11276,8 @@ public class ConnectivityServiceTest {
         assertFalse(mCm.isDefaultNetworkActive());
         mServiceContext.expectDataActivityBroadcast(
                 TYPE_WIFI, false /* isActive */, 1234 /* tsNanos */);
+        verify(mIBatteryStats).noteWifiRadioPowerState(
+                eq(DC_POWER_STATE_LOW), anyLong() /* timestampNs */, eq(-1) /* uid */);
 
         // Non default network(Cellular) goes to inactive state. This should not update the default
         // network activity
@@ -11279,6 +11287,8 @@ public class ConnectivityServiceTest {
         mServiceContext.expectNoDataActivityBroadcast();
         assertFalse(onNetworkActiveFuture.isDone());
         assertFalse(mCm.isDefaultNetworkActive());
+        verify(mIBatteryStats).noteMobileRadioPowerState(
+                eq(DC_POWER_STATE_LOW), anyLong() /* timestampNs */, eq(-1) /* uid */);
 
         // Non default network(Cellular) goes to active state. This should not update the default
         // network activity
@@ -11288,6 +11298,8 @@ public class ConnectivityServiceTest {
         mServiceContext.expectNoDataActivityBroadcast();
         assertFalse(onNetworkActiveFuture.isDone());
         assertFalse(mCm.isDefaultNetworkActive());
+        verify(mIBatteryStats).noteMobileRadioPowerState(
+                eq(DC_POWER_STATE_HIGH), anyLong() /* timestampNs */, eq(TEST_PACKAGE_UID));
 
         // Default network(Wi-Fi) goes to active state. This should update the default network
         // activity
@@ -11297,6 +11309,8 @@ public class ConnectivityServiceTest {
                 TYPE_WIFI, true /* isActive */, 1234 /* tsNanos */);
         assertTrue(onNetworkActiveFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCm.isDefaultNetworkActive());
+        verify(mIBatteryStats).noteWifiRadioPowerState(
+                eq(DC_POWER_STATE_HIGH), anyLong() /* timestampNs */, eq(TEST_PACKAGE_UID2));
     }
 
     @Test
