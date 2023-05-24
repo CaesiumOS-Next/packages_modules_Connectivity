@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8b520d8_7f64fc24",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-24T05:29:07Z",
+      "side": 1,
+      "message": "It is incorrect to create a new thread here because the socketClient is running on a different thread (You are not able to pass this thread to socketClient). An exception will be thrown when the discoverymanager is calling to socketClient.",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 134,
+        "endChar": 31
+      },
+      "revId": "3c91d7fc956f32bf65cdeb102d6620387af283bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
