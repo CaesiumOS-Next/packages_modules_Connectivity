@@ -11317,6 +11317,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * changes.
      */
     private static final class LegacyNetworkActivityTracker {
+        private static final int NO_UID = -1;
         private final Context mContext;
         private final INetd mNetd;
         private final RemoteCallbackList<INetworkActivityListener> mNetworkActivityListeners =
@@ -11325,6 +11326,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private final ArrayMap<Integer, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
         private Integer mTrackingDefaultNetwork;
         private boolean mIsDefaultNetworkActive;
+
+        private final Set<Integer> mActiveWifiNetwork = new ArraySet<>();
+        private final Set<Integer> mActiveCellularNetwork = new ArraySet<>();
 
         private static class IdleTimerParams {
             public final int timeout;
@@ -11343,17 +11347,44 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mNetd = netd;
         }
 
-        public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
-            if (mTrackingDefaultNetwork != activityParams.netId) {
-                // This network is not a default network.
-                return;
+        // Update Network Activity and update BatteryStats service if needed.
+        private void updateNetworkActivity(final int netId, final int transportType,
+                final boolean isActive, final int uid) {
+            boolean needBatteryStatsUpdate = false;
+
+            final Set<Integer> activeNetwork =  transportType == TRANSPORT_WIFI
+                    ? mActiveWifiNetwork : mActiveCellularNetwork;
+
+            if (isActive) {
+                if (activeNetwork.add(netId) && activeNetwork.size() == 1) {
+                    needBatteryStatsUpdate = true;
+                }
+            } else {
+                if (activeNetwork.remove(netId) && activeNetwork.size() == 0) {
+                    needBatteryStatsUpdate = true;
+                }
             }
 
+            if (needBatteryStatsUpdate) {
+                LegacyNetworkActivityTrackerUtils.updateRadioPowerState(mContext, isActive,
+                        transportType, uid);
+            }
+        }
+
+        public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
             final IdleTimerParams idleTimerParams = mActiveIdleTimers.get(activityParams.netId);
             if (idleTimerParams == null) {
                 return;
             }
             final int transportType = idleTimerParams.transportType;
+            updateNetworkActivity(activityParams.netId, transportType,
+                    activityParams.isActive, activityParams.uid);
+
+            if (mTrackingDefaultNetwork != activityParams.netId) {
+                // This network is not a default network.
+                return;
+            }
+
             LegacyNetworkActivityTrackerUtils.sendDataActivityBroadcast(mContext,
                     LegacyNetworkActivityTrackerUtils.transportTypeToLegacyType(transportType),
                     activityParams.isActive, activityParams.timestampNs);
@@ -11400,6 +11431,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mActiveIdleTimers.put(netId, new IdleTimerParams(timeout, type, iface));
             try {
                 mNetd.idletimerAddInterface(iface, timeout, Integer.toString(netId));
+                updateNetworkActivity(netId, type, true /* isActive */, NO_UID);
             } catch (Exception e) {
                 // You shall not crash!
                 loge("Exception in setupDataActivityTracking " + e);
@@ -11419,6 +11451,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
                 mNetd.idletimerRemoveInterface(params.iface, params.timeout,
                         Integer.toString(netId));
+                updateNetworkActivity(netId, params.transportType, false /* isActive */, NO_UID);
             } catch (Exception e) {
                 // You shall not crash!
                 loge("Exception in removeDataActivityTracking " + e);
@@ -11467,6 +11500,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     pw.print(" type="); pw.print(params.transportType);
                     pw.print(" iface="); pw.println(params.iface);
                 }
+                pw.println("WiFi active networks: " + mActiveWifiNetwork);
+                pw.println("Cellular active networks: " + mActiveCellularNetwork);
             } catch (Exception e) {
                 // mActiveIdleTimers should only be accessed from handler thread, except dump().
                 // As dump() is never called in normal usage, it would be needlessly expensive
