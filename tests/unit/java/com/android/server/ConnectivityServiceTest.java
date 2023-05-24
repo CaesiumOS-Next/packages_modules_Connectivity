@@ -153,6 +153,8 @@ import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALID
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_SUCCESS;
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.IPPROTO_TCP;
+import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_HIGH;
+import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_LOW;
 
 import static com.android.server.ConnectivityService.KEY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
@@ -626,8 +628,8 @@ public class ConnectivityServiceTest {
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
-    final BatteryStatsManager mBatteryStatsManager =
-            new BatteryStatsManager(mock(IBatteryStats.class));
+    final IBatteryStats mIBatteryStats = mock(IBatteryStats.class);
+    final BatteryStatsManager mBatteryStatsManager = new BatteryStatsManager(mIBatteryStats);
 
     private ArgumentCaptor<ResolverParamsParcel> mResolverParamsParcelCaptor =
             ArgumentCaptor.forClass(ResolverParamsParcel.class);
@@ -11230,6 +11232,8 @@ public class ConnectivityServiceTest {
         cellLp.setInterfaceName(MOBILE_IFNAME);
         mCellAgent.sendLinkProperties(cellLp);
         mCellAgent.connect(true);
+        verify(mIBatteryStats).noteMobileRadioPowerState(
+                eq(DC_POWER_STATE_HIGH), anyLong() /* timestampNs */, eq(-1) /* uid */);
 
         // Connect Wi-Fi network
         mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
@@ -11237,6 +11241,8 @@ public class ConnectivityServiceTest {
         wifiLp.setInterfaceName(WIFI_IFNAME);
         mWiFiAgent.sendLinkProperties(wifiLp);
         mWiFiAgent.connect(true);
+        verify(mIBatteryStats).noteWifiRadioPowerState(
+                eq(DC_POWER_STATE_HIGH), anyLong() /* timestampNs */, eq(-1) /* uid */);
 
         // Wi-Fi network should be the default network.
         assertEquals(mWiFiAgent.getNetwork(), mCm.getActiveNetwork());
@@ -11258,6 +11264,8 @@ public class ConnectivityServiceTest {
         mServiceContext.expectNoDataActivityBroadcast();
         assertNull(onNetworkActiveHistory.poll(0, intent -> true));
         assertTrue(mCm.isDefaultNetworkActive());
+        verify(mIBatteryStats).noteMobileRadioPowerState(
+                eq(DC_POWER_STATE_LOW), anyLong() /* timestampNs */, eq(-1) /* uid */);
 
         // Cellular network (non default network) goes to active state.
         netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
@@ -11266,12 +11274,18 @@ public class ConnectivityServiceTest {
         mServiceContext.expectNoDataActivityBroadcast();
         assertNull(onNetworkActiveHistory.poll(0, intent -> true));
         assertTrue(mCm.isDefaultNetworkActive());
+        verify(mIBatteryStats).noteMobileRadioPowerState(
+                eq(DC_POWER_STATE_HIGH), anyLong() /* timestampNs */, eq(TEST_PACKAGE_UID));
 
         // Disconnect Wi-Fi network and make Cellular network default network.
         mWiFiAgent.disconnect();
         waitForIdle();
         assertEquals(mCellAgent.getNetwork(), mCm.getActiveNetwork());
         assertNotNull(onNetworkActiveHistory.poll(0, intent -> true));
+        verify(mIBatteryStats).noteWifiRadioPowerState(
+                eq(DC_POWER_STATE_LOW), anyLong() /* timestampNs */, eq(-1) /* uid */);
+
+        reset(mIBatteryStats);
 
         // Cellular network (default network) goes to inactive state.
         netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
@@ -11280,6 +11294,8 @@ public class ConnectivityServiceTest {
                 TYPE_MOBILE, false /* isActive */, 1234 /* tsNanos */);
         assertNull(onNetworkActiveHistory.poll(0, intent -> true));
         assertFalse(mCm.isDefaultNetworkActive());
+        verify(mIBatteryStats).noteMobileRadioPowerState(
+                eq(DC_POWER_STATE_LOW), anyLong() /* timestampNs */, eq(-1) /* uid */);
 
         // Cellular network (default network) goes to active state.
         netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
@@ -11288,6 +11304,8 @@ public class ConnectivityServiceTest {
                 TYPE_MOBILE, true /* isActive */, 1234 /* tsNanos */);
         assertNotNull(onNetworkActiveHistory.poll(0, intent -> true));
         assertTrue(mCm.isDefaultNetworkActive());
+        verify(mIBatteryStats).noteMobileRadioPowerState(
+                eq(DC_POWER_STATE_HIGH), anyLong() /* timestampNs */, eq(TEST_PACKAGE_UID));
 
         mCm.removeDefaultNetworkActiveListener(listener);
     }
