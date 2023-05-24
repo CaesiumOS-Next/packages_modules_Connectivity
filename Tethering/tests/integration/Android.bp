@@ -28,7 +28,7 @@ java_defaults {
         "NetworkStackApiStableLib",
         "androidx.test.rules",
         "cts-net-utils",
-        "mockito-target-extended-minus-junit4",
+        "mockito-target-minus-junit4",
         "net-tests-utils",
         "net-utils-device-common-bpf",
         "testables",
@@ -39,11 +39,6 @@ java_defaults {
         "android.test.base",
         "android.test.mock",
     ],
-    jni_libs: [
-        // For mockito extended
-        "libdexmakerjvmtiagent",
-        "libstaticjvmtiagent",
-    ],
 }
 
 android_library {
@@ -53,6 +48,7 @@ android_library {
     defaults: ["TetheringIntegrationTestsDefaults"],
     visibility: [
         "//packages/modules/Connectivity/Tethering/tests/mts",
+        "//packages/modules/Connectivity/tests/cts/net",
     ]
 }
 
