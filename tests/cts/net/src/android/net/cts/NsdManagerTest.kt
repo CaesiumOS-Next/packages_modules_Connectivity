@@ -37,36 +37,26 @@ import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
 import android.net.TestNetworkSpecifier
 import android.net.connectivity.ConnectivityCompatChanges
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.DiscoveryStarted
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.DiscoveryStopped
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.ServiceFound
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.ServiceLost
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.StartDiscoveryFailed
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.StopDiscoveryFailed
-import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.RegistrationFailed
-import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.ServiceRegistered
-import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.ServiceUnregistered
-import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.UnregistrationFailed
-import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ResolutionStopped
-import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ResolveFailed
-import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ServiceResolved
-import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.StopResolutionFailed
-import android.net.cts.NsdManagerTest.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.RegisterCallbackFailed
-import android.net.cts.NsdManagerTest.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdated
-import android.net.cts.NsdManagerTest.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdatedLost
-import android.net.cts.NsdManagerTest.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.UnregisterCallbackSucceeded
+import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.DiscoveryStarted
+import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.DiscoveryStopped
+import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.ServiceFound
+import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.ServiceLost
+import android.net.cts.NsdRegistrationRecord.RegistrationEvent.ServiceRegistered
+import android.net.cts.NsdRegistrationRecord.RegistrationEvent.ServiceUnregistered
+import android.net.cts.NsdResolveRecord.ResolveEvent.ResolutionStopped
+import android.net.cts.NsdResolveRecord.ResolveEvent.ServiceResolved
+import android.net.cts.NsdResolveRecord.ResolveEvent.StopResolutionFailed
+import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdated
+import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdatedLost
+import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.UnregisterCallbackSucceeded
 import android.net.cts.util.CtsNetUtils
 import android.net.nsd.NsdManager
-import android.net.nsd.NsdManager.DiscoveryListener
-import android.net.nsd.NsdManager.RegistrationListener
-import android.net.nsd.NsdManager.ResolveListener
 import android.net.nsd.NsdServiceInfo
 import android.net.nsd.OffloadEngine
 import android.net.nsd.OffloadServiceInfo
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
-import android.os.Process.myTid
 import android.platform.test.annotations.AppModeFull
 import android.system.ErrnoException
 import android.system.Os
@@ -81,8 +71,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.android.compatibility.common.util.PollingCheck
 import com.android.compatibility.common.util.PropertyUtil
 import com.android.modules.utils.build.SdkLevel.isAtLeastU
-import com.android.net.module.util.ArrayTrackRecord
-import com.android.net.module.util.TrackRecord
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -111,7 +99,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.assertTrue
 import kotlin.test.fail
 import org.junit.After
 import org.junit.Assert.assertArrayEquals
@@ -125,7 +112,6 @@ import org.junit.runner.RunWith
 
 private const val TAG = "NsdManagerTest"
 private const val TIMEOUT_MS = 2000L
-private const val NO_CALLBACK_TIMEOUT_MS = 200L
 // Registration may take a long time if there are devices with the same hostname on the network,
 // as the device needs to try another name and probe again. This is especially true since when using
 // mdnsresponder the usual hostname is "Android", and on conflict "Android-2", "Android-3", ... are
@@ -170,6 +156,8 @@ class NsdManagerTest {
         }
     }
 
+<<<<<<< PATCH SET (b635ed Add test for downstream tethering)
+=======
     private interface NsdEvent
     private open class NsdRecord<T : NsdEvent> private constructor(
         private val history: ArrayTrackRecord<T>,
@@ -372,6 +360,7 @@ class NsdManagerTest {
         }
     }
 
+>>>>>>> BASE      (e30a60 Merge "Disable data saver mode in AbstractRestrictBackground)
     @Before
     fun setUp() {
         handlerThread.start()
