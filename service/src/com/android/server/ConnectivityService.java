@@ -721,7 +721,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     /**
      * Used to indicate the system default network becomes active.
      */
-    private static final int EVENT_REPORT_NETWORK_ACTIVITY = 49;
+    private static final int EVENT_REPORT_DEFAULT_NETWORK_ACTIVITY = 49;
 
     /**
      * Used internally when setting a network preference for a user profile.
@@ -1641,7 +1641,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mUserAllContext.registerReceiver(mPackageIntentReceiver, packageIntentFilter,
                 null /* broadcastPermission */, mHandler);
 
-        mNetworkActivityTracker = new LegacyNetworkActivityTracker(mContext, mHandler, mNetd);
+        mDefaultNetworkActivityTracker = new LegacyDefaultNetworkActivityTracker(
+                mContext, mHandler, mNetd);
 
         final NetdCallback netdCallback = new NetdCallback();
         try {
@@ -3308,7 +3309,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @Override
     public void registerNetworkActivityListener(@NonNull INetworkActivityListener l) {
-        mNetworkActivityTracker.registerNetworkActivityListener(l);
+        mDefaultNetworkActivityTracker.registerNetworkActivityListener(l);
     }
 
     /**
@@ -3316,7 +3317,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @Override
     public void unregisterNetworkActivityListener(@NonNull INetworkActivityListener l) {
-        mNetworkActivityTracker.unregisterNetworkActivityListener(l);
+        mDefaultNetworkActivityTracker.unregisterNetworkActivityListener(l);
     }
 
     /**
@@ -3324,7 +3325,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @Override
     public boolean isDefaultNetworkActive() {
-        return mNetworkActivityTracker.isDefaultNetworkActive();
+        return mDefaultNetworkActivityTracker.isDefaultNetworkActive();
     }
 
     /**
@@ -3597,7 +3598,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.println();
         pw.println("Legacy network activity:");
         pw.increaseIndent();
-        mNetworkActivityTracker.dump(pw);
+        mDefaultNetworkActivityTracker.dump(pw);
         pw.decreaseIndent();
     }
 
@@ -4600,7 +4601,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     //  active at the same time. For now keep calling this with the default
                     //  network, because while incorrect this is the closest to the old (also
                     //  incorrect) behavior.
-                    mNetworkActivityTracker.updateDataActivityTracking(
+                    mDefaultNetworkActivityTracker.updateDataActivityTracking(
                             null /* newNetwork */, nai);
                     ensureNetworkTransitionWakelock(nai.toShortString());
                 }
@@ -5792,8 +5793,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     handleSetProfileNetworkPreference(arg.first, arg.second);
                     break;
                 }
-                case EVENT_REPORT_NETWORK_ACTIVITY:
-                    mNetworkActivityTracker.handleReportNetworkActivity();
+                case EVENT_REPORT_DEFAULT_NETWORK_ACTIVITY:
+                    mDefaultNetworkActivityTracker.handleReportNetworkActivity();
                     break;
                 case EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED:
                     handleMobileDataPreferredUidsChanged();
@@ -9010,7 +9011,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (oldDefaultNetwork != null) {
             mLingerMonitor.noteLingerDefaultNetwork(oldDefaultNetwork, newDefaultNetwork);
         }
-        mNetworkActivityTracker.updateDataActivityTracking(newDefaultNetwork, oldDefaultNetwork);
+        mDefaultNetworkActivityTracker.updateDataActivityTracking(
+                newDefaultNetwork, oldDefaultNetwork);
         handleApplyDefaultProxy(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getHttpProxy() : null);
         updateTcpBufferSizes(null != newDefaultNetwork
@@ -10957,7 +10959,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         @Override
         public void onInterfaceClassActivityChanged(boolean isActive, int transportType,
                 long timestampNs, int uid) {
-            mNetworkActivityTracker.setAndReportNetworkActive(isActive, transportType, timestampNs);
+            mDefaultNetworkActivityTracker.setAndReportNetworkActive(
+                    isActive, transportType, timestampNs);
         }
 
         @Override
@@ -11050,13 +11053,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private final LegacyNetworkActivityTracker mNetworkActivityTracker;
+    private final LegacyDefaultNetworkActivityTracker mDefaultNetworkActivityTracker;
 
     /**
      * Class used for updating network activity tracking with netd and notify network activity
      * changes.
      */
-    private static final class LegacyNetworkActivityTracker {
+    private static final class LegacyDefaultNetworkActivityTracker {
         private static final int NO_UID = -1;
         private final Context mContext;
         private final INetd mNetd;
@@ -11079,7 +11082,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        LegacyNetworkActivityTracker(@NonNull Context context, @NonNull Handler handler,
+        LegacyDefaultNetworkActivityTracker(@NonNull Context context, @NonNull Handler handler,
                 @NonNull INetd netd) {
             mContext = context;
             mNetd = netd;
@@ -11100,7 +11103,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // the mActiveIdleTimers should be always not empty. The legacy behavior
                 // is no-op. Remove to refer to mNetworkActive only.
                 if (mNetworkActive || mActiveIdleTimers.isEmpty()) {
-                    mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY));
+                    mHandler.sendMessage(
+                            mHandler.obtainMessage(EVENT_REPORT_DEFAULT_NETWORK_ACTIVITY));
                 }
             }
         }
