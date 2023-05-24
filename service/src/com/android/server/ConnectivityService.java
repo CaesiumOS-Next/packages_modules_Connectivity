@@ -10975,6 +10975,82 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    /**
+     * Class used by legacy network activity trackers.
+     */
+    private static final class LegacyNetworkActivityTrackerUtils {
+        // This is deprecated and only to support legacy use cases.
+        private static int transportTypeToLegacyType(int type) {
+
+            switch (type) {
+                case NetworkCapabilities.TRANSPORT_CELLULAR:
+                    return TYPE_MOBILE;
+                case NetworkCapabilities.TRANSPORT_WIFI:
+                    return TYPE_WIFI;
+                case NetworkCapabilities.TRANSPORT_BLUETOOTH:
+                    return TYPE_BLUETOOTH;
+                case NetworkCapabilities.TRANSPORT_ETHERNET:
+                    return TYPE_ETHERNET;
+                default:
+                    loge("Unexpected transport in transportTypeToLegacyType: " + type);
+            }
+            return ConnectivityManager.TYPE_NONE;
+        }
+
+        public static void sendDataActivityBroadcast(Context context, int transportType,
+                boolean active, long tsNanos) {
+            final int deviceType = transportTypeToLegacyType(transportType);
+            final Intent intent = new Intent(ConnectivityManager.ACTION_DATA_ACTIVITY_CHANGE);
+            intent.putExtra(ConnectivityManager.EXTRA_DEVICE_TYPE, deviceType);
+            intent.putExtra(ConnectivityManager.EXTRA_IS_ACTIVE, active);
+            intent.putExtra(ConnectivityManager.EXTRA_REALTIME_NS, tsNanos);
+            final long ident = Binder.clearCallingIdentity();
+            try {
+                context.sendOrderedBroadcastAsUser(intent, UserHandle.ALL,
+                        RECEIVE_DATA_ACTIVITY_CHANGE,
+                        null /* resultReceiver */,
+                        null /* scheduler */,
+                        0 /* initialCode */,
+                        null /* initialData */,
+                        null /* initialExtra */);
+            } finally {
+                Binder.restoreCallingIdentity(ident);
+            }
+        }
+
+        public static void reportNetworkActive(
+                RemoteCallbackList<INetworkActivityListener> listeners) {
+            final int length = listeners.beginBroadcast();
+            if (DDBG) log("reportNetworkActive, notify " + length + " listeners");
+            try {
+                for (int i = 0; i < length; i++) {
+                    try {
+                        listeners.getBroadcastItem(i).onNetworkActive();
+                    } catch (RemoteException | RuntimeException e) {
+                        loge("Fail to send network activity to listener " + e);
+                    }
+                }
+            } finally {
+                listeners.finishBroadcast();
+            }
+        }
+
+        public static void updateRadioPowerState(Context context, boolean isActive,
+                int transportType, int uid) {
+            final BatteryStatsManager bs = context.getSystemService(BatteryStatsManager.class);
+            switch (transportType) {
+                case NetworkCapabilities.TRANSPORT_CELLULAR:
+                    bs.reportMobileRadioPowerState(isActive, uid);
+                    break;
+                case NetworkCapabilities.TRANSPORT_WIFI:
+                    bs.reportWifiRadioPowerState(isActive, uid);
+                    break;
+                default:
+                    logw("Untracked transport type:" + transportType);
+            }
+        }
+    }
+
     private final LegacyNetworkActivityTracker mNetworkActivityTracker;
 
     /**
@@ -11012,7 +11088,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         public void setAndReportNetworkActive(boolean active, int transportType, long tsNanos) {
-            sendDataActivityBroadcast(transportTypeToLegacyType(transportType), active, tsNanos);
+            LegacyNetworkActivityTrackerUtils.sendDataActivityBroadcast(mContext, transportType,
+                    active, tsNanos);
             synchronized (mActiveIdleTimers) {
                 mNetworkActive = active;
                 // If there are no idle timers, it means that system is not monitoring
@@ -11029,65 +11106,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        // The network activity should only be updated from ConnectivityService handler thread
-        // when mActiveIdleTimers lock is held.
-        @GuardedBy("mActiveIdleTimers")
-        private void reportNetworkActive() {
-            final int length = mNetworkActivityListeners.beginBroadcast();
-            if (DDBG) log("reportNetworkActive, notify " + length + " listeners");
-            try {
-                for (int i = 0; i < length; i++) {
-                    try {
-                        mNetworkActivityListeners.getBroadcastItem(i).onNetworkActive();
-                    } catch (RemoteException | RuntimeException e) {
-                        loge("Fail to send network activity to listener " + e);
-                    }
-                }
-            } finally {
-                mNetworkActivityListeners.finishBroadcast();
-            }
-        }
-
         @GuardedBy("mActiveIdleTimers")
         public void handleReportNetworkActivity() {
             synchronized (mActiveIdleTimers) {
-                reportNetworkActive();
-            }
-        }
-
-        // This is deprecated and only to support legacy use cases.
-        private int transportTypeToLegacyType(int type) {
-            switch (type) {
-                case NetworkCapabilities.TRANSPORT_CELLULAR:
-                    return TYPE_MOBILE;
-                case NetworkCapabilities.TRANSPORT_WIFI:
-                    return TYPE_WIFI;
-                case NetworkCapabilities.TRANSPORT_BLUETOOTH:
-                    return TYPE_BLUETOOTH;
-                case NetworkCapabilities.TRANSPORT_ETHERNET:
-                    return TYPE_ETHERNET;
-                default:
-                    loge("Unexpected transport in transportTypeToLegacyType: " + type);
-            }
-            return ConnectivityManager.TYPE_NONE;
-        }
-
-        public void sendDataActivityBroadcast(int deviceType, boolean active, long tsNanos) {
-            final Intent intent = new Intent(ConnectivityManager.ACTION_DATA_ACTIVITY_CHANGE);
-            intent.putExtra(ConnectivityManager.EXTRA_DEVICE_TYPE, deviceType);
-            intent.putExtra(ConnectivityManager.EXTRA_IS_ACTIVE, active);
-            intent.putExtra(ConnectivityManager.EXTRA_REALTIME_NS, tsNanos);
-            final long ident = Binder.clearCallingIdentity();
-            try {
-                mContext.sendOrderedBroadcastAsUser(intent, UserHandle.ALL,
-                        RECEIVE_DATA_ACTIVITY_CHANGE,
-                        null /* resultReceiver */,
-                        null /* scheduler */,
-                        0 /* initialCode */,
-                        null /* initialData */,
-                        null /* initialExtra */);
-            } finally {
-                Binder.restoreCallingIdentity(ident);
+                // The network activity should only be updated from ConnectivityService handler
+                // thread when mActiveIdleTimers lock is held.
+                LegacyNetworkActivityTrackerUtils.reportNetworkActive(mNetworkActivityListeners);
             }
         }
 
@@ -11119,7 +11143,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 return; // do not track any other networks
             }
 
-            updateRadioPowerState(true /* isActive */, type);
+            LegacyNetworkActivityTrackerUtils.updateRadioPowerState(
+                    mContext, true /* isActive */, type, NO_UID);
 
             if (timeout > 0 && iface != null) {
                 try {
@@ -11128,7 +11153,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         mNetworkActive = true;
                         mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
                         mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
-                        reportNetworkActive();
+                        LegacyNetworkActivityTrackerUtils.reportNetworkActive(
+                                mNetworkActivityListeners);
                     }
                 } catch (Exception e) {
                     // You shall not crash!
@@ -11156,7 +11182,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
 
             try {
-                updateRadioPowerState(false /* isActive */, type);
+                LegacyNetworkActivityTrackerUtils.updateRadioPowerState(
+                        mContext, false /* isActive */, type, NO_UID);
                 synchronized (mActiveIdleTimers) {
                     final IdleTimerParams params = mActiveIdleTimers.remove(iface);
                     // The call fails silently if no idle timer setup for this interface
@@ -11179,20 +11206,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             if (oldNetwork != null) {
                 removeDataActivityTracking(oldNetwork);
-            }
-        }
-
-        private void updateRadioPowerState(boolean isActive, int transportType) {
-            final BatteryStatsManager bs = mContext.getSystemService(BatteryStatsManager.class);
-            switch (transportType) {
-                case NetworkCapabilities.TRANSPORT_CELLULAR:
-                    bs.reportMobileRadioPowerState(isActive, NO_UID);
-                    break;
-                case NetworkCapabilities.TRANSPORT_WIFI:
-                    bs.reportWifiRadioPowerState(isActive, NO_UID);
-                    break;
-                default:
-                    logw("Untracked transport type:" + transportType);
             }
         }
 
