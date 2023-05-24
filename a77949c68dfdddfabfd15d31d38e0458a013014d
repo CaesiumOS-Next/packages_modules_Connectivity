@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c9ede2_e722584f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-24T08:54:00Z",
+      "side": 1,
+      "message": "For a paused keepalive, I do not think this cleanup will be called since autoKi#handleStopKeepalive will call finalizePausedKeepalive and not KeepaliveTracker#handleStopKeepalive.\n\nProbably the slot just needs to be removed in finalizePausedKeepalive.",
+      "range": {
+        "startLine": 561,
+        "startChar": 10,
+        "endLine": 561,
+        "endChar": 79
+      },
+      "revId": "a77949c68dfdddfabfd15d31d38e0458a013014d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "383500f5_e91888d7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-24T08:54:00Z",
+      "side": 1,
+      "message": "The log should probably be something else in the case that it was a pause?",
+      "range": {
+        "startLine": 568,
+        "startChar": 8,
+        "endLine": 569,
+        "endChar": 58
+      },
+      "revId": "a77949c68dfdddfabfd15d31d38e0458a013014d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
