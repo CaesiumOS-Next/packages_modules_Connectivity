@@ -1,0 +1,556 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aafec6f0_628114cb",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "This isn\u0027t an implementation. OffloadEngineProxy, perhaps? OffloadEngineInfo?",
+      "range": {
+        "startLine": 325,
+        "startChar": 25,
+        "endLine": 325,
+        "endChar": 42
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82c18c91_5ff3da08",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Not sure if we\u0027re going to remove this or not, but if we don\u0027t remove it, this should probably be IllegalStateException instead of IllegalArgumentException.\n\nIf we do remove it, we could simply document that registering the same engine more than once has no effect.",
+      "range": {
+        "startLine": 374,
+        "startChar": 26,
+        "endLine": 374,
+        "endChar": 50
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8599edb8_0001b88a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Unregisters an",
+      "range": {
+        "startLine": 387,
+        "startChar": 7,
+        "endLine": 387,
+        "endChar": 19
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e58f4b07_d13843db",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Any reason this is not an inner class of NsdManager, like ConnectivityManager.NetworkCallback?",
+      "range": {
+        "startLine": 32,
+        "startChar": 17,
+        "endLine": 32,
+        "endChar": 30
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2268e5d_2550e9cb",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Per discussion, we need a flag to indicate that the engine can ensure that MDNS packets are received even if the multicast lock is not held.\n\nOFFLOAD_CAPABILITY_BYPASS_MULTICAST_FILTERING?\nOFFLOAD_CAPABILITY_BYPASS_MULTICAST_LOCK?\nOFFLOAD_CAPABILITY_MULTICAST_LOCK_UNNEEDED?",
+      "range": {
+        "startLine": 32,
+        "startChar": 17,
+        "endLine": 32,
+        "endChar": 30
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c50266e8_1e966fb3",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Maybe REPLY instead of TRANSMIT?",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0531b2f_d073c50a",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "While technically not necessary until you make this a proper API, can you add an @Intdef for these?",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 41
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "300ddd2f_5b1fd284",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Thank you for documenting this clearly here.",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 50,
+        "endChar": 78
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b21b11af_72ed6b4e",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "What is the range of this priority? Probably want an IntRange. Also, is lower number higher priority? Or...?\n\nAfter looking at the whole CL it looks like this is defined in the docs for getPriority\u003e Maybe that\u0027s fine but we should have an @IntRange, and probably an @see javadoc tag as well.",
+      "range": {
+        "startLine": 55,
+        "startChar": 50,
+        "endLine": 55,
+        "endChar": 51
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9a8bcfe_9c838a5c",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Why is this a long? There can only be 2 types, of offloads, right? Query and reply? Or do I misunderstand?\n\nAn example would make this clearer.",
+      "range": {
+        "startLine": 56,
+        "startChar": 26,
+        "endLine": 56,
+        "endChar": 57
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8321afd1_db597e03",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Check that the @NonNull parameters are actually non-null, otherwise other methods like equals will crash.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d124feb9_a9befaab",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "This is not true any more now that we have decided to add a capability for the multicast lock. You might want to be a bit more specific here.\n\nAlso, those are capabilities, whereas these are operations. I wonder if separate OFFLOAD_TYPE_QUERY / OFFLOAD_TYPE_REPLY constants would be better?",
+      "range": {
+        "startLine": 155,
+        "startChar": 38,
+        "endLine": 155,
+        "endChar": 61
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "414ebd7f_b792988f",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "must",
+      "range": {
+        "startLine": 155,
+        "startChar": 23,
+        "endLine": 155,
+        "endChar": 31
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c75a6052_cb7a0d63",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "This might be clearer if it used String.format.",
+      "range": {
+        "startLine": 178,
+        "startChar": 73,
+        "endLine": 178,
+        "endChar": 77
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bcc4d98_8bfbcffe",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Generally in our codebase this sort of class in called *Info (e.g., OffloadEngineInfo). Consider renaming for consistency.",
+      "range": {
+        "startLine": 198,
+        "startChar": 25,
+        "endLine": 198,
+        "endChar": 44
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca9ded52_88219bac",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1779,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Not for this CL, but NETWORK_SETTINGS is a signature permission, and it may not be possible for all the callers of this API to have it. We may want to relax this in the future.",
+      "range": {
+        "startLine": 1779,
+        "startChar": 70,
+        "endLine": 1779,
+        "endChar": 86
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61e4a2b2_446e41e0",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1791,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Per discussion, we need the ability to have more than one engine. So we can just remove the lock and keep track of all engines that register and send the callbacks to all of them.\n\nNot for this CL, but we probably want to limit the number of registrations created by a given class. You could try to use PerUidCounter for that.",
+      "range": {
+        "startLine": 1791,
+        "startChar": 40,
+        "endLine": 1791,
+        "endChar": 80
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "373b1a34_104af5bc",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1905,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Nit: presumably this is now called by other methods than resolveService.",
+      "range": {
+        "startLine": 1905,
+        "startChar": 49,
+        "endLine": 1905,
+        "endChar": 67
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7c93c95_11d3782c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1916,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Move comment to before line 1912?",
+      "range": {
+        "startLine": 1916,
+        "startChar": 8,
+        "endLine": 1916,
+        "endChar": 49
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc9f005c_4bab2f8d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "existing",
+      "range": {
+        "startLine": 132,
+        "startChar": 39,
+        "endLine": 132,
+        "endChar": 44
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad3b744e_809c10d5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "existing",
+      "range": {
+        "startLine": 222,
+        "startChar": 35,
+        "endLine": 222,
+        "endChar": 40
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92647c6d_1b203b22",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "This isn\u0027t a service, it\u0027s a wrapper for an OffloadServiceInfo. Maybe call it OffloadServiceInfoWrapper or OffloadServiceRecord?",
+      "range": {
+        "startLine": 378,
+        "startChar": 25,
+        "endLine": 378,
+        "endChar": 39
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "233d1a9b_49923ede",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "Given that this method might silently do nothing, consider renaming to maybeRestartProbingForConflict.",
+      "range": {
+        "startLine": 285,
+        "startChar": 19,
+        "endLine": 285,
+        "endChar": 44
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114b7c2a_e765c09b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-24T06:39:47Z",
+      "side": 1,
+      "message": "The interface is guaranteed to be non-null?",
+      "range": {
+        "startLine": 352,
+        "startChar": 37,
+        "endLine": 352,
+        "endChar": 38
+      },
+      "revId": "f3ee3d22331b4b3701a9907a04924cc3464a7122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
