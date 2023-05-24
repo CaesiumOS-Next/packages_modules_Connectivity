@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a5804b90_149a4958",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-24T08:50:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3003c425_e855d981",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "20d09785709c028f08dbf1bb78e83bee5158cc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5222e453_4ce07b96",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -77,6 +101,24 @@
       "writtenOn": "2023-05-22T07:07:57Z",
       "side": 1,
       "message": "Can we do a little bit better than just \"not null\" ? E.g. test the correct binder or something.",
+      "revId": "20d09785709c028f08dbf1bb78e83bee5158cc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "512b9a3f_3263895e",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-24T08:50:27Z",
+      "side": 1,
+      "message": "To get the autoKi, it is already matching by the binder so I think that is redundant? \nRenamed getAutoKi to getAutoKiForBinder to make that clearer.",
+      "parentUuid": "a83794fc_36c5525b",
       "revId": "20d09785709c028f08dbf1bb78e83bee5158cc2e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
