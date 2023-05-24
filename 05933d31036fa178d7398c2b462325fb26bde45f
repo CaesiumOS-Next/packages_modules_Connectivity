@@ -39,6 +39,30 @@
       },
       "revId": "05933d31036fa178d7398c2b462325fb26bde45f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "507e48bf_e576b2dd",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-24T17:00:04Z",
+      "side": 1,
+      "message": "tansitionTo does allow calling inside State#enter, but State#exit is not allowed and will cause Log.wtf. See the comment of StateMachine#transitionTo.\n\nhttps://source.corp.google.com/h/android/platform/superproject/+/master:frameworks/libs/modules-utils/java/com/android/internal/util/StateMachine.java;l\u003d1411?q\u003dstatemachine.java\n\nThe second concern is valid. I will make the necessary changes to address it.",
+      "parentUuid": "4cbf1039_7864975e",
+      "range": {
+        "startLine": 1130,
+        "startChar": 12,
+        "endLine": 1130,
+        "endChar": 13
+      },
+      "revId": "05933d31036fa178d7398c2b462325fb26bde45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
