@@ -795,6 +795,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
 
     /**
+     * Event to indicate network activity chaqnge.
+     */
+    private static final int EVENT_REPORT_NETWORK_ACTIVITY = 62;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -1641,8 +1646,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mUserAllContext.registerReceiver(mPackageIntentReceiver, packageIntentFilter,
                 null /* broadcastPermission */, mHandler);
 
-        mDefaultNetworkActivityTracker = new LegacyDefaultNetworkActivityTracker(
-                mContext, mHandler, mNetd);
+        // U+ devices track the multiple network activity including non default network.
+        // T- devices track only the default network activity.
+        if (SdkLevel.isAtLeastU()) {
+            mDefaultNetworkActivityTracker = null;
+            mNetworkActivityTracker = new LegacyNetworkActivityTracker(mContext, mNetd);
+        } else {
+            mDefaultNetworkActivityTracker =
+                    new LegacyDefaultNetworkActivityTracker(mContext, mHandler, mNetd);
+            mNetworkActivityTracker = null;
+        }
 
         final NetdCallback netdCallback = new NetdCallback();
         try {
@@ -3309,7 +3322,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @Override
     public void registerNetworkActivityListener(@NonNull INetworkActivityListener l) {
-        mDefaultNetworkActivityTracker.registerNetworkActivityListener(l);
+        if (SdkLevel.isAtLeastU()) {
+            mNetworkActivityTracker.registerNetworkActivityListener(l);
+        } else {
+            mDefaultNetworkActivityTracker.registerNetworkActivityListener(l);
+        }
     }
 
     /**
@@ -3317,7 +3334,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @Override
     public void unregisterNetworkActivityListener(@NonNull INetworkActivityListener l) {
-        mDefaultNetworkActivityTracker.unregisterNetworkActivityListener(l);
+        if (SdkLevel.isAtLeastU()) {
+            mNetworkActivityTracker.unregisterNetworkActivityListener(l);
+        } else {
+            mDefaultNetworkActivityTracker.unregisterNetworkActivityListener(l);
+        }
     }
 
     /**
@@ -3325,7 +3346,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @Override
     public boolean isDefaultNetworkActive() {
-        return mDefaultNetworkActivityTracker.isDefaultNetworkActive();
+        if (SdkLevel.isAtLeastU()) {
+            return mNetworkActivityTracker.isDefaultNetworkActive();
+        } else {
+            return mDefaultNetworkActivityTracker.isDefaultNetworkActive();
+        }
     }
 
     /**
@@ -3598,7 +3623,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.println();
         pw.println("Legacy network activity:");
         pw.increaseIndent();
-        mDefaultNetworkActivityTracker.dump(pw);
+        if (SdkLevel.isAtLeastU()) {
+            mNetworkActivityTracker.dump(pw);
+        } else {
+            mDefaultNetworkActivityTracker.dump(pw);
+        }
         pw.decreaseIndent();
     }
 
@@ -4597,12 +4626,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
 
                 if (mDefaultRequest == nri) {
-                    // TODO : make battery stats aware that since 2013 multiple interfaces may be
-                    //  active at the same time. For now keep calling this with the default
-                    //  network, because while incorrect this is the closest to the old (also
-                    //  incorrect) behavior.
-                    mDefaultNetworkActivityTracker.updateDataActivityTracking(
-                            null /* newNetwork */, nai);
+                    if (SdkLevel.isAtLeastU()) {
+                        mNetworkActivityTracker.updateDefaultNetwork(null /* defaultNetwork */);
+                    } else {
+                        mDefaultNetworkActivityTracker.updateDataActivityTracking(
+                                null /* newNetwork */, nai);
+                    }
                     ensureNetworkTransitionWakelock(nai.toShortString());
                 }
             }
@@ -4614,6 +4643,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mLegacyTypeTracker.remove(nai, wasDefault);
         rematchAllNetworksAndRequests();
         mLingerMonitor.noteDisconnect(nai);
+
+        if (SdkLevel.isAtLeastU()) {
+            mNetworkActivityTracker.removeDataActivityTracking(nai);
+        }
 
         // Immediate teardown.
         if (nai.teardownDelayMs == 0) {
@@ -5795,6 +5828,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
                 case EVENT_REPORT_DEFAULT_NETWORK_ACTIVITY:
                     mDefaultNetworkActivityTracker.handleReportNetworkActivity();
+                    break;
+                case EVENT_REPORT_NETWORK_ACTIVITY:
+                    final NetworkActivityParams arg = (NetworkActivityParams) msg.obj;
+                    mNetworkActivityTracker.handleReportNetworkActivity(arg);
                     break;
                 case EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED:
                     handleMobileDataPreferredUidsChanged();
@@ -9011,8 +9048,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (oldDefaultNetwork != null) {
             mLingerMonitor.noteLingerDefaultNetwork(oldDefaultNetwork, newDefaultNetwork);
         }
-        mDefaultNetworkActivityTracker.updateDataActivityTracking(
-                newDefaultNetwork, oldDefaultNetwork);
+        if (SdkLevel.isAtLeastU()) {
+            mNetworkActivityTracker.updateDefaultNetwork(newDefaultNetwork);
+        } else {
+            mDefaultNetworkActivityTracker.updateDataActivityTracking(
+                    newDefaultNetwork, oldDefaultNetwork);
+        }
         handleApplyDefaultProxy(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getHttpProxy() : null);
         updateTcpBufferSizes(null != newDefaultNetwork
@@ -9851,6 +9892,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             networkAgent.lingerRequest(NetworkRequest.REQUEST_ID_NONE,
                     SystemClock.elapsedRealtime(), mNascentDelayMs);
             networkAgent.setInactive();
+
+            if (SdkLevel.isAtLeastU()) {
+                // Start tracking activity of this network.
+                // This must be called before rematchAllNetworksAndRequests since the network
+                // should be tracked when the network becomes the default network.
+                mNetworkActivityTracker.setupDataActivityTracking(networkAgent);
+            }
 
             // Consider network even though it is not yet validated.
             rematchAllNetworksAndRequests();
@@ -10955,12 +11003,32 @@ public class ConnectivityService extends IConnectivityManager.Stub
         notifyDataStallSuspected(p, network.getNetId());
     }
 
+    private static final class NetworkActivityParams {
+        public final boolean isActive;
+        public final int netId;
+        public final long timestampNs;
+        public final int uid;
+
+        NetworkActivityParams(boolean isActive, int netId, long timestampNs, int uid) {
+            this.isActive = isActive;
+            this.netId = netId;
+            this.timestampNs = timestampNs;
+            this.uid = uid;
+        }
+    }
+
     private class NetdCallback extends BaseNetdUnsolicitedEventListener {
         @Override
-        public void onInterfaceClassActivityChanged(boolean isActive, int transportType,
+        public void onInterfaceClassActivityChanged(boolean isActive, int label,
                 long timestampNs, int uid) {
-            mDefaultNetworkActivityTracker.setAndReportNetworkActive(
-                    isActive, transportType, timestampNs);
+            // U+ devices use netid as label and T- devices use transport type as label.
+            if (SdkLevel.isAtLeastU()) {
+                mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY,
+                        new NetworkActivityParams(isActive, label, timestampNs, uid)));
+            } else {
+                mDefaultNetworkActivityTracker.setAndReportNetworkActive(
+                        isActive, label, timestampNs);
+            }
         }
 
         @Override
@@ -11249,6 +11317,170 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
     }
+
+    private final LegacyNetworkActivityTracker mNetworkActivityTracker;
+
+    /**
+     * Class used for updating network activity tracking with netd and notify network activity
+     * changes.
+     * {@link LegacyDefaultNetworkActivityTracker} tracks only the default network activity but
+     * this class tracks multiple network activity including non default network.
+     */
+    private static final class LegacyNetworkActivityTracker {
+        private final Context mContext;
+        private final INetd mNetd;
+        private final RemoteCallbackList<INetworkActivityListener> mNetworkActivityListeners =
+                new RemoteCallbackList<>();
+
+        private final ArrayMap<Integer, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
+        private Integer mTrackedDefaultNetwork;
+        private boolean mIsDefaultNetworkActive;
+
+        private static class IdleTimerParams {
+            public final int timeout;
+            public final int transportType;
+            public final String iface;
+
+            IdleTimerParams(int timeout, int transport, String iface) {
+                this.timeout = timeout;
+                this.transportType = transport;
+                this.iface = iface;
+            }
+        }
+
+        LegacyNetworkActivityTracker(@NonNull Context context, @NonNull INetd netd) {
+            mContext = context;
+            mNetd = netd;
+        }
+
+        public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
+            if (mTrackedDefaultNetwork == null
+                    || mTrackedDefaultNetwork != activityParams.netId) {
+                // This network is not a tracked default network.
+                return;
+            }
+
+            final IdleTimerParams idleTimerParams = mActiveIdleTimers.get(activityParams.netId);
+            if (idleTimerParams == null) {
+                return;
+            }
+            final int transportType = idleTimerParams.transportType;
+
+            mIsDefaultNetworkActive = activityParams.isActive;
+            LegacyNetworkActivityTrackerUtils.sendDataActivityBroadcast(mContext, transportType,
+                    activityParams.isActive, activityParams.timestampNs);
+            if (activityParams.isActive) {
+                LegacyNetworkActivityTrackerUtils.reportNetworkActive(mNetworkActivityListeners);
+            }
+        }
+
+        /**
+         * Setup data activity tracking for the given network.
+         * Every {@code setupDataActivityTracking} should be paired with a
+         * {@link #removeDataActivityTracking} for cleanup.
+         */
+        public void setupDataActivityTracking(NetworkAgentInfo networkAgent) {
+            final String iface = networkAgent.linkProperties.getInterfaceName();
+            final int netId = networkAgent.network.netId;
+
+            if (mActiveIdleTimers.containsKey(netId)) {
+                loge("Activity of network " + netId + " is already tracked");
+                return;
+            }
+
+            final int timeout;
+            final int transportType;
+            if (networkAgent.networkCapabilities.hasTransport(TRANSPORT_CELLULAR)) {
+                timeout = Settings.Global.getInt(mContext.getContentResolver(),
+                        ConnectivitySettingsManager.DATA_ACTIVITY_TIMEOUT_MOBILE,
+                        10);
+                transportType = TRANSPORT_CELLULAR;
+            } else if (networkAgent.networkCapabilities.hasTransport(TRANSPORT_WIFI)) {
+                timeout = Settings.Global.getInt(mContext.getContentResolver(),
+                        ConnectivitySettingsManager.DATA_ACTIVITY_TIMEOUT_WIFI,
+                        15);
+                transportType = TRANSPORT_WIFI;
+            } else {
+                return; // do not track any other networks
+            }
+
+            if (timeout > 0 && iface != null) {
+                mActiveIdleTimers.put(netId, new IdleTimerParams(timeout, transportType, iface));
+                try {
+                    mNetd.idletimerAddInterface(iface, timeout, Integer.toString(netId));
+                } catch (Exception e) {
+                    loge("Exception in setupDataActivityTracking " + e);
+                }
+            }
+        }
+
+        /**
+         * Remove data activity tracking when network disconnects.
+         */
+        public void removeDataActivityTracking(NetworkAgentInfo networkAgent) {
+            final int netId = networkAgent.network.netId;
+            final IdleTimerParams params = mActiveIdleTimers.remove(netId);
+            if (params == null) {
+                return;
+            }
+            try {
+                mNetd.idletimerRemoveInterface(params.iface, params.timeout,
+                        Integer.toString(netId));
+            } catch (Exception e) {
+                loge("Exception in removeDataActivityTracking " + e);
+            }
+        }
+
+        /**
+         * Update default network this class track the activity of
+         */
+        public void updateDefaultNetwork(NetworkAgentInfo defaultNetwork) {
+            if (defaultNetwork != null) {
+                mTrackedDefaultNetwork = defaultNetwork.network.netId;
+                mIsDefaultNetworkActive = true;
+                LegacyNetworkActivityTrackerUtils.reportNetworkActive(mNetworkActivityListeners);
+            } else {
+                mTrackedDefaultNetwork = null;
+                // If there is no default network, default network is considered inactive.
+                mIsDefaultNetworkActive = false;
+            }
+        }
+
+        public boolean isDefaultNetworkActive() {
+            return mIsDefaultNetworkActive;
+        }
+
+        public void registerNetworkActivityListener(@NonNull INetworkActivityListener l) {
+            mNetworkActivityListeners.register(l);
+        }
+
+        public void unregisterNetworkActivityListener(@NonNull INetworkActivityListener l) {
+            mNetworkActivityListeners.unregister(l);
+        }
+
+        public void dump(IndentingPrintWriter pw) {
+            pw.print("mTrackedDefaultNetwork="); pw.println(mTrackedDefaultNetwork);
+            pw.print("mIsDefaultNetwork="); pw.println(mIsDefaultNetworkActive);
+            try {
+                pw.println("Idle timers:");
+                for (Map.Entry<Integer, IdleTimerParams> ent : mActiveIdleTimers.entrySet()) {
+                    pw.print("  "); pw.print(ent.getKey()); pw.println(":");
+                    final IdleTimerParams params = ent.getValue();
+                    pw.print("    timeout="); pw.print(params.timeout);
+                    pw.print(" type="); pw.print(params.transportType);
+                    pw.print(" iface="); pw.println(params.iface);
+                }
+            } catch (Exception e) {
+                // mActiveIdleTimers should only be accessed from handler thread, except dump().
+                // As dump() is never called in normal usage, it would be needlessly expensive
+                // to lock the collection only for its benefit.
+                // Also, mActiveIdleTimers is not expected to be updated frequently.
+                // So catching the exception and logging.
+                pw.println("Failed to dump NetworkActivityTracker: " + e);
+            }
+        }
+    }
+
 
     /**
      * Registers {@link QosSocketFilter} with {@link IQosCallback}.
