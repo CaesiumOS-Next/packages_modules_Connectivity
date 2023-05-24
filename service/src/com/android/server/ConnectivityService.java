@@ -721,7 +721,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     /**
      * Used to indicate the system default network becomes active.
      */
-    private static final int EVENT_REPORT_NETWORK_ACTIVITY = 49;
+    private static final int EVENT_REPORT_DEFAULT_NETWORK_ACTIVITY = 49;
 
     /**
      * Used internally when setting a network preference for a user profile.
@@ -793,6 +793,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Event to inform the ConnectivityService handler when a uid has been frozen or unfrozen.
      */
     private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
+
+    /**
+     * Used to indicate the network becomes active including non default networks.
+     */
+    private static final int EVENT_REPORT_NETWORK_ACTIVITY = 62;
 
     /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
@@ -1641,7 +1646,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mUserAllContext.registerReceiver(mPackageIntentReceiver, packageIntentFilter,
                 null /* broadcastPermission */, mHandler);
 
-        mNetworkActivityTracker = new LegacyNetworkActivityTracker(mContext, mHandler, mNetd);
+        if (SdkLevel.isAtLeastU()) {
+            mNetworkActivityTracker = null;
+            mMultiNetworkActivityTracker = new LegacyMultiNetworkActivityTracker(mContext, mNetd);
+        } else {
+            mNetworkActivityTracker = new LegacyNetworkActivityTracker(mContext, mHandler, mNetd);
+            mMultiNetworkActivityTracker = null;
+        }
+
 
         final NetdCallback netdCallback = new NetdCallback();
         try {
@@ -3308,7 +3320,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @Override
     public void registerNetworkActivityListener(@NonNull INetworkActivityListener l) {
-        mNetworkActivityTracker.registerNetworkActivityListener(l);
+        if (SdkLevel.isAtLeastU()) {
+            mMultiNetworkActivityTracker.registerNetworkActivityListener(l);
+        } else {
+            mNetworkActivityTracker.registerNetworkActivityListener(l);
+        }
     }
 
     /**
@@ -3316,7 +3332,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @Override
     public void unregisterNetworkActivityListener(@NonNull INetworkActivityListener l) {
-        mNetworkActivityTracker.unregisterNetworkActivityListener(l);
+        if (SdkLevel.isAtLeastU()) {
+            mMultiNetworkActivityTracker.unregisterNetworkActivityListener(l);
+        } else {
+            mNetworkActivityTracker.unregisterNetworkActivityListener(l);
+        }
     }
 
     /**
@@ -3324,7 +3344,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @Override
     public boolean isDefaultNetworkActive() {
-        return mNetworkActivityTracker.isDefaultNetworkActive();
+        if (SdkLevel.isAtLeastU()) {
+            return mMultiNetworkActivityTracker.isDefaultNetworkActive();
+        } else {
+            return mNetworkActivityTracker.isDefaultNetworkActive();
+        }
     }
 
     /**
@@ -3597,7 +3621,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.println();
         pw.println("Legacy network activity:");
         pw.increaseIndent();
-        mNetworkActivityTracker.dump(pw);
+        if (SdkLevel.isAtLeastU()) {
+            mMultiNetworkActivityTracker.dump(pw);
+        } else {
+            mNetworkActivityTracker.dump(pw);
+        }
         pw.decreaseIndent();
     }
 
@@ -4596,12 +4624,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
 
                 if (mDefaultRequest == nri) {
-                    // TODO : make battery stats aware that since 2013 multiple interfaces may be
-                    //  active at the same time. For now keep calling this with the default
-                    //  network, because while incorrect this is the closest to the old (also
-                    //  incorrect) behavior.
-                    mNetworkActivityTracker.updateDataActivityTracking(
-                            null /* newNetwork */, nai);
+                    if (SdkLevel.isAtLeastU()) {
+                        mMultiNetworkActivityTracker.updateTrackingDefaultNetwork(
+                                null /* defaultNetwork */);
+                    } else {
+                        mNetworkActivityTracker.updateDataActivityTracking(
+                                null /* newNetwork */, nai);
+                    }
                     ensureNetworkTransitionWakelock(nai.toShortString());
                 }
             }
@@ -4613,6 +4642,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mLegacyTypeTracker.remove(nai, wasDefault);
         rematchAllNetworksAndRequests();
         mLingerMonitor.noteDisconnect(nai);
+
+        if (SdkLevel.isAtLeastU()) {
+            mMultiNetworkActivityTracker.removeDataActivityTracking(nai);
+        }
 
         // Immediate teardown.
         if (nai.teardownDelayMs == 0) {
@@ -5792,8 +5825,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     handleSetProfileNetworkPreference(arg.first, arg.second);
                     break;
                 }
-                case EVENT_REPORT_NETWORK_ACTIVITY:
+                case EVENT_REPORT_DEFAULT_NETWORK_ACTIVITY:
                     mNetworkActivityTracker.handleReportNetworkActivity();
+                    break;
+                case EVENT_REPORT_NETWORK_ACTIVITY:
+                    final NetworkActivityParams arg = (NetworkActivityParams) msg.obj;
+                    mMultiNetworkActivityTracker.handleReportNetworkActivity(arg);
                     break;
                 case EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED:
                     handleMobileDataPreferredUidsChanged();
@@ -9010,7 +9047,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (oldDefaultNetwork != null) {
             mLingerMonitor.noteLingerDefaultNetwork(oldDefaultNetwork, newDefaultNetwork);
         }
-        mNetworkActivityTracker.updateDataActivityTracking(newDefaultNetwork, oldDefaultNetwork);
+        if (SdkLevel.isAtLeastU()) {
+            mMultiNetworkActivityTracker.updateTrackingDefaultNetwork(newDefaultNetwork);
+        } else {
+            mNetworkActivityTracker.updateDataActivityTracking(
+                    newDefaultNetwork, oldDefaultNetwork);
+        }
         handleApplyDefaultProxy(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getHttpProxy() : null);
         updateTcpBufferSizes(null != newDefaultNetwork
@@ -9855,6 +9897,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             // This has to happen after matching the requests, because callbacks are just requests.
             notifyNetworkCallbacks(networkAgent, ConnectivityManager.CALLBACK_PRECHECK);
+
+            if (SdkLevel.isAtLeastU()) {
+                // Start tracking activity of this network
+                mMultiNetworkActivityTracker.setupDataActivityTracking(networkAgent);
+            }
         } else if (state == NetworkInfo.State.DISCONNECTED) {
             networkAgent.disconnect();
             if (networkAgent.isVPN()) {
@@ -10953,11 +11000,31 @@ public class ConnectivityService extends IConnectivityManager.Stub
         notifyDataStallSuspected(p, network.getNetId());
     }
 
+    private static final class NetworkActivityParams {
+        public final boolean isActive;
+        public final int netId;
+        public final long timestampNs;
+        public final int uid;
+
+        NetworkActivityParams(boolean isActive, int netId, long timestampNs, int uid) {
+            this.isActive = isActive;
+            this.netId = netId;
+            this.timestampNs = timestampNs;
+            this.uid = uid;
+        }
+    }
+
     private class NetdCallback extends BaseNetdUnsolicitedEventListener {
         @Override
-        public void onInterfaceClassActivityChanged(boolean isActive, int transportType,
+        public void onInterfaceClassActivityChanged(boolean isActive, int label,
                 long timestampNs, int uid) {
-            mNetworkActivityTracker.setAndReportNetworkActive(isActive, transportType, timestampNs);
+            if (SdkLevel.isAtLeastU()) {
+                mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY,
+                        new NetworkActivityParams(isActive, label, timestampNs, uid)));
+            } else {
+                mNetworkActivityTracker.setAndReportNetworkActive(isActive, label,
+                        timestampNs);
+            }
         }
 
         @Override
@@ -11100,7 +11167,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // the mActiveIdleTimers should be always not empty. The legacy behavior
                 // is no-op. Remove to refer to mNetworkActive only.
                 if (mNetworkActive || mActiveIdleTimers.isEmpty()) {
-                    mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY));
+                    mHandler.sendMessage(mHandler.obtainMessage(
+                            EVENT_REPORT_DEFAULT_NETWORK_ACTIVITY));
                 }
             }
         }
@@ -11239,6 +11307,175 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
     }
+
+    private final LegacyMultiNetworkActivityTracker mMultiNetworkActivityTracker;
+
+    /**
+     * Class used for updating network activity tracking with netd and notify network activity
+     * changes.
+     */
+    private static final class LegacyMultiNetworkActivityTracker {
+        private final Context mContext;
+        private final INetd mNetd;
+        private final RemoteCallbackList<INetworkActivityListener> mNetworkActivityListeners =
+                new RemoteCallbackList<>();
+
+        private final ArrayMap<Integer, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
+        private Integer mTrackingDefaultNetwork;
+        private boolean mIsDefaultNetworkActive;
+
+        private static class IdleTimerParams {
+            public final int timeout;
+            public final int transportType;
+            public final String iface;
+
+            IdleTimerParams(int timeout, int transport, String iface) {
+                this.timeout = timeout;
+                this.transportType = transport;
+                this.iface = iface;
+            }
+        }
+
+        LegacyMultiNetworkActivityTracker(@NonNull Context context, @NonNull INetd netd) {
+            mContext = context;
+            mNetd = netd;
+        }
+
+        public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
+            if (mTrackingDefaultNetwork != activityParams.netId) {
+                // This network is not a default network.
+                return;
+            }
+
+            final IdleTimerParams idleTimerParams = mActiveIdleTimers.get(activityParams.netId);
+            if (idleTimerParams == null) {
+                return;
+            }
+            final int transportType = idleTimerParams.transportType;
+            LegacyNetworkActivityTrackerUtils.sendDataActivityBroadcast(mContext,
+                    LegacyNetworkActivityTrackerUtils.transportTypeToLegacyType(transportType),
+                    activityParams.isActive, activityParams.timestampNs);
+
+            mIsDefaultNetworkActive = activityParams.isActive;
+            if (activityParams.isActive) {
+                LegacyNetworkActivityTrackerUtils.reportNetworkActive(mNetworkActivityListeners);
+            }
+        }
+
+        /**
+         * Setup data activity tracking for the given network.
+         *
+         * Every {@code setupDataActivityTracking} should be paired with a
+         * {@link #removeDataActivityTracking} for cleanup.
+         */
+        private void setupDataActivityTracking(NetworkAgentInfo networkAgent) {
+            final String iface = networkAgent.linkProperties.getInterfaceName();
+            final int netId = networkAgent.network.netId;
+
+            if (mActiveIdleTimers.containsKey(netId)) {
+                loge("Activity of network " + netId + " is already tracked");
+                return;
+            }
+
+            final int timeout;
+            final int type;
+            if (networkAgent.networkCapabilities.hasTransport(
+                    NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                timeout = Settings.Global.getInt(mContext.getContentResolver(),
+                        ConnectivitySettingsManager.DATA_ACTIVITY_TIMEOUT_MOBILE,
+                        10);
+                type = NetworkCapabilities.TRANSPORT_CELLULAR;
+            } else if (networkAgent.networkCapabilities.hasTransport(
+                    NetworkCapabilities.TRANSPORT_WIFI)) {
+                timeout = Settings.Global.getInt(mContext.getContentResolver(),
+                        ConnectivitySettingsManager.DATA_ACTIVITY_TIMEOUT_WIFI,
+                        15);
+                type = NetworkCapabilities.TRANSPORT_WIFI;
+            } else {
+                return; // do not track any other networks
+            }
+
+            mActiveIdleTimers.put(netId, new IdleTimerParams(timeout, type, iface));
+            try {
+                mNetd.idletimerAddInterface(iface, timeout, Integer.toString(netId));
+            } catch (Exception e) {
+                // You shall not crash!
+                loge("Exception in setupDataActivityTracking " + e);
+            }
+        }
+
+        /**
+         * Remove data activity tracking when network disconnects.
+         */
+        private void removeDataActivityTracking(NetworkAgentInfo networkAgent) {
+            final Integer netId = networkAgent.network.netId;
+            final IdleTimerParams params = mActiveIdleTimers.remove(netId);
+            try {
+                if (params == null) {
+                    // This network activity is not tracked
+                    return;
+                }
+                mNetd.idletimerRemoveInterface(params.iface, params.timeout,
+                        Integer.toString(netId));
+            } catch (Exception e) {
+                // You shall not crash!
+                loge("Exception in removeDataActivityTracking " + e);
+            }
+        }
+
+        /**
+         * Update data activity tracking when network state is updated.
+         */
+        public void updateTrackingDefaultNetwork(NetworkAgentInfo defaultNetwork) {
+            if (defaultNetwork != null
+                    && mActiveIdleTimers.containsKey(defaultNetwork.network().netId)) {
+                // Update tracking default network and default network activity statue
+                mTrackingDefaultNetwork = defaultNetwork.network.netId;
+                mIsDefaultNetworkActive = true;
+                LegacyNetworkActivityTrackerUtils.reportNetworkActive(mNetworkActivityListeners);
+            } else {
+                mTrackingDefaultNetwork = null;
+                // If there is no active default network, default network is considered inactive.
+                // If there is active default network but there is no idle timers, it means that
+                // system is not monitoring activity,
+                // so the default network is always considered active.
+                mIsDefaultNetworkActive = defaultNetwork != null;
+            }
+        }
+
+        public boolean isDefaultNetworkActive() {
+            return mIsDefaultNetworkActive;
+        }
+
+        public void registerNetworkActivityListener(@NonNull INetworkActivityListener l) {
+            mNetworkActivityListeners.register(l);
+        }
+
+        public void unregisterNetworkActivityListener(@NonNull INetworkActivityListener l) {
+            mNetworkActivityListeners.unregister(l);
+        }
+
+        public void dump(IndentingPrintWriter pw) {
+            try {
+                pw.println("Idle timers:");
+                for (Map.Entry<Integer, IdleTimerParams> ent : mActiveIdleTimers.entrySet()) {
+                    pw.print("  "); pw.print(ent.getKey()); pw.println(":");
+                    final IdleTimerParams params = ent.getValue();
+                    pw.print("    timeout="); pw.print(params.timeout);
+                    pw.print(" type="); pw.print(params.transportType);
+                    pw.print(" iface="); pw.println(params.iface);
+                }
+            } catch (Exception e) {
+                // mActiveIdleTimers should only be accessed from handler thread, except dump().
+                // As dump() is never called in normal usage, it would be needlessly expensive
+                // to lock the collection only for its benefit.
+                // Also mActiveIdleTimers is not expected to be updated so frequently.
+                // So catching the exception and logging.
+                pw.println("Failed to dump MultiNetworkActivityTracker: " + e);
+            }
+        }
+    }
+
 
     /**
      * Registers {@link QosSocketFilter} with {@link IQosCallback}.
