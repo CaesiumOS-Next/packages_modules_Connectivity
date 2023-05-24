@@ -29,10 +29,8 @@ import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.DnsPacket.ANSECTION;
-import static com.android.net.module.util.DnsPacket.ARSECTION;
 import static com.android.net.module.util.DnsPacket.DnsHeader;
 import static com.android.net.module.util.DnsPacket.DnsRecord;
-import static com.android.net.module.util.DnsPacket.NSSECTION;
 import static com.android.net.module.util.DnsPacket.QDSECTION;
 import static com.android.net.module.util.HexDump.dumpHexString;
 import static com.android.net.module.util.IpUtils.icmpChecksum;
@@ -74,6 +72,7 @@ import com.android.net.module.util.DnsPacket;
 import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.PacketBuilder;
 import com.android.net.module.util.Struct;
+import com.android.net.module.util.arp.ArpPacket;
 import com.android.net.module.util.structs.EthernetHeader;
 import com.android.net.module.util.structs.Icmpv4Header;
 import com.android.net.module.util.structs.Icmpv6Header;
@@ -85,7 +84,6 @@ import com.android.net.module.util.structs.PrefixInformationOption;
 import com.android.net.module.util.structs.RaHeader;
 import com.android.net.module.util.structs.TcpHeader;
 import com.android.net.module.util.structs.UdpHeader;
-import com.android.networkstack.arp.ArpPacket;
 import com.android.testutils.TapPacketReader;
 
 import java.net.Inet4Address;

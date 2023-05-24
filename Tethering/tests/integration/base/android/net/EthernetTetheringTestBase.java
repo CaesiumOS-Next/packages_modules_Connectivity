@@ -164,6 +164,10 @@ public abstract class EthernetTetheringTestBase {
     private TapPacketReader mDownstreamReader;
     private MyTetheringEventCallback mTetheringEventCallback;
 
+    public Context getContext() {
+        return mContext;
+    }
+
     @BeforeClass
     public static void setUpOnce() throws Exception {
         // The first test case may experience tethering restart with IP conflict handling.
