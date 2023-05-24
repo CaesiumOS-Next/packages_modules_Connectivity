@@ -143,7 +143,7 @@ public abstract class EthernetTetheringTestBase {
     protected static final ByteBuffer TX_PAYLOAD =
             ByteBuffer.wrap(new byte[] { (byte) 0x56, (byte) 0x78 });
 
-    private final Context mContext = InstrumentationRegistry.getInstrumentation().getContext();
+    protected final Context mContext = InstrumentationRegistry.getInstrumentation().getContext();
     private final EthernetManager mEm = mContext.getSystemService(EthernetManager.class);
     private final TetheringManager mTm = mContext.getSystemService(TetheringManager.class);
     private final PackageManager mPackageManager = mContext.getPackageManager();
@@ -153,7 +153,7 @@ public abstract class EthernetTetheringTestBase {
 
     // Late initialization in setUp()
     private boolean mRunTests;
-    private HandlerThread mHandlerThread;
+    protected HandlerThread mHandlerThread;
     private Handler mHandler;
     private TetheredInterfaceRequester mTetheredInterfaceRequester;
 
