@@ -36,12 +36,10 @@ import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
 import android.net.TestNetworkSpecifier
 import android.net.connectivity.ConnectivityCompatChanges
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.DiscoveryStarted
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.DiscoveryStopped
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.ServiceFound
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.ServiceLost
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.StartDiscoveryFailed
-import android.net.cts.NsdManagerTest.NsdDiscoveryRecord.DiscoveryEvent.StopDiscoveryFailed
+import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.DiscoveryStarted
+import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.DiscoveryStopped
+import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.ServiceFound
+import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.ServiceLost
 import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.RegistrationFailed
 import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.ServiceRegistered
 import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.ServiceUnregistered
@@ -56,14 +54,12 @@ import android.net.cts.NsdManagerTest.NsdServiceInfoCallbackRecord.ServiceInfoCa
 import android.net.cts.NsdManagerTest.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.UnregisterCallbackSucceeded
 import android.net.cts.util.CtsNetUtils
 import android.net.nsd.NsdManager
-import android.net.nsd.NsdManager.DiscoveryListener
 import android.net.nsd.NsdManager.RegistrationListener
 import android.net.nsd.NsdManager.ResolveListener
 import android.net.nsd.NsdServiceInfo
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
-import android.os.Process.myTid
 import android.platform.test.annotations.AppModeFull
 import android.system.ErrnoException
 import android.system.Os
@@ -78,9 +74,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.android.compatibility.common.util.PollingCheck
 import com.android.compatibility.common.util.PropertyUtil
 import com.android.modules.utils.build.SdkLevel.isAtLeastU
-import com.android.net.module.util.ArrayTrackRecord
-import com.android.net.module.util.TrackRecord
-import com.android.networkstack.apishim.NsdShimImpl
 import com.android.networkstack.apishim.common.NsdShim
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
@@ -124,7 +117,6 @@ import org.junit.runner.RunWith
 
 private const val TAG = "NsdManagerTest"
 private const val TIMEOUT_MS = 2000L
-private const val NO_CALLBACK_TIMEOUT_MS = 200L
 // Registration may take a long time if there are devices with the same hostname on the network,
 // as the device needs to try another name and probe again. This is especially true since when using
 // mdnsresponder the usual hostname is "Android", and on conflict "Android-2", "Android-3", ... are
@@ -132,8 +124,6 @@ private const val NO_CALLBACK_TIMEOUT_MS = 200L
 private const val REGISTRATION_TIMEOUT_MS = 10_000L
 private const val DBG = false
 private const val TEST_PORT = 12345
-
-private val nsdShim = NsdShimImpl.newInstance()
 
 @AppModeFull(reason = "Socket cannot bind in instant app mode")
 @RunWith(DevSdkIgnoreRunner::class)
@@ -168,43 +158,6 @@ class NsdManagerTest {
             agent.unregister()
             iface.fileDescriptor.close()
             agent.waitForIdle(TIMEOUT_MS)
-        }
-    }
-
-    private interface NsdEvent
-    private open class NsdRecord<T : NsdEvent> private constructor(
-        private val history: ArrayTrackRecord<T>,
-        private val expectedThreadId: Int? = null
-    ) : TrackRecord<T> by history {
-        constructor(expectedThreadId: Int? = null) : this(ArrayTrackRecord(), expectedThreadId)
-
-        val nextEvents = history.newReadHead()
-
-        override fun add(e: T): Boolean {
-            if (expectedThreadId != null) {
-                assertEquals(expectedThreadId, myTid(), "Callback is running on the wrong thread")
-            }
-            return history.add(e)
-        }
-
-        inline fun <reified V : NsdEvent> expectCallbackEventually(
-            timeoutMs: Long = TIMEOUT_MS,
-            crossinline predicate: (V) -> Boolean = { true }
-        ): V = nextEvents.poll(timeoutMs) { e -> e is V && predicate(e) } as V?
-                ?: fail("Callback for ${V::class.java.simpleName} not seen after $timeoutMs ms")
-
-        inline fun <reified V : NsdEvent> expectCallback(timeoutMs: Long = TIMEOUT_MS): V {
-            val nextEvent = nextEvents.poll(timeoutMs)
-            assertNotNull(nextEvent, "No callback received after $timeoutMs ms, expected " +
-                    "${V::class.java.simpleName}")
-            assertTrue(nextEvent is V, "Expected ${V::class.java.simpleName} but got " +
-                    nextEvent.javaClass.simpleName)
-            return nextEvent
-        }
-
-        inline fun assertNoCallback(timeoutMs: Long = NO_CALLBACK_TIMEOUT_MS) {
-            val cb = nextEvents.poll(timeoutMs)
-            assertNull(cb, "Expected no callback but got $cb")
         }
     }
 
@@ -243,61 +196,6 @@ class NsdManagerTest {
 
         override fun onServiceUnregistered(si: NsdServiceInfo) {
             add(ServiceUnregistered(si))
-        }
-    }
-
-    private class NsdDiscoveryRecord(expectedThreadId: Int? = null) :
-            DiscoveryListener, NsdRecord<NsdDiscoveryRecord.DiscoveryEvent>(expectedThreadId) {
-        sealed class DiscoveryEvent : NsdEvent {
-            data class StartDiscoveryFailed(val serviceType: String, val errorCode: Int) :
-                    DiscoveryEvent()
-
-            data class StopDiscoveryFailed(val serviceType: String, val errorCode: Int) :
-                    DiscoveryEvent()
-
-            data class DiscoveryStarted(val serviceType: String) : DiscoveryEvent()
-            data class DiscoveryStopped(val serviceType: String) : DiscoveryEvent()
-            data class ServiceFound(val serviceInfo: NsdServiceInfo) : DiscoveryEvent()
-            data class ServiceLost(val serviceInfo: NsdServiceInfo) : DiscoveryEvent()
-        }
-
-        override fun onStartDiscoveryFailed(serviceType: String, err: Int) {
-            add(StartDiscoveryFailed(serviceType, err))
-        }
-
-        override fun onStopDiscoveryFailed(serviceType: String, err: Int) {
-            add(StopDiscoveryFailed(serviceType, err))
-        }
-
-        override fun onDiscoveryStarted(serviceType: String) {
-            add(DiscoveryStarted(serviceType))
-        }
-
-        override fun onDiscoveryStopped(serviceType: String) {
-            add(DiscoveryStopped(serviceType))
-        }
-
-        override fun onServiceFound(si: NsdServiceInfo) {
-            add(ServiceFound(si))
-        }
-
-        override fun onServiceLost(si: NsdServiceInfo) {
-            add(ServiceLost(si))
-        }
-
-        fun waitForServiceDiscovered(
-            serviceName: String,
-            serviceType: String,
-            expectedNetwork: Network? = null
-        ): NsdServiceInfo {
-            val serviceFound = expectCallbackEventually<ServiceFound> {
-                it.serviceInfo.serviceName == serviceName &&
-                        (expectedNetwork == null ||
-                                expectedNetwork == nsdShim.getNetwork(it.serviceInfo))
-            }.serviceInfo
-            // Discovered service types have a dot at the end
-            assertEquals("$serviceType.", serviceFound.serviceType)
-            return serviceFound
         }
     }
 
