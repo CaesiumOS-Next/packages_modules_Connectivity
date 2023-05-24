@@ -128,11 +128,13 @@ public class MdnsSocketProvider {
             @Override
             public void onLocalOnlyInterfacesChanged(@NonNull List<String> interfaces) {
                 handleTetherInterfacesChanged(mLocalOnlyInterfaces, interfaces);
+                Log.i(TAG, "onLocalOnlyInterfacesChanged: " + interfaces);
             }
 
             @Override
             public void onTetheredInterfacesChanged(@NonNull List<String> interfaces) {
                 handleTetherInterfacesChanged(mTetheredInterfaces, interfaces);
+                Log.i(TAG, "onTetheredInterfaceChange: " + interfaces);
             }
         };
 
@@ -342,10 +344,12 @@ public class MdnsSocketProvider {
     }
     private void maybeUpdateTetheringSocketAddress(int ifaceIndex,
             @NonNull final List<LinkAddress> updatedAddresses) {
+        Log.i(TAG, "iface idx " + ifaceIndex +" address: " + updatedAddresses);
         for (int i = 0; i < mTetherInterfaceSockets.size(); ++i) {
             String tetheringInterfaceName = mTetherInterfaceSockets.keyAt(i);
             if (mDependencies.getNetworkInterfaceIndexByName(tetheringInterfaceName)
                     == ifaceIndex) {
+                Log.i(TAG, "tetheringInterfaceName: " + tetheringInterfaceName + " address:" + updatedAddresses);
                 updateSocketInfoAddress(null /* network */,
                         mTetherInterfaceSockets.valueAt(i), updatedAddresses);
                 return;
