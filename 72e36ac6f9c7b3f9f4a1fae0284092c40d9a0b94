@@ -259,6 +259,30 @@
       },
       "revId": "72e36ac6f9c7b3f9f4a1fae0284092c40d9a0b94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa3a6ff_a693a071",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1965,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-05-24T03:27:33Z",
+      "side": 1,
+      "message": "Update the local test result from Pixel 4a for reference:\n - When device boot up, both SoftAp and LOHS callback report 0 clients.\n - Enable SoftAp (or LOHS) and connect a client deivce, SoftAp (or LOHS) callback report 1 client. Disable SoftAp (or LOHS), SoftAp (or LOHS) report 0 cleint.",
+      "parentUuid": "d61e8277_aa68e599",
+      "range": {
+        "startLine": 1965,
+        "startChar": 12,
+        "endLine": 1965,
+        "endChar": 34
+      },
+      "revId": "72e36ac6f9c7b3f9f4a1fae0284092c40d9a0b94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
