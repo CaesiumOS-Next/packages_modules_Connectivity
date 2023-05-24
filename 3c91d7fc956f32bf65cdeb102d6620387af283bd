@@ -22,6 +22,30 @@
       },
       "revId": "3c91d7fc956f32bf65cdeb102d6620387af283bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f18b30c_a0d11462",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-24T07:53:02Z",
+      "side": 1,
+      "message": "Thanks for bring this issue up. To resolve this issue, I refactored the MdnsDiscoveryManager constructor to treat MdnsMultinetworkSocketClient and MdnsSocketClient separately. This will guarantee that MdnsMultinetworkSocketClient and MdnsDiscoveryManager will always running on the same looper.",
+      "parentUuid": "e8b520d8_7f64fc24",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 134,
+        "endChar": 31
+      },
+      "revId": "3c91d7fc956f32bf65cdeb102d6620387af283bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
