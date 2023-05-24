@@ -16,6 +16,29 @@
       "message": "CL needs owner review vote by test owner, thanks",
       "revId": "49eb710f2be521affab4a4be6a77ceb7797d78c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ff949f8_4953723c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-05-24T21:39:37Z",
+      "side": 1,
+      "message": "Could you clarify if Wear supports Data saver mode or not? There should be two possibilities:\n- A device supports data saver mode: Then disable/enable data saver mode as needed in the tests.\n- A device does not support data saver mode: Then don\u0027t do any data saver related operations. \n\nThe current logic (with this cl) suggests that Wear does not support data saver mode, as the isDataSaverSupported() method returns false for Wear. However, we still want to be able to perform data saver-related operations, which IMHO is not correct.",
+      "range": {
+        "startLine": 340,
+        "startChar": 8,
+        "endLine": 343,
+        "endChar": 47
+      },
+      "revId": "49eb710f2be521affab4a4be6a77ceb7797d78c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
