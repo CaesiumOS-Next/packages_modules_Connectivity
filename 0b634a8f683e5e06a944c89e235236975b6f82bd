@@ -94,6 +94,30 @@
       },
       "revId": "0b634a8f683e5e06a944c89e235236975b6f82bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b7c8120_e68697af",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-25T07:18:49Z",
+      "side": 1,
+      "message": "Removed since using visibleOnHandlerThread.",
+      "parentUuid": "f00dceda_2d7624fa",
+      "range": {
+        "startLine": 49,
+        "startChar": 29,
+        "endLine": 49,
+        "endChar": 39
+      },
+      "revId": "0b634a8f683e5e06a944c89e235236975b6f82bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
