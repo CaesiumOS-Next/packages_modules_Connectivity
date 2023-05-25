@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1721a133_0c8f7b39",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T06:52:30Z",
+      "side": 1,
+      "message": "Usually we return-early so as to limit indentation.\n\n    if (!handleEvent()) return;\n    ...",
+      "range": {
+        "startLine": 411,
+        "startChar": 8,
+        "endLine": 411,
+        "endChar": 10
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5441a1c_152f1a7d",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T06:52:30Z",
+      "side": 1,
+      "message": "final\n\nOr, only allocate if necessary – init with null and if you find any invalid KI then you assign to `new ArrayList\u003c\u003e` if null.",
+      "range": {
+        "startLine": 651,
+        "startChar": 8,
+        "endLine": 651,
+        "endChar": 17
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "828cd67d_3230c43b",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T06:52:30Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 653,
+        "startChar": 13,
+        "endLine": 653,
+        "endChar": 36
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6afe9af8_75efaa76",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T06:52:30Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 660,
+        "startChar": 13,
+        "endLine": 660,
+        "endChar": 17
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f973990_78f9edf9",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T06:52:30Z",
+      "side": 1,
+      "message": "This contradicts my intuition : usually you\u0027d return true when it works and false when it fails.\n\nBetter : you could return a reason which is probably better both for understandability and for consistency with other methods. This lets you move the logic for whether to cleanup the auto-keepalive to that class, instead of here. The scheme you have now returns something that\u0027s pretty unnatural, really – whether it failed to start \"due to underlying\", but it returns false if it failed for some other reason. This is unnatural and the reason you wrote it like this is that this is what the caller needs to know to figure out whether to clean up. If you return a reason, this code becomes natural, and the code that decides whether to clean up lives in a more logical place.",
+      "range": {
+        "startLine": 631,
+        "startChar": 57,
+        "endLine": 631,
+        "endChar": 72
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e69586a2_774fa90f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T06:52:30Z",
+      "side": 1,
+      "message": "Let\u0027s move this `return` inside the else, so that you can\u0027t add an `else if` block and forget to consider what to return. You\u0027ll need to add one in l.674, which also makes things clearer.",
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
