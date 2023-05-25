@@ -44,11 +44,12 @@ import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyBoolean;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
@@ -58,7 +59,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.app.AlarmManager;
-import android.app.PendingIntent;
+import android.app.AlarmManager.OnAlarmListener;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ModuleInfo;
@@ -70,7 +71,6 @@ import android.os.Handler;
 import android.os.PersistableBundle;
 import android.os.ResultReceiver;
 import android.os.SystemProperties;
-import android.os.UserHandle;
 import android.os.test.TestLooper;
 import android.provider.DeviceConfig;
 import android.provider.Settings;
@@ -89,6 +89,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -114,7 +115,6 @@ public final class EntitlementManagerTest {
     @Mock private EntitlementManager
             .OnTetherProvisioningFailedListener mTetherProvisioningFailedListener;
     @Mock private AlarmManager mAlarmManager;
-    @Mock private PendingIntent mAlarmIntent;
 
     @Rule
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
@@ -210,12 +210,6 @@ public final class EntitlementManagerTest {
             assertTrue(intent.hasExtra(EXTRA_PROVISION_CALLBACK));
             assertEquals(config.activeDataSubId,
                     intent.getIntExtra(EXTRA_TETHER_SUBID, INVALID_SUBSCRIPTION_ID));
-        }
-
-        @Override
-        PendingIntent createRecheckAlarmIntent(final String pkgName) {
-            assertEquals(TEST_PACKAGE_NAME, pkgName);
-            return mAlarmIntent;
         }
     }
 
@@ -649,12 +643,6 @@ public final class EntitlementManagerTest {
         assertFalse(mEnMgr.isCellularUpstreamPermitted());
     }
 
-    private void sendProvisioningRecheckAlarm() {
-        final Intent intent = new Intent(EntitlementManager.ACTION_PROVISIONING_ALARM);
-        mMockContext.sendBroadcastAsUser(intent, UserHandle.ALL);
-        mLooper.dispatchAll();
-    }
-
     @Test
     public void testScheduleProvisioningReCheck() throws Exception {
         setupForRequiredProvisioning();
@@ -666,14 +654,17 @@ public final class EntitlementManagerTest {
         mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, true);
         mLooper.dispatchAll();
         assertTrue(mEnMgr.isCellularUpstreamPermitted());
+        final ArgumentCaptor<OnAlarmListener> listenerCaptor =
+                ArgumentCaptor.forClass(OnAlarmListener.class);
         verify(mAlarmManager).setExact(eq(AlarmManager.ELAPSED_REALTIME_WAKEUP), anyLong(),
-                eq(mAlarmIntent));
+                eq(null), listenerCaptor.capture(), any());
+        OnAlarmListener alarmListener = listenerCaptor.getValue();
         reset(mAlarmManager);
 
-        sendProvisioningRecheckAlarm();
-        verify(mAlarmManager).cancel(eq(mAlarmIntent));
+        alarmListener.onAlarm();
+        verify(mAlarmManager).cancel(eq(alarmListener));
         verify(mAlarmManager).setExact(eq(AlarmManager.ELAPSED_REALTIME_WAKEUP), anyLong(),
-                eq(mAlarmIntent));
+                eq(null), eq(alarmListener), any());
     }
 
     @Test

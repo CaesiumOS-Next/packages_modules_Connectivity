@@ -34,15 +34,11 @@ import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_PROVISIONING_FAILED;
 
 import static com.android.networkstack.apishim.ConstantsShim.ACTION_TETHER_UNSUPPORTED_CARRIER_UI;
-import static com.android.networkstack.apishim.ConstantsShim.RECEIVER_NOT_EXPORTED;
 
 import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -74,9 +70,6 @@ public class EntitlementManager {
 
     @VisibleForTesting
     protected static final String DISABLE_PROVISIONING_SYSPROP_KEY = "net.tethering.noprovisioning";
-    @VisibleForTesting
-    protected static final String ACTION_PROVISIONING_ALARM =
-            "com.android.networkstack.tethering.PROVISIONING_RECHECK_ALARM";
 
     // Indicate tether provisioning is not required by carrier.
     private static final int TETHERING_PROVISIONING_REQUIRED = 1000;
@@ -103,7 +96,8 @@ public class EntitlementManager {
     // Value: TetheringManager.TETHER_ERROR_{NO_ERROR or PROVISION_FAILED}(provisioning result).
     private final SparseIntArray mCurrentEntitlementResults;
     private final Runnable mPermissionChangeCallback;
-    private PendingIntent mProvisioningRecheckAlarm;
+    private final AlarmManager.OnAlarmListener mAlarmListener;
+    private boolean mIsAlarmScheduled = false;
     private boolean mLastCellularUpstreamPermitted = true;
     private boolean mUsingCellularAsUpstream = false;
     private boolean mNeedReRunProvisioningUi = false;
@@ -120,15 +114,15 @@ public class EntitlementManager {
         mEntitlementCacheValue = new SparseIntArray();
         mPermissionChangeCallback = callback;
         mHandler = h;
-        if (SdkLevel.isAtLeastU()) {
-            mContext.registerReceiver(mReceiver, new IntentFilter(ACTION_PROVISIONING_ALARM),
-                    null, mHandler, RECEIVER_NOT_EXPORTED);
-        } else {
-            mContext.registerReceiver(mReceiver, new IntentFilter(ACTION_PROVISIONING_ALARM),
-                    null, mHandler);
-        }
         mSilentProvisioningService = ComponentName.unflattenFromString(
                 mContext.getResources().getString(R.string.config_wifi_tether_enable));
+        mAlarmListener = () -> {
+            mLog.i("Received provisioning alarm");
+            final TetheringConfiguration config = mFetcher.fetchTetheringConfiguration();
+            rescheduleProvisioningRecheck(config);
+            reevaluateSimCardProvisioning(config);
+        };
+
     }
 
     public void setOnTetherProvisioningFailedListener(
@@ -458,34 +452,27 @@ public class EntitlementManager {
         mContext.startActivity(intent);
     }
 
-    @VisibleForTesting
-    PendingIntent createRecheckAlarmIntent(final String pkgName) {
-        final Intent intent = new Intent(ACTION_PROVISIONING_ALARM);
-        intent.setPackage(pkgName);
-        return PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-    }
-
     // Not needed to check if this don't run on the handler thread because it's private.
     private void scheduleProvisioningRecheck(final TetheringConfiguration config) {
-        if (mProvisioningRecheckAlarm == null) {
+        if (!mIsAlarmScheduled) {
             final int period = config.provisioningCheckPeriod;
             if (period <= 0) return;
 
-            mProvisioningRecheckAlarm = createRecheckAlarmIntent(mContext.getPackageName());
             AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(
                     Context.ALARM_SERVICE);
             long triggerAtMillis = SystemClock.elapsedRealtime() + (period * MS_PER_HOUR);
             alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtMillis,
-                    mProvisioningRecheckAlarm);
+                    null /* tag */, mAlarmListener, mHandler);
+            mIsAlarmScheduled = true;
         }
     }
 
     private void cancelTetherProvisioningRechecks() {
-        if (mProvisioningRecheckAlarm != null) {
+        if (mIsAlarmScheduled) {
             AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(
                     Context.ALARM_SERVICE);
-            alarmManager.cancel(mProvisioningRecheckAlarm);
-            mProvisioningRecheckAlarm = null;
+            alarmManager.cancel(mAlarmListener);
+            mIsAlarmScheduled = false;
         }
     }
 
@@ -543,18 +530,6 @@ public class EntitlementManager {
         final TetheringConfiguration config = mFetcher.fetchTetheringConfiguration();
         evaluateCellularPermission(config);
     }
-
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (ACTION_PROVISIONING_ALARM.equals(intent.getAction())) {
-                mLog.log("Received provisioning alarm");
-                final TetheringConfiguration config = mFetcher.fetchTetheringConfiguration();
-                rescheduleProvisioningRecheck(config);
-                reevaluateSimCardProvisioning(config);
-            }
-        }
-    };
 
     private static boolean isValidDownstreamType(int type) {
         switch (type) {
