@@ -365,7 +365,7 @@ public class KeepaliveTracker {
                         break;
                     case TYPE_TCP:
                         try {
-                            mTcpController.startSocketMonitor(mFd, this, mSlot);
+                            mTcpController.startSocketMonitor(mFd, mCallback, mSlot);
                         } catch (InvalidSocketException e) {
                             handleStopKeepalive(mNai, mSlot, ERROR_INVALID_SOCKET);
                             return;
@@ -442,10 +442,6 @@ public class KeepaliveTracker {
                     Log.wtf(TAG, "Error closing fd for keepalive " + mSlot + ": " + e);
                 }
             }
-        }
-
-        void onFileDescriptorInitiatedStop(final int socketKeepaliveReason) {
-            handleStopKeepalive(mNai, mSlot, socketKeepaliveReason);
         }
 
         /**
