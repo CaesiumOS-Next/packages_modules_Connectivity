@@ -16,6 +16,24 @@
       "message": "Do you have tests ?",
       "revId": "b60a3328a61f50c27687371fa2778d4866fe9b1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c74aa42_a768080a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-25T08:41:24Z",
+      "side": 1,
+      "message": "I think it\u0027s covered by ConnectivityManagerTest#testCreateTcpKeepalive(I verified). We had the test verifying how fd initiated stop events works. The commit is sort of no-op commit. The coverage should be enough. Is it fine to you? or you think we need extra test?",
+      "parentUuid": "e2bd239a_d1d4ca30",
+      "revId": "b60a3328a61f50c27687371fa2778d4866fe9b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
