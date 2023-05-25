@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e99f8837_eb20a4f0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/ConnectedClientsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-25T06:32:26Z",
+      "side": 1,
+      "message": "What about IpServers that aren\u0027t in state TETHERED or LOCAL_ONLY? Currently the code will report them to the callback as if they were LOHS clients, but actually we should skip those IpServers completely? Maybe something like:\n\n    final Set\u003cMacAddress\u003e connectedClientMacs;\n    switch (server.servingMode()) {\n        case IpServer.STATE_TETHERED:\n            connectedClientMacs \u003d wifiClientMacs;\n            break;\n        case IpServer.LOCAL_ONLY:\n            // Before T, SAP and LOHS both use wifiClientMacs because\n            // registerLocalOnlyHotspotSoftApCallback didn\u0027t exist.\n            connectedClientMacs \u003d SdkLevel.isAtLeastT() ? localOnlyClientMacs : wifiClientMacs;\n            break;\n        default:\n            continue;\n    }",
+      "range": {
+        "startLine": 99,
+        "startChar": 70,
+        "endLine": 99,
+        "endChar": 84
+      },
+      "revId": "577eec7a46d1e814b4ae0dfe1b6e7cae8ff6c7f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a989af92_7553c762",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-25T06:32:26Z",
+      "side": 1,
+      "message": "can also",
+      "range": {
+        "startLine": 488,
+        "startChar": 56,
+        "endLine": 488,
+        "endChar": 74
+      },
+      "revId": "577eec7a46d1e814b4ae0dfe1b6e7cae8ff6c7f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
