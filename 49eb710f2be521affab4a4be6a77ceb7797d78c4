@@ -63,6 +63,30 @@
       },
       "revId": "49eb710f2be521affab4a4be6a77ceb7797d78c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2757028a_713ab16a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-05-25T16:47:39Z",
+      "side": 1,
+      "message": "\u003e As far as I know, Wear does not support Data saver mode\n\nThis seems to contradict the statement in http://b/279840893#comment2 that data saver mode is enabled by default.\n\n\n\u003e But some tests of CtsHostsideNetworkTests require restrict background to work.\n\nThis is true only if they support data saver. As you can see in this method, if the data saver is not supported, we return early and don\u0027t perform any data saver related operations.",
+      "parentUuid": "b4725054_ed76abae",
+      "range": {
+        "startLine": 340,
+        "startChar": 8,
+        "endLine": 343,
+        "endChar": 47
+      },
+      "revId": "49eb710f2be521affab4a4be6a77ceb7797d78c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
