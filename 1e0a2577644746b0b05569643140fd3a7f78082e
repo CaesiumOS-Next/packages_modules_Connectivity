@@ -167,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "347896c1_ffa32db4",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-05-25T07:14:55Z",
+      "side": 1,
+      "message": "I have a potential fix at aosp/2604526. It does not need a big refactor. Just send the stop event from CS then down to AutoKeepaliveTracker/KeepaliveTracker. All path could get the event and handle it.",
+      "parentUuid": "82c8f72c_4e938973",
+      "range": {
+        "startLine": 457,
+        "startChar": 89,
+        "endLine": 458,
+        "endChar": 42
+      },
+      "revId": "1e0a2577644746b0b05569643140fd3a7f78082e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c275ee8_06c192ee",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 8
