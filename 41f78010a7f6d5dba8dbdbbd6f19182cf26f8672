@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce814d2c_276d14ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T06:52:50Z",
+      "side": 1,
+      "message": "Some nits, but in essence this is good already.",
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1721a133_0c8f7b39",
