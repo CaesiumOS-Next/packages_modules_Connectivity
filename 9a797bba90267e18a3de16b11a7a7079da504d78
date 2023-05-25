@@ -187,6 +187,30 @@
       },
       "revId": "9a797bba90267e18a3de16b11a7a7079da504d78",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3ef6f00_4603df3d",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T05:57:10Z",
+      "side": 1,
+      "message": "At the very least, consider that method names are almost always at the imperative voice. Look, ALL existing methods in this file are named like this : getX, setX, makeX, handleX, setupX, testX. Instead here you have a past (or participle), which leaves me wondering what this is supposed to *do*.\n\nYou could call this something like `processStartKeepalive` or `checkAndProcessStartedKeepalive` or similar.",
+      "parentUuid": "5e3013d7_dfdbdee0",
+      "range": {
+        "startLine": 442,
+        "startChar": 17,
+        "endLine": 442,
+        "endChar": 45
+      },
+      "revId": "9a797bba90267e18a3de16b11a7a7079da504d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
