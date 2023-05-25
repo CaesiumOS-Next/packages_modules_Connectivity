@@ -15,6 +15,7 @@
  */
 package com.android.server.connectivity;
 
+import static android.net.NetworkAgent.CMD_STOP_SOCKET_KEEPALIVE;
 import static android.net.SocketKeepalive.DATA_RECEIVED;
 import static android.net.SocketKeepalive.ERROR_INVALID_IP_ADDRESS;
 import static android.net.SocketKeepalive.ERROR_INVALID_SOCKET;
@@ -33,6 +34,7 @@ import static android.system.OsConstants.TIOCOUTQ;
 import static com.android.net.module.util.NetworkStackConstants.IPV4_HEADER_MIN_LEN;
 
 import android.annotation.NonNull;
+import android.net.ISocketKeepaliveCallback;
 import android.net.InvalidPacketException;
 import android.net.NetworkUtils;
 import android.net.SocketKeepalive.InvalidSocketException;
@@ -88,6 +90,8 @@ public class TcpKeepaliveController {
 
     private final MessageQueue mFdHandlerQueue;
 
+    private final Handler mConnectivityServiceHandler;
+
     private static final int FD_EVENTS = EVENT_INPUT | EVENT_ERROR;
 
     private static final int TCP_HEADER_LENGTH = 20;
@@ -115,6 +119,7 @@ public class TcpKeepaliveController {
 
     public TcpKeepaliveController(final Handler connectivityServiceHandler) {
         mFdHandlerQueue = connectivityServiceHandler.getLooper().getQueue();
+        mConnectivityServiceHandler = connectivityServiceHandler;
     }
 
     /** Build tcp keepalive packet. */
@@ -328,7 +333,7 @@ public class TcpKeepaliveController {
      * @param slot keepalive slot.
      */
     public void startSocketMonitor(@NonNull final FileDescriptor fd,
-            @NonNull final KeepaliveInfo ki, final int slot)
+            @NonNull final ISocketKeepaliveCallback callback, final int slot)
             throws IllegalArgumentException, InvalidSocketException {
         synchronized (mListeners) {
             if (null != mListeners.get(slot)) {
@@ -350,7 +355,8 @@ public class TcpKeepaliveController {
                 } else {
                     reason = DATA_RECEIVED;
                 }
-                ki.onFileDescriptorInitiatedStop(reason);
+                mConnectivityServiceHandler.obtainMessage(CMD_STOP_SOCKET_KEEPALIVE,
+                        0 /* unused */, reason, callback.asBinder()).sendToTarget();
                 // The listener returns the new set of events to listen to. Because 0 means no
                 // event, the listener gets unregistered.
                 return 0;
