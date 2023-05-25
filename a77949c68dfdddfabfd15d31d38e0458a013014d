@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c45ae2ce_b825e239",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T09:29:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5ffc5b3_c8052169",
+      "range": {
+        "startLine": 470,
+        "startChar": 29,
+        "endLine": 470,
+        "endChar": 35
+      },
+      "revId": "a77949c68dfdddfabfd15d31d38e0458a013014d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08c9ede2_e722584f",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d9fa97c_c60db117",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T09:29:58Z",
+      "side": 1,
+      "message": "Done and updated testPauseKeepalive for this (which I checked passes only if the cleanup is finalize is present)",
+      "parentUuid": "08c9ede2_e722584f",
+      "range": {
+        "startLine": 561,
+        "startChar": 10,
+        "endLine": 561,
+        "endChar": 79
+      },
+      "revId": "a77949c68dfdddfabfd15d31d38e0458a013014d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "383500f5_e91888d7",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-24T08:54:00Z",
       "side": 1,
       "message": "The log should probably be something else in the case that it was a pause?",
+      "range": {
+        "startLine": 568,
+        "startChar": 8,
+        "endLine": 569,
+        "endChar": 58
+      },
+      "revId": "a77949c68dfdddfabfd15d31d38e0458a013014d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a82fb1ae_9d7bf522",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T09:29:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "383500f5_e91888d7",
       "range": {
         "startLine": 568,
         "startChar": 8,
