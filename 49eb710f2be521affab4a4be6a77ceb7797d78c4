@@ -39,6 +39,30 @@
       },
       "revId": "49eb710f2be521affab4a4be6a77ceb7797d78c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4725054_ed76abae",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1901791
+      },
+      "writtenOn": "2023-05-25T08:08:38Z",
+      "side": 1,
+      "message": "As far as I know, Wear does not support Data saver mode. But some tests of `CtsHostsideNetworkTests` require `restrict background` to work.  aosp/2575912 to skip all these tests.\n\nI think Wear needs either this patch or aosp/2575912 to make  these tests pass.\n\nThanks,",
+      "parentUuid": "9ff949f8_4953723c",
+      "range": {
+        "startLine": 340,
+        "startChar": 8,
+        "endLine": 343,
+        "endChar": 47
+      },
+      "revId": "49eb710f2be521affab4a4be6a77ceb7797d78c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
