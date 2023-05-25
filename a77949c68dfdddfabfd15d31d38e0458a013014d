@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5ffc5b3_c8052169",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-25T07:15:06Z",
+      "side": 1,
+      "message": "As Hansen noted offline, this should also keep the old mUid and mPid instead of reading them from Binder again. This is essential because it is called on the handler thread where the Binder methods won\u0027t actually return the same values.",
+      "range": {
+        "startLine": 470,
+        "startChar": 29,
+        "endLine": 470,
+        "endChar": 35
+      },
+      "revId": "a77949c68dfdddfabfd15d31d38e0458a013014d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08c9ede2_e722584f",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 1
