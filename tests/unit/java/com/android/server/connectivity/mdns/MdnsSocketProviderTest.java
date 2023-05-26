@@ -31,10 +31,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -64,6 +66,7 @@ import com.android.net.module.util.netlink.RtNetlinkAddressMessage;
 import com.android.net.module.util.netlink.StructIfaddrMsg;
 import com.android.net.module.util.netlink.StructNlMsgHdr;
 import com.android.server.connectivity.mdns.MdnsSocketProvider.Dependencies;
+import com.android.server.connectivity.mdns.MdnsSocketProvider.SocketRequestMonitor;
 import com.android.server.connectivity.mdns.internal.SocketNetlinkMonitor;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -73,6 +76,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -107,6 +111,7 @@ public class MdnsSocketProviderTest {
     @Mock private NetworkInterfaceWrapper mTestNetworkIfaceWrapper;
     @Mock private NetworkInterfaceWrapper mLocalOnlyIfaceWrapper;
     @Mock private NetworkInterfaceWrapper mTetheredIfaceWrapper;
+    @Mock private SocketRequestMonitor mSocketRequestMonitor;
     private Handler mHandler;
     private MdnsSocketProvider mSocketProvider;
     private NetworkCallback mNetworkCallback;
@@ -154,7 +159,8 @@ public class MdnsSocketProviderTest {
             return mTestSocketNetLinkMonitor;
         }).when(mDeps).createSocketNetlinkMonitor(any(), any(),
                 any());
-        mSocketProvider = new MdnsSocketProvider(mContext, thread.getLooper(), mDeps, mLog);
+        mSocketProvider = new MdnsSocketProvider(mContext, thread.getLooper(), mDeps, mLog,
+                mSocketRequestMonitor);
     }
 
     private void startMonitoringSockets() {
@@ -290,6 +296,7 @@ public class MdnsSocketProviderTest {
     public void testSocketRequestAndUnrequestSocket() {
         startMonitoringSockets();
 
+        final InOrder cbMonitorOrder = inOrder(mSocketRequestMonitor);
         final TestSocketCallback testCallback1 = new TestSocketCallback();
         mHandler.post(() -> mSocketProvider.requestSocket(TEST_NETWORK, testCallback1));
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
@@ -297,12 +304,16 @@ public class MdnsSocketProviderTest {
 
         postNetworkAvailable(TRANSPORT_WIFI);
         testCallback1.expectedSocketCreatedForNetwork(TEST_NETWORK, List.of(LINKADDRV4));
+        cbMonitorOrder.verify(mSocketRequestMonitor).onSocketRequestFulfilled(eq(TEST_NETWORK),
+                any(), eq(new int[] { TRANSPORT_WIFI }));
 
         final TestSocketCallback testCallback2 = new TestSocketCallback();
         mHandler.post(() -> mSocketProvider.requestSocket(TEST_NETWORK, testCallback2));
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         testCallback1.expectedNoCallback();
         testCallback2.expectedSocketCreatedForNetwork(TEST_NETWORK, List.of(LINKADDRV4));
+        cbMonitorOrder.verify(mSocketRequestMonitor).onSocketRequestFulfilled(eq(TEST_NETWORK),
+                any(), eq(new int[] { TRANSPORT_WIFI }));
 
         final TestSocketCallback testCallback3 = new TestSocketCallback();
         mHandler.post(() -> mSocketProvider.requestSocket(null /* network */, testCallback3));
@@ -310,6 +321,8 @@ public class MdnsSocketProviderTest {
         testCallback1.expectedNoCallback();
         testCallback2.expectedNoCallback();
         testCallback3.expectedSocketCreatedForNetwork(TEST_NETWORK, List.of(LINKADDRV4));
+        cbMonitorOrder.verify(mSocketRequestMonitor).onSocketRequestFulfilled(eq(TEST_NETWORK),
+                any(), eq(new int[] { TRANSPORT_WIFI }));
 
         mHandler.post(() -> mTetheringEventCallback.onLocalOnlyInterfacesChanged(
                 List.of(LOCAL_ONLY_IFACE_NAME)));
@@ -318,6 +331,8 @@ public class MdnsSocketProviderTest {
         testCallback1.expectedNoCallback();
         testCallback2.expectedNoCallback();
         testCallback3.expectedSocketCreatedForNetwork(null /* network */, List.of());
+        cbMonitorOrder.verify(mSocketRequestMonitor).onSocketRequestFulfilled(eq(null),
+                any(), eq(new int[0]));
 
         mHandler.post(() -> mTetheringEventCallback.onTetheredInterfacesChanged(
                 List.of(TETHERED_IFACE_NAME)));
@@ -326,6 +341,8 @@ public class MdnsSocketProviderTest {
         testCallback1.expectedNoCallback();
         testCallback2.expectedNoCallback();
         testCallback3.expectedSocketCreatedForNetwork(null /* network */, List.of());
+        cbMonitorOrder.verify(mSocketRequestMonitor).onSocketRequestFulfilled(eq(null),
+                any(), eq(new int[0]));
 
         mHandler.post(() -> mSocketProvider.unrequestSocket(testCallback1));
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
@@ -338,12 +355,14 @@ public class MdnsSocketProviderTest {
         testCallback1.expectedNoCallback();
         testCallback2.expectedInterfaceDestroyedForNetwork(TEST_NETWORK);
         testCallback3.expectedInterfaceDestroyedForNetwork(TEST_NETWORK);
+        cbMonitorOrder.verify(mSocketRequestMonitor).onSocketDestroyed(eq(TEST_NETWORK), any());
 
         mHandler.post(() -> mTetheringEventCallback.onLocalOnlyInterfacesChanged(List.of()));
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         testCallback1.expectedNoCallback();
         testCallback2.expectedNoCallback();
         testCallback3.expectedInterfaceDestroyedForNetwork(null /* network */);
+        cbMonitorOrder.verify(mSocketRequestMonitor).onSocketDestroyed(eq(null), any());
 
         mHandler.post(() -> mSocketProvider.unrequestSocket(testCallback3));
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
@@ -351,6 +370,9 @@ public class MdnsSocketProviderTest {
         testCallback2.expectedNoCallback();
         // There was still a tethered interface, but no callback should be sent once unregistered
         testCallback3.expectedNoCallback();
+
+        // However the socket is getting destroyed, so the callback monitor is notified
+        cbMonitorOrder.verify(mSocketRequestMonitor).onSocketDestroyed(eq(null), any());
     }
 
     private RtNetlinkAddressMessage createNetworkAddressUpdateNetLink(
