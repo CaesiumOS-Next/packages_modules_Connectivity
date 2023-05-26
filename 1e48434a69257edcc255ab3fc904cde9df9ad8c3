@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e61ee63_766c5ccd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T00:00:32Z",
+      "side": 1,
+      "message": "LGTM. Over time (perhaps in V?) I\u0027d guess we should probably just declare that 0x80000000 always indicates a wakeup, and just remove the resource? Hardware doesn\u0027t have to mark the packet if it doesn\u0027t want to.",
+      "revId": "1e48434a69257edcc255ab3fc904cde9df9ad8c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
