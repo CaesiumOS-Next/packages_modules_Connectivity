@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c6b48e1_088598d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-05-26T15:23:43Z",
+      "side": 1,
+      "message": "no, it builds anything that\u0027s buildable in that folder (and subfolders) which filegroups are not.",
+      "parentUuid": "9fb97513_c925d6f6",
+      "range": {
+        "startLine": 10,
+        "startChar": 59,
+        "endLine": 10,
+        "endChar": 63
+      },
+      "revId": "cc2e2dcb4411e8ae07cede2da27bf5bd6e5505c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "030ce4ec_004c54e0",
