@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fb97513_c925d6f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-05-26T10:14:16Z",
+      "side": 1,
+      "message": "mm only builds android targets?",
+      "range": {
+        "startLine": 10,
+        "startChar": 59,
+        "endLine": 10,
+        "endChar": 63
+      },
+      "revId": "cc2e2dcb4411e8ae07cede2da27bf5bd6e5505c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "030ce4ec_004c54e0",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-05-26T10:14:16Z",
+      "side": 1,
+      "message": "I\u0027m slightly confused, where are we getting this \"NetHttpTests manifest\"?",
+      "range": {
+        "startLine": 38,
+        "startChar": 29,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "cc2e2dcb4411e8ae07cede2da27bf5bd6e5505c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
