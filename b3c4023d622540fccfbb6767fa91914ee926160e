@@ -1,0 +1,763 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0246ee6d_77473942",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "with",
+      "range": {
+        "startLine": 350,
+        "startChar": 34,
+        "endLine": 350,
+        "endChar": 36
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25a938e6_c6b096b7",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "implement the",
+      "range": {
+        "startLine": 353,
+        "startChar": 23,
+        "endLine": 353,
+        "endChar": 32
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4644675b_6b4d43f9",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "Not sure what this means. Maybe it should say something like, \"update hardware offload state\"?",
+      "range": {
+        "startLine": 353,
+        "startChar": 69,
+        "endLine": 354,
+        "endChar": 29
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25c2f3fe_a06eb83d",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "and",
+      "range": {
+        "startLine": 354,
+        "startChar": 85,
+        "endLine": 354,
+        "endChar": 87
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2628d741_0ec1bccb",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "callbacks are",
+      "range": {
+        "startLine": 355,
+        "startChar": 53,
+        "endLine": 355,
+        "endChar": 64
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f9e3081_dcbdd620",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "The doc should also say that multiple engines may be registered for the same interface, and that the same engine cannot be registered twice.",
+      "range": {
+        "startLine": 355,
+        "startChar": 71,
+        "endLine": 355,
+        "endChar": 72
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7565f825_243f3f51",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "runs on",
+      "range": {
+        "startLine": 357,
+        "startChar": 80,
+        "endLine": 357,
+        "endChar": 90
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "181591d2_1f65af54",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "executor on which to",
+      "range": {
+        "startLine": 358,
+        "startChar": 29,
+        "endLine": 358,
+        "endChar": 47
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8db66f6_0e60275f",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "that will receive the",
+      "range": {
+        "startLine": 359,
+        "startChar": 43,
+        "endLine": 359,
+        "endChar": 53
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eeef671_f5f47d33",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "If you annotate the parameter with the intdef (\"@OffloadCapability long offloadCapabilities\"), the documentation of which values are allowed will be generated automatically.\n\nThis @param tag should just say something like, \"the capabilities of the offload engine\".",
+      "range": {
+        "startLine": 360,
+        "startChar": 37,
+        "endLine": 360,
+        "endChar": 82
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4afdb0e1_c16a4dcd",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "Nit: isn\u0027t there a \"contains\" method you could use here?",
+      "range": {
+        "startLine": 375,
+        "startChar": 46,
+        "endLine": 375,
+        "endChar": 53
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba43c880_a2d08faa",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "Indicates that\n\n(also elsewhere)",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21995430_bc54266c",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "generate replies to mDns queries",
+      "range": {
+        "startLine": 38,
+        "startChar": 39,
+        "endLine": 38,
+        "endChar": 81
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "243eb4b8_fd534f68",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "These integers are used both to indicate what the engine *can* (in registerOffloadEngine) and to indicate what the hardware *should* for a given service (in OffloadServiceInfo). The name OFFLOAD_CAPABILITY_* is really only appropriate for the former.\n\nWe could have two separate sets of constants for this (OFFLOAD_CAPABILITY_*, OFFLOAD_TYPE_*). But on the other hand, it seems useful to use the same constant for both capabilities and operations, though. How about we use a more generic name?\n\nSomething like:\n\n    int OFFLOAD_REPLY \u003d 1;\n    int OFFLOAD_FILTER_QUERIES \u003d 1 \u003c\u003c 1;\n    int OFFLOAD_FILTER_REPLIES \u003d 1 \u003c\u003c 2;\n    int OFFLOAD_BYPASS_MULTICAST_FILTERING \u003d 1 \u003c\u003c 3;\n\n    @Retention(RetentionPolicy.SOURCE)\n    @LongDef(flag \u003d false, prefix \u003d {\"OFFLOAD_\"}, value \u003d {\n        OFFLOAD_REPLY,\n        OFFLOAD_FILTER_QUERIES,\n        OFFLOAD_FILTER_REPLIES,\n        OFFLOAD_BYPASS_MULTICAST_FILTERING\n    }\n    @interface OffloadType",
+      "range": {
+        "startLine": 42,
+        "startChar": 16,
+        "endLine": 42,
+        "endChar": 26
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0494a087_94e6312c",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "remove this \"the\"",
+      "range": {
+        "startLine": 44,
+        "startChar": 55,
+        "endLine": 44,
+        "endChar": 58
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54532545_abb55668",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "remove this \"the\"",
+      "range": {
+        "startLine": 48,
+        "startChar": 55,
+        "endLine": 48,
+        "endChar": 58
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fb954a6_c469ae54",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": ": it can allow mDns packets to be received even when no app holds a {@link WifiManager.MulticastLock}.",
+      "range": {
+        "startLine": 53,
+        "startChar": 65,
+        "endLine": 53,
+        "endChar": 66
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f7f6262_45e9ee70",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "Should we call this BYPASS_MULTICAST_LOCK instead?",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 53
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06571677_1df9eeb1",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "OFFLOAD_TYPE_",
+      "range": {
+        "startLine": 58,
+        "startChar": 36,
+        "endLine": 58,
+        "endChar": 44
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cc16f7d_c43c2b9a",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "LongDef",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 11
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d281e491_04d2f526",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "needs",
+      "range": {
+        "startLine": 31,
+        "startChar": 89,
+        "endLine": 31,
+        "endChar": 93
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f02f767_b331cf02",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 32,
+        "startChar": 29,
+        "endLine": 32,
+        "endChar": 30
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c69bf547_94568536",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "name of the host offering the service",
+      "range": {
+        "startLine": 54,
+        "startChar": 27,
+        "endLine": 54,
+        "endChar": 51
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1e8c7f7_9575ee5b",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "Should we say this is only meaningful if the type contains OFFLOAD_REPLY?",
+      "range": {
+        "startLine": 55,
+        "startChar": 71,
+        "endLine": 55,
+        "endChar": 72
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "334979b9_02ca3a9b",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "offloadType is what is being documented here. The @see tag should talk about something else, not offloadType.",
+      "range": {
+        "startLine": 57,
+        "startChar": 64,
+        "endLine": 57,
+        "endChar": 75
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02e0eb2c_52422f7c",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "Add the LongDef here.",
+      "range": {
+        "startLine": 61,
+        "startChar": 70,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14673d1a_c795d98e",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "This is not a packet because it does not contain packet headers. Maybe call it getOffloadPayload or getOffloadData?",
+      "range": {
+        "startLine": 148,
+        "startChar": 18,
+        "endLine": 148,
+        "endChar": 37
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bf4abad_b67dc969",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "You don\u0027t need to write this yourself, just use:\n\n    @OffloadType public long getOffloadType() {",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 63
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66e72e06_2082f109",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "requests",
+      "range": {
+        "startLine": 164,
+        "startChar": 65,
+        "endLine": 164,
+        "endChar": 69
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9ece6c2_a4ad5d64",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "having lower",
+      "range": {
+        "startLine": 178,
+        "startChar": 7,
+        "endLine": 178,
+        "endChar": 17
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a500db47_3c4601ef",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "values",
+      "range": {
+        "startLine": 178,
+        "startChar": 27,
+        "endLine": 178,
+        "endChar": 32
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ee577e7_96c1064b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "Is there a reason we have both OffloadEngineInfo and OffloadEngineArgs? Could we just have one class that has all three members?",
+      "range": {
+        "startLine": 207,
+        "startChar": 25,
+        "endLine": 207,
+        "endChar": 42
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac5c9009_359e5b51",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1633,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-26T06:56:14Z",
+      "side": 1,
+      "message": "Nit: our code usually just does \"+ e);\" Might want to be consistent.",
+      "range": {
+        "startLine": 1633,
+        "startChar": 74,
+        "endLine": 1633,
+        "endChar": 93
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
