@@ -69,6 +69,30 @@
       },
       "revId": "cc2e2dcb4411e8ae07cede2da27bf5bd6e5505c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed8f63ba_b5bbe9e7",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-05-26T15:25:57Z",
+      "side": 1,
+      "message": "Yeah, an android_library target\u0027s manifest property defaults to \"AndroidManifest.xml\", so in most cases, you don\u0027t actually have to specify it.",
+      "parentUuid": "030ce4ec_004c54e0",
+      "range": {
+        "startLine": 38,
+        "startChar": 29,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "cc2e2dcb4411e8ae07cede2da27bf5bd6e5505c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
