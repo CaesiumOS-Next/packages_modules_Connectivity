@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "faae32bd_af2f92b5",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 11300,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-26T04:55:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "308db08c_84309ec2",
+      "range": {
+        "startLine": 11300,
+        "startChar": 24,
+        "endLine": 11300,
+        "endChar": 49
+      },
+      "revId": "0d018172dd6707d2d885a6f58ea3a816d0f8900d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5aafd6e_b463f6b3",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32c82e06_8be46413",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 11310,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-26T04:55:24Z",
+      "side": 1,
+      "message": "No, each network has its own proxy configuration in LinkProperties. Then there are things that are unique per-process or system-wide (e.g. the JVM properties or the broadcast), and we set those to the proxy of the default network.\n\nNote that it\u0027s actually wrong in the case of per-default network, but that\u0027s well beyond the scope of this patch.\n\nAdded comments.",
+      "parentUuid": "e5aafd6e_b463f6b3",
+      "range": {
+        "startLine": 11310,
+        "startChar": 41,
+        "endLine": 11310,
+        "endChar": 51
+      },
+      "revId": "0d018172dd6707d2d885a6f58ea3a816d0f8900d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcbe6e2f_988e19f6",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-25T09:25:55Z",
       "side": 1,
       "message": "Maybe split these code into another CL?\nWhen b/138810051 is fixed (maybe never) we\u0027ll know if the code is working.\nFor now we cannot verify it through TH result.\nTo keep these unverified dead code in the codebase might not be a good idea.",
+      "range": {
+        "startLine": 11324,
+        "startChar": 44,
+        "endLine": 11324,
+        "endChar": 55
+      },
+      "revId": "0d018172dd6707d2d885a6f58ea3a816d0f8900d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b17c62c2_45833b4f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 11324,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-26T04:55:24Z",
+      "side": 1,
+      "message": "The followup fixes b/138810051 and uncomments all of this.",
+      "parentUuid": "dcbe6e2f_988e19f6",
       "range": {
         "startLine": 11324,
         "startChar": 44,
