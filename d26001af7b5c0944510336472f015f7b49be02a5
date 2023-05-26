@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "331ea186_a77e5308",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-26T09:53:34Z",
+      "side": 1,
+      "message": "Can you add a TODO here?",
+      "range": {
+        "startLine": 191,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 96
+      },
+      "revId": "d26001af7b5c0944510336472f015f7b49be02a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d05e6328_6310402d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-26T09:53:34Z",
+      "side": 1,
+      "message": "Looks like this argument is unused, can we remove it?",
+      "range": {
+        "startLine": 324,
+        "startChar": 16,
+        "endLine": 324,
+        "endChar": 51
+      },
+      "revId": "d26001af7b5c0944510336472f015f7b49be02a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4e295d2_5ae53a89",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-26T09:53:34Z",
+      "side": 1,
+      "message": "Question: The network is null for the tethering and Wi-Fi P2P interfaces. Since these are all Wi-Fi related networks, should we also hold a lock for these interfaces?",
+      "range": {
+        "startLine": 325,
+        "startChar": 16,
+        "endLine": 325,
+        "endChar": 31
+      },
+      "revId": "d26001af7b5c0944510336472f015f7b49be02a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d38a64ee_bb270342",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1416,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-26T09:53:34Z",
+      "side": 1,
+      "message": "Could you verify that destroying a non-WiFi socket will not cause the lock to be released?",
+      "range": {
+        "startLine": 1416,
+        "startChar": 48,
+        "endLine": 1416,
+        "endChar": 49
+      },
+      "revId": "d26001af7b5c0944510336472f015f7b49be02a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
