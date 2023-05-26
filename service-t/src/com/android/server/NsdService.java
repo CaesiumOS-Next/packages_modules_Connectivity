@@ -17,6 +17,8 @@
 package com.android.server;
 
 import static android.net.ConnectivityManager.NETID_UNSET;
+import static android.net.NetworkCapabilities.TRANSPORT_VPN;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.nsd.NsdManager.MDNS_DISCOVERY_MANAGER_EVENT;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
 import static android.net.nsd.NsdManager.RESOLVE_SERVICE_SUCCEEDED;
@@ -45,6 +47,7 @@ import android.net.nsd.INsdServiceConnector;
 import android.net.nsd.MDnsManager;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
+import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -53,7 +56,9 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
 import android.os.UserHandle;
+import android.provider.DeviceConfig;
 import android.text.TextUtils;
+import android.util.ArraySet;
 import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
@@ -62,6 +67,7 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
+import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.InetAddressUtils;
 import com.android.net.module.util.PermissionUtils;
@@ -69,6 +75,7 @@ import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.mdns.ExecutorProvider;
 import com.android.server.connectivity.mdns.MdnsAdvertiser;
 import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
+import com.android.server.connectivity.mdns.MdnsInterfaceSocket;
 import com.android.server.connectivity.mdns.MdnsMultinetworkSocketClient;
 import com.android.server.connectivity.mdns.MdnsSearchOptions;
 import com.android.server.connectivity.mdns.MdnsServiceBrowserListener;
@@ -141,6 +148,11 @@ public class NsdService extends INsdManager.Stub {
             "mdns_advertiser_allowlist_";
     private static final String MDNS_ALLOWLIST_FLAG_SUFFIX = "_version";
 
+    @VisibleForTesting
+    static final String MDNS_CONFIG_MULTICAST_LOCK_EXPIRATION_MS =
+            "mdns_config_multicast_lock_expiration_ms";
+    private static final long DEFAULT_MULTICAST_LOCK_EXPIRATION_MS = 5 * 60_000L;
+
     public static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
     private static final long CLEANUP_DELAY_MS = 10000;
     private static final int IFACE_IDX_ANY = 0;
@@ -174,6 +186,12 @@ public class NsdService extends INsdManager.Stub {
 
     /* A map from unique id to client info */
     private final SparseArray<ClientInfo> mIdToClientInfoMap= new SparseArray<>();
+
+    // Note this is not final to avoid depending on the Wi-Fi service starting before NsdService
+    @Nullable
+    private WifiManager.MulticastLock mHeldMulticastLock;
+    @NonNull
+    private final ArraySet<Network> mWifiLockHeldNetworks = new ArraySet<>();
 
     private final long mCleanupDelayMs;
 
@@ -299,6 +317,55 @@ public class NsdService extends INsdManager.Stub {
         }
     }
 
+    private class SocketCallbackMonitor implements MdnsSocketProvider.SocketCallbackMonitor {
+        @Override
+        public void onSocketRequestFulfilled(@Nullable Network network,
+                @NonNull MdnsInterfaceSocket socket, @NonNull int[] transports) {
+            // The network may be null for Wi-Fi SoftAp interfaces (tethering), but there is no APF
+            // filtering on such interfaces, so taking the multicast lock is not necessary to
+            // disable APF filtering of multicast.
+            if (network == null
+                    || !CollectionUtils.contains(transports, TRANSPORT_WIFI)
+                    || CollectionUtils.contains(transports, TRANSPORT_VPN)) {
+                return;
+            }
+
+            if (mDeps.getDeviceConfigLong(
+                    MDNS_CONFIG_MULTICAST_LOCK_EXPIRATION_MS,
+                    DEFAULT_MULTICAST_LOCK_EXPIRATION_MS) == 0L) {
+                // Don't even take the lock if the expiration is set to 0
+                return;
+            }
+
+            // TODO: also do not take the lock if there is an offload engine with
+            //  BYPASS_MULTICAST_LOCK capability registered on the socket.getInterface interface,
+            //  as the lock will not be necessary for that interface in that case.
+
+            if (mHeldMulticastLock == null) {
+                final WifiManager wm = mContext.getSystemService(WifiManager.class);
+                if (wm == null) {
+                    Log.wtf(TAG, "Got a TRANSPORT_WIFI network without WifiManager");
+                    return;
+                }
+                mHeldMulticastLock = wm.createMulticastLock(TAG);
+                mHeldMulticastLock.acquire();
+            }
+            mWifiLockHeldNetworks.add(network);
+
+            // Reschedule the expiration every time a new client is using the socket
+            mNsdStateMachine.rescheduleMulticastLockExpiration();
+        }
+
+        @Override
+        public void onSocketDestroyed(@Nullable Network network,
+                @NonNull MdnsInterfaceSocket socket) {
+            mWifiLockHeldNetworks.remove(network);
+            if (mWifiLockHeldNetworks.size() == 0 && mHeldMulticastLock != null) {
+                mNsdStateMachine.releaseMulticastLock();
+            }
+        }
+    }
+
     /**
      * Data class of mdns service callback information.
      */
@@ -381,6 +448,20 @@ public class NsdService extends INsdManager.Stub {
 
             mMdnsSocketProvider.requestStopWhenInactive();
             mIsMonitoringSocketsStarted = false;
+        }
+
+        void rescheduleMulticastLockExpiration() {
+            removeMessages(NsdManager.MULTICAST_LOCK_EXPIRED);
+            sendMessageDelayed(NsdManager.MULTICAST_LOCK_EXPIRED, mDeps.getDeviceConfigLong(
+                    MDNS_CONFIG_MULTICAST_LOCK_EXPIRATION_MS,
+                    DEFAULT_MULTICAST_LOCK_EXPIRATION_MS));
+        }
+
+        void releaseMulticastLock() {
+            mWifiLockHeldNetworks.clear();
+            mHeldMulticastLock.release();
+            mHeldMulticastLock = null;
+            removeMessages(NsdManager.MULTICAST_LOCK_EXPIRED);
         }
 
         NsdStateMachine(String name, Handler handler) {
@@ -485,6 +566,9 @@ public class NsdService extends INsdManager.Stub {
                             mLegacyClientCount += 1;
                             maybeStartDaemon();
                         }
+                        break;
+                    case NsdManager.MULTICAST_LOCK_EXPIRED:
+                        releaseMulticastLock();
                         break;
                     default:
                         Log.e(TAG, "Unhandled " + msg);
@@ -1386,7 +1470,7 @@ public class NsdService extends INsdManager.Stub {
         mDeps = deps;
 
         mMdnsSocketProvider = deps.makeMdnsSocketProvider(ctx, handler.getLooper(),
-                LOGGER.forSubComponent("MdnsSocketProvider"));
+                LOGGER.forSubComponent("MdnsSocketProvider"), new SocketCallbackMonitor());
         // Netlink monitor starts on boot, and intentionally never stopped, to ensure that all
         // address events are received.
         handler.post(mMdnsSocketProvider::startNetLinkMonitor);
@@ -1468,8 +1552,16 @@ public class NsdService extends INsdManager.Stub {
          * @see MdnsSocketProvider
          */
         public MdnsSocketProvider makeMdnsSocketProvider(@NonNull Context context,
-                @NonNull Looper looper, @NonNull SharedLog sharedLog) {
-            return new MdnsSocketProvider(context, looper, sharedLog);
+                @NonNull Looper looper, @NonNull SharedLog sharedLog,
+                @NonNull MdnsSocketProvider.SocketCallbackMonitor socketCreationCallback) {
+            return new MdnsSocketProvider(context, looper, sharedLog, socketCreationCallback);
+        }
+
+        /**
+         * @see DeviceConfig#getLong(String, String, long)
+         */
+        public long getDeviceConfigLong(@NonNull String config, long defaultValue) {
+            return DeviceConfig.getLong(NAMESPACE_TETHERING, config, defaultValue);
         }
     }
 
