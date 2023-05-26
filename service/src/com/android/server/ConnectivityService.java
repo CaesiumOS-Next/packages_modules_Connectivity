@@ -11481,8 +11481,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public void updateDefaultNetwork(NetworkAgentInfo defaultNetwork) {
             if (defaultNetwork != null) {
                 mDefaultNetwork = defaultNetwork.network.netId;
-                mIsDefaultNetworkActive = true;
-                LegacyNetworkActivityTrackerUtils.reportNetworkActive(mNetworkActivityListeners);
+                // If there are no idle timers, it means that system is not monitoring activity,
+                // so the default network is considered active.
+                mIsDefaultNetworkActive = (!mActiveIdleTimers.containsKey(mDefaultNetwork))
+                        || mActiveCellularNetwork.contains(mDefaultNetwork)
+                        || mActiveWifiNetwork.contains(mDefaultNetwork);
+                if (mIsDefaultNetworkActive) {
+                    LegacyNetworkActivityTrackerUtils.reportNetworkActive(
+                            mNetworkActivityListeners);
+                }
             } else {
                 mDefaultNetwork = null;
                 // If there is no default network, default network is considered inactive.
