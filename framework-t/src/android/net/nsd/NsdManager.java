@@ -246,6 +246,8 @@ public final class NsdManager {
     public static final int UNREGISTER_SERVICE_CALLBACK             = 31;
     /** @hide */
     public static final int UNREGISTER_SERVICE_CALLBACK_SUCCEEDED   = 32;
+    /** @hide */
+    public static final int MULTICAST_LOCK_EXPIRED                  = 33;
 
     /** Dns based service discovery protocol */
     public static final int PROTOCOL_DNS_SD = 0x0001;
