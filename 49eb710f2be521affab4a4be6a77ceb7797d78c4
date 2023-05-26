@@ -87,6 +87,30 @@
       },
       "revId": "49eb710f2be521affab4a4be6a77ceb7797d78c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07814b4e_86ee8ff8",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1901791
+      },
+      "writtenOn": "2023-05-26T14:50:06Z",
+      "side": 1,
+      "message": "Per aosp/2046843, Wear should not be treated as support Data saver mode. And it is enabled by default. \n\nI would like to prefer aosp/2575912 instead of this.\n\nThe `setRestrictbackground` needs to work to make some tests pass. For example: https://cs.android.com/android/platform/superproject/+/android13-tests-dev:packages/modules/Connectivity/tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractExpeditedJobTest.java:\n\n```\npublic class AbstractExpeditedJobTest extends AbstractRestrictBackgroundNetworkTestCase {\n    @Before\n    public final void setUp() throws Exception {\n        super.setUp();\n        resetDeviceState();\n    }\n\n    @After\n    public final void tearDown() throws Exception {\n        super.tearDown();\n        resetDeviceState();\n    }\n\n    private void resetDeviceState() throws Exception {\n        resetBatteryState();\n        setBatterySaverMode(false);\n        setRestrictBackground(false);\n        setAppIdle(false);\n        setDozeMode(false);\n    }\n```\nsetRestrictBackground(false) is being called, which takes no effects, so, it causes some of tests of this class fail.",
+      "parentUuid": "2757028a_713ab16a",
+      "range": {
+        "startLine": 340,
+        "startChar": 8,
+        "endLine": 343,
+        "endChar": 47
+      },
+      "revId": "49eb710f2be521affab4a4be6a77ceb7797d78c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
