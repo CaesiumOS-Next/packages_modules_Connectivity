@@ -25,7 +25,10 @@ import static com.android.server.connectivity.mdns.util.MdnsUtils.isNetworkMatch
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.net.LinkAddress;
@@ -35,6 +38,9 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.TetheringManager;
 import android.net.TetheringManager.TetheringEventCallback;
+import android.net.wifi.p2p.WifiP2pGroup;
+import android.net.wifi.p2p.WifiP2pInfo;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.ArrayMap;
@@ -92,6 +98,44 @@ public class MdnsSocketProvider {
     private final byte[] mPacketReadBuffer = new byte[READ_BUFFER_SIZE];
     private boolean mMonitoringSockets = false;
     private boolean mRequestStop = false;
+    private String mWifiP2pTetherInterface = null;
+
+    private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final WifiP2pGroup group =
+                    intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_GROUP);
+
+            if (!mMonitoringSockets || !hasAllNetworksRequest()) {
+                mWifiP2pTetherInterface = group == null ? null : group.getInterface();
+                return;
+            }
+
+            final WifiP2pInfo p2pInfo =
+                    intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_INFO);
+
+            // if no group is formed, bring it down if needed.
+            if (p2pInfo == null || !p2pInfo.groupFormed) {
+                if (mWifiP2pTetherInterface == null) return;
+
+                removeTetherInterfaceSocket(mWifiP2pTetherInterface);
+                mWifiP2pTetherInterface = null;
+                return;
+            }
+
+            final String wifiP2pInterface = group.getInterface();
+            // If already serving from the correct interface, nothing to do.
+            if (wifiP2pInterface == null ||
+                    wifiP2pInterface.equals(mWifiP2pTetherInterface)) {
+                return;
+            }
+
+            mWifiP2pTetherInterface = wifiP2pInterface;
+            final int ifaceIndex =
+                    mDependencies.getNetworkInterfaceIndexByName(wifiP2pInterface);
+            createSocket(LOCAL_NET, createLPForTetheredInterface(wifiP2pInterface, ifaceIndex));
+        }
+    };
 
     public MdnsSocketProvider(@NonNull Context context, @NonNull Looper looper,
             @NonNull SharedLog sharedLog) {
@@ -138,6 +182,12 @@ public class MdnsSocketProvider {
 
         mSocketNetlinkMonitor = mDependencies.createSocketNetlinkMonitor(mHandler,
                 mSharedLog.forSubComponent("NetlinkMonitor"), new NetLinkMessageProcessor());
+
+        // Register a intent receiver to listen wifi p2p interface changes.
+        final IntentFilter intentFilter =
+                new IntentFilter(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
+        mContext.registerReceiver(
+                mIntentReceiver, intentFilter, null /* broadcastPermission */, mHandler);
     }
 
     /**
@@ -579,6 +629,10 @@ public class MdnsSocketProvider {
 
             for (String tetheredInterface : mTetheredInterfaces) {
                 retrieveAndNotifySocketFromInterface(tetheredInterface, cb);
+            }
+
+            if (mWifiP2pTetherInterface != null) {
+                retrieveAndNotifySocketFromInterface(mWifiP2pTetherInterface, cb);
             }
         } else {
             retrieveAndNotifySocketFromNetwork(network, cb);
