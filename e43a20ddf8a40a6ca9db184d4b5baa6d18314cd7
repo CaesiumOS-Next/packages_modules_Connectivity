@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbc1b0bf_00b86174",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c12db773_00fa5921",
+      "revId": "e43a20ddf8a40a6ca9db184d4b5baa6d18314cd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ade01339_64735d4f",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-29T03:54:02Z",
       "side": 1,
       "message": "LGTM but Lorenzo should review for CTS change",
+      "revId": "e43a20ddf8a40a6ca9db184d4b5baa6d18314cd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dec7f72_dad266ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:33:20Z",
+      "side": 1,
+      "message": "Thanks, routed this CL to lorenzo for CTS approval.",
+      "parentUuid": "ade01339_64735d4f",
       "revId": "e43a20ddf8a40a6ca9db184d4b5baa6d18314cd7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
