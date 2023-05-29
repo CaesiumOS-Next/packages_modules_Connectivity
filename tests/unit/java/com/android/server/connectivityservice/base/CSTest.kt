@@ -63,12 +63,12 @@ import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies
 import com.android.server.connectivity.ProxyTracker
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
+import java.util.concurrent.Executors
+import kotlin.test.fail
 import org.mockito.AdditionalAnswers.delegatesTo
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
-import java.util.concurrent.Executors
-import kotlin.test.fail
 
 internal const val HANDLER_TIMEOUT_MS = 2_000
 internal const val TEST_PACKAGE_NAME = "com.android.test.package"
@@ -126,6 +126,7 @@ open class CSTest {
         it[ConnectivityFlags.NO_REMATCH_ALL_REQUESTS_ON_REGISTER] = true
         it[ConnectivityService.KEY_DESTROY_FROZEN_SOCKETS_VERSION] = true
         it[ConnectivityService.DELAY_DESTROY_FROZEN_SOCKETS_VERSION] = true
+        it[ConnectivityService.TRACK_MULTI_NETWORK_ACTIVITIES] = true
     }
     fun enableFeature(f: String) = enabledFeatures.set(f, true)
     fun disableFeature(f: String) = enabledFeatures.set(f, false)
@@ -194,6 +195,11 @@ open class CSTest {
         // checking permissions.
         override fun isFeatureEnabled(context: Context?, name: String?) =
                 enabledFeatures[name] ?: fail("Unmocked feature $name, see CSTest.enabledFeatures")
+
+        override fun isTrackMultiNetworkActivitiesEnabled() =
+                enabledFeatures[ConnectivityService.TRACK_MULTI_NETWORK_ACTIVITIES]
+                        ?: fail("Unmocked feature TRACK_MULTI_NETWORK_ACTIVITIES," +
+                                " see CSTest.enabledFeatures")
 
         // Mocked change IDs
         private val enabledChangeIds = ArraySet<Long>()
