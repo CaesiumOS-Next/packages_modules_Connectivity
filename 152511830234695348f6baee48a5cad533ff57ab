@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98ef8171_df29671b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060959
+      },
+      "writtenOn": "2023-05-29T13:24:04Z",
+      "side": 1,
+      "message": "pre-existing udc-mainline-prod breakage",
+      "revId": "152511830234695348f6baee48a5cad533ff57ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
