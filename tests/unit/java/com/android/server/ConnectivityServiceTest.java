@@ -906,6 +906,11 @@ public class ConnectivityServiceTest {
             ));
         }
 
+        public void expectNoDataActivityBroadcast(int timeoutMs) {
+            assertNull(mOrderedBroadcastAsUserHistory.poll(
+                    timeoutMs, intent -> true));
+        }
+
         @Override
         public void sendOrderedBroadcastAsUser(Intent intent, UserHandle user,
                 String receiverPermission, BroadcastReceiver resultReceiver,
@@ -11328,6 +11333,70 @@ public class ConnectivityServiceTest {
         doTestOnNetworkActive_NewNetworkConnects(TRANSPORT_ETHERNET, mDeps.isAtLeastU());
     }
 
+    @Test @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testInterfaceClassActivityChanged_NonDefaultNetwork() throws Exception {
+        // Request cell network to keep cell network up
+        final TestNetworkCallback cellNetworkCallback = new TestNetworkCallback();
+        final NetworkRequest cellNetworkRequest = new NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .build();
+
+        TestNetworkCallback defaultCallback = new TestNetworkCallback();
+
+        final ConditionVariable onNetworkActiveCv = new ConditionVariable();
+        final ConnectivityManager.OnNetworkActiveListener listener = onNetworkActiveCv::open;
+
+        testAndCleanup(() -> {
+            mCm.requestNetwork(cellNetworkRequest, cellNetworkCallback);
+            mCm.registerDefaultNetworkCallback(defaultCallback);
+
+            // Connect Cellular network
+            final LinkProperties cellLp = new LinkProperties();
+            cellLp.setInterfaceName(MOBILE_IFNAME);
+            mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
+            mCellAgent.connect(true);
+            defaultCallback.expectAvailableThenValidatedCallbacks(mCellAgent);
+
+            // Connect Wi-Fi network
+            final LinkProperties wifiLp = new LinkProperties();
+            wifiLp.setInterfaceName(WIFI_IFNAME);
+            mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+            mWiFiAgent.connect(true);
+
+            // Wi-Fi network should be the default network.
+            defaultCallback.expectAvailableDoubleValidatedCallbacks(mWiFiAgent);
+
+            ArgumentCaptor<BaseNetdUnsolicitedEventListener> netdCallbackCaptor =
+                    ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
+            verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
+
+            mCm.addDefaultNetworkActiveListener(listener);
+
+            // Cellular network (non default network) goes to inactive state.
+            netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
+                    mCellAgent.getNetwork().netId, TIMESTAMP, NETWORK_ACTIVITY_NO_UID);
+            // Non-default network activity change does not change default network activity
+            assertFalse(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
+            mServiceContext.expectNoDataActivityBroadcast(0 /* timeoutMs */);
+            assertTrue(mCm.isDefaultNetworkActive());
+
+            // Cellular network (non default network) goes to active state.
+            netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
+                    mCellAgent.getNetwork().netId, TIMESTAMP, TEST_PACKAGE_UID);
+            // Non-default network activity change does not change default network activity
+            assertFalse(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
+            mServiceContext.expectNoDataActivityBroadcast(0 /* timeoutMs */);
+            assertTrue(mCm.isDefaultNetworkActive());
+        }, () -> { // Cleanup
+                mCm.unregisterNetworkCallback(cellNetworkCallback);
+            }, () -> { // Cleanup
+                mCm.unregisterNetworkCallback(defaultCallback);
+            }, () -> { // Cleanup
+                mCm.removeDefaultNetworkActiveListener(listener);
+            });
+    }
+
     @Test
     public void testIsDefaultNetworkActiveNoDefaultNetwork() throws Exception {
         assertFalse(mCm.isDefaultNetworkActive());
@@ -11378,8 +11447,17 @@ public class ConnectivityServiceTest {
         networkCallback.expectCaps(mWiFiAgent, c -> c.hasCapability(NET_CAPABILITY_VALIDATED));
         verify(mMockNetd, times(1)).idletimerAddInterface(eq(WIFI_IFNAME), anyInt(),
                 eq(wifiIdleTimerLabel));
-        verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(cellIdleTimerLabel));
+        if (mDeps.isAtLeastU()) {
+            // U+ devices add idleTimer when the network is first connected and remove when the
+            // network is disconnected.
+            verify(mMockNetd, never()).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
+                    eq(cellIdleTimerLabel));
+        } else {
+            // T- devices add idleTimer when the network becomes a default network and remove when
+            // the network becomes no longer a default network.
+            verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
+                    eq(cellIdleTimerLabel));
+        }
 
         // Disconnect wifi and switch back to cell
         reset(mMockNetd);
@@ -11388,8 +11466,13 @@ public class ConnectivityServiceTest {
         assertNoCallbacks(networkCallback);
         verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(WIFI_IFNAME), anyInt(),
                 eq(wifiIdleTimerLabel));
-        verify(mMockNetd, times(1)).idletimerAddInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(cellIdleTimerLabel));
+        if (mDeps.isAtLeastU()) {
+            verify(mMockNetd, never()).idletimerAddInterface(eq(MOBILE_IFNAME), anyInt(),
+                    eq(cellIdleTimerLabel));
+        } else {
+            verify(mMockNetd, times(1)).idletimerAddInterface(eq(MOBILE_IFNAME), anyInt(),
+                    eq(cellIdleTimerLabel));
+        }
 
         // reconnect wifi
         reset(mMockNetd);
@@ -11404,19 +11487,29 @@ public class ConnectivityServiceTest {
         networkCallback.expectCaps(mWiFiAgent, c -> c.hasCapability(NET_CAPABILITY_VALIDATED));
         verify(mMockNetd, times(1)).idletimerAddInterface(eq(WIFI_IFNAME), anyInt(),
                 eq(wifiIdleTimerLabel));
-        verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(cellIdleTimerLabel));
+        if (mDeps.isAtLeastU()) {
+            verify(mMockNetd, never()).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
+                    eq(cellIdleTimerLabel));
+        } else {
+            verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
+                    eq(cellIdleTimerLabel));
+        }
 
         // Disconnect cell
         reset(mMockNetd);
         mCellAgent.disconnect();
         networkCallback.expect(LOST, mCellAgent);
-        // LOST callback is triggered earlier than removing idle timer. Broadcast should also be
-        // sent as network being switched. Ensure rule removal for cell will not be triggered
-        // unexpectedly before network being removed.
         waitForIdle();
-        verify(mMockNetd, times(0)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(cellIdleTimerLabel));
+        if (mDeps.isAtLeastU()) {
+            verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
+                    eq(cellIdleTimerLabel));
+        }  else {
+            // LOST callback is triggered earlier than removing idle timer. Broadcast should also be
+            // sent as network being switched. Ensure rule removal for cell will not be triggered
+            // unexpectedly before network being removed.
+            verify(mMockNetd, times(0)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
+                    eq(cellIdleTimerLabel));
+        }
         verify(mMockNetd, times(1)).networkDestroy(eq(mCellAgent.getNetwork().netId));
         verify(mMockDnsResolver, times(1)).destroyNetworkCache(eq(mCellAgent.getNetwork().netId));
 
@@ -11424,6 +11517,7 @@ public class ConnectivityServiceTest {
         ExpectedBroadcast b = expectConnectivityAction(TYPE_WIFI, DetailedState.DISCONNECTED);
         mWiFiAgent.disconnect();
         b.expectBroadcast();
+        waitForIdle();
         verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(WIFI_IFNAME), anyInt(),
                 eq(wifiIdleTimerLabel));
 
