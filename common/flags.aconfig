@@ -41,3 +41,10 @@ flag {
   description: "Block network access for apps in a low importance background state"
   bug: "304347838"
 }
+
+flag {
+  name: "nsd_subtypes_support_enabled"
+  namespace: "android_core_networking"
+  description: "Supports DNS_SD service advertisement and discovery with subtypes"
+  bug: "284903123"
+}
