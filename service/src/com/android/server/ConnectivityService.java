@@ -11034,7 +11034,28 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mNetd = netd;
         }
 
-        public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
+        public void handleReportNetworkActivityUPlus(NetworkActivityParams activityParams) {
+            final int netId = activityParams.label;
+            if (mDefaultNetwork == null || mDefaultNetwork != netId) {
+                // This activity change is not for default network.
+                return;
+            }
+
+            final IdleTimerParams idleTimerParams = mActiveIdleTimers.get(netId);
+            if (idleTimerParams == null) {
+                return;
+            }
+            final int transportType = idleTimerParams.transportType;
+
+            mIsDefaultNetworkActive = activityParams.isActive;
+            sendDataActivityBroadcast(transportTypeToLegacyType(transportType),
+                    activityParams.isActive, activityParams.timestampNs);
+            if (activityParams.isActive) {
+                reportNetworkActive();
+            }
+        }
+
+        public void handleReportNetworkActivityPreT(NetworkActivityParams activityParams) {
             if (mActiveIdleTimers.isEmpty()) {
                 // This activity change is not for the current default network.
                 return;
@@ -11044,6 +11065,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mIsDefaultNetworkActive = activityParams.isActive;
             if (activityParams.isActive) {
                 reportNetworkActive();
+            }
+        }
+
+        public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
+            if (SdkLevel.isAtLeastU()) {
+                handleReportNetworkActivityUPlus(activityParams);
+            } else {
+                handleReportNetworkActivityPreT(activityParams);
             }
         }
 
@@ -11099,6 +11128,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
+        private String getIdleTimerLabel(final int netId, final int transportType) {
+            return Integer.toString(SdkLevel.isAtLeastU() ? netId : transportType);
+        }
+
         /**
          * Setup data activity tracking for the given network.
          *
@@ -11133,8 +11166,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (timeout > 0 && iface != null) {
                 try {
                     mActiveIdleTimers.put(netId, new IdleTimerParams(timeout, type));
-                    mNetd.idletimerAddInterface(iface, timeout,
-                            Integer.toString(type));
+                    mNetd.idletimerAddInterface(iface, timeout, getIdleTimerLabel(netId, type));
                 } catch (Exception e) {
                     // You shall not crash!
                     loge("Exception in setupDataActivityTracking " + e);
@@ -11169,7 +11201,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
                 // The call fails silently if no idle timer setup for this interface
                 mNetd.idletimerRemoveInterface(iface, params.timeout,
-                        Integer.toString(params.transportType));
+                        getIdleTimerLabel(netId, params.transportType));
             } catch (Exception e) {
                 // You shall not crash!
                 loge("Exception in removeDataActivityTracking " + e);
