@@ -11017,7 +11017,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // Indicate the current system default network activity is active or not.
         private boolean mIsDefaultNetworkActive;
         private Integer mDefaultNetwork;
-        private final ArrayMap<String, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
+        private final ArrayMap<Integer, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
 
         private static class IdleTimerParams {
             public final int timeout;
@@ -11103,6 +11103,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
          */
         private void setupDataActivityTracking(NetworkAgentInfo networkAgent) {
             final String iface = networkAgent.linkProperties.getInterfaceName();
+            final int netId = networkAgent.network().netId;
 
             final int timeout;
             final int type;
@@ -11127,7 +11128,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             if (timeout > 0 && iface != null) {
                 try {
-                    mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
+                    mActiveIdleTimers.put(netId, new IdleTimerParams(timeout, type));
                     mNetd.idletimerAddInterface(iface, timeout,
                             Integer.toString(type));
                 } catch (Exception e) {
@@ -11142,6 +11143,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
          */
         private void removeDataActivityTracking(NetworkAgentInfo networkAgent) {
             final String iface = networkAgent.linkProperties.getInterfaceName();
+            final int netId = networkAgent.network().netId;
             final NetworkCapabilities caps = networkAgent.networkCapabilities;
 
             if (iface == null) return;
@@ -11157,7 +11159,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             try {
                 updateRadioPowerState(false /* isActive */, type);
-                final IdleTimerParams params = mActiveIdleTimers.remove(iface);
+                final IdleTimerParams params = mActiveIdleTimers.remove(netId);
                 if (params == null) {
                     return;
                 }
@@ -11227,7 +11229,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             pw.print("mIsDefaultNetwork="); pw.println(mIsDefaultNetworkActive);
             try {
                 pw.println("Idle timers:");
-                for (Map.Entry<String, IdleTimerParams> ent : mActiveIdleTimers.entrySet()) {
+                for (Map.Entry<Integer, IdleTimerParams> ent : mActiveIdleTimers.entrySet()) {
                     pw.print("  "); pw.print(ent.getKey()); pw.println(":");
                     final IdleTimerParams params = ent.getValue();
                     pw.print("    timeout="); pw.print(params.timeout);
