@@ -11292,10 +11292,7 @@ public class ConnectivityServiceTest {
         ethernetLp.setInterfaceName(ETHERNET_IFNAME);
         mEthernetAgent = new TestNetworkAgentWrapper(TRANSPORT_ETHERNET, ethernetLp);
         mEthernetAgent.connect(true);
-        // LegacyNetworkActivityTracker call onNetworkActive callback only for network that tracker
-        // add idle timer to. And tracker does not set idle timer to ethernet network.
-        // onNetworkActive is not called when the ethernet becomes a default network
-        assertFalse(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
+        assertTrue(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
         assertTrue(mCm.isDefaultNetworkActive());
 
         mCm.removeDefaultNetworkActiveListener(listener);
@@ -11303,8 +11300,7 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testIsDefaultNetworkActiveNoDefaultNetwork() throws Exception {
-        // isDefaultNetworkActive returns true if there is no default network, which is known issue.
-        assertTrue(mCm.isDefaultNetworkActive());
+        assertFalse(mCm.isDefaultNetworkActive());
 
         final LinkProperties cellLp = new LinkProperties();
         cellLp.setInterfaceName(MOBILE_IFNAME);
@@ -11315,7 +11311,7 @@ public class ConnectivityServiceTest {
         mCellAgent.disconnect();
         waitForIdle();
 
-        assertTrue(mCm.isDefaultNetworkActive());
+        assertFalse(mCm.isDefaultNetworkActive());
     }
 
     @Test
