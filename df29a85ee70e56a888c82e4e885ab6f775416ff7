@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f1d3b76_668341dc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2119,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-29T10:24:56Z",
+      "side": 1,
+      "message": "1. Is it possible that a solution verified in the test but still failing in the production code, e.g. In the production U \u003d\u003d V, but in the test they are not equal, \nwhere the devepor thinks they are testing the right thing but actually it is not?\n\n2. If aosp has quaterly release, does it mean the VERSION_* will grow fast, e.g. 20 constants in 5 years? Is that a problem?",
+      "range": {
+        "startLine": 2119,
+        "startChar": 20,
+        "endLine": 2119,
+        "endChar": 39
+      },
+      "revId": "df29a85ee70e56a888c82e4e885ab6f775416ff7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
