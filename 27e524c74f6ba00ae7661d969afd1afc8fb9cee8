@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab362eb0_e4623373",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-29T09:51:48Z",
+      "side": 1,
+      "message": "Could you remove this line too ? It would be confusing otherwise\n\nOriginally there was \"NetworkPermissionConfig\" here, which was an empty package declaring the MAINLINE_NETWORK_STACK signature permission. Because of how things turned out in Q, NetworkPermissionConfig could just be replaced by NetworkStack, which was done here. So this comment is basically saying \"Make sure you include NetworkStack, because Tethering relies on MAINLINE_NETWORK_STACK to be a signature permission, and it would be wide open if NetworkStack doesn\u0027t declare it\".\n\nNow, contrary to NetworkPermissionConfig, I don\u0027t think a device could work properly without NetworkStack anyway, and there\u0027s also a CTS test for the permission to be defined properly, so the \"required\" and the comment should be fine to remove.",
+      "revId": "27e524c74f6ba00ae7661d969afd1afc8fb9cee8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
