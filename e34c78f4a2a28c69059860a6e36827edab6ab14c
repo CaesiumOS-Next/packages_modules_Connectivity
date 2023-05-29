@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce323fae_2c5d031d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-29T10:05:39Z",
+      "side": 1,
+      "message": "Only some questions and readibility nits.\nFeel free to ignore nits.",
+      "revId": "e34c78f4a2a28c69059860a6e36827edab6ab14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da37291f_5c9dda39",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 11300,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-29T10:05:39Z",
+      "side": 1,
+      "message": "Stupid Question: OK but my question is what does \"unstarted\" physically mean?\nAlso I don\u0027t understand what means server started at l.11325.",
+      "range": {
+        "startLine": 11300,
+        "startChar": 37,
+        "endLine": 11300,
+        "endChar": 46
+      },
+      "revId": "e34c78f4a2a28c69059860a6e36827edab6ab14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abba1c7c_c7bbb447",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 11303,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-29T10:05:39Z",
+      "side": 1,
+      "message": "What is the default proxy?\nDoes it means the global proxy or the proxy of default network?\nFrom the (very confusing) documentation,\n\"Retrieve the global HTTP proxy, or if no global HTTP proxy is set, a\n network-specific HTTP proxy.  If {@code network} is null, the\n network-specific proxy returned is the proxy of the default active\n network.\"\nIt seems to me this will return the proxy info of default network since the global proxy is not set. If so, is it better to:\n  1. name it unstartedDefaultNetworkProxyInfo to be more clear?\n  2. avoid using the term \"default proxy\"?",
+      "range": {
+        "startLine": 11303,
+        "startChar": 61,
+        "endLine": 11303,
+        "endChar": 85
+      },
+      "revId": "e34c78f4a2a28c69059860a6e36827edab6ab14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43f31291_9881d1a6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 11321,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-29T10:05:39Z",
+      "side": 1,
+      "message": "1. Do we want to verify getProxyForNetwork(Cell) is also unaffected?\n2. nit: Not sure if I understand the JVM thingy. Is there any short example to explain the problem?",
+      "range": {
+        "startLine": 11321,
+        "startChar": 86,
+        "endLine": 11321,
+        "endChar": 87
+      },
+      "revId": "e34c78f4a2a28c69059860a6e36827edab6ab14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9971582_6f22f6cc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 11325,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-29T10:05:39Z",
+      "side": 1,
+      "message": "IIUC this split the test into 2 half parts?\nIf so, can we:\n  1. split the test into 2 tests (unstarted/started). Or\n  2. Move this comment before l.11323 to make it more visible?",
+      "range": {
+        "startLine": 11325,
+        "startChar": 8,
+        "endLine": 11325,
+        "endChar": 83
+      },
+      "revId": "e34c78f4a2a28c69059860a6e36827edab6ab14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
