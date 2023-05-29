@@ -11284,8 +11284,7 @@ public class ConnectivityServiceTest {
         doTestInterfaceClassActivityChanged(TRANSPORT_CELLULAR);
     }
 
-    private void doTestOnNetworkActive_NewNetworkConnects(int transportType, boolean expectCallback)
-            throws Exception {
+    private void doTestOnNetworkActive_NewNetworkConnects(int transportType) throws Exception {
         final ConditionVariable onNetworkActiveCv = new ConditionVariable();
         final ConnectivityManager.OnNetworkActiveListener listener = onNetworkActiveCv::open;
 
@@ -11296,11 +11295,7 @@ public class ConnectivityServiceTest {
         testAndCleanup(() -> {
             mCm.addDefaultNetworkActiveListener(listener);
             agent.connect(true);
-            if (expectCallback) {
-                assertTrue(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
-            } else {
-                assertFalse(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
-            }
+            assertTrue(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
             assertTrue(mCm.isDefaultNetworkActive());
         }, () -> { // Cleanup
                 mCm.removeDefaultNetworkActiveListener(listener);
@@ -11311,22 +11306,17 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testOnNetworkActive_NewCellConnects_CallbackCalled() throws Exception {
-        doTestOnNetworkActive_NewNetworkConnects(TRANSPORT_CELLULAR, true /* expectCallback */);
+        doTestOnNetworkActive_NewNetworkConnects(TRANSPORT_CELLULAR);
     }
 
     @Test
-    public void testOnNetworkActive_NewEthernetConnects_CallbackNotCalled() throws Exception {
-        // LegacyNetworkActivityTracker calls onNetworkActive callback only for networks that
-        // tracker adds the idle timer to. And the tracker does not set the idle timer for the
-        // ethernet network.
-        // So onNetworkActive is not called when the ethernet becomes the default network
-        doTestOnNetworkActive_NewNetworkConnects(TRANSPORT_ETHERNET, false /* expectCallback */);
+    public void testOnNetworkActive_NewEthernetConnects_CallbackCalled() throws Exception {
+        doTestOnNetworkActive_NewNetworkConnects(TRANSPORT_ETHERNET);
     }
 
     @Test
     public void testIsDefaultNetworkActiveNoDefaultNetwork() throws Exception {
-        // isDefaultNetworkActive returns true if there is no default network, which is known issue.
-        assertTrue(mCm.isDefaultNetworkActive());
+        assertFalse(mCm.isDefaultNetworkActive());
 
         final LinkProperties cellLp = new LinkProperties();
         cellLp.setInterfaceName(MOBILE_IFNAME);
@@ -11338,7 +11328,7 @@ public class ConnectivityServiceTest {
         mCellAgent.disconnect();
         waitForIdle();
 
-        assertTrue(mCm.isDefaultNetworkActive());
+        assertFalse(mCm.isDefaultNetworkActive());
     }
 
     @Test
