@@ -253,6 +253,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a78a02c8_5ea39a59",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2002960
+      },
+      "writtenOn": "2023-05-29T23:28:10Z",
+      "side": 1,
+      "message": "approved",
+      "parentUuid": "e17bea22_0eec9afc",
+      "range": {
+        "startLine": 52,
+        "startChar": 30,
+        "endLine": 52,
+        "endChar": 35
+      },
+      "revId": "20ccb30e385927d9f7cc6d914af843f0174ec982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87b287af_b3a98e0b",
