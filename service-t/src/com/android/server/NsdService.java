@@ -848,6 +848,9 @@ public class NsdService extends INsdManager.Stub {
                                 // MdnsSearchOptions expects the underscore to not be present.
                                 optionsBuilder.addSubtype(typeAndSubtype.second.substring(1));
                             }
+                            for (String subtype : info.getSubtypes()) {
+                                optionsBuilder.addSubtype(subtype.substring(1));
+                            }
                             mMdnsDiscoveryManager.registerListener(
                                     listenServiceType, listener, optionsBuilder.build());
                             final ClientRequest request = storeDiscoveryManagerRequestMap(
@@ -950,13 +953,16 @@ public class NsdService extends INsdManager.Stub {
                             serviceInfo.setServiceType(registerServiceType);
                             serviceInfo.setServiceName(truncateServiceName(
                                     serviceInfo.getServiceName()));
+                            if (typeSubtype.second != null) {
+                                serviceInfo.setSubtypes(Set.of(typeSubtype.second));
+                            }
 
                             maybeStartMonitoringSockets();
                             // TODO: pass in the subtype as well. Including the subtype in the
                             // service type would generate service instance names like
                             // Name._subtype._sub._type._tcp, which is incorrect
                             // (it should be Name._type._tcp).
-                            mAdvertiser.addService(transactionId, serviceInfo, typeSubtype.second);
+                            mAdvertiser.addService(transactionId, serviceInfo);
                             storeAdvertiserRequestMap(clientRequestId, transactionId, clientInfo,
                                     serviceInfo.getNetwork());
                         } else {
@@ -1447,6 +1453,7 @@ public class NsdService extends INsdManager.Stub {
                         servInfo,
                         network == null ? INetd.LOCAL_NET_ID : network.netId,
                         serviceInfo.getInterfaceIndex());
+                servInfo.setSubtypes(Set.copyOf(serviceInfo.getSubtypes()));
                 return servInfo;
             }
 
