@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07cf915f_e2031d02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T02:17:16Z",
+      "side": 1,
+      "message": "I think this CL will changed a lot once the comment in aosp/2596565 is adjusted. I will review this one after that.",
+      "revId": "79eee7ed7e00992b64a41a37ed69563156284cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
