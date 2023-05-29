@@ -184,6 +184,7 @@ public class NsdService extends INsdManager.Stub {
     static final int NO_TRANSACTION = -1;
     private static final int NO_SENT_QUERY_COUNT = 0;
     private static final int DISCOVERY_QUERY_SENT_CALLBACK = 1000;
+    private static final int MAX_SUBTYPE_COUNT = 100;
     private static final SharedLog LOGGER = new SharedLog("serviceDiscovery");
 
     private final Context mContext;
@@ -848,6 +849,9 @@ public class NsdService extends INsdManager.Stub {
                                 // MdnsSearchOptions expects the underscore to not be present.
                                 optionsBuilder.addSubtype(typeAndSubtype.second.substring(1));
                             }
+                            for (String subtype : info.getSubtypes()) {
+                                optionsBuilder.addSubtype(subtype.substring(1));
+                            }
                             mMdnsDiscoveryManager.registerListener(
                                     listenServiceType, listener, optionsBuilder.build());
                             final ClientRequest request = storeDiscoveryManagerRequestMap(
@@ -950,13 +954,24 @@ public class NsdService extends INsdManager.Stub {
                             serviceInfo.setServiceType(registerServiceType);
                             serviceInfo.setServiceName(truncateServiceName(
                                     serviceInfo.getServiceName()));
+                            if (!TextUtils.isEmpty(typeSubtype.second)) {
+                                Set<String> subtypes = new ArraySet<>(serviceInfo.getSubtypes());
+                                subtypes.add(typeSubtype.second);
+                                serviceInfo.setSubtypes(subtypes);
+                            }
+
+                            if (serviceInfo.getSubtypes().size() > MAX_SUBTYPE_COUNT) {
+                                Log.e(TAG, "Too many subtypes (max = " + MAX_SUBTYPE_COUNT + ")");
+                                clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
+                                    NsdManager.FAILURE_MAX_LIMIT, false /* isLegacy */);
+                            }
 
                             maybeStartMonitoringSockets();
                             // TODO: pass in the subtype as well. Including the subtype in the
                             // service type would generate service instance names like
                             // Name._subtype._sub._type._tcp, which is incorrect
                             // (it should be Name._type._tcp).
-                            mAdvertiser.addService(transactionId, serviceInfo, typeSubtype.second);
+                            mAdvertiser.addService(transactionId, serviceInfo);
                             storeAdvertiserRequestMap(clientRequestId, transactionId, clientInfo,
                                     serviceInfo.getNetwork());
                         } else {
@@ -1447,6 +1462,7 @@ public class NsdService extends INsdManager.Stub {
                         servInfo,
                         network == null ? INetd.LOCAL_NET_ID : network.netId,
                         serviceInfo.getInterfaceIndex());
+                servInfo.setSubtypes(Set.copyOf(serviceInfo.getSubtypes()));
                 return servInfo;
             }
 
