@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4f196a7_942ba2ed",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0246ee6d_77473942",
+      "range": {
+        "startLine": 350,
+        "startChar": 34,
+        "endLine": 350,
+        "endChar": 36
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25a938e6_c6b096b7",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "implement the",
+      "range": {
+        "startLine": 353,
+        "startChar": 23,
+        "endLine": 353,
+        "endChar": 32
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36215e4a_83f5cdc0",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25a938e6_c6b096b7",
       "range": {
         "startLine": 353,
         "startChar": 23,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b84ffeba_cfb4805e",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25c2f3fe_a06eb83d",
+      "range": {
+        "startLine": 354,
+        "startChar": 85,
+        "endLine": 354,
+        "endChar": 87
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b44cd28d_21208fc0",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4644675b_6b4d43f9",
+      "range": {
+        "startLine": 353,
+        "startChar": 69,
+        "endLine": 354,
+        "endChar": 29
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2628d741_0ec1bccb",
@@ -139,6 +235,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6401968b_9e8d5b08",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2628d741_0ec1bccb",
+      "range": {
+        "startLine": 355,
+        "startChar": 53,
+        "endLine": 355,
+        "endChar": 64
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a5034b3_b0438420",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f9e3081_dcbdd620",
+      "range": {
+        "startLine": 355,
+        "startChar": 71,
+        "endLine": 355,
+        "endChar": 72
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7565f825_243f3f51",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "runs on",
+      "range": {
+        "startLine": 357,
+        "startChar": 80,
+        "endLine": 357,
+        "endChar": 90
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c44366ed_aabcc5bc",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7565f825_243f3f51",
       "range": {
         "startLine": 357,
         "startChar": 80,
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0ddc2cb_85d5071e",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "181591d2_1f65af54",
+      "range": {
+        "startLine": 358,
+        "startChar": 29,
+        "endLine": 358,
+        "endChar": 47
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8db66f6_0e60275f",
@@ -198,6 +390,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "that will receive the",
+      "range": {
+        "startLine": 359,
+        "startChar": 43,
+        "endLine": 359,
+        "endChar": 53
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d31f973_3447393b",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8db66f6_0e60275f",
       "range": {
         "startLine": 359,
         "startChar": 43,
@@ -231,6 +447,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93b8c3bd_d0ce01dd",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eeef671_f5f47d33",
+      "range": {
+        "startLine": 360,
+        "startChar": 37,
+        "endLine": 360,
+        "endChar": 82
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4afdb0e1_c16a4dcd",
@@ -244,6 +484,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "Nit: isn\u0027t there a \"contains\" method you could use here?",
+      "range": {
+        "startLine": 375,
+        "startChar": 46,
+        "endLine": 375,
+        "endChar": 53
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f6ae441_814760af",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Thanks, there is a contains method. Update to use it.",
+      "parentUuid": "4afdb0e1_c16a4dcd",
       "range": {
         "startLine": 375,
         "startChar": 46,
@@ -300,6 +564,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08062fde_697a5129",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21995430_bc54266c",
+      "range": {
+        "startLine": 38,
+        "startChar": 39,
+        "endLine": 38,
+        "endChar": 81
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0a2cf3b_4fc7f159",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba43c880_a2d08faa",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "243eb4b8_fd534f68",
@@ -313,6 +625,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "These integers are used both to indicate what the engine *can* (in registerOffloadEngine) and to indicate what the hardware *should* for a given service (in OffloadServiceInfo). The name OFFLOAD_CAPABILITY_* is really only appropriate for the former.\n\nWe could have two separate sets of constants for this (OFFLOAD_CAPABILITY_*, OFFLOAD_TYPE_*). But on the other hand, it seems useful to use the same constant for both capabilities and operations, though. How about we use a more generic name?\n\nSomething like:\n\n    int OFFLOAD_REPLY \u003d 1;\n    int OFFLOAD_FILTER_QUERIES \u003d 1 \u003c\u003c 1;\n    int OFFLOAD_FILTER_REPLIES \u003d 1 \u003c\u003c 2;\n    int OFFLOAD_BYPASS_MULTICAST_FILTERING \u003d 1 \u003c\u003c 3;\n\n    @Retention(RetentionPolicy.SOURCE)\n    @LongDef(flag \u003d false, prefix \u003d {\"OFFLOAD_\"}, value \u003d {\n        OFFLOAD_REPLY,\n        OFFLOAD_FILTER_QUERIES,\n        OFFLOAD_FILTER_REPLIES,\n        OFFLOAD_BYPASS_MULTICAST_FILTERING\n    }\n    @interface OffloadType",
+      "range": {
+        "startLine": 42,
+        "startChar": 16,
+        "endLine": 42,
+        "endChar": 26
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4798dfd4_ed4fd717",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "243eb4b8_fd534f68",
       "range": {
         "startLine": 42,
         "startChar": 16,
@@ -346,6 +682,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81f20eec_c7bb1f45",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0494a087_94e6312c",
+      "range": {
+        "startLine": 44,
+        "startChar": 55,
+        "endLine": 44,
+        "endChar": 58
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54532545_abb55668",
@@ -359,6 +719,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "remove this \"the\"",
+      "range": {
+        "startLine": 48,
+        "startChar": 55,
+        "endLine": 48,
+        "endChar": 58
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd58eeaa_fd3ef3ca",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54532545_abb55668",
       "range": {
         "startLine": 48,
         "startChar": 55,
@@ -392,6 +776,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "520832af_5fbec33b",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fb954a6_c469ae54",
+      "range": {
+        "startLine": 53,
+        "startChar": 65,
+        "endLine": 53,
+        "endChar": 66
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f7f6262_45e9ee70",
@@ -405,6 +813,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "Should we call this BYPASS_MULTICAST_LOCK instead?",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 53
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0131e66_0c7cc68e",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "8f7f6262_45e9ee70",
       "range": {
         "startLine": 55,
         "startChar": 8,
@@ -461,6 +893,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f329c395_323aeb58",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06571677_1df9eeb1",
+      "range": {
+        "startLine": 58,
+        "startChar": 36,
+        "endLine": 58,
+        "endChar": 44
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbbe6a98_627e8832",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cc16f7d_c43c2b9a",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 11
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d281e491_04d2f526",
@@ -474,6 +954,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "needs",
+      "range": {
+        "startLine": 31,
+        "startChar": 89,
+        "endLine": 31,
+        "endChar": 93
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aabb1354_9ad3d54e",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d281e491_04d2f526",
       "range": {
         "startLine": 31,
         "startChar": 89,
@@ -507,6 +1011,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e32a9f2_3d3d0e7f",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f02f767_b331cf02",
+      "range": {
+        "startLine": 32,
+        "startChar": 29,
+        "endLine": 32,
+        "endChar": 30
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c69bf547_94568536",
@@ -520,6 +1048,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "name of the host offering the service",
+      "range": {
+        "startLine": 54,
+        "startChar": 27,
+        "endLine": 54,
+        "endChar": 51
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "183603a8_70a972a0",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c69bf547_94568536",
       "range": {
         "startLine": 54,
         "startChar": 27,
@@ -553,6 +1105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1386f235_d6f21cb2",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1e8c7f7_9575ee5b",
+      "range": {
+        "startLine": 55,
+        "startChar": 71,
+        "endLine": 55,
+        "endChar": 72
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "334979b9_02ca3a9b",
@@ -566,6 +1142,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "offloadType is what is being documented here. The @see tag should talk about something else, not offloadType.",
+      "range": {
+        "startLine": 57,
+        "startChar": 64,
+        "endLine": 57,
+        "endChar": 75
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fe35fe2_60832b3f",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done, linked to the getter function.",
+      "parentUuid": "334979b9_02ca3a9b",
       "range": {
         "startLine": 57,
         "startChar": 64,
@@ -599,6 +1199,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22e83d32_7e8c4d4d",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02e0eb2c_52422f7c",
+      "range": {
+        "startLine": 61,
+        "startChar": 70,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14673d1a_c795d98e",
@@ -612,6 +1236,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "This is not a packet because it does not contain packet headers. Maybe call it getOffloadPayload or getOffloadData?",
+      "range": {
+        "startLine": 148,
+        "startChar": 18,
+        "endLine": 148,
+        "endChar": 37
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44d7fda7_46a11315",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14673d1a_c795d98e",
       "range": {
         "startLine": 148,
         "startChar": 18,
@@ -645,6 +1293,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1876efec_d8a6811c",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bf4abad_b67dc969",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 63
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66e72e06_2082f109",
@@ -658,6 +1330,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "requests",
+      "range": {
+        "startLine": 164,
+        "startChar": 65,
+        "endLine": 164,
+        "endChar": 69
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96bb3f47_2f2a7ba4",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66e72e06_2082f109",
       "range": {
         "startLine": 164,
         "startChar": 65,
@@ -714,6 +1410,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d46ac003_2f06d29c",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9ece6c2_a4ad5d64",
+      "range": {
+        "startLine": 178,
+        "startChar": 7,
+        "endLine": 178,
+        "endChar": 17
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf69d35c_c7fcfe8f",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a500db47_3c4601ef",
+      "range": {
+        "startLine": 178,
+        "startChar": 27,
+        "endLine": 178,
+        "endChar": 32
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ee577e7_96c1064b",
@@ -737,6 +1481,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d005ceb_afb26046",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ee577e7_96c1064b",
+      "range": {
+        "startLine": 207,
+        "startChar": 25,
+        "endLine": 207,
+        "endChar": 42
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac5c9009_359e5b51",
@@ -750,6 +1518,30 @@
       "writtenOn": "2023-05-26T06:56:14Z",
       "side": 1,
       "message": "Nit: our code usually just does \"+ e);\" Might want to be consistent.",
+      "range": {
+        "startLine": 1633,
+        "startChar": 74,
+        "endLine": 1633,
+        "endChar": 93
+      },
+      "revId": "b3c4023d622540fccfbb6767fa91914ee926160e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b527560_d36672c0",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1633,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-29T06:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac5c9009_359e5b51",
       "range": {
         "startLine": 1633,
         "startChar": 74,
