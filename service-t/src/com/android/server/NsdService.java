@@ -89,6 +89,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -626,6 +627,9 @@ public class NsdService extends INsdManager.Stub {
                                 // MdnsSearchOptions expects the underscore to not be present.
                                 optionsBuilder.addSubtype(typeAndSubtype.second.substring(1));
                             }
+                            for (String subtype : info.getSubtypes()) {
+                                optionsBuilder.addSubtype(subtype.substring(1));
+                            }
                             mMdnsDiscoveryManager.registerListener(
                                     listenServiceType, listener, optionsBuilder.build());
                             storeDiscoveryManagerRequestMap(clientId, id, listener, clientInfo);
@@ -721,13 +725,12 @@ public class NsdService extends INsdManager.Stub {
                             serviceInfo.setServiceType(registerServiceType);
                             serviceInfo.setServiceName(truncateServiceName(
                                     serviceInfo.getServiceName()));
+                            if (typeSubtype.second != null) {
+                                serviceInfo.setSubtypes(Set.of(typeSubtype.second));
+                            }
 
                             maybeStartMonitoringSockets();
-                            // TODO: pass in the subtype as well. Including the subtype in the
-                            // service type would generate service instance names like
-                            // Name._subtype._sub._type._tcp, which is incorrect
-                            // (it should be Name._type._tcp).
-                            mAdvertiser.addService(id, serviceInfo, typeSubtype.second);
+                            mAdvertiser.addService(id, serviceInfo);
                             storeAdvertiserRequestMap(clientId, id, clientInfo);
                         } else {
                             maybeStartDaemon();
@@ -1165,6 +1168,7 @@ public class NsdService extends INsdManager.Stub {
                         servInfo,
                         network == null ? INetd.LOCAL_NET_ID : network.netId,
                         serviceInfo.getInterfaceIndex());
+                servInfo.setSubtypes(Set.copyOf(serviceInfo.getSubtypes()));
                 return servInfo;
             }
 

@@ -166,8 +166,6 @@ public class MdnsRecordRepository {
         public final RecordInfo<MdnsTextRecord> txtRecord;
         @NonNull
         public final NsdServiceInfo serviceInfo;
-        @Nullable
-        public final String subtype;
 
         /**
          * Whether the service is sending exit announcements and will be destroyed soon.
@@ -180,44 +178,29 @@ public class MdnsRecordRepository {
          * @param deviceHostname Hostname of the device (for the interface used)
          * @param serviceInfo Service to advertise
          */
-        ServiceRegistration(@NonNull String[] deviceHostname, @NonNull NsdServiceInfo serviceInfo,
-                @Nullable String subtype) {
+        ServiceRegistration(@NonNull String[] deviceHostname, @NonNull NsdServiceInfo serviceInfo) {
             this.serviceInfo = serviceInfo;
-            this.subtype = subtype;
 
             final String[] serviceType = splitServiceType(serviceInfo);
             final String[] serviceName = splitFullyQualifiedName(serviceInfo, serviceType);
 
-            // Service PTR record
-            final RecordInfo<MdnsPointerRecord> ptrRecord = new RecordInfo<>(
-                    serviceInfo,
-                    new MdnsPointerRecord(
-                            serviceType,
-                            0L /* receiptTimeMillis */,
-                            false /* cacheFlush */,
-                            NON_NAME_RECORDS_TTL_MILLIS,
-                            serviceName),
-                    true /* sharedName */, true /* probing */);
-
-            if (subtype == null) {
-                this.ptrRecords = Collections.singletonList(ptrRecord);
-            } else {
-                final String[] subtypeName = new String[serviceType.length + 2];
-                System.arraycopy(serviceType, 0, subtypeName, 2, serviceType.length);
-                subtypeName[0] = subtype;
-                subtypeName[1] = SUBTYPE_SEPARATOR;
-                final RecordInfo<MdnsPointerRecord> subtypeRecord = new RecordInfo<>(
-                        serviceInfo,
-                        new MdnsPointerRecord(
-                                subtypeName,
-                                0L /* receiptTimeMillis */,
-                                false /* cacheFlush */,
-                                NON_NAME_RECORDS_TTL_MILLIS,
-                                serviceName),
-                        true /* sharedName */, true /* probing */);
-
-                this.ptrRecords = List.of(ptrRecord, subtypeRecord);
+            // Service PTR records
+            List<String[]> ptrNames = new ArrayList<>();
+            ptrNames.add(serviceType);
+            for (String subtype : serviceInfo.getSubtypes()) {
+                ptrNames.add(constructFullSubtype(serviceType, subtype));
             }
+
+            ptrRecords = ptrNames.stream().map(ptrName ->
+                    new RecordInfo<>(
+                            serviceInfo,
+                            new MdnsPointerRecord(
+                                    ptrName,
+                                    0L /* receiptTimeMillis */,
+                                    false /* cacheFlush */,
+                                    NON_NAME_RECORDS_TTL_MILLIS,
+                                    serviceName),
+                            true /* sharedName */, true /* probing */)).toList();
 
             srvRecord = new RecordInfo<>(
                     serviceInfo,
@@ -302,8 +285,7 @@ public class MdnsRecordRepository {
      *         ID of the replaced service.
      * @throws NameConflictException There is already a (non-exiting) service using the name.
      */
-    public int addService(int serviceId, NsdServiceInfo serviceInfo, @Nullable String subtype)
-            throws NameConflictException {
+    public int addService(int serviceId, NsdServiceInfo serviceInfo) throws NameConflictException {
         if (mServices.contains(serviceId)) {
             throw new IllegalArgumentException(
                     "Service ID must not be reused across registrations: " + serviceId);
@@ -316,7 +298,7 @@ public class MdnsRecordRepository {
         }
 
         final ServiceRegistration registration = new ServiceRegistration(
-                mDeviceHostname, serviceInfo, subtype);
+                mDeviceHostname, serviceInfo);
         mServices.put(serviceId, registration);
 
         // Remove existing exiting service
@@ -464,9 +446,10 @@ public class MdnsRecordRepository {
         final ArrayList<RecordInfo<?>> answerInfo = new ArrayList<>();
         for (MdnsRecord question : packet.questions) {
             // Add answers from general records
-            addReplyFromService(question, mGeneralRecords, null /* servicePtrRecord */,
-                    null /* serviceSrvRecord */, null /* serviceTxtRecord */, replyUnicast, now,
-                    answerInfo, additionalAnswerRecords);
+            addReplyFromService(question, mGeneralRecords,
+                    Collections.emptyList() /* servicePtrRecord */, null /* serviceSrvRecord */,
+                    null /* serviceTxtRecord */, replyUnicast, now, answerInfo,
+                    additionalAnswerRecords);
 
             // Add answers from each service
             for (int i = 0; i < mServices.size(); i++) {
@@ -529,7 +512,7 @@ public class MdnsRecordRepository {
      */
     private void addReplyFromService(@NonNull MdnsRecord question,
             @NonNull List<RecordInfo<?>> serviceRecords,
-            @Nullable List<RecordInfo<MdnsPointerRecord>> servicePtrRecords,
+            @NonNull List<RecordInfo<MdnsPointerRecord>> servicePtrRecords,
             @Nullable RecordInfo<MdnsServiceRecord> serviceSrvRecord,
             @Nullable RecordInfo<MdnsTextRecord> serviceTxtRecord,
             boolean replyUnicast, long now, @NonNull List<RecordInfo<?>> answerInfo,
@@ -563,8 +546,7 @@ public class MdnsRecordRepository {
             }
 
             hasKnownAnswer = true;
-            hasDnsSdPtrRecordAnswer |= (servicePtrRecords != null
-                    && CollectionUtils.any(servicePtrRecords, r -> info == r));
+            hasDnsSdPtrRecordAnswer |= servicePtrRecords.contains(info);
             hasDnsSdSrvRecordAnswer |= (info == serviceSrvRecord);
 
             // TODO: responses to probe queries should bypass this check and only ensure the
@@ -831,7 +813,7 @@ public class MdnsRecordRepository {
         if (existing == null) return null;
 
         final ServiceRegistration newService = new ServiceRegistration(
-                mDeviceHostname, newInfo, existing.subtype);
+                mDeviceHostname, newInfo);
         mServices.put(serviceId, newService);
         return makeProbingInfo(serviceId, newService.srvRecord.record);
     }
@@ -899,5 +881,13 @@ public class MdnsRecordRepository {
         type[split.length] = LOCAL_TLD;
 
         return type;
+    }
+
+    private static String[] constructFullSubtype(String[] serviceType, String subtype) {
+        String[] fullSubtype = new String[serviceType.length + 2];
+        fullSubtype[0] = subtype;
+        fullSubtype[1] = MdnsConstants.SUBTYPE_LABEL;
+        System.arraycopy(serviceType, 0, fullSubtype, 2, serviceType.length);
+        return fullSubtype;
     }
 }
