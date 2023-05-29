@@ -20,6 +20,9 @@ import static com.google.common.truth.Truth.assertThat;
 
 import static org.junit.Assert.assertThrows;
 
+import java.util.List;
+import java.util.Set;
+
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -146,5 +149,33 @@ public class NsdServiceInfoTest {
             count--;
         }
         return sb.toString();
+    }
+
+    @Test
+    public void setSubtypes_emptySubtype_throwsIllegalArgumentException() {
+        NsdServiceInfo info = new NsdServiceInfo();
+        Set<String> subtypes = Set.of("_thread", "");
+
+        assertThrows(IllegalArgumentException.class, () -> info.setSubtypes(subtypes));
+    }
+
+    @Test
+    public void setSubtypes_validSubtypes_Success() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setSubtypes(Set.of("_thread", "_matter"));
+
+        assertThat(info.getSubtypes()).containsExactly("_thread", "_matter");
+    }
+
+    @Test
+    public void setSubtypes_caseInsensitiveDuplicatedSubtypes_onlyOneIsAdded() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setSubtypes(Set.of("_thread", "_THREAD", "_ThrEad"));
+
+        Set<String> subtypes = info.getSubtypes();
+        assertThat(subtypes).hasSize(1);
+        assertThat(subtypes).containsAnyOf("_thread", "_THREAD", "_ThrEad");
     }
 }
