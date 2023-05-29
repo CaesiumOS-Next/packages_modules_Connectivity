@@ -54,6 +54,7 @@ import com.android.net.module.util.CollectionUtils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 
@@ -1248,6 +1249,45 @@ public final class NsdManager {
     public void discoverServices(@NonNull String serviceType, int protocolType,
             @Nullable Network network, @NonNull Executor executor,
             @NonNull DiscoveryListener listener) {
+        discoverServices(serviceType, null /* subtype */, protocolType, network, executor,
+                listener);
+    }
+
+    /**
+     * Initiate service discovery to browse for instances of a service type. Service discovery
+     * consumes network bandwidth and will continue until the application calls
+     * {@link #stopServiceDiscovery}.
+     *
+     * <p> The function call immediately returns after sending a request to start service
+     * discovery to the framework. The application is notified of a success to initiate
+     * discovery through the callback {@link DiscoveryListener#onDiscoveryStarted} or a failure
+     * through {@link DiscoveryListener#onStartDiscoveryFailed}.
+     *
+     * <p> Upon successful start, application is notified when a service is found with
+     * {@link DiscoveryListener#onServiceFound} or when a service is lost with
+     * {@link DiscoveryListener#onServiceLost}.
+     *
+     * <p> Upon failure to start, service discovery is not active and application does
+     * not need to invoke {@link #stopServiceDiscovery}
+     *
+     * <p> The application should call {@link #stopServiceDiscovery} when discovery of this
+     * service type is no longer required, and/or whenever the application is paused or
+     * stopped.
+     * @param serviceType The service type being discovered. Examples include "_http._tcp" for
+     * http services or "_ipp._tcp" for printers
+     * @param subtype The service sub-type without the trailing "._sub"
+     * @param protocolType The service discovery protocol
+     * @param network Network to discover services on, or null to discover on all available networks
+     * @param executor Executor to run listener callbacks with
+     * @param listener  The listener notifies of a successful discovery and is used
+     * to stop discovery on this serviceType through a call on {@link #stopServiceDiscovery}.
+     *
+     * @hide used by only packages/modules/Connectivity/thread
+     */
+    // TODO(b/305618029): refactor to use a "DiscoveryRequest" as argument builder
+    public void discoverServices(@NonNull String serviceType, @Nullable String subtype,
+            int protocolType, @Nullable Network network, @NonNull Executor executor,
+            @NonNull DiscoveryListener listener) {
         if (TextUtils.isEmpty(serviceType)) {
             throw new IllegalArgumentException("Service type cannot be empty");
         }
@@ -1255,6 +1295,9 @@ public final class NsdManager {
 
         NsdServiceInfo s = new NsdServiceInfo();
         s.setServiceType(serviceType);
+        if (!TextUtils.isEmpty(subtype)) {
+            s.setSubtypes(List.of(subtype));
+        }
         s.setNetwork(network);
 
         int key = putListener(listener, executor, s);
