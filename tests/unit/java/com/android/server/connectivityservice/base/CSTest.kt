@@ -63,12 +63,12 @@ import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies
 import com.android.server.connectivity.ProxyTracker
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
+import java.util.concurrent.Executors
+import kotlin.test.fail
 import org.mockito.AdditionalAnswers.delegatesTo
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
-import java.util.concurrent.Executors
-import kotlin.test.fail
 
 internal const val HANDLER_TIMEOUT_MS = 2_000
 internal const val TEST_PACKAGE_NAME = "com.android.test.package"
@@ -129,6 +129,10 @@ open class CSTest {
     }
     fun enableFeature(f: String) = enabledFeatures.set(f, true)
     fun disableFeature(f: String) = enabledFeatures.set(f, false)
+
+    val enabledTrunkStableFeatures = HashMap<String, Boolean>().also {
+        it[ConnectivityService.TRACK_MULTI_NETWORK_ACTIVITIES] = true
+    }
 
     // When adding new members, consider if it's not better to build the object in CSTestHelpers
     // to keep this file clean of implementation details. Generally, CSTestHelpers should only
@@ -194,6 +198,10 @@ open class CSTest {
         // checking permissions.
         override fun isFeatureEnabled(context: Context?, name: String?) =
                 enabledFeatures[name] ?: fail("Unmocked feature $name, see CSTest.enabledFeatures")
+
+        override fun isTrunkStableFeatureEnabled(name: String?) =
+                enabledTrunkStableFeatures[name] ?: fail("Unmocked trunk stable feature $name," +
+                        " see CSTest.enabledTrunkStableFeatures")
 
         // Mocked change IDs
         private val enabledChangeIds = ArraySet<Long>()
