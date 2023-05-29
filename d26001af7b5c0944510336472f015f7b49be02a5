@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e203f935_cce929c3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-29T06:18:05Z",
+      "side": 1,
+      "message": "I don\u0027t think this is temporary, what todo are you thinking about ?",
+      "parentUuid": "331ea186_a77e5308",
+      "range": {
+        "startLine": 191,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 96
+      },
+      "revId": "d26001af7b5c0944510336472f015f7b49be02a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d05e6328_6310402d",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-26T09:53:34Z",
       "side": 1,
       "message": "Looks like this argument is unused, can we remove it?",
+      "range": {
+        "startLine": 324,
+        "startChar": 16,
+        "endLine": 324,
+        "endChar": 51
+      },
+      "revId": "d26001af7b5c0944510336472f015f7b49be02a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a037ad41_8fb53184",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-29T06:18:05Z",
+      "side": 1,
+      "message": "This will be necessary to know when NsdService can avoid taking the lock and let offload (APF) handle it, so added a TODO",
+      "parentUuid": "d05e6328_6310402d",
       "range": {
         "startLine": 324,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cee025a4_07d81b1d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-29T06:18:05Z",
+      "side": 1,
+      "message": "There is no APF filtering on tethered interfaces, so the multicast lock does not control APF multicast filtering on these. This code tries to make sure that APF doesn\u0027t filter out packets, so I think taking the lock isn\u0027t needed on downstream tethering (it would increase power consumption on other interfaces without really helping with the downstream interface).\n\nAdded a comment.",
+      "parentUuid": "c4e295d2_5ae53a89",
+      "range": {
+        "startLine": 325,
+        "startChar": 16,
+        "endLine": 325,
+        "endChar": 31
+      },
+      "revId": "d26001af7b5c0944510336472f015f7b49be02a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d38a64ee_bb270342",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-26T09:53:34Z",
       "side": 1,
       "message": "Could you verify that destroying a non-WiFi socket will not cause the lock to be released?",
+      "range": {
+        "startLine": 1416,
+        "startChar": 48,
+        "endLine": 1416,
+        "endChar": 49
+      },
+      "revId": "d26001af7b5c0944510336472f015f7b49be02a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a5828de_e1c6da14",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1416,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-29T06:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d38a64ee_bb270342",
       "range": {
         "startLine": 1416,
         "startChar": 48,
