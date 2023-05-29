@@ -206,7 +206,7 @@ class NetworkProviderTest {
         }
     }
 
-    @IgnoreUpTo(Build.VERSION_CODES.R)
+    @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     @Test
     fun testRegisterNetworkOffer() {
         val provider = createAndRegisterNetworkProvider()
