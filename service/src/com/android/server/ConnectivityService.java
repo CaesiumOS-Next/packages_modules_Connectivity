@@ -11044,7 +11044,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 new RemoteCallbackList<>();
         // Indicate the current system default network activity is active or not.
         private boolean mIsDefaultNetworkActive;
-        private final ArrayMap<String, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
+        private final SparseArray<IdleTimerParams> mActiveIdleTimers = new SparseArray<>();
 
         private static class IdleTimerParams {
             public final int timeout;
@@ -11073,7 +11073,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
             ensureRunningOnConnectivityServiceThread();
-            if (mActiveIdleTimers.isEmpty()) {
+            if (mActiveIdleTimers.size() == 0) {
                 // This activity change is not for the current default network.
                 return;
             }
@@ -11147,6 +11147,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             ensureRunningOnConnectivityServiceThread();
 
             final String iface = networkAgent.linkProperties.getInterfaceName();
+            final int netId = networkAgent.network().netId;
 
             final int timeout;
             final int type;
@@ -11171,7 +11172,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             if (timeout > 0 && iface != null) {
                 try {
-                    mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
+                    mActiveIdleTimers.put(netId, new IdleTimerParams(timeout, type));
                     mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
                 } catch (Exception e) {
                     // You shall not crash!
@@ -11187,6 +11188,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             ensureRunningOnConnectivityServiceThread();
 
             final String iface = networkAgent.linkProperties.getInterfaceName();
+            final int netId = networkAgent.network().netId;
             final NetworkCapabilities caps = networkAgent.networkCapabilities;
 
             if (iface == null) return;
@@ -11202,7 +11204,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             try {
                 updateRadioPowerState(false /* isActive */, type);
-                final IdleTimerParams params = mActiveIdleTimers.remove(iface);
+                final IdleTimerParams params = mActiveIdleTimers.removeReturnOld(netId);
                 if (params == null) {
                     // IdleTimer was not added if the configured timeout is not larger than 0
                     return;
@@ -11270,9 +11272,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             pw.print("mIsDefaultNetworkActive="); pw.println(mIsDefaultNetworkActive);
             pw.println("Idle timers:");
             try {
-                for (Map.Entry<String, IdleTimerParams> ent : mActiveIdleTimers.entrySet()) {
-                    pw.print("  "); pw.print(ent.getKey()); pw.println(":");
-                    final IdleTimerParams params = ent.getValue();
+                for (int i = 0; i < mActiveIdleTimers.size(); i++) {
+                    pw.print("  "); pw.print(mActiveIdleTimers.keyAt(i)); pw.println(":");
+                    final IdleTimerParams params = mActiveIdleTimers.valueAt(i);
                     pw.print("    timeout="); pw.print(params.timeout);
                     pw.print(" type="); pw.println(params.transportType);
                 }
