@@ -201,7 +201,7 @@ public class MdnsServiceTypeClient {
                     searchOptions.getSubtypes(),
                     searchOptions.isPassiveMode(),
                     ++currentSessionId,
-                    network);
+                    searchOptions.getNetwork());
             if (hadReply) {
                 requestTaskFuture = scheduleNextRunLocked(taskConfig);
             } else {
