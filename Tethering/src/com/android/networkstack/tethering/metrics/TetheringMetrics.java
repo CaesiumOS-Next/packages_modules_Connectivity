@@ -16,12 +16,15 @@
 
 package com.android.networkstack.tethering.metrics;
 
+import static android.app.usage.NetworkStats.Bucket.STATE_ALL;
+import static android.app.usage.NetworkStats.Bucket.TAG_NONE;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_LOWPAN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
+import static android.net.NetworkStats.UID_TETHERING;
 import static android.net.NetworkTemplate.MATCH_BLUETOOTH;
 import static android.net.NetworkTemplate.MATCH_ETHERNET;
 import static android.net.NetworkTemplate.MATCH_MOBILE;
@@ -50,6 +53,9 @@ import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 
 import android.annotation.Nullable;
+import android.app.usage.NetworkStats;
+import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.net.NetworkCapabilities;
 import android.net.NetworkTemplate;
 import android.stats.connectivity.DownstreamType;
@@ -66,6 +72,7 @@ import com.android.networkstack.tethering.UpstreamNetworkState;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * Collection of utilities for tethering metrics.
@@ -83,12 +90,29 @@ public class TetheringMetrics {
     private static final String SETTINGS_PKG_NAME = "com.android.settings";
     private static final String SYSTEMUI_PKG_NAME = "com.android.systemui";
     private static final String GMS_PKG_NAME = "com.google.android.gms";
+
     private final SparseArray<NetworkTetheringReported.Builder> mBuilderMap = new SparseArray<>();
     private final SparseArray<Long> mDownstreamStartTime = new SparseArray<Long>();
     private final ArrayList<RecordUpstreamEvent> mUpstreamEventList = new ArrayList<>();
-    private UpstreamType mCurrentUpstream = null;
-    private Long mCurrentUpStreamStartTime = 0L;
+    private final HashMap<UpstreamType, DataUsageStruct> mUsageMap = new HashMap<>();
+    private final Context mContext;
+    private final NetworkStatsManager mNetworkStatsManager;
 
+    private UpstreamType mCurrentUpstream = null;
+    private long mCurrentUpStreamStartTime = 0L;
+    private long mCurrentTxBytes = 0L;
+    private long mCurrentRxBytes = 0L;
+
+    /**
+     * Constructor for the TetheringMetrics class.
+     *
+     * @param context The Context object used to access system services.
+     */
+    public TetheringMetrics(Context context) {
+        mContext = context;
+        mNetworkStatsManager = (NetworkStatsManager)
+                mContext.getSystemService(NetworkStatsManager.class);
+    }
 
     /**
      * Return the current system time in milliseconds.
@@ -108,6 +132,16 @@ public class TetheringMetrics {
             mStartTime = startTime;
             mStopTime = stopTime;
             mUpstreamType = upstream;
+        }
+    }
+
+    private static class DataUsageStruct {
+        public final long mTxBytes;
+        public final long mRxBytes;
+
+        DataUsageStruct(final long txBytes, final long rxBytes) {
+            mTxBytes = txBytes;
+            mRxBytes = rxBytes;
         }
     }
 
@@ -161,6 +195,54 @@ public class TetheringMetrics {
         }
         mCurrentUpstream = upstream;
         mCurrentUpStreamStartTime = newTime;
+    }
+
+    /**
+     * Retrieves the current data usage in terms of transmitted (tx) and received (rx) bytes for
+     * the specified upstream type.
+     *
+     * @param type The upstream type for which to retrieve the data usage.
+     */
+    private void updateCurrentDataUsage(UpstreamType type) {
+        long totalTxBytes = 0L;
+        long totalRxBytes = 0L;
+
+        final NetworkStats stats = mNetworkStatsManager.queryDetailsForUidTagState(
+                buildNetworkTemplate(type), Long.MIN_VALUE, Long.MAX_VALUE, UID_TETHERING,
+                    TAG_NONE, STATE_ALL);
+
+        if (stats != null) {
+            NetworkStats.Bucket bucket = new NetworkStats.Bucket();
+            while (stats.hasNextBucket()) {
+                if (stats.getNextBucket(bucket)) {
+                    totalTxBytes += bucket.getTxBytes();
+                    totalRxBytes += bucket.getRxBytes();
+                }
+            }
+        }
+        mCurrentTxBytes = totalTxBytes;
+        mCurrentRxBytes = totalRxBytes;
+    }
+
+    /**
+     * Retrieves the initial data usage for each supported upstream type and populates the usage
+     * map. The usage map stores the initial data usage for each upstream type.
+     */
+    private void getInitialDataUsage() {
+        if (!mUsageMap.isEmpty()) return;
+
+        updateCurrentDataUsage(UpstreamType.UT_CELLULAR);
+        mUsageMap.put(UpstreamType.UT_CELLULAR,
+                new DataUsageStruct(mCurrentTxBytes, mCurrentRxBytes));
+        updateCurrentDataUsage(UpstreamType.UT_WIFI);
+        mUsageMap.put(UpstreamType.UT_WIFI,
+                new DataUsageStruct(mCurrentTxBytes, mCurrentRxBytes));
+        updateCurrentDataUsage(UpstreamType.UT_BLUETOOTH);
+        mUsageMap.put(UpstreamType.UT_BLUETOOTH,
+                new DataUsageStruct(mCurrentTxBytes, mCurrentRxBytes));
+        updateCurrentDataUsage(UpstreamType.UT_ETHERNET);
+        mUsageMap.put(UpstreamType.UT_ETHERNET,
+                new DataUsageStruct(mCurrentTxBytes, mCurrentRxBytes));
     }
 
     /**
