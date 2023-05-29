@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67c5e072_a01ea1ba",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 11329,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-29T04:09:25Z",
+      "side": 1,
+      "message": "Could this be in its own class in com.android.server.connectivity, like NetworkAgentInfo for example?",
+      "range": {
+        "startLine": 11329,
+        "startChar": 12,
+        "endLine": 11329,
+        "endChar": 18
+      },
+      "revId": "2c1ec62c6d22458a0547539514ef1b1d4c1a9a40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f11d3c75_2cade513",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 11381,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-29T04:09:25Z",
+      "side": 1,
+      "message": "A lot of this code seems very similar to what we have in LegacyNetworkActivityTracker. I think that duplication will be confusing. It seems better if we have only one class that does this. Can we just evolve the existing class instead of adding a new class?",
+      "range": {
+        "startLine": 11381,
+        "startChar": 20,
+        "endLine": 11381,
+        "endChar": 45
+      },
+      "revId": "2c1ec62c6d22458a0547539514ef1b1d4c1a9a40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
