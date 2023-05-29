@@ -4666,12 +4666,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
 
                 if (mDefaultRequest == nri) {
-                    // TODO : make battery stats aware that since 2013 multiple interfaces may be
-                    //  active at the same time. For now keep calling this with the default
-                    //  network, because while incorrect this is the closest to the old (also
-                    //  incorrect) behavior.
-                    mNetworkActivityTracker.updateDataActivityTracking(
-                            null /* newNetwork */, nai);
+                    mNetworkActivityTracker.updateDefaultNetwork(null /* newNetwork */, nai);
                     ensureNetworkTransitionWakelock(nai.toShortString());
                 }
             }
@@ -4697,6 +4692,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Strictly speaking this is not essential because having a proxy setting when
             // there is no network is harmless, but it's still counter-intuitive so reset to null.
             mProxyTracker.setDefaultProxy(null);
+        }
+
+        if (mDeps.isAtLeastU()) {
+            mNetworkActivityTracker.removeDataActivityTracking(nai);
         }
 
         // Immediate teardown.
@@ -9117,7 +9116,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (oldDefaultNetwork != null) {
             mLingerMonitor.noteLingerDefaultNetwork(oldDefaultNetwork, newDefaultNetwork);
         }
-        mNetworkActivityTracker.updateDataActivityTracking(newDefaultNetwork, oldDefaultNetwork);
+        mNetworkActivityTracker.updateDefaultNetwork(newDefaultNetwork, oldDefaultNetwork);
         mProxyTracker.setDefaultProxy(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getHttpProxy() : null);
         resetHttpProxyForNonDefaultNetwork(oldDefaultNetwork);
@@ -9957,6 +9956,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             networkAgent.lingerRequest(NetworkRequest.REQUEST_ID_NONE,
                     SystemClock.elapsedRealtime(), mNascentDelayMs);
             networkAgent.setInactive();
+
+            if (mDeps.isAtLeastU()) {
+                // Start tracking activity of this network.
+                // This must be called before rematchAllNetworksAndRequests since the network
+                // should be tracked when the network becomes the default network.
+                mNetworkActivityTracker.setupDataActivityTracking(networkAgent);
+            }
 
             // Consider network even though it is not yet validated.
             rematchAllNetworksAndRequests();
@@ -11276,7 +11282,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
          * Every {@code setupDataActivityTracking} should be paired with a
          * {@link #removeDataActivityTracking} for cleanup.
          */
-        private void setupDataActivityTracking(NetworkAgentInfo networkAgent) {
+        public void setupDataActivityTracking(NetworkAgentInfo networkAgent) {
+            ensureRunningOnConnectivityServiceThread();
             final String iface = networkAgent.linkProperties.getInterfaceName();
             final int netId = networkAgent.network().netId;
 
@@ -11315,7 +11322,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         /**
          * Remove data activity tracking when network disconnects.
          */
-        private void removeDataActivityTracking(NetworkAgentInfo networkAgent) {
+        public void removeDataActivityTracking(NetworkAgentInfo networkAgent) {
+            ensureRunningOnConnectivityServiceThread();
             final String iface = networkAgent.linkProperties.getInterfaceName();
             final int netId = networkAgent.network().netId;
             final NetworkCapabilities caps = networkAgent.networkCapabilities;
@@ -11361,16 +11369,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         /**
-         * Update data activity tracking when network state is updated.
+         * Update default network this class track the activity of.
          */
-        public void updateDataActivityTracking(NetworkAgentInfo newNetwork,
+        public void updateDefaultNetwork(NetworkAgentInfo newNetwork,
                 NetworkAgentInfo oldNetwork) {
             ensureRunningOnConnectivityServiceThread();
-            if (newNetwork != null) {
+            // U+ devices add idleTimer when the network is first connected and remove when the
+            // network is disconnected.
+            // T- devices add idleTimer when the network becomes the default network and remove when
+            // the network becomes no longer the default network.
+            if (!mIsAtLeastU && newNetwork != null) {
                 setupDataActivityTracking(newNetwork);
             }
             updateDefaultNetworkActivity(newNetwork);
-            if (oldNetwork != null) {
+            if (!mIsAtLeastU && oldNetwork != null) {
                 removeDataActivityTracking(oldNetwork);
             }
         }
