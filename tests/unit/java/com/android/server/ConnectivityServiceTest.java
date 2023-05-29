@@ -11262,8 +11262,7 @@ public class ConnectivityServiceTest {
         ethernetLp.setInterfaceName(ETHERNET_IFNAME);
         mEthernetAgent.sendLinkProperties(ethernetLp);
         mEthernetAgent.connect(true);
-        // onNetworkActive is not called when the ethernet becomes a default network.
-        assertFalse(onNetworkActiveFuture.isDone());
+        assertTrue(onNetworkActiveFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCm.isDefaultNetworkActive());
 
         mCm.removeDefaultNetworkActiveListener(listener);
@@ -11271,8 +11270,7 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testIsDefaultNetworkActiveNoDefaultNetwork() throws Exception {
-        // isDefaultNetworkActive returns true if there is no default network, which is known issue.
-        assertTrue(mCm.isDefaultNetworkActive());
+        assertFalse(mCm.isDefaultNetworkActive());
 
         mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
         final LinkProperties cellLp = new LinkProperties();
@@ -11284,7 +11282,7 @@ public class ConnectivityServiceTest {
         mCellAgent.disconnect();
         waitForIdle();
 
-        assertTrue(mCm.isDefaultNetworkActive());
+        assertFalse(mCm.isDefaultNetworkActive());
     }
 
     @Test
