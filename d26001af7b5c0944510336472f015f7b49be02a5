@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aac265c7_eeaa9ab4",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-29T06:29:40Z",
+      "side": 1,
+      "message": "Sorry for misunderstanding your comment. I now understand what you meant, your comment is clear and helpful.",
+      "parentUuid": "e203f935_cce929c3",
+      "range": {
+        "startLine": 191,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 96
+      },
+      "revId": "d26001af7b5c0944510336472f015f7b49be02a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d05e6328_6310402d",
