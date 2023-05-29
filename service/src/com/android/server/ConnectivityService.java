@@ -38,6 +38,7 @@ import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
+import static android.net.ConnectivityManager.NetworkCallback.FLAG_INCLUDE_LOCAL_NETWORKS;
 import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
 import static android.net.ConnectivityManager.TYPE_ETHERNET;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
@@ -66,6 +67,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
@@ -4700,7 +4702,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         !nai.networkAgentConfig.allowBypass /* secure */,
                         getVpnType(nai), nai.networkAgentConfig.excludeLocalRouteVpn);
             } else {
-                config = new NativeNetworkConfig(nai.network.getNetId(), NativeNetworkType.PHYSICAL,
+                final boolean local =
+                        nai.networkCapabilities.hasCapability(NET_CAPABILITY_LOCAL_NETWORK);
+                if (local && !mDeps.isAtLeastU()) {
+                    // Before U, netd doesn't support PHYSICAL_LOCAL networks. This code is
+                    // supposed to be never called, but if it is, do not create a network.
+                    loge("Local networks are not supported before Android U.");
+                    return false;
+                }
+                config = new NativeNetworkConfig(nai.network.getNetId(),
+                        local ? NativeNetworkType.PHYSICAL_LOCAL : NativeNetworkType.PHYSICAL,
                         getNetworkPermission(nai.networkCapabilities),
                         false /* secure */,
                         VpnManager.TYPE_VPN_NONE,
@@ -8867,7 +8878,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // are Type.LISTEN, but should not have NetworkCallbacks invoked.
             return;
         }
-        Bundle bundle = new Bundle();
+        if (null != networkAgent
+                && networkAgent.networkCapabilities.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                && 0 == (nri.mCallbackFlags & FLAG_INCLUDE_LOCAL_NETWORKS)) {
+            // Callbacks without FLAG_INCLUDE_LOCAL_NETWORKS should not see callbacks about
+            // local agents.
+            return;
+        }
+        final Bundle bundle = new Bundle();
         // TODO b/177608132: make sure callbacks are indexed by NRIs and not NetworkRequest objects.
         // TODO: check if defensive copies of data is needed.
         final NetworkRequest nrForCallback = nri.getNetworkRequestForCallback();
