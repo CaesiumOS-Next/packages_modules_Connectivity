@@ -18,6 +18,7 @@ package com.android.server.connectivity;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
+import static android.net.NetworkAgent.CMD_STOP_SOCKET_KEEPALIVE;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 
 import static org.junit.Assert.assertEquals;
@@ -43,6 +44,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.INetd;
 import android.net.ISocketKeepaliveCallback;
+import android.net.KeepalivePacketData;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.MarkMaskParcel;
@@ -51,6 +53,7 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.SocketKeepalive;
+import android.net.TcpKeepalivePacketData;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -58,6 +61,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.MessageQueue;
 import android.os.SystemClock;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.util.Log;
@@ -123,7 +127,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
 
     TestKeepaliveTracker mKeepaliveTracker;
     AOOTestHandler mTestHandler;
-
+    TestTcpKeepaliveController mTcpController;
     // Hexadecimal representation of a SOCK_DIAG response with tcp info.
     private static final String SOCK_DIAG_TCP_INET_HEX =
             // struct nlmsghdr.
@@ -224,8 +228,9 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     private class TestKeepaliveTracker extends KeepaliveTracker {
         private KeepaliveInfo mKi;
 
-        TestKeepaliveTracker(@NonNull final Context context, @NonNull final Handler handler) {
-            super(context, handler);
+        TestKeepaliveTracker(@NonNull final Context context, @NonNull final Handler handler,
+                @NonNull final TcpKeepaliveController tcpController) {
+            super(context, handler, tcpController);
         }
 
         public void setReturnedKeepaliveInfo(@NonNull final KeepaliveInfo ki) {
@@ -244,19 +249,40 @@ public class AutomaticOnOffKeepaliveTrackerTest {
             }
             return mKi;
         }
+
+        @NonNull
+        @Override
+        public KeepaliveInfo makeTcpKeepaliveInfo(@Nullable final NetworkAgentInfo nai,
+                @Nullable final FileDescriptor fd, final int intervalSeconds,
+                @NonNull final ISocketKeepaliveCallback cb) {
+            if (null == mKi) {
+                throw new IllegalStateException("Must call setReturnedKeepaliveInfo");
+            }
+            return mKi;
+        }
+    }
+
+    private class TestTcpKeepaliveController extends TcpKeepaliveController {
+        public MessageQueue.OnFileDescriptorEventListener mListener = null;
+        TestTcpKeepaliveController(final Handler connectivityServiceHandler) {
+            super(connectivityServiceHandler);
+        }
+
+        @Override
+        public MessageQueue.OnFileDescriptorEventListener startSocketMonitor(
+                @NonNull final FileDescriptor fd, @NonNull final ISocketKeepaliveCallback callback,
+                final int slot) throws IllegalArgumentException,
+                SocketKeepalive.InvalidSocketException {
+            mListener = super.startSocketMonitor(fd, callback, slot);
+            return mListener;
+        }
     }
 
     @Before
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        mNai.networkCapabilities =
-                new NetworkCapabilities.Builder().addTransportType(TRANSPORT_CELLULAR).build();
-        mNai.networkInfo = new NetworkInfo(TYPE_MOBILE, 0 /* subtype */, "LTE", "LTE");
-        mNai.networkInfo.setDetailedState(
-                NetworkInfo.DetailedState.CONNECTED, "test reason", "test extra info");
-        mNetwork = new Network(TEST_NETID);
-        doReturn(mNetwork).when(mNai).network();
+        setupTestNetwork();
 
         mSocket = new Socket();
         mSocket.bind(null);
@@ -283,7 +309,8 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         mHandlerThread = new HandlerThread("KeepaliveTrackerTest");
         mHandlerThread.start();
         mTestHandler = new AOOTestHandler(mHandlerThread.getLooper());
-        mKeepaliveTracker = new TestKeepaliveTracker(mCtx, mTestHandler);
+        mTcpController = new TestTcpKeepaliveController(mTestHandler);
+        mKeepaliveTracker = new TestKeepaliveTracker(mCtx, mTestHandler, mTcpController);
         doReturn(mKeepaliveTracker).when(mDependencies).newKeepaliveTracker(mCtx, mTestHandler);
         doReturn(true).when(mDependencies).isFeatureEnabled(any(), anyBoolean());
         mAOOKeepaliveTracker =
@@ -293,6 +320,21 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @After
     public void teardown() throws Exception {
         mSocket.close();
+    }
+
+    private void setupTestNetwork() throws Exception {
+        final InetAddress srcAddress = InetAddress.getByAddress(
+                new byte[] { (byte) 192, 0, 0, (byte) 129 });
+
+        mNai.networkCapabilities =
+                new NetworkCapabilities.Builder().addTransportType(TRANSPORT_CELLULAR).build();
+        mNai.networkInfo = new NetworkInfo(TYPE_MOBILE, 0 /* subtype */, "LTE", "LTE");
+        mNai.networkInfo.setDetailedState(
+                NetworkInfo.DetailedState.CONNECTED, "test reason", "test extra info");
+        mNai.linkProperties = new LinkProperties();
+        mNai.linkProperties.addLinkAddress(new LinkAddress(srcAddress, 24));
+        mNetwork = new Network(TEST_NETID);
+        doReturn(mNetwork).when(mNai).network();
     }
 
     private final class AOOTestHandler extends Handler {
@@ -312,6 +354,15 @@ public class AutomaticOnOffKeepaliveTrackerTest {
                 case AutomaticOnOffKeepaliveTracker.CMD_MONITOR_AUTOMATIC_KEEPALIVE:
                     Log.d(TAG, "Test handler received CMD_MONITOR_AUTOMATIC_KEEPALIVE : " + msg);
                     mLastAutoKi = mAOOKeepaliveTracker.getKeepaliveForBinder((IBinder) msg.obj);
+                    break;
+                case CMD_STOP_SOCKET_KEEPALIVE:
+                    Log.d(TAG, "Test handler received CMD_STOP_SOCKET_KEEPALIVE : " + msg);
+                    mLastAutoKi = mAOOKeepaliveTracker.getKeepaliveForBinder((IBinder) msg.obj);
+                    if (mLastAutoKi == null) {
+                        Log.d(TAG, "Attempt to stop an already stopped keepalive");
+                        return;
+                    }
+                    mAOOKeepaliveTracker.handleStopKeepalive(mLastAutoKi, msg.arg2);
                     break;
             }
         }
@@ -722,5 +773,34 @@ public class AutomaticOnOffKeepaliveTrackerTest {
 
         verify(mSocketKeepaliveCallback, never()).onError(anyInt());
         verify(mSocketKeepaliveCallback2, never()).onError(anyInt());
+    }
+
+    @Test
+    public void testStartTcpKeepalive_fdInitiatedStop() throws Exception {
+        final KeepalivePacketData kpd = new TcpKeepalivePacketData(
+                InetAddress.getByAddress(new byte[] { (byte) 192, 0, 0, (byte) 129 }) /* srcAddr */,
+                12345 /* srcPort */,
+                InetAddress.getByAddress(new byte[] { 8, 8, 8, 8}) /* dstAddr */,
+                12345 /* dstPort */, new byte[] {1},  111 /* tcpSeq */,
+                222 /* tcpAck */, 800 /* tcpWindow */, 2 /* tcpWindowScale */,
+                4 /* ipTos */, 64 /* ipTtl */);
+        final KeepaliveInfo ki = mKeepaliveTracker.new KeepaliveInfo(
+                mSocketKeepaliveCallback, mNai, kpd,
+                TEST_KEEPALIVE_INTERVAL_SEC, KeepaliveInfo.TYPE_TCP, mFd);
+        mKeepaliveTracker.setReturnedKeepaliveInfo(ki);
+
+        // Setup TCP keepalive.
+        mAOOKeepaliveTracker.startTcpKeepalive(mNai, mFd, TEST_KEEPALIVE_INTERVAL_SEC,
+                mSocketKeepaliveCallback);
+        HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
+        assertNotNull(mTcpController.mListener);
+
+        // Trigger fd event and stop the keepalive.
+        mTcpController.mListener.onFileDescriptorEvents(mFd,
+                MessageQueue.OnFileDescriptorEventListener.EVENT_INPUT);
+        HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
+
+        // The keepalive should be removed in AutomaticOnOffKeepaliveTracker.
+        mTestHandler.post(() -> assertNull(mAOOKeepaliveTracker.getKeepaliveForBinder(mBinder)));
     }
 }
