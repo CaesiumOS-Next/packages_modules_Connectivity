@@ -23,6 +23,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.ArrayMap;
+import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.net.module.util.InetAddressUtils;
@@ -34,6 +35,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.concurrent.Executor;
 
 /**
  * A class representing service information for network service discovery
@@ -57,6 +61,9 @@ public final class NsdServiceInfo implements Parcelable {
     private Network mNetwork;
 
     private int mInterfaceIndex;
+
+    // Subtype labels are case insensitive
+    private final Set<String> mSubtypes = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
 
     public NsdServiceInfo() {
     }
@@ -403,11 +410,49 @@ public final class NsdServiceInfo implements Parcelable {
         mInterfaceIndex = interfaceIndex;
     }
 
+    /**
+     * Sets the subtypes to be advertised for this service instance.
+     *
+     * Only one subtype will be added if multiple elements of {@code subtypes} have the same
+     * case-insensitive value.
+     *
+     * @throws IllegalArgumentException if one or more element(s) of {@code subtypes} is empty
+     *      string or doesn't start with `_`
+     */
+    public void setSubtypes(@NonNull Set<String> subtypes) {
+        for (String subtype : subtypes) {
+            if (TextUtils.isEmpty()) {
+                throw new IllegalArgumentException("subtypes includes empty string");
+            }
+            if (!subtype.startsWith("_")) {
+                throw new IllegalArgumentException(
+                        "Subtype " + subtype + " doesn't start with \"_\"");
+            }
+        }
+
+        mSubtypes.clear();
+        mSubtypes.addAll(subtypes);
+    }
+
+    /**
+     * Returns subtypes of this service instance.
+     *
+     * It's only the discovered subtype when this {@link
+     * NsdServiceInfo} object is returned by the discovery/browse API (e.g. {@link
+     * NsdManager#resolveService(NsdServiceInfo, Executor, NsdManager.ResolveListener)} and {@link
+     * NsdManager.ServiceInfoCallback}).
+     */
+    @NonNull
+    public Set<String> getSubtypes() {
+        return Collections.unmodifiableSet(mSubtypes);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("name: ").append(mServiceName)
                 .append(", type: ").append(mServiceType)
+                .append(", subtypes: ").append(TextUtils.join(", ", mSubtypes))
                 .append(", hostAddresses: ").append(TextUtils.join(", ", mHostAddresses))
                 .append(", port: ").append(mPort)
                 .append(", network: ").append(mNetwork);
@@ -426,6 +471,10 @@ public final class NsdServiceInfo implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mServiceName);
         dest.writeString(mServiceType);
+        dest.writeInt(mSubtypes.size());
+        for (String subtype : mSubtypes) {
+            dest.writeString(subtype);
+        }
         dest.writeInt(mPort);
 
         // TXT record key/value pairs.
@@ -457,6 +506,12 @@ public final class NsdServiceInfo implements Parcelable {
                 NsdServiceInfo info = new NsdServiceInfo();
                 info.mServiceName = in.readString();
                 info.mServiceType = in.readString();
+                int numSubtypes = in.readInt();
+                Set<String> subtypes = new ArraySet<>(numSubtypes);
+                for (int i = 0; i < numSubtypes; i--) {
+                    subtypes.add(in.readString());
+                }
+                info.setSubtypes(subtypes);
                 info.mPort = in.readInt();
 
                 // TXT record key/value pairs.
