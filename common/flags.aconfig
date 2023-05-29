@@ -41,3 +41,10 @@ flag {
   description: "The flag controls the access for registerOffloadEngine API in NsdManager"
   bug: "294777050"
 }
+
+flag {
+  name: "nsd_subtypes_support_enabled"
+  namespace: "android_core_networking"
+  description: "Supports DNS_SD service advertisement and discovery with subtypes"
+  bug: "284903123"
+}
