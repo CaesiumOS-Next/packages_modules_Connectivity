@@ -1703,7 +1703,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mUserAllContext.registerReceiver(mPackageIntentReceiver, packageIntentFilter,
                 null /* broadcastPermission */, mHandler);
 
-        mNetworkActivityTracker = new LegacyNetworkActivityTracker(mContext, mNetd, mHandler);
+        mNetworkActivityTracker =
+                new LegacyNetworkActivityTracker(mContext, mNetd, mHandler, mDeps.isAtLeastU());
 
         final NetdCallback netdCallback = new NetdCallback();
         try {
@@ -11066,7 +11067,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     private static final class NetworkActivityParams {
         public final boolean isActive;
-        // Label used for idle timer. Transport type is used as label.
+        // Label used for idle timer. Transport type is used as label on T- devices and netid is
+        // used as label on U+ devices.
         // label is int since NMS was using the identifier as int, and it has not been changed
         public final int label;
         public final long timestampNs;
@@ -11121,7 +11123,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // Indicate the current system default network activity is active or not.
         // This needs to be volatile since non handler threads can read this value.
         private volatile boolean mIsDefaultNetworkActive;
+        private Network mDefaultNetwork;
         private final SparseArray<IdleTimerParams> mActiveIdleTimers = new SparseArray<>();
+        private final boolean mIsAtLeastU;
 
         private static class IdleTimerParams {
             public final int timeout;
@@ -11134,10 +11138,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         LegacyNetworkActivityTracker(@NonNull Context context, @NonNull INetd netd,
-                @NonNull Handler handler) {
+                @NonNull Handler handler, boolean isAtLeastU) {
             mContext = context;
             mNetd = netd;
             mHandler = handler;
+            mIsAtLeastU = isAtLeastU;
         }
 
         private void ensureRunningOnConnectivityServiceThread() {
@@ -11147,8 +11152,31 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
-            ensureRunningOnConnectivityServiceThread();
+        public void handleReportNetworkActivityUPlus(NetworkActivityParams activityParams) {
+            final int netId = activityParams.label;
+            if (mDefaultNetwork == null || mDefaultNetwork.netId != netId) {
+                // This activity change is not for the default network.
+                return;
+            }
+
+            final IdleTimerParams idleTimerParams = mActiveIdleTimers.get(netId);
+            if (idleTimerParams == null) {
+                // This network activity change is not tracked anymore
+                // This can happen if netd callback post activity change event message but idle
+                // timer is removed before processing this message.
+                return;
+            }
+            final int transportType = idleTimerParams.transportType;
+
+            mIsDefaultNetworkActive = activityParams.isActive;
+            sendDataActivityBroadcast(transportTypeToLegacyType(transportType),
+                    activityParams.isActive, activityParams.timestampNs);
+            if (activityParams.isActive) {
+                reportNetworkActive();
+            }
+        }
+
+        public void handleReportNetworkActivityTMinus(NetworkActivityParams activityParams) {
             if (mActiveIdleTimers.size() == 0) {
                 // This activity change is not for the current default network.
                 // This can happen if netd callback post activity change event message but default
@@ -11160,6 +11188,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mIsDefaultNetworkActive = activityParams.isActive;
             if (mIsDefaultNetworkActive) {
                 reportNetworkActive();
+            }
+        }
+
+        public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
+            ensureRunningOnConnectivityServiceThread();
+            if (mIsAtLeastU) {
+                handleReportNetworkActivityUPlus(activityParams);
+            } else {
+                handleReportNetworkActivityTMinus(activityParams);
             }
         }
 
@@ -11215,6 +11252,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
+        private String getIdleTimerLabel(final int netId, final int transportType) {
+            return Integer.toString(mIsAtLeastU ? netId : transportType);
+        }
+
         /**
          * Setup data activity tracking for the given network.
          *
@@ -11249,7 +11290,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (timeout > 0 && iface != null) {
                 try {
                     mActiveIdleTimers.put(netId, new IdleTimerParams(timeout, type));
-                    mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
+                    mNetd.idletimerAddInterface(iface, timeout, getIdleTimerLabel(netId, type));
                 } catch (Exception e) {
                     // You shall not crash!
                     loge("Exception in setupDataActivityTracking " + e);
@@ -11286,7 +11327,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 mActiveIdleTimers.remove(netId);
                 // The call fails silently if no idle timer setup for this interface
                 mNetd.idletimerRemoveInterface(iface, params.timeout,
-                        Integer.toString(params.transportType));
+                        getIdleTimerLabel(netId, params.transportType));
             } catch (Exception e) {
                 // You shall not crash!
                 loge("Exception in removeDataActivityTracking " + e);
@@ -11295,9 +11336,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         private void updateDefaultNetworkActivity(NetworkAgentInfo defaultNetwork) {
             if (defaultNetwork != null) {
+                mDefaultNetwork = defaultNetwork.network();
                 mIsDefaultNetworkActive = true;
                 reportNetworkActive();
             } else {
+                mDefaultNetwork = null;
                 // If there is no default network, default network is considered inactive.
                 mIsDefaultNetworkActive = false;
             }
@@ -11346,6 +11389,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         public void dump(IndentingPrintWriter pw) {
             pw.print("mIsDefaultNetworkActive="); pw.println(mIsDefaultNetworkActive);
+            pw.print("mDefaultNetwork="); pw.println(mDefaultNetwork);
             pw.println("Idle timers:");
             try {
                 for (int i = 0; i < mActiveIdleTimers.size(); i++) {
