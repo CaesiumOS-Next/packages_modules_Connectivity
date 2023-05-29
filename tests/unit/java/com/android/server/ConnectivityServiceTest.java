@@ -11238,7 +11238,7 @@ public class ConnectivityServiceTest {
         mEthernetAgent.connect(true);
         // onNetworkActive is not called when the ethernet becomes a default network since this
         // callback is only called for the network that LegacyNetworkActivityTracker sets idle timer
-        assertFalse(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
+        assertTrue(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
         assertTrue(mCm.isDefaultNetworkActive());
 
         mCm.removeDefaultNetworkActiveListener(listener);
@@ -11246,8 +11246,7 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testIsDefaultNetworkActiveNoDefaultNetwork() throws Exception {
-        // isDefaultNetworkActive returns true if there is no default network, which is known issue.
-        assertTrue(mCm.isDefaultNetworkActive());
+        assertFalse(mCm.isDefaultNetworkActive());
 
         final LinkProperties cellLp = new LinkProperties();
         cellLp.setInterfaceName(MOBILE_IFNAME);
@@ -11258,7 +11257,7 @@ public class ConnectivityServiceTest {
         mCellAgent.disconnect();
         waitForIdle();
 
-        assertTrue(mCm.isDefaultNetworkActive());
+        assertFalse(mCm.isDefaultNetworkActive());
     }
 
     @Test
