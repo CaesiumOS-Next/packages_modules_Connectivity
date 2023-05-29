@@ -43,6 +43,7 @@ import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.DiscoveryStarted
 import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.DiscoveryStopped
 import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.ServiceFound
 import android.net.cts.NsdDiscoveryRecord.DiscoveryEvent.ServiceLost
+import android.net.cts.NsdRegistrationRecord.RegistrationEvent.RegistrationFailed
 import android.net.cts.NsdRegistrationRecord.RegistrationEvent.ServiceRegistered
 import android.net.cts.NsdRegistrationRecord.RegistrationEvent.ServiceUnregistered
 import android.net.cts.NsdResolveRecord.ResolveEvent.ResolutionStopped
@@ -52,6 +53,7 @@ import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.Ser
 import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdatedLost
 import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.UnregisterCallbackSucceeded
 import android.net.cts.util.CtsNetUtils
+import android.net.nsd.DiscoveryRequest
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.net.nsd.OffloadEngine
@@ -89,6 +91,7 @@ import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.assertEmpty
+import com.android.testutils.assertParcelingIsLossless
 import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk30
 import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk33
 import com.android.testutils.runAsShell
@@ -107,6 +110,7 @@ import java.util.concurrent.Executor
 import kotlin.math.min
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.fail
@@ -989,6 +993,107 @@ class NsdManagerTest {
     }
 
     @Test
+    fun testSubtypeAdvertisingAndDiscovery_withSetSubtypesApi() {
+        runSubtypeAdvertisingAndDiscoveryTest(useLegacySpecifier = false)
+    }
+
+    @Test
+    fun testSubtypeAdvertisingAndDiscovery_withSetSubtypesApiAndLegacySpecifier() {
+        runSubtypeAdvertisingAndDiscoveryTest(useLegacySpecifier = true)
+    }
+
+    private fun runSubtypeAdvertisingAndDiscoveryTest(useLegacySpecifier: Boolean) {
+        val si = makeTestServiceInfo(network = testNetwork1.network)
+        if (useLegacySpecifier) {
+            si.subtypes = listOf("_subtype1")
+
+            // Test "_type._tcp.local,_subtype" syntax with the registration
+            si.serviceType = si.serviceType + ",_subtype2"
+        } else {
+            si.subtypes = listOf("_subtype1", "_subtype2")
+        }
+
+        val registrationRecord = NsdRegistrationRecord()
+
+        val baseTypeDiscoveryRecord = NsdDiscoveryRecord()
+        val subtype1DiscoveryRecord = NsdDiscoveryRecord()
+        val subtype2DiscoveryRecord = NsdDiscoveryRecord()
+        val otherSubtypeDiscoveryRecord = NsdDiscoveryRecord()
+        tryTest {
+            registerService(registrationRecord, si)
+
+            nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, baseTypeDiscoveryRecord)
+            nsdManager.discoverServices(
+                    DiscoveryRequest.Builder(serviceType, NsdManager.PROTOCOL_DNS_SD)
+                            .setSubtype("_othersubtype").setNetwork(testNetwork1.network).build(),
+                    Executor { it.run() }, otherSubtypeDiscoveryRecord)
+
+            // Test "<subtype>._type._tcp.local" syntax with discovery. Note this is not
+            // "<subtype>._sub._type._tcp.local".
+            nsdManager.discoverServices("_subtype1.$serviceType",
+                    NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, subtype1DiscoveryRecord)
+
+            nsdManager.discoverServices(
+                    DiscoveryRequest.Builder(serviceType, NsdManager.PROTOCOL_DNS_SD)
+                            .setSubtype("_subtype2").setNetwork(testNetwork1.network).build(),
+                    Executor { it.run() }, subtype2DiscoveryRecord)
+
+            val info1 = subtype1DiscoveryRecord.waitForServiceDiscovered(
+                    serviceName, serviceType, testNetwork1.network)
+            assertTrue(info1.subtypes.contains("_subtype1"))
+            val info2 = subtype2DiscoveryRecord.waitForServiceDiscovered(
+                    serviceName, serviceType, testNetwork1.network)
+            assertTrue(info2.subtypes.contains("_subtype2"))
+            baseTypeDiscoveryRecord.waitForServiceDiscovered(
+                    serviceName, serviceType, testNetwork1.network)
+            otherSubtypeDiscoveryRecord.expectCallback<DiscoveryStarted>()
+            // The subtype callback was registered later but called, no need for an extra delay
+            otherSubtypeDiscoveryRecord.assertNoCallback(timeoutMs = 0)
+        } cleanupStep {
+            nsdManager.stopServiceDiscovery(baseTypeDiscoveryRecord)
+            nsdManager.stopServiceDiscovery(subtype1DiscoveryRecord)
+            nsdManager.stopServiceDiscovery(subtype2DiscoveryRecord)
+            nsdManager.stopServiceDiscovery(otherSubtypeDiscoveryRecord)
+
+            baseTypeDiscoveryRecord.expectCallback<DiscoveryStopped>()
+            subtype1DiscoveryRecord.expectCallback<DiscoveryStopped>()
+            subtype2DiscoveryRecord.expectCallback<DiscoveryStopped>()
+            otherSubtypeDiscoveryRecord.expectCallback<DiscoveryStopped>()
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
+        }
+    }
+
+    @Test
+    fun testSubtypeAdvertising_tooManySubtypes_returnsFailureBadParameters() {
+        val si = makeTestServiceInfo(network = testNetwork1.network)
+        // Sets 101 subtypes in total
+        val seq = generateSequence(1) { it + 1}
+        si.subtypes = seq.take(100).toList().map {it -> "_subtype" + it}
+        si.serviceType = si.serviceType + ",_subtype"
+
+        val record = NsdRegistrationRecord()
+        nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, Executor { it.run() }, record)
+
+        val failedCb = record.expectCallback<RegistrationFailed>(REGISTRATION_TIMEOUT_MS)
+        assertEquals(NsdManager.FAILURE_BAD_PARAMETERS, failedCb.errorCode)
+    }
+
+    @Test
+    fun testSubtypeAdvertising_emptySubtypeLabel_returnsFailureBadParameters() {
+        val si = makeTestServiceInfo(network = testNetwork1.network)
+        si.subtypes = listOf("")
+
+        val record = NsdRegistrationRecord()
+        nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, Executor { it.run() }, record)
+
+        val failedCb = record.expectCallback<RegistrationFailed>(REGISTRATION_TIMEOUT_MS)
+        assertEquals(NsdManager.FAILURE_BAD_PARAMETERS, failedCb.errorCode)
+    }
+
+    @Test
     fun testRegisterWithConflictDuringProbing() {
         // This test requires shims supporting T+ APIs (NsdServiceInfo.network)
         assumeTrue(TestUtils.shouldTestTApis())
@@ -1219,6 +1324,52 @@ class NsdManagerTest {
         assertEquals(
                 setOf(parseNumericAddress("192.0.2.123"), parseNumericAddress("2001:db8::123")),
                 serviceResolved.serviceInfo.hostAddresses.toSet())
+    }
+
+    @Test
+    fun testDiscoveryRequest_parcelingIsLossLess() {
+        val requestWithNullFields =
+                DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD).build()
+        val requestWithAllFields =
+                DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD)
+                                .setSubtype("_xyz")
+                                .setNetwork(Network(1))
+                                .build()
+
+        assertParcelingIsLossless(requestWithNullFields)
+        assertParcelingIsLossless(requestWithAllFields)
+    }
+
+    @Test
+    fun testDiscoveryRequest_createWithBuilder() {
+        val request = DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD)
+                                      .setSubtype("_xyz")
+                                      .setNetwork(Network(1))
+                                      .build()
+
+        assertEquals("_ipps._tcp", request.serviceType)
+        assertEquals(NsdManager.PROTOCOL_DNS_SD, request.protocolType)
+        assertEquals("_xyz", request.subtype)
+        assertEquals(Network(1), request.network)
+    }
+
+    @Test
+    fun testDiscoveryRequest_equals() {
+        val request1 = DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD).build()
+        val request2 = DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD).build()
+        val request3 = DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD)
+                                       .setSubtype("_xyz")
+                                       .setNetwork(Network(1))
+                                       .build()
+        val request4 = DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD)
+                                       .setSubtype("_xyz")
+                                       .setNetwork(Network(1))
+                                       .build()
+
+        assertEquals(request1, request2)
+        assertEquals(request3, request4)
+        assertNotEquals(request1, request3)
+        assertNotEquals(request2, request4)
     }
 
     private fun buildConflictingAnnouncement(): ByteBuffer {
