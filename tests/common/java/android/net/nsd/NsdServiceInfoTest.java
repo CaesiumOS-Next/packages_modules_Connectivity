@@ -16,8 +16,11 @@
 
 package android.net.nsd;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -40,6 +43,7 @@ import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
@@ -149,7 +153,7 @@ public class NsdServiceInfoTest {
         assertFalse(attributedInfo.getAttributes().keySet().contains("sticky"));
     }
 
-    public void checkParcelable(NsdServiceInfo original) {
+    private static void checkParcelable(NsdServiceInfo original) {
         // Write to parcel.
         Parcel p = Parcel.obtain();
         Bundle writer = new Bundle();
@@ -179,11 +183,39 @@ public class NsdServiceInfoTest {
         }
     }
 
-    public void assertEmptyServiceInfo(NsdServiceInfo shouldBeEmpty) {
+    private static void assertEmptyServiceInfo(NsdServiceInfo shouldBeEmpty) {
         byte[] txtRecord = shouldBeEmpty.getTxtRecord();
         if (txtRecord == null || txtRecord.length == 0) {
             return;
         }
         fail("NsdServiceInfo.getTxtRecord did not return null but " + Arrays.toString(txtRecord));
+    }
+
+    @Test
+    public void testSubtypesEmptySubtypeThrowsIllegalArgumentException() {
+        NsdServiceInfo info = new NsdServiceInfo();
+        Set<String> subtypes = Set.of("_thread", "");
+
+        assertThrows(IllegalArgumentException.class, () -> info.setSubtypes(subtypes));
+    }
+
+    @Test
+    public void testSubtypesValidSubtypesSuccess() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setSubtypes(Set.of("_thread", "_matter"));
+
+        assertThat(info.getSubtypes()).containsExactly("_thread", "_matter");
+    }
+
+    @Test
+    public void testSubtypesCaseInsensitiveDuplicatedSubtypesOnlyOneIsAdded() {
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setSubtypes(Set.of("_thread", "_THREAD", "_ThrEad"));
+
+        Set<String> subtypes = info.getSubtypes();
+        assertThat(subtypes).hasSize(1);
+        assertThat(subtypes).containsAnyOf("_thread", "_THREAD", "_ThrEad");
     }
 }
