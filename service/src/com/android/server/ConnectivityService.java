@@ -1657,7 +1657,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mUserAllContext.registerReceiver(mPackageIntentReceiver, packageIntentFilter,
                 null /* broadcastPermission */, mHandler);
 
-        mNetworkActivityTracker = new LegacyNetworkActivityTracker(mContext, mHandler, mNetd);
+        mNetworkActivityTracker = new LegacyNetworkActivityTracker(mContext, mNetd);
 
         final NetdCallback netdCallback = new NetdCallback();
         try {
@@ -5806,7 +5806,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 }
                 case EVENT_REPORT_NETWORK_ACTIVITY:
-                    mNetworkActivityTracker.handleReportNetworkActivity();
+                    final NetworkActivityParams arg = (NetworkActivityParams) msg.obj;
+                    mNetworkActivityTracker.handleReportNetworkActivity(arg);
                     break;
                 case EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED:
                     handleMobileDataPreferredUidsChanged();
@@ -10964,11 +10965,33 @@ public class ConnectivityService extends IConnectivityManager.Stub
         notifyDataStallSuspected(p, network.getNetId());
     }
 
+    /**
+     * Class to hold the information for network activity change
+     * {@link NetdCallback#onInterfaceClassActivityChanged(boolean, int, long, int)}
+     */
+    private static final class NetworkActivityParams {
+        public final boolean isActive;
+        // Unique identifier of the idletimer. Transport type is used as label.
+        public final int label;
+        public final long timestampNs;
+        // It represents the uid that was responsible for waking the radio.
+        // Uid is -1 if isActive is false.
+        public final int uid;
+
+        NetworkActivityParams(boolean isActive, int label, long timestampNs, int uid) {
+            this.isActive = isActive;
+            this.label = label;
+            this.timestampNs = timestampNs;
+            this.uid = uid;
+        }
+    }
+
     private class NetdCallback extends BaseNetdUnsolicitedEventListener {
         @Override
-        public void onInterfaceClassActivityChanged(boolean isActive, int transportType,
+        public void onInterfaceClassActivityChanged(boolean isActive, int label,
                 long timestampNs, int uid) {
-            mNetworkActivityTracker.setAndReportNetworkActive(isActive, transportType, timestampNs);
+            mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY,
+                    new NetworkActivityParams(isActive, label, timestampNs, uid)));
         }
 
         @Override
@@ -11003,7 +11026,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private boolean mNetworkActive;
         @GuardedBy("mActiveIdleTimers")
         private final ArrayMap<String, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
-        private final Handler mHandler;
 
         private static class IdleTimerParams {
             public final int timeout;
@@ -11015,17 +11037,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        LegacyNetworkActivityTracker(@NonNull Context context, @NonNull Handler handler,
-                @NonNull INetd netd) {
+        LegacyNetworkActivityTracker(@NonNull Context context, @NonNull INetd netd) {
             mContext = context;
             mNetd = netd;
-            mHandler = handler;
         }
 
-        public void setAndReportNetworkActive(boolean active, int transportType, long tsNanos) {
-            sendDataActivityBroadcast(transportTypeToLegacyType(transportType), active, tsNanos);
+        public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
+            sendDataActivityBroadcast(transportTypeToLegacyType(activityParams.label),
+                    activityParams.isActive, activityParams.timestampNs);
             synchronized (mActiveIdleTimers) {
-                mNetworkActive = active;
+                mNetworkActive = activityParams.isActive;
                 // If there are no idle timers, it means that system is not monitoring
                 // activity, so the system default network for those default network
                 // unspecified apps is always considered active.
@@ -11035,7 +11056,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // the mActiveIdleTimers should be always not empty. The legacy behavior
                 // is no-op. Remove to refer to mNetworkActive only.
                 if (mNetworkActive || mActiveIdleTimers.isEmpty()) {
-                    mHandler.sendMessage(mHandler.obtainMessage(EVENT_REPORT_NETWORK_ACTIVITY));
+                    reportNetworkActive();
                 }
             }
         }
@@ -11056,13 +11077,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
             } finally {
                 mNetworkActivityListeners.finishBroadcast();
-            }
-        }
-
-        @GuardedBy("mActiveIdleTimers")
-        public void handleReportNetworkActivity() {
-            synchronized (mActiveIdleTimers) {
-                reportNetworkActive();
             }
         }
 
