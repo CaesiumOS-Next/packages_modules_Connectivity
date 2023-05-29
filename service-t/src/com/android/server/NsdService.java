@@ -184,6 +184,7 @@ public class NsdService extends INsdManager.Stub {
     static final int NO_TRANSACTION = -1;
     private static final int NO_SENT_QUERY_COUNT = 0;
     private static final int DISCOVERY_QUERY_SENT_CALLBACK = 1000;
+    private static final int MAX_SUBTYPE_COUNT = 100;
     private static final SharedLog LOGGER = new SharedLog("serviceDiscovery");
 
     private final Context mContext;
@@ -793,6 +794,28 @@ public class NsdService extends INsdManager.Stub {
                 removeRequestMap(clientRequestId, transactionId, clientInfo);
             }
 
+            /**
+             * Returns {@code true} if the subtype labels are not empty and all starts with
+             * underscore ('_').
+             */
+            private boolean checkSubtypeLabels(List<String> subtypes) {
+                for (String subtype : subtypes) {
+                    if (TextUtils.isEmpty(subtype) || subtype.charAt(0) != '_') {
+                        mServiceLogs.e("Subtype " + subtype + " is empty or doesn't start with '_'");
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            private static List<String> dedupSubtypeLabels(List<String> subtypes) {
+                Map<String, String> subtypeMap = new HashMap<>(subtypes.size());
+                for (String subtype : subtypes) {
+                    subtypeMap.put(MdnsUtils.toDnsLowerCase(subtype), subtype);
+                }
+                return new ArrayList<>(subtypeMap.values());
+            }
+
             @Override
             public boolean processMessage(Message msg) {
                 final ClientInfo clientInfo;
@@ -834,6 +857,21 @@ public class NsdService extends INsdManager.Stub {
                                 break;
                             }
 
+                            List<String> subtypes = new ArrayList<>(info.getSubtypes());
+                            if (typeAndSubtype.second != null) {
+                                // The parsing ensures subtype starts with an underscore.
+                                // MdnsSearchOptions expects the underscore to not be present.
+                                subtypes.add(typeAndSubtype.second);
+                            }
+
+                            subtypes = dedupSubtypeLabels(subtypes);
+
+                            if (!checkSubtypeLabels(subtypes)) {
+                                clientInfo.onDiscoverServicesFailedImmediately(clientRequestId,
+                                        NsdManager.FAILURE_BAD_PARAMETERS, false /* isLegacy */);
+                                break;
+                            }
+
                             final String listenServiceType = serviceType + ".local";
                             maybeStartMonitoringSockets();
                             final MdnsListener listener = new DiscoveryListener(clientRequestId,
@@ -843,10 +881,10 @@ public class NsdService extends INsdManager.Stub {
                                             .setNetwork(info.getNetwork())
                                             .setRemoveExpiredService(true)
                                             .setIsPassiveMode(true);
-                            if (typeAndSubtype.second != null) {
-                                // The parsing ensures subtype starts with an underscore.
-                                // MdnsSearchOptions expects the underscore to not be present.
-                                optionsBuilder.addSubtype(typeAndSubtype.second.substring(1));
+
+                            for (String subtype : subtypes) {
+                                // checkSubtypeLabels() ensures that subtypes start with '_'
+                                optionsBuilder.addSubtype(subtype.substring(1));
                             }
                             mMdnsDiscoveryManager.registerListener(
                                     listenServiceType, listener, optionsBuilder.build());
@@ -951,12 +989,35 @@ public class NsdService extends INsdManager.Stub {
                             serviceInfo.setServiceName(truncateServiceName(
                                     serviceInfo.getServiceName()));
 
+                            List<String> subtypes = new ArrayList<>(serviceInfo.getSubtypes());
+                            if (!TextUtils.isEmpty(typeSubtype.second)) {
+                                subtypes.add(typeSubtype.second);
+                            }
+
+                            subtypes = dedupSubtypeLabels(subtypes);
+
+                            if (subtypes.size() > MAX_SUBTYPE_COUNT) {
+                                mServiceLogs.e(
+                                        "Too many subtypes (max = " + MAX_SUBTYPE_COUNT + ")");
+                                clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
+                                    NsdManager.FAILURE_MAX_LIMIT, false /* isLegacy */);
+                                break;
+                            }
+
+                            if (!checkSubtypeLabels(subtypes)) {
+                                clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
+                                        NsdManager.FAILURE_BAD_PARAMETERS, false /* isLegacy */);
+                                break;
+                            }
+
+                            serviceInfo.setSubtypes(subtypes);
+
                             maybeStartMonitoringSockets();
                             // TODO: pass in the subtype as well. Including the subtype in the
                             // service type would generate service instance names like
                             // Name._subtype._sub._type._tcp, which is incorrect
                             // (it should be Name._type._tcp).
-                            mAdvertiser.addService(transactionId, serviceInfo, typeSubtype.second);
+                            mAdvertiser.addService(transactionId, serviceInfo);
                             storeAdvertiserRequestMap(clientRequestId, transactionId, clientInfo,
                                     serviceInfo.getNetwork());
                         } else {
@@ -1447,6 +1508,7 @@ public class NsdService extends INsdManager.Stub {
                         servInfo,
                         network == null ? INetd.LOCAL_NET_ID : network.netId,
                         serviceInfo.getInterfaceIndex());
+                servInfo.setSubtypes(serviceInfo.getSubtypes());
                 return servInfo;
             }
 
