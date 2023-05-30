@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68c76617_2d55c405",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:51:44Z",
+      "side": 1,
+      "message": "Since reset() would also remove the stubbing, use clearInvocations.",
+      "parentUuid": "ddc3b644_9c76a88c",
+      "range": {
+        "startLine": 483,
+        "startChar": 61,
+        "endLine": 483,
+        "endChar": 66
+      },
+      "revId": "746f37eb06629ef2b25795034e9ccd544386bcf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50c23a01_55576666",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ec8f754_f6b5d783",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50c23a01_55576666",
+      "range": {
+        "startLine": 624,
+        "startChar": 75,
+        "endLine": 624,
+        "endChar": 76
+      },
+      "revId": "746f37eb06629ef2b25795034e9ccd544386bcf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b28520a_259d4234",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-25T07:04:48Z",
       "side": 1,
       "message": "Another, maybe better way to do this is to verify onError first and then verifyNoMoreInteractions",
+      "range": {
+        "startLine": 666,
+        "startChar": 0,
+        "endLine": 667,
+        "endChar": 70
+      },
+      "revId": "746f37eb06629ef2b25795034e9ccd544386bcf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68047120_20717629",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:51:44Z",
+      "side": 1,
+      "message": "Done. Also added in other tests.",
+      "parentUuid": "5b28520a_259d4234",
       "range": {
         "startLine": 666,
         "startChar": 0,
