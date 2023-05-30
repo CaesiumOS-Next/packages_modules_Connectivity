@@ -156,6 +156,7 @@ import static android.system.OsConstants.IPPROTO_TCP;
 import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_HIGH;
 import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_LOW;
 
+import static com.android.server.ConnectivityService.DELAY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.KEY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED;
@@ -2121,6 +2122,8 @@ public class ConnectivityServiceTest {
                 case ConnectivityFlags.NO_REMATCH_ALL_REQUESTS_ON_REGISTER:
                     return true;
                 case KEY_DESTROY_FROZEN_SOCKETS_VERSION:
+                    return true;
+                case DELAY_DESTROY_FROZEN_SOCKETS_VERSION:
                     return true;
                 default:
                     return super.isFeatureEnabled(context, name);
@@ -18284,6 +18287,56 @@ public class ConnectivityServiceTest {
         final Set<Integer> ownerUids = Set.of(TEST_FROZEN_UID);
         verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(ownerUids);
     }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDelayFrozenUidSocketDestroy() throws Exception {
+        ArgumentCaptor<UidFrozenStateChangedCallback> activityManagerCallbackCaptor =
+                ArgumentCaptor.forClass(UidFrozenStateChangedCallback.class);
+        verify(mActivityManager).registerUidFrozenStateChangedCallback(any(),
+                activityManagerCallbackCaptor.capture());
+
+        ArgumentCaptor<BaseNetdUnsolicitedEventListener> netdCallbackCaptor =
+                ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
+        verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
+
+        // Connect Cellular network
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        mCellAgent.sendLinkProperties(cellLp);
+        mCellAgent.connect(true);
+
+        // Cellular network goes to inactive state.
+        netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
+                mCellAgent.getNetwork().netId, 1234 /* timestamp */, -1 /* uid */);
+        waitForIdle();
+
+        // Frozen TEST_FROZEN_UID and TEST_UNFROZEN_UID
+        final int[] uids1 = {TEST_FROZEN_UID, TEST_UNFROZEN_UID};
+        final int[] frozenStates1 = {UID_FROZEN_STATE_FROZEN, UID_FROZEN_STATE_FROZEN};
+        activityManagerCallbackCaptor.getValue().onUidFrozenStateChanged(uids1, frozenStates1);
+
+        // Unfrozen TEST_UNFROZEN_UID
+        final int[] uids2 = {TEST_UNFROZEN_UID};
+        final int[] frozenStates2 = {UID_FROZEN_STATE_UNFROZEN};
+        activityManagerCallbackCaptor.getValue().onUidFrozenStateChanged(uids2, frozenStates2);
+
+        waitForIdle();
+        verify(mDestroySocketsWrapper, never())
+                .destroyLiveTcpSocketsByOwnerUids(Set.of(TEST_FROZEN_UID));
+
+        // Cellular network goes to active state.
+        netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
+                mCellAgent.getNetwork().netId, 1234 /* timestamp */, TEST_PACKAGE_UID);
+
+        waitForIdle();
+        Log.e("MDBG", "verify");
+        verify(mDestroySocketsWrapper)
+                .destroyLiveTcpSocketsByOwnerUids(Set.of(TEST_FROZEN_UID));
+    }
+
+
 
     @Test
     public void testDisconnectSuspendedNetworkStopClatd() throws Exception {
