@@ -16,6 +16,10 @@
 
 package com.android.networkstack.tethering.metrics;
 
+import static android.net.NetworkStats.UID_TETHERING;
+import static android.app.usage.NetworkStats.Bucket.TAG_NONE;
+import java.lang.reflect.Field;
+
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
@@ -52,10 +56,21 @@ import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import android.app.usage.NetworkStats;
+import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.net.NetworkCapabilities;
 import android.net.NetworkTemplate;
 import android.os.Build;
@@ -71,10 +86,14 @@ import com.android.networkstack.tethering.UpstreamNetworkState;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 @RunWith(AndroidJUnit4.class)
@@ -89,18 +108,28 @@ public final class TetheringMetricsTest {
     private static final long TEST_START_TIME = 1670395936033L;
     private static final long SECOND_IN_MILLIS = 1_000L;
 
-    private TetheringMetrics mTetheringMetrics;
     private final NetworkTetheringReported.Builder mStatsBuilder =
             NetworkTetheringReported.newBuilder();
 
+    private TetheringMetrics mTetheringMetrics;
     private long mElapsedRealtime;
+
+    @Mock private Context mContext;
+    @Mock private NetworkStatsManager mNetworkStatsManager;
+    @Mock private NetworkStats mNetworkStats;
+    @Mock private NetworkTemplate mNetworkTemplate;
 
     private class MockTetheringMetrics extends TetheringMetrics {
         @Override
         public void write(final NetworkTetheringReported reported) {}
+
         @Override
         public long timeNow() {
             return currentTimeMillis();
+        }
+
+        MockTetheringMetrics(final Context context) {
+            super(context);
         }
     }
 
@@ -124,7 +153,10 @@ public final class TetheringMetricsTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mTetheringMetrics = spy(new MockTetheringMetrics());
+        doReturn(mNetworkStatsManager).when(mContext).getSystemService(NetworkStatsManager.class);
+        // doReturn(mNetworkStats).when(mContext).getSystemService(NetworkStats.class);
+        // doReturn(mNetworkTemplate).when(mContext).getSystemService(NetworkTemplate.class);
+        mTetheringMetrics = spy(new MockTetheringMetrics(mContext));
         mElapsedRealtime = 0L;
     }
 
@@ -192,6 +224,9 @@ public final class TetheringMetricsTest {
 
     @Test
     public void testDownstreamTypes() throws Exception {
+        doReturn(null).when(mNetworkStatsManager).queryDetailsForUidTagState(any(), anyLong(),
+                anyLong(), anyInt(), anyInt(), anyInt());
+
         runDownstreamTypesTest(TETHERING_WIFI, DownstreamType.DS_TETHERING_WIFI);
         runDownstreamTypesTest(TETHERING_WIFI_P2P, DownstreamType.DS_TETHERING_WIFI_P2P);
         runDownstreamTypesTest(TETHERING_BLUETOOTH, DownstreamType.DS_TETHERING_BLUETOOTH);
@@ -219,6 +254,9 @@ public final class TetheringMetricsTest {
 
     @Test
     public void testErrorCodes() throws Exception {
+        doReturn(null).when(mNetworkStatsManager).queryDetailsForUidTagState(any(), anyLong(),
+                anyLong(), anyInt(), anyInt(), anyInt());
+
         runErrorCodesTest(TETHER_ERROR_NO_ERROR, ErrorCode.EC_NO_ERROR);
         runErrorCodesTest(TETHER_ERROR_UNKNOWN_IFACE, ErrorCode.EC_UNKNOWN_IFACE);
         runErrorCodesTest(TETHER_ERROR_SERVICE_UNAVAIL, ErrorCode.EC_SERVICE_UNAVAIL);
@@ -261,6 +299,9 @@ public final class TetheringMetricsTest {
 
     @Test
     public void testUserTypes() throws Exception {
+        doReturn(null).when(mNetworkStatsManager).queryDetailsForUidTagState(any(), anyLong(),
+                anyLong(), anyInt(), anyInt(), anyInt());
+
         runUserTypesTest(TEST_CALLER_PKG, UserType.USER_UNKNOWN);
         runUserTypesTest(SETTINGS_PKG, UserType.USER_SETTINGS);
         runUserTypesTest(SYSTEMUI_PKG, UserType.USER_SYSTEMUI);
@@ -286,6 +327,9 @@ public final class TetheringMetricsTest {
 
     @Test
     public void testUpstreamTypes() throws Exception {
+        doReturn(null).when(mNetworkStatsManager).queryDetailsForUidTagState(any(), anyLong(),
+                anyLong(), anyInt(), anyInt(), anyInt());
+
         runUpstreamTypesTest(null , UpstreamType.UT_NO_NETWORK);
         runUpstreamTypesTest(buildUpstreamState(TRANSPORT_CELLULAR), UpstreamType.UT_CELLULAR);
         runUpstreamTypesTest(buildUpstreamState(TRANSPORT_WIFI), UpstreamType.UT_WIFI);
@@ -299,6 +343,9 @@ public final class TetheringMetricsTest {
 
     @Test
     public void testMultiBuildersCreatedBeforeSendReport() throws Exception {
+        doReturn(null).when(mNetworkStatsManager).queryDetailsForUidTagState(any(), anyLong(),
+                anyLong(), anyInt(), anyInt(), anyInt());
+
         mTetheringMetrics.createBuilder(TETHERING_WIFI, SETTINGS_PKG);
         final long wifiTetheringStartTime = currentTimeMillis();
         incrementCurrentTime(1 * SECOND_IN_MILLIS);
@@ -339,6 +386,9 @@ public final class TetheringMetricsTest {
 
     @Test
     public void testUpstreamsWithMultipleDownstreams() throws Exception {
+        doReturn(null).when(mNetworkStatsManager).queryDetailsForUidTagState(any(), anyLong(),
+                anyLong(), anyInt(), anyInt(), anyInt());
+
         mTetheringMetrics.createBuilder(TETHERING_WIFI, SETTINGS_PKG);
         final long wifiTetheringStartTime = currentTimeMillis();
         incrementCurrentTime(1 * SECOND_IN_MILLIS);
@@ -369,6 +419,9 @@ public final class TetheringMetricsTest {
 
     @Test
     public void testSwitchingMultiUpstreams() throws Exception {
+        doReturn(null).when(mNetworkStatsManager).queryDetailsForUidTagState(any(), anyLong(),
+                anyLong(), anyInt(), anyInt(), anyInt());
+
         mTetheringMetrics.createBuilder(TETHERING_WIFI, SETTINGS_PKG);
         final long wifiTetheringStartTime = currentTimeMillis();
         incrementCurrentTime(1 * SECOND_IN_MILLIS);
@@ -434,5 +487,39 @@ public final class TetheringMetricsTest {
         runBuildNetworkTemplate(UpstreamType.UT_WIFI_AWARE, invalidMatchRule);
         runBuildNetworkTemplate(UpstreamType.UT_LOWPAN, invalidMatchRule);
         runBuildNetworkTemplate(UpstreamType.UT_UNKNOWN, invalidMatchRule);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testVerifyTxRxBytes() throws Exception {
+        // Create a mock NetworkStats.Bucket object
+        NetworkStats.Bucket mockBucket = mock(NetworkStats.Bucket.class);
+
+        // Set custom values for txBytes and rxBytes
+        when(mockBucket.getTxBytes()).thenReturn(200L);
+        when(mockBucket.getRxBytes()).thenReturn(0L);
+
+        // Mock the networkStats object and return the mock Bucket instance
+        NetworkStats networkStats = mock(NetworkStats.class);
+        when(networkStats.hasNextBucket()).thenReturn(true, false);
+        when(networkStats.getNextBucket(mockBucket)).thenReturn(true).thenReturn(false);
+
+        // Mock the queryDetailsForUidTagState() method to return the mock NetworkStats object
+        doReturn(networkStats).when(mNetworkStatsManager).queryDetailsForUidTagState(
+                any(NetworkTemplate.class),
+                anyLong(),
+                anyLong(),
+                anyInt(),
+                anyInt(),
+                anyInt());
+
+        mTetheringMetrics.updateCurrentDataUsage(UpstreamType.UT_WIFI);
+
+        assertEquals(200L, mTetheringMetrics.getCurrentTxBytes());
+        assertEquals(0L, mTetheringMetrics.getCurrentRxBytes());
+        // Fake tx/rx bytes for Upstream
+        // Verify map tx/rx bytes for Upstream
+        // Increase tx/rx bytes
+        // verify tx/rx bytes
     }
 }
