@@ -22,6 +22,30 @@
       },
       "revId": "df29a85ee70e56a888c82e4e885ab6f775416ff7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4555640d_a94f909d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2119,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T01:51:07Z",
+      "side": 1,
+      "message": "1. It\u0027s possible if and only if there is a bug in Dependencies.isAboveXXX() in the production code. I don\u0027t know that it\u0027s actually possible to test for this, but if you have any idea I\u0027m interested.\n2. I don\u0027t see why that would be a problem, maybe we have 20 constants and that\u0027s it. Or if we find that unwieldly we make an array.",
+      "parentUuid": "7f1d3b76_668341dc",
+      "range": {
+        "startLine": 2119,
+        "startChar": 20,
+        "endLine": 2119,
+        "endChar": 39
+      },
+      "revId": "df29a85ee70e56a888c82e4e885ab6f775416ff7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
