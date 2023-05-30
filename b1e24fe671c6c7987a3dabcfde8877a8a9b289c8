@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bf29d5d_c91a6745",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-30T05:49:17Z",
+      "side": 1,
+      "message": "LGTM, up to you whether to address comments here or in another change",
+      "revId": "b1e24fe671c6c7987a3dabcfde8877a8a9b289c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79625b65_f0e191c1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-30T05:49:17Z",
+      "side": 1,
+      "message": "There\u0027s already 2 formats used here (this.sharedLog \u003d, and perNetworkServiceTypeClients \u003d). This adds a third style with \"mHandlerThread \u003d\"\n\nCould you change this one to \"this.perNetworkServiceTypeClients \u003d\" to limit it to 2 at least ?\n\nI think it might be best to just keep local style for mHandlerThread too, with \"this.handlerThread\", even if it triggers the linter (can be ignored, local style takes precedence). It would be best to switch to the Android style for everything in one change, otherwise one may think that \"mHandlerThread\" is a member and \"handler\" is a local variable, for example.",
+      "revId": "b1e24fe671c6c7987a3dabcfde8877a8a9b289c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cce7d55c_ab86ecaa",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-30T05:49:17Z",
+      "side": 1,
+      "message": "As discussed offline, this change should allow changing this to mHandlerThread \u003d\u003d null. This would ensure that behavior is consistent when a given constructor was used, and address concerns in http://ag/c/platform/packages/modules/Connectivity/+/23467300/comment/90d94feb_ab952b4b/",
+      "revId": "b1e24fe671c6c7987a3dabcfde8877a8a9b289c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7791375a_40cd2fd0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-30T05:49:17Z",
+      "side": 1,
+      "message": "Typo: nothing ?",
+      "range": {
+        "startLine": 165,
+        "startChar": 57,
+        "endLine": 165,
+        "endChar": 62
+      },
+      "revId": "b1e24fe671c6c7987a3dabcfde8877a8a9b289c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
