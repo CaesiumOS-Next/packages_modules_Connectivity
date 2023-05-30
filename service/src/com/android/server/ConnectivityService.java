@@ -794,6 +794,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
 
     /**
+     * Event to inform the cellular network becomes active
+     */
+    private static final int EVENT_CELLULAR_MODEM_ACTIVE = 62;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -931,6 +936,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @GuardedBy("mSelfCertifiedCapabilityCache")
     private final Map<String, ApplicationSelfCertifiedNetworkCapabilities>
             mSelfCertifiedCapabilityCache = new HashMap<>();
+
+    // Flag to close frozen app sockets.
+    private final boolean mDestroyFrozenSocketsEnabled;
+    // Flag to optimize frozen app socket close by waiting cellular modem up.
+    private final boolean mDelayDestroyFrozenSocketsEnabled;
+    // Uids that ConnectivityService is pending to close sockets of for cellular modem up.
+    private final Set<Integer> mPendingFrozenUids = new ArraySet<>();
 
     /**
      * Implements support for the legacy "one network per network type" model.
@@ -1747,8 +1759,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mCdmps = null;
         }
 
-        if (mDeps.isAtLeastU()
-                && mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION)) {
+        mDestroyFrozenSocketsEnabled =
+                mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION);
+        mDelayDestroyFrozenSocketsEnabled =
+                mDeps.isFeatureEnabled(context, DELAY_DESTROY_FROZEN_SOCKETS_VERSION);
+        if (mDeps.isAtLeastU() && mDestroyFrozenSocketsEnabled) {
             final UidFrozenStateChangedCallback frozenStateChangedCallback =
                     new UidFrozenStateChangedCallback() {
                 @Override
@@ -2957,10 +2972,29 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (int i = 0; i < uids.length; i++) {
             if (frozenStates[i] == UID_FROZEN_STATE_FROZEN) {
                 ownerUids.add(uids[i]);
+            } else {
+                mPendingFrozenUids.remove(uids[i]);
             }
         }
 
-        if (!ownerUids.isEmpty()) {
+        if (ownerUids.isEmpty()) {
+            return;
+        }
+
+        final NetworkAgentInfo defaultNai = getDefaultNetwork();
+        if (mDelayDestroyFrozenSocketsEnabled
+                && defaultNai != null
+                && defaultNai.networkCapabilities.hasTransport(TRANSPORT_CELLULAR)
+                && !mNetworkActivityTracker.isCellularNetworkActive()) {
+            // Having cellular default network doesn't mean all the sockets are using cellular
+            // network. Also, not having cellular default network doesn't mean all the sockets are
+            // not using cellular network.
+            // But checking default network is reasonable to assume the network sockets are using.
+            // Also, isCellularNetworkActive returns true if any cellular network is active, and
+            // it's possible that cellular networks use different hardware.
+            // But this should be enough optimization compared to close always immediately.
+            mPendingFrozenUids.addAll(ownerUids);
+        } else {
             try {
                 mDeps.destroyLiveTcpSocketsByOwnerUids(ownerUids);
             } catch (Exception e) {
@@ -2969,8 +3003,32 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private void maybeClosePendingFrozenUidsSockets() {
+        if (mDelayDestroyFrozenSocketsEnabled && !mPendingFrozenUids.isEmpty()) {
+            try {
+                mDeps.destroyLiveTcpSocketsByOwnerUids(mPendingFrozenUids);
+                mPendingFrozenUids.clear();
+            } catch (Exception e) {
+                loge("Exception in socket destroy: " + e);
+            }
+        }
+    }
+
+    private void dumpCloseFrozenAppSockets(IndentingPrintWriter pw) {
+        pw.print("mDestroyFrozenSocketsEnabled=");
+        pw.println(mDestroyFrozenSocketsEnabled);
+
+        pw.print("mDelayDestroyFrozenSocketsEnabled=");
+        pw.println(mDelayDestroyFrozenSocketsEnabled);
+
+        pw.print("mPendingFrozenUids="); pw.println(mPendingFrozenUids);
+    }
+
     @VisibleForTesting
     static final String KEY_DESTROY_FROZEN_SOCKETS_VERSION = "destroy_frozen_sockets_version";
+    @VisibleForTesting
+    static final String DELAY_DESTROY_FROZEN_SOCKETS_VERSION =
+            "delay_destroy_frozen_sockets_version";
 
     private void enforceInternetPermission() {
         mContext.enforceCallingOrSelfPermission(
@@ -3571,6 +3629,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         pw.println();
         dumpAvoidBadWifiSettings(pw);
+
+        pw.println();
+        dumpCloseFrozenAppSockets(pw);
 
         pw.println();
 
@@ -5854,6 +5915,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_UID_FROZEN_STATE_CHANGED:
                     UidFrozenStateChangedArgs args = (UidFrozenStateChangedArgs) msg.obj;
                     handleFrozenUids(args.mUids, args.mFrozenStates);
+                    break;
+                case EVENT_CELLULAR_MODEM_ACTIVE:
+                    maybeClosePendingFrozenUidsSockets();
                     break;
             }
         }
@@ -11107,6 +11171,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             if (needBatteryStatsUpdate) {
                 updateRadioPowerState(isActive, transportType, uid);
+                if (mIsAtLeastU && isActive && transportType == TRANSPORT_CELLULAR) {
+                    mHandler.sendEmptyMessage(EVENT_CELLULAR_MODEM_ACTIVE);
+                }
             }
         }
 
@@ -11345,6 +11412,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 default:
                     logw("Untracked transport type:" + transportType);
             }
+        }
+
+        public boolean isCellularNetworkActive() {
+            return !mActiveCellularNetworks.isEmpty();
         }
 
         public boolean isDefaultNetworkActive() {
