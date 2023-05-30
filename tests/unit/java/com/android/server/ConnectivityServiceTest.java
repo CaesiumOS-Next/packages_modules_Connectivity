@@ -154,6 +154,7 @@ import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALID
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.IPPROTO_TCP;
 
+import static com.android.server.ConnectivityService.DELAY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.KEY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED;
@@ -2130,6 +2131,8 @@ public class ConnectivityServiceTest {
                     return true;
                 case KEY_DESTROY_FROZEN_SOCKETS_VERSION:
                     return true;
+                case DELAY_DESTROY_FROZEN_SOCKETS_VERSION:
+                    return true;
                 default:
                     return super.isFeatureEnabled(context, name);
             }
@@ -2280,7 +2283,9 @@ public class ConnectivityServiceTest {
         @Override @SuppressWarnings("DirectInvocationOnMock")
         public void destroyLiveTcpSocketsByOwnerUids(final Set<Integer> ownerUids) {
             // Call mocked destroyLiveTcpSocketsByOwnerUids so that test can verify this method call
-            mDestroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(ownerUids);
+            // Create copy of ownerUids so that tests can verify the correct value even if the
+            // ConnectivityService update the ownerUids after this method call.
+            mDestroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(new ArraySet<>(ownerUids));
         }
 
         final ArrayTrackRecord<Pair<Integer, Long>>.ReadHead mScheduledEvaluationTimeouts =
@@ -11290,6 +11295,9 @@ public class ConnectivityServiceTest {
     }
 
     private void doTestInterfaceClassActivityChanged(final int transportType) throws Exception {
+        final BaseNetdUnsolicitedEventListener netdUnsolicitedEventListener =
+                getRegisteredNetdUnsolicitedEventListener();
+
         final int legacyType = transportToLegacyType(transportType);
         final LinkProperties lp = new LinkProperties();
         lp.setInterfaceName(transportToTestIfaceName(transportType));
@@ -11306,12 +11314,8 @@ public class ConnectivityServiceTest {
 
             mCm.addDefaultNetworkActiveListener(listener);
 
-            ArgumentCaptor<BaseNetdUnsolicitedEventListener> netdCallbackCaptor =
-                    ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
-            verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
-
             // Interface goes to inactive state
-            netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
+            netdUnsolicitedEventListener.onInterfaceClassActivityChanged(false /* isActive */,
                     transportType, TIMESTAMP, NETWORK_ACTIVITY_NO_UID);
             mServiceContext.expectDataActivityBroadcast(legacyType, false /* isActive */,
                     TIMESTAMP);
@@ -11319,7 +11323,7 @@ public class ConnectivityServiceTest {
             assertFalse(mCm.isDefaultNetworkActive());
 
             // Interface goes to active state
-            netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
+            netdUnsolicitedEventListener.onInterfaceClassActivityChanged(true /* isActive */,
                     transportType, TIMESTAMP, TEST_PACKAGE_UID);
             mServiceContext.expectDataActivityBroadcast(legacyType, true /* isActive */, TIMESTAMP);
             assertTrue(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
@@ -18566,6 +18570,25 @@ public class ConnectivityServiceTest {
                 anyInt());
     }
 
+    // UidFrozenStateChangedCallback is added in U API.
+    // Returning UidFrozenStateChangedCallback directly makes test failing on T- devices since
+    // AndroidJUnit4ClassRunner iterates all declared methods and tries to resolve the return type.
+    private ArgumentCaptor<UidFrozenStateChangedCallback> getUidFrozenStateChangedCallbackCaptor() {
+        ArgumentCaptor<UidFrozenStateChangedCallback> activityManagerCallbackCaptor =
+                ArgumentCaptor.forClass(UidFrozenStateChangedCallback.class);
+        verify(mActivityManager).registerUidFrozenStateChangedCallback(any(),
+                activityManagerCallbackCaptor.capture());
+        return activityManagerCallbackCaptor;
+    }
+
+    private BaseNetdUnsolicitedEventListener getRegisteredNetdUnsolicitedEventListener()
+            throws RemoteException {
+        ArgumentCaptor<BaseNetdUnsolicitedEventListener> netdCallbackCaptor =
+                ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
+        verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
+        return netdCallbackCaptor.getValue();
+    }
+
     private static final int TEST_FROZEN_UID = 1000;
     private static final int TEST_UNFROZEN_UID = 2000;
 
@@ -18576,20 +18599,171 @@ public class ConnectivityServiceTest {
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
     public void testFrozenUidSocketDestroy() throws Exception {
-        ArgumentCaptor<UidFrozenStateChangedCallback> callbackArg =
-                ArgumentCaptor.forClass(UidFrozenStateChangedCallback.class);
-
-        verify(mActivityManager).registerUidFrozenStateChangedCallback(any(),
-                callbackArg.capture());
+        final UidFrozenStateChangedCallback callback =
+                getUidFrozenStateChangedCallbackCaptor().getValue();
 
         final int[] uids = {TEST_FROZEN_UID, TEST_UNFROZEN_UID};
         final int[] frozenStates = {UID_FROZEN_STATE_FROZEN, UID_FROZEN_STATE_UNFROZEN};
 
-        callbackArg.getValue().onUidFrozenStateChanged(uids, frozenStates);
+        callback.onUidFrozenStateChanged(uids, frozenStates);
 
         waitForIdle();
 
         verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(Set.of(TEST_FROZEN_UID));
+    }
+
+    private void doTestDelayFrozenUidSocketDestroy(int transportType,
+            boolean freezeWithNetworkInactive, boolean expectDelay) throws Exception {
+        final TestNetworkCallback defaultCallback = new TestNetworkCallback();
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(transportToTestIfaceName(transportType));
+        final TestNetworkAgentWrapper agent = new TestNetworkAgentWrapper(transportType, lp);
+        testAndCleanup(() -> {
+            final UidFrozenStateChangedCallback uidFrozenStateChangedCallback =
+                    getUidFrozenStateChangedCallbackCaptor().getValue();
+            final BaseNetdUnsolicitedEventListener netdUnsolicitedEventListener =
+                    getRegisteredNetdUnsolicitedEventListener();
+
+            mCm.registerDefaultNetworkCallback(defaultCallback);
+            agent.connect(true);
+            defaultCallback.expectAvailableThenValidatedCallbacks(agent);
+            if (freezeWithNetworkInactive) {
+                // Make network inactive
+                netdUnsolicitedEventListener.onInterfaceClassActivityChanged(false /* isActive */,
+                        transportType, TIMESTAMP, NETWORK_ACTIVITY_NO_UID);
+            }
+
+            // Freeze TEST_FROZEN_UID and TEST_UNFROZEN_UID
+            final int[] uids1 = {TEST_FROZEN_UID, TEST_UNFROZEN_UID};
+            final int[] frozenStates1 = {UID_FROZEN_STATE_FROZEN, UID_FROZEN_STATE_FROZEN};
+            uidFrozenStateChangedCallback.onUidFrozenStateChanged(uids1, frozenStates1);
+            waitForIdle();
+
+            if (expectDelay) {
+                verify(mDestroySocketsWrapper, never()).destroyLiveTcpSocketsByOwnerUids(any());
+            } else {
+                verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(
+                        Set.of(TEST_FROZEN_UID, TEST_UNFROZEN_UID));
+                reset(mDestroySocketsWrapper);
+            }
+
+            // Unfreeze TEST_UNFROZEN_UID
+            final int[] uids2 = {TEST_UNFROZEN_UID};
+            final int[] frozenStates2 = {UID_FROZEN_STATE_UNFROZEN};
+            uidFrozenStateChangedCallback.onUidFrozenStateChanged(uids2, frozenStates2);
+
+            // Make network active
+            netdUnsolicitedEventListener.onInterfaceClassActivityChanged(true /* isActive */,
+                    transportType, TIMESTAMP, TEST_PACKAGE_UID);
+            waitForIdle();
+
+            if (expectDelay) {
+                verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(
+                        Set.of(TEST_FROZEN_UID));
+            } else {
+                verify(mDestroySocketsWrapper, never()).destroyLiveTcpSocketsByOwnerUids(any());
+            }
+        }, () -> { // Cleanup
+                agent.disconnect();
+            }, () -> {
+                mCm.unregisterNetworkCallback(defaultCallback);
+            });
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDelayFrozenUidSocketDestroy_ActiveCellular() throws Exception {
+        doTestDelayFrozenUidSocketDestroy(TRANSPORT_CELLULAR,
+                false /* inactiveNetwork */, false /* expectDelay */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDelayFrozenUidSocketDestroy_InactiveCellular() throws Exception {
+        // When the default network is cellular and cellular network is inactive, closing socket
+        // is delayed.
+        doTestDelayFrozenUidSocketDestroy(TRANSPORT_CELLULAR,
+                true /* inactiveNetwork */, true /* expectDelay */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDelayFrozenUidSocketDestroy_ActiveWifi() throws Exception {
+        doTestDelayFrozenUidSocketDestroy(TRANSPORT_WIFI,
+                false /* inactiveNetwork */, false /* expectDelay */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDelayFrozenUidSocketDestroy_InactiveWifi() throws Exception {
+        doTestDelayFrozenUidSocketDestroy(TRANSPORT_WIFI,
+                true/* inactiveNetwork */, false /* expectDelay */);
+    }
+
+    private void doTestLoseCellDefaultNetwork_ClosePendingFrozenSockets(final boolean switchToWifi)
+            throws Exception {
+        final UidFrozenStateChangedCallback uidFrozenStateChangedCallback =
+                getUidFrozenStateChangedCallbackCaptor().getValue();
+        final BaseNetdUnsolicitedEventListener netdUnsolicitedEventListener =
+                getRegisteredNetdUnsolicitedEventListener();
+
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
+
+        final TestNetworkCallback defaultCallback = new TestNetworkCallback();
+        mCm.registerDefaultNetworkCallback(defaultCallback);
+        try {
+            mCellAgent.connect(true);
+            defaultCallback.expectAvailableThenValidatedCallbacks(mCellAgent);
+
+            // Make cell network inactive
+            netdUnsolicitedEventListener.onInterfaceClassActivityChanged(false /* isActive */,
+                    TRANSPORT_CELLULAR, TIMESTAMP, NETWORK_ACTIVITY_NO_UID);
+
+            // Freeze TEST_FROZEN_UID
+            final int[] uids = {TEST_FROZEN_UID};
+            final int[] frozenStates = {UID_FROZEN_STATE_FROZEN};
+            uidFrozenStateChangedCallback.onUidFrozenStateChanged(uids, frozenStates);
+            waitForIdle();
+
+            // Closing frozen sockets should be delayed since the default network is cellular
+            // and cellular network is inactive.
+            verify(mDestroySocketsWrapper, never()).destroyLiveTcpSocketsByOwnerUids(any());
+
+            if (switchToWifi) {
+                mWiFiAgent.connect(true);
+                defaultCallback.expectAvailableDoubleValidatedCallbacks(mWiFiAgent);
+            } else {
+                mCellAgent.disconnect();
+                waitForIdle();
+            }
+
+            // Pending frozen sockets should be closed since the cellular network is no longer the
+            // default network.
+            verify(mDestroySocketsWrapper)
+                    .destroyLiveTcpSocketsByOwnerUids(Set.of(TEST_FROZEN_UID));
+        } finally {
+            mCm.unregisterNetworkCallback(defaultCallback);
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testLoseCellDefaultNetwork_SwitchToWifi_ClosePendingFrozenSockets()
+            throws Exception {
+        doTestLoseCellDefaultNetwork_ClosePendingFrozenSockets(true /* switchToWifi */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testLoseCellDefaultNetwork_NoDefaultNetwork_ClosePendingFrozenSockets()
+            throws Exception {
+        doTestLoseCellDefaultNetwork_ClosePendingFrozenSockets(false /* switchToWifi */);
     }
 
     @Test
