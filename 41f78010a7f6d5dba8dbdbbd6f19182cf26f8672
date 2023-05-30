@@ -278,6 +278,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7dc5574f_8e8cbc0b",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T08:57:46Z",
+      "side": 1,
+      "message": "My suggestion was simply to return different constants, and then have the method above decide whether to cleanup the auto keepalive based on that. I don\u0027t think it\u0027s a problem to add hidden constants (or even have a new set of constants) for errors, at least in principle.\n\nYour new description is a bit better but it\u0027s still not super natural. It\u0027s still \"if stopped except in this one case\", and you need to special case it because the caller needs to know about it. Can you find a wording that does not have a special case ? Maybe \"return false if the keepalive is now stopping\" ? That\u0027s not great really, it\u0027s still pretty unnatural. I can\u0027t find one ; that\u0027s why I would still prefer results like UNKNOWN_KEEPALIVE, STARTED, ERROR_STARTING, STOPPED, UNKNOWN_STATE. Then you\u0027d cleanup the autokeepalive only if ERROR_STARTING.",
+      "parentUuid": "d7ee7fa7_e768ab6c",
+      "range": {
+        "startLine": 631,
+        "startChar": 57,
+        "endLine": 631,
+        "endChar": 72
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e69586a2_774fa90f",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 10
