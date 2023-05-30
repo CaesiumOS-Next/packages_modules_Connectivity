@@ -156,6 +156,7 @@ import static android.system.OsConstants.IPPROTO_TCP;
 import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_HIGH;
 import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_LOW;
 
+import static com.android.server.ConnectivityService.DELAY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.KEY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED;
@@ -2125,6 +2126,8 @@ public class ConnectivityServiceTest {
                     return true;
                 case KEY_DESTROY_FROZEN_SOCKETS_VERSION:
                     return true;
+                case DELAY_DESTROY_FROZEN_SOCKETS_VERSION:
+                    return true;
                 default:
                     return super.isFeatureEnabled(context, name);
             }
@@ -2275,7 +2278,9 @@ public class ConnectivityServiceTest {
         @Override @SuppressWarnings("DirectInvocationOnMock")
         public void destroyLiveTcpSocketsByOwnerUids(final Set<Integer> ownerUids) {
             // Call mocked destroyLiveTcpSocketsByOwnerUids so that test can verify this method call
-            mDestroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(ownerUids);
+            // Create copy of ownerUids so that tests can verify the correct value even if the
+            // ConnectivityService update the ownerUids after this method call.
+            mDestroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(new ArraySet<>(ownerUids));
         }
 
         final ArrayTrackRecord<Long>.ReadHead mScheduledEvaluationTimeouts =
@@ -18330,6 +18335,77 @@ public class ConnectivityServiceTest {
 
         final Set<Integer> ownerUids = Set.of(TEST_FROZEN_UID);
         verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(ownerUids);
+    }
+
+    private void doTestDelayFrozenUidSocketDestroy(int netId, boolean expectDelay)
+            throws Exception {
+        ArgumentCaptor<UidFrozenStateChangedCallback> activityManagerCallbackCaptor =
+                ArgumentCaptor.forClass(UidFrozenStateChangedCallback.class);
+        verify(mActivityManager).registerUidFrozenStateChangedCallback(any(),
+                activityManagerCallbackCaptor.capture());
+
+        ArgumentCaptor<BaseNetdUnsolicitedEventListener> netdCallbackCaptor =
+                ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
+        verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
+
+        // Cellular network goes to inactive state.
+        netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
+                netId, 1234 /* timestamp */, -1 /* uid */);
+        waitForIdle();
+
+        // Frozen TEST_FROZEN_UID and TEST_UNFROZEN_UID
+        final int[] uids1 = {TEST_FROZEN_UID, TEST_UNFROZEN_UID};
+        final int[] frozenStates1 = {UID_FROZEN_STATE_FROZEN, UID_FROZEN_STATE_FROZEN};
+        activityManagerCallbackCaptor.getValue().onUidFrozenStateChanged(uids1, frozenStates1);
+
+        waitForIdle();
+        if (expectDelay) {
+            verify(mDestroySocketsWrapper, never()).destroyLiveTcpSocketsByOwnerUids(any());
+        } else {
+            verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(
+                    Set.of(TEST_FROZEN_UID, TEST_UNFROZEN_UID));
+            reset(mDestroySocketsWrapper);
+        }
+
+        // Unfrozen TEST_UNFROZEN_UID
+        final int[] uids2 = {TEST_UNFROZEN_UID};
+        final int[] frozenStates2 = {UID_FROZEN_STATE_UNFROZEN};
+        activityManagerCallbackCaptor.getValue().onUidFrozenStateChanged(uids2, frozenStates2);
+
+
+        // Cellular network goes to active state.
+        netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
+                netId, 1234 /* timestamp */, TEST_PACKAGE_UID);
+
+        waitForIdle();
+        if (expectDelay) {
+            verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(
+                    Set.of(TEST_FROZEN_UID));
+        } else {
+            verify(mDestroySocketsWrapper, never()).destroyLiveTcpSocketsByOwnerUids(any());
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDelayFrozenUidSocketDestroy() throws Exception {
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
+        mCellAgent.connect(true);
+
+        doTestDelayFrozenUidSocketDestroy(mCellAgent.getNetwork().netId, true /* expectDelay */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDelayFrozenUidSocketDestroyWiFi() throws Exception {
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiAgent.connect(true);
+
+        doTestDelayFrozenUidSocketDestroy(mWiFiAgent.getNetwork().netId, false /* expectDelay */);
     }
 
     @Test
