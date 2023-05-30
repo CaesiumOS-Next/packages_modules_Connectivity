@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a781e71_d89bc55f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T07:12:08Z",
+      "side": 1,
+      "message": "```suggestion\n            mPid \u003d pid\n            mUid \u003d uid\n```",
+      "range": {
+        "startLine": 187,
+        "startChar": 12,
+        "endLine": 188,
+        "endChar": 42
+      },
+      "revId": "c15148851d93c3ff758f0b77a42d4ce7e80398d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
