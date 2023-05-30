@@ -103,6 +103,23 @@
       "parentUuid": "10ab7be7_9e925ff6",
       "revId": "e831288b0ffc6a5dfb066c65052bdb8cf62fbb80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae76edf8_6fe47674",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T01:47:55Z",
+      "side": 1,
+      "message": "Friendly ping – can we get Dr.No on this patch which removes flakes of a few tests ? Everything else is aligned.",
+      "revId": "e831288b0ffc6a5dfb066c65052bdb8cf62fbb80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
