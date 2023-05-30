@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10405991_70605b51",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:30:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f729ad04_4fcb7bf6",
+      "range": {
+        "startLine": 217,
+        "startChar": 12,
+        "endLine": 217,
+        "endChar": 17
+      },
+      "revId": "e2908446304e0ac342ac92b830ee3b5b345a2de7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1a13f03_c8762ee3",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ebbaa3f_c3780b6b",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:30:00Z",
+      "side": 1,
+      "message": "Done. Made the static method.",
+      "parentUuid": "c1a13f03_c8762ee3",
+      "range": {
+        "startLine": 304,
+        "startChar": 12,
+        "endLine": 304,
+        "endChar": 18
+      },
+      "revId": "e2908446304e0ac342ac92b830ee3b5b345a2de7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5637b9ad_9efb3ed4",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-05-25T05:57:10Z",
       "side": 1,
       "message": "Why can this happen ? It shouldn\u0027t ; it seems something was missing in the setup.",
+      "range": {
+        "startLine": 371,
+        "startChar": 8,
+        "endLine": 371,
+        "endChar": 40
+      },
+      "revId": "e2908446304e0ac342ac92b830ee3b5b345a2de7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65b757d3_1adf706e",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:30:00Z",
+      "side": 1,
+      "message": "It was more to ensure the linkProperties does not get reset every time since it was previously only `mNai.linkProperties \u003d new LinkProperties();`.\n \nMoved the initialisation to setup() so it is not needed here.",
+      "parentUuid": "5637b9ad_9efb3ed4",
       "range": {
         "startLine": 371,
         "startChar": 8,
