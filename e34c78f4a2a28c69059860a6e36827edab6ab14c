@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3028c8be_5d8a345c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 11300,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T06:44:58Z",
+      "side": 1,
+      "message": "This refers to the local proxy server that the phone is starting on localhost. When we first connect to a network with a PAC proxy, we know the PAC URL, but we haven\u0027t started the local server that will interpret the javascript. So the ProxyInfo contains the URL, but it doesn\u0027t yet contain the port on which the local server will start, since it\u0027s not started yet.\n\nLater, that server has started, and we learn on what port it has started. This is when we can fill in the link properties.\n\nAdded detailed comments.",
+      "parentUuid": "da37291f_5c9dda39",
+      "range": {
+        "startLine": 11300,
+        "startChar": 37,
+        "endLine": 11300,
+        "endChar": 46
+      },
+      "revId": "e34c78f4a2a28c69059860a6e36827edab6ab14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abba1c7c_c7bbb447",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-05-29T10:05:39Z",
       "side": 1,
       "message": "What is the default proxy?\nDoes it means the global proxy or the proxy of default network?\nFrom the (very confusing) documentation,\n\"Retrieve the global HTTP proxy, or if no global HTTP proxy is set, a\n network-specific HTTP proxy.  If {@code network} is null, the\n network-specific proxy returned is the proxy of the default active\n network.\"\nIt seems to me this will return the proxy info of default network since the global proxy is not set. If so, is it better to:\n  1. name it unstartedDefaultNetworkProxyInfo to be more clear?\n  2. avoid using the term \"default proxy\"?",
+      "range": {
+        "startLine": 11303,
+        "startChar": 61,
+        "endLine": 11303,
+        "endChar": 85
+      },
+      "revId": "e34c78f4a2a28c69059860a6e36827edab6ab14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e09f468_f15423f8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 11303,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T06:44:58Z",
+      "side": 1,
+      "message": "The \"default\" proxy is the proxy for the default network. While calling \"default proxy\" the result of `getProxyForNetwork(null)` might be confusing, it\u0027s also appropriate because it\u0027s the same thing as `ConnectivityManager#getDefaultProxy`.\n\nAdded comments.",
+      "parentUuid": "abba1c7c_c7bbb447",
       "range": {
         "startLine": 11303,
         "startChar": 61,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86e10375_5e6555ba",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 11321,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T06:44:58Z",
+      "side": 1,
+      "message": "Added the check you suggested. Also added doc about the JVM properties.",
+      "parentUuid": "43f31291_9881d1a6",
+      "range": {
+        "startLine": 11321,
+        "startChar": 86,
+        "endLine": 11321,
+        "endChar": 87
+      },
+      "revId": "e34c78f4a2a28c69059860a6e36827edab6ab14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9971582_6f22f6cc",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-05-29T10:05:39Z",
       "side": 1,
       "message": "IIUC this split the test into 2 half parts?\nIf so, can we:\n  1. split the test into 2 tests (unstarted/started). Or\n  2. Move this comment before l.11323 to make it more visible?",
+      "range": {
+        "startLine": 11325,
+        "startChar": 8,
+        "endLine": 11325,
+        "endChar": 83
+      },
+      "revId": "e34c78f4a2a28c69059860a6e36827edab6ab14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa444c25_f38fb1a8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 11325,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T06:44:58Z",
+      "side": 1,
+      "message": "No we can\u0027t – a large part of the value of this test is to test the startup sequence of the local server. Moved the comment.",
+      "parentUuid": "b9971582_6f22f6cc",
       "range": {
         "startLine": 11325,
         "startChar": 8,
