@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef757dbc_5b02e2c2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-30T08:22:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a58a72e8_ec891ffa",
+      "range": {
+        "startLine": 112,
+        "startChar": 21,
+        "endLine": 112,
+        "endChar": 49
+      },
+      "revId": "fbb01b4bdb09c0f4792639b9c918a71a6c39638c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efbc93a7_fd9c73b7",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-05-30T07:41:38Z",
       "side": 1,
       "message": "Elsewhere we use this.handlerThread. Any reason not to be consistent?",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 25
+      },
+      "revId": "fbb01b4bdb09c0f4792639b9c918a71a6c39638c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6115d5c6_b8d6b29e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-05-30T08:22:29Z",
+      "side": 1,
+      "message": "Updated. To remove the inconsistent",
+      "parentUuid": "efbc93a7_fd9c73b7",
       "range": {
         "startLine": 133,
         "startChar": 12,
