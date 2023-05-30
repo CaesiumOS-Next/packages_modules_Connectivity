@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b66bb7ba_6bd35331",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T08:25:17Z",
+      "side": 1,
+      "message": "By \"a static method\" I didn\u0027t mean you\u0027d make the member static. Just that you\u0027d pass it by argument. With a static member you\u0027re going to try and close some sockets many times (e.g. if you have 2 instances or even after 2 tests)",
+      "parentUuid": "3ebbaa3f_c3780b6b",
+      "range": {
+        "startLine": 304,
+        "startChar": 12,
+        "endLine": 304,
+        "endChar": 18
+      },
+      "revId": "e2908446304e0ac342ac92b830ee3b5b345a2de7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5637b9ad_9efb3ed4",
         "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
         "patchSetId": 9

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dcde192_28281f2a",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T08:25:17Z",
+      "side": 1,
+      "message": "It doesn\u0027t sound very wise to verify a call to `asBinder` since by definition this is an internal implementation detail. In other words : can you make the code correct and this test fail ? Well yes very easily. So you shouldn\u0027t check for that.\n\nHmmmm I\u0027m not sure your previous version where you were checking onStopped and onError explicitly was worse. It\u0027s hard to tell – verifyNoMoreInteractions is much better than testing for these 2, but asBinder is really none of the business of the test...\n\nI\u0027m not too sure. I\u0027m happy to take whichever solution you prefer, unless we find a third way that\u0027s better",
+      "revId": "ba892ed229f26896e3f5b382c789a16e71d9f14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
