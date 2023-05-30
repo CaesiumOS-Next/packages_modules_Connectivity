@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7c8a86a_803a4c80",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:36:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1721a133_0c8f7b39",
+      "range": {
+        "startLine": 411,
+        "startChar": 8,
+        "endLine": 411,
+        "endChar": 10
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5441a1c_152f1a7d",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-05-25T06:52:30Z",
       "side": 1,
       "message": "final\n\nOr, only allocate if necessary – init with null and if you find any invalid KI then you assign to `new ArrayList\u003c\u003e` if null.",
+      "range": {
+        "startLine": 651,
+        "startChar": 8,
+        "endLine": 651,
+        "endChar": 17
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ab77ed_d82c2a0b",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:36:44Z",
+      "side": 1,
+      "message": "Done. Only allocate if necessary.",
+      "parentUuid": "a5441a1c_152f1a7d",
       "range": {
         "startLine": 651,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6205a7bf_2c57172b",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:36:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "828cd67d_3230c43b",
+      "range": {
+        "startLine": 653,
+        "startChar": 13,
+        "endLine": 653,
+        "endChar": 36
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6afe9af8_75efaa76",
@@ -105,6 +177,53 @@
         "startChar": 13,
         "endLine": 660,
         "endChar": 17
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "355971dd_2126934f",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:36:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6afe9af8_75efaa76",
+      "range": {
+        "startLine": 660,
+        "startChar": 13,
+        "endLine": 660,
+        "endChar": 17
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d18d77f_891404bf",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:36:44Z",
+      "side": 1,
+      "message": "The error here should also be ERROR_UNSUPPORTED. \nIt is currently SUCCESS, which would cause an onStopped callback when the keepalive is not even started.",
+      "range": {
+        "startLine": 390,
+        "startChar": 57,
+        "endLine": 390,
+        "endChar": 62
       },
       "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -133,6 +252,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7ee7fa7_e768ab6c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:36:44Z",
+      "side": 1,
+      "message": "Changed it to return true when it works and false when it fails.\n\nIn this method, unless new reason constants are created, returning a SocketKeepalive reason would not be enough to know that the error that occured stopped the keepalive (the else case intentionally does not stop the keepalive).\nWhether the keepalive is stopped is the information that is important here.\n\n\u003eIf you return a reason, this code becomes natural, and the code that decides whether to clean up lives in a more logical place.\n\nThe problem, I think, is that the code that decides whether to clean up is here already. Or do you suggest removing the handleStopKeepalive from this method (then rely on callers to call the handleStop)?\n\nNow the return value is defined to be \"false if the keepalive is forced to be stopped and was not already STOPPING.\" \nHopefully this is now more natural as it is not forcing the only case to be \"failed to start due to underlying\" and informs of the keepalive being stopped.",
+      "parentUuid": "7f973990_78f9edf9",
+      "range": {
+        "startLine": 631,
+        "startChar": 57,
+        "endLine": 631,
+        "endChar": 72
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e69586a2_774fa90f",
@@ -146,6 +289,24 @@
       "writtenOn": "2023-05-25T06:52:30Z",
       "side": 1,
       "message": "Let\u0027s move this `return` inside the else, so that you can\u0027t add an `else if` block and forget to consider what to return. You\u0027ll need to add one in l.674, which also makes things clearer.",
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf286968_3d5f7478",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-05-30T06:36:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e69586a2_774fa90f",
       "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
