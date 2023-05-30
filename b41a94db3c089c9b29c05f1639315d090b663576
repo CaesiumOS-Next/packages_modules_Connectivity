@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c04525dd_0bccb6a5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-30T02:10:03Z",
+      "side": 1,
+      "message": "Stupid question: Do we know what causes the flake?\nIt seems to me this is a recent symptom?",
+      "range": {
+        "startLine": 802,
+        "startChar": 92,
+        "endLine": 802,
+        "endChar": 95
+      },
+      "revId": "b41a94db3c089c9b29c05f1639315d090b663576",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
