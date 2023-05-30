@@ -156,6 +156,7 @@ import static android.system.OsConstants.IPPROTO_TCP;
 import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_HIGH;
 import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_LOW;
 
+import static com.android.server.ConnectivityService.DELAY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.KEY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED;
@@ -2125,6 +2126,8 @@ public class ConnectivityServiceTest {
                     return true;
                 case KEY_DESTROY_FROZEN_SOCKETS_VERSION:
                     return true;
+                case DELAY_DESTROY_FROZEN_SOCKETS_VERSION:
+                    return true;
                 default:
                     return super.isFeatureEnabled(context, name);
             }
@@ -2275,7 +2278,9 @@ public class ConnectivityServiceTest {
         @Override @SuppressWarnings("DirectInvocationOnMock")
         public void destroyLiveTcpSocketsByOwnerUids(final Set<Integer> ownerUids) {
             // Call mocked destroyLiveTcpSocketsByOwnerUids so that test can verify this method call
-            mDestroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(ownerUids);
+            // Create copy of ownerUids so that tests can verify the correct value even if the
+            // ConnectivityService update the ownerUids after this method call.
+            mDestroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(new ArraySet<>(ownerUids));
         }
 
         final ArrayTrackRecord<Long>.ReadHead mScheduledEvaluationTimeouts =
@@ -18677,6 +18682,96 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(Set.of(TEST_FROZEN_UID));
+    }
+
+    private void doTestDelayFrozenUidSocketDestroy(int transportType, boolean inactiveNetwork,
+            boolean expectDelay) throws Exception {
+        ArgumentCaptor<UidFrozenStateChangedCallback> activityManagerCallbackCaptor =
+                ArgumentCaptor.forClass(UidFrozenStateChangedCallback.class);
+        verify(mActivityManager).registerUidFrozenStateChangedCallback(any(),
+                activityManagerCallbackCaptor.capture());
+
+        ArgumentCaptor<BaseNetdUnsolicitedEventListener> netdCallbackCaptor =
+                ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
+        verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
+
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(transportToTestIfaceName(transportType));
+        final TestNetworkAgentWrapper agent = new TestNetworkAgentWrapper(transportType, lp);
+        agent.connect(true);
+        final int netId = agent.getNetwork().netId;
+
+        if (inactiveNetwork) {
+            // Make network inactive
+            netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
+                    netId, TIMESTAMP, NETWORK_ACTIVITY_NO_UID);
+        }
+
+        // Freeze TEST_FROZEN_UID and TEST_UNFROZEN_UID
+        final int[] uids1 = {TEST_FROZEN_UID, TEST_UNFROZEN_UID};
+        final int[] frozenStates1 = {UID_FROZEN_STATE_FROZEN, UID_FROZEN_STATE_FROZEN};
+        activityManagerCallbackCaptor.getValue().onUidFrozenStateChanged(uids1, frozenStates1);
+
+        waitForIdle();
+        if (expectDelay) {
+            verify(mDestroySocketsWrapper, never()).destroyLiveTcpSocketsByOwnerUids(any());
+        } else {
+            verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(
+                    Set.of(TEST_FROZEN_UID, TEST_UNFROZEN_UID));
+            reset(mDestroySocketsWrapper);
+        }
+
+        // Unfreeze TEST_UNFROZEN_UID
+        final int[] uids2 = {TEST_UNFROZEN_UID};
+        final int[] frozenStates2 = {UID_FROZEN_STATE_UNFROZEN};
+        activityManagerCallbackCaptor.getValue().onUidFrozenStateChanged(uids2, frozenStates2);
+
+        // Make network active
+        netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
+                netId, TIMESTAMP, TEST_PACKAGE_UID);
+
+        waitForIdle();
+        if (expectDelay) {
+            verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(
+                    Set.of(TEST_FROZEN_UID));
+        } else {
+            verify(mDestroySocketsWrapper, never()).destroyLiveTcpSocketsByOwnerUids(any());
+        }
+        agent.disconnect();
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDelayFrozenUidSocketDestroy_ActiveCellular() throws Exception {
+        // When the default network is cellular and cellular network is active, closing socket is
+        // not delayed.
+        doTestDelayFrozenUidSocketDestroy(TRANSPORT_CELLULAR,
+                false /* inactiveNetwork */, false /* expectDelay */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDelayFrozenUidSocketDestroy_InactiveCellular() throws Exception {
+        // When the default network is cellular and cellular network is inactive, closing socket
+        // is delayed.
+        doTestDelayFrozenUidSocketDestroy(TRANSPORT_CELLULAR,
+                true/* inactiveNetwork */, true /* expectDelay */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDelayFrozenUidSocketDestroy_ActiveWifi() throws Exception {
+        // When the default network is Wi-Fi, closing socket is not delayed.
+        doTestDelayFrozenUidSocketDestroy(TRANSPORT_WIFI,
+                false /* inactiveNetwork */, false /* expectDelay */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDelayFrozenUidSocketDestroy_InactiveWifi() throws Exception {
+        // When the default network is Wi-Fi, closing socket is not delayed.
+        doTestDelayFrozenUidSocketDestroy(TRANSPORT_WIFI,
+                true/* inactiveNetwork */, false /* expectDelay */);
     }
 
     @Test
