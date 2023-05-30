@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "076b9631_aa9e5d7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-30T06:03:29Z",
+      "side": 1,
+      "message": "Can you explain why the empty startDiscovery method needs to be added in this change ? This would be hard to understand for other reviewers otherwise",
+      "revId": "f1e2898f94999f15af67a7565692a5191318efcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6339324_d29c0823",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-30T06:03:29Z",
+      "side": 1,
+      "message": "Still LGTM",
+      "revId": "f1e2898f94999f15af67a7565692a5191318efcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
