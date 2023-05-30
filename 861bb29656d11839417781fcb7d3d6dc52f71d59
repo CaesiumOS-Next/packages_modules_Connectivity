@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2c94bf5_305a4b87",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10968,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T04:03:24Z",
+      "side": 1,
+      "message": "Please have javadoc comments explaining what this represents",
+      "range": {
+        "startLine": 10968,
+        "startChar": 31,
+        "endLine": 10968,
+        "endChar": 52
+      },
+      "revId": "861bb29656d11839417781fcb7d3d6dc52f71d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2791317e_a0966202",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10970,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T04:03:24Z",
+      "side": 1,
+      "message": "Please have comments about what this label is (intuitively a label should be a string, so I don\u0027t know what this is)",
+      "range": {
+        "startLine": 10970,
+        "startChar": 25,
+        "endLine": 10970,
+        "endChar": 30
+      },
+      "revId": "861bb29656d11839417781fcb7d3d6dc52f71d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9522f30_c9a5c8d6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10972,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T04:03:24Z",
+      "side": 1,
+      "message": "Whose UID is this ?",
+      "range": {
+        "startLine": 10972,
+        "startChar": 25,
+        "endLine": 10972,
+        "endChar": 28
+      },
+      "revId": "861bb29656d11839417781fcb7d3d6dc52f71d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
