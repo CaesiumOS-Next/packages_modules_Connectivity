@@ -935,6 +935,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final Map<String, ApplicationSelfCertifiedNetworkCapabilities>
             mSelfCertifiedCapabilityCache = new HashMap<>();
 
+    // Flag to enable the feature of closing frozen app sockets.
+    private final boolean mDestroyFrozenSockets;
+
+    // Flag to optimize closing frozen app sockets by waiting for the cellular modem to wake up.
+    private final boolean mDelayDestroyFrozenSockets;
+
+    // Uids that ConnectivityService is pending to close sockets of.
+    private final Set<Integer> mPendingFrozenUids = new ArraySet<>();
+
     /**
      * Implements support for the legacy "one network per network type" model.
      *
@@ -1773,8 +1782,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mCdmps = null;
         }
 
-        if (mDeps.isAtLeastU()
-                && mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION)) {
+        mDestroyFrozenSockets = mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION);
+        mDelayDestroyFrozenSockets =
+                mDeps.isFeatureEnabled(context, DELAY_DESTROY_FROZEN_SOCKETS_VERSION);
+        if (mDeps.isAtLeastU() && mDestroyFrozenSockets) {
             final UidFrozenStateChangedCallback frozenStateChangedCallback =
                     new UidFrozenStateChangedCallback() {
                 @Override
@@ -2990,10 +3001,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (int i = 0; i < uids.length; i++) {
             if (frozenStates[i] == UID_FROZEN_STATE_FROZEN) {
                 ownerUids.add(uids[i]);
+            } else {
+                mPendingFrozenUids.remove(uids[i]);
             }
         }
 
-        if (!ownerUids.isEmpty()) {
+        if (ownerUids.isEmpty()) {
+            return;
+        }
+
+        final NetworkAgentInfo defaultNai = getDefaultNetwork();
+        if (mDelayDestroyFrozenSockets
+                && defaultNai != null
+                && defaultNai.networkCapabilities.hasTransport(TRANSPORT_CELLULAR)
+                && !mNetworkActivityTracker.isDefaultNetworkActive()) {
+            // Having the cellular default network doesn't mean all the sockets are using the
+            // cellular network.
+            // But use the default network to approximate the networks sockets are using.
+            mPendingFrozenUids.addAll(ownerUids);
+        } else {
             try {
                 mDeps.destroyLiveTcpSocketsByOwnerUids(ownerUids);
             } catch (Exception e) {
@@ -3002,8 +3028,61 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private void closePendingFrozenSockets() {
+        try {
+            mDeps.destroyLiveTcpSocketsByOwnerUids(mPendingFrozenUids);
+            mPendingFrozenUids.clear();
+        } catch (Exception e) {
+            loge("Failed to close pending frozen app sockets: " + e);
+        }
+    }
+
+    private void handleReportNetworkActivity(final NetworkActivityParams params) {
+        mNetworkActivityTracker.handleReportNetworkActivity(params);
+
+        if (mDeps.isAtLeastU()
+                && mDelayDestroyFrozenSockets
+                && params.isActive
+                && params.label == TRANSPORT_CELLULAR
+                && !mPendingFrozenUids.isEmpty()) {
+            closePendingFrozenSockets();
+        }
+    }
+
+    /**
+     * If the cellular network is no longer the default network, close pending frozen sockets.
+     *
+     * @param newNetwork new default network
+     * @param oldNetwork old default network
+     */
+    private void maybeClosePendingFrozenSockets(NetworkAgentInfo newNetwork,
+            NetworkAgentInfo oldNetwork) {
+        final boolean isOldNetworkCellular = oldNetwork != null
+                && oldNetwork.networkCapabilities.hasTransport(TRANSPORT_CELLULAR);
+        final boolean isNewNetworkCellular = newNetwork != null
+                && newNetwork.networkCapabilities.hasTransport(TRANSPORT_CELLULAR);
+
+        if (isOldNetworkCellular
+                && !isNewNetworkCellular
+                && !mPendingFrozenUids.isEmpty()) {
+            closePendingFrozenSockets();
+        }
+    }
+
+    private void dumpCloseFrozenAppSockets(IndentingPrintWriter pw) {
+        pw.println("CloseFrozenAppSockets:");
+        pw.increaseIndent();
+        pw.print("mDestroyFrozenSockets="); pw.println(mDestroyFrozenSockets);
+        pw.print("mDelayDestroyFrozenSockets="); pw.println(mDelayDestroyFrozenSockets);
+        pw.print("mPendingFrozenUids="); pw.println(mPendingFrozenUids);
+        pw.decreaseIndent();
+    }
+
     @VisibleForTesting
     static final String KEY_DESTROY_FROZEN_SOCKETS_VERSION = "destroy_frozen_sockets_version";
+    @VisibleForTesting
+    static final String DELAY_DESTROY_FROZEN_SOCKETS_VERSION =
+            "delay_destroy_frozen_sockets_version";
 
     private void enforceInternetPermission() {
         mContext.enforceCallingOrSelfPermission(
@@ -3604,6 +3683,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         pw.println();
         dumpAvoidBadWifiSettings(pw);
+
+        pw.println();
+        dumpCloseFrozenAppSockets(pw);
 
         pw.println();
 
@@ -4672,6 +4754,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     //  incorrect) behavior.
                     mNetworkActivityTracker.updateDataActivityTracking(
                             null /* newNetwork */, nai);
+                    maybeClosePendingFrozenSockets(null /* newNetwork */, nai);
                     ensureNetworkTransitionWakelock(nai.toShortString());
                 }
             }
@@ -5878,7 +5961,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
                 case EVENT_REPORT_NETWORK_ACTIVITY:
                     final NetworkActivityParams arg = (NetworkActivityParams) msg.obj;
-                    mNetworkActivityTracker.handleReportNetworkActivity(arg);
+                    handleReportNetworkActivity(arg);
                     break;
                 case EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED:
                     handleMobileDataPreferredUidsChanged();
@@ -9118,6 +9201,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mLingerMonitor.noteLingerDefaultNetwork(oldDefaultNetwork, newDefaultNetwork);
         }
         mNetworkActivityTracker.updateDataActivityTracking(newDefaultNetwork, oldDefaultNetwork);
+        maybeClosePendingFrozenSockets(newDefaultNetwork, oldDefaultNetwork);
         mProxyTracker.setDefaultProxy(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getHttpProxy() : null);
         resetHttpProxyForNonDefaultNetwork(oldDefaultNetwork);
