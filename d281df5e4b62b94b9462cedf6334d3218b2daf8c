@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be2b8318_306513ea",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-30T04:20:44Z",
+      "side": 1,
+      "message": "Done. It was renaming to sourcePrefix inside BpfCoordinatorShimImpl and Ipv6ForwardingRule, but still using upstreamPrefix in other places, which means we are passing the upstream\u0027s prefixes as the source prefixes of the forwarding rules.",
+      "parentUuid": "0a1c7ae0_742982eb",
+      "range": {
+        "startLine": 206,
+        "startChar": 36,
+        "endLine": 206,
+        "endChar": 52
+      },
+      "revId": "d281df5e4b62b94b9462cedf6334d3218b2daf8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "082f46a7_86d1ad55",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-24T01:39:52Z",
       "side": 1,
       "message": "RFC7421_PREFIX_LENGTH",
+      "range": {
+        "startLine": 211,
+        "startChar": 46,
+        "endLine": 211,
+        "endChar": 48
+      },
+      "revId": "d281df5e4b62b94b9462cedf6334d3218b2daf8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "810c492c_59ee3a1e",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-30T04:20:44Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "082f46a7_86d1ad55",
       "range": {
         "startLine": 211,
         "startChar": 46,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2f95c3_cfec6912",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-30T04:20:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28b59e55_92b676f3",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 82
+      },
+      "revId": "d281df5e4b62b94b9462cedf6334d3218b2daf8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfe51eb8_8b711ddb",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-24T01:39:52Z",
       "side": 1,
       "message": "Is there a reason that the caller has to pass in the prefixes when stopping forwarding, as well as when starting forwarding? Could/should the code remember these prefixes instead?",
+      "range": {
+        "startLine": 105,
+        "startChar": 12,
+        "endLine": 105,
+        "endChar": 52
+      },
+      "revId": "d281df5e4b62b94b9462cedf6334d3218b2daf8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74afc570_bd07bcea",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-30T04:20:44Z",
+      "side": 1,
+      "message": "Removed the prefixes argument when stopping forwarding, looking in the rules using downstream ifindex and mac. But the prefixes in starting forwarding can\u0027t be removed because it is the only place that passing the prefixes into the shim APIs.",
+      "parentUuid": "bfe51eb8_8b711ddb",
       "range": {
         "startLine": 105,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23263d27_eb3561a9",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-30T04:20:44Z",
+      "side": 1,
+      "message": "Changed to Set. You\u0027re right, it will have problems if the upstream has two IPv6 addresses in the same prefix.",
+      "parentUuid": "20d47254_f30eab8a",
+      "range": {
+        "startLine": 285,
+        "startChar": 12,
+        "endLine": 285,
+        "endChar": 16
+      },
+      "revId": "d281df5e4b62b94b9462cedf6334d3218b2daf8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "640084bd_4ffd31ef",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-05-24T01:39:52Z",
       "side": 1,
       "message": "AFAICT, currently this class represents an IPv6 forwarding rule and corresponds to exactly one map entry. But after your CL, there will be multiple map entries for each Ipv6ForwardingRule, right? I think that will be confusing. Is there a reason we can\u0027t have one Ipv6ForwardingRule for each map entry?",
+      "range": {
+        "startLine": 1412,
+        "startChar": 24,
+        "endLine": 1412,
+        "endChar": 42
+      },
+      "revId": "d281df5e4b62b94b9462cedf6334d3218b2daf8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2d4252d_9aadb2a7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1412,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-05-30T04:20:44Z",
+      "side": 1,
+      "message": "Currently, each Ipv6ForwardingRule will add one downstream map entry and probably one upstream map entry when the (downstream, upstream) pair is first seen.\nAfter this modification, the \"one upstream map entry\" will be changed to \"N upstream map entries\".\n\nThe other ways to do this is the Ipv6ForwardingRule only store one source prefix which is relevant to the downstream (neighbor) address. Two things will be different:\n1. How to get the source prefix?\na. look up in the upstream prefixes using the neighbor address. This may have concurrency issue: the neighbor event arrives before the upstream link properties callback, we didn\u0027t store the neighbor entries now. But of course this is very unlikely to happen.\nb. Retrieve directly from the neighbor address, get its first 64 bits\n2. We will call start/stop forwarding for each (upstream, downstream, prefix) tuple instead of current (upstream, downstream) pair.\n\nThe source prefix here seems a little bit duplicate with the neighbor address because we only support prefix length of 64 now, we can always retrieve the source prefix from the neighbor address, no need to store it separately.",
+      "parentUuid": "640084bd_4ffd31ef",
       "range": {
         "startLine": 1412,
         "startChar": 24,
