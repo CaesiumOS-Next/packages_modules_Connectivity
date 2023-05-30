@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bdf1605_e666e361",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-30T07:41:38Z",
+      "side": 1,
+      "message": "LGTM. I think we should unify the two constructors per suggestion inline, but that needn\u0027t block this CL.",
+      "revId": "fbb01b4bdb09c0f4792639b9c918a71a6c39638c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a58a72e8_ec891ffa",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-30T07:41:38Z",
+      "side": 1,
+      "message": "I was expecting these constructors to take a Looper or Handler. But per in-person discussion, it looks like the design here is to fetch the Handler from the socket client to ensure that the looper is the same one being used by the client.\n\nThat makes sense, but it does mean that these two constructors are mostly duplicating code. Is it possible to have only one constructor if we add the getLooper method to MdnsSocketClientBase instead of to MdnsMultinetworkSocketClient? Something like this?\n\n    public MdnsDiscoveryManager(@NonNull ExecutorProvider executorProvider,\n            @NonNull MdnsSocketClientBase socketClient, @NonNull SharedLog sharedLog) {\n        this.executorProvider \u003d executorProvider;\n        this.socketClient \u003d socketClient;\n        this.sharedLog \u003d sharedLog;\n        this.perNetworkServiceTypeClients \u003d new PerNetworkServiceTypeClients();\n        if (socketClient.getLooper !\u003d null) {\n            this.handlerThread \u003d null;\n            this.handler \u003d new Handler(socketClient.getLooper());\n        } else {\n            this.handlerThread \u003d new HandlerThread(MdnsDiscoveryManager.class.getSimpleName());\n            this.handlerThread.start();\n            this.handler \u003d new Handler(handlerThread.getLooper());\n        }\n    }",
+      "range": {
+        "startLine": 112,
+        "startChar": 21,
+        "endLine": 112,
+        "endChar": 49
+      },
+      "revId": "fbb01b4bdb09c0f4792639b9c918a71a6c39638c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efbc93a7_fd9c73b7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-05-30T07:41:38Z",
+      "side": 1,
+      "message": "Elsewhere we use this.handlerThread. Any reason not to be consistent?",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 25
+      },
+      "revId": "fbb01b4bdb09c0f4792639b9c918a71a6c39638c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
