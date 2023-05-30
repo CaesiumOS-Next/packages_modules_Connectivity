@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe0cad70_35482fc0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 11020,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-05-30T04:32:30Z",
+      "side": 1,
+      "message": "Just use Network. If you want to use int, use a SparseArray instead.",
+      "range": {
+        "startLine": 11020,
+        "startChar": 31,
+        "endLine": 11020,
+        "endChar": 38
+      },
+      "revId": "00a85e57cb12a4c30a39ccf24479668f572baf62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
