@@ -49,6 +49,8 @@ import com.android.net.module.util.bpf.ClatEgress4Key;
 import com.android.net.module.util.bpf.ClatEgress4Value;
 import com.android.net.module.util.bpf.ClatIngress6Key;
 import com.android.net.module.util.bpf.ClatIngress6Value;
+import com.android.net.module.util.bpf.ClatStatsKey;
+import com.android.net.module.util.bpf.ClatStatsValue;
 import com.android.net.module.util.bpf.CookieTagMapKey;
 import com.android.net.module.util.bpf.CookieTagMapValue;
 
@@ -111,6 +113,7 @@ public class ClatCoordinator {
             "/sys/fs/bpf/netd_shared/map_netd_cookie_tag_map";
     private static final String CLAT_EGRESS4_MAP_PATH = makeMapPath("egress4");
     private static final String CLAT_INGRESS6_MAP_PATH = makeMapPath("ingress6");
+    private static final String CLAT_STATS_MAP_PATH = makeMapPath("stats");
 
     private static String makeMapPath(String which) {
         return "/sys/fs/bpf/net_shared/map_clatd_clat_" + which + "_map";
@@ -134,6 +137,8 @@ public class ClatCoordinator {
     private final IBpfMap<ClatEgress4Key, ClatEgress4Value> mEgressMap;
     @Nullable
     private final IBpfMap<CookieTagMapKey, CookieTagMapValue> mCookieTagMap;
+    @Nullable
+    private final IBpfMap<ClatStatsKey, ClatStatsValue> mStatsMap;
     @Nullable
     private ClatdTracker mClatdTracker = null;
 
@@ -287,6 +292,18 @@ public class ClatCoordinator {
             }
         }
 
+        /** Get stats BPF map. */
+        @Nullable
+        public IBpfMap<ClatStatsKey, ClatStatsValue> getBpfStatsMap() {
+            try {
+                return new BpfMap<>(CLAT_STATS_MAP_PATH,
+                    BpfMap.BPF_F_RDWR, ClatStatsKey.class, ClatStatsValue.class);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot create stats map: " + e);
+                return null;
+            }
+        }
+
         /** Checks if the network interface uses an ethernet L2 header. */
         public boolean isEthernet(String iface) throws IOException {
             return TcUtils.isEthernet(iface);
@@ -397,6 +414,7 @@ public class ClatCoordinator {
         mIngressMap = mDeps.getBpfIngress6Map();
         mEgressMap = mDeps.getBpfEgress4Map();
         mCookieTagMap = mDeps.getBpfCookieTagMap();
+        mStatsMap = mDeps.getBpfStatsMap();
     }
 
     private void maybeStartBpf(final ClatdTracker tracker) {
@@ -438,6 +456,26 @@ public class ClatCoordinator {
             return;
         }
 
+        final ClatStatsKey statsKey = new ClatStatsKey(tracker.ifIndex);
+        final ClatStatsValue statsValue = new ClatStatsValue(0, 0, 0, 0, 0, 0, 0, 0);
+        try {
+            mStatsMap.insertEntry(statsKey, statsValue);
+        } catch (ErrnoException | IllegalStateException e) {
+            Log.e(TAG, "Could not insert entry (" + statsKey + ", " + statsValue
+                    + ") to stats map: " + e);
+            try {
+                mEgressMap.deleteEntry(txKey);
+            } catch (ErrnoException | IllegalStateException e2) {
+                Log.e(TAG, "Could not delete entry (" + txKey + ") from egress map: " + e2);
+            }
+            try {
+                mIngressMap.deleteEntry(rxKey);
+            } catch (ErrnoException | IllegalStateException e3) {
+                Log.e(TAG, "Could not delete entry (" + rxKey + ") from ingress map: " + e3);
+            }
+            return;
+        }
+
         // Usually the clsact will be added in netd RouteController::addInterfaceToPhysicalNetwork.
         // But clat is started before the v4- interface is added to the network. The clat startup
         // have to add clsact of v4- tun interface first for adding bpf filter in maybeStartBpf.
@@ -456,6 +494,11 @@ public class ClatCoordinator {
                 mIngressMap.deleteEntry(rxKey);
             } catch (ErrnoException | IllegalStateException e3) {
                 Log.e(TAG, "Could not delete entry (" + rxKey + ") from ingress map: " + e3);
+            }
+            try {
+                mStatsMap.deleteEntry(statsKey);
+            } catch (ErrnoException | IllegalStateException e4) {
+                Log.e(TAG, "Could not delete entry (" + statsKey + ") from stats map: " + e4);
             }
             return;
         }
@@ -483,6 +526,11 @@ public class ClatCoordinator {
                 mIngressMap.deleteEntry(rxKey);
             } catch (ErrnoException | IllegalStateException e3) {
                 Log.e(TAG, "Could not delete entry (" + rxKey + ") from ingress map: " + e3);
+            }
+            try {
+                mStatsMap.deleteEntry(statsKey);
+            } catch (ErrnoException | IllegalStateException e4) {
+                Log.e(TAG, "Could not delete entry (" + statsKey + ") from stats map: " + e4);
             }
             return;
         }
@@ -515,6 +563,11 @@ public class ClatCoordinator {
                 mIngressMap.deleteEntry(rxKey);
             } catch (ErrnoException | IllegalStateException e4) {
                 Log.e(TAG, "Could not delete entry (" + rxKey + ") from ingress map: " + e4);
+            }
+            try {
+                mStatsMap.deleteEntry(statsKey);
+            } catch (ErrnoException | IllegalStateException e5) {
+                Log.e(TAG, "Could not delete entry (" + statsKey + ") from stats map: " + e5);
             }
             return;
         }
@@ -818,6 +871,13 @@ public class ClatCoordinator {
         } catch (ErrnoException | IllegalStateException e) {
             Log.e(TAG, "Could not delete entry (" + rxKey + "): " + e);
         }
+
+        final ClatStatsKey statsKey = new ClatStatsKey(tracker.ifIndex);
+        try {
+            mStatsMap.deleteEntry(statsKey);
+        } catch (ErrnoException | IllegalStateException e) {
+            Log.e(TAG, "Could not delete entry (" + statsKey + "): " + e);
+        }
     }
 
     /**
@@ -883,6 +943,29 @@ public class ClatCoordinator {
         }
     }
 
+    private void dumpBpfStats(@NonNull IndentingPrintWriter pw) {
+        if (mStatsMap == null) {
+            pw.println("No BPF stats map");
+            return;
+        }
+
+        try {
+            if (mStatsMap.isEmpty()) {
+                pw.println("<empty>");
+            }
+            pw.println("BPF stats:");
+            ClatStatsKey key = new ClatStatsKey(mClatdTracker.ifIndex);
+            ClatStatsValue value = mStatsMap.getValue(key);
+            if (value != null) {
+                pw.increaseIndent();
+                pw.println(String.format("%s: %s", key, value));
+                pw.decreaseIndent();
+            }
+        } catch (ErrnoException e) {
+            pw.println("Error dumping BPF stats map: " + e);
+        }
+    }
+
     /**
      * Dump the coordinator information.
      *
@@ -897,6 +980,7 @@ public class ClatCoordinator {
             pw.increaseIndent();
             dumpBpfIngress(pw);
             dumpBpfEgress(pw);
+            dumpBpfStats(pw);
             pw.decreaseIndent();
         } else {
             pw.println("<not started>");
