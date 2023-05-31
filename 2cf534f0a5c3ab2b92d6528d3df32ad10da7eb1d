@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "deb178c8_94d8589d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11039,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:58:26Z",
+      "side": 1,
+      "message": "I\u0027m not following.\nIf mDefaultNetwork is null, `mDefaultNetwork !\u003d netId` is not evaluated so I thought this is fine.",
+      "parentUuid": "f0ddc4cf_0983830e",
+      "range": {
+        "startLine": 11039,
+        "startChar": 16,
+        "endLine": 11039,
+        "endChar": 67
+      },
+      "revId": "2cf534f0a5c3ab2b92d6528d3df32ad10da7eb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d983f5db_73d00deb",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 20
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-30T04:45:02Z",
       "side": 1,
       "message": "Why can this happen ?\n- Either it can\u0027t happen and you should not have this code.\n- Or it can happen and you need to have a comment explaining when and why it happens.",
+      "range": {
+        "startLine": 11045,
+        "startChar": 0,
+        "endLine": 11047,
+        "endChar": 13
+      },
+      "revId": "2cf534f0a5c3ab2b92d6528d3df32ad10da7eb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee4097f0_67ded719",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11047,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:58:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d983f5db_73d00deb",
       "range": {
         "startLine": 11045,
         "startChar": 0,
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-30T04:45:02Z",
       "side": 1,
       "message": "Let\u0027s have this consistent with previous method : either say PreU/PostT or say UPlus/TMinus\n\n(note that pre-T here means up to S, because pre-X doesn\u0027t include X)",
+      "range": {
+        "startLine": 11058,
+        "startChar": 47,
+        "endLine": 11058,
+        "endChar": 51
+      },
+      "revId": "2cf534f0a5c3ab2b92d6528d3df32ad10da7eb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec2c9887_48ee7f24",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11058,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:58:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18bdb08e_1c51439d",
       "range": {
         "startLine": 11058,
         "startChar": 47,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a758c956_95b315b2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11131,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:58:26Z",
+      "side": 1,
+      "message": "This is a label for idleTimer.\nhttps://source.corp.google.com/h/android/platform/superproject/+/refs/heads/master:system/netd/server/IdletimerController.cpp;l\u003d149-158;drc\u003d7346c436e5a11ce08f6a80dcfeb8ef941ca30176\n\nBut, in U+, we use label(netId) as identifier of network activity change event.",
+      "parentUuid": "a998d19e_c78132b0",
+      "range": {
+        "startLine": 11131,
+        "startChar": 35,
+        "endLine": 11131,
+        "endChar": 40
+      },
+      "revId": "2cf534f0a5c3ab2b92d6528d3df32ad10da7eb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df00d0b9_c44472be",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 20
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66f23995_7c0b3d0b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11132,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:58:26Z",
+      "side": 1,
+      "message": "1) Platform code (BatteryStatsService via NMS) listen to this netd callback. aosp/2561090\n2) OEM could have code that depends on netd callback or idleTimers and they may assume label is transport type.\nSo I don\u0027t think we can change the meaning of label on T- devices.",
+      "parentUuid": "df00d0b9_c44472be",
+      "range": {
+        "startLine": 11132,
+        "startChar": 68,
+        "endLine": 11132,
+        "endChar": 81
+      },
+      "revId": "2cf534f0a5c3ab2b92d6528d3df32ad10da7eb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "835be106_a200dc41",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 20
@@ -129,6 +249,30 @@
       "writtenOn": "2023-05-30T04:45:02Z",
       "side": 1,
       "message": "Please sync to aosp/2606676 and use mDeps so you can check both versions on any device if needed",
+      "range": {
+        "startLine": 10633,
+        "startChar": 15,
+        "endLine": 10633,
+        "endChar": 23
+      },
+      "revId": "2cf534f0a5c3ab2b92d6528d3df32ad10da7eb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d97928f3_711ea0b1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 10633,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:58:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "835be106_a200dc41",
       "range": {
         "startLine": 10633,
         "startChar": 15,
