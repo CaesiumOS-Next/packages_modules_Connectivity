@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b111a6c7_3b01d80d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-31T12:23:51Z",
+      "side": 1,
+      "message": "I believe this method is still necessary. Please see my comment.",
+      "parentUuid": "a9bf8d79_0f962b03",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 9
+      },
+      "revId": "a6db7df5e88b9ee6799db595b1c0b733b11a8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70ed7443_7cd42bfa",
         "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
         "patchSetId": 1
@@ -66,6 +90,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bea2d23b_84ec0126",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-31T12:23:51Z",
+      "side": 1,
+      "message": "I don\u0027t think `NetworkKey` is a good name for this class because it is used to identify a socket, not a network. Additionally, the network may be null in this class, so it is not accurate to say that this is a key for a network.",
+      "parentUuid": "74a0cd2b_917310c0",
+      "range": {
+        "startLine": 160,
+        "startChar": 24,
+        "endLine": 160,
+        "endChar": 33
+      },
+      "revId": "a6db7df5e88b9ee6799db595b1c0b733b11a8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa79f779_193cc906",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-31T12:23:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70ed7443_7cd42bfa",
+      "revId": "a6db7df5e88b9ee6799db595b1c0b733b11a8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21522299_5053ba2e",
         "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
         "patchSetId": 1
@@ -77,6 +143,30 @@
       "writtenOn": "2023-05-23T10:01:15Z",
       "side": 1,
       "message": "Discussed with Remi offline, we shouldn\u0027t require both `Network` and `interfaceIndex` when constructing this object.\nWe should have two constructor, one take interfaceIndex(for downstream tethering interface) the other take Network (for other interface).",
+      "range": {
+        "startLine": 164,
+        "startChar": 6,
+        "endLine": 164,
+        "endChar": 73
+      },
+      "revId": "a6db7df5e88b9ee6799db595b1c0b733b11a8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8acef94_f53f001c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-05-31T12:23:51Z",
+      "side": 1,
+      "message": "To support downstream tethering interfaces, I added a constructor with an interfaceIndex parameter only. The Network parameter is always null for downstream tethering interfaces. For other interfaces, these parameters are available when creating a socket. Additionally, this change refactored the code so that the Network and interface index are now bundled together and can be provided to the user together.",
+      "parentUuid": "21522299_5053ba2e",
       "range": {
         "startLine": 164,
         "startChar": 6,
