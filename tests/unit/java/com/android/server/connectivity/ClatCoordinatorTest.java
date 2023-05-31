@@ -57,6 +57,8 @@ import com.android.net.module.util.bpf.ClatEgress4Key;
 import com.android.net.module.util.bpf.ClatEgress4Value;
 import com.android.net.module.util.bpf.ClatIngress6Key;
 import com.android.net.module.util.bpf.ClatIngress6Value;
+import com.android.net.module.util.bpf.ClatStatsKey;
+import com.android.net.module.util.bpf.ClatStatsValue;
 import com.android.net.module.util.bpf.CookieTagMapKey;
 import com.android.net.module.util.bpf.CookieTagMapValue;
 import com.android.testutils.DevSdkIgnoreRule;
@@ -133,6 +135,8 @@ public class ClatCoordinatorTest {
     private static final CookieTagMapKey COOKIE_TAG_KEY = new CookieTagMapKey(RAW_SOCK_COOKIE);
     private static final CookieTagMapValue COOKIE_TAG_VALUE = new CookieTagMapValue(AID_CLAT,
             0 /* tag, unused */);
+    private static final ClatStatsKey STATS_KEY = new ClatStatsKey(BASE_IFINDEX);
+    private static final ClatStatsValue STATS_VALUE = new ClatStatsValue(0, 0, 0, 0, 0, 0, 0, 0);
 
     private final TestBpfMap<ClatIngress6Key, ClatIngress6Value> mIngressMap =
             spy(new TestBpfMap<>(ClatIngress6Key.class, ClatIngress6Value.class));
@@ -140,6 +144,8 @@ public class ClatCoordinatorTest {
             spy(new TestBpfMap<>(ClatEgress4Key.class, ClatEgress4Value.class));
     private final TestBpfMap<CookieTagMapKey, CookieTagMapValue> mCookieTagMap =
             spy(new TestBpfMap<>(CookieTagMapKey.class, CookieTagMapValue.class));
+    private final TestBpfMap<ClatStatsKey, ClatStatsValue> mStatsMap =
+            spy(new TestBpfMap<>(ClatStatsKey.class, ClatStatsValue.class));
 
     @Mock private INetd mNetd;
     @Spy private TestDependencies mDeps = new TestDependencies();
@@ -344,6 +350,12 @@ public class ClatCoordinatorTest {
             return mCookieTagMap;
         }
 
+        /** Get Stats BPF map. */
+        @Override
+        public IBpfMap<ClatStatsKey, ClatStatsValue> getBpfStatsMap() {
+            return mStatsMap;
+        }
+
         /** Checks if the network interface uses an ethernet L2 header. */
         public boolean isEthernet(String iface) throws IOException {
             if (BASE_IFACE.equals(iface)) return true;
@@ -398,8 +410,9 @@ public class ClatCoordinatorTest {
     @Test
     public void testStartStopClatd() throws Exception {
         final ClatCoordinator coordinator = makeClatCoordinator();
-        final InOrder inOrder = inOrder(mNetd, mDeps, mIngressMap, mEgressMap, mCookieTagMap);
-        clearInvocations(mNetd, mDeps, mIngressMap, mEgressMap, mCookieTagMap);
+        final InOrder inOrder = inOrder(mNetd, mDeps, mIngressMap, mEgressMap, mCookieTagMap,
+                mStatsMap);
+        clearInvocations(mNetd, mDeps, mIngressMap, mEgressMap, mCookieTagMap, mStatsMap);
 
         // [1] Start clatd.
         final String addr6For464xlat = coordinator.clatStart(BASE_IFACE, NETID, NAT64_IP_PREFIX);
@@ -458,6 +471,7 @@ public class ClatCoordinatorTest {
                 eq(XLAT_LOCAL_IPV4ADDR_STRING), eq(XLAT_LOCAL_IPV6ADDR_STRING));
         inOrder.verify(mEgressMap).insertEntry(eq(EGRESS_KEY), eq(EGRESS_VALUE));
         inOrder.verify(mIngressMap).insertEntry(eq(INGRESS_KEY), eq(INGRESS_VALUE));
+        inOrder.verify(mStatsMap).insertEntry(eq(STATS_KEY), eq(STATS_VALUE));
         inOrder.verify(mDeps).tcQdiscAddDevClsact(eq(STACKED_IFINDEX));
         inOrder.verify(mDeps).tcFilterAddDevBpf(eq(STACKED_IFINDEX), eq(EGRESS),
                 eq((short) PRIO_CLAT), eq((short) ETH_P_IP), eq(EGRESS_PROG_PATH));
@@ -478,6 +492,7 @@ public class ClatCoordinatorTest {
                 eq((short) PRIO_CLAT), eq((short) ETH_P_IP));
         inOrder.verify(mEgressMap).deleteEntry(eq(EGRESS_KEY));
         inOrder.verify(mIngressMap).deleteEntry(eq(INGRESS_KEY));
+        inOrder.verify(mStatsMap).deleteEntry(eq(STATS_KEY));
         inOrder.verify(mDeps).stopClatd(eq(CLATD_PID));
         inOrder.verify(mCookieTagMap).deleteEntry(eq(COOKIE_TAG_KEY));
         assertNull(coordinator.getClatdTrackerForTesting());
@@ -521,7 +536,7 @@ public class ClatCoordinatorTest {
 
         final String[] dumpStrings = stringWriter.toString().split("\n");
         if (clatStarted) {
-            assertEquals(6, dumpStrings.length);
+            assertEquals(8, dumpStrings.length);
             assertEquals("CLAT tracker: iface: test0 (1000), v4iface: v4-test0 (1001), "
                     + "v4: /192.0.0.46, v6: /2001:db8:0:b11::464, pfx96: /64:ff9b::, "
                     + "pid: 10483, cookie: 27149", dumpStrings[0].trim());
@@ -534,6 +549,10 @@ public class ClatCoordinatorTest {
                     dumpStrings[4].trim());
             assertEquals("1001 /192.0.0.46 -> /2001:db8:0:b11::464 /64:ff9b::/96 1000 ether",
                     dumpStrings[5].trim());
+            assertEquals("BPF stats:", dumpStrings[6].trim());
+            assertEquals("ifindex: 1000: rxPackets: 0, rxBytes: 0, rxErrors: 0, rxFragments: 0, "
+                    + "txPackets: 0, txBytes: 0, txErrors: 0, txFragments: 0",
+                    dumpStrings[7].trim());
         } else {
             assertEquals(1, dumpStrings.length);
             assertEquals("<not started>", dumpStrings[0].trim());

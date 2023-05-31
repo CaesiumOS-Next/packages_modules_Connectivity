@@ -52,6 +52,9 @@ struct frag_hdr {
     __be32 identification;
 };
 
+// Clat stats, indexed by clat base interface.
+DEFINE_BPF_MAP_GRW(clat_stats_map, HASH, ClatStatsKey, ClatStatsValue, 16, AID_SYSTEM)
+
 DEFINE_BPF_MAP_GRW(clat_ingress6_map, HASH, ClatIngress6Key, ClatIngress6Value, 16, AID_SYSTEM)
 
 static inline __always_inline int nat64(struct __sk_buff* skb,
@@ -107,6 +110,12 @@ static inline __always_inline int nat64(struct __sk_buff* skb,
     ClatIngress6Value* v = bpf_clat_ingress6_map_lookup_elem(&k);
 
     if (!v) return TC_ACT_PIPE;
+
+    uint32_t stat_k = skb->ifindex;
+    ClatStatsValue* stat_v = bpf_clat_stats_map_lookup_elem(&stat_k);
+
+    // If we don't have anywhere to put stats, then abort ...
+    if (!stat_v) return TC_ACT_PIPE;
 
     __u8 proto = ip6->nexthdr;
     __be16 ip_id = 0;
@@ -235,8 +244,10 @@ static inline __always_inline int nat64(struct __sk_buff* skb,
     if (kver >= KVER_4_14 && frag_off != htons(IP_DF)) {
         // If we're converting an IPv6 Fragment, we need to trim off 8 more bytes
         // We're beyond recovery on error here... but hard to imagine how this could fail.
-        if (bpf_skb_adjust_room(skb, -(__s32)sizeof(struct frag_hdr), BPF_ADJ_ROOM_NET, /*flags*/0))
+        if (bpf_skb_adjust_room(skb, -(__s32)sizeof(struct frag_hdr), BPF_ADJ_ROOM_NET, /*flags*/0)) {
+            __sync_fetch_and_add(&stat_v->rxErrors, 1);
             return TC_ACT_SHOT;
+        }
     }
 
     // bpf_skb_change_proto() invalidates all pointers - reload them.
@@ -245,7 +256,10 @@ static inline __always_inline int nat64(struct __sk_buff* skb,
 
     // I cannot think of any valid way for this error condition to trigger, however I do
     // believe the explicit check is required to keep the in kernel ebpf verifier happy.
-    if (data + l2_header_size + sizeof(struct iphdr) > data_end) return TC_ACT_SHOT;
+    if (data + l2_header_size + sizeof(struct iphdr) > data_end) {
+        __sync_fetch_and_add(&stat_v->rxErrors, 1);
+        return TC_ACT_SHOT;
+    }
 
     if (is_ethernet) {
         struct ethhdr* new_eth = data;
@@ -261,7 +275,14 @@ static inline __always_inline int nat64(struct __sk_buff* skb,
     }
 
     // Redirect, possibly back to same interface, so tcpdump sees packet twice.
-    if (v->oif) return bpf_redirect(v->oif, BPF_F_INGRESS);
+    if (v->oif) {
+        __sync_fetch_and_add(&stat_v->rxPackets, 1);
+        __sync_fetch_and_add(&stat_v->rxBytes, skb->len);
+        if (proto == IPPROTO_FRAGMENT) {
+            __sync_fetch_and_add(&stat_v->rxFragments, 1);
+        }
+        return bpf_redirect(v->oif, BPF_F_INGRESS);
+    }
 
     // Just let it through, tcpdump will not see IPv4 packet.
     return TC_ACT_PIPE;
@@ -362,6 +383,12 @@ DEFINE_BPF_PROG("schedcls/egress4/clat_rawip", AID_ROOT, AID_SYSTEM, sched_cls_e
     // This implementation is currently limited to rawip.
     if (v->oifIsEthernet) return TC_ACT_PIPE;
 
+    uint32_t stat_k = v->oif;
+    ClatStatsValue* stat_v = bpf_clat_stats_map_lookup_elem(&stat_k);
+
+    // If we don't have anywhere to put stats, then abort...
+    if (!stat_v) return TC_ACT_PIPE;
+
     struct ipv6hdr ip6 = {
             .version = 6,                                    // __u8:4
             .priority = ip4->tos >> 4,                       // __u8:4
@@ -405,10 +432,16 @@ DEFINE_BPF_PROG("schedcls/egress4/clat_rawip", AID_ROOT, AID_SYSTEM, sched_cls_e
 
     // I cannot think of any valid way for this error condition to trigger, however I do
     // believe the explicit check is required to keep the in kernel ebpf verifier happy.
-    if (data + sizeof(ip6) > data_end) return TC_ACT_SHOT;
+    if (data + sizeof(ip6) > data_end) {
+        __sync_fetch_and_add(&stat_v->txErrors, 1);
+        return TC_ACT_SHOT;
+    }
 
     // Copy over the new ipv6 header without an ethernet header.
     *(struct ipv6hdr*)data = ip6;
+
+    __sync_fetch_and_add(&stat_v->txPackets, 1);
+    __sync_fetch_and_add(&stat_v->txBytes, skb->len);
 
     // Redirect to non v4-* interface.  Tcpdump only sees packet after this redirect.
     return bpf_redirect(v->oif, 0 /* this is effectively BPF_F_EGRESS */);
