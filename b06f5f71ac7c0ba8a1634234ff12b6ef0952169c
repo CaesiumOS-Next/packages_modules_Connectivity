@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b93883e6_05ca7954",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1963808
+      },
+      "writtenOn": "2023-05-31T19:12:39Z",
+      "side": 1,
+      "message": "Thailand",
+      "revId": "b06f5f71ac7c0ba8a1634234ff12b6ef0952169c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
