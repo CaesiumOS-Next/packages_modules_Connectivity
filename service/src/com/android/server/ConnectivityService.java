@@ -11123,7 +11123,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // TODO: Remove initial value. This initial value is set to keep the existing behavior
         // This will be removed in following CL.
         // This needs to be volatile since non handler threads can read this value.
-        private volatile boolean mNetworkActive = true;
+        private volatile boolean mIsDefaultNetworkActive = true;
         @GuardedBy("mActiveIdleTimers")
         private final ArrayMap<String, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
 
@@ -11162,8 +11162,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             sendDataActivityBroadcast(transportTypeToLegacyType(activityParams.label),
                     activityParams.isActive, activityParams.timestampNs);
             synchronized (mActiveIdleTimers) {
-                mNetworkActive = activityParams.isActive;
-                if (mNetworkActive) {
+                mIsDefaultNetworkActive = activityParams.isActive;
+                if (mIsDefaultNetworkActive) {
                     reportNetworkActive();
                 }
             }
@@ -11258,7 +11258,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 try {
                     synchronized (mActiveIdleTimers) {
                         // Networks start up.
-                        mNetworkActive = true;
+                        mIsDefaultNetworkActive = true;
                         mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
                         mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
                         reportNetworkActive();
@@ -11325,7 +11325,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // TODO : Distinguish between the cases where mActiveIdleTimers is empty because
                 // tracking is disabled (negative idle timer value configured), or no active default
                 // network. In the latter case, this reports active but it should report inactive.
-                mNetworkActive = true;
+                mIsDefaultNetworkActive = true;
             }
         }
 
@@ -11345,7 +11345,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         public boolean isDefaultNetworkActive() {
             synchronized (mActiveIdleTimers) {
-                return mNetworkActive;
+                return mIsDefaultNetworkActive;
             }
         }
 
@@ -11359,7 +11359,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         public void dump(IndentingPrintWriter pw) {
             synchronized (mActiveIdleTimers) {
-                pw.print("mNetworkActive="); pw.println(mNetworkActive);
+                pw.print("mIsDefaultNetworkActive="); pw.println(mIsDefaultNetworkActive);
                 pw.println("Idle timers:");
                 for (HashMap.Entry<String, IdleTimerParams> ent : mActiveIdleTimers.entrySet()) {
                     pw.print("  "); pw.print(ent.getKey()); pw.println(":");
