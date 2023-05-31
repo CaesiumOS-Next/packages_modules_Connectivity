@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0235c03f_a1ad9467",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-31T06:14:49Z",
+      "side": 1,
+      "message": "This won\u0027t be submittable before b/283200648 is fixed, because this test config is currently failing so TH won\u0027t be happy\n\nAnd I think Xiao is adding an annotation to fix b/283200648, so at that point there will need to be:\n\n```\n        {\n          \"exclude-annotation\": \"com.android.testutils.NetworkStackModuleTest\"\n        }\n```",
+      "revId": "0aea634f39a78cd72935ba2f728477ee46c5f904",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
