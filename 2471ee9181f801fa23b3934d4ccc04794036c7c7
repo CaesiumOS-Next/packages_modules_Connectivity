@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5952c57e_a3ec7ed2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Sorry I\u0027m not following.\nI don\u0027t think `ReadHead` has expect methods.",
+      "parentUuid": "390caea5_bce5cc64",
+      "range": {
+        "startLine": 900,
+        "startChar": 57,
+        "endLine": 900,
+        "endChar": 61
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13791d28_4956ef08",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 24
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-30T03:56:46Z",
       "side": 1,
       "message": "Don\u0027t you need to call super.sendOrderedBroadcastAsUser ?",
+      "range": {
+        "startLine": 912,
+        "startChar": 54,
+        "endLine": 912,
+        "endChar": 55
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15317aae_8a026693",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Calling `super.sendOrderedBroadcastAsUser` caused following error.\n```\nPermission Denial: not allowed to send broadcast android.net.conn.DATA_ACTIVITY_CHANGE from pid\u003d30544, uid\u003d10130\n```\n\nIt\u0027s from the check in ActivityManagerService\nhttps://source.corp.google.com/h/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java;l\u003d13757-13765\n\nI haven\u0027t tried to pass this check in ConnectivityServiceTest.\nBut we don\u0027t expect anything from `super.sendOrderedBroadcastAsUser` so I just skipped calling `super.sendOrderedBroadcastAsUser`.",
+      "parentUuid": "13791d28_4956ef08",
       "range": {
         "startLine": 912,
         "startChar": 54,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a80faa4d_793221ac",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11166,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91d23706_796ddd28",
+      "range": {
+        "startLine": 11165,
+        "startChar": 0,
+        "endLine": 11166,
+        "endChar": 46
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb4fbb5d_3e915adb",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-30T03:56:46Z",
       "side": 1,
       "message": "You should have a comment that explains why the default network is active here.",
+      "range": {
+        "startLine": 11168,
+        "startChar": 23,
+        "endLine": 11168,
+        "endChar": 45
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61139a71_f10f14c0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11168,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb4fbb5d_3e915adb",
       "range": {
         "startLine": 11168,
         "startChar": 23,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31a0a0a4_e2317e9b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11172,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa1b05d8_89959302",
+      "range": {
+        "startLine": 11172,
+        "startChar": 53,
+        "endLine": 11172,
+        "endChar": 57
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2199d657_c8ac2c18",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-05-30T03:56:46Z",
       "side": 1,
       "message": "Suggest having named locals for your timestamps at the top of the test so it\u0027s easier to understand at a glance the timing you\u0027re going to simulate.",
+      "range": {
+        "startLine": 11183,
+        "startChar": 49,
+        "endLine": 11183,
+        "endChar": 53
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30b1ae38_079a2c99",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11183,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2199d657_c8ac2c18",
       "range": {
         "startLine": 11183,
         "startChar": 49,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de020cf0_dae7f8ab",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11199,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44a9acb6_e607ad13",
+      "range": {
+        "startLine": 11199,
+        "startChar": 16,
+        "endLine": 11199,
+        "endChar": 57
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a84d4c03_d28bc281",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-05-30T03:56:46Z",
       "side": 1,
       "message": "(please ignore if you\u0027re changing this in followups)\n\nIIUC the callback isn\u0027t called immediately – though that\u0027s probably a decision we\u0027d regret now. Do you want to wait 200ms and check that it isn\u0027t called ?",
+      "range": {
+        "startLine": 11210,
+        "startChar": 53,
+        "endLine": 11210,
+        "endChar": 54
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bb6bee3_eadc4dbb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11210,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a84d4c03_d28bc281",
       "range": {
         "startLine": 11210,
         "startChar": 53,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac59e4b4_4197bceb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11236,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Updated to `testOnNetworkActiveNewDefaultNetwork`",
+      "parentUuid": "f4e5a44a_f7cf7c0b",
+      "range": {
+        "startLine": 11236,
+        "startChar": 16,
+        "endLine": 11236,
+        "endChar": 35
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "297de16c_b49dab0e",
@@ -221,6 +437,30 @@
       "writtenOn": "2023-05-30T03:56:46Z",
       "side": 1,
       "message": "Please reduce duplication.",
+      "range": {
+        "startLine": 11254,
+        "startChar": 16,
+        "endLine": 11254,
+        "endChar": 43
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "447cb7d0_39fa9b73",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11254,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "297de16c_b49dab0e",
       "range": {
         "startLine": 11254,
         "startChar": 16,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d068663_0eff2aa5",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11265,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ad33aad_e7288536",
+      "range": {
+        "startLine": 11265,
+        "startChar": 84,
+        "endLine": 11265,
+        "endChar": 85
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aec5c128_c48cafe4",
@@ -267,6 +531,30 @@
       "writtenOn": "2023-05-30T03:56:46Z",
       "side": 1,
       "message": "This doesn\u0027t check much because very likely the connect() call is still being processed by the handler. So if the listener is called, very likely the test will still pass. You should probably have a wait that\u0027s long enough to at least fail the test regularly if the behavior is wrong, e.g. 200ms, but not much longer than that because the timeout will be incurred every time",
+      "range": {
+        "startLine": 11266,
+        "startChar": 42,
+        "endLine": 11266,
+        "endChar": 48
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a231b17f_909bc487",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11266,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-05-31T14:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aec5c128_c48cafe4",
       "range": {
         "startLine": 11266,
         "startChar": 42,
