@@ -57,4 +57,17 @@ typedef struct {
 } ClatEgress4Value;
 STRUCT_SIZE(ClatEgress4Value, 4 + 2 * 16 + 1 + 3);  // 40
 
+typedef uint32_t ClatStatsKey;  // clat base interface ifindex
+
+typedef struct {
+    uint64_t rxPackets;
+    uint64_t rxBytes;
+    uint64_t rxErrors;
+    uint64_t txPackets;
+    uint64_t txBytes;
+    uint64_t txErrors;
+    uint64_t txFragments;
+} ClatStatsValue;
+STRUCT_SIZE(ClatStatsValue, 7 * 8);  // 56
+
 #undef STRUCT_SIZE
