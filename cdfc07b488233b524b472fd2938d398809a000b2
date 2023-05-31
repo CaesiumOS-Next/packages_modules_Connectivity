@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2618e817_71f84e41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-05-31T03:14:36Z",
+      "side": 1,
+      "message": "@markchien  - could you please review the updated patch on android12L. \n- One of auto OEM is failing the test on 12L hence pushed the change on 12L",
+      "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
