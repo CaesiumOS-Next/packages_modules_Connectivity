@@ -11023,11 +11023,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private final RemoteCallbackList<INetworkActivityListener> mNetworkActivityListeners =
                 new RemoteCallbackList<>();
         // Indicate the current system default network activity is active or not.
-        @GuardedBy("mActiveIdleTimers")
         // TODO: Remove initial value. This initial value is to keep the existing behavior
         // This will be removed in following CL.
         private boolean mIsDefaultNetworkActive = true;
-        @GuardedBy("mActiveIdleTimers")
         private final ArrayMap<String, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
 
         private static class IdleTimerParams {
@@ -11063,17 +11061,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             sendDataActivityBroadcast(transportTypeToLegacyType(activityParams.label),
                     activityParams.isActive, activityParams.timestampNs);
-            synchronized (mActiveIdleTimers) {
                 mIsDefaultNetworkActive = activityParams.isActive;
                 if (mIsDefaultNetworkActive) {
                     reportNetworkActive();
                 }
-            }
         }
 
-        // The network activity should only be updated from ConnectivityService handler thread
-        // when mActiveIdleTimers lock is held.
-        @GuardedBy("mActiveIdleTimers")
         private void reportNetworkActive() {
             final int length = mNetworkActivityListeners.beginBroadcast();
             if (DDBG) log("reportNetworkActive, notify " + length + " listeners");
@@ -11160,13 +11153,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             if (timeout > 0 && iface != null) {
                 try {
-                    synchronized (mActiveIdleTimers) {
-                        // Networks start up.
-                        mIsDefaultNetworkActive = true;
-                        mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
-                        mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
-                        reportNetworkActive();
-                    }
+                    // Networks start up.
+                    mIsDefaultNetworkActive = true;
+                    mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
+                    mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
+                    reportNetworkActive();
                 } catch (Exception e) {
                     // You shall not crash!
                     loge("Exception in setupDataActivityTracking " + e);
@@ -11196,16 +11187,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             try {
                 updateRadioPowerState(false /* isActive */, type);
-                synchronized (mActiveIdleTimers) {
-                    final IdleTimerParams params = mActiveIdleTimers.remove(iface);
-                    if (params == null) {
-                        // IdleTimer was not added if the configured timeout is not larger than 0
-                        return;
-                    }
-                    // The call fails silently if no idle timer setup for this interface
-                    mNetd.idletimerRemoveInterface(iface, params.timeout,
-                            Integer.toString(params.transportType));
+                final IdleTimerParams params = mActiveIdleTimers.remove(iface);
+                if (params == null) {
+                    // IdleTimer was not added if the configured timeout is not larger than 0
+                    return;
                 }
+                // The call fails silently if no idle timer setup for this interface
+                mNetd.idletimerRemoveInterface(iface, params.timeout,
+                        Integer.toString(params.transportType));
             } catch (Exception e) {
                 // You shall not crash!
                 loge("Exception in removeDataActivityTracking " + e);
@@ -11249,9 +11238,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         public boolean isDefaultNetworkActive() {
-            synchronized (mActiveIdleTimers) {
-                return mIsDefaultNetworkActive;
-            }
+            return mIsDefaultNetworkActive;
         }
 
         public void registerNetworkActivityListener(@NonNull INetworkActivityListener l) {
@@ -11263,15 +11250,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         public void dump(IndentingPrintWriter pw) {
-            synchronized (mActiveIdleTimers) {
-                pw.print("mIsDefaultNetworkActive="); pw.println(mIsDefaultNetworkActive);
-                pw.println("Idle timers:");
+            pw.print("mIsDefaultNetworkActive="); pw.println(mIsDefaultNetworkActive);
+            pw.println("Idle timers:");
+            try {
                 for (HashMap.Entry<String, IdleTimerParams> ent : mActiveIdleTimers.entrySet()) {
                     pw.print("  "); pw.print(ent.getKey()); pw.println(":");
                     final IdleTimerParams params = ent.getValue();
                     pw.print("    timeout="); pw.print(params.timeout);
                     pw.print(" type="); pw.println(params.transportType);
                 }
+            } catch (Exception e) {
+                // mActiveIdleTimers should only be accessed from handler thread, except dump().
+                // As dump() is never called in normal usage, it would be needlessly expensive
+                // to lock the collection only for its benefit.
+                // Also, mActiveIdleTimers is not expected to be updated frequently.
+                // So catching the exception and logging.
+                pw.println("Failed to dump NetworkActivityTracker: " + e);
             }
         }
     }
