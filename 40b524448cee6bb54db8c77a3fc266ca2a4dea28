@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6686599f_1c668dda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-31T04:21:33Z",
+      "side": 1,
+      "message": "LGTM with 1 question.",
+      "revId": "40b524448cee6bb54db8c77a3fc266ca2a4dea28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0143be87_90c9036d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11312,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-05-31T04:21:33Z",
+      "side": 1,
+      "message": "Not for this CL.\nIs there a way for the app to check if they can use the host and port directly without checking port \u003d\u003d -1?\nIt seems to me this is not very user friendly.\nWe have ProxyInfo.isValid() but it will be true whenever PAC file URL is not empty.\nIf it is valid it still doesn\u0027t mean the app can use host:port to access the proxy, right?",
+      "range": {
+        "startLine": 11312,
+        "startChar": 76,
+        "endLine": 11312,
+        "endChar": 79
+      },
+      "revId": "40b524448cee6bb54db8c77a3fc266ca2a4dea28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
