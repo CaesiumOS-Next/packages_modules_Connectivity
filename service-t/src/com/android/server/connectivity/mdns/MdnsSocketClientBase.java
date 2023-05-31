@@ -61,6 +61,9 @@ public interface MdnsSocketClientBase {
     /*** Notify that the network is unrequested */
     default void notifyNetworkUnrequested(@NonNull MdnsServiceBrowserListener listener) { }
 
+    /** Returns whether the socket client support requesting per network */
+    boolean isSupportRequestingSpecificNetworks();
+
     /*** Callback for mdns response  */
     interface Callback {
         /*** Receive a mdns response */
