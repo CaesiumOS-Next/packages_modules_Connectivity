@@ -11119,8 +11119,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private final RemoteCallbackList<INetworkActivityListener> mNetworkActivityListeners =
                 new RemoteCallbackList<>();
         // Indicate the current system default network activity is active or not.
+        // This needs to be volatile to allow non handler threads to read this value without lock.
         @GuardedBy("mActiveIdleTimers")
-        private boolean mNetworkActive;
+        private volatile boolean mNetworkActive;
         @GuardedBy("mActiveIdleTimers")
         private final ArrayMap<String, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
 
@@ -11139,6 +11140,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mContext = context;
             mNetd = netd;
             mHandler = handler;
+
+            synchronized (mActiveIdleTimers) {
+                // TODO: Remove initial value. Initial value is set to keep the existing behavior.
+                // This will be removed in following CL.
+                mNetworkActive = true;
+            }
         }
 
         private void ensureRunningOnConnectivityServiceThread() {
@@ -11150,19 +11157,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
             ensureRunningOnConnectivityServiceThread();
+
+            synchronized (mActiveIdleTimers) {
+                if (mActiveIdleTimers.isEmpty()) {
+                    // This activity change is not for the current default network.
+                    // This can happen if netd callback post activity change event message but
+                    // the default network is lost before processing this message.
+                    return;
+                }
+            }
             sendDataActivityBroadcast(transportTypeToLegacyType(activityParams.label),
                     activityParams.isActive, activityParams.timestampNs);
             synchronized (mActiveIdleTimers) {
                 mNetworkActive = activityParams.isActive;
-                // If there are no idle timers, it means that system is not monitoring
-                // activity, so the system default network for those default network
-                // unspecified apps is always considered active.
-                //
-                // TODO: If the mActiveIdleTimers is empty, netd will actually not send
-                // any network activity change event. Whenever this event is received,
-                // the mActiveIdleTimers should be always not empty. The legacy behavior
-                // is no-op. Remove to refer to mNetworkActive only.
-                if (mNetworkActive || mActiveIdleTimers.isEmpty()) {
+                if (mNetworkActive) {
                     reportNetworkActive();
                 }
             }
@@ -11317,6 +11325,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (oldNetwork != null) {
                 removeDataActivityTracking(oldNetwork);
             }
+            synchronized (mActiveIdleTimers) {
+                if (mActiveIdleTimers.isEmpty()) {
+                    // If there are no idle timers, it means that system is not monitoring activity,
+                    // so the default network is always considered active.
+                    //
+                    // TODO : Distinguish between the cases where mActiveIdleTimers is empty because
+                    // tracking is disabled (negative idle timer value configured), or no active
+                    // default network. In the latter case, this reports active but it should report
+                    // inactive.
+                    mNetworkActive = true;
+                }
+            }
         }
 
         private void updateRadioPowerState(boolean isActive, int transportType) {
@@ -11335,13 +11355,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         public boolean isDefaultNetworkActive() {
             synchronized (mActiveIdleTimers) {
-                // If there are no idle timers, it means that system is not monitoring activity,
-                // so the default network is always considered active.
-                //
-                // TODO : Distinguish between the cases where mActiveIdleTimers is empty because
-                // tracking is disabled (negative idle timer value configured), or no active default
-                // network. In the latter case, this reports active but it should report inactive.
-                return mNetworkActive || mActiveIdleTimers.isEmpty();
+                return mNetworkActive;
             }
         }
 
