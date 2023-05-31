@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5efd8e86_c991c02c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-05-31T21:46:07Z",
+      "side": 1,
+      "message": "closing comments to address b/247030636.",
+      "revId": "734f24e6d719f91b676338cedca9ab9d7ceabb07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba30c920_048fb3db",
@@ -38,6 +55,30 @@
       "side": 1,
       "message": "\u003e But is it OK to call maybeTrackInterface on an interface that already existed, but was not being tracked by the factory and was not the default interface? I think the old code never did this?\n\nI believe so. First off, we *should* never be in that situation to begin with, except when a) ethernet is disabled or when b) RTM_NEWLINK messages were missed (due to ENOBUFS for instance).\na) is covered by ignoring all messages in processNetlinkMessage() when ethernet is disabled.\nb) if an RTM_NEWLINK message was missed, calling maybeTrackInterface() on the next RTM_NEWLINK should be an improvement over the old code.\n\nI guess there is a third possibility of callbacks coming in just before trackAvailableInterfaces() runs. But even in that case, calling maybeTrackInterface() and updateInterfaceState() multiple times is safe.",
       "parentUuid": "ba30c920_048fb3db",
+      "range": {
+        "startLine": 168,
+        "startChar": 16,
+        "endLine": 168,
+        "endChar": 83
+      },
+      "revId": "734f24e6d719f91b676338cedca9ab9d7ceabb07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3209acd4_3f0d58e0",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-05-31T21:46:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fdc229c_d537f68a",
       "range": {
         "startLine": 168,
         "startChar": 16,
@@ -95,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3552d04_3fa6d585",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-05-31T21:46:07Z",
+      "side": 1,
+      "message": "Callbacks were fixed in aosp/2186061.",
+      "parentUuid": "81172e12_8ae4bb1c",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 49
+      },
+      "revId": "734f24e6d719f91b676338cedca9ab9d7ceabb07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "738d9a6a_32520bce",
@@ -108,6 +173,30 @@
       "writtenOn": "2022-08-12T05:30:11Z",
       "side": 1,
       "message": "maybe also consider to use the interface index check in a follow-up CL, is it possible to having the same ethernet interface name but with a different interface index? Actually that means the interface has changed.",
+      "range": {
+        "startLine": 191,
+        "startChar": 42,
+        "endLine": 191,
+        "endChar": 48
+      },
+      "revId": "734f24e6d719f91b676338cedca9ab9d7ceabb07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "988ca982_26fdf3c0",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-05-31T21:46:07Z",
+      "side": 1,
+      "message": "Probably yes, but not concurrently (when dongles are re-attached?), so I don\u0027t think this is necessary.",
+      "parentUuid": "738d9a6a_32520bce",
       "range": {
         "startLine": 191,
         "startChar": 42,
