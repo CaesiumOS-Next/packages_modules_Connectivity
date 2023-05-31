@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3181b012_ccdae6a0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-31T03:33:37Z",
+      "side": 1,
+      "message": "Nit: would \"supportsRequestingSpecificNetworks\" sound better ?",
+      "range": {
+        "startLine": 268,
+        "startChar": 25,
+        "endLine": 268,
+        "endChar": 44
+      },
+      "revId": "a86ede3961360dabf1bfb180cdf625281393e9d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44e1c8f2_2d13ebb6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-05-31T03:33:37Z",
+      "side": 1,
+      "message": "Sorry, actually I realize we don\u0027t need this separate method, it can just do getByNetwork(null) right ? Since there will be just one MdnsServiceTypeClient with network null in that case.",
+      "revId": "a86ede3961360dabf1bfb180cdf625281393e9d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
