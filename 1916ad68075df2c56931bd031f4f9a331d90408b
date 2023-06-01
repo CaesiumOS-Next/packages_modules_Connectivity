@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5a4053c_39068bc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:44:28Z",
+      "side": 1,
+      "message": "Lol nice. This is a good example of how catching Exception is often a bad idea\n\nThanks for catching this.",
+      "revId": "1916ad68075df2c56931bd031f4f9a331d90408b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
