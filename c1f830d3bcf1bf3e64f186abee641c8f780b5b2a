@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55c010ee_e5a185e8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 6117,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-01T08:23:07Z",
+      "side": 1,
+      "message": "nit: For debugging, do we have log somewhere to know the timestamp of proxy started? If not, maybe add one?",
+      "range": {
+        "startLine": 6117,
+        "startChar": 17,
+        "endLine": 6117,
+        "endChar": 45
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d40255f5_b7d7e79d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 9015,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-01T08:23:07Z",
+      "side": 1,
+      "message": "It seems to me this is kind of adhoc.\nBut it seems correct and I don\u0027t have a better idea.",
+      "range": {
+        "startLine": 9015,
+        "startChar": 17,
+        "endLine": 9015,
+        "endChar": 51
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6f8f2e2_df84946e",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-01T08:23:07Z",
+      "side": 1,
+      "message": "1. Question: What does it mean for passing an empty proxy?\n2. Not for this CL, if empty and null mean the same thing, is it better if we change proxtInfo to empty object internally and use proxyInfo.isEmpty() everywhere instead of proxyInfo !\u003d null to make our life easier?",
+      "range": {
+        "startLine": 329,
+        "startChar": 43,
+        "endLine": 329,
+        "endChar": 60
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05fced3f_c7b235d1",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-01T08:23:07Z",
+      "side": 1,
+      "message": "nit: The naming is not very clear to me, there are some naming ideas but feel free to ignore:\n\n1. maybeUpdateDefaultNetworkProxy?\ngiven that sometimes it does not update anything.\nno strong opinion.\n\n2. IIUC this is only useful when we have a PAC proxy, but not in other cases.\nAnd it updates the proxy of the lp for a given network, not only the default one (although the caller might call it only for default network).\nSo maybe name it updateLinkPropertiesForDefaultPac or\nupdateProxyForPac or something with PAC in the name?\n\n3. IIUC This is kind of fix up LP for PAC proxy whenever a LP is updated.\nIf so, similar to clatd, maybe name it fixupLinkPropertiesForPac.",
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea2f53fb_a5c4ba58",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-01T08:23:07Z",
+      "side": 1,
+      "message": "unused?",
+      "range": {
+        "startLine": 387,
+        "startChar": 30,
+        "endLine": 387,
+        "endChar": 37
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9e647d4_0ca95547",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-01T08:23:07Z",
+      "side": 1,
+      "message": "1. IIUC we are assuming the ProxyInfo in the LP is the only one on the device here.\nAnd this is true today.\nBut do we want to assert whether the pac url equals?\nThe benefit is that once we want to support multiple PacProxy this will crash and the develop will remember to change this code instead of making a bug.",
+      "range": {
+        "startLine": 389,
+        "startChar": 12,
+        "endLine": 389,
+        "endChar": 69
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
