@@ -226,8 +226,13 @@
       ]
     },
     {
-        "name": "CtsTetheringTestLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
-    }
+      "name": "CtsTetheringTestLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]",
+      "options": [
+        {
+          "exclude-annotation": "com.android.testutils.NetworkStackModuleTest"
+        }
+      ]
+    },
   ],
   "mainline-postsubmit": [
     // Tests on physical devices with SIM cards: postsubmit only for capacity constraints
