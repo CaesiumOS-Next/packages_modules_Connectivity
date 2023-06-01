@@ -242,6 +242,8 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
         ALOGE("Failed to tag the socket: %s, fd: %d", strerror(res.error().code()),
               mCookieTagMap.getMap().get());
         return -res.error().code();
+    } else {
+    	ALOGD("Socket with cookie %llu tagged successfully with tag %u", sock_cookie, tag);
     }
     return 0;
 }
