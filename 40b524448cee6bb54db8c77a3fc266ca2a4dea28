@@ -39,6 +39,30 @@
       },
       "revId": "40b524448cee6bb54db8c77a3fc266ca2a4dea28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "984a50f4_997feabd",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11312,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T05:20:30Z",
+      "side": 1,
+      "message": "I\u0027m afraid there is no such way AFAIK. I agree with you this is very user-unfriendly. Unfortunately this is only describing the state of affairs as it\u0027s been for years. This patch doesn\u0027t make it this way. It\u0027s bad, but it\u0027s been bad forever.",
+      "parentUuid": "0143be87_90c9036d",
+      "range": {
+        "startLine": 11312,
+        "startChar": 76,
+        "endLine": 11312,
+        "endChar": 79
+      },
+      "revId": "40b524448cee6bb54db8c77a3fc266ca2a4dea28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
