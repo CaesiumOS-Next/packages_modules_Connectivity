@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d00e96df_2335df1f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-01T02:28:00Z",
+      "side": 1,
+      "message": "Updated the commit message.\nAnd I have added the executing thread check in aosp/2605754.",
+      "parentUuid": "d475efae_5a88b6d7",
+      "range": {
+        "startLine": 14,
+        "startChar": 33,
+        "endLine": 14,
+        "endChar": 46
+      },
+      "revId": "4db12f07866d49236b5525f9d1f3a4e30f9997ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "368de46c_117325ce",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-30T04:29:33Z",
       "side": 1,
       "message": "Because this code is old and a bit difficult, I think you should split this patch into multiple, very focused patches. E.g. split the change that removes the locks once you have refactored in such a way that the locks are no longer necessary. ISTM this patch should probably be at least 3 separate patches.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 38
+      },
+      "revId": "4db12f07866d49236b5525f9d1f3a4e30f9997ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe46146e_c0b983af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-01T02:28:00Z",
+      "side": 1,
+      "message": "Split to following CLs.\naosp/2605754: Add executing thread check in LegacyNetworkActivityTracker\naosp/2605755: Update isDefaultNetworkActive to access single boolean variable\naosp/2605756: Rename mNetworkActive to mIsDefaultNetworkActive\naosp/2606669: Remove locks from LegacyNetworkActivityTracker\naosp/2605757: Fixed known issue in LegacyNetworkActivityTracker",
+      "parentUuid": "368de46c_117325ce",
       "range": {
         "startLine": 15,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "042a5c36_a0cc63fd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 11019,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-01T02:28:00Z",
+      "side": 1,
+      "message": "Updated to Network in aosp/2606670.",
+      "parentUuid": "d17cb6f5_4246d193",
+      "range": {
+        "startLine": 11019,
+        "startChar": 16,
+        "endLine": 11019,
+        "endChar": 23
+      },
+      "revId": "4db12f07866d49236b5525f9d1f3a4e30f9997ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "892f59d3_d4bbe0ea",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-30T04:29:33Z",
       "side": 1,
       "message": "Will fit on one line",
+      "range": {
+        "startLine": 11136,
+        "startChar": 26,
+        "endLine": 11136,
+        "endChar": 29
+      },
+      "revId": "4db12f07866d49236b5525f9d1f3a4e30f9997ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6356f8f_d899da55",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 11136,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-01T02:28:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "892f59d3_d4bbe0ea",
       "range": {
         "startLine": 11136,
         "startChar": 26,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6f76f4_f83aaed5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 11167,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-01T02:28:00Z",
+      "side": 1,
+      "message": "This was possible before my change if the configured timeout is 0 or negative value.\nI have separated this change to aosp/2605753",
+      "parentUuid": "973163a5_cca4afce",
+      "range": {
+        "startLine": 11165,
+        "startChar": 0,
+        "endLine": 11167,
+        "endChar": 17
+      },
+      "revId": "4db12f07866d49236b5525f9d1f3a4e30f9997ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "042017bc_5ce2769e",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-05-30T04:29:33Z",
       "side": 1,
       "message": "But this is called on a random thread and completely unsynchronized.",
+      "range": {
+        "startLine": 11218,
+        "startChar": 19,
+        "endLine": 11218,
+        "endChar": 42
+      },
+      "revId": "4db12f07866d49236b5525f9d1f3a4e30f9997ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58492123_214e62d4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 11218,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-01T02:28:00Z",
+      "side": 1,
+      "message": "Yes\nBut, in my understanding, updating mIsDefaultNetworkActive is atomic operation.\nSo handler thread can have `mIsDefaultNetworkActive\u003dtrue/false` without lock unless they change the value to intermediate state.",
+      "parentUuid": "042017bc_5ce2769e",
       "range": {
         "startLine": 11218,
         "startChar": 19,
