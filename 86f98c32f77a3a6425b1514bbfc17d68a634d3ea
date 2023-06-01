@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5188eb3_91c12e91",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-01T07:19:33Z",
+      "side": 1,
+      "message": "`sendPacketFromSocket` is really a confused name. Maybe `sendPacketToSocket`?",
+      "range": {
+        "startLine": 243,
+        "startChar": 12,
+        "endLine": 243,
+        "endChar": 32
+      },
+      "revId": "86f98c32f77a3a6425b1514bbfc17d68a634d3ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "993c5257_a79860a0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-01T07:19:33Z",
+      "side": 1,
+      "message": "It seems this two method is not supported in the MdnsSocketClient? Could we just throw UnsupportedOperationException?",
+      "range": {
+        "startLine": 212,
+        "startChar": 16,
+        "endLine": 220,
+        "endChar": 37
+      },
+      "revId": "86f98c32f77a3a6425b1514bbfc17d68a634d3ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
