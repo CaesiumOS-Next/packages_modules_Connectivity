@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa97652_7b75a356",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-01T05:53:32Z",
+      "side": 1,
+      "message": "Given we have refactored to use SocketKey here. Instead of adding `socketKey \u003d\u003d null` to make the check works for support MdnsSocketClient use case. I suggest we remove this check and create a separate `getAllMdnsServiceTypeClient()` method.\n\nThen the `getMdnsServiceTypeClient` can be like follows:\n\n```\n private List\u003cMdnsServiceTypeClient\u003e getMdnsServiceTypeClient(@NonNull SocketKey socketKey) {\n        if (socketClient.supportsRequestingSpecificNetworks()) {\n            return perSocketServiceTypeClients.getBySocketKey(socketKey);\n        } else {\n            return perSocketServiceTypeClients.getAllMdnsServiceTypeClient();\n        }\n    }\n```",
+      "range": {
+        "startLine": 92,
+        "startChar": 20,
+        "endLine": 92,
+        "endChar": 37
+      },
+      "revId": "89d4c869be7248e7f08d58acba055b0a3c553567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
