@@ -11146,6 +11146,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // Key is netId. Value is configured idle timer information.
         private final SparseArray<IdleTimerParams> mActiveIdleTimers = new SparseArray<>();
         private final boolean mIsAtLeastU;
+        private final Set<Integer> mActiveWifiNetworks = new ArraySet<>();
+        private final Set<Integer> mActiveCellularNetworks = new ArraySet<>();
 
         private static class IdleTimerParams {
             public final int timeout;
@@ -11172,12 +11174,36 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        public void handleReportNetworkActivityUPlus(NetworkActivityParams activityParams) {
-            if (mDefaultNetwork == null || mDefaultNetwork.netId != activityParams.netId) {
-                // This activity change is not for the default network.
-                return;
+        /**
+         * Update network activity and call BatteryStats to update radio power state if the
+         * mobile or Wi-Fi activity is changed.
+         * LegacyNetworkActivityTracker considers the mobile network is active if at least one
+         * mobile network is active since BatteryStatsService only maintains a single power state
+         * for the mobile network.
+         * The Wi-Fi network is also the same.
+         */
+        private void updateNetworkActivity(final int netId, final int transportType,
+                final boolean isActive, final int uid) {
+            boolean needBatteryStatsUpdate = false;
+
+            final Set<Integer> activeNetworks =  transportType == TRANSPORT_WIFI
+                    ? mActiveWifiNetworks : mActiveCellularNetworks;
+            if (isActive) {
+                if (activeNetworks.add(netId) && activeNetworks.size() == 1) {
+                    needBatteryStatsUpdate = true;
+                }
+            } else {
+                if (activeNetworks.remove(netId) && activeNetworks.size() == 0) {
+                    needBatteryStatsUpdate = true;
+                }
             }
 
+            if (needBatteryStatsUpdate) {
+                updateRadioPowerState(isActive, transportType, uid);
+            }
+        }
+
+        public void handleReportNetworkActivityUPlus(NetworkActivityParams activityParams) {
             final IdleTimerParams idleTimerParams = mActiveIdleTimers.get(activityParams.netId);
             if (idleTimerParams == null) {
                 // This network activity change is not tracked anymore
@@ -11186,6 +11212,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 return;
             }
             final int transportType = idleTimerParams.transportType;
+            updateNetworkActivity(activityParams.netId, transportType,
+                    activityParams.isActive, activityParams.uid);
+
+            if (mDefaultNetwork == null || mDefaultNetwork.netId != activityParams.netId) {
+                // This activity change is not for the default network.
+                return;
+            }
 
             mIsDefaultNetworkActive = activityParams.isActive;
             sendDataActivityBroadcast(transportTypeToLegacyType(transportType),
@@ -11305,7 +11338,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 return; // do not track any other networks
             }
 
-            updateRadioPowerState(true /* isActive */, type);
+            updateNetworkActivity(netId, type, true /* isActive */, NO_UID);
 
             if (timeout > 0 && iface != null) {
                 try {
@@ -11339,7 +11372,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
 
             try {
-                updateRadioPowerState(false /* isActive */, type);
+                updateNetworkActivity(netId, type, false /* isActive */, NO_UID);
                 final IdleTimerParams params = mActiveIdleTimers.get(netId);
                 if (params == null) {
                     // IdleTimer is not added if the configured timeout is 0 or negative value
@@ -11386,14 +11419,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        private void updateRadioPowerState(boolean isActive, int transportType) {
+        private void updateRadioPowerState(boolean isActive, int transportType, int uid) {
             final BatteryStatsManager bs = mContext.getSystemService(BatteryStatsManager.class);
             switch (transportType) {
                 case NetworkCapabilities.TRANSPORT_CELLULAR:
-                    bs.reportMobileRadioPowerState(isActive, NO_UID);
+                    bs.reportMobileRadioPowerState(isActive, uid);
                     break;
                 case NetworkCapabilities.TRANSPORT_WIFI:
-                    bs.reportWifiRadioPowerState(isActive, NO_UID);
+                    bs.reportWifiRadioPowerState(isActive, uid);
                     break;
                 default:
                     logw("Untracked transport type:" + transportType);
@@ -11423,11 +11456,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     pw.print("    timeout="); pw.print(params.timeout);
                     pw.print(" type="); pw.println(params.transportType);
                 }
+                pw.println("WiFi active networks: " + mActiveWifiNetworks);
+                pw.println("Cellular active networks: " + mActiveCellularNetworks);
             } catch (Exception e) {
-                // mActiveIdleTimers should only be accessed from handler thread, except dump().
-                // As dump() is never called in normal usage, it would be needlessly expensive
-                // to lock the collection only for its benefit.
-                // Also, mActiveIdleTimers is not expected to be updated frequently.
+                // mActiveIdleTimers, mActiveWifiNetworks, and mActiveCellularNetworks should only
+                // be accessed from handler thread, except dump(). As dump() is never called in
+                // normal usage, it would be needlessly expensive to lock the collection only for
+                // its benefit. Also, they are not expected to be updated frequently.
                 // So catching the exception and logging.
                 pw.println("Failed to dump NetworkActivityTracker: " + e);
             }
