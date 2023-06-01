@@ -40,20 +40,14 @@ public interface MdnsSocketClientBase {
     void setCallback(@Nullable Callback callback);
 
     /**
-     * Send a mDNS request packet via given network that asks for multicast response.
-     *
-     * <p>The socket client may use a null network to identify some or all interfaces, in which case
-     * passing null sends the packet to these.
+     * Send a mDNS request packet via given socket key that asks for multicast response.
      */
-    void sendMulticastPacket(@NonNull DatagramPacket packet, @Nullable Network network);
+    void sendMulticastPacket(@NonNull DatagramPacket packet, @NonNull SocketKey socketKey);
 
     /**
-     * Send a mDNS request packet via given network that asks for unicast response.
-     *
-     * <p>The socket client may use a null network to identify some or all interfaces, in which case
-     * passing null sends the packet to these.
+     * Send a mDNS request packet via given socket key that asks for unicast response.
      */
-    void sendUnicastPacket(@NonNull DatagramPacket packet, @Nullable Network network);
+    void sendUnicastPacket(@NonNull DatagramPacket packet, @NonNull SocketKey socketKey);
 
     /*** Notify that the given network is requested for mdns discovery / resolution */
     void notifyNetworkRequested(@NonNull MdnsServiceBrowserListener listener,

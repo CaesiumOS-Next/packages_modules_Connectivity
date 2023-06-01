@@ -20,7 +20,6 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.net.Network;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.ArraySet;
@@ -257,15 +256,15 @@ public class MdnsServiceTypeClient {
     /**
      * Process an incoming response packet.
      */
-    public synchronized void processResponse(@NonNull MdnsPacket packet, int interfaceIndex,
-            Network network) {
+    public synchronized void processResponse(@NonNull MdnsPacket packet,
+            @NonNull SocketKey socketKey) {
         synchronized (lock) {
             // Augment the list of current known responses, and generated responses for resolve
             // requests if there is no known response
             final List<MdnsResponse> currentList = new ArrayList<>(instanceNameToResponse.values());
-            currentList.addAll(makeResponsesForResolveIfUnknown(interfaceIndex, network));
+            currentList.addAll(makeResponsesForResolveIfUnknown(socketKey));
             final ArraySet<MdnsResponse> modifiedResponses = responseDecoder.augmentResponses(
-                    packet, currentList, interfaceIndex, network);
+                    packet, currentList, socketKey.getInterfaceIndex(), socketKey.getNetwork());
 
             for (MdnsResponse modified : modifiedResponses) {
                 if (modified.isGoodbye()) {
@@ -479,8 +478,7 @@ public class MdnsServiceTypeClient {
         }
     }
 
-    private List<MdnsResponse> makeResponsesForResolveIfUnknown(int interfaceIndex,
-            @NonNull Network network) {
+    private List<MdnsResponse> makeResponsesForResolveIfUnknown(@NonNull SocketKey socketKey) {
         final List<MdnsResponse> resolveResponses = new ArrayList<>();
         for (int i = 0; i < listeners.size(); i++) {
             final String resolveName = listeners.valueAt(i).getResolveInstanceName();
@@ -495,7 +493,7 @@ public class MdnsServiceTypeClient {
                 instanceFullName.addAll(Arrays.asList(serviceTypeLabels));
                 knownResponse = new MdnsResponse(
                         0L /* lastUpdateTime */, instanceFullName.toArray(new String[0]),
-                        interfaceIndex, network);
+                        socketKey.getInterfaceIndex(), socketKey.getNetwork());
             }
             resolveResponses.add(knownResponse);
         }
@@ -516,13 +514,7 @@ public class MdnsServiceTypeClient {
             final List<MdnsResponse> servicesToResolve;
             final boolean sendDiscoveryQueries;
             synchronized (lock) {
-                // The listener is requesting to resolve a service that has no info in
-                // cache. Use the provided name to generate a minimal response, so other records are
-                // queried to complete it.
-                // Only the names are used to know which queries to send, other parameters like
-                // interfaceIndex do not matter.
-                servicesToResolve = makeResponsesForResolveIfUnknown(
-                        0 /* interfaceIndex */, config.socketKey.getNetwork());
+                servicesToResolve = makeResponsesForResolveIfUnknown(config.socketKey);
                 sendDiscoveryQueries = servicesToResolve.size() < listeners.size();
             }
             Pair<Integer, List<String>> result;
@@ -535,7 +527,7 @@ public class MdnsServiceTypeClient {
                                 config.subtypes,
                                 config.expectUnicastResponse,
                                 config.transactionId,
-                                config.socketKey.getNetwork(),
+                                config.socketKey,
                                 sendDiscoveryQueries,
                                 servicesToResolve)
                                 .call();
