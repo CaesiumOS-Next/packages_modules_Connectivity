@@ -729,7 +729,6 @@ public class MdnsServiceTypeClientTests {
     }
 
     @Test
-    @Ignore("MdnsConfigs is not configurable currently.")
     public void processResponse_allowSearchOptionsToRemoveExpiredService_shouldRemove()
             throws Exception {
         //MdnsConfigsFlagsImpl.allowSearchOptionsToRemoveExpiredService.override(true);
@@ -742,7 +741,9 @@ public class MdnsServiceTypeClientTests {
                         return mockPacketWriter;
                     }
                 };
-        client.startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
+        MdnsSearchOptions searchOptions = MdnsSearchOptions.newBuilder().setRemoveExpiredService(
+                true).build();
+        client.startSendAndReceive(mockListenerOne, searchOptions);
         Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
 
         // Process the initial response.
