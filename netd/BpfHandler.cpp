@@ -19,6 +19,7 @@
 #include "BpfHandler.h"
 
 #include <linux/bpf.h>
+#include <inttypes.h>
 
 #include <android-base/unique_fd.h>
 #include <bpf/WaitForProgsLoaded.h>
@@ -243,6 +244,8 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
               mCookieTagMap.getMap().get());
         return -res.error().code();
     }
+    ALOGD("Socket with cookie %" PRIu64 " tagged successfully with tag %" PRIu32,
+          sock_cookie, tag);
     return 0;
 }
 
