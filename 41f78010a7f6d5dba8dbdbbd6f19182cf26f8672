@@ -300,6 +300,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c5c8dce_5a8de141",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-01T06:57:03Z",
+      "side": 1,
+      "message": "Per offline discussion, the fundamental thing I intended it to return is the information of \"was handleStopKeepalive called\". Updated the comment to mention handleStopKeepalive.",
+      "parentUuid": "7dc5574f_8e8cbc0b",
+      "range": {
+        "startLine": 631,
+        "startChar": 57,
+        "endLine": 631,
+        "endChar": 72
+      },
+      "revId": "41f78010a7f6d5dba8dbdbbd6f19182cf26f8672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e69586a2_774fa90f",
