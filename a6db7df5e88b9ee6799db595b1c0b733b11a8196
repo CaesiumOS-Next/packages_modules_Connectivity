@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6031eb71_23099cd0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-01T03:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b111a6c7_3b01d80d",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 9
+      },
+      "revId": "a6db7df5e88b9ee6799db595b1c0b733b11a8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70ed7443_7cd42bfa",
@@ -130,6 +154,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d028ac1b_acd725ed",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-01T03:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bea2d23b_84ec0126",
+      "range": {
+        "startLine": 160,
+        "startChar": 24,
+        "endLine": 160,
+        "endChar": 33
+      },
+      "revId": "a6db7df5e88b9ee6799db595b1c0b733b11a8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21522299_5053ba2e",
@@ -167,6 +215,30 @@
       "side": 1,
       "message": "To support downstream tethering interfaces, I added a constructor with an interfaceIndex parameter only. The Network parameter is always null for downstream tethering interfaces. For other interfaces, these parameters are available when creating a socket. Additionally, this change refactored the code so that the Network and interface index are now bundled together and can be provided to the user together.",
       "parentUuid": "21522299_5053ba2e",
+      "range": {
+        "startLine": 164,
+        "startChar": 6,
+        "endLine": 164,
+        "endChar": 73
+      },
+      "revId": "a6db7df5e88b9ee6799db595b1c0b733b11a8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "399e10d2_e804ba87",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-01T03:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8acef94_f53f001c",
       "range": {
         "startLine": 164,
         "startChar": 6,
