@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9629a973_a798efe5",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 11237,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:42:07Z",
+      "side": 1,
+      "message": "This looks very verbose for what it\u0027s doing. All you need is ifname and legacy type right ? Why not something like\n\n    final String transportToTestIfaceName(int transport) {\n      switch (transport) {\n        case TRANSPORT_WIFI:\n          return WIFI_IFNAME;\n        case TRANSPORT_CELLULAR:\n          return MOBILE_IFNAME;\n        case TRANSPORT_ETHERNET:\n          return ETHERNET_IFNAME;\n        default:\n          fail(\"Unsupported transport type\");\n      }\n    }\n\n    final int legacyType \u003d transportToLegacyType(transportType);\n    final LinkProperties lp \u003d new LinkProperties();\n    lp.setInterfaceName(transportToTestIfaceName(transportType));\n    final TestNetworkAgentWrapper agent \u003d new TestNetworkAgentWrapper(transportType, lp);\n    agent.connect(true);\n    ...\n    agent.unregister();",
+      "range": {
+        "startLine": 11220,
+        "startChar": 0,
+        "endLine": 11237,
+        "endChar": 9
+      },
+      "revId": "751aa2642968eebdb59ea0564d8000555ea9a073",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66621118_8769572b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 11238,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:42:07Z",
+      "side": 1,
+      "message": "I don\u0027t understand this English – what is \"new default network activity\" ?",
+      "range": {
+        "startLine": 11238,
+        "startChar": 11,
+        "endLine": 11238,
+        "endChar": 39
+      },
+      "revId": "751aa2642968eebdb59ea0564d8000555ea9a073",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a39012e_95c29fce",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 11297,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:42:07Z",
+      "side": 1,
+      "message": "Generally : please do not copy-paste this much code. Make helper functions.",
+      "range": {
+        "startLine": 11282,
+        "startChar": 0,
+        "endLine": 11297,
+        "endChar": 9
+      },
+      "revId": "751aa2642968eebdb59ea0564d8000555ea9a073",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "607729f5_192c2fac",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 11316,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:42:07Z",
+      "side": 1,
+      "message": "`the network` or `networks` ?",
+      "range": {
+        "startLine": 11316,
+        "startChar": 79,
+        "endLine": 11316,
+        "endChar": 86
+      },
+      "revId": "751aa2642968eebdb59ea0564d8000555ea9a073",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47ba9c47_3526373f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 11316,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:42:07Z",
+      "side": 1,
+      "message": "calls",
+      "range": {
+        "startLine": 11316,
+        "startChar": 40,
+        "endLine": 11316,
+        "endChar": 44
+      },
+      "revId": "751aa2642968eebdb59ea0564d8000555ea9a073",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07a520a9_198ca7de",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 11317,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:42:07Z",
+      "side": 1,
+      "message": "`adds` or `added` ?",
+      "range": {
+        "startLine": 11317,
+        "startChar": 11,
+        "endLine": 11317,
+        "endChar": 14
+      },
+      "revId": "751aa2642968eebdb59ea0564d8000555ea9a073",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88dca797_ec052392",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 11317,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:42:07Z",
+      "side": 1,
+      "message": "`for` ? Or something else ?",
+      "range": {
+        "startLine": 11317,
+        "startChar": 66,
+        "endLine": 11317,
+        "endChar": 68
+      },
+      "revId": "751aa2642968eebdb59ea0564d8000555ea9a073",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "121b5d8c_48f94f79",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 11318,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:42:07Z",
+      "side": 1,
+      "message": "the",
+      "range": {
+        "startLine": 11318,
+        "startChar": 70,
+        "endLine": 11318,
+        "endChar": 71
+      },
+      "revId": "751aa2642968eebdb59ea0564d8000555ea9a073",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bae4718_78fd8999",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:42:07Z",
+      "side": 1,
+      "message": "Ah, because you\u0027re using ArrayTrackRecord directly instead of a wrapper, and you can do that because you\u0027re just capturing Intents.\n\nI need to think a little bit more about this simple use case, but for now what you have will do.",
+      "parentUuid": "5952c57e_a3ec7ed2",
+      "range": {
+        "startLine": 900,
+        "startChar": 57,
+        "endLine": 900,
+        "endChar": 61
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13791d28_4956ef08",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Calling `super.sendOrderedBroadcastAsUser` caused following error.\n```\nPermission Denial: not allowed to send broadcast android.net.conn.DATA_ACTIVITY_CHANGE from pid\u003d30544, uid\u003d10130\n```\n\nIt\u0027s from the check in ActivityManagerService\nhttps://source.corp.google.com/h/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java;l\u003d13757-13765\n\nI haven\u0027t tried to pass this check in ConnectivityServiceTest.\nBut we don\u0027t expect anything from `super.sendOrderedBroadcastAsUser` so I just skipped calling `super.sendOrderedBroadcastAsUser`.",
       "parentUuid": "13791d28_4956ef08",
+      "range": {
+        "startLine": 912,
+        "startChar": 54,
+        "endLine": 912,
+        "endChar": 55
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "627ad1bc_c8673d63",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:42:07Z",
+      "side": 1,
+      "message": "Hm. Okay. My concern was more about future users using this method and expecting some side effects that you won\u0027t see.\nI guess we can live with that.",
+      "parentUuid": "15317aae_8a026693",
       "range": {
         "startLine": 912,
         "startChar": 54,
@@ -414,6 +462,30 @@
       "side": 1,
       "message": "Updated to `testOnNetworkActiveNewDefaultNetwork`",
       "parentUuid": "f4e5a44a_f7cf7c0b",
+      "range": {
+        "startLine": 11236,
+        "startChar": 16,
+        "endLine": 11236,
+        "endChar": 35
+      },
+      "revId": "2471ee9181f801fa23b3934d4ccc04794036c7c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d5dcc83_76005ac8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11236,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:42:07Z",
+      "side": 1,
+      "message": "Please refer to https://engdoc.corp.google.com/eng/doc/tott/episodes/660.md?cl\u003dhead\n\nSuggest something like testNewCellConnects_OnNetworkActiveCalled",
+      "parentUuid": "ac59e4b4_4197bceb",
       "range": {
         "startLine": 11236,
         "startChar": 16,
