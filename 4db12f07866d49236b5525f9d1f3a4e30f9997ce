@@ -281,6 +281,30 @@
       },
       "revId": "4db12f07866d49236b5525f9d1f3a4e30f9997ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "691001df_7c03e9fd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 11218,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T09:07:26Z",
+      "side": 1,
+      "message": "No this understanding is incorrect.\n\nYou are right that updating a boolean is an atomic operation : that means you can\u0027t observe tearing like you could with a long (e.g. with a long, if you have thread one updating it from `1 \u003c\u003c 32` to `1`, thread 2 might observe `1 \u003c\u003c 32 + 1`, but with a boolean you\u0027ll always see either true or false ; likewise, with an int, you can\u0027t see a value that was never set).\n\nBut that doesn\u0027t mean the value can\u0027t be in the CPU cache lines. So you write this on one thread, and minutes later another thread still doesn\u0027t see the updated value.",
+      "parentUuid": "58492123_214e62d4",
+      "range": {
+        "startLine": 11218,
+        "startChar": 19,
+        "endLine": 11218,
+        "endChar": 42
+      },
+      "revId": "4db12f07866d49236b5525f9d1f3a4e30f9997ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
