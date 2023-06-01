@@ -136,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f192a51e_967b1e65",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-01T06:56:13Z",
+      "side": 1,
+      "message": "sOpenSockets has to be static since one TestKeepaliveInfo is only storing one socket? Do you mean it should be moved out of TestKeepaliveInfo and non-static?\n \nI think the list just needs to be cleared since the sockets are now closed.",
+      "parentUuid": "b66bb7ba_6bd35331",
+      "range": {
+        "startLine": 304,
+        "startChar": 12,
+        "endLine": 304,
+        "endChar": 18
+      },
+      "revId": "e2908446304e0ac342ac92b830ee3b5b345a2de7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5637b9ad_9efb3ed4",

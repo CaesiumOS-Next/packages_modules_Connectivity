@@ -34,6 +34,24 @@
       "parentUuid": "4dcde192_28281f2a",
       "revId": "ba892ed229f26896e3f5b382c789a16e71d9f14c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfb8d38e_6e9ebf11",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-01T06:56:13Z",
+      "side": 1,
+      "message": "In the case of socketKeepaliveCallback, I think the methods we are interested in verifying(i.e. onStarted, onStopped, etc) will likely never be stubbed. So I think this is a good solution.",
+      "parentUuid": "27435e93_13b37690",
+      "revId": "ba892ed229f26896e3f5b382c789a16e71d9f14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
