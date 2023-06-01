@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5467ccde_f208078b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:59:46Z",
+      "side": 1,
+      "message": "wo",
+      "range": {
+        "startLine": 9,
+        "startChar": 48,
+        "endLine": 9,
+        "endChar": 50
+      },
+      "revId": "b3f3c57d4b33acd647f1e860844a47ddc887c40f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "470dfe75_c16c1d32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:59:46Z",
+      "side": 1,
+      "message": "The threading is incorrect but I think you can probably resolve that by simply making the boolean volatile, as there are no ordering constraints between netd updates and call to the getter.\n\nNote that you won\u0027t be able to remove the memory barriers whatever you do, though.",
+      "revId": "b3f3c57d4b33acd647f1e860844a47ddc887c40f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12e5d257_a64455ae",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 11050,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:59:46Z",
+      "side": 1,
+      "message": "This doesn\u0027t do what you think it does. After this, isDefaultNetwork called on a random thread can return false. Java spec 17.5\n\nThe only way you can do this correctly is to have a write barrier at the end of the constructor and a read barrier before reading it. You can achieve this here by moving this assignment in the constructor, locked by mActiveIdleTimers.",
+      "range": {
+        "startLine": 11050,
+        "startChar": 41,
+        "endLine": 11050,
+        "endChar": 45
+      },
+      "revId": "b3f3c57d4b33acd647f1e860844a47ddc887c40f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc1e8216_847e990d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 11089,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:59:46Z",
+      "side": 1,
+      "message": "This is written unlocked and therefore isDefaultNetworkActive is under no obligation to observe this write.",
+      "range": {
+        "startLine": 11089,
+        "startChar": 16,
+        "endLine": 11089,
+        "endChar": 30
+      },
+      "revId": "b3f3c57d4b33acd647f1e860844a47ddc887c40f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08d1ce73_0b29cc29",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 11252,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-01T08:59:46Z",
+      "side": 1,
+      "message": "Likewise, this is written unlocked, so isDefaultNetworkActive may not observe this write.",
+      "range": {
+        "startLine": 11252,
+        "startChar": 16,
+        "endLine": 11252,
+        "endChar": 30
+      },
+      "revId": "b3f3c57d4b33acd647f1e860844a47ddc887c40f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
