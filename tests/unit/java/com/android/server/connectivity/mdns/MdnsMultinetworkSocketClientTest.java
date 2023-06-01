@@ -74,7 +74,6 @@ public class MdnsMultinetworkSocketClientTest {
     @Before
     public void setUp() throws SocketException {
         MockitoAnnotations.initMocks(this);
-        doReturn(mNetwork).when(mSocketKey).getNetwork();
 
         final HandlerThread thread = new HandlerThread("MdnsMultinetworkSocketClientTest");
         thread.start();
@@ -127,8 +126,6 @@ public class MdnsMultinetworkSocketClientTest {
 
         final SocketKey tetherSocketKey1 = mock(SocketKey.class);
         final SocketKey tetherSocketKey2 = mock(SocketKey.class);
-        doReturn(null).when(tetherSocketKey1).getNetwork();
-        doReturn(null).when(tetherSocketKey2).getNetwork();
         // Notify socket created
         callback.onSocketCreated(mSocketKey, mSocket, List.of());
         verify(mSocketCreationCallback).onSocketCreated(mSocketKey);
@@ -137,19 +134,19 @@ public class MdnsMultinetworkSocketClientTest {
         callback.onSocketCreated(tetherSocketKey2, tetherIfaceSock2, List.of());
         verify(mSocketCreationCallback).onSocketCreated(tetherSocketKey2);
 
-        // Send packet to IPv4 with target network and verify sending has been called.
-        mSocketClient.sendMulticastPacket(ipv4Packet, mNetwork);
+        // Send packet to IPv4 with mSocketKey and verify sending has been called.
+        mSocketClient.sendMulticastPacket(ipv4Packet, mSocketKey);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         verify(mSocket).send(ipv4Packet);
         verify(tetherIfaceSock1, never()).send(any());
         verify(tetherIfaceSock2, never()).send(any());
 
-        // Send packet to IPv6 without target network and verify sending has been called.
-        mSocketClient.sendMulticastPacket(ipv6Packet, null);
+        // Send packet to IPv6 with tetherSocketKey1 and verify sending has been called.
+        mSocketClient.sendMulticastPacket(ipv6Packet, tetherSocketKey1);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         verify(mSocket, never()).send(ipv6Packet);
         verify(tetherIfaceSock1).send(ipv6Packet);
-        verify(tetherIfaceSock2).send(ipv6Packet);
+        verify(tetherIfaceSock2, never()).send(ipv6Packet);
     }
 
     @Test
@@ -229,8 +226,8 @@ public class MdnsMultinetworkSocketClientTest {
         verify(mSocketCreationCallback).onSocketCreated(socketKey2);
         verify(mSocketCreationCallback).onSocketCreated(socketKey3);
 
-        // Send IPv4 packet on the non-null Network and verify sending has been called.
-        mSocketClient.sendMulticastPacket(ipv4Packet, mNetwork);
+        // Send IPv4 packet to the mSocketKey and verify sending has been called.
+        mSocketClient.sendMulticastPacket(ipv4Packet, mSocketKey);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         verify(mSocket).send(ipv4Packet);
         verify(socket2, never()).send(any());
@@ -257,35 +254,35 @@ public class MdnsMultinetworkSocketClientTest {
         verify(socketCreationCb2).onSocketCreated(socketKey2);
         verify(socketCreationCb2).onSocketCreated(socketKey3);
 
-        // Send IPv4 packet to null network and verify sending to the 2 tethered interface sockets.
-        mSocketClient.sendMulticastPacket(ipv4Packet, null);
+        // Send IPv4 packet to socketKey2 and verify sending to the 2 tethered interface sockets.
+        mSocketClient.sendMulticastPacket(ipv4Packet, socketKey2);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         // ipv4Packet still sent only once on mSocket: times(1) matches the packet sent earlier on
         // mNetwork
         verify(mSocket, times(1)).send(ipv4Packet);
         verify(socket2).send(ipv4Packet);
-        verify(socket3).send(ipv4Packet);
+        verify(socket3, never()).send(ipv4Packet);
 
         // Unregister the second request
         mHandler.post(() -> mSocketClient.notifyNetworkUnrequested(listener2));
         verify(mProvider, timeout(DEFAULT_TIMEOUT)).unrequestSocket(callback2);
 
-        // Send IPv4 packet again and verify it's still sent a second time
-        mSocketClient.sendMulticastPacket(ipv4Packet, null);
+        // Send IPv4 packet to socketKey2 again and verify it's still sent a second time
+        mSocketClient.sendMulticastPacket(ipv4Packet, socketKey2);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         verify(socket2, times(2)).send(ipv4Packet);
-        verify(socket3, times(2)).send(ipv4Packet);
+        verify(socket3, never()).send(ipv4Packet);
 
         // Unrequest remaining sockets
         mHandler.post(() -> mSocketClient.notifyNetworkUnrequested(mListener));
         verify(mProvider, timeout(DEFAULT_TIMEOUT)).unrequestSocket(callback);
 
         // Send IPv4 packet and verify no more sending.
-        mSocketClient.sendMulticastPacket(ipv4Packet, null);
+        mSocketClient.sendMulticastPacket(ipv4Packet, socketKey2);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         verify(mSocket, times(1)).send(ipv4Packet);
         verify(socket2, times(2)).send(ipv4Packet);
-        verify(socket3, times(2)).send(ipv4Packet);
+        verify(socket3, never()).send(ipv4Packet);
     }
 
     @Test

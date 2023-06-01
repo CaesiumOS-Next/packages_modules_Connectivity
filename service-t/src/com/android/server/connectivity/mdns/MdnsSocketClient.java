@@ -209,21 +209,15 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
     }
 
     @Override
-    public void sendMulticastPacket(@NonNull DatagramPacket packet, @Nullable Network network) {
-        if (network != null) {
-            throw new IllegalArgumentException("This socket client does not support sending to "
-                    + "specific networks");
-        }
-        sendMulticastPacket(packet);
+    public void sendMulticastPacket(@NonNull DatagramPacket packet, @NonNull SocketKey socketKey) {
+        throw new UnsupportedOperationException("This socket client does not support sending to "
+                + "specific socket");
     }
 
     @Override
-    public void sendUnicastPacket(@NonNull DatagramPacket packet, @Nullable Network network) {
-        if (network != null) {
-            throw new IllegalArgumentException("This socket client does not support sending to "
-                    + "specific networks");
-        }
-        sendUnicastPacket(packet);
+    public void sendUnicastPacket(@NonNull DatagramPacket packet, @NonNull SocketKey socketKey) {
+        throw new UnsupportedOperationException("This socket client does not support sending to "
+                + "specific socket");
     }
 
     @Override
