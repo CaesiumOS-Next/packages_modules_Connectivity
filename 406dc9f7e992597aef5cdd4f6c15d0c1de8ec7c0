@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34b2cab2_551f9123",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-02T07:23:59Z",
+      "side": 1,
+      "message": "Nit: final",
+      "range": {
+        "startLine": 103,
+        "startChar": 11,
+        "endLine": 103,
+        "endChar": 12
+      },
+      "revId": "406dc9f7e992597aef5cdd4f6c15d0c1de8ec7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c805ce46_9faf7e5a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-02T07:23:59Z",
+      "side": 1,
+      "message": "So before we have a network request, the interface is set if the group extra is non-null\n\nBut after we have a request, it\u0027s when it\u0027s non-null and p2pInfo.groupFormed\u003d\u003dtrue\n\nBecause the \"getInterface\" logic is duplicated here, both cases need to be manually kept in sync, so there can be differences.\n\nInstead you could do:\n\n```\nfinal String newP2pIface \u003d getWifiP2pInterface(intent);\n\nif (!mMonitoringSockets || !hasAllNetworksRequests()) {\n    mWifiP2pTetherInterface \u003d newP2pIface;\n    return;\n}\n\nif (Objects.equals(mWifiP2pTetherInterface, newP2pIface)) return;\n\nif (mWifiP2pTetherInterface !\u003d null) {\n    // Remove the socket. Consider Log.wtf if newP2pIface is non-null (changed from\n    // interface A to B without null broadcast)\n}\n\nif (newP2pIface !\u003d null \u0026\u0026 !socketAlreadyExists) {\n    // Add the new socket\n}\n\n[...]\n\n@Nullable\nString getWifiP2pInterface(Intent intent) {\n    null group -\u003e null\n    null p2pInfo -\u003e null\n    !p2pInfo.groupFormed -\u003e null\n    else group.getInterface() (possibly null too ?)\n}\n```",
+      "revId": "406dc9f7e992597aef5cdd4f6c15d0c1de8ec7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80551f3c_ec920d6e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-02T07:23:59Z",
+      "side": 1,
+      "message": "Shouldn\u0027t mWifiP2pTetherInterface be updated to null in that case too ?\n\nSee the suggestion above that avoids that",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 40
+      },
+      "revId": "406dc9f7e992597aef5cdd4f6c15d0c1de8ec7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
