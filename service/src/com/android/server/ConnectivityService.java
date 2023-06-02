@@ -4709,7 +4709,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         // Delayed teardown.
-        if (nai.isCreated()) {
+        if (shouldDestroyNativeNetwork(nai)) {
             try {
                 mNetd.networkSetPermissionForNetwork(nai.network.netId, INetd.PERMISSION_SYSTEM);
             } catch (RemoteException e) {
