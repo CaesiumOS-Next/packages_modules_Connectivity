@@ -189,6 +189,10 @@ public class MdnsRecordRepository {
             final long nameRecordsTtlMillis =
                     serviceTtlMillis != 0 ? serviceTtlMillis : NAME_RECORDS_TTL_MILLIS;
 
+            if (serviceInfo.hasHostname() && !serviceInfo.getHostAddresses().isEmpty()) {
+
+            }
+
             // Service PTR records
             List<String[]> ptrNames = new ArrayList<>();
             ptrNames.add(serviceType);
@@ -278,6 +282,31 @@ public class MdnsRecordRepository {
                             addr.getAddress()),
                     false /* sharedName */, false /* probing */));
         }
+    }
+
+    private RecordInfo<?> inetAddressToAddressRecord(InetAddress addr, String hostname, int ttlSeconds) {
+        return new RecordInfo<>(
+                null /* serviceInfo */,
+                new MdnsInetAddressRecord(
+                        mDeviceHostname,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        TimeUnit.SECONDS.toMillis(ttlSeconds),
+                        addr),
+                false /* sharedName */, false /* probing */);
+    }
+
+    private RecordInfo<?> inetAddressToRevRecord(InetAddress addr, String hostname, int ttlSeconds) {
+        final String[] revDnsAddr = getReverseDnsAddress(addr);
+        return new RecordInfo<>(
+                    null /* serviceInfo */,
+                    new MdnsPointerRecord(
+                            revDnsAddr,
+                            0L /* receiptTimeMillis */,
+                            true /* cacheFlush */,
+                            TimeUnit.SECONDS.toMillis(ttlSeconds),
+                            hostname),
+                    false /* sharedName */, false /* probing */);
     }
 
     /**

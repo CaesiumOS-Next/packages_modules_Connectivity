@@ -60,6 +60,9 @@ public final class NsdServiceInfo implements Parcelable {
 
     private final List<InetAddress> mHostAddresses = new ArrayList<>();
 
+    @Nullable
+    private String mHostname;
+
     private int mPort;
 
     @Nullable
@@ -148,10 +151,54 @@ public final class NsdServiceInfo implements Parcelable {
         return new ArrayList<>(mHostAddresses);
     }
 
-    /** Set the host addresses */
+    /**
+     * Set the host addresses.
+     *
+     * When the service is being registered, the {@code addresses} is used only when a non-empty
+     * hostname is set with {@link #setHostname(String)}.
+     *
+     * @see #setHostname(String)
+     */
     public void setHostAddresses(@NonNull List<InetAddress> addresses) {
         mHostAddresses.clear();
         mHostAddresses.addAll(addresses);
+    }
+
+    /** Returns the DNS name of the service host. */
+    @Nullable
+    public String getHostname() {
+        return mHostname;
+    }
+
+    /**
+     * Sets the DNS name of the service host.
+     *
+     * If {@code hostname} is {@code null} or an empty string, a default hostname will be selected
+     * for the service, and addresses set with {@link #setHostAddresses} (or {@link #setHost}) will
+     * be ignored when this service is registered.
+     *
+     * @see #setHostAddresses(List)
+     */
+    public void setHostname(@Nullable String hostname) {
+        mHostname = hostname;
+    }
+
+    /**
+     * Returns {@code true} if a non-empty service name has been set.
+     *
+     * @hide
+     */
+    public boolean hasServiceName() {
+        return !TextUtils.isEmpty(mServiceName);
+    }
+
+    /**
+     * Returns {@code true} if a non-empty hostname has been set.
+     *
+     * @hide
+     */
+    public boolean hasHostname() {
+        return !TextUtils.isEmpty(mHostname);
     }
 
     /**
@@ -525,6 +572,7 @@ public final class NsdServiceInfo implements Parcelable {
         for (InetAddress address : mHostAddresses) {
             InetAddressUtils.parcelInetAddress(dest, address, flags);
         }
+        dest.writeString(mHostname);
         dest.writeInt(mTtlSeconds);
     }
 
@@ -560,6 +608,7 @@ public final class NsdServiceInfo implements Parcelable {
                 for (int i = 0; i < size; i++) {
                     info.mHostAddresses.add(InetAddressUtils.unparcelInetAddress(in));
                 }
+                info.mHostname = in.readString();
                 info.setTtlSeconds(in.readInt());
                 return info;
             }

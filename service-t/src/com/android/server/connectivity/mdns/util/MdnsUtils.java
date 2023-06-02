@@ -68,7 +68,13 @@ public class MdnsUtils {
     /**
      * Compare two strings by DNS case-insensitive lowercase.
      */
-    public static boolean equalsIgnoreDnsCase(@NonNull String a, @NonNull String b) {
+    public static boolean equalsIgnoreDnsCase(@Nullable String a, @Nullable String b) {
+        if (a == b) {
+            return true;
+        } else if (a == null || b == null) {
+            return false;
+        }
+
         if (a.length() != b.length()) return false;
         for (int i = 0; i < a.length(); i++) {
             if (toDnsLowerCase(a.charAt(i)) != toDnsLowerCase(b.charAt(i))) {

@@ -698,8 +698,11 @@ public class NsdService extends INsdManager.Stub {
              * names used in registerService follows historical behavior (see mdnsresponder
              * handle_regservice_request).
              */
-            @NonNull
-            private String truncateServiceName(@NonNull String originalName) {
+            @Nullable
+            private String truncateServiceName(@Nullable String originalName) {
+                if (TextUtils.isEmpty(originalName)) {
+                    return originalName;
+                }
                 return MdnsUtils.truncateServiceName(originalName, MAX_LABEL_LENGTH);
             }
 

@@ -253,6 +253,11 @@ public class MdnsAdvertiser {
         int getConflictingService(@NonNull NsdServiceInfo info) {
             for (int i = 0; i < mPendingRegistrations.size(); i++) {
                 final NsdServiceInfo other = mPendingRegistrations.valueAt(i).getServiceInfo();
+                // TODO(wgtdkp):
+                //if (!TextUtils.isEmpty(info.getHostname()) && ) {
+                //
+                //}
+
                 if (MdnsUtils.equalsIgnoreDnsCase(info.getServiceName(), other.getServiceName())
                         && MdnsUtils.equalsIgnoreDnsCase(info.getServiceType(),
                         other.getServiceType())) {
@@ -380,6 +385,9 @@ public class MdnsAdvertiser {
         }
 
         private String getUpdatedServiceName(int renameCount) {
+            if (TextUtils.isEmpty(mOriginalName)) {
+                return mOriginalName;
+            }
             final String suffix = " (" + (mConflictCount + renameCount + 1) + ")";
             final String truncatedServiceName = MdnsUtils.truncateServiceName(mOriginalName,
                     MAX_LABEL_LENGTH - suffix.length());

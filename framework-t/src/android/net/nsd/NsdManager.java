@@ -1427,11 +1427,13 @@ public final class NsdManager {
 
     private static void checkServiceInfo(NsdServiceInfo serviceInfo) {
         Objects.requireNonNull(serviceInfo, "NsdServiceInfo cannot be null");
-        if (TextUtils.isEmpty(serviceInfo.getServiceName())) {
-            throw new IllegalArgumentException("Service name cannot be empty");
-        }
-        if (TextUtils.isEmpty(serviceInfo.getServiceType())) {
-            throw new IllegalArgumentException("Service type cannot be empty");
+        if (TextUtils.isEmpty(serviceInfo.getHostname())) {
+            if (TextUtils.isEmpty(serviceInfo.getServiceName())) {
+                throw new IllegalArgumentException("Service name cannot be empty");
+            }
+            if (TextUtils.isEmpty(serviceInfo.getServiceType())) {
+                throw new IllegalArgumentException("Service type cannot be empty");
+            }
         }
     }
 }
