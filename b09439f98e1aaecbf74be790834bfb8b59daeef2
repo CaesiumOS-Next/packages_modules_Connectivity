@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "901043d4_63decd46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-02T07:20:29Z",
+      "side": 1,
+      "message": "Can you add a unit test to ConnectivityServiceTest, or a CTS test in NetworkAgentTest, to test for this behaviour? Feel free to get in touch via chat if you\u0027re not familiar with how to do that, and we can help.",
+      "revId": "b09439f98e1aaecbf74be790834bfb8b59daeef2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
