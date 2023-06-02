@@ -18553,4 +18553,27 @@ public class ConnectivityServiceTest {
 
         verifyClatdStop(null /* inOrder */, MOBILE_IFNAME);
     }
+
+    @Test
+    public void testDestroyNativeNetworkAndDisconnectNetworkAgent() throws Exception {
+        // Connect both a regular cell agent
+        registerDefaultNetworkCallbacks();
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellAgent.connect(true);
+        mDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellAgent);
+
+        verify(mMockNetd).networkCreate(nativeNetworkConfigPhysical(
+            mCellAgent.getNetwork().netId, INetd.PERMISSION_NONE));
+        mCellAgent.getNetworkAgent().setTeardownDelayMillis(1000);
+
+        // Destroy the network with Netd first and then disconnect NA.
+        // Disconnect should happen with no crash.
+        verify(mMockNetd, times(1)).networkDestroy(eq(mCellAgent.getNetwork().netId));
+        final NetworkAgentInfo nai =
+                mService.getNetworkAgentInfoForNetwork((mCellAgent.getNetwork());
+        nai.setDestroyed();
+
+        mCellAgent.disconnect();
+        mCellAgent.expectDisconnected();
+    }
 }
