@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8a8f34e_6d65c3b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T19:05:52Z",
+      "side": 1,
+      "message": "Result on cuttlefish aosp/master\n\n$ { adb shell iptables-save; adb shell ip6tables-save; } | egrep 0x80000000\n\n-A wakeupctrl_mangle_INPUT -i buried_eth0 -m mark --mark 0x80000000/0x80000000 -m limit --limit 10/sec -j NFLOG --nflog-prefix  \"432902426637:buried_eth0\" --nflog-group 3 --nflog-threshold 8\n-A wakeupctrl_mangle_INPUT -i buried_eth0 -m mark --mark 0x80000000/0x80000000 -m limit --limit 10/sec -j NFLOG --nflog-prefix  \"432902426637:buried_eth0\" --nflog-group 3 --nflog-threshold 8\n\n$ printf \"%x\\n\" 432902426637\n64cafed00d\n\nie. netid \u00270x64\u0027",
+      "revId": "655f029751182e8cda6e484caa35b4314a0333dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
