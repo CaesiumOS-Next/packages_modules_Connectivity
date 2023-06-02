@@ -4568,7 +4568,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return nai.isVPN() || shouldCreateNetworksImmediately();
     }
 
-    private static boolean shouldDestroyNativeNetwork(@NonNull NetworkAgentInfo nai) {
+    private static boolean isNativeNetworkLive(@NonNull NetworkAgentInfo nai) {
         return nai.isCreated() && !nai.isDestroyed();
     }
 
@@ -4708,7 +4708,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         // Delayed teardown.
-        if (nai.isCreated()) {
+        if (isNativeNetworkLive(nai)) {
             try {
                 mNetd.networkSetPermissionForNetwork(nai.network.netId, INetd.PERMISSION_SYSTEM);
             } catch (RemoteException e) {
@@ -4719,7 +4719,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void destroyNetwork(NetworkAgentInfo nai) {
-        if (shouldDestroyNativeNetwork(nai)) {
+        if (isNativeNetworkLive(nai)) {
             // Tell netd to clean up the configuration for this network
             // (routing rules, DNS, etc).
             // This may be slow as it requires a lot of netd shelling out to ip and
