@@ -8091,6 +8091,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
         int mark = mResources.get().getInteger(R.integer.config_networkWakeupPacketMark);
         int mask = mResources.get().getInteger(R.integer.config_networkWakeupPacketMask);
 
+        if (SdkLevel.isAtLeastU()) {
+            final int defaultUMarkMask = 0x80000000;  // U+ default value of both
+
+            if ((mark == 0) || (mask == 0)) {
+                // simply treat unset/disabled as the default U value
+                mark = defaultUMarkMask;
+                mask = defaultUMarkMask;
+            }
+            if ((mark != defaultUMarkMask) || (mask != defaultUMarkMask)) {
+                // invalid device overlay settings
+                Log.wtf(TAG, "BUG: invalid config_networkWakeupPacketMark/Mask" + mark + "/" + mask);
+            }
+        }
+
         // Mask/mark of zero will not detect anything interesting.
         // Don't install rules unless both values are nonzero.
         if (mark == 0 || mask == 0) {
