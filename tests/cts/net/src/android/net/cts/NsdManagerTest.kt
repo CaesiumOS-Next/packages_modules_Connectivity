@@ -1333,6 +1333,101 @@ class NsdManagerTest {
                 serviceResolved.serviceInfo.hostAddresses.toSet())
     }
 
+    @Test
+    fun testDiscovery_ServiceExpires() {
+        val packetReader = TapPacketReader(Handler(handlerThread.looper),
+            testNetwork1.iface.fileDescriptor.fileDescriptor, 1500 /* maxPacketSize */)
+        packetReader.startAsyncForTest()
+        handlerThread.waitForIdle(TIMEOUT_MS)
+
+        val discoveryRecord = NsdDiscoveryRecord()
+        nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, null as Network?,
+            { it.run() }, discoveryRecord)
+
+        tryTest {
+            val ptrQuery = packetReader.pollForQuery("$serviceType.local", DnsResolver.TYPE_PTR)
+            assertNotNull(ptrQuery)
+            /*
+            Packet with 1s TTL on SRV record generated with:
+            scapy.raw(scapy.dns_compress(scapy.DNS(rd=0, qr=1, aa=1, qd = None, an =
+                scapy.DNSRR(rrname='_nmt123456789._tcp.local', type='PTR', ttl=120,
+                        rdata='NsdTest123456789._nmt123456789._tcp.local') /
+                scapy.DNSRRSRV(rrname='NsdTest123456789._nmt123456789._tcp.local',
+                    rclass=0x8001, port=31234, target='testhost.local', ttl=120) /
+                scapy.DNSRR(rrname='NsdTest123456789._nmt123456789._tcp.local', type='TXT', ttl=120,
+                    rdata='testkey=testvalue') /
+                scapy.DNSRR(rrname='testhost.local', type='A', ttl=120,
+                    rdata='192.0.2.123') /
+                scapy.DNSRR(rrname='testhost.local', type='AAAA', ttl=120,
+                    rdata='2001:db8::123')
+            ))).hex()
+             */
+            val responsePayload = HexDump.hexStringToByteArray("0000840000000005000000000d5f6e6d7" +
+                    "4313233343536373839045f746370056c6f63616c00000c0001000000780013104e736454657" +
+                    "374313233343536373839c00cc03000218001000000780016000000007a020874657374686f7" +
+                    "374056c6f63616c00c0300010000100000078001211746573746b65793d7465737476616c756" +
+                    "5c05500010001000000780004c000027bc055001c000100000078001020010db800000000000" +
+                    "0000000000123")
+
+            replaceServiceNameWithTestSuffix(responsePayload)
+            packetReader.sendResponse(buildMdnsPacket(responsePayload))
+
+            discoveryRecord.expectCallback<ServiceFound>()
+            discoveryRecord.expectCallback<ServiceLost>(timeoutMs = 1000L + TIMEOUT_MS)
+        } cleanup {
+            nsdShim.unregisterServiceInfoCallback(nsdManager, serviceInfoRecord)
+            serviceInfoRecord.expectCallback<UnregisterCallbackSucceeded>()
+        }
+    }
+
+    @Test
+    fun testServiceInfoCallback_ServiceExpires() {
+        // This test requires shims supporting T+ APIs (NsdServiceInfo.network)
+        assumeTrue(TestUtils.shouldTestTApis())
+
+        val packetReader = TapPacketReader(Handler(handlerThread.looper),
+            testNetwork1.iface.fileDescriptor.fileDescriptor, 1500 /* maxPacketSize */)
+        packetReader.startAsyncForTest()
+        handlerThread.waitForIdle(TIMEOUT_MS)
+
+        val si = makeTestServiceInfo(testNetwork1.network)
+        val serviceInfoRecord = NsdServiceInfoCallbackRecord()
+        nsdShim.registerServiceInfoCallback(nsdManager, si, { it.run() }, serviceInfoRecord)
+
+        tryTest {
+            val serviceFullName = "$serviceName.$serviceType.local"
+            val srvQuery = packetReader.pollForQuery(serviceFullName, DnsResolver.TYPE_SRV)
+            assertNotNull(srvQuery)
+            /*
+            Packet with 1s TTL on SRV record generated with:
+            scapy.raw(scapy.dns_compress(scapy.DNS(rd=0, qr=1, aa=1, qd = None, an =
+                scapy.DNSRRSRV(rrname='NsdTest123456789._nmt123456789._tcp.local',
+                    rclass=0x8001, port=31234, target='testhost.local', ttl=120) /
+                scapy.DNSRR(rrname='NsdTest123456789._nmt123456789._tcp.local', type='TXT', ttl=120,
+                    rdata='testkey=testvalue') /
+                scapy.DNSRR(rrname='testhost.local', type='A', ttl=120,
+                    rdata='192.0.2.123') /
+                scapy.DNSRR(rrname='testhost.local', type='AAAA', ttl=120,
+                    rdata='2001:db8::123')
+            ))).hex()
+             */
+            val responsePayload = HexDump.hexStringToByteArray("000084000000000400000000104e73645" +
+                    "46573743132333435363738390d5f6e6d74313233343536373839045f746370056c6f63616c0" +
+                    "000218001000000010016000000007a020874657374686f7374056c6f63616c00c00c0010000" +
+                    "100000078001211746573746b65793d7465737476616c7565c04700010001000000780004c00" +
+                    "0027bc047001c000100000078001020010db8000000000000000000000123")
+
+            replaceServiceNameWithTestSuffix(responsePayload)
+            packetReader.sendResponse(buildMdnsPacket(responsePayload))
+
+            serviceInfoRecord.expectCallback<ServiceUpdated>()
+            serviceInfoRecord.expectCallback<ServiceUpdatedLost>(timeoutMs = 1000L + TIMEOUT_MS)
+        } cleanup {
+            nsdShim.unregisterServiceInfoCallback(nsdManager, serviceInfoRecord)
+            serviceInfoRecord.expectCallback<UnregisterCallbackSucceeded>()
+        }
+    }
+
     private fun buildConflictingAnnouncement(): ByteBuffer {
         /*
         Generated with:
