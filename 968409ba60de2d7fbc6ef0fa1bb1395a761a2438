@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a4629ff_44004a2a",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T22:04:40Z",
+      "side": 1,
+      "message": "%llu for sock_cookie and %u for tag should be sufficient, but your call",
+      "range": {
+        "startLine": 247,
+        "startChar": 33,
+        "endLine": 247,
+        "endChar": 39
+      },
+      "revId": "968409ba60de2d7fbc6ef0fa1bb1395a761a2438",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22d1fa44_6148c931",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T22:04:40Z",
+      "side": 1,
+      "message": "this should log the tagged uid as well (and probably the realUid as well)",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 81
+      },
+      "revId": "968409ba60de2d7fbc6ef0fa1bb1395a761a2438",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3297d88_4b112cec",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T22:04:40Z",
+      "side": 1,
+      "message": "perhaps you\u0027d want to ALOGD untags too",
+      "range": {
+        "startLine": 262,
+        "startChar": 4,
+        "endLine": 262,
+        "endChar": 10
+      },
+      "revId": "968409ba60de2d7fbc6ef0fa1bb1395a761a2438",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
