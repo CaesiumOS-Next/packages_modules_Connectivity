@@ -70,6 +70,30 @@
       },
       "revId": "d278950e9d0fa0cf1c66e8545d97e9b545db9051",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "819008e3_3068aa53",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-02T03:37:54Z",
+      "side": 1,
+      "message": "+1 on returning early as soon as the first exception is hit. It looks like all the methods that use these EXPECT_xxx macros are void so we could just use \"return\" everywhere.\n\nEven if we want to continue running code (i.e., not return early when the first exception is thrown), then I\u0027m not sure that defining our own canThrowException global is the right way to do it. We can just use env-\u003eExceptionCheck to check whether an exception has already been thrown.",
+      "parentUuid": "212da249_33d7ea60",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 17
+      },
+      "revId": "d278950e9d0fa0cf1c66e8545d97e9b545db9051",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
