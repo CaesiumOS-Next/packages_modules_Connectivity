@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b99dc071_850f6d0b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "This isn\u0027t a real review - these are just things that come to mind as I look at it on the first pass...\n\nI\u0027m curious what is driving this change, and think we could use some cleanup refactoring CLs first to reduce some of this craziness.\n\nThoughts?",
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9da064cc_40001600",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "this lookup isn\u0027t free, it would effectively be free if we always used map entry 0 and used an 1 element sized array (not hash)\n\ndo we actually care about the stats being per-interface?\n\nit\u0027s pretty rare we have more than 1 clat interface...",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 69
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d61af581_7c0af23a",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "we could choose to auto populate with zero-filled stats here...\n\nI haven\u0027t looked further yet, but I assume we add/remove the stats entry in the java code?",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 61
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86bd8f31_27b2377e",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "the problem with this approach is we don\u0027t actually know what errors are happening\n\nI\u0027ve been meaning to do the offload.c PUNT style macro error return...\n\nerror paths shouldn\u0027t happen so I guess this double counting doesn\u0027t really matter though.",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 51
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1f6cc49_cdae3c28",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "we should document *what* precisely this is counting.\n\nie. this looks like ipv4 total length, so no mac header",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 56
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a97e3cc_f8a38bd5",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "hmm surprised this side is tx not rx",
+      "range": {
+        "startLine": 282,
+        "startChar": 42,
+        "endLine": 282,
+        "endChar": 53
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc6db0a4_fcc785eb",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "why do we actually care?",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 282,
+        "endChar": 58
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ab855dd_5fc27886",
+        "filename": "bpf_progs/clatd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "should probably comment what rx/tx means...\n ie. I assume rx means coming from upstream ivp6-only network?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 16
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28e63ac6_ce06a403",
+        "filename": "bpf_progs/clatd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "let\u0027s add rxFragments too for symmetry?",
+      "range": {
+        "startLine": 69,
+        "startChar": 13,
+        "endLine": 69,
+        "endChar": 24
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f973c902_a8867a83",
+        "filename": "common/src/com/android/net/module/util/bpf/ClatStatsKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "this class seems superfluous... can\u0027t we just use S32 directly?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acea50b1_4256a73f",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "this stuff is ugly...\n\nwe should get a IClatCoordinator with separate preT and T+ implementations...\nand no sdklevel checks in either",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 52
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bedd676_7fd099de",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-02T23:59:18Z",
+      "side": 1,
+      "message": "what about refactoring (separate CL) this to:\n\nmEgressMap.autologgingDeleteEntry(txKey, TAG, \"egress\");\n\nthis seems terribly repetitive...\n\nNot even clear the TAG and name shouldn\u0027t be stored in the map during map init.",
+      "range": {
+        "startLine": 505,
+        "startChar": 12,
+        "endLine": 509,
+        "endChar": 13
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
