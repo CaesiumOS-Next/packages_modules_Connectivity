@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74acaa92_ecd65ec4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-02T01:37:18Z",
+      "side": 1,
+      "message": "Thanks for pointing this out, I was totally misunderstanding this.\n\n\u003e as there are no ordering constraints between netd updates and call to the getter. \n\nI think there is a order constrains between getter and reportNetworkActive.\nAfter client received onNetworkActive callback, user should get true from isDefaultNetworkActive.\nIn this case, we can not just use volatile?",
+      "parentUuid": "470dfe75_c16c1d32",
+      "revId": "b3f3c57d4b33acd647f1e860844a47ddc887c40f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12e5d257_a64455ae",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 13
