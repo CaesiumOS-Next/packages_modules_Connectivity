@@ -305,6 +305,30 @@
       },
       "revId": "4db12f07866d49236b5525f9d1f3a4e30f9997ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "433ab7b2_f57ea9d3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 11218,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-02T06:19:04Z",
+      "side": 1,
+      "message": "Updated `mIsDefaultNetworkActive` to volatile",
+      "parentUuid": "691001df_7c03e9fd",
+      "range": {
+        "startLine": 11218,
+        "startChar": 19,
+        "endLine": 11218,
+        "endChar": 42
+      },
+      "revId": "4db12f07866d49236b5525f9d1f3a4e30f9997ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
