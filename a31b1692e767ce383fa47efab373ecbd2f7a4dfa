@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8ab067d_f35b1a67",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-02T08:34:34Z",
+      "side": 1,
+      "message": "I think this needs to be `\u0026\u0026 !mLocalOnlyInterfaces.contains(mWifiP2pTetherInterface)`\n\nOtherwise you may send onSocketCreated twice",
+      "revId": "a31b1692e767ce383fa47efab373ecbd2f7a4dfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
