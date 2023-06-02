@@ -83,6 +83,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e146f618_242b0070",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-02T06:14:00Z",
+      "side": 1,
+      "message": "If the code have `reportNetworkActive` after `mNetworkActive\u003dtrue`, it\u0027s guaranteed that `reportNetworkActive` is executed after `mNetworkActive\u003dtrue` since mNetworkActive is volatile.",
+      "parentUuid": "74acaa92_ecd65ec4",
+      "revId": "b3f3c57d4b33acd647f1e860844a47ddc887c40f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12e5d257_a64455ae",
@@ -96,6 +114,30 @@
       "writtenOn": "2023-06-01T08:59:46Z",
       "side": 1,
       "message": "This doesn\u0027t do what you think it does. After this, isDefaultNetwork called on a random thread can return false. Java spec 17.5\n\nThe only way you can do this correctly is to have a write barrier at the end of the constructor and a read barrier before reading it. You can achieve this here by moving this assignment in the constructor, locked by mActiveIdleTimers.",
+      "range": {
+        "startLine": 11050,
+        "startChar": 41,
+        "endLine": 11050,
+        "endChar": 45
+      },
+      "revId": "b3f3c57d4b33acd647f1e860844a47ddc887c40f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb06a19b_947ee598",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 11050,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-02T06:14:00Z",
+      "side": 1,
+      "message": "Made mNetworkActive volatile.",
+      "parentUuid": "12e5d257_a64455ae",
       "range": {
         "startLine": 11050,
         "startChar": 41,
@@ -129,6 +171,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1e9baf5_694dad98",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 11089,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-02T06:14:00Z",
+      "side": 1,
+      "message": "Made mNetworkActive volatile.",
+      "parentUuid": "fc1e8216_847e990d",
+      "range": {
+        "startLine": 11089,
+        "startChar": 16,
+        "endLine": 11089,
+        "endChar": 30
+      },
+      "revId": "b3f3c57d4b33acd647f1e860844a47ddc887c40f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08d1ce73_0b29cc29",
@@ -142,6 +208,30 @@
       "writtenOn": "2023-06-01T08:59:46Z",
       "side": 1,
       "message": "Likewise, this is written unlocked, so isDefaultNetworkActive may not observe this write.",
+      "range": {
+        "startLine": 11252,
+        "startChar": 16,
+        "endLine": 11252,
+        "endChar": 30
+      },
+      "revId": "b3f3c57d4b33acd647f1e860844a47ddc887c40f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e10ed9f5_db8df74d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 11252,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-02T06:14:00Z",
+      "side": 1,
+      "message": "Made mNetworkActive volatile.",
+      "parentUuid": "08d1ce73_0b29cc29",
       "range": {
         "startLine": 11252,
         "startChar": 16,
