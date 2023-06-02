@@ -18583,4 +18583,22 @@ public class ConnectivityServiceTest {
 
         verifyClatdStop(null /* inOrder */, MOBILE_IFNAME);
     }
+
+    @Test
+    public void testDestroyNativeNetworkAndDisconnectNetworkAgent() throws Exception {
+        // Connect a regular cell agent
+        registerDefaultNetworkCallbacks();
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellAgent.connect(true);
+        mDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellAgent);
+
+        verify(mMockNetd).networkCreate(nativeNetworkConfigPhysical(
+            mCellAgent.getNetwork().netId, INetd.PERMISSION_NONE));
+        mCellAgent.getNetworkAgent().setTeardownDelayMillis(100);
+
+        // unregisterAfterReplacement will first destroy the network with Netd
+        // and then disconnect NA. Disconnect should happen with no crash.
+        mCellAgent.getNetworkAgent().unregisterAfterReplacement(100);
+        mCellAgent.expectDisconnected();
+    }
 }
