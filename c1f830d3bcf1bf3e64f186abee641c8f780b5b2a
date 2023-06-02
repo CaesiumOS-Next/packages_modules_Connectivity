@@ -131,6 +131,155 @@
       },
       "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25d3fff7_cf388dc8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11394,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-02T07:05:17Z",
+      "side": 1,
+      "message": "Do we want to verify the cellular won\u0027t get the LP changed event?",
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "670ad42c_839be2b4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11399,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-02T07:05:17Z",
+      "side": 1,
+      "message": "It seems to me we are always want to verify getProxyForNetwork(network) and getLinkProperties(network).getHttpProxy() together.\nAnd supposedly they should be equal at all time, right?\nIf so, is it better if we use a small method to refactor them together and verify they are equal before return?",
+      "range": {
+        "startLine": 11397,
+        "startChar": 47,
+        "endLine": 11399,
+        "endChar": 93
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaf63a7a_0ddae463",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11407,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-02T07:05:17Z",
+      "side": 1,
+      "message": "style nit: Maybe a comment here to describe the action and what we are verifying here?\ne.g. \n// Start a ethernet network and make it default.\n(...code...)\n(newline)\n// Wifi is no longer the default, verify the wifi get a callback to LP changed with a PAC proxy but a port of -1 (since the local proxy doesn\u0027t serve wifi now)\n(...code...)\n\nGenerally speaking I\u0027ll prefer we have overview inline comments that can \nhelp the readers understand what we are trying to do without diving into the code.\nAnd only need to look at the code in a failing section.\n\nAlso for other place like l.11442 if it is better.\nNo strong opinion.",
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aea9e17_fe46e42d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11420,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-02T07:05:17Z",
+      "side": 1,
+      "message": "Question: Is this because no one is holding wifi connecting so we linger it?",
+      "range": {
+        "startLine": 11420,
+        "startChar": 8,
+        "endLine": 11420,
+        "endChar": 62
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "352e9c0b_f298d7fe",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11455,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-02T07:05:17Z",
+      "side": 1,
+      "message": "Not sure what we are trying to verify with this assertion.\nIt seems to me we are expecting default network change to wifi.\nIf so maybe make a default network listener and assert expected callback received?\nAlso for the place where the ethernet connected and becomes the default network.",
+      "range": {
+        "startLine": 11455,
+        "startChar": 8,
+        "endLine": 11455,
+        "endChar": 40
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9578edc9_f35c3f54",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11469,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-02T07:05:17Z",
+      "side": 1,
+      "message": "Maybe name it more specifically, e.g. servingProxyInfoAction.\nAlso for b1, b2 and b4.",
+      "range": {
+        "startLine": 11469,
+        "startChar": 8,
+        "endLine": 11469,
+        "endChar": 10
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12d00770_8a610538",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11472,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-02T07:05:17Z",
+      "side": 1,
+      "message": "Maybe describe why?",
+      "range": {
+        "startLine": 11471,
+        "startChar": 55,
+        "endLine": 11472,
+        "endChar": 49
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
