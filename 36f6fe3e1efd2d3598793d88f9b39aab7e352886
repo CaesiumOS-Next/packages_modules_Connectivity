@@ -16,6 +16,24 @@
       "message": "I don\u0027t think this should return, if newP2pIface can be non-null\n\nOtherwise you don\u0027t maintain the invariant \"mWifiP2pTetherInterface contains the latest value of getWifiP2pInterface\"",
       "revId": "36f6fe3e1efd2d3598793d88f9b39aab7e352886",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8816a8b_a1fb32a5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-02T08:19:06Z",
+      "side": 1,
+      "message": "Make sense. Update the desgin accordingly.",
+      "parentUuid": "ee5ce9bd_54ae9ece",
+      "revId": "36f6fe3e1efd2d3598793d88f9b39aab7e352886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
