@@ -62,6 +62,23 @@
       },
       "revId": "406dc9f7e992597aef5cdd4f6c15d0c1de8ec7c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98d98f31_58a3a8d2",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-02T07:29:58Z",
+      "side": 1,
+      "message": "This would probably be null when groupFormed \u003d false",
+      "revId": "406dc9f7e992597aef5cdd4f6c15d0c1de8ec7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
