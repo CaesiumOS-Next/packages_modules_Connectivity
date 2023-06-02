@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37342da4_3f1c50a8",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-02T02:55:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9d6ce87_c9ddc4a0",
+      "range": {
+        "startLine": 732,
+        "startChar": 32,
+        "endLine": 732,
+        "endChar": 72
+      },
+      "revId": "3744278aed6137559ad595ef427f2dba7d1d0a5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3605281c_701992c6",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21236573_7688e85a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-02T02:55:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3605281c_701992c6",
+      "range": {
+        "startLine": 734,
+        "startChar": 8,
+        "endLine": 734,
+        "endChar": 87
+      },
+      "revId": "3744278aed6137559ad595ef427f2dba7d1d0a5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bba7378_9e0efae3",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-06-01T15:44:46Z",
       "side": 1,
       "message": "Since we removed the allowSearchOptionsToRemoveExpiredService flag, this test is now essentially the same as the `processResponse_notAllowRemoveSearch_shouldNotRemove` test above (the new MdnsServiceTypeClient is not necessary), so one of the tests should be removed to avoid duplication. You can remove it in a seperate commit.\nBTW, in the original code, these tests were different because they had different flags enabled/disabled.",
+      "range": {
+        "startLine": 774,
+        "startChar": 16,
+        "endLine": 774,
+        "endChar": 84
+      },
+      "revId": "3744278aed6137559ad595ef427f2dba7d1d0a5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57028a5b_a85dcaea",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-02T02:55:40Z",
+      "side": 1,
+      "message": "Thanks, I removed one of the test cases in this CL as it is relevant changes.",
+      "parentUuid": "5bba7378_9e0efae3",
       "range": {
         "startLine": 774,
         "startChar": 16,
