@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9757485_725b9edf",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-02T08:07:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34b2cab2_551f9123",
+      "range": {
+        "startLine": 103,
+        "startChar": 11,
+        "endLine": 103,
+        "endChar": 12
+      },
+      "revId": "406dc9f7e992597aef5cdd4f6c15d0c1de8ec7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c805ce46_9faf7e5a",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01174537_6247597f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-02T08:07:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c805ce46_9faf7e5a",
+      "revId": "406dc9f7e992597aef5cdd4f6c15d0c1de8ec7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80551f3c_ec920d6e",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-06-02T07:23:59Z",
       "side": 1,
       "message": "Shouldn\u0027t mWifiP2pTetherInterface be updated to null in that case too ?\n\nSee the suggestion above that avoids that",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 40
+      },
+      "revId": "406dc9f7e992597aef5cdd4f6c15d0c1de8ec7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b16114a_68c57882",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-02T08:07:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "80551f3c_ec920d6e",
       "range": {
         "startLine": 128,
         "startChar": 16,
