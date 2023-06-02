@@ -94,6 +94,30 @@
       },
       "revId": "d278950e9d0fa0cf1c66e8545d97e9b545db9051",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e8b2471_234a34a5",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-06-02T07:14:24Z",
+      "side": 1,
+      "message": "The macros are commonly called nestedly (for example, Java_android_net_cts_MultinetworkApiTest_runResNqueryCheck). It needs many lines of code change to achieve early return.\n\n```\nint Foo2() {\n    EXPECT_EQ(env, 0, Foo3(), \"some error message\");\n}\n\nvoid Foo1() {\n    EXPECT_EQ(env, 0, Foo2(), \"some error message\");\n}\n```\n\nenv-\u003eExceptionCheck looks exactly what I need. Thanks!",
+      "parentUuid": "819008e3_3068aa53",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 17
+      },
+      "revId": "d278950e9d0fa0cf1c66e8545d97e9b545db9051",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
