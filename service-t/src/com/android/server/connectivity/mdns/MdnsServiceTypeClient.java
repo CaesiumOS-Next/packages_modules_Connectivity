@@ -200,6 +200,7 @@ public class MdnsServiceTypeClient {
             final QueryTaskConfig taskConfig = new QueryTaskConfig(
                     searchOptions.getSubtypes(),
                     searchOptions.isPassiveMode(),
+                    searchOptions.onlyUseIpv6OnIpv6OnlyNetworks(),
                     ++currentSessionId,
                     network);
             if (hadReply) {
@@ -215,7 +216,7 @@ public class MdnsServiceTypeClient {
         final boolean matchesInstanceName = options.getResolveInstanceName() == null
                 // DNS is case-insensitive, so ignore case in the comparison
                 || MdnsUtils.equalsIgnoreDnsCase(options.getResolveInstanceName(),
-                        response.getServiceInstanceName());
+                response.getServiceInstanceName());
 
         // If discovery is requiring some subtypes, the response must have one that matches a
         // requested one.
@@ -404,6 +405,7 @@ public class MdnsServiceTypeClient {
         private final boolean alwaysAskForUnicastResponse =
                 MdnsConfigs.alwaysAskForUnicastResponseInEachBurst();
         private final boolean usePassiveMode;
+        private final boolean onlyUseIpv6OnIpv6OnlyNetworks;
         private final long sessionId;
         @VisibleForTesting
         int transactionId;
@@ -416,9 +418,13 @@ public class MdnsServiceTypeClient {
         private boolean isFirstBurst;
         @Nullable private final Network network;
 
-        QueryTaskConfig(@NonNull Collection<String> subtypes, boolean usePassiveMode,
-                long sessionId, @Nullable Network network) {
+        QueryTaskConfig(@NonNull Collection<String> subtypes,
+                boolean usePassiveMode,
+                boolean onlyUseIpv6OnIpv6OnlyNetworks,
+                long sessionId,
+                @Nullable Network network) {
             this.usePassiveMode = usePassiveMode;
+            this.onlyUseIpv6OnIpv6OnlyNetworks = onlyUseIpv6OnIpv6OnlyNetworks;
             this.subtypes = new ArrayList<>(subtypes);
             this.queriesPerBurst = QUERIES_PER_BURST;
             this.burstCounter = 0;
@@ -536,6 +542,7 @@ public class MdnsServiceTypeClient {
                                 config.expectUnicastResponse,
                                 config.transactionId,
                                 config.network,
+                                config.onlyUseIpv6OnIpv6OnlyNetworks,
                                 sendDiscoveryQueries,
                                 servicesToResolve)
                                 .call();
