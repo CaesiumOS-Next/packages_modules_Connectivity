@@ -8614,10 +8614,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void maybeCloseSockets(NetworkAgentInfo nai, Set<UidRange> ranges,
-            Set<Integer> exemptUids) {
+            UidRangeParcel[] uidRangeParcels, Set<Integer> exemptUids) {
         if (nai.isVPN() && !nai.networkAgentConfig.allowBypass) {
             try {
-                mDeps.destroyLiveTcpSockets(UidRange.toIntRanges(ranges), exemptUids);
+                if (mDeps.isAtLeastU()) {
+                    mDeps.destroyLiveTcpSockets(UidRange.toIntRanges(ranges), exemptUids);
+                } else {
+                    int[] exemptUidArray = new int[exemptUids.size()];
+                    int index = 0;
+                    for (final int exemptUid: exemptUids) {
+                        exemptUidArray[index] = exemptUid;
+                        index++;
+                    }
+                    mNetd.socketDestroy(uidRangeParcels, exemptUidArray);
+                }
             } catch (Exception e) {
                 loge("Exception in socket destroy: ", e);
             }
@@ -8634,7 +8644,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         UidRangeParcel[] ranges = toUidRangeStableParcels(uidRanges);
 
         // Close sockets before modifying uid ranges so that RST packets can reach to the server.
-        maybeCloseSockets(nai, uidRanges, exemptUids);
+        maybeCloseSockets(nai, uidRanges, ranges, exemptUids);
         try {
             if (add) {
                 mNetd.networkAddUidRangesParcel(new NativeUidRangeConfig(
@@ -8648,7 +8658,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     " on netId " + nai.network.netId + ". " + e);
         }
         // Close sockets that established connection while requesting netd.
-        maybeCloseSockets(nai, uidRanges, exemptUids);
+        maybeCloseSockets(nai, uidRanges, ranges, exemptUids);
     }
 
     private boolean isProxySetOnAnyDefaultNetwork() {
