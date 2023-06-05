@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0f47104_81ca92d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-05T15:16:04Z",
+      "side": 1,
+      "message": "This is mainly for adding mts test for clatd fragment IPv6 to IPv4 translation (aosp/2374109), and I think it is also useful for manual test and debug.",
+      "parentUuid": "b99dc071_850f6d0b",
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9da064cc_40001600",
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3041c55_053d1b61",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-05T15:16:04Z",
+      "side": 1,
+      "message": "Do we need to free the stat_v? This was copied from offload.c, none of the pointer return from the lookups were free there, I thought they are pointed to the original hash entries.",
+      "parentUuid": "9da064cc_40001600",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 69
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d61af581_7c0af23a",
         "filename": "bpf_progs/clatd.c",
         "patchSetId": 1
@@ -54,6 +96,30 @@
       "writtenOn": "2023-06-02T23:59:18Z",
       "side": 1,
       "message": "we could choose to auto populate with zero-filled stats here...\n\nI haven\u0027t looked further yet, but I assume we add/remove the stats entry in the java code?",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 61
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73aa92de_9662aedb",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-05T15:16:04Z",
+      "side": 1,
+      "message": "The stats entries are added/removed in ClatCoordinator. This error probably won\u0027t happen or only happen in a very short time (the ingress/egress maps are written first and the stats map hasn\u0027t written yet). It has risk if we create the zero-filled stats here, because it may remains there if the java code delete the stats map first during stop() and a packet luckily pass through ...",
+      "parentUuid": "d61af581_7c0af23a",
       "range": {
         "startLine": 117,
         "startChar": 0,
@@ -110,6 +176,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96dca946_f860220a",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-05T15:16:04Z",
+      "side": 1,
+      "message": "I changed it to skb-\u003elen, which count the whole packet content.",
+      "parentUuid": "e1f6cc49_cdae3c28",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 56
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a97e3cc_f8a38bd5",
@@ -156,6 +246,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63105c47_d736ad92",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-05T15:16:04Z",
+      "side": 1,
+      "message": "This is for mts test of aosp/2374109 which needs to verify whether the fragment packets are processed by clat\u0027s bpf.",
+      "parentUuid": "fc6db0a4_fcc785eb",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 282,
+        "endChar": 58
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a84fc7e_81119345",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-05T15:16:04Z",
+      "side": 1,
+      "message": "I swapped the definitions of rx and tx, make it consistent with offload.c",
+      "parentUuid": "8a97e3cc_f8a38bd5",
+      "range": {
+        "startLine": 282,
+        "startChar": 42,
+        "endLine": 282,
+        "endChar": 53
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ab855dd_5fc27886",
@@ -169,6 +307,30 @@
       "writtenOn": "2023-06-02T23:59:18Z",
       "side": 1,
       "message": "should probably comment what rx/tx means...\n ie. I assume rx means coming from upstream ivp6-only network?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 16
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff0efb6_847952f4",
+        "filename": "bpf_progs/clatd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-05T15:16:04Z",
+      "side": 1,
+      "message": "Added comments for those fields.",
+      "parentUuid": "2ab855dd_5fc27886",
       "range": {
         "startLine": 62,
         "startChar": 0,
@@ -202,6 +364,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeeebbee_e5eba992",
+        "filename": "bpf_progs/clatd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-05T15:16:04Z",
+      "side": 1,
+      "message": "Added rxFragments, but currently only support IPv6 -\u003e IPv4 fragment in clatd",
+      "parentUuid": "28e63ac6_ce06a403",
+      "range": {
+        "startLine": 69,
+        "startChar": 13,
+        "endLine": 69,
+        "endChar": 24
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f973c902_a8867a83",
@@ -215,6 +401,30 @@
       "writtenOn": "2023-06-02T23:59:18Z",
       "side": 1,
       "message": "this class seems superfluous... can\u0027t we just use S32 directly?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf657cfa_5be9f99b",
+        "filename": "common/src/com/android/net/module/util/bpf/ClatStatsKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-05T15:16:04Z",
+      "side": 1,
+      "message": "Not sure what you mean ... the definition is the same as TetherStatsKey.\nS32 means signed 32 bits integer, which is the same as int, right?",
+      "parentUuid": "f973c902_a8867a83",
       "range": {
         "startLine": 26,
         "startChar": 0,
