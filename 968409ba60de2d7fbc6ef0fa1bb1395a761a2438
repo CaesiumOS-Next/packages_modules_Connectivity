@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "152b1aa6_5adb53b4",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 2011190
+      },
+      "writtenOn": "2023-06-05T19:22:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22d1fa44_6148c931",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 81
+      },
+      "revId": "968409ba60de2d7fbc6ef0fa1bb1395a761a2438",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3297d88_4b112cec",
@@ -60,6 +84,30 @@
       "writtenOn": "2023-06-02T22:04:40Z",
       "side": 1,
       "message": "perhaps you\u0027d want to ALOGD untags too",
+      "range": {
+        "startLine": 262,
+        "startChar": 4,
+        "endLine": 262,
+        "endChar": 10
+      },
+      "revId": "968409ba60de2d7fbc6ef0fa1bb1395a761a2438",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "321fac3d_d5f7d494",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 2011190
+      },
+      "writtenOn": "2023-06-05T19:22:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3297d88_4b112cec",
       "range": {
         "startLine": 262,
         "startChar": 4,
