@@ -9864,6 +9864,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         params.networkCapabilities);
             }
             final long delay = !avoidBadWifi() && activelyPreferBadWifi()
+                    && networkAgent.networkAgentConfig.isExplicitlySelected()
                     ? ACTIVELY_PREFER_BAD_WIFI_INITIAL_TIMEOUT_MS
                     : DONT_ACTIVELY_PREFER_BAD_WIFI_INITIAL_TIMEOUT_MS;
             scheduleEvaluationTimeout(networkAgent.network, delay);

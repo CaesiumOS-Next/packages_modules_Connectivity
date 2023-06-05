@@ -6118,7 +6118,7 @@ public class ConnectivityServiceTest {
     }
 
     public void doTestPreferBadWifi(final boolean avoidBadWifi,
-            final boolean preferBadWifi,
+            final boolean preferBadWifi, final boolean explicitlySelected,
             @NonNull Predicate<Long> checkUnvalidationTimeout) throws Exception {
         // Pretend we're on a carrier that restricts switching away from bad wifi, and
         // depending on the parameter one that may indeed prefer bad wifi.
@@ -6138,6 +6138,7 @@ public class ConnectivityServiceTest {
 
         // Bring up validated cell and unvalidated wifi.
         mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellAgent.explicitlySelected(explicitlySelected, false /* acceptUnvalidated */);
         mCellAgent.connect(true);
         mDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellAgent);
 
@@ -6161,27 +6162,33 @@ public class ConnectivityServiceTest {
         // Starting with U this mode is no longer supported and can't actually be tested
         assumeFalse(mDeps.isAtLeastU());
         doTestPreferBadWifi(false /* avoidBadWifi */, false /* preferBadWifi */,
-                timeout -> timeout < 14_000);
+                false /* explicitlySelected */, timeout -> timeout < 14_000);
     }
 
     @Test
-    public void testPreferBadWifi_doNotAvoid_doPrefer() throws Exception {
+    public void testPreferBadWifi_doNotAvoid_doPrefer_notExplicit() throws Exception {
         doTestPreferBadWifi(false /* avoidBadWifi */, true /* preferBadWifi */,
-                timeout -> timeout > 14_000);
+                false /* explicitlySelected */, timeout -> timeout > 14_000);
+    }
+
+    @Test
+    public void testPreferBadWifi_doNotAvoid_doPrefer_explicitlySelected() throws Exception {
+        doTestPreferBadWifi(false /* avoidBadWifi */, true /* preferBadWifi */,
+                true /* explicitlySelected */, timeout -> timeout < 14_000);
     }
 
     @Test
     public void testPreferBadWifi_doAvoid_doNotPrefer() throws Exception {
         // If avoidBadWifi=true, then preferBadWifi should be irrelevant. Test anyway.
         doTestPreferBadWifi(true /* avoidBadWifi */, false /* preferBadWifi */,
-                timeout -> timeout < 14_000);
+                false /* explicitlySelected */, timeout -> timeout < 14_000);
     }
 
     @Test
     public void testPreferBadWifi_doAvoid_doPrefer() throws Exception {
         // If avoidBadWifi=true, then preferBadWifi should be irrelevant. Test anyway.
         doTestPreferBadWifi(true /* avoidBadWifi */, true /* preferBadWifi */,
-                timeout -> timeout < 14_000);
+                false /* explicitlySelected */, timeout -> timeout < 14_000);
     }
 
     @Test
