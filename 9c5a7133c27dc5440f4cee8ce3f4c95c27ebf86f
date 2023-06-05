@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "092ebb86_ee2eee96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-05T06:46:59Z",
+      "side": 1,
+      "message": "LGTM assuming comment addressed.",
+      "revId": "9c5a7133c27dc5440f4cee8ce3f4c95c27ebf86f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8db2b60_823f24e1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1616,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-05T06:46:59Z",
+      "side": 1,
+      "message": "What are these braces for? I\u0027ve never seen them in Java, perhaps because there are no destructors that run when code goes out of scope. Can you just unindent? Or if not, move to a helper method?",
+      "range": {
+        "startLine": 1616,
+        "startChar": 8,
+        "endLine": 1616,
+        "endChar": 9
+      },
+      "revId": "9c5a7133c27dc5440f4cee8ce3f4c95c27ebf86f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
