@@ -1,0 +1,227 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac572031_795f3c91",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:17:39Z",
+      "side": 1,
+      "message": "It would be nice to have a test for the changes here; maybe something similar to MdnsResponseTests#addRecords_ttlChange or addRecords_noChange",
+      "revId": "5e8b70a3dd18f23d10643310abcbcafa356d5b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3de120fc_c3fd79b3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:17:39Z",
+      "side": 1,
+      "message": "Sorry, we looked at this line together but: \"existing\" is the index in the \"recordsList\" list, not in the \"records\" member. So \"recordsList.set\" would be correct here, and another statement is necessary to also update the \"records\" list.\n\nSee also the suggestion in setServiceRecord for simplifying this code (using \"boolean changed\")",
+      "revId": "5e8b70a3dd18f23d10643310abcbcafa356d5b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11b4ddd0_dce14ab1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:17:39Z",
+      "side": 1,
+      "message": "Although I don\u0027t think it happens in actual code, MdnsResponseDecoderTests.testIsComplete calls setServiceRecord(null), which wouldn\u0027t behave well here\n\nI think you could just do the following, which is also a bit simpler:\n\n```\nfinal boolean changed \u003d recordsAreSame(...)\n\n// Do the rest as before\n\nreturn changed;\n```",
+      "revId": "5e8b70a3dd18f23d10643310abcbcafa356d5b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2acd6e45_902cfaa4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:17:39Z",
+      "side": 1,
+      "message": "(same suggestion as for setServiceRecord)",
+      "revId": "5e8b70a3dd18f23d10643310abcbcafa356d5b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7feafa1_2dbe57c4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:17:39Z",
+      "side": 1,
+      "message": "Nit: `*not* including those which records were only updated with newer receive timestamps` or similar",
+      "range": {
+        "startLine": 124,
+        "startChar": 89,
+        "endLine": 124,
+        "endChar": 90
+      },
+      "revId": "5e8b70a3dd18f23d10643310abcbcafa356d5b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ef6f81a_76555d36",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:17:39Z",
+      "side": 1,
+      "message": "Nit: maybe say explicitly \", and some of them have only records receive time updated\"",
+      "range": {
+        "startLine": 125,
+        "startChar": 87,
+        "endLine": 125,
+        "endChar": 88
+      },
+      "revId": "5e8b70a3dd18f23d10643310abcbcafa356d5b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccded9d3_46c0323f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:17:39Z",
+      "side": 1,
+      "message": "Nit: maybe to be more explicit, \"A copy of the original responses with...\"",
+      "range": {
+        "startLine": 125,
+        "startChar": 30,
+        "endLine": 125,
+        "endChar": 43
+      },
+      "revId": "5e8b70a3dd18f23d10643310abcbcafa356d5b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c28f8a50_a8b5d90d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:17:39Z",
+      "side": 1,
+      "message": "Not for this change, but isn\u0027t every \"get\" of this map wrong considering the \"case-insensitive\" patch ?",
+      "revId": "5e8b70a3dd18f23d10643310abcbcafa356d5b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71e718dd_80fb6606",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:17:39Z",
+      "side": 1,
+      "message": "This would also include stuff in additionalResponses, which should not be put in instanceNameToResponse if it wasn\u0027t augmented by the incoming packet (so if it wasn\u0027t in the modified list), as these are locally generated \"known responses\".\n\nYou could check if instanceNameToResponse.containsKey, since you only need to update the last receipt time if it\u0027s an existing response (with a comment explaining the others are the locally-generated additionalResponses)\n\nOr you could check that response.hasPtrRecord(), as I think a locally generated response that wasn\u0027t augmented won\u0027t have a PTR record. But that\u0027s maybe a bit less clear.",
+      "range": {
+        "startLine": 285,
+        "startChar": 18,
+        "endLine": 285,
+        "endChar": 24
+      },
+      "revId": "5e8b70a3dd18f23d10643310abcbcafa356d5b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11afbb6a_839be29e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:17:39Z",
+      "side": 1,
+      "message": "Nit: be more explicit: cacheFlush will cause addresses to be cleared and re-added every time, which is considered a change and triggers extra onServiceChanged callbacks.",
+      "range": {
+        "startLine": 1081,
+        "startChar": 33,
+        "endLine": 1081,
+        "endChar": 45
+      },
+      "revId": "5e8b70a3dd18f23d10643310abcbcafa356d5b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee481c5b_2cc30aa5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:17:39Z",
+      "side": 1,
+      "message": "Nit: Jean would say go/avoid-we (maybe just \"until the issue is fixed\")",
+      "range": {
+        "startLine": 1082,
+        "startChar": 57,
+        "endLine": 1082,
+        "endChar": 59
+      },
+      "revId": "5e8b70a3dd18f23d10643310abcbcafa356d5b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
