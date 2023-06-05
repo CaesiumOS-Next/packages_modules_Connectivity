@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fd31bd5_a0147dcc",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T07:13:29Z",
+      "side": 1,
+      "message": "Nevermind, this seems to be an issue with the default constructor of OnSubscriptionsChangedListener attempting to create a HandlerExecutor with the current thread.\n\nAdded `Looper.prepare();`",
+      "parentUuid": "6920a3c4_2b51356f",
+      "range": {
+        "startLine": 246,
+        "startChar": 26,
+        "endLine": 246,
+        "endChar": 49
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "575e7de5_4537ded5",
