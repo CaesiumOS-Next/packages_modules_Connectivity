@@ -41,6 +41,7 @@ import android.net.ISocketKeepaliveCallback;
 import android.net.InetAddresses;
 import android.net.InvalidPacketException;
 import android.net.KeepalivePacketData;
+import android.net.LinkAddress;
 import android.net.NattKeepalivePacketData;
 import android.net.NetworkAgent;
 import android.net.SocketKeepalive.InvalidSocketException;
@@ -59,12 +60,16 @@ import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.net.module.util.HexDump;
+import com.android.net.module.util.InetAddressUtils;
 import com.android.net.module.util.IpUtils;
 
 import java.io.FileDescriptor;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -104,19 +109,21 @@ public class KeepaliveTracker {
     // Allowed unprivileged keepalive slots per uid. Caller's permission will be enforced if
     // the number of remaining keepalive slots is less than or equal to the threshold.
     private final int mAllowedUnprivilegedSlotsForUid;
-
+    private final Dependencies mDependencies;
     public KeepaliveTracker(Context context, Handler handler) {
-        this(context, handler, new TcpKeepaliveController(handler));
+        this(context, handler, new TcpKeepaliveController(handler), new Dependencies());
     }
 
     @VisibleForTesting
-    KeepaliveTracker(Context context, Handler handler, TcpKeepaliveController tcpController) {
+    KeepaliveTracker(Context context, Handler handler, TcpKeepaliveController tcpController,
+            Dependencies deps) {
         mTcpController = tcpController;
         mContext = context;
+        mDependencies = deps;
 
-        mSupportedKeepalives = KeepaliveResourceUtil.getSupportedKeepalives(context);
+        mSupportedKeepalives = mDependencies.getSupportedKeepalives(mContext);
 
-        final ConnectivityResources res = new ConnectivityResources(mContext);
+        final ConnectivityResources res = mDependencies.createConnectivityResources(mContext);
         mReservedPrivilegedSlots = res.get().getInteger(
                 R.integer.config_reservedPrivilegedKeepaliveSlots);
         mAllowedUnprivilegedSlotsForUid = res.get().getInteger(
@@ -152,7 +159,8 @@ public class KeepaliveTracker {
         private int mSlot = NO_KEEPALIVE;
 
         // Packet data.
-        private final KeepalivePacketData mPacket;
+        @VisibleForTesting
+        final KeepalivePacketData mPacket;
         private final int mInterval;
 
         // Whether the keepalive is started or not. The initial state is NOT_STARTED.
@@ -720,7 +728,26 @@ public class KeepaliveTracker {
         try {
             srcAddress = InetAddresses.parseNumericAddress(srcAddrString);
             dstAddress = InetAddresses.parseNumericAddress(dstAddrString);
-        } catch (IllegalArgumentException e) {
+            // Translate IPv4 to v6 in IPv6 only network because hardware may reject the attempt to
+            // use NATT keepalive to an IPv4 server over an IPv6 network. This translation should
+            // only be performed when clat is started, because the client is not expected to
+            // request sending keepalive if a v4 address is not available yet.
+            if (nai.clatd().isStarted() && dstAddress instanceof Inet4Address) {
+                Log.d(TAG, "Clatd is started. Convert address.");
+                dstAddress = InetAddressUtils.convertFromIpv4ToMappedv6((dstAddress));
+                for (LinkAddress addr : nai.linkProperties.getLinkAddresses()) {
+                    if (addr.getAddress() instanceof Inet6Address && addr.isGlobalPreferred()) {
+                        srcAddress = addr.getAddress();
+                        break;
+                    }
+                }
+            } else if (!(dstAddress instanceof Inet4Address)
+                    || !(srcAddress instanceof Inet4Address)) {
+                throw new IllegalArgumentException("Only allow sending NAT-T keepalive with v4 "
+                        + dstAddress + " " + srcAddress);
+            }
+        } catch (IllegalArgumentException | UnknownHostException e) {
+            Log.e(TAG, "Fail to construct address", e);
             notifyErrorCallback(cb, ERROR_INVALID_IP_ADDRESS);
             return null;
         }
@@ -730,6 +757,7 @@ public class KeepaliveTracker {
             packet = NattKeepalivePacketData.nattKeepalivePacket(
                     srcAddress, srcPort, dstAddress, NATT_PORT);
         } catch (InvalidPacketException e) {
+            Log.e(TAG, "Fail to construct keepalive packet", e);
             notifyErrorCallback(cb, e.getError());
             return null;
         }
@@ -861,5 +889,32 @@ public class KeepaliveTracker {
             pw.decreaseIndent();
         }
         pw.decreaseIndent();
+    }
+
+    /**
+     * Dependencies class for testing.
+     */
+    @VisibleForTesting
+    public static class Dependencies {
+        /**
+         * Read supported keepalive count for each transport type from overlay resource. This should
+         * be sed to create a local variable store of resource customization, and use it as the
+         * input for {@link getSupportedKeepalivesForNetworkCapabilities}.
+         *
+         * @param context The context to read resource from.
+         * @return An array of supported keepalive count for each transport type.
+         */
+        @NonNull
+        public int[] getSupportedKeepalives(@NonNull Context context) {
+            return KeepaliveResourceUtil.getSupportedKeepalives(context);
+        }
+
+        /**
+         * Create a new {@link ConnectivityResources}.
+         */
+        @NonNull
+        public ConnectivityResources createConnectivityResources(@NonNull Context context) {
+            return new ConnectivityResources(context);
+        }
     }
 }

@@ -1033,6 +1033,14 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     }
 
     /**
+     * Get the instance of 464xlat.
+     */
+    @VisibleForTesting
+    public Nat464Xlat clatd() {
+        return clatd;
+    }
+
+    /**
      * Get the NetworkMonitorManager in this NetworkAgentInfo.
      *
      * <p>This will be null before {@link #onNetworkMonitorCreated(INetworkMonitor)} is called.
