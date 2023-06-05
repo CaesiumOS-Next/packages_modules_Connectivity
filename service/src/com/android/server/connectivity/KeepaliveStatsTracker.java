@@ -113,7 +113,7 @@ public class KeepaliveStatsTracker {
         /**
          * Gets the lifetime stats for the keepalive, updated to timeNow, and then resets it.
          *
-         * @param timeNow a timestamp obtained using Dependencies.getUptimeMillis
+         * @param timeNow a timestamp obtained using Dependencies.getElapsedRealtime
          */
         public LifetimeStats getAndResetLifetimeStats(long timeNow) {
             updateLifetimeStatsAndSetActive(timeNow, mKeepaliveActive);
@@ -148,7 +148,7 @@ public class KeepaliveStatsTracker {
          * Updates the lifetime metrics to the given time and sets the active state. This should be
          * called whenever the active state of the keepalive changes.
          *
-         * @param timeNow a timestamp obtained using Dependencies.getUptimeMillis
+         * @param timeNow a timestamp obtained using Dependencies.getElapsedRealtime
          */
         public void updateLifetimeStatsAndSetActive(long timeNow, boolean keepaliveActive) {
             final int durationIncrease = (int) (timeNow - mLastUpdateLifetimeTimestamp);
@@ -163,7 +163,7 @@ public class KeepaliveStatsTracker {
          * Resets the lifetime metrics but does not reset the active/stopped state of the keepalive.
          * This also updates the time to timeNow, ensuring stats will start from this time.
          *
-         * @param timeNow a timestamp obtained using Dependencies.getUptimeMillis
+         * @param timeNow a timestamp obtained using Dependencies.getElapsedRealtime
          */
         public void resetLifetimeStats(long timeNow) {
             mLifetimeMs = 0;
@@ -244,10 +244,10 @@ public class KeepaliveStatsTracker {
     /** Dependency class */
     @VisibleForTesting
     public static class Dependencies {
-        // Returns a timestamp with the time base of SystemClock.uptimeMillis to keep durations
-        // relative to start time and avoid timezone change.
-        public long getUptimeMillis() {
-            return SystemClock.uptimeMillis();
+        // Returns a timestamp with the time base of SystemClock.elapsedRealtime to keep durations
+        // relative to start time and avoid timezone change, including time spent in deep sleep.
+        public long getElapsedRealtime() {
+            return SystemClock.elapsedRealtime();
         }
     }
 
@@ -267,7 +267,7 @@ public class KeepaliveStatsTracker {
         final SubscriptionManager subscriptionManager =
                 Objects.requireNonNull(context.getSystemService(SubscriptionManager.class));
 
-        mLastUpdateDurationsTimestamp = mDependencies.getUptimeMillis();
+        mLastUpdateDurationsTimestamp = mDependencies.getElapsedRealtime();
 
         BackgroundThread.getHandler().post(() ->
                 subscriptionManager.addOnSubscriptionsChangedListener(
@@ -322,7 +322,7 @@ public class KeepaliveStatsTracker {
      * change to mNumRegisteredKeepalive or mNumActiveKeepalive to keep the duration metrics
      * correct.
      *
-     * @param timeNow a timestamp obtained using Dependencies.getUptimeMillis
+     * @param timeNow a timestamp obtained using Dependencies.getElapsedRealtime
      */
     private void updateDurationsPerNumOfKeepalive(long timeNow) {
         if (mDurationPerNumOfKeepalive.size() < mNumRegisteredKeepalive) {
@@ -404,7 +404,7 @@ public class KeepaliveStatsTracker {
         if (isAutoKeepalive) mNumAutomaticKeepaliveRequests++;
         mAppUids.add(appUid);
 
-        final long timeNow = mDependencies.getUptimeMillis();
+        final long timeNow = mDependencies.getElapsedRealtime();
         updateDurationsPerNumOfKeepalive(timeNow);
 
         mNumRegisteredKeepalive++;
@@ -430,7 +430,7 @@ public class KeepaliveStatsTracker {
      */
     private @NonNull KeepaliveStats onKeepaliveActive(
             @NonNull Network network, int slot, boolean keepaliveActive) {
-        final long timeNow = mDependencies.getUptimeMillis();
+        final long timeNow = mDependencies.getElapsedRealtime();
         return onKeepaliveActive(network, slot, keepaliveActive, timeNow);
     }
 
@@ -441,7 +441,7 @@ public class KeepaliveStatsTracker {
      * @param network the network of the keepalive
      * @param slot the slot number of the keepalive
      * @param keepaliveActive the new active state of the keepalive
-     * @param timeNow a timestamp obtained using Dependencies.getUptimeMillis
+     * @param timeNow a timestamp obtained using Dependencies.getElapsedRealtime
      * @return the KeepaliveStats associated with the network, slot pair or null if it is unknown.
      */
     private @NonNull KeepaliveStats onKeepaliveActive(
@@ -477,7 +477,7 @@ public class KeepaliveStatsTracker {
     /** Inform the KeepaliveStatsTracker a keepalive has just been stopped. */
     public void onStopKeepalive(@NonNull Network network, int slot) {
         final int keepaliveId = getKeepaliveId(network, slot);
-        final long timeNow = mDependencies.getUptimeMillis();
+        final long timeNow = mDependencies.getElapsedRealtime();
 
         final KeepaliveStats keepaliveStats =
                 onKeepaliveActive(network, slot, /* keepaliveActive= */ false, timeNow);
@@ -494,7 +494,7 @@ public class KeepaliveStatsTracker {
      * Updates and adds the lifetime metric of keepaliveStats to the aggregate.
      *
      * @param keepaliveStats the stats to add to the aggregate
-     * @param timeNow a timestamp obtained using Dependencies.getUptimeMillis
+     * @param timeNow a timestamp obtained using Dependencies.getElapsedRealtime
      */
     private void addToAggregateKeepaliveLifetime(
             @NonNull KeepaliveStats keepaliveStats, long timeNow) {
@@ -535,14 +535,14 @@ public class KeepaliveStatsTracker {
     @VisibleForTesting
     public @NonNull DailykeepaliveInfoReported buildKeepaliveMetrics() {
         ensureRunningOnHandlerThread();
-        final long timeNow = mDependencies.getUptimeMillis();
+        final long timeNow = mDependencies.getElapsedRealtime();
         return buildKeepaliveMetrics(timeNow);
     }
 
     /**
      * Updates the metrics to timeNow and builds and returns DailykeepaliveInfoReported proto.
      *
-     * @param timeNow a timestamp obtained using Dependencies.getUptimeMillis
+     * @param timeNow a timestamp obtained using Dependencies.getElapsedRealtime
      */
     private @NonNull DailykeepaliveInfoReported buildKeepaliveMetrics(long timeNow) {
         updateDurationsPerNumOfKeepalive(timeNow);
@@ -592,7 +592,7 @@ public class KeepaliveStatsTracker {
      */
     public @NonNull DailykeepaliveInfoReported buildAndResetMetrics() {
         ensureRunningOnHandlerThread();
-        final long timeNow = mDependencies.getUptimeMillis();
+        final long timeNow = mDependencies.getElapsedRealtime();
 
         final DailykeepaliveInfoReported metrics = buildKeepaliveMetrics(timeNow);
 
