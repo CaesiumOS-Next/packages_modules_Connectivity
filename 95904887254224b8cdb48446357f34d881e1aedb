@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c82f0af_6d7aaa8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-05T10:42:33Z",
+      "side": 1,
+      "message": "LGTM, but I don\u0027t know much about this code, so I think Paul and Yuyang should +2 it before we try to get it into the FRC.",
+      "revId": "95904887254224b8cdb48446357f34d881e1aedb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "357755fa_2cdc494d",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1486,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-05T10:42:33Z",
+      "side": 1,
+      "message": "Might be good to add a test where one of the clients registers one service (lock taken), then another service (lock remains taken), then unregisters one service (lock remains taken), then unregisters the second one (lock released).",
+      "range": {
+        "startLine": 1486,
+        "startChar": 16,
+        "endLine": 1486,
+        "endChar": 31
+      },
+      "revId": "95904887254224b8cdb48446357f34d881e1aedb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

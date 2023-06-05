@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c366183_f761e345",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-05T10:42:33Z",
+      "side": 1,
+      "message": "Is this the right level I wonder? For example I think GmsCore often/always has a foreground service. If so, maybe IMPORTANCE_FOREGROUND is better.",
+      "range": {
+        "startLine": 157,
+        "startChar": 50,
+        "endLine": 157,
+        "endChar": 79
+      },
+      "revId": "a2567a80538dabd3ae148d465b797f6805d5995d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d1e899b_18ca6792",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-05T10:42:33Z",
+      "side": 1,
+      "message": "Technically the transport types of networks are mutable. Though in practice I can\u0027t imagine the ones you use here (TRANSPORT_WIFI, TRANSPORT_VPN) changing within the lifetime of a given network. Maybe add a TODO to fix? That way, if we extend the code in the future, we\u0027ll keep this in mind.",
+      "range": {
+        "startLine": 442,
+        "startChar": 76,
+        "endLine": 442,
+        "endChar": 86
+      },
+      "revId": "a2567a80538dabd3ae148d465b797f6805d5995d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bde32ed_f2cde655",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-05T10:42:33Z",
+      "side": 1,
+      "message": "for each",
+      "range": {
+        "startLine": 677,
+        "startChar": 54,
+        "endLine": 677,
+        "endChar": 56
+      },
+      "revId": "a2567a80538dabd3ae148d465b797f6805d5995d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
