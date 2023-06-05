@@ -65,7 +65,6 @@ import com.android.net.module.util.structs.Ipv4Header;
 import com.android.net.module.util.structs.UdpHeader;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
-import com.android.testutils.NetworkStackModuleTest;
 import com.android.testutils.TapPacketReader;
 
 import org.junit.Rule;
@@ -861,8 +860,6 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
             (byte) 0x00, (byte) 0x08, (byte) 0x3a, (byte) 0xdf
     };
 
-    // This test requires the update in NetworkStackModule(See b/269692093).
-    @NetworkStackModuleTest
     @Test
     public void testTetherZeroLengthDhcpPacket() throws Exception {
         final TetheringTester tester = initTetheringTester(toList(TEST_IP4_ADDR),
