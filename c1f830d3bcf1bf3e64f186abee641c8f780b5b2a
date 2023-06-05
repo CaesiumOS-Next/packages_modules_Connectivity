@@ -118,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eed8df9b_8a7746dd",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-05T06:37:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "70c69000_caeaa1e8",
+      "range": {
+        "startLine": 329,
+        "startChar": 43,
+        "endLine": 329,
+        "endChar": 60
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05fced3f_c7b235d1",
@@ -331,6 +355,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85936710_c71dcb32",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11399,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-05T06:37:12Z",
+      "side": 1,
+      "message": "no I mean more like below:\nfinal ProxyInfo startedDefaultProxyInfo \u003d mService.getProxyForNetwork(null);\nassertEquals(servingProxyInfo, startedDefaultProxyInfo);\nassertHttpProxyForNetworkEquals(servingProxyInfo, mWifiAgent.getNetwork());\n // Make sure the cell network is still unaffected\nassertHttpProxyForNetworkEquals(null, mCellAgent.getNetwork());\n\nBut still feel free to ignore if it it doesn\u0027t improve much.",
+      "parentUuid": "60f7bfa1_c4b8381a",
+      "range": {
+        "startLine": 11397,
+        "startChar": 47,
+        "endLine": 11399,
+        "endChar": 93
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eaf63a7a_0ddae463",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 24
@@ -458,6 +506,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f6b7b49_d32a5ae1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11455,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-05T06:37:12Z",
+      "side": 1,
+      "message": "yeah agreed.\nMy intention of assertion was to improve the readibility,\nwhere the reader can know what we are expecting.\nBut the added comments also works for me.",
+      "parentUuid": "37ce212e_9ca58d73",
+      "range": {
+        "startLine": 11455,
+        "startChar": 8,
+        "endLine": 11455,
+        "endChar": 40
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9578edc9_f35c3f54",
@@ -542,6 +614,30 @@
       "side": 1,
       "message": "Did my best, but this was written by Aaron and I\u0027m not sure I understand his intent well. But I think I made a reasonable point.",
       "parentUuid": "12d00770_8a610538",
+      "range": {
+        "startLine": 11471,
+        "startChar": 55,
+        "endLine": 11472,
+        "endChar": 49
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27ccb4ae_a9d5b07f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11472,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-05T06:37:12Z",
+      "side": 1,
+      "message": "Ok but my problem is for the test the proxy should be always null or empty.\nBut you are telling me there will be sometimes null and sometimes empty, which confuses me.\nNot sure what causes the undeterministic.\nIf we don\u0027t know it yet, maybe just add a TODO to figure it out someday?",
+      "parentUuid": "542e11dc_c07c9c60",
       "range": {
         "startLine": 11471,
         "startChar": 55,
