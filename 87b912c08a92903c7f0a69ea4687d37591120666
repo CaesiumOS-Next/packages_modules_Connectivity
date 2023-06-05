@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23dc9227_c1752bfb",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-05T14:38:32Z",
+      "side": 1,
+      "message": "I think we better to add logging to indicate which app result in taking the multicast lock? Otherwise, it will be hard to debug the battery bug.",
+      "range": {
+        "startLine": 395,
+        "startChar": 12,
+        "endLine": 395,
+        "endChar": 41
+      },
+      "revId": "87b912c08a92903c7f0a69ea4687d37591120666",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f14e2de5_623c9a01",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-05T14:38:32Z",
+      "side": 1,
+      "message": "nit: maybe better to rename it to `takeMulticastLockOnBehaveOfClient`? `testMulticastLock` is not actually the test is doing.",
+      "range": {
+        "startLine": 1378,
+        "startChar": 16,
+        "endLine": 1378,
+        "endChar": 33
+      },
+      "revId": "87b912c08a92903c7f0a69ea4687d37591120666",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
