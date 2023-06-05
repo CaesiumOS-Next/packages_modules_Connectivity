@@ -86,6 +86,7 @@ public class MdnsResponse {
         final int existing = recordsList.indexOf(record);
         if (existing >= 0) {
             if (recordsAreSame(record, recordsList.get(existing))) {
+                records.set(existing, record);
                 return false;
             }
             final MdnsRecord existedRecord = recordsList.remove(existing);
@@ -164,6 +165,9 @@ public class MdnsResponse {
     /** Sets the service record. */
     public synchronized boolean setServiceRecord(MdnsServiceRecord serviceRecord) {
         if (recordsAreSame(this.serviceRecord, serviceRecord)) {
+            records.remove(this.serviceRecord);
+            this.serviceRecord = serviceRecord;
+            records.add(this.serviceRecord);
             return false;
         }
         if (this.serviceRecord != null) {
@@ -188,6 +192,9 @@ public class MdnsResponse {
     /** Sets the text record. */
     public synchronized boolean setTextRecord(MdnsTextRecord textRecord) {
         if (recordsAreSame(this.textRecord, textRecord)) {
+            this.records.remove(this.textRecord);
+            this.textRecord = textRecord;
+            this.records.add(this.textRecord);
             return false;
         }
         if (this.textRecord != null) {

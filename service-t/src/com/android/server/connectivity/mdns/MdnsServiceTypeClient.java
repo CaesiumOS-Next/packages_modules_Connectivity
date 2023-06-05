@@ -260,15 +260,32 @@ public class MdnsServiceTypeClient {
             // Augment the list of current known responses, and generated responses for resolve
             // requests if there is no known response
             final List<MdnsResponse> currentList = new ArrayList<>(instanceNameToResponse.values());
-            currentList.addAll(makeResponsesForResolveIfUnknown(interfaceIndex, network));
-            final ArraySet<MdnsResponse> modifiedResponses = responseDecoder.augmentResponses(
-                    packet, currentList, interfaceIndex, network);
 
-            for (MdnsResponse modified : modifiedResponses) {
-                if (modified.isGoodbye()) {
-                    onGoodbyeReceived(modified.getServiceInstanceName());
+            List<MdnsResponse> additionalResponses = makeResponsesForResolve(interfaceIndex,
+                    network);
+            for (MdnsResponse additionalResponse : additionalResponses) {
+                if (!instanceNameToResponse.containsKey(
+                        additionalResponse.getServiceInstanceName())) {
+                    currentList.add(additionalResponse);
+                }
+            }
+            final Pair<ArraySet<MdnsResponse>, ArrayList<MdnsResponse>> augmentedResult =
+                    responseDecoder.augmentResponses(packet, currentList, interfaceIndex, network);
+
+            final ArraySet<MdnsResponse> modifiedResponse = augmentedResult.first;
+            final ArrayList<MdnsResponse> allResponses = augmentedResult.second;
+
+            for (MdnsResponse response : allResponses) {
+                if (modifiedResponse.contains(response)) {
+                    if (response.isGoodbye()) {
+                        onGoodbyeReceived(response.getServiceInstanceName());
+                    } else {
+                        onResponseModified(response);
+                    }
                 } else {
-                    onResponseModified(modified);
+                    // If the response is not modified. The cache still need to be updated to
+                    // refresh the last receipt time.
+                    instanceNameToResponse.put(response.getServiceInstanceName(), response);
                 }
             }
         }
@@ -474,7 +491,7 @@ public class MdnsServiceTypeClient {
         }
     }
 
-    private List<MdnsResponse> makeResponsesForResolveIfUnknown(int interfaceIndex,
+    private List<MdnsResponse> makeResponsesForResolve(int interfaceIndex,
             @NonNull Network network) {
         final List<MdnsResponse> resolveResponses = new ArrayList<>();
         for (int i = 0; i < listeners.size(); i++) {
@@ -516,7 +533,7 @@ public class MdnsServiceTypeClient {
                 // queried to complete it.
                 // Only the names are used to know which queries to send, other parameters like
                 // interfaceIndex do not matter.
-                servicesToResolve = makeResponsesForResolveIfUnknown(
+                servicesToResolve = makeResponsesForResolve(
                         0 /* interfaceIndex */, config.network);
                 sendDiscoveryQueries = servicesToResolve.size() < listeners.size();
             }
