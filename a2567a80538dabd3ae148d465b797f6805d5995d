@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d215822a_2a0f831c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:48:57Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of not including FOREGROUND_SERVICE, as it makes it difficult for apps to do something even when they have a persistent notification about the ongoing work. But I checked that gmscore does end up in the list with FOREGROUND_SERVICE, so changed to FOREGROUND.\n\nNote current usage in gmscore probably uses the lock anyway though.",
+      "parentUuid": "0c366183_f761e345",
+      "range": {
+        "startLine": 157,
+        "startChar": 50,
+        "endLine": 157,
+        "endChar": 79
+      },
+      "revId": "a2567a80538dabd3ae148d465b797f6805d5995d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d1e899b_18ca6792",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "811fa801_5faf095b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d1e899b_18ca6792",
+      "range": {
+        "startLine": 442,
+        "startChar": 76,
+        "endLine": 442,
+        "endChar": 86
+      },
+      "revId": "a2567a80538dabd3ae148d465b797f6805d5995d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bde32ed_f2cde655",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-06-05T10:42:33Z",
       "side": 1,
       "message": "for each",
+      "range": {
+        "startLine": 677,
+        "startChar": 54,
+        "endLine": 677,
+        "endChar": 56
+      },
+      "revId": "a2567a80538dabd3ae148d465b797f6805d5995d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bad893d_ce0189cc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-05T11:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bde32ed_f2cde655",
       "range": {
         "startLine": 677,
         "startChar": 54,
