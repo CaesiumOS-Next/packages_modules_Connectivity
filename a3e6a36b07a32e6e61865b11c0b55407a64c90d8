@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "900660be_3485444f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-05T03:35:15Z",
+      "side": 1,
+      "message": "Probably you can:\n\n    if (stats !\u003d null) {\n        final NetworkStats.Bucket bucket \u003d getReusedBucket();\n        while (stats.getNextBucket(bucket)) {\n            totalTxBytes +\u003d bucket.getTxBytes();\n            totalRxBytes +\u003d bucket.getRxBytes();\n        }\n    }    \n\n    @VisibleFortesting\n    public Bucket getReusedBucket() {\n        return new NetworkStats.Bucket();\n    }",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 9
+      },
+      "revId": "a3e6a36b07a32e6e61865b11c0b55407a64c90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08516a13_0a00f066",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-05T03:35:15Z",
+      "side": 1,
+      "message": "private class MockTetheringMetrics extends TetheringMetrics {\n        @Override\n        public void write(final NetworkTetheringReported reported) {}\n\n        @Override\n        public long timeNow() {\n            return currentTimeMillis();\n        }\n        \n        @Override\n        public Bucket getReusedBucket() {\n            return mockBucket;\n        }\n\n        MockTetheringMetrics(final Context context) {\n            super(context);\n        }\n    }",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 5
+      },
+      "revId": "a3e6a36b07a32e6e61865b11c0b55407a64c90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3cd8ca2_72896a0e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-05T03:35:15Z",
+      "side": 1,
+      "message": "With other suggestion in TetheringMetrices.java, you can override getReusedBucket:\n\n    public void getReusedBucket() {\n        return mockBucket;\n    }",
+      "range": {
+        "startLine": 505,
+        "startChar": 8,
+        "endLine": 505,
+        "endChar": 88
+      },
+      "revId": "a3e6a36b07a32e6e61865b11c0b55407a64c90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
