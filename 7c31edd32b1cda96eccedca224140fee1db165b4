@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "476d535b_63a71124",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2e17bc7_90cd6665",
+      "range": {
+        "startLine": 309,
+        "startChar": 55,
+        "endLine": 309,
+        "endChar": 63
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a96aa4b_63d62262",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-22T07:51:44Z",
       "side": 1,
       "message": "Do you really need a whole long-lived thread for this ? I understand you don\u0027t want to call getActiveSubscriptionInfoList on the handler thread, but you could do this on the system server bg thread (`com.android.internal.os.BackgroundThread.getExecutor()` is available I think ?) or even a direct executor (`r -\u003e r.run()`) which will run on the binder thread",
+      "range": {
+        "startLine": 246,
+        "startChar": 26,
+        "endLine": 246,
+        "endChar": 49
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6920a3c4_2b51356f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Now using direct executor. Seems like BackgroundThread is hidden.\n\n\u003ejava.lang.RuntimeException: Can\u0027t create handler inside thread Thread[Instr: androidx.test.runner.AndroidJUnitRunner,5,main] that has not called Looper.prepare()\n\nI think this is causing some tests to fail because in the case of tests, the direct executor uses the test thread that is creating the KeepaliveStatsTracker.",
+      "parentUuid": "4a96aa4b_63d62262",
       "range": {
         "startLine": 246,
         "startChar": 26,
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99631027_d7e86eeb",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "* If null is returned the current state is unknown but if a {@link OnSubscriptionsChangedListener}\n    * has been registered {@link OnSubscriptionsChangedListener#onSubscriptionsChanged} will be\n    * invoked in the future.\n     \nSeems like this should not be null in the callback of OnSubscriptionsChangedListener. A null does not imply 0 subscriptions so I think it is safer not to clear the cache.\nIt will clear the cache if the list is empty though.",
+      "parentUuid": "239ed33e_e06c28d2",
+      "range": {
+        "startLine": 251,
+        "startChar": 52,
+        "endLine": 251,
+        "endChar": 81
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8b4893a_be6fab71",
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0b0de19_e72bf16e",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8b4893a_be6fab71",
+      "range": {
+        "startLine": 320,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 0
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1234be6_3d2f6fd7",
@@ -130,6 +226,30 @@
       "writtenOn": "2023-05-22T07:51:44Z",
       "side": 1,
       "message": "I think it\u0027s guaranteed that this never does an IPC, but you should probably write a comment about it. By the way if the default subscription changes, will there be a call to `onSubscriptionsChanged` ? If so you can remove all risks by caching that too.",
+      "range": {
+        "startLine": 333,
+        "startChar": 36,
+        "endLine": 333,
+        "endChar": 60
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "638ea586_706d6bd4",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Unfortunately, this seems to do an IPC if the value is updated.\n\u003eBy the way if the default subscription changes, will there be a call to onSubscriptionsChanged ?\n\nI don\u0027t think so.\n\nNow the default subscription id is also cached but may be stale. Added a todo for that.",
+      "parentUuid": "c1234be6_3d2f6fd7",
       "range": {
         "startLine": 333,
         "startChar": 36,
@@ -189,6 +309,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15436167_ff3e055b",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Added a TODO for this.",
+      "parentUuid": "a47172b6_f53f54e6",
+      "range": {
+        "startLine": 332,
+        "startChar": 8,
+        "endLine": 334,
+        "endChar": 53
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d9583d1_56e153f8",
         "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
         "patchSetId": 7
@@ -200,6 +344,30 @@
       "writtenOn": "2023-05-22T07:51:44Z",
       "side": 1,
       "message": "Let\u0027s be a little bit more specific because NCs are used all over our code for many different things. Suggest `buildNetworkCapabilitiesWithSubId` or similar.",
+      "range": {
+        "startLine": 88,
+        "startChar": 39,
+        "endLine": 88,
+        "endChar": 63
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58716e60_636c9f5b",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d9583d1_56e153f8",
       "range": {
         "startLine": 88,
         "startChar": 39,
@@ -257,6 +425,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71b6a146_d0137557",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "909779b1_bccf4d49",
+      "range": {
+        "startLine": 110,
+        "startChar": 67,
+        "endLine": 110,
+        "endChar": 82
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e038581c_43e61db0",
@@ -270,6 +462,30 @@
       "writtenOn": "2023-05-22T03:01:46Z",
       "side": 1,
       "message": "Nit: A small helper method for this since you need to do this more than once?",
+      "range": {
+        "startLine": 175,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 67
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d6a7e20_1335ae3f",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e038581c_43e61db0",
       "range": {
         "startLine": 175,
         "startChar": 8,
@@ -329,6 +545,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2018698e_a97cef70",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "To Chiachang\u0027s point, it might be possible that onStartKeepalive and getCarrierId is called on the handler thread while the background thread is processing the first getActiveSubscriptionInfoList? Although that should be rare?\n\nTODO added in the other comment.",
+      "parentUuid": "0a76daa5_b0d6cc95",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 69
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd0261e4_93e5d76e",
         "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
         "patchSetId": 7
@@ -340,6 +580,30 @@
       "writtenOn": "2023-05-22T07:51:44Z",
       "side": 1,
       "message": "Considering you\u0027re setting this up in a counter-intuitive way (subinfo 2 with ID_1), I think it might be easier to understand if you re-set up the full list here even if that makes you re-do stuff that was done in `setUp()`. When I read this I have to go back to setUp() to see what other stuff will return.",
+      "range": {
+        "startLine": 955,
+        "startChar": 0,
+        "endLine": 956,
+        "endChar": 67
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "993fe2ac_2c7fd6bb",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Done. subInfo is now local and it should not be important to know the subInfo list done in setUp() since it is replaced here.",
+      "parentUuid": "fd0261e4_93e5d76e",
       "range": {
         "startLine": 955,
         "startChar": 0,
@@ -373,6 +637,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32418196_80111444",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f484c448_ac04afba",
+      "range": {
+        "startLine": 964,
+        "startChar": 30,
+        "endLine": 964,
+        "endChar": 31
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c1a3b72_c969890d",
@@ -396,6 +684,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9160ac9_3ba3ec4d",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c1a3b72_c969890d",
+      "range": {
+        "startLine": 966,
+        "startChar": 49,
+        "endLine": 966,
+        "endChar": 51
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ecabe5b_fdd8afc6",
@@ -409,6 +721,30 @@
       "writtenOn": "2023-05-22T07:51:44Z",
       "side": 1,
       "message": "1 \u003c\u003c CELL",
+      "range": {
+        "startLine": 985,
+        "startChar": 46,
+        "endLine": 985,
+        "endChar": 47
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3d86b96_9889c2ed",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T03:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ecabe5b_fdd8afc6",
       "range": {
         "startLine": 985,
         "startChar": 46,
