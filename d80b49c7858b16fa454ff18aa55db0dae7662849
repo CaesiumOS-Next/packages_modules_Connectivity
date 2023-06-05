@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47e29a3b_a4a203ab",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T07:12:15Z",
+      "side": 1,
+      "message": "Added getUid in KeepaliveInfo.",
+      "parentUuid": "b9e1096d_6614b5f8",
+      "range": {
+        "startLine": 451,
+        "startChar": 20,
+        "endLine": 451,
+        "endChar": 42
+      },
+      "revId": "d80b49c7858b16fa454ff18aa55db0dae7662849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf298d5a_ea7e65f8",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T07:12:15Z",
+      "side": 1,
+      "message": "Per Jean\u0027s comment, actually this should not be called since it is run on the handler thread. It is now getUid from KeepaliveInfo.",
+      "parentUuid": "66ba360e_8b8ccc96",
+      "range": {
+        "startLine": 451,
+        "startChar": 20,
+        "endLine": 451,
+        "endChar": 43
+      },
+      "revId": "d80b49c7858b16fa454ff18aa55db0dae7662849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "692cd53d_e88a9bc6",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-19T07:43:44Z",
       "side": 1,
       "message": "is an automatic keepalive",
+      "range": {
+        "startLine": 79,
+        "startChar": 38,
+        "endLine": 79,
+        "endChar": 59
+      },
+      "revId": "d80b49c7858b16fa454ff18aa55db0dae7662849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ec42151_2dc79bd3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T07:12:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "692cd53d_e88a9bc6",
       "range": {
         "startLine": 79,
         "startChar": 38,
@@ -106,6 +178,30 @@
       "writtenOn": "2023-05-19T07:43:44Z",
       "side": 1,
       "message": "Could you also add tests for `false` case?\n\nAlso for multiple uids case.",
+      "range": {
+        "startLine": 257,
+        "startChar": 24,
+        "endLine": 257,
+        "endChar": 28
+      },
+      "revId": "d80b49c7858b16fa454ff18aa55db0dae7662849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "952bc7ad_74c13cfa",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-05T07:12:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "256b8dc1_7615eb40",
       "range": {
         "startLine": 257,
         "startChar": 24,
