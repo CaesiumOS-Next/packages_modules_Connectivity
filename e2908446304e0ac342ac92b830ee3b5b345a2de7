@@ -160,6 +160,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fcb1f91_698d9eb7",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-05T04:46:30Z",
+      "side": 1,
+      "message": "Originally I suggested clearing yes, but I thought that moving it out might be cleaner. The difference is that because JUnit recreates the class for each test, whether you clear or not makes no difference.\n\nBut clearing is likely fine too.",
+      "parentUuid": "f192a51e_967b1e65",
+      "range": {
+        "startLine": 304,
+        "startChar": 12,
+        "endLine": 304,
+        "endChar": 18
+      },
+      "revId": "e2908446304e0ac342ac92b830ee3b5b345a2de7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5637b9ad_9efb3ed4",
