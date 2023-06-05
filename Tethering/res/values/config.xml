@@ -88,6 +88,14 @@
     <string-array translatable="false" name="config_tether_dhcp_range">
     </string-array>
 
+    <!-- If not set the IP Address coordinator will select a random IP and subnet. If set, the
+         coordinator will return this address to be used for the wifi tethering interface. Given
+         value need to be in slash notation (e.g. 192.168.123.1/24).
+         This option might be used in combination with config_tether_enable_legacy_dhcp_server to
+         set the valid range with config_tether_dhcp_range
+    -->
+    <string translatable="false" name="config_tether_ipv4_address"></string>
+
     <!-- Used to config periodic polls tether offload stats from tethering offload HAL to make the
      data warnings work. 5000(ms) by default. If the device doesn't want to poll tether
      offload stats, this should be -1. Note that this setting could be override by

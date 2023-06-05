@@ -149,6 +149,7 @@ public class TetheringConfiguration {
     public final Collection<Integer> preferredUpstreamIfaceTypes;
     public final String[] legacyDhcpRanges;
     public final String[] defaultIPv4DNS;
+    public final String tetherIPv4Address;
 
     public final String[] provisioningApp;
     public final String provisioningAppNoUi;
@@ -244,6 +245,8 @@ public class TetheringConfiguration {
 
         legacyDhcpRanges = getLegacyDhcpRanges(res);
         defaultIPv4DNS = copy(DEFAULT_IPV4_DNS);
+        tetherIPv4Address = getResourceString(res,
+                R.string.config_tether_ipv4_address);
         mEnableBpfOffload = getEnableBpfOffload(res);
         mEnableLegacyDhcpServer = getEnableLegacyDhcpServer(res);
 
@@ -327,6 +330,11 @@ public class TetheringConfiguration {
         return (tetherableWifiP2pRegexs == null || tetherableWifiP2pRegexs.length == 0);
     }
 
+    /** Check whether a static IP and subnet is set for wifi tether interface.*/
+    public boolean hasStaticTetherIPv4Address() {
+        return (tetherIPv4Address != null && !TextUtils.isEmpty(tetherIPv4Address));
+    }
+
     /** Check whether input interface belong to bluetooth.*/
     public boolean isBluetooth(String iface) {
         return matchesDownstreamRegexs(iface, tetherableBluetoothRegexs);
@@ -382,6 +390,9 @@ public class TetheringConfiguration {
 
         dumpStringArray(pw, "legacyDhcpRanges", legacyDhcpRanges);
         dumpStringArray(pw, "defaultIPv4DNS", defaultIPv4DNS);
+
+        pw.print("tetherIPv4Address: ");
+        pw.println(tetherIPv4Address);
 
         pw.print("offloadPollInterval: ");
         pw.println(mOffloadPollInterval);

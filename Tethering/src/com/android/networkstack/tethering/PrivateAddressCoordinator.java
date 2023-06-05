@@ -20,6 +20,7 @@ import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_BLUETOOTH;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
+import static android.net.TetheringManager.TETHERING_WIFI;
 
 import static com.android.net.module.util.Inet4AddressUtils.inet4AddressToIntHTH;
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
@@ -171,6 +172,10 @@ public class PrivateAddressCoordinator {
     @Nullable
     public LinkAddress requestDownstreamAddress(final IpServer ipServer, final int scope,
             boolean useLastAddress) {
+        if (mConfig.hasStaticTetherIPv4Address()
+                && ipServer.interfaceType() == TETHERING_WIFI) {
+            return new LinkAddress(mConfig.tetherIPv4Address);
+        }
         if (mConfig.shouldEnableWifiP2pDedicatedIp()
                 && ipServer.interfaceType() == TETHERING_WIFI_P2P) {
             return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
