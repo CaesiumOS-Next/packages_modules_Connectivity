@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f580bb7_263857ec",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 8091,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-05T06:37:00Z",
+      "side": 1,
+      "message": "Per discussion, can this go into the constructor? If the system is misconfigured and going to crash, then we should abort as early as possible, without waiting for a wifi network to come up.",
+      "range": {
+        "startLine": 8091,
+        "startChar": 8,
+        "endLine": 8091,
+        "endChar": 89
+      },
+      "revId": "1577302fced1e824fa74670851365808559fb96d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ee4d88c_fdf1ed82",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 8107,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-05T06:37:00Z",
+      "side": 1,
+      "message": "throw new IllegalArgumentException(\"Bad config_...\");",
+      "range": {
+        "startLine": 8107,
+        "startChar": 16,
+        "endLine": 8107,
+        "endChar": 31
+      },
+      "revId": "1577302fced1e824fa74670851365808559fb96d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
