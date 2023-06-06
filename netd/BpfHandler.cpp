@@ -250,6 +250,10 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
 
     BpfMapRO<StatsKey, StatsValue>& currentMap =
             (configuration.value() == SELECT_MAP_A) ? mStatsMapA : mStatsMapB;
+<<<<<<< PATCH SET (3e3d27 make StatsMapA and UidPermissionMap R/O to netd.)
+    // HACK: mStatsMapA/B become RW BpfMap here, but countUidStatsEntries doesn't modify so it works
+=======
+>>>>>>> BASE      (99c8a5 Merge "cts: fix android.net.cts.VpnServiceTest#testProtect_i)
     base::Result<void> res = currentMap.iterate(countUidStatsEntries);
     if (!res.ok()) {
         ALOGE("Failed to count the stats entry in map: %s",

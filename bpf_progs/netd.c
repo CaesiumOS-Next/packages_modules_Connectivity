@@ -94,8 +94,11 @@ DEFINE_BPF_MAP_RO_NETD(stats_map_B, HASH, StatsKey, StatsValue, STATS_MAP_SIZE)
 DEFINE_BPF_MAP_NO_NETD(iface_stats_map, HASH, uint32_t, StatsValue, IFACE_STATS_MAP_SIZE)
 DEFINE_BPF_MAP_NO_NETD(uid_owner_map, HASH, uint32_t, UidOwnerValue, UID_OWNER_MAP_SIZE)
 DEFINE_BPF_MAP_RO_NETD(uid_permission_map, HASH, uint32_t, uint8_t, UID_OWNER_MAP_SIZE)
+<<<<<<< PATCH SET (3e3d27 make StatsMapA and UidPermissionMap R/O to netd.)
+=======
 DEFINE_BPF_MAP_NO_NETD(ingress_discard_map, HASH, IngressDiscardKey, IngressDiscardValue,
                        INGRESS_DISCARD_MAP_SIZE)
+>>>>>>> BASE      (99c8a5 Merge "cts: fix android.net.cts.VpnServiceTest#testProtect_i)
 
 /* never actually used from ebpf */
 DEFINE_BPF_MAP_NO_NETD(iface_index_name_map, HASH, uint32_t, IfaceValue, IFACE_INDEX_NAME_MAP_SIZE)

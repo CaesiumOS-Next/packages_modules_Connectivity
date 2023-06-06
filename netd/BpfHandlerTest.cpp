@@ -69,9 +69,9 @@ class BpfHandlerTest : public ::testing::Test {
 
         mBh.mCookieTagMap = mFakeCookieTagMap;
         ASSERT_VALID(mBh.mCookieTagMap);
-        mBh.mStatsMapA = mFakeStatsMapA;
+        mBh.mStatsMapA = mFakeStatsMapA;  //?
         ASSERT_VALID(mBh.mStatsMapA);
-        mBh.mConfigurationMap = mFakeConfigurationMap;
+        mBh.mConfigurationMap = mFakeConfigurationMap;  //?
         ASSERT_VALID(mBh.mConfigurationMap);
         // Always write to stats map A by default.
         static_assert(SELECT_MAP_A == 0, "bpf map arrays are zero-initialized");
