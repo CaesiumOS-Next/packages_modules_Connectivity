@@ -396,6 +396,7 @@ import com.android.server.connectivity.CarrierPrivilegeAuthenticator;
 import com.android.server.connectivity.ClatCoordinator;
 import com.android.server.connectivity.ConnectivityFlags;
 import com.android.server.connectivity.ConnectivityResources;
+import com.android.server.connectivity.KeepaliveStatsTracker;
 import com.android.server.connectivity.MultinetworkPolicyTracker;
 import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies;
 import com.android.server.connectivity.Nat464Xlat;
@@ -1980,7 +1981,8 @@ public class ConnectivityServiceTest {
         @Override
         public AutomaticOnOffKeepaliveTracker makeAutomaticOnOffKeepaliveTracker(final Context c,
                 final Handler h) {
-            return new AutomaticOnOffKeepaliveTracker(c, h, mAutoOnOffKeepaliveDependencies);
+            return new AutomaticOnOffKeepaliveTracker(c, h, new KeepaliveStatsTracker(c, h),
+                    mAutoOnOffKeepaliveDependencies);
         }
 
         @Override
@@ -2269,6 +2271,12 @@ public class ConnectivityServiceTest {
             // Tests for enabling the feature are verified in AutomaticOnOffKeepaliveTrackerTest.
             // Assuming enabled here to focus on ConnectivityService tests.
             return true;
+        }
+
+        @Override
+        public long getMetricsWriteIntervalMs() {
+            // Tests are in AutomaticOnOffKeepaliveTrackerTest. Use default of 24 hours.
+            return 24 * 60 * 60 * 1_000L;
         }
     }
 
