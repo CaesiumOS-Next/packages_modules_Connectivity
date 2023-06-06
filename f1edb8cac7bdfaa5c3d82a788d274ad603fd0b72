@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d322d4b_47237709",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T09:49:07Z",
+      "side": 1,
+      "message": "Seriously... This kind of API is profoundly disappointing. Thanks for the explanation.",
+      "parentUuid": "bdaf583b_89e8e0f2",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 9
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db55db2d_643193b6",
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "In this case, there is a known subId, so I think it is more likely that there should be a carrierId and if it was not in the cache it was just missed due to the cache not being updated in time. \n\nPer the discussion in the other comment however, I agree that it should be unlikely for this case to occur but when it does, it is still possible to get the value from TelephonyManager. Maybe it does not need to be done now, but at least add a TODO.",
       "parentUuid": "9287bec6_78111d36",
+      "range": {
+        "startLine": 362,
+        "startChar": 11,
+        "endLine": 362,
+        "endChar": 85
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf3612b6_facb8d5c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T09:49:07Z",
+      "side": 1,
+      "message": "I don\u0027t think it is necessarily possible to get the value from TelephonyManager in this case. There are times where the getter returns UNKNOWN_CARRIER_ID, especially shortly after boot. I would also bet that there are race conditions where the synchronous getter returns a stale value because of poor synchronization.",
+      "parentUuid": "840db5c6_1c8ae940",
       "range": {
         "startLine": 362,
         "startChar": 11,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63194c34_80a0d98f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T09:49:07Z",
+      "side": 1,
+      "message": "I find this a little bit contrived, you could have inlined it.\n\nBut more realistically, OnSubscriptionsChangedListener has a constructor that takes a looper : you could maybe use the looper from the background thread and simplify the code a bit while changing very little to the current structure ?",
+      "revId": "9a6a349d37c6a133c76056d88bfeae60a6a8d48d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
