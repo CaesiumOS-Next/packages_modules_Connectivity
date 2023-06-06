@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b8705d8_9c1eb14d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-06T09:08:30Z",
+      "side": 1,
+      "message": "Update the change directly because the original author leaved.\n+ KH for code review",
+      "revId": "41520e3a502bb6b402a0a7f53e940636dbf6ffea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
