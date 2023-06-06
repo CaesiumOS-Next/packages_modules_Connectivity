@@ -2269,6 +2269,12 @@ public class ConnectivityServiceTest {
             // Assuming enabled here to focus on ConnectivityService tests.
             return true;
         }
+
+        @Override
+        public long getMetricsWriteIntervalMs() {
+            // Tests are in AutomaticOnOffKeepaliveTrackerTest. Use default of 24 hours.
+            return 24 * 60 * 60 * 1_000L;
+        }
     }
 
     private static void initAlarmManager(final AlarmManager am, final Handler alarmHandler) {
