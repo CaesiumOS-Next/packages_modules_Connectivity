@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa5bf8aa_897e1519",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-06T03:51:27Z",
+      "side": 1,
+      "message": "LGTM except for the commented out part",
+      "revId": "2976091dcc38a4e6be4894f06a653e54451abd73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a98891ed_7b472018",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-06T03:51:27Z",
+      "side": 1,
+      "message": "Should be uncommented ? This probably can be \"else if\" too",
+      "revId": "2976091dcc38a4e6be4894f06a653e54451abd73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
