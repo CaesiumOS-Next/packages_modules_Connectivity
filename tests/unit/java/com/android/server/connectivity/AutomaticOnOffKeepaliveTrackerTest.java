@@ -38,6 +38,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.ignoreStubs;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
@@ -108,6 +109,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     private static final int MOCK_RESOURCE_ID = 5;
     private static final int TEST_KEEPALIVE_INTERVAL_SEC = 10;
     private static final int TEST_KEEPALIVE_INVALID_INTERVAL_SEC = 9;
+    private static final long TEST_METRICS_WRITE_INTERVAL_MS = 5000L;
 
     private AutomaticOnOffKeepaliveTracker mAOOKeepaliveTracker;
     private HandlerThread mHandlerThread;
@@ -119,6 +121,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @Mock NetworkAgentInfo mNai;
     @Mock SubscriptionManager mSubscriptionManager;
 
+    KeepaliveStatsTracker mKeepaliveStatsTracker;
     TestKeepaliveTracker mKeepaliveTracker;
     AOOTestHandler mTestHandler;
 
@@ -313,14 +316,20 @@ public class AutomaticOnOffKeepaliveTrackerTest {
 
         doNothing().when(mDependencies).sendRequest(any(), any());
 
+        doReturn(SystemClock.elapsedRealtime()).when(mDependencies).getElapsedRealtime();
+        doReturn(TEST_METRICS_WRITE_INTERVAL_MS).when(mDependencies).getMetricsWriteIntervalMs();
+
         mHandlerThread = new HandlerThread("KeepaliveTrackerTest");
         mHandlerThread.start();
         mTestHandler = new AOOTestHandler(mHandlerThread.getLooper());
         mKeepaliveTracker = new TestKeepaliveTracker(mCtx, mTestHandler);
+        mKeepaliveStatsTracker = spy(new KeepaliveStatsTracker(mCtx, mTestHandler));
         doReturn(mKeepaliveTracker).when(mDependencies).newKeepaliveTracker(mCtx, mTestHandler);
+
         doReturn(true).when(mDependencies).isFeatureEnabled(any(), anyBoolean());
-        mAOOKeepaliveTracker =
-                new AutomaticOnOffKeepaliveTracker(mCtx, mTestHandler, mDependencies);
+        doReturn(0L).when(mDependencies).getElapsedRealtime();
+        mAOOKeepaliveTracker = new AutomaticOnOffKeepaliveTracker(mCtx, mTestHandler,
+                mKeepaliveStatsTracker, mDependencies);
     }
 
     @After
@@ -442,6 +451,29 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         assertNotNull(mTestHandler.mLastAutoKi);
         assertEquals(testInfo.socketKeepaliveCallback, mTestHandler.mLastAutoKi.getCallback());
         assertEquals(testInfo.underpinnedNetwork, mTestHandler.mLastAutoKi.getUnderpinnedNetwork());
+    }
+
+    @Test
+    public void testAlarm_writeMetrics() throws Exception {
+        final ArgumentCaptor<AlarmManager.OnAlarmListener> listenerCaptor =
+                ArgumentCaptor.forClass(AlarmManager.OnAlarmListener.class);
+
+        // First AlarmManager.set call from the constructor.
+        verify(mAlarmManager).set(eq(AlarmManager.ELAPSED_REALTIME_WAKEUP),
+                eq(TEST_METRICS_WRITE_INTERVAL_MS), any() /* tag */, listenerCaptor.capture(),
+                eq(mTestHandler));
+
+        final AlarmManager.OnAlarmListener listener = listenerCaptor.getValue();
+
+        // For realism, the listener should be posted on the handler
+        mTestHandler.post(() -> listener.onAlarm());
+        HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
+
+        verify(mKeepaliveStatsTracker).writeAndResetMetrics();
+        // Alarm is rescheduled.
+        verify(mAlarmManager).set(eq(AlarmManager.ELAPSED_REALTIME_WAKEUP),
+                eq(TEST_METRICS_WRITE_INTERVAL_MS * 2),
+                any() /* tag */, listenerCaptor.capture(), eq(mTestHandler));
     }
 
     private void setupResponseWithSocketExisting() throws Exception {
