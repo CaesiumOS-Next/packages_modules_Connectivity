@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdaf583b_89e8e0f2",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-06T09:35:37Z",
+      "side": 1,
+      "message": "The original problem is that the constructor of OnSubscriptionsChangedListener is using the current thread to make a HandlerExecutor (throws if prepare is not called). Even though the executor to registered is BackgroundThread(or anything else), it still (unnecessarily) forces the creation of that HandlerExecutor.\n\nI think a more appropriate solution would be to construct the listener in the background thread.",
+      "parentUuid": "25603afc_37bc4e31",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 9
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db55db2d_643193b6",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdee5708_047143d1",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-06T09:35:37Z",
+      "side": 1,
+      "message": "Added TODO.",
+      "parentUuid": "db55db2d_643193b6",
+      "range": {
+        "startLine": 337,
+        "startChar": 16,
+        "endLine": 337,
+        "endChar": 24
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13157d9f_00963eb4",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-06-06T04:17:16Z",
       "side": 1,
       "message": "I don\u0027t think you need to write this. It\u0027s written on the tin : \"cached\" immediately means this could be stale. Also calling the synchronous method wouldn\u0027t even guarantee it isn\u0027t stale because it could change between your call and the next line anyway.",
+      "range": {
+        "startLine": 343,
+        "startChar": 54,
+        "endLine": 343,
+        "endChar": 84
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e04cd0ef_bbff6d4b",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-06T09:35:37Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "13157d9f_00963eb4",
       "range": {
         "startLine": 343,
         "startChar": 54,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "840db5c6_1c8ae940",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-06T09:35:37Z",
+      "side": 1,
+      "message": "In this case, there is a known subId, so I think it is more likely that there should be a carrierId and if it was not in the cache it was just missed due to the cache not being updated in time. \n\nPer the discussion in the other comment however, I agree that it should be unlikely for this case to occur but when it does, it is still possible to get the value from TelephonyManager. Maybe it does not need to be done now, but at least add a TODO.",
+      "parentUuid": "9287bec6_78111d36",
+      "range": {
+        "startLine": 362,
+        "startChar": 11,
+        "endLine": 362,
+        "endChar": 85
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c13539a2_cef58f52",
         "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
         "patchSetId": 9
@@ -106,6 +202,30 @@
       "writtenOn": "2023-06-06T04:17:16Z",
       "side": 1,
       "message": "Curious : why specifically do you need this ? This is not supposed to be needed often, and it at least warrants a comment. We haven\u0027t needed this for contexts so far.\n\nSee https://www.javadoc.io/doc/org.mockito/mockito-core/2.6.9/org/mockito/Mockito.html#RETURNS_DEEP_STUBS :\n\n    WARNING: This feature should rarely be required for regular clean code! Leave it for legacy code. Mocking a mock to return a mock, to return a mock, (...), to return something meaningful hints at violation of Law of Demeter or mocking a value object (a well known anti-pattern).",
+      "range": {
+        "startLine": 107,
+        "startChar": 10,
+        "endLine": 107,
+        "endChar": 45
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca9b30ef_6ddbf9a9",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-06T09:35:37Z",
+      "side": 1,
+      "message": "Removed. I was following VpnTest to solve the issue mentioned in the other comment. \nActually unneeded.",
+      "parentUuid": "c13539a2_cef58f52",
       "range": {
         "startLine": 107,
         "startChar": 10,
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "973c2c7d_95e14132",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-06T09:35:37Z",
+      "side": 1,
+      "message": "This was taken from VpnTest.java (see aosp/1737400). What was happening is the test would fail to mock the service when running in ConnectivityCoverageTests but pass in FrameworksNetTests.\n\nThe error:\n```\njava.lang.NullPointerException\n\tat java.util.Objects.requireNonNull(Objects.java:207)\n\tat android.net.connectivity.com.android.server.connectivity.KeepaliveStatsTracker.\u003cinit\u003e(KeepaliveStatsTracker.java:248)\n```\n\nNow this method is taken from MultipathPolicyTrackerTest.java, to avoid `Answers.RETURNS_DEEP_STUBS`.",
+      "parentUuid": "78190ea1_caa23778",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 9
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "085cd2b0_4d0e267c",
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "801021fd_72b55f5b",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-06T09:35:37Z",
+      "side": 1,
+      "message": "Done. Great suggestion.",
+      "parentUuid": "085cd2b0_4d0e267c",
+      "range": {
+        "startLine": 188,
+        "startChar": 42,
+        "endLine": 188,
+        "endChar": 46
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "580a4128_cde5c12d",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-06-06T04:17:16Z",
       "side": 1,
       "message": "Lol wow\n\nIt\u0027s probably fine in practice, but maybe you want to avoid future mistakes by saying something like\n\n    doAnswer(inv -\u003e new WifiInfo((WifiInfo) inv.getArgument(0)).when(...\n\nOr even\n\n    doAnswer(inv -\u003e mock(WifiInfo.class)).when(...",
+      "range": {
+        "startLine": 994,
+        "startChar": 0,
+        "endLine": 994,
+        "endChar": 62
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11021b8c_58b50181",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-06T09:35:37Z",
+      "side": 1,
+      "message": "NetworkCapabilities does this\n`mTransportInfo \u003d nc.mTransportInfo.makeCopy(redactions);`\nSo the returned value needs to be the `wifiInfo` with the stubs. I guess it should mock two WifiInfos.",
+      "parentUuid": "580a4128_cde5c12d",
       "range": {
         "startLine": 994,
         "startChar": 0,
