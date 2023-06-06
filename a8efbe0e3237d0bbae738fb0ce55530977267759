@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6fa0e4f_5b2d739d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-06T08:02:13Z",
+      "side": 1,
+      "message": "Merged as agreed with Paul that his comments aren\u0027t blockers",
+      "revId": "a8efbe0e3237d0bbae738fb0ce55530977267759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40a0d18f_ee309c68",
