@@ -46,6 +46,7 @@ class NattKeepalivePacketDataTest {
     private val TEST_SRC_ADDRV4 = "198.168.0.2".address()
     private val TEST_DST_ADDRV4 = "198.168.0.1".address()
     private val TEST_ADDRV6 = "2001:db8::1".address()
+    private val TEST_ADDRV4MAPPEDV6 = "::ffff:1.2.3.4".address()
 
     private fun String.address() = InetAddresses.parseNumericAddress(this)
     private fun nattKeepalivePacket(
@@ -84,6 +85,29 @@ class NattKeepalivePacketDataTest {
                     byteArrayOf(12, 31, 22, 44)))
             fail("Invalid data should cause exception")
         } catch (e: IllegalArgumentException) { }
+
+        // v4 mapped v6 will be translated to a v4 address, so it won't cause exception.
+        parcelingRoundTrip(nattKeepalivePacket(srcAddress = TEST_ADDRV4MAPPEDV6))
+        parcelingRoundTrip(nattKeepalivePacket(dstAddress = TEST_ADDRV4MAPPEDV6))
+        parcelingRoundTrip(nattKeepalivePacket(
+            dstAddress = TEST_ADDRV4MAPPEDV6, srcAddress = TEST_ADDRV4MAPPEDV6))
+        try {
+            // v4 mapped v6 will be translated to a v4 address.
+            nattKeepalivePacket(srcAddress = TEST_ADDRV6, dstAddress = TEST_ADDRV4MAPPEDV6)
+            fail("Different src and dst IP families should cause exception")
+        } catch (e: InvalidPacketException) {
+            assertEquals(e.error, ERROR_INVALID_IP_ADDRESS)
+        }
+
+        try {
+            // v4 mapped v6 will be translated to a v4 address.
+            nattKeepalivePacket(srcAddress = TEST_ADDRV4MAPPEDV6, dstAddress = TEST_ADDRV6)
+            fail("Different src and dst IP families should cause exception")
+        } catch (e: InvalidPacketException) {
+            assertEquals(e.error, ERROR_INVALID_IP_ADDRESS)
+        }
+
+        parcelingRoundTrip(nattKeepalivePacket(srcAddress = TEST_ADDRV6, dstAddress = TEST_ADDRV6))
     }
 
     @Test @IgnoreUpTo(Build.VERSION_CODES.Q)
