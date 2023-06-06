@@ -50,6 +50,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e57a4e7d_81da5ea4",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-06T03:08:33Z",
+      "side": 1,
+      "message": "Since you will check the same clientInfo many times, it would be more correct to use `mClients` here.",
+      "range": {
+        "startLine": 408,
+        "startChar": 42,
+        "endLine": 408,
+        "endChar": 72
+      },
+      "revId": "87b912c08a92903c7f0a69ea4687d37591120666",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5452cdb7_d5275b61",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2164,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-06T03:08:33Z",
+      "side": 1,
+      "message": "Nit: use the existed parameter `req`",
+      "range": {
+        "startLine": 2164,
+        "startChar": 71,
+        "endLine": 2164,
+        "endChar": 97
+      },
+      "revId": "87b912c08a92903c7f0a69ea4687d37591120666",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1c9b63b_70898552",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-06T03:08:33Z",
+      "side": 1,
+      "message": "Nit: Miss nullability",
+      "range": {
+        "startLine": 141,
+        "startChar": 11,
+        "endLine": 141,
+        "endChar": 12
+      },
+      "revId": "87b912c08a92903c7f0a69ea4687d37591120666",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f14e2de5_623c9a01",
         "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
         "patchSetId": 7
