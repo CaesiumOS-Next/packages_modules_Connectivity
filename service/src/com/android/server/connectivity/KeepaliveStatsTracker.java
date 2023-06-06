@@ -42,6 +42,8 @@ import com.android.metrics.DurationPerNumOfKeepalive;
 import com.android.metrics.KeepaliveLifetimeForCarrier;
 import com.android.metrics.KeepaliveLifetimePerCarrier;
 import com.android.modules.utils.BackgroundThread;
+import com.android.net.module.util.CollectionUtils;
+import com.android.server.ConnectivityStatsLog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -588,6 +590,7 @@ public class KeepaliveStatsTracker {
      *
      * @return the DailykeepaliveInfoReported proto that was built.
      */
+    @VisibleForTesting
     public @NonNull DailykeepaliveInfoReported buildAndResetMetrics() {
         ensureRunningOnHandlerThread();
         final long timeNow = mDependencies.getElapsedRealtime();
@@ -614,6 +617,20 @@ public class KeepaliveStatsTracker {
         }
 
         return metrics;
+    }
+
+    /** Writes the stored metrics to ConnectivityStatsLog and resets.  */
+    public void writeAndResetMetrics() {
+        ensureRunningOnHandlerThread();
+        final DailykeepaliveInfoReported dailyKeepaliveInfoReported = buildAndResetMetrics();
+        ConnectivityStatsLog.write(
+                ConnectivityStatsLog.DAILY_KEEPALIVE_INFO_REPORTED,
+                dailyKeepaliveInfoReported.getDurationPerNumOfKeepalive().toByteArray(),
+                dailyKeepaliveInfoReported.getKeepaliveLifetimePerCarrier().toByteArray(),
+                dailyKeepaliveInfoReported.getKeepaliveRequests(),
+                dailyKeepaliveInfoReported.getAutomaticKeepaliveRequests(),
+                dailyKeepaliveInfoReported.getDistinctUserCount(),
+                CollectionUtils.toIntArray(dailyKeepaliveInfoReported.getUidList()));
     }
 
     private void ensureRunningOnHandlerThread() {
