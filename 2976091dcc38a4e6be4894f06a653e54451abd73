@@ -33,6 +33,24 @@
       "message": "Should be uncommented ? This probably can be \"else if\" too",
       "revId": "2976091dcc38a4e6be4894f06a653e54451abd73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f14d51e_bc73f9ae",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-06T03:56:01Z",
+      "side": 1,
+      "message": "Oops. Thanks for catch it up. Updated based on the suggestion.",
+      "parentUuid": "a98891ed_7b472018",
+      "revId": "2976091dcc38a4e6be4894f06a653e54451abd73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
