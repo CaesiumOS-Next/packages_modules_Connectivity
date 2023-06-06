@@ -58,6 +58,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d7dfda3_93d04260",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-06T09:37:22Z",
+      "side": 1,
+      "message": "Update partial comments in other commits. Not address them all yet",
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a942cdf_36d729c3",
@@ -71,6 +88,30 @@
       "writtenOn": "2023-06-06T00:39:49Z",
       "side": 1,
       "message": "consider whether there shouldn\u0027t simply be 2 constructors taking Inet4Address *2 vs Inet6Address *2\n\nthere seems to be virtually no shared code...",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 85
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27dc126f_b36c11af",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-06T09:37:22Z",
+      "side": 1,
+      "message": "Done in aosp/2616796",
+      "parentUuid": "8a942cdf_36d729c3",
       "range": {
         "startLine": 57,
         "startChar": 4,
@@ -104,6 +145,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93314eb5_ff19e2cb",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-06T09:37:22Z",
+      "side": 1,
+      "message": "I am not quiet understand this comment. But the design here is updated. See if this concern is gone.",
+      "parentUuid": "ef849e5b_dc8ab48c",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 94
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50de8d6d_48c6c007",
@@ -117,6 +182,30 @@
       "writtenOn": "2023-06-06T00:39:49Z",
       "side": 1,
       "message": "actually if ID is just always 0, then we should be setting the DF flag",
+      "range": {
+        "startLine": 79,
+        "startChar": 23,
+        "endLine": 79,
+        "endChar": 24
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38ee6edb_b95407db",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-06T09:37:22Z",
+      "side": 1,
+      "message": "Done in aosp/2616795",
+      "parentUuid": "50de8d6d_48c6c007",
       "range": {
         "startLine": 79,
         "startChar": 23,
@@ -152,6 +241,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4db3dce2_58135af3",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-06T09:37:22Z",
+      "side": 1,
+      "message": "I think we do not have permission to read it from module? Consider this is the existent design.  This may be safe for now. I add a comment on this. See if it works to you. \n\nUpdate in aosp/2616796",
+      "parentUuid": "dfc82e90_a115cd2e",
+      "range": {
+        "startLine": 80,
+        "startChar": 27,
+        "endLine": 80,
+        "endChar": 29
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "62764b66_dcc4d197",
         "filename": "framework/src/android/net/NattKeepalivePacketData.java",
         "patchSetId": 3
@@ -163,6 +276,30 @@
       "writtenOn": "2023-06-06T00:39:49Z",
       "side": 1,
       "message": "seems like this should be using IPV4_HEADER_LENGTH, but you could also just put UDP_HEADER_LENGTH + 1 here...",
+      "range": {
+        "startLine": 88,
+        "startChar": 43,
+        "endLine": 88,
+        "endChar": 45
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb11fc3d_9ee1e14d",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-06T09:37:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62764b66_dcc4d197",
       "range": {
         "startLine": 88,
         "startChar": 43,
@@ -198,6 +335,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d9db4d9_04a8b28d",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-06T09:37:22Z",
+      "side": 1,
+      "message": "That is traffic class. Should I just put 0? \n\nupdate in aosp/2616796",
+      "parentUuid": "f1dbf393_4989b275",
+      "range": {
+        "startLine": 96,
+        "startChar": 28,
+        "endLine": 96,
+        "endChar": 29
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74d9afeb_74b42eae",
         "filename": "framework/src/android/net/NattKeepalivePacketData.java",
         "patchSetId": 3
@@ -209,6 +370,30 @@
       "writtenOn": "2023-06-06T00:39:49Z",
       "side": 1,
       "message": "IPV6_H...",
+      "range": {
+        "startLine": 97,
+        "startChar": 43,
+        "endLine": 97,
+        "endChar": 45
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cfdff45_dc43ae0f",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-06T09:37:22Z",
+      "side": 1,
+      "message": "Done\n\nupdate in aosp/2616796",
+      "parentUuid": "74d9afeb_74b42eae",
       "range": {
         "startLine": 97,
         "startChar": 43,
@@ -244,6 +429,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d23d69d_bf1e1268",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-06T09:37:22Z",
+      "side": 1,
+      "message": "Add comment. See if it works to you\n\nupdate in aosp/2616796",
+      "parentUuid": "c4741dc6_1ea6e7e1",
+      "range": {
+        "startLine": 99,
+        "startChar": 27,
+        "endLine": 99,
+        "endChar": 29
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5aa73944_0c5beca8",
         "filename": "framework/src/android/net/NattKeepalivePacketData.java",
         "patchSetId": 3
@@ -255,6 +464,30 @@
       "writtenOn": "2023-06-06T00:39:49Z",
       "side": 1,
       "message": "IPV6_H...",
+      "range": {
+        "startLine": 105,
+        "startChar": 43,
+        "endLine": 105,
+        "endChar": 45
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c26d98a5_7279e34a",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-06T09:37:22Z",
+      "side": 1,
+      "message": "Done in aosp/2616796",
+      "parentUuid": "5aa73944_0c5beca8",
       "range": {
         "startLine": 105,
         "startChar": 43,
