@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "755774e1_6e1cbd1b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 4658,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T02:59:53Z",
+      "side": 1,
+      "message": "We can\u0027t do that and the comment below explains why. makeDefault() is not called in this case.\n\nThe reason for that is makeDefault() is called by the rematch when the default network changes. However in this case, the rematch doesn\u0027t notice, because the code above removes this network from all requests it serves, which is what the rematch uses as its source data. So makeDefault() is never called.\n\nTried to clarify the comment.",
+      "parentUuid": "42e4e48e_68e33209",
+      "range": {
+        "startLine": 4658,
+        "startChar": 8,
+        "endLine": 4658,
+        "endChar": 10
+      },
+      "revId": "dfbedb689d17ae5ab115b5c7206debe2d3ba9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7812bec6_17f3fd06",
@@ -65,6 +89,77 @@
         "startChar": 15,
         "endLine": 391,
         "endChar": 36
+      },
+      "revId": "dfbedb689d17ae5ab115b5c7206debe2d3ba9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0579dcc8_b1510616",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T02:59:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "442abc9f_216a78f7",
+      "range": {
+        "startLine": 391,
+        "startChar": 15,
+        "endLine": 391,
+        "endChar": 36
+      },
+      "revId": "dfbedb689d17ae5ab115b5c7206debe2d3ba9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f38e4c9_7450169e",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T02:59:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7812bec6_17f3fd06",
+      "range": {
+        "startLine": 391,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 36
+      },
+      "revId": "dfbedb689d17ae5ab115b5c7206debe2d3ba9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "732aa9d5_d8084a21",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 11540,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T02:59:53Z",
+      "side": 1,
+      "message": "If respinning this change : we should see a broadcast though. Because the new default proxy has port -1, which is different from the old default proxy.\n\nIt\u0027s not actually essential if it doesn\u0027t happen because really it will happen in a very short while when the local proxy starts for wifi, and the mean time is very short and just sees no connectivity, so it doesn\u0027t really matter too much. There is even an argument to be made to say that sending a broadcast for such a short period of time is counter-productive. But strictly speaking there should be one. Maybe just test for the current behavior, whatever it actually is.",
+      "range": {
+        "startLine": 11540,
+        "startChar": 39,
+        "endLine": 11540,
+        "endChar": 40
       },
       "revId": "dfbedb689d17ae5ab115b5c7206debe2d3ba9876",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"

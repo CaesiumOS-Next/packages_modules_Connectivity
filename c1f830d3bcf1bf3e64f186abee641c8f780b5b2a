@@ -379,6 +379,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f617837e_9b03873c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11399,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T02:59:53Z",
+      "side": 1,
+      "message": "I fail to see the difference. I wrote\n\n    assertLpForNetwork(servingProxyInfo, mWifiAgent)\n\nYou wrote\n\n    assertHttpProxyForNetworkEquals(servingProxyInfo, mWifiAgent.getNetwork())\n\nIt\u0027s the same isn\u0027t it ?",
+      "parentUuid": "85936710_c71dcb32",
+      "range": {
+        "startLine": 11397,
+        "startChar": 47,
+        "endLine": 11399,
+        "endChar": 93
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eaf63a7a_0ddae463",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 24
@@ -638,6 +662,30 @@
       "side": 1,
       "message": "Ok but my problem is for the test the proxy should be always null or empty.\nBut you are telling me there will be sometimes null and sometimes empty, which confuses me.\nNot sure what causes the undeterministic.\nIf we don\u0027t know it yet, maybe just add a TODO to figure it out someday?",
       "parentUuid": "542e11dc_c07c9c60",
+      "range": {
+        "startLine": 11471,
+        "startChar": 55,
+        "endLine": 11472,
+        "endChar": 49
+      },
+      "revId": "c1f830d3bcf1bf3e64f186abee641c8f780b5b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aa99d6f_8d86639c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 11472,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T02:59:53Z",
+      "side": 1,
+      "message": "More like, both are correct. There is no good reason to enforce one or the other. Tried to reword the comment.",
+      "parentUuid": "27ccb4ae_a9d5b07f",
       "range": {
         "startLine": 11471,
         "startChar": 55,
