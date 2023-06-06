@@ -20,6 +20,7 @@ import static android.net.SocketKeepalive.ERROR_INVALID_SOCKET;
 import static android.net.SocketKeepalive.MIN_INTERVAL_SEC;
 import static android.net.SocketKeepalive.SUCCESS;
 import static android.net.SocketKeepalive.SUCCESS_PAUSED;
+import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
@@ -94,6 +95,9 @@ public class AutomaticOnOffKeepaliveTracker {
     private static final int ADJUST_TCP_POLLING_DELAY_MS = 2000;
     private static final String AUTOMATIC_ON_OFF_KEEPALIVE_VERSION =
             "automatic_on_off_keepalive_version";
+    private static final String CONFIG_METRICS_WRITE_INTERVAL_MS =
+            "keepalive_metrics_write_interval";
+    private static final long DEFAULT_METRICS_WRITE_INTERVAL_MS = 24 * 60 * 60 * 1_000L;
 
     // ConnectivityService parses message constants from itself and AutomaticOnOffKeepaliveTracker
     // with MessageUtils for debugging purposes, and crashes if some messages have the same values.
@@ -180,6 +184,9 @@ public class AutomaticOnOffKeepaliveTracker {
     private final LocalLog mEventLog = new LocalLog(MAX_EVENTS_LOGS);
 
     private final KeepaliveStatsTracker mKeepaliveStatsTracker;
+
+    private long mScheduledMetricsWriteTime;
+
     /**
      * Information about a managed keepalive.
      *
@@ -311,7 +318,21 @@ public class AutomaticOnOffKeepaliveTracker {
                 mContext, mConnectivityServiceHandler);
 
         mAlarmManager = mDependencies.getAlarmManager(context);
-        mKeepaliveStatsTracker = new KeepaliveStatsTracker(context, handler);
+        mKeepaliveStatsTracker =
+                mDependencies.newKeepaliveStatsTracker(context, handler);
+
+        mScheduledMetricsWriteTime =
+                mDependencies.getElapsedRealtime() + mDependencies.getMetricsWriteIntervalMs();
+        mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, mScheduledMetricsWriteTime, TAG,
+                this::writeMetricsAndRescheduleAlarm, handler);
+    }
+
+    private void writeMetricsAndRescheduleAlarm() {
+        mKeepaliveStatsTracker.writeAndResetMetrics();
+
+        mScheduledMetricsWriteTime += mDependencies.getMetricsWriteIntervalMs();
+        mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, mScheduledMetricsWriteTime, TAG,
+                this::writeMetricsAndRescheduleAlarm, mConnectivityServiceHandler);
     }
 
     private void startTcpPollingAlarm(@NonNull AutomaticOnOffKeepalive ki) {
@@ -895,6 +916,14 @@ public class AutomaticOnOffKeepaliveTracker {
         }
 
         /**
+         * Construct a new KeepaliveStatsTracker.
+         */
+        public KeepaliveStatsTracker newKeepaliveStatsTracker(@NonNull Context context,
+                @NonNull Handler connectivityserviceHander) {
+            return new KeepaliveStatsTracker(context, connectivityserviceHander);
+        }
+
+        /**
          * Find out if a feature is enabled from DeviceConfig.
          *
          * @param name The name of the property to look up.
@@ -905,6 +934,24 @@ public class AutomaticOnOffKeepaliveTracker {
         public boolean isFeatureEnabled(@NonNull final String name, final boolean defaultEnabled) {
             return DeviceConfigUtils.isFeatureEnabled(mContext, NAMESPACE_TETHERING, name,
                     DeviceConfigUtils.TETHERING_MODULE_NAME, defaultEnabled);
+        }
+
+        /**
+         * Gets the milliseconds between writing the keepalive metrics to statsd.
+         *
+         * @return milliseconds between writing to statsd.
+         */
+        public long getMetricsWriteIntervalMs() {
+            final String value =
+                    DeviceConfigUtils.getDeviceConfigProperty(
+                            NAMESPACE_CONNECTIVITY,
+                            CONFIG_METRICS_WRITE_INTERVAL_MS,
+                            null /* defaultValue */);
+            try {
+                return (value != null) ? Long.parseLong(value) : DEFAULT_METRICS_WRITE_INTERVAL_MS;
+            } catch (NumberFormatException e) {
+                return DEFAULT_METRICS_WRITE_INTERVAL_MS;
+            }
         }
 
         /**
