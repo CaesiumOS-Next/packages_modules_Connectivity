@@ -654,16 +654,18 @@ public abstract class EthernetTetheringTestBase {
         return runAsShell(MANAGE_TEST_NETWORKS, () -> initTestNetwork(mContext, lp, TIMEOUT_MS));
     }
 
-    private short getEthType(@NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp) {
+    private static short getEthType(@NonNull final InetAddress srcIp,
+            @NonNull final InetAddress dstIp) {
         return isAddressIpv4(srcIp, dstIp) ? (short) ETHER_TYPE_IPV4 : (short) ETHER_TYPE_IPV6;
     }
 
-    private int getIpProto(@NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp) {
+    private static int getIpProto(@NonNull final InetAddress srcIp,
+            @NonNull final InetAddress dstIp) {
         return isAddressIpv4(srcIp, dstIp) ? IPPROTO_IP : IPPROTO_IPV6;
     }
 
     @NonNull
-    protected ByteBuffer buildUdpPacket(
+    public static ByteBuffer buildUdpPacket(
             @Nullable final MacAddress srcMac, @Nullable final MacAddress dstMac,
             @NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp,
             short srcPort, short dstPort, @Nullable final ByteBuffer payload)
@@ -704,14 +706,14 @@ public abstract class EthernetTetheringTestBase {
     }
 
     @NonNull
-    protected ByteBuffer buildUdpPacket(@NonNull final InetAddress srcIp,
+    public static ByteBuffer buildUdpPacket(@NonNull final InetAddress srcIp,
             @NonNull final InetAddress dstIp, short srcPort, short dstPort,
             @Nullable final ByteBuffer payload) throws Exception {
         return buildUdpPacket(null /* srcMac */, null /* dstMac */, srcIp, dstIp, srcPort,
                 dstPort, payload);
     }
 
-    private boolean isAddressIpv4(@NonNull final  InetAddress srcIp,
+    private static boolean isAddressIpv4(@NonNull final  InetAddress srcIp,
             @NonNull final InetAddress dstIp) {
         if (srcIp instanceof Inet4Address && dstIp instanceof Inet4Address) return true;
         if (srcIp instanceof Inet6Address && dstIp instanceof Inet6Address) return false;
