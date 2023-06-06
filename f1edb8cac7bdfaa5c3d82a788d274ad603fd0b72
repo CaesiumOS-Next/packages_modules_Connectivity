@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25603afc_37bc4e31",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T04:17:16Z",
+      "side": 1,
+      "message": "Look at the doc for `Looper#prepare` :\n\n      * Be sure to call {@link #loop()} after calling this method\n\nYou can\u0027t ignore this. This will blow up in your face.\n\nLooper fully assumes it is running the loop. Many functions in the framework assume the looper is running the loop, including functions that just do things differently if a looper is currently prepared. E.g., they could post something assuming the looper is running, and you won\u0027t run that code, so doing this will break arbitrary system server functions in creative ways and it will be very hard to debug.\n\nIf you *must* use a looper you must have a thread that is actually running the loop. The system server has a number of existing threads that are ready for you to do this. BackgroundThread is typically a good choice for the kind of usage you have.",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 9
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db55db2d_643193b6",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T04:17:16Z",
+      "side": 1,
+      "message": "Ideally this would be in frameworks/libs/net instead of here. If you feel courageous you can move it to f/l/n immediately, but at the very least write a TODO to move it, and make it static (pass mCachedDefaultSubscriptionId as an argument)",
+      "range": {
+        "startLine": 337,
+        "startChar": 16,
+        "endLine": 337,
+        "endChar": 24
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13157d9f_00963eb4",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T04:17:16Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to write this. It\u0027s written on the tin : \"cached\" immediately means this could be stale. Also calling the synchronous method wouldn\u0027t even guarantee it isn\u0027t stale because it could change between your call and the next line anyway.",
+      "range": {
+        "startLine": 343,
+        "startChar": 54,
+        "endLine": 343,
+        "endChar": 84
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9287bec6_78111d36",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T04:17:16Z",
+      "side": 1,
+      "message": "What for ? This would return UNKNOWN_CARRIER_ID in 99% of cases.",
+      "range": {
+        "startLine": 362,
+        "startChar": 11,
+        "endLine": 362,
+        "endChar": 85
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c13539a2_cef58f52",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T04:17:16Z",
+      "side": 1,
+      "message": "Curious : why specifically do you need this ? This is not supposed to be needed often, and it at least warrants a comment. We haven\u0027t needed this for contexts so far.\n\nSee https://www.javadoc.io/doc/org.mockito/mockito-core/2.6.9/org/mockito/Mockito.html#RETURNS_DEEP_STUBS :\n\n    WARNING: This feature should rarely be required for regular clean code! Leave it for legacy code. Mocking a mock to return a mock, to return a mock, (...), to return something meaningful hints at violation of Law of Demeter or mocking a value object (a well known anti-pattern).",
+      "range": {
+        "startLine": 107,
+        "startChar": 10,
+        "endLine": 107,
+        "endChar": 45
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78190ea1_caa23778",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T04:17:16Z",
+      "side": 1,
+      "message": "This looks like a big hack that you had to do to solve some problems elsewhere in your code, but you don\u0027t justify or explain why.\n\nIntuitively it looks to me like this is not what you want, instead what you needed can probably be written in a more sensible way and you won\u0027t need this kind of hack. But I can\u0027t tell what you need it for.\n\nDo consider none of our other tests do this kind of thing. Chances are the problem is in your test.",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 9
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "085cd2b0_4d0e267c",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T04:17:16Z",
+      "side": 1,
+      "message": "nit : your small helper method would probably be more helpful if it called mock directly, instead of requiring that you call mock() first and setup() next. You could just say\n\n    final SubscriptionInfo subInfo1 \u003d makeSubInfoMock(subId, carrierId);",
+      "range": {
+        "startLine": 188,
+        "startChar": 42,
+        "endLine": 188,
+        "endChar": 46
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "580a4128_cde5c12d",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-06T04:17:16Z",
+      "side": 1,
+      "message": "Lol wow\n\nIt\u0027s probably fine in practice, but maybe you want to avoid future mistakes by saying something like\n\n    doAnswer(inv -\u003e new WifiInfo((WifiInfo) inv.getArgument(0)).when(...\n\nOr even\n\n    doAnswer(inv -\u003e mock(WifiInfo.class)).when(...",
+      "range": {
+        "startLine": 994,
+        "startChar": 0,
+        "endLine": 994,
+        "endChar": 62
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
