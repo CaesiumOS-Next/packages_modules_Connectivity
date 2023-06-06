@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "273698ec_162934f4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 4658,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-06T10:03:08Z",
+      "side": 1,
+      "message": "I see.\nNot for this CL, is it better if we make it visible for rematching?\nFor example, maybe add a POLICY_DISCONNECTING (similar to POLICY_EXITING) in NetworkScore.\nIf so, we can remove the loop at l.4624 because rematchAllNetworksAndRequests() will automatically remove the networkRequests which assigned to this network.\nAnd we can also move this piece of code or any other handling default-\u003enon-default code into makeDefault().\nJust an rough idea, not even sure if it make any sense.",
+      "parentUuid": "755774e1_6e1cbd1b",
+      "range": {
+        "startLine": 4658,
+        "startChar": 8,
+        "endLine": 4658,
+        "endChar": 10
+      },
+      "revId": "dfbedb689d17ae5ab115b5c7206debe2d3ba9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7812bec6_17f3fd06",
         "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
         "patchSetId": 25
