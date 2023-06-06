@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95cde488_2e8e8d97",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-06T02:15:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23dc9227_c1752bfb",
+      "range": {
+        "startLine": 395,
+        "startChar": 12,
+        "endLine": 395,
+        "endChar": 41
+      },
+      "revId": "87b912c08a92903c7f0a69ea4687d37591120666",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f14e2de5_623c9a01",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-05T14:38:32Z",
       "side": 1,
       "message": "nit: maybe better to rename it to `takeMulticastLockOnBehaveOfClient`? `testMulticastLock` is not actually the test is doing.",
+      "range": {
+        "startLine": 1378,
+        "startChar": 16,
+        "endLine": 1378,
+        "endChar": 33
+      },
+      "revId": "87b912c08a92903c7f0a69ea4687d37591120666",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13d74ac8_e2e2b19a",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-06T02:15:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f14e2de5_623c9a01",
       "range": {
         "startLine": 1378,
         "startChar": 16,
