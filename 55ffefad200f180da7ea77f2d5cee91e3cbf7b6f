@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1faea2b6_54edf8b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T09:53:17Z",
+      "side": 1,
+      "message": "seems like this CL should not only remove, but also add some tests that it returns a packet for some v6 args??",
+      "revId": "55ffefad200f180da7ea77f2d5cee91e3cbf7b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1ddc81b_e45fdff5",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T09:53:17Z",
+      "side": 1,
+      "message": "suggest:\n\nif 4 \u0026 4 return ...\nelse if 6 \u0026 6 return ...\nelse throw\n\nyou may also want to make sure that you don\u0027t get a v4 mapped v6 address [ie. a v6 ip in ::ffff:0.0.0.0/96] (or that if you do you treat it as v4 not v6?)",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 8
+      },
+      "revId": "55ffefad200f180da7ea77f2d5cee91e3cbf7b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73d0871b_bb9393e2",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T09:53:17Z",
+      "side": 1,
+      "message": "probably just UDP + 1",
+      "range": {
+        "startLine": 117,
+        "startChar": 30,
+        "endLine": 117,
+        "endChar": 57
+      },
+      "revId": "55ffefad200f180da7ea77f2d5cee91e3cbf7b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0e24c09_edc9c565",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T09:53:17Z",
+      "side": 1,
+      "message": "extend comment to say:\n(or even better from interface specific sysctl setting...,\nbut for 464xlat it should use the v4 sysctl setting instead)",
+      "range": {
+        "startLine": 119,
+        "startChar": 54,
+        "endLine": 119,
+        "endChar": 61
+      },
+      "revId": "55ffefad200f180da7ea77f2d5cee91e3cbf7b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
