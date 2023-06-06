@@ -41,6 +41,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79e6ff75_7952004e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:40:47Z",
+      "side": 1,
+      "message": "(also I think we should write the internal code to support ipv6 nat-t, even if we continue to deny it on ingress)",
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a942cdf_36d729c3",
