@@ -1,0 +1,366 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2712eb01_beb75fb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "Whether it does or does not is actually irrelevant.\n\nSending v4 packets on a v6-only network is simply bogus and won\u0027t work regardless of whether it gets sent out or not, because the network will drop it anyway.",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 12
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18eb60f6_a2426882",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "There\u0027s too much stuff in one CL here.\n\nThe extra log lines can stand on their own.\n\nSome cleanup of the v4 code path can stand on it\u0027s own.\n\nAdding v6 support to the class should be on it\u0027s own.\n\nAnd only then the final patch to enable it all.",
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a942cdf_36d729c3",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "consider whether there shouldn\u0027t simply be 2 constructors taking Inet4Address *2 vs Inet6Address *2\n\nthere seems to be virtually no shared code...",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 85
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef849e5b_dc8ab48c",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "not clear calculating this outside of the if makes sense...",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 94
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50de8d6d_48c6c007",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "actually if ID is just always 0, then we should be setting the DF flag",
+      "range": {
+        "startLine": 79,
+        "startChar": 23,
+        "endLine": 79,
+        "endChar": 24
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfc82e90_a115cd2e",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "technically speaking this should be reading/using the v4 sysctl /proc/sys/net/ipv4/ip_default_ttl",
+      "range": {
+        "startLine": 80,
+        "startChar": 27,
+        "endLine": 80,
+        "endChar": 29
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62764b66_dcc4d197",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "seems like this should be using IPV4_HEADER_LENGTH, but you could also just put UDP_HEADER_LENGTH + 1 here...",
+      "range": {
+        "startLine": 88,
+        "startChar": 43,
+        "endLine": 88,
+        "endChar": 45
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1dbf393_4989b275",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "what\u0027s this 2?",
+      "range": {
+        "startLine": 96,
+        "startChar": 28,
+        "endLine": 96,
+        "endChar": 29
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74d9afeb_74b42eae",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "IPV6_H...",
+      "range": {
+        "startLine": 97,
+        "startChar": 43,
+        "endLine": 97,
+        "endChar": 45
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4741dc6_1ea6e7e1",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "should be reading the v6 hoplimit sysctl net.ipv6.conf.default.hop_limit - though that is actually per interface...\n\narguably since this is actually v4-\u003ev6 conversion it should probably just use the v4 one as well",
+      "range": {
+        "startLine": 99,
+        "startChar": 27,
+        "endLine": 99,
+        "endChar": 29
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aa73944_0c5beca8",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "IPV6_H...",
+      "range": {
+        "startLine": 105,
+        "startChar": 43,
+        "endLine": 105,
+        "endChar": 45
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fe7a112_06a39c3a",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "I\u0027m virtually certain this doesn\u0027t work.\nYou need to prefix the 32-bit ipv4 address with the 96-bit clat prefix.\nNot with ::fffff like a v4 mapped address.",
+      "range": {
+        "startLine": 737,
+        "startChar": 46,
+        "endLine": 737,
+        "endChar": 71
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85b7f7d0_2e5acdca",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "This is also unlikely to work, as the clat src ip is not assigned to any interface, and is internal to clat.  I doubt getLinkAddresses() knows about it (and it shouldn\u0027t).\n\nYou need to use the 128-bit ipv6 address that was chosen when clat was started.\n\nSpecifically you need to use pfx96 + 32-bit ipv4 for the dst and v6 for the src from:\nhttp://cs/h/android/platform/superproject/+/master:packages/modules/Connectivity/service/src/com/android/server/connectivity/ClatCoordinator.java?l\u003d640",
+      "range": {
+        "startLine": 738,
+        "startChar": 16,
+        "endLine": 743,
+        "endChar": 17
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48b31925_ef16ae80",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "stuff like adding these Log.e could easily go in a precursor change",
+      "range": {
+        "startLine": 750,
+        "startChar": 12,
+        "endLine": 750,
+        "endChar": 15
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd1e8523_280d3ba5",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "set",
+      "range": {
+        "startLine": 901,
+        "startChar": 14,
+        "endLine": 901,
+        "endChar": 17
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "627f1819_dac1c24a",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-06T00:39:49Z",
+      "side": 1,
+      "message": "used",
+      "range": {
+        "startLine": 901,
+        "startChar": 82,
+        "endLine": 901,
+        "endChar": 88
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
