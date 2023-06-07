@@ -37,6 +37,10 @@ public class TrafficStatsTest extends AndroidTestCase {
 
     /** Verify the given value is in range [lower, upper] */
     private void assertInRange(String tag, long value, long lower, long upper) {
+        if (lower > upper) {
+            throw new IllegalArgumentException("lower must be less than or equal to upper: ["
+                    + lower + "," + upper + "]");
+        }
         final Range range = new Range(lower, upper);
         assertTrue(tag + ": " + value + " is not within range [" + lower + ", " + upper + "]",
                 range.contains(value));
