@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15d817c9_3ce12c7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-07T10:18:49Z",
+      "side": 1,
+      "message": "Just nits",
+      "revId": "59c2fcc8a9bfbf25ee2c6a200576f775622d56b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04eb4ea9_3f30495c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-07T10:18:49Z",
+      "side": 1,
+      "message": "The client ?",
+      "range": {
+        "startLine": 308,
+        "startChar": 57,
+        "endLine": 308,
+        "endChar": 69
+      },
+      "revId": "59c2fcc8a9bfbf25ee2c6a200576f775622d56b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c889621_aef93265",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-07T10:18:49Z",
+      "side": 1,
+      "message": "Nit: how about \"was unregistered and destroyed\" ?",
+      "range": {
+        "startLine": 327,
+        "startChar": 57,
+        "endLine": 327,
+        "endChar": 65
+      },
+      "revId": "59c2fcc8a9bfbf25ee2c6a200576f775622d56b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6974342_80cc100c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-07T10:18:49Z",
+      "side": 1,
+      "message": "Nit: were done in notifySocketDestroyed when the socket was destroyed",
+      "range": {
+        "startLine": 327,
+        "startChar": 86,
+        "endLine": 328,
+        "endChar": 34
+      },
+      "revId": "59c2fcc8a9bfbf25ee2c6a200576f775622d56b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71b94247_8cb4bc25",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-07T10:18:49Z",
+      "side": 1,
+      "message": "This seems unexpected; but isn\u0027t really a problem since stopDiscovery is only used by MdnsSocketClient, which doesn\u0027t send onAllSocketsDestroyed (it\u0027s not per-socket). Ideally we\u0027d want to send it when handleUnregisterListener unregisters the last callback ? But there\u0027s no good way to do it with the current code.\n\nMaybe just add a comment saying that SocketClients that send onAllSocketsDestroyed do not need stopDiscovery ?",
+      "range": {
+        "startLine": 332,
+        "startChar": 29,
+        "endLine": 332,
+        "endChar": 34
+      },
+      "revId": "59c2fcc8a9bfbf25ee2c6a200576f775622d56b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
