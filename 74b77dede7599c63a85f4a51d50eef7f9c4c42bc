@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c4b5909_b151cbb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2012225
+      },
+      "writtenOn": "2023-06-07T15:30:56Z",
+      "side": 1,
+      "message": "Looks great, thanks again for doing this!",
+      "revId": "74b77dede7599c63a85f4a51d50eef7f9c4c42bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e03e66b_070f9344",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2012225
+      },
+      "writtenOn": "2023-06-07T15:30:56Z",
+      "side": 1,
+      "message": "Can you pull this out so you don\u0027t have to evaluate it for every socket?\n\ni.e. above this loop have bool v6Only \u003d isIpV6OnlyNetworks(....)",
+      "range": {
+        "startLine": 232,
+        "startChar": 23,
+        "endLine": 232,
+        "endChar": 71
+      },
+      "revId": "74b77dede7599c63a85f4a51d50eef7f9c4c42bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
