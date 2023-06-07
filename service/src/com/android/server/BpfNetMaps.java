@@ -45,6 +45,7 @@ import android.os.ServiceSpecificException;
 import android.provider.DeviceConfig;
 import android.system.ErrnoException;
 import android.system.Os;
+import android.system.OsConstants;
 import android.util.ArraySet;
 import android.util.IndentingPrintWriter;
 import android.util.Log;
@@ -307,11 +308,32 @@ public class BpfNetMaps {
             return Os.if_nametoindex(ifName);
         }
 
+        // AF_KEY socket type. See include/linux/socket.h.
+        private static final int AF_KEY = 15;
+        // PFKEYv2 constants. See include/uapi/linux/pfkeyv2.h.
+        private static final int PF_KEY_V2 = 2;
         /**
          * Call synchronize_rcu()
          */
         public int synchronizeKernelRCU() {
-            return native_synchronizeKernelRCU();
+            FileDescriptor pfSocket;
+            try {
+                pfSocket = Os.socket(AF_KEY, OsConstants.SOCK_RAW | OsConstants.SOCK_CLOEXEC,
+                        PF_KEY_V2);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "create PF_KEY socket failed: ", e);
+                return e.errno;
+            }
+
+            // When closing socket, synchronize_rcu() gets called in sock_release().
+            try {
+                Os.close(pfSocket);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "failed to close the PF_KEY socket: ", e);
+                return e.errno;
+            }
+
+            return 0;
         }
 
         /**
