@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba7d3f63_f3267402",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-07T02:39:34Z",
+      "side": 1,
+      "message": "LGTM as (adding logs for) flake fix",
+      "revId": "32dc9a1ce23473cb605ef2896d1aa73bd897dcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e20671f_10dc2927",
+        "filename": "tests/cts/net/src/android/net/cts/TrafficStatsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-07T02:39:34Z",
+      "side": 1,
+      "message": "Maybe fail() or assert would be better ? I think IllegalArgumentException may show up differently from AssertionFailedError in test results",
+      "revId": "32dc9a1ce23473cb605ef2896d1aa73bd897dcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
