@@ -33,6 +33,24 @@
       "message": "Maybe fail() or assert would be better ? I think IllegalArgumentException may show up differently from AssertionFailedError in test results",
       "revId": "32dc9a1ce23473cb605ef2896d1aa73bd897dcb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b391be8_15132654",
+        "filename": "tests/cts/net/src/android/net/cts/TrafficStatsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-07T02:41:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e20671f_10dc2927",
+      "revId": "32dc9a1ce23473cb605ef2896d1aa73bd897dcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
