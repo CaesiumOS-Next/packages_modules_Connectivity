@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6556488c_773ced6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-07T06:48:03Z",
+      "side": 1,
+      "message": "Add test for v6 case.",
+      "parentUuid": "1faea2b6_54edf8b3",
+      "revId": "55ffefad200f180da7ea77f2d5cee91e3cbf7b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1ddc81b_e45fdff5",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-06-06T09:53:17Z",
       "side": 1,
       "message": "suggest:\n\nif 4 \u0026 4 return ...\nelse if 6 \u0026 6 return ...\nelse throw\n\nyou may also want to make sure that you don\u0027t get a v4 mapped v6 address [ie. a v6 ip in ::ffff:0.0.0.0/96] (or that if you do you treat it as v4 not v6?)",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 8
+      },
+      "revId": "55ffefad200f180da7ea77f2d5cee91e3cbf7b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8bf9382_34828b8a",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-07T06:48:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1ddc81b_e45fdff5",
       "range": {
         "startLine": 70,
         "startChar": 8,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10fcc334_0b4b04ce",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-07T06:48:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73d0871b_bb9393e2",
+      "range": {
+        "startLine": 117,
+        "startChar": 30,
+        "endLine": 117,
+        "endChar": 57
+      },
+      "revId": "55ffefad200f180da7ea77f2d5cee91e3cbf7b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0e24c09_edc9c565",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-06-06T09:53:17Z",
       "side": 1,
       "message": "extend comment to say:\n(or even better from interface specific sysctl setting...,\nbut for 464xlat it should use the v4 sysctl setting instead)",
+      "range": {
+        "startLine": 119,
+        "startChar": 54,
+        "endLine": 119,
+        "endChar": 61
+      },
+      "revId": "55ffefad200f180da7ea77f2d5cee91e3cbf7b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "013c234a_01e466be",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-07T06:48:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0e24c09_edc9c565",
       "range": {
         "startLine": 119,
         "startChar": 54,
