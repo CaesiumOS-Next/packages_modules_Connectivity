@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8adcccbb_79ab6977",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-08T03:39:10Z",
+      "side": 1,
+      "message": "I think we do not need to specify it so accurately here. We do not so care about what string is taken in this test to mock mContext from mContextWithoutAttributionTag. Maybe `anystring()` is enough without this.",
+      "range": {
+        "startLine": 152,
+        "startChar": 42,
+        "endLine": 152,
+        "endChar": 65
+      },
+      "revId": "08b76ff83301d20e8aa1d96bb543ec4c1513b2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
