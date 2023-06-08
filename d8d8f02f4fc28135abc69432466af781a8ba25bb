@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acf01270_3eb1147c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T04:45:41Z",
+      "side": 1,
+      "message": "I thought these would be pull metrics though ?\n\nAlso, are we concerned that pulling every 24h with base of \"latest boot\" is going to skew the metrics because devices\n- don\u0027t boot at the same time\n- don\u0027t boot at uniform times throughout the day",
+      "revId": "d8d8f02f4fc28135abc69432466af781a8ba25bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9936a13_57f6bea6",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T04:45:41Z",
+      "side": 1,
+      "message": "This is going to drift a little bit every day. That\u0027s not how you do regular alarms ; instead you get a base and then you compute the delay until the next iteration.",
+      "range": {
+        "startLine": 331,
+        "startChar": 67,
+        "endLine": 331,
+        "endChar": 92
+      },
+      "revId": "d8d8f02f4fc28135abc69432466af781a8ba25bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22f57b3e_1239261a",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T04:45:41Z",
+      "side": 1,
+      "message": "This is emphatically not how you build dependency injection. Instead, just pass the dependency object to the constructor of KeepaliveStatsTracker.\n\nNote that the Mockito documentation gives this as a textbook example of bad usage of spies. The problem is that this kind of set up lets you mix overriden methods and methods stubbed with mockito on the same object everywhere in the file and it becomes very confusing.\n\nSpies should be used sparingly :\n- on completely unmodified objects, without ever calling doReturn on them, to check that stuff was called\n- in legacy code that you don\u0027t control and you have no other way to add dependency injection\n\nHere, please pass your dependency object to the constructor. The dependency object can either be a mock or a full subclass (but NOT a spy of a subclass, because that would have the exact same problem).",
+      "range": {
+        "startLine": 328,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 62
+      },
+      "revId": "d8d8f02f4fc28135abc69432466af781a8ba25bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
