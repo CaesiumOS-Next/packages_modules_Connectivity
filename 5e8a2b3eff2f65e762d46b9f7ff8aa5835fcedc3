@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f59c414e_875ae1fb",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-08T07:31:07Z",
+      "side": 1,
+      "message": "Acked",
+      "parentUuid": "d66950e8_5ddcd7c0",
+      "range": {
+        "startLine": 477,
+        "startChar": 21,
+        "endLine": 477,
+        "endChar": 40
+      },
+      "revId": "5e8a2b3eff2f65e762d46b9f7ff8aa5835fcedc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f50fd81f_fb659d29",
@@ -72,6 +96,30 @@
       "writtenOn": "2023-06-08T07:07:25Z",
       "side": 1,
       "message": "This test is very similar to testDecodeWithIpv6AddressChange that test addresses are added. Can we avoid duplication code? Do you also want to test the address removed like testDecodeWithIpv4AddressRemove?",
+      "range": {
+        "startLine": 487,
+        "startChar": 4,
+        "endLine": 487,
+        "endChar": 5
+      },
+      "revId": "5e8a2b3eff2f65e762d46b9f7ff8aa5835fcedc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30b858be_ad65024e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-08T07:31:07Z",
+      "side": 1,
+      "message": "Thanks, looks like the test is very similar. Changed in to test testDecodeWithIpv4AddressRemove",
+      "parentUuid": "f50fd81f_fb659d29",
       "range": {
         "startLine": 487,
         "startChar": 4,
