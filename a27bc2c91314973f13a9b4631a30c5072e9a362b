@@ -22,6 +22,30 @@
       },
       "revId": "a27bc2c91314973f13a9b4631a30c5072e9a362b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f810e72b_d5068dc0",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T03:22:58Z",
+      "side": 1,
+      "message": "Originally, the metrics will eventually be written after a 24 hour period using Handler.postDelayed and that uses a time base of uptimeMillis(). \n\nBut after some discussion, the sleep time cannot be excluded since the keepalives would actually still be running and so should be included. \n\nChange to elapsedRealtime made here aosp/2620149.",
+      "parentUuid": "7d6d047a_e9ac68c8",
+      "range": {
+        "startLine": 60,
+        "startChar": 31,
+        "endLine": 60,
+        "endChar": 43
+      },
+      "revId": "a27bc2c91314973f13a9b4631a30c5072e9a362b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
