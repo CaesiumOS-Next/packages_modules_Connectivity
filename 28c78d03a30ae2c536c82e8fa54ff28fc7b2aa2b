@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3acb94fa_1265e198",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T04:32:48Z",
+      "side": 1,
+      "message": "Some comments would help here I think. The level of nesting is high and the thread bouncing is complex, so some summary of what you\u0027re doing would be very helpful. Example wording, feel free to improve :\n\n    The constructor for OnSubscriptionsChangedListener will grab the looper\n    of the thread it is run on and run on that thread. In this case, the\n    listener should run on the BackgroundThread, so post a runnable that creates\n    it there. The executor passed to addOnSubcriptionsChangedListener is used\n    on that thread whatever you do.\n    When the callback is called on the BackgroundThread, post a message on\n    the CS handler thread to update the caches, which can only be touched there.",
+      "range": {
+        "startLine": 254,
+        "startChar": 38,
+        "endLine": 254,
+        "endChar": 42
+      },
+      "revId": "28c78d03a30ae2c536c82e8fa54ff28fc7b2aa2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ad9b975_12d257f2",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T04:32:48Z",
+      "side": 1,
+      "message": "IIUC the subscription manager code will call `#execute` on this handler on the BackgroundThread. What you wrote here will post on the background thread. Therefore, now you can simplify by passing an immediate executor `r -\u003e r.run()`, which you couldn\u0027t do in earlier versions of this patch.\n\nIt\u0027s not that different really since with your current code it would just post a message that will be executed immediately afterwards, but I think immediate is marginally more straightforward.",
+      "range": {
+        "startLine": 256,
+        "startChar": 24,
+        "endLine": 256,
+        "endChar": 54
+      },
+      "revId": "28c78d03a30ae2c536c82e8fa54ff28fc7b2aa2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
