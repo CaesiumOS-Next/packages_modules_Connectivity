@@ -191,14 +191,14 @@ public class MdnsServiceTypeClient {
             }
             // Cancel the next scheduled periodical task.
             if (requestTaskFuture != null) {
-                requestTaskFuture.cancel(true);
+                cancelRequestTaskLocked();
             }
             // Keep tracking the ScheduledFuture for the task so we can cancel it if caller is not
             // interested anymore.
             final QueryTaskConfig taskConfig = new QueryTaskConfig(
                     searchOptions.getSubtypes(),
                     searchOptions.isPassiveMode(),
-                    ++currentSessionId,
+                    currentSessionId,
                     network);
             if (hadReply) {
                 requestTaskFuture = scheduleNextRunLocked(taskConfig);
@@ -206,6 +206,12 @@ public class MdnsServiceTypeClient {
                 requestTaskFuture = executor.submit(new QueryTask(taskConfig));
             }
         }
+    }
+
+    private void cancelRequestTaskLocked() {
+        requestTaskFuture.cancel(true);
+        ++currentSessionId;
+        requestTaskFuture = null;
     }
 
     private boolean responseMatchesOptions(@NonNull MdnsResponse response,
@@ -241,8 +247,7 @@ public class MdnsServiceTypeClient {
                 return listeners.isEmpty();
             }
             if (listeners.isEmpty() && requestTaskFuture != null) {
-                requestTaskFuture.cancel(true);
-                requestTaskFuture = null;
+                cancelRequestTaskLocked();
             }
             return listeners.isEmpty();
         }
@@ -319,8 +324,7 @@ public class MdnsServiceTypeClient {
             }
 
             if (requestTaskFuture != null) {
-                requestTaskFuture.cancel(true);
-                requestTaskFuture = null;
+                cancelRequestTaskLocked();
             }
         }
     }
