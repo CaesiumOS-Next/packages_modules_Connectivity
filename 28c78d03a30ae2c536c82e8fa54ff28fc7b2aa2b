@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "850f6e45_90b69a51",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T10:33:43Z",
+      "side": 1,
+      "message": "Done. \nTo clarify, the callback is properly running on the executor passed to addOnSubcriptionsChangedListener. \nThe issue is that the constructor *creates* an executor with the looper of the current thread and this will throw if there is no Looper.",
+      "parentUuid": "3acb94fa_1265e198",
+      "range": {
+        "startLine": 254,
+        "startChar": 38,
+        "endLine": 254,
+        "endChar": 42
+      },
+      "revId": "28c78d03a30ae2c536c82e8fa54ff28fc7b2aa2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ad9b975_12d257f2",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-08T04:32:48Z",
       "side": 1,
       "message": "IIUC the subscription manager code will call `#execute` on this handler on the BackgroundThread. What you wrote here will post on the background thread. Therefore, now you can simplify by passing an immediate executor `r -\u003e r.run()`, which you couldn\u0027t do in earlier versions of this patch.\n\nIt\u0027s not that different really since with your current code it would just post a message that will be executed immediately afterwards, but I think immediate is marginally more straightforward.",
+      "range": {
+        "startLine": 256,
+        "startChar": 24,
+        "endLine": 256,
+        "endChar": 54
+      },
+      "revId": "28c78d03a30ae2c536c82e8fa54ff28fc7b2aa2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85a32ffb_13a4f2db",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T10:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ad9b975_12d257f2",
       "range": {
         "startLine": 256,
         "startChar": 24,
