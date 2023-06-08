@@ -192,6 +192,8 @@ public class MdnsServiceTypeClient {
             // Cancel the next scheduled periodical task.
             if (requestTaskFuture != null) {
                 requestTaskFuture.cancel(true);
+                // Increase the currentSessionId can cancel any
+                ++currentSessionId;
             }
             // Keep tracking the ScheduledFuture for the task so we can cancel it if caller is not
             // interested anymore.
@@ -242,6 +244,7 @@ public class MdnsServiceTypeClient {
             }
             if (listeners.isEmpty() && requestTaskFuture != null) {
                 requestTaskFuture.cancel(true);
+                ++currentSessionId;
                 requestTaskFuture = null;
             }
             return listeners.isEmpty();
