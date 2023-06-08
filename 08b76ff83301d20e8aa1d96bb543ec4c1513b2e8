@@ -22,6 +22,30 @@
       },
       "revId": "08b76ff83301d20e8aa1d96bb543ec4c1513b2e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20494431_0f5b25ef",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-06-08T17:37:36Z",
+      "side": 1,
+      "message": "I do think we should check the tag because IKE depends on this tag to identify IKE metrics in VPN use case (from VCN and Iwlan). If someone accidentally changes the tag, without the unit test, we cannot notice it util we find the VPN metrics disappear",
+      "parentUuid": "8adcccbb_79ab6977",
+      "range": {
+        "startLine": 152,
+        "startChar": 42,
+        "endLine": 152,
+        "endChar": 65
+      },
+      "revId": "08b76ff83301d20e8aa1d96bb543ec4c1513b2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
