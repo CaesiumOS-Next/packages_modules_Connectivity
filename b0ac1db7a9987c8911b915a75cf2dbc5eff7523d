@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaf0746f_a73bd508",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-08T06:49:40Z",
+      "side": 1,
+      "message": "This is already done below, so maybe not necessary here ?\n\n(did you want to write something else in the comment ? I think it\u0027s missing some text. Maybe say that this is to ensure that even if the task is not cancelled successfully, future iterations will not be scheduled ?)",
+      "revId": "b0ac1db7a9987c8911b915a75cf2dbc5eff7523d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "264ddacc_5cfbf41a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-08T06:49:40Z",
+      "side": 1,
+      "message": "Nit: you could move these 3 lines to a separate methods too (cancelRequestTaskLocked ?)",
+      "revId": "b0ac1db7a9987c8911b915a75cf2dbc5eff7523d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f8790bb_fe54ce29",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-08T06:49:40Z",
+      "side": 1,
+      "message": "Also there\u0027s a cancel here, it would be safer to increase the count here too",
+      "revId": "b0ac1db7a9987c8911b915a75cf2dbc5eff7523d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
