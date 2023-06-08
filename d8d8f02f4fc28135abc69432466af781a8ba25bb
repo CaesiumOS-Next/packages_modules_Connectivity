@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db1c711b_71457c3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T10:38:27Z",
+      "side": 1,
+      "message": "No, these are push metrics. The idea is that we are just concerned about collecting 24 hours worth of data. The time of upload itself does not need to be uniform. \n\nOn the contrary, if we pulled at the same time, that would probably skew things since some devices would have been tracking data with less than 24 hours and durations won\u0027t add to 24 hours.",
+      "parentUuid": "acf01270_3eb1147c",
+      "revId": "d8d8f02f4fc28135abc69432466af781a8ba25bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9936a13_57f6bea6",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71fc2f6f_ac0100b8",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T10:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9936a13_57f6bea6",
+      "range": {
+        "startLine": 331,
+        "startChar": 67,
+        "endLine": 331,
+        "endChar": 92
+      },
+      "revId": "d8d8f02f4fc28135abc69432466af781a8ba25bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22f57b3e_1239261a",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-06-08T04:45:41Z",
       "side": 1,
       "message": "This is emphatically not how you build dependency injection. Instead, just pass the dependency object to the constructor of KeepaliveStatsTracker.\n\nNote that the Mockito documentation gives this as a textbook example of bad usage of spies. The problem is that this kind of set up lets you mix overriden methods and methods stubbed with mockito on the same object everywhere in the file and it becomes very confusing.\n\nSpies should be used sparingly :\n- on completely unmodified objects, without ever calling doReturn on them, to check that stuff was called\n- in legacy code that you don\u0027t control and you have no other way to add dependency injection\n\nHere, please pass your dependency object to the constructor. The dependency object can either be a mock or a full subclass (but NOT a spy of a subclass, because that would have the exact same problem).",
+      "range": {
+        "startLine": 328,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 62
+      },
+      "revId": "d8d8f02f4fc28135abc69432466af781a8ba25bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47fa00ab_7071c60c",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T10:38:27Z",
+      "side": 1,
+      "message": "Done for dependency injection. \nFor the spy, the `mKeepaliveStatsTracker` is now completely unmodified and only used for `verify(mKeepaliveStatsTracker).writeAndResetMetrics();`",
+      "parentUuid": "22f57b3e_1239261a",
       "range": {
         "startLine": 328,
         "startChar": 0,
