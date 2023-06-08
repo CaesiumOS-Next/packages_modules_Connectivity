@@ -451,6 +451,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "578cd606_1042ecec",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T03:01:05Z",
+      "side": 1,
+      "message": "Removed TODO per discussion in the other comment.",
+      "parentUuid": "15436167_ff3e055b",
+      "range": {
+        "startLine": 332,
+        "startChar": 8,
+        "endLine": 334,
+        "endChar": 53
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d9583d1_56e153f8",
@@ -701,6 +725,30 @@
       "side": 1,
       "message": "Right, this is what I was observing in my last paragraph : if you want to avoid this, you could wait for the first call. But it\u0027s hard to write correctly and probably not worth the work I think. I think it should be very rare and not skew the metrics measurably.",
       "parentUuid": "2018698e_a97cef70",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 69
+      },
+      "revId": "7c31edd32b1cda96eccedca224140fee1db165b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e62188e9_4cb40005",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T03:01:05Z",
+      "side": 1,
+      "message": "Removed the TODO per the discussion in the other comment.",
+      "parentUuid": "d4e2dcef_2d44b7fe",
       "range": {
         "startLine": 193,
         "startChar": 8,

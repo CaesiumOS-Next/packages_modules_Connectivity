@@ -237,6 +237,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4648d15e_d96b4ea3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T03:01:05Z",
+      "side": 1,
+      "message": "\u003e There are times where the getter returns UNKNOWN_CARRIER_ID, especially shortly after boot\n\nBut in general, this case can occur anytime getCarrierId is called before the cache update, not just after boot.\n\nI agree that getting the value from TelephonyManager is just as prone to receiving stale values as getting the carrierId before the cache update.\n\nI think this case is the same case as using an incorrect carrierId for a known subId because of a late cache update. And if we are willing to let that happen, considering it rare, we should be willing to leave it as UNKNOWN_CARRIER_ID.\n\nRemoved the TODO.",
+      "parentUuid": "cf3612b6_facb8d5c",
+      "range": {
+        "startLine": 362,
+        "startChar": 11,
+        "endLine": 362,
+        "endChar": 85
+      },
+      "revId": "f1edb8cac7bdfaa5c3d82a788d274ad603fd0b72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c13539a2_cef58f52",

@@ -16,6 +16,47 @@
       "message": "I find this a little bit contrived, you could have inlined it.\n\nBut more realistically, OnSubscriptionsChangedListener has a constructor that takes a looper : you could maybe use the looper from the background thread and simplify the code a bit while changing very little to the current structure ?",
       "revId": "9a6a349d37c6a133c76056d88bfeae60a6a8d48d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbf9fe30_918256c1",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T03:01:05Z",
+      "side": 1,
+      "message": "That constructor is hidden? \nMade inline.",
+      "parentUuid": "63194c34_80a0d98f",
+      "revId": "9a6a349d37c6a133c76056d88bfeae60a6a8d48d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a48fa50_b4ad1f50",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T03:01:05Z",
+      "side": 1,
+      "message": "Per discussion with Jean, it would be better to leave this unmocked as that provides some integration testing. Although there is the cost of needing to update the tests here, i.e. adding mockService for services used in KeepaliveStatsTracker, it is worth it.",
+      "range": {
+        "startLine": 118,
+        "startChar": 32,
+        "endLine": 118,
+        "endChar": 54
+      },
+      "revId": "9a6a349d37c6a133c76056d88bfeae60a6a8d48d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
