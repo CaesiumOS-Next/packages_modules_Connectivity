@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38ac9b92_63f59c66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:59:39Z",
+      "side": 1,
+      "message": "Opportunistic peek only ; I\u0027ll need an actual review of this",
+      "revId": "6e73734473179f521a5d452594278656a61dca5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22a47621_ddf70edc",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:59:39Z",
+      "side": 1,
+      "message": "This is self-contradictory. The sentence reads \"this should X, but it should Y instead\", which doesn\u0027t make sense.\n\nInstead your explanation should either omit the first part and explain why the 2nd part is good, or suggest the first part with a justification but then explain why the 2nd part overrides that justification",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 19
+      },
+      "revId": "6e73734473179f521a5d452594278656a61dca5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "592e7b56_7efeb54c",
+        "filename": "tests/common/java/android/net/NattKeepalivePacketDataTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:59:39Z",
+      "side": 1,
+      "message": "Please use `assertFailsWith`",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 9
+      },
+      "revId": "6e73734473179f521a5d452594278656a61dca5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
