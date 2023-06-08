@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad5dada9_61b627f4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-08T07:21:11Z",
+      "side": 1,
+      "message": "Done, removed a duplicated ++currentSessionId. I think we only need to do ++currentSessionId when we are going cancel the task.",
+      "parentUuid": "aaf0746f_a73bd508",
+      "revId": "b0ac1db7a9987c8911b915a75cf2dbc5eff7523d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "264ddacc_5cfbf41a",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9615a2ae_66ff4ed4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-08T07:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "264ddacc_5cfbf41a",
+      "revId": "b0ac1db7a9987c8911b915a75cf2dbc5eff7523d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f8790bb_fe54ce29",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-06-08T06:49:40Z",
       "side": 1,
       "message": "Also there\u0027s a cancel here, it would be safer to increase the count here too",
+      "revId": "b0ac1db7a9987c8911b915a75cf2dbc5eff7523d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3727bd89_a9577e24",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-08T07:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f8790bb_fe54ce29",
       "revId": "b0ac1db7a9987c8911b915a75cf2dbc5eff7523d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
