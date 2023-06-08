@@ -112,6 +112,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f8f18db_00c4ae04",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T11:54:48Z",
+      "side": 1,
+      "message": "This will be run in the handler thread instead of the test thread and as you mention in another comment: \"crash the process with a difficult to understand error message\"?",
+      "parentUuid": "1e9d46a6_cccc3866",
+      "range": {
+        "startLine": 374,
+        "startChar": 24,
+        "endLine": 374,
+        "endChar": 27
+      },
+      "revId": "0ab8687ef9c36160c3075f24715491efa3325839",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc70b9cf_af24c59f",
         "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
         "patchSetId": 6
@@ -123,6 +147,30 @@
       "writtenOn": "2023-06-08T08:07:03Z",
       "side": 1,
       "message": "If this fails it will crash the process with a difficult to understand error message. Maybe you could structure it like this :\n\n    final CompletableFuture\u003cKI\u003e obtainedKI\n    mTestHandler.post(() -\u003e obtainedKi.complete(mAOOKT.getKeepaliveForBinder()))\n    assertNotNull(obtainedKi.get())",
+      "range": {
+        "startLine": 854,
+        "startChar": 21,
+        "endLine": 854,
+        "endChar": 25
+      },
+      "revId": "0ab8687ef9c36160c3075f24715491efa3325839",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5e86739_60d70ec4",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-08T11:54:48Z",
+      "side": 1,
+      "message": "Or like the other tests, use `getAutoKiForBinder(testInfo.binder)` which uses visibleOnHandlerThread",
+      "parentUuid": "bc70b9cf_af24c59f",
       "range": {
         "startLine": 854,
         "startChar": 21,
