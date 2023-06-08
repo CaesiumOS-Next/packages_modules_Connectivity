@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58095e8d_4caad50c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-08T06:33:54Z",
+      "side": 1,
+      "message": "Can you also add that this wasn\u0027t found by the existing testDecodeWithNoChange test, because it used a service record for testhost2 instead of testhost1, so the address records were ignored ?",
+      "revId": "5e8a2b3eff2f65e762d46b9f7ff8aa5835fcedc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9da2475_4ca2a5f7",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-08T06:33:54Z",
+      "side": 1,
+      "message": "Sorry, this test case isn\u0027t necessary, I ended up adding the elapsedRealtime change in \"testDecodeWithNoChange\" instead (the code here doesn\u0027t actually change receive time)",
+      "revId": "5e8a2b3eff2f65e762d46b9f7ff8aa5835fcedc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
