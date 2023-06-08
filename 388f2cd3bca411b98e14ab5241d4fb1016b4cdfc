@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e74a1561_9a30850a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "I think Chiachang\u0027s point is that there is hardware that does this translation automatically (and presumably, correctly)",
+      "parentUuid": "2712eb01_beb75fb4",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 12
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "18eb60f6_a2426882",
@@ -122,6 +146,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17623dff_48cf6297",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to have transitory state where you check this dynamically. My preference would be that you implement Maze\u0027s suggestion in this patch. Another, less preferred approach is to put aosp/2616796 in the same topic as this patch, to make sure that the repo is never in a state where you can statically call the method with disparate families.",
+      "parentUuid": "27dc126f_b36c11af",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 85
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef849e5b_dc8ab48c",
@@ -164,6 +212,53 @@
         "startChar": 0,
         "endLine": 73,
         "endChar": 94
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eff028a_94c74b4a",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "He means it would make more sense to move this line to l.77 and l.96",
+      "parentUuid": "93314eb5_ff19e2cb",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 94
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cae81c24_e16a0fe2",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "while you\u0027re here, final",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 11
       },
       "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -310,6 +405,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6585108a_cb0cb49b",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "Did you forget to update to the latest commit ? I see a \u0027Done\u0027 reply but no new code.",
+      "parentUuid": "eb11fc3d_9ee1e14d",
+      "range": {
+        "startLine": 88,
+        "startChar": 43,
+        "endLine": 88,
+        "endChar": 45
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1dbf393_4989b275",
@@ -347,6 +466,30 @@
       "side": 1,
       "message": "That is traffic class. Should I just put 0? \n\nupdate in aosp/2616796",
       "parentUuid": "f1dbf393_4989b275",
+      "range": {
+        "startLine": 96,
+        "startChar": 28,
+        "endLine": 96,
+        "endChar": 29
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d14d85d_7e11212f",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "A good way of writing this is to split it across multiple lines\n\n    0x6 \u003c\u003c 28 // Ip version\n    + CONSTANT_NAME \u003c\u003c 16 // traffic class\n\nYou could even give these constants names if you find this more readable\n\n    IP_FAMILY \u003d 6 \u003c\u003c 28\n    TRAFFIC_CLASS \u003d 2 \u003c\u003c 16\n    putInt(IP_FAMILY + TRAFFIC_CLASS)\n\nBut in this case, considering the buf is big endian anyway I think it\u0027s most readable if you say something like\n\n    buf.put((byte) 6 \u003c\u003c 8); // IP version\n    buf.put((byte) 2); // traffic class\n    buf.putShort((short) 0); // flow label",
+      "parentUuid": "0d9db4d9_04a8b28d",
       "range": {
         "startLine": 96,
         "startChar": 28,
@@ -500,6 +643,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6728c2be_09e3d362",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "While this is a good change I question the relevance of doing this in the same patch as the translation to v6, instead of a preliminary no-op refactoring.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 45
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c10e5da3_8b599f56",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be the reason. The reason is that on a v6-only network, we need to send v6 packets.",
+      "range": {
+        "startLine": 731,
+        "startChar": 57,
+        "endLine": 732,
+        "endChar": 72
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e958c4ad_11a68a4c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "This is very dynamic. Clat can start later, or be stopped later. Snapshotting like this will cause issues whenever clat starts or stops.\n\nIn fact, I\u0027m afraid you need to know when clat starts or stops so you can update the keepalives.",
+      "range": {
+        "startLine": 735,
+        "startChar": 16,
+        "endLine": 735,
+        "endChar": 39
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbe97d0d_a64638ac",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "The src address also should be a Inet4Address if you\u0027re going to send it over clat. In fact, it *must* be the v4 address that clat knows about, not any of the other v4 addresses on the interface (though presumably if clat is started there are no others, but still)",
+      "range": {
+        "startLine": 735,
+        "startChar": 43,
+        "endLine": 735,
+        "endChar": 77
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5fe7a112_06a39c3a",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 3
@@ -539,6 +774,52 @@
         "startChar": 16,
         "endLine": 743,
         "endChar": 17
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bc21b48_e2de7d16",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "This looks wrong to me. Before this patch, the addresses could be v6. Now it\u0027s forbidden (you require that dstAddress is a Inet4Address in all code branches).",
+      "range": {
+        "startLine": 744,
+        "startChar": 23,
+        "endLine": 745,
+        "endChar": 60
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6933f90_56352e95",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "This is both ill-worded (imperative voice doesn\u0027t make for a good error message) and not terribly accurate. Suggestion :\n\n    Keepalive info can only be made with v4 addresses, not srcAddress → dstAddress",
+      "range": {
+        "startLine": 746,
+        "startChar": 51,
+        "endLine": 747,
+        "endChar": 55
       },
       "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -608,6 +889,213 @@
         "startChar": 82,
         "endLine": 901,
         "endChar": 88
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e76ce4d_132ac661",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "What do you mean VisibleForTesting ? You\u0027re using this in production code.",
+      "range": {
+        "startLine": 1038,
+        "startChar": 5,
+        "endLine": 1038,
+        "endChar": 22
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75ae5101_0e4690dd",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "Please do not have Nat464Xlat escape. This is managed by the network agent info, and it\u0027s considerably too dangerous to expose it. Exhibit A : my comment on the previous file that explains how your code won\u0027t work because clat starts and stops dynamically.\nExposing clat encourages this kind of code, and it\u0027s always wrong. Please do not expose clat.",
+      "range": {
+        "startLine": 1039,
+        "startChar": 22,
+        "endLine": 1039,
+        "endChar": 27
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d129792d_5ba6c724",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "Why lazy by the way ? It looks like everything is ready by that point, so if you really need this to be lazy I think you need to comment to explain",
+      "range": {
+        "startLine": 60,
+        "startChar": 37,
+        "endLine": 60,
+        "endChar": 41
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a05235f_a1f1f45c",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 70,
+        "startChar": 23,
+        "endLine": 70,
+        "endChar": 27
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90746cca_c85909ff",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "Some comments would be welcome\n\n    // 1 keepalive for cell, 3 for wifi, 0 for everything else\n    // this is taken from ...",
+      "range": {
+        "startLine": 78,
+        "startChar": 27,
+        "endLine": 78,
+        "endChar": 32
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c8a31ee_c9bc5429",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "This is fine but why not inline it ?",
+      "range": {
+        "startLine": 87,
+        "startChar": 17,
+        "endLine": 87,
+        "endChar": 23
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "890c156e_778f9176",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "This means you have a period of time where the NI is half-initialized. I understand that in practice in this test it doesn\u0027t change anything, but it\u0027s still poor practice. You should build the NI first. Either\n\n    val ni \u003d NetworkInfo(...)\n    ni.setDetailedState(...)\n    mNai.networkInfo \u003d ni\n\nor\n\n    mNai.networkInfo \u003d NetworkInfo(...).apply { setDetailedState(...) }",
+      "range": {
+        "startLine": 96,
+        "startChar": 25,
+        "endLine": 98,
+        "endChar": 9
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c956e49c_e1071db4",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "Likewise. use `apply`",
+      "range": {
+        "startLine": 100,
+        "startChar": 28,
+        "endLine": 100,
+        "endChar": 42
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18a6462f_0a5b9b1c",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-08T08:58:36Z",
+      "side": 1,
+      "message": "Is this necessary ? I think it should be all platform types so I don\u0027t think you need it. But if the compiler rejects it, you should put it on the declaration instead of usage",
+      "range": {
+        "startLine": 119,
+        "startChar": 25,
+        "endLine": 119,
+        "endChar": 27
       },
       "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
