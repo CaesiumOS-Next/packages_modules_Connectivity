@@ -104,6 +104,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "491e2068_5056608b",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-06-09T15:01:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "922f52f4_9672806c",
+      "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba7296ba_5b1fe52b",
@@ -121,6 +139,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6019f9f_b8acb2f8",
+        "filename": "Tethering/tests/unit/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-06-09T15:01:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ba7296ba_5b1fe52b",
+      "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84657bac_d204afdd",
@@ -134,6 +170,24 @@
       "writtenOn": "2023-06-09T06:24:59Z",
       "side": 1,
       "message": "To consist as aosp/1879617, remove empty line?",
+      "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aed5be6_3186036a",
+        "filename": "Tethering/tests/unit/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-06-09T15:01:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "84657bac_d204afdd",
       "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
