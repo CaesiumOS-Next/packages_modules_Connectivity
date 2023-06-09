@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea78e5db_41284c6d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 11267,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T04:09:40Z",
+      "side": 1,
+      "message": "nit : use testAndCleanup() so you can guarantee the listener is removed and the agent is disconnected.\n(you could also use try{}finally{} but in this case I\u0027d say that you\u0027d want the 2 cleanup steps independent, which calls for testAndCleanup)",
+      "range": {
+        "startLine": 11267,
+        "startChar": 14,
+        "endLine": 11267,
+        "endChar": 24
+      },
+      "revId": "a77a3817d02eded8c2bea805db8b7e037b42a487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
