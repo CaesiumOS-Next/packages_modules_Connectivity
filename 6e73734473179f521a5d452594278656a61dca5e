@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a7e2ca5_c6f872bc",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-09T06:11:31Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "22a47621_ddf70edc",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 19
+      },
+      "revId": "6e73734473179f521a5d452594278656a61dca5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "592e7b56_7efeb54c",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-06-08T08:59:39Z",
       "side": 1,
       "message": "Please use `assertFailsWith`",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 9
+      },
+      "revId": "6e73734473179f521a5d452594278656a61dca5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef697c1e_1dc1b3bb",
+        "filename": "tests/common/java/android/net/NattKeepalivePacketDataTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-09T06:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "592e7b56_7efeb54c",
       "range": {
         "startLine": 98,
         "startChar": 0,
