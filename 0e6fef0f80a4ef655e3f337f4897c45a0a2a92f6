@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c67c5a6_a16a966f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 11071,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:37:26Z",
+      "side": 1,
+      "message": "Okay I think I know what is rubbing me the wrong way here in my other comment. My problem is that this is called \u0027label\u0027, but what you actually send to the callbacks/broadcast is not this field, it\u0027s the actual label, as legacy demands.\n\nI think it would be a lot clearer if you had a netId field and a transport field, and both would always be filled and you used them accordingly in the 2 code paths.",
+      "range": {
+        "startLine": 11070,
+        "startChar": 0,
+        "endLine": 11071,
+        "endChar": 39
+      },
+      "revId": "0e6fef0f80a4ef655e3f337f4897c45a0a2a92f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36516ba4_f057059c",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 46
