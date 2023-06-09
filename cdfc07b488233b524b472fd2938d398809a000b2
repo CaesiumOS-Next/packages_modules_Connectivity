@@ -16,6 +16,23 @@
       "message": "@markchien  - could you please review the updated patch on android12L. \n- One of auto OEM is failing the test on 12L hence pushed the change on 12L",
       "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4439f32_0cde6e94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-06-09T04:22:24Z",
+      "side": 1,
+      "message": "Team, please review the change, this is blocking OEM certification because of a xTS failure.",
+      "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
