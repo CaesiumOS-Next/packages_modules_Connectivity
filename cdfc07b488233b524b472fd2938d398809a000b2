@@ -50,6 +50,24 @@
       "message": "Could you just do the clean cherry-pick from aosp/1879617 ? Or it will be conflict ?\n\nWhy is the change necessary for Android 12L-dev?  Assume OEMs that take the mainline tethering module will have a pre-built module from our mainline release that already includes the change. The last released mainline module already bumps the target SDK version to 33.",
       "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e05b91b_5944a30a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-06-09T04:53:54Z",
+      "side": 1,
+      "message": "- Tried for clean but had conflicts, resolved the conflicts.\n- OEMs get the source from SoC providers and the SoC providers sync the code from s-fs-lts-release branch \u003d\u003d 12L and the code in 12L is not updated to reflect the targetSDK change",
+      "parentUuid": "893d3ddb_1327f110",
+      "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
