@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb153635_5a73210b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T04:43:29Z",
+      "side": 1,
+      "message": "Remember that this line is the only thing people will see at first when this patch turns up in search results.\nIn 3 months, you see this and you have no idea what is the \"known issue\".\n\nCan you try to make a one-liner that\u0027s more suggestive of what this actually does ? At least so that you and you reviewers will remember what this does a few months from now when they see this one-liner.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "34a982481dfe21098383e20263f308bfa30f73e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2be96e3_9aa5bd1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T04:43:29Z",
+      "side": 1,
+      "message": "s/fixed/fixes the/",
+      "range": {
+        "startLine": 10,
+        "startChar": 40,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "34a982481dfe21098383e20263f308bfa30f73e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01e6ff4c_6e04bfb0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 11307,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T04:43:29Z",
+      "side": 1,
+      "message": "What are the constraints on these two arguments ? ISTM the code is of two minds.\n\n• On the one hand, the old code happily assumes there can be multiple active timers at the same time. This can only happen if updateDataActivityTracking can be called consecutively where newNetwork in call 1 is !\u003d oldNetwork in call 2.\n• On the other hand, your new code is not happy with that. If I call `updateDefaultNetworkActivity(net1, null)` then `updateDefaultNetworkActivity(net2, null)` then `updateDefaultNetworkActivity(null, net2)`, then your new code will set mIsDefaultNetworkActive to false.\n\nAnother symptom is that if newNetwork \u003d\u003d oldNetwork, then your new code does not behave like the old code in that mIsDefaultNetworkActive can be true when it used to be false.\n\n\nSo really, from the calls it looks to me like updateDataActivityTracking can and must only be called exactly once for each change of default network, meaning the old network of the subsequent call must be equal to the new network of the previous call. If that is true, then you have a number of things before you can check in this patch :\n- Remove the map, as it\u0027s useless ; it can only ever contain one object.\n- Remember the old default network as a member, and consider throwing if the old network is not the one you remember.\n\nConversely, if this is not true and there CAN in fact be multiple active timers at the same time, then this code is incorrect for the reasons above.\n\nFinally as a side note I want to observe that if it\u0027s true today that it\u0027s only once network, but you will change it later, then this code will break when you change the invariant. I suggest you don\u0027t write now code that you already know will break subtly in followup patches.",
+      "range": {
+        "startLine": 11306,
+        "startChar": 47,
+        "endLine": 11307,
+        "endChar": 43
+      },
+      "revId": "34a982481dfe21098383e20263f308bfa30f73e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
