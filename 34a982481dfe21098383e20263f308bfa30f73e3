@@ -68,6 +68,30 @@
       },
       "revId": "34a982481dfe21098383e20263f308bfa30f73e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97d74a47_125654ee",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 11307,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:16:18Z",
+      "side": 1,
+      "message": "Okay now that I\u0027ve seen the followup patches I understand this is really about \"default network\" activity. You\u0027re going to track all activities, but `isDefaultNetworkActive()` will return whether the default network is active, and not whether any network is active like I was thinking.\n\nSo now that I\u0027ve seen where you\u0027re going I think this is fine. Or more exactly, I think at this patch the code is very confusing, but when you\u0027re done it all makes sense, so let\u0027s just sumbit this patch together with the followups – my only request is that there is no time where this patch is what ToT looks like.",
+      "parentUuid": "01e6ff4c_6e04bfb0",
+      "range": {
+        "startLine": 11306,
+        "startChar": 47,
+        "endLine": 11307,
+        "endChar": 43
+      },
+      "revId": "34a982481dfe21098383e20263f308bfa30f73e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
