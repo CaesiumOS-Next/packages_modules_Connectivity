@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "697a59b7_42d90982",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:47:00Z",
+      "side": 1,
+      "message": "A bit burned out on the long string of reviews, I\u0027ll need another serious pass on this",
+      "revId": "69fff503a80e6c08f04d2e5cac804a0590a6dee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec3bb635_bb508c44",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11135,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:47:00Z",
+      "side": 1,
+      "message": "SparseIntArray ?\n\nAlso please have a comment explaining what values are in there (I\u0027m guessing netIDs)",
+      "range": {
+        "startLine": 11135,
+        "startChar": 22,
+        "endLine": 11135,
+        "endChar": 34
+      },
+      "revId": "69fff503a80e6c08f04d2e5cac804a0590a6dee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a27b52_a658fa4e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11173,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:47:00Z",
+      "side": 1,
+      "message": "I find this a little bit harder to follow than need be. You could say something like\n\n    final boolean wasEmpty \u003d activeNetworks.isEmpty();\n    if (isActive) {\n      add()\n    } else {\n      remove()\n    }\n    if (wasEmpty !\u003d activeNetworks.isEmpty()) {\n      updateRadioPowerState\n    }\n\n...which I find a little bit easier to parse. Please only change this if you agree with me that it\u0027s easier to read, otherwise keep your current code.",
+      "revId": "69fff503a80e6c08f04d2e5cac804a0590a6dee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9505da49_8ddf017a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11258,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:47:00Z",
+      "side": 1,
+      "message": "Nit : maybe clearInvocations, in case stuff was stubbed ?",
+      "range": {
+        "startLine": 11258,
+        "startChar": 8,
+        "endLine": 11258,
+        "endChar": 13
+      },
+      "revId": "69fff503a80e6c08f04d2e5cac804a0590a6dee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45038690_ef33374e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11287,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:47:00Z",
+      "side": 1,
+      "message": ", because...",
+      "range": {
+        "startLine": 11287,
+        "startChar": 90,
+        "endLine": 11287,
+        "endChar": 91
+      },
+      "revId": "69fff503a80e6c08f04d2e5cac804a0590a6dee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f261bd_e44b1c18",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11372,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:47:00Z",
+      "side": 1,
+      "message": "Will this not be flaky if you don\u0027t add a timeout ?",
+      "range": {
+        "startLine": 11372,
+        "startChar": 15,
+        "endLine": 11372,
+        "endChar": 29
+      },
+      "revId": "69fff503a80e6c08f04d2e5cac804a0590a6dee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
