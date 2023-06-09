@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ed512e0_eedf52ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-09T08:14:04Z",
+      "side": 1,
+      "message": "Why is it important to have the push be uniform across time? As long as it has been 24h, it is a good data point? \n\nIf we do want to do analysis where the push time is uniform across time, it should be possible to achieve that by just sampling the data ?",
+      "parentUuid": "70775e8a_1bb1d57f",
+      "revId": "d8d8f02f4fc28135abc69432466af781a8ba25bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9936a13_57f6bea6",
         "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
         "patchSetId": 2
@@ -162,6 +180,30 @@
       "side": 1,
       "message": "Lol ouch I\u0027m really sorry, I must have been very tired when I was looking at this.\nI thought you were stubbing the member, when all you were doing is stubbing the method inside mDependencies.\n\nI now realize that your previous code was in fact correct, and better than what I made you do. I\u0027m sorry.\n\nHowever, do continue to NOT use the spy to prevent writeAndResetMetrics from running. This was still wrong.",
       "parentUuid": "47fa00ab_7071c60c",
+      "range": {
+        "startLine": 328,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 62
+      },
+      "revId": "d8d8f02f4fc28135abc69432466af781a8ba25bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "849066a2_e14869cd",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-09T08:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adcb1e4b_ba2af899",
       "range": {
         "startLine": 328,
         "startChar": 0,
