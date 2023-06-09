@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19e01065_f43a67f3",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-09T09:49:43Z",
+      "side": 1,
+      "message": "looks like there\u0027s only 1 use.\nso if it fits on the next line, you could just get rid of this var",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 18
+      },
+      "revId": "55b237e377d14eb57c40dbc1c42de92ac50664ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a14a95_72d53ff8",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-09T09:49:43Z",
+      "side": 1,
+      "message": "buf.order(BIG_ENDIAN);",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 11
+      },
+      "revId": "55b237e377d14eb57c40dbc1c42de92ac50664ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e4275be_c37d405f",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-09T09:49:43Z",
+      "side": 1,
+      "message": "The way this is written, implies this code is only meant to be used for 464xlat.\nThat\u0027s true... for now...\nBut let\u0027s write this in a way that doesn\u0027t imply this code isn\u0027t ready to handle pure native v6 case.\n\nperhaps:\n\n// For native ipv6 we should be using the per interface v6 hoplimit sysctl.\n// For 464xlat we should be using the v4 ttl sysctl.\n// Either way, for simplicity, just hard code 64.",
+      "range": {
+        "startLine": 124,
+        "startChar": 71,
+        "endLine": 124,
+        "endChar": 78
+      },
+      "revId": "55b237e377d14eb57c40dbc1c42de92ac50664ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59495c61_876af178",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-09T09:49:43Z",
+      "side": 1,
+      "message": "hop",
+      "range": {
+        "startLine": 124,
+        "startChar": 15,
+        "endLine": 124,
+        "endChar": 18
+      },
+      "revId": "55b237e377d14eb57c40dbc1c42de92ac50664ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99f70d16_e7c95f29",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-09T09:49:43Z",
+      "side": 1,
+      "message": "this doesn\u0027t look right.\n\nyou can\u0027t put the checksum before the packet is complete, since it needs to checksum the payload, ie. the 0xff in the next line\n\nsee how the v4 version does this.",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 86
+      },
+      "revId": "55b237e377d14eb57c40dbc1c42de92ac50664ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
