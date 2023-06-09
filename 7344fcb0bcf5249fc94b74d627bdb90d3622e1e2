@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d770a236_8ab29c6d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11122,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T04:22:12Z",
+      "side": 1,
+      "message": "This is no longuer guarded by this lock",
+      "range": {
+        "startLine": 11122,
+        "startChar": 8,
+        "endLine": 11122,
+        "endChar": 39
+      },
+      "revId": "7344fcb0bcf5249fc94b74d627bdb90d3622e1e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34eb48a5_f5d63754",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11156,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T04:22:12Z",
+      "side": 1,
+      "message": "This is marked guardedby its own monitor, you can\u0027t access it without locking.\n\nThat being said if I\u0027m reading this correctly now the ArrayMap is only ever touched on the handler thread and it\u0027s final, so you should be able to completely remove this lock. Please double check my reading.",
+      "range": {
+        "startLine": 11156,
+        "startChar": 16,
+        "endLine": 11156,
+        "endChar": 33
+      },
+      "revId": "7344fcb0bcf5249fc94b74d627bdb90d3622e1e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68b4067c_cb79c1d0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11164,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T04:22:12Z",
+      "side": 1,
+      "message": "Conversely, is this sync still necessary ?",
+      "range": {
+        "startLine": 11164,
+        "startChar": 12,
+        "endLine": 11164,
+        "endChar": 46
+      },
+      "revId": "7344fcb0bcf5249fc94b74d627bdb90d3622e1e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a7eae89_fcaf5ad8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11321,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T04:22:12Z",
+      "side": 1,
+      "message": "It might be useful to have a short comment just above this saying that mActiveIdleTimers is only ever written to in {setup,remove}DataActivityTracking, and therefore assigning mNetworkActive here is correct.\n\nThe important thing to underline is that if this invariant ever becomes false, this code becomes incorrect.",
+      "range": {
+        "startLine": 11321,
+        "startChar": 16,
+        "endLine": 11321,
+        "endChar": 33
+      },
+      "revId": "7344fcb0bcf5249fc94b74d627bdb90d3622e1e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04833c6b_74ac4c2b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11347,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T04:22:12Z",
+      "side": 1,
+      "message": "This is no longer necessary I think ?",
+      "range": {
+        "startLine": 11347,
+        "startChar": 0,
+        "endLine": 11347,
+        "endChar": 46
+      },
+      "revId": "7344fcb0bcf5249fc94b74d627bdb90d3622e1e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
