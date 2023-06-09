@@ -68,6 +68,74 @@
       "parentUuid": "893d3ddb_1327f110",
       "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbaa59ba_367cd3a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-09T06:24:59Z",
+      "side": 1,
+      "message": "It seems the dependency change is aosp/1870417, could you cp it first then see whether conflict still exist?",
+      "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "922f52f4_9672806c",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-09T06:24:59Z",
+      "side": 1,
+      "message": "This is changed by aosp/1864894. Any reason to change mts to mts-tethering at this change? If this is necessary, cp whole aosp/1864894?",
+      "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba7296ba_5b1fe52b",
+        "filename": "Tethering/tests/unit/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-09T06:24:59Z",
+      "side": 1,
+      "message": "To consist as aosp/1879617, remove empty line?",
+      "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84657bac_d204afdd",
+        "filename": "Tethering/tests/unit/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-09T06:24:59Z",
+      "side": 1,
+      "message": "To consist as aosp/1879617, remove empty line?",
+      "revId": "cdfc07b488233b524b472fd2938d398809a000b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
