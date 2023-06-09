@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70775e8a_1bb1d57f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T06:16:27Z",
+      "side": 1,
+      "message": "The time of upload is irrelevant ; this is just pushing the data to statsd, which uploads them whenever it wants.\n\nIf we always push at the same time obviously we\u0027d only do this after we\u0027d have 24h of data the first time (so we\u0027d drop the first batch).\n\nThis makes me think that to avoid skewing the data, we might need to select a random second in the day to push, and drop the data at first alarm (because it doesn\u0027t have 24h, as you pointed out)",
+      "parentUuid": "db1c711b_71457c3b",
+      "revId": "d8d8f02f4fc28135abc69432466af781a8ba25bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9936a13_57f6bea6",
         "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
         "patchSetId": 2
@@ -120,6 +138,30 @@
       "side": 1,
       "message": "Done for dependency injection. \nFor the spy, the `mKeepaliveStatsTracker` is now completely unmodified and only used for `verify(mKeepaliveStatsTracker).writeAndResetMetrics();`",
       "parentUuid": "22f57b3e_1239261a",
+      "range": {
+        "startLine": 328,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 62
+      },
+      "revId": "d8d8f02f4fc28135abc69432466af781a8ba25bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adcb1e4b_ba2af899",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T06:16:27Z",
+      "side": 1,
+      "message": "Lol ouch I\u0027m really sorry, I must have been very tired when I was looking at this.\nI thought you were stubbing the member, when all you were doing is stubbing the method inside mDependencies.\n\nI now realize that your previous code was in fact correct, and better than what I made you do. I\u0027m sorry.\n\nHowever, do continue to NOT use the spy to prevent writeAndResetMetrics from running. This was still wrong.",
+      "parentUuid": "47fa00ab_7071c60c",
       "range": {
         "startLine": 328,
         "startChar": 0,

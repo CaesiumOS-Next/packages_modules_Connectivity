@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "084e152e_bc2920c2",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T06:16:27Z",
+      "side": 1,
+      "message": "Okay I\u0027m sorry, I completely mislead you with my previous comment because I misread your code. See the new comment on the test.\n\nThe issue with the new style is that it doesn\u0027t really scale. What you had before is in fact more orthodox – as long as you don\u0027t use the spy to override methods in the KeepaliveStatsTracker.",
+      "range": {
+        "startLine": 313,
+        "startChar": 12,
+        "endLine": 313,
+        "endChar": 64
+      },
+      "revId": "d65bec48724eb5274f3445776c0682c6c35f65c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a5e0b52_c55f9220",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T06:16:27Z",
+      "side": 1,
+      "message": "Nit : while this will work, it tends to be less error-prone to write this kind of code declaratively rather than iteratively. In particular, this starts playing a big role if at any point later in time we use this member somewhere else.\n\nWhat you\u0027d do is have a final long that corresponds to the base that you\u0027d initialize with something like\n\n    base \u003d current time % frequency\n\nThen you always set the next alarm to\n\n    (current time + frequency) % frequency + base\n\nThe advantage of doing something like this is that it only ever uses constants and as such it is extremely robust against using the times somewhere else.",
+      "range": {
+        "startLine": 335,
+        "startChar": 8,
+        "endLine": 335,
+        "endChar": 34
+      },
+      "revId": "d65bec48724eb5274f3445776c0682c6c35f65c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
