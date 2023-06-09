@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36516ba4_f057059c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 11127,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:07:49Z",
+      "side": 1,
+      "message": "Let\u0027s add a comment here that the key is the net id.",
+      "range": {
+        "startLine": 11127,
+        "startChar": 22,
+        "endLine": 11127,
+        "endChar": 33
+      },
+      "revId": "0e6fef0f80a4ef655e3f337f4897c45a0a2a92f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e3b93f5_3e60c500",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 10693,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:07:49Z",
+      "side": 1,
+      "message": "Considering we have this stub, do you want to leverage it so you can test on U what happens on T ? That would save you some time if there is a bug only on T because you wouldn\u0027t have to either run the tests on an additional device or wait for TH.",
+      "range": {
+        "startLine": 10693,
+        "startChar": 21,
+        "endLine": 10693,
+        "endChar": 31
+      },
+      "revId": "0e6fef0f80a4ef655e3f337f4897c45a0a2a92f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

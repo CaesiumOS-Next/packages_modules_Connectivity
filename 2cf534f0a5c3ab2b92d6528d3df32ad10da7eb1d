@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46306329_ac108ad5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11039,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:07:49Z",
+      "side": 1,
+      "message": "Yeah I also don\u0027t understand what I meant, I think I was confused",
+      "parentUuid": "deb178c8_94d8589d",
+      "range": {
+        "startLine": 11039,
+        "startChar": 16,
+        "endLine": 11039,
+        "endChar": 67
+      },
+      "revId": "2cf534f0a5c3ab2b92d6528d3df32ad10da7eb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d983f5db_73d00deb",
@@ -189,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "029a63e7_fe4bc5ad",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11131,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:07:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a758c956_95b315b2",
+      "range": {
+        "startLine": 11131,
+        "startChar": 35,
+        "endLine": 11131,
+        "endChar": 40
+      },
+      "revId": "2cf534f0a5c3ab2b92d6528d3df32ad10da7eb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df00d0b9_c44472be",
@@ -226,6 +274,30 @@
       "side": 1,
       "message": "1) Platform code (BatteryStatsService via NMS) listen to this netd callback. aosp/2561090\n2) OEM could have code that depends on netd callback or idleTimers and they may assume label is transport type.\nSo I don\u0027t think we can change the meaning of label on T- devices.",
       "parentUuid": "df00d0b9_c44472be",
+      "range": {
+        "startLine": 11132,
+        "startChar": 68,
+        "endLine": 11132,
+        "endChar": 81
+      },
+      "revId": "2cf534f0a5c3ab2b92d6528d3df32ad10da7eb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eef3bf9_5f6ec246",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11132,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T05:07:49Z",
+      "side": 1,
+      "message": "I see. I was confused between the key and the label and mistakenly thought you were using the label as the key in the sparse array. But that\u0027s not the case ; the key is always the netId and you convert that to the label when communicating with netd or the callback.\n\nThat\u0027s fine. Thanks.",
+      "parentUuid": "66f23995_7c0b3d0b",
       "range": {
         "startLine": 11132,
         "startChar": 68,
