@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4de2c5a1_f8ece168",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-09T04:25:42Z",
+      "side": 1,
+      "message": "I noticed that you actually straighten the locks later. Ideally you\u0027d get this patch to actually be consistent, instead of locking only some of the time : always lock is a very simple and obviously correct option, but there are others",
+      "revId": "7344fcb0bcf5249fc94b74d627bdb90d3622e1e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d770a236_8ab29c6d",
