@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4de06ae_f7695b7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-09T09:06:01Z",
+      "side": 1,
+      "message": "LGTM but this needs to be submitted with the change on top (TH won\u0027t be happy otherwise anyway)",
+      "revId": "b88ada6b340f7fbe064349eb755e67acdb798405",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
