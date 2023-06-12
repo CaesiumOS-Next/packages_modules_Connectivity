@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b79d9312_53052ada",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-12T06:13:27Z",
+      "side": 1,
+      "message": "What\u0027s important really is the collection duration and not when we write to statsd. In practice it\u0027s the same, but in theory you could collect data for 24h and only write to statsd once every 2 cycle for example.",
+      "range": {
+        "startLine": 943,
+        "startChar": 41,
+        "endLine": 943,
+        "endChar": 80
+      },
+      "revId": "563bc1e5eb77157ca2c02c22ee0feaa788ac02ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
