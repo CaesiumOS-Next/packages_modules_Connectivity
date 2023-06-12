@@ -20,7 +20,6 @@ import static android.Manifest.permission.BLUETOOTH_PRIVILEGED;
 import static android.Manifest.permission.READ_DEVICE_CONFIG;
 import static android.Manifest.permission.WRITE_DEVICE_CONFIG;
 import static android.nearby.PresenceCredential.IDENTITY_TYPE_PRIVATE;
-import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -58,10 +57,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-/**
- * TODO(b/215435939) This class doesn't include any logic yet. Because SELinux denies access to
- * NearbyManager.
- */
 @RunWith(AndroidJUnit4.class)
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class NearbyManagerTest {
@@ -101,7 +96,7 @@ public class NearbyManagerTest {
     public void setUp() {
         mUiAutomation.adoptShellPermissionIdentity(READ_DEVICE_CONFIG, WRITE_DEVICE_CONFIG,
                 BLUETOOTH_PRIVILEGED);
-        DeviceConfig.setProperty(NAMESPACE_TETHERING,
+        DeviceConfig.setProperty("nearby",
                 "nearby_enable_presence_broadcast_legacy",
                 "true", false);
 
@@ -112,14 +107,12 @@ public class NearbyManagerTest {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 32, codeName = "T")
     public void test_startAndStopScan() {
         mNearbyManager.startScan(mScanRequest, EXECUTOR, mScanCallback);
         mNearbyManager.stopScan(mScanCallback);
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 32, codeName = "T")
     public void test_startScan_noPrivilegedPermission() {
         mUiAutomation.dropShellPermissionIdentity();
         assertThrows(SecurityException.class, () -> mNearbyManager
@@ -127,7 +120,6 @@ public class NearbyManagerTest {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 32, codeName = "T")
     public void test_stopScan_noPrivilegedPermission() {
         mNearbyManager.startScan(mScanRequest, EXECUTOR, mScanCallback);
         mUiAutomation.dropShellPermissionIdentity();
@@ -135,7 +127,6 @@ public class NearbyManagerTest {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 32, codeName = "T")
     public void testStartStopBroadcast() throws InterruptedException {
         PrivateCredential credential = new PrivateCredential.Builder(SECRETE_ID, AUTHENTICITY_KEY,
                 META_DATA_ENCRYPTION_KEY, DEVICE_NAME)
