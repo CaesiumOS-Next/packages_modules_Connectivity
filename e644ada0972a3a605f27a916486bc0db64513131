@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd6d682e_8fcb711e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-12T03:54:09Z",
+      "side": 1,
+      "message": "code seems fine, tests feel underwhelming",
+      "revId": "e644ada0972a3a605f27a916486bc0db64513131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7ea1a0a_de5fad5b",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-12T03:54:09Z",
+      "side": 1,
+      "message": "this should be final too then",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 11
+      },
+      "revId": "e644ada0972a3a605f27a916486bc0db64513131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
