@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04a23660_9646f34b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 11340,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:57:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bd89a32_1c44d98a",
+      "range": {
+        "startLine": 11340,
+        "startChar": 50,
+        "endLine": 11340,
+        "endChar": 66
+      },
+      "revId": "197a37f33d6ad8e3eed13a354f898816cfe4fdb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74f58a1d_2e1b9c48",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5b4812c_19a7e104",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 11344,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:57:59Z",
+      "side": 1,
+      "message": "registerUnsolicitedEventListener is called in the constructor of ConnectivityService.\nSo, I don\u0027t think we need timeout.",
+      "parentUuid": "74f58a1d_2e1b9c48",
+      "revId": "197a37f33d6ad8e3eed13a354f898816cfe4fdb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6639db2b_1bf06d6b",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-06-09T05:26:08Z",
       "side": 1,
       "message": "nit : Use try{}finally{} or testAndCleanup() to clean this up",
+      "range": {
+        "startLine": 11366,
+        "startChar": 12,
+        "endLine": 11366,
+        "endChar": 46
+      },
+      "revId": "197a37f33d6ad8e3eed13a354f898816cfe4fdb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d633eaa_c6c5275f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 11366,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:57:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6639db2b_1bf06d6b",
       "range": {
         "startLine": 11366,
         "startChar": 12,
