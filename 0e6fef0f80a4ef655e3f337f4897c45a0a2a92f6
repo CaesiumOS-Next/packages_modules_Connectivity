@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92e22d41_cef60278",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 11071,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:42:12Z",
+      "side": 1,
+      "message": "Added transportType and netId to NetworkActivityParams class.\nT- devices use transport type as the idle timer label and U+ devices use netid as the idle timer label.\nNetworkActivityParams is populated at non-handler thread\u0027s netd callback.\nSo I only filled netId field on U+ devices and transportType field on T- devices.",
+      "parentUuid": "3c67c5a6_a16a966f",
+      "range": {
+        "startLine": 11070,
+        "startChar": 0,
+        "endLine": 11071,
+        "endChar": 39
+      },
+      "revId": "0e6fef0f80a4ef655e3f337f4897c45a0a2a92f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36516ba4_f057059c",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21dc4006_7344189d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 11127,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:42:12Z",
+      "side": 1,
+      "message": "Done, added in aosp/2606672.",
+      "parentUuid": "36516ba4_f057059c",
+      "range": {
+        "startLine": 11127,
+        "startChar": 22,
+        "endLine": 11127,
+        "endChar": 33
+      },
+      "revId": "0e6fef0f80a4ef655e3f337f4897c45a0a2a92f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e3b93f5_3e60c500",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-06-09T05:07:49Z",
       "side": 1,
       "message": "Considering we have this stub, do you want to leverage it so you can test on U what happens on T ? That would save you some time if there is a bug only on T because you wouldn\u0027t have to either run the tests on an additional device or wait for TH.",
+      "range": {
+        "startLine": 10693,
+        "startChar": 21,
+        "endLine": 10693,
+        "endChar": 31
+      },
+      "revId": "0e6fef0f80a4ef655e3f337f4897c45a0a2a92f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbad7dd6_bbd98375",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 10693,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:42:12Z",
+      "side": 1,
+      "message": "The constructor of LegacyNetworkActivityTracker takes isAtLeastU and LegacyNetworkActivityTracker keeps this value as mIsAtLeastU.\nAnd LegacyNetworkActivityTracker is instantiated in the constructor of ConnectivityService.\nSo, to test the behavior on T, we need to call setBuildSdk before instantiating ConnectivityService.\n\nI think what I can do is\n- pass ConnectivityService.Dependencies to LegacyNetworkActivityTracker and keeps as mDeps and call mDeps.isAtleastU()\n- In the test, somehow recreate mCm after calling setBuildSdk.\n\nI think the second solution is better since I can see some usage of isAtleastX in the constructor of ConnectivityService.\n\nBut I don\u0027t think I can do this by small change.\nSo, I want to skip doing that in this CL.",
+      "parentUuid": "5e3b93f5_3e60c500",
       "range": {
         "startLine": 10693,
         "startChar": 21,

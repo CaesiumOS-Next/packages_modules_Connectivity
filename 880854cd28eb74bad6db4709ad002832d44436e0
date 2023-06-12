@@ -22,6 +22,30 @@
       },
       "revId": "880854cd28eb74bad6db4709ad002832d44436e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "652e3db2_ed52bf22",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 11151,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:42:12Z",
+      "side": 0,
+      "message": "This check was not removed, handleReportNetworkActivity still has this check.\nline 11196.\n```\n        public void handleReportNetworkActivity(NetworkActivityParams activityParams) {\n            ensureRunningOnConnectivityServiceThread();\n            if (mIsAtLeastU) {\n                handleReportNetworkActivityUPlus(activityParams);\n            } else {\n                handleReportNetworkActivityTMinus(activityParams);\n            }\n        }\n```",
+      "parentUuid": "615aa1b5_d2e02197",
+      "range": {
+        "startLine": 11151,
+        "startChar": 12,
+        "endLine": 11151,
+        "endChar": 52
+      },
+      "revId": "880854cd28eb74bad6db4709ad002832d44436e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
