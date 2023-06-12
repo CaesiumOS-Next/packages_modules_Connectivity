@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d7152c_ac5b6fd9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11135,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T04:18:22Z",
+      "side": 1,
+      "message": "I prefer to keep using Set since I use mActiveWifiNetworks as Set and SparseIntArray is usually used as Map.\n\nI have added the comment to explain the items are netIds.",
+      "parentUuid": "ec3bb635_bb508c44",
+      "range": {
+        "startLine": 11135,
+        "startChar": 22,
+        "endLine": 11135,
+        "endChar": 34
+      },
+      "revId": "69fff503a80e6c08f04d2e5cac804a0590a6dee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46a27b52_a658fa4e",
@@ -58,6 +82,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d80bc161_91071734",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11173,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T04:18:22Z",
+      "side": 1,
+      "message": "I think your code is simpler and easier to understand the condition of `updateRadioPowerState` call.\nI have updated the code.",
+      "parentUuid": "46a27b52_a658fa4e",
+      "revId": "69fff503a80e6c08f04d2e5cac804a0590a6dee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9505da49_8ddf017a",
@@ -71,6 +113,30 @@
       "writtenOn": "2023-06-09T05:47:00Z",
       "side": 1,
       "message": "Nit : maybe clearInvocations, in case stuff was stubbed ?",
+      "range": {
+        "startLine": 11258,
+        "startChar": 8,
+        "endLine": 11258,
+        "endChar": 13
+      },
+      "revId": "69fff503a80e6c08f04d2e5cac804a0590a6dee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f09a3a97_0d664148",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11258,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T04:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9505da49_8ddf017a",
       "range": {
         "startLine": 11258,
         "startChar": 8,
@@ -104,6 +170,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06c5d6e8_1872e646",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11287,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T04:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45038690_ef33374e",
+      "range": {
+        "startLine": 11287,
+        "startChar": 90,
+        "endLine": 11287,
+        "endChar": 91
+      },
+      "revId": "69fff503a80e6c08f04d2e5cac804a0590a6dee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41f261bd_e44b1c18",
@@ -117,6 +207,30 @@
       "writtenOn": "2023-06-09T05:47:00Z",
       "side": 1,
       "message": "Will this not be flaky if you don\u0027t add a timeout ?",
+      "range": {
+        "startLine": 11372,
+        "startChar": 15,
+        "endLine": 11372,
+        "endChar": 29
+      },
+      "revId": "69fff503a80e6c08f04d2e5cac804a0590a6dee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0967d7f_6e18ed99",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 11372,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T04:18:22Z",
+      "side": 1,
+      "message": "Updated to wait until the cell network become the default network.",
+      "parentUuid": "41f261bd_e44b1c18",
       "range": {
         "startLine": 11372,
         "startChar": 15,
