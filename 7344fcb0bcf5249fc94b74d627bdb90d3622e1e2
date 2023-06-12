@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad986fba_d535cf6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11122,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:04:09Z",
+      "side": 1,
+      "message": "I have kept locks in this CL and remove them in aosp/2606669.",
+      "parentUuid": "d770a236_8ab29c6d",
+      "range": {
+        "startLine": 11122,
+        "startChar": 8,
+        "endLine": 11122,
+        "endChar": 39
+      },
+      "revId": "7344fcb0bcf5249fc94b74d627bdb90d3622e1e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34eb48a5_f5d63754",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-06-09T04:22:12Z",
       "side": 1,
       "message": "This is marked guardedby its own monitor, you can\u0027t access it without locking.\n\nThat being said if I\u0027m reading this correctly now the ArrayMap is only ever touched on the handler thread and it\u0027s final, so you should be able to completely remove this lock. Please double check my reading.",
+      "range": {
+        "startLine": 11156,
+        "startChar": 16,
+        "endLine": 11156,
+        "endChar": 33
+      },
+      "revId": "7344fcb0bcf5249fc94b74d627bdb90d3622e1e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b844c84_885d2ad6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11156,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:04:09Z",
+      "side": 1,
+      "message": "I have updated this CL to follow GuardedBy annotation and acquire the lock to access mActiveIdleTimers and mNetworkActive.\nI remove them in aosp/2606669.",
+      "parentUuid": "34eb48a5_f5d63754",
       "range": {
         "startLine": 11156,
         "startChar": 16,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c16de2b9_d2a38b47",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11164,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:04:09Z",
+      "side": 1,
+      "message": "I have kept locks in this CL and remove them in aosp/2606669.",
+      "parentUuid": "68b4067c_cb79c1d0",
+      "range": {
+        "startLine": 11164,
+        "startChar": 12,
+        "endLine": 11164,
+        "endChar": 46
+      },
+      "revId": "7344fcb0bcf5249fc94b74d627bdb90d3622e1e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a7eae89_fcaf5ad8",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0df2846_6db267a4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11321,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:04:09Z",
+      "side": 1,
+      "message": "I have updated this CL to follow GuardedBy annotation and acquire the lock to access mActiveIdleTimers and mNetworkActive.\nI remove them in aosp/2606669.",
+      "parentUuid": "4a7eae89_fcaf5ad8",
+      "range": {
+        "startLine": 11321,
+        "startChar": 16,
+        "endLine": 11321,
+        "endChar": 33
+      },
+      "revId": "7344fcb0bcf5249fc94b74d627bdb90d3622e1e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04833c6b_74ac4c2b",
@@ -123,6 +219,30 @@
       "writtenOn": "2023-06-09T04:22:12Z",
       "side": 1,
       "message": "This is no longer necessary I think ?",
+      "range": {
+        "startLine": 11347,
+        "startChar": 0,
+        "endLine": 11347,
+        "endChar": 46
+      },
+      "revId": "7344fcb0bcf5249fc94b74d627bdb90d3622e1e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "426f122d_a1fe4f92",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11347,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-12T03:04:09Z",
+      "side": 1,
+      "message": "I have kept locks in this CL and remove them in aosp/2606669.",
+      "parentUuid": "04833c6b_74ac4c2b",
       "range": {
         "startLine": 11347,
         "startChar": 0,
