@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1e3fb88_825186a6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9867,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-12T06:11:43Z",
+      "side": 1,
+      "message": "The CL description says that if the user tapped the network, then the shorter delay is appropriate. If so, then maybe we should always use the shorter delay if isExplicitlySelected returns true?",
+      "range": {
+        "startLine": 9867,
+        "startChar": 20,
+        "endLine": 9867,
+        "endChar": 22
+      },
+      "revId": "e2e248f6a58f5910af5d68e2609dbf74d4d43074",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
