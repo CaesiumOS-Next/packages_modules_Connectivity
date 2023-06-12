@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24194c0c_0884ff7c",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-12T02:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19e01065_f43a67f3",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 18
+      },
+      "revId": "55b237e377d14eb57c40dbc1c42de92ac50664ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9a14a95_72d53ff8",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-09T09:49:43Z",
       "side": 1,
       "message": "buf.order(BIG_ENDIAN);",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 11
+      },
+      "revId": "55b237e377d14eb57c40dbc1c42de92ac50664ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e656af6a_45764c2f",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-12T02:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9a14a95_72d53ff8",
       "range": {
         "startLine": 121,
         "startChar": 8,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d1e0fa6_f32e45eb",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-12T02:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59495c61_876af178",
+      "range": {
+        "startLine": 124,
+        "startChar": 15,
+        "endLine": 124,
+        "endChar": 18
+      },
+      "revId": "55b237e377d14eb57c40dbc1c42de92ac50664ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acc485cd_82ea1a6a",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-12T02:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e4275be_c37d405f",
+      "range": {
+        "startLine": 124,
+        "startChar": 71,
+        "endLine": 124,
+        "endChar": 78
+      },
+      "revId": "55b237e377d14eb57c40dbc1c42de92ac50664ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99f70d16_e7c95f29",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-06-09T09:49:43Z",
       "side": 1,
       "message": "this doesn\u0027t look right.\n\nyou can\u0027t put the checksum before the packet is complete, since it needs to checksum the payload, ie. the 0xff in the next line\n\nsee how the v4 version does this.",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 86
+      },
+      "revId": "55b237e377d14eb57c40dbc1c42de92ac50664ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "207ec5c8_3b10a6d6",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-12T02:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99f70d16_e7c95f29",
       "range": {
         "startLine": 134,
         "startChar": 0,
