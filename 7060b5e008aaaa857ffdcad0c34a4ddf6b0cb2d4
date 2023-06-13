@@ -16,6 +16,24 @@
       "message": "I think you need to add the preparer to the build rule too, see for example CtsNetTestCases:\n\ndata: [\":ConnectivityTestPreparer\"],\nhost_required: [\"net-tests-utils-host-common\"],\n\nCan you also verify that the test starts failing if run without a sim card or wifi connected ?",
       "revId": "7060b5e008aaaa857ffdcad0c34a4ddf6b0cb2d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec9739a7_ff973c78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-13T09:51:06Z",
+      "side": 1,
+      "message": "Update the build rule and verify the prechecker is working (Tests could not run without SIM card / Mobile data / Wi-Fi)",
+      "parentUuid": "eca03d42_bfbe4bad",
+      "revId": "7060b5e008aaaa857ffdcad0c34a4ddf6b0cb2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
