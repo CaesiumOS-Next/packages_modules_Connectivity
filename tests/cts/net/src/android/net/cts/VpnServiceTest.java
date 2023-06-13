@@ -16,10 +16,15 @@
 package android.net.cts;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.VpnService;
 import android.os.ParcelFileDescriptor;
 import android.platform.test.annotations.AppModeFull;
 import android.test.AndroidTestCase;
+
+import com.android.compatibility.common.util.AbsentFeatureRule;
+
+import org.junit.Rule;
 
 import java.io.File;
 import java.net.DatagramSocket;
@@ -31,6 +36,9 @@ import java.net.Socket;
  * negative cases, and we will try to cover the rest in the future.
  */
 public class VpnServiceTest extends AndroidTestCase {
+    @Rule
+    public final AbsentFeatureRule absentFeatureRule
+        = new AbsentFeatureRule(PackageManager.FEATURE_WATCH);
 
     private static final String TAG = VpnServiceTest.class.getSimpleName();
 
