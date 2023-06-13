@@ -27,11 +27,14 @@ import static org.mockito.Mockito.when;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.test.mock.MockContext;
 import android.util.SparseArray;
 
 import androidx.test.filters.SmallTest;
+
+import com.android.compatibility.common.util.AbsentFeatureRule;
 
 import com.android.internal.net.VpnProfile;
 import com.android.internal.util.MessageUtils;
@@ -39,6 +42,7 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -47,6 +51,10 @@ import org.junit.runner.RunWith;
 @RunWith(DevSdkIgnoreRunner.class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 public class VpnManagerTest {
+    @Rule
+    public final AbsentFeatureRule absentFeatureRule
+        = new AbsentFeatureRule(PackageManager.FEATURE_WATCH);
+
     private static final String PKG_NAME = "fooPackage";
 
     private static final String SESSION_NAME_STRING = "testSession";
