@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a69a3b6_76d8ca50",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-13T06:14:38Z",
+      "side": 1,
+      "message": "the comments are now wrong",
+      "range": {
+        "startLine": 121,
+        "startChar": 57,
+        "endLine": 123,
+        "endChar": 69
+      },
+      "revId": "0e7a4cfdd1084876b563fadf428b3be6614af8e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
