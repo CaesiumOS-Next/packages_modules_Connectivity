@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "513ab699_4865ac40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-13T10:28:39Z",
+      "side": 1,
+      "message": "This is not very informative for AOSP contributors, it would be better to give a full description of the changes.\n\nThe first line will also show up in the change summary, so \"the following\" will look weird there.\n\nIf there\u0027s no good description to cover all changes, maybe it\u0027s better to split to separate commits",
+      "revId": "82fdaa52cb3458ce2fab3bc94ab53ddf9dd59110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77991aa3_541a0148",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-13T10:28:39Z",
+      "side": 1,
+      "message": "Can you add a test to verify the behavior when the feature is enabled ? I think there isn\u0027t a dedicated test in this change",
+      "revId": "82fdaa52cb3458ce2fab3bc94ab53ddf9dd59110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35c6d421_b67b7d23",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-13T10:28:39Z",
+      "side": 1,
+      "message": "For consistency with the below, this should probably also trigger if both records need renewal\n\nYou may be able to simplify with variables like:\n\n    final boolean renewTxt \u003d !response.hasTextRecord() || isRecordRenewalNeeded(response.getTextRecord());",
+      "revId": "82fdaa52cb3458ce2fab3bc94ab53ddf9dd59110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5523abaf_d19f1e06",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-13T10:28:39Z",
+      "side": 1,
+      "message": "It would be better to avoid calling this completely when onlyUseIpv6OnIpv6OnlyNetworks\u003d\u003dfalse",
+      "range": {
+        "startLine": 227,
+        "startChar": 29,
+        "endLine": 227,
+        "endChar": 47
+      },
+      "revId": "82fdaa52cb3458ce2fab3bc94ab53ddf9dd59110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75d4cb01_54dee6a4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-13T10:28:39Z",
+      "side": 1,
+      "message": "Nit: Ipv6 instead of IpV6 (looking at the format of public APIs in LinkProperties for example, and other naming in this file)",
+      "range": {
+        "startLine": 248,
+        "startChar": 20,
+        "endLine": 248,
+        "endChar": 38
+      },
+      "revId": "82fdaa52cb3458ce2fab3bc94ab53ddf9dd59110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
