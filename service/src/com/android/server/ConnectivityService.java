@@ -318,7 +318,6 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.lang.IllegalArgumentException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -8866,7 +8865,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void sendPendingIntentForRequest(NetworkRequestInfo nri, NetworkAgentInfo networkAgent,
             int notificationType) {
-        if (notificationType == ConnectivityManager.CALLBACK_AVAILABLE && !nri.mPendingIntentSent) {
+        if ((notificationType == ConnectivityManager.CALLBACK_AVAILABLE
+                || notificationType == ConnectivityManager.CALLBACK_LOST)
+                && !nri.mPendingIntentSent) {
             Intent intent = new Intent();
             intent.putExtra(ConnectivityManager.EXTRA_NETWORK, networkAgent.network);
             // If apps could file multi-layer requests with PendingIntents, they'd need to know
