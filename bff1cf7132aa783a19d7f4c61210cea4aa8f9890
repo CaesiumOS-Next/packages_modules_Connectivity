@@ -50,6 +50,24 @@
       "message": "If this is adding one line to logcat anyway, it would have been useful to log response.isComplete, newServiceFound and serviceBecomesComplete in the same line",
       "revId": "bff1cf7132aa783a19d7f4c61210cea4aa8f9890",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34f7ae57_5da3fd95",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-13T10:10:36Z",
+      "side": 1,
+      "message": "You could fix that in a separate change, but I think the commit message needs to be updated before submitting this one",
+      "parentUuid": "a9fc021d_999aae79",
+      "revId": "bff1cf7132aa783a19d7f4c61210cea4aa8f9890",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
