@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a2ab7cb_5d35ac44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-13T10:09:50Z",
+      "side": 1,
+      "message": "Nit: this is not very informative for AOSP contributors. It would be better to write a full description of the change",
+      "revId": "bff1cf7132aa783a19d7f4c61210cea4aa8f9890",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e381f9c9_f39ed527",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/ExecutorProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-13T10:09:50Z",
+      "side": 1,
+      "message": "FYI, filed b/287013457 considering this is never called in AOSP",
+      "revId": "bff1cf7132aa783a19d7f4c61210cea4aa8f9890",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9fc021d_999aae79",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-13T10:09:50Z",
+      "side": 1,
+      "message": "If this is adding one line to logcat anyway, it would have been useful to log response.isComplete, newServiceFound and serviceBecomesComplete in the same line",
+      "revId": "bff1cf7132aa783a19d7f4c61210cea4aa8f9890",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
