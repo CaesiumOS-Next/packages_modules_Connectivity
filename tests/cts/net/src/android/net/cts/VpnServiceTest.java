@@ -16,6 +16,7 @@
 package android.net.cts;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.VpnService;
 import android.os.ParcelFileDescriptor;
 import android.platform.test.annotations.AppModeFull;
@@ -36,8 +37,21 @@ public class VpnServiceTest extends AndroidTestCase {
 
     private VpnService mVpnService = new VpnService();
 
+    private boolean mVpnManagerSupported;
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        mVpnManagerSupported = !getContext().getPackageManager().hasSystemFeature(
+            PackageManager.FEATURE_WATCH);
+    }
+
     @AppModeFull(reason = "PackageManager#queryIntentActivities cannot access in instant app mode")
     public void testPrepare() throws Exception {
+        if (!mVpnManagerSupported) {
+            return;
+        }
+
         // Should never return null since we are not prepared.
         Intent intent = VpnService.prepare(mContext);
         assertNotNull(intent);
@@ -49,6 +63,10 @@ public class VpnServiceTest extends AndroidTestCase {
 
     @AppModeFull(reason = "establish() requires prepare(), which requires PackageManager access")
     public void testEstablish() throws Exception {
+        if (!mVpnManagerSupported) {
+            return;
+        }
+
         ParcelFileDescriptor descriptor = null;
         try {
             // Should always return null since we are not prepared.
@@ -65,6 +83,10 @@ public class VpnServiceTest extends AndroidTestCase {
 
     @AppModeFull(reason = "Protecting sockets requires prepare(), which requires PackageManager")
     public void testProtect_DatagramSocket() throws Exception {
+        if (!mVpnManagerSupported) {
+            return;
+        }
+
         DatagramSocket socket = new DatagramSocket();
         try {
             // Should always return false since we are not prepared.
@@ -80,6 +102,10 @@ public class VpnServiceTest extends AndroidTestCase {
 
     @AppModeFull(reason = "Protecting sockets requires prepare(), which requires PackageManager")
     public void testProtect_Socket() throws Exception {
+        if (!mVpnManagerSupported) {
+            return;
+        }
+
         Socket socket = new Socket();
         try {
             // Should always return false since we are not prepared.
@@ -95,6 +121,10 @@ public class VpnServiceTest extends AndroidTestCase {
 
     @AppModeFull(reason = "Protecting sockets requires prepare(), which requires PackageManager")
     public void testProtect_int() throws Exception {
+        if (!mVpnManagerSupported) {
+            return;
+        }
+
         DatagramSocket socket = new DatagramSocket();
         ParcelFileDescriptor descriptor = ParcelFileDescriptor.fromDatagramSocket(socket);
         try {
@@ -115,6 +145,10 @@ public class VpnServiceTest extends AndroidTestCase {
     }
 
     public void testTunDevice() throws Exception {
+        if (!mVpnManagerSupported) {
+            return;
+        }
+
         File file = new File("/dev/tun");
         assertTrue(file.exists());
         assertFalse(file.isFile());
