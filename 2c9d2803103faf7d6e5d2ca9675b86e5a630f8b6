@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44e8d34f_66b7028a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 56
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-06-13T20:20:28Z",
+      "side": 1,
+      "message": "Looks reasonable to me, thanks Motomu.",
+      "revId": "2c9d2803103faf7d6e5d2ca9675b86e5a630f8b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
