@@ -16,6 +16,40 @@
       "message": "Thank you for doing this!\nI think we discussed that we\u0027d also need metrics to understand how socket killing behaves in the field and learn from this. Do you have some thoughts on this? Would this be in a followup change?",
       "revId": "c4d1da75e775467503c95453cdadf0edbc85eceb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "156b2b19_bedf1d5f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 87
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-06-13T21:10:20Z",
+      "side": 1,
+      "message": "nit: I feel it would be cleaner to revert the if statement change and set these bools inside the stanza. That way we won\u0027t ever have the feature bools set as true when the feature is not actually in use.",
+      "revId": "c4d1da75e775467503c95453cdadf0edbc85eceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "771e4e7f_3c773b86",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 87
+      },
+      "lineNbr": 3005,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-06-13T21:10:20Z",
+      "side": 1,
+      "message": "Thanks for handling this case - we should take all reasonable precautions to avoid closing sockets on a live app.\n\nThe way this is written though, we may wind up closing sockets on a UID which we were told is UNFROZEN.\n\nConsider the following series of events:\n\n1) handleFrozenUids() is called for FROZEN UID XYZ. It queues up a EVENT_UID_FROZEN_STATE_CHANGED event for the handler thread.\n\n2) EVENT_UID_FROZEN_STATE_CHANGED is processed in handler thread, we add UID XYZ to mPendingFrozenUids\n\n3) An EVENT_REPORT_NETWORK_ACTIVITY event is queued to the handler thread.\n\n4) handleFrozenUids() is called for UNFROZEN UID XYZ. It queues up a EVENT_UID_FROZEN_STATE_CHANGED for the handler thread.\n\n5) Handler thread runs EVENT_REPORT_NETWORK_ACTIVITY which closes sockets for all UIDS in mPendingFrozenUids. We now close sockets for the live app UID XYZ despite having been just told that it is no longer frozen.",
+      "revId": "c4d1da75e775467503c95453cdadf0edbc85eceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
