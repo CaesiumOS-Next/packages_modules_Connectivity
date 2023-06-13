@@ -47,6 +47,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.INetd;
 import android.net.ISocketKeepaliveCallback;
+import android.net.InetAddresses;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.MarkMaskParcel;
@@ -87,6 +88,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.FileDescriptor;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -117,7 +119,6 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @Mock Context mCtx;
     @Mock AlarmManager mAlarmManager;
     @Mock NetworkAgentInfo mNai;
-
     TestKeepaliveTracker mKeepaliveTracker;
     AOOTestHandler mTestHandler;
 
@@ -285,7 +286,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
                 NetworkInfo.DetailedState.CONNECTED, "test reason", "test extra info");
         doReturn(new Network(TEST_NETID)).when(mNai).network();
         mNai.linkProperties = new LinkProperties();
-
+        doReturn(false).when(mNai).isClatStarted();
         doReturn(PERMISSION_GRANTED).when(mCtx).checkPermission(any() /* permission */,
                 anyInt() /* pid */, anyInt() /* uid */);
         ConnectivityResources.setResourcesContextForTest(mCtx);
@@ -372,13 +373,17 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     }
 
     private TestKeepaliveInfo doStartNattKeepalive(int intervalSeconds) throws Exception {
-        final InetAddress srcAddress = InetAddress.getByAddress(
-                new byte[] { (byte) 192, 0, 0, (byte) 129 });
-        final int srcPort = 12345;
-        final InetAddress dstAddress = InetAddress.getByAddress(new byte[] {8, 8, 8, 8});
-        final int dstPort = 12345;
+        return doStartNattKeepalive(intervalSeconds,
+                InetAddress.getByAddress(new byte[] { (byte) 192, 0, 0, (byte) 129 }),
+                InetAddress.getByAddress(new byte[] {8, 8, 8, 8}));
+    }
 
-        mNai.linkProperties.addLinkAddress(new LinkAddress(srcAddress, 24));
+    private TestKeepaliveInfo doStartNattKeepalive(int intervalSeconds, InetAddress srcAddress,
+            InetAddress dstAddress) throws Exception {
+        final int srcPort = 12345;
+        final int dstPort = 12345;
+        final int prefixLen = (srcAddress instanceof Inet4Address) ? 24 : 64;
+        mNai.linkProperties.addLinkAddress(new LinkAddress(srcAddress, prefixLen));
 
         final NattKeepalivePacketData kpd = new NattKeepalivePacketData(srcAddress, srcPort,
                 dstAddress, dstPort, new byte[] {1});
@@ -524,6 +529,52 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         assertNull(getAutoKiForBinder(testInfo.binder));
 
         verify(testInfo.socketKeepaliveCallback).onError(SocketKeepalive.ERROR_INVALID_INTERVAL);
+        verifyNoMoreInteractions(ignoreStubs(testInfo.socketKeepaliveCallback));
+    }
+
+    @Test
+    public void testStartNattKeepalive_InvalidAddress464XlatOff() throws Exception {
+        final TestKeepaliveInfo testInfo =
+                doStartNattKeepalive(TEST_KEEPALIVE_INTERVAL_SEC,
+                        InetAddresses.parseNumericAddress("2001:db8::1"),
+                        InetAddresses.parseNumericAddress("2001:db8::2"));
+        testStartNattKeepalive_InvalidAddressWith464Xlat(testInfo);
+    }
+
+    @Test
+    public void testStartNattKeepalive_InvalidAddress464XlatOn() throws Exception {
+        doReturn(true).when(mNai).isClatStarted();
+        final TestKeepaliveInfo testInfo = doStartNattKeepalive(TEST_KEEPALIVE_INTERVAL_SEC);
+        testStartNattKeepalive_InvalidAddressWith464Xlat(testInfo);
+    }
+
+    private void testStartNattKeepalive_InvalidAddressWith464Xlat(TestKeepaliveInfo info)
+            throws Exception {
+        assertNull(getAutoKiForBinder(info.binder));
+
+        verify(info.socketKeepaliveCallback).onError(SocketKeepalive.ERROR_INVALID_IP_ADDRESS);
+        verifyNoMoreInteractions(ignoreStubs(info.socketKeepaliveCallback));
+    }
+
+    @Test
+    public void testHandleCheckKeepalivesStillValid_clatOffToOn() throws Exception {
+        // Successful start of NATT keepalive.
+        final TestKeepaliveInfo testInfo = doStartNattKeepalive();
+        checkAndProcessKeepaliveStart(testInfo.kpd);
+        verify(testInfo.socketKeepaliveCallback).onStarted();
+
+        doReturn(true).when(mNai).isClatStarted();
+
+        // Check for valid keepalives
+        visibleOnHandlerThread(
+                mTestHandler, () -> mAOOKeepaliveTracker.handleCheckKeepalivesStillValid(mNai));
+        // Keepalive started with v4 address should be stopped after clat being started.
+        // The keepalive should be stopped to be restarted by caller.
+        checkAndProcessKeepaliveStop();
+
+        assertNull(getAutoKiForBinder(testInfo.binder));
+
+        verify(testInfo.socketKeepaliveCallback).onError(SocketKeepalive.ERROR_INVALID_IP_ADDRESS);
         verifyNoMoreInteractions(ignoreStubs(testInfo.socketKeepaliveCallback));
     }
 

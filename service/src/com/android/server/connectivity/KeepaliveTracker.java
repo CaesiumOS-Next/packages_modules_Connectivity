@@ -62,6 +62,7 @@ import com.android.net.module.util.HexDump;
 import com.android.net.module.util.IpUtils;
 
 import java.io.FileDescriptor;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -283,6 +284,20 @@ public class KeepaliveTracker {
             return ERROR_INVALID_IP_ADDRESS;
         }
 
+        private int check464Xlat() {
+            final boolean isClatStarted = mNai.isClatStarted();
+            final boolean isV4DstAddr = mPacket.getDstAddress() instanceof Inet4Address;
+            final boolean isV4SrcAddr = mPacket.getSrcAddress() instanceof Inet4Address;
+            // The address in the keepalive packet data should be IPv4 if CLAT is not running,
+            // and IPv6 if CLAT is running.
+            if ((isClatStarted && !isV4DstAddr && !isV4SrcAddr)
+                    || (!isClatStarted && isV4DstAddr && isV4SrcAddr)) {
+                return SUCCESS;
+            }
+
+            return ERROR_INVALID_IP_ADDRESS;
+        }
+
         private int checkInterval() {
             if (mInterval < MIN_INTERVAL_SEC || mInterval > MAX_INTERVAL_SEC) {
                 return ERROR_INVALID_INTERVAL;
@@ -348,6 +363,7 @@ public class KeepaliveTracker {
                 if (error == SUCCESS) error = checkPermission();
                 if (error == SUCCESS) error = checkNetworkConnected();
                 if (error == SUCCESS) error = checkSourceAddress();
+                if (error == SUCCESS) error = check464Xlat();
                 return error;
             }
         }
