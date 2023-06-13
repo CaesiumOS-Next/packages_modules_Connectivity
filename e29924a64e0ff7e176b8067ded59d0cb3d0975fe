@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8118a87a_7a238787",
+        "filename": "nearby/tests/cts/fastpair/src/android/nearby/cts/NearbyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1900995
+      },
+      "writtenOn": "2023-06-13T18:45:28Z",
+      "side": 1,
+      "message": "Hi @reminv@google.com, I am thinking if both are needed. If I only change \"tethering\" to \"nearby\" directly, the CTS would fail until the new patch is loaded. I think we should keep both until the cleaned up code is fully shipped. Do you think there will be some better choices?",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 31
+      },
+      "revId": "e29924a64e0ff7e176b8067ded59d0cb3d0975fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
