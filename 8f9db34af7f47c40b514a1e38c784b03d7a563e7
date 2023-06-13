@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ff4322_9b31bec5",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-13T08:52:04Z",
+      "side": 1,
+      "message": "There is `rangeSet(PRIMARY_USER_RANGE)`.\n\nActually the disallowedApplications list is set in config by the line above (l.872) so it should not just be PRIMARY_USER.\n```\nwhen(mVpnProfileStore.get(PRIMARY_USER_APP_EXCLUDE_KEY))\n                .thenReturn(HexDump.hexStringToByteArray(PKGS_BYTES));\n```",
+      "parentUuid": "4027da99_394bfdaf",
+      "range": {
+        "startLine": 876,
+        "startChar": 74,
+        "endLine": 876,
+        "endChar": 77
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8b528bd_dfe610f3",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b84b6561_1a5b88ff",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-13T08:52:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8b528bd_dfe610f3",
+      "range": {
+        "startLine": 892,
+        "startChar": 68,
+        "endLine": 892,
+        "endChar": 77
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c5a179b_4aaf1e39",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-13T08:52:04Z",
+      "side": 1,
+      "message": "Actually it was with these uid ranges.",
+      "parentUuid": "a29702ba_b5205a60",
+      "range": {
+        "startLine": 892,
+        "startChar": 81,
+        "endLine": 892,
+        "endChar": 94
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4828368_0f0b9ecf",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-02-13T08:09:47Z",
       "side": 1,
       "message": "times(3) ?",
+      "range": {
+        "startLine": 1553,
+        "startChar": 19,
+        "endLine": 1553,
+        "endChar": 39
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e7c9ec4_163687ef",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1553,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-13T08:52:04Z",
+      "side": 1,
+      "message": "This is the first occurence with the argument Collections.EMPTY_LIST",
+      "parentUuid": "c4828368_0f0b9ecf",
       "range": {
         "startLine": 1553,
         "startChar": 19,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "546f6183_bda6b878",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1561,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-13T08:52:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4768909_f0d2222e",
+      "range": {
+        "startLine": 1561,
+        "startChar": 52,
+        "endLine": 1561,
+        "endChar": 62
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "061d8368_e1199e1c",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-02-13T08:09:47Z",
       "side": 1,
       "message": "Why is this moved after the retry ? There was already a failure before the first retry no ?",
+      "range": {
+        "startLine": 1566,
+        "startChar": 23,
+        "endLine": 1566,
+        "endChar": 44
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4151663a_f94093d9",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1566,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-13T08:52:04Z",
+      "side": 1,
+      "message": "Yes there is. This triggers another failure after the retry though.",
+      "parentUuid": "061d8368_e1199e1c",
       "range": {
         "startLine": 1566,
         "startChar": 23,
@@ -185,6 +329,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac2e6bb2_9cad21df",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-13T08:52:04Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "5ebb227c_dbf4cf59",
+      "range": {
+        "startLine": 1588,
+        "startChar": 87,
+        "endLine": 1588,
+        "endChar": 95
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22e9cbb0_0850a5ad",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-13T08:52:04Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "1cb2a441_0c7ebcf2",
+      "range": {
+        "startLine": 1588,
+        "startChar": 65,
+        "endLine": 1588,
+        "endChar": 72
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb2717b8_2557202a",
@@ -198,6 +390,30 @@
       "writtenOn": "2023-02-13T08:09:47Z",
       "side": 1,
       "message": "I think this is wrong.\n\nThis method was already called before. It\u0027s true that the current code is calling it again with the same UIDs, however that\u0027s a no-op because this method is idempotent. It\u0027s not wrong if the code doesn\u0027t call this, it\u0027s only wrong if it calls it with different arguments.\n\nInstead, what you should check is that the code never called `setVpnDefaultForUids` with an empty list (or even better, with any different list than the original).",
+      "range": {
+        "startLine": 1590,
+        "startChar": 60,
+        "endLine": 1590,
+        "endChar": 80
+      },
+      "revId": "8f9db34af7f47c40b514a1e38c784b03d7a563e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c351f560_aeca05ea",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1590,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-13T08:52:04Z",
+      "side": 1,
+      "message": "Verified in doTestPlatformVpnWithException by capturing the uidRanges and asserting equality with the original.",
+      "parentUuid": "cb2717b8_2557202a",
       "range": {
         "startLine": 1590,
         "startChar": 60,
