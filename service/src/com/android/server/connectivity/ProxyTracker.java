@@ -27,6 +27,7 @@ import android.annotation.Nullable;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.PacProxyManager;
@@ -88,6 +89,9 @@ public class ProxyTracker {
 
     private final PacProxyManager mPacProxyManager;
 
+    // Indicates whether the `PacProxyManager` is initialized.
+    private final boolean mPacProxySupported;
+
     private class PacProxyInstalledListener implements PacProxyManager.PacProxyInstalledListener {
         private final int mEvent;
 
@@ -107,11 +111,19 @@ public class ProxyTracker {
             @NonNull final Handler connectivityServiceInternalHandler, final int pacChangedEvent) {
         mContext = context;
         mConnectivityServiceHandler = connectivityServiceInternalHandler;
-        mPacProxyManager = context.getSystemService(PacProxyManager.class);
 
-        PacProxyInstalledListener listener = new PacProxyInstalledListener(pacChangedEvent);
-        mPacProxyManager.addPacProxyInstalledListener(
+        // Devices without WebView/JavaScript cannot support PAC proxies.
+        mPacProxySupported = context.getPackageManager().hasSystemFeature(
+            PackageManager.FEATURE_WEBVIEW);
+
+        if (mPacProxySupported) {
+            mPacProxyManager = context.getSystemService(PacProxyManager.class);
+            PacProxyInstalledListener listener = new PacProxyInstalledListener(pacChangedEvent);
+            mPacProxyManager.addPacProxyInstalledListener(
                 mConnectivityServiceHandler::post, listener);
+        } else {
+            mPacProxyManager = null;
+        }
     }
 
     // Convert empty ProxyInfo's to null as null-checks are used to determine if proxies are present
@@ -205,7 +217,7 @@ public class ProxyTracker {
                 mGlobalProxy = proxyProperties;
             }
 
-            if (!TextUtils.isEmpty(pacFileUrl)) {
+            if (!TextUtils.isEmpty(pacFileUrl) && mPacProxySupported) {
                 mConnectivityServiceHandler.post(
                         () -> mPacProxyManager.setCurrentProxyScriptUrl(proxyProperties));
             }
@@ -251,7 +263,10 @@ public class ProxyTracker {
         final ProxyInfo defaultProxy = getDefaultProxy();
         final ProxyInfo proxyInfo = null != defaultProxy ?
                 defaultProxy : ProxyInfo.buildDirectProxy("", 0, Collections.emptyList());
-        mPacProxyManager.setCurrentProxyScriptUrl(proxyInfo);
+
+        if (mPacProxySupported) {
+            mPacProxyManager.setCurrentProxyScriptUrl(proxyInfo);
+        }
 
         if (!shouldSendBroadcast(proxyInfo)) {
             return;
