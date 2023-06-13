@@ -22,6 +22,30 @@
       },
       "revId": "563bc1e5eb77157ca2c02c22ee0feaa788ac02ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "478edd01_57ac86f0",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-13T05:50:35Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "b79d9312_53052ada",
+      "range": {
+        "startLine": 943,
+        "startChar": 41,
+        "endLine": 943,
+        "endChar": 80
+      },
+      "revId": "563bc1e5eb77157ca2c02c22ee0feaa788ac02ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

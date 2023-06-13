@@ -117,6 +117,30 @@
       },
       "revId": "d65bec48724eb5274f3445776c0682c6c35f65c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b73493ea_2d2c83c3",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-13T05:50:35Z",
+      "side": 1,
+      "message": "The interval can actually be calculated by summing all the durations in DurationPerNumOfKeepalive so it is implicitly in the metrics.\n\nAnyway, now changed to not use DeviceConfig. And changed to calculate declaratively.",
+      "parentUuid": "ef992afc_f1c11e99",
+      "range": {
+        "startLine": 335,
+        "startChar": 8,
+        "endLine": 335,
+        "endChar": 34
+      },
+      "revId": "d65bec48724eb5274f3445776c0682c6c35f65c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
