@@ -57,6 +57,7 @@ java_defaults {
 filegroup {
     name: "non-connectivity-module-test",
     srcs: [
+        "java/android/net/DisabledVpnManagerTest.java",
         "java/android/net/Ikev2VpnProfileTest.java",
         "java/android/net/IpMemoryStoreTest.java",
         "java/android/net/TelephonyNetworkSpecifierTest.java",
