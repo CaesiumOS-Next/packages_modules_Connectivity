@@ -15,11 +15,27 @@
  */
 package android.net.cts;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.VpnService;
 import android.os.ParcelFileDescriptor;
 import android.platform.test.annotations.AppModeFull;
 import android.test.AndroidTestCase;
+
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.net.DatagramSocket;
@@ -30,13 +46,22 @@ import java.net.Socket;
  * blocks us from writing tests for positive cases. For now we only test for
  * negative cases, and we will try to cover the rest in the future.
  */
-public class VpnServiceTest extends AndroidTestCase {
+@RunWith(AndroidJUnit4.class)
+public class VpnServiceTest {
 
     private static final String TAG = VpnServiceTest.class.getSimpleName();
 
+    private final Context mContext = InstrumentationRegistry.getContext();
     private VpnService mVpnService = new VpnService();
 
+    @Before
+    public void setUp() {
+        assumeFalse("The device doesn't support VPN", mContext.getPackageManager().hasSystemFeature(
+            PackageManager.FEATURE_WATCH));
+    }
+
     @AppModeFull(reason = "PackageManager#queryIntentActivities cannot access in instant app mode")
+    @Test
     public void testPrepare() throws Exception {
         // Should never return null since we are not prepared.
         Intent intent = VpnService.prepare(mContext);
@@ -48,6 +73,7 @@ public class VpnServiceTest extends AndroidTestCase {
     }
 
     @AppModeFull(reason = "establish() requires prepare(), which requires PackageManager access")
+    @Test
     public void testEstablish() throws Exception {
         ParcelFileDescriptor descriptor = null;
         try {
@@ -64,6 +90,7 @@ public class VpnServiceTest extends AndroidTestCase {
     }
 
     @AppModeFull(reason = "Protecting sockets requires prepare(), which requires PackageManager")
+    @Test
     public void testProtect_DatagramSocket() throws Exception {
         DatagramSocket socket = new DatagramSocket();
         try {
@@ -79,6 +106,7 @@ public class VpnServiceTest extends AndroidTestCase {
     }
 
     @AppModeFull(reason = "Protecting sockets requires prepare(), which requires PackageManager")
+    @Test
     public void testProtect_Socket() throws Exception {
         Socket socket = new Socket();
         try {
@@ -94,6 +122,7 @@ public class VpnServiceTest extends AndroidTestCase {
     }
 
     @AppModeFull(reason = "Protecting sockets requires prepare(), which requires PackageManager")
+    @Test
     public void testProtect_int() throws Exception {
         DatagramSocket socket = new DatagramSocket();
         ParcelFileDescriptor descriptor = ParcelFileDescriptor.fromDatagramSocket(socket);
