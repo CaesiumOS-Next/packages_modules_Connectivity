@@ -40,6 +40,7 @@ import android.annotation.NonNull;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Ikev2VpnProfile;
 import android.net.IpSecAlgorithm;
@@ -57,6 +58,8 @@ import android.platform.test.annotations.AppModeFull;
 import android.text.TextUtils;
 
 import androidx.test.InstrumentationRegistry;
+
+import com.android.compatibility.common.util.AbsentFeatureRule;
 
 import com.android.internal.util.HexDump;
 import com.android.networkstack.apishim.ConstantsShim;
@@ -101,6 +104,10 @@ public class Ikev2VpnTest {
 
     @Rule
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
+    @Rule
+    public final AbsentFeatureRule absentFeatureRule
+        = new AbsentFeatureRule(PackageManager.FEATURE_WATCH);
 
     // Test vectors for IKE negotiation in test mode.
     private static final String SUCCESSFUL_IKE_INIT_RESP_V4 =
