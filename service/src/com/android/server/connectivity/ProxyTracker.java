@@ -27,6 +27,7 @@ import android.annotation.Nullable;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.PacProxyManager;
@@ -86,6 +87,7 @@ public class ProxyTracker {
 
     private final Handler mConnectivityServiceHandler;
 
+    @Nullable
     private final PacProxyManager mPacProxyManager;
 
     private class PacProxyInstalledListener implements PacProxyManager.PacProxyInstalledListener {
@@ -109,9 +111,11 @@ public class ProxyTracker {
         mConnectivityServiceHandler = connectivityServiceInternalHandler;
         mPacProxyManager = context.getSystemService(PacProxyManager.class);
 
-        PacProxyInstalledListener listener = new PacProxyInstalledListener(pacChangedEvent);
-        mPacProxyManager.addPacProxyInstalledListener(
+        if (mPacProxyManager != null) {
+            PacProxyInstalledListener listener = new PacProxyInstalledListener(pacChangedEvent);
+            mPacProxyManager.addPacProxyInstalledListener(
                 mConnectivityServiceHandler::post, listener);
+        }
     }
 
     // Convert empty ProxyInfo's to null as null-checks are used to determine if proxies are present
@@ -205,7 +209,7 @@ public class ProxyTracker {
                 mGlobalProxy = proxyProperties;
             }
 
-            if (!TextUtils.isEmpty(pacFileUrl)) {
+            if (!TextUtils.isEmpty(pacFileUrl) && mPacProxyManager != null) {
                 mConnectivityServiceHandler.post(
                         () -> mPacProxyManager.setCurrentProxyScriptUrl(proxyProperties));
             }
@@ -251,7 +255,10 @@ public class ProxyTracker {
         final ProxyInfo defaultProxy = getDefaultProxy();
         final ProxyInfo proxyInfo = null != defaultProxy ?
                 defaultProxy : ProxyInfo.buildDirectProxy("", 0, Collections.emptyList());
-        mPacProxyManager.setCurrentProxyScriptUrl(proxyInfo);
+
+        if (mPacProxyManager != null) {
+            mPacProxyManager.setCurrentProxyScriptUrl(proxyInfo);
+        }
 
         if (!shouldSendBroadcast(proxyInfo)) {
             return;
