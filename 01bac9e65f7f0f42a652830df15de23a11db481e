@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bfb622c_5be68c4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-13T06:56:30Z",
+      "side": 1,
+      "message": "I assume this won\u0027t result in us actually allowing v6 nat-t keepalives yet?",
+      "revId": "01bac9e65f7f0f42a652830df15de23a11db481e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
