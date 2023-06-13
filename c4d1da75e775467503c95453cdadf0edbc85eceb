@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20b580fe_adfd98f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 87
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-06-13T18:56:42Z",
+      "side": 1,
+      "message": "Thank you for doing this!\nI think we discussed that we\u0027d also need metrics to understand how socket killing behaves in the field and learn from this. Do you have some thoughts on this? Would this be in a followup change?",
+      "revId": "c4d1da75e775467503c95453cdadf0edbc85eceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
