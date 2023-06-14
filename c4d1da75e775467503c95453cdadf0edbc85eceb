@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae167773_c23ac203",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 87
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-14T11:15:40Z",
+      "side": 1,
+      "message": "You mean the metrics in \"statsd atom for # sockets killed\" email from Mark, right?\nI agree that the metrics is useful to know the behavior in the field.\nI don\u0027t think not having this metrics would be a blocker for the experiment and I don\u0027t think we can add metrics in udc-dev.\nBut we can do this change via mainline updates.",
+      "parentUuid": "20b580fe_adfd98f1",
+      "revId": "c4d1da75e775467503c95453cdadf0edbc85eceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "156b2b19_bedf1d5f",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 87
@@ -48,6 +66,24 @@
       "writtenOn": "2023-06-13T21:10:20Z",
       "side": 1,
       "message": "Thanks for handling this case - we should take all reasonable precautions to avoid closing sockets on a live app.\n\nThe way this is written though, we may wind up closing sockets on a UID which we were told is UNFROZEN.\n\nConsider the following series of events:\n\n1) handleFrozenUids() is called for FROZEN UID XYZ. It queues up a EVENT_UID_FROZEN_STATE_CHANGED event for the handler thread.\n\n2) EVENT_UID_FROZEN_STATE_CHANGED is processed in handler thread, we add UID XYZ to mPendingFrozenUids\n\n3) An EVENT_REPORT_NETWORK_ACTIVITY event is queued to the handler thread.\n\n4) handleFrozenUids() is called for UNFROZEN UID XYZ. It queues up a EVENT_UID_FROZEN_STATE_CHANGED for the handler thread.\n\n5) Handler thread runs EVENT_REPORT_NETWORK_ACTIVITY which closes sockets for all UIDS in mPendingFrozenUids. We now close sockets for the live app UID XYZ despite having been just told that it is no longer frozen.",
+      "revId": "c4d1da75e775467503c95453cdadf0edbc85eceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eda6076a_66ea0548",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 87
+      },
+      "lineNbr": 3005,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-14T11:15:40Z",
+      "side": 1,
+      "message": "Do you suggest to move UNFROZEN event handling in non handler thread?\nI agree we can mitigate the race issue by that.\nBut we still have issue if the app is unfrozen while destroyLiveTcpSocketsByOwnerUids is closing the sockets.\nAlso, even if we don’t have the race, if the app is unfrozen after we close the sockets, app could have a user-visible delays or user-visible errors.\nSo, If we face this race issue frequently, I think that mean the freezer is too aggressive.\nI think current our code (immediate socket closing you wrote and this CL) assumes that once the apps are frozen, not many apps are unfrozen soon.",
+      "parentUuid": "771e4e7f_3c773b86",
       "revId": "c4d1da75e775467503c95453cdadf0edbc85eceb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
