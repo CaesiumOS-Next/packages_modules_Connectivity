@@ -905,11 +905,10 @@ public class ClatCoordinator {
     }
 
     /**
-     * Get clatd tracker. For test only.
+     * Get clatd tracker.
      */
-    @VisibleForTesting
     @Nullable
-    ClatdTracker getClatdTrackerForTesting() {
+    ClatdTracker getClatdTracker() {
         return mClatdTracker;
     }
 

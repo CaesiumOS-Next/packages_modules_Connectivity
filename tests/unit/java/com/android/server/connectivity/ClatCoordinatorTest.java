@@ -407,7 +407,7 @@ public class ClatCoordinatorTest {
         final ClatCoordinator.ClatdTracker expected = new ClatCoordinator.ClatdTracker(
                 BASE_IFACE, BASE_IFINDEX, STACKED_IFACE, STACKED_IFINDEX,
                 INET4_LOCAL4, INET6_LOCAL6, INET6_PFX96, CLATD_PID, RAW_SOCK_COOKIE);
-        final ClatCoordinator.ClatdTracker actual = coordinator.getClatdTrackerForTesting();
+        final ClatCoordinator.ClatdTracker actual = coordinator.getClatdTracker();
         assertEquals(expected, actual);
 
         // Pick an IPv4 address.
@@ -480,7 +480,7 @@ public class ClatCoordinatorTest {
         inOrder.verify(mIngressMap).deleteEntry(eq(INGRESS_KEY));
         inOrder.verify(mDeps).stopClatd(eq(CLATD_PID));
         inOrder.verify(mCookieTagMap).deleteEntry(eq(COOKIE_TAG_KEY));
-        assertNull(coordinator.getClatdTrackerForTesting());
+        assertNull(coordinator.getClatdTracker());
         inOrder.verifyNoMoreInteractions();
 
         // [4] Expect an IO exception while stopping a clatd that doesn't exist.
