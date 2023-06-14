@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a959c4b_7b5821dc",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-14T11:17:46Z",
+      "side": 1,
+      "message": "It seems that other classes are also written in this way, for example NetworkAgent.",
+      "parentUuid": "ede812dd_4a30253e",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 43
+      },
+      "revId": "2b82b94660afcb08665db26772697c5639572050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b59916d_306f5992",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-23T07:21:28Z",
       "side": 1,
       "message": "Since this is private inner class and the Message is created by Message.obtain. You probably could call msg.recycle() to return this instance to the global pool.",
+      "range": {
+        "startLine": 287,
+        "startChar": 12,
+        "endLine": 287,
+        "endChar": 13
+      },
+      "revId": "2b82b94660afcb08665db26772697c5639572050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc610b12_b004250f",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-14T11:17:46Z",
+      "side": 1,
+      "message": "I guess this will cause exception because we try to recycle it before returning from handleMessage(). The places that call Message.recycle() are all in the same function as Message.obtain(). It also has very small advantage because there are very few messages send to RouterAdvertisement.",
+      "parentUuid": "7b59916d_306f5992",
       "range": {
         "startLine": 287,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca349f2b_123d6e1c",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-14T11:17:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d85b53a3_258571ba",
+      "range": {
+        "startLine": 296,
+        "startChar": 36,
+        "endLine": 296,
+        "endChar": 46
+      },
+      "revId": "2b82b94660afcb08665db26772697c5639572050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7577455a_140262d5",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7755f484_28ded88c",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-14T11:17:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7577455a_140262d5",
+      "range": {
+        "startLine": 330,
+        "startChar": 23,
+        "endLine": 330,
+        "endChar": 34
+      },
+      "revId": "2b82b94660afcb08665db26772697c5639572050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94533cbc_fbbf8da6",
@@ -106,6 +202,24 @@
       "writtenOn": "2023-05-23T07:21:28Z",
       "side": 1,
       "message": "You can move this into RaMessageHandler, then you just simplify the sendMessage function:\n\n    private boolean sendMessage(int cmd) {\n        return sendMessage(Message.obtain(this, cmd));\n    }\n    \nOr just use mRaMessageHandler.sendMessage(Message.obtain(mRaMessageHandler, cmd))",
+      "revId": "2b82b94660afcb08665db26772697c5639572050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa82b96_eb96dbac",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-14T11:17:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94533cbc_fbbf8da6",
       "revId": "2b82b94660afcb08665db26772697c5639572050",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
