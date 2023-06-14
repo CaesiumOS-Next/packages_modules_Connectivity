@@ -46,6 +46,7 @@ java_defaults {
 
     // Change to system current when TetheringManager move to bootclass path.
     platform_apis: true,
+    data: [":ConnectivityTestPreparer"],
     host_required: ["net-tests-utils-host-common"],
 }
 
