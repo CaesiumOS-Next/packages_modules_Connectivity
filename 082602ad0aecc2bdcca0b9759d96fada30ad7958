@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e2277a9_4676c7e8",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-14T08:57:23Z",
+      "side": 1,
+      "message": "I think we should test UI mode instead of silent mode for invalid type. EntitlementManager should ignore invlid type.",
+      "range": {
+        "startLine": 472,
+        "startChar": 20,
+        "endLine": 472,
+        "endChar": 54
+      },
+      "revId": "082602ad0aecc2bdcca0b9759d96fada30ad7958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
