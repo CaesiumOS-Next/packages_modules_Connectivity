@@ -22,6 +22,30 @@
       },
       "revId": "89d4c869be7248e7f08d58acba055b0a3c553567",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad2180bd_0864b705",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-14T03:14:49Z",
+      "side": 1,
+      "message": "Good point, thanks for your suggestion. Updated.",
+      "parentUuid": "3fa97652_7b75a356",
+      "range": {
+        "startLine": 92,
+        "startChar": 20,
+        "endLine": 92,
+        "endChar": 37
+      },
+      "revId": "89d4c869be7248e7f08d58acba055b0a3c553567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
