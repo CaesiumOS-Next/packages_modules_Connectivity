@@ -15,6 +15,7 @@
  */
 package android.tethering.test;
 
+import static android.Manifest.permission.BLUETOOTH_CONNECT;
 import static android.Manifest.permission.MODIFY_PHONE_STATE;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
@@ -22,6 +23,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.TetheringManager.TETHERING_BLUETOOTH;
 import static android.net.TetheringManager.TETHERING_INVALID;
 import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
@@ -32,6 +34,7 @@ import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
 import static android.net.cts.util.CtsTetheringUtils.isAnyIfaceMatch;
 
+import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
@@ -43,6 +46,11 @@ import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothPan;
+import android.bluetooth.BluetoothProfile;
+import android.bluetooth.cts.BTAdapterUtils;
+import android.bluetooth.cts.TestUtils;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -69,6 +77,7 @@ import android.os.ResultReceiver;
 import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
@@ -88,6 +97,7 @@ import java.util.function.Consumer;
 
 @RunWith(AndroidJUnit4.class)
 public class TetheringManagerTest {
+    private static final String TAG = TetheringManagerTest.class.getSimpleName();
 
     private Context mContext;
 
@@ -101,6 +111,7 @@ public class TetheringManagerTest {
     private CtsTetheringUtils mCtsTetheringUtils;
 
     private static final int DEFAULT_TIMEOUT_MS = 60_000;
+    private static final int BLUETOOTH_TIMEOUT_MS = 10_000;
 
     @Before
     public void setUp() throws Exception {
@@ -472,5 +483,73 @@ public class TetheringManagerTest {
                     c -> c.run() /* executor */, startTetheringCallback);
             startTetheringCallback.expectTetheringFailed(TETHER_ERROR_UNKNOWN_TYPE);
         });
+    }
+
+    private static class PanServiceGetter implements BluetoothProfile.ServiceListener {
+        private final CompletableFuture<BluetoothPan> mFuture = new CompletableFuture<>();
+
+        @Override
+        public void onServiceConnected(int profile, BluetoothProfile proxy) {
+            if (profile != BluetoothProfile.PAN) return;
+
+            Log.d(TAG, "PAN service connected");
+            mFuture.complete((BluetoothPan) proxy);
+        }
+
+        @Override
+        public void onServiceDisconnected(int profile) {
+            Log.d(TAG, "PAN service disconnected");
+            mFuture.completeExceptionally(new IllegalStateException("PanService disconnected"));
+        }
+
+        public BluetoothPan getBluetoothPan(final Context ctx) throws Exception {
+            runAsShell(BLUETOOTH_CONNECT, () -> {
+                final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+                adapter.getProfileProxy(ctx, this, BluetoothProfile.PAN);
+            });
+
+            return mFuture.get(BLUETOOTH_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        }
+    }
+
+    private void assumeBluetoothTetheringSupported() throws Exception {
+        assumeTrue("No bluetooth feature", mPm.hasSystemFeature(PackageManager.FEATURE_BLUETOOTH));
+        assumeTrue("No tetherable regex", mTM.getTetherableBluetoothRegexs().length > 0);
+        if (isAtLeastT()) {
+            // The API used in TestUtils#isProfileEnabled is only available after T. Before T,
+            // there was no API to check if the PAN profile was enabled.
+            assumeTrue("PAN not supported", TestUtils.isProfileEnabled(BluetoothProfile.PAN));
+        }
+    }
+
+    @Test
+    public void testStartBluetoothTethering() throws Exception {
+        assumeTrue(isTetheringSupported());
+        assumeBluetoothTetheringSupported();
+
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+
+        assertTrue(BTAdapterUtils.enableAdapter(BluetoothAdapter.getDefaultAdapter(), mContext));
+        final PanServiceGetter panGetter = new PanServiceGetter();
+        final BluetoothPan pan = panGetter.getBluetoothPan(mContext);
+        assertNotNull(pan);
+
+        try {
+            tetherEventCallback.expectNoTetheringActive();
+            runAsShell(TETHER_PRIVILEGED, () -> {
+                final StartTetheringCallback startTetheringCallback =
+                        new StartTetheringCallback();
+                final TetheringRequest request = new TetheringRequest.Builder(TETHERING_BLUETOOTH)
+                        .setShouldShowEntitlementUi(false).build();
+                mTM.startTethering(request, c -> c.run() /* executor */, startTetheringCallback);
+                startTetheringCallback.verifyTetheringStarted();
+            });
+
+            runAsShell(BLUETOOTH_CONNECT, () -> assertTrue(pan.isTetheringOn()));
+        } finally {
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+            BluetoothAdapter.getDefaultAdapter().closeProfileProxy(BluetoothProfile.PAN, pan);
+        }
     }
 }
