@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "677bc5a2_da38bf30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-14T05:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a2ab7cb_5d35ac44",
+      "revId": "bff1cf7132aa783a19d7f4c61210cea4aa8f9890",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e381f9c9_f39ed527",
         "filename": "service-t/src/com/android/server/connectivity/mdns/ExecutorProvider.java",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "You could fix that in a separate change, but I think the commit message needs to be updated before submitting this one",
       "parentUuid": "a9fc021d_999aae79",
+      "revId": "bff1cf7132aa783a19d7f4c61210cea4aa8f9890",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee146379_b6260022",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-14T05:33:11Z",
+      "side": 1,
+      "message": "Thanks, as it is only one line change, updated the log to reflect the suggested information.",
+      "parentUuid": "34f7ae57_5da3fd95",
       "revId": "bff1cf7132aa783a19d7f4c61210cea4aa8f9890",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
