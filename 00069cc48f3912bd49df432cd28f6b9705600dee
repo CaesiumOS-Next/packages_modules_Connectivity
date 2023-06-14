@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e2250c8_3499a090",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-14T11:15:31Z",
+      "side": 1,
+      "message": "Nvm, it seems like it is an already exist issue.",
+      "parentUuid": "82592b87_c07fcbad",
+      "revId": "00069cc48f3912bd49df432cd28f6b9705600dee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a36d67d_0ad3935b",
