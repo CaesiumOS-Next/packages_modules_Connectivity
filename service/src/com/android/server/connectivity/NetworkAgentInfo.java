@@ -1033,6 +1033,13 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     }
 
     /**
+     * Return whether 464Xlat is started or not.
+     */
+    public boolean isClatStarted() {
+        return clatd.isStarted();
+    }
+
+    /**
      * Get the NetworkMonitorManager in this NetworkAgentInfo.
      *
      * <p>This will be null before {@link #onNetworkMonitorCreated(INetworkMonitor)} is called.
