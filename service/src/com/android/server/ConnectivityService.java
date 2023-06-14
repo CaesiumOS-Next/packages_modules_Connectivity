@@ -340,6 +340,8 @@ import java.util.SortedSet;
 import java.util.StringJoiner;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * @hide
@@ -4425,12 +4427,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void handlePrivateDnsSettingsChanged() {
         final PrivateDnsConfig cfg = mDnsManager.getPrivateDnsConfig();
 
-        for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+        forAllNetworkAgentInfos((nai) -> {
             handlePerNetworkPrivateDnsConfig(nai, cfg);
             if (networkRequiresPrivateDnsValidation(nai)) {
                 handleUpdateLinkProperties(nai, new LinkProperties(nai.linkProperties));
             }
-        }
+        });
     }
 
     private void handlePerNetworkPrivateDnsConfig(NetworkAgentInfo nai, PrivateDnsConfig cfg) {
@@ -4865,12 +4867,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 mNetworkRequests.put(req, nri);
                 // TODO: Consider update signal strength for other types.
                 if (req.isListen()) {
-                    for (final NetworkAgentInfo network : mNetworkAgentInfos) {
+                    forAllNetworkAgentInfos((network) ->  {
                         if (req.networkCapabilities.hasSignalStrength()
                                 && network.satisfiesImmutableCapabilitiesOf(req)) {
                             updateSignalStrengthThresholds(network, "REGISTER", req);
                         }
-                    }
+                    });
                 }
             }
 
@@ -5135,13 +5137,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void removeListenRequestFromNetworks(@NonNull final NetworkRequest req) {
         // listens don't have a singular affected Network. Check all networks to see
         // if this listen request applies and remove it.
-        for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
+        forAllNetworkAgentInfos((nai) -> {
             nai.removeRequest(req.requestId);
             if (req.networkCapabilities.hasSignalStrength()
                     && nai.satisfiesImmutableCapabilitiesOf(req)) {
                 updateSignalStrengthThresholds(nai, "RELEASE", req);
             }
-        }
+        });
     }
 
     /**
@@ -5202,6 +5204,23 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
             }
         }
+    }
+
+    // Perform the specified operation on all networks.
+    // - Use a for loop becuause mNetworkAgentInfos is an ArraySet and the ArraySet documentation
+    //   recommends against using iterators.
+    // - Iterate in reverse order so that op is allowed to remove
+    private void forAllNetworkAgentInfos(Consumer<NetworkAgentInfo> op) {
+        for (int i = mNetworkAgentInfos.size() - 1; i >= 0; i--) {
+            op.accept(mNetworkAgentInfos.valueAt(i));
+        }
+    }
+
+    private boolean forAnyNetworkAgentInfo(Predicate<NetworkAgentInfo> condition) {
+        for (int i = mNetworkAgentInfos.size() - 1; i >= 0; i--) {
+            if (condition.test(mNetworkAgentInfos.valueAt(i))) return true;
+        }
+        return false;
     }
 
     private RequestInfoPerUidCounter getRequestCounter(NetworkRequestInfo nri) {
@@ -5469,14 +5488,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureRunningOnConnectivityServiceThread();
         // Agent info scores and offer scores depend on whether cells yields to bad wifi.
         final boolean avoidBadWifi = avoidBadWifi();
-        for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
+        forAllNetworkAgentInfos((nai) ->  {
             nai.updateScoreForNetworkAgentUpdate();
             if (avoidBadWifi) {
                 // If the device is now avoiding bad wifi, remove notifications that might have
                 // been put up when the device didn't.
                 mNotifier.clearNotification(nai.network.getNetId(), NotificationType.LOST_INTERNET);
             }
-        }
+        });
         // UpdateOfferScore will update mNetworkOffers inline, so make a copy first.
         final ArrayList<NetworkOfferInfo> offersToUpdate = new ArrayList<>(mNetworkOffers);
         for (final NetworkOfferInfo noi : offersToUpdate) {
@@ -6279,12 +6298,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return new UnderlyingNetworkInfo[0];
         }
         List<UnderlyingNetworkInfo> infoList = new ArrayList<>();
-        for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+        forAllNetworkAgentInfos((nai) -> {
             UnderlyingNetworkInfo info = createVpnInfo(nai);
             if (info != null) {
                 infoList.add(info);
             }
-        }
+        });
         return infoList.toArray(new UnderlyingNetworkInfo[infoList.size()]);
     }
 
@@ -6362,11 +6381,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     private void propagateUnderlyingNetworkCapabilities(Network updatedNetwork) {
         ensureRunningOnConnectivityServiceThread();
-        for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+        forAllNetworkAgentInfos((nai) -> {
             if (updatedNetwork == null || hasUnderlyingNetwork(nai, updatedNetwork)) {
                 updateCapabilitiesForNetwork(nai);
             }
-        }
+        });
     }
 
     private boolean isUidBlockedByVpn(int uid, List<UidRange> blockedUidRanges) {
@@ -6414,11 +6433,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mPermissionMonitor.updateVpnLockdownUidRanges(requireVpn, ranges);
         }
 
-        for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
+        forAllNetworkAgentInfos((nai) -> {
             final boolean curMetered = nai.networkCapabilities.isMetered();
             maybeNotifyNetworkBlocked(nai, curMetered, curMetered,
                     mVpnBlockedUidRanges, newVpnBlockedUidRanges);
-        }
+        });
 
         mVpnBlockedUidRanges = newVpnBlockedUidRanges;
     }
@@ -9203,7 +9222,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             throw new IllegalStateException("No user is available");
         }
 
-        for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
+        forAllNetworkAgentInfos((nai) -> {
             ArraySet<UidRange> allowedUidRanges = new ArraySet<>();
             for (final UserHandle user : users) {
                 final ArraySet<UidRange> restrictedUidRanges =
@@ -9215,7 +9234,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             final UidRangeParcel[] rangesParcel = toUidRangeStableParcels(allowedUidRanges);
             configs.add(new NativeUidRangeConfig(
                     nai.network.netId, rangesParcel, 0 /* subPriority */));
-        }
+        });
 
         // The netd API replaces the previous configs with the current configs.
         // Thus, for network disconnection or preference removal, no need to
@@ -9436,9 +9455,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         // Gather the list of all relevant agents.
         final ArrayList<NetworkAgentInfo> nais = new ArrayList<>();
-        for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
+        forAllNetworkAgentInfos((nai) -> {
             nais.add(nai);
-        }
+        });
 
         for (final NetworkRequestInfo nri : networkRequests) {
             // Non-multilayer listen requests can be ignored.
@@ -10072,7 +10091,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * @param blockedReasons The reasons for why an uid is blocked.
      */
     private void maybeNotifyNetworkBlockedForNewState(int uid, @BlockedReason int blockedReasons) {
-        for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
+        forAllNetworkAgentInfos((nai) -> {
             final boolean metered = nai.networkCapabilities.isMetered();
             final boolean vpnBlocked = isUidBlockedByVpn(uid, mVpnBlockedUidRanges);
 
@@ -10080,7 +10099,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mUidBlockedReasons.get(uid, BLOCKED_REASON_NONE), metered, vpnBlocked);
             final int newBlockedState = getBlockedState(blockedReasons, metered, vpnBlocked);
             if (oldBlockedState == newBlockedState) {
-                continue;
+                return;  // return from lambda; continue with next network
             }
             for (int i = 0; i < nai.numNetworkRequests(); i++) {
                 NetworkRequest nr = nai.requestAt(i);
@@ -10090,7 +10109,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             newBlockedState);
                 }
             }
-        }
+        });
     }
 
     @VisibleForTesting
@@ -10179,11 +10198,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 activeNetIds.add(nri.getSatisfier().network().netId);
             }
         }
-        for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+        forAllNetworkAgentInfos((nai) -> {
             if (activeNetIds.contains(nai.network().netId) || nai.isVPN()) {
                 defaultNetworks.add(nai.network);
             }
-        }
+        });
         return defaultNetworks;
     }
 
@@ -10924,15 +10943,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private boolean ownsVpnRunningOverNetwork(int uid, Network network) {
-        for (NetworkAgentInfo virtual : mNetworkAgentInfos) {
-            if (virtual.propagateUnderlyingCapabilities()
+        return forAnyNetworkAgentInfo((virtual) ->
+            virtual.propagateUnderlyingCapabilities()
                     && virtual.networkCapabilities.getOwnerUid() == uid
-                    && CollectionUtils.contains(virtual.declaredUnderlyingNetworks, network)) {
-                return true;
-            }
-        }
-
-        return false;
+                    && CollectionUtils.contains(virtual.declaredUnderlyingNetworks, network));
     }
 
     @VisibleForTesting
@@ -11073,16 +11087,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         @Override
         public void onInterfaceLinkStateChanged(@NonNull String iface, boolean up) {
-            for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+            forAllNetworkAgentInfos((nai) -> {
                 nai.clatd.interfaceLinkStateChanged(iface, up);
-            }
+            });
         }
 
         @Override
         public void onInterfaceRemoved(@NonNull String iface) {
-            for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+            forAllNetworkAgentInfos((nai) ->  {
                 nai.clatd.interfaceRemoved(iface);
-            }
+            });
         }
     }
 
@@ -11673,7 +11687,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final long oldIngressRateLimit = mIngressRateLimit;
         mIngressRateLimit = ConnectivitySettingsManager.getIngressRateLimitInBytesPerSecond(
                 mContext);
-        for (final NetworkAgentInfo networkAgent : mNetworkAgentInfos) {
+        forAllNetworkAgentInfos((networkAgent) -> {
             if (canNetworkBeRateLimited(networkAgent)) {
                 // If rate limit has previously been enabled, remove the old limit first.
                 if (oldIngressRateLimit >= 0) {
@@ -11684,7 +11698,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             mIngressRateLimit);
                 }
             }
-        }
+        });
     }
 
     private boolean canNetworkBeRateLimited(@NonNull final NetworkAgentInfo networkAgent) {
