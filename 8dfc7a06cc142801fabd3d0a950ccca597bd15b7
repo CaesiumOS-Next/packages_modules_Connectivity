@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83612986_3e6d7ba1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-14T11:20:14Z",
+      "side": 1,
+      "message": "(approving for CTS since this is effectively just more logging to deflake a test)",
+      "revId": "8dfc7a06cc142801fabd3d0a950ccca597bd15b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
