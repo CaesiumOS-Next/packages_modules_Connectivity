@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca0176e4_c8550dad",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-06-14T18:19:30Z",
+      "side": 0,
+      "message": "Also removed these, since final on method parameters is pretty much pointless, and @NonNull effectively is as well for private functions.",
+      "range": {
+        "startLine": 324,
+        "startChar": 39,
+        "endLine": 324,
+        "endChar": 53
+      },
+      "revId": "a87b6027fb060a74ebec065152ab8054ae21e76a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
