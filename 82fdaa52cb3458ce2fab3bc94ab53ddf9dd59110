@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c61e870_bf1e0b67",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-14T08:52:04Z",
+      "side": 1,
+      "message": "Thanks, updated the comment to reflect the main purpose of the CLs. Also have a separate sentence to describe the small improvement.",
+      "parentUuid": "513ab699_4865ac40",
+      "revId": "82fdaa52cb3458ce2fab3bc94ab53ddf9dd59110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77991aa3_541a0148",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9071869c_7dcd7ab6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-14T08:52:04Z",
+      "side": 1,
+      "message": "Thanks, as discussed add some test coverage in MdnsMultinetSocketClient.",
+      "parentUuid": "77991aa3_541a0148",
+      "revId": "82fdaa52cb3458ce2fab3bc94ab53ddf9dd59110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35c6d421_b67b7d23",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-06-13T10:28:39Z",
       "side": 1,
       "message": "For consistency with the below, this should probably also trigger if both records need renewal\n\nYou may be able to simplify with variables like:\n\n    final boolean renewTxt \u003d !response.hasTextRecord() || isRecordRenewalNeeded(response.getTextRecord());",
+      "revId": "82fdaa52cb3458ce2fab3bc94ab53ddf9dd59110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "080a2340_2beaaab8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-14T08:52:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35c6d421_b67b7d23",
       "revId": "82fdaa52cb3458ce2fab3bc94ab53ddf9dd59110",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -75,6 +129,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "510bdaae_e17e6d22",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-14T08:52:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5523abaf_d19f1e06",
+      "range": {
+        "startLine": 227,
+        "startChar": 29,
+        "endLine": 227,
+        "endChar": 47
+      },
+      "revId": "82fdaa52cb3458ce2fab3bc94ab53ddf9dd59110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75d4cb01_54dee6a4",
@@ -88,6 +166,30 @@
       "writtenOn": "2023-06-13T10:28:39Z",
       "side": 1,
       "message": "Nit: Ipv6 instead of IpV6 (looking at the format of public APIs in LinkProperties for example, and other naming in this file)",
+      "range": {
+        "startLine": 248,
+        "startChar": 20,
+        "endLine": 248,
+        "endChar": 38
+      },
+      "revId": "82fdaa52cb3458ce2fab3bc94ab53ddf9dd59110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55906c6d_f0840459",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-14T08:52:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75d4cb01_54dee6a4",
       "range": {
         "startLine": 248,
         "startChar": 20,
