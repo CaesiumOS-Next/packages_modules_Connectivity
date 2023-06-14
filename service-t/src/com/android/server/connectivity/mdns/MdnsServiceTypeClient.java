@@ -24,6 +24,7 @@ import android.net.Network;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.ArraySet;
+import android.util.Log;
 import android.util.Pair;
 
 import com.android.internal.annotations.GuardedBy;
@@ -51,6 +52,7 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 public class MdnsServiceTypeClient {
 
+    private static final String TAG = MdnsServiceTypeClient.class.getSimpleName();
     private static final int DEFAULT_MTU = 1500;
 
     private final String serviceType;
@@ -64,6 +66,7 @@ public class MdnsServiceTypeClient {
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
     // TODO: change instanceNameToResponse to TreeMap with case insensitive comparator.
+    @GuardedBy("lock")
     private final Map<String, MdnsResponse> instanceNameToResponse = new HashMap<>();
     private final boolean removeServiceAfterTtlExpires =
             MdnsConfigs.removeServiceAfterTtlExpires();
@@ -78,7 +81,13 @@ public class MdnsServiceTypeClient {
 
     @GuardedBy("lock")
     @Nullable
-    private Future<?> requestTaskFuture;
+    private Future<?> nextQueryTaskFuture;
+
+    @GuardedBy("lock")
+    private QueryTask lastScheduledTask;
+
+    @GuardedBy("lock")
+    private long lastSentTime;
 
     /**
      * Constructor of {@link MdnsServiceTypeClient}.
@@ -190,7 +199,7 @@ public class MdnsServiceTypeClient {
                 }
             }
             // Cancel the next scheduled periodical task.
-            if (requestTaskFuture != null) {
+            if (nextQueryTaskFuture != null) {
                 cancelRequestTaskLocked();
             }
             // Keep tracking the ScheduledFuture for the task so we can cancel it if caller is not
@@ -199,21 +208,39 @@ public class MdnsServiceTypeClient {
                     searchOptions.getSubtypes(),
                     searchOptions.isPassiveMode(),
                     searchOptions.onlyUseIpv6OnIpv6OnlyNetworks(),
-                    currentSessionId,
+                    searchOptions.numOfQueriesBeforeBackoff(),
                     socketKey);
             if (hadReply) {
-                requestTaskFuture = scheduleNextRunLocked(taskConfig);
+                final long now = clock.elapsedRealtime();
+                lastSentTime = now;
+                QueryTaskConfig queryTaskConfig = taskConfig.getConfigForNextRun();
+                final long minRemainingTtl = getMinRemainingTtlLocked(now);
+                final long timeToRun = now + queryTaskConfig.delayUntilNextTaskWithoutBackoffMs;
+                nextQueryTaskFuture = scheduleNextRunLocked(queryTaskConfig,
+                        minRemainingTtl, now, timeToRun, currentSessionId);
             } else {
-                requestTaskFuture = executor.submit(new QueryTask(taskConfig));
+                final long now = clock.elapsedRealtime();
+                lastSentTime = now;
+                lastScheduledTask = new QueryTask(taskConfig,
+                        now /* timeToRun */,
+                        0 /* minRemainingTtlWhenScheduled */,
+                        now /* timeWhenScheduled */, currentSessionId);
+                nextQueryTaskFuture = executor.submit(lastScheduledTask);
             }
         }
     }
 
     @GuardedBy("lock")
     private void cancelRequestTaskLocked() {
-        requestTaskFuture.cancel(true);
+        final boolean canceled = nextQueryTaskFuture.cancel(true);
+        sharedLog.log("task canceled:" + canceled + ", current session: " + currentSessionId
+                + " task hashcode: " + getHexString(nextQueryTaskFuture));
         ++currentSessionId;
-        requestTaskFuture = null;
+        nextQueryTaskFuture = null;
+    }
+
+    private static String getHexString(Object o) {
+        return Integer.toHexString(System.identityHashCode(o));
     }
 
     private boolean responseMatchesOptions(@NonNull MdnsResponse response,
@@ -248,7 +275,7 @@ public class MdnsServiceTypeClient {
             if (listeners.remove(listener) == null) {
                 return listeners.isEmpty();
             }
-            if (listeners.isEmpty() && requestTaskFuture != null) {
+            if (listeners.isEmpty() && nextQueryTaskFuture != null) {
                 cancelRequestTaskLocked();
             }
             return listeners.isEmpty();
@@ -286,14 +313,26 @@ public class MdnsServiceTypeClient {
             for (MdnsResponse response : allResponses) {
                 if (modifiedResponse.contains(response)) {
                     if (response.isGoodbye()) {
-                        onGoodbyeReceived(response.getServiceInstanceName());
+                        onGoodbyeReceivedLocked(response.getServiceInstanceName());
                     } else {
-                        onResponseModified(response);
+                        onResponseModifiedLocked(response);
                     }
                 } else if (instanceNameToResponse.containsKey(response.getServiceInstanceName())) {
                     // If the response is not modified and already in the cache. The cache will
                     // need to be updated to refresh the last receipt time.
                     instanceNameToResponse.put(response.getServiceInstanceName(), response);
+                }
+            }
+            if (nextQueryTaskFuture != null && lastScheduledTask != null
+                    && lastScheduledTask.config.shouldUseQueryBackoff()) {
+                final long now = clock.elapsedRealtime();
+                final long minRemainingTtl = getMinRemainingTtlLocked(now);
+                final long timeToRun = calculateTimeToRun(lastScheduledTask, now,
+                        minRemainingTtl, lastSentTime);
+                if (timeToRun > lastScheduledTask.timeToRun) {
+                    cancelRequestTaskLocked();
+                    nextQueryTaskFuture = scheduleNextRunLocked(lastScheduledTask.config,
+                            minRemainingTtl, now, timeToRun, currentSessionId);
                 }
             }
         }
@@ -325,13 +364,14 @@ public class MdnsServiceTypeClient {
                 }
             }
 
-            if (requestTaskFuture != null) {
+            if (nextQueryTaskFuture != null) {
                 cancelRequestTaskLocked();
             }
         }
     }
 
-    private void onResponseModified(@NonNull MdnsResponse response) {
+    @GuardedBy("lock")
+    private void onResponseModifiedLocked(@NonNull MdnsResponse response) {
         final String serviceInstanceName = response.getServiceInstanceName();
         final MdnsResponse currentResponse =
                 instanceNameToResponse.get(serviceInstanceName);
@@ -377,7 +417,8 @@ public class MdnsServiceTypeClient {
         }
     }
 
-    private void onGoodbyeReceived(@Nullable String serviceInstanceName) {
+    @GuardedBy("lock")
+    private void onGoodbyeReceivedLocked(@Nullable String serviceInstanceName) {
         final MdnsResponse response = instanceNameToResponse.remove(serviceInstanceName);
         if (response == null) {
             return;
@@ -429,7 +470,7 @@ public class MdnsServiceTypeClient {
                 MdnsConfigs.alwaysAskForUnicastResponseInEachBurst();
         private final boolean usePassiveMode;
         private final boolean onlyUseIpv6OnIpv6OnlyNetworks;
-        private final long sessionId;
+        private final int numOfQueriesBeforeBackoff;
         @VisibleForTesting
         int transactionId;
         @VisibleForTesting
@@ -437,24 +478,41 @@ public class MdnsServiceTypeClient {
         private int queriesPerBurst;
         private int timeBetweenBurstsInMs;
         private int burstCounter;
-        private int timeToRunNextTaskInMs;
+        private long delayUntilNextTaskWithoutBackoffMs;
         private boolean isFirstBurst;
+        private long queryCount;
         @NonNull private final SocketKey socketKey;
+
+        QueryTaskConfig(@NonNull QueryTaskConfig other) {
+            this.subtypes = new ArrayList<>(other.subtypes);
+            this.usePassiveMode = other.usePassiveMode;
+            this.onlyUseIpv6OnIpv6OnlyNetworks = other.onlyUseIpv6OnIpv6OnlyNetworks;
+            this.numOfQueriesBeforeBackoff = other.numOfQueriesBeforeBackoff;
+            this.transactionId = other.transactionId;
+            this.expectUnicastResponse = other.expectUnicastResponse;
+            this.queriesPerBurst = other.queriesPerBurst;
+            this.timeBetweenBurstsInMs = other.timeBetweenBurstsInMs;
+            this.burstCounter = other.burstCounter;
+            this.delayUntilNextTaskWithoutBackoffMs = other.delayUntilNextTaskWithoutBackoffMs;
+            this.isFirstBurst = other.isFirstBurst;
+            this.queryCount = other.queryCount;
+            this.socketKey = other.socketKey;
+        }
 
         QueryTaskConfig(@NonNull Collection<String> subtypes,
                 boolean usePassiveMode,
                 boolean onlyUseIpv6OnIpv6OnlyNetworks,
-                long sessionId,
+                int numOfQueriesBeforeBackoff,
                 @Nullable SocketKey socketKey) {
             this.usePassiveMode = usePassiveMode;
             this.onlyUseIpv6OnIpv6OnlyNetworks = onlyUseIpv6OnIpv6OnlyNetworks;
+            this.numOfQueriesBeforeBackoff = numOfQueriesBeforeBackoff;
             this.subtypes = new ArrayList<>(subtypes);
             this.queriesPerBurst = QUERIES_PER_BURST;
             this.burstCounter = 0;
             this.transactionId = 1;
             this.expectUnicastResponse = true;
             this.isFirstBurst = true;
-            this.sessionId = sessionId;
             // Config the scan frequency based on the scan mode.
             if (this.usePassiveMode) {
                 // In passive scan mode, sends a single burst of QUERIES_PER_BURST queries, and then
@@ -469,9 +527,11 @@ public class MdnsServiceTypeClient {
                 this.timeBetweenBurstsInMs = INITIAL_TIME_BETWEEN_BURSTS_MS;
             }
             this.socketKey = socketKey;
+            this.queryCount = 0;
         }
 
         QueryTaskConfig getConfigForNextRun() {
+            ++queryCount;
             if (++transactionId > UNSIGNED_SHORT_MAX_VALUE) {
                 transactionId = 1;
             }
@@ -496,15 +556,27 @@ public class MdnsServiceTypeClient {
                 // TIME_BETWEEN_QUERIES_IN_BURST_MS apart, then waits for the scan interval, and
                 // then repeats. The scan interval starts as INITIAL_TIME_BETWEEN_BURSTS_MS and
                 // doubles until it maxes out at TIME_BETWEEN_BURSTS_MS.
-                timeToRunNextTaskInMs = timeBetweenBurstsInMs;
+                delayUntilNextTaskWithoutBackoffMs = timeBetweenBurstsInMs;
                 if (timeBetweenBurstsInMs < TIME_BETWEEN_BURSTS_MS) {
                     timeBetweenBurstsInMs = Math.min(timeBetweenBurstsInMs * 2,
                             TIME_BETWEEN_BURSTS_MS);
                 }
             } else {
-                timeToRunNextTaskInMs = TIME_BETWEEN_QUERIES_IN_BURST_MS;
+                delayUntilNextTaskWithoutBackoffMs = TIME_BETWEEN_QUERIES_IN_BURST_MS;
             }
-            return this;
+            return new QueryTaskConfig(this);
+        }
+
+        private boolean shouldUseQueryBackoff() {
+            // Don't enable backoff mode during the burst or in the first burst
+            if (burstCounter != 0 || isFirstBurst) {
+                return false;
+            }
+            // Don't use backoff mode in start period
+            if (timeBetweenBurstsInMs < TIME_BETWEEN_BURSTS_MS) {
+                return false;
+            }
+            return queryCount > numOfQueriesBeforeBackoff;
         }
     }
 
@@ -535,9 +607,19 @@ public class MdnsServiceTypeClient {
     private class QueryTask implements Runnable {
 
         private final QueryTaskConfig config;
+        private final long timeToRun;
+        private final long minRemainingTtlWhenScheduled;
+        private final long timeWhenScheduled;
+        private final long sessionId;
 
-        QueryTask(@NonNull QueryTaskConfig config) {
+        QueryTask(@NonNull QueryTaskConfig config, long timeToRun,
+                long minRemainingTtlWhenScheduled, long timeWhenScheduled,
+                long sessionId) {
             this.config = config;
+            this.timeToRun = timeToRun;
+            this.minRemainingTtlWhenScheduled = minRemainingTtlWhenScheduled;
+            this.timeWhenScheduled = timeWhenScheduled;
+            this.sessionId = sessionId;
         }
 
         @Override
@@ -579,13 +661,13 @@ public class MdnsServiceTypeClient {
                 if (MdnsConfigs.useSessionIdToScheduleMdnsTask()) {
                     // In case that the task is not canceled successfully, use session ID to check
                     // if this task should continue to schedule more.
-                    if (config.sessionId != currentSessionId) {
+                    if (sessionId != currentSessionId) {
                         return;
                     }
                 }
 
                 if (MdnsConfigs.shouldCancelScanTaskWhenFutureIsNull()) {
-                    if (requestTaskFuture == null) {
+                    if (nextQueryTaskFuture == null) {
                         // If requestTaskFuture is set to null, the task is cancelled. We can't use
                         // isCancelled() here because this QueryTask is different from the future
                         // that is returned from executor.schedule(). See b/71646910.
@@ -630,14 +712,76 @@ public class MdnsServiceTypeClient {
                         }
                     }
                 }
-                requestTaskFuture = scheduleNextRunLocked(this.config);
+                QueryTaskConfig nextRunConfig = this.config.getConfigForNextRun();
+                final long now = clock.elapsedRealtime();
+                lastSentTime = now;
+                final long minRemainingTtl = getMinRemainingTtlLocked(now);
+                final long timeToRun = calculateTimeToRun(lastScheduledTask, now,
+                        minRemainingTtl, lastSentTime);
+                nextQueryTaskFuture = scheduleNextRunLocked(nextRunConfig,
+                        minRemainingTtl, now, timeToRun, lastScheduledTask.sessionId);
             }
         }
     }
 
+    @GuardedBy("lock")
+    private long calculateTimeToRun(@NonNull QueryTask lastScheduledTask, long now,
+            long minRemainingTtl, long lastSentTime) {
+        final long baseDelayInMs = lastScheduledTask.config.delayUntilNextTaskWithoutBackoffMs;
+        if (!lastScheduledTask.config.shouldUseQueryBackoff()) {
+            return lastSentTime + baseDelayInMs;
+        }
+        if (minRemainingTtl <= 0) {
+            // There's no service, or there is an expired service. In any case, schedule for the
+            // minimum time, which is the base delay.
+            return lastSentTime + baseDelayInMs;
+        }
+        final long timePassed = now - lastScheduledTask.timeWhenScheduled;
+        if (lastScheduledTask.minRemainingTtlWhenScheduled - timePassed == minRemainingTtl) {
+            // Use the original scheduling time if the TTL has not changed, to avoid continuously
+            // rescheduling to 80% of the remaining TTL as time passes
+            return lastScheduledTask.timeToRun;
+        }
+        return Math.max(now + (long) (0.8 * minRemainingTtl), lastSentTime + baseDelayInMs);
+    }
+
+    @GuardedBy("lock")
+    private long getMinRemainingTtlLocked(long now) {
+        long smallestRemainingTtl = Long.MAX_VALUE;
+        for (MdnsResponse response : instanceNameToResponse.values()) {
+            if (!response.hasServiceRecord()) {
+                continue;
+            }
+            long remainingTtl =
+                    response.getServiceRecord().getRemainingTTL(now);
+            // remainingTtl is <= 0 means the service expired.
+            if (remainingTtl <= 0) {
+                return 0;
+            }
+            if (remainingTtl < smallestRemainingTtl) {
+                smallestRemainingTtl = remainingTtl;
+            }
+        }
+        return smallestRemainingTtl == Long.MAX_VALUE ? 0 : smallestRemainingTtl;
+    }
+
+    @GuardedBy("lock")
     @NonNull
-    private Future<?> scheduleNextRunLocked(@NonNull QueryTaskConfig lastRunConfig) {
-        QueryTaskConfig config = lastRunConfig.getConfigForNextRun();
-        return executor.schedule(new QueryTask(config), config.timeToRunNextTaskInMs, MILLISECONDS);
+    private Future<?> scheduleNextRunLocked(@NonNull QueryTaskConfig nextRunConfig,
+            long minRemainingTtl, long timeWhenScheduled, long timeToRun, long sessionId) {
+        lastScheduledTask = new QueryTask(nextRunConfig, timeToRun, minRemainingTtl,
+                timeWhenScheduled, sessionId);
+        long timeToNextTasksWithBackoffInMs = timeToRun - timeWhenScheduled;
+        if (timeToNextTasksWithBackoffInMs <= 0) {
+            Log.wtf(TAG,
+                    String.format("Next run: sessionId: %d, timeToRun: %d, timeWhenScheduled: %d",
+                            lastScheduledTask.sessionId,
+                            timeToRun, timeWhenScheduled));
+        }
+        sharedLog.log(
+                String.format("Next run: sessionId: %d, in %d ms", lastScheduledTask.sessionId,
+                        timeToNextTasksWithBackoffInMs));
+        return executor.schedule(lastScheduledTask, timeToNextTasksWithBackoffInMs,
+                MILLISECONDS);
     }
 }
