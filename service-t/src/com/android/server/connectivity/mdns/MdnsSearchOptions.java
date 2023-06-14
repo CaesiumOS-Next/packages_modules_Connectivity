@@ -50,7 +50,9 @@ public class MdnsSearchOptions implements Parcelable {
                             source.readBoolean(),
                             source.readParcelable(null),
                             source.readString(),
-                            (source.dataAvail() > 0) ? source.readBoolean() : false);
+                            (source.dataAvail() > 0) ? source.readBoolean() : false,
+                            (source.dataAvail() > 0) ? source.readBoolean() : false,
+                            (source.dataAvail() > 0) ? source.readInt() : 3);
                 }
 
                 @Override
@@ -65,6 +67,8 @@ public class MdnsSearchOptions implements Parcelable {
 
     private final boolean isPassiveMode;
     private final boolean onlyUseIpv6OnIpv6OnlyNetworks;
+    private final boolean enableQueryBackoff;
+    private final int numOfQueriesBeforeBackoff;
     private final boolean removeExpiredService;
     // The target network for searching. Null network means search on all possible interfaces.
     @Nullable private final Network mNetwork;
@@ -76,13 +80,17 @@ public class MdnsSearchOptions implements Parcelable {
             boolean removeExpiredService,
             @Nullable Network network,
             @Nullable String resolveInstanceName,
-            boolean onlyUseIpv6OnIpv6OnlyNetworks) {
+            boolean onlyUseIpv6OnIpv6OnlyNetworks,
+            boolean enableQueryBackoff,
+            int numOfQueriesBeforeBackoff) {
         this.subtypes = new ArrayList<>();
         if (subtypes != null) {
             this.subtypes.addAll(subtypes);
         }
         this.isPassiveMode = isPassiveMode;
         this.onlyUseIpv6OnIpv6OnlyNetworks = onlyUseIpv6OnIpv6OnlyNetworks;
+        this.enableQueryBackoff = enableQueryBackoff;
+        this.numOfQueriesBeforeBackoff = numOfQueriesBeforeBackoff;
         this.removeExpiredService = removeExpiredService;
         mNetwork = network;
         this.resolveInstanceName = resolveInstanceName;
@@ -122,6 +130,16 @@ public class MdnsSearchOptions implements Parcelable {
         return onlyUseIpv6OnIpv6OnlyNetworks;
     }
 
+    /** Returns {@code true} if query backoff mode is enabled. */
+    public boolean enableQueryBackoff() {
+        return enableQueryBackoff;
+    }
+
+    /** Returns number of queries should be executed before backoff mode is enabled. */
+    public int numOfQueriesBeforeBackoff() {
+        return numOfQueriesBeforeBackoff;
+    }
+
     /** Returns {@code true} if service will be removed after its TTL expires. */
     public boolean removeExpiredService() {
         return removeExpiredService;
@@ -159,6 +177,8 @@ public class MdnsSearchOptions implements Parcelable {
         out.writeParcelable(mNetwork, 0);
         out.writeString(resolveInstanceName);
         out.writeBoolean(onlyUseIpv6OnIpv6OnlyNetworks);
+        out.writeBoolean(enableQueryBackoff);
+        out.writeInt(numOfQueriesBeforeBackoff);
     }
 
     /** A builder to create {@link MdnsSearchOptions}. */
@@ -166,6 +186,8 @@ public class MdnsSearchOptions implements Parcelable {
         private final Set<String> subtypes;
         private boolean isPassiveMode = true;
         private boolean onlyUseIpv6OnIpv6OnlyNetworks = false;
+        private boolean enableQueryBackoff = true;
+        private int numOfQueriesBeforeBackoff = 3;
         private boolean removeExpiredService;
         private Network mNetwork;
         private String resolveInstanceName;
@@ -219,6 +241,22 @@ public class MdnsSearchOptions implements Parcelable {
         }
 
         /**
+         * Sets if the query backoff mode should be turned on.
+         */
+        public Builder setEnableQueryBackoff(boolean enableQueryBackoff) {
+            this.enableQueryBackoff = enableQueryBackoff;
+            return this;
+        }
+
+        /**
+         * Sets if the query backoff mode should be turned on.
+         */
+        public Builder setNumOfQueriesBeforeBackoff(int numOfQueriesBeforeBackoff) {
+            this.numOfQueriesBeforeBackoff = numOfQueriesBeforeBackoff;
+            return this;
+        }
+
+        /**
          * Sets if the service should be removed after TTL.
          *
          * @param removeExpiredService If set to {@code true}, the service will be removed after TTL
@@ -258,7 +296,9 @@ public class MdnsSearchOptions implements Parcelable {
                     removeExpiredService,
                     mNetwork,
                     resolveInstanceName,
-                    onlyUseIpv6OnIpv6OnlyNetworks);
+                    onlyUseIpv6OnIpv6OnlyNetworks,
+                    enableQueryBackoff,
+                    numOfQueriesBeforeBackoff);
         }
     }
 }
