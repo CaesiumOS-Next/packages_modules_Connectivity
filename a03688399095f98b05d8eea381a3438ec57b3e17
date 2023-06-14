@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "901f9a2c_1d31b134",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-14T05:52:36Z",
+      "side": 1,
+      "message": "Supernit: there\u0027s no \":\" here but it\u0027s on the other ones",
+      "range": {
+        "startLine": 353,
+        "startChar": 50,
+        "endLine": 353,
+        "endChar": 51
+      },
+      "revId": "a03688399095f98b05d8eea381a3438ec57b3e17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
