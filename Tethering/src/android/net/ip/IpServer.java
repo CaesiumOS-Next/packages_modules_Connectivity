@@ -1123,8 +1123,6 @@ public class IpServer extends StateMachine {
 
         @Override
         public void enter() {
-            startConntrackMonitoring();
-
             startServingInterface();
 
             if (mLastError != TETHER_ERROR_NO_ERROR) {
@@ -1144,6 +1142,8 @@ public class IpServer extends StateMachine {
         }
 
         private void startServingInterface() {
+            startConntrackMonitoring();
+
             if (!startIPv4(getScope())) {
                 mLastError = TETHER_ERROR_IFACE_CFG_ERROR;
                 return;
@@ -1164,8 +1164,7 @@ public class IpServer extends StateMachine {
             }
         }
 
-        @Override
-        public void exit() {
+        private void stopServingInterface() {
             // Note that at this point, we're leaving the tethered state.  We can fail any
             // of these operations, but it doesn't really change that we have to try them
             // all in sequence.
@@ -1182,7 +1181,10 @@ public class IpServer extends StateMachine {
             stopConntrackMonitoring();
 
             resetLinkProperties();
+        }
 
+        @Override
+        public void exit() {
             mTetheringMetrics.updateErrorCode(mInterfaceType, mLastError);
             mTetheringMetrics.sendReport(mInterfaceType);
         }
@@ -1215,8 +1217,13 @@ public class IpServer extends StateMachine {
                     break;
                 case CMD_NOTIFY_PREFIX_CONFLICT:
                     mLog.i("restart tethering: " + mInterfaceType);
-                    mCallback.requestEnableTethering(mInterfaceType, false /* enabled */);
-                    transitionTo(mWaitingForRestartState);
+                    if (mInterfaceType == TetheringManager.TETHERING_BLUETOOTH) {
+                        stopServingInterface();
+                        startServingInterface();
+                    } else {
+                        mCallback.requestEnableTethering(mInterfaceType, false /* enabled */);
+                        transitionTo(mWaitingForRestartState);
+                    }
                     break;
                 default:
                     return false;
