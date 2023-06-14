@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec8c7fe4_53f2c6e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-14T09:34:07Z",
+      "side": 1,
+      "message": "LGTM with nit comment",
+      "revId": "00069cc48f3912bd49df432cd28f6b9705600dee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82592b87_c07fcbad",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-14T09:34:07Z",
+      "side": 1,
+      "message": "Please adjust the androidLint error here if possible. Same as rest of lint error.",
+      "revId": "00069cc48f3912bd49df432cd28f6b9705600dee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a36d67d_0ad3935b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-14T09:34:07Z",
+      "side": 1,
+      "message": "Do we need @NonNull annotation here?",
+      "range": {
+        "startLine": 231,
+        "startChar": 39,
+        "endLine": 231,
+        "endChar": 58
+      },
+      "revId": "00069cc48f3912bd49df432cd28f6b9705600dee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
