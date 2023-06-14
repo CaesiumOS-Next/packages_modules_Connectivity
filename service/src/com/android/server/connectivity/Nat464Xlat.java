@@ -36,6 +36,7 @@ import android.net.RouteInfo;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.util.Log;
+import android.util.Pair;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
@@ -44,7 +45,10 @@ import com.android.net.module.util.NetworkStackConstants;
 import com.android.server.ConnectivityService;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Objects;
 
 /**
@@ -538,6 +542,44 @@ public class Nat464Xlat {
 
     public void interfaceRemoved(String iface) {
         mNetwork.handler().post(() -> handleInterfaceRemoved(iface));
+    }
+
+    /**
+     * Translate the input v4 src and v4 dst address to v6 clat addresses.
+     */
+    @Nullable
+    public Pair<InetAddress, InetAddress> translateV4toV6(
+            @NonNull InetAddress srcv4, @NonNull InetAddress dstv4) throws UnknownHostException {
+        if (!SdkLevel.isAtLeastT()) return null;
+        if (!isStarted()) return null;
+
+        final InetAddress dstv6 = convertv4ToClatv6(mNat64PrefixInUse, dstv4);
+        final InetAddress srtv6 = getClatSrcAddress();
+        return new Pair<>(srtv6, dstv6);
+    }
+
+    private static InetAddress convertv4ToClatv6(IpPrefix prefix, @NonNull InetAddress addr)
+            throws UnknownHostException {
+        if (!(addr instanceof Inet4Address)) {
+            throw new UnknownHostException("Input address should be a v4 address");
+        }
+        final byte[] v6Addr = new byte[16];
+        // Generate a v6 address from Nat64 prefix. Prefix should be 12 bytes long.
+        System.arraycopy(prefix.getAddress().getAddress(), 0, v6Addr, 0, 12);
+        System.arraycopy(addr.getAddress(), 0, v6Addr, 12, 4);
+
+        return Inet6Address.getByAddress(v6Addr);
+    }
+
+    /**
+     * Get the generated v6 address of clat.
+     */
+    @Nullable
+    public InetAddress getClatSrcAddress() {
+        if (!SdkLevel.isAtLeastT()) return null;
+        if (!isStarted()) return null;
+
+        return mClatCoordinator.getClatdTracker().v6;
     }
 
     /**
