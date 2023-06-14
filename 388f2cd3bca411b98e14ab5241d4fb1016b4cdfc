@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cc14c38d_fff4fd06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Update a little bit. Hope it describe the intention better.",
+      "parentUuid": "e74a1561_9a30850a",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 12
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "18eb60f6_a2426882",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -264,6 +288,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "252cce58_34999b54",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "updated in aosp/2616796",
+      "parentUuid": "cae81c24_e16a0fe2",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 11
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2857484c_33c0cda9",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Addressed in aosp/2616796",
+      "parentUuid": "0eff028a_94c74b4a",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 94
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50de8d6d_48c6c007",
@@ -358,6 +430,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3759aef9_c7dd4cec",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4db3dce2_58135af3",
+      "range": {
+        "startLine": 80,
+        "startChar": 27,
+        "endLine": 80,
+        "endChar": 29
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62764b66_dcc4d197",
@@ -429,6 +525,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbcf4b4d_330bbe8a",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Sorry, I mean this is done in aosp/2616796",
+      "parentUuid": "6585108a_cb0cb49b",
+      "range": {
+        "startLine": 88,
+        "startChar": 43,
+        "endLine": 88,
+        "endChar": 45
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1dbf393_4989b275",
@@ -490,6 +610,30 @@
       "side": 1,
       "message": "A good way of writing this is to split it across multiple lines\n\n    0x6 \u003c\u003c 28 // Ip version\n    + CONSTANT_NAME \u003c\u003c 16 // traffic class\n\nYou could even give these constants names if you find this more readable\n\n    IP_FAMILY \u003d 6 \u003c\u003c 28\n    TRAFFIC_CLASS \u003d 2 \u003c\u003c 16\n    putInt(IP_FAMILY + TRAFFIC_CLASS)\n\nBut in this case, considering the buf is big endian anyway I think it\u0027s most readable if you say something like\n\n    buf.put((byte) 6 \u003c\u003c 8); // IP version\n    buf.put((byte) 2); // traffic class\n    buf.putShort((short) 0); // flow label",
       "parentUuid": "0d9db4d9_04a8b28d",
+      "range": {
+        "startLine": 96,
+        "startChar": 28,
+        "endLine": 96,
+        "endChar": 29
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e424542_0758ff37",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "update in aosp/2616796",
+      "parentUuid": "8d14d85d_7e11212f",
       "range": {
         "startLine": 96,
         "startChar": 28,
@@ -594,6 +738,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a4404a1_117cecdc",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d23d69d_bf1e1268",
+      "range": {
+        "startLine": 99,
+        "startChar": 27,
+        "endLine": 99,
+        "endChar": 29
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5aa73944_0c5beca8",
@@ -664,6 +832,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad8fbcfb_67790858",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Move to aosp/2624378",
+      "parentUuid": "6728c2be_09e3d362",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 45
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c10e5da3_8b599f56",
@@ -677,6 +869,30 @@
       "writtenOn": "2023-06-08T08:58:36Z",
       "side": 1,
       "message": "This doesn\u0027t seem to be the reason. The reason is that on a v6-only network, we need to send v6 packets.",
+      "range": {
+        "startLine": 731,
+        "startChar": 57,
+        "endLine": 732,
+        "endChar": 72
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17b8e13b_400aefd4",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "c10e5da3_8b599f56",
       "range": {
         "startLine": 731,
         "startChar": 57,
@@ -733,6 +949,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59f3349b_8c2386fe",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Done in aosp/2623895",
+      "parentUuid": "e958c4ad_11a68a4c",
+      "range": {
+        "startLine": 735,
+        "startChar": 16,
+        "endLine": 735,
+        "endChar": 39
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11df5923_837863f2",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Design updated.",
+      "parentUuid": "bbe97d0d_a64638ac",
+      "range": {
+        "startLine": 735,
+        "startChar": 43,
+        "endLine": 735,
+        "endChar": 77
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fe7a112_06a39c3a",
@@ -756,6 +1020,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82f4e8e2_5c2dd7cd",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "5fe7a112_06a39c3a",
+      "range": {
+        "startLine": 737,
+        "startChar": 46,
+        "endLine": 737,
+        "endChar": 71
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85b7f7d0_2e5acdca",
@@ -769,6 +1057,30 @@
       "writtenOn": "2023-06-06T00:39:49Z",
       "side": 1,
       "message": "This is also unlikely to work, as the clat src ip is not assigned to any interface, and is internal to clat.  I doubt getLinkAddresses() knows about it (and it shouldn\u0027t).\n\nYou need to use the 128-bit ipv6 address that was chosen when clat was started.\n\nSpecifically you need to use pfx96 + 32-bit ipv4 for the dst and v6 for the src from:\nhttp://cs/h/android/platform/superproject/+/master:packages/modules/Connectivity/service/src/com/android/server/connectivity/ClatCoordinator.java?l\u003d640",
+      "range": {
+        "startLine": 738,
+        "startChar": 16,
+        "endLine": 743,
+        "endChar": 17
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b6a091b_44a8a0bc",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "85b7f7d0_2e5acdca",
       "range": {
         "startLine": 738,
         "startChar": 16,
@@ -804,6 +1116,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf9d0cca_0aa2efcb",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Not really. NattKeepalivePacketData.nattKeepalivePacket() is not allowed v6 addresses. Taking a v6 address will cause an exception. We remove the constraint in NattKeepalivePacketData to allow taking a v6 address, but I think we should make the change specific to clat case. In v6 ony without clat or dual stack cases, we do not need to do the translation. (though I think a v4 keepalive request should not be started).\n\nI think this check make the behavior change smaller. \n\nDesign is also updated. See if it make sense to you.",
+      "parentUuid": "0bc21b48_e2de7d16",
+      "range": {
+        "startLine": 744,
+        "startChar": 23,
+        "endLine": 745,
+        "endChar": 60
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6933f90_56352e95",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 3
@@ -815,6 +1151,30 @@
       "writtenOn": "2023-06-08T08:58:36Z",
       "side": 1,
       "message": "This is both ill-worded (imperative voice doesn\u0027t make for a good error message) and not terribly accurate. Suggestion :\n\n    Keepalive info can only be made with v4 addresses, not srcAddress → dstAddress",
+      "range": {
+        "startLine": 746,
+        "startChar": 51,
+        "endLine": 747,
+        "endChar": 55
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f197f83d_c3fdfa65",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "a6933f90_56352e95",
       "range": {
         "startLine": 746,
         "startChar": 51,
@@ -838,6 +1198,30 @@
       "writtenOn": "2023-06-06T00:39:49Z",
       "side": 1,
       "message": "stuff like adding these Log.e could easily go in a precursor change",
+      "range": {
+        "startLine": 750,
+        "startChar": 12,
+        "endLine": 750,
+        "endChar": 15
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7d43350_5726b803",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Move to aosp/2624379",
+      "parentUuid": "48b31925_ef16ae80",
       "range": {
         "startLine": 750,
         "startChar": 12,
@@ -894,6 +1278,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8db4b03c_5e337d27",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Done in aosp/2624378",
+      "parentUuid": "627f1819_dac1c24a",
+      "range": {
+        "startLine": 901,
+        "startChar": 82,
+        "endLine": 901,
+        "endChar": 88
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcfcdede_9351d18a",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Done in aosp/2624378",
+      "parentUuid": "cd1e8523_280d3ba5",
+      "range": {
+        "startLine": 901,
+        "startChar": 14,
+        "endLine": 901,
+        "endChar": 17
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e76ce4d_132ac661",
@@ -917,6 +1349,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcad175a_b45a4744",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "Variable clatd had been public already. I can access it from production code without this change. This is indeed for testing purpose, so that I can mock it in the test using this method.",
+      "parentUuid": "7e76ce4d_132ac661",
+      "range": {
+        "startLine": 1038,
+        "startChar": 5,
+        "endLine": 1038,
+        "endChar": 22
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75ae5101_0e4690dd",
@@ -930,6 +1386,30 @@
       "writtenOn": "2023-06-08T08:58:36Z",
       "side": 1,
       "message": "Please do not have Nat464Xlat escape. This is managed by the network agent info, and it\u0027s considerably too dangerous to expose it. Exhibit A : my comment on the previous file that explains how your code won\u0027t work because clat starts and stops dynamically.\nExposing clat encourages this kind of code, and it\u0027s always wrong. Please do not expose clat.",
+      "range": {
+        "startLine": 1039,
+        "startChar": 22,
+        "endLine": 1039,
+        "endChar": 27
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "509e7e53_f8176693",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-14T14:42:44Z",
+      "side": 1,
+      "message": "As reply in another comment, clatd is public. This method is added for testing purpose. I did not do extra change on the clat actually..",
+      "parentUuid": "75ae5101_0e4690dd",
       "range": {
         "startLine": 1039,
         "startChar": 22,
