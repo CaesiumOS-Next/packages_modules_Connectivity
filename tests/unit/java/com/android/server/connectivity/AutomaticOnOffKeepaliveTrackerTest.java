@@ -128,6 +128,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @Mock AlarmManager mAlarmManager;
     @Mock NetworkAgentInfo mNai;
     @Mock SubscriptionManager mSubscriptionManager;
+    @Mock Nat464Xlat mClat;
     KeepaliveStatsTracker mKeepaliveStatsTracker;
     TestKeepaliveTracker mKeepaliveTracker;
     AOOTestHandler mTestHandler;
@@ -328,7 +329,11 @@ public class AutomaticOnOffKeepaliveTrackerTest {
                 NetworkInfo.DetailedState.CONNECTED, "test reason", "test extra info");
         doReturn(new Network(TEST_NETID)).when(mNai).network();
         mNai.linkProperties = new LinkProperties();
+        doReturn(mClat).when(mNai).getClat();
+        doReturn(null).when(mClat).translateV4toV6(any(), any());
+        doReturn(null).when(mClat).getClatSrcAddress();
         doReturn(false).when(mNai).isClatStarted();
+
         doReturn(PERMISSION_GRANTED).when(mCtx).checkPermission(any() /* permission */,
                 anyInt() /* pid */, anyInt() /* uid */);
         ConnectivityResources.setResourcesContextForTest(mCtx);
