@@ -22,6 +22,30 @@
       },
       "revId": "a03688399095f98b05d8eea381a3438ec57b3e17",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2afbac7f_47cd3b19",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-14T05:52:56Z",
+      "side": 1,
+      "message": "Feel free to ignore though ^^\u0027",
+      "parentUuid": "901f9a2c_1d31b134",
+      "range": {
+        "startLine": 353,
+        "startChar": 50,
+        "endLine": 353,
+        "endChar": 51
+      },
+      "revId": "a03688399095f98b05d8eea381a3438ec57b3e17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
