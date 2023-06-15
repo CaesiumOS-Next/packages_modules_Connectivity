@@ -46,6 +46,30 @@
       },
       "revId": "37bb90765f6d7979220ee1d821920931ae859ec1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5c364a2_a8fef680",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-06-15T21:37:11Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9132172a_30d3828a",
+      "range": {
+        "startLine": 352,
+        "startChar": 24,
+        "endLine": 352,
+        "endChar": 42
+      },
+      "revId": "37bb90765f6d7979220ee1d821920931ae859ec1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
