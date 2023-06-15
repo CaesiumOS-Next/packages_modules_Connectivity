@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d0620b8_3775fe1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-15T11:36:55Z",
+      "side": 1,
+      "message": "This is all getting way out of my comfort zone though.",
+      "revId": "3f85e7dc72d6be8dfd1a26dc6b66f24933a984bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e02e6e_dc77c143",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-15T11:36:55Z",
+      "side": 1,
+      "message": "my gut feeling is this should simply be getClatSrcAddress() without exposing the tracker\n\nthe sdk check must be here, but perhaps the is started check should be in clatdtracker or coordinator as well\n\n(perhaps the tracker is simply null then)",
+      "range": {
+        "startLine": 578,
+        "startChar": 32,
+        "endLine": 578,
+        "endChar": 52
+      },
+      "revId": "3f85e7dc72d6be8dfd1a26dc6b66f24933a984bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
