@@ -1,5 +1,109 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a88fccc4_8f6c317d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-15T06:51:42Z",
+      "side": 1,
+      "message": "Typo: SocketKey",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 38
+      },
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b90897c_fcde9435",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-15T06:51:42Z",
+      "side": 1,
+      "message": "This changes the behavior below: now if there is no socket left for this key, it will notify that all sockets were destroyed on the network; which may not be true if there are several sockets on the network (for tethered interfaces).\n\nThis should either check if any socket is active on the network, or notify that all sockets were destroyed for the SocketKey (but not the whole Network)",
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7ae147d_f5a44c43",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-15T06:51:42Z",
+      "side": 1,
+      "message": "This is no longer \"is any socket active on this network\", but now it is \"is this socket active\". So maybe rename to \"isSocketActive\" ?\n\n(unless you revert to previous behavior as noted above)",
+      "range": {
+        "startLine": 124,
+        "startChar": 22,
+        "endLine": 124,
+        "endChar": 25
+      },
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c6cc714_304c9a74",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-15T06:51:42Z",
+      "side": 1,
+      "message": "With the current implementation, the caller gets the SocketKey from the MdnsInterfaceSocket, then this method checks if there\u0027s any socket for that SocketKey.\n\nBut if there\u0027s a 1:1 mapping between sockets and keys, this check can just be simplified to isc.mActiveNetworkSockets.containsKey(socket) (slightly more efficient)",
+      "range": {
+        "startLine": 127,
+        "startChar": 42,
+        "endLine": 127,
+        "endChar": 55
+      },
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f06ab5d_a1b19e79",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-15T06:51:42Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary if the interface indexes are provided as test input",
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
