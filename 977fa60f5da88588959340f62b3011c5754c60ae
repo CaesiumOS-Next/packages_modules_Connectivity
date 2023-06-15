@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f400a57d_c8c5b53d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2963,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-15T01:57:25Z",
+      "side": 0,
+      "message": "This should in fact still be happening so maybe we should keep it for realism",
+      "range": {
+        "startLine": 2963,
+        "startChar": 13,
+        "endLine": 2963,
+        "endChar": 23
+      },
+      "revId": "977fa60f5da88588959340f62b3011c5754c60ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
