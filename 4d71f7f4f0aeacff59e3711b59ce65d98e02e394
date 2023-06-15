@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f212597_7bc3a805",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5213,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-15T02:12:36Z",
+      "side": 1,
+      "message": "This should probably be documented in a more systematic way.\n\nIterators usually let you remove an element from the collection while iterating but only from the iterator `remove` method (which is why you never do it ; it requires dropping the for loop syntactic sugar).\n\nThis has the following characteristic : you can remove from the arrayset in any way you want the currently iterating NAI or any with a higher index. Conversely if you remove any prior, you\u0027ll handle the same twice.\n\nOne thing that you might want to do for safety is to have a local keeping the last NAI processed and throw ConcurrentModificationException if you find it twice in a row.",
+      "range": {
+        "startLine": 5212,
+        "startChar": 0,
+        "endLine": 5213,
+        "endChar": 34
+      },
+      "revId": "4d71f7f4f0aeacff59e3711b59ce65d98e02e394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f3c51d9_a595b74c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5220,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-15T02:12:36Z",
+      "side": 1,
+      "message": "Because this takes a predicate I would just call it \"anyNetworkAgentInfo\". Kotlin, Python, Groovy, Rust call this `any`, Ruby calls this `any?`. Only Scala calls this `exists`.\n\n`forAll` is good because it does a for loop ; most of these languages call `all` the function that takes a predicate and returns a bool if all elements satisfy it.",
+      "range": {
+        "startLine": 5220,
+        "startChar": 20,
+        "endLine": 5220,
+        "endChar": 26
+      },
+      "revId": "4d71f7f4f0aeacff59e3711b59ce65d98e02e394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40665e87_eb46eb12",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 9459,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-15T02:12:36Z",
+      "side": 1,
+      "message": "Optional nit : you can simplify this to\n\n    forAllNetworkAgentInfos(nai -\u003e nais.add(nai));\n\n(because add returns a boolean, which is then discarded)",
+      "range": {
+        "startLine": 9459,
+        "startChar": 32,
+        "endLine": 9459,
+        "endChar": 37
+      },
+      "revId": "4d71f7f4f0aeacff59e3711b59ce65d98e02e394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
