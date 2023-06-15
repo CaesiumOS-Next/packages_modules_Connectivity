@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0a8def39_048ebb12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-15T03:48:58Z",
+      "side": 1,
+      "message": "Will address comments in a follow-up.",
+      "revId": "4bc9fa6b8cefca88f1065e95df06532979c202ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0bd38756_a5098552",
         "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
         "patchSetId": 3
