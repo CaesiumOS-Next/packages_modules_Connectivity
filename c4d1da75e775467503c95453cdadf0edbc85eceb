@@ -122,6 +122,24 @@
       "parentUuid": "eda6076a_66ea0548",
       "revId": "c4d1da75e775467503c95453cdadf0edbc85eceb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1908186c_dca758f5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 87
+      },
+      "lineNbr": 3005,
+      "author": {
+        "id": 1965080
+      },
+      "writtenOn": "2023-06-15T03:05:47Z",
+      "side": 1,
+      "message": "On second thought I realize the window for this to happen is about the same as before so I think we\u0027re ok with the patch as-is. That said, the rest of this patch also looks pretty good to me!",
+      "parentUuid": "e74a9650_5f57ae9e",
+      "revId": "c4d1da75e775467503c95453cdadf0edbc85eceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
