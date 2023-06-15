@@ -74,6 +74,30 @@
       },
       "revId": "00069cc48f3912bd49df432cd28f6b9705600dee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccae6d1a_e82b3ff2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-15T06:46:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a36d67d_0ad3935b",
+      "range": {
+        "startLine": 231,
+        "startChar": 39,
+        "endLine": 231,
+        "endChar": 58
+      },
+      "revId": "00069cc48f3912bd49df432cd28f6b9705600dee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
