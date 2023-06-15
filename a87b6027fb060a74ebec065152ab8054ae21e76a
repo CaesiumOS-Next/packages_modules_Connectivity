@@ -22,6 +22,30 @@
       },
       "revId": "a87b6027fb060a74ebec065152ab8054ae21e76a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54647bf1_f40e2af0",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-15T08:34:06Z",
+      "side": 0,
+      "message": "eh, I\u0027d argue it still serves as documentation of intent... but yeah, doesn\u0027t really matter",
+      "parentUuid": "ca0176e4_c8550dad",
+      "range": {
+        "startLine": 324,
+        "startChar": 39,
+        "endLine": 324,
+        "endChar": 53
+      },
+      "revId": "a87b6027fb060a74ebec065152ab8054ae21e76a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
