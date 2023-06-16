@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0c6d0ef_52e444fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-16T09:21:51Z",
+      "side": 1,
+      "message": "Got it. Will be fixed in the next change.",
+      "parentUuid": "d75ded2c_1b62b4c6",
+      "range": {
+        "startLine": 10,
+        "startChar": 13,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "7ada64f65ccb4f8f610a2415ec6c50ca307a6af4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12ee47cc_6d1f9147",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-25T08:11:21Z",
       "side": 1,
       "message": "(This should be removed, yes?)",
+      "range": {
+        "startLine": 3055,
+        "startChar": 37,
+        "endLine": 3055,
+        "endChar": 64
+      },
+      "revId": "7ada64f65ccb4f8f610a2415ec6c50ca307a6af4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a133be1_5245b2e3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3055,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-16T09:21:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12ee47cc_6d1f9147",
       "range": {
         "startLine": 3055,
         "startChar": 37,
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-25T08:11:21Z",
       "side": 1,
       "message": "Does it make sense to check that tethering does not bring down the tethered interface, and that both tethering and lohs are still active?",
+      "range": {
+        "startLine": 3089,
+        "startChar": 4,
+        "endLine": 3089,
+        "endChar": 5
+      },
+      "revId": "7ada64f65ccb4f8f610a2415ec6c50ca307a6af4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d96fed13_89ffd27e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3089,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-16T09:21:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbf2edd2_80ee9571",
       "range": {
         "startLine": 3089,
         "startChar": 4,
