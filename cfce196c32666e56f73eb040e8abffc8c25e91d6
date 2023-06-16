@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "631b78e2_c347f320",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-16T10:11:58Z",
+      "side": 1,
+      "message": "Feel free to ignore the nit or put it in some other change",
+      "revId": "cfce196c32666e56f73eb040e8abffc8c25e91d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b65d954d_d8eec1da",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocket.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-16T10:11:58Z",
+      "side": 1,
+      "message": "isOnIpV6OnlyNetwork may be different from what it was in joinGroup, in which case the group may never be left.\n\nGenerally the code is also buggy because joined groups aren\u0027t updated after the socket is created, regardless of address changes.\n\nBut this is unused in AOSP, a legacy class that is getting replaced, and this change just puts it in line with downstream usage, so...",
+      "revId": "cfce196c32666e56f73eb040e8abffc8c25e91d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff7356ac_b57629fa",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-16T10:11:58Z",
+      "side": 1,
+      "message": "Nit: a comment to explain why this is still 1 would have been useful to explain what this is really testing (v6 packet + dual stack + feature true -\u003e not sent)",
+      "range": {
+        "startLine": 167,
+        "startChar": 33,
+        "endLine": 167,
+        "endChar": 41
+      },
+      "revId": "cfce196c32666e56f73eb040e8abffc8c25e91d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
