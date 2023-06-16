@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -73,7 +74,7 @@ public class MdnsServiceTypeClient {
     private final Map<String, MdnsResponse> instanceNameToResponse = new HashMap<>();
     private final boolean removeServiceAfterTtlExpires =
             MdnsConfigs.removeServiceAfterTtlExpires();
-    private final MdnsResponseDecoder.Clock clock;
+    private final Clock clock;
 
     @Nullable private MdnsSearchOptions searchOptions;
 
@@ -106,8 +107,7 @@ public class MdnsServiceTypeClient {
             @NonNull SocketKey socketKey,
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper) {
-        this(serviceType, socketClient, executor, new MdnsResponseDecoder.Clock(), socketKey,
-                sharedLog, looper);
+        this(serviceType, socketClient, executor, new Clock(), socketKey, sharedLog, looper);
     }
 
     @VisibleForTesting
@@ -115,7 +115,7 @@ public class MdnsServiceTypeClient {
             @NonNull String serviceType,
             @NonNull MdnsSocketClientBase socketClient,
             @NonNull ScheduledExecutorService executor,
-            @NonNull MdnsResponseDecoder.Clock clock,
+            @NonNull Clock clock,
             @NonNull SocketKey socketKey,
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper) {
