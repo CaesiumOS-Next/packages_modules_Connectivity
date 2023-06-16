@@ -128,6 +128,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @Mock AlarmManager mAlarmManager;
     @Mock NetworkAgentInfo mNai;
     @Mock SubscriptionManager mSubscriptionManager;
+    @Mock Nat464Xlat mClat;
     KeepaliveStatsTracker mKeepaliveStatsTracker;
     TestKeepaliveTracker mKeepaliveTracker;
     AOOTestHandler mTestHandler;
@@ -328,7 +329,11 @@ public class AutomaticOnOffKeepaliveTrackerTest {
                 NetworkInfo.DetailedState.CONNECTED, "test reason", "test extra info");
         doReturn(new Network(TEST_NETID)).when(mNai).network();
         mNai.linkProperties = new LinkProperties();
+        doReturn(mClat).when(mNai).getClat();
+        doReturn(null).when(mClat).translateV4toV6(any());
+        doReturn(null).when(mClat).getClatSrcAddress();
         doReturn(false).when(mNai).isClatStarted();
+
         doReturn(PERMISSION_GRANTED).when(mCtx).checkPermission(any() /* permission */,
                 anyInt() /* pid */, anyInt() /* uid */);
         ConnectivityResources.setResourcesContextForTest(mCtx);
@@ -660,6 +665,29 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         verifyNoMoreInteractions(ignoreStubs(testInfo.socketKeepaliveCallback));
     }
 
+    @Test
+    public void testStartNattKeepalive_addressTranslationOnClat() throws Exception {
+        final InetAddress v6AddrSrc = InetAddresses.parseNumericAddress("2001:db8::1");
+        final InetAddress v6AddrDst = InetAddresses.parseNumericAddress("2001:db8::2");
+        doReturn(v6AddrDst).when(mClat).translateV4toV6(any());
+        doReturn(v6AddrSrc).when(mClat).getClatSrcAddress();
+        doReturn(true).when(mNai).isClatStarted();
+
+        // Successful start of NATT keepalive.
+        final TestKeepaliveInfo testInfo = doStartNattKeepalive();
+
+        final ArgumentCaptor<NattKeepalivePacketData> kpdCaptor =
+                ArgumentCaptor.forClass(NattKeepalivePacketData.class);
+        verify(mNai).onStartNattSocketKeepalive(
+                eq(TEST_SLOT), eq(TEST_KEEPALIVE_INTERVAL_SEC), kpdCaptor.capture());
+        final NattKeepalivePacketData kpd = kpdCaptor.getValue();
+        // Verify the addresses are updated to v6 when clat is started.
+        assertEquals(v6AddrSrc, kpd.getSrcAddress());
+        assertEquals(v6AddrDst, kpd.getDstAddress());
+
+        triggerEventKeepalive(TEST_SLOT, SocketKeepalive.SUCCESS);
+        verify(testInfo.socketKeepaliveCallback).onStarted();
+    }
     @Test
     public void testHandleEventSocketKeepalive_startingFailureHardwareError() throws Exception {
         final TestKeepaliveInfo testInfo = doStartNattKeepalive();
