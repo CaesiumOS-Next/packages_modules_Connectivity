@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55c1afdc_7d985fff",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-16T07:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93c9523a_6ef84e4d",
+      "range": {
+        "startLine": 59,
+        "startChar": 37,
+        "endLine": 59,
+        "endChar": 50
+      },
+      "revId": "975bf968f22b01f74c8c618a3816ea87290c716a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6b8d567_d34398fe",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-16T06:28:23Z",
       "side": 1,
       "message": "Should this print mSubTypes as well?",
+      "range": {
+        "startLine": 206,
+        "startChar": 28,
+        "endLine": 206,
+        "endChar": 29
+      },
+      "revId": "975bf968f22b01f74c8c618a3816ea87290c716a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f5954a7_03416e69",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-16T07:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6b8d567_d34398fe",
       "range": {
         "startLine": 206,
         "startChar": 28,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efcfb299_8fd41da5",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-16T07:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c247ee3_bcec6033",
+      "range": {
+        "startLine": 220,
+        "startChar": 36,
+        "endLine": 220,
+        "endChar": 37
+      },
+      "revId": "975bf968f22b01f74c8c618a3816ea87290c716a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74f0130d_5efa0ac0",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8955880_802f941b",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-16T07:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74f0130d_5efa0ac0",
+      "range": {
+        "startLine": 226,
+        "startChar": 28,
+        "endLine": 226,
+        "endChar": 30
+      },
+      "revId": "975bf968f22b01f74c8c618a3816ea87290c716a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35cd6d3e_caeebb0a",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-06-16T06:28:23Z",
       "side": 1,
       "message": "Looks like this is only needed for the unregister. But in that case, can you just make the unregister maessage take the IOffloadEngine directly, instead of constructing an OffloadEngineInfo that contains no other information?",
+      "range": {
+        "startLine": 234,
+        "startChar": 8,
+        "endLine": 234,
+        "endChar": 25
+      },
+      "revId": "975bf968f22b01f74c8c618a3816ea87290c716a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27ddafea_0c0eeb7a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-16T07:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35cd6d3e_caeebb0a",
       "range": {
         "startLine": 234,
         "startChar": 8,
