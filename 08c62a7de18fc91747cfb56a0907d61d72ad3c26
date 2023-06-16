@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974a9477_2823be56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:29:38Z",
+      "side": 1,
+      "message": "I don\u0027t understand this. If a v6 keepalive is started when clat is started, then clat is stopped, the v6 keepalive should be unaffected ? Unless it was started on the v6 clat address, but that\u0027s\n• not supposed to happen, since apps should not know about that address\n• be handled as a matter of course by the address disappearing",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 22
+      },
+      "revId": "08c62a7de18fc91747cfb56a0907d61d72ad3c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abe96701_3e7db5c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:29:38Z",
+      "side": 1,
+      "message": "I also don\u0027t understand this. v4 keepalive started when clat is off, then the interface has a v4 interface. clat can\u0027t start until that address goes away, and therefore the keepalive must be stopped before clat starts anyway.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 13
+      },
+      "revId": "08c62a7de18fc91747cfb56a0907d61d72ad3c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3677563d_fd2ee479",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:29:38Z",
+      "side": 1,
+      "message": "I don\u0027t understand this either. Isn\u0027t the point of this line of work to make it possible to start keepalive on the clat v4 address ?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 52
+      },
+      "revId": "08c62a7de18fc91747cfb56a0907d61d72ad3c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20e34809_40c612d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:29:38Z",
+      "side": 1,
+      "message": "I don\u0027t understand this either. If clat is not started, what does this have to do with v6 keepalives ?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 38
+      },
+      "revId": "08c62a7de18fc91747cfb56a0907d61d72ad3c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a72f938c_7d9d7728",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:29:38Z",
+      "side": 1,
+      "message": "I don\u0027t understand this English – what do you mean ?",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 31
+      },
+      "revId": "08c62a7de18fc91747cfb56a0907d61d72ad3c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fa62bfb_96b14de7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:29:38Z",
+      "side": 1,
+      "message": "I think this is mistaken and harmful. Either we support only v4 keepalives (translating when clat is running), and this is completely wrong. Or we support v4 and v6 keepalives regardless of when clat is running, and this is completely wrong.",
+      "revId": "08c62a7de18fc91747cfb56a0907d61d72ad3c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cc55cfc_5372b4a5",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:29:38Z",
+      "side": 1,
+      "message": "I thought we covered this in comments before : the instantaneous state of clat is supposed to be irrelevant to keepalive beyond the IP addresses it generates. Exposing `isClatStarted` is less harmful than exposing the full `clat`, but it is still\n• harmful\n• incorrect for your design",
+      "range": {
+        "startLine": 297,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 63
+      },
+      "revId": "08c62a7de18fc91747cfb56a0907d61d72ad3c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e50da6e2_5809fca4",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:29:38Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to make sense. You should be able to start keepalive on v4 or on v6 regardless of whether clat is running.\nIf we don\u0027t support v6 keepalives out of the clat case yet, then we just don\u0027t support v6 keepalives at all since the translation is automatic – from the app point of view it\u0027s always v4.",
+      "range": {
+        "startLine": 300,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 43
+      },
+      "revId": "08c62a7de18fc91747cfb56a0907d61d72ad3c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c0a5cc8_7e4ed5cf",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:29:38Z",
+      "side": 1,
+      "message": "Please do not have clat properties escape. This violates encapsulation, and is not necessary for your patch as explained in comments on the previous file.",
+      "range": {
+        "startLine": 1035,
+        "startChar": 0,
+        "endLine": 1040,
+        "endChar": 5
+      },
+      "revId": "08c62a7de18fc91747cfb56a0907d61d72ad3c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
