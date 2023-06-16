@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e31ecfa_b2fc7439",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-16T03:05:20Z",
+      "side": 1,
+      "message": "maybe split into two cases:\n1. addUserRestriction during tethering is started\n2. try to start tethering after addUserRestriction",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 37
+      },
+      "revId": "f1d304e4bb1ab058205c8bf8f6c2316ef1e7a49b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
