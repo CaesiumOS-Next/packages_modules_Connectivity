@@ -41,6 +41,7 @@ import androidx.annotation.RequiresApi;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.InterfaceParams;
@@ -913,6 +914,17 @@ public class ClatCoordinator {
         return mClatdTracker;
     }
 
+    /**
+     * Get the generated v6 address of clat.
+     */
+    @Nullable
+    public InetAddress getClatSrcAddress() {
+        // ClatCoordinator is available on T+ device.
+        if (!SdkLevel.isAtLeastT()) return null;
+        if (mClatdTracker == null) return null;
+        final InetAddress addr = mClatdTracker.v6;
+        return addr;
+    }
     private static native String native_selectIpv4Address(String v4addr, int prefixlen)
             throws IOException;
     private static native String native_generateIpv6Address(String iface, String v4,
