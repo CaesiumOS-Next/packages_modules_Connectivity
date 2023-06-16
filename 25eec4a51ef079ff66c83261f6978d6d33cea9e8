@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6602ebda_a997693a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T07:24:34Z",
+      "side": 1,
+      "message": "LGTM assuming comments are addressed",
+      "revId": "25eec4a51ef079ff66c83261f6978d6d33cea9e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4765c4bb_871e71d0",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T07:24:34Z",
+      "side": 1,
+      "message": "Then this depends on the package list being identical, which is not ideal. Do you think you could use InOrder, or possibly clearInvocations, to make these independent ?",
+      "range": {
+        "startLine": 971,
+        "startChar": 15,
+        "endLine": 971,
+        "endChar": 25
+      },
+      "revId": "25eec4a51ef079ff66c83261f6978d6d33cea9e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b88296be_9e9e671e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1683,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T07:24:34Z",
+      "side": 1,
+      "message": "maybe call this retryCb or something",
+      "range": {
+        "startLine": 1683,
+        "startChar": 31,
+        "endLine": 1683,
+        "endChar": 37
+      },
+      "revId": "25eec4a51ef079ff66c83261f6978d6d33cea9e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6e41939_d8087ea6",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T07:24:34Z",
+      "side": 1,
+      "message": "Nit : checking that the size is the same should be sufficient",
+      "range": {
+        "startLine": 1702,
+        "startChar": 35,
+        "endLine": 1702,
+        "endChar": 82
+      },
+      "revId": "25eec4a51ef079ff66c83261f6978d6d33cea9e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
