@@ -44,6 +44,7 @@ import com.android.net.module.util.NetworkStackConstants;
 import com.android.server.ConnectivityService;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.util.Objects;
 
@@ -538,6 +539,39 @@ public class Nat464Xlat {
 
     public void interfaceRemoved(String iface) {
         mNetwork.handler().post(() -> handleInterfaceRemoved(iface));
+    }
+
+    /**
+     * Get the generated v6 address of clat.
+     */
+    @Nullable
+    public Inet6Address getClatv6SrcAddress() {
+        // Variables in Nat464Xlat should only be accessed from handler thread.
+        ensureRunningOnHandlerThread();
+        if (!isStarted()) return null;
+
+        final Inet6Address v6Addr = mIPv6Address;
+        return v6Addr;
+    }
+
+    /**
+     * Get the generated v4 address of clat.
+     */
+    @Nullable
+    public Inet4Address getClatv4SrcAddress() {
+        // Variables in Nat464Xlat should only be accessed from handler thread.
+        ensureRunningOnHandlerThread();
+        final LinkAddress v4Addr = getLinkAddress(mIface);
+        if (v4Addr == null) return null;
+
+        return ((Inet4Address) v4Addr.getAddress());
+    }
+
+    private void ensureRunningOnHandlerThread() {
+        if (mNetwork.handler().getLooper().getThread() != Thread.currentThread()) {
+            throw new IllegalStateException(
+                    "Not running on handler thread: " + Thread.currentThread().getName());
+        }
     }
 
     /**
