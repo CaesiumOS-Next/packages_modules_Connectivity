@@ -1039,6 +1039,10 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
         return clatd.isStarted();
     }
 
+    public Nat464Xlat getClat() {
+        return clatd;
+    }
+
     /**
      * Get the NetworkMonitorManager in this NetworkAgentInfo.
      *
