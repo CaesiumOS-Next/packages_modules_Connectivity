@@ -34,6 +34,23 @@
       "parentUuid": "439206e9_53236208",
       "revId": "3fa9dceabcb50e330cbdf8917b173ad3e5677211",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87a51453_28aeb6fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-16T08:32:45Z",
+      "side": 1,
+      "message": "(Lorenzo took a glance on my monitor and said it\u0027s okay)",
+      "revId": "3fa9dceabcb50e330cbdf8917b173ad3e5677211",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
