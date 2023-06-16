@@ -22,6 +22,53 @@
       },
       "revId": "c15148851d93c3ff758f0b77a42d4ce7e80398d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe9823e8_70096532",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-16T09:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a781e71_d89bc55f",
+      "range": {
+        "startLine": 187,
+        "startChar": 12,
+        "endLine": 188,
+        "endChar": 42
+      },
+      "revId": "c15148851d93c3ff758f0b77a42d4ce7e80398d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f7be4e9_a006982f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-16T09:24:37Z",
+      "side": 1,
+      "message": "This should not be called when the keepalive is paused and the KeepaliveInfo is only sitting on the slot. This was caught by the testStopAllKeepalives test.",
+      "range": {
+        "startLine": 525,
+        "startChar": 19,
+        "endLine": 525,
+        "endChar": 23
+      },
+      "revId": "c15148851d93c3ff758f0b77a42d4ce7e80398d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
