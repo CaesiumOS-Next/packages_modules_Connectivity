@@ -16,6 +16,24 @@
       "message": "Let\u0027s be clear: I don\u0027t know what I\u0027m talking about once we get this high up the stack...\n\nbut...\n\nI wonder if the right thing wouldn\u0027t be for the ClatCoordinator class (or Nat464Xlat class) to have a function \u0027translateV4toV6(Pair\u003csrc4,dst4\u003e) returning Pair\u003csrc6,dst6\u003e\u0027 (or an error if the conversion cannot be done, for example because clat is off) [and presumably the reverse V6toV4 too]\n\nIt seems like that\u0027s where the translation logically belongs?\n\nBut I may be wrong...",
       "revId": "0a84578c6199691da12c2601a8c7e7db0cf93359",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b34d2d53_57422ccf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-16T05:12:24Z",
+      "side": 1,
+      "message": "I upload the remaining commits for this. See if it\u0027s clearer to you.\n\nThis patch is specifically to handle clat state change case to turn off the existing",
+      "parentUuid": "cc6568b0_ada1b4d5",
+      "revId": "0a84578c6199691da12c2601a8c7e7db0cf93359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
