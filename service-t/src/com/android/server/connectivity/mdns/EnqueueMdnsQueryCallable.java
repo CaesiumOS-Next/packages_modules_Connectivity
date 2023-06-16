@@ -77,7 +77,7 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
     @NonNull
     private final List<MdnsResponse> servicesToResolve;
     @NonNull
-    private final MdnsResponseDecoder.Clock clock;
+    private final MdnsUtils.Clock clock;
 
     EnqueueMdnsQueryCallable(
             @NonNull MdnsSocketClientBase requestSender,
@@ -89,7 +89,7 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
             @Nullable Network network,
             boolean sendDiscoveryQueries,
             @NonNull Collection<MdnsResponse> servicesToResolve,
-            @NonNull MdnsResponseDecoder.Clock clock) {
+            @NonNull MdnsUtils.Clock clock) {
         weakRequestSender = new WeakReference<>(requestSender);
         this.packetWriter = packetWriter;
         serviceTypeLabels = TextUtils.split(serviceType, "\\.");
