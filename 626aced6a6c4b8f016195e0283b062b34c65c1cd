@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27831c67_a0591944",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:59:53Z",
+      "side": 1,
+      "message": "This should still not escape, please have a method that returns the address only",
+      "range": {
+        "startLine": 297,
+        "startChar": 52,
+        "endLine": 297,
+        "endChar": 61
+      },
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ed6ed23_ec95eb0b",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:59:53Z",
+      "side": 1,
+      "message": "This is always an Inet6Address, so you should use that type statically",
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c03d731_4d30df3e",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:59:53Z",
+      "side": 1,
+      "message": "You should only try to do this if the packet src address is clat\u0027s src address",
+      "range": {
+        "startLine": 549,
+        "startChar": 12,
+        "endLine": 549,
+        "endChar": 88
+      },
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4445d21f_fb6cce7c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:59:53Z",
+      "side": 1,
+      "message": "This seems like the wrong message. You\u0027d want something like `src is CLAT v4 address`.",
+      "range": {
+        "startLine": 556,
+        "startChar": 24,
+        "endLine": 556,
+        "endChar": 40
+      },
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b250e29_c5fa5603",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:59:53Z",
+      "side": 1,
+      "message": "Having tests start with `test` is the old convention. Now we annotate with `@Test` which is nicer, but it\u0027s still not a very good idea to only follow conventions halfways. You can see that this file has all @Test methods start with `test` and all other methods not start with `test`.\n\nUsually when we have a central method testing stuff and many callers that set things up, we just name the tester method `doTestXXX`.",
+      "range": {
+        "startLine": 638,
+        "startChar": 17,
+        "endLine": 638,
+        "endChar": 21
+      },
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0399b83c_1283372d",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:59:53Z",
+      "side": 1,
+      "message": "...why ?!\n\nIt\u0027s removing the old v4 address that should stop the keepalive. If for some bizarre reason clat starts when there is already a v4 address, why would you ever want to stop the keepalive on that old address ?",
+      "range": {
+        "startLine": 658,
+        "startChar": 0,
+        "endLine": 658,
+        "endChar": 88
+      },
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

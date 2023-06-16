@@ -196,6 +196,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33c6eaab_7ca4023e",
+        "filename": "framework/src/android/net/NattKeepalivePacketData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:59:53Z",
+      "side": 1,
+      "message": "Not done ? aosp/2616796 is merged but this hasn\u0027t changed – there is still only one constructor and it\u0027s still checked dynamically.",
+      "parentUuid": "17623dff_48cf6297",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 85
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef849e5b_dc8ab48c",
         "filename": "framework/src/android/net/NattKeepalivePacketData.java",
         "patchSetId": 3
@@ -1140,6 +1164,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f0bbe5a_36cba107",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:59:53Z",
+      "side": 1,
+      "message": "Ideally we should support v6 keepalive. In fact it looks like this line of work makes it trivial to support v6 keepalive in the future. But I\u0027m fine if we only support it for CLAT for now.",
+      "parentUuid": "bf9d0cca_0aa2efcb",
+      "range": {
+        "startLine": 744,
+        "startChar": 23,
+        "endLine": 745,
+        "endChar": 60
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6933f90_56352e95",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 3
@@ -1410,6 +1458,30 @@
       "side": 1,
       "message": "As reply in another comment, clatd is public. This method is added for testing purpose. I did not do extra change on the clat actually..",
       "parentUuid": "75ae5101_0e4690dd",
+      "range": {
+        "startLine": 1039,
+        "startChar": 22,
+        "endLine": 1039,
+        "endChar": 27
+      },
+      "revId": "388f2cd3bca411b98e14ab5241d4fb1016b4cdfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "167acad3_2016014e",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-16T05:59:53Z",
+      "side": 1,
+      "message": "Clat is only public for ConnectivityService. In fact it should be `internal` visibility and not visible to Keepalive. If you\u0027ve looked at my comments on your previous patches you should have a good handle of how and why that is.\n\nThe only things that should be available to keepalive are :\n• is this v4 the clat address (possibly by exposing the address itself)\n• translate this v4 packet to a v6 packet using the clat address",
+      "parentUuid": "509e7e53_f8176693",
       "range": {
         "startLine": 1039,
         "startChar": 22,
