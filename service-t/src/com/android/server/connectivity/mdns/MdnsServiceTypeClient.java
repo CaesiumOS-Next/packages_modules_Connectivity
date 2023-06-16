@@ -66,7 +66,7 @@ public class MdnsServiceTypeClient {
     private final Map<String, MdnsResponse> instanceNameToResponse = new HashMap<>();
     private final boolean removeServiceAfterTtlExpires =
             MdnsConfigs.removeServiceAfterTtlExpires();
-    private final MdnsResponseDecoder.Clock clock;
+    private final MdnsUtils.Clock clock;
 
     @Nullable private MdnsSearchOptions searchOptions;
 
@@ -91,7 +91,7 @@ public class MdnsServiceTypeClient {
             @NonNull ScheduledExecutorService executor,
             @NonNull SocketKey socketKey,
             @NonNull SharedLog sharedLog) {
-        this(serviceType, socketClient, executor, new MdnsResponseDecoder.Clock(), socketKey,
+        this(serviceType, socketClient, executor, new MdnsUtils.Clock(), socketKey,
                 sharedLog);
     }
 
@@ -100,7 +100,7 @@ public class MdnsServiceTypeClient {
             @NonNull String serviceType,
             @NonNull MdnsSocketClientBase socketClient,
             @NonNull ScheduledExecutorService executor,
-            @NonNull MdnsResponseDecoder.Clock clock,
+            @NonNull MdnsUtils.Clock clock,
             @NonNull SocketKey socketKey,
             @NonNull SharedLog sharedLog) {
         this.serviceType = serviceType;
