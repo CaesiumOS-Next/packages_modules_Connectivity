@@ -1703,7 +1703,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mUserAllContext.registerReceiver(mPackageIntentReceiver, packageIntentFilter,
                 null /* broadcastPermission */, mHandler);
 
-        mNetworkActivityTracker = new LegacyNetworkActivityTracker(mContext, mHandler, mNetd);
+        mNetworkActivityTracker =
+                new LegacyNetworkActivityTracker(mContext, mHandler, mNetd, mDeps.isAtLeastU());
 
         final NetdCallback netdCallback = new NetdCallback();
         try {
@@ -11061,8 +11062,24 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private class NetdCallback extends BaseNetdUnsolicitedEventListener {
         @Override
-        public void onInterfaceClassActivityChanged(boolean isActive, int transportType,
+        public void onInterfaceClassActivityChanged(boolean isActive, int label,
                 long timestampNs, int uid) {
+            // T- devices use transport type as the idle timer label and U+ devices use netid as the
+            // idle timer label.
+            final int transportType;
+            if (mDeps.isAtLeastU()) {
+                final NetworkAgentInfo nai = getNetworkAgentInfoForNetId(label);
+                if (nai.networkCapabilities.hasTransport(TRANSPORT_CELLULAR)) {
+                    transportType = TRANSPORT_CELLULAR;
+                } else if (nai.networkCapabilities.hasTransport(TRANSPORT_WIFI)) {
+                    transportType = TRANSPORT_WIFI;
+                } else {
+                    Log.e(TAG, "idle");
+                    return;
+                }
+            } else {
+                transportType = label;
+            }
             mNetworkActivityTracker.setAndReportNetworkActive(isActive, transportType, timestampNs);
         }
 
@@ -11099,6 +11116,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         @GuardedBy("mActiveIdleTimers")
         private final ArrayMap<String, IdleTimerParams> mActiveIdleTimers = new ArrayMap<>();
         private final Handler mHandler;
+        private final boolean mIsAtLeastU;
 
         private static class IdleTimerParams {
             public final int timeout;
@@ -11111,14 +11129,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         LegacyNetworkActivityTracker(@NonNull Context context, @NonNull Handler handler,
-                @NonNull INetd netd) {
+                @NonNull INetd netd, boolean isAtLeastU) {
             mContext = context;
             mNetd = netd;
             mHandler = handler;
+            mIsAtLeastU = isAtLeastU;
         }
 
         public void setAndReportNetworkActive(boolean active, int transportType, long tsNanos) {
             sendDataActivityBroadcast(transportTypeToLegacyType(transportType), active, tsNanos);
+            if (mIsAtLeastU) {
+                updateRadioPowerState(active, transportType, NO_UID);
+            }
             synchronized (mActiveIdleTimers) {
                 mNetworkActive = active;
                 // If there are no idle timers, it means that system is not monitoring
@@ -11197,6 +11219,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
+        private String getIdleTimerLabel(final int netId, final int transportType) {
+            return Integer.toString(mIsAtLeastU ? netId : transportType);
+        }
+
         /**
          * Setup data activity tracking for the given network.
          *
@@ -11225,7 +11251,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 return; // do not track any other networks
             }
 
-            updateRadioPowerState(true /* isActive */, type);
+            updateRadioPowerState(true /* isActive */, type, NO_UID);
 
             if (timeout > 0 && iface != null) {
                 try {
@@ -11233,7 +11259,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         // Networks start up.
                         mNetworkActive = true;
                         mActiveIdleTimers.put(iface, new IdleTimerParams(timeout, type));
-                        mNetd.idletimerAddInterface(iface, timeout, Integer.toString(type));
+                        mNetd.idletimerAddInterface(iface, timeout,
+                                getIdleTimerLabel(networkAgent.network().netId, type));
                         reportNetworkActive();
                     }
                 } catch (Exception e) {
@@ -11262,12 +11289,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
 
             try {
-                updateRadioPowerState(false /* isActive */, type);
+                updateRadioPowerState(false /* isActive */, type, NO_UID);
                 synchronized (mActiveIdleTimers) {
                     final IdleTimerParams params = mActiveIdleTimers.remove(iface);
                     // The call fails silently if no idle timer setup for this interface
                     mNetd.idletimerRemoveInterface(iface, params.timeout,
-                            Integer.toString(params.transportType));
+                            getIdleTimerLabel(networkAgent.network().netId, params.transportType));
                 }
             } catch (Exception e) {
                 // You shall not crash!
@@ -11288,14 +11315,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        private void updateRadioPowerState(boolean isActive, int transportType) {
+        private void updateRadioPowerState(boolean isActive, int transportType, int uid) {
             final BatteryStatsManager bs = mContext.getSystemService(BatteryStatsManager.class);
             switch (transportType) {
                 case NetworkCapabilities.TRANSPORT_CELLULAR:
-                    bs.reportMobileRadioPowerState(isActive, NO_UID);
+                    bs.reportMobileRadioPowerState(isActive, uid);
                     break;
                 case NetworkCapabilities.TRANSPORT_WIFI:
-                    bs.reportWifiRadioPowerState(isActive, NO_UID);
+                    bs.reportWifiRadioPowerState(isActive, uid);
                     break;
                 default:
                     logw("Untracked transport type:" + transportType);
