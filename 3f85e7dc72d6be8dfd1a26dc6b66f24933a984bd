@@ -39,6 +39,30 @@
       },
       "revId": "3f85e7dc72d6be8dfd1a26dc6b66f24933a984bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3bdabd9_6f0b951f",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-16T05:14:33Z",
+      "side": 1,
+      "message": "Update to getClatSrcAddress()",
+      "parentUuid": "74e02e6e_dc77c143",
+      "range": {
+        "startLine": 578,
+        "startChar": 32,
+        "endLine": 578,
+        "endChar": 52
+      },
+      "revId": "3f85e7dc72d6be8dfd1a26dc6b66f24933a984bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
