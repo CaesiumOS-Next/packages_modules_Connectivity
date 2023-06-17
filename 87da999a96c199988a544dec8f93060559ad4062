@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb3f22bc_566e71fa",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-17T03:23:14Z",
+      "side": 1,
+      "message": "Nat464Xlat should only be accessed in the handler thread. This will be accessed from CS handler thread. We should not have such issue here.",
+      "parentUuid": "eaeef395_d5185f50",
+      "range": {
+        "startLine": 554,
+        "startChar": 33,
+        "endLine": 554,
+        "endChar": 50
+      },
+      "revId": "87da999a96c199988a544dec8f93060559ad4062",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95c8ba18_2163dada",
         "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-16T05:39:34Z",
       "side": 1,
       "message": "Then just take an Inet4Address as an argument instead of checking dynamically",
+      "range": {
+        "startLine": 560,
+        "startChar": 22,
+        "endLine": 560,
+        "endChar": 42
+      },
+      "revId": "87da999a96c199988a544dec8f93060559ad4062",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46dd83b4_bea91bab",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-17T03:23:14Z",
+      "side": 1,
+      "message": "Updated but I think this should be either checked here or on caller side. I was thinking it\u0027s easier to be used by caller.",
+      "parentUuid": "95c8ba18_2163dada",
       "range": {
         "startLine": 560,
         "startChar": 22,
@@ -60,6 +108,30 @@
       "writtenOn": "2023-06-16T05:39:34Z",
       "side": 1,
       "message": "If this is to avoid NPE where mClatCoordinator is null, just check for nullity of the member. It\u0027s a lot more robust because if we change the condition you won\u0027t have to change this here.",
+      "range": {
+        "startLine": 575,
+        "startChar": 0,
+        "endLine": 575,
+        "endChar": 48
+      },
+      "revId": "87da999a96c199988a544dec8f93060559ad4062",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "300e0a19_23aaa5f0",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-17T03:23:14Z",
+      "side": 1,
+      "message": "Not really. This is because ClatCoordinator is only available on T+ devices. Add comment on this.",
+      "parentUuid": "14eeed0c_a486338f",
       "range": {
         "startLine": 575,
         "startChar": 0,
