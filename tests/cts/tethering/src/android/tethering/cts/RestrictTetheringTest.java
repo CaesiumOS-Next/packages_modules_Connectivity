@@ -16,17 +16,20 @@
 package android.tethering.test;
 
 import static android.Manifest.permission.TETHER_PRIVILEGED;
+import static android.net.TetheringManager.TETHERING_WIFI;
+import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.os.UserManager.DISALLOW_CONFIG_TETHERING;
 
 import static com.android.bedstead.remotedpc.RemoteDpc.DPC_COMPONENT_NAME;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import android.content.Context;
 import android.net.TetheringManager;
+import android.net.TetheringManager.TetheringRequest;
 import android.net.cts.util.CtsTetheringUtils;
+import android.net.cts.util.CtsTetheringUtils.StartTetheringCallback;
 import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
 
 import com.android.bedstead.harrier.BedsteadJUnit4;
@@ -73,7 +76,7 @@ public class RestrictTetheringTest {
 
     @Test
     @PolicyAppliesTest(policy = Delegation.class)
-    public void testRestrictTethering() throws Exception {
+    public void testRestrictAfterTetheringStarted() throws Exception {
         try {
             // start wifi tethering.
             mCtsTetheringUtils.startWifiTethering(mCallback);
@@ -82,10 +85,32 @@ public class RestrictTetheringTest {
             sDeviceState.dpc().devicePolicyManager().addUserRestriction(
                     DPC_COMPONENT_NAME, DISALLOW_CONFIG_TETHERING);
             mCtsTetheringUtils.expectSoftApDisabled();
-            assertFalse(isTetheringSupported());
+            expectStateEventually(false /* supported */);
 
             // bug: onTetheredInterfacesChanged would not fired if tethering is restricted.
             // TODO: fire the callback and test it here.
+
+            // clear the restriction, then tethering still can be on/off normally.
+            clearTetheringRestriction();
+            testTetheringOnOff();
+        } finally {
+            clearTetheringRestriction();
+            mCtsTetheringUtils.stopAllTethering();
+        }
+    }
+
+    @Test
+    @PolicyAppliesTest(policy = Delegation.class)
+    public void testRestrictBeforeStartTethering() throws Exception {
+        try {
+            sDeviceState.dpc().devicePolicyManager().addUserRestriction(
+                    DPC_COMPONENT_NAME, DISALLOW_CONFIG_TETHERING);
+            expectStateEventually(false /* supported */);
+
+            final StartTetheringCallback callback = new StartTetheringCallback();
+            final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
+            mTetheringManager.startTethering(request, r -> r.run(), callback);
+            callback.onTetheringFailed(TETHER_ERROR_UNSUPPORTED);
 
             // clear the restriction, then tethering still can be on/off normally.
             clearTetheringRestriction();
@@ -112,13 +137,17 @@ public class RestrictTetheringTest {
         sDeviceState.dpc().devicePolicyManager().clearUserRestriction(
                 DPC_COMPONENT_NAME, DISALLOW_CONFIG_TETHERING);
 
-        // TODO: use #onSupportedTetheringTypes callback once it expose as API.
+        expectStateEventually(true /* supported */);
+    }
+
+    // TODO: use #onSupportedTetheringTypes callback once it expose as API.
+    private void expectStateEventually(final boolean supported) throws Exception {
         for (int i = 0; i < RETRY_TIMES; i++) {
-            if (isTetheringSupported()) return;
+            if (isTetheringSupported() == supported) return;
 
             Thread.sleep(RETRY_INTERVAL_MS);
         }
-        fail("Tethering still not be supported after 5 seconds");
+        fail("Tethering supported(" + supported + ") does not change after 5 seconds");
     }
 
     private boolean isTetheringSupported() {
