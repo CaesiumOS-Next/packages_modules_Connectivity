@@ -22,6 +22,30 @@
       },
       "revId": "f1d304e4bb1ab058205c8bf8f6c2316ef1e7a49b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffa95fb7_0ad73076",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-17T09:53:26Z",
+      "side": 1,
+      "message": "Done, separate to this and aosp/2628950",
+      "parentUuid": "1e31ecfa_b2fc7439",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 37
+      },
+      "revId": "f1d304e4bb1ab058205c8bf8f6c2316ef1e7a49b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
