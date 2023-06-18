@@ -68,6 +68,7 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
+import com.android.metrics.NetworkNsdReportedMetrics;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.InetAddressUtils;
@@ -527,9 +528,12 @@ public class NsdService extends INsdManager.Stub {
                         final INsdManagerCallback cb = arg.callback;
                         try {
                             cb.asBinder().linkToDeath(arg.connector, 0);
-                            final String tag = "Client" + arg.uid + "-" + mClientNumberId++;
+                            final String tag = "Client" + arg.uid + "-" + mClientNumberId;
+                            final NetworkNsdReportedMetrics metrics =
+                                     new NetworkNsdReportedMetrics(
+                                            !arg.useJavaBackend, mClientNumberId++);
                             cInfo = new ClientInfo(cb, arg.uid, arg.useJavaBackend,
-                                    mServiceLogs.forSubComponent(tag));
+                                    mServiceLogs.forSubComponent(tag), metrics);
                             mClients.put(arg.connector, cInfo);
                         } catch (RemoteException e) {
                             Log.w(TAG, "Client request id " + clientRequestId
@@ -2087,14 +2091,17 @@ public class NsdService extends INsdManager.Stub {
         private final boolean mUseJavaBackend;
         // Store client logs
         private final SharedLog mClientLogs;
+        // Report the nsd metrics data
+        private final NetworkNsdReportedMetrics mMetrics;
 
         private ClientInfo(INsdManagerCallback cb, int uid, boolean useJavaBackend,
-                SharedLog sharedLog) {
+                SharedLog sharedLog, NetworkNsdReportedMetrics metrics) {
             mCb = cb;
             mUid = uid;
             mUseJavaBackend = useJavaBackend;
             mClientLogs = sharedLog;
             mClientLogs.log("New client. useJavaBackend=" + useJavaBackend);
+            mMetrics = metrics;
         }
 
         @Override
