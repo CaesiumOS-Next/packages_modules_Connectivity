@@ -22,6 +22,30 @@
       },
       "revId": "e29924a64e0ff7e176b8067ded59d0cb3d0975fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73226dc6_ce46191f",
+        "filename": "nearby/tests/cts/fastpair/src/android/nearby/cts/NearbyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1060529
+      },
+      "writtenOn": "2023-06-19T21:19:22Z",
+      "side": 1,
+      "message": "Not sure if it\u0027s possible, but would setting different namespaces based on SDK level makes sense?",
+      "parentUuid": "8118a87a_7a238787",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 31
+      },
+      "revId": "e29924a64e0ff7e176b8067ded59d0cb3d0975fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
