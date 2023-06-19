@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5793157b_2a326110",
+        "filename": "tests/unit/java/android/net/DisabledVpnManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1980340
+      },
+      "writtenOn": "2023-06-19T22:46:06Z",
+      "side": 1,
+      "message": "Couldn\u0027t use the DisabledVpnManager as it is not on the API surface.",
+      "range": {
+        "startLine": 59,
+        "startChar": 50,
+        "endLine": 59,
+        "endChar": 60
+      },
+      "revId": "690eaeb6689777ae1bc460925011f5f87db0755e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
