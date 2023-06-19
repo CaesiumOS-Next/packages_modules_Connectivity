@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da891b20_438c96cf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 71
+      },
+      "lineNbr": 9963,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T06:48:27Z",
+      "side": 1,
+      "message": "Can you explain that this method does not trigger any callbacks or broadcasts, and that that only happens later if the network becomes the default?",
+      "range": {
+        "startLine": 9963,
+        "startChar": 81,
+        "endLine": 9963,
+        "endChar": 82
+      },
+      "revId": "72229975c19afa2b86d9ebeb655c1d91cbc3f0cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
