@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e9bc019_92696cc2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b746325_21bd1196",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 40
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8589daf4_ae51a2d2",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46507a37_d244a975",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8589daf4_ae51a2d2",
+      "range": {
+        "startLine": 12,
+        "startChar": 32,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6388f60f_317dc373",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-06-19T05:01:18Z",
       "side": 1,
       "message": "s/but/instead of/ ?",
+      "range": {
+        "startLine": 13,
+        "startChar": 49,
+        "endLine": 13,
+        "endChar": 52
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da8ce0a0_dc1484a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6388f60f_317dc373",
       "range": {
         "startLine": 13,
         "startChar": 49,
@@ -116,6 +188,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21290b70_34db0655",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6626f957_f6a9cb58",
+      "range": {
+        "startLine": 14,
+        "startChar": 36,
+        "endLine": 14,
+        "endChar": 39
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af0e408d_7cefe85d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8248b474_0bf8d5fa",
+      "range": {
+        "startLine": 14,
+        "startChar": 58,
+        "endLine": 14,
+        "endChar": 67
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4abebf0b_e819c2f5",
@@ -162,6 +282,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27c067a8_a12e7393",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1888b732_a592dade",
+      "range": {
+        "startLine": 17,
+        "startChar": 61,
+        "endLine": 17,
+        "endChar": 66
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec30f060_7f6944ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4abebf0b_e819c2f5",
+      "range": {
+        "startLine": 17,
+        "startChar": 19,
+        "endLine": 17,
+        "endChar": 22
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fcf4cfa_b17a1d32",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-06-19T05:01:18Z",
       "side": 1,
       "message": "This is not true ; it\u0027s `reportUpstreamChanged` that is only called when the upstream changes. `onUpstreamCapabilitiesChanged` is also called when the upstream is the same but its capabilities changed, as the name implies.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 31
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecb7ee95_7116076a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Thanks for correctness. Change the description to:\n\nSince this commit, reportUpstreamChanged is only called when upsteam has really changed (connected, switched or disconnected) in chooseUpstreamType. In previous code, reportUpstreamChanged is also called if onUpstreamCapabilitiesChanged is called when the upstream\nis the same but its capabilities changed.",
+      "parentUuid": "7fcf4cfa_b17a1d32",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb0fab52_992cd4ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ac813a0_74f228c0",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 8
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c1eea40_a3ed024a",
@@ -221,6 +437,30 @@
       "writtenOn": "2023-06-19T05:01:18Z",
       "side": 1,
       "message": "calls",
+      "range": {
+        "startLine": 26,
+        "startChar": 24,
+        "endLine": 26,
+        "endChar": 29
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ef17246_0a605ccb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c1eea40_a3ed024a",
       "range": {
         "startLine": 26,
         "startChar": 24,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "457b439f_19fae2fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b10c200d_692676ae",
+      "range": {
+        "startLine": 28,
+        "startChar": 21,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e670480a_0a188b8b",
@@ -267,6 +531,30 @@
       "writtenOn": "2023-06-19T05:01:18Z",
       "side": 1,
       "message": "Not sure what is meant here, but the capabilities do not notify anybody so this sentence is broken",
+      "range": {
+        "startLine": 30,
+        "startChar": 13,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc17f7f0_6a76918e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "I think Nucca try to explain why this is change is safe for calling NotificationUpdater.onUpstreamCapabilitiesChanged under NOT equals:\n\n    - if (mTetherUpstream !\u003d newUpstream) {\n    + if (!Objects.equals(mTetherUpstream, newUpstream)) {\n        ...\n        // Need to notify capabilities change after upstream network changed because new\n        // network\u0027s capabilities should be checked every time.\n        mNotificationUpdater.onUpstreamCapabilitiesChanged(\n                (ns !\u003d null) ? ns.networkCapabilities : null);\n    }",
+      "parentUuid": "e670480a_0a188b8b",
       "range": {
         "startLine": 30,
         "startChar": 13,
@@ -346,6 +634,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17853ec1_9574399e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ff75c2a_de7d8bef",
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ec6a990_bf7948e4",
@@ -359,6 +665,30 @@
       "writtenOn": "2023-06-19T05:01:18Z",
       "side": 1,
       "message": "This looks wrong though ? The capabilities changed : the network has validated.\n\nIIUC, this test is executing a scenario that can\u0027t happen : a notification that the network changed with the same network when capabilities changed but no notification that capabilities changed ; in reality tethering would also get a notification that the capabilities changed, right ? If that is the case, I think we should also trigger that capabilities changed event in this code block (`stateMachine.handleUpstreamNetworkMonitorCallback` ?) and verify that `onUpstreamCapabilitiesChanged` was called exactly once with the validated capabilities.",
+      "range": {
+        "startLine": 2708,
+        "startChar": 45,
+        "endLine": 2708,
+        "endChar": 50
+      },
+      "revId": "0e656d762d01b3ef11dc34c0570645f4b1170a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa475547_110bd517",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2708,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-19T06:51:37Z",
+      "side": 1,
+      "message": "Yes, thanks for suggestion.",
+      "parentUuid": "6ec6a990_bf7948e4",
       "range": {
         "startLine": 2708,
         "startChar": 45,
