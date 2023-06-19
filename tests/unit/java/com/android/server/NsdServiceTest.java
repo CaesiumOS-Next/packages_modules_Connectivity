@@ -43,6 +43,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
@@ -95,6 +96,7 @@ import android.util.Pair;
 import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
 
+import com.android.metrics.NetworkNsdReportedMetrics;
 import com.android.server.NsdService.Dependencies;
 import com.android.server.connectivity.mdns.MdnsAdvertiser;
 import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
@@ -104,6 +106,7 @@ import com.android.server.connectivity.mdns.MdnsServiceBrowserListener;
 import com.android.server.connectivity.mdns.MdnsServiceInfo;
 import com.android.server.connectivity.mdns.MdnsSocketProvider;
 import com.android.server.connectivity.mdns.MdnsSocketProvider.SocketRequestMonitor;
+import com.android.server.connectivity.mdns.util.MdnsUtils;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
@@ -164,6 +167,8 @@ public class NsdServiceTest {
     @Mock WifiManager mWifiManager;
     @Mock WifiManager.MulticastLock mMulticastLock;
     @Mock ActivityManager mActivityManager;
+    @Mock NetworkNsdReportedMetrics mMetrics;
+    @Mock MdnsUtils.Clock mClock;
     SocketRequestMonitor mSocketRequestMonitor;
     OnUidImportanceListener mUidImportanceListener;
     HandlerThread mThread;
@@ -210,6 +215,9 @@ public class NsdServiceTest {
         doReturn(DEFAULT_RUNNING_APP_ACTIVE_IMPORTANCE_CUTOFF).when(mDeps).getDeviceConfigInt(
                 eq(NsdService.MDNS_CONFIG_RUNNING_APP_ACTIVE_IMPORTANCE_CUTOFF), anyInt());
         doReturn(mAdvertiser).when(mDeps).makeMdnsAdvertiser(any(), any(), any(), any());
+        doReturn(mMetrics).when(mDeps).makeNetworkNsdReportedMetrics(anyBoolean(), anyInt());
+        doReturn(mClock).when(mDeps).makeClock();
+        doReturn(0L).when(mClock).elapsedRealtimeNanos();
         mService = makeService();
         final ArgumentCaptor<SocketRequestMonitor> cbMonitorCaptor =
                 ArgumentCaptor.forClass(SocketRequestMonitor.class);
@@ -512,14 +520,16 @@ public class NsdServiceTest {
                 eq(SERVICE_NAME), eq(SERVICE_TYPE), eq(PORT), any(), eq(IFACE_IDX_ANY));
 
         // Register service successfully.
+        final int regId = regIdCaptor.getValue();
         final RegistrationInfo registrationInfo = new RegistrationInfo(
-                regIdCaptor.getValue(),
+                regId,
                 IMDnsEventListener.SERVICE_REGISTERED,
                 SERVICE_NAME,
                 SERVICE_TYPE,
                 PORT,
                 new byte[0] /* txtRecord */,
                 IFACE_IDX_ANY);
+        doReturn(10 * 1000L).when(mClock).elapsedRealtimeNanos();
         eventListener.onServiceRegistrationStatus(registrationInfo);
 
         final ArgumentCaptor<NsdServiceInfo> registeredInfoCaptor =
@@ -528,10 +538,11 @@ public class NsdServiceTest {
                 .onServiceRegistered(registeredInfoCaptor.capture());
         final NsdServiceInfo registeredInfo = registeredInfoCaptor.getValue();
         assertEquals(SERVICE_NAME, registeredInfo.getServiceName());
+        verify(mMetrics).reportServiceRegistration(regId, 10L /* durationMs */);
 
         // Fail to register service.
         final RegistrationInfo registrationFailedInfo = new RegistrationInfo(
-                regIdCaptor.getValue(),
+                regId,
                 IMDnsEventListener.SERVICE_REGISTRATION_FAILED,
                 null /* serviceName */,
                 null /* registrationType */,
@@ -541,6 +552,7 @@ public class NsdServiceTest {
         eventListener.onServiceRegistrationStatus(registrationFailedInfo);
         verify(regListener, timeout(TIMEOUT_MS))
                 .onRegistrationFailed(any(), eq(FAILURE_INTERNAL_ERROR));
+        verify(mMetrics).reportServiceRegistrationFailed(regId);
     }
 
     @Test
@@ -1215,10 +1227,13 @@ public class NsdServiceTest {
 
         // Verify onServiceRegistered callback
         final MdnsAdvertiser.AdvertiserCallback cb = cbCaptor.getValue();
-        cb.onRegisterServiceSucceeded(idCaptor.getValue(), regInfo);
+        final int regId = idCaptor.getValue();
+        doReturn(10 * 1000L).when(mClock).elapsedRealtimeNanos();
+        cb.onRegisterServiceSucceeded(regId, regInfo);
 
         verify(regListener, timeout(TIMEOUT_MS)).onServiceRegistered(argThat(info -> matches(info,
                 new NsdServiceInfo(regInfo.getServiceName(), null))));
+        verify(mMetrics).reportServiceRegistration(regId, 10L /* durationMs */);
 
         client.unregisterService(regListener);
         waitForIdle();
@@ -1251,6 +1266,7 @@ public class NsdServiceTest {
 
         verify(regListener, timeout(TIMEOUT_MS)).onRegistrationFailed(
                 argThat(info -> matches(info, regInfo)), eq(FAILURE_INTERNAL_ERROR));
+        verify(mMetrics).reportServiceRegistrationFailed(anyInt());
     }
 
     @Test
@@ -1280,10 +1296,13 @@ public class NsdServiceTest {
 
         // Verify onServiceRegistered callback
         final MdnsAdvertiser.AdvertiserCallback cb = cbCaptor.getValue();
-        cb.onRegisterServiceSucceeded(idCaptor.getValue(), regInfo);
+        final int regId = idCaptor.getValue();
+        doReturn(10 * 1000L).when(mClock).elapsedRealtimeNanos();
+        cb.onRegisterServiceSucceeded(regId, regInfo);
 
         verify(regListener, timeout(TIMEOUT_MS)).onServiceRegistered(
                 argThat(info -> matches(info, new NsdServiceInfo(regInfo.getServiceName(), null))));
+        verify(mMetrics).reportServiceRegistration(regId, 10L /* durationMs */);
     }
 
     @Test
