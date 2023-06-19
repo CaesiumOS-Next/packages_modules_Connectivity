@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37788f4c_64d068c9",
+        "filename": "tests/cts/net/src/android/net/cts/VpnServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-19T08:08:54Z",
+      "side": 1,
+      "message": "Can this be final ? ISTM the context and package manager are maybe available here, so you might be able to initialize inline, which would be much superior to doing it in setup()",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "70e4635df386d2789397a099cac9fd204863c2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a6f976b_c9a3f838",
+        "filename": "tests/cts/net/src/android/net/cts/VpnServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-19T08:08:54Z",
+      "side": 1,
+      "message": "Can you do this with a rule ? If not, please do it with assume() instead of return, beacuse assume() will correctly mark the test as skipped instead of passed.\n\nYou may have to migrate the test to a newer instrumentation.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "70e4635df386d2789397a099cac9fd204863c2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
