@@ -458,6 +458,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c854643_caa148ad",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-19T13:07:16Z",
+      "side": 1,
+      "message": "Removed, as in aosp/2620695.",
+      "parentUuid": "acea50b1_4256a73f",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 52
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bedd676_7fd099de",
@@ -471,6 +495,30 @@
       "writtenOn": "2023-06-02T23:59:18Z",
       "side": 1,
       "message": "what about refactoring (separate CL) this to:\n\nmEgressMap.autologgingDeleteEntry(txKey, TAG, \"egress\");\n\nthis seems terribly repetitive...\n\nNot even clear the TAG and name shouldn\u0027t be stored in the map during map init.",
+      "range": {
+        "startLine": 505,
+        "startChar": 12,
+        "endLine": 509,
+        "endChar": 13
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b8a0e7b_efb79d45",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-19T13:07:16Z",
+      "side": 1,
+      "message": "This would need to add the \u0027autologgingDeleteEntry\u0027 API into the IBpfMap. Is it suitable to add such a special purpose API into the IBpfMap interface?",
+      "parentUuid": "5bedd676_7fd099de",
       "range": {
         "startLine": 505,
         "startChar": 12,
