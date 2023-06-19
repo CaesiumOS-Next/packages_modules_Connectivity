@@ -183,5 +183,12 @@ public class MdnsUtils {
         public long elapsedRealtime() {
             return SystemClock.elapsedRealtime();
         }
+
+        /**
+         * @see SystemClock#elapsedRealtimeNanos
+         */
+        public long elapsedRealtimeNanos() {
+            return SystemClock.elapsedRealtimeNanos();
+        }
     }
 }
