@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "884aacbf_bea098de",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 4699,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T10:10:10Z",
+      "side": 1,
+      "message": "I think we need a comment here to explain that on T-, data activity tracking was already removed by the updateDefaultNetwork call above..\n\nEven so, this is going to be pretty hard to follow. Would suggest refactoring to make it clearer. I think maybe we can move the LegacyNetworkActivityTracker out to its own file, and in ConnectivityService, instead of calling methods on it that leak implementation details (e.g., \"removeDataActivityTracking\"), we could call more generic methods such as \"notifyNetworkConnected\", \"notifyNetworkDisconnected\", \"notifyDefaultNetworkChanged\". That would remove some of these isAtLeastU checks in ConnectivityService.\n\nThese can go in a follow-up as well I think.",
+      "range": {
+        "startLine": 4699,
+        "startChar": 8,
+        "endLine": 4699,
+        "endChar": 9
+      },
+      "revId": "9c3347327ebfc46695fd387ead48a6b63a5bfd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3651d07b_25f73807",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 9965,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T10:10:10Z",
+      "side": 1,
+      "message": "If a NetworkAgent registers, but never calls markConnected, then this code won\u0027t run. In this case:\n- Can you add a test that checks that the network\u0027s idletimer is correctly removed when the network disconnects? A follow-up change is fine.\n- Also, before you submit this CL, can you check that BatteryStats will work correctly?",
+      "range": {
+        "startLine": 9965,
+        "startChar": 12,
+        "endLine": 9965,
+        "endChar": 13
+      },
+      "revId": "9c3347327ebfc46695fd387ead48a6b63a5bfd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1351de70_f6468c35",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 11372,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T10:10:10Z",
+      "side": 1,
+      "message": "Nit: this really doesn\u0027t matter because verification is not in order, but... this operation happens way before everything else in this test method. Maybe move it up to the beginning of this method?",
+      "range": {
+        "startLine": 11372,
+        "startChar": 30,
+        "endLine": 11372,
+        "endChar": 62
+      },
+      "revId": "9c3347327ebfc46695fd387ead48a6b63a5bfd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2292306a_ed2aa428",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 11380,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T10:10:10Z",
+      "side": 1,
+      "message": "Perhaps not for this CL, but is there any way to speed this test up so it does not need to wait 250ms? Maybe using waitForIdle?",
+      "range": {
+        "startLine": 11380,
+        "startChar": 48,
+        "endLine": 11380,
+        "endChar": 72
+      },
+      "revId": "9c3347327ebfc46695fd387ead48a6b63a5bfd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
