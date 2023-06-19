@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f9cb85a_e2a151bc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 63
+      },
+      "lineNbr": 11177,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T09:32:37Z",
+      "side": 1,
+      "message": "Suggest:\n\n    // TODO: if a network changes transports, storing the transport type in the\n    // IdleTimerParams is not correct. Consider getting it from the network\u0027s\n    // NetworkCapabilities instead.",
+      "range": {
+        "startLine": 11177,
+        "startChar": 38,
+        "endLine": 11177,
+        "endChar": 67
+      },
+      "revId": "43166ec029ceee2509b03caad08cfae7267bdf52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd5f2484_0c1ddd8c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 63
+      },
+      "lineNbr": 11199,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T09:32:37Z",
+      "side": 1,
+      "message": "Not for this CL, but this code seems identical to lines 11179-11185. Maybe refactor them to a helper method?",
+      "range": {
+        "startLine": 11194,
+        "startChar": 0,
+        "endLine": 11199,
+        "endChar": 13
+      },
+      "revId": "43166ec029ceee2509b03caad08cfae7267bdf52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76f99541_ad0adeda",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 63
+      },
+      "lineNbr": 11283,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T09:32:37Z",
+      "side": 1,
+      "message": "Does this code run on VPN networks that have TRANSPORT_CELLULAR as their underlying network? I guess right now it can\u0027t, because VPNs can\u0027t be the default network. But if we allow non-default networks to have idletimers, then we need to ensure that only networks with the NOT_VPN capability get idletimers.",
+      "range": {
+        "startLine": 11282,
+        "startChar": 49,
+        "endLine": 11283,
+        "endChar": 58
+      },
+      "revId": "43166ec029ceee2509b03caad08cfae7267bdf52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1faa817_9c59d1bd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 63
+      },
+      "lineNbr": 11359,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T09:32:37Z",
+      "side": 1,
+      "message": "Not for this CL, but looking at the code of disconnectAndDestroyNetwork, it seems that that method will remove data activity tracking if (mDefaultRequest \u003d\u003d nri). Can you try to find out why it does this, instead of doing if (wasDefault)?",
+      "range": {
+        "startLine": 11359,
+        "startChar": 16,
+        "endLine": 11359,
+        "endChar": 39
+      },
+      "revId": "43166ec029ceee2509b03caad08cfae7267bdf52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
