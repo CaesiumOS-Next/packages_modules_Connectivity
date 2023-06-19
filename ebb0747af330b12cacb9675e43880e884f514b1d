@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ec7deb4_00625b17",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-19T08:19:04Z",
+      "side": 1,
+      "message": "I think this warrants just a little bit more explanation. Example wording :\n\n    If the keepalive is paused, then it is already stopped with the hardware\n    and this class has nothing left to clean up, so continue. The auto on/off\n    keepalive will be cleaned up by...\n\nThis can be done in a followup.",
+      "range": {
+        "startLine": 529,
+        "startChar": 41,
+        "endLine": 529,
+        "endChar": 56
+      },
+      "revId": "ebb0747af330b12cacb9675e43880e884f514b1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
