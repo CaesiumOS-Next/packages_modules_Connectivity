@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef5f93bd_933ce558",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-19T07:15:48Z",
+      "side": 1,
+      "message": "Can you please make this @Nullable so tools can help avoiding NPEs when we update this code ?",
+      "revId": "29e1de818ae327ea9813c43d529fcee383219b79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2088152f_13ce1b3f",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-19T07:15:48Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem necessary given that it\u0027s always strictly equal to `mPacProxyManager !\u003d null`",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 45
+      },
+      "revId": "29e1de818ae327ea9813c43d529fcee383219b79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
