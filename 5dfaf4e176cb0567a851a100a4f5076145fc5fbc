@@ -16,6 +16,29 @@
       "message": "fix",
       "revId": "5dfaf4e176cb0567a851a100a4f5076145fc5fbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34cca7df_f83a2bff",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 11145,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T05:58:59Z",
+      "side": 1,
+      "message": "Pre-existing, and not for this CL, but... can apps observe the value of mNetworkActive somehow? If so, it seems quite wrong to send the broadcast before mNetworkActive is called.",
+      "range": {
+        "startLine": 11145,
+        "startChar": 16,
+        "endLine": 11145,
+        "endChar": 30
+      },
+      "revId": "5dfaf4e176cb0567a851a100a4f5076145fc5fbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
