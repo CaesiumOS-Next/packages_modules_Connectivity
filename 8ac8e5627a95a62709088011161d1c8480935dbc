@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5aa51c9_b04b4d08",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 11145,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T08:11:55Z",
+      "side": 0,
+      "message": "I think this CL stack is hard to follow because you add new code in aosp/2605755 which you then delete here. Do you think you can squash these two CLs together? Otherwise it\u0027s difficult to follow how you\u0027re changing the locking, because each CL only provides a little bit of the whole picture.",
+      "range": {
+        "startLine": 11145,
+        "startChar": 12,
+        "endLine": 11145,
+        "endChar": 46
+      },
+      "revId": "8ac8e5627a95a62709088011161d1c8480935dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
