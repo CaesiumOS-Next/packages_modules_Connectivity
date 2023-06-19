@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24e7824c_d056569e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 11258,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T09:07:05Z",
+      "side": 1,
+      "message": "Pre-existing, so not for this CL, but - while currently in ConnectivityService a network can only have one LinkProperties and a LinkProperties can have only one interface (well, except for stacked interfaces), it\u0027s possible for the network to change interfaces. So for example, a VPN could go from ipsec37 to ipsec42. Similarly I think cellular can go from a true cellular interface (e.g., rmnet_data0) to an IWLAN interface (e.g., ipsec42).\n\nCan you file a bug to make the idletimers correct when that happens?",
+      "range": {
+        "startLine": 11258,
+        "startChar": 48,
+        "endLine": 11258,
+        "endChar": 53
+      },
+      "revId": "75ec42c99e33ff1a5d4ef335ba6f2349c191593f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
