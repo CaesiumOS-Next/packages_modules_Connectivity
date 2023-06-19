@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f384807_d7682536",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T06:40:54Z",
+      "side": 1,
+      "message": "The commit message should say what the change is. Specifically, it changes the behaviour if a network does not have an idle timer. The previous code would never call the callback, but isNetworkActive would always return true. The new code will call the callback to match the value of isNetworkActive.\n\nThis only affects uncommon network types such as Ethernet and Bluetooth tethering, in which case changing the behaviour is fine. But it also affects other cases, such as if the OEM has disabled data activity tracking by setting the timer value to 0 via Settings. In those cases I\u0027m not sure if it\u0027s safe to change the behaviour. With the new code, a device where the idletimer disabled in this way will call the onNetworkActive callback as soon as the network connects. That seems wrong.\n\nIs there a way we can maintain the same behaviour on those devices? For example, could we make it so that T and earlier releases do not change behaviour, and only U+ has the new behaviour? Or, could we just completely disable the callback on any network that does not have a configured idle timer?",
+      "range": {
+        "startLine": 13,
+        "startChar": 58,
+        "endLine": 13,
+        "endChar": 59
+      },
+      "revId": "e315e1f345cc978e9f86b92e7ba2785e39677f51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
