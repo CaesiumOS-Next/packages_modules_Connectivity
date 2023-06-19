@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e94b816_7a1efda1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-19T08:59:51Z",
+      "side": 1,
+      "message": "Mention that the reason we do this is to be consistent with ConnectivityManager#isDefaultNetworkActive, which always returns true for a network that has no activity tracking.",
+      "range": {
+        "startLine": 22,
+        "startChar": 49,
+        "endLine": 22,
+        "endChar": 50
+      },
+      "revId": "842c73c5a194ec7511a3db67297f130c249292d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
