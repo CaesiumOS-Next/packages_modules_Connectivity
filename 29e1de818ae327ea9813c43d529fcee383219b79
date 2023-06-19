@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1809a530_a78d3fe5",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1980340
+      },
+      "writtenOn": "2023-06-19T07:43:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef5f93bd_933ce558",
+      "revId": "29e1de818ae327ea9813c43d529fcee383219b79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2088152f_13ce1b3f",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-06-19T07:15:48Z",
       "side": 1,
       "message": "This doesn\u0027t seem necessary given that it\u0027s always strictly equal to `mPacProxyManager !\u003d null`",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 45
+      },
+      "revId": "29e1de818ae327ea9813c43d529fcee383219b79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f13fddab_2cce31a8",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1980340
+      },
+      "writtenOn": "2023-06-19T07:43:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2088152f_13ce1b3f",
       "range": {
         "startLine": 92,
         "startChar": 0,
