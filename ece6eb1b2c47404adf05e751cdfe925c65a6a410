@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86566895_41c3424f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-19T08:23:40Z",
+      "side": 1,
+      "message": "You couldn\u0027t have known that but this is actually disputable – b/154047311.\n\nSuggest just replacing \"should be\" with \"are\" to avoid suggesting this is the desired state of affairs.\n\nLikewise in l.831 of course",
+      "range": {
+        "startLine": 819,
+        "startChar": 89,
+        "endLine": 819,
+        "endChar": 95
+      },
+      "revId": "ece6eb1b2c47404adf05e751cdfe925c65a6a410",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
