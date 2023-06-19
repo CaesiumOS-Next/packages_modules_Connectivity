@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b4dacfd_ee21e47e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-19T05:32:41Z",
+      "side": 1,
+      "message": "Oops, but this commit was merged.",
+      "parentUuid": "a88fccc4_8f6c317d",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 38
+      },
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b90897c_fcde9435",
@@ -82,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8181ca_4b0a62ac",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-19T05:32:41Z",
+      "side": 1,
+      "message": "It will be same method above. Remove this one.",
+      "parentUuid": "c7ae147d_f5a44c43",
+      "range": {
+        "startLine": 124,
+        "startChar": 22,
+        "endLine": 124,
+        "endChar": 25
+      },
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c6cc714_304c9a74",
@@ -95,6 +143,30 @@
       "writtenOn": "2023-06-15T06:51:42Z",
       "side": 1,
       "message": "With the current implementation, the caller gets the SocketKey from the MdnsInterfaceSocket, then this method checks if there\u0027s any socket for that SocketKey.\n\nBut if there\u0027s a 1:1 mapping between sockets and keys, this check can just be simplified to isc.mActiveNetworkSockets.containsKey(socket) (slightly more efficient)",
+      "range": {
+        "startLine": 127,
+        "startChar": 42,
+        "endLine": 127,
+        "endChar": 55
+      },
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dbf8085_461dc2b2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-19T05:32:41Z",
+      "side": 1,
+      "message": "It will be same as isSocketActive() above. Remove this one.",
+      "parentUuid": "6c6cc714_304c9a74",
       "range": {
         "startLine": 127,
         "startChar": 42,
@@ -140,6 +212,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a7422ff_12975ce4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-19T05:32:41Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bd46f194_5bb3d7d6",
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b43aa17_cbc21330",
@@ -157,6 +247,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9763a054_26e96554",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-19T05:32:41Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3b43aa17_cbc21330",
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efa70de1_7c498ad8",
@@ -170,6 +278,30 @@
       "writtenOn": "2023-06-15T10:56:21Z",
       "side": 1,
       "message": "Instead of creating an instance every time, you could put one in the SocketInfo. All current usage already has a SocketInfo that can be used to get the key",
+      "range": {
+        "startLine": 606,
+        "startChar": 44,
+        "endLine": 606,
+        "endChar": 78
+      },
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "753b78d9_9bf232f6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-19T05:32:41Z",
+      "side": 1,
+      "message": "Done in aosp/2629431",
+      "parentUuid": "efa70de1_7c498ad8",
       "range": {
         "startLine": 606,
         "startChar": 44,
@@ -203,6 +335,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eff6fd3_4e8e939f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/SocketKey.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-19T05:32:41Z",
+      "side": 1,
+      "message": "Done in aosp/2629431",
+      "parentUuid": "dd2f2fa4_bc46d088",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 10
+      },
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c26887ab_dadced94",
@@ -216,6 +372,24 @@
       "writtenOn": "2023-06-15T10:56:21Z",
       "side": 1,
       "message": "It\u0027s generally better to avoid mocks for data objects (they\u0027re not really designed for that); maybe just do SocketKey(something, something) ?",
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18a85756_2c069354",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-19T05:32:41Z",
+      "side": 1,
+      "message": "Done in aosp/2629431",
+      "parentUuid": "c26887ab_dadced94",
       "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -237,6 +411,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a20e7811_5b56e155",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-19T05:32:41Z",
+      "side": 1,
+      "message": "Done in aosp/2629431",
+      "parentUuid": "9939cade_1ea56bfe",
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a45298f_6c19f7e6",
@@ -250,6 +442,24 @@
       "writtenOn": "2023-06-15T10:56:21Z",
       "side": 1,
       "message": "That\u0027s not very realistic considering that there are other interfaces involved; see comment above about having getInterfaceIndex on the MdnsInterfaceSocket, so each mocked socket can return a different value.",
+      "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abf6bd0a_2d430f33",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-19T05:32:41Z",
+      "side": 1,
+      "message": "Use the `NetworkInterfaceWrapper` to get interface index now. So the `getInterfaceIndex` is not necessary.",
+      "parentUuid": "5a45298f_6c19f7e6",
       "revId": "2f236e9ca41268483c8cbe4bfbce520d086f0f52",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
