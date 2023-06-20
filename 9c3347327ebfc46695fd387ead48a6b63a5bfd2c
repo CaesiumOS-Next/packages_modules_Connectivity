@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6a16f87_cc013f6a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 4699,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T02:25:30Z",
+      "side": 1,
+      "message": "Added the comment.\nLater part will be done in a follow-up.",
+      "parentUuid": "884aacbf_bea098de",
+      "range": {
+        "startLine": 4699,
+        "startChar": 8,
+        "endLine": 4699,
+        "endChar": 9
+      },
+      "revId": "9c3347327ebfc46695fd387ead48a6b63a5bfd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3651d07b_25f73807",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 77
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b31d2bea_91a3f8df",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 9965,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T02:25:30Z",
+      "side": 1,
+      "message": "For later part, batteryStats API will be called only when the number of active network becomes 0-\u003e1 or 1-\u003e0. (aosp/2606637 under the same topic).\nSo, if the disconnected network was not tracked, we don\u0027t call battery stats API.",
+      "parentUuid": "3651d07b_25f73807",
+      "range": {
+        "startLine": 9965,
+        "startChar": 12,
+        "endLine": 9965,
+        "endChar": 13
+      },
+      "revId": "9c3347327ebfc46695fd387ead48a6b63a5bfd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1351de70_f6468c35",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 77
@@ -60,6 +108,30 @@
       "writtenOn": "2023-06-19T10:10:10Z",
       "side": 1,
       "message": "Nit: this really doesn\u0027t matter because verification is not in order, but... this operation happens way before everything else in this test method. Maybe move it up to the beginning of this method?",
+      "range": {
+        "startLine": 11372,
+        "startChar": 30,
+        "endLine": 11372,
+        "endChar": 62
+      },
+      "revId": "9c3347327ebfc46695fd387ead48a6b63a5bfd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92066a02_20b6fbde",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 11372,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T02:25:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1351de70_f6468c35",
       "range": {
         "startLine": 11372,
         "startChar": 30,
