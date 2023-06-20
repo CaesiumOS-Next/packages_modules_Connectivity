@@ -1,6 +1,98 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad9dcea3_c0216831",
+        "filename": "tests/unit/java/android/net/DisabledVpnManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T04:12:18Z",
+      "side": 1,
+      "message": "So this has to be U right ? In S the class doesn\u0027t even exist. These tests are part of MTS and will actually run on S. But DisabledVpnManager is a framework class that is not present in S, T and U, so this test will fail on these\n\nIn fact, this CTS should probably be written in frameworks/base instead I think, in which case you don\u0027t need this at all. I know our VPN tests are in the module (for a variety of reasons, some good and some bad) but this looks much more complex to have in the module than in frameworks/base.",
+      "range": {
+        "startLine": 46,
+        "startChar": 49,
+        "endLine": 46,
+        "endChar": 50
+      },
+      "revId": "690eaeb6689777ae1bc460925011f5f87db0755e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ae7a78f_a81b1e2f",
+        "filename": "tests/unit/java/android/net/DisabledVpnManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T04:12:18Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be only checked on watches ? If I make a change I sure am very unlikely to run my tests on a watch. Hopefully TH tells me but there doesn\u0027t seem to be a reason not to run this on any device\n\nModulate this by the comment below about DisabledVpnManager being accessible or not. With your current code, where you depend on the runtime object, you indeed can only run this on watches, but maybe we can solve that, see below.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 60
+      },
+      "revId": "690eaeb6689777ae1bc460925011f5f87db0755e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eef7a05_edacd44c",
+        "filename": "tests/unit/java/android/net/DisabledVpnManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T04:12:18Z",
+      "side": 1,
+      "message": "final on all the locals please",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 14
+      },
+      "revId": "690eaeb6689777ae1bc460925011f5f87db0755e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20fd1d21_65161c47",
+        "filename": "tests/unit/java/android/net/DisabledVpnManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T04:12:18Z",
+      "side": 1,
+      "message": "Suggest adding a comment saying this only returns public methods. That\u0027s what you want here, but I had to look it up to make sure",
+      "range": {
+        "startLine": 57,
+        "startChar": 45,
+        "endLine": 57,
+        "endChar": 55
+      },
+      "revId": "690eaeb6689777ae1bc460925011f5f87db0755e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5793157b_2a326110",
@@ -14,6 +106,53 @@
       "writtenOn": "2023-06-19T22:46:06Z",
       "side": 1,
       "message": "Couldn\u0027t use the DisabledVpnManager as it is not on the API surface.",
+      "range": {
+        "startLine": 59,
+        "startChar": 50,
+        "endLine": 59,
+        "endChar": 60
+      },
+      "revId": "690eaeb6689777ae1bc460925011f5f87db0755e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48c4a492_629511e6",
+        "filename": "tests/unit/java/android/net/DisabledVpnManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T04:12:18Z",
+      "side": 1,
+      "message": "Let\u0027s leave a comment here explaining to future developers what this test is for. What I\u0027m thinking is, next year somebody adds a method to VpnManager, and falls foul of this test, and they\u0027re like hey why is this testing for this ? So having an explanation of what DisabledVpnManager is and why it needs to override everything would help them understand what they have to do.",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 21
+      },
+      "revId": "690eaeb6689777ae1bc460925011f5f87db0755e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdfe36b6_5d7e20c1",
+        "filename": "tests/unit/java/android/net/DisabledVpnManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T04:12:18Z",
+      "side": 1,
+      "message": "Maybe you can get a hold of it with Class.forName() ?",
+      "parentUuid": "5793157b_2a326110",
       "range": {
         "startLine": 59,
         "startChar": 50,
