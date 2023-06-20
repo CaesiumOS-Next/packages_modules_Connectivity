@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6724489c_d06a6821",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 11144,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T02:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "036c009a_86861d76",
+      "range": {
+        "startLine": 11144,
+        "startChar": 27,
+        "endLine": 11144,
+        "endChar": 47
+      },
+      "revId": "44673cd148fcbb8762b5fecd75b4221a5e3333ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64e15c6c_851f8517",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-19T11:01:27Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 11146,
+        "startChar": 27,
+        "endLine": 11146,
+        "endChar": 51
+      },
+      "revId": "44673cd148fcbb8762b5fecd75b4221a5e3333ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "853f3663_5af55d09",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 11146,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T02:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64e15c6c_851f8517",
       "range": {
         "startLine": 11146,
         "startChar": 27,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5cd88c3_c50a4a72",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 11182,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T02:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49055ccf_92a80330",
+      "range": {
+        "startLine": 11182,
+        "startChar": 21,
+        "endLine": 11182,
+        "endChar": 42
+      },
+      "revId": "44673cd148fcbb8762b5fecd75b4221a5e3333ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88c2de76_6371ec33",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-06-19T11:01:27Z",
       "side": 1,
       "message": "Per discussion, can we only do this if the idletimer is enabled? It really doesn\u0027t make sense to tell BatteryStats about a network if it doesn\u0027t have an idletimer.\n\nI guess we can\u0027t change this without impacting T, but at least for U? We could do something like:\n\n    private IdletimerParams maybeCreateIdleTimer(int netId, int timeout, int type) {\n        if (timeout \u003c\u003d 0 || iface \u003d\u003d null) return null;\n        try {\n            final IdleTimerParams params \u003d new IdleTimerParams(timeout, type);\n            mActiveIdleTimers.put(netId, params);\n            mNetd.idletimerAddInterface(iface, timeout, getIdleTimerLabel(netId, type));\n            return params;\n        } catch (Exception e) {\n            loge(\"Exception in createIdleTimer \" + e);\n            return null;\n        }\n    }\n\nThen, in this code we can do:\n\n    final IdleTimerParams params \u003d maybeCreateIdleTimer(netId, timeout, type);\n    if (params !\u003d null || SdkLevel.isAtLeastT()) {\n        maybeUpdateBatteryStats();\n    }```suggestion\n            updateNetworkActivity(netId, type, true /* isActive */, NO_UID);\n```",
+      "range": {
+        "startLine": 11336,
+        "startChar": 12,
+        "endLine": 11336,
+        "endChar": 33
+      },
+      "revId": "44673cd148fcbb8762b5fecd75b4221a5e3333ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e063fee1_71be3f08",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 11336,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T02:59:47Z",
+      "side": 1,
+      "message": "Done\nchanged\n```\nif (params !\u003d null || SdkLevel.isAtLeastT()) {\n   maybeUpdateBatteryStats();\n```\nto\n```\nif (params !\u003d null || !SdkLevel.isAtLeastU()) {\n   maybeUpdateBatteryStats();\n```\nI think we don\u0027t want to update batteryStats about a network that does not have idle timer on U+.\nAnd we want to keep the behavior on T-.",
+      "parentUuid": "88c2de76_6371ec33",
       "range": {
         "startLine": 11336,
         "startChar": 12,
