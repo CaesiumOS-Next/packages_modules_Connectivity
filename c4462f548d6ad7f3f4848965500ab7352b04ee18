@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd5978bb_0ec53c91",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-20T07:46:33Z",
+      "side": 1,
+      "message": "This make tethering main thread be sleep which is not ideal.\n\nMaybe send a request stop message to RA handler, then RA handler send message back to IpServer while it stopped.",
+      "range": {
+        "startLine": 446,
+        "startChar": 16,
+        "endLine": 446,
+        "endChar": 33
+      },
+      "revId": "c4462f548d6ad7f3f4848965500ab7352b04ee18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
