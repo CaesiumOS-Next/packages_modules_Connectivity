@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fdb99fc_ff29f9fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 52
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-20T10:47:33Z",
+      "side": 1,
+      "message": "LGTM. If you need to respin this change anyway, see inline comment.",
+      "revId": "0d6a51b554f3d5c64b5cf44acbe31682192a9062",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c266bca_2f48b042",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 11320,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-20T10:47:33Z",
+      "side": 1,
+      "message": "Pre-existing, but... maybe move this after the call to mNetd.idletimerAddInterface, so if adding the idletimer fails, we don\u0027t store it in mActiveIdleTimers, and don\u0027t try to delete it later?",
+      "range": {
+        "startLine": 11320,
+        "startChar": 16,
+        "endLine": 11320,
+        "endChar": 37
+      },
+      "revId": "0d6a51b554f3d5c64b5cf44acbe31682192a9062",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
