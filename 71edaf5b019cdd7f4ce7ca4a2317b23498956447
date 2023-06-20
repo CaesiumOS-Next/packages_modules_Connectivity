@@ -16,6 +16,24 @@
       "message": "Do we need to exclude *all* these tests though ? IIUC, the issue causing the flakes is the lack of stateless reset for DoT in older resolver modules, but ISTM that not all tests in this file annotated with the new annotation actually depend on this.\n\nIf we can remove the annotation from some of the unaffected tests it would be better. If I\u0027m wrong and all these tests are actually affected, then this patch is good to go. Approving on this assumption – please do remove the annotations if not all of them are necessary.",
       "revId": "71edaf5b019cdd7f4ce7ca4a2317b23498956447",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74a611cd_04cd42a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-06-20T08:27:58Z",
+      "side": 1,
+      "message": "Yes, this change already excludes the tests that don\u0027t do DNS lookups to private DNS. Since the default private DNS mode is \"automatic\", tests that don\u0027t do private-dns-bypass DNS lookups or change to private DNS mode to \"off\" are the affected tests.\n\nJust updated a new patchset as testPrivateDnsBypass is an unaffected test.",
+      "parentUuid": "23f51319_0e52f699",
+      "revId": "71edaf5b019cdd7f4ce7ca4a2317b23498956447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
