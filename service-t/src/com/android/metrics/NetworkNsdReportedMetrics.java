@@ -121,4 +121,51 @@ public class NetworkNsdReportedMetrics {
         // TODO: Report repliedRequestsCount
         mDependencies.statsWrite(builder.build());
     }
+
+    /**
+     * Report service discovery started metric data.
+     *
+     * @param transactionId The transaction id of service discovery.
+     */
+    public void reportServiceDiscoveryStarted(int transactionId) {
+        final Builder builder = makeReportedBuilder();
+        builder.setTransactionId(transactionId);
+        builder.setType(NsdEventType.NET_DISCOVER);
+        builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_DISCOVERY_STARTED);
+        mDependencies.statsWrite(builder.build());
+    }
+
+    /**
+     * Report service discovery failure metric data.
+     *
+     * @param transactionId The transaction id of service discovery.
+     */
+    public void reportServiceDiscoveryFailed(int transactionId) {
+        final Builder builder = makeReportedBuilder();
+        builder.setTransactionId(transactionId);
+        builder.setType(NsdEventType.NET_DISCOVER);
+        builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_DISCOVERY_FAILED);
+        mDependencies.statsWrite(builder.build());
+    }
+
+    /**
+     * Report service discovery stop metric data.
+     *
+     * @param transactionId The transaction id of service discovery.
+     * @param durationMs The duration of discovering services.
+     * @param foundCallbackCount The count of found service callbacks before stop discovery.
+     * @param lostCallbackCount The count of lost service callbacks before stop discovery.
+     */
+    public void reportServiceDiscoveryStop(int transactionId, long durationMs,
+            int foundCallbackCount, int lostCallbackCount) {
+        final Builder builder = makeReportedBuilder();
+        builder.setTransactionId(transactionId);
+        builder.setType(NsdEventType.NET_DISCOVER);
+        builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_DISCOVERY_STOP);
+        builder.setEventDurationMillisec(durationMs);
+        builder.setFoundCallbackCount(foundCallbackCount);
+        builder.setLostCallbackCount(lostCallbackCount);
+        builder.setFoundServiceCount(foundCallbackCount - lostCallbackCount);
+        mDependencies.statsWrite(builder.build());
+    }
 }
