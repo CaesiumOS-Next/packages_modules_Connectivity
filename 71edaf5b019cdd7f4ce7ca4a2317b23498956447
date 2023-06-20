@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23f51319_0e52f699",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T06:16:59Z",
+      "side": 1,
+      "message": "Do we need to exclude *all* these tests though ? IIUC, the issue causing the flakes is the lack of stateless reset for DoT in older resolver modules, but ISTM that not all tests in this file annotated with the new annotation actually depend on this.\n\nIf we can remove the annotation from some of the unaffected tests it would be better. If I\u0027m wrong and all these tests are actually affected, then this patch is good to go. Approving on this assumption – please do remove the annotations if not all of them are necessary.",
+      "revId": "71edaf5b019cdd7f4ce7ca4a2317b23498956447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
