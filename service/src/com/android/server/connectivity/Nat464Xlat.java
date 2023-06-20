@@ -46,6 +46,7 @@ import com.android.server.ConnectivityService;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
+import java.net.UnknownHostException;
 import java.util.Objects;
 
 /**
@@ -539,6 +540,28 @@ public class Nat464Xlat {
 
     public void interfaceRemoved(String iface) {
         mNetwork.handler().post(() -> handleInterfaceRemoved(iface));
+    }
+
+    /**
+     * Translate the input v4 address to v6 clat address.
+     */
+    @Nullable
+    public Inet6Address translateV4toV6(@NonNull Inet4Address addr) throws UnknownHostException {
+        // Variables in Nat464Xlat should only be accessed from handler thread.
+        ensureRunningOnHandlerThread();
+        if (!isStarted()) return null;
+
+        return convertv4ToClatv6(mNat64PrefixInUse, addr);
+    }
+
+    private static Inet6Address convertv4ToClatv6(
+            @NonNull IpPrefix prefix, @NonNull Inet4Address addr) throws UnknownHostException {
+        final byte[] v6Addr = new byte[16];
+        // Generate a v6 address from Nat64 prefix. Prefix should be 12 bytes long.
+        System.arraycopy(prefix.getAddress().getAddress(), 0, v6Addr, 0, 12);
+        System.arraycopy(addr.getAddress(), 0, v6Addr, 12, 4);
+
+        return ((Inet6Address) Inet6Address.getByAddress(v6Addr));
     }
 
     /**

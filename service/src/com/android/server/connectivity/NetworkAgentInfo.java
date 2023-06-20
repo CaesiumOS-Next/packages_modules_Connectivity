@@ -70,6 +70,7 @@ import com.android.server.ConnectivityService;
 import java.io.PrintWriter;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
+import java.net.UnknownHostException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1048,6 +1049,15 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     @Nullable
     public Inet4Address getClatv4SrcAddress() {
         return clatd.getClatv4SrcAddress();
+    }
+
+    /**
+     * Translate the input v4 address to v6 clat address.
+     */
+    @Nullable
+    public Inet6Address translateV4toClatV6(@NonNull Inet4Address addr)
+            throws UnknownHostException {
+        return clatd.translateV4toV6(addr);
     }
 
     /**
