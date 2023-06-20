@@ -91,4 +91,64 @@ class NetworkNsdReportedMetricsTest {
             assertEquals(durationMs, it.eventDurationMillisec)
         }
     }
+
+    @Test
+    fun testReportServiceDiscoveryStarted() {
+        val clientId = 99
+        val transactionId = 100
+        val metrics = NetworkNsdReportedMetrics(true /* isLegacy */, clientId, deps)
+        metrics.reportServiceDiscoveryStarted(transactionId)
+
+        val eventCaptor = ArgumentCaptor.forClass(NetworkNsdReported::class.java)
+        verify(deps).statsWrite(eventCaptor.capture())
+        eventCaptor.value.let {
+            assertEquals(true, it.isLegacy)
+            assertEquals(clientId, it.clientId)
+            assertEquals(transactionId, it.transactionId)
+            assertEquals(NsdEventType.NET_DISCOVER, it.type)
+            assertEquals(MdnsQueryResult.MQR_SERVICE_DISCOVERY_STARTED, it.queryResult)
+        }
+    }
+
+    @Test
+    fun testReportServiceDiscoveryFailed() {
+        val clientId = 99
+        val transactionId = 100
+        val durationMs = 10 * 1000L
+        val metrics = NetworkNsdReportedMetrics(false /* isLegacy */, clientId, deps)
+        metrics.reportServiceDiscoveryFailed(transactionId)
+
+        val eventCaptor = ArgumentCaptor.forClass(NetworkNsdReported::class.java)
+        verify(deps).statsWrite(eventCaptor.capture())
+        eventCaptor.value.let {
+            assertEquals(false, it.isLegacy)
+            assertEquals(clientId, it.clientId)
+            assertEquals(transactionId, it.transactionId)
+            assertEquals(NsdEventType.NET_DISCOVER, it.type)
+            assertEquals(MdnsQueryResult.MQR_SERVICE_DISCOVERY_FAILED, it.queryResult)
+        }
+    }
+
+    @Test
+    fun testReportServiceDiscoveryStop() {
+        val clientId = 99
+        val transactionId = 100
+        val durationMs = 10 * 1000L
+        val metrics = NetworkNsdReportedMetrics(true /* isLegacy */, clientId, deps)
+        metrics.reportServiceDiscoveryStop(
+                transactionId, durationMs, 100 /* foundCallbackCount */, 49 /* lostCallbackCount */)
+
+        val eventCaptor = ArgumentCaptor.forClass(NetworkNsdReported::class.java)
+        verify(deps).statsWrite(eventCaptor.capture())
+        eventCaptor.value.let {
+            assertEquals(true, it.isLegacy)
+            assertEquals(clientId, it.clientId)
+            assertEquals(transactionId, it.transactionId)
+            assertEquals(NsdEventType.NET_DISCOVER, it.type)
+            assertEquals(MdnsQueryResult.MQR_SERVICE_DISCOVERY_STOP, it.queryResult)
+            assertEquals(100, it.foundCallbackCount)
+            assertEquals(49, it.lostCallbackCount)
+            assertEquals(51, it.foundServiceCount)
+        }
+    }
 }
