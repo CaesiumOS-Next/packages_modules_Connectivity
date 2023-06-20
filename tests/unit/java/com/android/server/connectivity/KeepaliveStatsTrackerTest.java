@@ -24,6 +24,7 @@ import static com.android.testutils.HandlerUtils.visibleOnHandlerThread;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -951,7 +952,8 @@ public class KeepaliveStatsTrackerTest {
         onStartKeepalive(startTime1, TEST_SLOT);
 
         // Attempt to use the same (network, slot)
-        assertThrows(IllegalArgumentException.class, () -> onStartKeepalive(startTime2, TEST_SLOT));
+        onStartKeepalive(startTime2, TEST_SLOT);
+        assertTrue(visibleOnHandlerThread(mTestHandler, () -> mKeepaliveStatsTracker.isDisabled()));
 
         final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
                 buildKeepaliveMetrics(writeTime);
