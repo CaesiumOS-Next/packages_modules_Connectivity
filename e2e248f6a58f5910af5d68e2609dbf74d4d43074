@@ -22,6 +22,76 @@
       },
       "revId": "e2e248f6a58f5910af5d68e2609dbf74d4d43074",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f03a4133_76f1195e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9867,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T05:54:42Z",
+      "side": 1,
+      "message": "From the bug and commit message, should this be `!networkAgent.networkAgentConfig.isExplicitlySelected()`?",
+      "parentUuid": "a1e3fb88_825186a6",
+      "range": {
+        "startLine": 9867,
+        "startChar": 20,
+        "endLine": 9867,
+        "endChar": 22
+      },
+      "revId": "e2e248f6a58f5910af5d68e2609dbf74d4d43074",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c347a05a_3dc845b6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6141,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T05:54:42Z",
+      "side": 1,
+      "message": "Is this correct to set explicitlySelected to cellAgent?\nI thought we should set to wifiAgent.",
+      "range": {
+        "startLine": 6141,
+        "startChar": 87,
+        "endLine": 6141,
+        "endChar": 89
+      },
+      "revId": "e2e248f6a58f5910af5d68e2609dbf74d4d43074",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7ec46be_09741dd1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6149,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T05:54:42Z",
+      "side": 1,
+      "message": "Do we need assertNotNull?",
+      "range": {
+        "startLine": 6149,
+        "startChar": 6,
+        "endLine": 6149,
+        "endChar": 18
+      },
+      "revId": "e2e248f6a58f5910af5d68e2609dbf74d4d43074",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
