@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77579a8d_7d318dae",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-20T05:56:11Z",
+      "side": 1,
+      "message": "Also add check to ensure it\u0027s running on the handler thread.",
+      "parentUuid": "bb3f22bc_566e71fa",
+      "range": {
+        "startLine": 554,
+        "startChar": 33,
+        "endLine": 554,
+        "endChar": 50
+      },
+      "revId": "87da999a96c199988a544dec8f93060559ad4062",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95c8ba18_2163dada",
