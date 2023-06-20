@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f41bb77d_9081a058",
+        "filename": "service/src/com/android/server/connectivity/NetworkNotificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T04:23:58Z",
+      "side": 1,
+      "message": "Do we want to add NotificationType.LOST_INTERNET here?\nOtherwise, LOST_INTERNET with cellular transportType could call Log.wtf in line 275 I think.\n\nIf we have LOST_INTERNET only for wifi, please ignore this comment.",
+      "revId": "4687f650565ed479b0691f84e82a69bf4ec861e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc6056cc_47d41714",
+        "filename": "service/src/com/android/server/connectivity/NetworkNotificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T04:23:58Z",
+      "side": 1,
+      "message": "nits: should we update the comment for config_notifyNoInternetAsDialogWhenHighPriority?\nhttps://source.corp.google.com/h/android/platform/superproject/+/master:packages/modules/Connectivity/service/ServiceConnectivityResources/res/values/config.xml;l\u003d138?q\u003dconfig_notifyNoInternetAsDialogWhenHighPriority\u0026ss\u003dpiper%2FGoogle%2Faosp-master",
+      "range": {
+        "startLine": 330,
+        "startChar": 35,
+        "endLine": 330,
+        "endChar": 82
+      },
+      "revId": "4687f650565ed479b0691f84e82a69bf4ec861e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3fac9bb_0a3af595",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T04:23:58Z",
+      "side": 1,
+      "message": "nits: notifType could be non NO_INTERNET now.",
+      "range": {
+        "startLine": 468,
+        "startChar": 25,
+        "endLine": 468,
+        "endChar": 36
+      },
+      "revId": "4687f650565ed479b0691f84e82a69bf4ec861e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
