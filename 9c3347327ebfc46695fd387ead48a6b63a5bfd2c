@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0707c2b_2b857c7f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 4699,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-20T10:34:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a6a16f87_cc013f6a",
+      "range": {
+        "startLine": 4699,
+        "startChar": 8,
+        "endLine": 4699,
+        "endChar": 9
+      },
+      "revId": "9c3347327ebfc46695fd387ead48a6b63a5bfd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3651d07b_25f73807",
@@ -95,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d7ac555_9f1e8cf0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 9965,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-20T10:34:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b31d2bea_91a3f8df",
+      "range": {
+        "startLine": 9965,
+        "startChar": 12,
+        "endLine": 9965,
+        "endChar": 13
+      },
+      "revId": "9c3347327ebfc46695fd387ead48a6b63a5bfd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "770b2058_1ce6cbd2",
@@ -108,6 +156,30 @@
       "writtenOn": "2023-06-20T09:45:56Z",
       "side": 1,
       "message": "This will return true for any VPN that uses cell as the underlying network. We probably shouldn\u0027t set up idletimers for such networks. Same for wifi below. Maybe just ignore the network completely if it does not have NET_CAPABILITY_NOT_VPN?",
+      "range": {
+        "startLine": 11289,
+        "startChar": 49,
+        "endLine": 11289,
+        "endChar": 61
+      },
+      "revId": "9c3347327ebfc46695fd387ead48a6b63a5bfd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "417b90ba_6fecdf6f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 11289,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-20T10:34:37Z",
+      "side": 1,
+      "message": "This is now fixed in the latest patchset. Ideally we\u0027d avoid running on the VCN as well. I think the best way to do that is to check whether the network has any underlying networks. But that can change over time for a given network (underlying networks can appear and disappear). So in order to do that we would need to re-evaluate the idletimer for each network when its capabilities change. Maybe file a bug to exclude VCN?",
+      "parentUuid": "770b2058_1ce6cbd2",
       "range": {
         "startLine": 11289,
         "startChar": 49,
