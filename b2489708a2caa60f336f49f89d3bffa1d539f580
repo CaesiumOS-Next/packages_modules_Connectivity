@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7142b4c_ba25202e",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T09:41:17Z",
+      "side": 1,
+      "message": "I think this one is in getAddresses ? But can you just not replace l.292 with getAllAddresses ?",
+      "range": {
+        "startLine": 299,
+        "startChar": 59,
+        "endLine": 299,
+        "endChar": 78
+      },
+      "revId": "b2489708a2caa60f336f49f89d3bffa1d539f580",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
