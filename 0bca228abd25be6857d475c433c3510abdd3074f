@@ -22,6 +22,30 @@
       },
       "revId": "0bca228abd25be6857d475c433c3510abdd3074f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6116e633_4e6eace5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 81
+      },
+      "lineNbr": 11346,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T10:43:12Z",
+      "side": 1,
+      "message": "On U+, yes we can do that.\nOn T-, we can not since we call BatteryStatsAPI for the network that does not have idleTimer.\n\nI will update to get transportType from IdleTimerParams on U+ in followup.",
+      "parentUuid": "8cecf667_f9049b89",
+      "range": {
+        "startLine": 11346,
+        "startChar": 12,
+        "endLine": 11346,
+        "endChar": 90
+      },
+      "revId": "0bca228abd25be6857d475c433c3510abdd3074f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
