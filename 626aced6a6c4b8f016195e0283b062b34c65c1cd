@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a48abc2d_2705873e",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-20T05:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27831c67_a0591944",
+      "range": {
+        "startLine": 297,
+        "startChar": 52,
+        "endLine": 297,
+        "endChar": 61
+      },
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ed6ed23_ec95eb0b",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-06-16T05:59:53Z",
       "side": 1,
       "message": "This is always an Inet6Address, so you should use that type statically",
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d3fbf54_1ad83c57",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-20T05:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ed6ed23_ec95eb0b",
       "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53ab9be5_6c4c35e4",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-20T05:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c03d731_4d30df3e",
+      "range": {
+        "startLine": 549,
+        "startChar": 12,
+        "endLine": 549,
+        "endChar": 88
+      },
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4445d21f_fb6cce7c",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-06-16T05:59:53Z",
       "side": 1,
       "message": "This seems like the wrong message. You\u0027d want something like `src is CLAT v4 address`.",
+      "range": {
+        "startLine": 556,
+        "startChar": 24,
+        "endLine": 556,
+        "endChar": 40
+      },
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "628621ee_107d58ab",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-20T05:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4445d21f_fb6cce7c",
       "range": {
         "startLine": 556,
         "startChar": 24,
