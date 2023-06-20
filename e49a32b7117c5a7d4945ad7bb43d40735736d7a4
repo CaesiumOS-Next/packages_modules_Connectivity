@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4c854c3_1912a33b",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-20T14:19:42Z",
+      "side": 1,
+      "message": "DPC_COMPONENT_NAME? I saw NetworkResetTest use it.",
+      "range": {
+        "startLine": 82,
+        "startChar": 20,
+        "endLine": 82,
+        "endChar": 54
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "078e747f_e3cffe0d",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-20T14:19:42Z",
+      "side": 1,
+      "message": "why not just use mCallback?",
+      "range": {
+        "startLine": 100,
+        "startChar": 41,
+        "endLine": 100,
+        "endChar": 49
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "070652fd_97cc6c0c",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-20T14:19:42Z",
+      "side": 1,
+      "message": "use DPC_COMPONENT_NAME?",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 50
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "395fbbbb_69c74e2a",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-20T14:19:42Z",
+      "side": 1,
+      "message": "it is exposed",
+      "range": {
+        "startLine": 114,
+        "startChar": 62,
+        "endLine": 114,
+        "endChar": 71
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eec60516_c47a528e",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-20T14:19:42Z",
+      "side": 1,
+      "message": "isn\u0027t it now an API in ITetheringEventCallback? it\u0027ll callback if no user restriction?",
+      "range": {
+        "startLine": 114,
+        "startChar": 17,
+        "endLine": 114,
+        "endChar": 47
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dfb8e35_9985b7f6",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-20T14:19:42Z",
+      "side": 1,
+      "message": "is still not supported",
+      "range": {
+        "startLine": 120,
+        "startChar": 24,
+        "endLine": 120,
+        "endChar": 46
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
