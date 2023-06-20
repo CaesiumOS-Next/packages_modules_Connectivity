@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aee0bc55_75254e49",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T09:14:51Z",
+      "side": 1,
+      "message": "What\u0027s the point of this local ?",
+      "revId": "5165c238b7e6ca4059893233b314c7aa0578f69d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91b63d5a_0225fc1a",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T09:14:51Z",
+      "side": 1,
+      "message": "You might need to return null if !isStarted",
+      "range": {
+        "startLine": 565,
+        "startChar": 39,
+        "endLine": 565,
+        "endChar": 40
+      },
+      "revId": "5165c238b7e6ca4059893233b314c7aa0578f69d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fba185cc_135c756f",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T09:14:51Z",
+      "side": 1,
+      "message": "You don\u0027t need this pair of braces",
+      "range": {
+        "startLine": 567,
+        "startChar": 15,
+        "endLine": 567,
+        "endChar": 16
+      },
+      "revId": "5165c238b7e6ca4059893233b314c7aa0578f69d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
