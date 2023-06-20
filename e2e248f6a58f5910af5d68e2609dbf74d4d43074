@@ -92,6 +92,30 @@
       },
       "revId": "e2e248f6a58f5910af5d68e2609dbf74d4d43074",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05c260f6_ad28ce43",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6149,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-06-20T07:36:24Z",
+      "side": 1,
+      "message": "Also, in my understanding,scheduleEvaluationTimeout is called twice, once for cell and once for wifi.\nSo, if scheduleEvaluationTimeout is called once with ACTIVELY_PREFER_BAD_WIFI_INITIAL_TIMEOUT_MS and once with DONT_ACTIVELY_PREFER_BAD_WIFI_INITIAL_TIMEOUT_MS, I think test will pass regardless of \u0027timeout \u003c 14_000\u0027 or \u0027timeout \u003e 14_000\u0027.",
+      "parentUuid": "d7ec46be_09741dd1",
+      "range": {
+        "startLine": 6149,
+        "startChar": 6,
+        "endLine": 6149,
+        "endChar": 18
+      },
+      "revId": "e2e248f6a58f5910af5d68e2609dbf74d4d43074",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
