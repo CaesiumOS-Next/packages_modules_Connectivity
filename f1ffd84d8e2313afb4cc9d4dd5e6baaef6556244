@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "001c53be_ae0b8b85",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T09:21:11Z",
+      "side": 1,
+      "message": "Does it throw though ? It\u0027s a numeric address, it should never throw ? getByAddress is documented to throw if and only if the length of the array is neither 4 or 16, so you should presumably catch it here and just return null, since it can\u0027t ever happen and it\u0027s declared nullable",
+      "range": {
+        "startLine": 558,
+        "startChar": 73,
+        "endLine": 558,
+        "endChar": 93
+      },
+      "revId": "f1ffd84d8e2313afb4cc9d4dd5e6baaef6556244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "376c1faf_69857f80",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T09:21:11Z",
+      "side": 1,
+      "message": "You don\u0027t need these braces",
+      "range": {
+        "startLine": 564,
+        "startChar": 15,
+        "endLine": 564,
+        "endChar": 16
+      },
+      "revId": "f1ffd84d8e2313afb4cc9d4dd5e6baaef6556244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2718761e_eeea58e3",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-20T09:21:11Z",
+      "side": 1,
+      "message": "Doesn\u0027t this fit on 1 line ? (anyway I guess you\u0027ll remove the throws clause)",
+      "range": {
+        "startLine": 1059,
+        "startChar": 40,
+        "endLine": 1059,
+        "endChar": 41
+      },
+      "revId": "f1ffd84d8e2313afb4cc9d4dd5e6baaef6556244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
