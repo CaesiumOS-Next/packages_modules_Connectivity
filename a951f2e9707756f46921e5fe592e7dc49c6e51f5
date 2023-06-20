@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30a49771_3c1f34f4",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-20T08:17:53Z",
+      "side": 1,
+      "message": "Instead of looping, move this to a function and literate the function 5 times. It would be more easy know the fail at which line rather than the test fail in middle of loop.",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 39
+      },
+      "revId": "a951f2e9707756f46921e5fe592e7dc49c6e51f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
