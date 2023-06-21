@@ -1706,6 +1706,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mNetworkActivityTracker =
                 new LegacyNetworkActivityTracker(mContext, mNetd, mHandler, mDeps.isAtLeastU());
 
+
         final NetdCallback netdCallback = new NetdCallback();
         try {
             mNetd.registerUnsolicitedEventListener(netdCallback);
