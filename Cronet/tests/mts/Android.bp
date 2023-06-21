@@ -34,13 +34,14 @@ java_genrule {
         "--output $(out)",
 }
 
-// Library to be used in coverage tests. cronet_java_tests can't be used directly because the common
-// tests need to inherit the NetHttpTests manifest.
 android_library {
     name: "NetHttpTestsLibPreJarJar",
-    static_libs: ["cronet_java_tests"],
     sdk_version: "module_current",
     min_sdk_version: "30",
+    static_libs: [
+	"cronet_java_tests",
+    ],
+    lint: { test: true }
 }
 
 android_test {
@@ -49,9 +50,12 @@ android_test {
         "mts-target-sdk-version-current",
      ],
      static_libs: ["NetHttpTestsLibPreJarJar"],
+//     sdk_version: "module_current",
+//     min_sdk_version: "30",
      jarjar_rules: ":net-http-test-jarjar-rules",
      jni_libs: [
-        "cronet_aml_components_cronet_android_cronet_tests__testing"
+        "cronet_aml_components_cronet_android_cronet__testing",
+        "cronet_aml_components_cronet_android_cronet_tests__testing",
      ],
      test_suites: [
          "general-tests",
