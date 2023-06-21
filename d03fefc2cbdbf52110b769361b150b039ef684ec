@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a0f4b76_084cd7c0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-21T08:01:06Z",
+      "side": 1,
+      "message": "Nit: this is just one socket, so \"onSocketDestroyed\" (without the s) ?",
+      "range": {
+        "startLine": 197,
+        "startChar": 32,
+        "endLine": 197,
+        "endChar": 50
+      },
+      "revId": "d03fefc2cbdbf52110b769361b150b039ef684ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
