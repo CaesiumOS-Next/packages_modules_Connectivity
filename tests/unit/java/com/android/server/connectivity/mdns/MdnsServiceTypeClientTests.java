@@ -33,6 +33,7 @@ import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -917,10 +918,14 @@ public class MdnsServiceTypeClientTests {
         final String ipV4Address = "192.0.2.0";
         final String ipV6Address = "2001:db8::";
 
-        final MdnsSearchOptions resolveOptions = MdnsSearchOptions.newBuilder()
+        final MdnsSearchOptions resolveOptions1 = MdnsSearchOptions.newBuilder()
+                .setResolveInstanceName(instanceName).build();
+        final MdnsSearchOptions resolveOptions2 = MdnsSearchOptions.newBuilder()
                 .setResolveInstanceName(instanceName).build();
 
-        client.startSendAndReceive(mockListenerOne, resolveOptions);
+        client.startSendAndReceive(mockListenerOne, resolveOptions1);
+        client.startSendAndReceive(mockListenerTwo, resolveOptions2);
+        // No need to verify order for both listeners; and order is not guaranteed between them
         InOrder inOrder = inOrder(mockListenerOne, mockSocketClient);
 
         // Verify a query for SRV/TXT was sent, but no PTR query
@@ -930,14 +935,20 @@ public class MdnsServiceTypeClientTests {
         // Send twice for IPv4 and IPv6
         inOrder.verify(mockSocketClient, times(2)).sendUnicastPacket(srvTxtQueryCaptor.capture(),
                 eq(mockNetwork));
+        inOrder.verify(mockListenerOne).onDiscoveryQuerySent(any(), anyInt());
+        verify(mockListenerTwo).onDiscoveryQuerySent(any(), anyInt());
 
         final MdnsPacket srvTxtQueryPacket = MdnsPacket.parse(
                 new MdnsPacketReader(srvTxtQueryCaptor.getValue()));
 
         final String[] serviceName = getTestServiceName(instanceName);
+        assertEquals(2, srvTxtQueryPacket.questions.size());
         assertFalse(hasQuestion(srvTxtQueryPacket, MdnsRecord.TYPE_PTR));
         assertTrue(hasQuestion(srvTxtQueryPacket, MdnsRecord.TYPE_SRV, serviceName));
         assertTrue(hasQuestion(srvTxtQueryPacket, MdnsRecord.TYPE_TXT, serviceName));
+        assertEquals(0, srvTxtQueryPacket.answers.size());
+        assertEquals(0, srvTxtQueryPacket.authorityRecords.size());
+        assertEquals(0, srvTxtQueryPacket.additionalRecords.size());
 
         // Process a response with SRV+TXT
         final MdnsPacket srvTxtResponse = new MdnsPacket(
@@ -954,6 +965,8 @@ public class MdnsServiceTypeClientTests {
                 Collections.emptyList() /* additionalRecords */);
 
         client.processResponse(srvTxtResponse, INTERFACE_INDEX, mockNetwork);
+        inOrder.verify(mockListenerOne).onServiceNameDiscovered(matchServiceName(instanceName));
+        verify(mockListenerTwo).onServiceNameDiscovered(matchServiceName(instanceName));
 
         // Expect a query for A/AAAA
         final ArgumentCaptor<DatagramPacket> addressQueryCaptor =
@@ -961,11 +974,18 @@ public class MdnsServiceTypeClientTests {
         currentThreadExecutor.getAndClearLastScheduledRunnable().run();
         inOrder.verify(mockSocketClient, times(2)).sendMulticastPacket(addressQueryCaptor.capture(),
                 eq(mockNetwork));
+        inOrder.verify(mockListenerOne).onDiscoveryQuerySent(any(), anyInt());
+        // onDiscoveryQuerySent was called 2 times in total
+        verify(mockListenerTwo, times(2)).onDiscoveryQuerySent(any(), anyInt());
 
         final MdnsPacket addressQueryPacket = MdnsPacket.parse(
                 new MdnsPacketReader(addressQueryCaptor.getValue()));
+        assertEquals(2, addressQueryPacket.questions.size());
         assertTrue(hasQuestion(addressQueryPacket, MdnsRecord.TYPE_A, hostname));
         assertTrue(hasQuestion(addressQueryPacket, MdnsRecord.TYPE_AAAA, hostname));
+        assertEquals(0, addressQueryPacket.answers.size());
+        assertEquals(0, addressQueryPacket.authorityRecords.size());
+        assertEquals(0, addressQueryPacket.additionalRecords.size());
 
         // Process a response with address records
         final MdnsPacket addressResponse = new MdnsPacket(
@@ -982,9 +1002,11 @@ public class MdnsServiceTypeClientTests {
                 Collections.emptyList() /* additionalRecords */);
 
         inOrder.verify(mockListenerOne, never()).onServiceNameDiscovered(any());
+        verifyNoMoreInteractions(mockListenerTwo);
         client.processResponse(addressResponse, INTERFACE_INDEX, mockNetwork);
 
         inOrder.verify(mockListenerOne).onServiceFound(serviceInfoCaptor.capture());
+        verify(mockListenerTwo).onServiceFound(any());
         verifyServiceInfo(serviceInfoCaptor.getValue(),
                 instanceName,
                 SERVICE_TYPE_LABELS,

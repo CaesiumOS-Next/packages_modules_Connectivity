@@ -500,6 +500,10 @@ public class MdnsServiceTypeClient {
             if (resolveName == null) {
                 continue;
             }
+            if (CollectionUtils.any(resolveResponses,
+                    r -> resolveName.equals(r.getServiceInstanceName()))) {
+                continue;
+            }
             MdnsResponse knownResponse = instanceNameToResponse.get(resolveName);
             if (knownResponse == null) {
                 final ArrayList<String> instanceFullName = new ArrayList<>(
@@ -513,6 +517,16 @@ public class MdnsServiceTypeClient {
             resolveResponses.add(knownResponse);
         }
         return resolveResponses;
+    }
+
+    private static boolean hasDiscoveryQuery(@NonNull ArrayMap<?, MdnsSearchOptions> listeners) {
+        // Note iterators are discouraged on ArrayMap as per its documentation
+        for (int i = 0; i < listeners.size(); i++) {
+            if (listeners.valueAt(i).getResolveInstanceName() == null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // A FutureTask that enqueues a single query, and schedule a new FutureTask for the next task.
@@ -536,7 +550,7 @@ public class MdnsServiceTypeClient {
                 // interfaceIndex do not matter.
                 servicesToResolve = makeResponsesForResolve(
                         0 /* interfaceIndex */, config.network);
-                sendDiscoveryQueries = servicesToResolve.size() < listeners.size();
+                sendDiscoveryQueries = hasDiscoveryQuery(listeners);
             }
             Pair<Integer, List<String>> result;
             try {
