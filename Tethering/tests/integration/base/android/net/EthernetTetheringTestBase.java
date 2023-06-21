@@ -951,6 +951,11 @@ public abstract class EthernetTetheringTestBase {
         return Struct.parse(Ipv6Header.class, ByteBuffer.wrap(expectedPacket)).srcIp;
     }
 
+    protected String getTestUpstreamInterface() {
+        if (mUpstreamTracker == null) return null;
+        return mUpstreamTracker.getTestIface().getInterfaceName();
+    }
+
     protected <T> List<T> toList(T... array) {
         return Arrays.asList(array);
     }
