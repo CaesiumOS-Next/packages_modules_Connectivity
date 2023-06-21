@@ -541,6 +541,13 @@ public class Nat464Xlat {
     }
 
     /**
+     * @return name of the clatd base interface.
+     */
+    public String getBaseInterface() {
+        return mBaseIface;
+    }
+
+    /**
      * Dump the NAT64 xlat information.
      *
      * @param pw print writer.
@@ -557,6 +564,20 @@ public class Nat464Xlat {
                 pw.decreaseIndent();
             } else {
                 pw.println("<not started>");
+            }
+        }
+    }
+
+    /**
+     * Dump the raw BPF maps in NAT64 xlat
+     *
+     * @param pw print writer.
+     * @param args dumpsys arguments
+     */
+    public void dumpRawBpfMap(IndentingPrintWriter pw, String[] args) {
+        if (SdkLevel.isAtLeastT()) {
+            if (isStarted()) {
+                mClatCoordinator.dumpRawMap(pw, args);
             }
         }
     }

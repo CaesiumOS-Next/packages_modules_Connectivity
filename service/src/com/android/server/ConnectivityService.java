@@ -353,6 +353,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final String NETWORK_ARG = "networks";
     private static final String REQUEST_ARG = "requests";
     private static final String TRAFFICCONTROLLER_ARG = "trafficcontroller";
+    private static final String CLATBPFRAWMAP_ARG = "clatbpfrawmap";
 
     private static final boolean DBG = true;
     private static final boolean DDBG = Log.isLoggable(TAG, Log.DEBUG);
@@ -3534,6 +3535,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             boolean verbose = !CollectionUtils.contains(args, SHORT_ARG);
             dumpTrafficController(pw, fd, verbose);
             return;
+        } else if (CollectionUtils.contains(args, CLATBPFRAWMAP_ARG)) {
+            dumpClatBpfRawMap(pw, args);
+            return;
         }
 
         pw.println("NetworkProviders for:");
@@ -3772,6 +3776,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
             pw.println(e.getMessage());
         } catch (IOException e) {
             loge("Dump BPF maps failed, " + e);
+        }
+    }
+
+    private void dumpClatBpfRawMap(IndentingPrintWriter pw, String[] args) {
+        for (NetworkAgentInfo nai : networksSortedById()) {
+            if (nai.clatd != null && CollectionUtils.contains(args, nai.clatd.getBaseInterface())) {
+                nai.clatd.dumpRawBpfMap(pw, args);
+                break;
+            }
         }
     }
 
