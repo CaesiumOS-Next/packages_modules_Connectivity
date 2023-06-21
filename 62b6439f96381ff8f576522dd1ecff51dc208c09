@@ -1,5 +1,46 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47be7525_ae5f18b5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-21T08:35:14Z",
+      "side": 1,
+      "message": "Nit: since it\u0027s both per type and per socket, you could just call it \"serviceTypeClients\" to simplify. But maybe not worth changing now.",
+      "range": {
+        "startLine": 51,
+        "startChar": 55,
+        "endLine": 51,
+        "endChar": 82
+      },
+      "revId": "62b6439f96381ff8f576522dd1ecff51dc208c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd8f14f7_607ea2e8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-21T08:35:14Z",
+      "side": 1,
+      "message": "The tag is taking a lot of space here:\n\n    NsdService [MdnsDiscoveryManager._mytype._tcp.local.SocketKey{ network\u003d123 interfaceIndex\u003d45 }] Some log message\n\nCould you make it shorter ? Maybe add some socketKey.toShortString() method, and try to have something like:\n\n    NsdService [MdnsDiscov._mytype._tcp.local-123/45] Some log message",
+      "revId": "62b6439f96381ff8f576522dd1ecff51dc208c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
