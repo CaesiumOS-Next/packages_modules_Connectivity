@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9c37a68_998f3435",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-21T06:15:15Z",
+      "side": 1,
+      "message": "mLock will be removed in follow up",
+      "range": {
+        "startLine": 296,
+        "startChar": 20,
+        "endLine": 296,
+        "endChar": 40
+      },
+      "revId": "8668f2d80650b2bb59821c87d092bc20294618a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "996bdd31_84d5dece",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-21T06:15:15Z",
+      "side": 1,
+      "message": "You can just use Pair. new Pair\u003cRaParams, RaParams\u003e(deprecatedParams, newParams)",
+      "range": {
+        "startLine": 378,
+        "startChar": 38,
+        "endLine": 378,
+        "endChar": 44
+      },
+      "revId": "8668f2d80650b2bb59821c87d092bc20294618a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
