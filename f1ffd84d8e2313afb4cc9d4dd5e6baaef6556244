@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cade4d7_6421abc8",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-21T09:41:03Z",
+      "side": 1,
+      "message": "Yes, it should never throw. Updated as suggested",
+      "parentUuid": "001c53be_ae0b8b85",
+      "range": {
+        "startLine": 558,
+        "startChar": 73,
+        "endLine": 558,
+        "endChar": 93
+      },
+      "revId": "f1ffd84d8e2313afb4cc9d4dd5e6baaef6556244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "376c1faf_69857f80",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6517505a_317497d0",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-21T09:41:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "376c1faf_69857f80",
+      "range": {
+        "startLine": 564,
+        "startChar": 15,
+        "endLine": 564,
+        "endChar": 16
+      },
+      "revId": "f1ffd84d8e2313afb4cc9d4dd5e6baaef6556244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2718761e_eeea58e3",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-06-20T09:21:11Z",
       "side": 1,
       "message": "Doesn\u0027t this fit on 1 line ? (anyway I guess you\u0027ll remove the throws clause)",
+      "range": {
+        "startLine": 1059,
+        "startChar": 40,
+        "endLine": 1059,
+        "endChar": 41
+      },
+      "revId": "f1ffd84d8e2313afb4cc9d4dd5e6baaef6556244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11d490d5_d3093c76",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-21T09:41:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2718761e_eeea58e3",
       "range": {
         "startLine": 1059,
         "startChar": 40,
