@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ba684fb_28be4912",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-21T08:31:54Z",
+      "side": 1,
+      "message": "Need case insensitive check here?",
+      "range": {
+        "startLine": 520,
+        "startChar": 37,
+        "endLine": 520,
+        "endChar": 43
+      },
+      "revId": "80acb20b4cecfb5634a12fd8fc905198c94cca9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e89b759b_13811a0d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-21T08:31:54Z",
+      "side": 1,
+      "message": "Why using ArrayMap\u003c?, MdnsSearchOptions\u003e instead of ArrayMap\u003cMdnsServiceBrowserListener, MdnsSearchOptions\u003e here? If the listeners can only have one key type it will be better to specify it.",
+      "range": {
+        "startLine": 538,
+        "startChar": 54,
+        "endLine": 538,
+        "endChar": 94
+      },
+      "revId": "80acb20b4cecfb5634a12fd8fc905198c94cca9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cb550b6_29bd0816",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-21T08:31:54Z",
+      "side": 1,
+      "message": "nit: `hasDiscoveryQuery` -\u003e `needSendDiscoveryQuries`?",
+      "range": {
+        "startLine": 538,
+        "startChar": 27,
+        "endLine": 538,
+        "endChar": 44
+      },
+      "revId": "80acb20b4cecfb5634a12fd8fc905198c94cca9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78e16a4e_93cf80f9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-21T08:31:54Z",
+      "side": 1,
+      "message": "It seems the boolean value is redundant here.",
+      "range": {
+        "startLine": 569,
+        "startChar": 16,
+        "endLine": 569,
+        "endChar": 36
+      },
+      "revId": "80acb20b4cecfb5634a12fd8fc905198c94cca9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
