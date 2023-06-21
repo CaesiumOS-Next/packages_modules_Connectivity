@@ -41,7 +41,9 @@ import androidx.annotation.RequiresApi;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.net.module.util.BpfDump;
 import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.TcUtils;
@@ -111,6 +113,8 @@ public class ClatCoordinator {
             "/sys/fs/bpf/netd_shared/map_netd_cookie_tag_map";
     private static final String CLAT_EGRESS4_MAP_PATH = makeMapPath("egress4");
     private static final String CLAT_INGRESS6_MAP_PATH = makeMapPath("ingress6");
+    private static final String CLAT_DUMPSYS_RAWMAP_ARG_EGRESS4 = "--egress4";
+    private static final String CLAT_DUMPSYS_RAWMAP_ARG_INGRESS6 = "--ingress6";
 
     private static String makeMapPath(String which) {
         return "/sys/fs/bpf/net_shared/map_clatd_clat_" + which + "_map";
@@ -881,6 +885,37 @@ public class ClatCoordinator {
             pw.decreaseIndent();
         } catch (ErrnoException e) {
             pw.println("Error dumping BPF egress4 map: " + e);
+        }
+    }
+
+    /**
+     * Dump raw BPF map into the base64 encoded strings {@literal "<base64 key>,<base64 value>"}.
+     * Allow to dump only one map path once. For test only.
+     *
+     * Usage:
+     * {@literal $ dumpsys connectivity ClatBpfRawMap <map name>}
+     *
+     * Output:
+     * {@literal <base64 encoded key #1>,<base64 encoded value #1>}
+     * {@literal <base64 encoded key #2>,<base64 encoded value #2>}
+     * ..
+     */
+    public void dumpRawMap(@NonNull IndentingPrintWriter pw, @Nullable String[] args) {
+        // TODO: consider checking the arg order that <map name> is after "ClatBpfRawMap". Probably
+        // it is okay for now because this is used by test only and test is supposed to use
+        // expected argument order.
+        if (CollectionUtils.contains(args, CLAT_DUMPSYS_RAWMAP_ARG_EGRESS4)) {
+            try {
+                BpfDump.dumpRawMap(mEgressMap, pw);
+            } catch (ErrnoException e) {
+                pw.println("Error dumping egress4 map: " + e);
+            }
+        } else if (CollectionUtils.contains(args, CLAT_DUMPSYS_RAWMAP_ARG_INGRESS6)) {
+            try {
+                BpfDump.dumpRawMap(mIngressMap, pw);
+            } catch (ErrnoException e) {
+                pw.println("Error dumping ingress6 map: " + e);
+            }
         }
     }
 

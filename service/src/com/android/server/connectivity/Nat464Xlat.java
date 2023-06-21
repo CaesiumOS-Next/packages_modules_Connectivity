@@ -622,6 +622,20 @@ public class Nat464Xlat {
         }
     }
 
+    /**
+     * Dump the raw BPF maps in NAT64 xlat
+     *
+     * @param pw print writer.
+     * @param args dumpsys arguments
+     */
+    public void dumpRawBpfMap(IndentingPrintWriter pw, String[] args) {
+        if (SdkLevel.isAtLeastT()) {
+            if (isStarted()) {
+                mClatCoordinator.dumpRawMap(pw, args);
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "mBaseIface: " + mBaseIface + ", mIface: " + mIface + ", mState: " + mState;
