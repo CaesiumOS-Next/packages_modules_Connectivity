@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f006aed_8882598f",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-21T08:13:24Z",
+      "side": 1,
+      "message": "DPC_COMPONENT_NAME is removed from U, U NetworkResetTest also use this way to specify component name.",
+      "parentUuid": "f4c854c3_1912a33b",
+      "range": {
+        "startLine": 82,
+        "startChar": 20,
+        "endLine": 82,
+        "endChar": 54
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "078e747f_e3cffe0d",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ce27106_4720bbf9",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-21T08:13:24Z",
+      "side": 1,
+      "message": "The l.87 and 98 TODO explain the reason.",
+      "parentUuid": "078e747f_e3cffe0d",
+      "range": {
+        "startLine": 100,
+        "startChar": 41,
+        "endLine": 100,
+        "endChar": 49
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "070652fd_97cc6c0c",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-06-20T14:19:42Z",
       "side": 1,
       "message": "use DPC_COMPONENT_NAME?",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 50
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0805ca83_ff36003e",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-21T08:13:24Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "070652fd_97cc6c0c",
       "range": {
         "startLine": 112,
         "startChar": 16,
@@ -116,6 +188,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07e6bc3b_4be74833",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-21T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "395fbbbb_69c74e2a",
+      "range": {
+        "startLine": 114,
+        "startChar": 62,
+        "endLine": 114,
+        "endChar": 71
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaddcf89_5881d469",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-21T08:13:24Z",
+      "side": 1,
+      "message": "No, it still be @hide.",
+      "parentUuid": "eec60516_c47a528e",
+      "range": {
+        "startLine": 114,
+        "startChar": 17,
+        "endLine": 114,
+        "endChar": 47
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8dfb8e35_9985b7f6",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-06-20T14:19:42Z",
       "side": 1,
       "message": "is still not supported",
+      "range": {
+        "startLine": 120,
+        "startChar": 24,
+        "endLine": 120,
+        "endChar": 46
+      },
+      "revId": "e49a32b7117c5a7d4945ad7bb43d40735736d7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0a8d579_1a2b0526",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-21T08:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dfb8e35_9985b7f6",
       "range": {
         "startLine": 120,
         "startChar": 24,
