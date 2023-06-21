@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "852df126_aa5add5c",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-21T06:00:43Z",
+      "side": 1,
+      "message": "I am curious how stop/start serving interface without teardown interface works. Will it also kick out connected clients? If a client has already been assigned an address by the DHCP server under prefix A, and the serving interface is restarted (prefix B) without actually kicking out the connected client, the previous connected client will no longer be in the new subnet prefix B.",
+      "range": {
+        "startLine": 1221,
+        "startChar": 0,
+        "endLine": 1222,
+        "endChar": 48
+      },
+      "revId": "df3a76a876aa3d7b30845c7d18814af81bc72514",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
