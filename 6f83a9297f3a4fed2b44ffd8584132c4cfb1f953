@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6287aa38_09e2adf0",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-21T04:18:13Z",
+      "side": 1,
+      "message": "Not for this change: we can consider to make RaHandlerThread final because the only user IpServer never reuse RouterAdvertisementDaemon after stop it. Even we can consider to just start RouterAdvertisementDaemon in constructor then make MulticastTransmitter as final. Thus, we don\u0027t need to handle the null check everywhere.",
+      "range": {
+        "startLine": 367,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 79
+      },
+      "revId": "6f83a9297f3a4fed2b44ffd8584132c4cfb1f953",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
