@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb13b6ae_962f1b88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-21T04:19:29Z",
+      "side": 1,
+      "message": "LGTM, but this need 2-tier code review.",
+      "revId": "6f83a9297f3a4fed2b44ffd8584132c4cfb1f953",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6287aa38_09e2adf0",
