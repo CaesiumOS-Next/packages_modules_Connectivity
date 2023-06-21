@@ -22,6 +22,30 @@
       },
       "revId": "b2489708a2caa60f336f49f89d3bffa1d539f580",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2291a666_0e8517b3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-21T10:17:22Z",
+      "side": 1,
+      "message": "Done. Replace getAddresses with getAllAddresses in l.292",
+      "parentUuid": "d7142b4c_ba25202e",
+      "range": {
+        "startLine": 299,
+        "startChar": 59,
+        "endLine": 299,
+        "endChar": 78
+      },
+      "revId": "b2489708a2caa60f336f49f89d3bffa1d539f580",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

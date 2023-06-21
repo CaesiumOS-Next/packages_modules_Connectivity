@@ -200,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "006bef89_e9f2455e",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-21T10:17:22Z",
+      "side": 1,
+      "message": "obsolete",
+      "parentUuid": "5b250e29_c5fa5603",
+      "range": {
+        "startLine": 638,
+        "startChar": 17,
+        "endLine": 638,
+        "endChar": 21
+      },
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0399b83c_1283372d",
@@ -213,6 +237,30 @@
       "writtenOn": "2023-06-16T05:59:53Z",
       "side": 1,
       "message": "...why ?!\n\nIt\u0027s removing the old v4 address that should stop the keepalive. If for some bizarre reason clat starts when there is already a v4 address, why would you ever want to stop the keepalive on that old address ?",
+      "range": {
+        "startLine": 658,
+        "startChar": 0,
+        "endLine": 658,
+        "endChar": 88
+      },
+      "revId": "626aced6a6c4b8f016195e0283b062b34c65c1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b18bb00_a6bc588c",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-21T10:17:22Z",
+      "side": 1,
+      "message": "obsolete",
+      "parentUuid": "0399b83c_1283372d",
       "range": {
         "startLine": 658,
         "startChar": 0,
