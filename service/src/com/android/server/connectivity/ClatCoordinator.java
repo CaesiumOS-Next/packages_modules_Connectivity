@@ -23,6 +23,7 @@ import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
 
 import static com.android.net.module.util.NetworkStackConstants.IPV6_MIN_MTU;
+import static com.android.server.ConnectivityService.CLATBPFRAWMAP_ARG;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -41,6 +42,7 @@ import androidx.annotation.RequiresApi;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.net.module.util.BpfDump;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.InterfaceParams;
@@ -111,6 +113,8 @@ public class ClatCoordinator {
             "/sys/fs/bpf/netd_shared/map_netd_cookie_tag_map";
     private static final String CLAT_EGRESS4_MAP_PATH = makeMapPath("egress4");
     private static final String CLAT_INGRESS6_MAP_PATH = makeMapPath("ingress6");
+    private static final String CLAT_DUMPSYS_RAWMAP_ARG_EGRESS4 = "--egress4";
+    private static final String CLAT_DUMPSYS_RAWMAP_ARG_INGRESS6 = "--ingress6";
 
     private static String makeMapPath(String which) {
         return "/sys/fs/bpf/net_shared/map_clatd_clat_" + which + "_map";
@@ -885,6 +889,38 @@ public class ClatCoordinator {
             pw.decreaseIndent();
         } catch (ErrnoException e) {
             pw.println("Error dumping BPF egress4 map: " + e);
+        }
+    }
+
+    /**
+     * Dump raw BPF map into base64 encoded strings {@literal "<base64 key>,<base64 value>"}.
+     * Allow to dump only one map in each call. For test only.
+     *
+     * Usage:
+     * {@literal $ dumpsys connectivity clatBpfRawMap <map name>}
+     *
+     * Output:
+     * {@literal <base64 encoded key #1>,<base64 encoded value #1>}
+     * {@literal <base64 encoded key #2>,<base64 encoded value #2>}
+     * ..
+     */
+    public void dumpRawMap(@NonNull IndentingPrintWriter pw, @Nullable String[] args) {
+        String mapName = null;
+        for (int argIndex = 0; argIndex < args.length; argIndex++) {
+            if (args[argIndex].equals(CLATBPFRAWMAP_ARG) && argIndex + 1 < args.length) {
+                argIndex++;
+                mapName = args[argIndex];
+            }
+        }
+
+        try {
+            if (CLAT_DUMPSYS_RAWMAP_ARG_EGRESS4.equals(mapName)) {
+                BpfDump.dumpRawMap(mEgressMap, pw);
+            } else if (CLAT_DUMPSYS_RAWMAP_ARG_INGRESS6.equals(mapName)) {
+                BpfDump.dumpRawMap(mIngressMap, pw);
+            }
+        } catch (ErrnoException e) {
+            pw.println("Error dumping map: " + e);
         }
     }
 
