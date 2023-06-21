@@ -51,6 +51,23 @@
       "parentUuid": "a6248398_675512f2",
       "revId": "864a28edeaacc8c924eeb7be78173eb8c496fa3c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dad5b81_80eb1124",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-21T07:04:45Z",
+      "side": 1,
+      "message": "We shouldn\u0027t be touching android12 at all imho.\nIt\u0027s dead code, this can only cause potential issues.",
+      "revId": "864a28edeaacc8c924eeb7be78173eb8c496fa3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
