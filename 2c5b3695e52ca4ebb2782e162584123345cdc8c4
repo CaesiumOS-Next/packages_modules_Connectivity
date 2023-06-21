@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1726d11_b3abfcf6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-21T08:59:34Z",
+      "side": 1,
+      "message": "This is a regression from the previous CL right ? Sounds like it should be merged soon so it stays close to the first change.",
+      "revId": "2c5b3695e52ca4ebb2782e162584123345cdc8c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94af23bc_592181f0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-21T08:59:34Z",
+      "side": 1,
+      "message": "Nit: FromSocket maybe ? At least this is the local socket that is being used, so \"to socket\" feels a bit strange.",
+      "range": {
+        "startLine": 230,
+        "startChar": 27,
+        "endLine": 230,
+        "endChar": 29
+      },
+      "revId": "2c5b3695e52ca4ebb2782e162584123345cdc8c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19e7d1d1_adfe4495",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-21T08:59:34Z",
+      "side": 1,
+      "message": "Nit: Can you change the annotation in MdnsConstants to @VisibleForTesting(visibility\u003dPACKAGE) ? The linter isn\u0027t happy\n\nCould be in a separate change too.",
+      "range": {
+        "startLine": 245,
+        "startChar": 56,
+        "endLine": 245,
+        "endChar": 74
+      },
+      "revId": "2c5b3695e52ca4ebb2782e162584123345cdc8c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd465735_776a201c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-21T08:59:34Z",
+      "side": 1,
+      "message": "The latest EnqueueMdnsQueryCallable uses this method on both MdnsSocketClient and MultinetworkSocketClient, so I think this needs to work, at least when socketKey.network \u003d\u003d null.",
+      "revId": "2c5b3695e52ca4ebb2782e162584123345cdc8c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
