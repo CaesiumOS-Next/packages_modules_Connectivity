@@ -22,6 +22,30 @@
       },
       "revId": "a951f2e9707756f46921e5fe592e7dc49c6e51f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dcd2bb0_911f2b2d",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-21T13:58:32Z",
+      "side": 1,
+      "message": "But if we modify the code as follow and it fails inside assertRaReceiveTime(), we still don\u0027t know what i it is.\n\nHow about we use assertTrue(message, condition) and show currentTime and minExpectedTime/maxExpectedTime in the message, then we\u0027ll know what\u0027s wrong.\n\nvoid assertRaReceiveTime(int i) {\n   ...\n}\n\nfor (int i \u003d 1; i \u003c MAX_URGENT_RTR_ADVERTISEMENTS + 5; ++i) {\n    assertRaReceiveTime(i);\n}",
+      "parentUuid": "30a49771_3c1f34f4",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 39
+      },
+      "revId": "a951f2e9707756f46921e5fe592e7dc49c6e51f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
