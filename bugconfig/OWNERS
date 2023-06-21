@@ -1,0 +1,3 @@
+# Bug template url: http://b/new?component=31808
+# Due to b/226427845, the bug component configuration above needs to be in a file named OWNERS,
+# and cannot be in the common OWNERS_core_networking file.
