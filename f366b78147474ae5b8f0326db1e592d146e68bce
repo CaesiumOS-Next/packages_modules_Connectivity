@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6991118f_344286ac",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/RestrictTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-21T02:51:43Z",
+      "side": 1,
+      "message": "runAsShell?",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 78
+      },
+      "revId": "f366b78147474ae5b8f0326db1e592d146e68bce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
