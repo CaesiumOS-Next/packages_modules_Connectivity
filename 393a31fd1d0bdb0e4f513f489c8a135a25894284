@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cc37c83_d69de31c",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-22T10:33:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0af741e_bd6458b3",
+      "range": {
+        "startLine": 297,
+        "startChar": 61,
+        "endLine": 297,
+        "endChar": 67
+      },
+      "revId": "393a31fd1d0bdb0e4f513f489c8a135a25894284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dea52610_7a2c3b68",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-06-22T09:35:03Z",
       "side": 1,
       "message": "should this perhaps just return ETHER_MTU or lp.getMtu()?\n\nwe don\u0027t really expect this to trigger...",
+      "range": {
+        "startLine": 338,
+        "startChar": 19,
+        "endLine": 338,
+        "endChar": 21
+      },
+      "revId": "393a31fd1d0bdb0e4f513f489c8a135a25894284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c398322_1831e9cb",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-22T10:33:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dea52610_7a2c3b68",
       "range": {
         "startLine": 338,
         "startChar": 19,
