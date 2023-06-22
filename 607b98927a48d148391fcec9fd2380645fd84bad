@@ -16,6 +16,69 @@
       "message": "Not sure if this should be merged as-is or with some conditional enables, see email thread",
       "revId": "607b98927a48d148391fcec9fd2380645fd84bad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4a2d67e_39e4b8e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-22T04:18:20Z",
+      "side": 1,
+      "message": "I think ideally we\u0027d have some more evidence that this only happens when a user has consumed all the data in their plan – i.e. that there isn\u0027t a carrier putting up a captive portal for some other purpose. But I\u0027m not sure how we can know that, so I\u0027m generally happy with this.",
+      "revId": "607b98927a48d148391fcec9fd2380645fd84bad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a6dfa7c_2864e754",
+        "filename": "service/ServiceConnectivityResources/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-22T04:18:20Z",
+      "side": 1,
+      "message": "I think \"tap for options\" is a better wording but either way this should go through UX writers",
+      "range": {
+        "startLine": 36,
+        "startChar": 165,
+        "endLine": 36,
+        "endChar": 175
+      },
+      "revId": "607b98927a48d148391fcec9fd2380645fd84bad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21ff1c8f_cb69c0d2",
+        "filename": "service/ServiceConnectivityResources/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-22T04:18:20Z",
+      "side": 1,
+      "message": "Are we sure this is true ? Otherwise \"you might be\" is probably a better choice.\n\nAlso, is \"you\u0027re out of data\" sufficiently polite ? It sounds very casual to me.",
+      "range": {
+        "startLine": 36,
+        "startChar": 69,
+        "endLine": 36,
+        "endChar": 73
+      },
+      "revId": "607b98927a48d148391fcec9fd2380645fd84bad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
