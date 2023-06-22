@@ -22,6 +22,30 @@
       },
       "revId": "7b60133398327a70b6cdca79000b9e55344b7a5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "361f77d2_06ace79a",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-22T08:52:32Z",
+      "side": 1,
+      "message": "In particular this means if the clat code decides to reduce the mtu of the v4- interface for whatever reason (I\u0027ve considered doing it to avoid some problematic mtu % 8 values that result in weird ipv4 frag vs non-frag behaviour due to ipv4 non final frags also having to be a 20+n*8 bytes long) then this will break, since this is effectively hard coding the -28 from ClatCoordinator.\nMTU_DELTA\nhttp://cs/h/android/platform/superproject/+/master:packages/modules/Connectivity/service/src/com/android/server/connectivity/ClatCoordinator.java?l\u003d79",
+      "parentUuid": "1b83bd64_ff56882b",
+      "range": {
+        "startLine": 287,
+        "startChar": 12,
+        "endLine": 288,
+        "endChar": 84
+      },
+      "revId": "7b60133398327a70b6cdca79000b9e55344b7a5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
