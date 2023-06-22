@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af8c5bfb_b4155346",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-22T11:05:38Z",
+      "side": 1,
+      "message": ", e",
+      "range": {
+        "startLine": 568,
+        "startChar": 78,
+        "endLine": 568,
+        "endChar": 80
+      },
+      "revId": "d07be2decbd0643a33411761ac8623af76d47142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "899ae25b_966b592f",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-22T11:05:38Z",
+      "side": 1,
+      "message": "wtf",
+      "range": {
+        "startLine": 568,
+        "startChar": 16,
+        "endLine": 568,
+        "endChar": 17
+      },
+      "revId": "d07be2decbd0643a33411761ac8623af76d47142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
