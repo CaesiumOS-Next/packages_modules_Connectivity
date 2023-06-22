@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "beb3942f_7f3a18f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-22T09:35:03Z",
+      "side": 1,
+      "message": "in general seems fine...",
+      "revId": "393a31fd1d0bdb0e4f513f489c8a135a25894284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0af741e_bd6458b3",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-22T09:35:03Z",
+      "side": 1,
+      "message": "(a) can this trigger (ie. can the mtuForTarget be -1)\n(b) if it triggers, can this return 0 and thus should again be treated as 1500 / ETHER_MTU?",
+      "range": {
+        "startLine": 297,
+        "startChar": 61,
+        "endLine": 297,
+        "endChar": 67
+      },
+      "revId": "393a31fd1d0bdb0e4f513f489c8a135a25894284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dea52610_7a2c3b68",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-22T09:35:03Z",
+      "side": 1,
+      "message": "should this perhaps just return ETHER_MTU or lp.getMtu()?\n\nwe don\u0027t really expect this to trigger...",
+      "range": {
+        "startLine": 338,
+        "startChar": 19,
+        "endLine": 338,
+        "endChar": 21
+      },
+      "revId": "393a31fd1d0bdb0e4f513f489c8a135a25894284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
