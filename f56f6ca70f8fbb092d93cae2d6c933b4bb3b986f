@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2166aa5a_56355866",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-22T07:34:19Z",
+      "side": 1,
+      "message": "this isn\u0027t actually right though.\n\nthe extra overhead is either 20 or 28, but it should not need to be accounted here.\n\nmost likely the interface/route mtu is 0 or 1500 instead of 1472 like it should be",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 88
+      },
+      "revId": "f56f6ca70f8fbb092d93cae2d6c933b4bb3b986f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
