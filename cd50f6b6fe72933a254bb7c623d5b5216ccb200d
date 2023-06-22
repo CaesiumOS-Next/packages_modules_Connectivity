@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46f368e8_8896cc32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2023-06-22T20:15:27Z",
+      "side": 1,
+      "message": "This is useful when an AOSP-based OS wishes to add additional UID ranges that should always be subject to lockdown (always require a VPN). Without this, when the user-facing lockdown toggle is changed, such additional UID ranges will remain in the set, but their UIDs may have been removed from lockdown. With this, such ranges can be added once and will remain in effect.",
+      "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
