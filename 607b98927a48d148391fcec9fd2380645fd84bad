@@ -79,6 +79,29 @@
       },
       "revId": "607b98927a48d148391fcec9fd2380645fd84bad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5fa6abb_ee984356",
+        "filename": "service/src/com/android/server/connectivity/NetworkNotificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-22T04:24:48Z",
+      "side": 1,
+      "message": "You might want to take a look at https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2465633/1/service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java#182 for how to have this work on carrier wifi.\n\nGenerally we want to treat carrier wifi in the same way as we do cell, and the important piece of information is whether there is a subscription.\n\nAlso, presumably this also applies to wifi-only subscriptions.",
+      "range": {
+        "startLine": 245,
+        "startChar": 16,
+        "endLine": 245,
+        "endChar": 40
+      },
+      "revId": "607b98927a48d148391fcec9fd2380645fd84bad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
