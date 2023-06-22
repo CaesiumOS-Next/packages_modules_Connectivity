@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab7f858a_f2560db3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-22T09:45:51Z",
+      "side": 1,
+      "message": "Typo: reduce",
+      "range": {
+        "startLine": 9,
+        "startChar": 3,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4020af7c_278b6300",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-22T09:45:51Z",
+      "side": 1,
+      "message": "Generally LGTM",
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5845ea64_6d2680a1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-22T09:45:51Z",
+      "side": 1,
+      "message": "Typo: event",
+      "range": {
+        "startLine": 97,
+        "startChar": 46,
+        "endLine": 97,
+        "endChar": 50
+      },
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59dad8af_0a96d0c7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-22T09:45:51Z",
+      "side": 1,
+      "message": "I think removeMessages is just a no-op if there\u0027s no such message, so you don\u0027t need hasMessages ?",
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a74bde2b_18f27e8d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-22T09:45:51Z",
+      "side": 1,
+      "message": "The previous assertion checked that this was called on future #15, I think the equivalent here would be to verify that it wasn\u0027t called before stopSendAndReceive (verify with never()), and then verify that it was called after",
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4687c7de_fd6b4ccb",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-22T09:45:51Z",
+      "side": 1,
+      "message": "This is a bit hard to get right, how about adding:\n\n    doAnswer(inv -\u003e {\n        latestDelayMs \u003d 0;\n    }).when(mockDeps).removeMessages(any(), eq(EVENT_START_QUERYTASK));\n\nto setUp() ? This would make sure the \"latest delay\" is kept up-to-date automatically.",
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc1e1633_6e2c1f85",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-22T09:45:51Z",
+      "side": 1,
+      "message": "It\u0027s a bit strange to call this for the next run now, even though in reality the message would be dispatched immediately before the runnable runs (simulated with getAndClearLastScheduledRunnable().run()). It would seem more natural to dispatch the message just before running the scheduled runnable.\n\nCould you move this to the beginning of the method ? Maybe only when index \u003e 0, if this considers that the first run gets posted to the executor directly.",
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
