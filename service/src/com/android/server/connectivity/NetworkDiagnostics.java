@@ -18,10 +18,12 @@ package com.android.server.connectivity;
 
 import static android.system.OsConstants.*;
 
+import static com.android.net.module.util.NetworkStackConstants.CLAT_PREFIX;
 import static com.android.net.module.util.NetworkStackConstants.DNS_OVER_TLS_PORT;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_MTU;
 import static com.android.net.module.util.NetworkStackConstants.ICMP_HEADER_LEN;
 import static com.android.net.module.util.NetworkStackConstants.IPV4_HEADER_MIN_LEN;
+import static com.android.net.module.util.NetworkStackConstants.IPV6_FRAGMENT_HEADER_LEN;
 import static com.android.net.module.util.NetworkStackConstants.IPV6_HEADER_LEN;
 import static com.android.net.module.util.NetworkStackConstants.IPV6_MIN_MTU;
 
@@ -40,7 +42,6 @@ import android.system.ErrnoException;
 import android.system.Os;
 import android.system.StructTimeval;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Pair;
 
 import com.android.internal.util.IndentingPrintWriter;
@@ -285,12 +286,14 @@ public class NetworkDiagnostics {
             // calculation.
             if (addr instanceof Inet6Address) {
                 return IPV6_HEADER_LEN + ICMP_HEADER_LEN;
+            } else if (CLAT_PREFIX.contains(addr)) {
+                return IPV4_HEADER_MIN_LEN + ICMP_HEADER_LEN + IPV6_FRAGMENT_HEADER_LEN;
+            } else {
+                return IPV4_HEADER_MIN_LEN + ICMP_HEADER_LEN;
             }
         } catch (UnknownHostException e) {
-            Log.e(TAG, "Create InetAddress fail(" + target + "): " + e);
+            throw new AssertionError("Create InetAddress fail(" + target + ")", e);
         }
-
-        return IPV4_HEADER_MIN_LEN + ICMP_HEADER_LEN;
     }
 
     private void prepareIcmpMeasurements(@NonNull InetAddress target, int targetNetworkMtu) {
