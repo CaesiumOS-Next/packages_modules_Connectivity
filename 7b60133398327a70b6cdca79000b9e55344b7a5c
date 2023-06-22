@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b83bd64_ff56882b",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-22T08:43:05Z",
+      "side": 1,
+      "message": "the existence of this clause feels wrong to me\n\nthis means we\u0027re depending on the mtu of the underlying v6 interface (or route) instead of the mtu of the v4 interface (or route).",
+      "range": {
+        "startLine": 287,
+        "startChar": 12,
+        "endLine": 288,
+        "endChar": 84
+      },
+      "revId": "7b60133398327a70b6cdca79000b9e55344b7a5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
