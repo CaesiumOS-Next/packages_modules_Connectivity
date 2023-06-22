@@ -19,11 +19,12 @@ package com.android.server.connectivity;
 import static android.system.OsConstants.*;
 
 import static com.android.net.module.util.NetworkStackConstants.DNS_OVER_TLS_PORT;
-import static com.android.net.module.util.NetworkStackConstants.ETHER_MTU;
 import static com.android.net.module.util.NetworkStackConstants.ICMP_HEADER_LEN;
 import static com.android.net.module.util.NetworkStackConstants.IPV4_HEADER_MIN_LEN;
 import static com.android.net.module.util.NetworkStackConstants.IPV6_HEADER_LEN;
 import static com.android.net.module.util.NetworkStackConstants.IPV6_MIN_MTU;
+import static com.android.net.module.util.NetworkStackConstants.IPV6_MTU;
+import static com.android.net.module.util.NetworkStackConstants.IP_MTU;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -213,14 +214,10 @@ public class NetworkDiagnostics {
             mLinkProperties.addDnsServer(TEST_DNS6);
         }
 
-        final int lpMtu = mLinkProperties.getMtu();
-        final int mtu = lpMtu > 0 ? lpMtu : ETHER_MTU;
         for (RouteInfo route : mLinkProperties.getRoutes()) {
             if (route.getType() == RouteInfo.RTN_UNICAST && route.hasGateway()) {
-                InetAddress gateway = route.getGateway();
-                // Use mtu in the route if exists. Otherwise, use the one in the link property.
-                final int routeMtu = route.getMtu();
-                prepareIcmpMeasurements(gateway, (routeMtu > 0) ? routeMtu : mtu);
+                final InetAddress gateway = route.getGateway();
+                prepareIcmpMeasurements(gateway);
                 if (route.isIPv6Default()) {
                     prepareExplicitSourceIcmpMeasurements(gateway);
                 }
@@ -228,7 +225,7 @@ public class NetworkDiagnostics {
         }
 
         for (InetAddress nameserver : mLinkProperties.getDnsServers()) {
-            prepareIcmpMeasurements(nameserver, mtu);
+            prepareIcmpMeasurements(nameserver);
             prepareDnsMeasurement(nameserver);
 
             // Unlike the DnsResolver which doesn't do certificate validation in opportunistic mode,
@@ -285,24 +282,28 @@ public class NetworkDiagnostics {
             // calculation.
             if (addr instanceof Inet6Address) {
                 return IPV6_HEADER_LEN + ICMP_HEADER_LEN;
+            } else {
+                return IPV4_HEADER_MIN_LEN + ICMP_HEADER_LEN;
             }
         } catch (UnknownHostException e) {
-            Log.e(TAG, "Create InetAddress fail(" + target + "): " + e);
+            throw new AssertionError("Create InetAddress fail(" + target + ")", e);
         }
-
-        return IPV4_HEADER_MIN_LEN + ICMP_HEADER_LEN;
     }
 
-    private void prepareIcmpMeasurements(@NonNull InetAddress target, int targetNetworkMtu) {
+    private void prepareIcmpMeasurements(@NonNull InetAddress target) {
+        final int mtuForTarget = getMtuForTarget(target);
+        // If getMtuForTarget fails, it doesn't matter what mtu is used because connect can't
+        // succeed anyway
+        final int mtu = mtuForTarget == -1 ? mLinkProperties.getMtu() : mtuForTarget;
         // Test with different size payload ICMP.
         // 1. Test with 0 payload.
         addPayloadIcmpMeasurement(target, 0);
         final int header = getHeaderLen(target);
         // 2. Test with full size MTU.
-        addPayloadIcmpMeasurement(target, targetNetworkMtu - header);
+        addPayloadIcmpMeasurement(target, mtu - header);
         // 3. If v6, make another measurement with the full v6 min MTU, unless that's what
         //    was done above.
-        if ((target instanceof Inet6Address) && (targetNetworkMtu != IPV6_MIN_MTU)) {
+        if ((target instanceof Inet6Address) && (mtu != IPV6_MIN_MTU)) {
             addPayloadIcmpMeasurement(target, IPV6_MIN_MTU - header);
         }
     }
@@ -318,6 +319,23 @@ public class NetworkDiagnostics {
             final Measurement measurement = new Measurement();
             measurement.thread = new Thread(new IcmpCheck(target, payloadLen, measurement));
             mIcmpChecks.put(lenTarget, measurement);
+        }
+    }
+
+    private int getMtuForTarget(InetAddress target) {
+        final int family = target instanceof Inet4Address ? AF_INET : AF_INET6;
+        try {
+            final FileDescriptor socket = Os.socket(family, SOCK_DGRAM, 0);
+            mNetwork.bindSocket(socket);
+            Os.connect(socket, target, 0);
+            if (family == AF_INET) {
+                return Os.getsockoptInt(socket, IPPROTO_IP, IP_MTU);
+            } else {
+                return Os.getsockoptInt(socket, IPPROTO_IPV6, IPV6_MTU);
+            }
+        } catch (ErrnoException | IOException e) {
+            Log.e(TAG, "Can't get MTU for destination " + target, e);
+            return -1;
         }
     }
 
