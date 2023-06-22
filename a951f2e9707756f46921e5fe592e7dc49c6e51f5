@@ -46,6 +46,30 @@
       },
       "revId": "a951f2e9707756f46921e5fe592e7dc49c6e51f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae12f440_20be8d84",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-06-22T07:40:35Z",
+      "side": 1,
+      "message": "My idea is similar to the code snippet below. Does it work?\n \n    // 1st\n    testUrgentRa(TEST_MIN_DELAY_BETWEEN_RAS_SEC, params)\n    // 2nd\n    testUrgentRa(TEST_MIN_DELAY_BETWEEN_RAS_SEC, params)\n    // 3th\n    testUrgentRa(TEST_MIN_DELAY_BETWEEN_RAS_SEC, params)\n    // 4th\n    testUrgentRa(TEST_MIN_DELAY_BETWEEN_RAS_SEC, params)\n    // 5th\n    testUrgentRa(TEST_MIN_DELAY_BETWEEN_RAS_SEC, params)\n    // 6th\n    testUrgentRa(TEST_MIN_RTR_ADV_INTERVAL_SEC, params)\n    ....\n\n    private void testUrgentRa(int period, RaParms params) {\n        long before \u003d SystemClock.elapsedRealtime();\n        minExpectedTime \u003d before + MS_PER_SEC * period - FAULT_TOLERANCE_MS;\n        maxExpectedTime \u003d before + MS_PER_SEC * period + FAULT_TOLERANCE_MS;\n        assertMulticastRaPacket(new TestRaPacket(null, params));\n        long after \u003d SystemClock.elapsedRealtime();\n        assertTrue(after \u003e\u003d minExpectedTime);\n        assertTrue(after \u003c\u003d maxExpectedTime);\n    }",
+      "parentUuid": "6dcd2bb0_911f2b2d",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 39
+      },
+      "revId": "a951f2e9707756f46921e5fe592e7dc49c6e51f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
