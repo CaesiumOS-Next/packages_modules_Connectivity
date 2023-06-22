@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3b922f2_7a55b493",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-22T08:30:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ba684fb_28be4912",
+      "range": {
+        "startLine": 520,
+        "startChar": 37,
+        "endLine": 520,
+        "endChar": 43
+      },
+      "revId": "80acb20b4cecfb5634a12fd8fc905198c94cca9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e89b759b_13811a0d",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a16a927_d609d02b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-22T08:30:43Z",
+      "side": 1,
+      "message": "No reason in particular, I actually wasn\u0027t sure which option was best (genericity vs. being explicit). Updated.",
+      "parentUuid": "e89b759b_13811a0d",
+      "range": {
+        "startLine": 538,
+        "startChar": 54,
+        "endLine": 538,
+        "endChar": 94
+      },
+      "revId": "80acb20b4cecfb5634a12fd8fc905198c94cca9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2daa78c4_4a0014a5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-22T08:30:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cb550b6_29bd0816",
+      "range": {
+        "startLine": 538,
+        "startChar": 27,
+        "endLine": 538,
+        "endChar": 44
+      },
+      "revId": "80acb20b4cecfb5634a12fd8fc905198c94cca9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78e16a4e_93cf80f9",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-06-21T08:31:54Z",
       "side": 1,
       "message": "It seems the boolean value is redundant here.",
+      "range": {
+        "startLine": 569,
+        "startChar": 16,
+        "endLine": 569,
+        "endChar": 36
+      },
+      "revId": "80acb20b4cecfb5634a12fd8fc905198c94cca9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e448ff22_08280c35",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-22T08:30:43Z",
+      "side": 1,
+      "message": "Do you mean I could call needSendDiscoveryQueries(listeners) directly below ? listeners needs to be accessed with the lock held, so I can\u0027t call it in the EnqueueMdnsQueryCallable constructor arguments below",
+      "parentUuid": "78e16a4e_93cf80f9",
       "range": {
         "startLine": 569,
         "startChar": 16,
