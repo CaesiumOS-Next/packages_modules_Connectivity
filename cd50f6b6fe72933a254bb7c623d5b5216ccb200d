@@ -16,6 +16,23 @@
       "message": "This is useful when an AOSP-based OS wishes to add additional UID ranges that should always be subject to lockdown (always require a VPN). Without this, when the user-facing lockdown toggle is changed, such additional UID ranges will remain in the set, but their UIDs may have been removed from lockdown. With this, such ranges can be added once and will remain in effect.",
       "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a4558fe_0b58316b",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-23T03:43:04Z",
+      "side": 1,
+      "message": "Thanks for raise the patch, Could you please explain what kind of the issue? And what is exact the problem this patches are trying to fix?",
+      "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
