@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5ba686a_371572b7",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-06-23T20:32:58Z",
+      "side": 1,
+      "message": "Ah, yeah, because mRingBuffer and mCallback aren\u0027t modified while it\u0027s running, that should be safe. Long term I should make this use `std::thread` to make the event loop more clear. With that, I could transfer ownership of mRingBuffer to the thread and have the thread clean it up after it finishes looping.\n\nLet me go ahead with this for now (if that\u0027s alright with you) and take on that refactor later.",
+      "parentUuid": "e27cf9cc_4a66249f",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "f5326be5dd04d964becb8f8713a57e14619f8425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16f1e260_dd1c13ab",
         "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
         "patchSetId": 1
