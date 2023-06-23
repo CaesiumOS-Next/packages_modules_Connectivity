@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fd3cd36_41e50e97",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-06-23T17:49:01Z",
+      "side": 1,
+      "message": "I guess the only (small?) downside of this is that ConsumeAllLocked isn\u0027t always guaranteed to run (i.e. when Start() is called concurrently). I am not sure how much you actually care about that. An alternative approach would be to only call ConsumeAll from within the TaskRunner thread (but that would complicate your public ConsumeAll member -- not significantly though, you could change it to a void or return a future if you really care about the result).",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "f5326be5dd04d964becb8f8713a57e14619f8425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16f1e260_dd1c13ab",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-06-23T17:49:01Z",
+      "side": 1,
+      "message": "(unrelated to this CL: should this just be removed?)",
+      "range": {
+        "startLine": 44,
+        "startChar": 31,
+        "endLine": 44,
+        "endChar": 46
+      },
+      "revId": "f5326be5dd04d964becb8f8713a57e14619f8425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06f03e29_81c49e87",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTracePoller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-06-23T17:49:01Z",
+      "side": 1,
+      "message": "(unrelated to this CL: would it just be better to implement a destructor and explicitly call mTaskRunner.reset()?).",
+      "range": {
+        "startLine": 84,
+        "startChar": 5,
+        "endLine": 85,
+        "endChar": 76
+      },
+      "revId": "f5326be5dd04d964becb8f8713a57e14619f8425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
