@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0668a92_44e908d2",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-23T06:49:59Z",
+      "side": 1,
+      "message": "I think the go/android-api-guidelines say that the callback must be the last parameter and the Executor the one just before that. So the ordering should be the interfae name, the flags, the executor, and the engine.",
+      "range": {
+        "startLine": 354,
+        "startChar": 239,
+        "endLine": 354,
+        "endChar": 317
+      },
+      "revId": "1df732c37e386b6df21549dace055cac069f023c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d75df833_aaaf5aa3",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-23T06:49:59Z",
+      "side": 1,
+      "message": "Hostname is one word, so this should be getHostname, not getHostName.",
+      "range": {
+        "startLine": 370,
+        "startChar": 34,
+        "endLine": 370,
+        "endChar": 45
+      },
+      "revId": "1df732c37e386b6df21549dace055cac069f023c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f34088e1_bf9b59a2",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-23T06:49:59Z",
+      "side": 1,
+      "message": "What about the subtypes? Putting them in the key doesn\u0027t seem great, since the subtypes are a list of strings; we\u0027d at least need to define the ordering...",
+      "range": {
+        "startLine": 74,
+        "startChar": 30,
+        "endLine": 74,
+        "endChar": 77
+      },
+      "revId": "1df732c37e386b6df21549dace055cac069f023c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea65a751_11b0b5a0",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-23T06:49:59Z",
+      "side": 1,
+      "message": "Nit: his is not really OffloadType, is it? Because OffloadType can contain OFFLOAD_BYPASS_MULTICAST_LOCK, whereas in this object OFFLOAD_BYPASS_MULTICAST_LOCK is meaningless, right?\n\nIf so, might want two different IntDefs - OffloadType, which contains only OFFLOAD_REPLY, OFFLOAD_FILTER_QUERIES, and OFFLOAD_FILTER_REPLIES, and OffloadCapability which also contains OFFLOAD_BYPASS_MULTICAST_LOCK?",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 38
+      },
+      "revId": "1df732c37e386b6df21549dace055cac069f023c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
