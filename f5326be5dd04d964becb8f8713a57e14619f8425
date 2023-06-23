@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9f410a5_ebcbdb30",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-06-23T18:48:23Z",
+      "side": 1,
+      "message": "Yeah, I debated on that. I figured since this only deadlocks once every week of use, that you\u0027d only miss one poll period (typically 500ms) every week which felt acceptable.\n\nPutting ConsumeAll in the task runner thread would actually result in the same deadlock as before. The task runner thread can\u0027t block on the same lock that is held while mTaskRunner.reset() is called.\n\nThe alternative I considered is to have the state used by ConsumeAll (mRingBuffer, mCallback) under a different mutex so that it\u0027s free while mTaskRunner.reset() is called. I did that in http://ag/23791896 if you think that\u0027s a better direction.",
+      "parentUuid": "8fd3cd36_41e50e97",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "f5326be5dd04d964becb8f8713a57e14619f8425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16f1e260_dd1c13ab",
         "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-23T17:49:01Z",
       "side": 1,
       "message": "(unrelated to this CL: should this just be removed?)",
+      "range": {
+        "startLine": 44,
+        "startChar": 31,
+        "endLine": 44,
+        "endChar": 46
+      },
+      "revId": "f5326be5dd04d964becb8f8713a57e14619f8425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9a0775b_b7e1e9c6",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-06-23T18:48:23Z",
+      "side": 1,
+      "message": "This is still needed to set the initial poll period. This gets piped into the PollAndSchedule that kicks off the polling and into mPollMs to warn future calls that the poll period can\u0027t change while running (it needs to be stopped, then started again).",
+      "parentUuid": "16f1e260_dd1c13ab",
       "range": {
         "startLine": 44,
         "startChar": 31,
@@ -60,6 +108,30 @@
       "writtenOn": "2023-06-23T17:49:01Z",
       "side": 1,
       "message": "(unrelated to this CL: would it just be better to implement a destructor and explicitly call mTaskRunner.reset()?).",
+      "range": {
+        "startLine": 84,
+        "startChar": 5,
+        "endLine": 85,
+        "endChar": 76
+      },
+      "revId": "f5326be5dd04d964becb8f8713a57e14619f8425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b7a251f_9522d4f9",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTracePoller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-06-23T18:48:23Z",
+      "side": 1,
+      "message": "Ack, at this point this is generally used as a singleton and the destruction sequence is manual within Stop().",
+      "parentUuid": "06f03e29_81c49e87",
       "range": {
         "startLine": 84,
         "startChar": 5,
