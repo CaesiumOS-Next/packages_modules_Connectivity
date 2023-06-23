@@ -306,6 +306,7 @@ import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.UidRangeUtils;
+import com.android.server.connectivity.UserNetworkPreferenceInfo;
 import com.android.server.connectivity.VpnNetworkPreferenceInfo;
 import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
 
@@ -513,8 +514,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // PREFERENCE_ORDER_NONE when sending to netd.
     @VisibleForTesting
     static final int PREFERENCE_ORDER_INVALID = Integer.MAX_VALUE;
-    // As a security feature, VPNs have the top priority.
+    // As a security feature, VPNs have the top priority aside from user pref
     static final int PREFERENCE_ORDER_VPN = 0; // Netd supports only 0 for VPN.
+    // Order of user command-line set preference. See {@link #setUserNetworkPreference}.
+    static final int PREFERENCE_ORDER_USER = -1; // Netd hardcodes 0 for VPN
     // Order of per-app OEM preference. See {@link #setOemNetworkPreference}.
     @VisibleForTesting
     static final int PREFERENCE_ORDER_OEM = 10;
@@ -795,6 +798,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Event to inform the ConnectivityService handler when a uid has been frozen or unfrozen.
      */
     private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
+
+    /**
+     * Event to set a user network preference
+     * obj = UserNetworkPreferenceInfo
+     */
+    private static final int EVENT_SET_USER_NETWORK_PREFERENCE = 62;
 
     /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
@@ -3715,6 +3724,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             pw.println(mMobileDataPreferredUids);
             pw.decreaseIndent();
         }
+        if (!mUserNetworkPreferences.isEmpty()) {
+            pw.println("User network preferences:");
+            pw.increaseIndent();
+            pw.println(mUserNetworkPreferences);
+            pw.decreaseIndent();
+        }
 
         pw.println("Default requests:");
         pw.increaseIndent();
@@ -5902,6 +5917,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_SET_VPN_NETWORK_PREFERENCE:
                     handleSetVpnNetworkPreference((VpnNetworkPreferenceInfo) msg.obj);
                     break;
+                case EVENT_SET_USER_NETWORK_PREFERENCE:
+                    handleSetUserNetworkPreference((UserNetworkPreferenceInfo) msg.obj);
+                    break;
                 case EVENT_SET_LOW_TCP_POLLING_UNTIL: {
                     final long time = ((Long) msg.obj).longValue();
                     mKeepaliveTracker.handleSetTestLowTcpPollingTimer(time);
@@ -7583,6 +7601,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @NonNull
     private NetworkPreferenceList<String, VpnNetworkPreferenceInfo>
             mVpnNetworkPreferences = new NetworkPreferenceList<>();
+
+    @NonNull
+    private NetworkPreferenceList<String, UserNetworkPreferenceInfo>
+            mUserNetworkPreferences = new NetworkPreferenceList<>();
 
     // A set of UIDs that should use mobile data preferentially if available. This object follows
     // the same threading rules as the OEM network preferences above.
@@ -9457,6 +9479,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 }
             }
+            Log.e(TAG, "isDefaultBlocked " + isDefaultBlocked(nri) + " " + nri);
             if (null == bestNetwork && isDefaultBlocked(nri)) {
                 // Remove default networking if disallowed for managed default requests.
                 bestNetwork = mNoServiceNetwork;
@@ -10410,6 +10433,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         }
                         Log.d(TAG, "Reevaluating network " + nai.network);
                         reportNetworkConnectivity(nai.network, !nai.isValidated());
+                        return 0;
+                    case "set-network-preference":
+                        // Usage : adb shell cmd connectivity set-network-preference <uid> <pref>
+                        // where pref is the numeric value of one of the constants listed in
+                        // {@link UserNetworkPreferenceInfo}
+                        final String uid = getNextArg();
+                        final String mode = getNextArg();
+                        // If incorrectly formatted, this will throw and print the exception
+                        setUserNetworkPreference(Integer.parseInt(uid), Integer.parseInt(mode));
                         return 0;
                     default:
                         return handleDefaultCommands(cmd);
@@ -11833,6 +11865,44 @@ public class ConnectivityService extends IConnectivityManager.Stub
             final Set<UidRange> uidRanges = new ArraySet(preferenceInfo.getUidRangesNoCopy());
             setNetworkRequestUids(requests, uidRanges);
             nris.add(new NetworkRequestInfo(Process.myUid(), requests, PREFERENCE_ORDER_VPN));
+        }
+        return nris;
+    }
+
+    private void setUserNetworkPreference(final int uid, final int mode) {
+        mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_USER_NETWORK_PREFERENCE,
+                new UserNetworkPreferenceInfo(uid, mode)));
+    }
+
+    private void handleSetUserNetworkPreference(final UserNetworkPreferenceInfo prefInfo) {
+        mUserNetworkPreferences = mUserNetworkPreferences.minus(prefInfo.getKey());
+        mUserNetworkPreferences = mUserNetworkPreferences.plus(prefInfo);
+        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_USER);
+        addPerAppDefaultNetworkRequests(
+                createNrisForUserNetworkPreference(mUserNetworkPreferences));
+        // Finally, rematch
+        rematchAllNetworksAndRequests();
+    }
+
+    private ArraySet<NetworkRequestInfo> createNrisForUserNetworkPreference(
+            @NonNull NetworkPreferenceList<String, UserNetworkPreferenceInfo> preferenceList) {
+        final ArraySet<NetworkRequestInfo> nris = new ArraySet<>();
+        for (UserNetworkPreferenceInfo preferenceInfo : preferenceList) {
+            final List<NetworkRequest> requests = new ArrayList<>();
+            switch (preferenceInfo.mMode) {
+                case UserNetworkPreferenceInfo.USER_PREFERENCE_NO_NETWORK:
+                    // Ideally this would just create an empty list, but in practice many places
+                    // in the code actively assume there is always at least one request in an
+                    // NRI. Instead, make a request that is guaranteed to never match anything.
+                    final NetworkCapabilities nc = new NetworkCapabilities();
+                    nc.addTransportType(TRANSPORT_TEST);
+                    nc.setNetworkSpecifier(new NetworkSpecifier() {});
+                    nc.setSingleUid(preferenceInfo.mUid);
+                    requests.add(new NetworkRequest(nc, TYPE_NONE, nextNetworkRequestId(),
+                            LISTEN_FOR_BEST));
+                    break;
+            }
+            nris.add(new NetworkRequestInfo(Process.myUid(), requests, PREFERENCE_ORDER_USER));
         }
         return nris;
     }
