@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3b8aeca_f4451292",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-26T21:45:20Z",
+      "side": 1,
+      "message": "does this need some \u0027if !AtLeastS() return -1\u0027 here?",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 8
+      },
+      "revId": "f3855b5c995bd697497f4f6fce6a95ece4fb31e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
