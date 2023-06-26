@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c0fd003_707280f7",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/BidirectionalStreamTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-06-26T17:41:06Z",
+      "side": 1,
+      "message": "nit: this is also the default, maybe use \"GET\"?",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 90,
+        "endChar": 18
+      },
+      "revId": "cd070b398c786a35d5e3c222ed45c746add4d44e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
