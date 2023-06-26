@@ -136,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6757779d_8c2c8467",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1393,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-26T12:43:38Z",
+      "side": 1,
+      "message": "I think this won\u0027t be a problem because the mInterfaceNames is only use to query the interface name with its ifindex and not the oppsite.The only place that \u0027looks like\u0027 using ifName to get ifindex is in getInterfaceIndexFromRules(ifName), but this funtion is \u0027return any ifindex of the upstream in Ipv6ForwardingRules which name is ifName\u0027. The old and new upstream ifindex won\u0027t exist in the forwarding rules simutanously, because we always remove the old entries first before adding new entries when upstream ifindex changes.\n\nThe only defect is that it\u0027ll leave some unused entries there forever, maybe I do it in a follow-up? need to make sure nobody needs the old ifindex before delete it.",
+      "parentUuid": "aa596ead_cdecd48d",
+      "range": {
+        "startLine": 1393,
+        "startChar": 44,
+        "endLine": 1393,
+        "endChar": 72
+      },
+      "revId": "2e3aebefbff79209aa17e350bcd872ef3272a02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7784a3bc_a4e647d4",
