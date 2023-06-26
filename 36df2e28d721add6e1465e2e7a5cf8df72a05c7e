@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f09dc138_d8e30fe5",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-26T11:45:59Z",
+      "side": 1,
+      "message": "maybe declare a tethering request variable like startTetheringCallback for readability?",
+      "range": {
+        "startLine": 543,
+        "startChar": 35,
+        "endLine": 544,
+        "endChar": 66
+      },
+      "revId": "36df2e28d721add6e1465e2e7a5cf8df72a05c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
