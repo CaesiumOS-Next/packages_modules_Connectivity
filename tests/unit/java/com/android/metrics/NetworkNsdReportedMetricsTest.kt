@@ -154,6 +154,49 @@ class NetworkNsdReportedMetricsTest {
             assertEquals(100, it.foundCallbackCount)
             assertEquals(49, it.lostCallbackCount)
             assertEquals(51, it.foundServiceCount)
+            assertEquals(durationMs, it.eventDurationMillisec)
+        }
+    }
+
+    @Test
+    fun testReportServiceResolved() {
+        val clientId = 99
+        val transactionId = 100
+        val durationMs = 10L
+        val metrics = NetworkNsdReportedMetrics(true /* isLegacy */, clientId, deps)
+        metrics.reportServiceResolved(transactionId, durationMs, true /* isKnownService */)
+
+        val eventCaptor = ArgumentCaptor.forClass(NetworkNsdReported::class.java)
+        verify(deps).statsWrite(eventCaptor.capture())
+        eventCaptor.value.let {
+            assertTrue(it.isLegacy)
+            assertEquals(clientId, it.clientId)
+            assertEquals(transactionId, it.transactionId)
+            assertEquals(NsdEventType.NET_RESOLVE, it.type)
+            assertEquals(MdnsQueryResult.MQR_SERVICE_RESOLVED, it.queryResult)
+            assertTrue(it.isKnownService)
+            assertEquals(durationMs, it.eventDurationMillisec)
+        }
+    }
+
+    @Test
+    fun testReportServiceResolutionFailed() {
+        val clientId = 99
+        val transactionId = 100
+        val durationMs = 10L
+        val metrics = NetworkNsdReportedMetrics(false /* isLegacy */, clientId, deps)
+        metrics.reportServiceResolutionFailed(transactionId, durationMs, false /* isKnownService */)
+
+        val eventCaptor = ArgumentCaptor.forClass(NetworkNsdReported::class.java)
+        verify(deps).statsWrite(eventCaptor.capture())
+        eventCaptor.value.let {
+            assertFalse(it.isLegacy)
+            assertEquals(clientId, it.clientId)
+            assertEquals(transactionId, it.transactionId)
+            assertEquals(NsdEventType.NET_RESOLVE, it.type)
+            assertEquals(MdnsQueryResult.MQR_SERVICE_RESOLUTION_FAILED, it.queryResult)
+            assertFalse(it.isKnownService)
+            assertEquals(durationMs, it.eventDurationMillisec)
         }
     }
 }
