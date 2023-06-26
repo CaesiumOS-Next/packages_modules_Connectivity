@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd99ae1a_05bc01b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-06-26T15:55:56Z",
+      "side": 1,
+      "message": "I can split this up but I think it\u0027s easier to verify that I\u0027ve added all getters this way.",
+      "revId": "c7cf3577ef43beb4f09744a5dc497ae41356a6cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
