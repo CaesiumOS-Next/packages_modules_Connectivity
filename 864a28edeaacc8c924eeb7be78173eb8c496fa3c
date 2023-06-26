@@ -68,6 +68,24 @@
       "message": "We shouldn\u0027t be touching android12 at all imho.\nIt\u0027s dead code, this can only cause potential issues.",
       "revId": "864a28edeaacc8c924eeb7be78173eb8c496fa3c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "141171ba_b76e4f79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-06-26T15:05:03Z",
+      "side": 1,
+      "message": "Thanks for feedback - many Automotive OEMS are on 12L also 12L is supported till - `Mar 31, 2025` - https://docs.partner.android.com/gms/policies/overview/security-patch-backport\n\n- #1 - Exception / Waiver needs to provided to automotive OEMs for failed test - `testPreloadedAppsTargetSdkVersion`\n- #2 - The version `bump to 31` could you please share the potential issues that an OEM may come across.",
+      "parentUuid": "9dad5b81_80eb1124",
+      "revId": "864a28edeaacc8c924eeb7be78173eb8c496fa3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
