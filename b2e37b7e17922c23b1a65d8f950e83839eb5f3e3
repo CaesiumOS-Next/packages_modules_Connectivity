@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b6cec14_43d76136",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/UrlRequestTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-06-26T17:34:59Z",
+      "side": 1,
+      "message": "nit: this seems to be the default value (https://source.corp.google.com/aosp-master/external/cronet/components/cronet/android/java/src/org/chromium/net/impl/UrlRequestBuilderImpl.java;l\u003d57), you might want to pick another one.",
+      "range": {
+        "startLine": 431,
+        "startChar": 40,
+        "endLine": 431,
+        "endChar": 63
+      },
+      "revId": "b2e37b7e17922c23b1a65d8f950e83839eb5f3e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
