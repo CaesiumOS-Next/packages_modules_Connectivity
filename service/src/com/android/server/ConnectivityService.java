@@ -11156,6 +11156,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
+            if (mIsAtLeastU) {
+                updateRadioPowerState(
+                        activityParams.isActive, activityParams.label, activityParams.uid);
+            }
             ensureRunningOnConnectivityServiceThread();
             if (mActiveIdleTimers.isEmpty()) {
                 // This activity change is not for the current default network.
@@ -11253,7 +11257,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 return false; // do not track any other networks
             }
 
-            updateRadioPowerState(true /* isActive */, type);
+            updateRadioPowerState(true /* isActive */, type, NO_UID);
 
             if (timeout > 0 && iface != null) {
                 try {
@@ -11287,7 +11291,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
 
             try {
-                updateRadioPowerState(false /* isActive */, type);
+                updateRadioPowerState(false /* isActive */, type, NO_UID);
                 final IdleTimerParams params = mActiveIdleTimers.remove(iface);
                 if (params == null) {
                     // IdleTimer is not added if the configured timeout is 0 or negative value
@@ -11332,14 +11336,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        private void updateRadioPowerState(boolean isActive, int transportType) {
+        private void updateRadioPowerState(boolean isActive, int transportType, int uid) {
             final BatteryStatsManager bs = mContext.getSystemService(BatteryStatsManager.class);
             switch (transportType) {
                 case NetworkCapabilities.TRANSPORT_CELLULAR:
-                    bs.reportMobileRadioPowerState(isActive, NO_UID);
+                    bs.reportMobileRadioPowerState(isActive, uid);
                     break;
                 case NetworkCapabilities.TRANSPORT_WIFI:
-                    bs.reportWifiRadioPowerState(isActive, NO_UID);
+                    bs.reportWifiRadioPowerState(isActive, uid);
                     break;
                 default:
                     logw("Untracked transport type:" + transportType);

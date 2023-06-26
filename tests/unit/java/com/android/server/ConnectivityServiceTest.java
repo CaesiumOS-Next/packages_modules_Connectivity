@@ -153,6 +153,8 @@ import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALID
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_SUCCESS;
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.IPPROTO_TCP;
+import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_HIGH;
+import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_LOW;
 
 import static com.android.server.ConnectivityService.KEY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
@@ -214,6 +216,7 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -629,8 +632,8 @@ public class ConnectivityServiceTest {
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
-    final BatteryStatsManager mBatteryStatsManager =
-            new BatteryStatsManager(mock(IBatteryStats.class));
+    final IBatteryStats mIBatteryStats = mock(IBatteryStats.class);
+    final BatteryStatsManager mBatteryStatsManager = new BatteryStatsManager(mIBatteryStats);
 
     private ArgumentCaptor<ResolverParamsParcel> mResolverParamsParcelCaptor =
             ArgumentCaptor.forClass(ResolverParamsParcel.class);
@@ -11227,6 +11230,10 @@ public class ConnectivityServiceTest {
     }
 
     private void doTestInterfaceClassActivityChanged(final int transportType) throws Exception {
+        ArgumentCaptor<BaseNetdUnsolicitedEventListener> netdCallbackCaptor =
+                ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
+        verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
+
         final int legacyType = transportToLegacyType(transportType);
         final LinkProperties lp = new LinkProperties();
         lp.setInterfaceName(transportToTestIfaceName(transportType));
@@ -11235,17 +11242,25 @@ public class ConnectivityServiceTest {
         final ConditionVariable onNetworkActiveCv = new ConditionVariable();
         final ConnectivityManager.OnNetworkActiveListener listener = onNetworkActiveCv::open;
 
+        TestNetworkCallback defaultCallback = new TestNetworkCallback();
+
         testAndCleanup(() -> {
+            mCm.registerDefaultNetworkCallback(defaultCallback);
             agent.connect(true);
+            defaultCallback.expectAvailableThenValidatedCallbacks(agent);
+            if (transportType == TRANSPORT_CELLULAR) {
+                verify(mIBatteryStats).noteMobileRadioPowerState(eq(DC_POWER_STATE_HIGH),
+                        anyLong() /* timestampNs */, eq(NETWORK_ACTIVITY_NO_UID));
+            } else if (transportType == TRANSPORT_WIFI) {
+                verify(mIBatteryStats).noteWifiRadioPowerState(eq(DC_POWER_STATE_HIGH),
+                        anyLong() /* timestampNs */, eq(NETWORK_ACTIVITY_NO_UID));
+            }
+            clearInvocations(mIBatteryStats);
 
             // Network is considered active when the network becomes the default network.
             assertTrue(mCm.isDefaultNetworkActive());
 
             mCm.addDefaultNetworkActiveListener(listener);
-
-            ArgumentCaptor<BaseNetdUnsolicitedEventListener> netdCallbackCaptor =
-                    ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
-            verify(mMockNetd).registerUnsolicitedEventListener(netdCallbackCaptor.capture());
 
             // Interface goes to inactive state
             netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(false /* isActive */,
@@ -11254,6 +11269,23 @@ public class ConnectivityServiceTest {
                     TIMESTAMP);
             assertFalse(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
             assertFalse(mCm.isDefaultNetworkActive());
+            if (mDeps.isAtLeastU()) {
+                if (transportType == TRANSPORT_CELLULAR) {
+                    verify(mIBatteryStats).noteMobileRadioPowerState(eq(DC_POWER_STATE_LOW),
+                            anyLong() /* timestampNs */, eq(NETWORK_ACTIVITY_NO_UID));
+                } else if (transportType == TRANSPORT_WIFI) {
+                    verify(mIBatteryStats).noteWifiRadioPowerState(eq(DC_POWER_STATE_LOW),
+                            anyLong() /* timestampNs */, eq(NETWORK_ACTIVITY_NO_UID));
+                }
+            } else {
+                // On T-, LegacyNetworkActivityTracker does not call BatteryStats API by the netd
+                // activity change callback since BatteryStatsService listen to netd callback via
+                // NetworkManagementService and update battery stats by itself.
+                verify(mIBatteryStats, never())
+                        .noteMobileRadioPowerState(anyInt(), anyLong(), anyInt());
+                verify(mIBatteryStats, never())
+                        .noteWifiRadioPowerState(anyInt(), anyLong(), anyInt());
+            }
 
             // Interface goes to active state
             netdCallbackCaptor.getValue().onInterfaceClassActivityChanged(true /* isActive */,
@@ -11261,7 +11293,26 @@ public class ConnectivityServiceTest {
             mServiceContext.expectDataActivityBroadcast(legacyType, true /* isActive */, TIMESTAMP);
             assertTrue(onNetworkActiveCv.block(TEST_CALLBACK_TIMEOUT_MS));
             assertTrue(mCm.isDefaultNetworkActive());
+            if (mDeps.isAtLeastU()) {
+                if (transportType == TRANSPORT_CELLULAR) {
+                    verify(mIBatteryStats).noteMobileRadioPowerState(eq(DC_POWER_STATE_HIGH),
+                            anyLong() /* timestampNs */, eq(TEST_PACKAGE_UID));
+                } else if (transportType == TRANSPORT_WIFI) {
+                    verify(mIBatteryStats).noteWifiRadioPowerState(eq(DC_POWER_STATE_HIGH),
+                            anyLong() /* timestampNs */, eq(TEST_PACKAGE_UID));
+                }
+            } else {
+                // On T-, LegacyNetworkActivityTracker does not call BatteryStats API by the netd
+                // activity change callback since BatteryStatsService listen to netd callback via
+                // NetworkManagementService and update battery stats by itself.
+                verify(mIBatteryStats, never())
+                        .noteMobileRadioPowerState(anyInt(), anyLong(), anyInt());
+                verify(mIBatteryStats, never())
+                        .noteWifiRadioPowerState(anyInt(), anyLong(), anyInt());
+            }
         }, () -> { // Cleanup
+                mCm.unregisterNetworkCallback(defaultCallback);
+            }, () -> { // Cleanup
                 mCm.removeDefaultNetworkActiveListener(listener);
             }, () -> { // Cleanup
                 agent.disconnect();
