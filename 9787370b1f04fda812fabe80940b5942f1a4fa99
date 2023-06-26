@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6938717f_f1f33ef3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-26T14:56:32Z",
+      "side": 1,
+      "message": "Updated this CL to make forAllNetworkAgentInfos create a copy. This ensures that code running in the loops is able to remove any number of networks without crashing due to NPE or OOB exceptions.",
+      "revId": "9787370b1f04fda812fabe80940b5942f1a4fa99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
