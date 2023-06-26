@@ -70,6 +70,30 @@
       },
       "revId": "a951f2e9707756f46921e5fe592e7dc49c6e51f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e8399ae_3c76df54",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-26T07:53:20Z",
+      "side": 1,
+      "message": "Per discussed offline, use a extra message to show current loop i and each related time values when assert fail.",
+      "parentUuid": "ae12f440_20be8d84",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 39
+      },
+      "revId": "a951f2e9707756f46921e5fe592e7dc49c6e51f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
