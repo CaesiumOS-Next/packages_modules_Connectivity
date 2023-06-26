@@ -39,6 +39,24 @@
       "message": "The tag is taking a lot of space here:\n\n    NsdService [MdnsDiscoveryManager._mytype._tcp.local.SocketKey{ network\u003d123 interfaceIndex\u003d45 }] Some log message\n\nCould you make it shorter ? Maybe add some socketKey.toShortString() method, and try to have something like:\n\n    NsdService [MdnsDiscov._mytype._tcp.local-123/45] Some log message",
       "revId": "62b6439f96381ff8f576522dd1ecff51dc208c09",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d5a7436_aa1125af",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-26T14:22:34Z",
+      "side": 1,
+      "message": "Done in follow up commit",
+      "parentUuid": "dd8f14f7_607ea2e8",
+      "revId": "62b6439f96381ff8f576522dd1ecff51dc208c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
