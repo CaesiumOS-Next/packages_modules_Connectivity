@@ -29,6 +29,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
@@ -114,16 +115,25 @@ public class KeepaliveStatsTrackerTest {
     @Mock private KeepaliveStatsTracker.Dependencies mDependencies;
     @Mock private SubscriptionManager mSubscriptionManager;
 
-    private void triggerBroadcastDefaultSubId(int subId) {
+    private BroadcastReceiver getBroadcastReceiver() {
         final ArgumentCaptor<BroadcastReceiver> receiverCaptor =
                 ArgumentCaptor.forClass(BroadcastReceiver.class);
-        verify(mContext).registerReceiver(receiverCaptor.capture(), /* filter= */ any(),
-                /* broadcastPermission= */ any(), eq(mTestHandler));
+        verify(mContext).registerReceiver(
+                receiverCaptor.capture(),
+                argThat(intentFilter -> intentFilter.matchAction(
+                        SubscriptionManager.ACTION_DEFAULT_SUBSCRIPTION_CHANGED)),
+                /* broadcastPermission= */ any(),
+                eq(mTestHandler));
+
+        return receiverCaptor.getValue();
+    }
+
+    private void triggerBroadcastDefaultSubId(int subId) {
         final Intent intent =
-                new Intent(TelephonyManager.ACTION_SUBSCRIPTION_CARRIER_IDENTITY_CHANGED);
+                new Intent(SubscriptionManager.ACTION_DEFAULT_SUBSCRIPTION_CHANGED);
         intent.putExtra(SubscriptionManager.EXTRA_SUBSCRIPTION_INDEX, subId);
 
-        receiverCaptor.getValue().onReceive(mContext, intent);
+        getBroadcastReceiver().onReceive(mContext, intent);
     }
 
     private OnSubscriptionsChangedListener getOnSubscriptionsChangedListener() {
@@ -434,6 +444,18 @@ public class KeepaliveStatsTrackerTest {
     private void assertKeepaliveStatsTrackerActive() {
         assertFalse(
                 visibleOnHandlerThread(mTestHandler, () -> mKeepaliveStatsTracker.isDisabled()));
+    }
+
+    private void assertKeepaliveStatsTrackerDisabled() {
+        assertTrue(visibleOnHandlerThread(mTestHandler, () -> mKeepaliveStatsTracker.isDisabled()));
+
+        final OnSubscriptionsChangedListener listener = getOnSubscriptionsChangedListener();
+        // BackgroundThread will remove the OnSubscriptionsChangedListener.
+        HandlerUtils.waitForIdle(BackgroundThread.getHandler(), TIMEOUT_MS);
+        verify(mSubscriptionManager).removeOnSubscriptionsChangedListener(listener);
+
+        final BroadcastReceiver receiver = getBroadcastReceiver();
+        verify(mContext).unregisterReceiver(receiver);
     }
 
     @Test
@@ -971,7 +993,7 @@ public class KeepaliveStatsTrackerTest {
 
         // Attempt to use the same (network, slot)
         onStartKeepalive(startTime2, TEST_SLOT);
-        assertTrue(visibleOnHandlerThread(mTestHandler, () -> mKeepaliveStatsTracker.isDisabled()));
+        assertKeepaliveStatsTrackerDisabled();
 
         final DailykeepaliveInfoReported dailyKeepaliveInfoReported =
                 buildKeepaliveMetrics(writeTime);
