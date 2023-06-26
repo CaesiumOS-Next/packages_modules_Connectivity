@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bfea6fb_3c6e2944",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-26T05:07:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "86299932_9773075f",
+      "range": {
+        "startLine": 381,
+        "startChar": 39,
+        "endLine": 381,
+        "endChar": 85
+      },
+      "revId": "3bdcee1afd513df2fba280215314c9e51de94994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18377861_9c5bbf3f",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "Actually agent.register() is marked @NonNull, so Kotlin assumes that it\u0027s not a nullable type",
       "parentUuid": "18377861_9c5bbf3f",
+      "range": {
+        "startLine": 403,
+        "startChar": 12,
+        "endLine": 403,
+        "endChar": 19
+      },
+      "revId": "3bdcee1afd513df2fba280215314c9e51de94994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d999a079_026e5850",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-06-26T05:07:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0791cf3d_0ec97b95",
       "range": {
         "startLine": 403,
         "startChar": 12,
