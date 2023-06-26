@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ade5ae0_76440960",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSearchOptions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "I have sent the question to Macros.",
+      "parentUuid": "038af6a3_27594d43",
+      "range": {
+        "startLine": 55,
+        "startChar": 29,
+        "endLine": 55,
+        "endChar": 51
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97d9ab2e_5fe3f3bb",
@@ -54,6 +78,24 @@
       "writtenOn": "2023-06-22T06:07:44Z",
       "side": 1,
       "message": "Nit: Maybe this is not needed if the numQueries can just be set to Integer.MAX_VALUE ? It may simplify logic a bit ?",
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e567ca15_c6e7e74d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSearchOptions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "97d9ab2e_5fe3f3bb",
       "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -75,6 +117,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49c2c36f_e0f7e93d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d805b384_f16a10b0",
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a368322_44acaed2",
@@ -92,6 +152,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66dfb2f4_eed3e665",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a368322_44acaed2",
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d78bd212_e661aaf0",
@@ -105,6 +183,30 @@
       "writtenOn": "2023-06-22T06:07:44Z",
       "side": 1,
       "message": "Nit: this was just created, so maybe you don\u0027t need to copy it ?",
+      "range": {
+        "startLine": 216,
+        "startChar": 38,
+        "endLine": 216,
+        "endChar": 69
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecc1281b_df341646",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d78bd212_e661aaf0",
       "range": {
         "startLine": 216,
         "startChar": 38,
@@ -138,6 +240,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f7c192_ecf37824",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d8a71d9_cd0a0f1a",
+      "range": {
+        "startLine": 231,
+        "startChar": 40,
+        "endLine": 231,
+        "endChar": 48
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc080d9f_68f13999",
@@ -151,6 +277,30 @@
       "writtenOn": "2023-06-22T06:07:44Z",
       "side": 1,
       "message": "Is this already checked by nextQueryTaskConfig.shouldUseQueryBackoff() ?\n\nsearchOptions is actually \"lastSearchOptions\" (it\u0027s replaced by every listener registration). I think it\u0027s best to minimize dependencies on it, so it\u0027s easier to remove it in the future (replacing it with combined options, or per-listener options that are in the listeners map)",
+      "range": {
+        "startLine": 317,
+        "startChar": 16,
+        "endLine": 317,
+        "endChar": 75
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fdb0ea5_996ad49f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Thanks, refactored to remove the shouldUseQueryBackoff flag.",
+      "parentUuid": "fc080d9f_68f13999",
       "range": {
         "startLine": 317,
         "startChar": 16,
@@ -178,6 +328,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdfbb4fd_3e615c62",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8a29a1ea_c2f8ab87",
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a74a2a6a_d36ec28c",
@@ -191,6 +359,24 @@
       "writtenOn": "2023-06-22T06:07:44Z",
       "side": 1,
       "message": "If the response was for unrelated services, timeToNextRun will often be very close to smallestRemainingTtl, since there\u0027s no TTL change. With some small differences due to clock measurements.\n\nTo avoid rescheduling very often (which would cause logs etc), maybe you could avoid rescheduling if the time is very close to what is already scheduled, for example within 10ms ?\n\nIt would also be interesting to avoid doing most of the work in this method when incoming responses are unrelated; there\u0027s a lot of overhead copying currently known responses for augmenting the list, even when nothing matches. But that\u0027s to investigate separately (b/140670431)",
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5854daf4_2dc8b8cb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a74a2a6a_d36ec28c",
       "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -218,6 +404,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0710a184_c7c9900e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3ac715b_a742f2d7",
+      "range": {
+        "startLine": 325,
+        "startChar": 20,
+        "endLine": 325,
+        "endChar": 41
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a597f1c_f0659251",
@@ -231,6 +441,24 @@
       "writtenOn": "2023-06-22T06:07:44Z",
       "side": 1,
       "message": "It\u0027s generally best to avoid non-final members in objects created/used across threads, even when locks are used; increasing the sessionId every time the service is renewed is a bit harder to track too.\n\nBut copying the config every time seems wasteful too...\n\nActually I\u0027m thinking that the sessionId is more a property of the QueryTask (it\u0027s a guard value to schedule and cancel it), than the QueryTaskConfig. Just like the future and the \"next run time\", it is set when (re)scheduling. So could you have the sessionId as a final value in the QueryTask class ?",
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a04855c3_2573061f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a597f1c_f0659251",
       "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -252,6 +480,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb7750e9_b3b5ce84",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "I don\u0027t think it is easy to do that unless we significantly refactored the `getConfigForNextRun` method and rewrite the whole QueryTaskConfig task like GMScore did. I think we should have a separate task/CL to clean up this task.",
+      "parentUuid": "feb24afc_8b9a7c99",
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fbd1ecd_1f463999",
@@ -265,6 +511,30 @@
       "writtenOn": "2023-06-22T06:07:44Z",
       "side": 1,
       "message": "Nit: contrary to scheduledNextRunTime which is a timestamp, this is a delay right ? Maybe delayUntilNextTaskWithoutBackoffMs or similar (timeUntil ?) ?",
+      "range": {
+        "startLine": 473,
+        "startChar": 21,
+        "endLine": 473,
+        "endChar": 25
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "120d991c_454252c7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fbd1ecd_1f463999",
       "range": {
         "startLine": 473,
         "startChar": 21,
@@ -298,6 +568,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "799408c8_7cef1d73",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "The numOfQueriesBeforeBackoff is default to 3. But I think the idea is to make it configurable? Could you explain what kind of extra test we need to added?",
+      "parentUuid": "9184e049_f493a7b0",
+      "range": {
+        "startLine": 577,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 13
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13047460_448a7642",
@@ -311,6 +605,30 @@
       "writtenOn": "2023-06-22T06:07:44Z",
       "side": 1,
       "message": "It would be nice to use a consistent time for the whole task, otherwise it\u0027s possible a service didn\u0027t get expired in shouldRemoveServiceAfterTtlExpires, but then it has 0 TTL here, and that\u0027s hard to reproduce.\n\nHow about passing the time as argument, and calling elapsedRealtime only once in the callers ?",
+      "range": {
+        "startLine": 735,
+        "startChar": 68,
+        "endLine": 735,
+        "endChar": 91
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f0cb862_13b9e23d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13047460_448a7642",
       "range": {
         "startLine": 735,
         "startChar": 68,
@@ -355,6 +673,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa24e07f_75db7ab6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "As discussed offline, even if the service expired, the expectation is to send the query 20 seconds later.",
+      "parentUuid": "27112359_22541003",
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af6e0ea9_21930d83",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffe2f109_9215d8ce",
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "778198cb_a6135aca",
@@ -378,6 +732,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a65b1e16_0afa3843",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "778198cb_a6135aca",
+      "range": {
+        "startLine": 366,
+        "startChar": 38,
+        "endLine": 366,
+        "endChar": 46
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e58a08a_b54b0d18",
@@ -391,6 +769,30 @@
       "writtenOn": "2023-06-22T06:07:44Z",
       "side": 1,
       "message": "Nit: never()",
+      "range": {
+        "startLine": 376,
+        "startChar": 39,
+        "endLine": 376,
+        "endChar": 47
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2db58fb7_8deb2f8e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-26T08:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e58a08a_b54b0d18",
       "range": {
         "startLine": 376,
         "startChar": 39,
