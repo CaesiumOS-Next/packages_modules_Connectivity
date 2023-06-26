@@ -81,4 +81,15 @@ class BidirectionalStreamTest {
             "Received byte count must be > 0", info.receivedByteCount, Matchers.greaterThan(0L))
         assertEquals("h2", info.negotiatedProtocol)
     }
+
+    @Test
+    @Throws(Exception::class)
+    fun testBidirectionalStream_getHttpMethod() {
+        val builder: BidirectionalStream.Builder = createBidirectionalStreamBuilder(URL);
+        val method: String = "POST";
+
+        builder.setHttpMethod(method);
+        stream = builder.build();
+        assertEquals(method, stream!!.getHttpMethod());
+    }
 }
