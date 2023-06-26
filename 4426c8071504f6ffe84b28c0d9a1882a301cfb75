@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d347ab8b_be913817",
+        "filename": "tests/cts/tethering/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-26T08:13:25Z",
+      "side": 1,
+      "message": "may not related to this CL?",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 40
+      },
+      "revId": "4426c8071504f6ffe84b28c0d9a1882a301cfb75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
