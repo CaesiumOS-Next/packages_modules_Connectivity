@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2fda99d_199cab81",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-26T08:24:08Z",
+      "side": 1,
+      "message": "Per offline discussion, it seems to me it might be better if you:\n\nRefactor the updateCurrentDataUsage into 2 functions, e.g. you can call \nPair\u003cLong, Long\u003e getCurrentDataUsage(UpstreamType type) from this function.\nAnd mock getCurrentDataUsage in the test to use a map to mock the needed usage:\n\n@Override\nPair\u003cLong, Long\u003e getCurrentDataUsage(Upstream type) {\n  return mMockedDataUsage.get(type);\n}\n\nAlso you could use a setter function like:\nsetCurrentDataUsage(Upstream type, tx, rx) {\n  mMockedDataUsage.put(type, new Pair(tx, rx));\n}",
+      "range": {
+        "startLine": 252,
+        "startChar": 19,
+        "endLine": 252,
+        "endChar": 41
+      },
+      "revId": "a3e6a36b07a32e6e61865b11c0b55407a64c90d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "900660be_3485444f",
         "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
         "patchSetId": 1
