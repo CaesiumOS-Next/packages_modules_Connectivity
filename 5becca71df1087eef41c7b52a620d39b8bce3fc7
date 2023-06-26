@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d6b386f_437ff7b4",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-26T03:46:36Z",
+      "side": 1,
+      "message": "The IPv6 network address translation of REMOTE_IP4_ADDR if pref64::/n is 64:ff9b::/96",
+      "range": {
+        "startLine": 122,
+        "startChar": 7,
+        "endLine": 122,
+        "endChar": 85
+      },
+      "revId": "5becca71df1087eef41c7b52a620d39b8bce3fc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a310d71_3463ee43",
+        "filename": "Tethering/tests/integration/base/android/net/TetheringTester.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-06-26T03:46:36Z",
+      "side": 1,
+      "message": "Not sure, do we really need to reply with both 170 \u0026 171. From rfc 7050, I think it means either 170 or 171.",
+      "range": {
+        "startLine": 147,
+        "startChar": 12,
+        "endLine": 148,
+        "endChar": 34
+      },
+      "revId": "5becca71df1087eef41c7b52a620d39b8bce3fc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
