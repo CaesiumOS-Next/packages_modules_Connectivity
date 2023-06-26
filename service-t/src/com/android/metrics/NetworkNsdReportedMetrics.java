@@ -168,4 +168,36 @@ public class NetworkNsdReportedMetrics {
         builder.setFoundServiceCount(foundCallbackCount - lostCallbackCount);
         mDependencies.statsWrite(builder.build());
     }
+
+    /**
+     * Report service resolution success metric data.
+     *
+     * @param transactionId The transaction id of service resolution.
+     * @param durationMs The duration of resolving services.
+     * @param isKnownService Whether the resolving service is from a known service.
+     */
+    public void reportServiceResolved(int transactionId, long durationMs, boolean isKnownService) {
+        final Builder builder = makeReportedBuilder();
+        builder.setTransactionId(transactionId);
+        builder.setType(NsdEventType.NET_RESOLVE);
+        builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_RESOLVED);
+        builder.setEventDurationMillisec(durationMs);
+        builder.setIsKnownService(isKnownService);
+        mDependencies.statsWrite(builder.build());
+    }
+
+    /**
+     * Report service resolution failure metric data.
+     *
+     * @param transactionId The transaction id of service discovery.
+     * @param isKnownService Whether the resolving service is from a known service.
+     */
+    public void reportServiceResolutionFailed(int transactionId, boolean isKnownService) {
+        final Builder builder = makeReportedBuilder();
+        builder.setTransactionId(transactionId);
+        builder.setType(NsdEventType.NET_RESOLVE);
+        builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_RESOLUTION_FAILED);
+        builder.setIsKnownService(isKnownService);
+        mDependencies.statsWrite(builder.build());
+    }
 }
