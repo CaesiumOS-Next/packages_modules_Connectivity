@@ -66,6 +66,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1918be9_365aa16e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-27T11:50:30Z",
+      "side": 1,
+      "message": "Nit: many classes use MdnsServiceTypeClient.class.getSimpleName(), so it doesn\u0027t get out-of-sync if renamed",
+      "range": {
+        "startLine": 54,
+        "startChar": 38,
+        "endLine": 54,
+        "endChar": 59
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96c2464b_848bea23",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 2
@@ -89,6 +112,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "742ead09_06a2b780",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-27T11:50:30Z",
+      "side": 1,
+      "message": "Can you use the same value as the 2nd argument ? Or maybe 0, since there wasn\u0027t actually a query sent at this time ?",
+      "range": {
+        "startLine": 216,
+        "startChar": 24,
+        "endLine": 216,
+        "endChar": 47
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be2d2198_4401e597",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 2
@@ -105,6 +151,29 @@
         "startChar": 8,
         "endLine": 224,
         "endChar": 15
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aa49269_946895c8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-27T11:50:30Z",
+      "side": 1,
+      "message": "Nit: when working on similar commits I realized that System.identityHashCode would be better\n\nYou could have a static method that calls `toHexString(System.identityHashCode(x))`",
+      "range": {
+        "startLine": 228,
+        "startChar": 62,
+        "endLine": 228,
+        "endChar": 70
       },
       "revId": "26f78dee14ee91036641a537a427d829e63968ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -204,6 +273,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d234fae_8de56bff",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-27T11:50:30Z",
+      "side": 1,
+      "message": "Nit: the value depends very much on when it was calculated, so how about minRemainingTtlWhenScheduled ?",
+      "range": {
+        "startLine": 615,
+        "startChar": 27,
+        "endLine": 615,
+        "endChar": 47
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f69cc1cc_ff379d15",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-27T11:50:30Z",
+      "side": 1,
+      "message": "Nit: \"previous\" is not very clear, how about \"timeWhenScheduled\" ? Or \"elapsedRealtimeWhenScheduled\" (but nextQueryTaskRunTime just says \"Time\") ?",
+      "range": {
+        "startLine": 616,
+        "startChar": 27,
+        "endLine": 616,
+        "endChar": 50
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9427e8c_751b26d9",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 2
@@ -227,6 +342,63 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8df5014a_d41d9257",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-27T11:50:30Z",
+      "side": 1,
+      "message": "Is this correct when called in the middle of 2 queries ? If 10s have passed, the base delay is 20s and there\u0027s no backoff, shouldn\u0027t this method return 10s ?\n\nI feel that it would all be simpler if you also keep a lastSentTime member in the QueryTask, and do something like:\n\n\n    private long calculateNextSendTime(@NonNull QueryTask lastScheduledTask, boolean lastTaskWasSent, long now) {\n        final long lastSentTime \u003d lastTaskWasSent ? now : lastScheduledTask.lastSentTime;\n        final long baseDelayInMs \u003d lastScheduledTask.config.delayUntilNextTaskWithoutBackoffMs;\n    \tif (!lastScheduledTask.config.shouldUseQueryBackoff()) {\n    \t    return lastSentTime + baseDelayInMs;\n    \t}\n        final long minTtl \u003d getMinRemainingTtl(now);\n    \tif (minTtl \u003c\u003d 0) {\n    \t    // There\u0027s no service, or there is an expired service. In any case, schedule for the minimum\n    \t    // time, which is the base delay.\n    \t    return lastSentTime + baseDelayInMs;\n    \t}\n    \tfinal long timePassed \u003d now - lastScheduledTask.timeWhenScheduled;\n    \tif (!lastTaskWasSent \u0026\u0026 (lastScheduledTask.minRemainingTtlWhenScheduled - timePassed \u003d\u003d minTtl)) {\n    \t    // Use the original scheduling time if the TTL has not changed, to avoid continuously\n    \t    // rescheduling to 80% of the remaining TTL as time passes\n    \t    return lastScheduledTask.nextQueryTaskRunTime;\n    \t}\n        return Math.max(now + (long) (0.8 * minTtl), lastSentTime + baseDelayInMs);\n    }\n    \n - On initial scheduling, if hadReply from cache, create the same QueryTask that would be used if there\u0027s no cached value,\n   and call with lastTaskWasSent\u003dtrue\n - Otherwise, create a QueryTask with lastSentTime\u003dnow\n - On query received, call with lastTaskWasSent\u003dfalse. If return value \u003c\u003d lastScheduledTask.nextQueryTaskRunTime, don\u0027t reschedule\n - After sending a query, call with lastTaskWasSent\u003dtrue",
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2527561e_2745031c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-27T11:50:30Z",
+      "side": 1,
+      "message": "Nit: getMinTtlLocked would be enough I think, since there\u0027s no extension-specific logic maybe ?",
+      "range": {
+        "startLine": 739,
+        "startChar": 17,
+        "endLine": 739,
+        "endChar": 58
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36864332_669c2f4f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-27T11:50:30Z",
+      "side": 1,
+      "message": "If there\u0027s 2 services, one with remainingTtl \u003d\u003d -10, and the other one with remainingTtl \u003d\u003d 1, it\u0027s strange that this would return 1.\n\nI think you can make it return 0 to avoid having to deal with negative TTLs, but remainingTtl \u003c\u003d 0 should cause it to return 0.",
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc598382_76444185",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 2
@@ -244,6 +416,47 @@
         "endLine": 750,
         "endChar": 43
       },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e147de52_dae99ae5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-27T11:50:30Z",
+      "side": 1,
+      "message": "+1, but with a check for Long.MAX_VALUE at the end, to avoid returning that if there\u0027s no response with a service record. 0 or MIN_VALUE probably make more sense when there\u0027s no service (means that the client should query as soon as possible)",
+      "parentUuid": "dc598382_76444185",
+      "range": {
+        "startLine": 750,
+        "startChar": 16,
+        "endLine": 750,
+        "endChar": 43
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4987fee3_69f466b0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-27T11:50:30Z",
+      "side": 1,
+      "message": "With Paul\u0027s suggestion I think this special-casing for 0 becomes unnecessary too",
       "revId": "26f78dee14ee91036641a537a427d829e63968ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
