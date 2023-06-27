@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7693600c_7f28ae71",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-27T11:04:48Z",
+      "side": 1,
+      "message": "Nit: would be nice to use the same shouldCreateNetworksImmediately wording used in CS.",
+      "range": {
+        "startLine": 171,
+        "startChar": 18,
+        "endLine": 171,
+        "endChar": 59
+      },
+      "revId": "fbcc3a7674e6534323c76bd0c44c2b52fa9b387a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
