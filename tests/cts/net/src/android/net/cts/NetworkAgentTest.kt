@@ -72,12 +72,16 @@ import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnQosS
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.Looper
 import android.os.Message
 import android.os.Process
 import android.os.SystemClock
 import android.platform.test.annotations.AppModeFull
+import android.system.Os
+import android.system.OsConstants.AF_INET6
 import android.system.OsConstants.IPPROTO_TCP
 import android.system.OsConstants.IPPROTO_UDP
+import android.system.OsConstants.SOCK_DGRAM
 import android.telephony.TelephonyManager
 import android.telephony.data.EpsBearerQosSessionAttributes
 import android.util.DebugUtils.valueToString
@@ -86,6 +90,10 @@ import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionId
 import com.android.compatibility.common.util.ThrowingSupplier
 import com.android.modules.utils.build.SdkLevel
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.NetworkStackConstants.ETHER_MTU
+import com.android.net.module.util.NetworkStackConstants.IPV6_HEADER_LEN
+import com.android.net.module.util.NetworkStackConstants.IPV6_PROTOCOL_OFFSET
+import com.android.net.module.util.NetworkStackConstants.UDP_HEADER_LEN
 import com.android.testutils.CompatUtil
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -96,6 +104,7 @@ import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.Losing
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
+import com.android.testutils.TapPacketReader
 import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnAddKeepalivePacketFilter
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnAutomaticReconnectDisabled
@@ -118,10 +127,13 @@ import java.net.DatagramSocket
 import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.Socket
+import java.nio.ByteBuffer
 import java.time.Duration
 import java.util.Arrays
+import java.util.Random
 import java.util.UUID
 import java.util.concurrent.Executors
+import kotlin.collections.ArrayList
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
@@ -163,6 +175,11 @@ private fun Message(what: Int, arg1: Int, arg2: Int, obj: Any?) = Message.obtain
     it.arg2 = arg2
     it.obj = obj
 }
+
+private val LINK_ADDRESS = LinkAddress("2001:db8::1/64")
+private val REMOTE_ADDRESS = InetAddresses.parseNumericAddress("2001:db8::123")
+private val PREFIX = IpPrefix("2001:db8::/64")
+private val NEXTHOP = InetAddresses.parseNumericAddress("fe80::abcd")
 
 // On T and below, the native network is only created when the agent connects.
 // Starting in U, the native network was to be created as soon as the agent is registered,
@@ -295,6 +312,15 @@ class NetworkAgentTest {
         if (transports.size > 0) removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
     }
 
+    private fun makeTestLinkProperties(ifName: String): LinkProperties {
+        return LinkProperties().apply {
+            interfaceName = ifName
+            addLinkAddress(LINK_ADDRESS)
+            addRoute(RouteInfo(PREFIX, null /* nextHop */, ifName))
+            addRoute(RouteInfo(IpPrefix("::/0"), NEXTHOP, ifName))
+        }
+    }
+
     private fun createNetworkAgent(
         context: Context = realContext,
         specifier: String? = null,
@@ -315,6 +341,7 @@ class NetworkAgentTest {
 
     private fun createConnectedNetworkAgent(
         context: Context = realContext,
+        lp: LinkProperties? = null,
         specifier: String? = UUID.randomUUID().toString(),
         initialConfig: NetworkAgentConfig? = null,
         expectedInitSignalStrengthThresholds: IntArray = intArrayOf(),
@@ -324,7 +351,8 @@ class NetworkAgentTest {
         // Ensure this NetworkAgent is never unneeded by filing a request with its specifier.
         requestNetwork(makeTestNetworkRequest(specifier = specifier), callback)
         val nc = makeTestNetworkCapabilities(specifier, transports)
-        val agent = createNetworkAgent(context, initialConfig = initialConfig, initialNc = nc)
+        val agent = createNetworkAgent(context, initialConfig = initialConfig, initialLp = lp,
+            initialNc = nc)
         agent.setTeardownDelayMillis(0)
         // Connect the agent and verify initial status callbacks.
         agent.register()
@@ -335,8 +363,9 @@ class NetworkAgentTest {
         return agent to callback
     }
 
-    private fun connectNetwork(vararg transports: Int): Pair<TestableNetworkAgent, Network> {
-        val (agent, callback) = createConnectedNetworkAgent(transports = transports)
+    private fun connectNetwork(vararg transports: Int, lp: LinkProperties? = null):
+            Pair<TestableNetworkAgent, Network> {
+        val (agent, callback) = createConnectedNetworkAgent(transports = transports, lp = lp)
         val network = agent.network!!
         // createConnectedNetworkAgent internally files a request; release it so that the network
         // will be torn down if unneeded.
@@ -356,8 +385,9 @@ class NetworkAgentTest {
         assertNoCallback()
     }
 
-    private fun createTunInterface(): TestNetworkInterface = realContext.getSystemService(
-                TestNetworkManager::class.java)!!.createTunInterface(emptyList()).also {
+    private fun createTunInterface(addrs: Collection<LinkAddress> = emptyList()):
+            TestNetworkInterface = realContext.getSystemService(
+                TestNetworkManager::class.java)!!.createTunInterface(addrs).also {
             ifacesToCleanUp.add(it)
     }
 
@@ -1206,15 +1236,42 @@ class NetworkAgentTest {
 
     private fun createEpsAttributes(qci: Int = 1): EpsBearerQosSessionAttributes {
         val remoteAddresses = ArrayList<InetSocketAddress>()
-        remoteAddresses.add(InetSocketAddress("2001:db8::123", 80))
+        remoteAddresses.add(InetSocketAddress(REMOTE_ADDRESS, 80))
         return EpsBearerQosSessionAttributes(
                 qci, 2, 3, 4, 5,
                 remoteAddresses
         )
     }
 
+    fun sendAndExpectUdpPacket(net: Network, reader: TapPacketReader, iface: TestNetworkInterface) {
+        val s = Os.socket(AF_INET6, SOCK_DGRAM, 0)
+        net.bindSocket(s)
+        val content = ByteArray(16)
+        Random().nextBytes(content)
+        Os.sendto(s, ByteBuffer.wrap(content), 0, REMOTE_ADDRESS, 7)
+        val match = reader.poll(DEFAULT_TIMEOUT_MS) {
+            val udpStart = IPV6_HEADER_LEN + UDP_HEADER_LEN
+            it.size == udpStart + content.size &&
+                    it[0].toInt() and 0xf0 == 0x60 &&
+                    it[IPV6_PROTOCOL_OFFSET].toInt() == IPPROTO_UDP &&
+                    Arrays.equals(content, it.copyOfRange(udpStart, udpStart + content.size))
+        }
+        assertNotNull(match, "Did not receive matching packet on ${iface.interfaceName} " +
+                " after ${DEFAULT_TIMEOUT_MS}ms")
+    }
+
     @Test
     fun testUnregisterAfterReplacement() {
+        val iface = createTunInterface(listOf(LINK_ADDRESS))
+        val ifName = iface.interfaceName
+        val lp = makeTestLinkProperties(ifName)
+        val handler = Handler(Looper.getMainLooper())
+        val reader = TapPacketReader(handler, iface.fileDescriptor.fileDescriptor, ETHER_MTU)
+        reader.startAsyncForTest()
+        assertTrue("TapPacketReader did not start within ${DEFAULT_TIMEOUT_MS}ms") {
+            handler.runWithScissors({}, DEFAULT_TIMEOUT_MS)
+        }
+
         // Keeps an eye on all test networks.
         val matchAllCallback = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
         registerNetworkCallback(makeTestNetworkRequest(), matchAllCallback)
@@ -1224,14 +1281,13 @@ class NetworkAgentTest {
         requestNetwork(makeTestNetworkRequest(), testCallback)
 
         // Connect the first network. This should satisfy the request.
-        val (agent1, network1) = connectNetwork()
+        val (agent1, network1) = connectNetwork(lp = lp)
         matchAllCallback.expectAvailableThenValidatedCallbacks(network1)
         testCallback.expectAvailableThenValidatedCallbacks(network1)
-        // Check that network1 exists by binding a socket to it and getting no exceptions.
-        network1.bindSocket(DatagramSocket())
+        sendAndExpectUdpPacket(network1, reader, iface)
 
         // Connect a second agent. network1 is preferred because it was already registered, so
-        // testCallback will not see any events. agent2 is be torn down because it has no requests.
+        // testCallback will not see any events. agent2 is torn down because it has no requests.
         val (agent2, network2) = connectNetwork()
         matchAllCallback.expectAvailableThenValidatedCallbacks(network2)
         matchAllCallback.expect<Lost>(network2)
@@ -1256,9 +1312,10 @@ class NetworkAgentTest {
         // as soon as it validates (until then, it is outscored by network1).
         // The fact that the first events seen by matchAllCallback is the connection of network3
         // implicitly ensures that no callbacks are sent since network1 was lost.
-        val (agent3, network3) = connectNetwork()
+        val (agent3, network3) = connectNetwork(lp = lp)
         matchAllCallback.expectAvailableThenValidatedCallbacks(network3)
         testCallback.expectAvailableDoubleValidatedCallbacks(network3)
+        sendAndExpectUdpPacket(network3, reader, iface)
 
         // As soon as the replacement arrives, network1 is disconnected.
         // Check that this happens before the replacement timeout (5 seconds) fires.
@@ -1278,6 +1335,7 @@ class NetworkAgentTest {
         matchAllCallback.expect<Losing>(network3)
         testCallback.expectAvailableCallbacks(network4, validated = true)
         mCM.unregisterNetworkCallback(agent4callback)
+        sendAndExpectUdpPacket(network3, reader, iface)
         agent3.unregisterAfterReplacement(5_000)
         agent3.expectCallback<OnNetworkUnwanted>()
         matchAllCallback.expect<Lost>(network3, 1000L)
@@ -1293,9 +1351,10 @@ class NetworkAgentTest {
 
         // If a network that is awaiting replacement is unregistered, it disconnects immediately,
         // before the replacement timeout fires.
-        val (agent5, network5) = connectNetwork()
+        val (agent5, network5) = connectNetwork(lp = lp)
         matchAllCallback.expectAvailableThenValidatedCallbacks(network5)
         testCallback.expectAvailableThenValidatedCallbacks(network5)
+        sendAndExpectUdpPacket(network5, reader, iface)
         agent5.unregisterAfterReplacement(5_000 /* timeoutMillis */)
         agent5.unregister()
         matchAllCallback.expect<Lost>(network5, 1000L /* timeoutMs */)
@@ -1342,7 +1401,7 @@ class NetworkAgentTest {
         matchAllCallback.assertNoCallback(200 /* timeoutMs */)
 
         // If wifi is replaced within the timeout, the device does not switch to cellular.
-        val (_, cellNetwork) = connectNetwork(TRANSPORT_CELLULAR)
+        val (cellAgent, cellNetwork) = connectNetwork(TRANSPORT_CELLULAR)
         testCallback.expectAvailableThenValidatedCallbacks(cellNetwork)
         matchAllCallback.expectAvailableThenValidatedCallbacks(cellNetwork)
 
@@ -1379,6 +1438,34 @@ class NetworkAgentTest {
         matchAllCallback.expectAvailableThenValidatedCallbacks(newWifiNetwork)
         matchAllCallback.expect<Lost>(wifiNetwork)
         wifiAgent.expectCallback<OnNetworkUnwanted>()
+        testCallback.expect<CapabilitiesChanged>(newWifiNetwork)
+
+        cellAgent.unregister()
+        matchAllCallback.expect<Lost>(cellNetwork)
+        newWifiAgent.unregister()
+        matchAllCallback.expect<Lost>(newWifiNetwork)
+        testCallback.expect<Lost>(newWifiNetwork)
+
+        // Calling unregisterAfterReplacement several times in quick succession works.
+        // These networks are all kept up by testCallback.
+        val agent10 = createNetworkAgent(realContext, initialLp = lp)
+        agent10.register()
+        agent10.unregisterAfterReplacement(5_000)
+
+        val agent11 = createNetworkAgent(realContext, initialLp = lp)
+        agent11.register()
+        agent11.unregisterAfterReplacement(5_000)
+
+        val agent12 = createNetworkAgent(realContext, initialLp = lp)
+        agent12.register()
+        agent12.unregisterAfterReplacement(5_000)
+
+        val agent13 = createNetworkAgent(realContext, initialLp = lp)
+        agent13.register()
+        agent13.markConnected()
+        testCallback.expectAvailableThenValidatedCallbacks(agent13.network!!)
+        sendAndExpectUdpPacket(agent13.network!!, reader, iface)
+        agent13.unregister()
     }
 
     @Test
@@ -1411,14 +1498,7 @@ class NetworkAgentTest {
                 it.underlyingNetworks = listOf()
             }
         }
-        val lp = LinkProperties().apply {
-            interfaceName = ifName
-            addLinkAddress(LinkAddress("2001:db8::1/64"))
-            addRoute(RouteInfo(IpPrefix("2001:db8::/64"), null /* nextHop */, ifName))
-            addRoute(RouteInfo(IpPrefix("::/0"),
-                    InetAddresses.parseNumericAddress("fe80::abcd"),
-                    ifName))
-        }
+        val lp = makeTestLinkProperties(ifName)
 
         // File a request containing the agent's specifier to receive callbacks and to ensure that
         // the agent is not torn down due to being unneeded.
