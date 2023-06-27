@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc3613c4_edadfac2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-06-27T12:13:00Z",
+      "side": 1,
+      "message": "P.S. I\u0027ve also added tests for some other missing getter",
+      "revId": "89f02837a13489a4293e3e43d6864313e21b9ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
