@@ -86,6 +86,24 @@
       "parentUuid": "9dad5b81_80eb1124",
       "revId": "864a28edeaacc8c924eeb7be78173eb8c496fa3c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f6a29c9_7734da07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1953015
+      },
+      "writtenOn": "2023-06-27T20:28:37Z",
+      "side": 1,
+      "message": "https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2632849\n- Added -",
+      "parentUuid": "39926c9e_2d848192",
+      "revId": "864a28edeaacc8c924eeb7be78173eb8c496fa3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
