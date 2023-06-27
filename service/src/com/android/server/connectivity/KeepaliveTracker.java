@@ -41,6 +41,7 @@ import android.net.ISocketKeepaliveCallback;
 import android.net.InetAddresses;
 import android.net.InvalidPacketException;
 import android.net.KeepalivePacketData;
+import android.net.LinkProperties;
 import android.net.NattKeepalivePacketData;
 import android.net.NetworkAgent;
 import android.net.SocketKeepalive.InvalidSocketException;
@@ -54,6 +55,7 @@ import android.os.RemoteException;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.util.Log;
+import android.util.Pair;
 
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
@@ -62,12 +64,15 @@ import com.android.net.module.util.HexDump;
 import com.android.net.module.util.IpUtils;
 
 import java.io.FileDescriptor;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Manages socket keepalive requests.
@@ -292,10 +297,14 @@ public class KeepaliveTracker {
 
         private int checkSourceAddress() {
             // Check that we have the source address.
-            for (InetAddress address : mNai.linkProperties.getAddresses()) {
+            for (InetAddress address : mNai.linkProperties.getAllAddresses()) {
                 if (address.equals(mPacket.getSrcAddress())) {
                     return SUCCESS;
                 }
+            }
+            // Or the address is the clat source address.
+            if (mPacket.getSrcAddress().equals(mNai.getClatv6SrcAddress())) {
+                return SUCCESS;
             }
             return ERROR_INVALID_IP_ADDRESS;
         }
@@ -479,6 +488,15 @@ public class KeepaliveTracker {
             return new KeepaliveInfo(mCallback, mNai, mPacket, mPid, mUid, mInterval, mType,
                     fd, mSlot, true /* resumed */);
         }
+
+        /**
+         * Construct a new KeepaliveInfo from existing KeepaliveInfo with a new KeepalivePacketData.
+         */
+        public KeepaliveInfo withPacketData(@NonNull KeepalivePacketData packet)
+                throws InvalidSocketException {
+            return new KeepaliveInfo(mCallback, mNai, packet, mPid, mUid, mInterval, mType,
+                    mFd, mSlot, mResumed);
+        }
     }
 
     void notifyErrorCallback(ISocketKeepaliveCallback cb, int error) {
@@ -512,15 +530,58 @@ public class KeepaliveTracker {
      * Handle start keepalives with the message.
      *
      * @param ki the keepalive to start.
-     * @return SUCCESS if the keepalive is successfully starting and the error reason otherwise.
+     * @return Pair of (SUCCESS if the keepalive is successfully starting and the error reason
+     *         otherwise, the started KeepaliveInfo object)
      */
-    public int handleStartKeepalive(KeepaliveInfo ki) {
-        NetworkAgentInfo nai = ki.getNai();
+    public Pair<Integer, KeepaliveInfo> handleStartKeepalive(KeepaliveInfo ki) {
+        final KeepaliveInfo newKi;
+        try {
+            newKi = handleUpdateKeepaliveForClat(ki);
+        } catch (InvalidSocketException | InvalidPacketException e) {
+            Log.e(TAG, "Fail to construct keepalive packet");
+            notifyErrorCallback(ki.mCallback, ERROR_INVALID_IP_ADDRESS);
+            // Fail to create new keepalive packet for clat. Return the original keepalive info.
+            return new Pair<>(ERROR_INVALID_IP_ADDRESS, ki);
+        }
+
+        final NetworkAgentInfo nai = newKi.getNai();
         // If this was a paused keepalive, then reuse the same slot that was kept for it. Otherwise,
         // use the first free slot for this network agent.
-        final int slot = NO_KEEPALIVE != ki.mSlot ? ki.mSlot : findFirstFreeSlot(nai);
-        mKeepalives.get(nai).put(slot, ki);
-        return ki.start(slot);
+        final int slot = NO_KEEPALIVE != newKi.mSlot ? newKi.mSlot : findFirstFreeSlot(nai);
+        mKeepalives.get(nai).put(slot, newKi);
+
+        return new Pair<>(newKi.start(slot), newKi);
+    }
+
+    private boolean isClatv4Address(NetworkAgentInfo nai, InetAddress target) {
+        final List<LinkProperties> lps = nai.linkProperties.getStackedLinks();
+        for (LinkProperties lp : lps) {
+            for (InetAddress address : lp.getAddresses()) {
+                if (address.equals(target)) return true;
+            }
+        }
+        return false;
+    }
+
+    private KeepaliveInfo handleUpdateKeepaliveForClat(KeepaliveInfo ki)
+            throws InvalidSocketException, InvalidPacketException {
+        // Only try to translate address if the packet source address is the clat's source address.
+        if (!isClatv4Address(ki.getNai(), ki.mPacket.getSrcAddress())) return ki;
+
+        final InetAddress dstAddr = ki.mPacket.getDstAddress();
+        // Not perform translation for a v6 dst address.
+        if (!(dstAddr instanceof Inet4Address)) return ki;
+
+        final Inet6Address address = ki.getNai().translateV4toClatV6((Inet4Address) dstAddr);
+
+        if (address == null) return ki;
+
+        Log.d(TAG, "Src is clat v4 address. Convert address.");
+        final int srcPort = ki.mPacket.getSrcPort();
+        final KeepaliveInfo newInfo = ki.withPacketData(NattKeepalivePacketData.nattKeepalivePacket(
+                ki.getNai().getClatv6SrcAddress(), srcPort, address, NATT_PORT));
+
+        return newInfo;
     }
 
     public void handleStopAllKeepalives(NetworkAgentInfo nai, int reason) {
