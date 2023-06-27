@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9813c87_2f2b4d76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-27T02:39:05Z",
+      "side": 1,
+      "message": "LGTM with nit comment",
+      "revId": "721f9b28bf6e5b890003363de97d40f1ffafab8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "766b6312_6eb897f2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsConstants.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-27T02:39:05Z",
+      "side": 1,
+      "message": "Just curious, why we need to make it only visible to PACKAGE. Will there be any possibility in the future we want to access this class outside the packet?",
+      "range": {
+        "startLine": 30,
+        "startChar": 19,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "721f9b28bf6e5b890003363de97d40f1ffafab8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
