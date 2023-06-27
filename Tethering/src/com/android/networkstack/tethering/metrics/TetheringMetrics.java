@@ -16,12 +16,15 @@
 
 package com.android.networkstack.tethering.metrics;
 
+import static android.app.usage.NetworkStats.Bucket.STATE_ALL;
+import static android.app.usage.NetworkStats.Bucket.TAG_NONE;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_LOWPAN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
+import static android.net.NetworkStats.UID_TETHERING;
 import static android.net.NetworkTemplate.MATCH_BLUETOOTH;
 import static android.net.NetworkTemplate.MATCH_ETHERNET;
 import static android.net.NetworkTemplate.MATCH_MOBILE;
@@ -50,6 +53,10 @@ import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 
 import android.annotation.Nullable;
+import android.app.usage.NetworkStats;
+import android.app.usage.NetworkStats.Bucket;
+import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.net.NetworkCapabilities;
 import android.net.NetworkTemplate;
 import android.stats.connectivity.DownstreamType;
@@ -57,15 +64,18 @@ import android.stats.connectivity.ErrorCode;
 import android.stats.connectivity.UpstreamType;
 import android.stats.connectivity.UserType;
 import android.util.Log;
+import android.util.Pair;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.networkstack.tethering.UpstreamNetworkState;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * Collection of utilities for tethering metrics.
@@ -83,12 +93,26 @@ public class TetheringMetrics {
     private static final String SETTINGS_PKG_NAME = "com.android.settings";
     private static final String SYSTEMUI_PKG_NAME = "com.android.systemui";
     private static final String GMS_PKG_NAME = "com.google.android.gms";
+
     private final SparseArray<NetworkTetheringReported.Builder> mBuilderMap = new SparseArray<>();
     private final SparseArray<Long> mDownstreamStartTime = new SparseArray<Long>();
     private final ArrayList<RecordUpstreamEvent> mUpstreamEventList = new ArrayList<>();
-    private UpstreamType mCurrentUpstream = null;
-    private Long mCurrentUpStreamStartTime = 0L;
+    private final HashMap<UpstreamType, Pair<Long, Long>> mUsageMap = new HashMap<>();
+    private final Context mContext;
+    private final NetworkStatsManager mNetworkStatsManager;
 
+    private UpstreamType mCurrentUpstream = null;
+    private long mCurrentUpStreamStartTime = 0L;
+
+    /**
+     * Constructor for the TetheringMetrics class.
+     *
+     * @param context The Context object used to access system services.
+     */
+    public TetheringMetrics(Context context) {
+        mContext = context;
+        mNetworkStatsManager = mContext.getSystemService(NetworkStatsManager.class);
+    }
 
     /**
      * Return the current system time in milliseconds.
@@ -102,12 +126,16 @@ public class TetheringMetrics {
         public final long mStartTime;
         public final long mStopTime;
         public final UpstreamType mUpstreamType;
+        public final long mTxBytes;
+        public final long mRxBytes;
 
         RecordUpstreamEvent(final long startTime, final long stopTime,
-                final UpstreamType upstream) {
+                final UpstreamType upstream, final long txBytes, final long rxBytes) {
             mStartTime = startTime;
             mStopTime = stopTime;
             mUpstreamType = upstream;
+            mTxBytes = txBytes;
+            mRxBytes = rxBytes;
         }
     }
 
@@ -129,6 +157,9 @@ public class TetheringMetrics {
                 .setDurationMillis(0);
         mBuilderMap.put(downstreamType, statsBuilder);
         mDownstreamStartTime.put(downstreamType, timeNow());
+        if (isAtLeastT()) {
+            populateInitialDataUsageMap();
+        }
     }
 
     /**
@@ -156,11 +187,86 @@ public class TetheringMetrics {
 
         final long newTime = timeNow();
         if (mCurrentUpstream != null) {
+            long txBytes = 0;
+            long rxBytes = 0;
+            if (isAtLeastT() && isTransportSupported(mCurrentUpstream)) {
+                Pair<Long, Long> dataUsage = calculateDataUsage();
+                txBytes = dataUsage.first;
+                rxBytes = dataUsage.second;
+            }
             mUpstreamEventList.add(new RecordUpstreamEvent(mCurrentUpStreamStartTime, newTime,
-                    mCurrentUpstream));
+                    mCurrentUpstream, txBytes, rxBytes));
         }
         mCurrentUpstream = upstream;
         mCurrentUpStreamStartTime = newTime;
+    }
+
+    private boolean isAtLeastT() {
+        return SdkLevel.isAtLeastT();
+    }
+
+    private Bucket createNewBucket() {
+        return new NetworkStats.Bucket();
+    }
+
+    /**
+     * Retrieves the current data usage for the specified upstream type.
+     * This method queries the network stats manager for the details of the specified
+     * upstream type and calculates the total transmitted (tx) and received (rx) bytes.
+     *
+     * @param type The upstream type for which to retrieve the data usage.
+     * @return A Pair object containing the total transmitted (tx) bytes as the first value
+     *         and the total received (rx) bytes as the second value.
+     */
+    protected Pair<Long, Long> getCurrentDataUsage(UpstreamType type) {
+        long totalTxBytes = 0L;
+        long totalRxBytes = 0L;
+
+        final NetworkStats stats = mNetworkStatsManager.queryDetailsForUidTagState(
+                buildNetworkTemplate(type), Long.MIN_VALUE, Long.MAX_VALUE, UID_TETHERING,
+                    TAG_NONE, STATE_ALL);
+
+        if (stats != null) {
+            final NetworkStats.Bucket bucket = createNewBucket();
+            while (stats.getNextBucket(bucket)) {
+                totalTxBytes += bucket.getTxBytes();
+                totalRxBytes += bucket.getRxBytes();
+            }
+        }
+
+        return new Pair<>(totalTxBytes, totalRxBytes);
+    }
+
+    /**
+     * Sets the current data usage for the specified upstream type.
+     * This method updates the usage map with the provided data for the specified
+     * upstream type.
+     *
+     * @param type The upstream type for which to set the data usage.
+     * @param data A Pair object containing the total transmitted (tx) bytes as the first value
+     *             and the total received (rx) bytes as the second value.
+     */
+    protected void setDataUsageMap(UpstreamType type, Pair<Long, Long> data) {
+        mUsageMap.put(type, data);
+    }
+
+    /**
+     * Retrieves and sets the initial data usage for different upstream types.
+     * If the usage map is already populated, no action is taken.
+     */
+    private void populateInitialDataUsageMap() {
+        if (!mUsageMap.isEmpty()) return;
+
+        UpstreamType[] types = {
+            UpstreamType.UT_CELLULAR,
+            UpstreamType.UT_WIFI,
+            UpstreamType.UT_BLUETOOTH,
+            UpstreamType.UT_ETHERNET
+        };
+
+        for (UpstreamType type : types) {
+            setDataUsageMap(type, getCurrentDataUsage(type));
+        }
     }
 
     /**
@@ -208,15 +314,56 @@ public class TetheringMetrics {
             final long startTime = Math.max(downstreamStartTime, event.mStartTime);
             // Handle completed upstream events.
             addUpstreamEvent(upstreamEventsBuilder, startTime, event.mStopTime,
-                    event.mUpstreamType, 0L /* txBytes */, 0L /* rxBytes */);
+                    event.mUpstreamType,  event.mTxBytes, event.mRxBytes);
         }
         final long startTime = Math.max(downstreamStartTime, mCurrentUpStreamStartTime);
         final long stopTime = timeNow();
+        long txBytes = 0L;
+        long rxBytes = 0L;
+        if (isAtLeastT() && mCurrentUpstream != null && isTransportSupported(mCurrentUpstream)) {
+            Pair<Long, Long> dataUsage = calculateDataUsage();
+            txBytes = dataUsage.first;
+            rxBytes = dataUsage.second;
+        }
         // Handle the last upstream event.
         addUpstreamEvent(upstreamEventsBuilder, startTime, stopTime, mCurrentUpstream,
-                0L /* txBytes */, 0L /* rxBytes */);
+                txBytes, rxBytes);
         statsBuilder.setUpstreamEvents(upstreamEventsBuilder);
         statsBuilder.setDurationMillis(stopTime - downstreamStartTime);
+    }
+
+
+    /**
+     * Calculates the data usage difference between the current and previous usage for the
+     * specified upstream type.
+     *
+     * @return A Pair object containing the calculated difference in transmitted (tx) bytes as
+     *         the first value and the calculated difference in received (rx) bytes as the second
+     *         value.
+     */
+    private Pair<Long, Long> calculateDataUsage() {
+        long txBytes = 0L;
+        long rxBytes = 0L;
+
+        mNetworkStatsManager.setPollForce(true);
+
+        Pair<Long, Long> newData = getCurrentDataUsage(mCurrentUpstream);
+        Pair<Long, Long> oldData = getPreviousUsageForType(mCurrentUpstream);
+
+        if (newData != null && oldData != null) {
+            txBytes = calculateDifference(newData.first, oldData.first);
+            rxBytes = calculateDifference(newData.second, oldData.second);
+        }
+
+        return new Pair<>(txBytes, rxBytes);
+    }
+
+    private long calculateDifference(Long newValue, Long oldValue) {
+        return (oldValue != null) ? newValue - oldValue : 0L;
+    }
+
+    protected Pair<Long, Long> getPreviousUsageForType(UpstreamType type) {
+        return mUsageMap.get(type);
     }
 
     /**
@@ -281,12 +428,13 @@ public class TetheringMetrics {
     }
 
     /**
-     * Cleans up the variables related to upstream events when tethering is turned off.
+     * Clean up the variables related to upstream events when tethering is turned off.
      */
     public void cleanup() {
         mUpstreamEventList.clear();
         mCurrentUpstream = null;
         mCurrentUpStreamStartTime = 0L;
+        mUsageMap.clear();
     }
 
     private DownstreamType downstreamTypeToEnum(final int ifaceType) {

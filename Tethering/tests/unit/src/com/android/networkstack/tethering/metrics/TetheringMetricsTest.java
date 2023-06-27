@@ -52,10 +52,16 @@ import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
+import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.net.NetworkCapabilities;
 import android.net.NetworkTemplate;
 import android.os.Build;
@@ -63,6 +69,7 @@ import android.stats.connectivity.DownstreamType;
 import android.stats.connectivity.ErrorCode;
 import android.stats.connectivity.UpstreamType;
 import android.stats.connectivity.UserType;
+import android.util.Pair;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -75,7 +82,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.HashMap;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -89,18 +99,37 @@ public final class TetheringMetricsTest {
     private static final long TEST_START_TIME = 1670395936033L;
     private static final long SECOND_IN_MILLIS = 1_000L;
 
-    private TetheringMetrics mTetheringMetrics;
     private final NetworkTetheringReported.Builder mStatsBuilder =
             NetworkTetheringReported.newBuilder();
 
+    private TetheringMetrics mTetheringMetrics;
     private long mElapsedRealtime;
+    private HashMap<UpstreamType, Pair<Long, Long>> mMockedDataUsage = new HashMap<>();
+
+    @Mock private Context mContext;
+    @Mock private NetworkStatsManager mNetworkStatsManager;
 
     private class MockTetheringMetrics extends TetheringMetrics {
         @Override
         public void write(final NetworkTetheringReported reported) {}
+
         @Override
         public long timeNow() {
             return currentTimeMillis();
+        }
+
+        @Override
+        protected Pair<Long, Long> getCurrentDataUsage(UpstreamType type) {
+            return mMockedDataUsage.get(type);
+        }
+
+        @Override
+        protected Pair<Long, Long> getPreviousUsageForType(UpstreamType type) {
+            return mMockedDataUsage.get(type);
+        }
+
+        MockTetheringMetrics(final Context context) {
+            super(context);
         }
     }
 
@@ -121,10 +150,17 @@ public final class TetheringMetricsTest {
         mElapsedRealtime = 0;
     }
 
+    private void setCurrentDataUsage(UpstreamType type, Pair<Long, Long> data) {
+        mMockedDataUsage.put(type, data);
+    }
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mTetheringMetrics = spy(new MockTetheringMetrics());
+        doReturn(mNetworkStatsManager).when(mContext).getSystemService(NetworkStatsManager.class);
+        doReturn(null).when(mNetworkStatsManager).queryDetailsForUidTagState(any(), anyLong(),
+                anyLong(), anyInt(), anyInt(), anyInt());
+        mTetheringMetrics = spy(new MockTetheringMetrics(mContext));
         mElapsedRealtime = 0L;
     }
 
@@ -434,5 +470,62 @@ public final class TetheringMetricsTest {
         runBuildNetworkTemplate(UpstreamType.UT_WIFI_AWARE, invalidMatchRule);
         runBuildNetworkTemplate(UpstreamType.UT_LOWPAN, invalidMatchRule);
         runBuildNetworkTemplate(UpstreamType.UT_UNKNOWN, invalidMatchRule);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testVerifyTxRxBytes() throws Exception {
+        // Generate fake data for each upstream type
+        Pair<Long, Long> wifiData = new Pair<>(1_000L, 500L);
+        Pair<Long, Long> cellularData = new Pair<>(2_000L, 1_000L);
+        Pair<Long, Long> bluetoothData = new Pair<>(0L, 0L);
+        Pair<Long, Long> ethernetData = new Pair<>(0L, 0L);
+
+        // Set the fake usage data using the setCurrentDataUsage setter function
+        setCurrentDataUsage(UpstreamType.UT_WIFI, wifiData);
+        setCurrentDataUsage(UpstreamType.UT_CELLULAR, cellularData);
+        setCurrentDataUsage(UpstreamType.UT_BLUETOOTH, bluetoothData);
+        setCurrentDataUsage(UpstreamType.UT_ETHERNET, ethernetData);
+
+        mTetheringMetrics.maybeUpdateUpstreamType(buildUpstreamState(TRANSPORT_CELLULAR));
+        mTetheringMetrics.createBuilder(TETHERING_WIFI, SETTINGS_PKG);
+
+        wifiData = mTetheringMetrics.getCurrentDataUsage(UpstreamType.UT_WIFI);
+        assertEquals(1_000L, wifiData.first.longValue());
+        assertEquals(500L, wifiData.second.longValue());
+
+        cellularData = mTetheringMetrics.getCurrentDataUsage(UpstreamType.UT_CELLULAR);
+        assertEquals(2_000L, cellularData.first.longValue());
+        assertEquals(1_000L, cellularData.second.longValue());
+
+        bluetoothData = mTetheringMetrics.getCurrentDataUsage(UpstreamType.UT_BLUETOOTH);
+        assertEquals(0L, bluetoothData.first.longValue());
+        assertEquals(0L, bluetoothData.second.longValue());
+
+        ethernetData = mTetheringMetrics.getCurrentDataUsage(UpstreamType.UT_ETHERNET);
+        assertEquals(0L, ethernetData.first.longValue());
+        assertEquals(0L, ethernetData.second.longValue());
+
+        final long duration = 1000 * SECOND_IN_MILLIS;
+        incrementCurrentTime(duration);
+        setCurrentDataUsage(UpstreamType.UT_CELLULAR, new Pair<>(1_000L + 1_000L, 500L + 100L));
+        Pair<Long, Long> newCellularData =
+                mTetheringMetrics.getCurrentDataUsage(UpstreamType.UT_CELLULAR);
+        assertEquals(2_000L, newCellularData.first.longValue());
+        assertEquals(600L, newCellularData.second.longValue());
+
+        cellularData = mTetheringMetrics.getPreviousUsageForType(UpstreamType.UT_CELLULAR);
+        updateErrorAndSendReport(TETHERING_WIFI, TETHER_ERROR_NO_ERROR);
+
+        UpstreamEvents.Builder upstreamEvents = UpstreamEvents.newBuilder();
+        addUpstreamEvent(upstreamEvents, UpstreamType.UT_CELLULAR, duration,
+                newCellularData.first - cellularData.first,
+                newCellularData.second - cellularData.second);
+        verifyReport(DownstreamType.DS_TETHERING_WIFI, ErrorCode.EC_NO_ERROR,
+                UserType.USER_SETTINGS, upstreamEvents, getElapsedRealtime());
+
+        reset(mTetheringMetrics);
+        clearElapsedRealtime();
+        mTetheringMetrics.cleanup();
     }
 }
