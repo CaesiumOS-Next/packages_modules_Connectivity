@@ -22,6 +22,75 @@
       },
       "revId": "24ac1ff0eccfa3b68a58cf909f9f51199cda5ba5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eab704b_24e45d8f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-27T05:23:38Z",
+      "side": 1,
+      "message": "It seems to me the name is confusing.",
+      "range": {
+        "startLine": 352,
+        "startChar": 29,
+        "endLine": 352,
+        "endChar": 47
+      },
+      "revId": "24ac1ff0eccfa3b68a58cf909f9f51199cda5ba5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d694df_a0455eaa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-27T05:23:38Z",
+      "side": 1,
+      "message": "Maybe just inline with getOrDefault?",
+      "range": {
+        "startLine": 359,
+        "startChar": 35,
+        "endLine": 359,
+        "endChar": 58
+      },
+      "revId": "24ac1ff0eccfa3b68a58cf909f9f51199cda5ba5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac6ac620_4338f06c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-27T05:23:38Z",
+      "side": 1,
+      "message": "Can this really happen?",
+      "range": {
+        "startLine": 360,
+        "startChar": 12,
+        "endLine": 360,
+        "endChar": 27
+      },
+      "revId": "24ac1ff0eccfa3b68a58cf909f9f51199cda5ba5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
