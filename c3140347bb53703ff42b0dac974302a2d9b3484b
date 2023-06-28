@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb95a6c4_81360106",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T03:24:55Z",
+      "side": 1,
+      "message": "Generally LGTM but this will conflict with Yuyang\u0027s commit to set the query backoff",
+      "revId": "c3140347bb53703ff42b0dac974302a2d9b3484b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a87c465f_5c621d3d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T03:24:55Z",
+      "side": 1,
+      "message": "Can this member be removed ?",
+      "revId": "c3140347bb53703ff42b0dac974302a2d9b3484b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a8c600_3881943e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T03:24:55Z",
+      "side": 1,
+      "message": "Nit: reduce indentation with:\n\n    if (!shouldRemove) return;",
+      "revId": "c3140347bb53703ff42b0dac974302a2d9b3484b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37e321a1_a09c972d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T03:24:55Z",
+      "side": 1,
+      "message": "Nit: there\u0027s several lines in this method that don\u0027t need to break anymore, like this one, now that the code isn\u0027t indented as much as it used to be",
+      "revId": "c3140347bb53703ff42b0dac974302a2d9b3484b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5ca6862_4263ec62",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T03:24:55Z",
+      "side": 1,
+      "message": "It seems incorrect that the callbacks were sent to the listeners on a random thread in the first place. Could you post onDiscoveryQuerySent to the handler thread instead ? Then this member becomes unnecessary.\n\nsendDiscoveryQueries can be set in the constructor, together with servicesToResolve.",
+      "revId": "c3140347bb53703ff42b0dac974302a2d9b3484b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
