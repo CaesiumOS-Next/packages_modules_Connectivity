@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aca3a79_c91414f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T09:29:36Z",
+      "side": 1,
+      "message": "API freeze LGTM, as long as parent change is ready",
+      "revId": "3869572d1867b6a6baeca9cbc7aa9128bb0f5910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
