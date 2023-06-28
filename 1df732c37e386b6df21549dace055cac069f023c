@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d3eeb95_540074c1",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T08:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0668a92_44e908d2",
+      "range": {
+        "startLine": 354,
+        "startChar": 239,
+        "endLine": 354,
+        "endChar": 317
+      },
+      "revId": "1df732c37e386b6df21549dace055cac069f023c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d75df833_aaaf5aa3",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-23T06:49:59Z",
       "side": 1,
       "message": "Hostname is one word, so this should be getHostname, not getHostName.",
+      "range": {
+        "startLine": 370,
+        "startChar": 34,
+        "endLine": 370,
+        "endChar": 45
+      },
+      "revId": "1df732c37e386b6df21549dace055cac069f023c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32c1ba02_c0a28136",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T08:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d75df833_aaaf5aa3",
       "range": {
         "startLine": 370,
         "startChar": 34,
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d74b1ce9_f2b4c4e8",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T08:09:26Z",
+      "side": 1,
+      "message": "Thanks, after discussed with Remi, we agreed that the OffloadServiceInfoKey should only contains serviceName, serviceType, the subTypes shouldn\u0027t be in the key because its a property of serviceType. The offloadPayload will contains the answer to all subTypes queries.",
+      "parentUuid": "b0348fd0_35540744",
+      "range": {
+        "startLine": 74,
+        "startChar": 30,
+        "endLine": 74,
+        "endChar": 77
+      },
+      "revId": "1df732c37e386b6df21549dace055cac069f023c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea65a751_11b0b5a0",
@@ -107,6 +179,30 @@
       "writtenOn": "2023-06-23T06:49:59Z",
       "side": 1,
       "message": "Nit: his is not really OffloadType, is it? Because OffloadType can contain OFFLOAD_BYPASS_MULTICAST_LOCK, whereas in this object OFFLOAD_BYPASS_MULTICAST_LOCK is meaningless, right?\n\nIf so, might want two different IntDefs - OffloadType, which contains only OFFLOAD_REPLY, OFFLOAD_FILTER_QUERIES, and OFFLOAD_FILTER_REPLIES, and OffloadCapability which also contains OFFLOAD_BYPASS_MULTICAST_LOCK?",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 38
+      },
+      "revId": "1df732c37e386b6df21549dace055cac069f023c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee06c85c_09b119cc",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T08:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea65a751_11b0b5a0",
       "range": {
         "startLine": 69,
         "startChar": 12,
