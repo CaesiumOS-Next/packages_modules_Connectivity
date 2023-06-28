@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1dcdcfc_7d514a0d",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T11:48:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a886abca_43f84a8f",
+      "range": {
+        "startLine": 56,
+        "startChar": 40,
+        "endLine": 56,
+        "endChar": 46
+      },
+      "revId": "6fb330910c35be2d07ce303c66d4bb77894c013b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23227a02_0faeb62d",
@@ -58,6 +82,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cf5cae3_1abbc1ee",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T11:48:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23227a02_0faeb62d",
+      "revId": "6fb330910c35be2d07ce303c66d4bb77894c013b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1d2a9b3_9fe67133",
@@ -71,6 +113,30 @@
       "writtenOn": "2023-06-28T09:25:14Z",
       "side": 1,
       "message": "Typo: missing space after dot",
+      "range": {
+        "startLine": 152,
+        "startChar": 62,
+        "endLine": 152,
+        "endChar": 63
+      },
+      "revId": "6fb330910c35be2d07ce303c66d4bb77894c013b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b157c6ea_2445fa8d",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T11:48:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1d2a9b3_9fe67133",
       "range": {
         "startLine": 152,
         "startChar": 62,
@@ -104,6 +170,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e97ad28d_517b4ef0",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T11:48:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd79ae0e_d7663106",
+      "range": {
+        "startLine": 168,
+        "startChar": 42,
+        "endLine": 168,
+        "endChar": 43
+      },
+      "revId": "6fb330910c35be2d07ce303c66d4bb77894c013b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a0695e9_0a169f23",
@@ -117,6 +207,30 @@
       "writtenOn": "2023-06-28T09:25:14Z",
       "side": 1,
       "message": "Supernit: lowercase T ?",
+      "range": {
+        "startLine": 177,
+        "startChar": 11,
+        "endLine": 177,
+        "endChar": 12
+      },
+      "revId": "6fb330910c35be2d07ce303c66d4bb77894c013b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a627eedf_0969025d",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T11:48:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a0695e9_0a169f23",
       "range": {
         "startLine": 177,
         "startChar": 11,
@@ -150,6 +264,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54ae8b92_76bd8bf2",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T11:48:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "202e5742_67f972bb",
+      "range": {
+        "startLine": 180,
+        "startChar": 69,
+        "endLine": 181,
+        "endChar": 11
+      },
+      "revId": "6fb330910c35be2d07ce303c66d4bb77894c013b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3843b79b_282d2d9d",
@@ -163,6 +301,24 @@
       "writtenOn": "2023-06-28T09:25:14Z",
       "side": 1,
       "message": "This should be outside of the for loop",
+      "revId": "6fb330910c35be2d07ce303c66d4bb77894c013b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8b948f1_4214c494",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T11:48:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3843b79b_282d2d9d",
       "revId": "6fb330910c35be2d07ce303c66d4bb77894c013b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -184,6 +340,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b35dcbe_a939134f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T11:48:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc4b0af9_887629d6",
+      "revId": "6fb330910c35be2d07ce303c66d4bb77894c013b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4d1b751_9b48c993",
@@ -197,6 +371,30 @@
       "writtenOn": "2023-06-28T09:25:14Z",
       "side": 1,
       "message": "But also inconditionally on U+, so you could assumeTrue that `isAtLeastU() || targetSdkVersion \u003e T`\n\nto maximize coverage",
+      "range": {
+        "startLine": 919,
+        "startChar": 11,
+        "endLine": 919,
+        "endChar": 37
+      },
+      "revId": "6fb330910c35be2d07ce303c66d4bb77894c013b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af0d795b_12e84cc8",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T11:48:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4d1b751_9b48c993",
       "range": {
         "startLine": 919,
         "startChar": 11,
