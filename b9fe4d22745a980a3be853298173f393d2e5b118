@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7374e59b_8f5627df",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-28T08:12:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5563899d_32cb1132",
+      "range": {
+        "startLine": 83,
+        "startChar": 28,
+        "endLine": 83,
+        "endChar": 36
+      },
+      "revId": "b9fe4d22745a980a3be853298173f393d2e5b118",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e5841e8_6204ea5a",
