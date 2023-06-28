@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f60fa6bd_30ca1413",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T08:11:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5ba3560_37ec2659",
+      "range": {
+        "startLine": 1182,
+        "startChar": 46,
+        "endLine": 1182,
+        "endChar": 51
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6492b657_f8fa760f",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c088cf70_9690defd",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1205,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T08:11:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6492b657_f8fa760f",
+      "range": {
+        "startLine": 1205,
+        "startChar": 64,
+        "endLine": 1205,
+        "endChar": 65
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9dad157e_6969eb02",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-06-28T06:10:20Z",
       "side": 1,
       "message": "Nit: is it obvious that the original and replacement strings are the same length when encoded? Might want to change the assertEquals in lines 1250-1251 to assert the encoded lengths instead.",
+      "range": {
+        "startLine": 1253,
+        "startChar": 25,
+        "endLine": 1253,
+        "endChar": 56
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b749a12a_d37d43e9",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T08:11:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dad157e_6969eb02",
       "range": {
         "startLine": 1253,
         "startChar": 25,
@@ -112,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66706e66_890b4035",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T08:11:24Z",
+      "side": 1,
+      "message": "I found NetworkStackUtils.ipv6MulticastToEthernetMulticast\n\nBut I can\u0027t use it here since it\u0027s NetworkStack. Would need to move this to libs/net, but I\u0027m not sure that\u0027s worth it for a test; there\u0027s also value limiting logic in tests.",
+      "parentUuid": "a03f610b_3517bb04",
+      "range": {
+        "startLine": 1266,
+        "startChar": 28,
+        "endLine": 1266,
+        "endChar": 63
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d66df58_eacb4b16",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 16
@@ -123,6 +219,30 @@
       "writtenOn": "2023-06-28T06:10:20Z",
       "side": 1,
       "message": "Surprised this test doesn\u0027t have a constant for this...",
+      "range": {
+        "startLine": 1276,
+        "startChar": 36,
+        "endLine": 1276,
+        "endChar": 46
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a78039eb_7b8832c4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T08:11:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d66df58_eacb4b16",
       "range": {
         "startLine": 1276,
         "startChar": 36,
@@ -146,6 +266,30 @@
       "writtenOn": "2023-06-28T06:10:20Z",
       "side": 1,
       "message": "... or this.",
+      "range": {
+        "startLine": 1277,
+        "startChar": 37,
+        "endLine": 1277,
+        "endChar": 41
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a5a9cf7_aa3dbd6c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T08:11:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96e80f28_a2b2c3b6",
       "range": {
         "startLine": 1277,
         "startChar": 37,
