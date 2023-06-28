@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "097d2f71_8ec297e4",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideNetworkTestCase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-06-28T08:03:16Z",
+      "side": 1,
+      "message": "Should this be in each subclass or is it fine here?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 39
+      },
+      "revId": "66639cf600ea524cf8de0fec7d880eace44938a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
