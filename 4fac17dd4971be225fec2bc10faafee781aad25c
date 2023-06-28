@@ -16,6 +16,144 @@
       "message": "LGTM.",
       "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5ba3560_37ec2659",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-28T06:10:20Z",
+      "side": 1,
+      "message": "Nit: is this really a reply? pollForAdvertisement maybe?",
+      "range": {
+        "startLine": 1182,
+        "startChar": 46,
+        "endLine": 1182,
+        "endChar": 51
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6492b657_f8fa760f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1205,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-28T06:10:20Z",
+      "side": 1,
+      "message": "Might want to say what the RFC has to say about it, or whether it\u0027s silent on this behaviour.",
+      "range": {
+        "startLine": 1205,
+        "startChar": 64,
+        "endLine": 1205,
+        "endChar": 65
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dad157e_6969eb02",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-28T06:10:20Z",
+      "side": 1,
+      "message": "Nit: is it obvious that the original and replacement strings are the same length when encoded? Might want to change the assertEquals in lines 1250-1251 to assert the encoded lengths instead.",
+      "range": {
+        "startLine": 1253,
+        "startChar": 25,
+        "endLine": 1253,
+        "endChar": 56
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a03f610b_3517bb04",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-28T06:10:20Z",
+      "side": 1,
+      "message": "I thought we had a method to convert from L3 multicast to L2 multicast, but I can\u0027t find it. Maybe take a quick look to see if you can find it?",
+      "range": {
+        "startLine": 1266,
+        "startChar": 28,
+        "endLine": 1266,
+        "endChar": 63
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d66df58_eacb4b16",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-28T06:10:20Z",
+      "side": 1,
+      "message": "Surprised this test doesn\u0027t have a constant for this...",
+      "range": {
+        "startLine": 1276,
+        "startChar": 36,
+        "endLine": 1276,
+        "endChar": 46
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96e80f28_a2b2c3b6",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-06-28T06:10:20Z",
+      "side": 1,
+      "message": "... or this.",
+      "range": {
+        "startLine": 1277,
+        "startChar": 37,
+        "endLine": 1277,
+        "endChar": 41
+      },
+      "revId": "4fac17dd4971be225fec2bc10faafee781aad25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
