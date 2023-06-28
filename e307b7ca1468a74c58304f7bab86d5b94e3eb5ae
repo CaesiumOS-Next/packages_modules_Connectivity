@@ -22,6 +22,30 @@
       },
       "revId": "e307b7ca1468a74c58304f7bab86d5b94e3eb5ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff68892f_958317b7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2023-06-28T05:48:46Z",
+      "side": 1,
+      "message": "This funciton is touched in aosp/2639634",
+      "parentUuid": "0bebf432_bfddfaa9",
+      "range": {
+        "startLine": 378,
+        "startChar": 22,
+        "endLine": 378,
+        "endChar": 42
+      },
+      "revId": "e307b7ca1468a74c58304f7bab86d5b94e3eb5ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
