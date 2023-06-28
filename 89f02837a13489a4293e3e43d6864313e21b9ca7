@@ -16,6 +16,24 @@
       "message": "P.S. I\u0027ve also added tests for some other missing getter",
       "revId": "89f02837a13489a4293e3e43d6864313e21b9ca7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19af34d0_989dd317",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-06-28T14:00:03Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "fc3613c4_edadfac2",
+      "revId": "89f02837a13489a4293e3e43d6864313e21b9ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
