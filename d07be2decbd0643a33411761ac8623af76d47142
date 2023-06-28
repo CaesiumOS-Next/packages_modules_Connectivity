@@ -45,6 +45,54 @@
       },
       "revId": "d07be2decbd0643a33411761ac8623af76d47142",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "481b8986_7360eceb",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-28T07:24:28Z",
+      "side": 1,
+      "message": "Done in aosp/2639630",
+      "parentUuid": "af8c5bfb_b4155346",
+      "range": {
+        "startLine": 568,
+        "startChar": 78,
+        "endLine": 568,
+        "endChar": 80
+      },
+      "revId": "d07be2decbd0643a33411761ac8623af76d47142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d8e8e2_be993dc7",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-06-28T07:24:28Z",
+      "side": 1,
+      "message": "Done in aosp/2639630",
+      "parentUuid": "899ae25b_966b592f",
+      "range": {
+        "startLine": 568,
+        "startChar": 16,
+        "endLine": 568,
+        "endChar": 17
+      },
+      "revId": "d07be2decbd0643a33411761ac8623af76d47142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
