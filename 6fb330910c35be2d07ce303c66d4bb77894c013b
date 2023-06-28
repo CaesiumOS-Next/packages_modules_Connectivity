@@ -43,6 +43,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23227a02_0faeb62d",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T09:27:53Z",
+      "side": 1,
+      "message": "https://datatracker.ietf.org/doc/html/rfc6763#section-7.1 defines subtype in one word, so I think that would be betSubtypes (instead of getSubTypes).\n\nWe\u0027ll want to keep a consistent convention when adding it to NsdServiceInfo too",
+      "revId": "6fb330910c35be2d07ce303c66d4bb77894c013b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b1d2a9b3_9fe67133",
         "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
         "patchSetId": 33
