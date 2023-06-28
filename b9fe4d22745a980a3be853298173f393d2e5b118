@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5563899d_32cb1132",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T08:11:32Z",
+      "side": 1,
+      "message": "Because MdnsRecord has a standalone build to be used in other trees, it can\u0027t depend on DnsResolver.java. DnsResolver.java can\u0027t depend on it either because it\u0027s a service-t/ class, and bootclasspath classes can\u0027t depend on that.\n\nSo the alternative would be to move the constant to some common file, for example in libs/net, and include it in net-utils-device-common-mdns-standalone-build-test (and make sure the file gets parsed by metalava when generating the API, since some of these are already API constants). I think that\u0027s a bit too much... Considering that these constant values definitely won\u0027t change at this point, maybe it\u0027s not that bad if they\u0027re defined in 2 places ?",
+      "parentUuid": "a29d130e_29a7f7f1",
+      "range": {
+        "startLine": 83,
+        "startChar": 28,
+        "endLine": 83,
+        "endChar": 36
+      },
+      "revId": "b9fe4d22745a980a3be853298173f393d2e5b118",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e5841e8_6204ea5a",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 17
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-23T06:25:49Z",
       "side": 1,
       "message": "maybe better to add comment on those assert statement to mention they are expected to be null or default value because only ptr record exist.",
+      "range": {
+        "startLine": 1240,
+        "startChar": 16,
+        "endLine": 1243,
+        "endChar": 51
+      },
+      "revId": "b9fe4d22745a980a3be853298173f393d2e5b118",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df60c9e2_a2e654d6",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 1243,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T08:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e5841e8_6204ea5a",
       "range": {
         "startLine": 1240,
         "startChar": 16,
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-23T06:25:49Z",
       "side": 1,
       "message": "As discussed offline, it should check both TYPE_TXT and TYPE_SRV",
+      "range": {
+        "startLine": 1274,
+        "startChar": 31,
+        "endLine": 1274,
+        "endChar": 41
+      },
+      "revId": "b9fe4d22745a980a3be853298173f393d2e5b118",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81cd4b1e_101d709d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-28T08:11:32Z",
+      "side": 1,
+      "message": "Done (actually new behavior is TYPE_ANY; but using it to check for both A and AAAA)",
+      "parentUuid": "554785db_0843d121",
       "range": {
         "startLine": 1274,
         "startChar": 31,
