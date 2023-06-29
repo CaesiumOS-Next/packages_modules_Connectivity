@@ -33,6 +33,24 @@
       "message": "Will this be run on U when configActive\u003d\u003dfalse ? I think the other case should be tested in that case right ?",
       "revId": "550b8bee108681fe9fcd0292ddedbfc5d20eb7e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06b28a98_02287174",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-29T10:03:01Z",
+      "side": 1,
+      "message": "Confused config_notifyNoInternetAsDialogWhenHighPriority with config_activelyPreferBadWifi, so SGTM",
+      "parentUuid": "a3e909b9_ea095d06",
+      "revId": "550b8bee108681fe9fcd0292ddedbfc5d20eb7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
