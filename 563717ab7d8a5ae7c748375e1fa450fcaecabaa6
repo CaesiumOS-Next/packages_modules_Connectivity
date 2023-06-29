@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b521ec6_6820d54f",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-06-29T17:10:41Z",
+      "side": 1,
+      "message": "Should this also go here? I\u0027m a bit confused about all the different targets here.",
+      "range": {
+        "startLine": 135,
+        "startChar": 2,
+        "endLine": 135,
+        "endChar": 21
+      },
+      "revId": "563717ab7d8a5ae7c748375e1fa450fcaecabaa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
