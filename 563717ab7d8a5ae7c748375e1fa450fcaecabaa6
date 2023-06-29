@@ -22,6 +22,30 @@
       },
       "revId": "563717ab7d8a5ae7c748375e1fa450fcaecabaa6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d17fab6_d678b5a6",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-06-29T17:35:02Z",
+      "side": 1,
+      "message": "Yes, this looks correct.\n\nAlso, be aware that no android.net.http classes are currently jarjar\u0027ed (see https://source.corp.google.com/android-internal/packages/modules/Connectivity/framework/jarjar-excludes.txt;l\u003d30). We can probably remove this after merging your changes and the cronet api sources (cronet_aml_api_java) from framework-connectivity-pre-jarjar.",
+      "parentUuid": "5b521ec6_6820d54f",
+      "range": {
+        "startLine": 135,
+        "startChar": 2,
+        "endLine": 135,
+        "endChar": 21
+      },
+      "revId": "563717ab7d8a5ae7c748375e1fa450fcaecabaa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
