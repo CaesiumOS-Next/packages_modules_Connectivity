@@ -22,6 +22,30 @@
       },
       "revId": "66639cf600ea524cf8de0fec7d880eace44938a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73b7a599_5bb1ad06",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideNetworkTestCase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-06-29T02:12:27Z",
+      "side": 1,
+      "message": "Not sure if each test want to specify their own runner.\nIf not, it might be better here because \n1. Each test doesn\u0027t need to specify by their own.\n2. Less code change for each test.\n3. getDevice() needs mTestInfo not null to be called, this annotation can fulfill this. \n\n+reminv@ to input if any.",
+      "parentUuid": "097d2f71_8ec297e4",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 39
+      },
+      "revId": "66639cf600ea524cf8de0fec7d880eace44938a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
