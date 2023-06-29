@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02108e95_4bfe83fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-29T09:26:00Z",
+      "side": 1,
+      "message": "LGTM but I think TH won\u0027t be happy ? Or maybe I\u0027m reading this wrong",
+      "revId": "550b8bee108681fe9fcd0292ddedbfc5d20eb7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e909b9_ea095d06",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-29T09:26:00Z",
+      "side": 1,
+      "message": "Will this be run on U when configActive\u003d\u003dfalse ? I think the other case should be tested in that case right ?",
+      "revId": "550b8bee108681fe9fcd0292ddedbfc5d20eb7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
