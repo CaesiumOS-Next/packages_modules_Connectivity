@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f01df6d0_1f4b5828",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-29T01:13:23Z",
+      "side": 1,
+      "message": "Since this is CTS I guess Lorenzo would want to owners +1 ?",
+      "revId": "11cfdc0776f9c951c7485c49c21a7a3aa0cc252f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
