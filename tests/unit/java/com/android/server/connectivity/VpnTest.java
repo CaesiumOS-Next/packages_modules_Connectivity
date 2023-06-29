@@ -2777,14 +2777,12 @@ public class VpnTest extends VpnTestBase {
 
     @Test
     public void testDataStallInIkev2VpnMobikeDisabled() throws Exception {
-        verifySetupPlatformVpn(
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
 
         doReturn(TEST_NETWORK).when(mMockNetworkAgent).getNetwork();
-        final ConnectivityDiagnosticsCallback connectivityDiagCallback =
-                getConnectivityDiagCallback();
-        final DataStallReport report = createDataStallReport();
-        connectivityDiagCallback.onDataStallSuspected(report);
+        ((Vpn.IkeV2VpnRunner) vpnSnapShot.vpn.mVpnRunner).onValidationStatus(
+                NetworkAgent.VALIDATION_STATUS_NOT_VALID);
 
         // Should not trigger MOBIKE if MOBIKE is not enabled
         verify(mIkeSessionWrapper, never()).setNetwork(any() /* network */,
@@ -2797,19 +2795,10 @@ public class VpnTest extends VpnTestBase {
                 createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
 
         doReturn(TEST_NETWORK).when(mMockNetworkAgent).getNetwork();
-        final ConnectivityDiagnosticsCallback connectivityDiagCallback =
-                getConnectivityDiagCallback();
-        final DataStallReport report = createDataStallReport();
-        connectivityDiagCallback.onDataStallSuspected(report);
-
+        ((Vpn.IkeV2VpnRunner) vpnSnapShot.vpn.mVpnRunner).onValidationStatus(
+                NetworkAgent.VALIDATION_STATUS_NOT_VALID);
         // Verify MOBIKE is triggered
         verifyMobikeTriggered(vpnSnapShot.vpn.mNetworkCapabilities.getUnderlyingNetworks());
-
-        // Expect to skip other data stall event if MOBIKE was started.
-        reset(mIkeSessionWrapper);
-        connectivityDiagCallback.onDataStallSuspected(report);
-        verify(mIkeSessionWrapper, never()).setNetwork(any() /* network */,
-                anyInt() /* ipVersion */, anyInt() /* encapType */, anyInt() /* keepaliveDelay */);
 
         reset(mIkev2SessionCreator);
 
@@ -2834,13 +2823,9 @@ public class VpnTest extends VpnTestBase {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
 
-        final ConnectivityDiagnosticsCallback connectivityDiagCallback =
-                getConnectivityDiagCallback();
-
         doReturn(TEST_NETWORK).when(mMockNetworkAgent).getNetwork();
-        final DataStallReport report = createDataStallReport();
-        connectivityDiagCallback.onDataStallSuspected(report);
-
+        ((Vpn.IkeV2VpnRunner) vpnSnapShot.vpn.mVpnRunner).onValidationStatus(
+                NetworkAgent.VALIDATION_STATUS_NOT_VALID);
         verifyMobikeTriggered(vpnSnapShot.vpn.mNetworkCapabilities.getUnderlyingNetworks());
 
         reset(mIkev2SessionCreator);
