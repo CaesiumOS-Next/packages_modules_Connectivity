@@ -131,6 +131,7 @@ import kotlin.test.assertTrue
 import kotlin.test.fail
 import org.junit.After
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
@@ -1213,6 +1214,7 @@ class NetworkAgentTest {
     }
 
     @Test
+    @Ignore // Disabled pending prebuilt update on U
     fun testUnregisterAfterReplacement() {
         // Keeps an eye on all test networks.
         val matchAllCallback = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
@@ -1483,6 +1485,7 @@ class NetworkAgentTest {
     }
 
     @Test
+    @Ignore // Disabled pending prebuilt update on U
     fun testNativeNetworkCreation_PhysicalNetwork() {
         doTestNativeNetworkCreation(
                 expectCreatedImmediately = SHOULD_CREATE_NETWORKS_IMMEDIATELY,
