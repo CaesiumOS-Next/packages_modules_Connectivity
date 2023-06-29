@@ -74,6 +74,7 @@ import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
 
 import com.android.connectivity.resources.R;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.server.connectivity.NetworkNotificationManager.NotificationType;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -456,7 +457,7 @@ public class NetworkNotificationManagerTest {
             verify(mNotificationManager).cancel(TEST_NOTIF_TAG, NETWORK_SWITCH.eventId);
         }
 
-        if (configActive) {
+        if (configActive && SdkLevel.isAtLeastT()) {
             // Verify that the activity is shown (the activity shows the action on screen)
             final UiObject actionText = uiDevice.findObject(new UiSelector().text(testAction));
             assertTrue("Activity not shown", actionText.waitForExists(TEST_TIMEOUT_MS));
