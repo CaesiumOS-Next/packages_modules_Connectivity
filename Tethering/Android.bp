@@ -187,27 +187,13 @@ java_defaults {
     lint: { strict_updatability_linting: true },
 }
 
-// Updatable tethering packaged for finalized API
 android_app {
     name: "Tethering",
-    defaults: ["TetheringAppDefaults", "TetheringApiLevel"],
-    static_libs: ["TetheringApiStableLib"],
-    certificate: "networkstack",
-    manifest: "AndroidManifest.xml",
-    use_embedded_native_libs: true,
-    privapp_allowlist: ":privapp_allowlist_com.android.tethering",
-    apex_available: ["com.android.tethering"],
-    lint: { strict_updatability_linting: true },
-}
-
-android_app {
-    name: "TetheringNext",
     defaults: [
+        "TetheringApiLibForCurrentBranch",
         "TetheringAppDefaults",
         "TetheringApiLevel",
-        "ConnectivityNextEnableDefaults",
     ],
-    static_libs: ["TetheringApiCurrentLib"],
     certificate: "networkstack",
     manifest: "AndroidManifest.xml",
     use_embedded_native_libs: true,
