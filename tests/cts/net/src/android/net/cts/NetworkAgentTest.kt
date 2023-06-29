@@ -1213,6 +1213,7 @@ class NetworkAgentTest {
     }
 
     @Test
+    @Ignore // Disabled pending prebuilt update on U
     fun testUnregisterAfterReplacement() {
         // Keeps an eye on all test networks.
         val matchAllCallback = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
@@ -1483,6 +1484,7 @@ class NetworkAgentTest {
     }
 
     @Test
+    @Ignore // Disabled pending prebuilt update on U
     fun testNativeNetworkCreation_PhysicalNetwork() {
         doTestNativeNetworkCreation(
                 expectCreatedImmediately = SHOULD_CREATE_NETWORKS_IMMEDIATELY,
