@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "793b897b_14eb37f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-29T08:48:08Z",
+      "side": 1,
+      "message": "I think this is mostly fine, but I am a bit concerned about :\n- The AutoKI in the message\n- The KI passed to `KeepaliveTracker#handleStartKeepalive`\n\nThe problem with this is that if anybody has kept a reference to one of them, then this patch will break them by changing what is actually stored.\n\nI think this works today, because AutoKI does not implement equals() and hashcode(), instead it has a match() method which will continue to work through this. As for the KI, we already have a withFd method doing something similar and it also doesn\u0027t have equals().\n\nIt would be safer to have some semi-constructed thing to be passed in the message for example, to guarantee that anybody sending the message can\u0027t be storing the AutoKI for later reference, and something similar for the KI, but it\u0027s a fair bit of work.",
+      "revId": "287128b83ec8439316d5a582132b3a21f28c8b1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8511805a_b862909c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-29T08:48:08Z",
+      "side": 1,
+      "message": "What\u0027s telling you that any stacked link must be clat ? It\u0027s true today, but nothing suggests it must be the case. When somebody changes that your code blows up and nobody notices.\n\nExposing a method for the v4 address like you did for the v6 address sounds like a much better, much more robust solution.\n\nOr, you could use `ClatCoordinator.INIT_V4ADDR_STRING` and `ClatCoordinator.INIT_V4ADDR_PREFIX_LEN` to build a prefix and look for some address that is contained in that prefix, since it\u0027s dedicated.",
+      "range": {
+        "startLine": 557,
+        "startChar": 0,
+        "endLine": 563,
+        "endChar": 21
+      },
+      "revId": "287128b83ec8439316d5a582132b3a21f28c8b1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3c26769_965e9a73",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-29T08:48:08Z",
+      "side": 1,
+      "message": "Do not",
+      "range": {
+        "startLine": 572,
+        "startChar": 11,
+        "endLine": 572,
+        "endChar": 14
+      },
+      "revId": "287128b83ec8439316d5a582132b3a21f28c8b1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92d747ed_21d3205f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-29T08:48:08Z",
+      "side": 1,
+      "message": "Suggest adding some more detail like what is the old source and what is the new source",
+      "range": {
+        "startLine": 579,
+        "startChar": 59,
+        "endLine": 579,
+        "endChar": 60
+      },
+      "revId": "287128b83ec8439316d5a582132b3a21f28c8b1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
