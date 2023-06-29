@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "017c5ba7_67993510",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-06-29T09:08:15Z",
+      "side": 1,
+      "message": "Note: I don\u0027t think IPv4 address in the clat prefix 192... is\nguaranteed to be only true for clat.\nTechnically you could have a wifi access point that hand it out to you...\nEspecially likely if the AP does clat itself...\n\nOn Thu, Jun 29, 2023 at 10:48 AM Jean Chalard (Gerrit)\n\u003cnoreply-gerritcodereview-ZUigct60m8T5V5XoLIQ0UA\u003d\u003d@google.com\u003e wrote:",
+      "tag": "mailMessageId\u003d\u003cCANP3RGcOZFkf-0hfiKSpxWiKAdQRY0Z1gEH6fmoTO6ij8rvBRQ@mail.gmail.com\u003e",
+      "revId": "287128b83ec8439316d5a582132b3a21f28c8b1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8511805a_b862909c",
