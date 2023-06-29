@@ -39,7 +39,7 @@ java_genrule {
 android_library {
     name: "NetHttpTestsLibPreJarJar",
     static_libs: [
-        "cronet_aml_api_java",
+        "cronet_aml_api_java_chromium",
         "cronet_aml_java__testing",
         "cronet_java_tests",
     ],
