@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2392e41f_1bc1dd16",
+        "filename": "Cronet/tests/mts/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-06-29T16:44:02Z",
+      "side": 1,
+      "message": "there\u0027s an exclude rule for android.net.. classes in jarjar_excludes.txt, so adding cronet_aml_api_java to the prejarjar target is effectively a noop.\n\nIf you want to start using the test-bundled version, I think you need to drop the jarjar rule above (__testing targets do not define a package prefix), and add a jarjar rule to jarjar android.net classes to something else.",
+      "range": {
+        "startLine": 33,
+        "startChar": 31,
+        "endLine": 33,
+        "endChar": 46
+      },
+      "revId": "1ed6edc0cd30cf39e5be06d0a4d2799b7dd93c16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
