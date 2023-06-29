@@ -50,6 +50,24 @@
       "message": "Actually if that\u0027s going to affect the CTS release, that would be unintended in CTS 14\n\nHow about changing this to assumeFalse(Build.isDebuggable()), so it only affects presubmit ?",
       "revId": "11cfdc0776f9c951c7485c49c21a7a3aa0cc252f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33e74270_6de2cb85",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-29T01:24:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "377d2c7c_48c0a1bc",
+      "revId": "11cfdc0776f9c951c7485c49c21a7a3aa0cc252f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
