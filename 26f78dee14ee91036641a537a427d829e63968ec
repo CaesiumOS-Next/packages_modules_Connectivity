@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d37138ff_096ef7f5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSearchOptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdc3dd45_9a373eed",
+      "range": {
+        "startLine": 128,
+        "startChar": 85,
+        "endLine": 128,
+        "endChar": 87
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17b253bc_5438320d",
@@ -87,6 +111,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d3fa0ef_baf1b60e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Sorry, its a debugging code, removed as it is not used anymore .",
+      "parentUuid": "e1918be9_365aa16e",
+      "range": {
+        "startLine": 54,
+        "startChar": 38,
+        "endLine": 54,
+        "endChar": 59
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e9823ce_3704434f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "17b253bc_5438320d",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 10
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96c2464b_848bea23",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-06-27T02:57:45Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 210,
+        "startChar": 16,
+        "endLine": 210,
+        "endChar": 20
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17034405_aa753461",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96c2464b_848bea23",
       "range": {
         "startLine": 210,
         "startChar": 16,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0322ccd4_7f06a1a4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "742ead09_06a2b780",
+      "range": {
+        "startLine": 216,
+        "startChar": 24,
+        "endLine": 216,
+        "endChar": 47
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be2d2198_4401e597",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-06-27T02:57:45Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 224,
+        "startChar": 8,
+        "endLine": 224,
+        "endChar": 15
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61b501e0_52d66e06",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be2d2198_4401e597",
       "range": {
         "startLine": 224,
         "startChar": 8,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "733e8c37_b8b7e79c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6aa49269_946895c8",
+      "range": {
+        "startLine": 228,
+        "startChar": 62,
+        "endLine": 228,
+        "endChar": 70
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa0f556a_e085ea58",
@@ -192,6 +360,30 @@
       "writtenOn": "2023-06-27T02:57:45Z",
       "side": 1,
       "message": "Nit: The two logs share many of the same strings. You can simplify them to\n\n```\nsharedLog.log(\"task canceled:\" + canceled + \", current session: \" + currentSessionId + \" task hashcode: \" + Integer.toHexString(nextQueryTaskFuture.hashCode()));\n```",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 232,
+        "endChar": 9
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aa607f4_55c5a7d9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa0f556a_e085ea58",
       "range": {
         "startLine": 225,
         "startChar": 8,
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de86631e_cbcf384d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e9433b5_eaf1ec2c",
+      "range": {
+        "startLine": 319,
+        "startChar": 16,
+        "endLine": 319,
+        "endChar": 20
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce79a28e_55ac4675",
@@ -238,6 +454,30 @@
       "writtenOn": "2023-06-27T02:57:45Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 336,
+        "startChar": 8,
+        "endLine": 336,
+        "endChar": 12
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "955c4644_8634d671",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce79a28e_55ac4675",
       "range": {
         "startLine": 336,
         "startChar": 8,
@@ -271,6 +511,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d672bb1_73a6f41f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Actually not, the 0.8 is the value I took from gmscore. I checked the RFC6762#5.2, it didn\u0027t mention the 80%",
+      "parentUuid": "5f79071f_d259ea22",
+      "range": {
+        "startLine": 342,
+        "startChar": 31,
+        "endLine": 342,
+        "endChar": 34
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d234fae_8de56bff",
@@ -284,6 +548,30 @@
       "writtenOn": "2023-06-27T11:50:30Z",
       "side": 1,
       "message": "Nit: the value depends very much on when it was calculated, so how about minRemainingTtlWhenScheduled ?",
+      "range": {
+        "startLine": 615,
+        "startChar": 27,
+        "endLine": 615,
+        "endChar": 47
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b05d202_1561e47c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d234fae_8de56bff",
       "range": {
         "startLine": 615,
         "startChar": 27,
@@ -317,6 +605,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edeaac3b_ca555e83",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f69cc1cc_ff379d15",
+      "range": {
+        "startLine": 616,
+        "startChar": 27,
+        "endLine": 616,
+        "endChar": 50
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9427e8c_751b26d9",
@@ -330,6 +642,30 @@
       "writtenOn": "2023-06-27T02:57:45Z",
       "side": 1,
       "message": "Is it possible to move this method to the QueryTaskConfig? All of the parameters used in this method are members of the QueryTaskConfig. And it should be more clear to its usage.",
+      "range": {
+        "startLine": 728,
+        "startChar": 17,
+        "endLine": 728,
+        "endChar": 54
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10bbce9b_09fdb66e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Acked. As it is refactored, now it need to refer to the QueryTask, as a result, it cannot be moved inside QueryTaskConfig.",
+      "parentUuid": "c9427e8c_751b26d9",
       "range": {
         "startLine": 728,
         "startChar": 17,
@@ -357,6 +693,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8688072_1f37dc29",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done. It was not easy.....",
+      "parentUuid": "8df5014a_d41d9257",
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2527561e_2745031c",
@@ -380,6 +734,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6fd3bd7_6ce5d75a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2527561e_2745031c",
+      "range": {
+        "startLine": 739,
+        "startChar": 17,
+        "endLine": 739,
+        "endChar": 58
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36864332_669c2f4f",
@@ -393,6 +771,24 @@
       "writtenOn": "2023-06-27T11:50:30Z",
       "side": 1,
       "message": "If there\u0027s 2 services, one with remainingTtl \u003d\u003d -10, and the other one with remainingTtl \u003d\u003d 1, it\u0027s strange that this would return 1.\n\nI think you can make it return 0 to avoid having to deal with negative TTLs, but remainingTtl \u003c\u003d 0 should cause it to return 0.",
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e823abc_04997af1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36864332_669c2f4f",
       "revId": "26f78dee14ee91036641a537a427d829e63968ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -444,6 +840,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c6a93f7_da747714",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e147de52_dae99ae5",
+      "range": {
+        "startLine": 750,
+        "startChar": 16,
+        "endLine": 750,
+        "endChar": 43
+      },
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4987fee3_69f466b0",
@@ -457,6 +877,24 @@
       "writtenOn": "2023-06-27T11:50:30Z",
       "side": 1,
       "message": "With Paul\u0027s suggestion I think this special-casing for 0 becomes unnecessary too",
+      "revId": "26f78dee14ee91036641a537a427d829e63968ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "949325cd_44dabc08",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-06-30T08:51:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4987fee3_69f466b0",
       "revId": "26f78dee14ee91036641a537a427d829e63968ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
