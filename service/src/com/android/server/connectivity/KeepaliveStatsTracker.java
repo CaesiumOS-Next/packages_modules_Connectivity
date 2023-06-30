@@ -45,6 +45,7 @@ import com.android.metrics.DurationPerNumOfKeepalive;
 import com.android.metrics.KeepaliveLifetimeForCarrier;
 import com.android.metrics.KeepaliveLifetimePerCarrier;
 import com.android.modules.utils.BackgroundThread;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
 import com.android.server.ConnectivityStatsLog;
 
@@ -637,6 +638,11 @@ public class KeepaliveStatsTracker {
     /** Writes the stored metrics to ConnectivityStatsLog and resets.  */
     public void writeAndResetMetrics() {
         ensureRunningOnHandlerThread();
+        if (!SdkLevel.isAtLeastT()) {
+            Log.d(TAG, "KeepaliveStatsTracker is disabled before T, skipping write");
+            return;
+        }
+
         final DailykeepaliveInfoReported dailyKeepaliveInfoReported = buildAndResetMetrics();
         ConnectivityStatsLog.write(
                 ConnectivityStatsLog.DAILY_KEEPALIVE_INFO_REPORTED,
