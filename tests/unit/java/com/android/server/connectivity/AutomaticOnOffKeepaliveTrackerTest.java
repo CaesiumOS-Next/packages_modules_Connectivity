@@ -22,6 +22,8 @@ import static android.net.NetworkAgent.CMD_STOP_SOCKET_KEEPALIVE;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 
 import static com.android.server.connectivity.AutomaticOnOffKeepaliveTracker.METRICS_COLLECTION_DURATION_MS;
+import static com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
+import static com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import static com.android.testutils.HandlerUtils.visibleOnHandlerThread;
 
 import static org.junit.Assert.assertEquals;
@@ -89,6 +91,7 @@ import libcore.util.HexEncoding;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -119,6 +122,10 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     private static final int TEST_KEEPALIVE_INVALID_INTERVAL_SEC = 9;
     private static final byte[] V4_SRC_ADDR = new byte[] { (byte) 192, 0, 0, (byte) 129 };
     private static final String TEST_V4_IFACE = "v4-testIface";
+
+    @Rule
+    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
     private AutomaticOnOffKeepaliveTracker mAOOKeepaliveTracker;
     private HandlerThread mHandlerThread;
 
@@ -512,7 +519,15 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     }
 
     @Test
+    @IgnoreAfter(Build.VERSION_CODES.S_V2)
+    public void testConstructor_keepaliveStatsTracker() throws Exception {
+        verify(mDependencies, never()).newKeepaliveStatsTracker(any(), any());
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testAlarm_writeMetrics() throws Exception {
+        verify(mDependencies).newKeepaliveStatsTracker(mCtx, mTestHandler);
         final ArgumentCaptor<AlarmManager.OnAlarmListener> listenerCaptor =
                 ArgumentCaptor.forClass(AlarmManager.OnAlarmListener.class);
 
