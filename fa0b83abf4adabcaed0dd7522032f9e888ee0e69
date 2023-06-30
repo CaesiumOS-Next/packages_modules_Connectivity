@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af6a5b0b_ae2126b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-30T11:44:38Z",
+      "side": 1,
+      "message": "I think we should have unit tests for this",
+      "revId": "fa0b83abf4adabcaed0dd7522032f9e888ee0e69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3b1a031_bfff423c",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-30T11:44:38Z",
+      "side": 1,
+      "message": "I would suggest one of two changes :\n• Either you do the test here, and have the tracker always null on S- and don\u0027t even invoke Dependencies#newKeepaliveStatsTracker\n• Or you write tests that will test for both versions on the latest SDK\n\nThe latter is a little bit more complex but it allows you to test for the S behavior on U which makes it a little bit more convenient to test.",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 321,
+        "endChar": 73
+      },
+      "revId": "fa0b83abf4adabcaed0dd7522032f9e888ee0e69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf919d9f_b65f37a3",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-30T11:44:38Z",
+      "side": 1,
+      "message": "(whether you move it or not)\nI think you should add comments explaining why we need this, e.g.\n\n    Keepalive stats use repeated atoms, which are only supported on T+. If\n    written to statsd on S- they will bootloop the system, so they must not\n    be sent on S-. See b/289471411",
+      "range": {
+        "startLine": 942,
+        "startChar": 19,
+        "endLine": 942,
+        "endChar": 40
+      },
+      "revId": "fa0b83abf4adabcaed0dd7522032f9e888ee0e69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad9aab05_577c3113",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-30T11:44:38Z",
+      "side": 1,
+      "message": "Does this blank line have anything to do with the change ?",
+      "revId": "fa0b83abf4adabcaed0dd7522032f9e888ee0e69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
