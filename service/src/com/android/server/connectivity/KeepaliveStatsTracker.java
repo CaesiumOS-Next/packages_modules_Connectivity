@@ -45,6 +45,7 @@ import com.android.metrics.DurationPerNumOfKeepalive;
 import com.android.metrics.KeepaliveLifetimeForCarrier;
 import com.android.metrics.KeepaliveLifetimePerCarrier;
 import com.android.modules.utils.BackgroundThread;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
 import com.android.server.ConnectivityStatsLog;
 
@@ -280,6 +281,13 @@ public class KeepaliveStatsTracker {
                 Objects.requireNonNull(context.getSystemService(SubscriptionManager.class));
 
         mLastUpdateDurationsTimestamp = mDependencies.getElapsedRealtime();
+
+        // Repeated fields in metrics are only supported on T+.
+        if (!SdkLevel.isAtLeastT()) {
+            mDisabled = true;
+            return;
+        }
+
         context.registerReceiver(
                 new BroadcastReceiver() {
                     @Override
