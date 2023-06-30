@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85d545f9_e6fdea61",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-30T06:51:08Z",
+      "side": 1,
+      "message": "This does not work because the constructor runs on a different thread, so when a method is called on the handler thread you will sometimes see false, crashing the system. Please read the Java spec, chapter 17.5 which explains how this only works for final fields.",
+      "revId": "86c4d72a244e92d12c06a2e2507fcb813dee78f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
