@@ -111,6 +111,30 @@
       },
       "revId": "49eb710f2be521affab4a4be6a77ceb7797d78c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d8b43e8_06e0149b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1901791
+      },
+      "writtenOn": "2023-06-30T08:05:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "07814b4e_86ee8ff8",
+      "range": {
+        "startLine": 340,
+        "startChar": 8,
+        "endLine": 343,
+        "endChar": 47
+      },
+      "revId": "49eb710f2be521affab4a4be6a77ceb7797d78c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
