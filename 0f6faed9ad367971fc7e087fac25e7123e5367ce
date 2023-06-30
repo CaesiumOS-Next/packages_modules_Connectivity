@@ -594,6 +594,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73bd7491_b2f39ab4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-30T10:48:33Z",
+      "side": 1,
+      "message": "I mean that if you implement \"Don\u0027t use backoff mode in start period\", that\u0027s additional complexity that should be tested; for example if you set numOfQueriesBeforeBackoff to 1, but you are on active mode, the actual behavior is to take more queries to actually start the backoff (not 1), and ideally you\u0027d have a test for that.\n\nBut I think it would be simpler to not have that check, and just rely on queryCount \u003e numOfQueriesBeforeBackoff to decide when the next query should be sent. It would still be possible to get the same behavior by adjusting numOfQueriesBeforeBackoff to be \"the number of queries it takes to finish the start period\" anyway.",
+      "parentUuid": "799408c8_7cef1d73",
+      "range": {
+        "startLine": 577,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 13
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13047460_448a7642",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 1
