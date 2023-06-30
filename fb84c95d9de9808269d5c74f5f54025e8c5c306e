@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d359a0af_2a504567",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-06-30T03:48:20Z",
+      "side": 1,
+      "message": "Not necessarily: if the task was scheduled in processResponse, then timeWhenScheduled !\u003d lastSentTime\n\nThat\u0027s why I was suggesting to have a lastSentTime member in the QueryTask",
+      "revId": "fb84c95d9de9808269d5c74f5f54025e8c5c306e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
