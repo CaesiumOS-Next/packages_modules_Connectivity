@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dc2a5fc_33ab2ca2",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-06-30T11:45:29Z",
+      "side": 1,
+      "message": "You should have a comment with an explanation of why (see my comments on your followup change)",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 37
+      },
+      "revId": "d088381ac98e96a5510ca9810556df28a9cf8b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
