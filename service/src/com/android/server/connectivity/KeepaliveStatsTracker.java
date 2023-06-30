@@ -271,6 +271,7 @@ public class KeepaliveStatsTracker {
                 Objects.requireNonNull(context.getSystemService(SubscriptionManager.class));
 
         mLastUpdateDurationsTimestamp = mDependencies.getElapsedRealtime();
+
         context.registerReceiver(
                 new BroadcastReceiver() {
                     @Override
