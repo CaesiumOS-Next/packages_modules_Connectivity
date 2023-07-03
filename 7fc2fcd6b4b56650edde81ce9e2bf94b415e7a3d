@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9c1abf4_601801e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-03T03:07:29Z",
+      "side": 1,
+      "message": "Is there a reason why you cannot use com.android.tethering, NetworkStack, CaptivePortalLogin, CellBroadcastApp, and CellBroadcastServiceModule instead of com.android.tethering.inprocess, InProcessNetworkStack, CellBroadcastAppPlatform and CellBroadcastServiceModulePlatform ?\n\nSeveral functionalities of inprocess tethering are broken at this time (for example data accounting and other BPF-related functionalities), so even if you reverted it, it will not fully function properly",
+      "revId": "7fc2fcd6b4b56650edde81ce9e2bf94b415e7a3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
