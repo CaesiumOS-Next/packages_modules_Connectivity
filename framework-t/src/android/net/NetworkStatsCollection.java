@@ -480,7 +480,8 @@ public class NetworkStatsCollection implements FileRotator.Reader, FileRotator.W
     /** @hide */
     @Override
     public void read(InputStream in) throws IOException {
-        read((DataInput) new DataInputStream(in));
+        final BufferedInputStream bufferedIS = new BufferedInputStream(in);
+        read((DataInput) new DataInputStream(bufferedIS));
     }
 
     private void read(DataInput in) throws IOException {
