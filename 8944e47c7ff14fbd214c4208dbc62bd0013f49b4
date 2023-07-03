@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ea89917_81d4424f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2818,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-03T07:34:47Z",
+      "side": 1,
+      "message": "This no longer makes sense I think ? Or at least it should be reworked to check for a new migration attempt.",
+      "range": {
+        "startLine": 2812,
+        "startChar": 0,
+        "endLine": 2818,
+        "endChar": 58
+      },
+      "revId": "8944e47c7ff14fbd214c4208dbc62bd0013f49b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b26f09f7_03d1de5e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2837,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-03T07:34:47Z",
+      "side": 1,
+      "message": "Can we check a little bit more than just a call to `schedule` ? We should have tried creating a new session (after the delay).",
+      "range": {
+        "startLine": 2837,
+        "startChar": 27,
+        "endLine": 2837,
+        "endChar": 36
+      },
+      "revId": "8944e47c7ff14fbd214c4208dbc62bd0013f49b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
