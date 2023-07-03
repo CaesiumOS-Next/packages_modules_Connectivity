@@ -616,6 +616,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eefc06c4_bb552b6a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-03T06:59:42Z",
+      "side": 1,
+      "message": "Thanks for the detailed explanation.\nRemoved the unnecessary check.",
+      "parentUuid": "73bd7491_b2f39ab4",
+      "range": {
+        "startLine": 577,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 13
+      },
+      "revId": "0f6faed9ad367971fc7e087fac25e7123e5367ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13047460_448a7642",
