@@ -39,6 +39,30 @@
       },
       "revId": "d088381ac98e96a5510ca9810556df28a9cf8b6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b0d8e7_d0021720",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-03T11:01:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dc2a5fc_33ab2ca2",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 37
+      },
+      "revId": "d088381ac98e96a5510ca9810556df28a9cf8b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
