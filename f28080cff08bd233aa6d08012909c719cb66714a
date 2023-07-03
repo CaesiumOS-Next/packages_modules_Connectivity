@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e47a41db_42a27737",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-03T07:20:45Z",
+      "side": 1,
+      "message": "LGTM assuming comments are addressed",
+      "revId": "f28080cff08bd233aa6d08012909c719cb66714a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1f913a8_1e1be6e0",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-03T07:20:45Z",
+      "side": 1,
+      "message": "flakes",
+      "range": {
+        "startLine": 1734,
+        "startChar": 93,
+        "endLine": 1734,
+        "endChar": 98
+      },
+      "revId": "f28080cff08bd233aa6d08012909c719cb66714a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db657931_0b74ea82",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-03T07:20:45Z",
+      "side": 1,
+      "message": "Let\u0027s give it 30 seconds instead of 1",
+      "range": {
+        "startLine": 1738,
+        "startChar": 29,
+        "endLine": 1738,
+        "endChar": 30
+      },
+      "revId": "f28080cff08bd233aa6d08012909c719cb66714a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfcea58f_47db4fcb",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1745,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-03T07:20:45Z",
+      "side": 1,
+      "message": "I think you may have to also wait for the port because they are updated separately. I mean, sure, it\u0027s very close together, but still. You can just add this to the condition in l.1737",
+      "revId": "f28080cff08bd233aa6d08012909c719cb66714a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
