@@ -16,6 +16,24 @@
       "message": "Maybe also remove this from MdnsConfigs, if it\u0027s unused",
       "revId": "a51489078f3690204adb08bc06b2f623ae35f9f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0073402_23e26b24",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-03T06:56:55Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "f6bb72a7_0dd187ec",
+      "revId": "a51489078f3690204adb08bc06b2f623ae35f9f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -64,6 +64,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e18a6e7_98d56d13",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-03T06:56:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5845ea64_6d2680a1",
+      "range": {
+        "startLine": 97,
+        "startChar": 46,
+        "endLine": 97,
+        "endChar": 50
+      },
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59dad8af_0a96d0c7",
@@ -77,6 +101,24 @@
       "writtenOn": "2023-06-22T09:45:51Z",
       "side": 1,
       "message": "I think removeMessages is just a no-op if there\u0027s no such message, so you don\u0027t need hasMessages ?",
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6920a2c7_c2bb8173",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-03T06:56:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59dad8af_0a96d0c7",
       "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -98,6 +140,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be3965b7_e9589d31",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-03T06:56:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a74bde2b_18f27e8d",
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4687c7de_fd6b4ccb",
@@ -115,6 +175,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14cbbb95_a0213233",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-03T06:56:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4687c7de_fd6b4ccb",
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc1e1633_6e2c1f85",
@@ -128,6 +206,24 @@
       "writtenOn": "2023-06-22T09:45:51Z",
       "side": 1,
       "message": "It\u0027s a bit strange to call this for the next run now, even though in reality the message would be dispatched immediately before the runnable runs (simulated with getAndClearLastScheduledRunnable().run()). It would seem more natural to dispatch the message just before running the scheduled runnable.\n\nCould you move this to the beginning of the method ? Maybe only when index \u003e 0, if this considers that the first run gets posted to the executor directly.",
+      "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c8e1de1_af83fe53",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-03T06:56:55Z",
+      "side": 1,
+      "message": "Keep the deleyed message verification here and move the message dispatching to the beginning of the method.",
+      "parentUuid": "cc1e1633_6e2c1f85",
       "revId": "8652ca0401984fed4f725216ea6c0c13ee293cc2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
