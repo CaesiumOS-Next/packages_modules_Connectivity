@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48cd2a2e_a55edf52",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-03T11:01:50Z",
+      "side": 1,
+      "message": "Done your first suggestion.",
+      "parentUuid": "f3b1a031_bfff423c",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 321,
+        "endChar": 73
+      },
+      "revId": "fa0b83abf4adabcaed0dd7522032f9e888ee0e69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf919d9f_b65f37a3",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ea8d127_1925b71a",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-03T11:01:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf919d9f_b65f37a3",
+      "range": {
+        "startLine": 942,
+        "startChar": 19,
+        "endLine": 942,
+        "endChar": 40
+      },
+      "revId": "fa0b83abf4adabcaed0dd7522032f9e888ee0e69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad9aab05_577c3113",
@@ -77,6 +125,24 @@
       "writtenOn": "2023-06-30T11:44:38Z",
       "side": 1,
       "message": "Does this blank line have anything to do with the change ?",
+      "revId": "fa0b83abf4adabcaed0dd7522032f9e888ee0e69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "628c97ef_e052e32f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-03T11:01:50Z",
+      "side": 1,
+      "message": "Nope, removed.",
+      "parentUuid": "ad9aab05_577c3113",
       "revId": "fa0b83abf4adabcaed0dd7522032f9e888ee0e69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
