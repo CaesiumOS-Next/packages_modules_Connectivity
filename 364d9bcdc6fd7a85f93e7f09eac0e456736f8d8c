@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3bf663e_4c26380e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2781,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-04T05:30:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8921088f_854cb5b8",
+      "range": {
+        "startLine": 2781,
+        "startChar": 35,
+        "endLine": 2781,
+        "endChar": 42
+      },
+      "revId": "364d9bcdc6fd7a85f93e7f09eac0e456736f8d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e52f414_64e73794",
@@ -60,6 +84,54 @@
       "writtenOn": "2023-07-04T03:30:17Z",
       "side": 1,
       "message": "verify",
+      "range": {
+        "startLine": 2843,
+        "startChar": 31,
+        "endLine": 2843,
+        "endChar": 35
+      },
+      "revId": "364d9bcdc6fd7a85f93e7f09eac0e456736f8d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6edd332f_879c16c8",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2843,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-04T05:30:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e52f414_64e73794",
+      "range": {
+        "startLine": 2843,
+        "startChar": 15,
+        "endLine": 2843,
+        "endChar": 21
+      },
+      "revId": "364d9bcdc6fd7a85f93e7f09eac0e456736f8d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "679670b2_1cea5a73",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2843,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-04T05:30:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c55b030f_e69e21de",
       "range": {
         "startLine": 2843,
         "startChar": 31,
