@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1fcd951_79810bb1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-07-04T09:27:16Z",
+      "side": 1,
+      "message": "BpfCoordinator already have mInterfaceNames which is the mapping of index and interface name. And it mapping never be removed. This is almost duplicated as the value (Pair\u003cInteger, String\u003e) of mIpv6UpstreamIfaces.\n\nTo avoid race, you can update the mInterfaceNames for ipv6 change. Then just store the mapping of ipserver and ipv6 iface index:\n\nprivate final HashMap\u003cIpServer, Integer\u003e mIpv6UpstreamIfaces;\n\nActually only one ipServer have ipv6 actually, you could also make mIpv6UpstreamIfaces be int:\n\nprivate int mIpv6UpstreamIfaces;",
+      "parentUuid": "491cbed1_74673980",
+      "range": {
+        "startLine": 190,
+        "startChar": 4,
+        "endLine": 190,
+        "endChar": 79
+      },
+      "revId": "d4ccd16a4433536a4d8e715ab502d589fb9ef343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa67f4a5_f647f611",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 15
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Next commit aosp/2238122 has removed NeighborEventConsumer from IpServer\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2238122/3/Tethering/src/android/net/ip/IpServer.java#b175",
       "parentUuid": "fa67f4a5_f647f611",
+      "range": {
+        "startLine": 1845,
+        "startChar": 10,
+        "endLine": 1845,
+        "endChar": 34
+      },
+      "revId": "d4ccd16a4433536a4d8e715ab502d589fb9ef343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba3ee494_8ba957b9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-07-04T09:27:16Z",
+      "side": 1,
+      "message": "If so, you must set this change and next change as a topic. We register additional consumer before next change merged. And if we release the module which cut between this change and next change, it is bad.",
+      "parentUuid": "4aa67756_76bc0443",
       "range": {
         "startLine": 1845,
         "startChar": 10,
