@@ -82,6 +82,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -210,6 +211,7 @@ public class NetworkStatsManagerTest {
     private long mStartTime;
     private long mEndTime;
 
+    private long mBytesRead;
     private String mWriteSettingsMode;
     private String mUsageStatsMode;
 
@@ -220,7 +222,7 @@ public class NetworkStatsManagerTest {
         } else {
             Log.w(LOG_TAG, "Network: " + networkInfo.toString());
         }
-        InputStreamReader in = null;
+        BufferedReader in = null;
         HttpURLConnection urlc = null;
         String originalKeepAlive = System.getProperty("http.keepAlive");
         System.setProperty("http.keepAlive", "false");
@@ -236,10 +238,10 @@ public class NetworkStatsManagerTest {
             urlc.connect();
             boolean ping = urlc.getResponseCode() == 200;
             if (ping) {
-                in = new InputStreamReader((InputStream) urlc.getContent());
-                // Since the test doesn't really care about the precise amount of data, instead
-                // of reading all contents, just read few bytes at the beginning.
-                in.read();
+                in = new BufferedReader(new InputStreamReader((InputStream) urlc.getContent()));
+
+                mBytesRead = 0;
+                while (in.read() != -1) ++mBytesRead;
             }
         } catch (Exception e) {
             Log.i(LOG_TAG, "Badness during exercising remote server: " + e);
