@@ -22,6 +22,30 @@
       },
       "revId": "ecf6080fa68add1e55e063905907c45f058ed4d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef0a33d5_c543cc4e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3147,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-04T05:30:40Z",
+      "side": 1,
+      "message": "Use just retryCount may cause the test flaky since the test will be executed too fast if we need to use real timeout and verify something does not execute. Update to `retryCount * 100`",
+      "parentUuid": "0b2f0e57_98232568",
+      "range": {
+        "startLine": 3147,
+        "startChar": 0,
+        "endLine": 3147,
+        "endChar": 74
+      },
+      "revId": "ecf6080fa68add1e55e063905907c45f058ed4d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
