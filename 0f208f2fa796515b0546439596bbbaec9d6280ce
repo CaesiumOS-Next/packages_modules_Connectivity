@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7476c93_092af052",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-04T07:53:05Z",
+      "side": 1,
+      "message": "LGTM but IIUC this will be rebased first",
+      "revId": "0f208f2fa796515b0546439596bbbaec9d6280ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ca33eff_c61e3e86",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-04T07:53:05Z",
+      "side": 1,
+      "message": "This should also increase the currentSessionId (so call cancelRequestTaskLocked as before). It\u0027s OK if it increases even if there was no current task I think",
+      "revId": "0f208f2fa796515b0546439596bbbaec9d6280ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
