@@ -26,6 +26,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.ArrayMap;
 
+import com.android.internal.annotations.VisibleForTesting;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -42,6 +44,10 @@ import java.util.Objects;
  *  to their default value (0, false or null).
  */
 public class MdnsServiceCache {
+    // RFC6762.10 the recommended TTL value for Multicast DNS resource records with a host name as
+    // the resource record's name (e.g., A, AAAA, HINFO) or a host name contained within the
+    // resource record's rdata (e.g., SRV, reverse mapping PTR record) SHOULD be 120 seconds.
+    private static final long DEFAULT_TTL_TIME_MS = 120000L;
     private static class CacheKey {
         @NonNull final String mLowercaseServiceType;
         @NonNull final SocketKey mSocketKey;
@@ -72,11 +78,26 @@ public class MdnsServiceCache {
      */
     @NonNull
     private final ArrayMap<CacheKey, List<MdnsResponse>> mCachedServices = new ArrayMap<>();
+    /**
+     * A map of service expire callbacks. Key is the callback listener and value is the listened
+     * service type.
+     */
+    @NonNull
+    private final ArrayMap<ServiceExpiredCallback, CacheKey> mCallbacks = new ArrayMap<>();
     @NonNull
     private final Handler mHandler;
+    @NonNull
+    private final MdnsResponseDecoder.Clock mClock;
 
     public MdnsServiceCache(@NonNull Looper looper) {
+        this(looper, new MdnsResponseDecoder.Clock());
+    }
+
+    @VisibleForTesting
+    MdnsServiceCache(@NonNull Looper looper, @NonNull MdnsResponseDecoder.Clock clock) {
         mHandler = new Handler(looper);
+        mClock = clock;
+        mHandler.postDelayed(this::checkAndNotifyTtlExpiredServices, DEFAULT_TTL_TIME_MS);
     }
 
     /**
@@ -180,5 +201,70 @@ public class MdnsServiceCache {
         return null;
     }
 
-    // TODO: check ttl expiration for each service and notify to the clients.
+    /**
+     * Register a callback to listen service expiration.
+     *
+     * @param serviceType the target service type.
+     * @param socketKey the target socket.
+     * @param callback the callback that notify the service is expired.
+     */
+    public void registerServiceExpiredCallback(@NonNull String serviceType,
+            @NonNull SocketKey socketKey, @NonNull ServiceExpiredCallback callback) {
+        ensureRunningOnHandlerThread(mHandler);
+        mCallbacks.put(callback, new CacheKey(serviceType, socketKey));
+    }
+
+    /**
+     * Unregister the service expired callback.
+     *
+     * @param callback the callback that is registered to listen service expiration before.
+     */
+    public void unregisterServiceExpiredCallback(
+            @NonNull ServiceExpiredCallback callback) {
+        ensureRunningOnHandlerThread(mHandler);
+        mCallbacks.remove(callback);
+    }
+
+    private void notifyServiceExpired(@NonNull CacheKey cacheKey,
+            @NonNull MdnsResponse previousResponse, @Nullable MdnsResponse newResponse) {
+        for (int i = 0; i < mCallbacks.size(); i++) {
+            final CacheKey listenedCacheKey = mCallbacks.valueAt(i);
+            if (cacheKey.equals(listenedCacheKey)) {
+                mCallbacks.keyAt(i).onServiceRecordExpired(previousResponse, newResponse);
+            }
+        }
+    }
+
+    /*** Check whether the ttl time is expired on each service and notify to the listeners */
+    @VisibleForTesting
+    void checkAndNotifyTtlExpiredServices() {
+        final long now = mClock.elapsedRealtime();
+        for (int i = 0; i < mCachedServices.size(); i++) {
+            final CacheKey key = mCachedServices.keyAt(i);
+            final List<MdnsResponse> responses = mCachedServices.valueAt(i);
+            final Iterator<MdnsResponse> iterator = responses.iterator();
+            while (iterator.hasNext()) {
+                final MdnsResponse previousResponse = iterator.next();
+                if (previousResponse.hasServiceRecord()
+                        && previousResponse.getServiceRecord().getRemainingTTL(now) == 0) {
+                    // Remove the ttl expired service.
+                    iterator.remove();
+                    notifyServiceExpired(key, previousResponse, null);
+                }
+            }
+
+            if (responses.isEmpty()) {
+                // Remove the serviceType if no response.
+                mCachedServices.removeAt(i);
+            }
+        }
+        mHandler.postDelayed(this::checkAndNotifyTtlExpiredServices, DEFAULT_TTL_TIME_MS);
+    }
+
+    /*** Callbacks for listening service expiration */
+    public interface ServiceExpiredCallback {
+        /*** Notify the service is expired */
+        default void onServiceRecordExpired(@NonNull MdnsResponse previousResponse,
+                @Nullable MdnsResponse newResponse) { }
+    }
 }

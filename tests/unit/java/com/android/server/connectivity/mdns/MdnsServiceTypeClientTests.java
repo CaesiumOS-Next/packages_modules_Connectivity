@@ -190,7 +190,7 @@ public class MdnsServiceTypeClientTests {
         thread = new HandlerThread("MdnsServiceTypeClientTests");
         thread.start();
         handler = new Handler(thread.getLooper());
-        serviceCache = new MdnsServiceCache(thread.getLooper());
+        serviceCache = new MdnsServiceCache(thread.getLooper(), mockDecoderClock);
         doAnswer(inv -> {
             latestDelayMs = 0;
             return true;
@@ -782,28 +782,23 @@ public class MdnsServiceTypeClientTests {
         MdnsSearchOptions searchOptions = MdnsSearchOptions.newBuilder().setRemoveExpiredService(
                 true).build();
         startSendAndReceive(mockListenerOne, searchOptions);
-        Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
 
         // Process the initial response.
         processResponse(createResponse(
                 serviceInstanceName, "192.168.1.1", 5353, /* subtype= */ "ABCDE",
                 Collections.emptyMap(), TEST_TTL), socketKey);
 
-        // Clear the scheduled runnable.
-        currentThreadExecutor.getAndClearLastScheduledRunnable();
 
         // Simulate the case where the response is under TTL.
         doReturn(TEST_ELAPSED_REALTIME + TEST_TTL - 1L).when(mockDecoderClock).elapsedRealtime();
-        firstMdnsTask.run();
-        verifyMessagePost(1 /* times */);
+        serviceCache.checkAndNotifyTtlExpiredServices();
 
         // Verify removed callback was not called.
         verifyServiceRemovedNoCallback(mockListenerOne);
 
         // Simulate the case where the response is after TTL.
         doReturn(TEST_ELAPSED_REALTIME + TEST_TTL + 1L).when(mockDecoderClock).elapsedRealtime();
-        firstMdnsTask.run();
-        verifyMessagePost(2 /* times */);
+        serviceCache.checkAndNotifyTtlExpiredServices();
 
         // Verify removed callback was called.
         verifyServiceRemovedCallback(
