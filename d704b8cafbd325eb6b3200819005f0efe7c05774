@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eebcad87_5479206e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-04T12:33:42Z",
+      "side": 1,
+      "message": "Thanks, just applied the suggestion. Looks like it works but the code looks a little bit ugly. But it can be clean up in the later refactoring.",
+      "parentUuid": "df3bec55_52909bb2",
+      "revId": "d704b8cafbd325eb6b3200819005f0efe7c05774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "292c9da3_c4edbdef",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-07-04T09:17:26Z",
       "side": 1,
       "message": "This was modified in config.getConfigForNextRun, when called after running a task; same for the baseDelayInMs above.\n\nIn that case, burstCounter, isFirstBurst, queryCount were modified; so it\u0027s no longer the \"lastScheduledTask config\", it\u0027s the config for the next task to be scheduled.\n\nMaybe that\u0027s actually what should be used here ? But it\u0027s very error-prone. These members really need to be final; then the config will probably need to be a different argument ?",
+      "range": {
+        "startLine": 721,
+        "startChar": 13,
+        "endLine": 721,
+        "endChar": 37
+      },
+      "revId": "d704b8cafbd325eb6b3200819005f0efe7c05774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fac411c_cf107920",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-04T12:33:42Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "292c9da3_c4edbdef",
       "range": {
         "startLine": 721,
         "startChar": 13,
