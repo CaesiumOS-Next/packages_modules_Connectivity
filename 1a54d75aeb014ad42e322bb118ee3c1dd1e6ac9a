@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ab0d5c0_88935de2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-07-04T08:18:33Z",
+      "side": 1,
+      "message": "How about move initWithHandle into initOffload, it seems counterintuitive to create mOffload in initOffload but can reset mOffload in function initWithHandle. If we reset just right after it created and comment the reason, it would be more readable.\n\n        if (h1 \u003d\u003d null || h2 \u003d\u003d null) {\n            // Set mIOffload to null to prevent calling mIOffload.stopOffload() \n            // without calling mIOffload.initOffload.\n            mIOffload \u003d null;\n            mLog.e(\"Failed to create socket.\");\n            maybeCloseFdInNativeHandles(h1, h2);\n            return OFFLOAD_HAL_VERSION_NONE;\n        }\n\n        requestSocketDump(h1);\n        if (!mIOffload.initOffload(h1, h2, mOffloadHalCallback)) {\n            mLog.e(\"Failed to initialize offload.\");\n            maybeCloseFdInNativeHandles(h1, h2);\n            return OFFLOAD_HAL_VERSION_NONE;\n        }\n\n        // Explicitly close FDs for HIDL. AIDL will pass the original FDs to the \n        // service, they shouldn\u0027t be closed here.\n        if (mIOffload.getVersion() \u003c OFFLOAD_HAL_VERSION_AIDL) {\n            maybeCloseFdInNativeHandles(h1, h2);\n        }\n\n        return mIOffload.getVersion();",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 9
+      },
+      "revId": "1a54d75aeb014ad42e322bb118ee3c1dd1e6ac9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
