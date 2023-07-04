@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acbaac03_841b9be7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-04T09:17:26Z",
+      "side": 1,
+      "message": "LGTM but QueryTaskConfig really needs to be immutable to avoid problems later, although that can be in a separate change",
+      "revId": "d704b8cafbd325eb6b3200819005f0efe7c05774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df3bec55_52909bb2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-04T09:17:26Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to add much complexity compared to the current patch though: instead of having \"this\" as argument to the new constructor, you just need to have each of the fields as argument. Or to make it shorter, a reference to \"this\", and separate arguments for each field that changes (queryCount, transactionId, expectUnicastResponse, burstCounter, isFirstBurst, queriesPerBurst, delayUntilNextTaskWithoutBackoffMs, timeBetweenBurstsInMs). Then I think all fields can be final.\n\nRight now this method modifies fields in one thread, and then they\u0027re read in another thread (for example in calculateTimeToRun). I think it\u0027s OK because it\u0027s always holding the lock, but that\u0027s very error-prone.\n\nSo doing it in another change LGTM, but this should be done ASAP because things like \"lastScheduledTask.config is different after getConfigForNextRun was called\" are very error-prone.",
+      "revId": "d704b8cafbd325eb6b3200819005f0efe7c05774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "292c9da3_c4edbdef",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-04T09:17:26Z",
+      "side": 1,
+      "message": "This was modified in config.getConfigForNextRun, when called after running a task; same for the baseDelayInMs above.\n\nIn that case, burstCounter, isFirstBurst, queryCount were modified; so it\u0027s no longer the \"lastScheduledTask config\", it\u0027s the config for the next task to be scheduled.\n\nMaybe that\u0027s actually what should be used here ? But it\u0027s very error-prone. These members really need to be final; then the config will probably need to be a different argument ?",
+      "range": {
+        "startLine": 721,
+        "startChar": 13,
+        "endLine": 721,
+        "endChar": 37
+      },
+      "revId": "d704b8cafbd325eb6b3200819005f0efe7c05774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
