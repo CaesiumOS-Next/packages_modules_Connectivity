@@ -34,6 +34,24 @@
       "parentUuid": "b9c1abf4_601801e9",
       "revId": "7fc2fcd6b4b56650edde81ce9e2bf94b415e7a3d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8044c77c_a84a4223",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1878469
+      },
+      "writtenOn": "2023-07-04T03:33:05Z",
+      "side": 1,
+      "message": "hi Remi\nIn china, we cannot access any foreign network resources due to network control, so we cannot use gms and cannot update the com.android.tethering, NetworkStack, CaptivePortalLogin, CellBroadcastApp, and CellBroadcastServiceModule by gms.So mainline is meaningless for china version.",
+      "parentUuid": "b9c1abf4_601801e9",
+      "revId": "7fc2fcd6b4b56650edde81ce9e2bf94b415e7a3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
