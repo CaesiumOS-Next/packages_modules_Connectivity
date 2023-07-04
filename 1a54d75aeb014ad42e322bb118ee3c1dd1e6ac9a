@@ -22,6 +22,30 @@
       },
       "revId": "1a54d75aeb014ad42e322bb118ee3c1dd1e6ac9a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f64856eb_a1a82812",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-07-04T09:53:30Z",
+      "side": 1,
+      "message": "It will separate the logic of whether we need to close the FDs to multiple places.\nAlthough the purpose of \u0027mIOffload \u003d null;\u0027 in initWithHandles() is not obvious at the first sight, perhaps the added comments above it is helping?",
+      "parentUuid": "7ab0d5c0_88935de2",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 9
+      },
+      "revId": "1a54d75aeb014ad42e322bb118ee3c1dd1e6ac9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
