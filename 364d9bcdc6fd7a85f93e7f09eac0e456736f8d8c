@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8921088f_854cb5b8",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2781,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-04T03:30:17Z",
+      "side": 1,
+      "message": "So this will really incur the timeout. Maybe add a TODO to speed up the test.",
+      "range": {
+        "startLine": 2781,
+        "startChar": 35,
+        "endLine": 2781,
+        "endChar": 42
+      },
+      "revId": "364d9bcdc6fd7a85f93e7f09eac0e456736f8d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e52f414_64e73794",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2843,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-04T03:30:17Z",
+      "side": 1,
+      "message": "real",
+      "range": {
+        "startLine": 2843,
+        "startChar": 15,
+        "endLine": 2843,
+        "endChar": 21
+      },
+      "revId": "364d9bcdc6fd7a85f93e7f09eac0e456736f8d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c55b030f_e69e21de",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2843,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-04T03:30:17Z",
+      "side": 1,
+      "message": "verify",
+      "range": {
+        "startLine": 2843,
+        "startChar": 31,
+        "endLine": 2843,
+        "endChar": 35
+      },
+      "revId": "364d9bcdc6fd7a85f93e7f09eac0e456736f8d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
