@@ -127,6 +127,24 @@
       "message": "I think you may have to also wait for the port because they are updated separately. I mean, sure, it\u0027s very close together, but still. You can just add this to the condition in l.1737",
       "revId": "f28080cff08bd233aa6d08012909c719cb66714a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa8e16c8_50b70817",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1745,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-04T09:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfcea58f_47db4fcb",
+      "revId": "f28080cff08bd233aa6d08012909c719cb66714a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
