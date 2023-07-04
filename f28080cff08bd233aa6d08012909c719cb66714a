@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "beb0b9a4_7448e398",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-04T09:35:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1f913a8_1e1be6e0",
+      "range": {
+        "startLine": 1734,
+        "startChar": 93,
+        "endLine": 1734,
+        "endChar": 98
+      },
+      "revId": "f28080cff08bd233aa6d08012909c719cb66714a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db657931_0b74ea82",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-07-03T07:20:45Z",
       "side": 1,
       "message": "Let\u0027s give it 30 seconds instead of 1",
+      "range": {
+        "startLine": 1738,
+        "startChar": 29,
+        "endLine": 1738,
+        "endChar": 30
+      },
+      "revId": "f28080cff08bd233aa6d08012909c719cb66714a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f138f2dc_1d6642a1",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-04T09:35:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db657931_0b74ea82",
       "range": {
         "startLine": 1738,
         "startChar": 29,
