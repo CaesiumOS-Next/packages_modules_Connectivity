@@ -52,6 +52,24 @@
       "parentUuid": "b9c1abf4_601801e9",
       "revId": "7fc2fcd6b4b56650edde81ce9e2bf94b415e7a3d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9331e916_757aa052",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1878533
+      },
+      "writtenOn": "2023-07-05T11:44:12Z",
+      "side": 1,
+      "message": "Maybe we misunderstand the role of com.android.tethering, Using com.android.tethering seem doesnt mean using mainline module.",
+      "parentUuid": "8044c77c_a84a4223",
+      "revId": "7fc2fcd6b4b56650edde81ce9e2bf94b415e7a3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
