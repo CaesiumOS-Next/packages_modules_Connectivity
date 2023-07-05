@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa5803de_ff591fc7",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideNetworkTestCase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-05T02:31:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "35351960_eb10e735",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 39
+      },
+      "revId": "66639cf600ea524cf8de0fec7d880eace44938a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cad369ec_569273ec",
@@ -85,6 +109,24 @@
       "writtenOn": "2023-07-03T03:00:24Z",
       "side": 1,
       "message": "IIUC, grantPermission is only used if a userID is provided:\n\nhttps://cs.android.com/android/platform/superproject/+/refs/heads/master:tools/tradefederation/core/test_framework/com/android/tradefed/testtype/junit4/BaseHostJUnit4Test.java;drc\u003d7bb4243a97d53af6cbd4de21bcc61556a758898b;l\u003d174\n\nIn which case you could use this overload: `installPackageAsUser(String apkFileName, boolean grantPermission, int userId, String... options)`\n\nWithout this we might get surprised if some permissions were not granted when testing",
+      "revId": "66639cf600ea524cf8de0fec7d880eace44938a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aebad844_2ea6fbf4",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideNetworkTestCase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-05T02:31:27Z",
+      "side": 1,
+      "message": "Done.\nI like builder more but this is less errorprone.",
+      "parentUuid": "cad369ec_569273ec",
       "revId": "66639cf600ea524cf8de0fec7d880eace44938a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
