@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07f8c86c_fc2826a7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-05T03:19:24Z",
+      "side": 1,
+      "message": "Technically this should be now + getMinRemainingTtlLocked(now) I think ? But I think that won\u0027t really make a difference for the first run. Maybe consider updating it in any followup if that makes sense.",
+      "range": {
+        "startLine": 225,
+        "startChar": 24,
+        "endLine": 225,
+        "endChar": 27
+      },
+      "revId": "3f882c342887794d56e59eaab0559397e5a3ff49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59c4ecbd_c14b194e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-05T03:19:24Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right: the first 3 tasks should be 1s apart in passive mode, but here for the first task it would say 20s ?\n\nI don\u0027t understand why the unit test passes though; maybe I\u0027m reading this wrong ?",
+      "range": {
+        "startLine": 534,
+        "startChar": 54,
+        "endLine": 534,
+        "endChar": 80
+      },
+      "revId": "3f882c342887794d56e59eaab0559397e5a3ff49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeed05f7_b50abfe4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-05T03:19:24Z",
+      "side": 1,
+      "message": "When called from QueryTask.run, if no reply was received since the last query, would this condition be true, so it returns the time of the last task (\u003c\u003d now) and sends queries in a loop ?\n\nThis could be fixed with an additional condition `if (lastSentTime \u003c now \u0026\u0026 ...`\n\nAlso here though, I don\u0027t understand why this wouldn\u0027t be seen in the tests",
+      "range": {
+        "startLine": 741,
+        "startChar": 11,
+        "endLine": 741,
+        "endChar": 12
+      },
+      "revId": "3f882c342887794d56e59eaab0559397e5a3ff49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67da2cc4_0c79c8e2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-05T03:19:24Z",
+      "side": 1,
+      "message": "I think we can be a bit more conservative with `if (!response.isComplete())`: the queries should not be slowed down if some records (like address records) are missing",
+      "range": {
+        "startLine": 753,
+        "startChar": 26,
+        "endLine": 753,
+        "endChar": 42
+      },
+      "revId": "3f882c342887794d56e59eaab0559397e5a3ff49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
