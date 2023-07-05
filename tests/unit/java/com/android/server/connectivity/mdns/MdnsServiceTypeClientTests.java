@@ -910,6 +910,7 @@ public class MdnsServiceTypeClientTests {
         // Simulate the case where the response is under TTL.
         doReturn(TEST_ELAPSED_REALTIME + TEST_TTL - 1L).when(mockDecoderClock).elapsedRealtime();
         firstMdnsTask.run();
+        verifyMessagePost(1 /* times */);
 
         // Verify removed callback was not called.
         verifyServiceRemovedNoCallback(mockListenerOne);
@@ -917,6 +918,7 @@ public class MdnsServiceTypeClientTests {
         // Simulate the case where the response is after TTL.
         doReturn(TEST_ELAPSED_REALTIME + TEST_TTL + 1L).when(mockDecoderClock).elapsedRealtime();
         firstMdnsTask.run();
+        verifyMessagePost(2 /* times */);
 
         // Verify removed callback was called.
         verifyServiceRemovedCallback(
@@ -1103,6 +1105,7 @@ public class MdnsServiceTypeClientTests {
         inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingUnicastResponse(
                 srvTxtQueryCaptor.capture(),
                 eq(socketKey), eq(false));
+        verifyMessagePost(1 /* times */);
         verifyDelayedMessageScheduled(1 /* scheduleTimes */);
 
         final MdnsPacket srvTxtQueryPacket = MdnsPacket.parse(
@@ -1195,6 +1198,7 @@ public class MdnsServiceTypeClientTests {
         inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingUnicastResponse(
                 srvTxtQueryCaptor.capture(),
                 eq(socketKey), eq(false));
+        verifyMessagePost(1 /* times */);
         verifyDelayedMessageScheduled(1 /* scheduleTimes */);
 
         final MdnsPacket srvTxtQueryPacket = MdnsPacket.parse(
@@ -1234,6 +1238,7 @@ public class MdnsServiceTypeClientTests {
         // Advance time so 75% of TTL passes and re-execute
         doReturn(TEST_ELAPSED_REALTIME + (long) (TEST_TTL * 0.75))
                 .when(mockDecoderClock).elapsedRealtime();
+        verifyMessagePost(2 /* times */);
         verifyDelayedMessageScheduled(2 /* scheduleTimes */);
         runOnHandler(() -> realHandler.dispatchMessage(delayMessage));
         currentThreadExecutor.getAndClearLastScheduledRunnable().run();
@@ -1245,12 +1250,13 @@ public class MdnsServiceTypeClientTests {
         inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingMulticastResponse(
                 renewalQueryCaptor.capture(),
                 eq(socketKey), eq(false));
+        verifyMessagePost(3 /* times */);
+        verifyDelayedMessageScheduled(3 /* scheduleTimes */);
         inOrder.verify(mockListenerOne).onDiscoveryQuerySent(any(), anyInt());
         final MdnsPacket renewalPacket = MdnsPacket.parse(
                 new MdnsPacketReader(renewalQueryCaptor.getValue()));
         assertTrue(hasQuestion(renewalPacket, MdnsRecord.TYPE_ANY, serviceName));
         inOrder.verifyNoMoreInteractions();
-        verifyDelayedMessageScheduled(3 /* scheduleTimes */);
 
         long updatedReceiptTime =  TEST_ELAPSED_REALTIME + TEST_TTL;
         final MdnsPacket refreshedSrvTxtResponse = new MdnsPacket(
@@ -1530,7 +1536,15 @@ public class MdnsServiceTypeClientTests {
                         expectedIPv6Packets[index], socketKey, false);
             }
         }
+        verifyMessagePost(index + 1 /* times */);
         verifyDelayedMessageScheduled(scheduleTimes);
+    }
+
+    private void verifyMessagePost(int times) {
+        final ArgumentCaptor<Runnable> runnableCaptor = ArgumentCaptor.forClass(Runnable.class);
+        verify(mockDeps, times(times)).post(any(), runnableCaptor.capture());
+        final Runnable runnable = runnableCaptor.getValue();
+        runOnHandler(runnable);
     }
 
     private void verifyDelayedMessageScheduled(int scheduleTimes) {
