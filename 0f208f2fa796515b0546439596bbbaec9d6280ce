@@ -33,6 +33,24 @@
       "message": "This should also increase the currentSessionId (so call cancelRequestTaskLocked as before). It\u0027s OK if it increases even if there was no current task I think",
       "revId": "0f208f2fa796515b0546439596bbbaec9d6280ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "325e8b1c_d0882675",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-05T09:44:44Z",
+      "side": 1,
+      "message": "Oops, you are right. This should be `cancelRequestTaskLocked`.",
+      "parentUuid": "4ca33eff_c61e3e86",
+      "revId": "0f208f2fa796515b0546439596bbbaec9d6280ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
