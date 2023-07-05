@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fcdc688_3b7f05d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2020046
+      },
+      "writtenOn": "2023-07-05T15:25:48Z",
+      "side": 1,
+      "message": "https://issues.gerritcodereview.com/issues?q\u003did%3A(289969903%7C289877526%7C289895906%7C289969899%7C40015471%7C40013889%7C40012794%7C40011977%7C40011502%7C40010555%7C40010287%7C40010282%7C40010160%7C40010134%7C40010081%7C40010004%7C40009906%7C40009894%7C40009802%7C40009797%7C40009791%7C40009158%7C40009066%7C40008816%7C40008749)",
+      "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
