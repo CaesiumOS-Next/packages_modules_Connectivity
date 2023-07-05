@@ -63,6 +63,30 @@
       },
       "revId": "e29924a64e0ff7e176b8067ded59d0cb3d0975fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae8cc5b4_84a33cef",
+        "filename": "nearby/tests/cts/fastpair/src/android/nearby/cts/NearbyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1900995
+      },
+      "writtenOn": "2023-07-05T18:36:15Z",
+      "side": 1,
+      "message": "Currently I am doing this, but the concern is if we want to do experiment later, all the T devices will be covered. So the best choice is still have one namespace. \nActually, we already set different namespaces now and this change is to make sure we can use \"nearby\" namespace only in code.",
+      "parentUuid": "73226dc6_ce46191f",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 31
+      },
+      "revId": "e29924a64e0ff7e176b8067ded59d0cb3d0975fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
