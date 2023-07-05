@@ -70,6 +70,24 @@
       "parentUuid": "8044c77c_a84a4223",
       "revId": "7fc2fcd6b4b56650edde81ce9e2bf94b415e7a3d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92496ecc_db56539b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-05T12:05:11Z",
+      "side": 1,
+      "message": "Mainline updatable modules are shipped by Google via the play store and are signed by Google certificates, and are thus com.google... for example com.google.android.tethering\n\nBasically for mainline updatability:\n- the code must be modular (ie. use APIs into the rest of the system)\n- it must be built in a way that enables updates\n  - ie. either APK or \u0027normal\u0027 APEX, but *not* \u0027flattened APEX\u0027, ...\n- it must be signed by a Google certificate, and present in the playstore in that fashion.",
+      "parentUuid": "9331e916_757aa052",
+      "revId": "7fc2fcd6b4b56650edde81ce9e2bf94b415e7a3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
