@@ -2802,6 +2802,8 @@ public class VpnTest extends VpnTestBase {
     public void testDataStallInIkev2VpnRecoveredByMobike() throws Exception {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
+        // Reset the previous interaction with executor while setuping the VPN
+        reset(mExecutor);
 
         doReturn(TEST_NETWORK).when(mMockNetworkAgent).getNetwork();
         ((Vpn.IkeV2VpnRunner) vpnSnapShot.vpn.mVpnRunner).onValidationStatus(
@@ -2824,6 +2826,8 @@ public class VpnTest extends VpnTestBase {
     public void testDataStallInIkev2VpnNotRecoveredByMobike() throws Exception {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
+        // Reset the previous interaction with executor while setuping the VPN
+        reset(mExecutor);
 
         int retry = 0;
         doReturn(TEST_NETWORK).when(mMockNetworkAgent).getNetwork();
