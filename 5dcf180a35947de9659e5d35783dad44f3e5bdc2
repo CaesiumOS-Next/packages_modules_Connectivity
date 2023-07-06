@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fd17693_3a214a7f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1969,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-06T06:23:25Z",
+      "side": 1,
+      "message": "Isn\u0027t the executor already reset here? Or is there some race here?",
+      "range": {
+        "startLine": 1969,
+        "startChar": 8,
+        "endLine": 1969,
+        "endChar": 25
+      },
+      "revId": "5dcf180a35947de9659e5d35783dad44f3e5bdc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
