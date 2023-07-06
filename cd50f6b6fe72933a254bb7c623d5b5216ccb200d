@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "555cdede_04c34017",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-07-06T05:58:53Z",
+      "side": 1,
+      "message": "\u003e if it is still present in any of the previously-supplied ranges that\nhave yet to be removed\n\nIs the case this CL tries to support not following this contract?",
+      "range": {
+        "startLine": 1015,
+        "startChar": 34,
+        "endLine": 1016,
+        "endChar": 67
+      },
+      "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a4558fe_0b58316b",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 1
