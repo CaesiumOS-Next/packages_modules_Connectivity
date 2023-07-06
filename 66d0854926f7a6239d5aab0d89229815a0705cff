@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da6793fa_6a1eeb6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1963226
+      },
+      "writtenOn": "2023-07-06T08:20:41Z",
+      "side": 1,
+      "message": "Hi Shubhangi,\nCould you please review and provide a Dr. No if you are okay with this CL? Thank you in advance for your help.",
+      "revId": "66d0854926f7a6239d5aab0d89229815a0705cff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
