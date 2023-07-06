@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsServiceCache.ServiceExpiredCallback;
 import static com.android.server.connectivity.mdns.MdnsServiceCache.findMatchedResponse;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
@@ -40,7 +41,6 @@ import java.net.Inet6Address;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -71,6 +71,32 @@ public class MdnsServiceTypeClient {
      * The service caches for each socket. It should be accessed from looper thread only.
      */
     @NonNull private final MdnsServiceCache serviceCache;
+    @NonNull private final ServiceExpiredCallback serviceExpiredCallback =
+            new ServiceExpiredCallback() {
+        @Override
+        public void onServiceRecordExpired(@NonNull MdnsResponse previousResponse,
+                @Nullable MdnsResponse newResponse) {
+            for (int i = 0; i < listeners.size(); i++) {
+                if (!responseMatchesOptions(previousResponse, listeners.valueAt(i))
+                        || previousResponse.getServiceInstanceName() == null) {
+                    continue;
+                }
+                final MdnsServiceBrowserListener listener = listeners.keyAt(i);
+                final MdnsServiceInfo serviceInfo = buildMdnsServiceInfoFromResponse(
+                        previousResponse, serviceTypeLabels);
+                if (previousResponse.isComplete()
+                        && (newResponse == null || !newResponse.isComplete())) {
+                    sharedLog.log("TTL expired. onServiceRemoved: " + serviceInfo);
+                    listener.onServiceRemoved(serviceInfo);
+                }
+                if (newResponse == null) {
+                    sharedLog.log("TTL expired. onServiceNameRemoved: " + serviceInfo);
+                    listener.onServiceNameRemoved(serviceInfo);
+                }
+            }
+        }
+    };
+
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
     private final boolean removeServiceAfterTtlExpires =
@@ -123,7 +149,9 @@ public class MdnsServiceTypeClient {
                         }
                     }
 
-                    tryRemoveServiceAfterTtlExpires();
+                    if (shouldRemoveServiceAfterTtlExpires()) {
+                        serviceCache.maybeRemoveExpiredServices();
+                    }
 
                     final long now = clock.elapsedRealtime();
                     lastSentTime = now;
@@ -225,6 +253,15 @@ public class MdnsServiceTypeClient {
         this.dependencies = dependencies;
         this.serviceCache = serviceCache;
         this.mdnsQueryScheduler = new MdnsQueryScheduler();
+    }
+
+    /**
+     * Do the cleanup of the MdnsServiceTypeClient
+     */
+    private void shutDown() {
+        removeScheduledTask();
+        mdnsQueryScheduler.cancelScheduledRun();
+        serviceCache.unregisterServiceExpiredCallback(serviceExpiredCallback);
     }
 
     private static MdnsServiceInfo buildMdnsServiceInfoFromResponse(
@@ -341,6 +378,10 @@ public class MdnsServiceTypeClient {
                     servicesToResolve.size() < listeners.size() /* sendDiscoveryQueries */);
             executor.submit(queryTask);
         }
+        if (shouldRemoveServiceAfterTtlExpires()) {
+            serviceCache.registerServiceExpiredCallback(
+                    serviceType, socketKey, serviceExpiredCallback);
+        }
     }
 
     /**
@@ -390,8 +431,7 @@ public class MdnsServiceTypeClient {
             return listeners.isEmpty();
         }
         if (listeners.isEmpty()) {
-            removeScheduledTask();
-            mdnsQueryScheduler.cancelScheduledRun();
+            shutDown();
         }
         return listeners.isEmpty();
     }
@@ -477,8 +517,7 @@ public class MdnsServiceTypeClient {
                 listener.onServiceNameRemoved(serviceInfo);
             }
         }
-        removeScheduledTask();
-        mdnsQueryScheduler.cancelScheduledRun();
+        shutDown();
     }
 
     private void onResponseModified(@NonNull MdnsResponse response) {
@@ -581,39 +620,6 @@ public class MdnsServiceTypeClient {
         }
         return resolveResponses;
     }
-
-    private void tryRemoveServiceAfterTtlExpires() {
-        if (!shouldRemoveServiceAfterTtlExpires()) return;
-
-        Iterator<MdnsResponse> iter =
-                serviceCache.getCachedServices(serviceType, socketKey).iterator();
-        while (iter.hasNext()) {
-            MdnsResponse existingResponse = iter.next();
-            final String serviceInstanceName = existingResponse.getServiceInstanceName();
-            if (existingResponse.hasServiceRecord()
-                    && existingResponse.getServiceRecord()
-                    .getRemainingTTL(clock.elapsedRealtime()) == 0) {
-                serviceCache.removeService(serviceInstanceName, serviceType, socketKey);
-                for (int i = 0; i < listeners.size(); i++) {
-                    if (!responseMatchesOptions(existingResponse, listeners.valueAt(i))) {
-                        continue;
-                    }
-                    final MdnsServiceBrowserListener listener = listeners.keyAt(i);
-                    if (serviceInstanceName != null) {
-                        final MdnsServiceInfo serviceInfo = buildMdnsServiceInfoFromResponse(
-                                existingResponse, serviceTypeLabels);
-                        if (existingResponse.isComplete()) {
-                            sharedLog.log("TTL expired. onServiceRemoved: " + serviceInfo);
-                            listener.onServiceRemoved(serviceInfo);
-                        }
-                        sharedLog.log("TTL expired. onServiceNameRemoved: " + serviceInfo);
-                        listener.onServiceNameRemoved(serviceInfo);
-                    }
-                }
-            }
-        }
-    }
-
 
     private static class QuerySentArguments {
         private final int transactionId;
