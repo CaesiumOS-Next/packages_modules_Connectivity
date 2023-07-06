@@ -16,9 +16,12 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsResponse.EXPIRATION_NEVER;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.equalsIgnoreDnsCase;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.toDnsLowerCase;
+
+import static java.lang.Math.min;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -26,8 +29,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.ArrayMap;
 
+import com.android.internal.annotations.VisibleForTesting;
+import com.android.server.connectivity.mdns.util.MdnsUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -72,11 +79,26 @@ public class MdnsServiceCache {
      */
     @NonNull
     private final ArrayMap<CacheKey, List<MdnsResponse>> mCachedServices = new ArrayMap<>();
+    /**
+     * A map of service expire callbacks. Key is the callback listener and value is the listened
+     * service type.
+     */
+    @NonNull
+    private final ArrayMap<ServiceExpiredCallback, CacheKey> mCallbacks = new ArrayMap<>();
     @NonNull
     private final Handler mHandler;
+    @NonNull
+    private final MdnsUtils.Clock mClock;
+    private long mNextExpirationTime = EXPIRATION_NEVER;
 
     public MdnsServiceCache(@NonNull Looper looper) {
+        this(looper, new MdnsUtils.Clock());
+    }
+
+    @VisibleForTesting
+    MdnsServiceCache(@NonNull Looper looper, @NonNull MdnsUtils.Clock clock) {
         mHandler = new Handler(looper);
+        mClock = clock;
     }
 
     /**
@@ -84,13 +106,19 @@ public class MdnsServiceCache {
      *
      * @param serviceType the target service type.
      * @param socketKey the target socket
-     * @return the set of services which matches the given service type.
+     * @return the list of services which matches the given service type.
      */
     @NonNull
     public List<MdnsResponse> getCachedServices(@NonNull String serviceType,
             @NonNull SocketKey socketKey) {
         ensureRunningOnHandlerThread(mHandler);
         final CacheKey key = new CacheKey(serviceType, socketKey);
+        final long now = mClock.elapsedRealtime();
+        // Remove and notify the expired services.
+        for (MdnsResponse previousResponse : removeExpiredServices(key, now)) {
+            notifyServiceExpired(key, previousResponse, null /* newResponse */);
+        }
+
         return mCachedServices.containsKey(key)
                 ? Collections.unmodifiableList(new ArrayList<>(mCachedServices.get(key)))
                 : Collections.emptyList();
@@ -125,8 +153,14 @@ public class MdnsServiceCache {
     public MdnsResponse getCachedService(@NonNull String serviceName,
             @NonNull String serviceType, @NonNull SocketKey socketKey) {
         ensureRunningOnHandlerThread(mHandler);
-        final List<MdnsResponse> responses =
-                mCachedServices.get(new CacheKey(serviceType, socketKey));
+        final CacheKey key = new CacheKey(serviceType, socketKey);
+        final long now = mClock.elapsedRealtime();
+        // Remove and notify the expired services.
+        for (MdnsResponse previousResponse : removeExpiredServices(key, now)) {
+            notifyServiceExpired(key, previousResponse, null /* newResponse */);
+        }
+
+        final List<MdnsResponse> responses = mCachedServices.get(key);
         if (responses == null) {
             return null;
         }
@@ -150,7 +184,16 @@ public class MdnsServiceCache {
         final MdnsResponse existing =
                 findMatchedResponse(responses, response.getServiceInstanceName());
         responses.remove(existing);
-        responses.add(response);
+        // Sort the list by ttl.
+        final long now = mClock.elapsedRealtime();
+        // binarySearch returns "the index of the search key, if it is contained in the list;
+        // otherwise, (-(insertion point) - 1)"
+        final int searchRes = Collections.binarySearch(responses, response,
+                Comparator.comparingLong(resp -> resp.getMinRemainingTtl(now)));
+        responses.add(searchRes >= 0 ? searchRes : (-searchRes - 1), response);
+
+        // Update the next expiration check time when a new service is added.
+        maybeUpdateNextExpirationTime(getNextExpirationTime(now));
     }
 
     /**
@@ -164,21 +207,136 @@ public class MdnsServiceCache {
     public MdnsResponse removeService(@NonNull String serviceName, @NonNull String serviceType,
             @NonNull SocketKey socketKey) {
         ensureRunningOnHandlerThread(mHandler);
-        final List<MdnsResponse> responses =
-                mCachedServices.get(new CacheKey(serviceType, socketKey));
+        final CacheKey cacheKey = new CacheKey(serviceType, socketKey);
+        final List<MdnsResponse> responses = mCachedServices.get(cacheKey);
         if (responses == null) {
             return null;
         }
         final Iterator<MdnsResponse> iterator = responses.iterator();
+        MdnsResponse removedResponse = null;
         while (iterator.hasNext()) {
             final MdnsResponse response = iterator.next();
             if (equalsIgnoreDnsCase(serviceName, response.getServiceInstanceName())) {
                 iterator.remove();
-                return response;
+                removedResponse = response;
+                break;
             }
         }
-        return null;
+        // Remove the serviceType if no response.
+        if (responses.isEmpty()) {
+            mCachedServices.remove(cacheKey);
+        }
+        // Update the next expiration check time when a service is removed.
+        maybeUpdateNextExpirationTime(getNextExpirationTime(mClock.elapsedRealtime()));
+        return removedResponse;
     }
 
-    // TODO: check ttl expiration for each service and notify to the clients.
+    private long getNextExpirationTime(long now) {
+        long minRemainingTtl = EXPIRATION_NEVER;
+        for (int i = 0; i < mCachedServices.size(); i++) {
+            minRemainingTtl =
+                    min(minRemainingTtl, mCachedServices.valueAt(i).get(0).getMinRemainingTtl(now));
+        }
+        return now + minRemainingTtl;
+    }
+
+
+    private void maybeUpdateNextExpirationTime(long expirationTime) {
+        if (expirationTime < mNextExpirationTime) {
+            mNextExpirationTime = expirationTime;
+        }
+    }
+
+    /**
+     * Register a callback to listen service expiration.
+     *
+     * <p> Registering the same callback instance twice is a no-op, since MdnsServiceTypeClient
+     * relies on this.
+     *
+     * @param serviceType the target service type.
+     * @param socketKey the target socket.
+     * @param callback the callback that notify the service is expired.
+     */
+    public void registerServiceExpiredCallback(@NonNull String serviceType,
+            @NonNull SocketKey socketKey, @NonNull ServiceExpiredCallback callback) {
+        ensureRunningOnHandlerThread(mHandler);
+        mCallbacks.put(callback, new CacheKey(serviceType, socketKey));
+    }
+
+    /**
+     * Unregister the service expired callback.
+     *
+     * @param callback the callback that is registered to listen service expiration before.
+     */
+    public void unregisterServiceExpiredCallback(
+            @NonNull ServiceExpiredCallback callback) {
+        ensureRunningOnHandlerThread(mHandler);
+        mCallbacks.remove(callback);
+    }
+
+    private void notifyServiceExpired(@NonNull CacheKey cacheKey,
+            @NonNull MdnsResponse previousResponse, @Nullable MdnsResponse newResponse) {
+        for (int i = 0; i < mCallbacks.size(); i++) {
+            final CacheKey listenedCacheKey = mCallbacks.valueAt(i);
+            if (cacheKey.equals(listenedCacheKey)) {
+                final ServiceExpiredCallback callback = mCallbacks.keyAt(i);
+                mHandler.post(() -> callback.onServiceRecordExpired(previousResponse, newResponse));
+            }
+        }
+    }
+
+    private List<MdnsResponse> removeExpiredServices(@NonNull CacheKey cacheKey, long now) {
+        final List<MdnsResponse> responses = mCachedServices.get(cacheKey);
+        if (responses == null) return Collections.emptyList();
+
+        final List<MdnsResponse> removedResponses = new ArrayList<>();
+        final Iterator<MdnsResponse> iterator = responses.iterator();
+        while (iterator.hasNext()) {
+            final MdnsResponse response = iterator.next();
+            // TODO: Check other records (A, AAAA, TXT) ttl time and remove the record if it's
+            //  expired. Then send service update notification.
+            if (!response.hasServiceRecord()
+                    || response.getServiceRecord().getRemainingTTL(now) > 0) {
+                // The responses are sorted by the service record ttl time. Break out of loop
+                // early if service is not expired or no service record.
+                break;
+            }
+            // Remove the ttl expired service.
+            iterator.remove();
+            removedResponses.add(response);
+        }
+        // Remove the serviceType if no response.
+        if (responses.isEmpty()) {
+            mCachedServices.remove(cacheKey);
+        }
+        return removedResponses;
+    }
+
+    /**
+     * Check whether the ttl time is expired on each service and notify to the listeners
+     */
+    public void maybeRemoveExpiredServices() {
+        ensureRunningOnHandlerThread(mHandler);
+        final long now = mClock.elapsedRealtime();
+        if (now < mNextExpirationTime) {
+            // Skip the check if ttl time is not expired.
+            return;
+        }
+
+        for (int i = mCachedServices.size() - 1; i >= 0; i--) {
+            final CacheKey cacheKey = mCachedServices.keyAt(i);
+            for (MdnsResponse previousResponse : removeExpiredServices(cacheKey, now)) {
+                notifyServiceExpired(cacheKey, previousResponse, null /* newResponse */);
+            }
+        }
+        // Update next expiration time.
+        mNextExpirationTime = getNextExpirationTime(now);
+    }
+
+    /*** Callbacks for listening service expiration */
+    public interface ServiceExpiredCallback {
+        /*** Notify the service is expired */
+        default void onServiceRecordExpired(@NonNull MdnsResponse previousResponse,
+                @Nullable MdnsResponse newResponse) { }
+    }
 }
