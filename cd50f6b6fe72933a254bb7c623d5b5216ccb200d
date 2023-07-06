@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "91d1150f_5facba40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-07-06T04:34:32Z",
+      "side": 1,
+      "message": "\u003e When updating lockdown UID ranges, do not remove a UID from lockdown\nif it is still present in any of the previously-supplied ranges that\nhave yet to be removed. \n\nCould you add test for this case?\ntest could be similar to testLockdownUidFilteringWithLockdownEnableDisableWithMultiAdd in PermissionMonitorTest.java",
+      "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a4558fe_0b58316b",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 1
@@ -67,6 +84,47 @@
       "side": 1,
       "message": "@motomuman@google.com could you take a look about whether the change make sense?",
       "parentUuid": "4636e2d1_66630897",
+      "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afceade2_8982c129",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-07-06T04:34:32Z",
+      "side": 1,
+      "message": "When `!hasRestrictedNetworksPermission(uid)` is false, updateLockdownUidRule should not be called regardless of `!UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)`\n\nSo I think should be following.\n```\nif (!hasRestrictedNetworksPermission(uid)\n    \u0026\u0026 (add || !UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid))) {\n```",
+      "range": {
+        "startLine": 1050,
+        "startChar": 57,
+        "endLine": 1051,
+        "endChar": 81
+      },
+      "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d696e68_5448c5ce",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-07-06T04:34:32Z",
+      "side": 1,
+      "message": "Sorry for the delay.\nYes, I think this change makes sense.\nI have added some comments.",
+      "parentUuid": "91c1daa8_192eab89",
       "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
