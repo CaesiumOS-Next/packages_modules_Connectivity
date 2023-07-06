@@ -87,6 +87,30 @@
       },
       "revId": "e29924a64e0ff7e176b8067ded59d0cb3d0975fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50839efe_6ace22c5",
+        "filename": "nearby/tests/cts/fastpair/src/android/nearby/cts/NearbyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1900995
+      },
+      "writtenOn": "2023-07-06T04:16:28Z",
+      "side": 1,
+      "message": "Synced with Remi tonight and we agreed that submitting both namespaces are the only way to resolve the issue since OEM has choices to install any T version they want. (Either with nearby or tethering namespace).",
+      "parentUuid": "ae8cc5b4_84a33cef",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 31
+      },
+      "revId": "e29924a64e0ff7e176b8067ded59d0cb3d0975fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
