@@ -612,17 +612,47 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         verifyNoMoreInteractions(ignoreStubs(testInfo.socketKeepaliveCallback));
     }
 
-    @Test
-    public void testStartNattKeepalive_addressTranslationOnClat() throws Exception {
-        final InetAddress v6AddrSrc = InetAddresses.parseNumericAddress("2001:db8::1");
-        final InetAddress v6AddrDst = InetAddresses.parseNumericAddress("2001:db8::2");
-        doReturn(v6AddrDst).when(mNai).translateV4toClatV6(any());
-        doReturn(v6AddrSrc).when(mNai).getClatv6SrcAddress();
+    private void setupTestNaiForClat(InetAddress v6Src, InetAddress v6Dst) throws Exception {
+        doReturn(v6Dst).when(mNai).translateV4toClatV6(any());
+        doReturn(v6Src).when(mNai).getClatv6SrcAddress();
         doReturn(InetAddress.getByAddress(V4_SRC_ADDR)).when(mNai).getClatv4SrcAddress();
         // Setup nai to add clat address
         final LinkProperties stacked = new LinkProperties();
         stacked.setInterfaceName(TEST_V4_IFACE);
         mNai.linkProperties.addStackedLink(stacked);
+    }
+    @Test
+    public void testStartTcpKeepalive_addressTranslationOnClat() throws Exception {
+        setupTestNaiForClat(InetAddresses.parseNumericAddress("2001:db8::1") /* v6Src */,
+                InetAddresses.parseNumericAddress("2001:db8::2") /* v6Dst */);
+
+        final KeepalivePacketData kpd = new TcpKeepalivePacketData(
+                InetAddress.getByAddress(V4_SRC_ADDR) /* srcAddr */,
+                12345 /* srcPort */,
+                InetAddress.getByAddress(new byte[] { 8, 8, 8, 8}) /* dstAddr */,
+                12345 /* dstPort */, new byte[] {1},  111 /* tcpSeq */,
+                222 /* tcpAck */, 800 /* tcpWindow */, 2 /* tcpWindowScale */,
+                4 /* ipTos */, 64 /* ipTtl */);
+        final TestKeepaliveInfo testInfo = new TestKeepaliveInfo(kpd);
+
+        final KeepaliveInfo ki = mKeepaliveTracker.new KeepaliveInfo(
+                testInfo.socketKeepaliveCallback, mNai, kpd,
+                TEST_KEEPALIVE_INTERVAL_SEC, KeepaliveInfo.TYPE_TCP, testInfo.fd);
+        mKeepaliveTracker.setReturnedKeepaliveInfo(ki);
+
+        // Setup TCP keepalive.
+        mAOOKeepaliveTracker.startTcpKeepalive(mNai, testInfo.fd, TEST_KEEPALIVE_INTERVAL_SEC,
+                testInfo.socketKeepaliveCallback);
+        assertNull(getAutoKiForBinder(testInfo.binder));
+        // Start TCP keepalive with clat address should result in ERROR_INVALID_IP_ADDRESS
+        verify(testInfo.socketKeepaliveCallback).onError(SocketKeepalive.ERROR_INVALID_IP_ADDRESS);
+    }
+
+    @Test
+    public void testStartNattKeepalive_addressTranslationOnClat() throws Exception {
+        final InetAddress v6AddrSrc = InetAddresses.parseNumericAddress("2001:db8::1");
+        final InetAddress v6AddrDst = InetAddresses.parseNumericAddress("2001:db8::2");
+        setupTestNaiForClat(v6AddrSrc, v6AddrDst);
 
         final TestKeepaliveInfo testInfo = doStartNattKeepalive();
         final ArgumentCaptor<NattKeepalivePacketData> kpdCaptor =
