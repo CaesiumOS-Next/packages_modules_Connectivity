@@ -51,6 +51,24 @@
       "parentUuid": "3a4558fe_0b58316b",
       "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91c1daa8_192eab89",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-06T02:26:46Z",
+      "side": 1,
+      "message": "@motomuman@google.com could you take a look about whether the change make sense?",
+      "parentUuid": "4636e2d1_66630897",
+      "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
