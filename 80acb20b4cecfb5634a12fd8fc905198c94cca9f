@@ -187,6 +187,30 @@
       },
       "revId": "80acb20b4cecfb5634a12fd8fc905198c94cca9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adcbe3ff_11693220",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-06T04:27:29Z",
+      "side": 1,
+      "message": "I see. In this case, I think it will be better to add `@GuardedBy(\"lock\")` to `listeners` and also change the function name makeResponsesForResolve to `makeResponsesForResolveLocked` with GuardedBy annotation.",
+      "parentUuid": "e448ff22_08280c35",
+      "range": {
+        "startLine": 569,
+        "startChar": 16,
+        "endLine": 569,
+        "endChar": 36
+      },
+      "revId": "80acb20b4cecfb5634a12fd8fc905198c94cca9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
