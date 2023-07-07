@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14eec95d_f2bdf6ee",
+        "filename": "framework-t/src/android/net/nsd/OffloadEngine.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-07T06:25:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61655944_e41ebc66",
+      "revId": "5b1e5f4633b52d93fd30d45af78c3ae769c4d964",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fff95e8c_bca10a85",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-07-07T05:52:25Z",
       "side": 1,
       "message": "But now you\u0027ll stop sending offload callbacks to the next receivers if one of them died; so their data may get out-of-sync. I think the catch needs to be inside the loop, but the finally outside.",
+      "revId": "5b1e5f4633b52d93fd30d45af78c3ae769c4d964",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47a9b961_080c80d4",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 1799,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-07T06:25:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fff95e8c_bca10a85",
       "revId": "5b1e5f4633b52d93fd30d45af78c3ae769c4d964",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
