@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "506cc25d_83afc770",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T05:55:13Z",
+      "side": 1,
+      "message": "I think this should go inside doStartTcpKeepalive, just after the startTcpKeepalive.",
+      "range": {
+        "startLine": 656,
+        "startChar": 8,
+        "endLine": 656,
+        "endChar": 59
+      },
+      "revId": "4988ce9013a5847931b4872562c5e6a381ef9f46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
