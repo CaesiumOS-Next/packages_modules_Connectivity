@@ -31,6 +31,7 @@ import static org.junit.Assume.assumeTrue;
 
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.util.Log;
 
@@ -39,7 +40,13 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -264,6 +271,102 @@ public class NetworkCallbackTest extends AbstractRestrictBackgroundNetworkTestCa
             assertBackgroundNetworkAccess(true);
         } finally {
             mMeterednessConfiguration.resetNetworkMeteredness();
+        }
+    }
+
+    @RequiredProperties({DATA_SAVER_MODE})
+    @Test
+    public void testTalkToDeadServer_dataSaver() throws Exception {
+        final CompletableFuture<Void> ret1 = exerciseRemoteHostAsync(new URL("https://1.2.3.4"));
+        Thread.sleep(1000);
+
+        // Enable restrict background
+        Log.d("JUNYU", "setRestrictBackground+");
+        setRestrictBackground(true);
+        assertBackgroundNetworkAccess(false);
+        mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, true);
+        Thread.sleep(30_000);
+
+        Log.d("JUNYU", "setRestrictBackground-");
+
+        // Disable.
+        setRestrictBackground(false);
+        assertBackgroundNetworkAccess(true);
+        mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, false);
+
+        final CompletableFuture<Void> ret2 = exerciseRemoteHostAsync(new URL("https://5.6.7.8"));
+        Thread.sleep(1000);
+        Log.d("JUNYU", "setBatterySaverMode+");
+        // Enable power saver.
+        setBatterySaverMode(true);
+        assertBackgroundNetworkAccess(false);
+        mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, true);
+        Thread.sleep(30_000);
+        Log.d("JUNYU", "setBatterySaverMode-");
+
+        ret1.complete(null);
+        ret2.complete(null);
+    }
+
+    private CompletableFuture<Void> exerciseRemoteHostAsync(URL url) {
+        return CompletableFuture.runAsync(() -> {
+            try {
+                Log.d("JUNYU", "exerciseRemoteHost+");
+                exerciseRemoteHost(mCm.getActiveNetwork(), url);
+                Log.d("JUNYU", "exerciseRemoteHost-");
+            } catch (Exception e) {
+                Log.d("JUNYU", "exerciseRemoteHost e=" + e);
+            }
+        });
+    }
+
+    private void exerciseRemoteHost(Network network, URL url) throws Exception {
+        final int TIMEOUT_MILLIS = 60_000;
+        final String LOG_TAG = "JUNYU";
+        NetworkInfo networkInfo = mCm.getNetworkInfo(network);
+        if (networkInfo == null) {
+            Log.w(LOG_TAG, "Network info is null");
+        } else {
+            Log.w(LOG_TAG, "Network: " + networkInfo.toString());
+        }
+        InputStreamReader in = null;
+        HttpURLConnection urlc = null;
+        String originalKeepAlive = System.getProperty("http.keepAlive");
+        System.setProperty("http.keepAlive", "false");
+        try {
+            urlc = (HttpURLConnection) network.openConnection(url);
+            urlc.setConnectTimeout(TIMEOUT_MILLIS);
+            urlc.setReadTimeout(TIMEOUT_MILLIS);
+            urlc.setUseCaches(false);
+            // Disable compression so we generate enough traffic that assertWithinPercentage will
+            // not be affected by the small amount of traffic (5-10kB) sent by the test harness.
+            urlc.setRequestProperty("Accept-Encoding", "identity");
+            urlc.connect();
+            boolean ping = urlc.getResponseCode() == 200;
+            if (ping) {
+                in = new InputStreamReader((InputStream) urlc.getContent());
+                // Since the test doesn't really care about the precise amount of data, instead
+                // of reading all contents, just read few bytes at the beginning.
+                in.read();
+            }
+        } catch (Exception e) {
+            Log.i(LOG_TAG, "Badness during exercising remote server: " + e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    // don't care
+                }
+            }
+            if (urlc != null) {
+                urlc.disconnect();
+            }
+            if (originalKeepAlive == null) {
+                System.clearProperty("http.keepAlive");
+            } else {
+                System.setProperty("http.keepAlive", originalKeepAlive);
+            }
         }
     }
 

@@ -34,6 +34,11 @@ public class HostsideNetworkCallbackTests extends HostsideNetworkTestCase {
                 TEST_PKG + ".NetworkCallbackTest", "testOnBlockedStatusChanged_dataSaver");
     }
 
+    public void testTalkToDeadServer_dataSaver() throws Exception {
+        runDeviceTests(TEST_PKG,
+                TEST_PKG + ".NetworkCallbackTest", "testTalkToDeadServer_dataSaver");
+    }
+
     public void testOnBlockedStatusChanged_powerSaver() throws Exception {
         runDeviceTests(TEST_PKG,
                 TEST_PKG + ".NetworkCallbackTest", "testOnBlockedStatusChanged_powerSaver");
