@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a08065d_a9c3cbe6",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T07:46:01Z",
+      "side": 1,
+      "message": "Sorry, I just meant the waitForIdle() should be moved, not the assertNotNull. \n\nI think the autoKi can be null in some cases if there was error in the start, e.g. the ERROR_INVALID_IP_ADDRESS if mNai does not have the srcAddr?",
+      "range": {
+        "startLine": 646,
+        "startChar": 0,
+        "endLine": 646,
+        "endChar": 59
+      },
+      "revId": "16964ff07caf22a649fc12271eec4aa1bd239238",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "151078e5_3fe5098f",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T07:46:01Z",
+      "side": 1,
+      "message": "I just notice this did not have an assertNull(). Maybe add it here?",
+      "range": {
+        "startLine": 956,
+        "startChar": 8,
+        "endLine": 956,
+        "endChar": 26
+      },
+      "revId": "16964ff07caf22a649fc12271eec4aa1bd239238",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
