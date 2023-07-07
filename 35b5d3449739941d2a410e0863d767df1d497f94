@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2096a46d_00fa0c0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T03:16:37Z",
+      "side": 1,
+      "message": "Consider splitting the two fixes, they do not seem related?",
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e4a7c07_883a6d2c",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T03:16:37Z",
+      "side": 1,
+      "message": "The root cause might be this ? In the case of ALWAYS_ON keepalive, it copies the Fd instead of creating a copy with Os.dup so closing it early broke the test ?",
+      "range": {
+        "startLine": 244,
+        "startChar": 16,
+        "endLine": 244,
+        "endChar": 29
+      },
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d5a1fb4_120c3519",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T03:16:37Z",
+      "side": 1,
+      "message": "I think you are getting the ERROR_INVALID_IP_ADDRESS from here ? Since this method does not check for the v4 src address ?",
+      "range": {
+        "startLine": 307,
+        "startChar": 19,
+        "endLine": 307,
+        "endChar": 43
+      },
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39fb8ede_72d114be",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T03:16:37Z",
+      "side": 1,
+      "message": "Does this actually cause a ERROR_INVALID_IP_ADDRESS?",
+      "range": {
+        "startLine": 557,
+        "startChar": 49,
+        "endLine": 557,
+        "endChar": 59
+      },
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25e95299_d601bee2",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T03:16:37Z",
+      "side": 1,
+      "message": "Consider creating a helper method doStartTcpKeepalive() since this seems to be the same as testStartTcpKeepalive_fdInitiatedStop.",
+      "range": {
+        "startLine": 629,
+        "startChar": 8,
+        "endLine": 645,
+        "endChar": 50
+      },
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84d5e29e_7996d026",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T03:16:37Z",
+      "side": 1,
+      "message": "`HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);` should be added.",
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114e0211_87fb5873",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T03:16:37Z",
+      "side": 1,
+      "message": "Maybe add `verifyNoMoreInteractions(ignoreStubs(testInfo.socketKeepaliveCallback));`",
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
