@@ -114,6 +114,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51ee3a47_d136025f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-07T08:47:26Z",
+      "side": 1,
+      "message": "Similarly, could you have a doAnswer mock for postMessageDelayed ? This would avoid the need to call verifyDelayedMessageScheduled, which is a bit hard to follow / get right.\n\nYou can then just check if there\u0027s a message scheduled by assertNotNull(delayMessage), if necessary",
+      "revId": "bee10da911da18ee207d4f930ecd4f93fa1f3474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c615273_6227883a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-07T08:47:26Z",
+      "side": 1,
+      "message": "How about clearing the message after sending it ? This would avoid potentially dispatching it twice, and make it easier to know if something new was scheduled or not",
+      "revId": "bee10da911da18ee207d4f930ecd4f93fa1f3474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd93cba4_7cc8318b",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
         "patchSetId": 6
