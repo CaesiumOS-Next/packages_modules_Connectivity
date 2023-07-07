@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "095eaaee_742b684c",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T06:08:24Z",
+      "side": 1,
+      "message": "According to the comment above, the mFd can be null. Maybe you need a check for that here?",
+      "range": {
+        "startLine": 245,
+        "startChar": 26,
+        "endLine": 245,
+        "endChar": 41
+      },
+      "revId": "e5c3697356f9a1d238fa5e66255ef6ea99b05ffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87d9a1f6_f9b4ca2c",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-07T06:08:24Z",
+      "side": 1,
+      "message": "Alternatively, add a if check for STATE_ALWAYS_ON here.",
+      "range": {
+        "startLine": 504,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 27
+      },
+      "revId": "e5c3697356f9a1d238fa5e66255ef6ea99b05ffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
