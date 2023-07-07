@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd05ccf3_0b97cb8f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-07T08:30:11Z",
+      "side": 1,
+      "message": "Thanks, but I don\u0027t think moving it to setUp() is easy. When creating the downstreamIface, we need to have a try/catch block to make sure if anything goes wrong, we still cleanup the status properly.\n\nI made the code structure similar to what we have in EthernetTetheringTest.\n\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/tests/integration/src/android/net/EthernetTetheringTest.java;l\u003d163?q\u003dEthernetTetherin",
+      "parentUuid": "e0460a1c_99ca069c",
+      "range": {
+        "startLine": 76,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 13
+      },
+      "revId": "820582218d0ae6f0eedc14b08dedeb8edb6d0707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "627c2552_de1256f0",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-07-07T07:05:23Z",
       "side": 1,
       "message": "IIUC, this test has ConnectivityModuleTest annnotiation, which means it will test against latest connectivity module. So it does not need to use the shim here, right?",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 92,
+        "endChar": 19
+      },
+      "revId": "820582218d0ae6f0eedc14b08dedeb8edb6d0707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4f3f383_be2bf46c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-07T08:30:11Z",
+      "side": 1,
+      "message": "Good point, I think we don\u0027t need the shim here. Updated to remove the shim. @reminv, please advise if you have any concern here.",
+      "parentUuid": "627c2552_de1256f0",
       "range": {
         "startLine": 92,
         "startChar": 12,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "910dfd0f_078f7955",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-07T08:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f4974bf_fde29221",
+      "range": {
+        "startLine": 93,
+        "startChar": 16,
+        "endLine": 93,
+        "endChar": 29
+      },
+      "revId": "820582218d0ae6f0eedc14b08dedeb8edb6d0707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f0802f4_09300636",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-07-07T07:05:23Z",
       "side": 1,
       "message": "setIncludeTestInterfaces(false)?",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 9
+      },
+      "revId": "820582218d0ae6f0eedc14b08dedeb8edb6d0707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba02cc2f_0e806336",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-07T08:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f0802f4_09300636",
       "range": {
         "startLine": 103,
         "startChar": 8,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c80d475f_71fc8822",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-07T08:30:11Z",
+      "side": 1,
+      "message": "Hmm, I don\u0027t know how to do it correctly. The downstreamIface will need to be initialized inside try/catch block as `createTestInterface()` could throw exception. We also need to refer to this variable in cleanup block. So it has to be declared outside tryTest block.....\n\nI discussed with Remi offline, it seems we don\u0027t have better kotlin solution to solve this issue.",
+      "parentUuid": "dfbed368_3fe994d8",
+      "range": {
+        "startLine": 121,
+        "startChar": 12,
+        "endLine": 121,
+        "endChar": 51
+      },
+      "revId": "820582218d0ae6f0eedc14b08dedeb8edb6d0707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a394b7c8_23c9f243",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-07-07T07:05:23Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 143,
+        "startChar": 16,
+        "endLine": 143,
+        "endChar": 32
+      },
+      "revId": "820582218d0ae6f0eedc14b08dedeb8edb6d0707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62661a8d_bb46d171",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-07T08:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a394b7c8_23c9f243",
       "range": {
         "startLine": 143,
         "startChar": 16,
