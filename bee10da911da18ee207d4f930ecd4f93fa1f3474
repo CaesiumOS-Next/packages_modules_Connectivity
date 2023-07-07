@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fbdbf1e_fe77f89b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-07T07:54:41Z",
+      "side": 1,
+      "message": "The next change will remove these `Lock`.",
+      "parentUuid": "ab479b06_03d610a3",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 22
+      },
+      "revId": "bee10da911da18ee207d4f930ecd4f93fa1f3474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f67e1ab8_e3220aef",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c17b0800_7df2f1b9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-07T07:54:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f67e1ab8_e3220aef",
+      "range": {
+        "startLine": 285,
+        "startChar": 17,
+        "endLine": 285,
+        "endChar": 40
+      },
+      "revId": "bee10da911da18ee207d4f930ecd4f93fa1f3474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd93cba4_7cc8318b",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-07-06T04:21:42Z",
       "side": 1,
       "message": "Maybe better to rename this variable to sth. else because it count the number of times `sendMessageDelayed` is called. `scheduleTimes` seems to be the time the task is scheduled. \n\nMaybe `scheduledCount` is better?",
+      "range": {
+        "startLine": 1542,
+        "startChar": 31,
+        "endLine": 1542,
+        "endChar": 44
+      },
+      "revId": "bee10da911da18ee207d4f930ecd4f93fa1f3474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaaabefd_952e4bcb",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1542,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-07T07:54:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd93cba4_7cc8318b",
       "range": {
         "startLine": 1542,
         "startChar": 31,
