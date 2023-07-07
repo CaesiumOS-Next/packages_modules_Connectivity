@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f44142cd_92b11ab3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-07T05:19:21Z",
+      "side": 1,
+      "message": "Updated to two comimts.",
+      "parentUuid": "2096a46d_00fa0c0c",
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e4a7c07_883a6d2c",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-07-07T03:16:37Z",
       "side": 1,
       "message": "The root cause might be this ? In the case of ALWAYS_ON keepalive, it copies the Fd instead of creating a copy with Os.dup so closing it early broke the test ?",
+      "range": {
+        "startLine": 244,
+        "startChar": 16,
+        "endLine": 244,
+        "endChar": 29
+      },
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8efd0938_2c64bf87",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-07T05:19:21Z",
+      "side": 1,
+      "message": "oh! Good catch! It\u0027s caused by this.",
+      "parentUuid": "8e4a7c07_883a6d2c",
       "range": {
         "startLine": 244,
         "startChar": 16,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ebbb622_eb828853",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-07T05:19:21Z",
+      "side": 1,
+      "message": "Yes, it\u0027s actually the setup error in the test. It should not cause this error. Update commit accordingly.",
+      "parentUuid": "9d5a1fb4_120c3519",
+      "range": {
+        "startLine": 307,
+        "startChar": 19,
+        "endLine": 307,
+        "endChar": 43
+      },
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39fb8ede_72d114be",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-07-07T03:16:37Z",
       "side": 1,
       "message": "Does this actually cause a ERROR_INVALID_IP_ADDRESS?",
+      "range": {
+        "startLine": 557,
+        "startChar": 49,
+        "endLine": 557,
+        "endChar": 59
+      },
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8b9bacf_9ba6d628",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-07T05:19:21Z",
+      "side": 1,
+      "message": "Yes, here won\u0027t cause ERROR_INVALID_IP_ADDRESS. Sorry for confusing you in the test. This is added for code correctness. This does not cause any error. See updated test.",
+      "parentUuid": "39fb8ede_72d114be",
       "range": {
         "startLine": 557,
         "startChar": 49,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb2009e7_5f87ab05",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-07T05:19:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25e95299_d601bee2",
+      "range": {
+        "startLine": 629,
+        "startChar": 8,
+        "endLine": 645,
+        "endChar": 50
+      },
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84d5e29e_7996d026",
@@ -127,6 +241,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51f516d3_7d3635c4",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-07T05:19:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84d5e29e_7996d026",
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "114e0211_87fb5873",
@@ -140,6 +272,24 @@
       "writtenOn": "2023-07-07T03:16:37Z",
       "side": 1,
       "message": "Maybe add `verifyNoMoreInteractions(ignoreStubs(testInfo.socketKeepaliveCallback));`",
+      "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7fc18ad_4b05a4ea",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-07T05:19:21Z",
+      "side": 1,
+      "message": "obsolete",
+      "parentUuid": "114e0211_87fb5873",
       "revId": "35b5d3449739941d2a410e0863d767df1d497f94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
