@@ -241,7 +241,12 @@ public class AutomaticOnOffKeepaliveTracker {
                 // A null fd is acceptable in KeepaliveInfo for backward compatibility of
                 // PacketKeepalive API, but it must never happen with automatic keepalives.
                 // TODO : remove mFd from KeepaliveInfo or from this class.
-                mFd = ki.mFd;
+                try {
+                    mFd = Os.dup(ki.mFd);
+                } catch (ErrnoException e) {
+                    Log.e(TAG, "Cannot dup fd: ", e);
+                    throw new InvalidSocketException(ERROR_INVALID_SOCKET, e);
+                }
                 mAlarmListener = null;
             }
         }
