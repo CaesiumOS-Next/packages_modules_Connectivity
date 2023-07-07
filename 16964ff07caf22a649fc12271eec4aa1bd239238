@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2586494e_a906335d",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-07T07:56:19Z",
+      "side": 1,
+      "message": "As discussed offline, I think verifying binder in testStartTcpKeepalive_addressTranslationOnClat does not provide too much further information as we already verify the keepalive is starte. Just remove this from here.",
+      "parentUuid": "0a08065d_a9c3cbe6",
+      "range": {
+        "startLine": 646,
+        "startChar": 0,
+        "endLine": 646,
+        "endChar": 59
+      },
+      "revId": "16964ff07caf22a649fc12271eec4aa1bd239238",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "151078e5_3fe5098f",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-07T07:46:01Z",
       "side": 1,
       "message": "I just notice this did not have an assertNull(). Maybe add it here?",
+      "range": {
+        "startLine": 956,
+        "startChar": 8,
+        "endLine": 956,
+        "endChar": 26
+      },
+      "revId": "16964ff07caf22a649fc12271eec4aa1bd239238",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f27cc5bf_828331bf",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-07T07:56:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "151078e5_3fe5098f",
       "range": {
         "startLine": 956,
         "startChar": 8,
