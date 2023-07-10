@@ -129,6 +129,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4be1060_2e826eac",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-10T02:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51ee3a47_d136025f",
+      "revId": "bee10da911da18ee207d4f930ecd4f93fa1f3474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c615273_6227883a",
@@ -142,6 +160,24 @@
       "writtenOn": "2023-07-07T08:47:26Z",
       "side": 1,
       "message": "How about clearing the message after sending it ? This would avoid potentially dispatching it twice, and make it easier to know if something new was scheduled or not",
+      "revId": "bee10da911da18ee207d4f930ecd4f93fa1f3474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55d0f5e0_a801c2f5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-10T02:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c615273_6227883a",
       "revId": "bee10da911da18ee207d4f930ecd4f93fa1f3474",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
