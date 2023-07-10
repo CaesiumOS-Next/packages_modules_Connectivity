@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab5ecbcf_298e62ae",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 0,
+      "message": "How about moving this and NsdResolveRecord, NsdServiceInfoCallbackRecord as well ? Better have all at the same place I think",
+      "revId": "b9547712f6e5d9ef3c1bf87fe040e3e796515bf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

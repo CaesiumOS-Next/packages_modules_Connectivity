@@ -1,0 +1,272 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f780e1e6_8392d9fe",
+        "filename": "tests/cts/net/src/android/net/cts/MdnsTestUtils.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "Nit: private for these 2 too ?",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33f50727_5b4d400b",
+        "filename": "tests/cts/net/src/android/net/cts/MdnsTestUtils.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "I think this shouldn\u0027t be needed anymore, because at build time, all active code branches have the newest APIs. And at runtime, if the tests are running on T+ with @ConnectivityModuleTest, they will always run with the newest NsdManager.\n\nSo this should be able to use NsdManager directly",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1eb01ac_e9504638",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "In Kotlin you should use the kotlin.test.assert* family. Then if you call kotlin.test.assertNotNull for a \"val\", the compiler will consider it non-null after the call.",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "010c2f4f_1aac2dae",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "But this isn\u0027t used in this class, maybe it\u0027s not necessary ?",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ef1e724_3c488e48",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "Nit: a bit more specific name would be better, like \"testMdnsDiscoveryFindsService...\" ?",
+      "range": {
+        "startLine": 72,
+        "startChar": 25,
+        "endLine": 72,
+        "endChar": 29
+      },
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ee19fd_ef970e40",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "Actually, as per previous comment I think it doesn\u0027t",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3860afbe_89ace234",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "Why is this necessary ? Maybe it should be in the parent class and/or in setUp ? This test hasn\u0027t posted any message at this point I think",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "800a5109_a0de003a",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "Instead of `!!` (which should generally be avoided), you can `assertEquals(downstreamIface?.interfaceName, iface)`",
+      "range": {
+        "startLine": 89,
+        "startChar": 31,
+        "endLine": 89,
+        "endChar": 33
+      },
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64bf21c8_ee075b77",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "Here you could do:\n\n```\ntetheringEventCallback \u003d enableEthernetTethering(...).apply {\n    awaitInterfaceLocalOnly()\n}\n```",
+      "range": {
+        "startLine": 97,
+        "startChar": 34,
+        "endLine": 97,
+        "endChar": 36
+      },
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88933e85_b6b49f57",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "Should the reader be created earlier than this, for example just after createTestInterface ? If the RA can arrive at any time after calling enableEthernetTethering, maybe it could be missed here ?",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "528d5ee0_41056f1f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "`?` instead of `!!` would work here too",
+      "range": {
+        "startLine": 104,
+        "startChar": 42,
+        "endLine": 104,
+        "endChar": 44
+      },
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a82e53f2_0f4d84f4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "Nit: I think the reader should be stopped before closing the interface, or it might see errors",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e242e54_6970492c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "Alternatively you could work with \"val\" in the tryTest by doing something like:\n\n```\nvar ifaceToCleanup: TestNetworkInterface? \u003d null\n\ntryTest {\n    val downstreamIface \u003d createTestInterface()\n    ifaceToCleanup \u003d downstreamIface\n    \n    // assertNotNull of a val will auto-infer it to non-null afterwards\n    assertNotNull(downstreamIface)\n    ...\n}\n```\n\nOtherwise here one option could be:\n\n```\nval fd \u003d downstreamIface?.fileDescriptor?.fileDescriptor\nassertNotNull(fd)\n```",
+      "range": {
+        "startLine": 150,
+        "startChar": 36,
+        "endLine": 150,
+        "endChar": 38
+      },
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3da764dd_e83626ce",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T10:14:45Z",
+      "side": 1,
+      "message": "It would be interesting to send a reply packet by writing it to the interface fd, and verify the ServiceFound callbacks.\n\nThat can be added in a followup though.",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
