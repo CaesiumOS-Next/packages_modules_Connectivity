@@ -106,6 +106,24 @@
       "parentUuid": "92496ecc_db56539b",
       "revId": "7fc2fcd6b4b56650edde81ce9e2bf94b415e7a3d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faab7de4_35e97ffd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-10T08:57:56Z",
+      "side": 1,
+      "message": "That\u0027s really a question for Remi - My (possibly incorrect)\nunderstanding is TetheringNext is a debugging/development tool (using\nunstable apis - ie. before they\u0027re stabilized) and not meant to be\nused outside of that.\nIt might not matter for the non-updatable case though??\n\nOn Mon, Jul 10, 2023 at 10:09 AM DingFei Song (Gerrit)\n\u003cnoreply-gerritcodereview-_ODXp_-A1VFs_B62kQCV7g\u003d\u003d@google.com\u003e wrote:",
+      "tag": "mailMessageId\u003d\u003cCANP3RGf0rnO+2ie\u003dDXaOEFum6jazRnwCnqYs_HKhJDTuA-UxcQ@mail.gmail.com\u003e",
+      "revId": "7fc2fcd6b4b56650edde81ce9e2bf94b415e7a3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
