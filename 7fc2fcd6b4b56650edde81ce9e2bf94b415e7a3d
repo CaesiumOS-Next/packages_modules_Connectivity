@@ -88,6 +88,24 @@
       "parentUuid": "9331e916_757aa052",
       "revId": "7fc2fcd6b4b56650edde81ce9e2bf94b415e7a3d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3668067_1e775c22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1901747
+      },
+      "writtenOn": "2023-07-10T08:09:03Z",
+      "side": 1,
+      "message": "Hi @maze@google.com, @reminv@google.com\nThanks for your kind reply. Could I know the difference between Tethering and TetheringNext? Should we use Tethering or TetheringNext?",
+      "parentUuid": "92496ecc_db56539b",
+      "revId": "7fc2fcd6b4b56650edde81ce9e2bf94b415e7a3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
