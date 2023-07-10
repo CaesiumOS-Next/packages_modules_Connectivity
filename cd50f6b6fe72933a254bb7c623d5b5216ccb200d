@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ae4adb7_9abff495",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2023-07-10T20:37:21Z",
+      "side": 1,
+      "message": "I added a test, but I haven\u0027t been able to build and verify it yet; might not work",
+      "parentUuid": "91d1150f_5facba40",
+      "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "555cdede_04c34017",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 1
@@ -48,6 +66,30 @@
       "writtenOn": "2023-07-06T05:58:53Z",
       "side": 1,
       "message": "\u003e if it is still present in any of the previously-supplied ranges that\nhave yet to be removed\n\nIs the case this CL tries to support not following this contract?",
+      "range": {
+        "startLine": 1015,
+        "startChar": 34,
+        "endLine": 1016,
+        "endChar": 67
+      },
+      "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39bd3fe9_562f202f",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2023-07-10T20:37:21Z",
+      "side": 1,
+      "message": "I\u0027m not sure why the comments say that ranges can \"contain the range that is already subject to lockdown\", since that seems wrong, prior to this change; removal in such cases should lead to the same problem as if they overlap, but maybe I\u0027m not understanding the comments correctly.\n\nOtherwise, yes, after this change, that highlighted text should no longer be correct. I updated it, can undo or adjust if you want",
+      "parentUuid": "555cdede_04c34017",
       "range": {
         "startLine": 1015,
         "startChar": 34,
@@ -148,6 +190,30 @@
       "side": 1,
       "message": "Sorry for the delay.\nYes, I think this change makes sense.\nI have added some comments.",
       "parentUuid": "91c1daa8_192eab89",
+      "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "324adae6_548f7c7e",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2023-07-10T20:37:21Z",
+      "side": 1,
+      "message": "True, thank you. Done",
+      "parentUuid": "afceade2_8982c129",
+      "range": {
+        "startLine": 1050,
+        "startChar": 57,
+        "endLine": 1051,
+        "endChar": 81
+      },
       "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
