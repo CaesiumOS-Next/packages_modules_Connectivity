@@ -16,6 +16,80 @@
       "message": "https://issues.gerritcodereview.com/issues?q\u003did%3A(289969903%7C289877526%7C289895906%7C289969899%7C40015471%7C40013889%7C40012794%7C40011977%7C40011502%7C40010555%7C40010287%7C40010282%7C40010160%7C40010134%7C40010081%7C40010004%7C40009906%7C40009894%7C40009802%7C40009797%7C40009791%7C40009158%7C40009066%7C40008816%7C40008749)",
       "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91054ba3_2b995945",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T09:40:41Z",
+      "side": 1,
+      "message": "With the suggestion below to use a message, can this become static ?",
+      "range": {
+        "startLine": 691,
+        "startChar": 11,
+        "endLine": 691,
+        "endChar": 12
+      },
+      "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34160d68_f964b0a1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T09:40:41Z",
+      "side": 1,
+      "message": "With this pattern there\u0027s some QueryTasks that have outdated servicesToResolve and sendDiscoveryQueries values (when created in scheduleNextRun), but they\u0027re recreated before running.\n\nI think you actually want to have a separate ScheduledQueryTask data object to schedule the query, and a QueryTaskRunnable that is actually posted.\n\nSo maybe you could do things like:\n\n```\nprivate static class ScheduledQueryTask {\n    private final QueryTaskConfig config;\n    private final long timeToRun;\n    private final long minTtlExpirationTimeWhenScheduled;\n    private final long sessionId;\n}\n\nprivate static class QueryTaskRunnable implements Runnable {\n    private final ScheduledQueryTask scheduledTask;\n    private final List\u003cMdnsResponse\u003e servicesToResolve;\n    private final boolean sendDiscoveryQueries;\n    private final Handler postResultHandler;\n    \n    @Override\n    public void run() {\n        final Pair\u003cInteger, List\u003cString\u003e\u003e result \u003d\n            new EnqueueMdnsQueryCallable(...).call();\n        postResultHandler.postMessage(postResultHandler.obtainMessage(\n            EVENT_QUERY_SENT, new QuerySentResult(result, scheduledTask)));\n    }\n    \n}\n```",
+      "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a34f6214_1ccec467",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T09:40:41Z",
+      "side": 1,
+      "message": "It would be cleaner to post a message instead of posting a runnable, especially if inline here: with posted runnables it\u0027s not clear what the inputs or outputs are, since it has access to all captured variables in the parent runnable; and they\u0027re running on different threads.\n\nYou\u0027d need to have a result class for the msg.obj, which would have the 2 return values of EnqueueMdnsQueryCallable and the QueryTask (see the code suggestion above)",
+      "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92d8a104_efbffe61",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-10T09:40:41Z",
+      "side": 1,
+      "message": "As noted in a previous comment, this gets thrown away and recreated, so it\u0027s a bit wasteful and confusing.\n\nSee suggestion above to use separate objects for scheduling and actually running",
+      "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
