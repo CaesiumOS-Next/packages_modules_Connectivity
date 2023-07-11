@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f8d1521_52a2d2e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-11T09:24:42Z",
+      "side": 1,
+      "message": "Can we also remove the NsdShimImpl.java from NetworkStack?",
+      "revId": "462663906a91fb0f18081cfed19b2accc9463e74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
