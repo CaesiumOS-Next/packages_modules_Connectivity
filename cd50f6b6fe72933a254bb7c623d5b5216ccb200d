@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12ffc6b3_e03cf267",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2023-07-11T13:51:37Z",
+      "side": 1,
+      "message": "Updated test, works now, failing pre-change and passing post-change.",
+      "parentUuid": "8ae4adb7_9abff495",
+      "revId": "cd50f6b6fe72933a254bb7c623d5b5216ccb200d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "555cdede_04c34017",
