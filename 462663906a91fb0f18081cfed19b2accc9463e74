@@ -50,6 +50,24 @@
       "message": "shouldTestTApis assertions shouldn\u0027t be necessary anymore with the shims removed, since the class already has @IgnoreUpTo(Build.VERSION_CODES.S_V2)",
       "revId": "462663906a91fb0f18081cfed19b2accc9463e74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a57d2de4_086c1a0b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T09:45:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f3595a0_7d5f1427",
+      "revId": "462663906a91fb0f18081cfed19b2accc9463e74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
