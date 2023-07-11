@@ -16,6 +16,24 @@
       "message": "Nit: it would be better to have separate named members for each",
       "revId": "c289f923e70c1d3b644b3053180627e680a84051",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8776f803_ff55296e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-11T14:41:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1feb9f41_d84dfd5b",
+      "revId": "c289f923e70c1d3b644b3053180627e680a84051",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
