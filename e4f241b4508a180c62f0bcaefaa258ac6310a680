@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aa366b8_1bf35f55",
+        "filename": "tests/cts/net/src/android/net/cts/MdnsTestUtils.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "It cannot be private, otherwise, we can not refer it in inline function like follows:\n\n```\n    inline fun \u003creified V : NsdEvent\u003e expectCallbackEventually(\n        timeoutMs: Long \u003d MDNS_CALLBACK_TIMEOUT,\n        crossinline predicate: (V) -\u003e Boolean \u003d { true }\n```",
+      "parentUuid": "f780e1e6_8392d9fe",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33f50727_5b4d400b",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-07-10T10:14:45Z",
       "side": 1,
       "message": "I think this shouldn\u0027t be needed anymore, because at build time, all active code branches have the newest APIs. And at runtime, if the tests are running on T+ with @ConnectivityModuleTest, they will always run with the newest NsdManager.\n\nSo this should be able to use NsdManager directly",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1969e045_e66d5aa8",
+        "filename": "tests/cts/net/src/android/net/cts/MdnsTestUtils.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33f50727_5b4d400b",
       "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1df1d20_cd5654cc",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1eb01ac_e9504638",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "010c2f4f_1aac2dae",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-07-10T10:14:45Z",
       "side": 1,
       "message": "But this isn\u0027t used in this class, maybe it\u0027s not necessary ?",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "629e5cb8_511caea7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "010c2f4f_1aac2dae",
       "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -92,6 +164,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "977787bd_34812a8a",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ef1e724_3c488e48",
+      "range": {
+        "startLine": 72,
+        "startChar": 25,
+        "endLine": 72,
+        "endChar": 29
+      },
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6ee19fd_ef970e40",
@@ -105,6 +201,24 @@
       "writtenOn": "2023-07-10T10:14:45Z",
       "side": 1,
       "message": "Actually, as per previous comment I think it doesn\u0027t",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccdc3593_aa2acfd6",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6ee19fd_ef970e40",
       "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -126,6 +240,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e0cc723_5f762151",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Thanks, I agree the waitForIdle statement here is unnecessary. Removed.",
+      "parentUuid": "3860afbe_89ace234",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "800a5109_a0de003a",
@@ -139,6 +271,30 @@
       "writtenOn": "2023-07-10T10:14:45Z",
       "side": 1,
       "message": "Instead of `!!` (which should generally be avoided), you can `assertEquals(downstreamIface?.interfaceName, iface)`",
+      "range": {
+        "startLine": 89,
+        "startChar": 31,
+        "endLine": 89,
+        "endChar": 33
+      },
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cd599ec_dd8f0cd4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "800a5109_a0de003a",
       "range": {
         "startLine": 89,
         "startChar": 31,
@@ -172,6 +328,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7043452_04312cdb",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64bf21c8_ee075b77",
+      "range": {
+        "startLine": 97,
+        "startChar": 34,
+        "endLine": 97,
+        "endChar": 36
+      },
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88933e85_b6b49f57",
@@ -185,6 +365,24 @@
       "writtenOn": "2023-07-10T10:14:45Z",
       "side": 1,
       "message": "Should the reader be created earlier than this, for example just after createTestInterface ? If the RA can arrive at any time after calling enableEthernetTethering, maybe it could be missed here ?",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "945993ae_8d7ee972",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "As discussed offline, added the comment to describe why it won\u0027t be flaky.",
+      "parentUuid": "88933e85_b6b49f57",
       "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -212,6 +410,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "643a4b52_b85b5901",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "528d5ee0_41056f1f",
+      "range": {
+        "startLine": 104,
+        "startChar": 42,
+        "endLine": 104,
+        "endChar": 44
+      },
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a82e53f2_0f4d84f4",
@@ -225,6 +447,24 @@
       "writtenOn": "2023-07-10T10:14:45Z",
       "side": 1,
       "message": "Nit: I think the reader should be stopped before closing the interface, or it might see errors",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee2ede4e_67feebcc",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a82e53f2_0f4d84f4",
       "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -252,6 +492,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "548c4845_69ef3076",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e242e54_6970492c",
+      "range": {
+        "startLine": 150,
+        "startChar": 36,
+        "endLine": 150,
+        "endChar": 38
+      },
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3da764dd_e83626ce",
@@ -265,6 +529,24 @@
       "writtenOn": "2023-07-10T10:14:45Z",
       "side": 1,
       "message": "It would be interesting to send a reply packet by writing it to the interface fd, and verify the ServiceFound callbacks.\n\nThat can be added in a followup though.",
+      "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9038c5d_d088a412",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T03:20:15Z",
+      "side": 1,
+      "message": "Thanks. I think I will added a TODO item here as a follow up. I would like to kept this two test simple enough to just test the downstream tethering interface can be bring up and the socket can be used. \n\nFor testing the reply, maybe it should be in a separate test",
+      "parentUuid": "3da764dd_e83626ce",
       "revId": "e4f241b4508a180c62f0bcaefaa258ac6310a680",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
