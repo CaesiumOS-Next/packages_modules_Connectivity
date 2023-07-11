@@ -16,6 +16,29 @@
       "message": "its amazing",
       "revId": "0fb7f7b7874d0298cc3b0b5179282eded84fc835",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad37f8d9_8e5a8a1e",
+        "filename": "framework/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-07-11T16:21:09Z",
+      "side": 1,
+      "message": "[low priority] from what we discussed today: we could try and add the wrapper sources to api_srcs instead and have the API depend on it directly.",
+      "range": {
+        "startLine": 128,
+        "startChar": 4,
+        "endLine": 128,
+        "endChar": 8
+      },
+      "revId": "0fb7f7b7874d0298cc3b0b5179282eded84fc835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
