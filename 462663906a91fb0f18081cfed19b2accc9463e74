@@ -16,6 +16,40 @@
       "message": "Can we also remove the NsdShimImpl.java from NetworkStack?",
       "revId": "462663906a91fb0f18081cfed19b2accc9463e74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6bec2a3_de8d091b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-11T09:26:59Z",
+      "side": 1,
+      "message": "LGTM with the comment resolved",
+      "revId": "462663906a91fb0f18081cfed19b2accc9463e74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f3595a0_7d5f1427",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-11T09:26:59Z",
+      "side": 1,
+      "message": "shouldTestTApis assertions shouldn\u0027t be necessary anymore with the shims removed, since the class already has @IgnoreUpTo(Build.VERSION_CODES.S_V2)",
+      "revId": "462663906a91fb0f18081cfed19b2accc9463e74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
