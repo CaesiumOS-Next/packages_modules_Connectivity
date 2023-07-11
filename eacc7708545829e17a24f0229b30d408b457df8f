@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5537a51c_ce335977",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-11T09:09:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38e42aaf_0bcd2ed1",
+      "range": {
+        "startLine": 358,
+        "startChar": 25,
+        "endLine": 358,
+        "endChar": 44
+      },
+      "revId": "eacc7708545829e17a24f0229b30d408b457df8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd597e57_b8b46749",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0ec9e27_1b7e49c3",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1536,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-11T09:09:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd597e57_b8b46749",
+      "range": {
+        "startLine": 1536,
+        "startChar": 16,
+        "endLine": 1536,
+        "endChar": 37
+      },
+      "revId": "eacc7708545829e17a24f0229b30d408b457df8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03f577db_7a938349",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-07-11T06:21:23Z",
       "side": 1,
       "message": "nit: could we use some meaningful subtype name instead of using the random string like \"ABCED\"?",
+      "range": {
+        "startLine": 1545,
+        "startChar": 32,
+        "endLine": 1545,
+        "endChar": 37
+      },
+      "revId": "eacc7708545829e17a24f0229b30d408b457df8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8d4714e_074336b6",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1545,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-11T09:09:40Z",
+      "side": 1,
+      "message": "All tests currently use the subtype \"ABCED\". I can update them to a meaningful subtype name in the followup change.",
+      "parentUuid": "03f577db_7a938349",
       "range": {
         "startLine": 1545,
         "startChar": 32,
