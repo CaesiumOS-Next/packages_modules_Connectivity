@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ecef501_cd4aa24c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7606,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-11T06:54:22Z",
+      "side": 1,
+      "message": "Nit: a comment to explain what the key is would be useful here",
+      "range": {
+        "startLine": 7606,
+        "startChar": 34,
+        "endLine": 7606,
+        "endChar": 40
+      },
+      "revId": "080ba4385c9df4a55a3dff6734b9c3dc9c977a16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8240449_30567004",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9482,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-11T06:54:22Z",
+      "side": 1,
+      "message": "I\u0027m guessing you didn\u0027t intend to leave this log ?",
+      "revId": "080ba4385c9df4a55a3dff6734b9c3dc9c977a16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55aff8af_92bac692",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 11887,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-11T06:54:22Z",
+      "side": 1,
+      "message": "Nit: can this be static ?",
+      "range": {
+        "startLine": 11887,
+        "startChar": 11,
+        "endLine": 11887,
+        "endChar": 12
+      },
+      "revId": "080ba4385c9df4a55a3dff6734b9c3dc9c977a16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40c3fc06_0073f267",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 11896,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-11T06:54:22Z",
+      "side": 1,
+      "message": "But this will happen if the preference is not USER_PREFERENCE_NO_NETWORK here\n\nShould you avoid creating the NRI in that case ?",
+      "range": {
+        "startLine": 11894,
+        "startChar": 85,
+        "endLine": 11896,
+        "endChar": 26
+      },
+      "revId": "080ba4385c9df4a55a3dff6734b9c3dc9c977a16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4869c624_3a8f8fb6",
+        "filename": "service/src/com/android/server/connectivity/UserNetworkPreferenceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-11T06:54:22Z",
+      "side": 1,
+      "message": "Nit: doesn\u0027t apply to int",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "080ba4385c9df4a55a3dff6734b9c3dc9c977a16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
