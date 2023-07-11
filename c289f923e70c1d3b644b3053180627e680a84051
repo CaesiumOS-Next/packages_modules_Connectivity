@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1feb9f41_d84dfd5b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-11T09:51:40Z",
+      "side": 1,
+      "message": "Nit: it would be better to have separate named members for each",
+      "revId": "c289f923e70c1d3b644b3053180627e680a84051",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -168,6 +168,24 @@
       "parentUuid": "92d8a104_efbffe61",
       "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "973fd140_ef6bdebe",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-11T09:51:40Z",
+      "side": 1,
+      "message": "makeResponsesForResolve is still called here in the latest patchset, and not actually used since it\u0027s calculated again when the message is processed. And a QueryTask is also created here, but not used either (it\u0027s not posted as-is).\n\nQueryTask should actually only be needed when posting to the runnable. I think you can replace `private QueryTask lastScheduledTask;` with `private ScheduledQueryTaskArgs lastScheduledTaskArgs;`, because all usages of lastScheduledTask only use lastScheduledTask.taskArgs.",
+      "parentUuid": "3c22fa32_c993c81e",
+      "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
