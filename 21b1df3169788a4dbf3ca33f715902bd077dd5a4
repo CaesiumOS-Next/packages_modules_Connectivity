@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b84275f_d2f5b842",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T07:08:36Z",
+      "side": 1,
+      "message": "Maybe rename to `getMinRemainingTtl`?",
+      "range": {
+        "startLine": 357,
+        "startChar": 16,
+        "endLine": 357,
+        "endChar": 32
+      },
+      "revId": "21b1df3169788a4dbf3ca33f715902bd077dd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df197bd5_2246b10a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T07:08:36Z",
+      "side": 1,
+      "message": "Do we want to put some debug log to the logcat or is it better to put sth. into sharedLog?",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 247,
+        "endChar": 14
+      },
+      "revId": "21b1df3169788a4dbf3ca33f715902bd077dd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a211336c_39fe9aec",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T07:08:36Z",
+      "side": 1,
+      "message": "I think we also use the term smallestTtl/minTtl somewhere else and we gradually convert it to minTtl/minRemainingTtl. Could we also make sure we use same term in this CL?",
+      "range": {
+        "startLine": 255,
+        "startChar": 13,
+        "endLine": 255,
+        "endChar": 28
+      },
+      "revId": "21b1df3169788a4dbf3ca33f715902bd077dd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "857333a0_a75adb23",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T07:08:36Z",
+      "side": 1,
+      "message": "Because we want to turn on the flag anyway, maybe we should remove this `shouldRemoveServiceAfterTtlExpires`?",
+      "range": {
+        "startLine": 324,
+        "startChar": 12,
+        "endLine": 324,
+        "endChar": 46
+      },
+      "revId": "21b1df3169788a4dbf3ca33f715902bd077dd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
