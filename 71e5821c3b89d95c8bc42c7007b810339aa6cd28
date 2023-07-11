@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bb7d5ec_50c1cdc9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-11T05:05:14Z",
+      "side": 1,
+      "message": "No,  there are some local variables that is still used in run() method.",
+      "parentUuid": "91054ba3_2b995945",
+      "range": {
+        "startLine": 691,
+        "startChar": 11,
+        "endLine": 691,
+        "endChar": 12
+      },
+      "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34160d68_f964b0a1",
@@ -54,6 +78,24 @@
       "writtenOn": "2023-07-10T09:40:41Z",
       "side": 1,
       "message": "With this pattern there\u0027s some QueryTasks that have outdated servicesToResolve and sendDiscoveryQueries values (when created in scheduleNextRun), but they\u0027re recreated before running.\n\nI think you actually want to have a separate ScheduledQueryTask data object to schedule the query, and a QueryTaskRunnable that is actually posted.\n\nSo maybe you could do things like:\n\n```\nprivate static class ScheduledQueryTask {\n    private final QueryTaskConfig config;\n    private final long timeToRun;\n    private final long minTtlExpirationTimeWhenScheduled;\n    private final long sessionId;\n}\n\nprivate static class QueryTaskRunnable implements Runnable {\n    private final ScheduledQueryTask scheduledTask;\n    private final List\u003cMdnsResponse\u003e servicesToResolve;\n    private final boolean sendDiscoveryQueries;\n    private final Handler postResultHandler;\n    \n    @Override\n    public void run() {\n        final Pair\u003cInteger, List\u003cString\u003e\u003e result \u003d\n            new EnqueueMdnsQueryCallable(...).call();\n        postResultHandler.postMessage(postResultHandler.obtainMessage(\n            EVENT_QUERY_SENT, new QuerySentResult(result, scheduledTask)));\n    }\n    \n}\n```",
+      "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40189d56_d98df278",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-11T05:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34160d68_f964b0a1",
       "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -75,6 +117,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d72be5_0cb4e5d1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-11T05:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a34f6214_1ccec467",
+      "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92d8a104_efbffe61",
@@ -88,6 +148,24 @@
       "writtenOn": "2023-07-10T09:40:41Z",
       "side": 1,
       "message": "As noted in a previous comment, this gets thrown away and recreated, so it\u0027s a bit wasteful and confusing.\n\nSee suggestion above to use separate objects for scheduling and actually running",
+      "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c22fa32_c993c81e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-11T05:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92d8a104_efbffe61",
       "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
