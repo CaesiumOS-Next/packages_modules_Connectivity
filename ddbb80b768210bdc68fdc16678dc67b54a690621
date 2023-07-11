@@ -16,6 +16,23 @@
       "message": "Latest patchset LGTM",
       "revId": "ddbb80b768210bdc68fdc16678dc67b54a690621",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cd5cdb1_0ca816a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-11T08:19:35Z",
+      "side": 1,
+      "message": "@vtrifonov@google.com, as discussed, could you help reviewing this CL when you have time? Thanks!",
+      "revId": "ddbb80b768210bdc68fdc16678dc67b54a690621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
