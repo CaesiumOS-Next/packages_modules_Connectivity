@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "665e67d9_a62ec1b1",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-11T06:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9136c0a8_42551cb4",
+      "revId": "200f7c7600cbc6baccc7bfa60b637eca49321876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "390d2999_0eb6114b",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-07-05T04:21:10Z",
       "side": 1,
       "message": "Readers like BufferedReader also convert the input data into text; if we\u0027re trying to speed up the read but don\u0027t care about the content, this is a bit wasteful.\n\nI think you\u0027d want BufferedInputStream instead",
+      "revId": "200f7c7600cbc6baccc7bfa60b637eca49321876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad34ffc9_2aa84a15",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-11T06:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "390d2999_0eb6114b",
       "revId": "200f7c7600cbc6baccc7bfa60b637eca49321876",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b328b5d1_888af565",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-11T06:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "951d00f4_cc02038a",
+      "revId": "200f7c7600cbc6baccc7bfa60b637eca49321876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f346116_969554fb",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-07-05T04:21:10Z",
       "side": 1,
       "message": "Errorprone in the last change also said:\n\n    [WaitNotInLoop] Because of spurious wakeups, wait(long) must always be called in a loop\n\nI think this is also a possible cause of flake here: if the wait returns while the request isn\u0027t actually complete maybe ?\n\nYou could fix it in another change if you prefer but this should probably be addressed anyway.",
+      "revId": "200f7c7600cbc6baccc7bfa60b637eca49321876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c66f13bd_de15071e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-11T06:00:51Z",
+      "side": 1,
+      "message": "Done in \nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2652743",
+      "parentUuid": "9f346116_969554fb",
       "revId": "200f7c7600cbc6baccc7bfa60b637eca49321876",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
