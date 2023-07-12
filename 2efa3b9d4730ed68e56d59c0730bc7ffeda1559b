@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f38c0b0_9a1ced0a",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-12T09:31:46Z",
+      "side": 1,
+      "message": "I think it makes more sense if the assert is outside, `assertTrue(visibleOnHandlerThread(...))`.\n\nNote this works because visibleOnHandlerThread returns the value.",
+      "range": {
+        "startLine": 412,
+        "startChar": 22,
+        "endLine": 412,
+        "endChar": 32
+      },
+      "revId": "2efa3b9d4730ed68e56d59c0730bc7ffeda1559b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ad9f7ff_e790a2f1",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-12T09:31:46Z",
+      "side": 1,
+      "message": "One of the waitForIdle can be removed here.\nBut the second one is still needed.",
+      "range": {
+        "startLine": 505,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 59
+      },
+      "revId": "2efa3b9d4730ed68e56d59c0730bc7ffeda1559b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cd4295d_05b5feca",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-12T09:31:46Z",
+      "side": 1,
+      "message": "Also can be removed.",
+      "range": {
+        "startLine": 529,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 59
+      },
+      "revId": "2efa3b9d4730ed68e56d59c0730bc7ffeda1559b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
