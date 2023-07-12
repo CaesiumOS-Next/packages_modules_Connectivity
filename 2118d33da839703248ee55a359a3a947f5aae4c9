@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b93e1378_d9fdfcdb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-12T10:12:51Z",
+      "side": 1,
+      "message": "nit: better to document what is the return value.",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 38
+      },
+      "revId": "2118d33da839703248ee55a359a3a947f5aae4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "708b9563_4f53bd85",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-12T10:12:51Z",
+      "side": 1,
+      "message": "nit: can make -1 a const value to refer to. It will increase the redability",
+      "range": {
+        "startLine": 112,
+        "startChar": 35,
+        "endLine": 112,
+        "endChar": 37
+      },
+      "revId": "2118d33da839703248ee55a359a3a947f5aae4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0dafd0c9_94b28ac2",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 10
@@ -14,6 +60,52 @@
       "writtenOn": "2023-07-12T08:22:05Z",
       "side": 1,
       "message": "It\u0027s important to note that this check is critical now, because if a task is cancelled while the Executor is running it, EVENT_QUERY_RESULT will still be sent when it ends.\n\nSo I think this feature check should be removed, the code would sometimes really schedule tasks indefinitely without it.\n\nNot for this change though.",
+      "revId": "2118d33da839703248ee55a359a3a947f5aae4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "410ca02f_5e842cb5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-12T10:12:51Z",
+      "side": 1,
+      "message": "also here, better to use a const value.",
+      "range": {
+        "startLine": 119,
+        "startChar": 53,
+        "endLine": 119,
+        "endChar": 55
+      },
+      "revId": "2118d33da839703248ee55a359a3a947f5aae4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abbf174e_a6bb1355",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-12T10:12:51Z",
+      "side": 1,
+      "message": "nit: QuerySentResult seems not to be redundant. Maybe rename it to QueryResult or QuerySentArgument will be better?",
+      "range": {
+        "startLine": 736,
+        "startChar": 25,
+        "endLine": 736,
+        "endChar": 40
+      },
       "revId": "2118d33da839703248ee55a359a3a947f5aae4c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
