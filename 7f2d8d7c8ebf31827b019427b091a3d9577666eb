@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "800a1229_7343395a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T07:02:07Z",
+      "side": 1,
+      "message": "Nit: I think that\u0027s actually lastScheduledTaskArgs (in the context of a sent result), or maybe it\u0027s enough to say \"taskArgs\" (since it\u0027s in the QuerySentResult class).\n\nOtherwise `sentResult.nextScheduledTaskArgs.config.getConfigForNextRun()`  in handleMessage looks a bit weird, as it looks like this is getting the config or the \"next next run\" (getting the next config after the config of the next task).",
+      "range": {
+        "startLine": 739,
+        "startChar": 45,
+        "endLine": 739,
+        "endChar": 66
+      },
+      "revId": "7f2d8d7c8ebf31827b019427b091a3d9577666eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "691ccb7d_cfb503cf",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T07:02:07Z",
+      "side": 1,
+      "message": "The previous code had a try/catch for RuntimeException, maybe it would be good to keep it with a Log.wtf ?\n\nWe can remove it later if there\u0027s no field report for Log.wtf\n\nThat can be in a followup though",
+      "revId": "7f2d8d7c8ebf31827b019427b091a3d9577666eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
