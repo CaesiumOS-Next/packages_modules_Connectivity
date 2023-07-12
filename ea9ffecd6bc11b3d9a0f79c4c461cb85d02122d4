@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06d0a758_04adfd7a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T09:59:44Z",
+      "side": 1,
+      "message": "This method will return an invalid value (120s) if the minRemainingTtl is 130s for example.\n\nThis method could either return a nullable Long, or possibly return -1L when there\u0027s no service record, but I think DEFAULT_TTL_TIME_MS should be a fallback implemented in MdnsServiceCache, not a default value returned here",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3f6edac_84a773f9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T09:59:44Z",
+      "side": 1,
+      "message": "Nit: to be at least consistent in the class, this should be mLastCheckTime, mNextExpirationIntervalMs (like mCachedServices, mHandler)",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6e7db6a_a8a4ffc9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T09:59:44Z",
+      "side": 1,
+      "message": "This should update nextExpirationIntervalMs",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8262870d_fd492682",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T09:59:44Z",
+      "side": 1,
+      "message": "That\u0027s a pretty inefficient way to insert in a sorted list; it doesn\u0027t matter too much considering the likely size of the list, but still, generally I think you\u0027d want something like (untested):\n\n```\nfinal int searchRes \u003d Collections.binarySearch(responses, response.getMinRemainingTtl(now), Comparator.comparingLong(...));\n// binarySearch returns \"the index of the search key, if it is contained in the list; \n// otherwise, (-(insertion point) - 1)\"\nresponses.add(searchRes \u003e\u003d 0 ? searchRes : (-searchRes - 1), responses);\n```",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f25d752a_fbe2bb49",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T09:59:44Z",
+      "side": 1,
+      "message": "This should also update nextExpirationIntervalMs\n\nBut if you don\u0027t the code should still work (just have some unnecessary checks sometimes). So you could also rename it to nextTtlExpiredCheckTime (see comment to combine lastCheckTime and nextExpirationIntervalMs), and document that it\u0027s only \u003c\u003d the next expiration time.\n\nSee also DhcpLeaseRepository that does the same thing: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/NetworkStack/src/android/net/dhcp/DhcpLeaseRepository.java;drc\u003d2116b5dc66b1afec4d324cf890adca85fa1519ea;l\u003d93",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "465d9224_f0fe7732",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T09:59:44Z",
+      "side": 1,
+      "message": "Nit: also document that registering the same callback instance twice is a no-op, since MdnsServiceTypeClient relies on this",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c9c728b_c1c55117",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T09:59:44Z",
+      "side": 1,
+      "message": "supernit: extra space",
+      "range": {
+        "startLine": 246,
+        "startChar": 25,
+        "endLine": 246,
+        "endChar": 26
+      },
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0492bd3f_a23670a7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T09:59:44Z",
+      "side": 1,
+      "message": "Instead of storing both \"lastCheckTime\" and \"nextExpirationIntervalMs\", and doing `now - lastCheckTime \u003c nextExpirationIntervalMs`, you could just store `nextExpirationTime \u003d lastCheckTime + nextExpirationIntervalMs`, and do `now \u003c nextExpirationTime`.",
+      "range": {
+        "startLine": 246,
+        "startChar": 12,
+        "endLine": 246,
+        "endChar": 50
+      },
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d928602_8dfb238f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T09:59:44Z",
+      "side": 1,
+      "message": "I think this shouldn\u0027t be necessary ? Considering that removing items on a sorted list doesn\u0027t change the order",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbc12fac_4bf522e2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T09:59:44Z",
+      "side": 1,
+      "message": "But then the next iteration will be looking at the wrong index, since the following items have their indexes shifted (if i\u003d2, then element 3 becomes the new element 2, and at the next iteration you\u0027d look at i\u003d3 and miss it)\n\nYou can avoid the problem by iterating in reverse order (with a comment because it\u0027s a bit error-prone)",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
