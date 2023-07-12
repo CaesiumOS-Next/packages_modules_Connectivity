@@ -408,21 +408,21 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @Test
     public void testIsAnyTcpSocketConnected_withTargetNetId() throws Exception {
         setupResponseWithSocketExisting();
-        mTestHandler.post(
+        visibleOnHandlerThread(mTestHandler,
                 () -> assertTrue(mAOOKeepaliveTracker.isAnyTcpSocketConnected(TEST_NETID)));
     }
 
     @Test
     public void testIsAnyTcpSocketConnected_withIncorrectNetId() throws Exception {
         setupResponseWithSocketExisting();
-        mTestHandler.post(
+        visibleOnHandlerThread(mTestHandler,
                 () -> assertFalse(mAOOKeepaliveTracker.isAnyTcpSocketConnected(OTHER_NETID)));
     }
 
     @Test
     public void testIsAnyTcpSocketConnected_noSocketExists() throws Exception {
         setupResponseWithoutSocketExisting();
-        mTestHandler.post(
+        visibleOnHandlerThread(mTestHandler,
                 () -> assertFalse(mAOOKeepaliveTracker.isAnyTcpSocketConnected(TEST_NETID)));
     }
 
@@ -500,7 +500,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
         final AlarmManager.OnAlarmListener listener = listenerCaptor.getValue();
 
         // For realism, the listener should be posted on the handler
-        mTestHandler.post(() -> listener.onAlarm());
+        visibleOnHandlerThread(mTestHandler, () -> listener.onAlarm());
         // Wait for the listener to be called. The listener enqueues a message to the handler.
         HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
         // Wait for the message posted by the listener to be processed.
@@ -525,7 +525,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
 
         doReturn(METRICS_COLLECTION_DURATION_MS).when(mDependencies).getElapsedRealtime();
         // For realism, the listener should be posted on the handler
-        mTestHandler.post(() -> listener.onAlarm());
+        visibleOnHandlerThread(mTestHandler, () -> listener.onAlarm());
         HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
 
         verify(mKeepaliveStatsTracker).writeAndResetMetrics();
