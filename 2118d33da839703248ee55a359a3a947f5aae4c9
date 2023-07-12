@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dafd0c9_94b28ac2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T08:22:05Z",
+      "side": 1,
+      "message": "It\u0027s important to note that this check is critical now, because if a task is cancelled while the Executor is running it, EVENT_QUERY_RESULT will still be sent when it ends.\n\nSo I think this feature check should be removed, the code would sometimes really schedule tasks indefinitely without it.\n\nNot for this change though.",
+      "revId": "2118d33da839703248ee55a359a3a947f5aae4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
