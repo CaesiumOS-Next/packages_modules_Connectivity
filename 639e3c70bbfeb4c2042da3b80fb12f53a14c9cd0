@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c6d1b31_7f036ea9",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-12T08:54:46Z",
+      "side": 1,
+      "message": "Why remove the inOrder here ? Is the order different after the change ?\n\nIt seems that at least some order should be preserved (like name discovered -\u003e found -\u003e removed -\u003e name removed)",
+      "revId": "639e3c70bbfeb4c2042da3b80fb12f53a14c9cd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
