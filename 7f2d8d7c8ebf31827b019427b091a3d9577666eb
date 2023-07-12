@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a810b3f_3b93fbf2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-12T08:11:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "800a1229_7343395a",
+      "range": {
+        "startLine": 739,
+        "startChar": 45,
+        "endLine": 739,
+        "endChar": 66
+      },
+      "revId": "7f2d8d7c8ebf31827b019427b091a3d9577666eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "691ccb7d_cfb503cf",
@@ -37,6 +61,42 @@
       "writtenOn": "2023-07-12T07:02:07Z",
       "side": 1,
       "message": "The previous code had a try/catch for RuntimeException, maybe it would be good to keep it with a Log.wtf ?\n\nWe can remove it later if there\u0027s no field report for Log.wtf\n\nThat can be in a followup though",
+      "revId": "7f2d8d7c8ebf31827b019427b091a3d9577666eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f2b4f68_6022e2f2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-12T08:11:47Z",
+      "side": 1,
+      "message": "The result variable doesn\u0027t need to be final now, so I can add the try/catch back.",
+      "parentUuid": "691ccb7d_cfb503cf",
+      "revId": "7f2d8d7c8ebf31827b019427b091a3d9577666eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5c3536a_a41e803b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-12T08:11:47Z",
+      "side": 1,
+      "message": "Add",
+      "parentUuid": "691ccb7d_cfb503cf",
       "revId": "7f2d8d7c8ebf31827b019427b091a3d9577666eb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

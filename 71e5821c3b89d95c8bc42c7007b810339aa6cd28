@@ -222,6 +222,24 @@
       "parentUuid": "8c6ad416_3b6a8eb2",
       "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "496b1888_11bc4e24",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-12T08:11:47Z",
+      "side": 1,
+      "message": "Oops. Removed all of them.",
+      "parentUuid": "7f21fdb7_0fefafe0",
+      "revId": "71e5821c3b89d95c8bc42c7007b810339aa6cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
