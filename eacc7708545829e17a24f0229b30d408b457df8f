@@ -140,6 +140,30 @@
       },
       "revId": "eacc7708545829e17a24f0229b30d408b457df8f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65c69164_4d0d56ee",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1545,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-12T07:40:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c8d4714e_074336b6",
+      "range": {
+        "startLine": 1545,
+        "startChar": 32,
+        "endLine": 1545,
+        "endChar": 37
+      },
+      "revId": "eacc7708545829e17a24f0229b30d408b457df8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
