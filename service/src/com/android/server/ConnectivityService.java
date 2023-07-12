@@ -4103,6 +4103,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return true;
         }
 
+        private boolean isWearable() {
+            return mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WATCH);
+        }
+
         private void handleNetworkTested(
                 @NonNull NetworkAgentInfo nai, int testResult, @NonNull String redirectUrl) {
             final boolean valid = (testResult & NETWORK_VALIDATION_RESULT_VALID) != 0;
@@ -4170,6 +4174,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } else if (portalChanged) {
                 if (portal && ConnectivitySettingsManager.CAPTIVE_PORTAL_MODE_AVOID
                         == getCaptivePortalMode()) {
+                    if (isWear() && (nai.networkCapabilities.hasTransport(TRANSPORT_BLUETOOTH)) {
+                        if (DBG) log("Proxy behind captive portal: " + nai.toShortString());
+                        return;
+                    }
                     if (DBG) log("Avoiding captive portal network: " + nai.toShortString());
                     nai.onPreventAutomaticReconnect();
                     teardownUnneededNetwork(nai);
