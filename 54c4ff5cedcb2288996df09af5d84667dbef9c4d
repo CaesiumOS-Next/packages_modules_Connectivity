@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "552cbac8_206c8b77",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-13T08:36:38Z",
+      "side": 1,
+      "message": "Is this necessary? We are not using `future` to schedule the task.",
+      "range": {
+        "startLine": 95,
+        "startChar": 27,
+        "endLine": 95,
+        "endChar": 51
+      },
+      "revId": "54c4ff5cedcb2288996df09af5d84667dbef9c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
