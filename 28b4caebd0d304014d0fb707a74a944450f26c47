@@ -16,6 +16,23 @@
       "message": "Hello, I\u0027m trying to bootstrap the code directory for the new RemoteAuth module under Connectivity and would like for you to provide an OWNERS review.",
       "revId": "28b4caebd0d304014d0fb707a74a944450f26c47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7903943f_cdc14173",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-13T17:22:36Z",
+      "side": 1,
+      "message": "Hello, I\u0027m trying to bootstrap the code directory for the new RemoteAuth module under Connectivity and would like for you to provide an OWNERS review.",
+      "revId": "28b4caebd0d304014d0fb707a74a944450f26c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
