@@ -22,6 +22,30 @@
       },
       "revId": "25a1396f1ef9080a046a00e84388042c2e215ffa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cfc1f5d_990af097",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideConnOnActivityStartTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-13T07:42:25Z",
+      "side": 1,
+      "message": "Yes that shadow the super.setUpOnce and will cause failure.\nTried to make this more clear in commit message.\nFeel free to input if any better way to make this more clear.",
+      "parentUuid": "af0e4049_52ea0a6f",
+      "range": {
+        "startLine": 31,
+        "startChar": 23,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "25a1396f1ef9080a046a00e84388042c2e215ffa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
