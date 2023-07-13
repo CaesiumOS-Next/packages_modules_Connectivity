@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3678f68_51eac75a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-13T08:47:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dec570a_4bbfe7f2",
+      "range": {
+        "startLine": 7,
+        "startChar": 43,
+        "endLine": 7,
+        "endChar": 51
+      },
+      "revId": "54c4ff5cedcb2288996df09af5d84667dbef9c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "552cbac8_206c8b77",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-13T08:36:38Z",
       "side": 1,
       "message": "Is this necessary? We are not using `future` to schedule the task.",
+      "range": {
+        "startLine": 95,
+        "startChar": 27,
+        "endLine": 95,
+        "endChar": 51
+      },
+      "revId": "54c4ff5cedcb2288996df09af5d84667dbef9c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae9d4655_58f33fa7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-13T08:47:10Z",
+      "side": 1,
+      "message": "Yes, it will trigger build error on google3 without this annotation.\nhttps://g3doc.corp.google.com/devtools/staticanalysis/errorprone/g3doc/bugpattern/FutureReturnValueIgnored.md?cl\u003dhead",
+      "parentUuid": "552cbac8_206c8b77",
       "range": {
         "startLine": 95,
         "startChar": 27,
