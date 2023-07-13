@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e762b38_847c1519",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4176,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-13T00:28:31Z",
+      "side": 1,
+      "message": "That doesn\u0027t look right: this misses updating the capabilities and other things in the rest of the method (Inet conditions, validation status etc).\n\nI think you probably want:\n\n```\nif (portal \u0026\u0026 CAPTIVE_PORTAL_MODE_AVOID \u0026\u0026 !(nai.nc.hasTransport(BLUETOOTH) \u0026\u0026 mContext.getPackageManager().hasSystemFeature(FEATURE_WATCH)) {\n    nai.onPreventAutomaticReconnect();\n    teardown...\n} else {\n    updateCapabilities()\n    ...\n}\n\n```",
+      "revId": "1a234d1690680566d9a7d09650f002d7b12f6b7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
