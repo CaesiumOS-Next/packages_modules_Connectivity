@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dec570a_4bbfe7f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-13T08:44:03Z",
+      "side": 1,
+      "message": "Nit: that\u0027s not very AOSP-friendly; maybe just say \"with androidx annotations\", \"without android internal annotations\", or \"with androidx annotations instead of android internal\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 43,
+        "endLine": 7,
+        "endChar": 51
+      },
+      "revId": "54c4ff5cedcb2288996df09af5d84667dbef9c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "552cbac8_206c8b77",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 1
