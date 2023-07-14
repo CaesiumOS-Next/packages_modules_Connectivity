@@ -155,7 +155,7 @@ class MdnsRecordRepositoryTest {
 
         val probingInfo = repository.setServiceProbing(TEST_SERVICE_ID_1)
         repository.onProbingSucceeded(probingInfo)
-        repository.onAdvertisementSent(TEST_SERVICE_ID_1)
+        repository.onAdvertisementSent(TEST_SERVICE_ID_1, 2 /* sentPacketCount */)
         assertTrue(repository.hasActiveService(TEST_SERVICE_ID_1))
 
         repository.exitService(TEST_SERVICE_ID_1)
@@ -166,7 +166,7 @@ class MdnsRecordRepositoryTest {
     fun testExitAnnouncements() {
         val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME)
         repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
-        repository.onAdvertisementSent(TEST_SERVICE_ID_1)
+        repository.onAdvertisementSent(TEST_SERVICE_ID_1, 2 /* sentPacketCount */)
 
         val exitAnnouncement = repository.exitService(TEST_SERVICE_ID_1)
         assertNotNull(exitAnnouncement)
@@ -195,7 +195,7 @@ class MdnsRecordRepositoryTest {
     fun testExitAnnouncements_WithSubtype() {
         val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME)
         repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1, TEST_SUBTYPE)
-        repository.onAdvertisementSent(TEST_SERVICE_ID_1)
+        repository.onAdvertisementSent(TEST_SERVICE_ID_1, 2 /* sentPacketCount */)
 
         val exitAnnouncement = repository.exitService(TEST_SERVICE_ID_1)
         assertNotNull(exitAnnouncement)
@@ -230,7 +230,7 @@ class MdnsRecordRepositoryTest {
     fun testExitingServiceReAdded() {
         val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME)
         repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
-        repository.onAdvertisementSent(TEST_SERVICE_ID_1)
+        repository.onAdvertisementSent(TEST_SERVICE_ID_1, 2 /* sentPacketCount */)
         repository.exitService(TEST_SERVICE_ID_1)
 
         assertEquals(TEST_SERVICE_ID_1,
@@ -246,7 +246,7 @@ class MdnsRecordRepositoryTest {
         val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME)
         val announcementInfo = repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1,
                 TEST_SUBTYPE)
-        repository.onAdvertisementSent(TEST_SERVICE_ID_1)
+        repository.onAdvertisementSent(TEST_SERVICE_ID_1, 2 /* sentPacketCount */)
         val packet = announcementInfo.getPacket(0)
 
         assertEquals(0x8400 /* response, authoritative */, packet.flags)
