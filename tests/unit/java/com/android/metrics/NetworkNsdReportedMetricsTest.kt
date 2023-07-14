@@ -80,8 +80,9 @@ class NetworkNsdReportedMetricsTest {
         val clientId = 99
         val transactionId = 100
         val durationMs = 10L
+        val repliedRequestsCount = 25
         val metrics = NetworkNsdReportedMetrics(true /* isLegacy */, clientId, deps)
-        metrics.reportServiceUnregistration(transactionId, durationMs)
+        metrics.reportServiceUnregistration(transactionId, durationMs, repliedRequestsCount)
 
         val eventCaptor = ArgumentCaptor.forClass(NetworkNsdReported::class.java)
         verify(deps).statsWrite(eventCaptor.capture())
@@ -92,6 +93,7 @@ class NetworkNsdReportedMetricsTest {
             assertEquals(NsdEventType.NET_REGISTER, it.type)
             assertEquals(MdnsQueryResult.MQR_SERVICE_UNREGISTERED, it.queryResult)
             assertEquals(durationMs, it.eventDurationMillisec)
+            assertEquals(repliedRequestsCount, it.repliedRequestsCount)
         }
     }
 
