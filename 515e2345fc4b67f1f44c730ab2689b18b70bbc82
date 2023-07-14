@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a872df81_3b396286",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-14T07:55:12Z",
+      "side": 1,
+      "message": "I see, is this also an issue for the other non-final variables such as `mNumKeepaliveRequests`? Maybe not so important since the default of 0 is fine for those variables except for `mLastUpdateDurationsTimestamp`?\n\nUpdated to use a `final AtomicBoolean` and changed to `mEnabled`.",
+      "parentUuid": "1230cd13_544ca3e9",
+      "range": {
+        "startLine": 84,
+        "startChar": 32,
+        "endLine": 84,
+        "endChar": 37
+      },
+      "revId": "515e2345fc4b67f1f44c730ab2689b18b70bbc82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f527319_d00bb0c3",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-30T06:48:58Z",
       "side": 1,
       "message": "How can this happen ? Some comments would be helpful.",
+      "range": {
+        "startLine": 424,
+        "startChar": 27,
+        "endLine": 424,
+        "endChar": 47
+      },
+      "revId": "515e2345fc4b67f1f44c730ab2689b18b70bbc82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc9f6e43_00c509ac",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-14T07:55:12Z",
+      "side": 1,
+      "message": "Added comments in getKeepaliveId().",
+      "parentUuid": "7f527319_d00bb0c3",
       "range": {
         "startLine": 424,
         "startChar": 27,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bd3b991_92242f09",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-14T07:55:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9d692fb_3ebf7d37",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 514,
+        "endChar": 64
+      },
+      "revId": "515e2345fc4b67f1f44c730ab2689b18b70bbc82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fcb5780_a6da870f",
@@ -106,6 +178,30 @@
       "writtenOn": "2023-06-30T06:48:58Z",
       "side": 1,
       "message": "Please add a comment to explain why it\u0027s disabled, e.g.\n\n    Tried to start a 2nd keepalive on the same slot, which is illegal. This is\n    a programming error and therefore it\u0027s unknown what might be wrong, so\n    the stats tracker is disabled.",
+      "range": {
+        "startLine": 974,
+        "startChar": 8,
+        "endLine": 974,
+        "endChar": 18
+      },
+      "revId": "515e2345fc4b67f1f44c730ab2689b18b70bbc82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb42ab7c_b6a04349",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-14T07:55:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fcb5780_a6da870f",
       "range": {
         "startLine": 974,
         "startChar": 8,
