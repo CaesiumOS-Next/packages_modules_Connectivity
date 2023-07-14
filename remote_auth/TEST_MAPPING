@@ -1,0 +1,18 @@
+{
+  "presubmit": [
+    {
+      "name": "RemoteAuthUnitTests"
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "RemoteAuthUnitTests"
+    }
+  ]
+  // TODO(b/193602229): uncomment once it's supported.
+  //"mainline-presubmit": [
+  //  {
+  //    "name": "RemoteAuthUnitTests[com.google.android.remote_auth.apex]"
+  //  }
+  //]
+}
