@@ -26,6 +26,7 @@ import static android.net.nsd.NsdManager.RESOLVE_SERVICE_SUCCEEDED;
 import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
 import static com.android.modules.utils.build.SdkLevel.isAtLeastU;
+import static com.android.server.connectivity.mdns.MdnsConstants.NO_PACKET_REPLIED;
 import static com.android.server.connectivity.mdns.MdnsRecord.MAX_LABEL_LENGTH;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
 
@@ -965,13 +966,16 @@ public class NsdService extends INsdManager.Stub {
                         // so this needs to check the type of the original request to unregister
                         // instead of looking at the flag value.
                         if (request instanceof AdvertiserClientRequest) {
+                            final int repliedRequestsCount =
+                                    mAdvertiser.getServiceRepliedRequestsCount(transactionId);
                             mAdvertiser.removeService(transactionId);
                             clientInfo.onUnregisterServiceSucceeded(clientRequestId, transactionId,
-                                    request.calculateRequestDurationMs());
+                                    request.calculateRequestDurationMs(), repliedRequestsCount);
                         } else {
                             if (unregisterService(transactionId)) {
                                 clientInfo.onUnregisterServiceSucceeded(clientRequestId,
-                                        transactionId, request.calculateRequestDurationMs());
+                                        transactionId, request.calculateRequestDurationMs(),
+                                        NO_PACKET_REPLIED);
                             } else {
                                 clientInfo.onUnregisterServiceFailed(
                                         clientRequestId, NsdManager.FAILURE_INTERNAL_ERROR);
@@ -2397,9 +2401,11 @@ public class NsdService extends INsdManager.Stub {
                 }
 
                 if (request instanceof AdvertiserClientRequest) {
+                    final int repliedRequestsCount =
+                            mAdvertiser.getServiceRepliedRequestsCount(transactionId);
                     mAdvertiser.removeService(transactionId);
-                    mMetrics.reportServiceUnregistration(
-                            transactionId, request.calculateRequestDurationMs());
+                    mMetrics.reportServiceUnregistration(transactionId,
+                            request.calculateRequestDurationMs(), repliedRequestsCount);
                     continue;
                 }
 
@@ -2421,8 +2427,9 @@ public class NsdService extends INsdManager.Stub {
                         break;
                     case NsdManager.REGISTER_SERVICE:
                         unregisterService(transactionId);
-                        mMetrics.reportServiceUnregistration(
-                                transactionId, request.calculateRequestDurationMs());
+                        mMetrics.reportServiceUnregistration(transactionId,
+                                request.calculateRequestDurationMs(),
+                                NO_PACKET_REPLIED);
                         break;
                     default:
                         break;
@@ -2557,8 +2564,9 @@ public class NsdService extends INsdManager.Stub {
             }
         }
 
-        void onUnregisterServiceSucceeded(int listenerKey, int transactionId, long durationMs) {
-            mMetrics.reportServiceUnregistration(transactionId, durationMs);
+        void onUnregisterServiceSucceeded(int listenerKey, int transactionId, long durationMs,
+                int repliedRequestsCount) {
+            mMetrics.reportServiceUnregistration(transactionId, durationMs, repliedRequestsCount);
             try {
                 mCb.onUnregisterServiceSucceeded(listenerKey);
             } catch (RemoteException e) {
