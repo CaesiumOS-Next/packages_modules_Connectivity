@@ -24,6 +24,8 @@ import android.stats.connectivity.NsdEventType;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.ConnectivityStatsLog;
 
+import java.util.Random;
+
 /**
  * Class to record the NetworkNsdReported into statsd. Each client should create this class to
  * report its data.
@@ -34,6 +36,7 @@ public class NetworkNsdReportedMetrics {
     // The client id.
     private final int mClientId;
     private final Dependencies mDependencies;
+    private final Random mRandom;
 
     public NetworkNsdReportedMetrics(boolean isLegacy, int clientId) {
         this(isLegacy, clientId, new Dependencies());
@@ -44,6 +47,7 @@ public class NetworkNsdReportedMetrics {
         mIsLegacy = isLegacy;
         mClientId = clientId;
         mDependencies = dependencies;
+        mRandom = new Random();
     }
 
     /**
@@ -67,7 +71,11 @@ public class NetworkNsdReportedMetrics {
                     event.getFoundCallbackCount(),
                     event.getLostCallbackCount(),
                     event.getRepliedRequestsCount(),
-                    event.getSentQueryCount());
+                    event.getSentQueryCount(),
+                    event.getSentPacketCount(),
+                    event.getConflictDuringProbingCount(),
+                    event.getConflictAfterProbingCount(),
+                    event.getSamplingNumber());
         }
     }
 
@@ -75,6 +83,7 @@ public class NetworkNsdReportedMetrics {
         final Builder builder = NetworkNsdReported.newBuilder();
         builder.setIsLegacy(mIsLegacy);
         builder.setClientId(mClientId);
+        builder.setSamplingNumber(mRandom.nextInt(1000));
         return builder;
     }
 
@@ -113,14 +122,23 @@ public class NetworkNsdReportedMetrics {
      *
      * @param transactionId The transaction id of service registration.
      * @param durationMs The duration of service stayed registered.
+     * @param repliedRequestsCount The replied request count of this service before unregistered it.
+     * @param sentPacketCount The total sent packet count of this service before unregistered it.
+     * @param conflictDuringProbingCount The number of conflict during probing.
+     * @param conflictAfterProbingCount The number of conflict after probing.
      */
-    public void reportServiceUnregistration(int transactionId, long durationMs) {
+    public void reportServiceUnregistration(int transactionId, long durationMs,
+            int repliedRequestsCount, int sentPacketCount, int conflictDuringProbingCount,
+            int conflictAfterProbingCount) {
         final Builder builder = makeReportedBuilder();
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_REGISTER);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_UNREGISTERED);
         builder.setEventDurationMillisec(durationMs);
-        // TODO: Report repliedRequestsCount
+        builder.setRepliedRequestsCount(repliedRequestsCount);
+        builder.setSentPacketCount(sentPacketCount);
+        builder.setConflictDuringProbingCount(conflictDuringProbingCount);
+        builder.setConflictAfterProbingCount(conflictAfterProbingCount);
         mDependencies.statsWrite(builder.build());
     }
 

@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsConstants.NO_PACKET;
 import static com.android.server.connectivity.mdns.MdnsRecord.MAX_LABEL_LENGTH;
 
 import android.annotation.NonNull;
@@ -165,6 +166,7 @@ public class MdnsAdvertiser {
                 // (with the old, conflicting, actually not used name as argument... The new
                 // implementation will send callbacks with the new name).
                 registration.mNotifiedRegistrationSuccess = false;
+                registration.mConflictAfterProbingCount++;
 
                 // The service was done probing, just reset it to probing state (RFC6762 9.)
                 forAllAdvertisers(a -> {
@@ -180,6 +182,7 @@ public class MdnsAdvertiser {
             registration.updateForConflict(
                     registration.makeNewServiceInfoForConflict(1 /* renameCount */),
                     1 /* renameCount */);
+            registration.mConflictDuringProbingCount++;
 
             // Keep renaming if the new name conflicts in local registrations
             updateRegistrationUntilNoConflict((net, adv) -> adv.hasRegistration(registration),
@@ -345,6 +348,25 @@ public class MdnsAdvertiser {
             }
         }
 
+        int getServiceRepliedRequestsCount(int id) {
+            int repliedRequestsCount = NO_PACKET;
+            for (int i = 0; i < mAdvertisers.size(); i++) {
+                repliedRequestsCount += mAdvertisers.valueAt(i).getServiceRepliedRequestsCount(id);
+            }
+            return repliedRequestsCount;
+        }
+
+        int getSentPacketCount(int id) {
+            int maxSentPacketCount = NO_PACKET;
+            for (int i = 0; i < mAdvertisers.size(); i++) {
+                final int sentPacketCount = mAdvertisers.valueAt(i).getSentPacketCount(id);
+                if (sentPacketCount > maxSentPacketCount) {
+                    maxSentPacketCount = sentPacketCount;
+                }
+            }
+            return maxSentPacketCount;
+        }
+
         @Override
         public void onSocketCreated(@NonNull SocketKey socketKey,
                 @NonNull MdnsInterfaceSocket socket,
@@ -404,6 +426,8 @@ public class MdnsAdvertiser {
         private NsdServiceInfo mServiceInfo;
         @Nullable
         private final String mSubtype;
+        int mConflictDuringProbingCount;
+        int mConflictAfterProbingCount;
 
         private Registration(@NonNull NsdServiceInfo serviceInfo, @Nullable String subtype) {
             this.mOriginalName = serviceInfo.getServiceName();
@@ -595,6 +619,70 @@ public class MdnsAdvertiser {
         if (mRegistrations.size() == 0) {
             mDeviceHostName = mDeps.generateHostname();
         }
+    }
+
+    /**
+     * Get replied request count from the given service.
+     *
+     * @param id ID used when registering.
+     * @return The replied request count (sum across interfaces) of this service.
+     */
+    public int getServiceRepliedRequestsCount(int id) {
+        checkThread();
+        if (!mRegistrations.contains(id)) return NO_PACKET;
+        int repliedRequestsCount = NO_PACKET;
+        for (int i = 0; i < mAdvertiserRequests.size(); i++) {
+            repliedRequestsCount +=
+                    mAdvertiserRequests.valueAt(i).getServiceRepliedRequestsCount(id);
+        }
+        return repliedRequestsCount;
+    }
+
+    /**
+     * Get total sent packet count from the given service.
+     *
+     * @param id ID used when registering.
+     * @return The max number of sent packets (including announcements and probes) per interface.
+     */
+    public int getSentPacketCount(int id) {
+        checkThread();
+        if (!mRegistrations.contains(id)) return NO_PACKET;
+        int maxSentPacketCount = NO_PACKET;
+        for (int i = 0; i < mAdvertiserRequests.size(); i++) {
+            final int sentPacketCount = mAdvertiserRequests.valueAt(i).getSentPacketCount(id);
+            if (sentPacketCount > maxSentPacketCount) {
+                maxSentPacketCount = sentPacketCount;
+            }
+        }
+        return maxSentPacketCount;
+    }
+
+    /**
+     * Get number of conflict during probing.
+     *
+     * @param id ID used when registering.
+     * @return The number of conflicts during probing.
+     */
+    public int getConflictDuringProbingCount(int id) {
+        checkThread();
+        final Registration registration = mRegistrations.get(id);
+        if (registration == null) return 0;
+
+        return registration.mConflictDuringProbingCount;
+    }
+
+    /**
+     * Get number of conflicts after probing.
+     *
+     * @param id ID used when registering.
+     * @return The number of conflicts after probing across interfaces.
+     */
+    public int getConflictAfterProbingCount(int id) {
+        checkThread();
+        final Registration registration = mRegistrations.get(id);
+        if (registration == null) return 0;
+
+        return registration.mConflictAfterProbingCount;
     }
 
     private static <K, V> boolean any(@NonNull ArrayMap<K, V> map,
