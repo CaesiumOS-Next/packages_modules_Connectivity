@@ -1297,13 +1297,19 @@ public class NsdServiceTest {
         verify(mMetrics).reportServiceRegistrationSucceeded(regId, 10L /* durationMs */);
 
         doReturn(TEST_TIME_MS + 100L).when(mClock).elapsedRealtime();
+        doReturn(50).when(mAdvertiser).getServiceRepliedRequestsCount(regId);
+        doReturn(100).when(mAdvertiser).getSentPacketCount(regId);
+        doReturn(3).when(mAdvertiser).getConflictDuringProbingCount(regId);
+        doReturn(2).when(mAdvertiser).getConflictAfterProbingCount(regId);
         client.unregisterService(regListener);
         waitForIdle();
         verify(mAdvertiser).removeService(idCaptor.getValue());
         verify(regListener, timeout(TIMEOUT_MS)).onServiceUnregistered(
                 argThat(info -> matches(info, regInfo)));
         verify(mSocketProvider, timeout(TIMEOUT_MS)).requestStopWhenInactive();
-        verify(mMetrics).reportServiceUnregistration(regId, 100L /* durationMs */);
+        verify(mMetrics).reportServiceUnregistration(regId, 100L /* durationMs */,
+                50 /* repliedRequestCount */, 100 /* sentPacketCount */,
+                3 /* conflictDuringProbingCount */, 2 /* conflictAfterProbingCount */);
     }
 
     @Test
