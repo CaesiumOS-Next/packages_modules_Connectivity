@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsConstants.NO_PACKET_REPLIED;
 import static com.android.server.connectivity.mdns.MdnsRecord.MAX_LABEL_LENGTH;
 
 import android.annotation.NonNull;
@@ -50,7 +51,6 @@ public class MdnsAdvertiser {
 
     // Top-level domain for link-local queries, as per RFC6762 3.
     private static final String LOCAL_TLD = "local";
-
 
     private final Looper mLooper;
     private final AdvertiserCallback mCb;
@@ -286,6 +286,18 @@ public class MdnsAdvertiser {
             }
         }
 
+        int getServiceRepliedRequestsCount(int id) {
+            int maxRepliedRequestsCount = NO_PACKET_REPLIED;
+            for (int i = 0; i < mAdvertisers.size(); i++) {
+                final int repliedRequestsCount =
+                        mAdvertisers.valueAt(i).getServiceRepliedRequestsCount(id);
+                if (repliedRequestsCount > maxRepliedRequestsCount) {
+                    maxRepliedRequestsCount = repliedRequestsCount;
+                }
+            }
+            return maxRepliedRequestsCount;
+        }
+
         @Override
         public void onSocketCreated(@NonNull SocketKey socketKey,
                 @NonNull MdnsInterfaceSocket socket,
@@ -507,6 +519,26 @@ public class MdnsAdvertiser {
         if (mRegistrations.size() == 0) {
             mDeviceHostName = mDeps.generateHostname();
         }
+    }
+
+    /**
+     * Get replied request count from the given service.
+     *
+     * @param id ID used when registering.
+     * @return The maximum replied request count of this service.
+     */
+    public int getServiceRepliedRequestsCount(int id) {
+        checkThread();
+        if (!mRegistrations.contains(id)) return NO_PACKET_REPLIED;
+        int maxRepliedRequestsCount = NO_PACKET_REPLIED;
+        for (int i = mAdvertiserRequests.size() - 1; i >= 0; i--) {
+            final InterfaceAdvertiserRequest advertiser = mAdvertiserRequests.valueAt(i);
+            final int repliedRequestsCount = advertiser.getServiceRepliedRequestsCount(id);
+            if (repliedRequestsCount > maxRepliedRequestsCount) {
+                maxRepliedRequestsCount = repliedRequestsCount;
+            }
+        }
+        return maxRepliedRequestsCount;
     }
 
     private static <K, V> boolean any(@NonNull ArrayMap<K, V> map,

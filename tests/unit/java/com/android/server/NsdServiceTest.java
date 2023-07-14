@@ -1266,13 +1266,15 @@ public class NsdServiceTest {
         verify(mMetrics).reportServiceRegistration(regId, 10L /* durationMs */);
 
         doReturn(100 * 1000L).when(mClock).elapsedRealtimeNanos();
+        doReturn(50).when(mAdvertiser).getServiceRepliedRequestsCount(regId);
         client.unregisterService(regListener);
         waitForIdle();
         verify(mAdvertiser).removeService(idCaptor.getValue());
         verify(regListener, timeout(TIMEOUT_MS)).onServiceUnregistered(
                 argThat(info -> matches(info, regInfo)));
         verify(mSocketProvider, timeout(TIMEOUT_MS)).requestStopWhenInactive();
-        verify(mMetrics).reportServiceUnregistration(regId, 100L /* durationMs */);
+        verify(mMetrics).reportServiceUnregistration(
+                regId, 100L /* durationMs */, 50 /*repliedRequestCount*/);
     }
 
     @Test
