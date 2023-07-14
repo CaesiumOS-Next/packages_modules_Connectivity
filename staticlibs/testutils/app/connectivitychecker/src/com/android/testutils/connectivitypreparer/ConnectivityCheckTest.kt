@@ -39,6 +39,11 @@ class ConnectivityCheckTest {
         checkTelephonySetup()
     }
 
+    @Test
+    fun testCheckTelephony() {
+        checkTelephonySetup()
+    }
+
     private fun checkWifiSetup() {
         if (!pm.hasSystemFeature(FEATURE_WIFI)) return
         connectUtil.ensureWifiValidated()

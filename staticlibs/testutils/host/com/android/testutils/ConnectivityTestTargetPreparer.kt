@@ -28,9 +28,12 @@ import com.android.tradefed.targetprep.suite.SuiteApkInstaller
 private const val CONNECTIVITY_CHECKER_APK = "ConnectivityTestPreparer.apk"
 private const val CONNECTIVITY_PKG_NAME = "com.android.testutils.connectivitypreparer"
 private const val CONNECTIVITY_CHECK_CLASS = "$CONNECTIVITY_PKG_NAME.ConnectivityCheckTest"
+private const val CONNECTIVITY_CHECK_METHOD = "testCheckConnectivity"
+private const val TELEPHONY_CHECK_METHOD = "testCheckTelephony"
 // As per the <instrumentation> defined in the checker manifest
 private const val CONNECTIVITY_CHECK_RUNNER_NAME = "androidx.test.runner.AndroidJUnitRunner"
 private const val IGNORE_CONN_CHECK_OPTION = "ignore-connectivity-check"
+private const val IGNORE_WIFI_CHECK_OPTION = "ignore-wifi-check"
 
 // The default updater package names, which might be updating packages while the CTS
 // are running
@@ -49,6 +52,11 @@ open class ConnectivityTestTargetPreparer : BaseTargetPreparer() {
     @Option(name = IGNORE_CONN_CHECK_OPTION,
             description = "Disables the check for mobile data and wifi")
     private var ignoreConnectivityCheck = false
+
+    @Option(name = IGNORE_WIFI_CHECK_OPTION,
+            description = "Disables the check for wifi")
+    private var ignoreWifiCheck = false
+
     // The default value is never used, but false is a reasonable default
     private var originalTestChainEnabled = false
     private val originalUpdaterPkgsStatus = HashMap<String, Boolean>()
@@ -74,6 +82,11 @@ open class ConnectivityTestTargetPreparer : BaseTargetPreparer() {
                 CONNECTIVITY_CHECK_RUNNER_NAME,
                 testInfo.device.iDevice)
         runner.runOptions = "--no-hidden-api-checks"
+
+        runner.setMethodName(CONNECTIVITY_CHECK_CLASS, CONNECTIVITY_CHECK_METHOD)
+        if (ignoreWifiCheck) {
+            runner.setMethodName(CONNECTIVITY_CHECK_CLASS, TELEPHONY_CHECK_METHOD)
+        }
 
         val receiver = CollectingTestListener()
         if (!testInfo.device.runInstrumentationTests(runner, receiver)) {
