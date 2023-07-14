@@ -94,6 +94,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88966cda_cf6f8028",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-14T03:02:59Z",
+      "side": 1,
+      "message": "Question: Does RemoteAuth has its own apex?\nIf yes, what is the relationship between this and Connectivity.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "28b4caebd0d304014d0fb707a74a944450f26c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2e77cb9_dc5bbb79",
         "filename": "remote_auth/README.md",
         "patchSetId": 1
