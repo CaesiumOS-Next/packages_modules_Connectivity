@@ -2,7 +2,7 @@
 
 This directory contains code for the RemoteAuth module.
 
-##Directory Structure
+## Directory Structure
 
 `apex`
  - Files associated with the RemoteAuth module APEX.
