@@ -90,6 +90,29 @@
       },
       "revId": "28b4caebd0d304014d0fb707a74a944450f26c47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2e77cb9_dc5bbb79",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-07-14T01:14:04Z",
+      "side": 1,
+      "message": "Just for my understanding, do we plan to have any Java and native code in remote auth?",
+      "range": {
+        "startLine": 22,
+        "startChar": 56,
+        "endLine": 22,
+        "endChar": 76
+      },
+      "revId": "28b4caebd0d304014d0fb707a74a944450f26c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
