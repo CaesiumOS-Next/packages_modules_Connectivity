@@ -69,6 +69,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a63cbd4b_9f0afa02",
+        "filename": "remote_auth/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-14T16:46:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc966ee1_458b8e8c",
+      "revId": "28b4caebd0d304014d0fb707a74a944450f26c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3d4c0f5_7ce7f5e6",
@@ -82,6 +100,30 @@
       "writtenOn": "2023-07-14T01:12:45Z",
       "side": 1,
       "message": "RemoteAuth?",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 8
+      },
+      "revId": "28b4caebd0d304014d0fb707a74a944450f26c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec4e76e8_ae9f846c",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-14T16:46:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3d4c0f5_7ce7f5e6",
       "range": {
         "startLine": 1,
         "startChar": 2,
@@ -117,6 +159,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "528d9c7c_2c9b038c",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-14T16:46:34Z",
+      "side": 1,
+      "message": "My understanding is that RemoteAuth will get build into the Tethering mainline module and that Nearby works the same way so I based the RemoteAuth layout on Nearby.",
+      "parentUuid": "88966cda_cf6f8028",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "28b4caebd0d304014d0fb707a74a944450f26c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2e77cb9_dc5bbb79",
         "filename": "remote_auth/README.md",
         "patchSetId": 1
@@ -128,6 +194,30 @@
       "writtenOn": "2023-07-14T01:14:04Z",
       "side": 1,
       "message": "Just for my understanding, do we plan to have any Java and native code in remote auth?",
+      "range": {
+        "startLine": 22,
+        "startChar": 56,
+        "endLine": 22,
+        "endChar": 76
+      },
+      "revId": "28b4caebd0d304014d0fb707a74a944450f26c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bf9e8a9_2bb21481",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-14T16:46:34Z",
+      "side": 1,
+      "message": "We don\u0027t think so for now but we might in the future.",
+      "parentUuid": "b2e77cb9_dc5bbb79",
       "range": {
         "startLine": 22,
         "startChar": 56,
