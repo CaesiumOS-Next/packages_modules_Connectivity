@@ -113,14 +113,17 @@ public class NetworkNsdReportedMetrics {
      *
      * @param transactionId The transaction id of service registration.
      * @param durationMs The duration of service stayed registered.
+     * @param repliedRequestsCount The maximum replied request count of this service before
+     *                             unregistered it.
      */
-    public void reportServiceUnregistration(int transactionId, long durationMs) {
+    public void reportServiceUnregistration(int transactionId, long durationMs,
+            int repliedRequestsCount) {
         final Builder builder = makeReportedBuilder();
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_REGISTER);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_UNREGISTERED);
         builder.setEventDurationMillisec(durationMs);
-        // TODO: Report repliedRequestsCount
+        builder.setRepliedRequestsCount(repliedRequestsCount);
         mDependencies.statsWrite(builder.build());
     }
 
