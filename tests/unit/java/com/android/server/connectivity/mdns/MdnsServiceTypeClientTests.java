@@ -1523,15 +1523,16 @@ public class MdnsServiceTypeClientTests {
         verify(mockListenerOne, never()).onServiceNameRemoved(matchServiceName(otherInstance));
 
         // mockListenerTwo gets notified for both though
-        verify(mockListenerTwo).onServiceNameDiscovered(
+        final InOrder inOrder2 = inOrder(mockListenerTwo);
+        inOrder2.verify(mockListenerTwo).onServiceNameDiscovered(
                 matchServiceName(requestedInstance));
-        verify(mockListenerTwo).onServiceFound(matchServiceName(requestedInstance));
+        inOrder2.verify(mockListenerTwo).onServiceFound(matchServiceName(requestedInstance));
+        inOrder2.verify(mockListenerTwo).onServiceRemoved(matchServiceName(requestedInstance));
+        inOrder2.verify(mockListenerTwo).onServiceNameRemoved(matchServiceName(requestedInstance));
         verify(mockListenerTwo).onServiceNameDiscovered(matchServiceName(otherInstance));
         verify(mockListenerTwo).onServiceFound(matchServiceName(otherInstance));
         verify(mockListenerTwo).onServiceRemoved(matchServiceName(otherInstance));
         verify(mockListenerTwo).onServiceNameRemoved(matchServiceName(otherInstance));
-        verify(mockListenerTwo).onServiceRemoved(matchServiceName(requestedInstance));
-        verify(mockListenerTwo).onServiceNameRemoved(matchServiceName(requestedInstance));
     }
 
     @Test
