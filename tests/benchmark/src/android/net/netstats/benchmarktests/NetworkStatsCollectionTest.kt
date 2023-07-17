@@ -49,11 +49,39 @@ class NetworkStatsCollectionTest {
         mUidTestFiles = getSortedListForPrefix(unzipToTempDir(zipInputStream), "uid")
     }
 
+    // Test results shows the test cases who read the file first will take longer time to execute,
+    // and reading time getting shorter each time. Add dummy codes to read file several
+    // times to minimize the impact, this cannot live in setUp() since the time spent on the
+    // file reading will be attributed to the time spent on the individual test case.
+    // Note that this test case MUST be the first one to run, otherwise the time spend on
+    // each test case might be not accurate.
+    @Test
+    fun testDummy() {
+        for (i in 1..10) {
+            val collection = NetworkStatsCollection(UID_COLLECTION_BUCKECT_DURATION_MS)
+            for (file in mUidTestFiles) {
+                readFile(file, collection)
+            }
+        }
+    }
+
     @Test
     fun testReadCollection_manyUids() {
-        val collection = NetworkStatsCollection(UID_COLLECTION_BUCKECT_DURATION_MS)
-        for (file in mUidTestFiles) {
-            readFile(file, collection)
+        for (i in 1..10) {
+            val collection = NetworkStatsCollection(UID_COLLECTION_BUCKECT_DURATION_MS)
+            for (file in mUidTestFiles) {
+                readFile(file, collection)
+            }
+        }
+    }
+
+    @Test
+    fun testReadCollection_manyUidsInReverseOrder() {
+        for (i in 1..10) {
+            val collection = NetworkStatsCollection(UID_COLLECTION_BUCKECT_DURATION_MS)
+            for (file in mUidTestFiles.asReversed()) {
+                readFile(file, collection)
+            }
         }
     }
 
