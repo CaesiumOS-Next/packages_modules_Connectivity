@@ -46,6 +46,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -1210,30 +1211,28 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
      * @hide
      */
     public NetworkStats groupedByIface() {
-        final NetworkStats stats = new NetworkStats(elapsedRealtime, 10);
+        // Keep backward compatibility where the method filtered out tagged stats and keep the
+        // operation counts as 0. The method used to deal with uid snapshot where tagged and
+        // non-tagged stats were mixed. And this method was also in Android O API list,
+        // so it is possible OEM can access it.
+        final NetworkStats copiedStats = this.clone();
+        copiedStats.filter(e -> e.getTag() == TAG_NONE);
 
-        final Entry entry = new Entry();
-        entry.uid = UID_ALL;
-        entry.set = SET_ALL;
-        entry.tag = TAG_NONE;
-        entry.metered = METERED_ALL;
-        entry.roaming = ROAMING_ALL;
-        entry.defaultNetwork = DEFAULT_NETWORK_ALL;
-        entry.operations = 0L;
-
-        for (int i = 0; i < size; i++) {
-            // skip specific tags, since already counted in TAG_NONE
-            if (tag[i] != TAG_NONE) continue;
-
-            entry.iface = iface[i];
-            entry.rxBytes = rxBytes[i];
-            entry.rxPackets = rxPackets[i];
-            entry.txBytes = txBytes[i];
-            entry.txPackets = txPackets[i];
-            stats.combineValues(entry);
-        }
-
-        return stats;
+        final Entry temp = new Entry();
+        temp.uid = UID_ALL;
+        temp.set = SET_ALL;
+        temp.tag = TAG_NONE;
+        temp.metered = METERED_ALL;
+        temp.defaultNetwork = DEFAULT_NETWORK_ALL;
+        temp.operations = 0;
+        return copiedStats.map(entry -> {
+            temp.iface = entry.getIface();
+            temp.rxBytes = entry.getRxBytes();
+            temp.rxPackets = entry.getRxPackets();
+            temp.txBytes = entry.getTxBytes();
+            temp.txPackets = entry.getTxPackets();
+            return temp;
+        });
     }
 
     /**
@@ -1242,30 +1241,28 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
      * @hide
      */
     public NetworkStats groupedByUid() {
-        final NetworkStats stats = new NetworkStats(elapsedRealtime, 10);
+        // Keep backward compatibility where the method filtered out tagged stats. The method used
+        // to deal with uid snapshot where tagged and non-tagged stats were mixed. And
+        // this method is also in Android O API list, so it is possible OEM can access it.
+        final NetworkStats copiedStats = this.clone();
+        copiedStats.filter(e -> e.getTag() == TAG_NONE);
 
-        final Entry entry = new Entry();
-        entry.iface = IFACE_ALL;
-        entry.set = SET_ALL;
-        entry.tag = TAG_NONE;
-        entry.metered = METERED_ALL;
-        entry.roaming = ROAMING_ALL;
-        entry.defaultNetwork = DEFAULT_NETWORK_ALL;
+        final Entry temp = new Entry();
+        temp.iface = IFACE_ALL;
+        temp.set = SET_ALL;
+        temp.tag = TAG_NONE;
+        temp.metered = METERED_ALL;
+        temp.defaultNetwork = DEFAULT_NETWORK_ALL;
 
-        for (int i = 0; i < size; i++) {
-            // skip specific tags, since already counted in TAG_NONE
-            if (tag[i] != TAG_NONE) continue;
-
-            entry.uid = uid[i];
-            entry.rxBytes = rxBytes[i];
-            entry.rxPackets = rxPackets[i];
-            entry.txBytes = txBytes[i];
-            entry.txPackets = txPackets[i];
-            entry.operations = operations[i];
-            stats.combineValues(entry);
-        }
-
-        return stats;
+        return copiedStats.map(entry -> {
+            temp.uid = entry.getUid();
+            temp.rxBytes = entry.getRxBytes();
+            temp.rxPackets = entry.getRxPackets();
+            temp.txBytes = entry.getTxBytes();
+            temp.txPackets = entry.getTxPackets();
+            temp.operations = entry.getOperations();
+            return temp;
+        });
     }
 
     /**
@@ -1299,6 +1296,30 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
         for (int i = 0; i < size; i++) {
             iface[i] = null;
         }
+    }
+
+    /**
+     * Returns a new NetworkStats object where entries are transformed.
+     *
+     * Note that because NetworkStats is more akin to a map than to a list,
+     * the entries will be grouped after they are mapped by the key fields,
+     * e.g. uid, set, tag, defaultNetwork.
+     * Value fields with the same keys will be added together.
+     *
+     * Notes that in normal usage it would probably not make a lot of sense
+     * to transform the value fields of the entry, though this is not forbidden.
+     */
+    @NonNull
+    private NetworkStats map(@NonNull Function<Entry, Entry> f) {
+        final NetworkStats ret = new NetworkStats(0, 1);
+        for (Entry e : this) {
+            final NetworkStats.Entry transformed = f.apply(e);
+            if (transformed == e) {
+                throw new IllegalStateException("A new entry must be created.");
+            }
+            ret.combineValues(transformed);
+        }
+        return ret;
     }
 
     /**
