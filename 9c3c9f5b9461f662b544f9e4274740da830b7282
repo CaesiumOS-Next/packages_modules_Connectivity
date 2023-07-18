@@ -16,6 +16,24 @@
       "message": "Could you also CP internally to udc-qpr-dev once this is merged?",
       "revId": "9c3c9f5b9461f662b544f9e4274740da830b7282",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "881b0443_0d9458d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-07-18T16:23:07Z",
+      "side": 1,
+      "message": "Historically, we haven\u0027t done cherry-picks to qpr branches (happy to approve one though). What I can do is file a respin request for inclusion in the September mainline module; otherwise, it will release as part of the October module update.",
+      "parentUuid": "f6236b7a_872d4f7a",
+      "revId": "9c3c9f5b9461f662b544f9e4274740da830b7282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
