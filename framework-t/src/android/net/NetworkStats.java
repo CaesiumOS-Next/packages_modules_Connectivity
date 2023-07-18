@@ -46,6 +46,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -1210,30 +1211,18 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
      * @hide
      */
     public NetworkStats groupedByIface() {
-        final NetworkStats stats = new NetworkStats(elapsedRealtime, 10);
+        // Keep backward compatibility where the method filtered out tagged stats and keep the
+        // operation counts as 0. The method used to deal with uid snapshot where tagged and
+        // non-tagged stats were mixed. And this method was also in Android O API list,
+        // so it is possible OEM can access it.
+        final NetworkStats copiedStats = this.clone();
+        copiedStats.filter(e -> e.getTag() == TAG_NONE);
 
-        final Entry entry = new Entry();
-        entry.uid = UID_ALL;
-        entry.set = SET_ALL;
-        entry.tag = TAG_NONE;
-        entry.metered = METERED_ALL;
-        entry.roaming = ROAMING_ALL;
-        entry.defaultNetwork = DEFAULT_NETWORK_ALL;
-        entry.operations = 0L;
-
-        for (int i = 0; i < size; i++) {
-            // skip specific tags, since already counted in TAG_NONE
-            if (tag[i] != TAG_NONE) continue;
-
-            entry.iface = iface[i];
-            entry.rxBytes = rxBytes[i];
-            entry.rxPackets = rxPackets[i];
-            entry.txBytes = txBytes[i];
-            entry.txPackets = txPackets[i];
-            stats.combineValues(entry);
-        }
-
-        return stats;
+        return sliceNetworkStats(copiedStats, (entry) ->
+                new Entry(entry.getIface(), UID_ALL, SET_ALL, TAG_NONE,
+                        METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL,
+                entry.getRxBytes(), entry.getRxPackets(),
+                entry.getTxBytes(), entry.getTxPackets(), 0));
     }
 
     /**
@@ -1242,30 +1231,17 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
      * @hide
      */
     public NetworkStats groupedByUid() {
-        final NetworkStats stats = new NetworkStats(elapsedRealtime, 10);
+        // Keep backward compatibility where the method filtered out tagged stats. The method used
+        // to deal with uid snapshot where tagged and non-tagged stats were mixed. And
+        // this method is also in Android O API list, so it is possible OEM can access it.
+        final NetworkStats copiedStats = this.clone();
+        copiedStats.filter(e -> e.getTag() == TAG_NONE);
 
-        final Entry entry = new Entry();
-        entry.iface = IFACE_ALL;
-        entry.set = SET_ALL;
-        entry.tag = TAG_NONE;
-        entry.metered = METERED_ALL;
-        entry.roaming = ROAMING_ALL;
-        entry.defaultNetwork = DEFAULT_NETWORK_ALL;
-
-        for (int i = 0; i < size; i++) {
-            // skip specific tags, since already counted in TAG_NONE
-            if (tag[i] != TAG_NONE) continue;
-
-            entry.uid = uid[i];
-            entry.rxBytes = rxBytes[i];
-            entry.rxPackets = rxPackets[i];
-            entry.txBytes = txBytes[i];
-            entry.txPackets = txPackets[i];
-            entry.operations = operations[i];
-            stats.combineValues(entry);
-        }
-
-        return stats;
+        return sliceNetworkStats(copiedStats, (entry) ->
+                new Entry(IFACE_ALL, entry.getUid(), SET_ALL, TAG_NONE,
+                        METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL,
+                        entry.getRxBytes(), entry.getRxPackets(),
+                        entry.getTxBytes(), entry.getTxPackets(), entry.getOperations()));
     }
 
     /**
@@ -1299,6 +1275,38 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
         for (int i = 0; i < size; i++) {
             iface[i] = null;
         }
+    }
+
+    /**
+     * Slices NetworkStats along the dimensions specified in the slicer lambda and aggregates over
+     * non-sliced dimensions.
+     *
+     * This function iterates through each NetworkStats.Entry, sets its dimensions equal to the
+     * default state (with the presumption that we don't want to slice on anything) and then
+     * applies the slicer lambda to allow users to control which dimensions to slice on.
+     *
+     * @param slicer An operation taking one parameter, NetworkStats.Entry, that should be used to
+     *               get the state from entry to replace the default value.
+     *               This is useful for slicing by particular dimensions. For example, if we wished
+     *               to slice by uid and tag, we could write the following lambda:
+     *               (entry) -> {
+     *               return new NetworkStats.Entry(null, entry.getUid(),
+     *               NetworkStats.SET_ALL, entry.getTag(),
+     *               NetworkStats.METERED_ALL, NetworkStats.ROAMING_ALL,
+     *               NetworkStats.DEFAULT_NETWORK_ALL,
+     *               entry.getRxBytes(), entry.getRxPackets(),
+     *               entry.getTxBytes(), entry.getTxPackets(), 0);
+     *               }
+     * @return new NeworkStats object appropriately sliced
+     */
+    @NonNull
+    private NetworkStats sliceNetworkStats(@NonNull NetworkStats stats,
+            @NonNull Function<Entry, Entry> slicer) {
+        NetworkStats ret = new NetworkStats(0, 1);
+        for (NetworkStats.Entry e : stats) {
+            ret = ret.addEntry(slicer.apply(e));
+        }
+        return ret;
     }
 
     /**
