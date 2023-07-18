@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cff9294_5e8181ac",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-18T07:18:42Z",
+      "side": 1,
+      "message": "Used clearInvocations in startVpnForVerifyAppExclusionList",
+      "parentUuid": "4765c4bb_871e71d0",
+      "range": {
+        "startLine": 971,
+        "startChar": 15,
+        "endLine": 971,
+        "endChar": 25
+      },
+      "revId": "25eec4a51ef079ff66c83261f6978d6d33cea9e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b88296be_9e9e671e",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36ed31f9_58b8284d",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1683,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-18T07:18:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b88296be_9e9e671e",
+      "range": {
+        "startLine": 1683,
+        "startChar": 31,
+        "endLine": 1683,
+        "endChar": 37
+      },
+      "revId": "25eec4a51ef079ff66c83261f6978d6d33cea9e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6e41939_d8087ea6",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-06-16T07:24:34Z",
       "side": 1,
       "message": "Nit : checking that the size is the same should be sufficient",
+      "range": {
+        "startLine": 1702,
+        "startChar": 35,
+        "endLine": 1702,
+        "endChar": 82
+      },
+      "revId": "25eec4a51ef079ff66c83261f6978d6d33cea9e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81cfa760_7ac35e8f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-07-18T07:18:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6e41939_d8087ea6",
       "range": {
         "startLine": 1702,
         "startChar": 35,
