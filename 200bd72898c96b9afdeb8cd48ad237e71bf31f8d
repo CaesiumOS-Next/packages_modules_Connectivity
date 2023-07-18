@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "babb0eaf_64a0eb22",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-18T16:45:04Z",
+      "side": 1,
+      "message": "or just get rid of this MIN constants entirely...",
+      "range": {
+        "startLine": 693,
+        "startChar": 0,
+        "endLine": 693,
+        "endChar": 69
+      },
+      "revId": "200bd72898c96b9afdeb8cd48ad237e71bf31f8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6691abdc_23527b70",
         "filename": "framework/src/android/net/NetworkCapabilities.java",
         "patchSetId": 5
@@ -41,6 +64,29 @@
       "range": {
         "startLine": 696,
         "startChar": 52,
+        "endLine": 696,
+        "endChar": 53
+      },
+      "revId": "200bd72898c96b9afdeb8cd48ad237e71bf31f8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "affb323c_3fe82522",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-18T16:45:04Z",
+      "side": 1,
+      "message": "and then just use \u003d (2L\u003c\u003cMAX) - 1;",
+      "range": {
+        "startLine": 696,
+        "startChar": 0,
         "endLine": 696,
         "endChar": 53
       },
