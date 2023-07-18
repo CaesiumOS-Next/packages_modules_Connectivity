@@ -16,6 +16,23 @@
       "message": "LGTM",
       "revId": "232df6eb3aea66a9761dc6874b4a4786a9a472fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f584736_a6b2688a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1209463
+      },
+      "writtenOn": "2023-07-18T22:13:04Z",
+      "side": 1,
+      "message": "Hi, CL needs owner code review vote.Thanks",
+      "revId": "232df6eb3aea66a9761dc6874b4a4786a9a472fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
