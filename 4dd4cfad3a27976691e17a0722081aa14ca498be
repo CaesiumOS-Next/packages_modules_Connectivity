@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2adbc85_95a5f08e",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-19T02:06:05Z",
+      "side": 1,
+      "message": "nit: one line break blank before this?",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 8
+      },
+      "revId": "4dd4cfad3a27976691e17a0722081aa14ca498be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e210b6ca_6df6cb0b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-19T02:06:05Z",
+      "side": 1,
+      "message": "Could we make this clock a member variable? I believe we will need the clock in some other places in the future.",
+      "range": {
+        "startLine": 534,
+        "startChar": 63,
+        "endLine": 534,
+        "endChar": 92
+      },
+      "revId": "4dd4cfad3a27976691e17a0722081aa14ca498be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
