@@ -1,0 +1,226 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a7ea58e_860bdfcd",
+        "filename": "tests/benchmark/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "\"FrameworksNet\" (like for FrameworksNetTests) was used because our code used to be in frameworks/base/services/net. But now I think you could call it ConnectivityBenchmarkTests or something like that.",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c8c8b4b_aaf35992",
+        "filename": "tests/benchmark/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "See other comments to possibly avoid depending on this library, I think it\u0027s best to reduce dependencies if it can be done easily",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64fbde2c_062b0d31",
+        "filename": "tests/benchmark/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "Nit: it would be clearer to have a package name that resembles the build rule name (APK filename)\n\nAlso for the android:label in the instrumentation",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a804d1c_d4d1c9f4",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "Typo: BUCKET",
+      "range": {
+        "startLine": 42,
+        "startChar": 31,
+        "endLine": 42,
+        "endChar": 38
+      },
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b57563b_488f36fb",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "Nit: no leading \"m\" in kotlin style\n\nInstead of lateinit you could also use lazy-init, if the problem is that you need an instrumentation context:\n\n```\nprivate val uidTestFiles by lazy {\n    ...\n}\n```",
+      "range": {
+        "startLine": 44,
+        "startChar": 25,
+        "endLine": 44,
+        "endChar": 26
+      },
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cab76b2_6fdc391b",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "Can you add a comment on how the file was generated ?\n\nAlso in the commit message, since that\u0027s probably what people will see when looking at the history for the zip file",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e312a187_78a852b5",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "This depends on libcore test utils; I\u0027m not sure they were designed for this purpose, and additional dependencies may make the test less portable in the future, so maybe it\u0027s better to use other APIs if this can be easily avoided ?\n\nWould java.nio.file.Files.createTempDirectory work instead ?",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50fb6f77_0c1b3610",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "This looks a bit unusual, I think it replicates the Java `while ((entry \u003d getNext()) !\u003d null)`, but the result is a bit complicated / not very Kotlin-like\n\nMaybe this would be simpler ?\n\n```\nwhile (true) {\n    val entryName \u003d zis.nextEntry?.name ?: break\n    val file \u003d File(statsDir, entryName)\n    ...\n}\n```",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13e94d23_29855856",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "You can probably use InputStream.copyTo:\n\nhttps://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/java.io.-input-stream/copy-to.html",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f58671f_259c3428",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "In Kotlin I think you\u0027d rather use `val list \u003d mutableListOf\u003cFile\u003e()`",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04c38417_892c10f4",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "Alternatively you could use mapNotNull:\n\n```\nreturn (statsDir.list() ?: arrayOf()).mapNotNull { \n    if (it.startsWith(\"$prefix.\")) File(statsDir, it) else null\n}.sort()\n```\n\nBut up to you",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cb69fb7_5d6b5ce7",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:21:40Z",
+      "side": 1,
+      "message": "I think this is hidden API, so best avoided\n\nIdeally you\u0027d use \"use\" I think:\n\n```\nBufferedInputStream(FileInputStream(file)).use {\n    reader.read(it)\n}\n```",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
