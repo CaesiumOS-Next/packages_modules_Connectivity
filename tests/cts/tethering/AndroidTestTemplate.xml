@@ -30,6 +30,10 @@
     </target_preparer>
     <test class="com.android.tradefed.testtype.AndroidJUnitTest" >
         <option name="package" value="android.tethering.cts" />
+        <!-- Test filter to exclude tests that are part of a CTS test class, but are meant to be run
+             only in an MTS environment. Since CTS tests are also run as part of MTS, integration
+             tests often use the already present infrastructure of the CTS test. -->
+        <option name="exclude-annotation" value="com.android.testutils.filters.OnlyRunInMts" />
     </test>
 
     <object type="module_controller" class="com.android.tradefed.testtype.suite.module.MainlineTestModuleController">

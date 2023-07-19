@@ -48,6 +48,10 @@
              the runner will only run the tests annotated with that annotation, but if it does not,
              the runner will run all the tests. -->
         <option name="include-annotation" value="com.android.testutils.filters.{MODULE}" />
+        <!-- Test filter to exclude tests that are part of a CTS test class, but are meant to be run
+             only in an MTS environment. Since CTS tests are also run as part of MTS, integration
+             tests often use the already present infrastructure of the CTS test. -->
+        <option name="exclude-annotation" value="com.android.testutils.filters.OnlyRunInMts" />
     </test>
     <!-- When this test is run in a Mainline context (e.g. with `mts-tradefed`), only enable it if
         one of the Mainline modules below is present on the device used for testing. -->
