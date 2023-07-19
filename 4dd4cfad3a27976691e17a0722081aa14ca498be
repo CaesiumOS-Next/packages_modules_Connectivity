@@ -45,6 +45,30 @@
       },
       "revId": "4dd4cfad3a27976691e17a0722081aa14ca498be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab32aff2_0a12a675",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-19T02:51:59Z",
+      "side": 1,
+      "message": "Nvm, looks like it is already refactored aosp/2630031",
+      "parentUuid": "e210b6ca_6df6cb0b",
+      "range": {
+        "startLine": 534,
+        "startChar": 63,
+        "endLine": 534,
+        "endChar": 92
+      },
+      "revId": "4dd4cfad3a27976691e17a0722081aa14ca498be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
