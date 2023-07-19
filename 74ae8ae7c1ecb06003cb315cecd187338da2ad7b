@@ -159,6 +159,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45554920_9b1509e3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T08:28:02Z",
+      "side": 1,
+      "message": "I guess it can\u0027t, because clientRequestId is obtained from clientInfo.getClientRequestId",
+      "parentUuid": "1d1c13b1_c6ca49fa",
+      "range": {
+        "startLine": 1193,
+        "startChar": 47,
+        "endLine": 1193,
+        "endChar": 54
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59a1a660_2cc03235",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 5
@@ -170,6 +194,30 @@
       "writtenOn": "2023-07-19T08:25:39Z",
       "side": 1,
       "message": "Could this be null ?",
+      "range": {
+        "startLine": 1785,
+        "startChar": 60,
+        "endLine": 1785,
+        "endChar": 67
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84e36c70_7db3cd4f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T08:28:02Z",
+      "side": 1,
+      "message": "I guess it can\u0027t, because clientRequestId is obtained from getClientRequestIdOrLog",
+      "parentUuid": "59a1a660_2cc03235",
       "range": {
         "startLine": 1785,
         "startChar": 60,
