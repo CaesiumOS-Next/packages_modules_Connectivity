@@ -63,6 +63,23 @@
       },
       "revId": "721f9b28bf6e5b890003363de97d40f1ffafab8b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b527d19_7600be52",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T03:41:09Z",
+      "side": 1,
+      "message": "Is it correct that this will match at most one socket ?\n\nIIUC this class does:\n - Get active sockets by combining the sockets from mRequestedNetworks\n - Iterate on that list, send to the socket that matches the provided socketKey\n\nWould it be possible to just get one socket that matches the socket key (or null) from mRequestedNetworks ?\n\nAlso mRequestedNetworks should really be renamed at this point, since it\u0027s a map of Requester -\u003e SocketCallaback. Maybe something like mSocketRequests ?",
+      "revId": "721f9b28bf6e5b890003363de97d40f1ffafab8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
