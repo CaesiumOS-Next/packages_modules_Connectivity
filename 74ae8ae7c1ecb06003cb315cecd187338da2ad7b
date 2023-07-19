@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4512754_2f1070aa",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-19T02:58:26Z",
+      "side": 1,
+      "message": "nit: reportServiceRegistration -\u003e reportServiceRegistrationSucceed?",
+      "range": {
+        "startLine": 87,
+        "startChar": 16,
+        "endLine": 87,
+        "endChar": 41
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fe0ccc1_77ad0ecb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-19T02:58:26Z",
+      "side": 1,
+      "message": "Why we are using the NanoSeconds here? Looks like we will convert the nano seconds back to mill second in the metrics? Can we directly use elapsedRealtime?",
+      "range": {
+        "startLine": 190,
+        "startChar": 20,
+        "endLine": 190,
+        "endChar": 40
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
