@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6690a15c_caca85cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-07-19T23:42:20Z",
+      "side": 1,
+      "message": "FWIW, tested this on the follow up CL by running CtsNetTestCases after excluding a test in EthernetManagerTest.",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 13
+      },
+      "revId": "78c8f6b67b317b7dad1c467fb7c1d3cf7a0c8426",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
