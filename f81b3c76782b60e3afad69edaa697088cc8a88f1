@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7b2a405_8da0da6e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T08:32:05Z",
+      "side": 1,
+      "message": "Nit: I don\u0027t think that\u0027s possibly null ? There\u0027s already code in aosp/2630031 using the same kind of assumptions (`clientRequestId \u003d clientInfo.getClientRequestId` implies that `clientInfo.mClientRequests.get(clientRequestId)` is not null)",
+      "range": {
+        "startLine": 1173,
+        "startChar": 24,
+        "endLine": 1173,
+        "endChar": 44
+      },
+      "revId": "f81b3c76782b60e3afad69edaa697088cc8a88f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
