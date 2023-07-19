@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b63b035_89192b92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:34:12Z",
+      "side": 1,
+      "message": "LGTM with comment addressed",
+      "revId": "4dd4cfad3a27976691e17a0722081aa14ca498be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2adbc85_95a5f08e",
@@ -14,6 +31,30 @@
       "writtenOn": "2023-07-19T02:06:05Z",
       "side": 1,
       "message": "nit: one line break blank before this?",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 8
+      },
+      "revId": "4dd4cfad3a27976691e17a0722081aa14ca498be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11c001bd_54f223d1",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T07:34:12Z",
+      "side": 1,
+      "message": "Actually I think this @hide isn\u0027t needed because it\u0027s not in a jar that exposes APIs (it\u0027s in service-t, not framework-t).",
+      "parentUuid": "b2adbc85_95a5f08e",
       "range": {
         "startLine": 22,
         "startChar": 3,
