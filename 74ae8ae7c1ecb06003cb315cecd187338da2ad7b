@@ -26,6 +26,116 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "69013e3f_ea705006",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T08:15:06Z",
+      "side": 1,
+      "message": "+1, I\u0027d say reportServiceRegistrationSucceeded to mirror \"RegistrationFailed\"",
+      "parentUuid": "a4512754_2f1070aa",
+      "range": {
+        "startLine": 87,
+        "startChar": 16,
+        "endLine": 87,
+        "endChar": 41
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21b68fdd_0e9108e8",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T08:15:06Z",
+      "side": 1,
+      "message": "Can this also get event duration registered ? In most callbacks it\u0027s reported immediately, but in some cases the failure is reported asynchronously (for example from IMDnsEventListener.SERVICE_REGISTRATION_FAILED). We might have other future use-cases where it fails asynchronously.",
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9009173_2c283760",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T08:15:06Z",
+      "side": 1,
+      "message": "Instead of that, could this report how long the service stayed registered ? I think that would be more useful since unregistration shouldn\u0027t really take time.\n\nBut it looks like that\u0027s what the code actually does ?",
+      "range": {
+        "startLine": 113,
+        "startChar": 29,
+        "endLine": 113,
+        "endChar": 71
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea491f6_2f6cdf76",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T08:15:06Z",
+      "side": 1,
+      "message": "Nit: can you make a constant ? Then you won\u0027t need the comment",
+      "range": {
+        "startLine": 576,
+        "startChar": 71,
+        "endLine": 576,
+        "endChar": 93
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9910caa6_f55be7d8",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T08:15:06Z",
+      "side": 1,
+      "message": "It seems a bit inconsistent that the error would have a transactionId if the service type was invalid, but would not if it\u0027s because of FAILURE_MAX_LIMIT.\n\nI\u0027m thinking the transactionId should only be there if a transaction was actually submitted; which would be the same case as the error having a non-zero duration.\n\nSo you could have: `clientInfo.onRegisterServiceFailedImmediately(int requestId, int errorCode)`, which ends up logging 0 for the duration and some placeholder transactionId; and `clientInfo.onRegisterServiceFailed(int requestId, int errorCode, int transactionId, long durationMs)`.\n\nThat would make it easier to identify the cases where the registration wasn\u0027t even attempted in the metrics.",
+      "range": {
+        "startLine": 862,
+        "startChar": 75,
+        "endLine": 862,
+        "endChar": 88
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9fe0ccc1_77ad0ecb",
         "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
         "patchSetId": 5
@@ -42,6 +152,52 @@
         "startChar": 20,
         "endLine": 190,
         "endChar": 40
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eea0478b_0b134dad",
+        "filename": "tests/unit/java/com/android/metrics/NetworkNsdReportedMetricsTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T08:15:06Z",
+      "side": 1,
+      "message": "Nit: assertTrue",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dae2d5ea_a5d5510b",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-19T08:15:06Z",
+      "side": 1,
+      "message": "Nit: to make sure the calculations are correct, I\u0027d suggest using a non-zero constant instead",
+      "range": {
+        "startLine": 220,
+        "startChar": 17,
+        "endLine": 220,
+        "endChar": 19
       },
       "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
