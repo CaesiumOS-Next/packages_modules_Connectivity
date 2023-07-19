@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "396a593c_5cea2ef4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-19T14:30:49Z",
+      "side": 1,
+      "message": "I change DEFAULT_TTL_TIME_MS to Long.MAX_VALUE becasuse use a nullable Long or -1L will break the comparation.",
+      "parentUuid": "06d0a758_04adfd7a",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f3f6edac_84a773f9",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
         "patchSetId": 12
@@ -31,6 +49,24 @@
       "writtenOn": "2023-07-12T09:59:44Z",
       "side": 1,
       "message": "Nit: to be at least consistent in the class, this should be mLastCheckTime, mNextExpirationIntervalMs (like mCachedServices, mHandler)",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09675394_1b463237",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-19T14:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3f6edac_84a773f9",
       "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c346bf57_51aa784d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-19T14:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6e7db6a_a8a4ffc9",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8262870d_fd492682",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-07-12T09:59:44Z",
       "side": 1,
       "message": "That\u0027s a pretty inefficient way to insert in a sorted list; it doesn\u0027t matter too much considering the likely size of the list, but still, generally I think you\u0027d want something like (untested):\n\n```\nfinal int searchRes \u003d Collections.binarySearch(responses, response.getMinRemainingTtl(now), Comparator.comparingLong(...));\n// binarySearch returns \"the index of the search key, if it is contained in the list; \n// otherwise, (-(insertion point) - 1)\"\nresponses.add(searchRes \u003e\u003d 0 ? searchRes : (-searchRes - 1), responses);\n```",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6046f623_e84ff998",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-19T14:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8262870d_fd492682",
       "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +158,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a2c4504_352cd913",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-19T14:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f25d752a_fbe2bb49",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "465d9224_f0fe7732",
@@ -99,6 +189,24 @@
       "writtenOn": "2023-07-12T09:59:44Z",
       "side": 1,
       "message": "Nit: also document that registering the same callback instance twice is a no-op, since MdnsServiceTypeClient relies on this",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bedac88d_df3e3489",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-19T14:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "465d9224_f0fe7732",
       "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -149,6 +257,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a903313_7b0ce796",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-19T14:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0492bd3f_a23670a7",
+      "range": {
+        "startLine": 246,
+        "startChar": 12,
+        "endLine": 246,
+        "endChar": 50
+      },
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e46e513_12bb4c74",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-19T14:30:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1c9c728b_c1c55117",
+      "range": {
+        "startLine": 246,
+        "startChar": 25,
+        "endLine": 246,
+        "endChar": 26
+      },
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d928602_8dfb238f",
@@ -166,6 +322,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02bf4bf4_84b2d4eb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-19T14:30:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1d928602_8dfb238f",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbc12fac_4bf522e2",
@@ -179,6 +353,24 @@
       "writtenOn": "2023-07-12T09:59:44Z",
       "side": 1,
       "message": "But then the next iteration will be looking at the wrong index, since the following items have their indexes shifted (if i\u003d2, then element 3 becomes the new element 2, and at the next iteration you\u0027d look at i\u003d3 and miss it)\n\nYou can avoid the problem by iterating in reverse order (with a comment because it\u0027s a bit error-prone)",
+      "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "849a6325_8b7f946b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-19T14:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbc12fac_4bf522e2",
       "revId": "ea9ffecd6bc11b3d9a0f79c4c461cb85d02122d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
