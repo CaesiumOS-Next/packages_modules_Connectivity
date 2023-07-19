@@ -1,5 +1,69 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0631624_a0ee48d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-19T14:14:42Z",
+      "side": 1,
+      "message": "Hmm, it doesn\u0027t appear to have caused failures in any place that I can see.\n\nI guess we wait?  See if anyone ever actually complains?\n\nIf they don\u0027t we\u0027ll know these annotations are worthless...\nIf they do, we\u0027ll maybe figure out how to verify them at build time or in TH.",
+      "revId": "fc9875f53748665e964366601cb1d85e6e559bfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94826e73_0dd48b91",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-19T14:14:42Z",
+      "side": 1,
+      "message": "afaict this could be flagged as T+",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 282,
+        "endChar": 79
+      },
+      "revId": "fc9875f53748665e964366601cb1d85e6e559bfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7faba33_cc1d58c8",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-19T14:14:42Z",
+      "side": 1,
+      "message": "afaict this will always be called on T+",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 69
+      },
+      "revId": "fc9875f53748665e964366601cb1d85e6e559bfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
