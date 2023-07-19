@@ -1,0 +1,41 @@
+//rust_binary {
+//    name: "remote_connectivity_manager",
+//    srcs: ["src/main.rs"],
+//    rustlibs:["libconnection_info", "libdiscovered_device", "libdiscovery_filter"],
+//    flags: [],
+//}
+rust_library {
+    name: "libremote_connectivity_manager",
+    srcs: ["src/primary/remote_connectivity_manager.rs"],
+    crate_name: "remote_connectivity_manager",
+    rustlibs: [
+        "libconnection_info",
+        "libdiscovered_device",
+        "libdiscovery_filter",
+    ],
+    flags: [],
+}
+
+rust_library {
+    name: "libconnection_info",
+    srcs: ["src/common/connection_info.rs"],
+    crate_name: "connection_info",
+    rustlibs: [],
+    flags:[],
+}
+
+rust_library {
+    name: "libdiscovered_device",
+    srcs: ["src/primary/discovered_device.rs"],
+    crate_name: "discovered_device",
+    rustlibs: ["libconnection_info"],
+    flags:[],
+}
+
+rust_library {
+    name: "libdiscovery_filter",
+    srcs: ["src/primary/discovery_filter.rs"],
+    crate_name: "discovery_filter",
+    rustlibs: [],
+    flags: [],
+}
