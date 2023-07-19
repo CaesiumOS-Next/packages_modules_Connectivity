@@ -75,6 +75,7 @@ import com.android.testutils.RouterAdvertisementResponder
 import com.android.testutils.TapPacketReader
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.assertThrows
+import com.android.testutils.filters.OnlyRunInMts
 import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
 import java.io.IOException
@@ -953,9 +954,7 @@ class EthernetManagerTest {
         updateConfiguration(iface, capabilities = TEST_CAPS).expectResult(iface.name)
     }
 
-    // TODO: consider only having this test in MTS as it makes use of the fact that
-    // setEthernetEnabled(false) untracks all interfaces. This behavior is an implementation detail
-    // and may change in the future.
+    @OnlyRunInMts("This test makes use of that setEthernetEnabled(false) untracks all interfaces")
     @Test
     fun testUpdateConfiguration_onUntrackedInterface() {
         assumeFalse(isAdbOverEthernet())
