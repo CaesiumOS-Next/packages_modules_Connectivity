@@ -22,6 +22,30 @@
       },
       "revId": "dd21e3e06d81f1298082b34c227fa133c72a3488",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e27b5859_1277eda3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-20T05:40:06Z",
+      "side": 1,
+      "message": "No, we are keeping how subtract works, it would keep assuming all keys are unique.\nWhat we changed is the clearInterface function.\nSo that is also where we add tests.",
+      "parentUuid": "76f6c722_f518625f",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "dd21e3e06d81f1298082b34c227fa133c72a3488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
