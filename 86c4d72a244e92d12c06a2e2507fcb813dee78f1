@@ -34,6 +34,24 @@
       "parentUuid": "85d545f9_e6fdea61",
       "revId": "86c4d72a244e92d12c06a2e2507fcb813dee78f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1991a572_5505d327",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-20T03:30:48Z",
+      "side": 1,
+      "message": "If you would like to disable it before T. You could just do the SDK check in the help method(or where you do the check) to always consider it\u0027s disabled before T. Then you will not access this in the Constructor(which is in different thread) to keep all the acceesses in the handler thread.",
+      "parentUuid": "4368a91b_282a9822",
+      "revId": "86c4d72a244e92d12c06a2e2507fcb813dee78f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
