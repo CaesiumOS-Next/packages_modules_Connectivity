@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba0871a4_6cd7358d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-20T08:18:10Z",
+      "side": 1,
+      "message": "Done in aosp/2664158",
+      "parentUuid": "b93e1378_d9fdfcdb",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 38
+      },
+      "revId": "2118d33da839703248ee55a359a3a947f5aae4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "708b9563_4f53bd85",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-12T10:12:51Z",
       "side": 1,
       "message": "nit: can make -1 a const value to refer to. It will increase the redability",
+      "range": {
+        "startLine": 112,
+        "startChar": 35,
+        "endLine": 112,
+        "endChar": 37
+      },
+      "revId": "2118d33da839703248ee55a359a3a947f5aae4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c01b2b50_380b5748",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-20T08:18:10Z",
+      "side": 1,
+      "message": "Done in aosp/2664158",
+      "parentUuid": "708b9563_4f53bd85",
       "range": {
         "startLine": 112,
         "startChar": 35,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1e4fe07_7c97e365",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-20T08:18:10Z",
+      "side": 1,
+      "message": "Remove the check and update the comments in aosp/2664158.",
+      "parentUuid": "0dafd0c9_94b28ac2",
+      "revId": "2118d33da839703248ee55a359a3a947f5aae4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "410ca02f_5e842cb5",
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b2796ce_516fab27",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-20T08:18:10Z",
+      "side": 1,
+      "message": "Done in aosp/2664158",
+      "parentUuid": "410ca02f_5e842cb5",
+      "range": {
+        "startLine": 119,
+        "startChar": 53,
+        "endLine": 119,
+        "endChar": 55
+      },
+      "revId": "2118d33da839703248ee55a359a3a947f5aae4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abbf174e_a6bb1355",
@@ -100,6 +190,30 @@
       "writtenOn": "2023-07-12T10:12:51Z",
       "side": 1,
       "message": "nit: QuerySentResult seems not to be redundant. Maybe rename it to QueryResult or QuerySentArgument will be better?",
+      "range": {
+        "startLine": 736,
+        "startChar": 25,
+        "endLine": 736,
+        "endChar": 40
+      },
+      "revId": "2118d33da839703248ee55a359a3a947f5aae4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3d28fe8_a7d63953",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-20T08:18:10Z",
+      "side": 1,
+      "message": "Rename to QuerySentArguments in aosp/2664158.",
+      "parentUuid": "abbf174e_a6bb1355",
       "range": {
         "startLine": 736,
         "startChar": 25,
