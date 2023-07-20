@@ -46,6 +46,30 @@
       },
       "revId": "dd21e3e06d81f1298082b34c227fa133c72a3488",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81587a02_e1759da7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-07-20T06:04:58Z",
+      "side": 1,
+      "message": "Do we need to add a test to prevent the same error from happening again?(\nOr the new test could have prevented it from happening again.)",
+      "parentUuid": "e27b5859_1277eda3",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "dd21e3e06d81f1298082b34c227fa133c72a3488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
