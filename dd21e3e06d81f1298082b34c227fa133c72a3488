@@ -70,6 +70,52 @@
       },
       "revId": "dd21e3e06d81f1298082b34c227fa133c72a3488",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e420a20_59665bd4",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-07-20T09:12:27Z",
+      "side": 1,
+      "message": "nits: remove the comma",
+      "range": {
+        "startLine": 1115,
+        "startChar": 43,
+        "endLine": 1115,
+        "endChar": 44
+      },
+      "revId": "dd21e3e06d81f1298082b34c227fa133c72a3488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b79f3c0f_b753b4c5",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-07-20T09:12:27Z",
+      "side": 1,
+      "message": "nits: Find the",
+      "range": {
+        "startLine": 1115,
+        "startChar": 15,
+        "endLine": 1115,
+        "endChar": 19
+      },
+      "revId": "dd21e3e06d81f1298082b34c227fa133c72a3488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
