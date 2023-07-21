@@ -33,6 +33,9 @@ import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.Struct.S32;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 /**
  * Monitor interface added (without removed) and right interface name and its index to bpf map.
  */
@@ -42,6 +45,7 @@ public class BpfInterfaceMapUpdater {
     private static final String IFACE_INDEX_NAME_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_iface_index_name_map";
     private final IBpfMap<S32, InterfaceMapValue> mBpfMap;
+    private final HashMap<String, HashSet<Integer>> mCache = new HashMap<>();
     private final INetd mNetd;
     private final Handler mHandler;
     private final Dependencies mDeps;
@@ -118,6 +122,10 @@ public class BpfInterfaceMapUpdater {
         });
     }
 
+    HashSet<Integer> getIfaceIndices(String ifaceName) {
+        return mCache.get(ifaceName);
+    }
+
     private void addInterface(String ifaceName) {
         final InterfaceParams iface = mDeps.getInterfaceParams(ifaceName);
         if (iface == null) {
@@ -126,6 +134,10 @@ public class BpfInterfaceMapUpdater {
         }
 
         try {
+            if (!mCache.containsKey(ifaceName)) {
+                mCache.put(ifaceName, new HashSet<Integer>());
+            }
+            mCache.get(ifaceName).add(new Integer(iface.index));
             mBpfMap.updateEntry(new S32(iface.index), new InterfaceMapValue(ifaceName));
         } catch (ErrnoException e) {
             Log.e(TAG, "Unable to update entry for " + ifaceName + ", " + e);
