@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee3d1643_0b9162af",
+        "filename": "framework/aidl-export/android/net/nsd/OffloadServiceInfo.aidl",
+        "patchSetId": 37
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1937835
+      },
+      "writtenOn": "2023-07-21T08:51:35Z",
+      "side": 1,
+      "message": "Why is this a Java only parcelable?",
+      "revId": "7a26d320aabbcf18f002c1ad7a99ad872ee7809a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
