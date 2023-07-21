@@ -16,6 +16,24 @@
       "message": "The executors are kept in a map here: https://cs.android.com/android/platform/superproject/main/+/refs/heads/main:packages/modules/Connectivity/service-t/src/com/android/server/connectivity/mdns/ExecutorProvider.java;drc\u003da0b4e914b2759871b429046dd57976cd2958155a;l\u003d38\n\nSo if you shut it down, it should probably be removed from the map too (actually shutdownAll should clear the map but doesn\u0027t...)\n\nConsidering that it might be better to shut it down in MdnsDiscoveryManager; after all it\u0027s MdnsDiscoveryManager that creates the executor (executorProvider.newServiceTypeClientSchedulerExecutor()), so maybe it should be the one to shut it down (executorProvider.shutdownExecutor(argument) or something ?)",
       "revId": "10919c85ef9235e164ae26369d20d8a9a26f3ffd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a553426_ca0c602c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-21T08:43:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3eee216_bfea21de",
+      "revId": "10919c85ef9235e164ae26369d20d8a9a26f3ffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
