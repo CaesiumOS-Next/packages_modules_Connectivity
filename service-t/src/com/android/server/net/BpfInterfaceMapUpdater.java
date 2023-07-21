@@ -33,6 +33,9 @@ import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.Struct.S32;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 /**
  * Monitor interface added (without removed) and right interface name and its index to bpf map.
  */
@@ -42,6 +45,7 @@ public class BpfInterfaceMapUpdater {
     private static final String IFACE_INDEX_NAME_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_iface_index_name_map";
     private final IBpfMap<S32, InterfaceMapValue> mBpfMap;
+    private final HashMap<String, HashSet<Integer>> mIfaceNameToIndexCache = new HashMap<>();
     private final INetd mNetd;
     private final Handler mHandler;
     private final Dependencies mDeps;
@@ -118,6 +122,10 @@ public class BpfInterfaceMapUpdater {
         });
     }
 
+    HashSet<Integer> getIfaceIndices(String ifaceName) {
+        return mIfaceNameToIndexCache.get(ifaceName);
+    }
+
     private void addInterface(String ifaceName) {
         final InterfaceParams iface = mDeps.getInterfaceParams(ifaceName);
         if (iface == null) {
@@ -126,7 +134,22 @@ public class BpfInterfaceMapUpdater {
         }
 
         try {
-            mBpfMap.updateEntry(new S32(iface.index), new InterfaceMapValue(ifaceName));
+            boolean newEntry = mBpfMap.insertOrReplaceEntry(new S32(iface.index),
+                    new InterfaceMapValue(ifaceName));
+            // If this index was mapped to an interface before, it needs to be removed from the
+            // name-to-index cache to avoid double-counting traffic. This shouldn't happen, but is
+            // implemented just in case.
+            if (!newEntry) {
+                synchronized (this) {
+                    for (HashSet<Integer> indices : mIfaceNameToIndexCache.values()) {
+                        indices.remove(iface.index);
+                    }
+                }
+            }
+            // The set of indices needs to be instantiated if this is the first occurrence of this
+            // interface name.
+            mIfaceNameToIndexCache.putIfAbsent(ifaceName, new HashSet<Integer>());
+            mIfaceNameToIndexCache.get(ifaceName).add(iface.index);
         } catch (ErrnoException e) {
             Log.e(TAG, "Unable to update entry for " + ifaceName + ", " + e);
         }

@@ -1930,16 +1930,23 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @Override
     public long getIfaceStats(@NonNull String iface, int type) {
         Objects.requireNonNull(iface);
-        long nativeIfaceStats = nativeGetIfaceStat(iface, type);
-        if (nativeIfaceStats == -1) {
-            return nativeIfaceStats;
-        } else {
-            // When tethering offload is in use, nativeIfaceStats does not contain usage from
-            // offload, add it back here. Note that the included statistics might be stale
-            // since polling newest stats from hardware might impact system health and not
-            // suitable for TrafficStats API use cases.
-            return nativeIfaceStats + getProviderIfaceStats(iface, type);
+        HashSet<Integer> ifindices = mInterfaceMapUpdater.getIfaceIndices(iface);
+        if (ifindices == null) {
+            return -1;
         }
+        long cumulativeNativeIfaceStats = 0;
+        for (int ifindex : ifindices) {
+            long nativeIfaceStats = nativeGetIfIndexStat(ifindex, type);
+            if (nativeIfaceStats == -1) {
+                return nativeIfaceStats;
+            }
+            cumulativeNativeIfaceStats += nativeIfaceStats;
+        }
+        // When tethering offload is in use, nativeIfaceStats does not contain usage from
+        // offload, add it back here. Note that the included statistics might be stale
+        // since polling newest stats from hardware might impact system health and not
+        // suitable for TrafficStats API use cases.
+        return cumulativeNativeIfaceStats + getProviderIfaceStats(iface, type);
     }
 
     @Override
@@ -3303,6 +3310,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     private static native long nativeGetTotalStat(int type);
     private static native long nativeGetIfaceStat(String iface, int type);
+    private static native long nativeGetIfIndexStat(int ifindex, int type);
     private static native long nativeGetUidStat(int uid, int type);
 
     /** Initializes and registers the Perfetto Network Trace data source */
