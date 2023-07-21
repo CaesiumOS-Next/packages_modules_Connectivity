@@ -34,6 +34,7 @@
 
 using android::bpf::bpfGetUidStats;
 using android::bpf::bpfGetIfaceStats;
+using android::bpf::bpfGetIfindexStats;
 using android::bpf::NetworkTraceHandler;
 
 namespace android {
@@ -94,6 +95,15 @@ static jlong nativeGetIfaceStat(JNIEnv* env, jclass clazz, jstring iface, jint t
     }
 }
 
+static jlong nativeGetIfindexStat(JNIEnv* env, jclass clazz, jint ifindex, jint type) {
+    Stats stats = {};
+    if (bpfGetIfindexStats(ifindex, &stats) == 0) {
+        return getStatsType(&stats, (StatsType) type);
+    } else {
+        return UNKNOWN;
+    }
+}
+
 static jlong nativeGetUidStat(JNIEnv* env, jclass clazz, jint uid, jint type) {
     Stats stats = {};
 
@@ -111,6 +121,7 @@ static void nativeInitNetworkTracing(JNIEnv* env, jclass clazz) {
 static const JNINativeMethod gMethods[] = {
         {"nativeGetTotalStat", "(I)J", (void*)nativeGetTotalStat},
         {"nativeGetIfaceStat", "(Ljava/lang/String;I)J", (void*)nativeGetIfaceStat},
+        {"nativeGetIfindexStat", "(II)J", (void*)nativeGetIfindexStat},
         {"nativeGetUidStat", "(II)J", (void*)nativeGetUidStat},
         {"nativeInitNetworkTracing", "()V", (void*)nativeInitNetworkTracing},
 };
