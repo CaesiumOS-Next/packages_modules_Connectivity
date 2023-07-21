@@ -204,6 +204,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
                         if (serviceTypeClient == null) return;
                         // Notify all listeners that all services are removed from this socket.
                         serviceTypeClient.notifySocketDestroyed();
+                        serviceTypeClient.shutDown();
                         perSocketServiceTypeClients.remove(serviceTypeClient);
                     }
                 });
@@ -238,6 +239,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
             if (serviceTypeClient.stopSendAndReceive(listener)) {
                 // No listener is registered for the service type anymore, remove it from the list
                 // of the service type clients.
+                serviceTypeClient.shutDown();
                 perSocketServiceTypeClients.remove(serviceTypeClient);
             }
         }

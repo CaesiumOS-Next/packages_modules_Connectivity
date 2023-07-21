@@ -329,6 +329,15 @@ public class MdnsServiceTypeClient {
         }
     }
 
+    /**
+     * Shutdown the MdnsServiceTypeClient
+     */
+    public void shutDown() {
+        if (!executor.isShutdown()) {
+            executor.shutdownNow();
+        }
+    }
+
     private void removeScheduledTask() {
         dependencies.removeMessages(handler, EVENT_START_QUERYTASK);
         sharedLog.log("Remove EVENT_START_QUERYTASK"
