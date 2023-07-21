@@ -16,6 +16,97 @@
       "message": "Friendly ping to the owners for review 😊",
       "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d872525_48c685f4",
+        "filename": "remote_auth/.gitignore",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-21T01:53:05Z",
+      "side": 1,
+      "message": "There\u0027s already packages/modules/Connectivity/.gitignore, could that be enough ?",
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50448044_98050162",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-21T01:53:05Z",
+      "side": 1,
+      "message": "Initially this is what Nearby started with, but after discussion with the modularization team we ended up merging their API surface into framework-connectivity-t, see: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework-t/Android.bp;drc\u003d85de09411f91f1bf489851b328559e06cb459756;l\u003d44\n\nSo the Java API source file are there, but the API files are not (they\u0027re in https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework-t/api/ together with the rest of the API exposed by the module).\n\nBut we should clarify whether your API should be exposed on T+ or U+ or V+; if one of the latter two, then it needs to be in a separate bootclasspath jar (framework-connectivity-v instead of framework-connectivity-t ?)",
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77d651b5_33b3e304",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-21T01:53:05Z",
+      "side": 1,
+      "message": "Considering you\u0027re copying this from the nearby dir: aidegen is deprecated, should be replaced by go/asfp, so you might want to try that instead",
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff3defd6_2fa64492",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-21T01:53:05Z",
+      "side": 1,
+      "message": "Note go/mainline-local-build is the generally recommended approach, although for quick\u0026dirty local testing I still use the method here",
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91298526_0adfe623",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-21T01:53:05Z",
+      "side": 1,
+      "message": "tethering.next was removed, now it\u0027s just com.google.android.tethering (and com.google.android.tethering.capex below)",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 37
+      },
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
