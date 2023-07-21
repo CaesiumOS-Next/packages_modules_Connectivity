@@ -16,6 +16,24 @@
       "message": "Why is this a Java only parcelable?",
       "revId": "7a26d320aabbcf18f002c1ad7a99ad872ee7809a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "354ae995_77a82deb",
+        "filename": "framework/aidl-export/android/net/nsd/OffloadServiceInfo.aidl",
+        "patchSetId": 37
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-21T08:54:07Z",
+      "side": 1,
+      "message": "https://source.android.com/docs/core/architecture/aidl/aidl-annotations#javaonlystableparcelable\n\nJavaOnlyStableParcelable marks a parcelable declaration (not definition) as stable so that it can be referenced from other stable AIDL types.\n\nThe OffloadServiceInfo is also referred in the following place\n\n```\noneway interface IOffloadEngine {\n    void onOffloadServiceUpdated(in OffloadServiceInfo info);\n    void onOffloadServiceRemoved(in OffloadServiceInfo info);\n}\n```",
+      "parentUuid": "ee3d1643_0b9162af",
+      "revId": "7a26d320aabbcf18f002c1ad7a99ad872ee7809a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
