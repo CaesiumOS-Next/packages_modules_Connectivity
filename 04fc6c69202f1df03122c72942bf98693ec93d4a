@@ -16,6 +16,46 @@
       "message": "LGTM.",
       "revId": "04fc6c69202f1df03122c72942bf98693ec93d4a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f3a39db_61a3cd66",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-21T09:31:48Z",
+      "side": 1,
+      "message": "disconnectFromCell is actually badly named, it doesn\u0027t disconnect from cell, it just unregisters a cell network request that was previously registered. So this won\u0027t actually trigger a battery stats update.\n\nActually toggling mobile data here may work instead; I think this can be done with (untested, so needs verification):\n\n```\nfinal TelephonyManager tm \u003d mContext.getSystemService(TelephonyManager.class)\n    .createForSubscriptionId(SubscriptionManager.getDefaultDataSubscriptionId());\nrunAsShell(MODIFY_PHONE_STATE, () -\u003e tm.setDataEnabledForReason(\n                TelephonyManager.DATA_ENABLED_REASON_USER, false));\n```\n\nThen don\u0027t forget to wrap the test in a try/finally, to restore mobile data at the end of the method.",
+      "revId": "04fc6c69202f1df03122c72942bf98693ec93d4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d9bd8f5_5abbc809",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-21T09:31:48Z",
+      "side": 1,
+      "message": "Also make sure that !entry.getCaps().isPrivateDnsBroken() in that lambda; right now this only checks that there is any update for the given network",
+      "range": {
+        "startLine": 1043,
+        "startChar": 58,
+        "endLine": 1043,
+        "endChar": 63
+      },
+      "revId": "04fc6c69202f1df03122c72942bf98693ec93d4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
