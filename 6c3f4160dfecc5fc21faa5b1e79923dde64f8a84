@@ -22,6 +22,30 @@
       },
       "revId": "6c3f4160dfecc5fc21faa5b1e79923dde64f8a84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c40a1236_cf189ce4",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-24T02:47:36Z",
+      "side": 1,
+      "message": "Unfortunately no, this could be used on MTS on various OEM devices, and they often have their own customized launcher with different package names.",
+      "parentUuid": "c4869f19_450fd964",
+      "range": {
+        "startLine": 414,
+        "startChar": 21,
+        "endLine": 414,
+        "endChar": 46
+      },
+      "revId": "6c3f4160dfecc5fc21faa5b1e79923dde64f8a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
