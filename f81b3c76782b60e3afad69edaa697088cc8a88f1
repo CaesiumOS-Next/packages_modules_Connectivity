@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6745267a_82eb0296",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T08:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78bb2b17_21335559",
+      "range": {
+        "startLine": 563,
+        "startChar": 71,
+        "endLine": 563,
+        "endChar": 73
+      },
+      "revId": "f81b3c76782b60e3afad69edaa697088cc8a88f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7b2a405_8da0da6e",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "+1, I think we need to be consist about the null check.",
       "parentUuid": "e7b2a405_8da0da6e",
+      "range": {
+        "startLine": 1173,
+        "startChar": 24,
+        "endLine": 1173,
+        "endChar": 44
+      },
+      "revId": "f81b3c76782b60e3afad69edaa697088cc8a88f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5f1cb73_b35a2324",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T08:31:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b397449a_2e8d95c3",
       "range": {
         "startLine": 1173,
         "startChar": 24,
