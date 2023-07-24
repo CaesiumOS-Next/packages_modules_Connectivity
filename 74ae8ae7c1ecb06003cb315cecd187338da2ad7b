@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afd3ea2c_9874128e",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T06:52:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69013e3f_ea705006",
+      "range": {
+        "startLine": 87,
+        "startChar": 16,
+        "endLine": 87,
+        "endChar": 41
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21b68fdd_0e9108e8",
@@ -65,6 +89,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a81819f2_7bb0ff6c",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T06:52:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21b68fdd_0e9108e8",
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9009173_2c283760",
@@ -78,6 +120,30 @@
       "writtenOn": "2023-07-19T08:15:06Z",
       "side": 1,
       "message": "Instead of that, could this report how long the service stayed registered ? I think that would be more useful since unregistration shouldn\u0027t really take time.\n\nBut it looks like that\u0027s what the code actually does ?",
+      "range": {
+        "startLine": 113,
+        "startChar": 29,
+        "endLine": 113,
+        "endChar": 71
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11c6d486_c71dd5a8",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T06:52:00Z",
+      "side": 1,
+      "message": "Yes, I caculate the time beofore the service unregistered.",
+      "parentUuid": "d9009173_2c283760",
       "range": {
         "startLine": 113,
         "startChar": 29,
@@ -111,6 +177,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3342b37_d7d96206",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T06:52:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ea491f6_2f6cdf76",
+      "range": {
+        "startLine": 576,
+        "startChar": 71,
+        "endLine": 576,
+        "endChar": 93
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9910caa6_f55be7d8",
@@ -124,6 +214,30 @@
       "writtenOn": "2023-07-19T08:15:06Z",
       "side": 1,
       "message": "It seems a bit inconsistent that the error would have a transactionId if the service type was invalid, but would not if it\u0027s because of FAILURE_MAX_LIMIT.\n\nI\u0027m thinking the transactionId should only be there if a transaction was actually submitted; which would be the same case as the error having a non-zero duration.\n\nSo you could have: `clientInfo.onRegisterServiceFailedImmediately(int requestId, int errorCode)`, which ends up logging 0 for the duration and some placeholder transactionId; and `clientInfo.onRegisterServiceFailed(int requestId, int errorCode, int transactionId, long durationMs)`.\n\nThat would make it easier to identify the cases where the registration wasn\u0027t even attempted in the metrics.",
+      "range": {
+        "startLine": 862,
+        "startChar": 75,
+        "endLine": 862,
+        "endChar": 88
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf32ece8_2da06116",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T06:52:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9910caa6_f55be7d8",
       "range": {
         "startLine": 862,
         "startChar": 75,
@@ -181,6 +295,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b00a88e2_be23406b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T06:52:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "45554920_9b1509e3",
+      "range": {
+        "startLine": 1193,
+        "startChar": 47,
+        "endLine": 1193,
+        "endChar": 54
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59a1a660_2cc03235",
@@ -228,6 +366,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ad77c6b_7e1dd2d6",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T06:52:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "84e36c70_7db3cd4f",
+      "range": {
+        "startLine": 1785,
+        "startChar": 60,
+        "endLine": 1785,
+        "endChar": 67
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fe0ccc1_77ad0ecb",
@@ -241,6 +403,30 @@
       "writtenOn": "2023-07-19T02:58:26Z",
       "side": 1,
       "message": "Why we are using the NanoSeconds here? Looks like we will convert the nano seconds back to mill second in the metrics? Can we directly use elapsedRealtime?",
+      "range": {
+        "startLine": 190,
+        "startChar": 20,
+        "endLine": 190,
+        "endChar": 40
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb27bdb0_6c4d1697",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T06:52:00Z",
+      "side": 1,
+      "message": "Uh, I don\u0027t remember why I use NanoSeconds. It seems to be unnecessary. Remove elapsedRealtimeNanos and use elapsedRealtime.",
+      "parentUuid": "9fe0ccc1_77ad0ecb",
       "range": {
         "startLine": 190,
         "startChar": 20,
@@ -274,6 +460,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e7c1ee4_3d674dac",
+        "filename": "tests/unit/java/com/android/metrics/NetworkNsdReportedMetricsTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T06:52:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eea0478b_0b134dad",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dae2d5ea_a5d5510b",
@@ -287,6 +497,30 @@
       "writtenOn": "2023-07-19T08:15:06Z",
       "side": 1,
       "message": "Nit: to make sure the calculations are correct, I\u0027d suggest using a non-zero constant instead",
+      "range": {
+        "startLine": 220,
+        "startChar": 17,
+        "endLine": 220,
+        "endChar": 19
+      },
+      "revId": "74ae8ae7c1ecb06003cb315cecd187338da2ad7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b55f3f28_574e47f5",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-24T06:52:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dae2d5ea_a5d5510b",
       "range": {
         "startLine": 220,
         "startChar": 17,
