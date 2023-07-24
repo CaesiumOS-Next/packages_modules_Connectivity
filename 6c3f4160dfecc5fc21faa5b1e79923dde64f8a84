@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4869f19_450fd964",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T02:21:08Z",
+      "side": 1,
+      "message": "Do we know what package name we are expecting?\nIs it better to return false if the package name is not expected? e.g. Catch other names that is unexpected.",
+      "range": {
+        "startLine": 414,
+        "startChar": 21,
+        "endLine": 414,
+        "endChar": 46
+      },
+      "revId": "6c3f4160dfecc5fc21faa5b1e79923dde64f8a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
