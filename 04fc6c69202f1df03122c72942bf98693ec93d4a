@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c84092e7_43553680",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-07-24T16:12:59Z",
+      "side": 1,
+      "message": "I don\u0027t think we can remove this ensureWifiConnected line. If we remove it, running testReportNetworkInterfaceForTransports will disable wifi at line 124 but never re-enable it, likely causing other tests to fail later.\n\nAlso, I don\u0027t think it will get the test to pass. As the comment explains, the battery stats are updated when a network stops being the default network. disconnectFromCell does not change the default network, so reportMobileRadioPowerState will not be called and the test will fail.\n\nFor this particular test, it might be that the only option is to skip it if the device does not support wifi. If we do that, let\u0027s make sure we add a comment to explain, something like:\n\n    // This test relies on being able to change the default network to force\n    // a BatteryStats update. This is only possible to do reliably on a device that\n    // has Wi-Fi.",
+      "range": {
+        "startLine": 159,
+        "startChar": 21,
+        "endLine": 159,
+        "endChar": 39
+      },
+      "revId": "04fc6c69202f1df03122c72942bf98693ec93d4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d9bd8f5_5abbc809",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 4
