@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59fd07bb_3ef4ea19",
+        "filename": "tests/benchmark/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a7ea58e_860bdfcd",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c8c8b4b_aaf35992",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-07-19T07:21:40Z",
       "side": 1,
       "message": "See other comments to possibly avoid depending on this library, I think it\u0027s best to reduce dependencies if it can be done easily",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "283ec22e_7d7246ec",
+        "filename": "tests/benchmark/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c8c8b4b_aaf35992",
       "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f63db5b7_b0da6098",
+        "filename": "tests/benchmark/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "Done, see if it works for you.",
+      "parentUuid": "64fbde2c_062b0d31",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a804d1c_d4d1c9f4",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-07-19T07:21:40Z",
       "side": 1,
       "message": "Typo: BUCKET",
+      "range": {
+        "startLine": 42,
+        "startChar": 31,
+        "endLine": 42,
+        "endChar": 38
+      },
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e3e3ca_4e0b4cae",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a804d1c_d4d1c9f4",
       "range": {
         "startLine": 42,
         "startChar": 31,
@@ -104,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b45c4fe_db9bef70",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b57563b_488f36fb",
+      "range": {
+        "startLine": 44,
+        "startChar": 25,
+        "endLine": 44,
+        "endChar": 26
+      },
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cab76b2_6fdc391b",
@@ -117,6 +225,24 @@
       "writtenOn": "2023-07-19T07:21:40Z",
       "side": 1,
       "message": "Can you add a comment on how the file was generated ?\n\nAlso in the commit message, since that\u0027s probably what people will see when looking at the history for the zip file",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4c4c082_0b364d51",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cab76b2_6fdc391b",
       "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -138,6 +264,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85b77526_2714af75",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e312a187_78a852b5",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50fb6f77_0c1b3610",
@@ -151,6 +295,24 @@
       "writtenOn": "2023-07-19T07:21:40Z",
       "side": 1,
       "message": "This looks a bit unusual, I think it replicates the Java `while ((entry \u003d getNext()) !\u003d null)`, but the result is a bit complicated / not very Kotlin-like\n\nMaybe this would be simpler ?\n\n```\nwhile (true) {\n    val entryName \u003d zis.nextEntry?.name ?: break\n    val file \u003d File(statsDir, entryName)\n    ...\n}\n```",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45fe22b3_05f20656",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "Good to know this, thanks.",
+      "parentUuid": "50fb6f77_0c1b3610",
       "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -172,6 +334,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eff2cf1b_9c03b6b2",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13e94d23_29855856",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f58671f_259c3428",
@@ -185,6 +365,24 @@
       "writtenOn": "2023-07-19T07:21:40Z",
       "side": 1,
       "message": "In Kotlin I think you\u0027d rather use `val list \u003d mutableListOf\u003cFile\u003e()`",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd594986_e843c154",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f58671f_259c3428",
       "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -206,6 +404,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "397c6d5e_cb942828",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "good to know this, done.",
+      "parentUuid": "04c38417_892c10f4",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cb69fb7_5d6b5ce7",
@@ -219,6 +435,24 @@
       "writtenOn": "2023-07-19T07:21:40Z",
       "side": 1,
       "message": "I think this is hidden API, so best avoided\n\nIdeally you\u0027d use \"use\" I think:\n\n```\nBufferedInputStream(FileInputStream(file)).use {\n    reader.read(it)\n}\n```",
+      "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa629b14_890d9415",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T06:57:42Z",
+      "side": 1,
+      "message": "Good to know this, thanks.",
+      "parentUuid": "2cb69fb7_5d6b5ce7",
       "revId": "d6e64b1f49d25262fde2e3956b5f2f99ee77f7dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
