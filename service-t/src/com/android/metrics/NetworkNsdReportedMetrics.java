@@ -66,7 +66,8 @@ public class NetworkNsdReportedMetrics {
                     event.getFoundServiceCount(),
                     event.getFoundCallbackCount(),
                     event.getLostCallbackCount(),
-                    event.getRepliedRequestsCount());
+                    event.getRepliedRequestsCount(),
+                    event.getSentQueryCount());
         }
     }
 
@@ -162,9 +163,10 @@ public class NetworkNsdReportedMetrics {
      * @param foundCallbackCount The count of found service callbacks before stop discovery.
      * @param lostCallbackCount The count of lost service callbacks before stop discovery.
      * @param servicesCount The count of found services.
+     * @param sentQueryCount The count of sent queries before stop discovery.
      */
     public void reportServiceDiscoveryStop(int transactionId, long durationMs,
-            int foundCallbackCount, int lostCallbackCount, int servicesCount) {
+            int foundCallbackCount, int lostCallbackCount, int servicesCount, int sentQueryCount) {
         final Builder builder = makeReportedBuilder();
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_DISCOVER);
@@ -173,6 +175,8 @@ public class NetworkNsdReportedMetrics {
         builder.setFoundCallbackCount(foundCallbackCount);
         builder.setLostCallbackCount(lostCallbackCount);
         builder.setFoundServiceCount(servicesCount);
+        builder.setFoundServiceCount(servicesCount);
+        builder.setSentQueryCount(sentQueryCount);
         mDependencies.statsWrite(builder.build());
     }
 
