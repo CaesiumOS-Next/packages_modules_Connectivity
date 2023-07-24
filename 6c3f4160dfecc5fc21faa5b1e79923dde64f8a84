@@ -46,6 +46,30 @@
       },
       "revId": "6c3f4160dfecc5fc21faa5b1e79923dde64f8a84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc73dac2_c6844191",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T02:48:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c40a1236_cf189ce4",
+      "range": {
+        "startLine": 414,
+        "startChar": 21,
+        "endLine": 414,
+        "endChar": 46
+      },
+      "revId": "6c3f4160dfecc5fc21faa5b1e79923dde64f8a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
