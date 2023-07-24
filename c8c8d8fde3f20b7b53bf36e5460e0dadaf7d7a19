@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6858ebd_af90dcb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-24T07:14:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad19445b_68abb3a8",
+      "revId": "c8c8d8fde3f20b7b53bf36e5460e0dadaf7d7a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "546c3786_ed0744d9",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4229dfca_33fe2a21",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/ExecutorProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-24T07:14:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "546c3786_ed0744d9",
+      "revId": "c8c8d8fde3f20b7b53bf36e5460e0dadaf7d7a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec949cdb_87196f15",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-07-24T03:44:11Z",
       "side": 1,
       "message": "It\u0027s worth noting that this will call Thread.interrupt on currently running tasks (EnqueueMdnsQueryCallable). But that was already the case before the refactor to schedule tasks using the Handler, when cancelling the future with interrupt\u003dtrue.\n\nSocket writes may start throwing ClosedByInterruptException (IOException) which should be handled fine; I don\u0027t think we have code in EnqueueMdnsQueryCallable that would get an InterruptedException (no lock wait or sleep in particular)",
+      "revId": "c8c8d8fde3f20b7b53bf36e5460e0dadaf7d7a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27818ada_ea1cd52f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/ExecutorProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-24T07:14:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ec949cdb_87196f15",
       "revId": "c8c8d8fde3f20b7b53bf36e5460e0dadaf7d7a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
