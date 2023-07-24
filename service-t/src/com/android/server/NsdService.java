@@ -225,6 +225,7 @@ public class NsdService extends INsdManager.Stub {
         protected final NsdServiceInfo mReqServiceInfo;
         @NonNull
         protected final String mListenedServiceType;
+        protected int mSentQueryCount = 0;
 
         MdnsListener(int clientRequestId, int transactionId, @NonNull NsdServiceInfo reqServiceInfo,
                 @NonNull String listenedServiceType) {
@@ -237,6 +238,10 @@ public class NsdService extends INsdManager.Stub {
         @NonNull
         public String getListenedServiceType() {
             return mListenedServiceType;
+        }
+
+        public int getSentQueryCount() {
+            return mSentQueryCount;
         }
 
         @Override
@@ -288,6 +293,11 @@ public class NsdService extends INsdManager.Stub {
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.SERVICE_LOST,
                     new MdnsEvent(mClientRequestId, serviceInfo));
+        }
+
+        @Override
+        public void onDiscoveryQuerySent(@NonNull List<String> subtypes, int transactionId) {
+            mSentQueryCount++;
         }
     }
 
@@ -829,18 +839,22 @@ public class NsdService extends INsdManager.Stub {
                         // point, so this needs to check the type of the original request to
                         // unregister instead of looking at the flag value.
                         if (request instanceof DiscoveryManagerRequest) {
+                            final int sentQueryCount = ((DiscoveryManagerRequest) request).mListener
+                                    .getSentQueryCount();
                             stopDiscoveryManagerRequest(
                                     request, clientRequestId, transactionId, clientInfo);
                             clientInfo.onStopDiscoverySucceeded(clientRequestId, transactionId,
                                     request.calculateRequestDurationMs(),
-                                    request.mFoundServiceCount, request.mLostServiceCount);
+                                    request.mFoundServiceCount, request.mLostServiceCount,
+                                    sentQueryCount);
                             clientInfo.log("Unregister the DiscoveryListener " + transactionId);
                         } else {
                             removeRequestMap(clientRequestId, transactionId, clientInfo);
                             if (stopServiceDiscovery(transactionId)) {
                                 clientInfo.onStopDiscoverySucceeded(clientRequestId, transactionId,
                                         request.calculateRequestDurationMs(),
-                                        request.mFoundServiceCount, request.mLostServiceCount);
+                                        request.mFoundServiceCount, request.mLostServiceCount,
+                                        0 /* sentQueryCount */);
                             } else {
                                 clientInfo.onStopDiscoveryFailed(
                                         clientRequestId, NsdManager.FAILURE_INTERNAL_ERROR);
@@ -2236,10 +2250,12 @@ public class NsdService extends INsdManager.Stub {
                 }
 
                 if (request instanceof DiscoveryManagerRequest) {
+                    final int sendQueryCount = ((DiscoveryManagerRequest) request).mListener
+                            .getSentQueryCount();
                     unregisterMdnsListenerFromRequest(request);
                     mMetrics.reportServiceDiscoveryStop(transactionId,
                             request.calculateRequestDurationMs(), request.mFoundServiceCount,
-                            request.mLostServiceCount);
+                            request.mLostServiceCount, sendQueryCount);
                     continue;
                 }
 
@@ -2261,7 +2277,7 @@ public class NsdService extends INsdManager.Stub {
                         stopServiceDiscovery(transactionId);
                         mMetrics.reportServiceDiscoveryStop(transactionId,
                                 request.calculateRequestDurationMs(), request.mFoundServiceCount,
-                                request.mLostServiceCount);
+                                request.mLostServiceCount, 0 /* sentQueryCount */);
                         break;
                     case NsdManager.RESOLVE_SERVICE:
                         stopResolveService(transactionId);
@@ -2363,9 +2379,9 @@ public class NsdService extends INsdManager.Stub {
         }
 
         void onStopDiscoverySucceeded(int listenerKey, int transactionId, long durationMs,
-                int foundServiceCount, int lostServiceCount) {
+                int foundServiceCount, int lostServiceCount, int sentQueryCount) {
             mMetrics.reportServiceDiscoveryStop(
-                    transactionId, durationMs, foundServiceCount, lostServiceCount);
+                    transactionId, durationMs, foundServiceCount, lostServiceCount, sentQueryCount);
             try {
                 mCb.onStopDiscoverySucceeded(listenerKey);
             } catch (RemoteException e) {
