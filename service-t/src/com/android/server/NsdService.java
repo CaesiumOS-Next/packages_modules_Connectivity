@@ -172,6 +172,8 @@ public class NsdService extends INsdManager.Stub {
     private static final int MAX_SERVICES_COUNT_METRIC_PER_CLIENT = 100;
     @VisibleForTesting
     static final int NO_TRANSACTION = -1;
+    private static final int NO_SENT_QUERY_COUNT = 0;
+    private static final int DISCOVERY_QUERY_SENT_CALLBACK = 1000;
     private static final SharedLog LOGGER = new SharedLog("serviceDiscovery");
 
     private final Context mContext;
@@ -288,7 +290,8 @@ public class NsdService extends INsdManager.Stub {
         public void onSearchFailedToStart() { }
 
         @Override
-        public void onDiscoveryQuerySent(@NonNull List<String> subtypes, int transactionId) { }
+        public void onDiscoveryQuerySent(@NonNull List<String> subtypes,
+                int sentQueryTransactionId) { }
 
         @Override
         public void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode) { }
@@ -315,6 +318,13 @@ public class NsdService extends INsdManager.Stub {
                     NsdManager.SERVICE_LOST,
                     new MdnsEvent(mClientRequestId, serviceInfo));
         }
+
+        @Override
+        public void onDiscoveryQuerySent(@NonNull List<String> subtypes,
+                int sentQueryTransactionId) {
+            mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
+                    DISCOVERY_QUERY_SENT_CALLBACK, mClientRequestId);
+        }
     }
 
     private class ResolutionListener extends MdnsListener {
@@ -329,6 +339,13 @@ public class NsdService extends INsdManager.Stub {
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.RESOLVE_SERVICE_SUCCEEDED,
                     new MdnsEvent(mClientRequestId, serviceInfo, isServiceFromCache));
+        }
+
+        @Override
+        public void onDiscoveryQuerySent(@NonNull List<String> subtypes,
+                int sentQueryTransactionId) {
+            mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
+                    DISCOVERY_QUERY_SENT_CALLBACK, mClientRequestId);
         }
     }
 
@@ -359,6 +376,13 @@ public class NsdService extends INsdManager.Stub {
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.SERVICE_UPDATED_LOST,
                     new MdnsEvent(mClientRequestId, serviceInfo));
+        }
+
+        @Override
+        public void onDiscoveryQuerySent(@NonNull List<String> subtypes,
+                int sentQueryTransactionId) {
+            mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
+                    DISCOVERY_QUERY_SENT_CALLBACK, mClientRequestId);
         }
     }
 
@@ -1409,6 +1433,20 @@ public class NsdService extends INsdManager.Stub {
                     return false;
                 }
 
+                // Deal with the discovery sent callback
+                if (code == DISCOVERY_QUERY_SENT_CALLBACK) {
+                    final int clientRequestId = (int) obj;
+                    final ClientRequest request = clientInfo.mClientRequests.get(clientRequestId);
+                    if (request == null) {
+                        Log.e(TAG, "Unknown client request. clientRequestId=" + clientRequestId);
+                        return false;
+                    }
+
+                    request.onQuerySent();
+                    return true;
+                }
+
+                // Deal with other callbacks.
                 final MdnsEvent event = (MdnsEvent) obj;
                 final int clientRequestId = event.mClientRequestId;
                 final NsdServiceInfo info = buildNsdServiceInfoFromMdnsEvent(event, code);
@@ -2225,6 +2263,7 @@ public class NsdService extends INsdManager.Stub {
         private int mLostServiceCount = 0;
         private final Set<String> mServices = new ArraySet<>();
         private boolean mIsServiceFromCache = false;
+        private int mSentQueryCount = NO_SENT_QUERY_COUNT;
 
         private ClientRequest(int transactionId, long startTimeMs) {
             mTransactionId = transactionId;
@@ -2264,6 +2303,14 @@ public class NsdService extends INsdManager.Stub {
 
         public boolean isServiceFromCache() {
             return mIsServiceFromCache;
+        }
+
+        public void onQuerySent() {
+            mSentQueryCount++;
+        }
+
+        public int getSentQueryCount() {
+            return mSentQueryCount;
         }
     }
 
@@ -2399,7 +2446,8 @@ public class NsdService extends INsdManager.Stub {
                                 request.calculateRequestDurationMs(mClock.elapsedRealtime()),
                                 request.getFoundServiceCount(),
                                 request.getLostServiceCount(),
-                                request.getServicesCount());
+                                request.getServicesCount(),
+                                request.getSentQueryCount());
                     } else if (listener instanceof ResolutionListener) {
                         mMetrics.reportServiceResolutionStop(transactionId,
                                 request.calculateRequestDurationMs(mClock.elapsedRealtime()));
@@ -2408,7 +2456,8 @@ public class NsdService extends INsdManager.Stub {
                                 request.calculateRequestDurationMs(mClock.elapsedRealtime()),
                                 request.getFoundServiceCount(),
                                 request.getLostServiceCount(),
-                                request.isServiceFromCache());
+                                request.isServiceFromCache(),
+                                request.getSentQueryCount());
                     }
                     continue;
                 }
@@ -2431,7 +2480,8 @@ public class NsdService extends INsdManager.Stub {
                                 request.calculateRequestDurationMs(mClock.elapsedRealtime()),
                                 request.getFoundServiceCount(),
                                 request.getLostServiceCount(),
-                                request.getServicesCount());
+                                request.getServicesCount(),
+                                NO_SENT_QUERY_COUNT);
                         break;
                     case NsdManager.RESOLVE_SERVICE:
                         stopResolveService(transactionId);
@@ -2539,7 +2589,8 @@ public class NsdService extends INsdManager.Stub {
                     request.calculateRequestDurationMs(mClock.elapsedRealtime()),
                     request.getFoundServiceCount(),
                     request.getLostServiceCount(),
-                    request.getServicesCount());
+                    request.getServicesCount(),
+                    request.getSentQueryCount());
             try {
                 mCb.onStopDiscoverySucceeded(listenerKey);
             } catch (RemoteException e) {
@@ -2607,7 +2658,8 @@ public class NsdService extends INsdManager.Stub {
             mMetrics.reportServiceResolved(
                     request.mTransactionId,
                     request.calculateRequestDurationMs(mClock.elapsedRealtime()),
-                    request.isServiceFromCache());
+                    request.isServiceFromCache(),
+                    request.getSentQueryCount());
             try {
                 mCb.onResolveServiceSucceeded(listenerKey, info);
             } catch (RemoteException e) {
@@ -2671,7 +2723,8 @@ public class NsdService extends INsdManager.Stub {
                     request.calculateRequestDurationMs(mClock.elapsedRealtime()),
                     request.getFoundServiceCount(),
                     request.getLostServiceCount(),
-                    request.isServiceFromCache());
+                    request.isServiceFromCache(),
+                    request.getSentQueryCount());
             try {
                 mCb.onServiceInfoCallbackUnregistered(listenerKey);
             } catch (RemoteException e) {
