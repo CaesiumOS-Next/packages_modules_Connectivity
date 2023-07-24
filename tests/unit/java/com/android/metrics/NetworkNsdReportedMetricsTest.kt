@@ -141,8 +141,8 @@ class NetworkNsdReportedMetricsTest {
         val transactionId = 100
         val durationMs = 10L
         val metrics = NetworkNsdReportedMetrics(true /* isLegacy */, clientId, deps)
-        metrics.reportServiceDiscoveryStop(
-                transactionId, durationMs, 100 /* foundCallbackCount */, 49 /* lostCallbackCount */)
+        metrics.reportServiceDiscoveryStop(transactionId, durationMs, 100 /* foundCallbackCount */,
+                49 /* lostCallbackCount */, 200 /* sentQueryCount */)
 
         val eventCaptor = ArgumentCaptor.forClass(NetworkNsdReported::class.java)
         verify(deps).statsWrite(eventCaptor.capture())
@@ -157,6 +157,7 @@ class NetworkNsdReportedMetricsTest {
             assertEquals(49, it.lostCallbackCount)
             assertEquals(51, it.foundServiceCount)
             assertEquals(durationMs, it.eventDurationMillisec)
+            assertEquals(200, it.sentQueryCount)
         }
     }
 
