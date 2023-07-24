@@ -34,6 +34,24 @@
       "parentUuid": "e3eee216_bfea21de",
       "revId": "10919c85ef9235e164ae26369d20d8a9a26f3ffd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f65eaeeb_cd107824",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-24T02:49:30Z",
+      "side": 1,
+      "message": "Did you intend to upload another patchset ? This is still at patchset 1 ^^\u0027",
+      "parentUuid": "1a553426_ca0c602c",
+      "revId": "10919c85ef9235e164ae26369d20d8a9a26f3ffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
