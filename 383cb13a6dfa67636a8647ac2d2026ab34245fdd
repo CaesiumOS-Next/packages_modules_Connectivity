@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01006c02_533d95c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T07:36:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "240670e6_753debdf",
+      "revId": "383cb13a6dfa67636a8647ac2d2026ab34245fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fe6b235_76f7d4e3",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02e33d2e_d5431889",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T07:36:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fe6b235_76f7d4e3",
+      "range": {
+        "startLine": 42,
+        "startChar": 21,
+        "endLine": 42,
+        "endChar": 58
+      },
+      "revId": "383cb13a6dfa67636a8647ac2d2026ab34245fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d650cf0_efffda7f",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-07-24T07:19:18Z",
       "side": 1,
       "message": "Nit: also here you could use \"use\":\n\n```\nFileOutputStream(file).use { zis.copyTo(it, DEFAULT_BUFFER_SIZE) }\n```\n\nThis makes sure that you don\u0027t miss the .close() if there\u0027s an IOException during the copy (basically same as try/finally)",
+      "revId": "383cb13a6dfa67636a8647ac2d2026ab34245fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5deb86e3_6582884d",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsCollectionTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T07:36:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d650cf0_efffda7f",
       "revId": "383cb13a6dfa67636a8647ac2d2026ab34245fdd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
