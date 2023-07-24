@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45b307aa_75c89e38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T07:17:29Z",
+      "side": 1,
+      "message": "Yes the tests modified in this CL should be able to cover this fail.",
+      "parentUuid": "81587a02_e1759da7",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "dd21e3e06d81f1298082b34c227fa133c72a3488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e420a20_59665bd4",
@@ -113,6 +137,54 @@
         "startChar": 15,
         "endLine": 1115,
         "endChar": 19
+      },
+      "revId": "dd21e3e06d81f1298082b34c227fa133c72a3488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "567b1a06_b06dbadb",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T07:17:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b79f3c0f_b753b4c5",
+      "range": {
+        "startLine": 1115,
+        "startChar": 15,
+        "endLine": 1115,
+        "endChar": 19
+      },
+      "revId": "dd21e3e06d81f1298082b34c227fa133c72a3488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e8873d9_5cb76210",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-24T07:17:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e420a20_59665bd4",
+      "range": {
+        "startLine": 1115,
+        "startChar": 43,
+        "endLine": 1115,
+        "endChar": 44
       },
       "revId": "dd21e3e06d81f1298082b34c227fa133c72a3488",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
