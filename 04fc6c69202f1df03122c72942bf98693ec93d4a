@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af9a03cc_0092cc94",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1965950
+      },
+      "writtenOn": "2023-07-25T06:11:12Z",
+      "side": 1,
+      "message": "Hi @reminv@google.com, based on this comment, shall we skip the test when wifi feature is not available? Please confirm.",
+      "parentUuid": "c84092e7_43553680",
+      "range": {
+        "startLine": 159,
+        "startChar": 21,
+        "endLine": 159,
+        "endChar": 39
+      },
+      "revId": "04fc6c69202f1df03122c72942bf98693ec93d4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d9bd8f5_5abbc809",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 4
