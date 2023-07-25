@@ -181,6 +181,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe2c6f0a_6462b04a",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-25T19:01:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "528d9c7c_2c9b038c",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "28b4caebd0d304014d0fb707a74a944450f26c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2e77cb9_dc5bbb79",
@@ -218,6 +242,30 @@
       "side": 1,
       "message": "We don\u0027t think so for now but we might in the future.",
       "parentUuid": "b2e77cb9_dc5bbb79",
+      "range": {
+        "startLine": 22,
+        "startChar": 56,
+        "endLine": 22,
+        "endChar": 76
+      },
+      "revId": "28b4caebd0d304014d0fb707a74a944450f26c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "396fc7ba_bac43ee3",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-25T19:01:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bf9e8a9_2bb21481",
       "range": {
         "startLine": 22,
         "startChar": 56,

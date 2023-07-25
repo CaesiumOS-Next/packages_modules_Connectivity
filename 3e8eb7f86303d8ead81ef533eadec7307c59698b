@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e855d8_79914502",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-25T19:01:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fec05aa7_6ed29be4",
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d872525_48c685f4",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-07-21T01:53:05Z",
       "side": 1,
       "message": "There\u0027s already packages/modules/Connectivity/.gitignore, could that be enough ?",
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32698ee9_07517ea5",
+        "filename": "remote_auth/.gitignore",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-25T19:01:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d872525_48c685f4",
       "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -69,6 +105,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "186c6c8c_d2f205ab",
+        "filename": "remote_auth/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-25T19:01:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d5a5a37_8a52df21",
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50448044_98050162",
@@ -86,6 +140,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "803217e1_e6eb5b0f",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-25T19:01:42Z",
+      "side": 1,
+      "message": "The current plan is to target T for wear and V for phones.",
+      "parentUuid": "50448044_98050162",
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77d651b5_33b3e304",
@@ -99,6 +171,24 @@
       "writtenOn": "2023-07-21T01:53:05Z",
       "side": 1,
       "message": "Considering you\u0027re copying this from the nearby dir: aidegen is deprecated, should be replaced by go/asfp, so you might want to try that instead",
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eae69cd_aa29ebad",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-25T19:01:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77d651b5_33b3e304",
       "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -133,6 +223,30 @@
       "writtenOn": "2023-07-21T01:53:05Z",
       "side": 1,
       "message": "tethering.next was removed, now it\u0027s just com.google.android.tethering (and com.google.android.tethering.capex below)",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 37
+      },
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5228ed07_dd85a9b9",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-25T19:01:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91298526_0adfe623",
       "range": {
         "startLine": 38,
         "startChar": 4,
