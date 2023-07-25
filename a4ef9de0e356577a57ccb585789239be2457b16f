@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81d4f42d_551548e3",
+        "filename": "tests/cts/net/AndroidTestTemplate.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-25T02:38:27Z",
+      "side": 1,
+      "message": "Actually I think CtsNetTestCasesLatestSdk which is used for MTS also uses this AndroidTestTemplate, can you check ? You might need to split the xml file to use a different one; or possibly use some filegroup or genrule trick to avoid duplicating it",
+      "revId": "a4ef9de0e356577a57ccb585789239be2457b16f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5d205bf_f35f8a29",
+        "filename": "tests/cts/tethering/AndroidTestTemplate.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-25T02:38:27Z",
+      "side": 1,
+      "message": "Similarly, both CtsTetheringTestLatestSdk and CtsTetheringTest use this AndroidTestTemplate I think",
+      "revId": "a4ef9de0e356577a57ccb585789239be2457b16f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
