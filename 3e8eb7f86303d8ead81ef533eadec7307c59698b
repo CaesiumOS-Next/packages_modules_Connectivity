@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fec05aa7_6ed29be4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-25T10:49:05Z",
+      "side": 1,
+      "message": "LGTM but see comments (+2 is sticky)",
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d872525_48c685f4",
         "filename": "remote_auth/.gitignore",
         "patchSetId": 3
@@ -31,6 +48,23 @@
       "writtenOn": "2023-07-21T01:53:05Z",
       "side": 1,
       "message": "There\u0027s already packages/modules/Connectivity/.gitignore, could that be enough ?",
+      "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d5a5a37_8a52df21",
+        "filename": "remote_auth/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-25T10:49:05Z",
+      "side": 1,
+      "message": "See also go/xts-owners-policy to specify bug component, which will be necessary when you add tests (it may need to be in subdirectory next to the test modules though)",
       "revId": "3e8eb7f86303d8ead81ef533eadec7307c59698b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
