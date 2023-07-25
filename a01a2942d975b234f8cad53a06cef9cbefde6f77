@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c7dce08_d5d9a01f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-25T09:18:47Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 12,
+        "startChar": 15,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "a01a2942d975b234f8cad53a06cef9cbefde6f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "432a5ea9_2c7de2bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-25T09:18:47Z",
+      "side": 1,
+      "message": "If so, is it possible to refactor this into a utility that can be called from different places?",
+      "range": {
+        "startLine": 26,
+        "startChar": 15,
+        "endLine": 27,
+        "endChar": 50
+      },
+      "revId": "a01a2942d975b234f8cad53a06cef9cbefde6f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
