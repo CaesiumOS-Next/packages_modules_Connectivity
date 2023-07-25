@@ -58,6 +58,9 @@ class BidirectionalStreamTest {
     @After
     @Throws(Exception::class)
     fun tearDown() {
+        // We call to a real server and hence the server may not be reachable, cancel this stream
+        // before shutdown if this happens, otherwise shutdown would fail with active request error.
+        stream?.cancel()
         httpEngine.shutdown()
     }
 
@@ -185,5 +188,4 @@ class BidirectionalStreamTest {
         stream = builder.build()
         assertThat(stream!!.isDelayRequestHeadersUntilFirstFlushEnabled()).isTrue()
     }
-
 }
