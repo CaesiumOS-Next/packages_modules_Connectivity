@@ -95,6 +95,7 @@ java_defaults {
         "androidx.annotation_annotation",
         "app-compat-annotations",
         "framework-connectivity-t.stubs.module_lib",
+        "framework-location.stubs.module_lib",
         "unsupportedappusage",
     ],
     apex_available: [
