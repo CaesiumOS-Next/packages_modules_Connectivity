@@ -327,6 +327,11 @@ public class DnsResolverTest {
     }
 
     @Test
+<<<<<<< PATCH SET (019a31 Skip presubmit for flaky tests)
+    @DnsResolverModuleTest
+    @SkipPresubmit(reason = "Out of SLO flakiness")
+=======
+>>>>>>> BASE      (839a79 Skip presubmit for flaky tests in FrameworksNetTests due to )
     public void testRawQueryBlob() throws Exception {
         doTestRawQueryBlob(mExecutor);
     }
