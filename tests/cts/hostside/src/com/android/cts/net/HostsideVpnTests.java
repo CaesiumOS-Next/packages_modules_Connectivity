@@ -18,6 +18,8 @@ package com.android.cts.net;
 
 import android.platform.test.annotations.RequiresDevice;
 
+import com.android.testutils.SkipPresubmit;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,6 +42,7 @@ public class HostsideVpnTests extends HostsideNetworkTestCase {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testChangeUnderlyingNetworks");
     }
 
+    @SkipPresubmit(reason = "Out of SLO flakiness")
     @Test
     public void testDefault() throws Exception {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testDefault");
@@ -162,6 +165,7 @@ public class HostsideVpnTests extends HostsideNetworkTestCase {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testBlockIncomingPackets");
     }
 
+    @SkipPresubmit(reason = "Out of SLO flakiness")
     @Test
     public void testSetVpnDefaultForUids() throws Exception {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testSetVpnDefaultForUids");
