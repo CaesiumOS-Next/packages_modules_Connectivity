@@ -22,6 +22,30 @@
       },
       "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd47541_a461bcfa",
+        "filename": "remote_auth/service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-26T21:16:17Z",
+      "side": 1,
+      "message": "This was copied from the nearby example. I decided to leave this in as a note to keep an eye out for this going forward but I didn\u0027t find a bug for it.",
+      "parentUuid": "7270869e_e6f183ed",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
