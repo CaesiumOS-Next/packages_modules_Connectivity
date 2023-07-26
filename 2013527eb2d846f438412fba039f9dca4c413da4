@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0deffd85_4a367b1a",
+        "filename": "tests/cts/hostside/TEST_MAPPING",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-26T08:02:27Z",
+      "side": 1,
+      "message": "Also add the \"RequiresDevice\" annotation exclude, otherwise tests that require hardware will be run on cuttlefish",
+      "revId": "2013527eb2d846f438412fba039f9dca4c413da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
