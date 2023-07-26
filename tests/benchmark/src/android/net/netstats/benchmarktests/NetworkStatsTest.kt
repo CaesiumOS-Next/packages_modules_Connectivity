@@ -112,7 +112,7 @@ class NetworkStatsTest {
 
     @Test
     fun testReadCollection_manyUids() {
-        for (i in 1..10) {
+        repeat(10) {
             val collection = NetworkStatsCollection(UID_COLLECTION_BUCKET_DURATION_MS)
             for (file in uidTestFiles) {
                 readFile(file, collection)
@@ -122,13 +122,15 @@ class NetworkStatsTest {
 
     @Test
     fun testReadFromRecorder_manyUids() {
-        for (i in 1..10) {
+        val mockObserver = mock<NonMonotonicObserver<String>>()
+        val mockDropBox = mock(DropBoxManager::class.java)
+        repeat(10) {
             val recorder = NetworkStatsRecorder(
                 FileRotator(
                     testFilesDir, PREFIX_UID, UID_RECORDER_ROTATE_AGE_MS, UID_RECORDER_DELETE_AGE_MS
                 ),
-                mock<NonMonotonicObserver<String>>(),
-                mock(DropBoxManager::class.java),
+                mockObserver,
+                mockDropBox,
                 PREFIX_UID,
                 UID_COLLECTION_BUCKET_DURATION_MS,
                 false /* includeTags */,
