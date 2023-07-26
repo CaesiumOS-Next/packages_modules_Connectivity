@@ -11,8 +11,16 @@
         },
         {
           "exclude-annotation": "android.platform.test.annotations.RequiresDevice"
+        },
+        {
+          "exclude-annotation": "com.android.testutils.SkipPresubmit"
         }
       ]
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsHostsideNetworkTests"
     }
   ]
 }
