@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39f02dcf_e477d2c9",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-26T06:04:01Z",
+      "side": 1,
+      "message": "Nit: `repeat(10)` is a bit clearer for this use-case",
+      "range": {
+        "startLine": 73,
+        "startChar": 12,
+        "endLine": 73,
+        "endChar": 28
+      },
+      "revId": "4881aa7dc62df49d1575ff92674cfbf228b6ff64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b14301b_d4699ef0",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-26T06:04:01Z",
+      "side": 1,
+      "message": "Is it important to use different mocks for each iteration ? I\u0027m not sure about the performance of mockito (it\u0027s also going to depend on which mockito library is used); you might want to initialize the mocks only once if possible, to limit the impact on the test runtime. It\u0027s possible the first mocks may be expensive due to loading the mocking infra (not sure, but stuff like mockito-extended is very heavyweight)",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 20
+      },
+      "revId": "4881aa7dc62df49d1575ff92674cfbf228b6ff64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
