@@ -326,6 +326,11 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
 
             waitForRouterAdvertisement(downstreamReader, iface, WAIT_RA_TIMEOUT_MS);
             expectLocalOnlyAddresses(iface);
+
+            // To avoid a DHCP server error, runDhcp to make sure it is started. This error can
+            // occur if the test interface is killed while the DHCP server is starting.
+            final TetheringTester tester = new TetheringTester(downstreamReader);
+            tester.runDhcp(MacAddress.fromString("1:2:3:4:5:6").toByteArray());
         } finally {
             maybeStopTapPacketReader(downstreamReader);
             maybeCloseTestInterface(downstreamIface);
