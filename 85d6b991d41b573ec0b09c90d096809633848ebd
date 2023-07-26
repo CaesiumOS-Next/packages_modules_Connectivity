@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5b8b569_32b496a8",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-26T08:53:08Z",
+      "side": 1,
+      "message": "Nit: Although there are currently no tests in CtsNetTestCasesMaxTargetSdk30 that have the `SkipMainlinePresubmit` annotation, I think we should also exclude tests that have the `SkipMainlinePresubmit` annotation.",
+      "range": {
+        "startLine": 162,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 10
+      },
+      "revId": "85d6b991d41b573ec0b09c90d096809633848ebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
