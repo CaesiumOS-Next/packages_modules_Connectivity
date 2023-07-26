@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d9cbaf_eeefff2f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-26T04:27:12Z",
+      "side": 1,
+      "message": "Why 20ms? Do we have any reference on why this value is chosen?",
+      "range": {
+        "startLine": 1305,
+        "startChar": 75,
+        "endLine": 1305,
+        "endChar": 90
+      },
+      "revId": "afe7805f060cb8532d246acf589d2f450ea6ecd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de777c63_60e55119",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceBrowserListener.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-26T04:27:12Z",
+      "side": 1,
+      "message": "Maybe `isCached` is enough?",
+      "range": {
+        "startLine": 37,
+        "startChar": 70,
+        "endLine": 37,
+        "endChar": 85
+      },
+      "revId": "afe7805f060cb8532d246acf589d2f450ea6ecd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
