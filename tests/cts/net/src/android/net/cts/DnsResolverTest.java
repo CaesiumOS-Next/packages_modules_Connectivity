@@ -59,6 +59,7 @@ import androidx.test.runner.AndroidJUnit4;
 import com.android.net.module.util.DnsPacket;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import com.android.testutils.SkipMainlinePresubmit;
 import com.android.testutils.SkipPresubmit;
 
 import org.junit.After;
@@ -317,6 +318,7 @@ public class DnsResolverTest {
     }
 
     @Test
+    @SkipMainlinePresubmit(reason = "Out of SLO flakiness")
     public void testRawQuery() throws Exception {
         doTestRawQuery(mExecutor);
     }
@@ -327,6 +329,7 @@ public class DnsResolverTest {
     }
 
     @Test
+    @SkipPresubmit(reason = "Out of SLO flakiness")
     public void testRawQueryBlob() throws Exception {
         doTestRawQueryBlob(mExecutor);
     }
@@ -337,6 +340,7 @@ public class DnsResolverTest {
     }
 
     @Test
+    @SkipMainlinePresubmit(reason = "Out of SLO flakiness")
     public void testRawQueryRoot() throws Exception {
         doTestRawQueryRoot(mExecutor);
     }
@@ -357,11 +361,13 @@ public class DnsResolverTest {
     }
 
     @Test
+    @SkipMainlinePresubmit(reason = "Out of SLO flakiness")
     public void testRawQueryNXDomainWithPrivateDns() throws Exception {
         doTestRawQueryNXDomainWithPrivateDns(mExecutor);
     }
 
     @Test
+    @SkipMainlinePresubmit(reason = "Out of SLO flakiness")
     public void testRawQueryNXDomainInlineWithPrivateDns() throws Exception {
         doTestRawQueryNXDomainWithPrivateDns(mExecutorInline);
     }
@@ -610,11 +616,13 @@ public class DnsResolverTest {
     }
 
     @Test
+    @SkipMainlinePresubmit(reason = "Out of SLO flakiness")
     public void testQueryForInetAddress() throws Exception {
         doTestQueryForInetAddress(mExecutor);
     }
 
     @Test
+    @SkipMainlinePresubmit(reason = "Out of SLO flakiness")
     public void testQueryForInetAddressInline() throws Exception {
         doTestQueryForInetAddress(mExecutorInline);
     }
