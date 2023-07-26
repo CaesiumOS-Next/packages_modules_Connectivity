@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f56cc0d2_08898652",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-07-26T08:03:30Z",
+      "side": 1,
+      "message": "should be @SkipMainlinePresubmit?",
+      "range": {
+        "startLine": 1022,
+        "startChar": 5,
+        "endLine": 1022,
+        "endChar": 18
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
