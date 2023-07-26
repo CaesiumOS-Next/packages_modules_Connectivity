@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4c98b5d_6dd6a047",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-26T03:16:46Z",
+      "side": 1,
+      "message": "If request is null, do we need to report error like ?\n```\nif (request \u003d\u003d null) {\n                            Log.e(TAG, \"Unknown client request in RESOLVE_SERVICE_SUCCEEDED\");\n                            break;\n                        }\n```",
+      "range": {
+        "startLine": 1374,
+        "startChar": 24,
+        "endLine": 1374,
+        "endChar": 44
+      },
+      "revId": "33e505726ae4d13828b4951dd9677efb04c53639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb880372_4a658e58",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2297,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-26T03:16:46Z",
+      "side": 1,
+      "message": "Why we need different name here? Can we just rename onDiscoverServicesFailedImmediately -\u003e onDiscoverServicesFailed?",
+      "range": {
+        "startLine": 2297,
+        "startChar": 13,
+        "endLine": 2297,
+        "endChar": 48
+      },
+      "revId": "33e505726ae4d13828b4951dd9677efb04c53639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
