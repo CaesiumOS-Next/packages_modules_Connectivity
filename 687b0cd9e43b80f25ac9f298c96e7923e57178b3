@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1dfe7b4_512a3667",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-26T16:09:42Z",
+      "side": 1,
+      "message": "I\u0027m still trying to decide whether this is a good idea or not.\nObviously the internet won\u0027t carry \u003e1500 mtu ipv4 packets...\nBut it might be desirable to limit the ipv6 packets to 1600 as well,\nie. thus limitting the size to 1500 not 1528.\nAlternatively one could argue that one could have a 64K clean path\nto the nat64, and that *it* could perform ip frag / tcp segmentation as needed to fit into 1500.\n\nPatrick, any thoughts?",
+      "revId": "687b0cd9e43b80f25ac9f298c96e7923e57178b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
