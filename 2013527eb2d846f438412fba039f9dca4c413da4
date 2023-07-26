@@ -16,6 +16,42 @@
       "message": "Also add the \"RequiresDevice\" annotation exclude, otherwise tests that require hardware will be run on cuttlefish",
       "revId": "2013527eb2d846f438412fba039f9dca4c413da4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ed15f29_fbe0d065",
+        "filename": "tests/cts/hostside/TEST_MAPPING",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-26T08:29:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0deffd85_4a367b1a",
+      "revId": "2013527eb2d846f438412fba039f9dca4c413da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1398053e_23c35db1",
+        "filename": "tests/cts/hostside/TEST_MAPPING",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-26T08:29:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0deffd85_4a367b1a",
+      "revId": "2013527eb2d846f438412fba039f9dca4c413da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
