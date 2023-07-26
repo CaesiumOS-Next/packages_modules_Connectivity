@@ -33,6 +33,7 @@ import static android.net.SocketKeepalive.MIN_INTERVAL_SEC;
 import static android.net.SocketKeepalive.NO_KEEPALIVE;
 import static android.net.SocketKeepalive.SUCCESS;
 import static android.net.SocketKeepalive.SUCCESS_PAUSED;
+import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -59,6 +60,7 @@ import android.util.Pair;
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.HexDump;
 import com.android.net.module.util.IpUtils;
 
@@ -85,6 +87,10 @@ public class KeepaliveTracker {
     private static final boolean DBG = false;
 
     public static final String PERMISSION = android.Manifest.permission.PACKET_KEEPALIVE_OFFLOAD;
+
+    @VisibleForTesting
+    static final String CONFIG_CLAT_ADDRESS_TRANSLATE = "clat_address_translate";
+    private static final long MIN_VERSION_SUPPORT_CLAT_ADDRESS_TRANSLATE = 340900000L;
 
     /** Keeps track of keepalive requests. */
     private final HashMap <NetworkAgentInfo, HashMap<Integer, KeepaliveInfo>> mKeepalives =
@@ -113,7 +119,7 @@ public class KeepaliveTracker {
     }
 
     @VisibleForTesting
-    KeepaliveTracker(Context context, Handler handler, TcpKeepaliveController tcpController,
+    public KeepaliveTracker(Context context, Handler handler, TcpKeepaliveController tcpController,
             Dependencies deps) {
         mTcpController = tcpController;
         mContext = context;
@@ -553,6 +559,8 @@ public class KeepaliveTracker {
 
     private KeepaliveInfo handleUpdateKeepaliveForClat(KeepaliveInfo ki)
             throws InvalidSocketException, InvalidPacketException {
+        if (!mDependencies.isAddressTranslationEnabled(mContext)) return ki;
+
         // Translation applies to only NAT-T keepalive
         if (ki.mType != KeepaliveInfo.TYPE_NATT) return ki;
         // Only try to translate address if the packet source address is the clat's source address.
@@ -972,6 +980,22 @@ public class KeepaliveTracker {
         @NonNull
         public ConnectivityResources createConnectivityResources(@NonNull Context context) {
             return new ConnectivityResources(context);
+        }
+
+        /**
+         * Return if keepalive address translation with clat feature is supported or not.
+         */
+        public boolean isAddressTranslationEnabled(@NonNull Context context) {
+            final long packageVersion = DeviceConfigUtils.getNetworkStackModuleVersion(context);
+            // AOSP version may not be greater than MIN_VERSION_SUPPORT_CLAT_ADDRESS_TRANSLATE.
+            // Treat it as supported if package version is the default version.
+            final boolean isSupportedVersion =
+                    (packageVersion > MIN_VERSION_SUPPORT_CLAT_ADDRESS_TRANSLATE)
+                            || (packageVersion == DeviceConfigUtils.DEFAULT_PACKAGE_VERSION);
+
+            return isSupportedVersion
+                    && DeviceConfigUtils.isFeatureEnabled(context, packageVersion,
+                    NAMESPACE_CONNECTIVITY, CONFIG_CLAT_ADDRESS_TRANSLATE, true);
         }
     }
 }
