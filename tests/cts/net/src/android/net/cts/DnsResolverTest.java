@@ -331,6 +331,7 @@ public class DnsResolverTest {
 
     @Test
     @DnsResolverModuleTest
+    @SkipPresubmit(reason = "Out of SLO flakiness")
     public void testRawQueryBlob() throws Exception {
         doTestRawQueryBlob(mExecutor);
     }
