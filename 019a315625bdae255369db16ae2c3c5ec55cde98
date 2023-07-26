@@ -236,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc72a76f_8dce22e1",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-26T08:36:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "64926903_3515b6fa",
+      "range": {
+        "startLine": 334,
+        "startChar": 5,
+        "endLine": 334,
+        "endChar": 18
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15ca1c5f_6c10685d",
