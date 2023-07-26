@@ -22,6 +22,144 @@
       },
       "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03ac98e8_478139df",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-26T08:09:14Z",
+      "side": 1,
+      "message": "Not in the sheet.",
+      "range": {
+        "startLine": 1281,
+        "startChar": 4,
+        "endLine": 1281,
+        "endChar": 51
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87c73033_29c9876a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2749,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-26T08:09:14Z",
+      "side": 1,
+      "message": "Missed this one?",
+      "range": {
+        "startLine": 2749,
+        "startChar": 16,
+        "endLine": 2749,
+        "endChar": 58
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c11eaa7_fb18041c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3209,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-26T08:09:14Z",
+      "side": 1,
+      "message": "@SkipPresubmit ?",
+      "range": {
+        "startLine": 3209,
+        "startChar": 5,
+        "endLine": 3209,
+        "endChar": 26
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f56ae96_8f5124fe",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-26T08:09:14Z",
+      "side": 1,
+      "message": "1. @SkipMainlinePresubmit ?\n2. Missing\ntestQueryForInetAddress\ntestQueryForInetAddressIpv6Inline\ntestRawQuery\ntestRawQueryNXDomainInlineWithPrivateDns\ntestRawQueryNXDomainWithPrivateDns\ntestRawQueryRoot",
+      "range": {
+        "startLine": 334,
+        "startChar": 5,
+        "endLine": 334,
+        "endChar": 18
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15ca1c5f_6c10685d",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-26T08:09:14Z",
+      "side": 1,
+      "message": "@SkipMainlinePresubmit ?",
+      "range": {
+        "startLine": 644,
+        "startChar": 5,
+        "endLine": 644,
+        "endChar": 18
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df8c9383_02945056",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-26T08:09:14Z",
+      "side": 1,
+      "message": "@SkipMainlinePresubmit ?",
+      "range": {
+        "startLine": 658,
+        "startChar": 5,
+        "endLine": 658,
+        "endChar": 18
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
