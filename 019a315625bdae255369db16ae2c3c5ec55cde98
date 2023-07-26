@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac45bea2_59f0cad2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-26T08:33:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f56cc0d2_08898652",
+      "range": {
+        "startLine": 1022,
+        "startChar": 5,
+        "endLine": 1022,
+        "endChar": 18
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03ac98e8_478139df",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-26T08:09:14Z",
       "side": 1,
       "message": "Not in the sheet.",
+      "range": {
+        "startLine": 1281,
+        "startChar": 4,
+        "endLine": 1281,
+        "endChar": 51
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "233eedd2_656d09c0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-26T08:33:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03ac98e8_478139df",
       "range": {
         "startLine": 1281,
         "startChar": 4,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44161375_db9920d6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3209,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-26T08:33:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c11eaa7_fb18041c",
+      "range": {
+        "startLine": 3209,
+        "startChar": 5,
+        "endLine": 3209,
+        "endChar": 26
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f56ae96_8f5124fe",
@@ -106,6 +178,30 @@
       "writtenOn": "2023-07-26T08:09:14Z",
       "side": 1,
       "message": "1. @SkipMainlinePresubmit ?\n2. Missing\ntestQueryForInetAddress\ntestQueryForInetAddressIpv6Inline\ntestRawQuery\ntestRawQueryNXDomainInlineWithPrivateDns\ntestRawQueryNXDomainWithPrivateDns\ntestRawQueryRoot",
+      "range": {
+        "startLine": 334,
+        "startChar": 5,
+        "endLine": 334,
+        "endChar": 18
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64926903_3515b6fa",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-26T08:33:35Z",
+      "side": 1,
+      "message": "Actually I think I\u0027ll skip updating this class, since Mike just merged aosp/2618591 which should address the mainline flakes",
+      "parentUuid": "4f56ae96_8f5124fe",
       "range": {
         "startLine": 334,
         "startChar": 5,
@@ -139,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ca5d9b2_ca01a684",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-26T08:33:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15ca1c5f_6c10685d",
+      "range": {
+        "startLine": 644,
+        "startChar": 5,
+        "endLine": 644,
+        "endChar": 18
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df8c9383_02945056",
@@ -152,6 +272,30 @@
       "writtenOn": "2023-07-26T08:09:14Z",
       "side": 1,
       "message": "@SkipMainlinePresubmit ?",
+      "range": {
+        "startLine": 658,
+        "startChar": 5,
+        "endLine": 658,
+        "endChar": 18
+      },
+      "revId": "019a315625bdae255369db16ae2c3c5ec55cde98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf98a2ea_61684e97",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-26T08:33:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df8c9383_02945056",
       "range": {
         "startLine": 658,
         "startChar": 5,
