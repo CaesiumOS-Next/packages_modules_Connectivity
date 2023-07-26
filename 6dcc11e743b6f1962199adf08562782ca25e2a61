@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4982c519_39b183ea",
+        "filename": "remote_auth/service/java/com/android/server/remote_auth/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-07-26T04:38:17Z",
+      "side": 1,
+      "message": "RemoteAuthService",
+      "range": {
+        "startLine": 1,
+        "startChar": 32,
+        "endLine": 1,
+        "endChar": 49
+      },
+      "revId": "6dcc11e743b6f1962199adf08562782ca25e2a61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd1a15da_71f9c583",
+        "filename": "remote_auth/tests/unit/src/android/remote_auth/RemoteAuthTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-07-26T04:38:17Z",
+      "side": 1,
+      "message": "Not sure what will it test\nI planned to put under this test RemoteAuthManager",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 27
+      },
+      "revId": "6dcc11e743b6f1962199adf08562782ca25e2a61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01709785_0036cee9",
+        "filename": "remote_auth/tests/unit/src/com/android/server/remote_auth/RemoteAuthServerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-07-26T04:38:17Z",
+      "side": 1,
+      "message": "It should be Service instead of Server RemoteAuthServiceTest",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "6dcc11e743b6f1962199adf08562782ca25e2a61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
