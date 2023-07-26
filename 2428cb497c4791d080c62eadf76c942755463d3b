@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7be4f771_73215a46",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-26T08:43:46Z",
+      "side": 0,
+      "message": "nit: unnecessary line delete",
+      "revId": "2428cb497c4791d080c62eadf76c942755463d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

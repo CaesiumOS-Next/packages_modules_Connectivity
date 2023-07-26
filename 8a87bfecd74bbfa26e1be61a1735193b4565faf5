@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04cb200e_beebcc48",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-26T08:43:46Z",
+      "side": 1,
+      "message": "nit: is there any reason why the iteration is from back to front?",
+      "range": {
+        "startLine": 534,
+        "startChar": 17,
+        "endLine": 534,
+        "endChar": 64
+      },
+      "revId": "8a87bfecd74bbfa26e1be61a1735193b4565faf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "091ec8a9_829bbbea",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-26T08:43:46Z",
+      "side": 1,
+      "message": "nit: as the `advertiser` is not used anywhere else.\nMaybe these two lines can be refactored into\n\n```\nfinal int repliedRequestsCount \u003d mAdvertiserRequests.valueAt(i).getServiceRepliedRequestsCount(id);\n```",
+      "range": {
+        "startLine": 535,
+        "startChar": 12,
+        "endLine": 536,
+        "endChar": 91
+      },
+      "revId": "8a87bfecd74bbfa26e1be61a1735193b4565faf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6526a35b_c16ba1a2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-26T08:43:46Z",
+      "side": 1,
+      "message": "Shall we separate v4 and v6 packet into two different counter?\n\nAlso if we are on v4 only or v6 only network, is +2 still correct?",
+      "range": {
+        "startLine": 882,
+        "startChar": 21,
+        "endLine": 882,
+        "endChar": 40
+      },
+      "revId": "8a87bfecd74bbfa26e1be61a1735193b4565faf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
