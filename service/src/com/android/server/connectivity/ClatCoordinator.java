@@ -78,7 +78,7 @@ public class ClatCoordinator {
     @VisibleForTesting
     static final int MTU_DELTA = 28;
     @VisibleForTesting
-    static final int CLAT_MAX_MTU = 65536;
+    static final int CLAT_MAX_MTU = 1500 + MTU_DELTA;
 
     // This must match the interface prefix in clatd.c.
     private static final String CLAT_PREFIX = "v4-";
@@ -674,6 +674,8 @@ public class ClatCoordinator {
         }
         final int mtu = adjustMtu(detectedMtu);
         Log.i(TAG, "ipv4 mtu is " + mtu);
+
+        if (detect)
 
         // Config tun interface mtu, address and bring up.
         try {
