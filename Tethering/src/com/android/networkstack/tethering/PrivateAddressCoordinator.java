@@ -187,7 +187,9 @@ public class PrivateAddressCoordinator {
             return cachedAddress;
         }
 
-        for (IpPrefix prefixRange : mTetheringPrefixes) {
+        final int prefixIndex = getStartedPrefixIndex();
+        for (int i = 0; i < mTetheringPrefixes.size(); i++) {
+            final IpPrefix prefixRange = mTetheringPrefixes.get((prefixIndex + i) % 3);
             final LinkAddress newAddress = chooseDownstreamAddress(prefixRange);
             if (newAddress != null) {
                 mDownstreams.add(ipServer);
@@ -198,6 +200,22 @@ public class PrivateAddressCoordinator {
 
         // No available address.
         return null;
+    }
+
+    private int getStartedPrefixIndex() {
+        if (!mConfig.isRandomPrefixBaseEnabled()) return 0;
+
+        final int random = getRandomInt() & 0xffffff;
+        // value        0 ~   0xffff -> 192.168.0.0/16
+        // value  0x10000 ~  0xfffff -> 172.16.0.0/12
+        // value 0x100000 ~ 0xffffff -> 10.0.0/8
+        if (random > 0xfffff) {
+            return 2;
+        } else if (random > 0xffff) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     private int getPrefixBaseAddress(final IpPrefix prefix) {
