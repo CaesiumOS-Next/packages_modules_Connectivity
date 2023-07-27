@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5ae731f_01aa8ba3",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-27T08:38:03Z",
+      "side": 1,
+      "message": "don\u0027t understand this change. why?\n\nthe old code was clearer? and in one line?",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 60
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
