@@ -422,6 +422,7 @@ import com.android.testutils.FunctionalUtils.ThrowingConsumer;
 import com.android.testutils.FunctionalUtils.ThrowingRunnable;
 import com.android.testutils.HandlerUtils;
 import com.android.testutils.RecorderCallback.CallbackEntry;
+import com.android.testutils.SkipPresubmit;
 import com.android.testutils.TestableNetworkCallback;
 import com.android.testutils.TestableNetworkOfferCallback;
 
@@ -9025,6 +9026,7 @@ public class ConnectivityServiceTest {
         }
     }
 
+    @SkipPresubmit(reason = "Out of SLO flakiness")
     @Test
     public void testVpnSetUnderlyingNetworks() throws Exception {
         final TestNetworkCallback vpnNetworkCallback = new TestNetworkCallback();
@@ -9477,6 +9479,7 @@ public class ConnectivityServiceTest {
         mMockVpn.disconnect();
     }
 
+    @SkipPresubmit(reason = "Out of SLO flakiness")
     @Test
     public void testIsActiveNetworkMeteredOverVpnSpecifyingUnderlyingNetworks() throws Exception {
         // Returns true by default when no network is available.
