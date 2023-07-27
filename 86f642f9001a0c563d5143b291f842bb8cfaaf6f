@@ -46,6 +46,53 @@
       },
       "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd7242b_1fe009aa",
+        "filename": "remote_auth/service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-07-27T18:36:26Z",
+      "side": 1,
+      "message": "Can you create a bug and look into this? This will cause a cascading problem when adding any lib with higher min_sdk.",
+      "parentUuid": "cdd47541_a461bcfa",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1585e55_71137da8",
+        "filename": "remote_auth/service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-07-27T18:36:26Z",
+      "side": 1,
+      "message": "this should be 35 since remote_auth is V+.",
+      "range": {
+        "startLine": 54,
+        "startChar": 45,
+        "endLine": 54,
+        "endChar": 60
+      },
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
