@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9c61fef_9cda6ebf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-07-27T12:24:26Z",
+      "side": 1,
+      "message": "Do you mean\n1. Move BpfCoordinatorShimImpl.java x 2 and BpfCoordinatorShim.java into aosp/2535559\n2. Move partial of BpfCoordinator.java into aosp/2535559, use 0 in all places which need source prefix\n3. offload.c set .src64 \u003d 0 in aosp/2535559\nAfter the merge of aosp/2535559, the behavior won\u0027t be changed.\nThen the second CL is what remains, right?",
+      "parentUuid": "1dca2b71_60800d22",
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1977744_cd45aacc",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-07-27T08:38:30Z",
       "side": 1,
       "message": "spaces not tabs for consistency",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 1
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55b82ca5_d6b435bb",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-07-27T12:24:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1977744_cd45aacc",
       "range": {
         "startLine": 40,
         "startChar": 0,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2bf02d8a_e71e4746",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-07-27T12:24:26Z",
+      "side": 1,
+      "message": "Lorenzo told me to use RFC7421_PREFIX_LENGTH instead of 64 in #211",
+      "parentUuid": "14b7d25f_39930766",
+      "range": {
+        "startLine": 207,
+        "startChar": 46,
+        "endLine": 207,
+        "endChar": 67
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5ae731f_01aa8ba3",
         "filename": "bpf_progs/offload.c",
         "patchSetId": 3
@@ -89,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e03c5c24_16d2d1b9",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-07-27T12:24:26Z",
+      "side": 1,
+      "message": "\u0027struct in6_addr\u0027 doesn\u0027t define \u0027s6_addr64\u0027\n\npackages/modules/Connectivity/bpf_progs/offload@btf.c:200:33: error: no member named \u0027s6_addr64\u0027 in \u0027struct in6_addr\u0027\n            .src64 \u003d ip6-\u003esaddr.s6_addr64[0],\n                     ~~~~~~~~~~ ^",
+      "parentUuid": "e5ae731f_01aa8ba3",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 60
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c17c581_edfb20e8",
         "filename": "framework/src/android/net/NetworkUtils.java",
         "patchSetId": 3
@@ -100,6 +190,30 @@
       "writtenOn": "2023-07-27T08:39:55Z",
       "side": 1,
       "message": "this is super expensive since it loops over the full collection, there must be a better way to do this with search (binary/BST), etc.",
+      "range": {
+        "startLine": 443,
+        "startChar": 4,
+        "endLine": 445,
+        "endChar": 9
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fff34804_dfc3173f",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-07-27T12:24:26Z",
+      "side": 1,
+      "message": "We can use some structures like Trie to speedup the search, but it needs preprocessing before use, at lease linear time to do it, which won\u0027t gain any benefit in this function.",
+      "parentUuid": "9c17c581_edfb20e8",
       "range": {
         "startLine": 443,
         "startChar": 4,
