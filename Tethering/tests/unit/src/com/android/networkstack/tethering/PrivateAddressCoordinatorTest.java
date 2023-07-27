@@ -48,6 +48,8 @@ import android.net.ip.IpServer;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.SkipPresubmit;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -116,6 +118,7 @@ public final class PrivateAddressCoordinatorTest {
         return address;
     }
 
+    @SkipPresubmit(reason = "Out of SLO flakiness")
     @Test
     public void testRequestDownstreamAddressWithoutUsingLastAddress() throws Exception {
         final IpPrefix bluetoothPrefix = asIpPrefix(mBluetoothAddress);
