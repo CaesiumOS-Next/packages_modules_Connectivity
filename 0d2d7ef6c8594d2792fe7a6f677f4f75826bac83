@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dca2b71_60800d22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-27T08:46:36Z",
+      "side": 1,
+      "message": "My recommendation would be to split this into a precursor CL that just adds the field to the map (the bpf code doesn\u0027t initialize it, so it stays at 64-bit zero), and the java code sets it to zero.\n\nAnd then a followup that actually makes it do something (including the one line offload.c change to set the field to the prefix)\n\nRight now the code is split across 2 CLs, the first of which probably doesn\u0027t even build?",
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1977744_cd45aacc",
@@ -19,6 +36,29 @@
         "startChar": 0,
         "endLine": 40,
         "endChar": 1
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14b7d25f_39930766",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-27T08:46:36Z",
+      "side": 1,
+      "message": "what is this value? is it 64? that would actually be more legible...",
+      "range": {
+        "startLine": 207,
+        "startChar": 46,
+        "endLine": 207,
+        "endChar": 67
       },
       "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
