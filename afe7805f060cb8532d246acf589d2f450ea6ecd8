@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb8c949f_a30e438e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-27T07:33:53Z",
+      "side": 1,
+      "message": "As Remi and I discussed in the meeting, the 20 seconds delay is a rough estimate of whether a service is cached. This is because we don\u0027t have a way to get the real status from mdnsresponder, and we don\u0027t want to change the code because it\u0027s going to be deprecated. However, I did measure the time it takes to get a cached service from mdnsresponder, and it was less than 10 seconds. Therefore, I believe that 20 seconds is a realistic number to use to measure if a service is cached.",
+      "parentUuid": "66d9cbaf_eeefff2f",
+      "range": {
+        "startLine": 1305,
+        "startChar": 75,
+        "endLine": 1305,
+        "endChar": 90
+      },
+      "revId": "afe7805f060cb8532d246acf589d2f450ea6ecd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de777c63_60e55119",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceBrowserListener.java",
         "patchSetId": 6
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-26T04:27:12Z",
       "side": 1,
       "message": "Maybe `isCached` is enough?",
+      "range": {
+        "startLine": 37,
+        "startChar": 70,
+        "endLine": 37,
+        "endChar": 85
+      },
+      "revId": "afe7805f060cb8532d246acf589d2f450ea6ecd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6b70cbc_35f07369",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceBrowserListener.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-27T07:33:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de777c63_60e55119",
       "range": {
         "startLine": 37,
         "startChar": 70,
