@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1977744_cd45aacc",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-27T08:38:30Z",
+      "side": 1,
+      "message": "spaces not tabs for consistency",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 1
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5ae731f_01aa8ba3",
         "filename": "bpf_progs/offload.c",
         "patchSetId": 3
