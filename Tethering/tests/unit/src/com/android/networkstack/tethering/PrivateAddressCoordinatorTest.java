@@ -105,7 +105,7 @@ public final class PrivateAddressCoordinatorTest {
         when(mConnectivityMgr.getAllNetworks()).thenReturn(mAllNetworks);
         when(mConfig.shouldEnableWifiP2pDedicatedIp()).thenReturn(false);
         setUpIpServers();
-        mPrivateAddressCoordinator = spy(new PrivateAddressCoordinator(mContext, mConfig));
+        mPrivateAddressCoordinator = spy(new PrivateAddressCoordinator(mContext, mConfig, 0));
     }
 
     private LinkAddress requestDownstreamAddress(final IpServer ipServer, int scope,
@@ -570,5 +570,27 @@ public final class PrivateAddressCoordinatorTest {
                 CONNECTIVITY_SCOPE_LOCAL, true /* useLastAddress */);
         assertEquals("Wrong local hotspot prefix: ", new LinkAddress("192.168.134.5/24"),
                 localHotspotAddress);
+    }
+
+    @Test
+    public void testStartedPrefixRange() throws Exception {
+        mPrivateAddressCoordinator = spy(new PrivateAddressCoordinator(mContext, mConfig, 0));
+        final int fakeSubAddr = 0x2f05; // 47.5.
+        when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(fakeSubAddr);
+        LinkAddress actualAddress = requestDownstreamAddress(mHotspotIpServer,
+                CONNECTIVITY_SCOPE_GLOBAL, false /* useLastAddress */);
+        assertEquals(new LinkAddress("192.168.47.5/24"), actualAddress);
+
+        mPrivateAddressCoordinator = spy(new PrivateAddressCoordinator(mContext, mConfig, 1));
+        when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(fakeSubAddr);
+        actualAddress = requestDownstreamAddress(mHotspotIpServer,
+                CONNECTIVITY_SCOPE_GLOBAL, false /* useLastAddress */);
+        assertEquals(new LinkAddress("172.16.47.5/24"), actualAddress);
+
+        mPrivateAddressCoordinator = spy(new PrivateAddressCoordinator(mContext, mConfig, 2));
+        when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(fakeSubAddr);
+        actualAddress = requestDownstreamAddress(mHotspotIpServer,
+                CONNECTIVITY_SCOPE_GLOBAL, false /* useLastAddress */);
+        assertEquals(new LinkAddress("10.0.47.5/24"), actualAddress);
     }
 }

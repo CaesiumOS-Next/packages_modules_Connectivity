@@ -46,7 +46,6 @@ import com.android.internal.util.IndentingPrintWriter;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -81,6 +80,11 @@ public class PrivateAddressCoordinator {
     private final ArrayMap<AddressKey, LinkAddress> mCachedAddresses;
 
     public PrivateAddressCoordinator(Context context, TetheringConfiguration config) {
+        this(context, config, getStartedPrefixIndex());
+    }
+
+    public PrivateAddressCoordinator(Context context, TetheringConfiguration config,
+            int startedIndex) {
         mDownstreams = new ArraySet<>();
         mUpstreamPrefixMap = new ArrayMap<>();
         mConnectivityMgr = (ConnectivityManager) context.getSystemService(
@@ -93,8 +97,21 @@ public class PrivateAddressCoordinator {
         mCachedAddresses.put(new AddressKey(TETHERING_WIFI_P2P, CONNECTIVITY_SCOPE_LOCAL),
                 new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
 
-        mTetheringPrefixes = new ArrayList<>(Arrays.asList(new IpPrefix("192.168.0.0/16"),
-            new IpPrefix("172.16.0.0/12"), new IpPrefix("10.0.0.0/8")));
+        final IpPrefix[] allPrivateRanges = { new IpPrefix("192.168.0.0/16"),
+                new IpPrefix("172.16.0.0/12"), new IpPrefix("10.0.0.0/8") };
+        mTetheringPrefixes = new ArrayList<>(3);
+        for (int i = 0; i < 3; i++) {
+            mTetheringPrefixes.add(allPrivateRanges[(startedIndex + i) % 3]);
+        }
+    }
+
+    private static int getStartedPrefixIndex() {
+        // number of /24 prefixes:
+        // 256(192.168.0.0/16)+4096(172.16.0.0/12)+16777216(10.0.0.0/8)=16781568.
+        final long random = (new Random()).nextInt(16781568); // 0 ~ 16781567
+        if (random < 256) return 0;
+        if (random < 4352) return 1;
+        return 2;
     }
 
     /**
