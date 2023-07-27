@@ -16,6 +16,24 @@
       "message": "nit: unnecessary line delete",
       "revId": "2428cb497c4791d080c62eadf76c942755463d3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d0d6c4c_9bd8b780",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-27T13:30:15Z",
+      "side": 0,
+      "message": "Acknowledged",
+      "parentUuid": "7be4f771_73215a46",
+      "revId": "2428cb497c4791d080c62eadf76c942755463d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

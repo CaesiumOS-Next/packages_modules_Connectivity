@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a7d0976_f0e077e1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-27T13:30:15Z",
+      "side": 1,
+      "message": "I cannot remember the reason, but it seems to be fine after I changed the iteration order from front to back.",
+      "parentUuid": "04cb200e_beebcc48",
+      "range": {
+        "startLine": 534,
+        "startChar": 17,
+        "endLine": 534,
+        "endChar": 64
+      },
+      "revId": "8a87bfecd74bbfa26e1be61a1735193b4565faf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "091ec8a9_829bbbea",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "974acaf4_fe74255c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-27T13:30:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "091ec8a9_829bbbea",
+      "range": {
+        "startLine": 535,
+        "startChar": 12,
+        "endLine": 536,
+        "endChar": 91
+      },
+      "revId": "8a87bfecd74bbfa26e1be61a1735193b4565faf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6526a35b_c16ba1a2",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-07-26T08:43:46Z",
       "side": 1,
       "message": "Shall we separate v4 and v6 packet into two different counter?\n\nAlso if we are on v4 only or v6 only network, is +2 still correct?",
+      "range": {
+        "startLine": 882,
+        "startChar": 21,
+        "endLine": 882,
+        "endChar": 40
+      },
+      "revId": "8a87bfecd74bbfa26e1be61a1735193b4565faf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e839d192_47b95893",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-07-27T13:30:15Z",
+      "side": 1,
+      "message": "I think we do not need to create separate counters for dual stack. Instead, we can simply calculate the number of packets sent on IPv4 or IPv6. Also update the design to get the actual number of packets sent.",
+      "parentUuid": "6526a35b_c16ba1a2",
       "range": {
         "startLine": 882,
         "startChar": 21,
