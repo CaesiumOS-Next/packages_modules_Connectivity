@@ -57,6 +57,7 @@ import com.android.net.module.util.structs.UdpHeader;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.NetworkStackModuleTest;
+import com.android.testutils.SkipPresubmit;
 import com.android.testutils.TapPacketReader;
 
 import org.junit.Rule;
@@ -78,6 +79,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+@SkipPresubmit(reason = "Out of SLO flakiness")
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class EthernetTetheringTest extends EthernetTetheringTestBase {
