@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "320897fb_167b030a",
+        "filename": "framework/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a98b1be7_316d3b27",
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63ceb3d9_6a925526",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-07-28T03:00:06Z",
       "side": 1,
       "message": "\"com.\" classes are generally for server-side code; Android APIs are generally in android.*.",
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "606555ce_ae5aa529",
+        "filename": "framework/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63ceb3d9_6a925526",
       "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -69,6 +105,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8af77598_636be192",
+        "filename": "remote_auth/.gitignore",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "890b6b32_08ad85c4",
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57ad61a5_202c57e5",
@@ -82,6 +136,24 @@
       "writtenOn": "2023-07-28T03:00:06Z",
       "side": 1,
       "message": "guava is generally not OK to use in OS / system server code: http://b/214879640#comment8\n\nGenerally it\u0027s not well optimized for usage on memory-sensitive code (it tends to do a lot of allocs / GCs)",
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79b96c0c_a9f87107",
+        "filename": "remote_auth/service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57ad61a5_202c57e5",
       "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -157,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7120f971_215fc3df",
+        "filename": "remote_auth/service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfd7242b_1fe009aa",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1585e55_71137da8",
@@ -194,6 +290,30 @@
       "side": 1,
       "message": "The API classes are being added to an S+ bootclasspath jar, so we need to decide what to do in that case\nMaybe each method would throw an UnsupportedOperationException if called on U-, before trying to call the service implementations ?\n\nAt build time this jar is getting included into the service-connectivity jar, which is really loaded by devices in the field on S+, so at build time it really needs to be 31+; although at runtime the classes would only be loaded on V+. I don\u0027t think the build system supports this use-case: \"this library is built into a 31+ jar, but its users won\u0027t try to load the classes before V+\". You might have to annotate each class with @RequiresApi(V) at the moment.",
       "parentUuid": "b1585e55_71137da8",
+      "range": {
+        "startLine": 54,
+        "startChar": 45,
+        "endLine": 54,
+        "endChar": 60
+      },
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "628ea0ba_7d65b73b",
+        "filename": "remote_auth/service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ffc9b6ea_faefd335",
       "range": {
         "startLine": 54,
         "startChar": 45,

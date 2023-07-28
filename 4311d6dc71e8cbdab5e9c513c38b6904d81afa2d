@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3af5c8f3_1998b9d3",
+        "filename": "remote_auth/PREUPLOAD.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7e5c941e_661e4884",
+      "revId": "4311d6dc71e8cbdab5e9c513c38b6904d81afa2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3188b924_27515b7c",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-07-28T03:00:06Z",
       "side": 1,
       "message": "tethering next shouldn\u0027t be used anymore, maybe this was a bad rebase ?",
+      "range": {
+        "startLine": 42,
+        "startChar": 33,
+        "endLine": 42,
+        "endChar": 37
+      },
+      "revId": "4311d6dc71e8cbdab5e9c513c38b6904d81afa2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bd5bec7_6494ee24",
+        "filename": "remote_auth/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3188b924_27515b7c",
       "range": {
         "startLine": 42,
         "startChar": 33,
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5873579b_a88e77c6",
+        "filename": "remote_auth/TEST_MAPPING",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25f55578_8458fb76",
+      "revId": "4311d6dc71e8cbdab5e9c513c38b6904d81afa2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0845675e_bac8d506",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-07-28T03:00:06Z",
       "side": 1,
       "message": "Is there an existing use-case for this library ? The main target for androidx is also app usage, so it can pull a lot of boilerplate (sometimes even kotlin libraries); it may be best to leave it out until you actually need it",
+      "range": {
+        "startLine": 41,
+        "startChar": 18,
+        "endLine": 41,
+        "endChar": 27
+      },
+      "revId": "4311d6dc71e8cbdab5e9c513c38b6904d81afa2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "050c9591_262a87eb",
+        "filename": "remote_auth/service/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0845675e_bac8d506",
       "range": {
         "startLine": 41,
         "startChar": 18,
@@ -104,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2746fb7_758965a1",
+        "filename": "remote_auth/tests/unit/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "249819e7_696ca270",
+      "range": {
+        "startLine": 42,
+        "startChar": 24,
+        "endLine": 42,
+        "endChar": 32
+      },
+      "revId": "4311d6dc71e8cbdab5e9c513c38b6904d81afa2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ada89bf3_c0ed1879",
@@ -117,6 +225,30 @@
       "writtenOn": "2023-07-28T03:00:06Z",
       "side": 1,
       "message": "Just com.google.android.tethering.apex",
+      "range": {
+        "startLine": 28,
+        "startChar": 19,
+        "endLine": 28,
+        "endChar": 57
+      },
+      "revId": "4311d6dc71e8cbdab5e9c513c38b6904d81afa2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4b593c6_6716d145",
+        "filename": "remote_auth/tests/unit/AndroidTest.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ada89bf3_c0ed1879",
       "range": {
         "startLine": 28,
         "startChar": 19,
@@ -150,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a02dcf81_53f74c85",
+        "filename": "remote_auth/tests/unit/src/android/remote_auth/RemoteAuthTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "940b3696_e5b453be",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 8
+      },
+      "revId": "4311d6dc71e8cbdab5e9c513c38b6904d81afa2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4be3c59_c9b02490",
@@ -163,6 +319,30 @@
       "writtenOn": "2023-07-28T03:00:06Z",
       "side": 1,
       "message": "(typo: unit)",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 8
+      },
+      "revId": "4311d6dc71e8cbdab5e9c513c38b6904d81afa2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "828213b8_ede2b623",
+        "filename": "remote_auth/tests/unit/src/com/android/server/remote_auth/RemoteAuthServerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T18:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4be3c59_c9b02490",
       "range": {
         "startLine": 26,
         "startChar": 4,
