@@ -96,6 +96,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9912d8e_3823dacd",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-28T05:10:04Z",
+      "side": 1,
+      "message": "Ah by the way you need to specify what happens if this function mutates its argument. ISTM that everything goes to hell if you do that, but I wouldn\u0027t be surprised if some impl does it. In fact, if it really isn\u0027t supported, you probably want to forbid it with something like\n\n    final Entry transformed \u003d slicer.apply(e)\n    if (transformed \u003d\u003d e) throw \"must create a new entry\"\n    combineValues(transformed)",
+      "range": {
+        "startLine": 1304,
+        "startChar": 44,
+        "endLine": 1304,
+        "endChar": 50
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff1a7659_18879dbe",
         "filename": "framework-t/src/android/net/NetworkStats.java",
         "patchSetId": 2
