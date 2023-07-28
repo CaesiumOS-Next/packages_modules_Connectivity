@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96bfc2e4_b639dd65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T22:24:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "50ffad39_87c9fc65",
+      "revId": "7324290cb65334f252c7b9762097f45796203893",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1240fee3_d26b8932",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-07-28T22:02:35Z",
       "side": 1,
       "message": "Curious why renaming the directory? remote_auth-\u003eremoteauth",
+      "range": {
+        "startLine": 65,
+        "startChar": 20,
+        "endLine": 65,
+        "endChar": 30
+      },
+      "revId": "7324290cb65334f252c7b9762097f45796203893",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e73d8f96_999395f1",
+        "filename": "framework/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T22:24:36Z",
+      "side": 1,
+      "message": "This was done per @reminv\u0027s comment. https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2657759/comment/a98b1be7_316d3b27/",
+      "parentUuid": "1240fee3_d26b8932",
       "range": {
         "startLine": 65,
         "startChar": 20,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bea6ae8_b94541aa",
+        "filename": "remoteauth/framework/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T22:24:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4316cfc1_9197254f",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 30
+      },
+      "revId": "7324290cb65334f252c7b9762097f45796203893",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71ec7cd9_62061170",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-07-28T22:02:35Z",
       "side": 1,
       "message": "can we add the libs when deps are needed.",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "7324290cb65334f252c7b9762097f45796203893",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b54a9117_611a9de0",
+        "filename": "remoteauth/service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-28T22:24:36Z",
+      "side": 1,
+      "message": "Sure. I\u0027m going to leave the stubs there as placeholders though",
+      "parentUuid": "71ec7cd9_62061170",
       "range": {
         "startLine": 34,
         "startChar": 8,
