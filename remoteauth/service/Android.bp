@@ -21,7 +21,23 @@ filegroup {
     srcs: ["java/**/*.java"],
 }
 
-// Main lib for remoteauth services.
+java_library {
+    name: "remote-connectivity-manager",
+    srcs: [
+        "java/com/android/server/remoteauth/remoteconnectivitymanager/associated/ConnectionListener.java",
+        "java/com/android/server/remoteauth/remoteconnectivitymanager/common/Connection.java",
+        "java/com/android/server/remoteauth/remoteconnectivitymanager/common/ConnectionInfo.java",
+        "java/com/android/server/remoteauth/remoteconnectivitymanager/common/EventListener.java",
+        "java/com/android/server/remoteauth/remoteconnectivitymanager/common/Messenger.java",
+        "java/com/android/server/remoteauth/remoteconnectivitymanager/primary/ConnectionException.java",
+        "java/com/android/server/remoteauth/remoteconnectivitymanager/primary/ConnectivityManager.java",
+        "java/com/android/server/remoteauth/remoteconnectivitymanager/primary/DiscoveredDevice.java",
+        "java/com/android/server/remoteauth/remoteconnectivitymanager/primary/DiscoveredDeviceReceiver.java",
+        "java/com/android/server/remoteauth/remoteconnectivitymanager/primary/DiscoveryFilter.java",
+    ],
+}
+
+// Main lib for remote_auth services.
 java_library {
     name: "service-remoteauth-pre-jarjar",
     srcs: [":remoteauth-service-srcs"],
