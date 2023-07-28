@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df7ee1d0_7ade9531",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-07-28T21:04:38Z",
+      "side": 1,
+      "message": "Hi Maciej and Ryan, this change moves ag/20134598 to AOSP as requested and addresses the pending comments. Can you take a look? Thank you!",
+      "revId": "3eb706da1b1132ad666f96dc48aaddb756a5d234",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
