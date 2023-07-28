@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b14eed94_262cf847",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 3
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-28T03:54:36Z",
+      "side": 1,
+      "message": "Also SkipMainlinePresubmit",
+      "revId": "f23906317782aeac07b20a4414ff04216c0dbbb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8800d9ee_f4d33677",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-28T03:54:36Z",
+      "side": 1,
+      "message": "It would be valuable to add the test to postsubmit on cuttlefish as well, so we know when we can re-enable it on cuttlefish",
+      "revId": "f23906317782aeac07b20a4414ff04216c0dbbb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f8884ca_8ac483f2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-28T03:54:36Z",
+      "side": 1,
+      "message": "Also @SkipMainlinePresubmit as per the sheet",
+      "revId": "f23906317782aeac07b20a4414ff04216c0dbbb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83d33b6d_026b315d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 9029,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-28T03:54:36Z",
+      "side": 1,
+      "message": "SkipMainlinePresubmit, see: http://shortn/_jPqm7WxNSM",
+      "revId": "f23906317782aeac07b20a4414ff04216c0dbbb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b367e4e4_d1391282",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 9484,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-28T03:54:36Z",
+      "side": 1,
+      "message": "This one is not in the sheet",
+      "revId": "f23906317782aeac07b20a4414ff04216c0dbbb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
