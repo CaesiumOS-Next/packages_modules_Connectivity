@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d20cb46d_271f7b45",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-28T05:00:25Z",
+      "side": 1,
+      "message": "go/avoidwe",
+      "range": {
+        "startLine": 1290,
+        "startChar": 90,
+        "endLine": 1290,
+        "endChar": 92
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fad3796_c133ba6a",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-28T05:00:25Z",
+      "side": 1,
+      "message": "An operation like `(Collection\u003cT\u003e, (T) -\u003e R) -\u003e Collection\u003cR\u003e` is normally called map (or flatMap for `(Collection\u003cT\u003e, (T) -\u003e Collection\u003cR\u003e) -\u003e Collection\u003cR\u003e`). Here, because NetworkStats is a kind of Collection\u003cEntry\u003e, you have `(NetworkStats, (Entry) -\u003e Entry) -\u003e NetworkStats`, but it\u0027s still map. An operation that slices or groups is normally `(Collection\u003cT\u003e, (T) -\u003e KeyType) -\u003e Map\u003cKeyType, Collection\u003cT\u003e\u003e.`\n\nWhat makes NetworkStats a bit different is that it\u0027s half-list, half-map. It\u0027s really a map of (key part of Entry) to (data part of Entry). So to be really principled, what you should return is just the key part. But that would force you to define a new class with half the fields. I think that ship has sailed, and your concept here is best suited to NetworkStats. But I think you should rename this to either `group` or `map`. `map` puts the accent on the transformation of the entry. `group` puts the accent on the grouping by key. If you prefer to emphasize the slicing, you could just rename this `reslice`.\n\n    private NetworkStats map(@NonNull Function\u003cEntry, Entry\u003e f) {\n      final NetworkStats ret \u003d new\n      for (Entry e : this) {\n        ret.combineValues(f.apply(e))\n      }\n    }\n\nIf you name this map, you could comment :\n\n    /**\n     * Returns a new NetworkStats object where entries are transformed.\n     *\n     * Note that because NetworkStats is more akin to a map than to a list,\n     * the entries will be grouped after they are mapped by the fields...\n     * Values with the same keys will be added gotether.\n     *\n     * For example, to return a NetworkStats object aggregated on UIDs,\n     * map(e -\u003e new Entry(null, e.getUid(), SET_ALL, TAG_NONE, DEFAULT_NETWORK_ALL,\n     *                    e.getRxBytes(), e.getRxPackets(),\n     *                    e.getTxBytes(), e.getTxPackets());\n     *\n     * Also note that in normal usage it would probably not make a lot of sense\n     * to transform the value fiels of the entry, though this is not forbidden.\n     */\n\nIf you name this group, you could comment :\n\n    /**\n     * Returns a new NetworkStats object where entries are grouped by key fields.\n     *\n     * The transformation function will be used to gather the key fields that s hould\n     * constitute the new key. Values for the same key will be added together.\n     *\n     * For example, to group a NetworkStats object by UIDs,\n     * group(e -\u003e new Entry(null, e.getUid(), SET_ALL, TAG_NONE, DEFAULT_NETWORK_ALL,\n     *                      e.getRxBytes(), e.getRxPackets(),\n     *                      e.getTxBytes(), e.getTxPackets());\n     *\n     * Also note that in normal usage it would probably not make a lot of sense\n     * to transform the value fields of the entry, though this is not forbidden.\n     */\n\nIf you name this `reslice`, you could comment :\n\n    /**\n     * Return a new NetworkStats object sliced by different keys.\n     *\n     * This method takes a transformation function that transforms the key of\n     * each entry into a new key by which to slice. As NetworkStats behaves like\n     * a map indexed by fields ..., the transformation should return a new entry\n     * with the correct fields to group by the new slicing. Values mapping to the\n     * same entry keys will be added together.\n     *\n     * For example, to group a NetworkStats object by UIDs,\n     * reslice(e -\u003e new Entry(null, e.getUid(), SET_ALL, TAG_NONE, DEFAULT_NETWORK_ALL,\n     *                      e.getRxBytes(), e.getRxPackets(),\n     *                      e.getTxBytes(), e.getTxPackets());\n     *\n     * Also note that in normal usage it would probably not make a lot of sense\n     * to transform the value fields of the entry, though this is not forbidden.\n     */",
+      "range": {
+        "startLine": 1303,
+        "startChar": 25,
+        "endLine": 1303,
+        "endChar": 42
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb556ea3_ed6971d6",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-28T05:00:25Z",
+      "side": 1,
+      "message": "The contract looks bizarre ; this is a member method but it takes the stats to slice as an argument. This would be kind of natural if the method was static, but I think it\u0027s simply better if you remove this argument and just use `this` instead.",
+      "range": {
+        "startLine": 1303,
+        "startChar": 43,
+        "endLine": 1303,
+        "endChar": 70
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff1a7659_18879dbe",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-28T05:00:25Z",
+      "side": 1,
+      "message": "Didn\u0027t you want `combineValues` ? This creates a new NetworkStats object for every run of the loop, which is extremely expensive.",
+      "range": {
+        "startLine": 1307,
+        "startChar": 22,
+        "endLine": 1307,
+        "endChar": 30
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
