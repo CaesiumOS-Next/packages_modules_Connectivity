@@ -39,9 +39,9 @@ See full instructions for ASfP at [go/asfp-getting-started](http://go/asfp-getti
 
 ```sh
 $ source build/envsetup.sh && lunch <TARGET>
-$ m com.google.android.tethering deapexer
+$ m com.android.tethering deapexer
 $ $ANDROID_BUILD_TOP/out/host/linux-x86/bin/deapexer decompress --input \
-    ${ANDROID_PRODUCT_OUT}/system/apex/com.google.android.tethering.capex \
+    ${ANDROID_PRODUCT_OUT}/system/apex/com.android.tethering.capex \
     --output /tmp/tethering.apex
 $ adb install -r /tmp/tethering.apex
 ```
