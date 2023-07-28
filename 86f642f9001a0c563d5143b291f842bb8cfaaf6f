@@ -1,6 +1,91 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e71bc1af_e4a5013a",
+        "filename": "framework/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-28T03:00:06Z",
+      "side": 1,
+      "message": "Note this is adding the classes to the bootclasspath on S+ devices, as per discussion in the Q\u0026A doc I guess that\u0027s WAI",
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a98b1be7_316d3b27",
+        "filename": "framework/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-28T03:00:06Z",
+      "side": 1,
+      "message": "Underscores in API packages seems unusual looking at the current list of packages: https://developer.android.com/reference/packages\n\nCan you hold off on adding a permitted package here until you\u0027re actually getting APIs reviewed by API councilors, so we have confirmation on which package names to use ? (you could add it in the CL that adds the API).\n\nClasses you add here should be API packages, since anything else than API should be jarjared by framework-connectivity-jarjar-rules below, to the android.net.connectivity package.",
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63ceb3d9_6a925526",
+        "filename": "framework/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-28T03:00:06Z",
+      "side": 1,
+      "message": "\"com.\" classes are generally for server-side code; Android APIs are generally in android.*.",
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "890b6b32_08ad85c4",
+        "filename": "remote_auth/.gitignore",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-28T03:00:06Z",
+      "side": 1,
+      "message": "Did you actually need this in the end (the .gitignore in the parent dir isn\u0027t enough) ?",
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57ad61a5_202c57e5",
+        "filename": "remote_auth/service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-28T03:00:06Z",
+      "side": 1,
+      "message": "guava is generally not OK to use in OS / system server code: http://b/214879640#comment8\n\nGenerally it\u0027s not well optimized for usage on memory-sensitive code (it tends to do a lot of allocs / GCs)",
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7270869e_e6f183ed",
@@ -85,6 +170,30 @@
       "writtenOn": "2023-07-27T18:36:26Z",
       "side": 1,
       "message": "this should be 35 since remote_auth is V+.",
+      "range": {
+        "startLine": 54,
+        "startChar": 45,
+        "endLine": 54,
+        "endChar": 60
+      },
+      "revId": "86f642f9001a0c563d5143b291f842bb8cfaaf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffc9b6ea_faefd335",
+        "filename": "remote_auth/service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-28T03:00:06Z",
+      "side": 1,
+      "message": "The API classes are being added to an S+ bootclasspath jar, so we need to decide what to do in that case\nMaybe each method would throw an UnsupportedOperationException if called on U-, before trying to call the service implementations ?\n\nAt build time this jar is getting included into the service-connectivity jar, which is really loaded by devices in the field on S+, so at build time it really needs to be 31+; although at runtime the classes would only be loaded on V+. I don\u0027t think the build system supports this use-case: \"this library is built into a 31+ jar, but its users won\u0027t try to load the classes before V+\". You might have to annotate each class with @RequiresApi(V) at the moment.",
+      "parentUuid": "b1585e55_71137da8",
       "range": {
         "startLine": 54,
         "startChar": 45,
