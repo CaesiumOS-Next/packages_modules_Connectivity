@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50ffad39_87c9fc65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-07-28T22:02:35Z",
+      "side": 1,
+      "message": "FYI, you\u0027re not supposed to self +1 on Lint or Open-Source-Licensing. They will be added automatically once related checks are passed.",
+      "revId": "7324290cb65334f252c7b9762097f45796203893",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1240fee3_d26b8932",
+        "filename": "framework/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-07-28T22:02:35Z",
+      "side": 1,
+      "message": "Curious why renaming the directory? remote_auth-\u003eremoteauth",
+      "range": {
+        "startLine": 65,
+        "startChar": 20,
+        "endLine": 65,
+        "endChar": 30
+      },
+      "revId": "7324290cb65334f252c7b9762097f45796203893",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4316cfc1_9197254f",
+        "filename": "remoteauth/framework/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-07-28T22:02:35Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 30
+      },
+      "revId": "7324290cb65334f252c7b9762097f45796203893",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71ec7cd9_62061170",
+        "filename": "remoteauth/service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-07-28T22:02:35Z",
+      "side": 1,
+      "message": "can we add the libs when deps are needed.",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "7324290cb65334f252c7b9762097f45796203893",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
