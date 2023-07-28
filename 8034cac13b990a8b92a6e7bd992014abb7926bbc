@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f074ce0_34b71a32",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-28T08:21:44Z",
+      "side": 1,
+      "message": "Probably caused by file caching. Comments added.",
+      "parentUuid": "e687ef7e_5cc7685a",
+      "range": {
+        "startLine": 66,
+        "startChar": 24,
+        "endLine": 66,
+        "endChar": 62
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90206eb7_82818a1b",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29364f7e_c6fd6dc0",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-28T08:21:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90206eb7_82818a1b",
+      "range": {
+        "startLine": 73,
+        "startChar": 25,
+        "endLine": 73,
+        "endChar": 27
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06bd02b4_09e7a96d",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-28T08:21:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1113e105_7b26c9b2",
+      "range": {
+        "startLine": 73,
+        "startChar": 12,
+        "endLine": 73,
+        "endChar": 28
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed15e756_023eb894",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-07-28T05:34:14Z",
       "side": 1,
       "message": "While this is fine, you could have written\n\n    private fun getInputStreamForResource(resourceId: Int) \u003d\n        DataInputStream(...)\n\nfor terseness.",
+      "range": {
+        "startLine": 81,
+        "startChar": 80,
+        "endLine": 81,
+        "endChar": 81
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbc577f7_8b4d48dd",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-28T08:21:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed15e756_023eb894",
       "range": {
         "startLine": 81,
         "startChar": 80,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "550f1944_a95961de",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-28T08:21:44Z",
+      "side": 1,
+      "message": "Good to know this alien language, thanks",
+      "parentUuid": "5abe8974_fdc92d28",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 26
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b05fe648_8b8cdd6a",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-07-28T05:34:14Z",
       "side": 1,
       "message": "A bit unidiomatic, maybe it\u0027s easier to read as\n\n    statsDir.list().orEmpty()\n      .filter { it.startsWith(\"$prefix.\") }\n      .map { File(statsDir, it) }\n      .sorted()\n\nNote that list() can also take a predicate.\n\n    statsDir.list() { dir, name -\u003e name.startsWith(\"$prefix.\") }\n      .orEmpty()\n      .map {}\n      .sorted()\n\nOf course you can also propagate the null.\n\n    statsDir.list() { dir, name -\u003e name.startsWith(\"$prefix.\") }\n      ?.map {}\n      ?.sorted){\n      ?: arrayOf() // or `.orEmpty()`",
+      "range": {
+        "startLine": 102,
+        "startChar": 50,
+        "endLine": 102,
+        "endChar": 60
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0b7df1b_8d4b5ae9",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-28T08:21:44Z",
+      "side": 1,
+      "message": "Good to know this.\nShamelessly copied.",
+      "parentUuid": "b05fe648_8b8cdd6a",
       "range": {
         "startLine": 102,
         "startChar": 50,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd5c7d01_7069654d",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-28T08:21:44Z",
+      "side": 1,
+      "message": "Done.\nHow do you know this?\nCannot find this on any documentation.",
+      "parentUuid": "8ba0c54a_edc8bda3",
+      "range": {
+        "startLine": 108,
+        "startChar": 32,
+        "endLine": 108,
+        "endChar": 53
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78f729c2_403c0d4d",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b145f209_fa8540d1",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-28T08:21:44Z",
+      "side": 1,
+      "message": "It applies.\nThe code in setupOnce fill up the file cache.\nSo the readFile here is fair against other tests that also readFile.\nNot sure if there is a better way to do this? e.g. disable file cache when testing.",
+      "parentUuid": "78f729c2_403c0d4d",
+      "range": {
+        "startLine": 118,
+        "startChar": 16,
+        "endLine": 118,
+        "endChar": 24
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c1c48b1_4b975526",
@@ -198,6 +390,30 @@
       "writtenOn": "2023-07-28T05:34:14Z",
       "side": 1,
       "message": "Wait I\u0027m confused – why can we do \u003c\u003e for the observer but not the dropbox ?",
+      "range": {
+        "startLine": 126,
+        "startChar": 31,
+        "endLine": 126,
+        "endChar": 45
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d0e7ee4_ec57cd7b",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-28T08:21:44Z",
+      "side": 1,
+      "message": "Done.\nIt\u0027s other way around.\nWe cannot do mock(NonMonotonicObserver\u003cString\u003e::class.java) because it has a generic parameter.\nThat is why the custom mock at l.143 is added.",
+      "parentUuid": "1c1c48b1_4b975526",
       "range": {
         "startLine": 126,
         "startChar": 31,
