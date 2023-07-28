@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "215390eb_9ebd0841",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-28T05:02:15Z",
+      "side": 1,
+      "message": "Also consider ignoring the values from the returned entry and instead using the values from the original entry. Then you\u0027d have to do two things :\n- Update my wording suggestion to explain that updating the values is forbidden and only the keys are considered\n- groupedByIface would need to zero out each entry at the end, which might be easier to read",
+      "parentUuid": "1fad3796_c133ba6a",
+      "range": {
+        "startLine": 1303,
+        "startChar": 25,
+        "endLine": 1303,
+        "endChar": 42
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff1a7659_18879dbe",
         "filename": "framework-t/src/android/net/NetworkStats.java",
         "patchSetId": 2
