@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e6b291f_8148b2f9",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-28T08:57:59Z",
+      "side": 1,
+      "message": "Maybe move this to l.310 to avoid doing it for nothing when !isEnabled ?",
+      "range": {
+        "startLine": 301,
+        "startChar": 34,
+        "endLine": 301,
+        "endChar": 53
+      },
+      "revId": "ecc9dc1a490c50f35b6db46d4862165651ba3f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
