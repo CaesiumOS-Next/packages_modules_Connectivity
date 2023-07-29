@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d406c0_23e06eb9",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-29T12:53:55Z",
+      "side": 1,
+      "message": "not a very good name\n\nmIfaceNameToIfIndexesCache or mIface2IfindexCache or something like it\n\nwould be better",
+      "range": {
+        "startLine": 48,
+        "startChar": 52,
+        "endLine": 48,
+        "endChar": 58
+      },
+      "revId": "ffa1adfaaf31231d5124bcaed88639116c54592e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f3dbe69_1660b74d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-29T12:53:55Z",
+      "side": 1,
+      "message": "this cast appears spurious",
+      "range": {
+        "startLine": 1940,
+        "startChar": 58,
+        "endLine": 1940,
+        "endChar": 63
+      },
+      "revId": "ffa1adfaaf31231d5124bcaed88639116c54592e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9da3c59d_845f4fab",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1942,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-29T12:53:55Z",
+      "side": 1,
+      "message": "should this not just be continue?\nor perhaps err\u003dtrue; continue\n\nand then after the loop:\nif (err) and stats \u003d\u003d 0 return -1;\nreturn the cumulative stats?",
+      "range": {
+        "startLine": 1942,
+        "startChar": 0,
+        "endLine": 1942,
+        "endChar": 40
+      },
+      "revId": "ffa1adfaaf31231d5124bcaed88639116c54592e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
