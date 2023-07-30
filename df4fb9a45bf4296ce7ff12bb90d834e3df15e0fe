@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54048896_122a162c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-30T07:08:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e17a4eb_57946f9c",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "df4fb9a45bf4296ce7ff12bb90d834e3df15e0fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "687a7d42_2c1c2dcc",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-28T03:26:39Z",
       "side": 1,
       "message": "Should this be `\u003c\u003d`? In previous design, only `timeToRun \u003e lastScheduledQueryTaskArgs.timeToRun` will schedule next run.",
+      "range": {
+        "startLine": 73,
+        "startChar": 22,
+        "endLine": 73,
+        "endChar": 23
+      },
+      "revId": "df4fb9a45bf4296ce7ff12bb90d834e3df15e0fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a3d75c2_bf8a79b9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-30T07:08:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "687a7d42_2c1c2dcc",
       "range": {
         "startLine": 73,
         "startChar": 22,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b56c272_83acb053",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-30T07:08:38Z",
+      "side": 1,
+      "message": "Done. I move the calculation of timeToNextTasksWithBackoffInMs to a standalone function inside MdnsServiceTypeClient class.",
+      "parentUuid": "e78d38b8_20f3ea9d",
+      "range": {
+        "startLine": 116,
+        "startChar": 55,
+        "endLine": 116,
+        "endChar": 85
+      },
+      "revId": "df4fb9a45bf4296ce7ff12bb90d834e3df15e0fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f6e70ca_da5c95c6",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-07-28T03:26:39Z",
       "side": 1,
       "message": "Should this be `taskConfig`? `scheduleNextRun()` will call `getConfigForNextRun()` to get next run config.",
+      "range": {
+        "startLine": 328,
+        "startChar": 28,
+        "endLine": 328,
+        "endChar": 43
+      },
+      "revId": "df4fb9a45bf4296ce7ff12bb90d834e3df15e0fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1d77c1a_2db6d73c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-30T07:08:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f6e70ca_da5c95c6",
       "range": {
         "startLine": 328,
         "startChar": 28,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9b8d9d0_6f41ab1e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-30T07:08:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "df2dbd1c_fdfaae41",
+      "range": {
+        "startLine": 338,
+        "startChar": 20,
+        "endLine": 338,
+        "endChar": 33
+      },
+      "revId": "df4fb9a45bf4296ce7ff12bb90d834e3df15e0fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c9a7de0_0c044b3f",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-07-28T03:26:39Z",
       "side": 1,
       "message": "Is any reason that you are not able to put this into `removeScheduledTask()`?",
+      "range": {
+        "startLine": 397,
+        "startChar": 12,
+        "endLine": 397,
+        "endChar": 66
+      },
+      "revId": "df4fb9a45bf4296ce7ff12bb90d834e3df15e0fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c528c7f_2d5f8f59",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-07-30T07:08:38Z",
+      "side": 1,
+      "message": "We don\u0027t always want to call resetLastScheduledQueryTaskArgs. In the case of cancel the current task and reschedule a new only in `processResponse`. The scheduled task should be removed but the argument shouldn\u0027t be reset.",
+      "parentUuid": "3c9a7de0_0c044b3f",
       "range": {
         "startLine": 397,
         "startChar": 12,
