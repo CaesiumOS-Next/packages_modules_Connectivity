@@ -1054,12 +1054,14 @@ public class NsdService extends INsdManager.Stub {
                         if (request instanceof DiscoveryManagerRequest) {
                             stopDiscoveryManagerRequest(
                                     request, clientRequestId, transactionId, clientInfo);
-                            clientInfo.onStopResolutionSucceeded(clientRequestId);
+                            clientInfo.onStopResolutionSucceeded(clientRequestId, transactionId,
+                                    request.calculateRequestDurationMs());
                             clientInfo.log("Unregister the ResolutionListener " + transactionId);
                         } else {
                             removeRequestMap(clientRequestId, transactionId, clientInfo);
                             if (stopResolveService(transactionId)) {
-                                clientInfo.onStopResolutionSucceeded(clientRequestId);
+                                clientInfo.onStopResolutionSucceeded(clientRequestId, transactionId,
+                                        request.calculateRequestDurationMs());
                             } else {
                                 clientInfo.onStopResolutionFailed(
                                         clientRequestId, NsdManager.FAILURE_OPERATION_NOT_RUNNING);
@@ -2226,11 +2228,12 @@ public class NsdService extends INsdManager.Stub {
             mIsPreSClient = true;
         }
 
-        private void unregisterMdnsListenerFromRequest(ClientRequest request) {
+        private MdnsListener unregisterMdnsListenerFromRequest(ClientRequest request) {
             final MdnsListener listener =
                     ((DiscoveryManagerRequest) request).mListener;
             mMdnsDiscoveryManager.unregisterListener(
                     listener.getListenedServiceType(), listener);
+            return listener;
         }
 
         // Remove any pending requests from the global map when we get rid of a client,
@@ -2252,10 +2255,15 @@ public class NsdService extends INsdManager.Stub {
                 if (request instanceof DiscoveryManagerRequest) {
                     final int sendQueryCount = ((DiscoveryManagerRequest) request).mListener
                             .getSentQueryCount();
-                    unregisterMdnsListenerFromRequest(request);
-                    mMetrics.reportServiceDiscoveryStop(transactionId,
-                            request.calculateRequestDurationMs(), request.mFoundServiceCount,
-                            request.mLostServiceCount, sendQueryCount);
+                    final MdnsListener listener = unregisterMdnsListenerFromRequest(request);
+                    if (listener instanceof DiscoveryListener) {
+                        mMetrics.reportServiceDiscoveryStop(transactionId,
+                                request.calculateRequestDurationMs(), request.mFoundServiceCount,
+                                request.mLostServiceCount, sendQueryCount);
+                    } else if (listener instanceof ResolutionListener) {
+                        mMetrics.reportServiceResolutionStop(transactionId,
+                                request.calculateRequestDurationMs());
+                    }
                     continue;
                 }
 
@@ -2281,6 +2289,8 @@ public class NsdService extends INsdManager.Stub {
                         break;
                     case NsdManager.RESOLVE_SERVICE:
                         stopResolveService(transactionId);
+                        mMetrics.reportServiceResolutionStop(transactionId,
+                                request.calculateRequestDurationMs());
                         break;
                     case NsdManager.REGISTER_SERVICE:
                         unregisterService(transactionId);
@@ -2463,7 +2473,8 @@ public class NsdService extends INsdManager.Stub {
             }
         }
 
-        void onStopResolutionSucceeded(int listenerKey) {
+        void onStopResolutionSucceeded(int listenerKey, int transactionId, long durationMs) {
+            mMetrics.reportServiceResolutionStop(transactionId, durationMs);
             try {
                 mCb.onStopResolutionSucceeded(listenerKey);
             } catch (RemoteException e) {
