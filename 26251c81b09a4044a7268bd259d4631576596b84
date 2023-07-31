@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8b7714e_0a0f0de8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4712,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:03:45Z",
+      "side": 1,
+      "message": "I think we should rename this function ; it does the right thing, but while it is appopriately named for usage in l.4723, it looks bizarre to test here if we \"should destroy the network\" to see if we set a permission.\n\nHow about renaming `shouldDestroyNativeNetwork` to `isNativeNetworkLive` or similar ?",
+      "range": {
+        "startLine": 4712,
+        "startChar": 12,
+        "endLine": 4712,
+        "endChar": 38
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dcc0450_59445a02",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18560,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:03:45Z",
+      "side": 1,
+      "message": "This will crash because mSystemDefaultNetworkCallback is not initialized. I\u0027m not sure what\u0027s the point of checking both the system default and the regular default here. I would suggest you just create a CB and register it.\n\n    mDefaultNetworkCallback \u003d new TestNetworkCallback();\n    mCm.registerDefaultNetworkCallback(mDefaultNetworkCallback);\n    ...\n    mDefaultNetworkCallback.expectAvailable...",
+      "range": {
+        "startLine": 18560,
+        "startChar": 8,
+        "endLine": 18560,
+        "endChar": 37
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b5d312_9b5804f4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18565,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:03:45Z",
+      "side": 1,
+      "message": "with",
+      "range": {
+        "startLine": 18565,
+        "startChar": 31,
+        "endLine": 18565,
+        "endChar": 33
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29dca156_4bfb53e6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18567,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:03:45Z",
+      "side": 1,
+      "message": "This is not going to happen just because you set the teardown delay, will it ? At the very least I think you need to have a timeout on this verify(). You might want to make the delay 300ms and verify(timeout(600)) or something. You also need to call unregisterAfterReplacement I think ?\n\nIn any case – please run the test locally and make sure it passes :) You can do this on pure AOSP.",
+      "range": {
+        "startLine": 18567,
+        "startChar": 36,
+        "endLine": 18567,
+        "endChar": 50
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd0eddb1_40e1dd72",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18570,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:03:45Z",
+      "side": 1,
+      "message": "Why waitForIdle as the last thing in the test ? CS will be destroyed anyway.",
+      "range": {
+        "startLine": 18570,
+        "startChar": 8,
+        "endLine": 18570,
+        "endChar": 19
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
