@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e99ea2a_0d487eb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-31T14:26:08Z",
+      "side": 1,
+      "message": "I think we\u0027re likely on the same page here.\n\nStart with a single CL that extends the C and java structs with the extra 64-bit field - init it with 0 as high up the java stack as makes sense.\n\nThe offset.c file either doesn\u0027t change or just unconditionally sets .src64 \u003d 0 (instead of reading the appropriate 64-bits from the ip header)\n\nThen we can build on top of that.",
+      "parentUuid": "e9c61fef_9cda6ebf",
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1977744_cd45aacc",
