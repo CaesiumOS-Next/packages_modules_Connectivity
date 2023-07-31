@@ -1085,12 +1085,14 @@ public class NsdService extends INsdManager.Stub {
                         if (request instanceof DiscoveryManagerRequest) {
                             stopDiscoveryManagerRequest(
                                     request, clientRequestId, transactionId, clientInfo);
-                            clientInfo.onStopResolutionSucceeded(clientRequestId);
+                            clientInfo.onStopResolutionSucceeded(clientRequestId, transactionId,
+                                    request.calculateRequestDurationMs());
                             clientInfo.log("Unregister the ResolutionListener " + transactionId);
                         } else {
                             removeRequestMap(clientRequestId, transactionId, clientInfo);
                             if (stopResolveService(transactionId)) {
-                                clientInfo.onStopResolutionSucceeded(clientRequestId);
+                                clientInfo.onStopResolutionSucceeded(clientRequestId, transactionId,
+                                        request.calculateRequestDurationMs());
                             } else {
                                 clientInfo.onStopResolutionFailed(
                                         clientRequestId, NsdManager.FAILURE_OPERATION_NOT_RUNNING);
@@ -2414,6 +2416,9 @@ public class NsdService extends INsdManager.Stub {
                                 request.getLostServiceCount(),
                                 request.getServicesCount(),
                                 sendQueryCount);
+                    } else if (listener instanceof ResolutionListener) {
+                        mMetrics.reportServiceResolutionStop(transactionId,
+                                request.calculateRequestDurationMs());
                     }
                     continue;
                 }
@@ -2443,6 +2448,8 @@ public class NsdService extends INsdManager.Stub {
                         break;
                     case NsdManager.RESOLVE_SERVICE:
                         stopResolveService(transactionId);
+                        mMetrics.reportServiceResolutionStop(transactionId,
+                                request.calculateRequestDurationMs());
                         break;
                     case NsdManager.REGISTER_SERVICE:
                         unregisterService(transactionId);
@@ -2626,7 +2633,8 @@ public class NsdService extends INsdManager.Stub {
             }
         }
 
-        void onStopResolutionSucceeded(int listenerKey) {
+        void onStopResolutionSucceeded(int listenerKey, int transactionId, long durationMs) {
+            mMetrics.reportServiceResolutionStop(transactionId, durationMs);
             try {
                 mCb.onStopResolutionSucceeded(listenerKey);
             } catch (RemoteException e) {
