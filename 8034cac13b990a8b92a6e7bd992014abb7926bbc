@@ -330,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a9fb90f_fe81f0c5",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:27:51Z",
+      "side": 1,
+      "message": "https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/java.io.-file/input-stream.html\n\nI guess it\u0027s just habit and IDE completion",
+      "parentUuid": "fd5c7d01_7069654d",
+      "range": {
+        "startLine": 108,
+        "startChar": 32,
+        "endLine": 108,
+        "endChar": 53
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78f729c2_403c0d4d",
@@ -377,6 +401,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c971ef6_ec1a4efe",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:27:51Z",
+      "side": 1,
+      "message": "I see. Maybe this warrants a comment saying that the cache is warmed up by the @BeforeClass method, so now we can repeat this a number of time to have a stable number.\n\nYou might want to increase the number of iterations here too (there is no particular reason it should be the same as the one for warming up)",
+      "parentUuid": "b145f209_fa8540d1",
+      "range": {
+        "startLine": 118,
+        "startChar": 16,
+        "endLine": 118,
+        "endChar": 24
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c1c48b1_4b975526",
@@ -414,6 +462,30 @@
       "side": 1,
       "message": "Done.\nIt\u0027s other way around.\nWe cannot do mock(NonMonotonicObserver\u003cString\u003e::class.java) because it has a generic parameter.\nThat is why the custom mock at l.143 is added.",
       "parentUuid": "1c1c48b1_4b975526",
+      "range": {
+        "startLine": 126,
+        "startChar": 31,
+        "endLine": 126,
+        "endChar": 45
+      },
+      "revId": "8034cac13b990a8b92a6e7bd992014abb7926bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75aff875_c354bfab",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:27:51Z",
+      "side": 1,
+      "message": "I mean, you do know that the JVM does type erasure, so when you compile this code it becomes\n\n`mock\u003cNonMonotonicObserver\u003cString\u003e\u003e()` → `mock(NonMonotonicObserver::class.java)`\n\nBut I like your solution because it\u0027s pretty elegant and you keep the generic type at compile time. I\u0027m a bit surprised that it builds though, but since it does it\u0027s really nice.",
+      "parentUuid": "2d0e7ee4_ec57cd7b",
       "range": {
         "startLine": 126,
         "startChar": 31,

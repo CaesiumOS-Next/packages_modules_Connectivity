@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eacdd597_747ccfe2",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:27:51Z",
+      "side": 1,
+      "message": "There is no point specifying an upper bound of Any because Any is the top type (all T will always be a subclass of Any)",
+      "range": {
+        "startLine": 143,
+        "startChar": 25,
+        "endLine": 143,
+        "endChar": 31
+      },
+      "revId": "da2dc0d02c43bf7fbae8e37ff0ac96252eb58b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
