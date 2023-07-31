@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c66caaee_51a7c1a3",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-31T14:23:18Z",
+      "side": 1,
+      "message": "okay, in that case put 64 in a comment...\n\nnoone besides lorenzo actually knows what rfc 7421 is.",
+      "parentUuid": "2bf02d8a_e71e4746",
+      "range": {
+        "startLine": 207,
+        "startChar": 46,
+        "endLine": 207,
+        "endChar": 67
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5ae731f_01aa8ba3",
         "filename": "bpf_progs/offload.c",
         "patchSetId": 3
@@ -179,6 +203,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99672910_1a69da45",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-31T14:23:18Z",
+      "side": 1,
+      "message": "Ah, I see, this is split across 2 patches, the first of which is wrong (presumably doesn\u0027t build).\n\nYou\u0027re not fixing the first because it\u0027s mine and not yours...\n\nThat\u0027s the wrong approach.\n\nPatches should stand on their own.\n\nDon\u0027t worry about patch ownership.\n\nYou can put \u0027with help from maze@\u0027 or \u0027based on aosp/xxx from maze@\u0027 in the commit description if needed.",
+      "parentUuid": "e03c5c24_16d2d1b9",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 60
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c17c581_edfb20e8",
         "filename": "framework/src/android/net/NetworkUtils.java",
         "patchSetId": 3
@@ -214,6 +262,30 @@
       "side": 1,
       "message": "We can use some structures like Trie to speedup the search, but it needs preprocessing before use, at lease linear time to do it, which won\u0027t gain any benefit in this function.",
       "parentUuid": "9c17c581_edfb20e8",
+      "range": {
+        "startLine": 443,
+        "startChar": 4,
+        "endLine": 445,
+        "endChar": 9
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f95c22b8_b4fa1b88",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-31T14:23:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be trivial to do in Java?\n\nhttps://stackoverflow.com/questions/5952864/java-find-nearest-or-equal-value-in-collection\n\nimplement Comparable and use a TreeSet to store the objects, which will keep the elements sorted. TreeSet implements SortedSet, so you can use headSet or tailSet to get a view of the set before or after the element you\u0027re searching for. Use the first or last method on the returned set to get the element you\u0027re seeking.",
+      "parentUuid": "fff34804_dfc3173f",
       "range": {
         "startLine": 443,
         "startChar": 4,
