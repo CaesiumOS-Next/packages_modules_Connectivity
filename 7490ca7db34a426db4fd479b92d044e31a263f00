@@ -140,6 +140,30 @@
       },
       "revId": "7490ca7db34a426db4fd479b92d044e31a263f00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3810df8d_4e4c285c",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T10:22:40Z",
+      "side": 1,
+      "message": "Fair enough about the examples.\n\nIf you want to have a nicer call site in the callers, you can define (hidden) methods in Entry to set multiple fields at the same time. For example, it makes sense to offer a setter for all key fields, and a setter for all value fields. This will make your call site terser.\n\nWhat about mutating the returned entry ? Would this work now ?",
+      "parentUuid": "909fd860_1b5bc95c",
+      "range": {
+        "startLine": 1300,
+        "startChar": 12,
+        "endLine": 1300,
+        "endChar": 35
+      },
+      "revId": "7490ca7db34a426db4fd479b92d044e31a263f00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
