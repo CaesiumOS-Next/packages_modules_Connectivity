@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d222e3d_9fa7492d",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T10:21:13Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s correct: if I have one service, and get find, lose, find for the same service, the result should still be 1 service, not 2\n\nFor this metric it sounds like you\u0027ll have to keep a set of service names in the discovery request. In that case it may be best to limit its size (e.g. keep at most ~20 or 30 services per request) to avoid growing too much on weird networks",
+      "range": {
+        "startLine": 171,
+        "startChar": 16,
+        "endLine": 171,
+        "endChar": 36
+      },
+      "revId": "f66fdf6cdbe3f8b4cd3d01ace8ab396a883d3f8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c10018_32a99118",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T10:21:13Z",
+      "side": 1,
+      "message": "To avoid modifying internal members, I\u0027d suggest having a method (onServiceFound ?)\n\nIt would also be useful if counting found services",
+      "range": {
+        "startLine": 1175,
+        "startChar": 32,
+        "endLine": 1175,
+        "endChar": 50
+      },
+      "revId": "f66fdf6cdbe3f8b4cd3d01ace8ab396a883d3f8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
