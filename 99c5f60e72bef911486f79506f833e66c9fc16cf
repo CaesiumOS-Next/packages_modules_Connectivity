@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "686d290f_2567b3d9",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-31T05:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d20cb46d_271f7b45",
+      "range": {
+        "startLine": 1290,
+        "startChar": 90,
+        "endLine": 1290,
+        "endChar": 92
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fad3796_c133ba6a",
@@ -94,6 +118,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82b1003e_8cdb8cd9",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-31T05:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb556ea3_ed6971d6",
+      "range": {
+        "startLine": 1303,
+        "startChar": 43,
+        "endLine": 1303,
+        "endChar": 70
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9bb4707_2adcaf02",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-31T05:49:45Z",
+      "side": 1,
+      "message": "1. Done.\nThanks for writing these.\nShamelessly copied.\n\n2. When ignoring the values from the returned entry, the behavior differs from the original because the original \"groupedByIface\" function resets the operation count to zero. It might be acceptable to modify this behavior, but it\u0027s advisable to consider implementing it in a separate CL since it alters the current functionality. WDYT?",
+      "parentUuid": "215390eb_9ebd0841",
+      "range": {
+        "startLine": 1303,
+        "startChar": 25,
+        "endLine": 1303,
+        "endChar": 42
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9912d8e_3823dacd",
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c5b42ec_cb4bd216",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-31T05:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9912d8e_3823dacd",
+      "range": {
+        "startLine": 1304,
+        "startChar": 44,
+        "endLine": 1304,
+        "endChar": 50
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff1a7659_18879dbe",
@@ -130,6 +226,30 @@
       "writtenOn": "2023-07-28T05:00:25Z",
       "side": 1,
       "message": "Didn\u0027t you want `combineValues` ? This creates a new NetworkStats object for every run of the loop, which is extremely expensive.",
+      "range": {
+        "startLine": 1307,
+        "startChar": 22,
+        "endLine": 1307,
+        "endChar": 30
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27e23b4b_c58f6d69",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-31T05:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff1a7659_18879dbe",
       "range": {
         "startLine": 1307,
         "startChar": 22,
