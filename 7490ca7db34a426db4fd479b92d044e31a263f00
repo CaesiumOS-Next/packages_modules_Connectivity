@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "993c6793_793a8a38",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-31T10:15:08Z",
+      "side": 1,
+      "message": "Oops.\nDone.\nSee if it works for you.",
+      "parentUuid": "103a114f_da949b4d",
+      "range": {
+        "startLine": 1284,
+        "startChar": 70,
+        "endLine": 1284,
+        "endChar": 73
+      },
+      "revId": "7490ca7db34a426db4fd479b92d044e31a263f00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be7f3118_d4e234b7",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "863a2216_0b68e7da",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1288,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-31T10:15:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be7f3118_d4e234b7",
+      "range": {
+        "startLine": 1288,
+        "startChar": 26,
+        "endLine": 1288,
+        "endChar": 30
+      },
+      "revId": "7490ca7db34a426db4fd479b92d044e31a263f00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18e5e6ee_c28d85f9",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-07-31T07:19:37Z",
       "side": 1,
       "message": "This should be described in the javadoc for this function.\n\nAlso – what about having a reused temp object ? E.g.\n\n    final Entry temp \u003d new Entry(...);\n    stats.map(e -\u003e {\n        temp.uid \u003d UID_ALL\n        temp.set \u003d SET_ALL\n        temp.rxBytes \u003d e.rxBytes\n        ...\n        return temp;\n    });\n\nWill this work ? I think it will, right ? If so, do you want to migrate the implementation of groupByIface and groupByUid to this ?\n\nMoreover – now that you\u0027re using combineValue, IIUC this actually never takes a ref to the passed entry. So... it would actually work to mutate the returned entry ? If it would, then you should just remove this restriction and allow it, because it\u0027s most memory efficient and really intuitive.",
+      "range": {
+        "startLine": 1300,
+        "startChar": 12,
+        "endLine": 1300,
+        "endChar": 35
+      },
+      "revId": "7490ca7db34a426db4fd479b92d044e31a263f00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "909fd860_1b5bc95c",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-07-31T10:15:08Z",
+      "side": 1,
+      "message": "Done.\nI don\u0027t really like it since it is less pretty.\nBut yes this is more efficient.\nAs a trade off I think this is better.\nThanks for the suggestion.\n\nDeleted the example since now it is not valid, and people could use current callers as examples.",
+      "parentUuid": "18e5e6ee_c28d85f9",
       "range": {
         "startLine": 1300,
         "startChar": 12,
