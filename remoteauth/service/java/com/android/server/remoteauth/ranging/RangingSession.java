@@ -17,6 +17,9 @@ package com.android.server.remoteauth.ranging;
 
 import androidx.annotation.IntDef;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * Base class of ranging session to be extended by ranging method specific implementation.
  *
@@ -27,6 +30,7 @@ import androidx.annotation.IntDef;
 public abstract class RangingSession {
 
     /** Types of ranging error. */
+    @Retention(RetentionPolicy.SOURCE)
     @IntDef(
             value = {
                 RANGING_ERROR_UNKNOWN,
