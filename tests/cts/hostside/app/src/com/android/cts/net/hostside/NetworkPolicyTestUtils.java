@@ -114,6 +114,7 @@ public class NetworkPolicyTestUtils {
      */
     public static boolean isDataSaverSupported() {
         if (isWear()) {
+            setRestrictBackgroundInternal(false);
             return false;
         }
         if (mDataSaverSupported == null) {
