@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8695b0e_bd91409e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4712,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2023-07-31T08:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8b7714e_0a0f0de8",
+      "range": {
+        "startLine": 4712,
+        "startChar": 12,
+        "endLine": 4712,
+        "endChar": 38
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dcc0450_59445a02",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03111f6f_35fd5d40",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18560,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2023-07-31T08:24:03Z",
+      "side": 1,
+      "message": "registerDefaultNetworkCallbacks would fix this and I have updated the CL.",
+      "parentUuid": "6dcc0450_59445a02",
+      "range": {
+        "startLine": 18560,
+        "startChar": 8,
+        "endLine": 18560,
+        "endChar": 37
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92b5d312_9b5804f4",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-07-31T07:03:45Z",
       "side": 1,
       "message": "with",
+      "range": {
+        "startLine": 18565,
+        "startChar": 31,
+        "endLine": 18565,
+        "endChar": 33
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "337070c0_55d006f5",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18565,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2023-07-31T08:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92b5d312_9b5804f4",
       "range": {
         "startLine": 18565,
         "startChar": 31,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a354642f_0730e360",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18567,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2023-07-31T08:24:03Z",
+      "side": 1,
+      "message": "Yes, teardowndelay will come in picture only when the NA is disconnected. So,\n\n1) we create NA at CS first. Native network with netd next.\n2) Set the teardown at CS as 1 sec.\n3) Destroy the native network at netd and mark it as destroyed at CS.\n4) Triggering disconnect now will check for isNativeNetworkAlive first and then sets the permission to SYSTEM.\n5) As the network is already destroyed at netd, CS just waits for teardownMs to destroy network at CS.\n\nWe will verify it internally and update",
+      "parentUuid": "29dca156_4bfb53e6",
+      "range": {
+        "startLine": 18567,
+        "startChar": 36,
+        "endLine": 18567,
+        "endChar": 50
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd0eddb1_40e1dd72",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 2
@@ -106,6 +202,30 @@
       "writtenOn": "2023-07-31T07:03:45Z",
       "side": 1,
       "message": "Why waitForIdle as the last thing in the test ? CS will be destroyed anyway.",
+      "range": {
+        "startLine": 18570,
+        "startChar": 8,
+        "endLine": 18570,
+        "endChar": 19
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2829fff_69ec1957",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18570,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2023-07-31T08:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd0eddb1_40e1dd72",
       "range": {
         "startLine": 18570,
         "startChar": 8,
