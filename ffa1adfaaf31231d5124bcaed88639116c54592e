@@ -50,6 +50,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cea39d85_9e75d1ef",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-07-31T18:51:03Z",
+      "side": 1,
+      "message": "I\u0027m not sure how much it matters, but the behavior of this is a little different from before. It used to map ifindex -\u003e ifname, so if an ifindex was reused by another interface (through a sequence of adding/removing interfaces), it would _only_ map to the new interface name. With the way this cache is updated, multiple ifnames can map to the same ifindex, potentially double counting traffic depending on how this is used.\n\n@maze: even the old system seems tenuous at best. Any suggestions?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 77
+      },
+      "revId": "ffa1adfaaf31231d5124bcaed88639116c54592e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f3dbe69_1660b74d",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 5
