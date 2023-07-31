@@ -16,6 +16,24 @@
       "message": "Now that callbacks are done in the executor thread, I guess most (maybe all) verifies should have a timeout. Including this one?",
       "revId": "f4de234222f687fd41358c618f5905c08ae171b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acfc2398_6c1b3f8e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1349,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-07-31T05:03:12Z",
+      "side": 1,
+      "message": "Done for this one. The interaction with executor may take longer time. I will review other usage later. The others may probably be in other commit, not this one.",
+      "parentUuid": "a07f2b8a_78e69f65",
+      "revId": "f4de234222f687fd41358c618f5905c08ae171b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
