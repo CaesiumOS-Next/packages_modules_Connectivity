@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "103a114f_da949b4d",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:19:37Z",
+      "side": 1,
+      "message": "Please specify the fields. I wrote ... in my comment as a placeholder",
+      "range": {
+        "startLine": 1284,
+        "startChar": 70,
+        "endLine": 1284,
+        "endChar": 73
+      },
+      "revId": "7490ca7db34a426db4fd479b92d044e31a263f00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be7f3118_d4e234b7",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1288,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:19:37Z",
+      "side": 1,
+      "message": "IFACE_ALL ?",
+      "range": {
+        "startLine": 1288,
+        "startChar": 26,
+        "endLine": 1288,
+        "endChar": 30
+      },
+      "revId": "7490ca7db34a426db4fd479b92d044e31a263f00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18e5e6ee_c28d85f9",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:19:37Z",
+      "side": 1,
+      "message": "This should be described in the javadoc for this function.\n\nAlso – what about having a reused temp object ? E.g.\n\n    final Entry temp \u003d new Entry(...);\n    stats.map(e -\u003e {\n        temp.uid \u003d UID_ALL\n        temp.set \u003d SET_ALL\n        temp.rxBytes \u003d e.rxBytes\n        ...\n        return temp;\n    });\n\nWill this work ? I think it will, right ? If so, do you want to migrate the implementation of groupByIface and groupByUid to this ?\n\nMoreover – now that you\u0027re using combineValue, IIUC this actually never takes a ref to the passed entry. So... it would actually work to mutate the returned entry ? If it would, then you should just remove this restriction and allow it, because it\u0027s most memory efficient and really intuitive.",
+      "range": {
+        "startLine": 1300,
+        "startChar": 12,
+        "endLine": 1300,
+        "endChar": 35
+      },
+      "revId": "7490ca7db34a426db4fd479b92d044e31a263f00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

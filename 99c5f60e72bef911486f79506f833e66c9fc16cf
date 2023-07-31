@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d049b091_d75f25f8",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-07-31T07:19:37Z",
+      "side": 1,
+      "message": "This is what I discussed in my second comment :\n\n    groupedByIface would need to zero out each entry at the end, which might be easier to read\n\nYou\u0027d have groupByIface simply have a loop at the end to reset all the operations count to 0, so that you wouldn\u0027t change the behavior.\n\nBut I think what you have now is fine",
+      "parentUuid": "c9bb4707_2adcaf02",
+      "range": {
+        "startLine": 1303,
+        "startChar": 25,
+        "endLine": 1303,
+        "endChar": 42
+      },
+      "revId": "99c5f60e72bef911486f79506f833e66c9fc16cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9912d8e_3823dacd",
