@@ -11321,8 +11321,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     reportNetworkActive();
                 }
             } else {
-                // If there is no default network, default network is considered inactive.
-                mIsDefaultNetworkActive = false;
+                // If there is no default network, default network is considered active.
+                // This doesn't make sense but this is to keep the existing behavior.
+                mIsDefaultNetworkActive = true;
             }
         }
 
