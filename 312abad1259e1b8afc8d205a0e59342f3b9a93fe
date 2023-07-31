@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbe4d7aa_6f646a3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T08:35:18Z",
+      "side": 1,
+      "message": "Thanks for the nice cleanup !",
+      "revId": "312abad1259e1b8afc8d205a0e59342f3b9a93fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64b11e3d_ae5d3675",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T08:35:18Z",
+      "side": 1,
+      "message": "How about changing mActiveSockets to be `ArrayMap\u003cSocketKey, MdnsInterfaceSocket\u003e` ? It would make more sense to be a key-\u003evalue map, and simplify this method.\n\nIt looks like the only method that uses key lookup by MdnsInterfaceSocket is isSocketActive; but it could actually take a SocketKey as argument instead (it\u0027s called by maybeCleanupPacketHandler which has 2 callers that both have the key, and by notifySocketDestroyed which also knows the key).",
+      "revId": "312abad1259e1b8afc8d205a0e59342f3b9a93fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2b7726f_e9751af8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T08:35:18Z",
+      "side": 1,
+      "message": "Nit: while you\u0027re at it, final",
+      "range": {
+        "startLine": 222,
+        "startChar": 8,
+        "endLine": 222,
+        "endChar": 15
+      },
+      "revId": "312abad1259e1b8afc8d205a0e59342f3b9a93fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
