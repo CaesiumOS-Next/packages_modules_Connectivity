@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42b75d4c_640894b6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T09:35:00Z",
+      "side": 1,
+      "message": "Supernit: the next query task parameters ?\n\nAlso it would be nice to specify the threading model (e.g. this class is not thread-safe and needs to be used on a consistent thread)",
+      "range": {
+        "startLine": 23,
+        "startChar": 44,
+        "endLine": 23,
+        "endChar": 57
+      },
+      "revId": "d61318593ff0c5ca44111f1629c8876b12cdc3e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "564a5e5c_7bab7248",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T09:35:00Z",
+      "side": 1,
+      "message": "Typo: The",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 6
+      },
+      "revId": "d61318593ff0c5ca44111f1629c8876b12cdc3e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d038c72_6b6afd46",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T09:35:00Z",
+      "side": 1,
+      "message": "Nit: it\u0027s a bit hard to know when this should be called from this naming and description (it describes the internal implementation, not what it\u0027s for). When reviewing MdnsServiceTypeClient it\u0027s not very clear why it\u0027s called where it is called.\n\nIn practice this is called when cancelling send, except if it\u0027s going to be rescheduled immediately afterwards ? In that case maybe call this cancelScheduledRun or similar ? That looks better with the rest of the API (scheduleFirst, scheduleNext, maybeReschedule, cancelScheduled)",
+      "range": {
+        "startLine": 52,
+        "startChar": 7,
+        "endLine": 52,
+        "endChar": 54
+      },
+      "revId": "d61318593ff0c5ca44111f1629c8876b12cdc3e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bfe9c97_7b009b71",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T09:35:00Z",
+      "side": 1,
+      "message": "Nit: looking just at this it\u0027s a bit hard to understand: if it was a new query I\u0027d expect scheduleFirstRun to be used. Maybe add some javadoc or a more descriptive name ?",
+      "range": {
+        "startLine": 96,
+        "startChar": 20,
+        "endLine": 96,
+        "endChar": 30
+      },
+      "revId": "d61318593ff0c5ca44111f1629c8876b12cdc3e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab6760a2_ccf48ffb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T09:35:00Z",
+      "side": 1,
+      "message": "This is @Nullable but calculateTimeToRun expects @NonNull. Should isNewQuery actually be a null check ?",
+      "range": {
+        "startLine": 102,
+        "startChar": 43,
+        "endLine": 102,
+        "endChar": 70
+      },
+      "revId": "d61318593ff0c5ca44111f1629c8876b12cdc3e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b92f8adf_8941924c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T09:35:00Z",
+      "side": 1,
+      "message": "Instead of having the isNewQuery parameter, would you get the same result with:\n\n```\nqueryTaskArgs \u003d mdnsQueryScheduler.scheduleFirstRun(...);\n\nif (hadReply) {\n    // If there was a reply from cache, reschedule as if the first run scheduled\n    // above was just sent. This avoids sending queries immediately\n    // on each registration if a result is already known.\n    args \u003d mdnsQueryScheduler.scheduleNextRun(...);\n    dependencies.sendMessageDelayed(...);\n} else {\n    // Submit first run immediately\n    [...]\n    final QueryTask queryTask \u003d new QueryTask(queryTaskArgs, ...);\n    executor.submit(queryTask);\n}\n\n```",
+      "revId": "d61318593ff0c5ca44111f1629c8876b12cdc3e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcacc63a_f2271859",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T09:35:00Z",
+      "side": 1,
+      "message": "I think intellij will warn if you have a public member in a private class, because it won\u0027t be more visible than with other modifiers; you could just keep this package-private (no modifier)",
+      "range": {
+        "startLine": 635,
+        "startChar": 8,
+        "endLine": 635,
+        "endChar": 14
+      },
+      "revId": "d61318593ff0c5ca44111f1629c8876b12cdc3e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
