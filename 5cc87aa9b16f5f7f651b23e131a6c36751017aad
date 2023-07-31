@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "735eb91a_1203f259",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-31T19:07:30Z",
+      "side": 1,
+      "message": "insertOrReplaceEntry returns a boolean based on whether it added or replaced\n\nsee https://source.corp.google.com/h/android/platform/superproject/+/main:frameworks/libs/net/common/device/com/android/net/module/util/BpfMap.java;l\u003d153",
+      "range": {
+        "startLine": 141,
+        "startChar": 20,
+        "endLine": 141,
+        "endChar": 31
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa3047fc_786c1006",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-31T19:07:30Z",
+      "side": 1,
+      "message": "another approach here would be to read mBpfMap first, and if something is there, clean up (ie. remove the old value from the cache), and then update, etc...\n\nto be safe this would likely need to be in a synchronized block, either the full thing, or just the \u0027what-to-do-if-already-present\u0027 error handling case\n\nside note: mBpfMap should perhaps be renamed to something better in a pre-cursor CL - mIfaceToIndexBpfMap perhaps...",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 36
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

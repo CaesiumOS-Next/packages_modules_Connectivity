@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fddccb1b_7c293fa4",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-31T19:07:30Z",
+      "side": 1,
+      "message": "ifindex reuse should theoretically not happen.\n\nnewly created interfaces in the root netns get increasing ifindexes...\n\nI guess it could be done via interface renames, but that should basically not happen... I\u0027m sure something else somewhere else would break...\n\n--\n\nmaybe we should make sure to remove ifindex from any other map it might have previously been in? just to be safe?",
+      "parentUuid": "cea39d85_9e75d1ef",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 77
+      },
+      "revId": "ffa1adfaaf31231d5124bcaed88639116c54592e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f3dbe69_1660b74d",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 5
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "I tried to maintain the existing behavior of getIfaceStats, which currently returns -1 instead of an accumulation if there was an error in nativeGetIfaceStat.\n\nDo you think it would be a better idea to update the behavior to return the cumulative stats instead?",
       "parentUuid": "9da3c59d_845f4fab",
+      "range": {
+        "startLine": 1942,
+        "startChar": 0,
+        "endLine": 1942,
+        "endChar": 40
+      },
+      "revId": "ffa1adfaaf31231d5124bcaed88639116c54592e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b5e928a_8a80ff77",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1942,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-31T19:07:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a5b0cdab_c3a0d084",
       "range": {
         "startLine": 1942,
         "startChar": 0,
