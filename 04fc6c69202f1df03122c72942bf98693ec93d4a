@@ -108,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5dcabe1_f6f685c6",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-07-31T08:18:42Z",
+      "side": 1,
+      "message": "Regarding \"testReportNetworkInterfaceForTransports will disable wifi at line 124 but never re-enable it\" -\u003e I think you can make sure that testReportNetworkInterfaceForTransports re-enables wifi in the \"finally\" clause of testReportNetworkInterfaceForTransports, when the Wi-Fi feature is supported. (I think it would actually be re-enabled in verifyGetWifiBatteryStats, but not if the test fails)\n\nRegarding \"disconnectFromCell does not change the default network, so reportMobileRadioPowerState will not be called and the test will fail\" -\u003e This should be fixed by actually turning off mobile data as per the suggestion in the other comment thread above. In that case mobile data really stops being the default network.\n\nSo I think this test doesn\u0027t necessarily need to be disabled on a device that doesn\u0027t have Wi-Fi. I\u0027d suggest implementing these suggestions (re-enable Wi-Fi in the \"finally\" clause of testReportNetworkInterfaceForTransports, and use the code in the other comment thread above to actually disable/re-enable mobile data). Then Lorenzo can check if that works for him ?",
+      "parentUuid": "99631cc3_aa307ab7",
+      "range": {
+        "startLine": 159,
+        "startChar": 21,
+        "endLine": 159,
+        "endChar": 39
+      },
+      "revId": "04fc6c69202f1df03122c72942bf98693ec93d4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d9bd8f5_5abbc809",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 4
