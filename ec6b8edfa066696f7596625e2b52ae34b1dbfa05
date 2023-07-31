@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f771905_60cf9e79",
+        "filename": "framework/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-31T18:49:54Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "911eec36_8ddd38ed",
+      "revId": "ec6b8edfa066696f7596625e2b52ae34b1dbfa05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ace375f2_f7fc05ff",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-07-31T01:49:42Z",
       "side": 1,
       "message": "Nit: tethering",
+      "range": {
+        "startLine": 10,
+        "startChar": 56,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "ec6b8edfa066696f7596625e2b52ae34b1dbfa05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec4e7999_fc220e56",
+        "filename": "remoteauth/TEST_MAPPING",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-31T18:49:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ace375f2_f7fc05ff",
       "range": {
         "startLine": 10,
         "startChar": 56,
@@ -88,6 +130,24 @@
       "writtenOn": "2023-07-31T01:49:42Z",
       "side": 1,
       "message": "Nit: The jni_libs shouldn\u0027t be needed since you\u0027re not including mockito here (and probably shouldn\u0027t use Extended Mockito when you do)",
+      "revId": "ec6b8edfa066696f7596625e2b52ae34b1dbfa05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3579751_8089bad4",
+        "filename": "remoteauth/tests/unit/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-07-31T18:49:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14566f01_85d91d52",
       "revId": "ec6b8edfa066696f7596625e2b52ae34b1dbfa05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
