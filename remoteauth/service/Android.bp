@@ -27,10 +27,14 @@ java_library {
     srcs: [":remoteauth-service-srcs"],
 
     defaults: [
-        "framework-system-server-module-defaults"
+        "framework-system-server-module-defaults",
     ],
-    libs: [],
-    static_libs: [],
+    libs: [
+        "androidx.annotation_annotation",
+    ],
+    static_libs: [
+        "modules-utils-preconditions",
+    ],
     sdk_version: "system_server_current",
     // This is included in service-connectivity which is 30+
     // TODO (b/293613362): allow APEXes to have service jars with higher min_sdk than the APEX
@@ -53,7 +57,7 @@ genrule {
     name: "statslog-remoteauth-java-gen",
     tools: ["stats-log-api-gen"],
     cmd: "$(location stats-log-api-gen) --java $(out) --module remoteauth " +
-         " --javaPackage com.android.server.remoteauth.proto --javaClass RemoteAuthStatsLog" +
-         " --minApiLevel 33",
+        " --javaPackage com.android.server.remoteauth.proto --javaClass RemoteAuthStatsLog" +
+        " --minApiLevel 33",
     out: ["com/android/server/remoteauth/proto/RemoteAuthStatsLog.java"],
 }
