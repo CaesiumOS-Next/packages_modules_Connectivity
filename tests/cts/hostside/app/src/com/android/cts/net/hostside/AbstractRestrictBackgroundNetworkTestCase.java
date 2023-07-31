@@ -31,6 +31,7 @@ import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isAppStandbySu
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isBatterySaverSupported;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isDozeModeSupported;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.restrictBackgroundValueToString;
+import static com.android.cts.net.hostside.NetworkPolicyTestUtils.setRestrictBackgroundInternal;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -54,9 +55,9 @@ import android.net.NetworkRequest;
 import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.RemoteCallback;
 import android.os.SystemClock;
-import android.os.PowerManager;
 import android.provider.DeviceConfig;
 import android.service.notification.NotificationListenerService;
 import android.util.Log;
@@ -186,6 +187,10 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
         mServiceClient.bind();
         mPowerManager = mContext.getSystemService(PowerManager.class);
         executeShellCommand("cmd netpolicy start-watching " + mUid);
+        // The test case assumes data saver mode is initially disabled. WearOS enables data saver on
+        // boot but technically does not support the mode in this test module. Force disable data
+        // saver to set the precondition correctly.
+        setRestrictBackgroundInternal(false);
         setAppIdle(false);
         mLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
 
