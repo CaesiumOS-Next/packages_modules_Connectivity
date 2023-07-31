@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04d19a74_0b654d83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-07-31T19:11:14Z",
+      "side": 1,
+      "message": "Oh.. there\u0027s likely one more gotcha...\n\nThe cache is process lifecycle - ie. system server crash -\u003e new cache.\n\nThe BpfMap won\u0027t be cleared without a system reboot.\n(quite intentionally I believe...)\n\nThis probably needs the cache needs to be built from iterating the BpfMap during startup of the class.",
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "735eb91a_1203f259",
