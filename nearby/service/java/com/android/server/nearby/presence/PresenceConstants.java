@@ -16,12 +16,22 @@
 
 package com.android.server.nearby.presence;
 
+<<<<<<< HEAD   (742c47 Merge "Fix BpfLoaderRcUtils to support IOS_8859_1" into main)
 import android.os.ParcelUuid;
+=======
+import static com.android.server.nearby.common.bluetooth.fastpair.BluetoothUuids.to128BitUuid;
+
+import com.android.server.nearby.util.ArrayUtils;
+
+import java.util.UUID;
+>>>>>>> CHANGE (17a080 [nearby] Update encoding and decoding according to the spec)
 
 /**
  * Constants for Nearby Presence operations.
  */
 public class PresenceConstants {
+    /** The Presence UUID value in byte array format. */
+    public static final byte[] PRESENCE_UUID_BYTES = ArrayUtils.intToByteArray(0xFCF1);
 
     /** Presence advertisement service data uuid. */
     public static final ParcelUuid PRESENCE_UUID =
