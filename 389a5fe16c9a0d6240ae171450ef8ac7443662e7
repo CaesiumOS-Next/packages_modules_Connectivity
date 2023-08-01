@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "093be63b_a7954b65",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-01T09:44:46Z",
+      "side": 1,
+      "message": "Please don\u0027t have different states behave differently. Why force the complexity of duplicating iff auto, and then closing iff auto ? Instead, let\u0027s always dup.",
+      "range": {
+        "startLine": 498,
+        "startChar": 0,
+        "endLine": 499,
+        "endChar": 65
+      },
+      "revId": "389a5fe16c9a0d6240ae171450ef8ac7443662e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
