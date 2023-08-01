@@ -227,4 +227,50 @@ public class NetworkNsdReportedMetrics {
         builder.setEventDurationMillisec(durationMs);
         mDependencies.statsWrite(builder.build());
     }
+
+    /**
+     * Report service info callback registered metric data.
+     *
+     * @param transactionId The transaction id of service info callback registration.
+     */
+    public void reportServiceInfoCallbackRegistered(int transactionId) {
+        final Builder builder = makeReportedBuilder();
+        builder.setTransactionId(transactionId);
+        builder.setType(NsdEventType.NET_SERVICE_INFO_CALLBACK);
+        builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_INFO_CALLBACK_REGISTERED);
+        mDependencies.statsWrite(builder.build());
+    }
+
+    /**
+     * Report service info callback registration failed metric data.
+     *
+     * @param transactionId The transaction id of service callback registration.
+     */
+    public void reportServiceInfoCallbackRegistrationFailed(int transactionId) {
+        final Builder builder = makeReportedBuilder();
+        builder.setTransactionId(transactionId);
+        builder.setType(NsdEventType.NET_SERVICE_INFO_CALLBACK);
+        builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_INFO_CALLBACK_REGISTRATION_FAILED);
+        mDependencies.statsWrite(builder.build());
+    }
+
+    /**
+     * Report service callback unregistered metric data.
+     *
+     * @param transactionId The transaction id of service callback registration.
+     * @param durationMs The duration of service callback stayed registered.
+     * @param isKnownService Whether the resolving service is from a known service.
+     * @param sentQueryCount The count of sent queries before unregister service info callback.
+     */
+    public void reportServiceInfoCallbackUnregistered(int transactionId, long durationMs,
+            boolean isKnownService, int sentQueryCount) {
+        final Builder builder = makeReportedBuilder();
+        builder.setTransactionId(transactionId);
+        builder.setType(NsdEventType.NET_SERVICE_INFO_CALLBACK);
+        builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_INFO_CALLBACK_UNREGISTERED);
+        builder.setEventDurationMillisec(durationMs);
+        builder.setIsKnownService(isKnownService);
+        builder.setSentQueryCount(sentQueryCount);
+        mDependencies.statsWrite(builder.build());
+    }
 }
