@@ -45,6 +45,54 @@
       },
       "revId": "1baf71c9f755898840792e9fd7e1a25db8988e7b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "730a0fd5_4ad5ade4",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-01T05:39:19Z",
+      "side": 1,
+      "message": "Err, I don\u0027t know what I was doing either.\nRemoved.",
+      "parentUuid": "b980a634_83c219e3",
+      "range": {
+        "startLine": 1314,
+        "startChar": 15,
+        "endLine": 1314,
+        "endChar": 19
+      },
+      "revId": "1baf71c9f755898840792e9fd7e1a25db8988e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9a10856_4d854f14",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-01T05:39:19Z",
+      "side": 1,
+      "message": "No because it will alter \"this\" object and hit the exception where we want the callers to create new entry. Which breaks the contract of this method.",
+      "parentUuid": "60931a2a_59d9d565",
+      "range": {
+        "startLine": 1314,
+        "startChar": 33,
+        "endLine": 1314,
+        "endChar": 37
+      },
+      "revId": "1baf71c9f755898840792e9fd7e1a25db8988e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
