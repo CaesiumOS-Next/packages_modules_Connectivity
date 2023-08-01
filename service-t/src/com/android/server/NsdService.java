@@ -343,6 +343,11 @@ public class NsdService extends INsdManager.Stub {
                     NsdManager.SERVICE_UPDATED_LOST,
                     new MdnsEvent(mClientRequestId, serviceInfo));
         }
+
+        @Override
+        public void onDiscoveryQuerySent(@NonNull List<String> subtypes, int transactionId) {
+            mSentQueryCount++;
+        }
     }
 
     private class SocketRequestMonitor implements MdnsSocketProvider.SocketRequestMonitor {
@@ -1108,6 +1113,7 @@ public class NsdService extends INsdManager.Stub {
                                 resolveServiceType, listener, options);
                         storeDiscoveryManagerRequestMap(clientRequestId, transactionId, listener,
                                 clientInfo, info.getNetwork());
+                        clientInfo.onServiceInfoCallbackRegistered(transactionId);
                         clientInfo.log("Register a ServiceInfoListener " + transactionId
                                 + " for service type:" + resolveServiceType);
                         break;
@@ -1132,9 +1138,13 @@ public class NsdService extends INsdManager.Stub {
                         }
                         transactionId = request.mTransactionId;
                         if (request instanceof DiscoveryManagerRequest) {
+                            final int sentQueryCount = ((DiscoveryManagerRequest) request).mListener
+                                    .getSentQueryCount();
                             stopDiscoveryManagerRequest(
                                     request, clientRequestId, transactionId, clientInfo);
-                            clientInfo.onServiceInfoCallbackUnregistered(clientRequestId);
+                            clientInfo.onServiceInfoCallbackUnregistered(clientRequestId,
+                                    transactionId, request.calculateRequestDurationMs(),
+                                    request.isKnownService(), sentQueryCount);
                             clientInfo.log("Unregister the ServiceInfoListener " + transactionId);
                         } else {
                             loge("Unregister failed with non-DiscoveryManagerRequest.");
@@ -1468,6 +1478,9 @@ public class NsdService extends INsdManager.Stub {
                         final List<InetAddress> addresses = getInetAddresses(serviceInfo);
                         info.setHostAddresses(addresses);
                         clientInfo.onServiceUpdated(clientRequestId, info);
+                        if (event.mIsKnownService) {
+                            request.setKnownService();
+                        }
                         break;
                     }
                     case NsdManager.SERVICE_UPDATED_LOST:
@@ -2113,6 +2126,7 @@ public class NsdService extends INsdManager.Stub {
         private final long mStartTimeMs;
         private int mFoundServiceCount = 0;
         private int mLostServiceCount = 0;
+        private boolean mIsKnownService = false;
 
         private ClientRequest(int transactionId, @NonNull Clock clock, long startTimeMs) {
             mTransactionId = transactionId;
@@ -2123,6 +2137,14 @@ public class NsdService extends INsdManager.Stub {
         public long calculateRequestDurationMs() {
             final long stopTimeMs = mClock.elapsedRealtime();
             return stopTimeMs - mStartTimeMs;
+        }
+
+        public void setKnownService() {
+            mIsKnownService = true;
+        }
+
+        public boolean isKnownService() {
+            return mIsKnownService;
         }
     }
 
@@ -2263,6 +2285,10 @@ public class NsdService extends INsdManager.Stub {
                     } else if (listener instanceof ResolutionListener) {
                         mMetrics.reportServiceResolutionStop(transactionId,
                                 request.calculateRequestDurationMs());
+                    } else if (listener instanceof ServiceInfoListener) {
+                        mMetrics.reportServiceInfoCallbackUnregistered(transactionId,
+                                request.calculateRequestDurationMs(), request.isKnownService(),
+                                sendQueryCount);
                     }
                     continue;
                 }
@@ -2483,11 +2509,16 @@ public class NsdService extends INsdManager.Stub {
         }
 
         void onServiceInfoCallbackRegistrationFailed(int listenerKey, int error) {
+            mMetrics.reportServiceInfoCallbackRegistrationFailed(NO_TRANSACTION);
             try {
                 mCb.onServiceInfoCallbackRegistrationFailed(listenerKey, error);
             } catch (RemoteException e) {
                 Log.e(TAG, "Error calling onServiceInfoCallbackRegistrationFailed", e);
             }
+        }
+
+        void onServiceInfoCallbackRegistered(int transactionId) {
+            mMetrics.reportServiceInfoCallbackRegistered(transactionId);
         }
 
         void onServiceUpdated(int listenerKey, NsdServiceInfo info) {
@@ -2506,7 +2537,10 @@ public class NsdService extends INsdManager.Stub {
             }
         }
 
-        void onServiceInfoCallbackUnregistered(int listenerKey) {
+        void onServiceInfoCallbackUnregistered(int listenerKey, int transactionId, long durationMs,
+                boolean isKnownService, int sentQueryCount) {
+            mMetrics.reportServiceInfoCallbackUnregistered(
+                    transactionId, durationMs, isKnownService, sentQueryCount);
             try {
                 mCb.onServiceInfoCallbackUnregistered(listenerKey);
             } catch (RemoteException e) {

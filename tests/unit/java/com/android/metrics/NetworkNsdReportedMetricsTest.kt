@@ -221,4 +221,64 @@ class NetworkNsdReportedMetricsTest {
             assertEquals(durationMs, it.eventDurationMillisec)
         }
     }
+
+    @Test
+    fun testReportServiceInfoCallbackRegistered() {
+        val clientId = 99
+        val transactionId = 100
+        val metrics = NetworkNsdReportedMetrics(false /* isLegacy */, clientId, deps)
+        metrics.reportServiceInfoCallbackRegistered(transactionId)
+
+        val eventCaptor = ArgumentCaptor.forClass(NetworkNsdReported::class.java)
+        verify(deps).statsWrite(eventCaptor.capture())
+        eventCaptor.value.let {
+            assertFalse(it.isLegacy)
+            assertEquals(clientId, it.clientId)
+            assertEquals(transactionId, it.transactionId)
+            assertEquals(NsdEventType.NET_SERVICE_INFO_CALLBACK, it.type)
+            assertEquals(MdnsQueryResult.MQR_SERVICE_INFO_CALLBACK_REGISTERED, it.queryResult)
+        }
+    }
+
+    @Test
+    fun testReportServiceInfoCallbackRegistrationFailed() {
+        val clientId = 99
+        val transactionId = 100
+        val metrics = NetworkNsdReportedMetrics(true /* isLegacy */, clientId, deps)
+        metrics.reportServiceInfoCallbackRegistrationFailed(transactionId)
+
+        val eventCaptor = ArgumentCaptor.forClass(NetworkNsdReported::class.java)
+        verify(deps).statsWrite(eventCaptor.capture())
+        eventCaptor.value.let {
+            assertTrue(it.isLegacy)
+            assertEquals(clientId, it.clientId)
+            assertEquals(transactionId, it.transactionId)
+            assertEquals(NsdEventType.NET_SERVICE_INFO_CALLBACK, it.type)
+            assertEquals(
+                    MdnsQueryResult.MQR_SERVICE_INFO_CALLBACK_REGISTRATION_FAILED, it.queryResult)
+        }
+    }
+
+    @Test
+    fun testReportServiceInfoCallbackUnregistered() {
+        val clientId = 99
+        val transactionId = 100
+        val durationMs = 10L
+        val metrics = NetworkNsdReportedMetrics(false /* isLegacy */, clientId, deps)
+        metrics.reportServiceInfoCallbackUnregistered(
+                transactionId, durationMs, false /* isKnownService */, 100 /* sentQueryCount */)
+
+        val eventCaptor = ArgumentCaptor.forClass(NetworkNsdReported::class.java)
+        verify(deps).statsWrite(eventCaptor.capture())
+        eventCaptor.value.let {
+            assertFalse(it.isLegacy)
+            assertEquals(clientId, it.clientId)
+            assertEquals(transactionId, it.transactionId)
+            assertEquals(NsdEventType.NET_SERVICE_INFO_CALLBACK, it.type)
+            assertEquals(MdnsQueryResult.MQR_SERVICE_INFO_CALLBACK_UNREGISTERED, it.queryResult)
+            assertEquals(durationMs, it.eventDurationMillisec)
+            assertFalse(it.isKnownService)
+            assertEquals(100, it.sentQueryCount)
+        }
+    }
 }
