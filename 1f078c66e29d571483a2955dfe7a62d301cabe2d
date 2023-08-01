@@ -70,6 +70,30 @@
       },
       "revId": "1f078c66e29d571483a2955dfe7a62d301cabe2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1795536f_bd7b892c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2004100
+      },
+      "writtenOn": "2023-08-01T16:39:23Z",
+      "side": 1,
+      "message": "The logic below actually eventually returns true: setRestrictBackgroundInternal(true) -\u003e status is ENABLED -\u003e isMyRestrictBackgroundStatus(...DISABLED) mismatches and returns false -\u003e mDataSaverSupported \u003d !isMyRestrictBackgroundStatus(...) so it\u0027s true. It is necessary to keep this \"return false\" line within this block. An alternative is to directly set mDataSaverSupported to false. \n\nI agree that some tests are a bit strange, but I guess `isDataSaverSupported` is disrespected because those tests don\u0027t really set restrict-background to different states and only assume the initial state is \"disabled\", which makes sense to some extent.",
+      "parentUuid": "130988b6_acf90ed2",
+      "range": {
+        "startLine": 118,
+        "startChar": 12,
+        "endLine": 118,
+        "endChar": 25
+      },
+      "revId": "1f078c66e29d571483a2955dfe7a62d301cabe2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
