@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86961ce2_93bbefb9",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-08-01T05:31:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14ba3df1_0a285988",
+      "range": {
+        "startLine": 989,
+        "startChar": 0,
+        "endLine": 991,
+        "endChar": 81
+      },
+      "revId": "14417e74cf6ff697efb459da718dc02a96093ae2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb975131_9a437f1d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-01T03:53:59Z",
       "side": 1,
       "message": "This doesn\u0027t seem to add any value, but instead look like a change-detector ; the checks at l.679~680 sound sufficient.",
+      "range": {
+        "startLine": 676,
+        "startChar": 0,
+        "endLine": 677,
+        "endChar": 57
+      },
+      "revId": "14417e74cf6ff697efb459da718dc02a96093ae2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "135ca893_12058e87",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-08-01T05:31:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb975131_9a437f1d",
       "range": {
         "startLine": 676,
         "startChar": 0,
