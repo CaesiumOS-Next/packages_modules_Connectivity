@@ -22,6 +22,54 @@
       },
       "revId": "da2dc0d02c43bf7fbae8e37ff0ac96252eb58b56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2139670c_01921daf",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-01T06:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eacdd597_747ccfe2",
+      "range": {
+        "startLine": 143,
+        "startChar": 25,
+        "endLine": 143,
+        "endChar": 31
+      },
+      "revId": "da2dc0d02c43bf7fbae8e37ff0ac96252eb58b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7593e5e1_39e58564",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-01T06:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eacdd597_747ccfe2",
+      "range": {
+        "startLine": 143,
+        "startChar": 25,
+        "endLine": 143,
+        "endChar": 31
+      },
+      "revId": "da2dc0d02c43bf7fbae8e37ff0ac96252eb58b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
