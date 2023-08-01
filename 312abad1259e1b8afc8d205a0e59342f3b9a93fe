@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2606a29_236af464",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-01T03:47:59Z",
+      "side": 1,
+      "message": "nit: better to have meaningful variable name.",
+      "range": {
+        "startLine": 126,
+        "startChar": 42,
+        "endLine": 126,
+        "endChar": 45
+      },
+      "revId": "312abad1259e1b8afc8d205a0e59342f3b9a93fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64b11e3d_ae5d3675",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
         "patchSetId": 1
