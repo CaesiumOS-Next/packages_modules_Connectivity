@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e82cd85e_408dc11f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-01T03:54:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c039ec80_dc1fa861",
+      "range": {
+        "startLine": 1374,
+        "startChar": 24,
+        "endLine": 1374,
+        "endChar": 44
+      },
+      "revId": "33e505726ae4d13828b4951dd9677efb04c53639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb880372_4a658e58",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "This method name is similar to `onRegisterServiceFailedImmediately()` that was suggested in the previous change for failed cases. Therefore, it is best to keep the same naming rule for this method.\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2630031/comment/9910caa6_f55be7d8/",
       "parentUuid": "bb880372_4a658e58",
+      "range": {
+        "startLine": 2297,
+        "startChar": 13,
+        "endLine": 2297,
+        "endChar": 48
+      },
+      "revId": "33e505726ae4d13828b4951dd9677efb04c53639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a97113ee_70db12ae",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2297,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-01T03:54:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "947e96e8_7e080c6b",
       "range": {
         "startLine": 2297,
         "startChar": 13,
