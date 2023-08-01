@@ -164,6 +164,30 @@
       },
       "revId": "7490ca7db34a426db4fd479b92d044e31a263f00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "923ebe6d_21be29c8",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-01T03:29:45Z",
+      "side": 1,
+      "message": "Done.\n Not sure if this is what in your mind.\n See if it works for you.",
+      "parentUuid": "3810df8d_4e4c285c",
+      "range": {
+        "startLine": 1300,
+        "startChar": 12,
+        "endLine": 1300,
+        "endChar": 35
+      },
+      "revId": "7490ca7db34a426db4fd479b92d044e31a263f00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
