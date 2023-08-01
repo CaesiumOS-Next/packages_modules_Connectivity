@@ -35,6 +35,14 @@ package android.nearby {
 
 }
 
+package android.remoteauth {
+
+  public final class RemoteAuthFrameworkInitializer {
+    method public static void registerServiceWrappers();
+  }
+
+}
+
 package android.net {
 
   public final class ConnectivityFrameworkInitializerTiramisu {
