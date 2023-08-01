@@ -37,9 +37,15 @@ android_test {
         "androidx.test.rules",
         "framework-remoteauth-static",
         "junit",
+        "libprotobuf-java-lite",
         "platform-test-annotations",
         "service-remoteauth-pre-jarjar",
         "truth-prebuilt",
+    ],
+    // these are needed for Extended Mockito
+    jni_libs: [
+        "libdexmakerjvmtiagent",
+        "libstaticjvmtiagent",
     ],
     test_suites: [
         "general-tests",
