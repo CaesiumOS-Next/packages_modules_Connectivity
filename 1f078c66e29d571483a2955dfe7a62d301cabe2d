@@ -46,6 +46,30 @@
       },
       "revId": "1f078c66e29d571483a2955dfe7a62d301cabe2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "130988b6_acf90ed2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1092843
+      },
+      "writtenOn": "2023-08-01T07:10:08Z",
+      "side": 1,
+      "message": "logic below returns false if isMyRestrictBackgroundStatus(...) returned false.\nSo leaving this function with data-saver disabled looks consistent... though test still feels strange - that some part of the test disrespects isDataSaverSupported and runs verifications that depend on the restricted-backaground state.",
+      "parentUuid": "6db95be5_1d01306a",
+      "range": {
+        "startLine": 118,
+        "startChar": 12,
+        "endLine": 118,
+        "endChar": 25
+      },
+      "revId": "1f078c66e29d571483a2955dfe7a62d301cabe2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
