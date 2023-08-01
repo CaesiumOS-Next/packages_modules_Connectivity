@@ -265,3 +265,10 @@ package android.net.nsd {
 
 }
 
+package android.remoteauth {
+
+  public class RemoteAuthManager {
+  }
+
+}
+
