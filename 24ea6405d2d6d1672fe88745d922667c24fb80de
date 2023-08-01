@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d07bd3c_92e9e3c8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 18574,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-01T07:11:26Z",
+      "side": 1,
+      "message": "This is an internal method and you don\u0027t want to call it from the test – instead, you want to trigger destroying the agent. What you\u0027re doing here makes the internal state of CS inconsistent so the test is unreliable and hard to maintain. I think calling unregisterAfterReplacement is the right thing to do, and it will call setDestroyed for you.",
+      "range": {
+        "startLine": 18574,
+        "startChar": 0,
+        "endLine": 18574,
+        "endChar": 27
+      },
+      "revId": "24ea6405d2d6d1672fe88745d922667c24fb80de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

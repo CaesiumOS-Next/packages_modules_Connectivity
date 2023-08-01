@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e2cd8d2_a1f2d4c6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18560,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-01T07:11:26Z",
+      "side": 1,
+      "message": "That works but I thought it was a little overkill (`registerDefaultNetworkCallbacks` will register many callbacks and you only need one). But anyway, it works.",
+      "parentUuid": "03111f6f_35fd5d40",
+      "range": {
+        "startLine": 18560,
+        "startChar": 8,
+        "endLine": 18560,
+        "endChar": 37
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92b5d312_9b5804f4",
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "Yes, teardowndelay will come in picture only when the NA is disconnected. So,\n\n1) we create NA at CS first. Native network with netd next.\n2) Set the teardown at CS as 1 sec.\n3) Destroy the native network at netd and mark it as destroyed at CS.\n4) Triggering disconnect now will check for isNativeNetworkAlive first and then sets the permission to SYSTEM.\n5) As the network is already destroyed at netd, CS just waits for teardownMs to destroy network at CS.\n\nWe will verify it internally and update",
       "parentUuid": "29dca156_4bfb53e6",
+      "range": {
+        "startLine": 18567,
+        "startChar": 36,
+        "endLine": 18567,
+        "endChar": 50
+      },
+      "revId": "26251c81b09a4044a7268bd259d4631576596b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7a932bb_6ac64732",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18567,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-01T07:11:26Z",
+      "side": 1,
+      "message": "Sure but you never destroy the native network with netd – nothing does 3) in this test AFAICT. That\u0027s why I suggested calling unregisterAfterReplacement.",
+      "parentUuid": "a354642f_0730e360",
       "range": {
         "startLine": 18567,
         "startChar": 36,
