@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60931a2a_59d9d565",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-01T05:28:02Z",
+      "side": 1,
+      "message": "I think you can also remove `temp` and just set the iface. entry -\u003e { entry.iface \u003d IFACE_ALL; return entry }\n\n(only if you prefer)",
+      "range": {
+        "startLine": 1314,
+        "startChar": 33,
+        "endLine": 1314,
+        "endChar": 37
+      },
+      "revId": "1baf71c9f755898840792e9fd7e1a25db8988e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b980a634_83c219e3",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-01T05:28:02Z",
+      "side": 1,
+      "message": "why write \"this.\" explicitly ?",
+      "range": {
+        "startLine": 1314,
+        "startChar": 15,
+        "endLine": 1314,
+        "endChar": 19
+      },
+      "revId": "1baf71c9f755898840792e9fd7e1a25db8988e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
