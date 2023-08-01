@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c48017dc_ae362cf5",
+        "filename": "remoteauth/service/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-01T02:01:32Z",
+      "side": 1,
+      "message": "This should be using framework-connectivity-pre-jarjar and framework-connectivity-t-pre-jarjar.\n\nframework-connectivity-t.impl will be post-jarjar so the symbols will have been renamed to avoid conflicts. Instead you should depend on the pre-jarjar artifact, and the same jarjar rules are applied to framework-connectivity and service-connectivity, so the names still eventually match at runtime.",
+      "revId": "ba50dcd18500eff3640f66848ff86fa41c2a935e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
