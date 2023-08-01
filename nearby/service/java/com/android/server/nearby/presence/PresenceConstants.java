@@ -16,12 +16,26 @@
 
 package com.android.server.nearby.presence;
 
+<<<<<<< HEAD   (d7a9a6 Merge changes from topic "cherrypicker-L94400030000731002:N2)
 import android.os.ParcelUuid;
+=======
+import static com.android.server.nearby.common.bluetooth.fastpair.BluetoothUuids.to128BitUuid;
+
+import com.android.server.nearby.util.ArrayUtils;
+
+import java.util.UUID;
+>>>>>>> CHANGE (17a080 [nearby] Update encoding and decoding according to the spec)
 
 /**
  * Constants for Nearby Presence operations.
  */
 public class PresenceConstants {
+<<<<<<< HEAD   (d7a9a6 Merge changes from topic "cherrypicker-L94400030000731002:N2)
+=======
+    /** The Presence UUID value in byte array format. */
+    public static final byte[] PRESENCE_UUID_BYTES = ArrayUtils.intToByteArray(0xFCF1);
+
+>>>>>>> CHANGE (17a080 [nearby] Update encoding and decoding according to the spec)
     /** Presence advertisement service data uuid. */
     public static final ParcelUuid PRESENCE_UUID =
             ParcelUuid.fromString("0000fcf1-0000-1000-8000-00805f9b34fb");
