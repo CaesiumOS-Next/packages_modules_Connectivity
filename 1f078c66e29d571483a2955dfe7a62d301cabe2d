@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7f8d8aa_f1774c81",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2004100
+      },
+      "writtenOn": "2023-08-02T22:01:38Z",
+      "side": 1,
+      "message": "Thanks for the comment. I agree that it\u0027s better to change the status outside such a \"get\" method, but what you suggested is actually similar to the solution in aosp/2578351: we allow Wear to set restrict background to false in the test setup, although Wear does not support data saver mode (`isDataSaverSupported()` returns false). \n\nA little bit more context: WearOS enables restrict background for power-saving improvements but won\u0027t really block certain metered networks. That\u0027s why it does not support data saver mode in CTS. Tests which require dataSaver to work won\u0027t be run on Wear. The only issue we are addressing is that some other tests (that do not require dataSaver to be supported) assume a precondition (restrictBackground\u003dfalse) that is not set correctly for Wear. \n\nIf it is allowed to disable restrictBackground by calling public APIs, when data saver is not supported, then two potential solutions:\n\n(a) Call `setRestrictBackground(false)` in the setup of AbstractRestrictBackgroundNetworkTestCase, plus the change in aosp/2578351.\n(b) Directly call `executeShellCommand(\"cmd netpolicy set restrict-background false\")` in the setup and document why we are doing it. \n\nWhat do you think?",
+      "parentUuid": "542a9ee6_3470c8f2",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 49
+      },
+      "revId": "1f078c66e29d571483a2955dfe7a62d301cabe2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32fe23f9_34ae9ea7",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
         "patchSetId": 1
