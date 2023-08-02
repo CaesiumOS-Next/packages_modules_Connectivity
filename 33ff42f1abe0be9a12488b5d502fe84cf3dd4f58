@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eb15019_93aa4b94",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-02T08:57:26Z",
+      "side": 1,
+      "message": "Version numbered flags should not be used for default-enabled features in general; I think we should remove this overload of isFeatureEnabled that allows passing true. This is because the rollback scheme (feature becomes disabled if the module version rolls back to a version lower than the flag value) does not make sense if the flag is default enabled.\n\nInstead, you could have a method like `DeviceConfigUtils.isTetheringFeatureForceDisabled(CONFIG_DISABLE_CLAT_ADDRESS_TRANSLATE)`, which just checks if the flag value is !\u003d 0 (not a version number)",
+      "range": {
+        "startLine": 997,
+        "startChar": 75,
+        "endLine": 997,
+        "endChar": 79
+      },
+      "revId": "33ff42f1abe0be9a12488b5d502fe84cf3dd4f58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdc39c82_3ba0a286",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-02T08:57:26Z",
+      "side": 1,
+      "message": "NAMESPACE_TETHERING; NAMESPACE_CONNECTIVITY would be for flags read in NetworkStack, but this is read in Tethering",
+      "range": {
+        "startLine": 997,
+        "startChar": 20,
+        "endLine": 997,
+        "endChar": 42
+      },
+      "revId": "33ff42f1abe0be9a12488b5d502fe84cf3dd4f58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ff1eab1_891f07b1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-02T08:57:26Z",
+      "side": 1,
+      "message": "Typo: Dependencies",
+      "range": {
+        "startLine": 632,
+        "startChar": 63,
+        "endLine": 632,
+        "endChar": 73
+      },
+      "revId": "33ff42f1abe0be9a12488b5d502fe84cf3dd4f58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
