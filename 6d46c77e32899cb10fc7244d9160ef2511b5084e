@@ -22,6 +22,29 @@
       },
       "revId": "6d46c77e32899cb10fc7244d9160ef2511b5084e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2db134e9_ad454aed",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1092843
+      },
+      "writtenOn": "2023-08-02T23:39:48Z",
+      "side": 1,
+      "message": "addition to code comments: Also need access to setRestrictBackgroundInternal instead of setRestrictBackground - bypass isDataSaverSupported() check.",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 37
+      },
+      "revId": "6d46c77e32899cb10fc7244d9160ef2511b5084e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
