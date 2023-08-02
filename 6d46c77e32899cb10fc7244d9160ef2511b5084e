@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3160f117_d98955c6",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-08-02T23:36:22Z",
+      "side": 1,
+      "message": "Unless this is part of AOSP, don\u0027t mention it.",
+      "range": {
+        "startLine": 190,
+        "startChar": 72,
+        "endLine": 190,
+        "endChar": 78
+      },
+      "revId": "6d46c77e32899cb10fc7244d9160ef2511b5084e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
