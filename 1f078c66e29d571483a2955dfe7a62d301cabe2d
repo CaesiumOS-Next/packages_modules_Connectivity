@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed2d1a80_b3d777f2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-08-02T22:49:37Z",
+      "side": 1,
+      "message": "\u003e a) Call setRestrictBackground(false) in the setup of AbstractRestrictBackgroundNetworkTestCase, plus the change in aosp/2578351.\n\nhttps://r.android.com/2578351 basically ignores `isDataSaverSupported` if it\u0027s a wear device. So, if someone calls `setRestrictbackground(true)`, even on a wear device, we will end up changing the data saver state and verifying it is changed, which seems weird to me.\n\n\u003e (b) Directly call executeShellCommand(\"cmd netpolicy set restrict-background false\") in the setup and document why we are doing it.\n\nI\u0027d suggest using `setRestrictBackgroundInternal` instead.",
+      "parentUuid": "c7f8d8aa_f1774c81",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 49
+      },
+      "revId": "1f078c66e29d571483a2955dfe7a62d301cabe2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32fe23f9_34ae9ea7",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
         "patchSetId": 1
