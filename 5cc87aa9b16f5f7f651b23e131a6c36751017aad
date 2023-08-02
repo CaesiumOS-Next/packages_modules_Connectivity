@@ -20,6 +20,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfe75dda_4ea8341c",
+        "filename": "service-t/jni/com_android_server_net_NetworkStatsService.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-02T22:40:39Z",
+      "side": 1,
+      "message": "`Index` (capitalize `i`) here and elsewhere",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 29
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb2b6092_2098071a",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-02T22:40:39Z",
+      "side": 1,
+      "message": "Is this a free integer or does this actually come from some enumerated value?\nIf the latter then maybe this could be a bitfield.",
+      "range": {
+        "startLine": 48,
+        "startChar": 42,
+        "endLine": 48,
+        "endChar": 49
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea9c55e_b0292779",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-02T22:40:39Z",
+      "side": 1,
+      "message": "You can use putIfAbsent, it\u0027ll either put a new empty value (and return it) or return the existing value.",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c4e1224_3566b190",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-02T22:40:39Z",
+      "side": 1,
+      "message": "I think you can just write `iface.index` and it gets autoboxed",
+      "range": {
+        "startLine": 140,
+        "startChar": 54,
+        "endLine": 140,
+        "endChar": 78
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "735eb91a_1203f259",
         "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
         "patchSetId": 6
