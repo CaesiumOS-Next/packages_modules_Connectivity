@@ -120,6 +120,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee2514c1_2173f14a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2004100
+      },
+      "writtenOn": "2023-08-03T18:12:29Z",
+      "side": 1,
+      "message": "TLDR: this should not have any impact on subsequent tests. \n\nLeaving restrictBackground\u003dfalse will only affect battery life when the watch is connected over LTE and there is data traffic over LTE. \n\n1. I am not 100% sure if LTE connection will be ever activated in CTS, as this requires completing eSIM profile setup and usually can only happen after OOBE is done. AFAIK, Wear runs CTS on watches in TEST_MODE, without going through any parts of OOBE. But `CtsCarrierApiTestCases` may introduce some pre-installed eSIM setup that can bypass OOBE, and I am not very sure if any tests within that module require any traffic over LTE. \n\n2. But even if LTE connection is activated and there is data traffic in some test cases, I don\u0027t think battery life regression can cause any test failures. This data-saver-mode-on-boot feature is not Wear-platform-generic but only on specific devices. Devices that do not have this enabled by default can still pass all CTS tests. \n\nFeel free to let me know if you have a different opinion. Thanks",
+      "parentUuid": "24a29b7d_0461a3a5",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 49
+      },
+      "revId": "1f078c66e29d571483a2955dfe7a62d301cabe2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32fe23f9_34ae9ea7",
