@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22197788_9ccca573",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1965950
+      },
+      "writtenOn": "2023-08-03T15:31:57Z",
+      "side": 1,
+      "message": "Hi @lorenzo@google.com ,could you please confirm if Remi suggestions are fine with you. So, that I will make the changes accordingly.",
+      "parentUuid": "c5dcabe1_f6f685c6",
+      "range": {
+        "startLine": 159,
+        "startChar": 21,
+        "endLine": 159,
+        "endChar": 39
+      },
+      "revId": "04fc6c69202f1df03122c72942bf98693ec93d4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d9bd8f5_5abbc809",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 4
