@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ced91f14_4d3dab1a",
+        "filename": "service-t/jni/com_android_server_net_NetworkStatsService.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-03T18:18:08Z",
+      "side": 1,
+      "message": "Done!",
+      "parentUuid": "cfe75dda_4ea8341c",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 29
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb2b6092_2098071a",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-08-02T22:40:39Z",
       "side": 1,
       "message": "Is this a free integer or does this actually come from some enumerated value?\nIf the latter then maybe this could be a bitfield.",
+      "range": {
+        "startLine": 48,
+        "startChar": 42,
+        "endLine": 48,
+        "endChar": 49
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a2ccf00_8fc871ca",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-03T18:18:08Z",
+      "side": 1,
+      "message": "I don\u0027t think this is an enumerated value—the integers being added to this cache are (IIUC) monotonically increasing, represent the Nth interface that is being added, and don\u0027t have a predefined N\u003c-\u003eiface mapping.",
+      "parentUuid": "cb2b6092_2098071a",
       "range": {
         "startLine": 48,
         "startChar": 42,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dd131b7_adf69a4e",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-03T18:18:08Z",
+      "side": 1,
+      "message": "putIfAbsent will actually return null if a new value is inserted (i.e. if there\u0027s a new interface name), so we\u0027ll still have to get(ifaceName) again to cover the case where this is the first name\u003c-\u003eindex association being made.\n\nI think it still simplifies the `if (!containsKey(ifaceName))` bit, so I\u0027ve added it. Thanks!\n\nhttps://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html#putIfAbsent-K-V-",
+      "parentUuid": "7ea9c55e_b0292779",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c4e1224_3566b190",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-08-02T22:40:39Z",
       "side": 1,
       "message": "I think you can just write `iface.index` and it gets autoboxed",
+      "range": {
+        "startLine": 140,
+        "startChar": 54,
+        "endLine": 140,
+        "endChar": 78
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca4bddb9_8a187104",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-03T18:18:08Z",
+      "side": 1,
+      "message": "Done!",
+      "parentUuid": "0c4e1224_3566b190",
       "range": {
         "startLine": 140,
         "startChar": 54,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0452905a_aa405477",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-03T18:18:08Z",
+      "side": 1,
+      "message": "Done!",
+      "parentUuid": "735eb91a_1203f259",
+      "range": {
+        "startLine": 141,
+        "startChar": 20,
+        "endLine": 141,
+        "endChar": 31
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa3047fc_786c1006",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-07-31T19:07:30Z",
       "side": 1,
       "message": "another approach here would be to read mBpfMap first, and if something is there, clean up (ie. remove the old value from the cache), and then update, etc...\n\nto be safe this would likely need to be in a synchronized block, either the full thing, or just the \u0027what-to-do-if-already-present\u0027 error handling case\n\nside note: mBpfMap should perhaps be renamed to something better in a pre-cursor CL - mIfaceToIndexBpfMap perhaps...",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 36
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90ad27fe_fd080a9d",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-03T18:18:08Z",
+      "side": 1,
+      "message": "For the renaming, I\u0027ve uploaded a change for this at aosp/2693148. I used \u0027mIndexToIfaceBpfMap\u0027 since the mapping for this bpf map is iface.index-\u003eifaceName.\n\nI\u0027ve added the synchronized block for the removal of the index from the index cache, but am not sure if I did it correctly. Please let me know if it needs to be changed!",
+      "parentUuid": "aa3047fc_786c1006",
       "range": {
         "startLine": 142,
         "startChar": 0,

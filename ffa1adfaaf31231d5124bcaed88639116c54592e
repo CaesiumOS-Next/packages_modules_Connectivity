@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e6c313f_d5ea16c1",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-03T18:18:08Z",
+      "side": 1,
+      "message": "Done! I\u0027ve used BpfMap.insertOrReplaceEntry() as suggested below to check if an index has actually been used before, which will result in the index being removed from the name-to-index cache before associating it with the new interface name.",
+      "parentUuid": "fddccb1b_7c293fa4",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 77
+      },
+      "revId": "ffa1adfaaf31231d5124bcaed88639116c54592e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f3dbe69_1660b74d",
