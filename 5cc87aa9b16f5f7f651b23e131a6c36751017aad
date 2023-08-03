@@ -138,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "69ef996a_8da76366",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-03T18:45:23Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with when or how indices are removed. However, I don\u0027t know if there are any guarantees around the ranges of indices per-ifacename being contiguous, which is why I had used a set instead.\n\n(We can continue on the separate patch that I\u0027ll upload for just the java portions of this change, since it seems like the other code is good to go!)",
+      "parentUuid": "dae539b4_0f0828da",
+      "range": {
+        "startLine": 48,
+        "startChar": 42,
+        "endLine": 48,
+        "endChar": 49
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ea9c55e_b0292779",
         "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
         "patchSetId": 6
