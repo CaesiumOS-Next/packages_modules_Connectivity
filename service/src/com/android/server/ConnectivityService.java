@@ -321,6 +321,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.Inet6Address;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -1336,6 +1337,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return new NetIdManager();
         }
 
+        public MulticastRoutingCoordinator makeMulticastRoutingCoordinator() {
+            return new MulticastRoutingCoordinator();
+        }
+
         /**
          * @see NetworkUtils#queryUserAccess(int, int)
          */
@@ -1576,6 +1581,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mFlags = new ConnectivityFlags();
         mSystemProperties = mDeps.getSystemProperties();
         mNetIdManager = mDeps.makeNetIdManager();
+        mMRC = mDeps.makeMulticastRoutingCoordinator();
         mContext = Objects.requireNonNull(context, "missing Context");
         mResources = deps.getResources(mContext);
         // The legacy PerUidCounter is buggy and throwing exception at count == limit.
@@ -7548,6 +7554,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // there may not be a strict 1:1 correlation between the two.
     private final NetIdManager mNetIdManager;
 
+    private final MulticastRoutingCoordinator mMRC;
+
     // Tracks all NetworkAgents that are currently registered.
     // NOTE: Only should be accessed on ConnectivityServiceThread, except dump().
     private final ArraySet<NetworkAgentInfo> mNetworkAgentInfos = new ArraySet<>();
@@ -7998,6 +8006,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         nai.networkAgentPortalData = lp.getCaptivePortalData();
     }
 
+    private void enableMulticastRouting(String iifName, String oifName, StubNetworkInfo.MulticastRoutingConfig config) {
+        ArrayList<Inet6Address> addresses = new ArrayList<>();
+        addresses.addAll(config.getMulticastListeningAddresses());
+        mMRC.EnableMulticastRouting(iifName, oifName, addresses,
+                config.isAllowAllOnScope(), config.getMinScope());
+    }
+
+    private void disableMulticastRouting(String AilName, String StubNetworkName) {
+
+        return;
+    }
     private void updateStubNetworkInfo(
             @NonNull LinkProperties newLp,
             @Nullable LinkProperties oldLp) {
@@ -8005,6 +8024,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         StubNetworkInfo oldSni = oldLp != null ? oldLp.getStubNetworkInfo() : null;
         StubNetworkInfo newSni = newLp.getStubNetworkInfo();
         log("Updating StubNetworkInfo");
+        String netName = newLp.getInterfaceName();
+
         if (newSni != null) {
             if (oldSni == null) {
                 try {
@@ -8013,7 +8034,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mNetd.ipfwdAddInterfaceForward(newLp.getInterfaceName(), newSni.getAilInterfaceName());
                 } catch (Exception e) {
                 }
+
             }
+
+        StubNetworkInfo.MulticastRoutingConfig upstreamConfig = newSni.upstreamConfig;
+        StubNetworkInfo.MulticastRoutingConfig downstreamConfig = newSni.downstreamConfig;
+        enableMulticastRouting(netName, newSni.getAilInterfaceName(), upstreamConfig);
+        enableMulticastRouting(newSni.getAilInterfaceName(), netName, downstreamConfig);
+
         }
     }
 
