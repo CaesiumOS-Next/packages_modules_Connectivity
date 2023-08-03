@@ -186,6 +186,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0732d396_80e5479a",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-03T18:58:49Z",
+      "side": 1,
+      "message": "There are annoying complexities with network namespaces, but ignoring those:\n\nWhen the kernel creates network devices (ie. interfaces) they get a name, and the next increasing number (NOT next available).\n\nLoopback \u0027lo\u0027 being the first network interface gets number 1 (and this is hardcoded in various places) in every network namespace.\n\nThey may later be renamed (but ignore this, it shouldn\u0027t theoretically ever happen when we care about things, just during initial network interface setup, before we even learn of the device).\n\nLater they may be removed (which technically frees up both the number and the name).\nHowever normally a new network interface will get the next available number (I believe there\u0027s simply a last-used-ifindex counter in each network namespace)\n \nAnyway technically the same name may be created multiple times, ie.\nCreate lo, 1\nCreate wlan0, 2\nCreate wlan1, 3\nDelete wlan0\nCreate wlan0, 4",
+      "parentUuid": "69ef996a_8da76366",
+      "range": {
+        "startLine": 48,
+        "startChar": 42,
+        "endLine": 48,
+        "endChar": 49
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ea9c55e_b0292779",
         "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
         "patchSetId": 6
