@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a6a4817_332ab6d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-03T19:17:52Z",
+      "side": 1,
+      "message": "Ah, just saw that comment. Thank you for the heads up! I\u0027ll add an iterate-through-BpfMap in the class constructor in the rebase CL (after rename is merged and a CL for the jni/native code is up). Marking this as unresolved so I know to address it in the java CL!",
+      "parentUuid": "ffcc681e_18e7727b",
+      "revId": "31e4fea0cbf27141794977a29387c398f5d76996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e8e45325_87d29587",
         "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
         "patchSetId": 7
