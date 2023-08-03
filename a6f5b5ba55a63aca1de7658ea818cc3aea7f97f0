@@ -112,6 +112,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51922a79_a410e1f2",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-03T21:18:10Z",
+      "side": 1,
+      "message": "otoh there\u0027s this go/android-api-guidelines#basics-implemented",
+      "parentUuid": "eb141b66_38725ad0",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 37
+      },
+      "revId": "a6f5b5ba55a63aca1de7658ea818cc3aea7f97f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b698cf34_c929793b",
         "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
         "patchSetId": 6
