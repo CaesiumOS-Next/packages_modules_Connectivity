@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8d54a6d_7220c10b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1059936
+      },
+      "writtenOn": "2023-08-03T01:05:13Z",
+      "side": 1,
+      "message": "Adding Lorenzo to approve the CTS test change.",
+      "revId": "0103abc6d7e78e46128e84662a51d5f060bce966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
