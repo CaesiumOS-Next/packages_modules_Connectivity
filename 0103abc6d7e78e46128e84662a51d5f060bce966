@@ -34,6 +34,29 @@
       "parentUuid": "b8d54a6d_7220c10b",
       "revId": "0103abc6d7e78e46128e84662a51d5f060bce966",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ab1109b_2db8c378",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-08-03T01:37:13Z",
+      "side": 1,
+      "message": "Would you mind updating this to something along the following lines? Just clarifying why we are trying to disable data saver and why we are using setRestrictBackgroundInternal.\n\n\n---\n\nSome of the test cases assume that Data saver mode is initially disabled, which might not always be the case. So, explicitly disable it before running the tests.\n\nInvoking setRestrictBackgroundInternal() directly instead of going through setRestrictBackground() here as some devices (ones with FEATURE_WATCH) do not support the Data saver mode but still have certain parts of it enabled by default.",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 21
+      },
+      "revId": "0103abc6d7e78e46128e84662a51d5f060bce966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
