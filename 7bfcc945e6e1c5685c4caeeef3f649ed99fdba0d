@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "772f3ab8_66618616",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-03T18:34:09Z",
+      "side": 1,
+      "message": "Hi,\n\nThis Cl introduces RemoteAuthManager and RemoteAuthService. It also adds API stubs for Registration flow",
+      "revId": "7bfcc945e6e1c5685c4caeeef3f649ed99fdba0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
