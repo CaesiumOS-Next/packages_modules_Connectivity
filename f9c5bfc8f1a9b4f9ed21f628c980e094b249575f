@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73b10179_f68069b1",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-03T07:52:06Z",
+      "side": 1,
+      "message": "We should remove it from KeepaliveInfo. But it\u0027s easier said than done.",
+      "range": {
+        "startLine": 240,
+        "startChar": 51,
+        "endLine": 240,
+        "endChar": 70
+      },
+      "revId": "f9c5bfc8f1a9b4f9ed21f628c980e094b249575f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3af91a0_624dff0b",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-03T07:52:06Z",
+      "side": 1,
+      "message": "Extraneous blank line",
+      "revId": "f9c5bfc8f1a9b4f9ed21f628c980e094b249575f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
