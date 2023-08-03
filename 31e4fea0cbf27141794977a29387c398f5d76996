@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8e45325_87d29587",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-03T18:32:48Z",
+      "side": 1,
+      "message": "unfortunately as written this doesn\u0027t help...\n\nassuming two threads can execute this function at the same time (which I\u0027m not sure can even happen)\n\ndescribing how it can fail would require a bit of writing...\n\nbut basically at least the mIfaceNameToIndexCache.put has to be in the block too,\nsince one thread might run this synchronized block, then the other thread might,\nthen both might insert the new value into the map and you end up with two things\nin the map...\n\n(I doubt it works right even then though, probably just needs a different counter example...)\n\n---\n\nFirst we have to make sure that the insertOrReplaceEntry() in line 137 is *the* only writer to the map (it might be)\n\n... was going to write more, but...\n\nIsn\u0027t addInteface() a very rare operation?  maybe just put the entire implementation into a synchronized block?\n\nI assume there are no other writers to the BpfMap and the Cache?\n\nThen that should just work...\n\nSome actual Java expert should verify.",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 37
+      },
+      "revId": "31e4fea0cbf27141794977a29387c398f5d76996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
