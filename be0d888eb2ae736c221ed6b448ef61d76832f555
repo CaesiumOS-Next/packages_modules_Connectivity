@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9270fb9b_caa45c49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-03T17:31:11Z",
+      "side": 1,
+      "message": "Hi Maciej, this is the renaming change that you suggested on aosp/2672136. Can you take a look? Thanks!",
+      "revId": "be0d888eb2ae736c221ed6b448ef61d76832f555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
