@@ -22,6 +22,14 @@ import android.annotation.SystemApi;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+
+
 /**
  * Describes the information of a stub network.
  *
@@ -32,6 +40,83 @@ import android.os.Parcelable;
 @SystemApi
 public final class StubNetworkInfo implements Parcelable {
     private final String mAilInterfaceName;
+
+    public class MulticastRoutingConfig {
+        private boolean mIsEnabled = false;
+        private boolean mAllowAllOnScope = false;
+        private int mMinScope = 4;
+        private ArrayList<Inet6Address> mMulticastListeningAddresses = new ArrayList<>();
+
+        /*
+         * Returns if multicast routing is enabled
+         */
+        public boolean isMulticastRoutingEnabled() {
+            return mIsEnabled;
+        }
+
+        public void setMulticastRoutingEnabled(boolean isEnabled) {
+            mIsEnabled = isEnabled;
+        }
+
+        /*
+         * Returns if multicast routing is allowed with any group addresses.
+         *     When true, multicast routing to any group address with scope >= getMinScope() is allowed
+         *     When false, multicast routing to group address listed in getMulticastListeningAddresses() is allowed
+         */
+        public boolean isAllowAllOnScope() {
+            return mAllowAllOnScope;
+        }
+
+        public void setAllowAllOnScope(boolean isAllowed) {
+            mAllowAllOnScope = isAllowed;
+        }
+
+        /*
+         * Returns the minimal group address scope that is allowed for forwarding.
+         */
+        public int getMinScope() {
+            return mMinScope;
+        }
+        public void setMinScope(int scope) {
+            mMinScope = scope;
+        }
+
+        private int getListeningAddressIndex(Inet6Address address) {
+            for (int i = 0; i < mMulticastListeningAddresses.size(); i++) {
+                if (mMulticastListeningAddresses.get(i) == address) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        public void addMulticastListeningAddress(@NonNull Inet6Address address) {
+            if (getListeningAddressIndex(address) < 0) {
+                mMulticastListeningAddresses.add(address);
+            }
+        }
+
+        public void removeMulticastListeningAddress(@NonNull Inet6Address address) {
+            int idx = getListeningAddressIndex(address);
+            if (idx >= 0) {
+                mMulticastListeningAddresses.remove(idx);
+            }
+        }
+
+        /*
+         * Returns the list of group addresses listened by the outgoing interface.
+         */
+        public @NonNull List<Inet6Address> getMulticastListeningAddresses() {
+            final List<Inet6Address> addresses = new ArrayList<>();
+            for (Inet6Address addr : mMulticastListeningAddresses) {
+                addresses.add(addr);
+            }
+            return Collections.unmodifiableList(addresses);
+        }
+    }
+
+    public final @NonNull MulticastRoutingConfig upstreamConfig = new MulticastRoutingConfig();
+    public final @NonNull MulticastRoutingConfig downstreamConfig = new MulticastRoutingConfig();
 
     /** @hide */
     @SystemApi

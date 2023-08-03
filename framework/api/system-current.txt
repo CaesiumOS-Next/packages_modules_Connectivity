@@ -507,6 +507,21 @@ package android.net {
     method @Nullable public String getAilInterfaceName();
     method public void writeToParcel(@NonNull android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.StubNetworkInfo> CREATOR;
+    field @NonNull public final android.net.StubNetworkInfo.MulticastRoutingConfig downstreamConfig;
+    field @NonNull public final android.net.StubNetworkInfo.MulticastRoutingConfig upstreamConfig;
+  }
+
+  public class StubNetworkInfo.MulticastRoutingConfig {
+    ctor public StubNetworkInfo.MulticastRoutingConfig();
+    method public void addMulticastListeningAddress(@NonNull java.net.Inet6Address);
+    method public int getMinScope();
+    method @NonNull public java.util.List<java.net.Inet6Address> getMulticastListeningAddresses();
+    method public boolean isAllowAllOnScope();
+    method public boolean isMulticastRoutingEnabled();
+    method public void removeMulticastListeningAddress(@NonNull java.net.Inet6Address);
+    method public void setAllowAllOnScope(boolean);
+    method public void setMinScope(int);
+    method public void setMulticastRoutingEnabled(boolean);
   }
 
   public final class TcpKeepalivePacketData extends android.net.KeepalivePacketData implements android.os.Parcelable {
