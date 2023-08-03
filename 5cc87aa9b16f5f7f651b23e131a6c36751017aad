@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dae539b4_0f0828da",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-03T18:38:11Z",
+      "side": 1,
+      "message": "How are indices removed?\n(asking out of complete ignorance)\nIf indices are never removed, or only ever removed from the bottom and added to the top, and the range is contiguous, then you only need to store a min and max int value.",
+      "parentUuid": "8a2ccf00_8fc871ca",
+      "range": {
+        "startLine": 48,
+        "startChar": 42,
+        "endLine": 48,
+        "endChar": 49
+      },
+      "revId": "5cc87aa9b16f5f7f651b23e131a6c36751017aad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ea9c55e_b0292779",
         "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
         "patchSetId": 6
