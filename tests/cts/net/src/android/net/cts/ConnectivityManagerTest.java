@@ -112,6 +112,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 import android.annotation.NonNull;
@@ -844,7 +845,6 @@ public class ConnectivityManagerTest {
      */
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test
-    @RequiresDevice // Virtual devices use a single internet connection for all networks
     public void testOpenConnection() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
@@ -856,7 +856,8 @@ public class ConnectivityManagerTest {
         String wifiAddressString = httpGet(wifiNetwork, url);
         String cellAddressString = httpGet(cellNetwork, url);
 
-        assertFalse(String.format("Same address '%s' on two different networks (%s, %s)",
+        // This test only works for devices that don't share external connections.
+        assumeFalse(String.format("Same address '%s' on two different networks (%s, %s)",
                 wifiAddressString, wifiNetwork, cellNetwork),
                 wifiAddressString.equals(cellAddressString));
 
