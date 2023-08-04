@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c432c1e_d303d2ce",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-04T20:19:58Z",
+      "side": 1,
+      "message": "Done in aosp/2694686 as a parent change! I chose to have InitStats explicitly zero-out the rx/tx bytes/packets fields so that it\u0027s clear that Stats object has the correct initial values to begin with (instead of relying on the Stats state passed-in from com_android_server_net_NetworkStatsService.cpp.",
+      "parentUuid": "c24bdb3a_7a3d0c56",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 29
+      },
+      "revId": "948db9a30c5c07f6509076fe978dbd70ee818af4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b20ebeb7_f0a0c14e",
@@ -78,6 +102,30 @@
       "writtenOn": "2023-08-04T19:19:01Z",
       "side": 1,
       "message": "it seems like we should set rx/tx Packets/Bytes to 0 here - especially in the ENOENT case...\n\nindeed, it seems likely that the stats object should be fully initialized on entry to both this function and the one up above.\n\nLooking at the code it looks to me like the stats object is always zero initialized (\u003d {}) before this function is called.\nPerhaps just a comment to that effect here (and above) would be enough?\n\n// Not all fields of \u0027stats\u0027 are initialized in all cases, always call with zero initialized object.",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 10
+      },
+      "revId": "948db9a30c5c07f6509076fe978dbd70ee818af4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0116aeb4_76b72516",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-04T20:19:58Z",
+      "side": 1,
+      "message": "I\u0027ve added the InitStats() function as recommended above, resolving!",
+      "parentUuid": "b20ebeb7_f0a0c14e",
       "range": {
         "startLine": 108,
         "startChar": 4,
