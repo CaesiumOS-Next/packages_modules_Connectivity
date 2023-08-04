@@ -33,6 +33,12 @@ import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.Struct.S32;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 /**
  * Monitor interface added (without removed) and right interface name and its index to bpf map.
  */
@@ -42,9 +48,15 @@ public class BpfInterfaceMapUpdater {
     private static final String IFACE_INDEX_NAME_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_iface_index_name_map";
     private final IBpfMap<S32, InterfaceMapValue> mIndexToIfaceBpfMap;
+    private final HashMap<String, HashSet<Integer>> mIfaceNameToIndexCache = new HashMap<>();
     private final INetd mNetd;
     private final Handler mHandler;
     private final Dependencies mDeps;
+
+    private final ReadWriteLock mReadWriteLock = new ReentrantReadWriteLock();
+    private final Lock mWriteLock = mReadWriteLock.writeLock();
+    // The read lock is package-private to allow access from NetworkStatsService.
+    final Lock mReadLock = mReadWriteLock.readLock();
 
     public BpfInterfaceMapUpdater(Context ctx, Handler handler) {
         this(ctx, handler, new Dependencies());
@@ -56,6 +68,17 @@ public class BpfInterfaceMapUpdater {
         mIndexToIfaceBpfMap = deps.getInterfaceMap();
         mNetd = deps.getINetd(ctx);
         mHandler = handler;
+        // Populates the name->index cache using existing BpfMap index->name entries. This handles
+        // the case in which a system_server crash clears the cache.
+        try {
+            mIndexToIfaceBpfMap.forEach((index, name) -> {
+                String ifaceName = name.getInterfaceNameString();
+                mIfaceNameToIndexCache.putIfAbsent(ifaceName, new HashSet<Integer>());
+                mIfaceNameToIndexCache.get(ifaceName).add(index.val);
+            });
+        } catch (ErrnoException e) {
+            Log.wtf(TAG, "Cannot populate initial name->index cache: " + e);
+        }
     }
 
     /**
@@ -118,17 +141,38 @@ public class BpfInterfaceMapUpdater {
         });
     }
 
-    private void addInterface(String ifaceName) {
+    HashSet<Integer> getIfaceIndices(String ifaceName) {
+        // Consumers of this index set should acquire 'readLock' while iterating through it.
+        return mIfaceNameToIndexCache.get(ifaceName);
+    }
+
+    private synchronized void addInterface(String ifaceName) {
         final InterfaceParams iface = mDeps.getInterfaceParams(ifaceName);
         if (iface == null) {
             Log.e(TAG, "Unable to get InterfaceParams for " + ifaceName);
             return;
         }
 
+        mWriteLock.lock();
         try {
-            mIndexToIfaceBpfMap.updateEntry(new S32(iface.index), new InterfaceMapValue(ifaceName));
+            boolean newEntry = mIndexToIfaceBpfMap.insertOrReplaceEntry(new S32(iface.index),
+                    new InterfaceMapValue(ifaceName));
+            // If this index was mapped to an interface before, it needs to be removed from the
+            // name-to-index cache to avoid double-counting traffic. This shouldn't happen, but is
+            // implemented just in case.
+            if (!newEntry) {
+                for (HashSet<Integer> indices : mIfaceNameToIndexCache.values()) {
+                    indices.remove(iface.index);
+                }
+            }
+            // The set of indices needs to be instantiated if this is the first occurrence of this
+            // interface name.
+            mIfaceNameToIndexCache.putIfAbsent(ifaceName, new HashSet<Integer>());
+            mIfaceNameToIndexCache.get(ifaceName).add(iface.index);
         } catch (ErrnoException e) {
             Log.e(TAG, "Unable to update entry for " + ifaceName + ", " + e);
+        } finally {
+            mWriteLock.unlock();
         }
     }
 
