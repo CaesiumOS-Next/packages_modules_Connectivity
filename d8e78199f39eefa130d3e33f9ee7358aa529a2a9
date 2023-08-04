@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bd3c319_aa117da1",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-04T18:08:02Z",
+      "side": 1,
+      "message": "It looks like `mIndexToIfaceBpfMap` and `mIfaceNameToIndexCache` are only written to by this method, so this `synchronized` should address potential concurrent-write concerns.\n\n(`mIfaceNameToIndexCache` is actually written to when initially populating the cache from existing BpfMap values, but this is in the constructor so should be okay.)",
+      "range": {
+        "startLine": 140,
+        "startChar": 12,
+        "endLine": 140,
+        "endChar": 24
+      },
+      "revId": "d8e78199f39eefa130d3e33f9ee7358aa529a2a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
