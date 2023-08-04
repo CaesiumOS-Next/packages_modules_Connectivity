@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86faeb95_54495109",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-04T03:35:06Z",
+      "side": 1,
+      "message": "Adding Lorenzo who should eventually review for CTS changes",
+      "revId": "e25c98be1d9e05019f78735f5f8330df27e7aa62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aedf8d30_a412ff15",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-04T03:35:06Z",
+      "side": 1,
+      "message": "This is an important check on actual hardware, to verify that a different network is actually being used for the connection.\n\nIs there some other way to identify emulators, that could not possibly be used on actual hardware, so you could have a conditional check ?",
+      "revId": "e25c98be1d9e05019f78735f5f8330df27e7aa62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
