@@ -51,6 +51,24 @@
       "parentUuid": "aedf8d30_a412ff15",
       "revId": "e25c98be1d9e05019f78735f5f8330df27e7aa62",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adeb1e50_6764d5e4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1998815
+      },
+      "writtenOn": "2023-08-04T19:38:50Z",
+      "side": 1,
+      "message": "Unfortunately `@RequiresDevice` doesn\u0027t filter out Cuttlefish devices when running locally. For example the following will run this test:\n```\n$ atest CtsNetTestCases\n\n$ tools/cts-tradefed\n  run CtsNetTestCases\n```\n\nI\u0027ve found some [other tests that just check for `vsoc_` in the product name](https://cs.android.com/android/platform/superproject/main/+/main:art/test/odsign/test-src/com/android/tests/odsign/CompOsTestUtils.java;l\u003d129;drc\u003d8c0ca0d55fc04034b87a66439e6aa65dea13bb26), we could potentially do that here.",
+      "parentUuid": "f7dd2ce8_0bf9604b",
+      "revId": "e25c98be1d9e05019f78735f5f8330df27e7aa62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
