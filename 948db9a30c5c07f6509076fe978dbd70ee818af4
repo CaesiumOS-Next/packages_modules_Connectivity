@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c24bdb3a_7a3d0c56",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-04T19:20:13Z",
+      "side": 1,
+      "message": "(or add a function: InitStats(stats) and call it from a few of these functions...\nagain it might be appropriate to do this in a precursor CL :-)",
+      "parentUuid": "d8e5254d_13d6a0c1",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 29
+      },
+      "revId": "948db9a30c5c07f6509076fe978dbd70ee818af4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b20ebeb7_f0a0c14e",
         "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
         "patchSetId": 3
