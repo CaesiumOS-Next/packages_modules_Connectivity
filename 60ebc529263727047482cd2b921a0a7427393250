@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "633f10d9_89bcac01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 40
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-04T09:55:06Z",
+      "side": 1,
+      "message": "Still LGTM with nits",
+      "revId": "60ebc529263727047482cd2b921a0a7427393250",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "166bd74e_275d040c",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-04T09:55:06Z",
+      "side": 1,
+      "message": "Nit: OffloadServiceInfo.Key",
+      "range": {
+        "startLine": 35,
+        "startChar": 3,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "60ebc529263727047482cd2b921a0a7427393250",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "180d566e_1b771579",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-04T09:55:06Z",
+      "side": 1,
+      "message": "Nit: OffloadServiceInfo.Key (also in some other comments)\nYou could change to {@link OffloadServiceInfo.Key}, that would have been renamed automatically I think",
+      "range": {
+        "startLine": 220,
+        "startChar": 11,
+        "endLine": 220,
+        "endChar": 32
+      },
+      "revId": "60ebc529263727047482cd2b921a0a7427393250",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
