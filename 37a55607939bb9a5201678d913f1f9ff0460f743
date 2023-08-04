@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f97b22b_b3626b96",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-04T09:39:37Z",
+      "side": 1,
+      "message": "As discussed offline, we added NETWORK_FACTORY setting to the permission. So it can be used by TV mdns offload manager service",
+      "parentUuid": "5f3f5d3d_cb7f3cdc",
+      "range": {
+        "startLine": 354,
+        "startChar": 66,
+        "endLine": 354,
+        "endChar": 82
+      },
+      "revId": "37a55607939bb9a5201678d913f1f9ff0460f743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51f26f06_b4fdf585",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-08-04T06:27:04Z",
       "side": 1,
       "message": "CAP is confusing. Maybe CAPABILITY? Don\u0027t forget to change the intdef definition.",
+      "range": {
+        "startLine": 361,
+        "startChar": 42,
+        "endLine": 361,
+        "endChar": 45
+      },
+      "revId": "37a55607939bb9a5201678d913f1f9ff0460f743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f992c34e_444fe2b5",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-04T09:39:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51f26f06_b4fdf585",
       "range": {
         "startLine": 361,
         "startChar": 42,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c17e0360_5b2ce9ca",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-04T09:39:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90d2e608_a011f126",
+      "range": {
+        "startLine": 368,
+        "startChar": 4,
+        "endLine": 368,
+        "endChar": 34
+      },
+      "revId": "37a55607939bb9a5201678d913f1f9ff0460f743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2235cfed_d1df0486",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-08-04T06:27:04Z",
       "side": 1,
       "message": "Could this be OffloadServiceInfo.Key instead of OffloadServiceInfoKey?",
+      "range": {
+        "startLine": 380,
+        "startChar": 47,
+        "endLine": 380,
+        "endChar": 68
+      },
+      "revId": "37a55607939bb9a5201678d913f1f9ff0460f743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eacb90a6_119b4e1c",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-04T09:39:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2235cfed_d1df0486",
       "range": {
         "startLine": 380,
         "startChar": 47,
