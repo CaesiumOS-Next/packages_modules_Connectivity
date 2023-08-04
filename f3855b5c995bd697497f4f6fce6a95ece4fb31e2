@@ -22,6 +22,30 @@
       },
       "revId": "f3855b5c995bd697497f4f6fce6a95ece4fb31e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13b0599d_5fd88c36",
+        "filename": "service/src/com/android/server/connectivity/NetworkDiagnostics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-04T07:13:22Z",
+      "side": 1,
+      "message": "@TargetApi seems like the best solution given that this is service code that can never run under S.",
+      "parentUuid": "a3b8aeca_f4451292",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 8
+      },
+      "revId": "f3855b5c995bd697497f4f6fce6a95ece4fb31e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
