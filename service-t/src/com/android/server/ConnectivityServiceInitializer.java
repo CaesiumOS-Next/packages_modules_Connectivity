@@ -25,6 +25,7 @@ import com.android.server.connectivity.ConnectivityNativeService;
 import com.android.server.ethernet.EthernetService;
 import com.android.server.ethernet.EthernetServiceImpl;
 import com.android.server.nearby.NearbyService;
+import com.android.server.remoteauth.RemoteAuthService;
 
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
@@ -37,6 +38,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
     private final IpSecService mIpSecService;
     private final NsdService mNsdService;
     private final NearbyService mNearbyService;
+    //private final RemoteAuthService mRemoteAuthService;
     private final EthernetServiceImpl mEthernetServiceImpl;
 
     public ConnectivityServiceInitializer(Context context) {
@@ -49,6 +51,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
         mConnectivityNative = createConnectivityNativeService(context);
         mNsdService = createNsdService(context);
         mNearbyService = createNearbyService(context);
+        //mRemoteAuthService = createRemoteAuthService(context);
     }
 
     @Override
@@ -85,6 +88,11 @@ public final class ConnectivityServiceInitializer extends SystemService {
                     /* allowIsolated= */ false);
         }
 
+        //if (mRemoteAuthService != null) {
+        //    Log.i(TAG, "Registering " + ConstantsShim.REMOTE_AUTH_SERVICE);
+        //    publishBinderService(ConstantsShim.REMOTE_AUTH_SERVICE, mRemoteAuthService,
+        //            /* allowIsolated= */ false);
+        //}
     }
 
     @Override
@@ -93,6 +101,11 @@ public final class ConnectivityServiceInitializer extends SystemService {
             mNearbyService.onBootPhase(phase);
         }
 
+        /*
+        if (mRemoteAuthService != null) {
+            mRemoteAuthService.onBootPhase(phase);
+        }
+        */
         if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY && mEthernetServiceImpl != null) {
             mEthernetServiceImpl.start();
         }
@@ -140,6 +153,18 @@ public final class ConnectivityServiceInitializer extends SystemService {
         }
     }
 
+    /** Return RemoteAuth service instance or null if current SDK is lower than V */
+    private RemoteAuthService createRemoteAuthService(final Context context) {
+        if (!SdkLevel.isAtLeastV()) return null;
+        try {
+            return new RemoteAuthService(context);
+        } catch (UnsupportedOperationException e) {
+            // RemoteAuth is not yet supported in all branches
+            // TODO: remove catch clause when it is available.
+            //Log.i(TAG, "Skipping unsupported service " + ConstantsShim.REMOTE_AUTH_SERVICE);
+            return null;
+        }
+    }
     /**
      * Return EthernetServiceImpl instance or null if current SDK is lower than T or Ethernet
      * service isn't necessary.
