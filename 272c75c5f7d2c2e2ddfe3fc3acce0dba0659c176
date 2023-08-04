@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6847b426_ca79e1fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-04T03:37:29Z",
+      "side": 1,
+      "message": "We do want to test that IPv6 is working properly on devices (this is part of the CDD). If it is not testable on Cuttlefish, the test should just be skipped there, using some criteria that can\u0027t apply to actual hardware.",
+      "range": {
+        "startLine": 11,
+        "startChar": 13,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "272c75c5f7d2c2e2ddfe3fc3acce0dba0659c176",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
