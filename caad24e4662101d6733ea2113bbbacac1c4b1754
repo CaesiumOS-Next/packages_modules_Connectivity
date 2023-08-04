@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03c9f546_b2db53af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-04T04:22:29Z",
+      "side": 1,
+      "message": "Feel free not to address nit here",
+      "revId": "caad24e4662101d6733ea2113bbbacac1c4b1754",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e550439_cb5fd255",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-04T04:22:29Z",
+      "side": 1,
+      "message": "Nit: the methods sounds like a calculation util, but it actually also logs (it assumes that the result of the calculation is used for scheduling a run now); maybe move this to the callers and make the method static ?",
+      "revId": "caad24e4662101d6733ea2113bbbacac1c4b1754",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
