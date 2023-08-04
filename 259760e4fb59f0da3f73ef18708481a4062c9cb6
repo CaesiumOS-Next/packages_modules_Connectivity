@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00945db1_ef4c6dbe",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-04T22:02:14Z",
+      "side": 1,
+      "message": "ConcurrentHashMap ?",
+      "range": {
+        "startLine": 48,
+        "startChar": 81,
+        "endLine": 48,
+        "endChar": 88
+      },
+      "revId": "259760e4fb59f0da3f73ef18708481a4062c9cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb0ca13e_b1df6f1b",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-04T22:02:14Z",
+      "side": 1,
+      "message": "Log.wtf i think",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 17
+      },
+      "revId": "259760e4fb59f0da3f73ef18708481a4062c9cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33011283_535688c7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1933,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-04T22:02:14Z",
+      "side": 1,
+      "message": "note that technically speaking this fetch and iteration should be protected against writers (ie. modifiers) in addInterface()\n\nin the kernel this would grab a read lock, while the addInterface() would grab the writer lock on a read/write lock.\n\n(that allows multiple concurrent readers, but only 1 exclusive writer)\n\nIt is possible to achieve this with flock(fd, LOCK_SH/EX/UN)...\n\nSH \u003d shared/reader\nEX \u003d exclusive/writer\nUN \u003d unlock\n\n(see: man 2 flock)\n\nBut we don\u0027t have an easy fd, besides the bpf map fd, deep in jni...\nand locking on that doesn\u0027t seem appropriate anyway...\n\nI\u0027m not sure what the java equivalents are...\nI know there\u0027s ConcurrentHashMap... maybe that would help?\nMaybe here we\u0027d grab/synchronize on \u0027ifaceIndices\u0027 after fetching it from the ConcurrentHashMap?\n\nor maybe something else can be done\n[java does seem to have a ReadWriteLock class]\n\nI guess you could also just synchronize both addInterface and getIfaceStats on the same object... but that might be needlessly expensive?\n\nWe\u0027re getting into Java esoterics here..\n\n[and I\u0027m not even sure if this needs to be thread safe or not...]",
+      "range": {
+        "startLine": 1933,
+        "startChar": 0,
+        "endLine": 1933,
+        "endChar": 84
+      },
+      "revId": "259760e4fb59f0da3f73ef18708481a4062c9cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
