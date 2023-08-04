@@ -1930,16 +1930,23 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @Override
     public long getIfaceStats(@NonNull String iface, int type) {
         Objects.requireNonNull(iface);
-        long nativeIfaceStats = nativeGetIfaceStat(iface, type);
-        if (nativeIfaceStats == -1) {
-            return nativeIfaceStats;
-        } else {
-            // When tethering offload is in use, nativeIfaceStats does not contain usage from
-            // offload, add it back here. Note that the included statistics might be stale
-            // since polling newest stats from hardware might impact system health and not
-            // suitable for TrafficStats API use cases.
-            return nativeIfaceStats + getProviderIfaceStats(iface, type);
+        HashSet<Integer> ifaceIndices = mInterfaceMapUpdater.getIfaceIndices(iface);
+        if (ifaceIndices == null) {
+            return -1;
         }
+        long cumulativeNativeIfaceStats = 0;
+        for (int ifaceIndex : ifaceIndices) {
+            long nativeIfaceStats = nativeGetIfIndexStat(ifaceIndex, type);
+            if (nativeIfaceStats == -1) {
+                return nativeIfaceStats;
+            }
+            cumulativeNativeIfaceStats += nativeIfaceStats;
+        }
+        // When tethering offload is in use, nativeIfaceStats does not contain usage from
+        // offload, add it back here. Note that the included statistics might be stale
+        // since polling newest stats from hardware might impact system health and not
+        // suitable for TrafficStats API use cases.
+        return cumulativeNativeIfaceStats + getProviderIfaceStats(iface, type);
     }
 
     @Override
