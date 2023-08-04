@@ -112,6 +112,7 @@ int parseBpfNetworkStatsDevInternal(std::vector<stats_line>& lines,
 
 int bpfGetUidStats(uid_t uid, Stats* stats);
 int bpfGetIfaceStats(const char* iface, Stats* stats);
+int bpfGetIfIndexStats(int ifindex, Stats* stats);
 int parseBpfNetworkStatsDetail(std::vector<stats_line>* lines);
 
 int parseBpfNetworkStatsDev(std::vector<stats_line>* lines);
