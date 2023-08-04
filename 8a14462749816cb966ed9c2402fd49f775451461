@@ -1,0 +1,487 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdb8c5dc_d091ea86",
+        "filename": "framework/aidl-export/android/net/nsd/OffloadServiceInfo.aidl",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "revert?",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbc80fa2_1aa2128e",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "Did you copy this from somewhere or are we actually going to do this?",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3e3383d_5064ba65",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "I\u0027m thinking we shouldn\u0027t say \"in the latest scan\" b/c it feels like an implementation detail that scans are happening vs. just an abstract discovery process.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94a32546_a372453d",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "I think we can leave off \"A callback function\"",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ec9992f_11bd7920",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "newline after /**",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2af745a8_7da98424",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "Should this API should match what we planned for registered devices (List\u003cDiscoveredDevice\u003e) instead of the event state. Are we tracking all of the discovered states as a list in the service so the full list would be helpful here?\n\nI\u0027m also thinking since DiscoveredDevice is immutable, it will be best to pass the full list in case we are trying to update e.g the name or isRegistered.\n\nAlso if we do this, we can probably drop the State enum b/c presence in the list or not determines the same.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e9eb75_1cdb6cbf",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "When we reach timeout do we discard the discovered state in the service or is there anything the receiver needs to know about what the timeout means? E.g. could they take the discovered device object they received 3 hours ago and try to use it?",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bae3f640_26705024",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "Use @DataClass to autogenerate majority of the code here.\n\nhttps://source.corp.google.com/search?q\u003d%22@DataClass%22\u0026sq\u003dpackage:android",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89905f74_ed9b505e",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "-\"A class represents a\"",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77b6bf0e_4af20f86",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "delete",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fc41629_301ef884",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "need javadoc on these getters (but you\u0027ll write that on the fields once you\u0027re using @DataClass)",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e116c99_89559a83",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthFrameworkInitializer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "remove commented code.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eef09a13_d1fee998",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthFrameworkInitializer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "remove commented code. maybe remove the whole class from this CL?",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e338727_548aeeb0",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "why are these 2 commented?",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79389534_65d2953a",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "nit: I prefer \"whether\" here because otherwise it sounds like the method never returns in the false condition.",
+      "range": {
+        "startLine": 69,
+        "startChar": 15,
+        "endLine": 69,
+        "endChar": 17
+      },
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daca845a_e1a62f9f",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "Don\u0027t merge any commented out code.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1475ba95_c31e1fd4",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "true if X, false otherwise..\nor \nwhether X (leaving off the false part)\n\n\"whether X\" means \"true if X, false otherwise\"",
+      "range": {
+        "startLine": 95,
+        "startChar": 28,
+        "endLine": 95,
+        "endChar": 35
+      },
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "975cb2e6_199a15a9",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "move these calls onto one line when they fit.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bf45465_16904e12",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "remove newline",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d6f0c8a_f9dc8f99",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "looks like this fits like this?\nLog.e(\n    TAG,\n    \"bla bla bla\")\n\nprefer breaking at the highest syntactic level",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f928d7f_fd88a9ea",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "looks like we\u0027re not doing anything in here so we can delete the whole method since default impl in superclass is {}.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2def14f4_cd17c949",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "?",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9618cad2_ef7018d4",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "? \n\nTodo? or add feature?",
+      "range": {
+        "startLine": 60,
+        "startChar": 61,
+        "endLine": 60,
+        "endChar": 72
+      },
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66dd19f2_343be3ca",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "Do you know if we\u0027ll actually need the attribution tag?",
+      "range": {
+        "startLine": 67,
+        "startChar": 49,
+        "endLine": 67,
+        "endChar": 63
+      },
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f5436bf_9e754527",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "track todos with bug\nTODO(b/###):\n\nmake sure all the todo\u0027s in a bug are closed before you mark bug fixed.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea68a803_0e3d290c",
+        "filename": "remoteauth/tests/unit/src/android/remoteauth/RemoteAuthManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "can you remove the commented code. Assuming this test actually passes?",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ada973af_e77b3fee",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-04T21:49:44Z",
+      "side": 1,
+      "message": "Can we uncomment the commented code to include? otherwise revert file",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
