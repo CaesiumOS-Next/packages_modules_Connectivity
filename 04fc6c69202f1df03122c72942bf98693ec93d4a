@@ -156,6 +156,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f96cc29_d4ec37f4",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-04T04:27:29Z",
+      "side": 1,
+      "message": "I can\u0027t tell for sure without seeing a CL, but yes, I think that will work.",
+      "parentUuid": "22197788_9ccca573",
+      "range": {
+        "startLine": 159,
+        "startChar": 21,
+        "endLine": 159,
+        "endChar": 39
+      },
+      "revId": "04fc6c69202f1df03122c72942bf98693ec93d4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d9bd8f5_5abbc809",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 4
