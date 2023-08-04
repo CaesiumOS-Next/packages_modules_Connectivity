@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "008e5240_bc61bc2b",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-04T15:27:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "166bd74e_275d040c",
+      "range": {
+        "startLine": 35,
+        "startChar": 3,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "60ebc529263727047482cd2b921a0a7427393250",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "180d566e_1b771579",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-08-04T09:55:06Z",
       "side": 1,
       "message": "Nit: OffloadServiceInfo.Key (also in some other comments)\nYou could change to {@link OffloadServiceInfo.Key}, that would have been renamed automatically I think",
+      "range": {
+        "startLine": 220,
+        "startChar": 11,
+        "endLine": 220,
+        "endChar": 32
+      },
+      "revId": "60ebc529263727047482cd2b921a0a7427393250",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d887db4_4feb16b3",
+        "filename": "framework-t/src/android/net/nsd/OffloadServiceInfo.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-04T15:27:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "180d566e_1b771579",
       "range": {
         "startLine": 220,
         "startChar": 11,
