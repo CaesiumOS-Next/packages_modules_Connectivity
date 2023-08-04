@@ -33,6 +33,24 @@
       "message": "This is an important check on actual hardware, to verify that a different network is actually being used for the connection.\n\nIs there some other way to identify emulators, that could not possibly be used on actual hardware, so you could have a conditional check ?",
       "revId": "e25c98be1d9e05019f78735f5f8330df27e7aa62",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7dd2ce8_0bf9604b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-04T03:41:01Z",
+      "side": 1,
+      "message": "If it\u0027s just about cuttlefish, I think the test config should just ignore @RequiresDevice tests",
+      "parentUuid": "aedf8d30_a412ff15",
+      "revId": "e25c98be1d9e05019f78735f5f8330df27e7aa62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
