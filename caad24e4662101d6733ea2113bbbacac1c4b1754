@@ -33,6 +33,24 @@
       "message": "Nit: the methods sounds like a calculation util, but it actually also logs (it assumes that the result of the calculation is used for scheduling a run now); maybe move this to the callers and make the method static ?",
       "revId": "caad24e4662101d6733ea2113bbbacac1c4b1754",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17d12aec_7ddc816c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-06T06:05:59Z",
+      "side": 1,
+      "message": "Thanks, I have marked the method as static. I think the method is already in the caller class. I would like to avoid moving it to MdnsQueryScheduler class because I think it will be better to have maybeRescheduleCurrentRun/scheduleFirstRun/ScheduleNextRun returns the same type.",
+      "parentUuid": "6e550439_cb5fd255",
+      "revId": "caad24e4662101d6733ea2113bbbacac1c4b1754",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
