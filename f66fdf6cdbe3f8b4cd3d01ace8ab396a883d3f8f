@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "442c0f02_858f98a7",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-07T04:41:11Z",
+      "side": 1,
+      "message": "Sorry, find, lose, find is 2-1 \u003d\u003d 1 ^^\u0027\n\nA better example would be find 2 different services, then lose the first one (find, find, lose): the found service count should be 2, not 1",
+      "parentUuid": "8d222e3d_9fa7492d",
+      "range": {
+        "startLine": 171,
+        "startChar": 16,
+        "endLine": 171,
+        "endChar": 36
+      },
+      "revId": "f66fdf6cdbe3f8b4cd3d01ace8ab396a883d3f8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36c10018_32a99118",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 6
