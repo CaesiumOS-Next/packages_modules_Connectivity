@@ -17,15 +17,18 @@
 package com.android.server;
 
 import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.Manifest.permission.NETWORK_STACK;
 import static android.net.ConnectivityManager.NETID_UNSET;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
+import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.nsd.NsdManager.MDNS_DISCOVERY_MANAGER_EVENT;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
 import static android.net.nsd.NsdManager.RESOLVE_SERVICE_SUCCEEDED;
 import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
 import static com.android.modules.utils.build.SdkLevel.isAtLeastU;
+import static com.android.networkstack.apishim.ConstantsShim.REGISTER_NSD_OFFLOAD_ENGINE;
 import static com.android.server.connectivity.mdns.MdnsRecord.MAX_LABEL_LENGTH;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
 
@@ -34,6 +37,8 @@ import android.annotation.Nullable;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.PermissionInfo;
 import android.net.ConnectivityManager;
 import android.net.INetd;
 import android.net.InetAddresses;
@@ -2010,9 +2015,7 @@ public class NsdService extends INsdManager.Stub {
         public void registerOffloadEngine(String ifaceName, IOffloadEngine cb,
                 @OffloadEngine.OffloadCapability long offloadCapabilities,
                 @OffloadEngine.OffloadType long offloadTypes) {
-            // TODO: Relax the permission because NETWORK_SETTINGS is a signature permission, and
-            //  it may not be possible for all the callers of this API to have it.
-            PermissionUtils.enforceNetworkStackPermissionOr(mContext, NETWORK_SETTINGS);
+            checkOffloadEnginePermission(mContext);
             Objects.requireNonNull(ifaceName);
             Objects.requireNonNull(cb);
             mNsdStateMachine.sendMessage(
@@ -2023,12 +2026,37 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void unregisterOffloadEngine(IOffloadEngine cb) {
-            // TODO: Relax the permission because NETWORK_SETTINGS is a signature permission, and
-            //  it may not be possible for all the callers of this API to have it.
-            PermissionUtils.enforceNetworkStackPermissionOr(mContext, NETWORK_SETTINGS);
+            checkOffloadEnginePermission(mContext);
             Objects.requireNonNull(cb);
             mNsdStateMachine.sendMessage(
                     mNsdStateMachine.obtainMessage(NsdManager.UNREGISTER_OFFLOAD_ENGINE, cb));
+        }
+
+        private static void checkOffloadEnginePermission(Context context) {
+            if (PermissionUtils.checkAnyPermissionOf(context,
+                    NETWORK_STACK, PERMISSION_MAINLINE_NETWORK_STACK,
+                    NETWORK_SETTINGS)) {
+                return;
+            }
+
+            if (PermissionUtils.checkAnyPermissionOf(context, REGISTER_NSD_OFFLOAD_ENGINE)) {
+                try {
+                    PermissionInfo permissionInfo = context.getPackageManager().getPermissionInfo(
+                            REGISTER_NSD_OFFLOAD_ENGINE, 0 /* flags */);
+                    // The REGISTER_NSD_OFFLOAD_ENGINE permission should be defined by "android"
+                    // package.
+                    if (Objects.equals(permissionInfo.packageName, "android")) {
+                        return;
+                    }
+                } catch (PackageManager.NameNotFoundException e) {
+                    throw new SecurityException(e);
+                }
+            }
+
+            throw new SecurityException(
+                    String.format("Requires one of the following permissions: %s, %s, %s, %s.",
+                            NETWORK_STACK, PERMISSION_MAINLINE_NETWORK_STACK, NETWORK_SETTINGS,
+                            REGISTER_NSD_OFFLOAD_ENGINE));
         }
     }
 
