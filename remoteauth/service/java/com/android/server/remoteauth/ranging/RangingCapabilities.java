@@ -15,6 +15,8 @@
  */
 package com.android.server.remote_auth.ranging;
 
+import android.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,18 +33,27 @@ public class RangingCapabilities {
     }
 
     private List<RangingMethod> mSupportedRangingMethods;
+    private androidx.core.uwb.backend.impl.internal.RangingCapabilities mUwbRangingCapabilities;
 
     public List<RangingMethod> getSupportedRangingMethods() {
         return mSupportedRangingMethods;
     }
 
-    private RangingCapabilities(List<RangingMethod> supportedRangingMethods) {
+    public androidx.core.uwb.backend.impl.internal.RangingCapabilities getUwbRangingCapabilities() {
+        return mUwbRangingCapabilities;
+    }
+
+    private RangingCapabilities(
+            List<RangingMethod> supportedRangingMethods,
+            androidx.core.uwb.backend.impl.internal.RangingCapabilities uwbRangingCapabilities) {
         mSupportedRangingMethods = supportedRangingMethods;
+        mUwbRangingCapabilities = uwbRangingCapabilities;
     }
 
     /** Builder class for {@link RangingCapabilities}. */
     public static final class Builder {
         private List<RangingMethod> mSupportedRangingMethods = new ArrayList<>();
+        private androidx.core.uwb.backend.impl.internal.RangingCapabilities mUwbRangingCapabilities;
 
         /** Adds a supported {@link RangingMethod} */
         public Builder addSupportedRangingMethods(RangingMethod rangingMethod) {
@@ -50,9 +61,18 @@ public class RangingCapabilities {
             return this;
         }
 
+        /** Set the uwb ranging capabilities. */
+        public Builder setUwbRangingCapabilities(
+                @NonNull
+                        androidx.core.uwb.backend.impl.internal.RangingCapabilities
+                                uwbRangingCapabilities) {
+            mUwbRangingCapabilities = uwbRangingCapabilities;
+            return this;
+        }
+
         /** Builds {@link RangingCapabilities}. */
         public RangingCapabilities build() {
-            return new RangingCapabilities(mSupportedRangingMethods);
+            return new RangingCapabilities(mSupportedRangingMethods, mUwbRangingCapabilities);
         }
     }
 }

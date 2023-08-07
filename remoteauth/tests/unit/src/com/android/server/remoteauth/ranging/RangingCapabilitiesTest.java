@@ -28,15 +28,24 @@ import org.junit.runner.RunWith;
 /** Unit test for {@link RangingCapabilities}. */
 @RunWith(AndroidJUnit4.class)
 public class RangingCapabilitiesTest {
+    private static final androidx.core.uwb.backend.impl.internal.RangingCapabilities
+            TEST_UWB_RANGING_CAPABILITIES =
+                    new androidx.core.uwb.backend.impl.internal.RangingCapabilities(
+                            /* supportsDistance= */ true,
+                            /* supportsAzimuthalAngle= */ true,
+                            /* supportsElevationAngle= */ true);
 
     @Test
     public void testBuildingRangingCapabilities_success() {
         final RangingCapabilities rangingCapabilities =
                 new RangingCapabilities.Builder()
                         .addSupportedRangingMethods(RangingMethod.UWB)
+                        .setUwbRangingCapabilities(TEST_UWB_RANGING_CAPABILITIES)
                         .build();
 
         assertEquals(rangingCapabilities.getSupportedRangingMethods().size(), 1);
         assertEquals(rangingCapabilities.getSupportedRangingMethods().get(0), RangingMethod.UWB);
+        assertEquals(
+                rangingCapabilities.getUwbRangingCapabilities(), TEST_UWB_RANGING_CAPABILITIES);
     }
 }
