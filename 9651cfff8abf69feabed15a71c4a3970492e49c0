@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f448b5be_56e6f5d5",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/MessageContext.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-07T21:36:53Z",
+      "side": 1,
+      "message": "Yes the lifecycle is for a single message. However, this class only exposes the setBuffer() so consumers (RAS) can set the response.",
+      "parentUuid": "fb5621ef_5e73b8d6",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "839db630_7aa00c47",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/MessageListener.java",
         "patchSetId": 20
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-07T17:49:34Z",
       "side": 1,
       "message": "Not fully sure how it is going to be used, can you please add a function to the connectivity (this CL) that returns MessageListener?",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4f67b54_a4e86e1a",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/MessageListener.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-07T21:36:53Z",
+      "side": 1,
+      "message": "The idea was to create a message listener (MessageListenerImpl) from RAS that sets up the CDM message listener and calls the onMessageReceived() with the input buffer (from peer device).",
+      "parentUuid": "839db630_7aa00c47",
       "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a064d4b7_b05e96cc",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/MessageListener.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-07T21:36:53Z",
+      "side": 1,
+      "message": "I added message context here because it only exposes a set buffer api which is the response. Once connectivity gets the message from the peer device, it will unwrap the message (remove header), construct a message context object with the message id in it, then pass the context to RAS to set the response.",
+      "parentUuid": "409545ad_19da75ae",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "563e8e93_d8727d2a",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/ResponseCallback.java",
         "patchSetId": 20
@@ -65,6 +119,24 @@
       "writtenOn": "2023-08-07T17:49:34Z",
       "side": 1,
       "message": "nit: response message",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d48ced3_7ad83ebe",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/ResponseCallback.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-07T21:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "563e8e93_d8727d2a",
       "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +158,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a030a9a_0c7a21e2",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/ResponseCallback.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-07T21:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45e0c0aa_6ce45c91",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "830b46e9_bb465399",
@@ -103,6 +193,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b864f71d_2595e04e",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/common/ConnectionInfo.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-07T21:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "830b46e9_bb465399",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60f6f5f2_90aeaf89",
@@ -116,6 +224,24 @@
       "writtenOn": "2023-08-07T17:49:34Z",
       "side": 1,
       "message": "Please avoid using enum and instead use IntDefs",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df485341_67cfc4ac",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/Connection.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-07T21:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60f6f5f2_90aeaf89",
       "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -139,6 +265,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2c21742_ed67279a",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/DiscoveryFilter.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-07T21:36:53Z",
+      "side": 1,
+      "message": "For registration, you would need only the type for CDM. \n\nJust to clarify, after registration, if the watch disconnects (out of range or reboot), doesn\u0027t RAS plan to call startDiscovery() again?",
+      "parentUuid": "b4dbe490_f0dbb1a3",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9f26a7f_9088684d",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/DiscoveryModule.java",
         "patchSetId": 20
@@ -150,6 +294,24 @@
       "writtenOn": "2023-08-07T17:49:34Z",
       "side": 1,
       "message": "I don\u0027t think this function should be part of Discovery. In my opinion it should be part of Connectivity[Module/Manager]\n\nAfter device is registered, without any discovery one should be able to connect.",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6335a91d_df8d8bb6",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/DiscoveryModule.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-07T21:36:53Z",
+      "side": 1,
+      "message": "Actually, I should have chosen a better naming for this module since this is essentially the ConnectivityModule.",
+      "parentUuid": "c9f26a7f_9088684d",
       "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
