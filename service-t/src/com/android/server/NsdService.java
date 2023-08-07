@@ -26,6 +26,7 @@ import static android.net.nsd.NsdManager.RESOLVE_SERVICE_SUCCEEDED;
 import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
 import static com.android.modules.utils.build.SdkLevel.isAtLeastU;
+import static com.android.networkstack.apishim.ConstantsShim.REGISTER_NSD_OFFLOAD_ENGINE;
 import static com.android.server.connectivity.mdns.MdnsRecord.MAX_LABEL_LENGTH;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
 
@@ -2040,9 +2041,7 @@ public class NsdService extends INsdManager.Stub {
         public void registerOffloadEngine(String ifaceName, IOffloadEngine cb,
                 @OffloadEngine.OffloadCapability long offloadCapabilities,
                 @OffloadEngine.OffloadType long offloadTypes) {
-            // TODO: Relax the permission because NETWORK_SETTINGS is a signature permission, and
-            //  it may not be possible for all the callers of this API to have it.
-            PermissionUtils.enforceNetworkStackPermissionOr(mContext, NETWORK_SETTINGS);
+            checkOffloadEnginePermission(mContext);
             Objects.requireNonNull(ifaceName);
             Objects.requireNonNull(cb);
             mNsdStateMachine.sendMessage(
@@ -2053,12 +2052,19 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void unregisterOffloadEngine(IOffloadEngine cb) {
-            // TODO: Relax the permission because NETWORK_SETTINGS is a signature permission, and
-            //  it may not be possible for all the callers of this API to have it.
-            PermissionUtils.enforceNetworkStackPermissionOr(mContext, NETWORK_SETTINGS);
+            checkOffloadEnginePermission(mContext);
             Objects.requireNonNull(cb);
             mNsdStateMachine.sendMessage(
                     mNsdStateMachine.obtainMessage(NsdManager.UNREGISTER_OFFLOAD_ENGINE, cb));
+        }
+
+        private static void checkOffloadEnginePermission(Context context) {
+            if (PermissionUtils.isSystemSignaturePermission(context, REGISTER_NSD_OFFLOAD_ENGINE)) {
+                PermissionUtils.enforceNetworkStackPermissionOr(context, NETWORK_SETTINGS,
+                        REGISTER_NSD_OFFLOAD_ENGINE);
+            } else {
+                PermissionUtils.enforceNetworkStackPermissionOr(context, NETWORK_SETTINGS);
+            }
         }
     }
 
