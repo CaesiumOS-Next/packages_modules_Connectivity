@@ -102,6 +102,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_FOTA;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_IA;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_IMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMTEL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED;
@@ -419,6 +420,7 @@ import com.android.server.net.LockdownVpnTracker;
 import com.android.server.net.NetworkPinner;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
+import com.android.testutils.FunctionalUtils;
 import com.android.testutils.FunctionalUtils.Function3;
 import com.android.testutils.FunctionalUtils.ThrowingConsumer;
 import com.android.testutils.FunctionalUtils.ThrowingRunnable;
@@ -470,6 +472,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18577,5 +18580,51 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         verifyClatdStop(null /* inOrder */, MOBILE_IFNAME);
+    }
+
+    // Common method for the normal handler and the state tracker handler, see the specializations
+    // below
+    // TODO : move this to the static library ?
+    private void assertHandlerThrows(@NonNull final Class<? extends Exception> type,
+            @NonNull final Consumer<Thread.UncaughtExceptionHandler> installer,
+            @NonNull final FunctionalUtils.ThrowingRunnable what) throws Exception {
+        final CompletableFuture<Object> result = new CompletableFuture<>();
+        installer.accept((thread, exception) -> result.completeExceptionally(exception));
+        what.run();
+        try {
+            result.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        } catch (final ExecutionException e) {
+            assertTrue(type.isInstance(e.getCause()));
+        }
+        installer.accept(null);
+    }
+
+    /**
+     * Assert that the passed function has the CS handler thread throw an exception
+     * @param type type of the expected exception
+     * @param what the function that should make the handler thread throw
+     */
+    private <T> void assertHandlerThrows(@NonNull final Class<? extends Exception> type,
+            @NonNull final FunctionalUtils.ThrowingRunnable what) throws Exception {
+        assertHandlerThrows(type, mService::installExceptionHandlerForTesting, what);
+    }
+
+    /**
+     * Assert that the passed function has the state tracker handler thread throw an exception
+     * @param type type of the expected exception
+     * @param what the function that should make the handler thread throw
+     */
+    private void assertStateTrackerHandlerThrows(@NonNull final Class<? extends Exception> type,
+            @NonNull final FunctionalUtils.ThrowingRunnable what) throws Exception {
+        assertHandlerThrows(type, mService::installStateTrackerExceptionHandlerForTesting, what);
+    }
+
+    @Test
+    public void testNetworkAgentStructuralConstraintsViolations() throws Exception {
+        assertStateTrackerHandlerThrows(IllegalArgumentException.class,
+                () -> {
+                    mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+                    mWiFiAgent.addCapability(NET_CAPABILITY_LOCAL_NETWORK);
+                });
     }
 }
