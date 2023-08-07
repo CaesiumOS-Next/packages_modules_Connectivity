@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b65fee0_73b719f1",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-07T18:00:16Z",
+      "side": 1,
+      "message": "I\u0027m not sure if a ConcurrentHashMap will help in this case because while it can protect from concurrency issues when inserting and retrieving values (the set of indices mapping to an iface name), the set object itself doesn\u0027t benefit from any concurrency guarantees, and can be modified by addInterface after it has been retrieved.\n\nI\u0027ve added a ReadWriteLock as suggested below, let me know if that addresses this concern!",
+      "parentUuid": "00945db1_ef4c6dbe",
+      "range": {
+        "startLine": 48,
+        "startChar": 81,
+        "endLine": 48,
+        "endChar": 88
+      },
+      "revId": "259760e4fb59f0da3f73ef18708481a4062c9cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb0ca13e_b1df6f1b",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bbd60b0_e0c13b52",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-07T18:00:16Z",
+      "side": 1,
+      "message": "Done!",
+      "parentUuid": "cb0ca13e_b1df6f1b",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 17
+      },
+      "revId": "259760e4fb59f0da3f73ef18708481a4062c9cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33011283_535688c7",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-08-04T22:02:14Z",
       "side": 1,
       "message": "note that technically speaking this fetch and iteration should be protected against writers (ie. modifiers) in addInterface()\n\nin the kernel this would grab a read lock, while the addInterface() would grab the writer lock on a read/write lock.\n\n(that allows multiple concurrent readers, but only 1 exclusive writer)\n\nIt is possible to achieve this with flock(fd, LOCK_SH/EX/UN)...\n\nSH \u003d shared/reader\nEX \u003d exclusive/writer\nUN \u003d unlock\n\n(see: man 2 flock)\n\nBut we don\u0027t have an easy fd, besides the bpf map fd, deep in jni...\nand locking on that doesn\u0027t seem appropriate anyway...\n\nI\u0027m not sure what the java equivalents are...\nI know there\u0027s ConcurrentHashMap... maybe that would help?\nMaybe here we\u0027d grab/synchronize on \u0027ifaceIndices\u0027 after fetching it from the ConcurrentHashMap?\n\nor maybe something else can be done\n[java does seem to have a ReadWriteLock class]\n\nI guess you could also just synchronize both addInterface and getIfaceStats on the same object... but that might be needlessly expensive?\n\nWe\u0027re getting into Java esoterics here..\n\n[and I\u0027m not even sure if this needs to be thread safe or not...]",
+      "range": {
+        "startLine": 1933,
+        "startChar": 0,
+        "endLine": 1933,
+        "endChar": 84
+      },
+      "revId": "259760e4fb59f0da3f73ef18708481a4062c9cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b58ad1c7_202f3f47",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1933,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-07T18:00:16Z",
+      "side": 1,
+      "message": "I commented above on why I think ConcurrentHashMaps probably wouldn\u0027t address this concern! I\u0027ve instead added the RW locks, with a write-lock being held while an interface is being added, and a read-lock being held while the indices are being consumed.\n\n----\n\nAn alternative that I considered was adding `synchronized` to getIfaceIndices and having getIfaceIndices return a _copy_ of the iface index set. This would have ensured that\n1) the iface indices could only be modified /or/ read at any given time\n2) the indices being read by getIfaceStats wouldn\u0027t change after being retrieved (since it\u0027s a copy)\n\nHowever, creating a copy of the iface index set for each call of getIfaceStats would probably be very expensive.",
+      "parentUuid": "33011283_535688c7",
       "range": {
         "startLine": 1933,
         "startChar": 0,
