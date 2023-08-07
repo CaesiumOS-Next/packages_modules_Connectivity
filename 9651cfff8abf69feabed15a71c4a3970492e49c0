@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5621ef_5e73b8d6",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/MessageContext.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-07T17:49:34Z",
+      "side": 1,
+      "message": "From the constructor looks like the lifetime of this object is for single message, in this case I would pass the buffer as an input to the constructor and remove change setBuffer getByteArrayWithHeader to be private and call them from the constructor. This way I would expose only single public method getMessageBuffer that returns a buffer generated in the constructor\n\nOtherwise it looks like user can change the buffer multiple times and generate with header",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "839db630_7aa00c47",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/MessageListener.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-07T17:49:34Z",
+      "side": 1,
+      "message": "Not fully sure how it is going to be used, can you please add a function to the connectivity (this CL) that returns MessageListener?",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "563e8e93_d8727d2a",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/ResponseCallback.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-07T17:49:34Z",
+      "side": 1,
+      "message": "nit: response message",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "830b46e9_bb465399",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/common/ConnectionInfo.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-07T17:49:34Z",
+      "side": 1,
+      "message": "Please make it Parcelable",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60f6f5f2_90aeaf89",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/Connection.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-07T17:49:34Z",
+      "side": 1,
+      "message": "Please avoid using enum and instead use IntDefs",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4dbe490_f0dbb1a3",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/DiscoveryFilter.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-07T17:49:34Z",
+      "side": 1,
+      "message": "Why would we need to have name and address as part of the filter, aren\u0027t they specific to the particular device?",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9f26a7f_9088684d",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/DiscoveryModule.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-07T17:49:34Z",
+      "side": 1,
+      "message": "I don\u0027t think this function should be part of Discovery. In my opinion it should be part of Connectivity[Module/Manager]\n\nAfter device is registered, without any discovery one should be able to connect.",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
