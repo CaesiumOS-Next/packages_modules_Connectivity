@@ -71,6 +71,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61776e41_9b40c2d7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 87
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-08-07T03:29:32Z",
+      "side": 1,
+      "message": "If I move set value in the if block, we need to have else block and I felt current code is simpler.\n```\n if (mDeps.isAtLeastU()\n        \u0026\u0026 mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION)) {\n        mDestroyFrozenSockets \u003d true;\n        mDelayDestroyFrozenSockets \u003d\n            mDeps.isFeatureEnabled(context, DELAY_DESTROY_FROZEN_SOCKETS_VERSION);\n } else {\n        mDestroyFrozenSockets \u003d false;\n        mDelayDestroyFrozenSockets \u003d false;\n }\n```",
+      "parentUuid": "156b2b19_bedf1d5f",
+      "revId": "c4d1da75e775467503c95453cdadf0edbc85eceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "771e4e7f_3c773b86",
