@@ -102,6 +102,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_FOTA;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_IA;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_IMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMTEL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED;
@@ -470,6 +471,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18577,5 +18579,20 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         verifyClatdStop(null /* inOrder */, MOBILE_IFNAME);
+    }
+
+    @Test
+    public void testNetworkAgentStructuralConstraintsViolations() throws Exception {
+        final CompletableFuture<Object> result = new CompletableFuture<>();
+        mService.catchExceptionOnStateTrackerHandler((thread, exception) ->
+                result.completeExceptionally(exception)
+        );
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mWiFiAgent.addCapability(NET_CAPABILITY_LOCAL_NETWORK);
+        try {
+            result.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        } catch (final ExecutionException e) {
+            assertTrue(e.getCause() instanceof IllegalArgumentException);
+        }
     }
 }

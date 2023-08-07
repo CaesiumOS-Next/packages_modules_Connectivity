@@ -318,7 +318,6 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.lang.IllegalArgumentException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -4231,13 +4230,35 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return true;
         }
 
-        @Override
-        public void handleMessage(@NonNull Message msg) {
+        public void handleMessageInternal(@NonNull final Message msg) {
             if (!maybeHandleNetworkMonitorMessage(msg)
                     && !maybeHandleNetworkAgentInfoMessage(msg)) {
                 maybeHandleNetworkAgentMessage(msg);
             }
         }
+
+        private volatile Thread.UncaughtExceptionHandler mExceptionHandlerForTest = null;
+
+        @Override
+        public void handleMessage(@NonNull final Message msg) {
+            try {
+                handleMessageInternal(msg);
+            } catch (Throwable e) {
+                if (null == mExceptionHandlerForTest) throw e;
+                mExceptionHandlerForTest.uncaughtException(Thread.currentThread(), e);
+            }
+        }
+    }
+
+    /**
+     * Install an exception handler on the tracker handler for testing.
+     *
+     * This is useful in particular to test that some sequence of operations should crash the
+     * system by throwing on the tracker handler.
+     */
+    @VisibleForTesting
+    public void catchExceptionOnStateTrackerHandler(final Thread.UncaughtExceptionHandler handler) {
+        mTrackerHandler.mExceptionHandlerForTest = handler;
     }
 
     private class NetworkMonitorCallbacks extends INetworkMonitorCallbacks.Stub {
@@ -5704,13 +5725,35 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return mDefaultRequest.mRequests.get(0);
     }
 
+    /**
+     * Install an exception handler on the internal handler thread for testing.
+     *
+     * This is useful in particular to test that some sequence of operations should crash the
+     * system by throwing on the internal handler thread.
+     */
+    @VisibleForTesting
+    public void catchExceptionOnHandlerThread(final Thread.UncaughtExceptionHandler handler) {
+        mHandler.mExceptionHandlerForTest = handler;
+    }
+
     private class InternalHandler extends Handler {
         public InternalHandler(Looper looper) {
             super(looper);
         }
 
+        volatile Thread.UncaughtExceptionHandler mExceptionHandlerForTest = null;
+
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(final Message msg) {
+            try {
+                handleMessageInternal(msg);
+            } catch (Throwable e) {
+                if (null == mExceptionHandlerForTest) throw e;
+                mExceptionHandlerForTest.uncaughtException(Thread.currentThread(), e);
+            }
+        }
+
+        private void handleMessageInternal(final Message msg) {
             switch (msg.what) {
                 case EVENT_EXPIRE_NET_TRANSITION_WAKELOCK:
                 case EVENT_CLEAR_NET_TRANSITION_WAKELOCK: {
