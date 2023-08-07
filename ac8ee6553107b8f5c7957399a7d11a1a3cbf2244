@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4970c6ec_0c1ea985",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-07T02:51:47Z",
+      "side": 1,
+      "message": "nit: IIUC adds some Threads.sleep manually can also confirm this.\nBut only if you feel that worth your time to do that.\nFell free to ignore.",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "ac8ee6553107b8f5c7957399a7d11a1a3cbf2244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff5933aa_73d56f9d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9090,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-07T02:51:47Z",
+      "side": 1,
+      "message": "Maybe assert that those callbacks does catch the network we want to hold?\nIn case someone build the wrong request (or bad NetworkRequest implementation) but didn\u0027t aware?",
+      "revId": "ac8ee6553107b8f5c7957399a7d11a1a3cbf2244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
