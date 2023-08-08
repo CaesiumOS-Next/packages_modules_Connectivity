@@ -716,11 +716,17 @@ public class ConnectivityManagerTest {
         final String goodPrivateDnsServer = "dns.google";
         mCtsNetUtils.storePrivateDnsSetting();
         final TestableNetworkCallback cb = new TestableNetworkCallback();
+<<<<<<< HEAD   (fd8966 Run CtsNetTestCases in SCv2 TEST_MAPPING)
         mCm.registerNetworkCallback(makeWifiNetworkRequest(), cb);
+=======
+        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET).build();
+        registerNetworkCallback(networkRequest, cb);
+        final Network networkForPrivateDns = mCm.getActiveNetwork();
+>>>>>>> CHANGE (d41d7b Skip tests in CtsNetTestCases module if feature not supporte)
         try {
             // Verifying the good private DNS sever
             mCtsNetUtils.setPrivateDnsStrictMode(goodPrivateDnsServer);
-            final Network networkForPrivateDns =  mCtsNetUtils.ensureWifiConnected();
             cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, NETWORK_CALLBACK_TIMEOUT_MS,
                     entry -> (!((CallbackEntry.CapabilitiesChanged) entry).getCaps()
                     .isPrivateDnsBroken()) && networkForPrivateDns.equals(entry.getNetwork()));
@@ -732,8 +738,11 @@ public class ConnectivityManagerTest {
                     .isPrivateDnsBroken()) && networkForPrivateDns.equals(entry.getNetwork()));
         } finally {
             mCtsNetUtils.restorePrivateDnsSetting();
-            // Toggle wifi to make sure it is re-validated
-            reconnectWifi();
+            // Toggle network to make sure it is re-validated
+            mCm.reportNetworkConnectivity(networkForPrivateDns, true);
+            cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, NETWORK_CALLBACK_TIMEOUT_MS,
+                    entry -> !(((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                    .isPrivateDnsBroken()) && networkForPrivateDns.equals(entry.getNetwork()));
         }
     }
 
@@ -1004,9 +1013,12 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test
     public void testRequestNetworkCallback_onUnavailable() {
-        final boolean previousWifiEnabledState = mWifiManager.isWifiEnabled();
-        if (previousWifiEnabledState) {
-            mCtsNetUtils.ensureWifiDisconnected(null);
+        boolean previousWifiEnabledState = false;
+        if (mPackageManager.hasSystemFeature(FEATURE_WIFI)) {
+            previousWifiEnabledState = mWifiManager.isWifiEnabled();
+            if (previousWifiEnabledState) {
+                mCtsNetUtils.ensureWifiDisconnected(null);
+            }
         }
 
         final TestNetworkCallback callback = new TestNetworkCallback();
@@ -1043,7 +1055,13 @@ public class ConnectivityManagerTest {
      */
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test
+<<<<<<< HEAD   (fd8966 Run CtsNetTestCases in SCv2 TEST_MAPPING)
     public void testToggleWifiConnectivityAction() {
+=======
+    public void testToggleWifiConnectivityAction() throws Exception {
+        assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
+
+>>>>>>> CHANGE (d41d7b Skip tests in CtsNetTestCases module if feature not supporte)
         // toggleWifi calls connectToWifi and disconnectFromWifi, which both wait for
         // CONNECTIVITY_ACTION broadcasts.
         mCtsNetUtils.toggleWifi();

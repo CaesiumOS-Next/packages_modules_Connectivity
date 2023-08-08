@@ -16,7 +16,11 @@
 
 package android.net.cts.util;
 
+<<<<<<< HEAD   (fd8966 Run CtsNetTestCases in SCv2 TEST_MAPPING)
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
+=======
+import static android.Manifest.permission.MODIFY_PHONE_STATE;
+>>>>>>> CHANGE (d41d7b Skip tests in CtsNetTestCases module if feature not supporte)
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
@@ -58,6 +62,8 @@ import android.os.Build;
 import android.os.IBinder;
 import android.system.Os;
 import android.system.OsConstants;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -596,6 +602,66 @@ public final class CtsNetUtils {
     }
 
     /**
+<<<<<<< HEAD   (fd8966 Run CtsNetTestCases in SCv2 TEST_MAPPING)
+=======
+     * Get all testable Networks with internet capability.
+     */
+    public Network[] getTestableNetworks() {
+        final ArrayList<Network> testableNetworks = new ArrayList<Network>();
+        for (Network network : mCm.getAllNetworks()) {
+            final NetworkCapabilities nc = mCm.getNetworkCapabilities(network);
+            if (nc != null
+                    && nc.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+                    && nc.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+                testableNetworks.add(network);
+            }
+        }
+
+        assertTrue("This test requires that at least one public Internet-providing"
+                        + " network be connected. Please ensure that the device is connected to"
+                        + " a network.",
+                testableNetworks.size() >= 1);
+        return testableNetworks.toArray(new Network[0]);
+    }
+
+    /**
+     * Enables or disables the mobile data and waits for the state to change.
+     *
+     * @param enabled - true to enable, false to disable the mobile data.
+     */
+    public void setMobileDataEnabled(boolean enabled) throws InterruptedException {
+        final TelephonyManager tm =  mContext.getSystemService(TelephonyManager.class)
+                .createForSubscriptionId(SubscriptionManager.getDefaultDataSubscriptionId());
+        final NetworkRequest request = new NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .build();
+        final TestNetworkCallback callback = new TestNetworkCallback();
+        mCm.requestNetwork(request, callback);
+
+        try {
+            if (!enabled) {
+                assertNotNull("Cannot disable mobile data unless mobile data is connected",
+                        callback.waitForAvailable());
+            }
+
+            runAsShell(MODIFY_PHONE_STATE, () -> tm.setDataEnabledForReason(
+                    TelephonyManager.DATA_ENABLED_REASON_USER, enabled));
+            if (enabled) {
+                assertNotNull("Enabling mobile data did not connect mobile data",
+                        callback.waitForAvailable());
+            } else {
+                assertNotNull("Disabling mobile data did not disconnect mobile data",
+                        callback.waitForLost());
+            }
+
+        } finally {
+            mCm.unregisterNetworkCallback(callback);
+        }
+    }
+
+    /**
+>>>>>>> CHANGE (d41d7b Skip tests in CtsNetTestCases module if feature not supporte)
      * Receiver that captures the last connectivity change's network type and state. Recognizes
      * both {@code CONNECTIVITY_ACTION} and {@code NETWORK_CALLBACK_ACTION} intents.
      */
