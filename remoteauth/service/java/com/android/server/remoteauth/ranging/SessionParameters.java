@@ -22,11 +22,24 @@ import com.android.server.remote_auth.ranging.RangingCapabilities.RangingMethod;
 /** The set of parameters to create a ranging session. */
 public class SessionParameters {
 
+    /** Ranging device role */
+    public enum DeviceRole {
+        /** Unknown device role. */
+        UNKNOWN,
+
+        /** Device that initiate ranging. */
+        INITIATOR,
+
+        /** Device that respond to ranging. */
+        RESPONDER,
+    }
+
     private String mDeviceId;
     private RangingMethod mRangingMethod;
+    private DeviceRole mDeviceRole;
     private float mLowerProximityBoundaryM;
     private float mUpperProximityBoundaryM;
-    private boolean mAutoGenerateParams;
+    private boolean mAutoDeriveParams;
     private byte[] mBaseKey;
     private byte[] mSyncData;
 
@@ -38,6 +51,10 @@ public class SessionParameters {
         return mRangingMethod;
     }
 
+    public DeviceRole getDeviceRole() {
+        return mDeviceRole;
+    }
+
     public float getLowerProximityBoundaryM() {
         return mLowerProximityBoundaryM;
     }
@@ -46,8 +63,8 @@ public class SessionParameters {
         return mUpperProximityBoundaryM;
     }
 
-    public boolean getAutoGenerateParams() {
-        return mAutoGenerateParams;
+    public boolean getAutoDeriveParams() {
+        return mAutoDeriveParams;
     }
 
     public byte[] getBaseKey() {
@@ -61,16 +78,18 @@ public class SessionParameters {
     private SessionParameters(
             String deviceId,
             RangingMethod rangingMethod,
+            DeviceRole deviceRole,
             float lowerProximityBoundaryM,
             float upperProximityBoundaryM,
-            boolean autoGenerateParams,
+            boolean autoDeriveParams,
             byte[] baseKey,
             byte[] syncData) {
         mDeviceId = deviceId;
         mRangingMethod = rangingMethod;
+        mDeviceRole = deviceRole;
         mLowerProximityBoundaryM = lowerProximityBoundaryM;
         mUpperProximityBoundaryM = upperProximityBoundaryM;
-        mAutoGenerateParams = autoGenerateParams;
+        mAutoDeriveParams = autoDeriveParams;
         mBaseKey = baseKey;
         mSyncData = syncData;
     }
@@ -79,9 +98,10 @@ public class SessionParameters {
     public static final class Builder {
         private String mDeviceId = new String("");
         private RangingMethod mRangingMethod = RangingMethod.UNKNOWN;
+        private DeviceRole mDeviceRole = DeviceRole.UNKNOWN;
         private float mLowerProximityBoundaryM;
         private float mUpperProximityBoundaryM;
-        private boolean mAutoGenerateParams = false;
+        private boolean mAutoDeriveParams = false;
         private byte[] mBaseKey = new byte[] {};
         private byte[] mSyncData = new byte[] {};
 
@@ -97,6 +117,12 @@ public class SessionParameters {
             return this;
         }
 
+        /** Set the device role. */
+        public Builder setDeviceRole(DeviceRole deviceRole) {
+            mDeviceRole = deviceRole;
+            return this;
+        }
+
         /** Set the lower proximity boundary in meters. */
         public Builder setLowerProximityBoundaryM(float lowerProximityBoundaryM) {
             mLowerProximityBoundaryM = lowerProximityBoundaryM;
@@ -109,9 +135,9 @@ public class SessionParameters {
             return this;
         }
 
-        /** Set the auto generate ranging parameters flag. */
-        public Builder setAutoGenerateParams(boolean autoGenerateParams) {
-            mAutoGenerateParams = autoGenerateParams;
+        /** Set the auto derive ranging parameters flag. */
+        public Builder setAutoDeriveParams(boolean autoDeriveParams) {
+            mAutoDeriveParams = autoDeriveParams;
             return this;
         }
 
@@ -135,6 +161,9 @@ public class SessionParameters {
             if (mRangingMethod == RangingMethod.UNKNOWN) {
                 throw new IllegalArgumentException("Unknown rangingMethod");
             }
+            if (mDeviceRole == DeviceRole.UNKNOWN) {
+                throw new IllegalArgumentException("Unknown deviceRole");
+            }
             if (mLowerProximityBoundaryM < 0) {
                 throw new IllegalArgumentException(
                         "Negative lowerProximityBoundaryM: " + mLowerProximityBoundaryM);
@@ -146,8 +175,8 @@ public class SessionParameters {
                                 + " > "
                                 + mUpperProximityBoundaryM);
             }
-            // If mAutoGenerateParams is false, mBaseKey and mSyncData will not be used.
-            if (mAutoGenerateParams) {
+            // If mAutoDeriveParams is false, mBaseKey and mSyncData will not be used.
+            if (mAutoDeriveParams) {
                 if (mBaseKey.length == 0) {
                     throw new IllegalArgumentException("Empty baseKey");
                 }
@@ -167,9 +196,10 @@ public class SessionParameters {
             return new SessionParameters(
                     mDeviceId,
                     mRangingMethod,
+                    mDeviceRole,
                     mLowerProximityBoundaryM,
                     mUpperProximityBoundaryM,
-                    mAutoGenerateParams,
+                    mAutoDeriveParams,
                     mBaseKey,
                     mSyncData);
         }
