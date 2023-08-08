@@ -189,6 +189,7 @@ bootclasspath_fragment {
         split_packages: [
             "android.app.usage",
             "android.nearby",
+            "android.remoteauth",
             "android.net",
             "android.net.http",
             "android.net.netstats",
@@ -203,6 +204,7 @@ bootclasspath_fragment {
         // result in a build failure due to inconsistent flags.
         package_prefixes: [
             "android.nearby.aidl",
+            "android.remoteauth.aidl",
             "android.net.apf",
             "android.net.connectivity",
             "android.net.http.apihelpers",
