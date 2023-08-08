@@ -180,6 +180,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8c1505f_7dc6e040",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1965950
+      },
+      "writtenOn": "2023-08-08T06:07:21Z",
+      "side": 1,
+      "message": "Hi @reminv@google.com, @lorenzo@google.com\nThank you for your inputs.\nUpdated a new patch set with the suggested changes. Please check \u0026 review.",
+      "parentUuid": "3f96cc29_d4ec37f4",
+      "range": {
+        "startLine": 159,
+        "startChar": 21,
+        "endLine": 159,
+        "endChar": 39
+      },
+      "revId": "04fc6c69202f1df03122c72942bf98693ec93d4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d9bd8f5_5abbc809",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 4
@@ -191,6 +215,30 @@
       "writtenOn": "2023-07-21T09:31:48Z",
       "side": 1,
       "message": "Also make sure that !entry.getCaps().isPrivateDnsBroken() in that lambda; right now this only checks that there is any update for the given network",
+      "range": {
+        "startLine": 1043,
+        "startChar": 58,
+        "endLine": 1043,
+        "endChar": 63
+      },
+      "revId": "04fc6c69202f1df03122c72942bf98693ec93d4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bab3daa3_3af8ca25",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1965950
+      },
+      "writtenOn": "2023-08-08T06:07:21Z",
+      "side": 1,
+      "message": "Thank you.. Added the check",
+      "parentUuid": "7d9bd8f5_5abbc809",
       "range": {
         "startLine": 1043,
         "startChar": 58,
