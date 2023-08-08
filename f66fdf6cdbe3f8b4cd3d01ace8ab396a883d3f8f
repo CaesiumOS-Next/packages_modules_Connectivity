@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00fdb3ed_772b3196",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-08T10:44:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d60d240d_64726431",
+      "range": {
+        "startLine": 171,
+        "startChar": 16,
+        "endLine": 171,
+        "endChar": 36
+      },
+      "revId": "f66fdf6cdbe3f8b4cd3d01ace8ab396a883d3f8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36c10018_32a99118",
@@ -85,6 +109,30 @@
       "writtenOn": "2023-07-31T10:21:13Z",
       "side": 1,
       "message": "To avoid modifying internal members, I\u0027d suggest having a method (onServiceFound ?)\n\nIt would also be useful if counting found services",
+      "range": {
+        "startLine": 1175,
+        "startChar": 32,
+        "endLine": 1175,
+        "endChar": 50
+      },
+      "revId": "f66fdf6cdbe3f8b4cd3d01ace8ab396a883d3f8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0236f886_695bfbba",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-08T10:44:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36c10018_32a99118",
       "range": {
         "startLine": 1175,
         "startChar": 32,
