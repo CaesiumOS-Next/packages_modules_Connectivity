@@ -207,3 +207,32 @@ package android.net {
 
 }
 
+package android.remoteauth {
+
+  public interface DeviceDiscoveryCallback {
+  }
+
+  public final class DiscoveredDevice implements android.os.Parcelable {
+    ctor public DiscoveredDevice(@NonNull String, int);
+    method public int describeContents();
+    method @Nullable public String getName();
+    method public int getRegistrationState();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.remoteauth.DiscoveredDevice> CREATOR;
+    field public static final int STATE_NOT_REGISTERED = 0; // 0x0
+    field public static final int STATE_REGISTERED = 0; // 0x0
+  }
+
+  public final class RemoteAuthFrameworkInitializer {
+    method public static void registerServiceWrappers();
+  }
+
+  public class RemoteAuthManager {
+    method public boolean isRemoteAuthSupported();
+    method public boolean startDiscovery(int, @NonNull java.util.concurrent.Executor, @NonNull android.remoteauth.DeviceDiscoveryCallback);
+    method public void stopDiscovery(@NonNull android.remoteauth.DeviceDiscoveryCallback);
+    field public static final String REMOTE_AUTH_SERVICE = "remote_auth";
+  }
+
+}
+
