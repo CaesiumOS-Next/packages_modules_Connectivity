@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f62ba771_51a81b88",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/MessageContext.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-08T00:49:24Z",
+      "side": 1,
+      "message": "Removing, we don\u0027t need this class anymore.",
+      "parentUuid": "f448b5be_56e6f5d5",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "839db630_7aa00c47",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/associated/MessageListener.java",
         "patchSetId": 20
