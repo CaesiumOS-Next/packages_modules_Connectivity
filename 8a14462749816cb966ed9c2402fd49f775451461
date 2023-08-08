@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c9f88fb_dfe443e9",
+        "filename": "framework/aidl-export/android/net/nsd/OffloadServiceInfo.aidl",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdb8c5dc_d091ea86",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbc80fa2_1aa2128e",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05e7cd14_7ca4a75d",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "I copied the comment :(\n\nDone",
+      "parentUuid": "fbc80fa2_1aa2128e",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3e3383d_5064ba65",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "I\u0027m thinking we shouldn\u0027t say \"in the latest scan\" b/c it feels like an implementation detail that scans are happening vs. just an abstract discovery process.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "531819c0_7fca6b7c",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3e3383d_5064ba65",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +140,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49bc8ff1_44a385f5",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ec9992f_11bd7920",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1de885f3_ccb93a46",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94a32546_a372453d",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2af745a8_7da98424",
@@ -99,6 +189,24 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "Should this API should match what we planned for registered devices (List\u003cDiscoveredDevice\u003e) instead of the event state. Are we tracking all of the discovered states as a list in the service so the full list would be helpful here?\n\nI\u0027m also thinking since DiscoveredDevice is immutable, it will be best to pass the full list in case we are trying to update e.g the name or isRegistered.\n\nAlso if we do this, we can probably drop the State enum b/c presence in the list or not determines the same.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f0a2e0f_54c274ae",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "What you are referring will take place in RemoteAuthListener API.\n\nDiscovery is different, the devices are not necessarily in the DB yet, and I prefer not to keep a state for discovery, but just to be a proxy\n\nAs agreed offline marking as\n\nDone",
+      "parentUuid": "2af745a8_7da98424",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -122,6 +230,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "195f2fca_39954896",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "I prefer not to keep a state of the discovery in RAS at all.\n\nThe way I thought about it, whenever registration request is received by the RAS, it will need to be verified for correctness regardless of if it was discovered 1 hr ago or 1 min ago, because I don\u0027t see that the time gives us any assurance about a success of the registration\nIt may fail due to different reasons, for example the device is not nearby anymore, or attestation fails, etc\nAll this will be verified during registration\nthe notification about timeout is just to allow the user to build a flow around it, not for RAM/RAS",
+      "parentUuid": "a7e9eb75_1cdb6cbf",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bae3f640_26705024",
         "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
         "patchSetId": 12
@@ -133,6 +259,24 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "Use @DataClass to autogenerate majority of the code here.\n\nhttps://source.corp.google.com/search?q\u003d%22@DataClass%22\u0026sq\u003dpackage:android",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "837edbce_828c9422",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "DataClass is not available in mainline module",
+      "parentUuid": "bae3f640_26705024",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -154,6 +298,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49803d93_c2fbeba0",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89905f74_ed9b505e",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77b6bf0e_4af20f86",
@@ -167,6 +329,24 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "delete",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3431b1dc_49559ede",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b6bf0e_4af20f86",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -188,6 +368,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07ea687b_fc164a9f",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fc41629_301ef884",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e116c99_89559a83",
@@ -201,6 +399,24 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "remove commented code.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0989b4bf_b61c0fdc",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthFrameworkInitializer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Uncommented",
+      "parentUuid": "8e116c99_89559a83",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -222,6 +438,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba08bfb8_657af421",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthFrameworkInitializer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Uncommented",
+      "parentUuid": "eef09a13_d1fee998",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e338727_548aeeb0",
@@ -235,6 +469,24 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "why are these 2 commented?",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c04917c_e8505c4a",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e338727_548aeeb0",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -262,6 +514,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28b08d05_bd587ad7",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79389534_65d2953a",
+      "range": {
+        "startLine": 69,
+        "startChar": 15,
+        "endLine": 69,
+        "endChar": 17
+      },
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "daca845a_e1a62f9f",
@@ -275,6 +551,24 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "Don\u0027t merge any commented out code.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fa42b1e_555ed19f",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "daca845a_e1a62f9f",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -302,6 +596,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64cbc046_864017d7",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1475ba95_c31e1fd4",
+      "range": {
+        "startLine": 95,
+        "startChar": 28,
+        "endLine": 95,
+        "endChar": 35
+      },
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "975cb2e6_199a15a9",
@@ -315,6 +633,24 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "move these calls onto one line when they fit.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b1872f3_0dbedc9d",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "975cb2e6_199a15a9",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -336,6 +672,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eb2aedd_41c3a7dc",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bf45465_16904e12",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d6f0c8a_f9dc8f99",
@@ -349,6 +703,24 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "looks like this fits like this?\nLog.e(\n    TAG,\n    \"bla bla bla\")\n\nprefer breaking at the highest syntactic level",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b49386fb_88552e71",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d6f0c8a_f9dc8f99",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -370,6 +742,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e968b45_c91a27c4",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "The idea was to prepare it, so I can use it later\n\nDone",
+      "parentUuid": "8f928d7f_fd88a9ea",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2def14f4_cd17c949",
@@ -387,6 +777,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0e0affb_5db2528d",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2def14f4_cd17c949",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9618cad2_ef7018d4",
@@ -400,6 +808,30 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "? \n\nTodo? or add feature?",
+      "range": {
+        "startLine": 60,
+        "startChar": 61,
+        "endLine": 60,
+        "endChar": 72
+      },
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ac59bd_ea0a1dea",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Not sure what the comment is saying.\n\nRemoteAuth is supported by this device if it has UWB\n\nThis is what this line checks",
+      "parentUuid": "9618cad2_ef7018d4",
       "range": {
         "startLine": 60,
         "startChar": 61,
@@ -435,6 +867,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "975ca55f_86ffe400",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "I don\u0027t know exactly how the implementation will look like and what will be the context of the discovery, this is not SystemApi and can be changed later.\n\nIf we are sure that the context is just user, then I can remove both packageName and attribute",
+      "parentUuid": "66dd19f2_343be3ca",
+      "range": {
+        "startLine": 67,
+        "startChar": 49,
+        "endLine": 67,
+        "endChar": 63
+      },
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f5436bf_9e754527",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
         "patchSetId": 12
@@ -446,6 +902,24 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "track todos with bug\nTODO(b/###):\n\nmake sure all the todo\u0027s in a bug are closed before you mark bug fixed.",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c915e4c6_27acb852",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f5436bf_9e754527",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -467,6 +941,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b78ceb95_d8f5875e",
+        "filename": "remoteauth/tests/unit/src/android/remoteauth/RemoteAuthManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea68a803_0e3d290c",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ada973af_e77b3fee",
@@ -480,6 +972,24 @@
       "writtenOn": "2023-08-04T21:49:44Z",
       "side": 1,
       "message": "Can we uncomment the commented code to include? otherwise revert file",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaf50558_c957258a",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T04:53:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ada973af_e77b3fee",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
