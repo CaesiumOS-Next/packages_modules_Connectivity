@@ -172,6 +172,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a342588b_00b1914c",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-08T09:35:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c66caaee_51a7c1a3",
+      "range": {
+        "startLine": 207,
+        "startChar": 46,
+        "endLine": 207,
+        "endChar": 67
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5ae731f_01aa8ba3",
@@ -245,6 +269,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1946525f_b8f6bd50",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-08T09:35:58Z",
+      "side": 1,
+      "message": "I uploaded a new CL aosp/2696274, please help to review it, thanks.",
+      "parentUuid": "99672910_1a69da45",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 60
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c17c581_edfb20e8",
         "filename": "framework/src/android/net/NetworkUtils.java",
         "patchSetId": 3
@@ -304,6 +352,30 @@
       "side": 1,
       "message": "Shouldn\u0027t this be trivial to do in Java?\n\nhttps://stackoverflow.com/questions/5952864/java-find-nearest-or-equal-value-in-collection\n\nimplement Comparable and use a TreeSet to store the objects, which will keep the elements sorted. TreeSet implements SortedSet, so you can use headSet or tailSet to get a view of the set before or after the element you\u0027re searching for. Use the first or last method on the returned set to get the element you\u0027re seeking.",
       "parentUuid": "fff34804_dfc3173f",
+      "range": {
+        "startLine": 443,
+        "startChar": 4,
+        "endLine": 445,
+        "endChar": 9
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2afa27e8_9852fa56",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-08T09:35:58Z",
+      "side": 1,
+      "message": "But \u0027Collection\u0027 and \u0027Set\u0027 don\u0027t have ceiling/floor functions that we required. Do you mean:\n1. Change the argument to TreeSet\u003cIpPrefix\u003e to restrict the caller uses TreeSet (Collection is more generally used in utils code)\nor\n2. Check the pass-in Collection obj\u0027s class, only applied when it can, otherwise use the linear search",
+      "parentUuid": "f95c22b8_b4fa1b88",
       "range": {
         "startLine": 443,
         "startChar": 4,
