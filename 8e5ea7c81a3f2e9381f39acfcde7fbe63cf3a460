@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c616b09_e8f888e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-08-08T07:50:12Z",
+      "side": 1,
+      "message": "thread",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "8e5ea7c81a3f2e9381f39acfcde7fbe63cf3a460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41e1550d_66ffd279",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-08-08T07:50:12Z",
+      "side": 1,
+      "message": "Why do you not just do `mSettings \u003d new TestNetworkStatsSettings(HOUR_IN_MILLIS, WEEK_IN_MILLIS);` here? \n\nI am not quite sure why you mark @Nullable here? It\u0027s true that it\u0027s nullable but you do not really do other check while using it. so it does not seems to be meaningful to mark that. Then it comes to me that you should be able to create it here.",
+      "range": {
+        "startLine": 243,
+        "startChar": 37,
+        "endLine": 243,
+        "endChar": 46
+      },
+      "revId": "8e5ea7c81a3f2e9381f39acfcde7fbe63cf3a460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
