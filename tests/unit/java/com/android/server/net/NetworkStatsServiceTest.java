@@ -79,7 +79,6 @@ import static org.mockito.AdditionalMatchers.aryEq;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -240,7 +239,8 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private @Mock INetd mNetd;
     private @Mock TetheringManager mTetheringManager;
     private @Mock NetworkStatsFactory mStatsFactory;
-    private @Mock NetworkStatsSettings mSettings;
+    @Nullable
+    private TestNetworkStatsSettings mSettings;
     private @Mock IBinder mUsageCallbackBinder;
     private TestableUsageCallback mUsageCallback;
     private @Mock AlarmManager mAlarmManager;
@@ -364,6 +364,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
         mHandlerThread = new HandlerThread("HandlerThread");
         final NetworkStatsService.Dependencies deps = makeDependencies();
+        mockDefaultSettings();
         mService = new NetworkStatsService(mServiceContext, mNetd, mAlarmManager, wakeLock,
                 mClock, mSettings, mStatsFactory, new NetworkStatsObservers(), deps);
 
@@ -1765,7 +1766,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     }
 
     private void setCombineSubtypeEnabled(boolean enable) {
-        doReturn(enable).when(mSettings).getCombineSubtypeEnabled();
+        mSettings.setCombineSubtypeEnabled(enable);
         mHandler.post(() -> mContentObserver.onChange(false, Settings.Global
                     .getUriFor(Settings.Global.NETSTATS_COMBINE_SUBTYPE_ENABLED)));
         waitForIdle();
@@ -2289,21 +2290,74 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         mockSettings(HOUR_IN_MILLIS, WEEK_IN_MILLIS);
     }
 
-    private void mockSettings(long bucketDuration, long deleteAge) throws Exception {
-        doReturn(HOUR_IN_MILLIS).when(mSettings).getPollInterval();
-        doReturn(0L).when(mSettings).getPollDelay();
-        doReturn(true).when(mSettings).getSampleEnabled();
-        doReturn(false).when(mSettings).getCombineSubtypeEnabled();
+    private void mockSettings(long bucketDuration, long deleteAge) {
+        mSettings = new TestNetworkStatsSettings(bucketDuration, deleteAge);
+    }
 
-        final Config config = new Config(bucketDuration, deleteAge, deleteAge);
-        doReturn(config).when(mSettings).getXtConfig();
-        doReturn(config).when(mSettings).getUidConfig();
-        doReturn(config).when(mSettings).getUidTagConfig();
+    // Note that this object will be accessed from test main thread and service handler thread.
+    // Thus, it has to be thread safe in order to prevent from flakiness.
+    private static class TestNetworkStatsSettings
+            extends NetworkStatsService.DefaultNetworkStatsSettings {
+        private final Config mConfig;
+        private final AtomicBoolean mCombineSubtypeEnabled = new AtomicBoolean();
 
-        doReturn(MB_IN_BYTES).when(mSettings).getGlobalAlertBytes(anyLong());
-        doReturn(MB_IN_BYTES).when(mSettings).getXtPersistBytes(anyLong());
-        doReturn(MB_IN_BYTES).when(mSettings).getUidPersistBytes(anyLong());
-        doReturn(MB_IN_BYTES).when(mSettings).getUidTagPersistBytes(anyLong());
+        TestNetworkStatsSettings(long bucketDuration, long deleteAge) {
+            mConfig = new Config(bucketDuration, deleteAge, deleteAge);
+        }
+
+        @Override
+        public long getPollDelay() {
+            return 0L;
+        }
+
+        @Override
+        public long getGlobalAlertBytes(long def) {
+            return MB_IN_BYTES;
+        }
+
+        @Override
+        public Config getXtConfig() {
+            return mConfig;
+        }
+
+        @Override
+        public Config getUidConfig() {
+            return mConfig;
+        }
+
+        @Override
+        public Config getUidTagConfig() {
+            return mConfig;
+        }
+
+        @Override
+        public long getXtPersistBytes(long def) {
+            return MB_IN_BYTES;
+        }
+
+        @Override
+        public long getUidPersistBytes(long def) {
+            return MB_IN_BYTES;
+        }
+
+        @Override
+        public long getUidTagPersistBytes(long def) {
+            return MB_IN_BYTES;
+        }
+
+        @Override
+        public boolean getCombineSubtypeEnabled() {
+            return mCombineSubtypeEnabled.get();
+        }
+
+        public void setCombineSubtypeEnabled(boolean enable) {
+            mCombineSubtypeEnabled.set(enable);
+        }
+
+        @Override
+        public boolean getAugmentEnabled() {
+            return false;
+        }
     }
 
     private void assertStatsFilesExist(boolean exist) {
