@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c34e5620_deb3d336",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-08T22:16:16Z",
+      "side": 1,
+      "message": "The presubmit errors are due to an auto-merge issue of a dependent CL in the uwb repo, which I\u0027m working on resolving, so please review while ignoring the failures.",
+      "revId": "41892b9234d2a4e001a292651274ac77b4a79f66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
