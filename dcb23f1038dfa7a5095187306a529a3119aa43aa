@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e954d1bc_d1472d2d",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T22:20:51Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to be consistent?",
+      "parentUuid": "bd4a9776_c5147467",
+      "revId": "dcb23f1038dfa7a5095187306a529a3119aa43aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e0af18e_d5037975",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/SessionParameters.java",
         "patchSetId": 1
