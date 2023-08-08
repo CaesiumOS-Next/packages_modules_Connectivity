@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d92305bd_3ace6208",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-08T06:18:43Z",
+      "side": 1,
+      "message": "Rename to `ifaceSocketCallback`.",
+      "parentUuid": "e2606a29_236af464",
+      "range": {
+        "startLine": 126,
+        "startChar": 42,
+        "endLine": 126,
+        "endChar": 45
+      },
+      "revId": "312abad1259e1b8afc8d205a0e59342f3b9a93fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64b11e3d_ae5d3675",
@@ -58,6 +82,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e339d291_38499033",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-08T06:18:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64b11e3d_ae5d3675",
+      "revId": "312abad1259e1b8afc8d205a0e59342f3b9a93fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2b7726f_e9751af8",
@@ -71,6 +113,30 @@
       "writtenOn": "2023-07-31T08:35:18Z",
       "side": 1,
       "message": "Nit: while you\u0027re at it, final",
+      "range": {
+        "startLine": 222,
+        "startChar": 8,
+        "endLine": 222,
+        "endChar": 15
+      },
+      "revId": "312abad1259e1b8afc8d205a0e59342f3b9a93fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc4b72af_13206546",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-08T06:18:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2b7726f_e9751af8",
       "range": {
         "startLine": 222,
         "startChar": 8,
