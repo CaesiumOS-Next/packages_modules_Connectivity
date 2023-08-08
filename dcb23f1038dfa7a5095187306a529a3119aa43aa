@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "580f0bcd_67af9934",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T20:46:04Z",
+      "side": 1,
+      "message": "Can you please change to IntDef?\n\nhttps://g3doc.corp.google.com/company/teams/android-api-council/guidelines/index.md?cl\u003dhead#framework-avoid-enum",
+      "revId": "dcb23f1038dfa7a5095187306a529a3119aa43aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e0af18e_d5037975",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/SessionParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T20:46:04Z",
+      "side": 1,
+      "message": "Please use Preconditions.checkNotNull and Preconditions.checkArgument\n\nand also move the checks that don\u0027t require correlation to the setters",
+      "revId": "dcb23f1038dfa7a5095187306a529a3119aa43aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
