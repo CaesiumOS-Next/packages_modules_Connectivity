@@ -319,6 +319,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21d9ccff_9367b3af",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/DiscoveryFilter.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-08T23:07:21Z",
+      "side": 1,
+      "message": "Discovery is a process that is going to be used by Registration flow only. After ConnectionInfo is stored in the DB, there is no need to discover again until the device is unregistered.\n\nDuring the day watch may disconnect multiple times from the phone, but no discovery is required as connectionInfo of the registered watch is already stored",
+      "parentUuid": "f2c21742_ed67279a",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9f26a7f_9088684d",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/DiscoveryModule.java",
         "patchSetId": 20
