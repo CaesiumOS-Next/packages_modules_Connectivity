@@ -291,6 +291,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6db6eb30_c82364e3",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-09T14:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1946525f_b8f6bd50",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 60
+      },
+      "revId": "0d2d7ef6c8594d2792fe7a6f677f4f75826bac83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c17c581_edfb20e8",

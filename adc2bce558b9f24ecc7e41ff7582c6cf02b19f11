@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b388b38d_914810cb",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-09T14:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a5e7d61_8342bd10",
+      "range": {
+        "startLine": 200,
+        "startChar": 21,
+        "endLine": 200,
+        "endChar": 26
+      },
+      "revId": "adc2bce558b9f24ecc7e41ff7582c6cf02b19f11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08717b27_2c656457",
@@ -60,6 +84,30 @@
       "writtenOn": "2023-08-09T00:25:27Z",
       "side": 1,
       "message": "btw. what\u0027s the size (nr of elements) of this collection?\nis it always in practice small?",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 85
+      },
+      "revId": "adc2bce558b9f24ecc7e41ff7582c6cf02b19f11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cee9160_603e8647",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-09T14:59:22Z",
+      "side": 1,
+      "message": "Currently it is only used in Tethering for finding the matched source prefix. We only support IPv6 upstream on cellular network now. I think the upstream interface has only one prefix in most of the cases. I saw two subnets before, but never saw any carrier assigns more than two subnets.",
+      "parentUuid": "08717b27_2c656457",
       "range": {
         "startLine": 440,
         "startChar": 0,

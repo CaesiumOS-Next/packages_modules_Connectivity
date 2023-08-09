@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "217f2557_13bea6b8",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-09T14:59:22Z",
+      "side": 1,
+      "message": "Done. Also remove \u0027Collections.unmodifiableSet\u0027 because we need to return HashSet in order to assign it to Params.prefixes.",
+      "parentUuid": "250d4f0c_6e006eba",
+      "range": {
+        "startLine": 386,
+        "startChar": 25,
+        "endLine": 386,
+        "endChar": 48
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bc571cd_90247457",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-09T09:47:02Z",
       "side": 1,
       "message": "Nit: RFC7421_PREFIX_LENGTH",
+      "range": {
+        "startLine": 391,
+        "startChar": 65,
+        "endLine": 391,
+        "endChar": 91
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1398a41f_e4bc0028",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-09T14:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bc571cd_90247457",
       "range": {
         "startLine": 391,
         "startChar": 65,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b173c36_7ce8bcb2",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-09T14:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a21b5bb7_9671f191",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 780,
+        "endChar": 44
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da62fff8_65fdadb9",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-08-09T09:47:02Z",
       "side": 1,
       "message": "Isn\u0027t this the same as params.prefixes?\n\n    final Set\u003cIpPrefix\u003e upstreamPrefixes \u003d (params !\u003d null) ? params.prefixes : Set.Of();",
+      "range": {
+        "startLine": 804,
+        "startChar": 47,
+        "endLine": 804,
+        "endChar": 70
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d746077f_dfc28bd7",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-09T14:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da62fff8_65fdadb9",
       "range": {
         "startLine": 804,
         "startChar": 47,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2295845a_abdd3b89",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-09T14:59:22Z",
+      "side": 1,
+      "message": "It is used in handleNeighborEvent(), otherwise we need to parse it from mLastIPv6LinkProperties every time.",
+      "parentUuid": "f5cf815c_e610e0fa",
+      "range": {
+        "startLine": 808,
+        "startChar": 8,
+        "endLine": 808,
+        "endChar": 33
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ca1d563_6236e2cc",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 6
@@ -129,6 +249,30 @@
       "writtenOn": "2023-08-09T09:47:02Z",
       "side": 1,
       "message": "Do you need to update this comment? The rules can now also change if the prefixes change.",
+      "range": {
+        "startLine": 950,
+        "startChar": 7,
+        "endLine": 950,
+        "endChar": 14
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10178746_f4ee2847",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-09T14:59:22Z",
+      "side": 1,
+      "message": "Added \", upstream\u0027s prefixes change \".",
+      "parentUuid": "7ca1d563_6236e2cc",
       "range": {
         "startLine": 950,
         "startChar": 7,
