@@ -1920,6 +1920,9 @@ public class NsdService extends INsdManager.Stub {
     @Override
     public INsdServiceConnector connect(INsdManagerCallback cb, boolean useJavaBackend) {
         mContext.enforceCallingOrSelfPermission(android.Manifest.permission.INTERNET, "NsdService");
+        if (cb == null) {
+            throw new IllegalArgumentException("Unknown client callback.");
+        }
         if (DBG) Log.d(TAG, "New client connect. useJavaBackend=" + useJavaBackend);
         final INsdServiceConnector connector = new NsdServiceConnector();
         mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(NsdManager.REGISTER_CLIENT,
