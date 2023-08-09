@@ -842,6 +842,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3893e9b1_fbefd9a1",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-09T23:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92ac59bd_ea0a1dea",
+      "range": {
+        "startLine": 60,
+        "startChar": 61,
+        "endLine": 60,
+        "endChar": 72
+      },
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66dd19f2_343be3ca",
@@ -879,6 +903,30 @@
       "side": 1,
       "message": "I don\u0027t know exactly how the implementation will look like and what will be the context of the discovery, this is not SystemApi and can be changed later.\n\nIf we are sure that the context is just user, then I can remove both packageName and attribute",
       "parentUuid": "66dd19f2_343be3ca",
+      "range": {
+        "startLine": 67,
+        "startChar": 49,
+        "endLine": 67,
+        "endChar": 63
+      },
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03283763_4b7e705c",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-09T23:12:44Z",
+      "side": 1,
+      "message": "I just saw that in NearbyService it is used for access control and tracking via AppOpsManager, in general the callback is going to be a context of the responses",
+      "parentUuid": "975ca55f_86ffe400",
       "range": {
         "startLine": 67,
         "startChar": 49,
