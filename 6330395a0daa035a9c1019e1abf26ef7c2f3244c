@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "200d9274_109564b2",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1809097
+      },
+      "writtenOn": "2023-08-09T14:11:05Z",
+      "side": 1,
+      "message": "Would this be better as a mState and a enum for future expandability?\n\nenum State {REGISTERED, NOT_REGISTERED, EXPIRED... etc}.\n\nJust a thought if we want to display more information without adding another property.",
+      "range": {
+        "startLine": 37,
+        "startChar": 26,
+        "endLine": 37,
+        "endChar": 37
+      },
+      "revId": "6330395a0daa035a9c1019e1abf26ef7c2f3244c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
