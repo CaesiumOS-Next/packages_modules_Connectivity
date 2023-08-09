@@ -554,6 +554,10 @@ public class NsdService extends INsdManager.Stub {
                     case NsdManager.REGISTER_CLIENT:
                         final ConnectorArgs arg = (ConnectorArgs) msg.obj;
                         final INsdManagerCallback cb = arg.callback;
+                        if (cb == null) {
+                            Log.e(TAG, "Unknown client callback for registration.");
+                            break;
+                        }
                         try {
                             cb.asBinder().linkToDeath(arg.connector, 0);
                             final String tag = "Client" + arg.uid + "-" + mClientNumberId++;
