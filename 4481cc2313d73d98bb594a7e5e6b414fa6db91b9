@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c48fd66f_a333a8d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:27:58Z",
+      "side": 1,
+      "message": "Just nits, could be addressed separately too",
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec0b3b95_ba401c9f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:27:58Z",
+      "side": 1,
+      "message": "Nit: mServiceWasInCache would be clearer, since \"known\" is not very clear",
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15a2fb7e_305f66a5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:27:58Z",
+      "side": 1,
+      "message": "As commented in parent change: storing a reference to the clock in each Request object is a bit strange, it can be passed as argument to the method that calculates the elapsed time instead",
+      "range": {
+        "startLine": 693,
+        "startChar": 59,
+        "endLine": 693,
+        "endChar": 64
+      },
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf0c0902_6039026e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2492,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:27:58Z",
+      "side": 1,
+      "message": "Unused ?",
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "786c29c8_0524e8ae",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2584,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:27:58Z",
+      "side": 1,
+      "message": "As commented in the parent CL, how about passing the ClientRequest instead ? It has mTransactionId as member too",
+      "range": {
+        "startLine": 2583,
+        "startChar": 77,
+        "endLine": 2584,
+        "endChar": 31
+      },
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08f5dcd2_36ed0c32",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:27:58Z",
+      "side": 1,
+      "message": "Nit: eq(false) would be easy and test more accurately (also for other usages)",
+      "range": {
+        "startLine": 649,
+        "startChar": 63,
+        "endLine": 649,
+        "endChar": 73
+      },
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b5a8a5d_3b05e0b9",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:27:58Z",
+      "side": 1,
+      "message": "eq(false) ?",
+      "range": {
+        "startLine": 1268,
+        "startChar": 71,
+        "endLine": 1268,
+        "endChar": 81
+      },
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

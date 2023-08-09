@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fba32a5b_7f2346b9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceBrowserListener.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:27:58Z",
+      "side": 1,
+      "message": "Nit: was already in cache ? Since it\u0027s always added to the cache when this callback is called",
+      "range": {
+        "startLine": 88,
+        "startChar": 59,
+        "endLine": 88,
+        "endChar": 61
+      },
+      "revId": "24edd84e00ec94e970a8aa2ee1ef6ce027f25c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

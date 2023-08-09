@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c64bf24f_fb0e935f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:27:58Z",
+      "side": 1,
+      "message": "Still in such cases having some rationale on why 20ms would be useful: for example considering that mdnsresponder doesn\u0027t send queries immediately (to be confirmed) as per rfc6762 5.2 \"a Multicast DNS querier SHOULD also delay the first query of the series by a randomly chosen amount in the range 20-120 ms\", and additional delays from the DTIM interval, a reply within 20ms isn\u0027t expected unless it\u0027s from cache, or from an unsolicited announcement that happened to come during that small interval.\n\nBut that said, I\u0027m thinking that this can just be calculated server-side by looking at the metrics value (legacy\u003dtrue, latency \u003c 20), so all things considered maybe it\u0027s simpler to just always say \"false\" here ?",
+      "parentUuid": "d274a2d0_b9b691b7",
+      "range": {
+        "startLine": 1305,
+        "startChar": 75,
+        "endLine": 1305,
+        "endChar": 90
+      },
+      "revId": "afe7805f060cb8532d246acf589d2f450ea6ecd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de777c63_60e55119",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceBrowserListener.java",
         "patchSetId": 6
