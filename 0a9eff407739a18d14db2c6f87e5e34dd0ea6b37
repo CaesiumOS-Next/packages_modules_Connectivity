@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e82dc4e9_bb1d2deb",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T06:19:47Z",
+      "side": 1,
+      "message": "Nit: why specify \"valid\" here? What\u0027s an \"invalid\" prefix, and when might the caller pass it in?",
+      "range": {
+        "startLine": 83,
+        "startChar": 31,
+        "endLine": 83,
+        "endChar": 36
+      },
+      "revId": "0a9eff407739a18d14db2c6f87e5e34dd0ea6b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87dd5131_551173b8",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T06:19:47Z",
+      "side": 1,
+      "message": "Nit: when the following CL is merged, this won\u0027t really \"start\" upstream IPv6 forwarding any more.\n\nIn the current code there can only be one upstream rule per interface. So adding the rule \"starts\" forwarding.\n\nAfter the following CL is merged, upstream IPv6 forwarding could already be happening because there could already be one or more upstream rule.\n\nMaybe we could rename this to addUpstreamIpv6ForwardingRule?\n\nDon\u0027t forget to update the javadoc, which currently says \"starts IPv6 forwarding between the specified interfaces\". This is no longer true, forwarding could already be happening.",
+      "range": {
+        "startLine": 90,
+        "startChar": 30,
+        "endLine": 90,
+        "endChar": 42
+      },
+      "revId": "0a9eff407739a18d14db2c6f87e5e34dd0ea6b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b1127fa_e9e555c2",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T06:19:47Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 102,
+        "startChar": 28,
+        "endLine": 102,
+        "endChar": 32
+      },
+      "revId": "0a9eff407739a18d14db2c6f87e5e34dd0ea6b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
