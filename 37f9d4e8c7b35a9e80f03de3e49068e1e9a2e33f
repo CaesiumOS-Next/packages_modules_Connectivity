@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "250d4f0c_6e006eba",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "Does this need to be public? If not, can you make this private static and take the LinkProperties as an argument? That way, you could call it on |v6only| as well and simplify the code later on. See other comment.\n\nIf you do this, you could also consider renaming the method to getTetherableIpv6Prefixes, since the prefixes don\u0027t have to be upstream prefixes.\n\nAlso if you do this I would suggest making the LinkProperties parameter @NonNull.",
+      "range": {
+        "startLine": 386,
+        "startChar": 25,
+        "endLine": 386,
+        "endChar": 48
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bc571cd_90247457",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "Nit: RFC7421_PREFIX_LENGTH",
+      "range": {
+        "startLine": 391,
+        "startChar": 65,
+        "endLine": 391,
+        "endChar": 91
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a21b5bb7_9671f191",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "Nit: you could replace this with:\n\n    params.prefixes \u003d getUpstreamPrefixes(v6only);",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 780,
+        "endChar": 44
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da62fff8_65fdadb9",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "Isn\u0027t this the same as params.prefixes?\n\n    final Set\u003cIpPrefix\u003e upstreamPrefixes \u003d (params !\u003d null) ? params.prefixes : Set.Of();",
+      "range": {
+        "startLine": 804,
+        "startChar": 47,
+        "endLine": 804,
+        "endChar": 70
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5cf815c_e610e0fa",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "Is this new member necessary? This information is already in mLastIPv6LinkProperties.",
+      "range": {
+        "startLine": 808,
+        "startChar": 8,
+        "endLine": 808,
+        "endChar": 33
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ca1d563_6236e2cc",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "Do you need to update this comment? The rules can now also change if the prefixes change.",
+      "range": {
+        "startLine": 950,
+        "startChar": 7,
+        "endLine": 950,
+        "endChar": 14
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecadf8fc_8b04458c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "Per discussion, it\u0027s unfortunate that this method needs to take a source prefix. The current code creates the upstream rule whenever the first downstream rule is added that references that upstream. That makes sense. But the new code has to consider the source prefix as well.\n\nI think what you have works because all the operations before it (maybeAddDevMap, maybeSetLimit, etc.) are idempotent. But it\u0027s hard to follow, and it means that the new code uses the prefixes from the downstream neighbours to determine upstream forwarding rules. That\u0027s a bit indirect. Again, I think what you have works because whenever we create an Ipv6ForwardingRule, we check that the IP address matches one of the upstream prefixes. But without that check the would be incorrect - I think it\u0027s possible in corner cases for a downstream neighbour to have an IPv6 address that\u0027s not from one of the upstream prefixes.\n\nI think this code would be easier to follow if we separated the upstream and downstream rules. We could rename Ipv6ForwardingRule to Ipv6DownstreamRule and use that to track downstream rules. These aren\u0027t specific to upstream prefixes, so we don\u0027t need to consider the upstream prefixes when calculating them. We could add them any time a neighbour was created regardless of upstream prefixes (or even if the upstream didn\u0027t have IPv6, even).\n\nThen we\u0027d have separate upstream rules (a new Ipv6UpstreamRule class?). These need to track the upstream prefixes but don\u0027t need to depend on the neighbour events. We can add them whenever the upstream prefixes change (and maybe add them even if there are no neighbours yet).\n\nOf course whenever we add any rule, either downstream or upstream, we\u0027d have to call maybeAddDevMap and maybeSetLimit and so on.\n\nCare to tackle that? Maybe in a separate CL based on top of aosp/2696274 ? If that approach doesn\u0027t work, or is too complex, we can go back to this CL instead.",
+      "range": {
+        "startLine": 617,
+        "startChar": 16,
+        "endLine": 617,
+        "endChar": 33
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f1eff89_2424c052",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "Per discussion - this is always the same as the top 64 bits of the |address| member, so we shouldn\u0027t store it. If we need it, we can reconstruct it using something like:\n\n    public IpPrefix getSourcePrefix() {\n        return new IpPrefix(address, RFC7421_PREFIX_LENGTH);\n    }\n\nI think that would simplify this CL a fair bit because we wouldn\u0027t need to pass the source prefixes around so much.",
+      "range": {
+        "startLine": 1475,
+        "startChar": 8,
+        "endLine": 1475,
+        "endChar": 43
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94387b5b_71d41ac2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/PrefixUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "Is it useful to allow the caller to pass in null? That doesn\u0027t seem to make any sense. Can we make this @NonNull?",
+      "range": {
+        "startLine": 101,
+        "startChar": 45,
+        "endLine": 101,
+        "endChar": 54
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29a58c38_78c00159",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/PrefixUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "Can you add a simple unit test for this?",
+      "range": {
+        "startLine": 101,
+        "startChar": 27,
+        "endLine": 101,
+        "endChar": 44
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4be9df7b_669e03b9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/PrefixUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "Matching",
+      "range": {
+        "startLine": 100,
+        "startChar": 13,
+        "endLine": 101,
+        "endChar": 31
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "968f5679_005053e9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/PrefixUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-09T09:47:02Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 22
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
