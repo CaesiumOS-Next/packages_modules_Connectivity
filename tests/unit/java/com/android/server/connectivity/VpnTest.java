@@ -1765,6 +1765,20 @@ public class VpnTest extends VpnTestBase {
     }
 
     @Test
+    public void testStartLegacyVpnIpv6() throws Exception {
+        setMockedUsers(PRIMARY_USER);
+        final Vpn vpn = createVpn(PRIMARY_USER.id);
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(EGRESS_IFACE);
+        lp.addLinkAddress(new LinkAddress("2001:db8::1/64"));
+        final RouteInfo defaultRoute = new RouteInfo(new IpPrefix("::/0"), null, EGRESS_IFACE);
+        lp.addRoute(defaultRoute);
+
+        assertThrows(IllegalStateException.class,
+                () -> vpn.startLegacyVpn(mVpnProfile, EGRESS_NETWORK, lp));
+    }
+
+    @Test
     public void testStartPlatformVpnIllegalArgumentExceptionInSetup() throws Exception {
         when(mIkev2SessionCreator.createIkeSession(any(), any(), any(), any(), any(), any()))
                 .thenThrow(new IllegalArgumentException());

@@ -1494,14 +1494,7 @@ public class ConnectivityServiceTest {
 
         private int mVpnType = VpnManager.TYPE_VPN_SERVICE;
         private UnderlyingNetworkInfo mUnderlyingNetworkInfo;
-
-        // This ConditionVariable allow tests to wait for LegacyVpnRunner to be started.
-        // TODO: this scheme is ad-hoc and error-prone because it does not fail if, for example, the
-        // test expects two starts in a row, or even if the production code calls start twice in a
-        // row. find a better solution. Simply putting a method to create a LegacyVpnRunner into
-        // Vpn.Dependencies doesn't work because LegacyVpnRunner is not a static class and has
-        // extensive access into the internals of Vpn.
-        private ConditionVariable mStartLegacyVpnCv = new ConditionVariable();
+        private boolean mVpnStarted = false;
 
         public MockVpn(int userId) {
             super(startHandlerThreadAndReturnLooper(), mServiceContext,
@@ -1662,24 +1655,39 @@ public class ConnectivityServiceTest {
             mInterface = null;
         }
 
-        @Override
-        public void startLegacyVpnRunner() {
-            mStartLegacyVpnCv.open();
-        }
-
-        public void expectStartLegacyVpnRunner() {
-            assertTrue("startLegacyVpnRunner not called after " + TIMEOUT_MS + " ms",
-                    mStartLegacyVpnCv.block(TIMEOUT_MS));
+        private synchronized void startLegacyVpn() {
+            updateState(DetailedState.CONNECTING, "startLegacyVpn");
+            mVpnStarted = true;
         }
 
         @Override
-        public void stopVpnRunnerPrivileged() {
-            if (mVpnRunner != null) {
-                super.stopVpnRunnerPrivileged();
-                disconnect();
-                mStartLegacyVpnCv = new ConditionVariable();
+        public void startLegacyVpnPrivileged(VpnProfile profile,
+                @Nullable Network underlying, @NonNull LinkProperties egress) {
+            switch (profile.type) {
+                case VpnProfile.TYPE_IKEV2_IPSEC_RSA:
+                case VpnProfile.TYPE_IKEV2_IPSEC_USER_PASS:
+                case VpnProfile.TYPE_IKEV2_IPSEC_PSK:
+                case VpnProfile.TYPE_IKEV2_FROM_IKE_TUN_CONN_PARAMS:
+                    fail("Platform VPN is not yet mocked");
+                    break;
+                case VpnProfile.TYPE_L2TP_IPSEC_PSK:
+                case VpnProfile.TYPE_L2TP_IPSEC_RSA:
+                case VpnProfile.TYPE_IPSEC_XAUTH_PSK:
+                case VpnProfile.TYPE_IPSEC_XAUTH_RSA:
+                case VpnProfile.TYPE_IPSEC_HYBRID_RSA:
+                    startLegacyVpn();
+                    break;
+                default:
+                    fail("Unknown VPN profile type");
             }
-            mVpnRunner = null;
+        }
+
+        @Override
+        public synchronized void stopVpnRunnerPrivileged() {
+            if (mVpnStarted) {
+                disconnect();
+                mVpnStarted = false;
+            }
         }
 
         @Override
@@ -10187,48 +10195,13 @@ public class ConnectivityServiceTest {
         mMockVpn.setLockdown(true);
 
         // Bring up a network.
-        // Expect nothing to happen because the network does not have an IPv4 default route: legacy
-        // VPN only supports IPv4.
         final LinkProperties cellLp = new LinkProperties();
         cellLp.setInterfaceName("rmnet0");
-        cellLp.addLinkAddress(new LinkAddress("2001:db8::1/64"));
-        cellLp.addRoute(new RouteInfo(new IpPrefix("::/0"), null, "rmnet0"));
-        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
-        mCellAgent.connect(false /* validated */);
-        callback.expectAvailableCallbacksUnvalidatedAndBlocked(mCellAgent);
-        defaultCallback.expectAvailableCallbacksUnvalidatedAndBlocked(mCellAgent);
-        systemDefaultCallback.expectAvailableCallbacksUnvalidatedAndBlocked(mCellAgent);
-        // LockdownVpnTracker attempts to start the VPN after the systemDefault callback.
-        // IllegalStateException thrown since legacy VPN only supports IPv4.
-        assertThrows(IllegalStateException.class,
-                () -> mMockVpn.startLegacyVpnPrivileged(profile, mCellAgent.getNetwork(), cellLp));
-        waitForIdle();
-        assertNull(mMockVpn.getAgent());
-
-        // Add an IPv4 address. Ideally the VPN should start, but it doesn't because nothing calls
-        // LockdownVpnTracker#handleStateChangedLocked. This is a bug.
-        // TODO: consider fixing this.
         cellLp.addLinkAddress(new LinkAddress("192.0.2.2/25"));
         cellLp.addRoute(new RouteInfo(new IpPrefix("0.0.0.0/0"), null, "rmnet0"));
-        mCellAgent.sendLinkProperties(cellLp);
-        callback.expect(LINK_PROPERTIES_CHANGED, mCellAgent);
-        defaultCallback.expect(LINK_PROPERTIES_CHANGED, mCellAgent);
-        systemDefaultCallback.expect(LINK_PROPERTIES_CHANGED, mCellAgent);
-        waitForIdle();
-        assertNull(mMockVpn.getAgent());
-
-        // Disconnect, then try again with a network that supports IPv4 at connection time.
-        // Expect lockdown VPN to come up.
-        ExpectedBroadcast b1 = expectConnectivityAction(TYPE_MOBILE, DetailedState.DISCONNECTED);
-        mCellAgent.disconnect();
-        callback.expect(LOST, mCellAgent);
-        defaultCallback.expect(LOST, mCellAgent);
-        systemDefaultCallback.expect(LOST, mCellAgent);
-        b1.expectBroadcast();
-
         // When lockdown VPN is active, the NetworkInfo state in CONNECTIVITY_ACTION is overwritten
         // with the state of the VPN network. So expect a CONNECTING broadcast.
-        b1 = expectConnectivityAction(TYPE_MOBILE, DetailedState.CONNECTING);
+        ExpectedBroadcast b1 = expectConnectivityAction(TYPE_MOBILE, DetailedState.CONNECTING);
         mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
         mCellAgent.connect(false /* validated */);
         callback.expectAvailableCallbacksUnvalidatedAndBlocked(mCellAgent);
@@ -10243,20 +10216,6 @@ public class ConnectivityServiceTest {
         assertNetworkInfo(TYPE_VPN, DetailedState.BLOCKED);
         assertExtraInfoFromCmBlocked(mCellAgent);
 
-        // TODO: it would be nice if we could simply rely on the production code here, and have
-        // LockdownVpnTracker start the VPN, have the VPN code register its NetworkAgent with
-        // ConnectivityService, etc. That would require duplicating a fair bit of code from the
-        // Vpn tests around how to mock out LegacyVpnRunner. But even if we did that, this does not
-        // work for at least two reasons:
-        // 1. In this test, calling registerNetworkAgent does not actually result in an agent being
-        //    registered. This is because nothing calls onNetworkMonitorCreated, which is what
-        //    actually ends up causing handleRegisterNetworkAgent to be called. Code in this test
-        //    that wants to register an agent must use TestNetworkAgentWrapper.
-        // 2. Even if we exposed Vpn#agentConnect to the test, and made MockVpn#agentConnect call
-        //    the TestNetworkAgentWrapper code, this would deadlock because the
-        //    TestNetworkAgentWrapper code cannot be called on the handler thread since it calls
-        //    waitForIdle().
-        mMockVpn.expectStartLegacyVpnRunner();
         b1 = expectConnectivityAction(TYPE_VPN, DetailedState.CONNECTED);
         ExpectedBroadcast b2 = expectConnectivityAction(TYPE_MOBILE, DetailedState.CONNECTED);
         establishLegacyLockdownVpn(mCellAgent.getNetwork());
@@ -10302,7 +10261,7 @@ public class ConnectivityServiceTest {
         final ExpectedBroadcast b3 = expectConnectivityAction(TYPE_VPN, DetailedState.DISCONNECTED);
         mMockVpn.stopVpnRunnerPrivileged();
         mMockVpn.startLegacyVpnPrivileged(profile, mWiFiAgent.getNetwork(), wifiLp);
-        mMockVpn.expectStartLegacyVpnRunner();
+        // VPN network is disconnected (to restart)
         callback.expect(LOST, mMockVpn);
         defaultCallback.expect(LOST, mMockVpn);
         defaultCallback.expectAvailableCallbacksUnvalidatedAndBlocked(mWiFiAgent);
