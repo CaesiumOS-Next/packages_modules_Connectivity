@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "933dfefa_033168f2",
+        "filename": "tests/cts/net/src/android/net/cts/PermissionUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:47:29Z",
+      "side": 1,
+      "message": "PermissionUtils is not an API (it\u0027s an @hide util class) so its tests should not be in CTS if possible. frameworks/libs/net/common/tests/unit/ would be a better place (although it\u0027s not strictly a unit test since it looks at actual permissions). Another reason is that libs/net classes are included in many modules, and the tests need to be in frameworks/libs/net/common/tests/unit/ so they are included in tests that contribute to code coverage calculations for each of these.",
+      "revId": "543a5375f54e547a7bcee44b5ed5b25adb8064e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "770adcee_a7caf4e9",
+        "filename": "tests/cts/net/src/android/net/cts/PermissionUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:47:29Z",
+      "side": 1,
+      "message": "Fun fact: this may fail on some non-mainline devices, where the OEM may choose to sign NetworkStack with the platform key. In particular this would fail on TVs, cars, watches up to Android T, and Go devices up to S, since they used com.android.networkstack.inprocess which declares the permission and is signed by the platform key. In U+ it can still fail on non-GMS devices if OEMs don\u0027t want to generate their own key, and just reuse the platform key instead (there\u0027s no requirement that they use a different key).\n\nIf you move this to unit tests you won\u0027t have to worry about whether this passing is a CDD requirement :)",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "543a5375f54e547a7bcee44b5ed5b25adb8064e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04cae4b3_8ba62f5c",
+        "filename": "tests/cts/net/src/android/net/cts/PermissionUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:47:29Z",
+      "side": 1,
+      "message": "Nit: use the android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK constant",
+      "range": {
+        "startLine": 32,
+        "startChar": 74,
+        "endLine": 32,
+        "endChar": 96
+      },
+      "revId": "543a5375f54e547a7bcee44b5ed5b25adb8064e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36358a36_c821f44a",
+        "filename": "tests/cts/net/src/android/net/cts/PermissionUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T09:47:29Z",
+      "side": 1,
+      "message": "Nit: while you\u0027re at it, you can check that this returns false for a permission that shouldn\u0027t be held by anybody (some string that is unlikely to become a permission name)",
+      "revId": "543a5375f54e547a7bcee44b5ed5b25adb8064e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
