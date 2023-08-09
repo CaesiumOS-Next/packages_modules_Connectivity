@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c11022fd_3df2a867",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-09T00:25:27Z",
+      "side": 1,
+      "message": "not following why we are doing this?\n\nis this just a bug that is being fixed? if so - separate cl",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 44
+      },
+      "revId": "adc2bce558b9f24ecc7e41ff7582c6cf02b19f11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a5e7d61_8342bd10",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-09T00:25:27Z",
+      "side": 1,
+      "message": "you should be able to do the previous fetch right here in this line, the extra variable doesn\u0027t help",
+      "range": {
+        "startLine": 200,
+        "startChar": 21,
+        "endLine": 200,
+        "endChar": 26
+      },
+      "revId": "adc2bce558b9f24ecc7e41ff7582c6cf02b19f11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08717b27_2c656457",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-09T00:25:27Z",
+      "side": 1,
+      "message": "btw. what\u0027s the size (nr of elements) of this collection?\nis it always in practice small?",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 85
+      },
+      "revId": "adc2bce558b9f24ecc7e41ff7582c6cf02b19f11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
