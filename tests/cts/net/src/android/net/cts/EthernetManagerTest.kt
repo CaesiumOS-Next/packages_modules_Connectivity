@@ -653,9 +653,8 @@ class EthernetManagerTest {
 
         val listener = EthernetStateListener()
         addInterfaceStateListener(listener)
-        // BUG(241070589): server mode interfaces should report STATE_LINK_UP
         listener.eventuallyExpect(InterfaceStateChanged(iface.name,
-                STATE_ABSENT, ROLE_SERVER, /* IpConfiguration */ null))
+                STATE_LINK_UP, ROLE_SERVER, /* IpConfiguration */ null))
 
         releaseTetheredInterface()
         listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
