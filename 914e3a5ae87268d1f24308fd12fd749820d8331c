@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf0d2df3_ff39ab69",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T08:51:01Z",
+      "side": 1,
+      "message": "Nit: how about just passing \"request\" ? If the argument are always going to be calculated by calling these methods on \"request\", it\u0027s simpler to have them called inside the method.",
+      "range": {
+        "startLine": 851,
+        "startChar": 36,
+        "endLine": 851,
+        "endChar": 43
+      },
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e16bb357_978a6e0d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T08:51:01Z",
+      "side": 1,
+      "message": "request.onServiceFound and clientInfo.onServiceFound would always be called together right ?\n\nIn that case how about moving the call to request.onServiceFound inside clientInfo.onServiceFound ? This avoids forgetting to call one of the two, and it would be more consistent with onDiscoverServicesStarted and onStopDiscoverySucceeded, which already do metrics tracking (otherwise incrementing the counters and sending the metrics is done in 2 different places, which is harder to track).\n\nSame for onServiceLost",
+      "range": {
+        "startLine": 1215,
+        "startChar": 32,
+        "endLine": 1215,
+        "endChar": 46
+      },
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e747f343_e7bc416a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T08:51:01Z",
+      "side": 1,
+      "message": "Is that actually possible ? request is obtained via mClientRequests.get(clientRequestId), and clientRequestId was found by finding the request in the map that matches the transactionId",
+      "range": {
+        "startLine": 1245,
+        "startChar": 32,
+        "endLine": 1245,
+        "endChar": 48
+      },
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b043f39_084703ea",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1410,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T08:51:01Z",
+      "side": 1,
+      "message": "Is there a good guarantee that this is non-null at this point ? If not this should be checked. RESOLVE_SERVICE_SUCCEEDED does have a null check",
+      "range": {
+        "startLine": 1410,
+        "startChar": 24,
+        "endLine": 1410,
+        "endChar": 31
+      },
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bf4d754_53d15264",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2201,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T08:51:01Z",
+      "side": 1,
+      "message": "Not necessarily for this change: it\u0027s a bit wasteful to have a member for mClock in each ClientRequest, considering there\u0027s already one in NsdService (and they should be all the same); you could have it as argument to calculateRequestDurationMs instead",
+      "range": {
+        "startLine": 2201,
+        "startChar": 28,
+        "endLine": 2201,
+        "endChar": 34
+      },
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e73038b_be135884",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2220,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-09T08:51:01Z",
+      "side": 1,
+      "message": "Can you limit the size of this set, for example to 100 services or something like that ? Otherwise it may be possible for hosts in the network to send a lot of advertisements that would fill memory",
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
