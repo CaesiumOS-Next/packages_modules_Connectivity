@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2023 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.android.server
 
 import android.content.BroadcastReceiver
@@ -10,19 +26,14 @@ import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.INetd
 import android.net.InetAddresses
-import android.net.IpPrefix
-import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
-import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED
-import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED
 import android.net.NetworkPolicyManager
 import android.net.NetworkProvider
 import android.net.NetworkScore
 import android.net.PacProxyManager
-import android.net.RouteInfo
 import android.net.networkstack.NetworkStackClientBase
 import android.os.Handler
 import android.os.HandlerThread
@@ -41,6 +52,7 @@ import com.android.server.connectivity.ConnectivityFlags
 import com.android.server.connectivity.MultinetworkPolicyTracker
 import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies
 import com.android.server.connectivity.ProxyTracker
+import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
 import org.mockito.AdditionalAnswers.delegatesTo
 import org.mockito.Mockito.doAnswer
@@ -55,6 +67,14 @@ internal const val WIFI_WOL_IFNAME = "test_wlan_wol"
 internal val LOCAL_IPV4_ADDRESS = InetAddresses.parseNumericAddress("192.0.2.1")
 
 open class FromS<Type>(val value: Type)
+
+internal const val VERSION_UNMOCKED = -1
+internal const val VERSION_R = 1
+internal const val VERSION_S = 2
+internal const val VERSION_T = 3
+internal const val VERSION_U = 4
+internal const val VERSION_V = 5
+internal const val VERSION_MAX = VERSION_V
 
 /**
  * Base class for tests testing ConnectivityService and its satellites.
@@ -71,7 +91,7 @@ open class CSTest {
     init {
         if (!SdkLevel.isAtLeastS()) {
             throw UnsupportedApiLevelException("CSTest subclasses must be annotated to only " +
-                    "run on S+, e.g. @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)");
+                    "run on S+, e.g. @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)")
         }
     }
 
@@ -107,6 +127,7 @@ open class CSTest {
     val packageManager = makeMockPackageManager()
     val connResources = makeMockConnResources(sysResources, packageManager)
 
+    val netd = mock<INetd>()
     val bpfNetMaps = mock<BpfNetMaps>()
     val clatCoordinator = mock<ClatCoordinator>()
     val proxyTracker = ProxyTracker(context, mock<Handler>(), 16 /* EVENT_PROXY_HAS_CHANGED */)
@@ -117,7 +138,7 @@ open class CSTest {
     }
 
     val deps = CSDeps()
-    val service = makeConnectivityService(context, deps).also { it.systemReadyInternal() }
+    val service = makeConnectivityService(context, netd, deps).also { it.systemReadyInternal() }
     val cm = ConnectivityManager(context, service)
     val csHandler = Handler(csHandlerThread.looper)
 
@@ -150,6 +171,24 @@ open class CSTest {
         // checking permissions.
         override fun isFeatureEnabled(context: Context?, name: String?) =
                 enabledFeatures[name] ?: fail("Unmocked feature $name, see CSTest.enabledFeatures")
+
+        // In AOSP, build version codes are all over the place (e.g. at the time of this writing
+        // U == V). Define custom ones.
+        private var sdkLevel = VERSION_UNMOCKED
+        private val sdkUnmocked get() = sdkLevel == VERSION_UNMOCKED
+
+        fun setBuildSdk(sdkLevel: Int) {
+            require(sdkLevel <= VERSION_MAX) {
+                "setBuildSdk must not be called with Build.VERSION constants but " +
+                        "CsTest.VERSION_* constants"
+            }
+            visibleOnHandlerThread(csHandler) { this.sdkLevel = sdkLevel }
+        }
+
+        override fun isAtLeastS() = if (sdkUnmocked) super.isAtLeastS() else sdkLevel >= VERSION_S
+        override fun isAtLeastT() = if (sdkUnmocked) super.isAtLeastT() else sdkLevel >= VERSION_T
+        override fun isAtLeastU() = if (sdkUnmocked) super.isAtLeastU() else sdkLevel >= VERSION_U
+        override fun isAtLeastV() = if (sdkUnmocked) super.isAtLeastV() else sdkLevel >= VERSION_V
     }
 
     inner class CSContext(base: Context) : BroadcastInterceptingContext(base) {
@@ -203,19 +242,6 @@ open class CSTest {
 
     // Utility methods for subclasses to use
     fun waitForIdle() = csHandlerThread.waitForIdle(HANDLER_TIMEOUT_MS)
-
-    private fun emptyAgentConfig() = NetworkAgentConfig.Builder().build()
-    private fun defaultNc() = NetworkCapabilities.Builder()
-            // Add sensible defaults for agents that don't want to care
-            .addCapability(NET_CAPABILITY_NOT_SUSPENDED)
-            .addCapability(NET_CAPABILITY_NOT_ROAMING)
-            .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
-            .build()
-    private fun defaultScore() = FromS<NetworkScore>(NetworkScore.Builder().build())
-    private fun defaultLp() = LinkProperties().apply {
-        addLinkAddress(LinkAddress(LOCAL_IPV4_ADDRESS, 32))
-        addRoute(RouteInfo(IpPrefix("0.0.0.0/0"), null, null))
-    }
 
     // Network agents. See CSAgentWrapper. This class contains utility methods to simplify
     // creation.

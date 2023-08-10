@@ -1316,6 +1316,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return SdkLevel.isAtLeastU();
         }
 
+        public boolean isAtLeastV() {
+            return SdkLevel.isAtLeastV();
+        }
+
         /**
          * Get system properties to use in ConnectivityService.
          */
@@ -4993,7 +4997,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         !nai.networkAgentConfig.allowBypass /* secure */,
                         getVpnType(nai), nai.networkAgentConfig.excludeLocalRouteVpn);
             } else {
-                config = new NativeNetworkConfig(nai.network.getNetId(), NativeNetworkType.PHYSICAL,
+                final boolean hasLocalCap =
+                        nai.networkCapabilities.hasCapability(NET_CAPABILITY_LOCAL_NETWORK);
+                if (hasLocalCap && !mDeps.isAtLeastV()) {
+                    // Before V, netd doesn't support PHYSICAL_LOCAL networks. This code is
+                    // supposed to be never called, but if it is, do not create a network.
+                    Log.wtf(TAG, "Local networks are not supported before Android V.");
+                    return false;
+                }
+                config = new NativeNetworkConfig(nai.network.getNetId(),
+                        hasLocalCap ? NativeNetworkType.PHYSICAL_LOCAL : NativeNetworkType.PHYSICAL,
                         getNetworkPermission(nai.networkCapabilities),
                         false /* secure */,
                         VpnManager.TYPE_VPN_NONE,
@@ -9174,7 +9187,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // are Type.LISTEN, but should not have NetworkCallbacks invoked.
             return;
         }
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         // TODO b/177608132: make sure callbacks are indexed by NRIs and not NetworkRequest objects.
         // TODO: check if defensive copies of data is needed.
         final NetworkRequest nrForCallback = nri.getNetworkRequestForCallback();
