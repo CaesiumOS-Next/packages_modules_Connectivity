@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5c70b94_e35b0b0e",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-10T04:37:45Z",
+      "side": 1,
+      "message": "Per discussion: I was not suggesting that we change the parameter types here. But since we already have an \"addDownstreamIpv6ForwardingRule\" method that takes a rule object, I agree that calling this addUpstreamIpv6ForwardingRule would be inconsistent.\n\nMaybe we can leave this as is in this CL. Then when we add the Ipv6UpstreamForwardingRule class, we can rename this method to addIpv6ForwardingRule and have it take an Ipv6UpstreamForwardingRule parameter?\n\nSo no action required in this CL.",
+      "parentUuid": "87dd5131_551173b8",
+      "range": {
+        "startLine": 90,
+        "startChar": 30,
+        "endLine": 90,
+        "endChar": 42
+      },
+      "revId": "0a9eff407739a18d14db2c6f87e5e34dd0ea6b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b1127fa_e9e555c2",
         "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
         "patchSetId": 1
