@@ -16,6 +16,9 @@
 
 package com.android.server
 
+import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK
+import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
 import android.net.NetworkScore
 import android.net.NetworkScore.KEEP_CONNECTED_DOWNSTREAM_NETWORK
