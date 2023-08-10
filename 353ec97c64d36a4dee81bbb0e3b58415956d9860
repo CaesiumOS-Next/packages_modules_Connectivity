@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b8dc8d7_0947c3fa",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2302,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-10T01:38:06Z",
+      "side": 1,
+      "message": "What is the point of making this volatile ? This seems to be a misunderstanding of what volatile does.\n\n• Either your callers have a happens-before relationship from the write to the read, and you don\u0027t need volatile.\n• Or they don\u0027t, and volatile is useless\n\nCan you justify the use of volatile here ?",
+      "range": {
+        "startLine": 2302,
+        "startChar": 16,
+        "endLine": 2302,
+        "endChar": 24
+      },
+      "revId": "353ec97c64d36a4dee81bbb0e3b58415956d9860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
