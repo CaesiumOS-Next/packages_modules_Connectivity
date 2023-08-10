@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad26172d_24959d69",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHardwareInterfaceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-10T04:48:44Z",
+      "side": 1,
+      "message": "Nit: instead of adding multiple method overloads, it\u0027s often better to change the callsites to add the extra parameters. In this case, it seems better to have the callers of this method call the method in line 120 and always pass in true.",
+      "range": {
+        "startLine": 116,
+        "startChar": 17,
+        "endLine": 116,
+        "endChar": 46
+      },
+      "revId": "fc8087742232b2591d46db9e410dcfe1c84cdd4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f15ee37_9c2d06a3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHardwareInterfaceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-10T04:48:44Z",
+      "side": 1,
+      "message": "This is hard to read. It should at least be put in () for readability.",
+      "range": {
+        "startLine": 133,
+        "startChar": 28,
+        "endLine": 133,
+        "endChar": 92
+      },
+      "revId": "fc8087742232b2591d46db9e410dcfe1c84cdd4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
