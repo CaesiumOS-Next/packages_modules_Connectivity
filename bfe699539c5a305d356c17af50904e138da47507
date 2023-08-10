@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dc611e2_62b2be3c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1924,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-10T03:56:46Z",
+      "side": 1,
+      "message": "I think we also also log the caller UID so we can identify which service is doing bad things",
+      "range": {
+        "startLine": 1924,
+        "startChar": 53,
+        "endLine": 1924,
+        "endChar": 72
+      },
+      "revId": "bfe699539c5a305d356c17af50904e138da47507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
