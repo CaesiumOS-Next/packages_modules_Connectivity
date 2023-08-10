@@ -1,0 +1,233 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "073bd623_435d753e",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "extra * here",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 14
+      },
+      "revId": "c396e153e6b2842db821b84441beaee13dcdb81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e723d5b9_9c393155",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "reaching timeout.\n                ^ missing period too\n                \nor just \"due to timeout.\"",
+      "range": {
+        "startLine": 59,
+        "startChar": 48,
+        "endLine": 59,
+        "endChar": 67
+      },
+      "revId": "c396e153e6b2842db821b84441beaee13dcdb81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f37c6c0e_dafe815e",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "delete",
+      "range": {
+        "startLine": 33,
+        "startChar": 3,
+        "endLine": 33,
+        "endChar": 20
+      },
+      "revId": "c396e153e6b2842db821b84441beaee13dcdb81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4780b67_b05293af",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "delete",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 14
+      },
+      "revId": "c396e153e6b2842db821b84441beaee13dcdb81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfcd104d_b19dc88b",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "I think you can get rid of this comment and move this line up",
+      "range": {
+        "startLine": 51,
+        "startChar": 32,
+        "endLine": 51,
+        "endChar": 77
+      },
+      "revId": "c396e153e6b2842db821b84441beaee13dcdb81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28227bf2_4907b0e8",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "I think you can delete this comment based on what\u0027s going on in the rest of the codebase and @dataclass generated code.",
+      "revId": "c396e153e6b2842db821b84441beaee13dcdb81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7dbd0b3_73dce492",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthFrameworkInitializer.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "replace with \"initializing\" since this one doesn\u0027t actually do stuff.",
+      "range": {
+        "startLine": 24,
+        "startChar": 13,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "c396e153e6b2842db821b84441beaee13dcdb81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "015729b7_ee820fdd",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "if",
+      "range": {
+        "startLine": 97,
+        "startChar": 28,
+        "endLine": 97,
+        "endChar": 35
+      },
+      "revId": "c396e153e6b2842db821b84441beaee13dcdb81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c529d4c1_bc8baa34",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "Probably this shouldn\u0027t be in the javadoc, so it can move to a comment below the javadoc block.",
+      "revId": "c396e153e6b2842db821b84441beaee13dcdb81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3134d4d2_ac183ba8",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "Would this branch be reached if the discovery timed out and we get to this point? if yes, we should log this as debug instead of error because it\u0027s pretty likely to happen.",
+      "revId": "c396e153e6b2842db821b84441beaee13dcdb81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45501ee9_df5996d3",
+        "filename": "remoteauth/tests/unit/Android.bp",
+        "patchSetId": 30
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "I think you can leave this off",
+      "revId": "c396e153e6b2842db821b84441beaee13dcdb81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

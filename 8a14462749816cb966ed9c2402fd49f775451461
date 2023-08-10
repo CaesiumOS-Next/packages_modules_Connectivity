@@ -246,6 +246,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52b66f2d_5905fae3",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "195f2fca_39954896",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bae3f640_26705024",
@@ -277,6 +295,24 @@
       "side": 1,
       "message": "DataClass is not available in mainline module",
       "parentUuid": "bae3f640_26705024",
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a70d934_53964e15",
+        "filename": "remoteauth/framework/java/android/remoteauth/DiscoveredDevice.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "As discussed offline, please make it available.\n\nIt\u0027s fine to do this in a follow-up CL tracked in a bug.\n\nI actually stopped reviewing the details below my last comment since it will change to generated code later.",
+      "parentUuid": "837edbce_828c9422",
       "revId": "8a14462749816cb966ed9c2402fd49f775451461",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -927,6 +963,30 @@
       "side": 1,
       "message": "I just saw that in NearbyService it is used for access control and tracking via AppOpsManager, in general the callback is going to be a context of the responses",
       "parentUuid": "975ca55f_86ffe400",
+      "range": {
+        "startLine": 67,
+        "startChar": 49,
+        "endLine": 67,
+        "endChar": 63
+      },
+      "revId": "8a14462749816cb966ed9c2402fd49f775451461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faf9e0bf_bad29fec",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/RemoteAuthService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T23:56:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03283763_4b7e705c",
       "range": {
         "startLine": 67,
         "startChar": 49,
