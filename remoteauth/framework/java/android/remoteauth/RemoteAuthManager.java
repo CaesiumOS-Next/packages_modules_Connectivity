@@ -34,6 +34,7 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.util.Preconditions;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.concurrent.Executor;
@@ -235,6 +236,158 @@ public class RemoteAuthManager {
                 mDiscoveryListeners.remove(mDeviceDiscoveryCallback);
             }
             mDeviceDiscoveryCallback = null;
+        }
+    }
+
+    /**
+     * Returns a list of registered {@link RemoteAuthenticator}.
+     *
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    @NonNull
+    // TODO(b/297301535): @RequiresPermission(MANAGE_REMOTE_AUTH)
+    public List<RemoteAuthenticator> getRemoteAuthenticators() {
+        try {
+            return mService.getRemoteAuthenticators();
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Registers {@link RemoteDevice} as {@link RemoteAuthenticator}.
+     *
+     * @param device {@link RemoteDevice}
+     * @param executor the callback will be executed in the executor thread
+     * @param callback to be used by the caller to be notified about a result
+     * @return true if registration began successfully
+     * @hide
+     */
+    @SuppressLint("UserHandle")
+    @SystemApi(client = MODULE_LIBRARIES)
+    public boolean registerAuthenticator(
+            @NonNull RemoteDevice device,
+            @CallbackExecutor @NonNull Executor executor,
+            @NonNull RegistrationCallback callback) {
+        try {
+            Preconditions.checkNotNull(device, "invalid null device");
+            Preconditions.checkNotNull(callback, "invalid null callback");
+            Preconditions.checkNotNull(executor, "invalid null executor");
+
+            RegisterAuthenticatorListenerTransport transport =
+                    new RegisterAuthenticatorListenerTransport(callback, executor);
+
+            return mService.registerAuthenticatorListener(
+                    transport, device, mContext.getUser().getIdentifier());
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    private static class RegisterAuthenticatorListenerTransport
+            extends IRegisterAuthenticatorListener.Stub {
+
+        private volatile @NonNull RegistrationCallback mCallback;
+        private Executor mExecutor;
+
+        RegisterAuthenticatorListenerTransport(
+                RegistrationCallback callback, @CallbackExecutor Executor executor) {
+            Preconditions.checkNotNull(callback, "invalid null callback");
+            Preconditions.checkNotNull(executor, "invalid null executor");
+            mCallback = callback;
+            mExecutor = executor;
+        }
+
+        @Override
+        public void onRegistered(RemoteAuthenticator remoteAuthenticator) throws RemoteException {
+            if (remoteAuthenticator != null) {
+                Log.i(TAG, "Notifying the caller about discovered: " + remoteAuthenticator);
+            }
+            mExecutor.execute(
+                    () -> {
+                        if (mCallback != null && remoteAuthenticator != null) {
+                            mCallback.onRegistered(remoteAuthenticator);
+                        }
+                    });
+        }
+
+        @Override
+        public void onFailure(int errorCode, CharSequence errString) throws RemoteException {
+            if (errString != null) {
+                Log.i(TAG, "Notifying the caller about registration error: " + errString);
+            }
+            mExecutor.execute(
+                    () -> {
+                        if (mCallback != null && errString != null) {
+                            mCallback.onFailure(errorCode, errString);
+                        }
+                    });
+        }
+    }
+
+    /**
+     * Unregisters {@link RemoteAuthenticator}.
+     *
+     * @param remoteAuthenticator an authenticator
+     * @param executor the callback will be executed in the executor thread
+     * @param callback to be used by the caller to be notified about a result
+     * @return true if unregistration began successfully
+     * @hide
+     */
+    public boolean unregisterAuthenticator(
+            @NonNull RemoteAuthenticator remoteAuthenticator,
+            @CallbackExecutor @NonNull Executor executor,
+            @NonNull UnregistrationCallback callback) {
+        try {
+            Preconditions.checkNotNull(remoteAuthenticator, "invalid null remoteAuthenticator");
+            Preconditions.checkNotNull(callback, "invalid null callback");
+            Preconditions.checkNotNull(executor, "invalid null executor");
+
+            UnregisterAuthenticatorListenerTransport transport =
+                    new UnregisterAuthenticatorListenerTransport(callback, executor);
+
+            return mService.unregisterAuthenticatorListener(transport, remoteAuthenticator);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    private static class UnregisterAuthenticatorListenerTransport
+            extends IUnregisterAuthenticatorListener.Stub {
+        volatile @NonNull UnregistrationCallback mCallback;
+        Executor mExecutor;
+
+        UnregisterAuthenticatorListenerTransport(
+                @NonNull UnregistrationCallback callback, @CallbackExecutor Executor executor) {
+            Preconditions.checkArgument(callback != null, "invalid null callback");
+            Preconditions.checkArgument(executor != null, "invalid null executor");
+            mCallback = callback;
+            mExecutor = executor;
+        }
+
+        @Override
+        public void onSuccess() throws RemoteException {
+            Log.i(TAG, "Notifying the caller about successful un-registration");
+            mExecutor.execute(
+                    () -> {
+                        if (mCallback != null) {
+                            mCallback.onSuccess();
+                        }
+                    });
+        }
+
+        @Override
+        public void onFailure(int errorCode, CharSequence errString) throws RemoteException {
+            if (errString != null) {
+                Log.i(TAG, "Notifying the caller about unregistration error: " + errString);
+            }
+            mExecutor.execute(
+                    () -> {
+                        if (mCallback != null && errString != null) {
+                            mCallback.onFailure(errorCode, errString);
+                        }
+                    });
         }
     }
 }

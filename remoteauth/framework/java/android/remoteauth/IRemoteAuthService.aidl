@@ -17,6 +17,10 @@
 package android.remoteauth;
 
 import android.remoteauth.IDeviceDiscoveryListener;
+import android.remoteauth.IRegisterAuthenticatorListener;
+import android.remoteauth.IUnregisterAuthenticatorListener;
+import android.remoteauth.RemoteDevice;
+import android.remoteauth.RemoteAuthenticator;
 
 /**
  * Interface for communicating with the RemoteAuthService.
@@ -39,4 +43,16 @@ interface IRemoteAuthService {
                                      int userId,
                                      String packageName,
                                      @nullable String attributionTag);
+
+    // This is protected by the MANAGE_REMOTE_AUTH signature permission.
+    List<RemoteAuthenticator> getRemoteAuthenticators();
+
+    // This is protected by the MANAGE_REMOTE_AUTH signature permission.
+    boolean registerAuthenticatorListener(in IRegisterAuthenticatorListener listener,
+                                              in RemoteDevice device,
+                                              int userId);
+
+    // This is protected by the MANAGE_REMOTE_AUTH signature permission.
+    boolean unregisterAuthenticatorListener(in IUnregisterAuthenticatorListener listener,
+                                            in RemoteAuthenticator authenticator);
 }

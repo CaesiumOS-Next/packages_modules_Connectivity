@@ -20,9 +20,16 @@ import android.annotation.Nullable;
 import android.annotation.UserIdInt;
 import android.content.Context;
 import android.remoteauth.IDeviceDiscoveryListener;
+import android.remoteauth.IRegisterAuthenticatorListener;
 import android.remoteauth.IRemoteAuthService;
+import android.remoteauth.IUnregisterAuthenticatorListener;
+import android.remoteauth.RemoteAuthenticator;
+import android.remoteauth.RemoteDevice;
 
 import com.android.internal.util.Preconditions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** Service implementing remoteauth functionality. */
 public class RemoteAuthService extends IRemoteAuthService.Stub {
@@ -63,8 +70,30 @@ public class RemoteAuthService extends IRemoteAuthService.Stub {
         // TODO(b/290094221): implement unregister logic
     }
 
+    @Override
+    public List<RemoteAuthenticator> getRemoteAuthenticators() {
+        // TODO(b/297301535): checkPermission(mContext, MANAGE_REMOTE_AUTH);
+        return new ArrayList<>();
+    }
+
+    @Override
+    public boolean registerAuthenticatorListener(
+            IRegisterAuthenticatorListener listener, RemoteDevice device, int userId) {
+        // TODO(b/297301535): checkPermission(mContext, MANAGE_REMOTE_AUTH);
+        // TODO(b/290094221): implement register authenticator logic
+        return true;
+    }
+
+    @Override
+    public boolean unregisterAuthenticatorListener(
+            IUnregisterAuthenticatorListener listener, RemoteAuthenticator authenticator) {
+        // TODO(b/297301535): checkPermission(mContext, MANAGE_REMOTE_AUTH);
+        // TODO(b/290094221): implement unregister authenticator logic
+        return true;
+    }
+
     private static void checkPermission(Context context, String permission) {
-        context.enforceCallingOrSelfPermission(permission,
-                "Must have " + permission + " permission.");
+        context.enforceCallingOrSelfPermission(
+                permission, "Must have " + permission + " permission.");
     }
 }
