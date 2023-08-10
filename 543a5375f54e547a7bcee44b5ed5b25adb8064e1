@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d188bc3_6b4b1382",
+        "filename": "tests/cts/net/src/android/net/cts/PermissionUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-10T07:10:31Z",
+      "side": 1,
+      "message": "Thanks, moved the test to frameworks/libs/net/common/tests/unit/ as suggested.",
+      "parentUuid": "933dfefa_033168f2",
+      "revId": "543a5375f54e547a7bcee44b5ed5b25adb8064e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "770adcee_a7caf4e9",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-08-09T09:47:29Z",
       "side": 1,
       "message": "Fun fact: this may fail on some non-mainline devices, where the OEM may choose to sign NetworkStack with the platform key. In particular this would fail on TVs, cars, watches up to Android T, and Go devices up to S, since they used com.android.networkstack.inprocess which declares the permission and is signed by the platform key. In U+ it can still fail on non-GMS devices if OEMs don\u0027t want to generate their own key, and just reuse the platform key instead (there\u0027s no requirement that they use a different key).\n\nIf you move this to unit tests you won\u0027t have to worry about whether this passing is a CDD requirement :)",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "543a5375f54e547a7bcee44b5ed5b25adb8064e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5cfa1de_48f35269",
+        "filename": "tests/cts/net/src/android/net/cts/PermissionUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-10T07:10:31Z",
+      "side": 1,
+      "message": "Thanks, discussed offline this won\u0027t be a issue if we move it to unit test folder.",
+      "parentUuid": "770adcee_a7caf4e9",
       "range": {
         "startLine": 30,
         "startChar": 8,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd10957c_249c77a9",
+        "filename": "tests/cts/net/src/android/net/cts/PermissionUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-10T07:10:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04cae4b3_8ba62f5c",
+      "range": {
+        "startLine": 32,
+        "startChar": 74,
+        "endLine": 32,
+        "endChar": 96
+      },
+      "revId": "543a5375f54e547a7bcee44b5ed5b25adb8064e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36358a36_c821f44a",
@@ -77,6 +143,24 @@
       "writtenOn": "2023-08-09T09:47:29Z",
       "side": 1,
       "message": "Nit: while you\u0027re at it, you can check that this returns false for a permission that shouldn\u0027t be held by anybody (some string that is unlikely to become a permission name)",
+      "revId": "543a5375f54e547a7bcee44b5ed5b25adb8064e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfb280cb_289929f9",
+        "filename": "tests/cts/net/src/android/net/cts/PermissionUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-10T07:10:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36358a36_c821f44a",
       "revId": "543a5375f54e547a7bcee44b5ed5b25adb8064e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
