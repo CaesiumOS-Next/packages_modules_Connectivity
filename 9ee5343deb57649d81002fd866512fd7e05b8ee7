@@ -123,6 +123,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eba9fd24_497a13c3",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-10T21:08:38Z",
+      "side": 1,
+      "message": "@Dave The plan is to pass it to the Settings inside DiscoveredDevice and use it in the registration flow to create a connection.\n\nDo you suggest something else?",
+      "parentUuid": "850cb88a_3b46d2f9",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8800a7e_9b57f88c",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
         "patchSetId": 33
