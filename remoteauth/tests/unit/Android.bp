@@ -34,12 +34,14 @@ android_test {
 
     static_libs: [
         "androidx.test.ext.junit",
+        "androidx.test.ext.truth",
         "androidx.test.rules",
         "framework-remoteauth-static",
         "junit",
         "platform-test-annotations",
         "service-remoteauth-pre-jarjar",
         "truth-prebuilt",
+        "mockito-target-minus-junit4",
     ],
     test_suites: [
         "general-tests",
