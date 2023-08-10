@@ -171,6 +171,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "94171efd_e3481287",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T22:07:24Z",
+      "side": 1,
+      "message": "and just realized..  Wouldn\u0027t this have to get passed through the rust layer if we do it this way? Like RAM \u003e PAL \u003e Rust \u003e PAL \u003e Connections returns ConnectionInfo.",
+      "parentUuid": "581f70ca_d54fcea9",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8800a7e_9b57f88c",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
         "patchSetId": 33
