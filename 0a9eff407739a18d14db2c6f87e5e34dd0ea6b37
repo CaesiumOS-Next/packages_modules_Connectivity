@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "360a760c_192408db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-10T04:40:27Z",
+      "side": 1,
+      "message": "LGTM as is, feel free to address comments in a follow-up.",
+      "revId": "0a9eff407739a18d14db2c6f87e5e34dd0ea6b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a17d944_776e8f0a",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-10T04:40:27Z",
+      "side": 1,
+      "message": "FWIW, it might make sense to remove this check and put it in the caller. That way the caller never has to deal with this method returning null.",
+      "range": {
+        "startLine": 208,
+        "startChar": 69,
+        "endLine": 208,
+        "endChar": 80
+      },
+      "revId": "0a9eff407739a18d14db2c6f87e5e34dd0ea6b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e82dc4e9_bb1d2deb",
