@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74292f6c_d3da96bc",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-10T04:41:18Z",
+      "side": 1,
+      "message": "Per discussion, can we rename this to updateIpv6ForwardingRulesForUpstreamChange?",
+      "range": {
+        "startLine": 922,
+        "startChar": 17,
+        "endLine": 922,
+        "endChar": 41
+      },
+      "revId": "43a3c7f294ef8955e5d12fee3da4082144ea9a16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69ebfe08_a3435dae",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-10T04:41:18Z",
+      "side": 1,
+      "message": "Per discussion, can we split this into two methods? One method would handle upstream changes, and one would handle neighbor events. I don\u0027t think any of our code relies on doing both. If we split the code then it will become easier to read and we will need to take fewer parameters.\n\nPerhaps do this in a separate CL so we can review it carefully for correctness?",
+      "range": {
+        "startLine": 938,
+        "startChar": 17,
+        "endLine": 938,
+        "endChar": 42
+      },
+      "revId": "43a3c7f294ef8955e5d12fee3da4082144ea9a16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
