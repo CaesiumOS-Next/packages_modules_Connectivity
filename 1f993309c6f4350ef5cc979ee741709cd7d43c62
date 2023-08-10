@@ -46,6 +46,30 @@
       },
       "revId": "1f993309c6f4350ef5cc979ee741709cd7d43c62",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0912193c_0f7386c7",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-08-10T13:07:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc773e25_3a4c2fe0",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 86
+      },
+      "revId": "1f993309c6f4350ef5cc979ee741709cd7d43c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
