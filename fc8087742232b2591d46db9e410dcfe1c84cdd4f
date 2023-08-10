@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e76d3bcb_0a055246",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHardwareInterfaceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-10T07:05:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad26172d_24959d69",
+      "range": {
+        "startLine": 116,
+        "startChar": 17,
+        "endLine": 116,
+        "endChar": 46
+      },
+      "revId": "fc8087742232b2591d46db9e410dcfe1c84cdd4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f15ee37_9c2d06a3",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-10T04:48:44Z",
       "side": 1,
       "message": "This is hard to read. It should at least be put in () for readability.",
+      "range": {
+        "startLine": 133,
+        "startChar": 28,
+        "endLine": 133,
+        "endChar": 92
+      },
+      "revId": "fc8087742232b2591d46db9e410dcfe1c84cdd4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8f7cf4f_136078c2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadHardwareInterfaceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-10T07:05:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f15ee37_9c2d06a3",
       "range": {
         "startLine": 133,
         "startChar": 28,
