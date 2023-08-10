@@ -147,6 +147,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "581f70ca_d54fcea9",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-10T22:02:27Z",
+      "side": 1,
+      "message": "We necessarily need to keep state about the connection within the connection manager right? Seems wasteful to transfer all the data across to clients instead of something smaller but maybe that\u0027s the standard way. I\u0027m interested if that\u0027s true. Maybe it is b/c the client might have an older sense of what a connection info is? Hmm. Would be interested to see someone ask about this in the android framework chat room.",
+      "parentUuid": "eba9fd24_497a13c3",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8800a7e_9b57f88c",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
         "patchSetId": 33
