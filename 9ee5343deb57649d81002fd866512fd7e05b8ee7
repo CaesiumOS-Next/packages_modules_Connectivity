@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41589ce7_1c9659f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-10T22:20:51Z",
+      "side": 1,
+      "message": "This CL just has the interfaces and no implementation. It feels unnecessary to split it further. I agree on the implementation though, and I plan to split the implementation CL into multiple CL\u0027s for connection, listening, discovery, etc.",
+      "parentUuid": "c8b741a9_ee9d7a84",
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad031770_613a2428",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/Connection.java",
         "patchSetId": 33
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-10T20:55:28Z",
       "side": 1,
       "message": "Before I make a bunch of nit comments on the javadoc, please look at go/java-style#s7.2-summary-fragment (which is for google3 but should be consistent with AOSP), go/android-api-guidelines#docs, and https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html which is linked from both.",
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e8eef22_e8f5dad5",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/Connection.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-10T22:20:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ad031770_613a2428",
       "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2023-08-10T20:55:28Z",
       "side": 1,
       "message": "I think you want to put @hide on the class instead of each individual field/class/method.",
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a90dc2e8_4acbc563",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/Connection.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-10T22:20:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "544f7773_8109f2a7",
       "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -75,6 +129,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20c036c3_d3fec8d5",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/Connection.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-10T22:20:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "664c6dab_0fc7ecc4",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 33
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7094454b_1fb27e61",
@@ -88,6 +166,30 @@
       "writtenOn": "2023-08-10T20:55:28Z",
       "side": 1,
       "message": "import static ...ConnectivityModule.ReasonCode instead of having to put the outer class each time.",
+      "range": {
+        "startLine": 23,
+        "startChar": 18,
+        "endLine": 23,
+        "endChar": 49
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56e5e82d_7f5776e6",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionException.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-10T22:20:51Z",
+      "side": 1,
+      "message": "Good point",
+      "parentUuid": "7094454b_1fb27e61",
       "range": {
         "startLine": 23,
         "startChar": 18,
@@ -218,6 +320,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a7a9f08_cb54ba10",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-10T22:20:51Z",
+      "side": 1,
+      "message": "I can see how this can be confusing with Dagger module, but honestly I didn\u0027t find a better name (open to suggestions). I had called it ConnectivityManager earlier but I was told manager has a different meaning in Android and it would be better to avoid that suffix.",
+      "parentUuid": "d8800a7e_9b57f88c",
+      "range": {
+        "startLine": 26,
+        "startChar": 29,
+        "endLine": 26,
+        "endChar": 35
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01898a0c_7fde6163",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
         "patchSetId": 33
@@ -229,6 +355,30 @@
       "writtenOn": "2023-08-10T20:55:28Z",
       "side": 1,
       "message": "How do you think about the semantics of the RemoteResponse in the Connection class vs this message received bit? It seems like they would be the same thing or is one supposed to semantically be for incoming requests vs. the other only handling responses.\n\nMaybe this should be something like RequestReceiver or RequestHandler?",
+      "range": {
+        "startLine": 80,
+        "startChar": 19,
+        "endLine": 80,
+        "endChar": 26
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9478c492_2de9858b",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-10T22:20:51Z",
+      "side": 1,
+      "message": "RemoteResponse is for receiving incoming requests on the listening side.\nMessageReceiver is for receiving messages on the initiating side.",
+      "parentUuid": "01898a0c_7fde6163",
       "range": {
         "startLine": 80,
         "startChar": 19,
@@ -262,6 +412,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d89a88d8_a4c10b7d",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-10T22:20:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d372a3b_11cffdb4",
+      "range": {
+        "startLine": 86,
+        "startChar": 69,
+        "endLine": 86,
+        "endChar": 88
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "048ddce3_e44ce8a4",
@@ -275,6 +449,24 @@
       "writtenOn": "2023-08-10T20:55:28Z",
       "side": 1,
       "message": "could we instead pass the sole receiver into the constructor or connect method and not have this method? do we have a need to stop listening?\n\nAlso if we keep this should we use the register* convention? go/android-api-guidelines#registering-unregistering-callbacks",
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23013d84_aadc8bc5",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-10T22:20:51Z",
+      "side": 1,
+      "message": "Connect is disjoint with the listen method. The expected use is -\n\n// Initiating side\nConnection conn \u003d mConnectivityModule.conect(connInfo, ...);\n// Response from peer\nRemoteResponse rsp \u003d new RemoteResp() {\n  // handle onSuccess or onFailure.\n};\nconn.sendMessage(request, rsp);\n\n\n// Listening side\nMessageReceiver msgReceiver \u003d new MessageReceiver() {\n  // Handle onMessageReceived();\n};\nmConnectivityModule.startListening(msgReceiver);\n\nI think the register convention may be useful. I\u0027ll update that.",
+      "parentUuid": "048ddce3_e44ce8a4",
       "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
