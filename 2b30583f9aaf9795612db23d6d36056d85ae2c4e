@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2d1cbc2_68db9de6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-11T14:05:49Z",
+      "side": 1,
+      "message": "Forgot to bring Shai and Ryan as reviewers from the previous patches, sorry!",
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
