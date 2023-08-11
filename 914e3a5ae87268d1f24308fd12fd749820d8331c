@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61cf8e74_a37edbce",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T06:21:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf0d2df3_ff39ab69",
+      "range": {
+        "startLine": 851,
+        "startChar": 36,
+        "endLine": 851,
+        "endChar": 43
+      },
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e16bb357_978a6e0d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-09T08:51:01Z",
       "side": 1,
       "message": "request.onServiceFound and clientInfo.onServiceFound would always be called together right ?\n\nIn that case how about moving the call to request.onServiceFound inside clientInfo.onServiceFound ? This avoids forgetting to call one of the two, and it would be more consistent with onDiscoverServicesStarted and onStopDiscoverySucceeded, which already do metrics tracking (otherwise incrementing the counters and sending the metrics is done in 2 different places, which is harder to track).\n\nSame for onServiceLost",
+      "range": {
+        "startLine": 1215,
+        "startChar": 32,
+        "endLine": 1215,
+        "endChar": 46
+      },
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ee17f4e_52e82318",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T06:21:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e16bb357_978a6e0d",
       "range": {
         "startLine": 1215,
         "startChar": 32,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "878f3ed8_4715f57b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T06:21:54Z",
+      "side": 1,
+      "message": "I think it is unlikely that the request will be null, but I still add a null check after getting it because all of the cases now require the request to report metrics data.",
+      "parentUuid": "e747f343_e7bc416a",
+      "range": {
+        "startLine": 1245,
+        "startChar": 32,
+        "endLine": 1245,
+        "endChar": 48
+      },
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b043f39_084703ea",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-08-09T08:51:01Z",
       "side": 1,
       "message": "Is there a good guarantee that this is non-null at this point ? If not this should be checked. RESOLVE_SERVICE_SUCCEEDED does have a null check",
+      "range": {
+        "startLine": 1410,
+        "startChar": 24,
+        "endLine": 1410,
+        "endChar": 31
+      },
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f987cf65_44af7c29",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1410,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T06:21:54Z",
+      "side": 1,
+      "message": "Like the comment above, I add the null check after getting the request.",
+      "parentUuid": "4b043f39_084703ea",
       "range": {
         "startLine": 1410,
         "startChar": 24,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c42170f8_bae7ab81",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2201,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T06:21:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bf4d754_53d15264",
+      "range": {
+        "startLine": 2201,
+        "startChar": 28,
+        "endLine": 2201,
+        "endChar": 34
+      },
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e73038b_be135884",
@@ -129,6 +249,24 @@
       "writtenOn": "2023-08-09T08:51:01Z",
       "side": 1,
       "message": "Can you limit the size of this set, for example to 100 services or something like that ? Otherwise it may be possible for hosts in the network to send a lot of advertisements that would fill memory",
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d156790_2f52797f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2220,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T06:21:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e73038b_be135884",
       "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
