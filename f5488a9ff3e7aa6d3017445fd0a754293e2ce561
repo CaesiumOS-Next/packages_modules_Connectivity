@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4adbfe42_02efe8e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-11T00:11:07Z",
+      "side": 1,
+      "message": "Can you reply back when you confirm which files are in framework jar vs. in system server so I can give the right level of scrutiny to the APIs and javadocs.\n\nMake sure your CL builds b/c updates to the current-*.txt file will clarify which APIs you\u0027re exposing (intentionally or otherwise).",
+      "revId": "f5488a9ff3e7aa6d3017445fd0a754293e2ce561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8061082_b603bd7b",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDevice.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-11T00:11:07Z",
+      "side": 1,
+      "message": "Is this supposed to be in framework and parcelable?\n\nIf so this will need to be @DataClass as well.",
+      "revId": "f5488a9ff3e7aa6d3017445fd0a754293e2ce561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ae3d266_7eeaa164",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDeviceReceiver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-11T00:11:07Z",
+      "side": 1,
+      "message": "onTimeout",
+      "range": {
+        "startLine": 36,
+        "startChar": 16,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "f5488a9ff3e7aa6d3017445fd0a754293e2ce561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21710628_d3ff37cf",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/OWNERS",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-11T00:11:07Z",
+      "side": 1,
+      "message": "We shouldn\u0027t need a separate owners file here.",
+      "revId": "f5488a9ff3e7aa6d3017445fd0a754293e2ce561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

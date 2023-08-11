@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaf6dcbc_490bc112",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-11T00:11:07Z",
+      "side": 1,
+      "message": "sg",
+      "parentUuid": "41589ce7_1c9659f8",
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad031770_613a2428",
@@ -297,6 +315,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63e8f7f5_0de5c3b2",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-11T00:11:07Z",
+      "side": 1,
+      "message": "If we want to pass this out of the manager, it needs to be defined in the framework jar (package name doesn\u0027t have \"server\" in it). Similar to the files in https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2685327.\n\nAlso, need to use @DataClass.",
+      "parentUuid": "94171efd_e3481287",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8800a7e_9b57f88c",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
         "patchSetId": 33
@@ -344,6 +386,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af07b349_7e29139d",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-11T00:11:07Z",
+      "side": 1,
+      "message": "I think we should go with ConnectivityManager. There are plenty of examples in system server where this is happening and it\u0027s not the \"manager\" which is defined in the framework jar.\n\nhttps://source.corp.google.com/search?q\u003drepo:googleplex-android%2Fplatform%2Fsuperproject%2Fmain%20b:main%20f:java%2Fcom%2Fandroid%2Fserver%20f:Manager.java$\u0026sq\u003d",
+      "parentUuid": "9a7a9f08_cb54ba10",
+      "range": {
+        "startLine": 26,
+        "startChar": 29,
+        "endLine": 26,
+        "endChar": 35
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01898a0c_7fde6163",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
         "patchSetId": 33
@@ -379,6 +445,30 @@
       "side": 1,
       "message": "RemoteResponse is for receiving incoming requests on the listening side.\nMessageReceiver is for receiving messages on the initiating side.",
       "parentUuid": "01898a0c_7fde6163",
+      "range": {
+        "startLine": 80,
+        "startChar": 19,
+        "endLine": 80,
+        "endChar": 26
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "627a5a2f_94f9bfa2",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-11T00:11:07Z",
+      "side": 1,
+      "message": "That sounds backwards. Why would a response receive requests?",
+      "parentUuid": "9478c492_2de9858b",
       "range": {
         "startLine": 80,
         "startChar": 19,
@@ -467,6 +557,24 @@
       "side": 1,
       "message": "Connect is disjoint with the listen method. The expected use is -\n\n// Initiating side\nConnection conn \u003d mConnectivityModule.conect(connInfo, ...);\n// Response from peer\nRemoteResponse rsp \u003d new RemoteResp() {\n  // handle onSuccess or onFailure.\n};\nconn.sendMessage(request, rsp);\n\n\n// Listening side\nMessageReceiver msgReceiver \u003d new MessageReceiver() {\n  // Handle onMessageReceived();\n};\nmConnectivityModule.startListening(msgReceiver);\n\nI think the register convention may be useful. I\u0027ll update that.",
       "parentUuid": "048ddce3_e44ce8a4",
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "492b4746_711a931d",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-11T00:11:07Z",
+      "side": 1,
+      "message": "Ok that makes sense.",
+      "parentUuid": "23013d84_aadc8bc5",
       "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
