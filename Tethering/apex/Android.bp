@@ -68,6 +68,7 @@ apex {
         "ConnectivityApexDefaults",
         "CronetInTetheringApexDefaults",
         "r-launched-apex-module",
+        "threadnetwork-apex-defaults",
     ],
     compile_multilib: "both",
     bootclasspath_fragments: [
