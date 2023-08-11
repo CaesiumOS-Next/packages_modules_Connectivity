@@ -33,6 +33,109 @@
       "message": "I know you\u0027ll hate me for this... but when I mentioned this patchset to Lorenzo he pointed out that iterating through the entire bpf map from jni *might* well be faster than this theoretically optimized code path in java...\n(the bpf map is probably not actually all that large...)\n\nThus, it may make sense to keep all this map caching logic constrained to C++...\n(ie. put the name-\u003eifindex cache inside the jni)\n\nWe could also consider whether switching to bpf map bulk reads/dumps wouldn\u0027t be more worthwhile (requires a new enough kernel, and we don\u0027t have any helpers for it yet) - as that would get rid of a fair number of bpf() system calls, or somehow teaching whatever code is performance critical to only ever query a single ifindex (perhaps go via ifname -\u003e ifindex, and query just the currently active one, and just ignore the results if the ifindex has changed since the last query...)\n\nDo you have any benchmark numbers for this change?\n\n[I\u0027ve also not looked too deeply at the code, but at first glance, it would be nice to keep the lock hidden to the inside of the class, though no idea how to do that]",
       "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cffaf3d_0f2b19c4",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-11T21:30:40Z",
+      "side": 1,
+      "message": "A RW lock performs better than a simple lock / synchronized block only if there is high contention on the lock and a high count of concurrent readers.\nI think this is unlikely to happen on a phone given the existing core count.\nIt might be simpler to just store the reverse mapping in a ConcurrentHashMap\u003cString, CopyOnWriteArraySet\u003e. This is fully thread-safe for all operations that you care about.",
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6585979f_07cb9554",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-11T21:30:40Z",
+      "side": 1,
+      "message": "Would it make sense to also implement the reverse mapping in native code, same as how BpfMap works?\nOr to change BpfMap to have bimap functionality, which will allow for some internal implementation that\u0027s much more efficient. Probably much faster too since you\u0027ll be working with proper ints and not with Integer boxed types and doing tons of pointer-chasing for Java HashMaps.\nThe concurrency might end up being simpler too.\nYour call.",
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89400030_473826dd",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-11T21:30:40Z",
+      "side": 1,
+      "message": "```suggestion\n                mIfaceNameToIndexCache.getOrDefault(ifaceName, new HashSet\u003cInteger\u003e()).add(index.val);\n```",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 69
+      },
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a524b54_103cc285",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-11T21:30:40Z",
+      "side": 1,
+      "message": "This operation can happen outside of any locks (same as before) because BpfMap uses a ConcurrentHashMap internally.",
+      "range": {
+        "startLine": 158,
+        "startChar": 12,
+        "endLine": 159,
+        "endChar": 54
+      },
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c13e83d_a0f13414",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-11T21:30:40Z",
+      "side": 1,
+      "message": "```suggestion\n            mIfaceNameToIndexCache.getOrDefault(ifaceName, new HashSet\u003cInteger\u003e()).add(iface.index);\n```",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 67
+      },
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
