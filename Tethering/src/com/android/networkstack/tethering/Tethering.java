@@ -2078,9 +2078,6 @@ public class Tethering {
                     chooseUpstreamType(true);
                     mTryCell = false;
                 }
-
-                // TODO: Check the upstream interface if it is managed by BPF offload.
-                mBpfCoordinator.startPolling();
             }
 
             @Override
@@ -2094,7 +2091,6 @@ public class Tethering {
                     reportUpstreamChanged(null);
                     mNotificationUpdater.onUpstreamCapabilitiesChanged(null);
                 }
-                mBpfCoordinator.stopPolling();
                 mTetheringMetrics.cleanup();
             }
 
