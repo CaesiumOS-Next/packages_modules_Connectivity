@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cefe3f5_daf6284f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-08-11T22:12:10Z",
+      "side": 1,
+      "message": "85% of bpfGetIfaceStats\u0027s time is spent in BPF syscalls. Doing the same thing from JNI won\u0027t save us much. One of the issues is that, sometimes the map really is that large. I see devices with \u003e150 interfaces, most of which are ipsec.\n\nI don\u0027t necessarily think iterating the map is the issue, it\u0027s that we iterate the map for each interface we want to query. If you want to query all 150 interfaces, this is O(n^2) and you\u0027re looking at 22,500 syscalls (really 2x that since most clients want both rx and tx). Having a hashmap that allows O(1) lookup to find the (likely small) number of ifindexes making the aforementioned case O(N).\n\nI have no issue with keeping the cache in c++. Using the bulk query API is also an option, but truthfully I still think this cache would be more performant and the bulk API is only on new kernels anyways.",
+      "parentUuid": "ee31a900_d8a636d7",
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cffaf3d_0f2b19c4",
