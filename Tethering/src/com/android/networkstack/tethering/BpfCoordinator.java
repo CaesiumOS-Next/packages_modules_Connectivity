@@ -77,6 +77,9 @@ import com.android.net.module.util.bpf.TetherStatsKey;
 import com.android.net.module.util.bpf.TetherStatsValue;
 import com.android.net.module.util.ip.ConntrackMonitor;
 import com.android.net.module.util.ip.ConntrackMonitor.ConntrackEventConsumer;
+import com.android.net.module.util.ip.IpNeighborMonitor;
+import com.android.net.module.util.ip.IpNeighborMonitor.NeighborEvent;
+import com.android.net.module.util.ip.IpNeighborMonitor.NeighborEventConsumer;
 import com.android.net.module.util.netlink.ConntrackMessage;
 import com.android.net.module.util.netlink.NetlinkConstants;
 import com.android.net.module.util.netlink.NetlinkUtils;
@@ -182,6 +185,10 @@ public class BpfCoordinator {
     private final BpfCoordinatorShim mBpfCoordinatorShim;
     @NonNull
     private final BpfConntrackEventConsumer mBpfConntrackEventConsumer;
+    @NonNull
+    private final IpNeighborMonitor mIpNeighborMonitor;
+    @NonNull
+    private final BpfNeighborEventConsumer mBpfNeighborEventConsumer;
 
     // True if BPF offload is supported, false otherwise. The BPF offload could be disabled by
     // a runtime resource overlay package or device configuration. This flag is only initialized
@@ -280,9 +287,6 @@ public class BpfCoordinator {
     private final HashMap<IpServer, HashMap<Inet4Address, ClientInfo>>
             mTetherClients = new HashMap<>();
 
-    // Set for which downstream is monitoring the conntrack netlink message.
-    private final Set<IpServer> mMonitoringIpServers = new HashSet<>();
-
     // Map of upstream interface IPv4 address to interface index.
     // TODO: consider making the key to be unique because the upstream address is not unique. It
     // is okay for now because there have only one upstream generally.
@@ -303,6 +307,9 @@ public class BpfCoordinator {
     // Tracks the IPv4 upstream interface information.
     @Nullable
     private UpstreamInfo mIpv4UpstreamInfo = null;
+
+    // The IpServers that are currently served by BpfCoordinator.
+    private final HashSet<IpServer> mServedIpServers = new HashSet<>();
 
     // Runnable that used by scheduling next polling of stats.
     private final Runnable mScheduledPollingStats = () -> {
@@ -337,6 +344,11 @@ public class BpfCoordinator {
         /** Get conntrack monitor. */
         @NonNull public ConntrackMonitor getConntrackMonitor(ConntrackEventConsumer consumer) {
             return new ConntrackMonitor(getHandler(), getSharedLog(), consumer);
+        }
+
+        /** Get ip neighbor monitor */
+        @NonNull public IpNeighborMonitor getIpNeighborMonitor(NeighborEventConsumer consumer) {
+            return new IpNeighborMonitor(getHandler(), getSharedLog(), consumer);
         }
 
         /** Get interface information for a given interface. */
@@ -486,6 +498,9 @@ public class BpfCoordinator {
         mBpfConntrackEventConsumer = new BpfConntrackEventConsumer();
         mConntrackMonitor = mDeps.getConntrackMonitor(mBpfConntrackEventConsumer);
 
+        mBpfNeighborEventConsumer = new BpfNeighborEventConsumer();
+        mIpNeighborMonitor = mDeps.getIpNeighborMonitor(mBpfNeighborEventConsumer);
+
         BpfTetherStatsProvider provider = new BpfTetherStatsProvider();
         try {
             mDeps.getNetworkStatsManager().registerNetworkStatsProvider(
@@ -505,24 +520,18 @@ public class BpfCoordinator {
     }
 
     /**
-     * Start BPF tethering offload stats polling when the first upstream is started.
+     * Start BPF tethering offload stats polling.
      * Note that this can be only called on handler thread.
-     * TODO: Perhaps check BPF support before starting.
      * TODO: Start the stats polling only if there is any client on the downstream.
      */
-    public void startPolling() {
+    private void startPolling() {
         if (mPollingStarted) return;
-
-        if (!isUsingBpf()) {
-            mLog.i("BPF is not using");
-            return;
-        }
 
         mPollingStarted = true;
         maybeSchedulePollingStats();
         maybeScheduleConntrackTimeoutUpdate();
 
-        mLog.i("Polling started");
+        mLog.i("Polling started.");
     }
 
     /**
@@ -533,7 +542,7 @@ public class BpfCoordinator {
      * functionality.
      * Note that this can be only called on handler thread.
      */
-    public void stopPolling() {
+    private void stopPolling() {
         if (!mPollingStarted) return;
 
         // Stop scheduled polling conntrack timeout.
@@ -544,10 +553,11 @@ public class BpfCoordinator {
         if (mHandler.hasCallbacks(mScheduledPollingStats)) {
             mHandler.removeCallbacks(mScheduledPollingStats);
         }
+
         updateForwardedStats();
         mPollingStarted = false;
 
-        mLog.i("Polling stopped");
+        mLog.i("Polling stopped.");
     }
 
     /**
@@ -568,7 +578,6 @@ public class BpfCoordinator {
 
     /**
      * Start conntrack message monitoring.
-     * Note that this can be only called on handler thread.
      *
      * TODO: figure out a better logging for non-interesting conntrack message.
      * For example, the following logging is an IPCTNL_MSG_CT_GET message but looks scary.
@@ -588,45 +597,39 @@ public class BpfCoordinator {
      * +------------------+--------------------------------------------------------+
      * See NetlinkMonitor#handlePacket, NetlinkMessage#parseNfMessage.
      */
-    public void startMonitoring(@NonNull final IpServer ipServer) {
+    private void startConntrackMonitoring() {
         // TODO: Wrap conntrackMonitor starting function into mBpfCoordinatorShim.
-        if (!isUsingBpf() || !mDeps.isAtLeastS()) return;
+        if (!mDeps.isAtLeastS()) return;
 
-        if (mMonitoringIpServers.contains(ipServer)) {
-            Log.wtf(TAG, "The same downstream " + ipServer.interfaceName()
-                    + " should not start monitoring twice.");
-            return;
-        }
-
-        if (mMonitoringIpServers.isEmpty()) {
-            mConntrackMonitor.start();
-            mLog.i("Monitoring started");
-        }
-
-        mMonitoringIpServers.add(ipServer);
+        mConntrackMonitor.start();
+        mLog.i("Conntrack monitoring started.");
     }
 
     /**
      * Stop conntrack event monitoring.
-     * Note that this can be only called on handler thread.
      */
-    public void stopMonitoring(@NonNull final IpServer ipServer) {
+    private void stopConntrackMonitoring() {
         // TODO: Wrap conntrackMonitor stopping function into mBpfCoordinatorShim.
-        if (!isUsingBpf() || !mDeps.isAtLeastS()) return;
-
-        // Ignore stopping monitoring if the monitor has never started for a given IpServer.
-        if (!mMonitoringIpServers.contains(ipServer)) {
-            mLog.e("Ignore stopping monitoring because monitoring has never started for "
-                    + ipServer.interfaceName());
-            return;
-        }
-
-        mMonitoringIpServers.remove(ipServer);
-
-        if (!mMonitoringIpServers.isEmpty()) return;
+        if (!mDeps.isAtLeastS()) return;
 
         mConntrackMonitor.stop();
-        mLog.i("Monitoring stopped");
+        mLog.i("Conntrack monitoring stopped.");
+    }
+
+    /**
+     * Start neighbor events monitoring
+     */
+    private void startNeighborMonitoring() {
+        mIpNeighborMonitor.start();
+        mLog.i("Neighbor monitoring started.");
+    }
+
+    /**
+     * Stop neighbor events monitoring
+     */
+    private void stopNeighborMonitoring() {
+        mIpNeighborMonitor.stop();
+        mLog.i("Neighbor monitoring stopped.");
     }
 
     /**
@@ -689,12 +692,9 @@ public class BpfCoordinator {
 
     /**
      * Add IPv6 downstream rule.
-     * Note that this can be only called on handler thread.
      */
-    public void addIpv6DownstreamRule(
+    private void addIpv6DownstreamRule(
             @NonNull final IpServer ipServer, @NonNull final Ipv6DownstreamRule rule) {
-        if (!isUsingBpf()) return;
-
         // TODO: Perhaps avoid to add a duplicate rule.
         if (rule.upstreamIfindex != NO_UPSTREAM
                 && !mBpfCoordinatorShim.addIpv6DownstreamRule(rule)) return;
@@ -707,12 +707,9 @@ public class BpfCoordinator {
 
     /**
      * Remove IPv6 downstream rule.
-     * Note that this can be only called on handler thread.
      */
-    public void removeIpv6DownstreamRule(
+    private void removeIpv6DownstreamRule(
             @NonNull final IpServer ipServer, @NonNull final Ipv6DownstreamRule rule) {
-        if (!isUsingBpf()) return;
-
         if (rule.upstreamIfindex != NO_UPSTREAM
                 && !mBpfCoordinatorShim.removeIpv6DownstreamRule(rule)) return;
 
@@ -763,13 +760,10 @@ public class BpfCoordinator {
     /**
      * Delete all upstream and downstream rules for the passed-in IpServer, and if the new upstream
      * is nonzero, reapply them to the new upstream.
-     * Note that this can be only called on handler thread.
      */
-    public void updateAllIpv6Rules(@NonNull final IpServer ipServer,
+    private void updateAllIpv6Rules(@NonNull final IpServer ipServer,
             final InterfaceParams interfaceParams, int newUpstreamIfindex,
             @NonNull final Set<IpPrefix> newUpstreamPrefixes) {
-        if (!isUsingBpf()) return;
-
         // Remove IPv6 downstream rules. Remove the old ones before adding the new rules, otherwise
         // we need to keep a copy of the old rules.
         // We still need to keep the downstream rules even when the upstream goes away because it
@@ -814,8 +808,6 @@ public class BpfCoordinator {
         if (!isUsingBpf()) return;
 
         if (upstreamIfindex == 0 || TextUtils.isEmpty(upstreamIface)) return;
-
-        if (isVcnInterface(upstreamIface)) return;
 
         // The same interface index to name mapping may be added by different IpServer objects or
         // re-added by reconnection on the same upstream interface. Ignore the duplicate one.
@@ -867,6 +859,146 @@ public class BpfCoordinator {
         // Remove the downstream entry if it has no more client.
         if (clients.isEmpty()) {
             mTetherClients.remove(ipServer);
+        }
+    }
+
+    /**
+     * Register an IpServer (downstream).
+     * Note that this can be only called on handler thread.
+     */
+    public void addIpServer(@NonNull final IpServer ipServer) {
+        if (!isUsingBpf()) return;
+        if (mServedIpServers.contains(ipServer)) {
+            Log.wtf(TAG, "The same downstream " + ipServer.interfaceName()
+                    + " should not add twice.");
+            return;
+        }
+
+        mServedIpServers.add(ipServer);
+        // Start monitoring and polling when the first IpServer is added.
+        if (mServedIpServers.size() == 1) {
+            startPolling();
+            startConntrackMonitoring();
+            startNeighborMonitoring();
+        }
+    }
+
+    /**
+     * Unregister an IpServer (downstream).
+     * Note that this can be only called on handler thread.
+     */
+    public void removeIpServer(@NonNull final IpServer ipServer) {
+        if (!isUsingBpf()) return;
+        if (!mServedIpServers.contains(ipServer)) {
+            mLog.e("Ignore removing because IpServer has never started for "
+                    + ipServer.interfaceName());
+            return;
+        }
+        mServedIpServers.remove(ipServer);
+
+        // Stop monitoring and polling when the last IpServer is removed.
+        if (mServedIpServers.isEmpty()) {
+            stopPolling();
+            stopConntrackMonitoring();
+            stopNeighborMonitoring();
+        }
+    }
+
+    /**
+     * Update upstream interface and its prefixes.
+     * Note that this can be only called on handler thread.
+     */
+    public void updateIpv6UpstreamInterface(@NonNull final IpServer ipServer, int upstreamIfindex,
+            @NonNull Set<IpPrefix> upstreamPrefixes) {
+        if (!isUsingBpf()) return;
+
+        final boolean upstreamSupportsBpf = upstreamSupportsBpf(upstreamIfindex);
+        updateIpv6ForwardingRules(ipServer, ipServer.getInterfaceParams(),
+                ipServer.getIpv6UpstreamIfindex(), ipServer.getIpv6UpstreamPrefixes(),
+                upstreamIfindex, upstreamPrefixes, upstreamSupportsBpf);
+    }
+
+    private boolean upstreamSupportsBpf(int upstreamIfindex) {
+        final String iface = mInterfaceNames.get(upstreamIfindex);
+        return iface != null && !isVcnInterface(iface);
+    }
+
+    private int getInterfaceIndexForRule(int ifindex, boolean supportsBpf) {
+        return supportsBpf ? ifindex : NO_UPSTREAM;
+    }
+
+    // Handles updates to IPv6 forwarding rules if the upstream or its prefixes change.
+    private void updateIpv6ForwardingRules(@NonNull IpServer ipServer,
+            final InterfaceParams interfaceParams, int prevUpstreamIfindex,
+            @NonNull Set<IpPrefix> prevUpstreamPrefixes, int upstreamIfindex,
+            @NonNull Set<IpPrefix> upstreamPrefixes, boolean upstreamSupportsBpf) {
+        // If the upstream interface has changed, remove all rules and re-add them with the new
+        // upstream interface. If upstream is a virtual network, treated as no upstream.
+        if (prevUpstreamIfindex != upstreamIfindex
+                || !prevUpstreamPrefixes.equals(upstreamPrefixes)) {
+            updateAllIpv6Rules(ipServer, interfaceParams,
+                    getInterfaceIndexForRule(upstreamIfindex, upstreamSupportsBpf),
+                    upstreamPrefixes);
+        }
+    }
+
+    // Handles updates to IPv6 downstream rules if a neighbor event is received.
+    private void addOrRemoveIpv6Downstream(@NonNull IpServer ipServer, NeighborEvent e) {
+        // mInterfaceParams must be non-null or the event would not have arrived.
+        if (e == null) return;
+        if (!(e.ip instanceof Inet6Address) || e.ip.isMulticastAddress()
+                || e.ip.isLoopbackAddress() || e.ip.isLinkLocalAddress()) {
+            return;
+        }
+
+        // When deleting rules, we still need to pass a non-null MAC, even though it's ignored.
+        // Do this here instead of in the Ipv6DownstreamRule constructor to ensure that we
+        // never add rules with a null MAC, only delete them.
+        final InterfaceParams interfaceParams = ipServer.getInterfaceParams();
+        final int lastIpv6UpstreamIfindex = ipServer.getIpv6UpstreamIfindex();
+        final boolean upstreamSupportsBpf = upstreamSupportsBpf(lastIpv6UpstreamIfindex);
+        if (interfaceParams == null || interfaceParams.macAddr == null) return;
+        MacAddress dstMac = e.isValid() ? e.macAddr : NULL_MAC_ADDRESS;
+        Ipv6DownstreamRule rule = new Ipv6DownstreamRule(
+                getInterfaceIndexForRule(lastIpv6UpstreamIfindex, upstreamSupportsBpf),
+                interfaceParams.index, (Inet6Address) e.ip, interfaceParams.macAddr, dstMac);
+        if (e.isValid()) {
+            addIpv6DownstreamRule(ipServer, rule);
+        } else {
+            removeIpv6DownstreamRule(ipServer, rule);
+        }
+    }
+
+    private void updateClientInfoIpv4(@NonNull IpServer ipServer, NeighborEvent e) {
+        if (e == null) return;
+        if (!(e.ip instanceof Inet4Address) || e.ip.isMulticastAddress()
+                || e.ip.isLoopbackAddress() || e.ip.isLinkLocalAddress()) {
+            return;
+        }
+
+        InterfaceParams interfaceParams = ipServer.getInterfaceParams();
+        if (interfaceParams == null) return;
+
+        // When deleting clients, IpServer still need to pass a non-null MAC, even though it's
+        // ignored. Do this here instead of in the ClientInfo constructor to ensure that
+        // IpServer never add clients with a null MAC, only delete them.
+        final MacAddress clientMac = e.isValid() ? e.macAddr : NULL_MAC_ADDRESS;
+        final ClientInfo clientInfo = new ClientInfo(interfaceParams.index,
+                interfaceParams.macAddr, (Inet4Address) e.ip, clientMac);
+        if (e.isValid()) {
+            tetherOffloadClientAdd(ipServer, clientInfo);
+        } else {
+            tetherOffloadClientRemove(ipServer, clientInfo);
+        }
+    }
+
+    private void handleNeighborEvent(@NonNull IpServer ipServer, NeighborEvent e) {
+        InterfaceParams interfaceParams = ipServer.getInterfaceParams();
+        if (interfaceParams != null
+                && interfaceParams.index == e.ifindex
+                && interfaceParams.hasMacAddress) {
+            addOrRemoveIpv6Downstream(ipServer, e);
+            updateClientInfoIpv4(ipServer, e);
         }
     }
 
@@ -2049,6 +2181,15 @@ public class BpfCoordinator {
             maybeSetLimit(upstreamIndex);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(UPSTREAM, upstream4Key, upstream4Value);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(DOWNSTREAM, downstream4Key, downstream4Value);
+        }
+    }
+
+    @VisibleForTesting
+    class BpfNeighborEventConsumer implements NeighborEventConsumer {
+        public void accept(NeighborEvent e) {
+            for (IpServer ipServer : mServedIpServers) {
+                handleNeighborEvent(ipServer, e);
+            }
         }
     }
 
