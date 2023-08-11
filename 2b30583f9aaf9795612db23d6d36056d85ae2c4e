@@ -16,6 +16,23 @@
       "message": "Forgot to bring Shai and Ryan as reviewers from the previous patches, sorry!",
       "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee31a900_d8a636d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-11T15:55:13Z",
+      "side": 1,
+      "message": "I know you\u0027ll hate me for this... but when I mentioned this patchset to Lorenzo he pointed out that iterating through the entire bpf map from jni *might* well be faster than this theoretically optimized code path in java...\n(the bpf map is probably not actually all that large...)\n\nThus, it may make sense to keep all this map caching logic constrained to C++...\n(ie. put the name-\u003eifindex cache inside the jni)\n\nWe could also consider whether switching to bpf map bulk reads/dumps wouldn\u0027t be more worthwhile (requires a new enough kernel, and we don\u0027t have any helpers for it yet) - as that would get rid of a fair number of bpf() system calls, or somehow teaching whatever code is performance critical to only ever query a single ifindex (perhaps go via ifname -\u003e ifindex, and query just the currently active one, and just ignore the results if the ifindex has changed since the last query...)\n\nDo you have any benchmark numbers for this change?\n\n[I\u0027ve also not looked too deeply at the code, but at first glance, it would be nice to keep the lock hidden to the inside of the class, though no idea how to do that]",
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
