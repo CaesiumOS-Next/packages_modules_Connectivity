@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a15fc72_f4ccbebf",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T08:22:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec0b3b95_ba401c9f",
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15a2fb7e_305f66a5",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-08-09T09:27:58Z",
       "side": 1,
       "message": "As commented in parent change: storing a reference to the clock in each Request object is a bit strange, it can be passed as argument to the method that calculates the elapsed time instead",
+      "range": {
+        "startLine": 693,
+        "startChar": 59,
+        "endLine": 693,
+        "endChar": 64
+      },
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06aee9cc_c0517ac1",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T08:22:10Z",
+      "side": 1,
+      "message": "Remove the clock as suggested.",
+      "parentUuid": "15a2fb7e_305f66a5",
       "range": {
         "startLine": 693,
         "startChar": 59,
@@ -75,6 +117,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c98df3a7_b50360af",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2492,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T08:22:10Z",
+      "side": 1,
+      "message": "Oops, I forgot to remove this.",
+      "parentUuid": "cf0c0902_6039026e",
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "786c29c8_0524e8ae",
@@ -88,6 +148,30 @@
       "writtenOn": "2023-08-09T09:27:58Z",
       "side": 1,
       "message": "As commented in the parent CL, how about passing the ClientRequest instead ? It has mTransactionId as member too",
+      "range": {
+        "startLine": 2583,
+        "startChar": 77,
+        "endLine": 2584,
+        "endChar": 31
+      },
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7d99373_67dd68d5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2584,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T08:22:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "786c29c8_0524e8ae",
       "range": {
         "startLine": 2583,
         "startChar": 77,
@@ -121,6 +205,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fe067a4_b1ed29f8",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T08:22:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08f5dcd2_36ed0c32",
+      "range": {
+        "startLine": 649,
+        "startChar": 63,
+        "endLine": 649,
+        "endChar": 73
+      },
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b5a8a5d_3b05e0b9",
@@ -134,6 +242,30 @@
       "writtenOn": "2023-08-09T09:27:58Z",
       "side": 1,
       "message": "eq(false) ?",
+      "range": {
+        "startLine": 1268,
+        "startChar": 71,
+        "endLine": 1268,
+        "endChar": 81
+      },
+      "revId": "4481cc2313d73d98bb594a7e5e6b414fa6db91b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "784c764a_9d589cd8",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-11T08:22:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b5a8a5d_3b05e0b9",
       "range": {
         "startLine": 1268,
         "startChar": 71,
