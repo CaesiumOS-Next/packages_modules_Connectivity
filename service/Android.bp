@@ -374,6 +374,24 @@ java_genrule {
     visibility: ["//visibility:private"],
 }
 
+java_genrule {
+    name: "service-thread-jarjar-gen",
+    tool_files: [
+        ":service-thread-pre-jarjar{.jar}",
+        "jarjar-excludes.txt",
+    ],
+    tools: [
+        "jarjar-rules-generator",
+    ],
+    out: ["service_thread_jarjar_rules.txt"],
+    cmd: "$(location jarjar-rules-generator) " +
+        "$(location :service-thread-pre-jarjar{.jar}) " +
+        "--prefix com.android.server.thread " +
+        "--excludes $(location jarjar-excludes.txt) " +
+        "--output $(out)",
+    visibility: ["//visibility:private"],
+}
+
 genrule {
     name: "statslog-connectivity-java-gen",
     tools: ["stats-log-api-gen"],
