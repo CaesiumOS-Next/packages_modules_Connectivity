@@ -42,6 +42,7 @@ java_defaults {
     srcs: [
         ":framework-connectivity-tiramisu-updatable-sources",
         ":framework-nearby-java-sources",
+        ":framework-threadnetwork-sources",
     ],
     libs: [
         "unsupportedappusage",
@@ -161,6 +162,7 @@ java_sdk_library {
         "//packages/modules/IPsec/tests/iketests",
         "//packages/modules/NetworkStack/tests:__subpackages__",
         "//packages/modules/Wifi/service/tests/wifitests",
+        "//packages/modules/ThreadNetwork/service:__subpackages__",
     ],
 }
 

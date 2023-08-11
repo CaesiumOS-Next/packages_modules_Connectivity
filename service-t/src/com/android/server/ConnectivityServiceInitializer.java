@@ -25,6 +25,7 @@ import com.android.server.connectivity.ConnectivityNativeService;
 import com.android.server.ethernet.EthernetService;
 import com.android.server.ethernet.EthernetServiceImpl;
 import com.android.server.nearby.NearbyService;
+import com.android.server.threadnetwork.ThreadNetworkService;
 
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
@@ -38,6 +39,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
     private final NsdService mNsdService;
     private final NearbyService mNearbyService;
     private final EthernetServiceImpl mEthernetServiceImpl;
+    private final ThreadNetworkService mThreadNetworkService;
 
     public ConnectivityServiceInitializer(Context context) {
         super(context);
@@ -49,6 +51,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
         mConnectivityNative = createConnectivityNativeService(context);
         mNsdService = createNsdService(context);
         mNearbyService = createNearbyService(context);
+        mThreadNetworkService = createThreadNetworkService(context);
     }
 
     @Override
@@ -85,6 +88,10 @@ public final class ConnectivityServiceInitializer extends SystemService {
                     /* allowIsolated= */ false);
         }
 
+        if (mThreadNetworkService != null) {
+            mThreadNetworkService.onStart();
+        }
+
     }
 
     @Override
@@ -95,6 +102,10 @@ public final class ConnectivityServiceInitializer extends SystemService {
 
         if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY && mEthernetServiceImpl != null) {
             mEthernetServiceImpl.start();
+        }
+
+        if (mThreadNetworkService != null) {
+            mThreadNetworkService.onBootPhase(phase);
         }
     }
 
@@ -138,6 +149,11 @@ public final class ConnectivityServiceInitializer extends SystemService {
             Log.i(TAG, "Skipping unsupported service " + ConstantsShim.NEARBY_SERVICE);
             return null;
         }
+    }
+
+    /** Return ThreadNetwork service or null if the feature is not available. */
+    private ThreadNetworkService createThreadNetworkService(final Context context) {
+        return new ThreadNetworkService(context);
     }
 
     /**
