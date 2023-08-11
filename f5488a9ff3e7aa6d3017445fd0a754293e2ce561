@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f04fd22_1fb4389f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-11T01:15:28Z",
+      "side": 1,
+      "message": "Everything in connectivity is on system server. I don\u0027t think any of these files are in framework.",
+      "parentUuid": "4adbfe42_02efe8e8",
+      "revId": "f5488a9ff3e7aa6d3017445fd0a754293e2ce561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e8061082_b603bd7b",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDevice.java",
         "patchSetId": 35
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-11T00:11:07Z",
       "side": 1,
       "message": "Is this supposed to be in framework and parcelable?\n\nIf so this will need to be @DataClass as well.",
+      "revId": "f5488a9ff3e7aa6d3017445fd0a754293e2ce561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71dd0a5f_8df7325c",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDevice.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-11T01:15:28Z",
+      "side": 1,
+      "message": "Framework has a different DiscoveredDevice object (unfortunately named similarly), which should be parcelable.",
+      "parentUuid": "e8061082_b603bd7b",
       "revId": "f5488a9ff3e7aa6d3017445fd0a754293e2ce561",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dd69454_eda52226",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDeviceReceiver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-11T01:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ae3d266_7eeaa164",
+      "range": {
+        "startLine": 36,
+        "startChar": 16,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "f5488a9ff3e7aa6d3017445fd0a754293e2ce561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21710628_d3ff37cf",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-08-11T00:11:07Z",
       "side": 1,
       "message": "We shouldn\u0027t need a separate owners file here.",
+      "revId": "f5488a9ff3e7aa6d3017445fd0a754293e2ce561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec7b523e_a636808a",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/OWNERS",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-11T01:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21710628_d3ff37cf",
       "revId": "f5488a9ff3e7aa6d3017445fd0a754293e2ce561",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

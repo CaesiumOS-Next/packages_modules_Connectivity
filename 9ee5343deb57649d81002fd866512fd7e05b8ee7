@@ -408,6 +408,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48df9fe4_4baf537c",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-11T01:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af07b349_7e29139d",
+      "range": {
+        "startLine": 26,
+        "startChar": 29,
+        "endLine": 26,
+        "endChar": 35
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01898a0c_7fde6163",
@@ -469,6 +493,30 @@
       "side": 1,
       "message": "That sounds backwards. Why would a response receive requests?",
       "parentUuid": "9478c492_2de9858b",
+      "range": {
+        "startLine": 80,
+        "startChar": 19,
+        "endLine": 80,
+        "endChar": 26
+      },
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8367e11d_719e429f",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-11T01:15:28Z",
+      "side": 1,
+      "message": "Sorry, my mistake. I flipped it in the previous comment.\n\nRemoteResponse is for receiving responses on the initiating side.\nMessageReceiver is for receiving messages on the listening side.",
+      "parentUuid": "627a5a2f_94f9bfa2",
       "range": {
         "startLine": 80,
         "startChar": 19,
@@ -575,6 +623,24 @@
       "side": 1,
       "message": "Ok that makes sense.",
       "parentUuid": "23013d84_aadc8bc5",
+      "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12304fce_8f5ef7fa",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityModule.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-11T01:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "492b4746_711a931d",
       "revId": "9ee5343deb57649d81002fd866512fd7e05b8ee7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

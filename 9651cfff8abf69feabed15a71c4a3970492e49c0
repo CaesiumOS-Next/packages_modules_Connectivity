@@ -356,6 +356,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b56b75c_0b93e2d6",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/Connection.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-11T01:15:28Z",
+      "side": 1,
+      "message": "I feel for our use case we might be okay with Intdefs are they are more efficient and we don\u0027t really rely on automatic String conversions. Enums may be fine too since there are only a handful of these.",
+      "parentUuid": "b4cdc833_829e5d8a",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4dbe490_f0dbb1a3",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/DiscoveryFilter.java",
         "patchSetId": 20
