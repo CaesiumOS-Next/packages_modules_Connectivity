@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bccfddf3_4c39be64",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5735,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-11T06:37:24Z",
+      "side": 1,
+      "message": "Description mismatch.\nIt sounds to me like run some runnable but catch exception.\nMaybe name it based on the description, e.g. installExeptionHandlerForTesting?",
+      "range": {
+        "startLine": 5735,
+        "startChar": 16,
+        "endLine": 5735,
+        "endChar": 45
+      },
+      "revId": "63a5dd87bfc89afa8ca3501c0bd05f730a77eb47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "194caee1_5d37522b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5752,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-11T06:37:24Z",
+      "side": 1,
+      "message": "It is strange to me that we use UncaughtExceptionHandler but didn\u0027t use\nits own mechanism to fire exception like: \nmHandlerThread.setUncaughtExceptionHandler(mDeps.getUncaughtExceptionHandler());\n\nIs it better if we use setUncaughtExceptionHandler instead of manually calling catchExceptionOnHandlerThread and invoking uncaughtException()?\nOr is there something I missed?",
+      "range": {
+        "startLine": 5752,
+        "startChar": 41,
+        "endLine": 5752,
+        "endChar": 58
+      },
+      "revId": "63a5dd87bfc89afa8ca3501c0bd05f730a77eb47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "370807ea_19f101fe",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-11T06:37:24Z",
+      "side": 1,
+      "message": "Stuipid question: How do we prevent NC changes for other existing immutable capabilities e.g. NET_CAPABILITY_NOT_METERED? \n  If they are already enforced to be immutable, what is the reason we create this function?\n  Alternatively, if we did not do anything, can they also be applied here?",
+      "range": {
+        "startLine": 441,
+        "startChar": 79,
+        "endLine": 441,
+        "endChar": 85
+      },
+      "revId": "63a5dd87bfc89afa8ca3501c0bd05f730a77eb47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77ac26cd_95b26d07",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 18586,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-11T06:37:24Z",
+      "side": 1,
+      "message": "1. This is great since we(you) create a great tool to test exception on handler thread.\n\n2. But I\u0027m wondering if it is possible to refactor this and allow us to test this repeatedly, nicely and easily, e.g. \n   assertFailsOnHandler(IllegalArgumentException.class, () -\u003e \n      mWiFiAgent.addCapability(NET_CAPABILITY_LOCAL_NETWORK));\nIt sounds to me this is feasible by wrapping what you have into a dedicate method, right?\n\n3. It is even better if we could put such method into HanderUtils class.\nBut I doubt it is possible.",
+      "range": {
+        "startLine": 18586,
+        "startChar": 8,
+        "endLine": 18586,
+        "endChar": 13
+      },
+      "revId": "63a5dd87bfc89afa8ca3501c0bd05f730a77eb47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
