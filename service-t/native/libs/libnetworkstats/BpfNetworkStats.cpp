@@ -64,6 +64,7 @@ int bpfGetIfaceStatsInternal(const char* iface, StatsValue* stats,
     const auto processIfaceStats =
             [iface, stats, &ifaceNameMap, &unknownIfaceBytesTotal](
                     const uint32_t& key,
+                    const StatsValue& value,
                     const BpfMap<uint32_t, StatsValue>& ifaceStatsMap) -> Result<void> {
         char ifname[IFNAMSIZ];
         if (getIfaceNameFromMap(ifaceNameMap, ifaceStatsMap, key, ifname, key,
@@ -71,15 +72,11 @@ int bpfGetIfaceStatsInternal(const char* iface, StatsValue* stats,
             return Result<void>();
         }
         if (!iface || !strcmp(iface, ifname)) {
-            Result<StatsValue> statsEntry = ifaceStatsMap.readValue(key);
-            if (!statsEntry.ok()) {
-                return statsEntry.error();
-            }
-            *stats += statsEntry.value();
+            *stats += value;
         }
         return Result<void>();
     };
-    auto res = ifaceStatsMap.iterate(processIfaceStats);
+    auto res = ifaceStatsMap.iterateWithValue(processIfaceStats);
     return res.ok() ? 0 : -res.error().code();
 }
 
