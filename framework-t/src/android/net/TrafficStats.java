@@ -34,6 +34,8 @@ import android.os.RemoteException;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.android.modules.utils.build.SdkLevel;
+
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.DatagramSocket;
@@ -683,6 +685,7 @@ public class TrafficStats {
     /** {@hide} */
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
     public static long getMobileTcpRxPackets() {
+        if (SdkLevel.isAtLeastT()) return UNSUPPORTED;
         long total = 0;
         for (String iface : getMobileIfaces()) {
             long stat = UNSUPPORTED;
@@ -699,6 +702,7 @@ public class TrafficStats {
     /** {@hide} */
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
     public static long getMobileTcpTxPackets() {
+        if (SdkLevel.isAtLeastT()) return UNSUPPORTED;
         long total = 0;
         for (String iface : getMobileIfaces()) {
             long stat = UNSUPPORTED;
