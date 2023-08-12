@@ -53,6 +53,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9171355a_b3df7eda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-12T10:58:12Z",
+      "side": 1,
+      "message": "Looking at the jni code we seem to do 2 or 3 bpf system calls per map entry.\n\nThe map lookup in getIfaceNameFromMap() should be easiest to get rid of,\nas it should be possible to simply cache it...\n\n(that map should be write once, with no overwrites)\n\nFully caching this would also require us to cache negative lookups, which would be annoying but also possible to do: it would need to be time based, but reading current time does not require a system call...\n\nThat would get us down to 1 or 2 bpf system calls per map entry.\n\nThen we should probably switch from iterate to iterateWithValue, while also improving it to use BPF_MAP_LOOKUP_BATCH on new enough kernels.\n\n--\n\nOr maybe there\u0027s some way to fix this differently?\nIt feels like always-on-vpn/ppn is really screwing us...\nMaybe we need to shrink this map to only store active interfaces?\nHmm...\n\n--\n\nAlternatively we could perhaps replace the entire lookup with\na full map dump+parse+cache and then just return results directly from cache\nif there\u0027s been a dump/parse/cache in the last 0.1 seconds...\n\nThe java APIs are *ridiculously* inefficient...\nWe get all 4 (rx/tx packets/bytes) at the same time,\nbut java can only return 1 so most things probably call us 2 or even 4 times in quick succession...",
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cffaf3d_0f2b19c4",
