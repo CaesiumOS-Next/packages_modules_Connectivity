@@ -65,12 +65,15 @@ int bpfGetIfaceStatsInternal(const char* iface, StatsValue* stats,
             [iface, stats, &ifaceNameMap, &unknownIfaceBytesTotal](
                     const uint32_t& key,
                     const BpfMap<uint32_t, StatsValue>& ifaceStatsMap) -> Result<void> {
-        char ifname[IFNAMSIZ];
-        if (getIfaceNameFromMap(ifaceNameMap, ifaceStatsMap, key, ifname, key,
-                                &unknownIfaceBytesTotal)) {
-            return Result<void>();
+        bool iface_matches = !iface;
+        if (iface) {
+            char ifname[IFNAMSIZ];
+            if (!getIfaceNameFromMap(ifaceNameMap, ifaceStatsMap, key, ifname, key,
+                                     &unknownIfaceBytesTotal)) {
+                iface_matches = !strcmp(iface, ifname);
+            }
         }
-        if (!iface || !strcmp(iface, ifname)) {
+        if (iface_matches) {
             Result<StatsValue> statsEntry = ifaceStatsMap.readValue(key);
             if (!statsEntry.ok()) {
                 return statsEntry.error();
