@@ -62,11 +62,9 @@ static uint64_t getStatsType(Stats* stats, StatsType type) {
         case TX_PACKETS:
             return stats->txPackets;
         case TCP_RX_PACKETS:
-            return stats->tcpRxPackets;
         case TCP_TX_PACKETS:
-            return stats->tcpTxPackets;
         default:
-            return UNKNOWN;
+            return UNKNOWN;  // -1
     }
 }
 
