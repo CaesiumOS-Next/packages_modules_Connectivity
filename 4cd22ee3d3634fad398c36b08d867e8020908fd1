@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a7fea19_eaa00dad",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-08-12T09:27:11Z",
+      "side": 1,
+      "message": "This is in framework-t, so this code doesn\u0027t run before then. Could it just be deleted? It\u0027s been marked UnsupportedAppUsage since R -- though I am not sure if this is actually enforced (I am guessing it isn\u0027t). Remi should know.",
+      "range": {
+        "startLine": 688,
+        "startChar": 12,
+        "endLine": 688,
+        "endChar": 34
+      },
+      "revId": "4cd22ee3d3634fad398c36b08d867e8020908fd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
