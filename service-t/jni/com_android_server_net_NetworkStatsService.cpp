@@ -51,7 +51,7 @@ enum StatsType {
     TCP_TX_PACKETS = 5,  // not supported, always returns UNKNOWN (-1)
 };
 
-static uint64_t getStatsType(Stats* stats, StatsType type) {
+static uint64_t getStatsType(StatsValue* stats, StatsType type) {
     switch (type) {
         case RX_BYTES:
             return stats->rxBytes;
