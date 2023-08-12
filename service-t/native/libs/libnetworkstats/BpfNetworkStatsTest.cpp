@@ -116,7 +116,7 @@ class BpfNetworkStatsHelperTest : public testing::Test {
         EXPECT_RESULT_OK(mFakeIfaceIndexNameMap.writeValue(ifaceIndex, iface, BPF_ANY));
     }
 
-    void expectStatsEqual(const StatsValue& target, const Stats& result) {
+    void expectStatsEqual(const StatsValue& target, const StatsValue& result) {
         EXPECT_EQ(target.rxPackets, result.rxPackets);
         EXPECT_EQ(target.rxBytes, result.rxBytes);
         EXPECT_EQ(target.txPackets, result.txPackets);
