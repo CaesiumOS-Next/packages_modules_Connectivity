@@ -55,6 +55,10 @@ typedef struct {
 } StatsValue;
 STRUCT_SIZE(StatsValue, 4 * 8);  // 32
 
+#ifdef __cplusplus
+operator+=
+#endif
+
 typedef struct {
     char name[IFNAMSIZ];
 } IfaceValue;
