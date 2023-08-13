@@ -47,8 +47,11 @@ enum StatsType {
     RX_PACKETS = 1,
     TX_BYTES = 2,
     TX_PACKETS = 3,
+<<<<<<< PATCH SET (0a4aca remove unused TcpTx/RxPackets java & jni constants)
+=======
     TCP_RX_PACKETS = 4,
     TCP_TX_PACKETS = 5
+>>>>>>> BASE      (e5e48d simplify tcpTx/RxPackets)
 };
 
 static uint64_t getStatsType(Stats* stats, StatsType type) {
@@ -61,10 +64,13 @@ static uint64_t getStatsType(Stats* stats, StatsType type) {
             return stats->txBytes;
         case TX_PACKETS:
             return stats->txPackets;
+<<<<<<< PATCH SET (0a4aca remove unused TcpTx/RxPackets java & jni constants)
+=======
         case TCP_RX_PACKETS:
             return stats->tcpRxPackets;
         case TCP_TX_PACKETS:
             return stats->tcpTxPackets;
+>>>>>>> BASE      (e5e48d simplify tcpTx/RxPackets)
         default:
             return UNKNOWN;
     }
