@@ -282,7 +282,7 @@ public class BpfNetMaps {
             sEnableJavaBpfMap = SdkLevel.isAtLeastU() ||
                     DeviceConfigUtils.isFeatureEnabled(context,
                             DeviceConfig.NAMESPACE_TETHERING, BPF_NET_MAPS_ENABLE_JAVA_BPF_MAP,
-                            DeviceConfigUtils.TETHERING_MODULE_NAME, false /* defaultValue */);
+                            DeviceConfigUtils.TETHERING_MODULE_NAME, true /* defaultValue */);
         }
         Log.d(TAG, "BpfNetMaps is initialized with sEnableJavaBpfMap=" + sEnableJavaBpfMap);
 
