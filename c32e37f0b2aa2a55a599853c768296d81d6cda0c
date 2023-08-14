@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b961b857_cc6bc744",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-08-14T11:16:46Z",
+      "side": 1,
+      "message": "Looks like aosp/2696274 was just merged after aosp/2700974, aosp/2707195 is being remove the duplicate constant, to prevent from importing RFC7421_PREFIX_LENGTH from NetworkConstants again.",
+      "revId": "c32e37f0b2aa2a55a599853c768296d81d6cda0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
