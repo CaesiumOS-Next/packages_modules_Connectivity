@@ -38,7 +38,7 @@ public final class CdmConnectionInfo extends ConnectionInfo {
     @NonNull private final AssociationInfo mAssociationInfo;
 
     public CdmConnectionInfo(int connectionId, @NonNull AssociationInfo associationInfo) {
-       super(connectionId);
+        super(connectionId);
         mAssociationInfo = associationInfo;
     }
 

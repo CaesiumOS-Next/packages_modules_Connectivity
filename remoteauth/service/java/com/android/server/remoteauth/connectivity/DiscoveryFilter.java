@@ -31,7 +31,6 @@ import java.lang.annotation.RetentionPolicy;
  * the filter criteria (device type, name or peer address).
  */
 public final class DiscoveryFilter {
-
     /** Device type WATCH. */
     public static final int WATCH = 0;
 

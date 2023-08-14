@@ -27,7 +27,6 @@ import java.util.Objects;
  *
  * <p>Connection information captures the details of underlying connection such as connection id,
  * type of connection and peer device mac address.
- *
  */
 // TODO(b/295407748) Change to use @DataClass.
 public abstract class ConnectionInfo implements Parcelable {
