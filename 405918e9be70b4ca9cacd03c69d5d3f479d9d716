@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d30496e8_e660858d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-14T11:24:01Z",
+      "side": 1,
+      "message": "I\u0027m actually not really comfortable with this change: while code in p/m/Connectivity/remoteauth is not really affecting monthly releases yet, changes to general Android.bp files do get cut every month and shipped to users, so we need to maintain them carefully. There\u0027s also a lot of gotchas with the build rules so it\u0027s better to have someone familiar with how they\u0027re organized do a review, especially if you\u0027re newly onboarding. For example it\u0027s easy to add a dependency on something that breaks code coverage or other module signals, or libraries that are not intended to be pushed or used on a particular set of devices.\n\nIn practice Nearby uses a similar scheme and I haven\u0027t needed to review any change for months: initial setup is hard (especially with the timezone), but after that they\u0027ve been merging their changes without having to touch the toplevel build config - although it\u0027s arguably less changes that what D2DA is looking at. I do think it\u0027s valuable for the module owners to have a good look at the initial setup, while organizing the tree so you don\u0027t need reviews on \"normal\" changes starting from there.\n\nI\u0027ve uploaded aosp/2705539 to add owners for the API files, as I think that\u0027s one that you may need to edit regularly. But considering the gotchas and impact of changing the .bp, I\u0027d rather keep owners restricted and see if we can get smooth development like with Nearby.\n\nI\u0027m prioritizing reviews considering the timezone too, but sorry you might have been blocked last week due to the Friday being JP holiday. I also wrote ag/24418397 and aosp/2705538 so we can minimize round-trips for this initial setup.",
+      "revId": "405918e9be70b4ca9cacd03c69d5d3f479d9d716",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "241a7650_7e65aa7f",
         "filename": "OWNERS",
         "patchSetId": 1
