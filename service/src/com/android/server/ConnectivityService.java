@@ -318,7 +318,6 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.lang.IllegalArgumentException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -341,6 +340,7 @@ import java.util.SortedSet;
 import java.util.StringJoiner;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 
 /**
  * @hide
@@ -7328,8 +7328,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, TYPE_NONE,
                 nextNetworkRequestId(), NetworkRequest.Type.REQUEST);
-        NetworkRequestInfo nri = new NetworkRequestInfo(callingUid, networkRequest, operation,
-                callingAttributionTag);
+        NetworkRequestInfo nri = createNri(() -> new NetworkRequestInfo(callingUid, networkRequest,
+                operation, callingAttributionTag));
         if (DBG) log("pendingRequest for " + nri);
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_REGISTER_NETWORK_REQUEST_WITH_INTENT,
                 nri));
@@ -7371,6 +7371,38 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return true;
     }
 
+    /**
+     * Create an NRI solving for the race in unregister/register when at max per UID
+     *
+     * Because this might run with scissors, this must only be called from a binder thread which
+     * can afford to be blocked up to one second. It will deadlock if called on the handler thread.
+     *
+     * @param supplier how to create the NRI. This might be invoked either once or twice, so
+     *                 it should not make any side effects.
+     * @return the NRI
+     */
+    private NetworkRequestInfo createNri(@NonNull final Supplier<NetworkRequestInfo> supplier) {
+        if (mHandler.getLooper().getThread() == Thread.currentThread()) {
+            throw new IllegalStateException("Must not call on CS handler thread");
+        }
+        try {
+            return supplier.get();
+        } catch (ServiceSpecificException e) {
+            // In case a request was just unregistered but the handler thread has not processed
+            // it, it's possible that creating an NRI throws with "too many requests" while the
+            // caller expects they just freed a slot. In this case, wait for the handler thread
+            // to process its outstanding messages and try again. If there was no release in
+            // flight, the next call to the constructor will throw again, rightly.
+            // Note that the connectivity diagnostics handler might also free a slot, as the
+            // connectivity diagnostics callback share the counter, but as they run on the same
+            // looper the queue is shared so waiting for just mHandler is sufficient.
+            final ConditionVariable cv = new ConditionVariable();
+            mHandler.post(cv::open); // This is Handler#runWithScissors, but that's not public API
+            cv.block(1_000); // wait up to one second
+            return supplier.get();
+        }
+    }
+
     @Override
     public NetworkRequest listenForNetwork(NetworkCapabilities networkCapabilities,
             Messenger messenger, IBinder binder,
@@ -7393,11 +7425,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         restrictBackgroundRequestForCaller(nc);
         ensureListenableCapabilities(nc);
 
-        NetworkRequest networkRequest = new NetworkRequest(nc, TYPE_NONE, nextNetworkRequestId(),
-                NetworkRequest.Type.LISTEN);
-        NetworkRequestInfo nri =
-                new NetworkRequestInfo(callingUid, networkRequest, messenger, binder, callbackFlags,
-                        callingAttributionTag);
+        final NetworkRequest networkRequest = new NetworkRequest(nc, TYPE_NONE,
+                nextNetworkRequestId(), NetworkRequest.Type.LISTEN);
+        final NetworkRequestInfo nri = createNri(() ->  new NetworkRequestInfo(callingUid,
+                networkRequest, messenger, binder, callbackFlags, callingAttributionTag));
         if (VDBG) log("listenForNetwork for " + nri);
 
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_REGISTER_NETWORK_LISTENER, nri));
@@ -7419,10 +7450,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
         restrictRequestUidsForCallerAndSetRequestorInfo(nc, callingUid, callingPackageName);
 
-        NetworkRequest networkRequest = new NetworkRequest(nc, TYPE_NONE, nextNetworkRequestId(),
-                NetworkRequest.Type.LISTEN);
-        NetworkRequestInfo nri = new NetworkRequestInfo(callingUid, networkRequest, operation,
-                callingAttributionTag);
+        final NetworkRequest networkRequest = new NetworkRequest(nc, TYPE_NONE,
+                nextNetworkRequestId(), NetworkRequest.Type.LISTEN);
+        final NetworkRequestInfo nri = createNri(() -> new NetworkRequestInfo(callingUid,
+                networkRequest, operation, callingAttributionTag));
         if (VDBG) log("pendingListenForNetwork for " + nri);
 
         mHandler.sendMessage(mHandler.obtainMessage(
@@ -10995,7 +11026,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // nri is not bound to the death of callback. Instead, callback.bindToDeath() is set in
         // handleRegisterConnectivityDiagnosticsCallback(). nri will be cleaned up as part of the
         // callback's binder death.
-        final NetworkRequestInfo nri = new NetworkRequestInfo(callingUid, requestWithId);
+        final NetworkRequestInfo nri = createNri(() ->
+                new NetworkRequestInfo(callingUid, requestWithId));
         final ConnectivityDiagnosticsCallbackInfo cbInfo =
                 new ConnectivityDiagnosticsCallbackInfo(callback, nri, callingPackageName);
 

@@ -7430,6 +7430,27 @@ public class ConnectivityServiceTest {
         assertPinnedToWifiWithCellDefault();
     }
 
+    @Test
+    public void testNetworkCallbackMaximum_LastRequest_RaceConditionUnregistering() {
+        final NetworkRequest networkRequest = new NetworkRequest.Builder().build();
+        final ArrayList<NetworkCallback> registered = new ArrayList<>();
+        for (int i = 0; i < ConnectivityService.MAX_NETWORK_REQUESTS_PER_UID - 2; ++i) {
+            final NetworkCallback cb = new NetworkCallback();
+            mCm.registerNetworkCallback(networkRequest, cb);
+            registered.add(cb);
+        }
+        final NetworkCallback extraCallback = new NetworkCallback();
+        final NetworkCallback lastCallback = registered.remove(registered.size() - 1);
+        mCm.unregisterNetworkCallback(lastCallback);
+        mCm.registerNetworkCallback(networkRequest, extraCallback);
+
+        // Cleanup
+        mCm.unregisterNetworkCallback(extraCallback);
+        for (final NetworkCallback cb : registered) {
+            mCm.unregisterNetworkCallback(cb);
+        }
+    }
+
     @SkipPresubmit(reason = "Out of SLO flakiness")
     @Test
     public void testNetworkCallbackMaximum() throws Exception {
