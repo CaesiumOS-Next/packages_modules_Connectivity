@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5cf8111_c791fcf3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-14T06:20:11Z",
+      "side": 1,
+      "message": "nit: maybe it is better to unify the variable name.",
+      "range": {
+        "startLine": 479,
+        "startChar": 12,
+        "endLine": 479,
+        "endChar": 30
+      },
+      "revId": "953c6cdb6b8d72494ef36446bc35740e050f24db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba1899e5_f3a3f31d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2249,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-14T06:20:11Z",
+      "side": 1,
+      "message": "It will be better to use a proper setter\n\n```\npublic void setCachedService(boolean cachedService);\n```",
+      "range": {
+        "startLine": 2249,
+        "startChar": 20,
+        "endLine": 2249,
+        "endChar": 36
+      },
+      "revId": "953c6cdb6b8d72494ef36446bc35740e050f24db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9881450_39f108ef",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceBrowserListener.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-14T06:20:11Z",
+      "side": 1,
+      "message": "nit: Is it common to use passive term in the parameter? Maybe `isServiceInCache` is better?",
+      "range": {
+        "startLine": 37,
+        "startChar": 70,
+        "endLine": 37,
+        "endChar": 87
+      },
+      "revId": "953c6cdb6b8d72494ef36446bc35740e050f24db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
