@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "dbbe579f_4be684f1",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3893,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-14T10:58:01Z",
+      "side": 1,
+      "message": "This is a completely different thing which is in particular meant for backward compatibility. No flag \u003d no callback about local networks. Consider the following existing code in an old app :\n\n    cm.registerNetworkCallback(\n      new NetworkRequest.Builder().addTransport(WIFI).build(),\n      myCallback);\n\nThis old code is likely not actually ready to receive callbacks about local networks like a tethering downstream. So by default it doesn\u0027t see them.\n\nConversely, you can create a callback that will see all Wifi networks *including* the local agents, by setting this flag but not the capability.\n\nI added some doc, and a runtime check to help developers.",
+      "parentUuid": "72875cd6_72b0a8a5",
+      "range": {
+        "startLine": 3893,
+        "startChar": 32,
+        "endLine": 3893,
+        "endChar": 59
+      },
+      "revId": "7eba2f3968f4f640aefad980de66b7a4a33319f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c8db20c5_c41bac3b",
         "filename": "framework/src/android/net/NetworkCapabilities.java",
         "patchSetId": 5
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-11T02:48:50Z",
       "side": 1,
       "message": "Ok but I\u0027m not following why you need this variable.",
+      "range": {
+        "startLine": 706,
+        "startChar": 29,
+        "endLine": 706,
+        "endChar": 47
+      },
+      "revId": "7eba2f3968f4f640aefad980de66b7a4a33319f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c928a15_5ce4524e",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-14T10:58:01Z",
+      "side": 1,
+      "message": "Um yeah. Me either. I don\u0027t remember why I added it, I guess I had a use for it at some point. Removed.",
+      "parentUuid": "c8db20c5_c41bac3b",
       "range": {
         "startLine": 706,
         "startChar": 29,
