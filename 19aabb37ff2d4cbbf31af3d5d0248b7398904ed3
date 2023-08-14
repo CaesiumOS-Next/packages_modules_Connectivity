@@ -22,6 +22,30 @@
       },
       "revId": "19aabb37ff2d4cbbf31af3d5d0248b7398904ed3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b75f8606_b37a70af",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-08-14T06:15:54Z",
+      "side": 1,
+      "message": "Thanks, I was not aware that we have `isTetheringFeatureForceDisabled` now.\nUpdated to use isTetheringFeatureForceDisabled with a separate constant.",
+      "parentUuid": "2c09e9d1_f6f35098",
+      "range": {
+        "startLine": 285,
+        "startChar": 69,
+        "endLine": 285,
+        "endChar": 73
+      },
+      "revId": "19aabb37ff2d4cbbf31af3d5d0248b7398904ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
