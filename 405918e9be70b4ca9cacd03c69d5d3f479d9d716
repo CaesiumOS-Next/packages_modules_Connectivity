@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb00d2ad_2392446d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-14T17:25:36Z",
+      "side": 1,
+      "message": "Thanks for those refactors. We\u0027ll see how development goes. Hope it is smooth!",
+      "parentUuid": "d30496e8_e660858d",
+      "revId": "405918e9be70b4ca9cacd03c69d5d3f479d9d716",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "241a7650_7e65aa7f",
         "filename": "OWNERS",
         "patchSetId": 1
