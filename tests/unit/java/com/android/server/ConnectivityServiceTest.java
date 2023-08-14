@@ -2301,10 +2301,10 @@ public class ConnectivityServiceTest {
         }
 
         @Override
-        public boolean isFeatureEnabled(@NonNull final String name, final boolean defaultEnabled) {
+        public boolean isTetheringFeatureForceDisabled(@NonNull final String name) {
             // Tests for enabling the feature are verified in AutomaticOnOffKeepaliveTrackerTest.
-            // Assuming enabled here to focus on ConnectivityService tests.
-            return true;
+            // Assuming feature is enabled here to focus on ConnectivityService tests.
+            return false;
         }
         public KeepaliveTracker newKeepaliveTracker(@NonNull Context context,
                 @NonNull Handler connectivityserviceHander) {
