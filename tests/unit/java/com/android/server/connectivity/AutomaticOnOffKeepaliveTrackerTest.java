@@ -357,7 +357,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
                 .when(mDependencies)
                 .newKeepaliveStatsTracker(mCtx, mTestHandler);
 
-        doReturn(true).when(mDependencies).isFeatureEnabled(any(), anyBoolean());
+        doReturn(false).when(mDependencies).isTetheringFeatureForceDisabled(any());
         doReturn(0L).when(mDependencies).getElapsedRealtime();
         mAOOKeepaliveTracker =
                 new AutomaticOnOffKeepaliveTracker(mCtx, mTestHandler, mDependencies);

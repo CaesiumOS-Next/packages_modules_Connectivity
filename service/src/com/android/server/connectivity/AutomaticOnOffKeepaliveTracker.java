@@ -219,8 +219,8 @@ public class AutomaticOnOffKeepaliveTracker {
             // Reading DeviceConfig will check if the calling uid and calling package name are the
             // same. Clear calling identity to align the calling uid and package
             final boolean enabled = BinderUtils.withCleanCallingIdentity(
-                    () -> mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION,
-                            true /* defaultEnabled */));
+                    () -> !mDependencies.isTetheringFeatureForceDisabled(
+                            AUTOMATIC_ON_OFF_KEEPALIVE_VERSION));
             if (autoOnOff && enabled) {
                 mAutomaticOnOffState = STATE_ENABLED;
                 if (null == ki.mFd) {
@@ -693,8 +693,8 @@ public class AutomaticOnOffKeepaliveTracker {
         // Clear calling identity to align the calling uid and package so that it won't fail if cts
         // would like to call dump()
         final boolean featureEnabled = BinderUtils.withCleanCallingIdentity(
-                () -> mDependencies.isFeatureEnabled(AUTOMATIC_ON_OFF_KEEPALIVE_VERSION,
-                        true /* defaultEnabled */));
+                () -> !mDependencies.isTetheringFeatureForceDisabled(
+                        AUTOMATIC_ON_OFF_KEEPALIVE_VERSION));
         pw.println("AutomaticOnOff enabled: " + featureEnabled);
         pw.increaseIndent();
         for (AutomaticOnOffKeepalive autoKi : mAutomaticOnOffKeepalives) {
@@ -965,13 +965,10 @@ public class AutomaticOnOffKeepaliveTracker {
          * Find out if a feature is enabled from DeviceConfig.
          *
          * @param name The name of the property to look up.
-         * @param defaultEnabled whether to consider the feature enabled in the absence of
-         *                       the flag. This MUST be a statically-known constant.
          * @return whether the feature is enabled
          */
-        public boolean isFeatureEnabled(@NonNull final String name, final boolean defaultEnabled) {
-            return DeviceConfigUtils.isFeatureEnabled(mContext, NAMESPACE_TETHERING, name,
-                    DeviceConfigUtils.TETHERING_MODULE_NAME, defaultEnabled);
+        public boolean isTetheringFeatureForceDisabled(@NonNull final String name) {
+            return DeviceConfigUtils.isTetheringFeatureForceDisabled(name);
         }
 
         /**
