@@ -134,6 +134,30 @@
       },
       "revId": "2af2f3be7259c96d07ca4f5a69488a92f4e94230",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42d4900b_2920058f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18571,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-14T05:35:30Z",
+      "side": 1,
+      "message": "This is not true. I didn\u0027t see how this could not pass on the old code so I cherry-picked this test and ran it on the old code. Sure enough, it passes with the old code.\n\nPlease update this test so it actually checks that the bug is fixed – that is, it must fail with the old code and pass with the new code.",
+      "parentUuid": "3a3c4bd5_d0227fb4",
+      "range": {
+        "startLine": 18571,
+        "startChar": 37,
+        "endLine": 18571,
+        "endChar": 63
+      },
+      "revId": "2af2f3be7259c96d07ca4f5a69488a92f4e94230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
