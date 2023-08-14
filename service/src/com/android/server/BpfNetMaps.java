@@ -42,7 +42,6 @@ import android.content.Context;
 import android.net.INetd;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
-import android.provider.DeviceConfig;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.util.ArraySet;
@@ -56,7 +55,6 @@ import com.android.modules.utils.BackgroundThread;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfDump;
 import com.android.net.module.util.BpfMap;
-import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.Struct.S32;
@@ -91,7 +89,7 @@ public class BpfNetMaps {
     // Use legacy netd for releases before T.
     private static boolean sInitialized = false;
 
-    private static Boolean sEnableJavaBpfMap = null;
+    private static Boolean sEnableJavaBpfMap = true;
     private static final String BPF_NET_MAPS_ENABLE_JAVA_BPF_MAP =
             "bpf_net_maps_enable_java_bpf_map";
 
@@ -278,12 +276,6 @@ public class BpfNetMaps {
      */
     private static synchronized void ensureInitialized(final Context context) {
         if (sInitialized) return;
-        if (sEnableJavaBpfMap == null) {
-            sEnableJavaBpfMap = SdkLevel.isAtLeastU() ||
-                    DeviceConfigUtils.isFeatureEnabled(context,
-                            DeviceConfig.NAMESPACE_TETHERING, BPF_NET_MAPS_ENABLE_JAVA_BPF_MAP,
-                            DeviceConfigUtils.TETHERING_MODULE_NAME, false /* defaultValue */);
-        }
         Log.d(TAG, "BpfNetMaps is initialized with sEnableJavaBpfMap=" + sEnableJavaBpfMap);
 
         initBpfMaps();
