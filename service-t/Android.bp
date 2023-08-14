@@ -19,6 +19,8 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+service_remoteauth_pre_jarjar_lib = "service-remoteauth-pre-jarjar"
+
 // Include build rules from Sources.bp
 build = ["Sources.bp"]
 
@@ -54,8 +56,8 @@ java_library {
         "framework-tethering.impl",
         "framework-wifi",
         "service-connectivity-pre-jarjar",
+        service_remoteauth_pre_jarjar_lib,
         "service-nearby-pre-jarjar",
-        "service-remoteauth-pre-jarjar",
         "ServiceConnectivityResources",
         "unsupportedappusage",
     ],
