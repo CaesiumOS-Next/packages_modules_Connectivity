@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13b0f5dd_aef93ba0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-14T20:30:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8780462_f13b0531",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "9cd735aa1cf635e28380d9222c869ef587385f39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b9239bc_d2fdab1f",
@@ -58,6 +82,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "445683ff_8267472e",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 33
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-14T20:30:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "befa628e_6f6dccee",
+      "revId": "9cd735aa1cf635e28380d9222c869ef587385f39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dffee293_5ec0341e",
@@ -75,6 +117,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f87e7fb7_db392cb6",
+        "filename": "framework-t/api/module-lib-current.txt",
+        "patchSetId": 33
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-14T20:30:01Z",
+      "side": 1,
+      "message": "This constant is indeed in Context, however it doesn\u0027t exists in udc-mainline-prod therefore I added it here until it is merged\n\nDone",
+      "parentUuid": "dffee293_5ec0341e",
+      "revId": "9cd735aa1cf635e28380d9222c869ef587385f39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d973ccb5_a261ade6",
@@ -88,6 +148,24 @@
       "writtenOn": "2023-08-14T02:58:29Z",
       "side": 1,
       "message": "Nit: Do you actually need these ? They should only be necessary if you use mockito-extended, and I don\u0027t see it in the dependencies",
+      "revId": "9cd735aa1cf635e28380d9222c869ef587385f39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1b74df6_b99dad43",
+        "filename": "remoteauth/tests/unit/Android.bp",
+        "patchSetId": 33
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-14T20:30:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d973ccb5_a261ade6",
       "revId": "9cd735aa1cf635e28380d9222c869ef587385f39",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
