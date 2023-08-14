@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8780462_f13b0531",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-14T02:58:29Z",
+      "side": 1,
+      "message": "This won\u0027t be accessible for most people that have access to AOSP and its git log (e.g. the general public): can you write a short description instead ?\n\n(note this applies in internal branches as well, since the git history gets pushed to AOSP eventually)",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "9cd735aa1cf635e28380d9222c869ef587385f39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b9239bc_d2fdab1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-14T02:58:29Z",
+      "side": 1,
+      "message": "LGTM for the build config, no need to address the nits here (but it would be best to update the commit message before submitting)",
+      "revId": "9cd735aa1cf635e28380d9222c869ef587385f39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "befa628e_6f6dccee",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 33
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-14T02:58:29Z",
+      "side": 1,
+      "message": "Nit: Can this go to \"package_prefixes\" instead ? Looking at the comment above I don\u0027t think there are other BCP modules that contain android.remoteauth classes ?",
+      "revId": "9cd735aa1cf635e28380d9222c869ef587385f39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d973ccb5_a261ade6",
+        "filename": "remoteauth/tests/unit/Android.bp",
+        "patchSetId": 33
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-14T02:58:29Z",
+      "side": 1,
+      "message": "Nit: Do you actually need these ? They should only be necessary if you use mockito-extended, and I don\u0027t see it in the dependencies",
+      "revId": "9cd735aa1cf635e28380d9222c869ef587385f39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
