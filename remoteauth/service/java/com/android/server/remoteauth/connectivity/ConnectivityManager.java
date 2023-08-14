@@ -42,8 +42,15 @@ public interface ConnectivityManager {
             @NonNull DiscoveryFilter discoveryFilter,
             @NonNull DiscoveredDeviceReceiver discoveredDeviceReceiver);
 
-    /** Stops device discovery. */
-    void stopDiscovery();
+    /**
+     * Stops device discovery.
+     *
+     * @param discoveryFilter filter that was used to start discovery.
+     * @param discoveredDeviceReceiver callback that was used to start discovery.
+     */
+    void stopDiscovery(
+            @NonNull DiscoveryFilter discoveryFilter,
+            @NonNull DiscoveredDeviceReceiver discoveredDeviceReceiver);
 
     /** Reason codes for connect failure. */
     @IntDef({
