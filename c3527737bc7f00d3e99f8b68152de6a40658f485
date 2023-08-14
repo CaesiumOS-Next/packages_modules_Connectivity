@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b25d4b6a_b0f0856b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1183,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-14T03:17:22Z",
+      "side": 1,
+      "message": "nit: please also log the clientRequestId otherwise the log message is not useful.",
+      "range": {
+        "startLine": 1183,
+        "startChar": 31,
+        "endLine": 1183,
+        "endChar": 56
+      },
+      "revId": "c3527737bc7f00d3e99f8b68152de6a40658f485",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d0aaf1_2af14814",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-14T03:17:22Z",
+      "side": 1,
+      "message": "nit: please also log the clientRequestId otherwise the log message is not useful.",
+      "range": {
+        "startLine": 1402,
+        "startChar": 20,
+        "endLine": 1402,
+        "endChar": 58
+      },
+      "revId": "c3527737bc7f00d3e99f8b68152de6a40658f485",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7a19a3f_3b41d093",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2205,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-14T03:17:22Z",
+      "side": 1,
+      "message": "nit: is it necessary to pass the clock around here? I think you can just pass the `clock.elapsedRealtime`",
+      "range": {
+        "startLine": 2205,
+        "startChar": 47,
+        "endLine": 2205,
+        "endChar": 58
+      },
+      "revId": "c3527737bc7f00d3e99f8b68152de6a40658f485",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
