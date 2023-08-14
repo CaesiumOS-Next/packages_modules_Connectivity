@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13635201_55a7b90a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5735,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-14T11:34:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bccfddf3_4c39be64",
+      "range": {
+        "startLine": 5735,
+        "startChar": 16,
+        "endLine": 5735,
+        "endChar": 45
+      },
+      "revId": "63a5dd87bfc89afa8ca3501c0bd05f730a77eb47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "194caee1_5d37522b",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-11T06:37:24Z",
       "side": 1,
       "message": "It is strange to me that we use UncaughtExceptionHandler but didn\u0027t use\nits own mechanism to fire exception like: \nmHandlerThread.setUncaughtExceptionHandler(mDeps.getUncaughtExceptionHandler());\n\nIs it better if we use setUncaughtExceptionHandler instead of manually calling catchExceptionOnHandlerThread and invoking uncaughtException()?\nOr is there something I missed?",
+      "range": {
+        "startLine": 5752,
+        "startChar": 41,
+        "endLine": 5752,
+        "endChar": 58
+      },
+      "revId": "63a5dd87bfc89afa8ca3501c0bd05f730a77eb47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83107057_754db921",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5752,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-14T11:34:05Z",
+      "side": 1,
+      "message": "The uncaught exception handler doesn\u0027t actually let the thread continue. The handler gets called, but the thread still terminates with the exception (it wouldn\u0027t know where to resume execution). In tests, that means the tests can\u0027t clean up because cleaning up involves waiting for the handler threads.\n\nBy contrast, this catches the exception but leaves the thread running, and processes the next message.\n\nThat\u0027s why this is necessary.",
+      "parentUuid": "194caee1_5d37522b",
       "range": {
         "startLine": 5752,
         "startChar": 41,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9319c98_316f941d",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-14T11:34:05Z",
+      "side": 1,
+      "message": "• Originally, they were simply not enforced at all. That is the case for most immutable caps, like NOT_METERED or INTERNET.\n  → In fact, some OEMs actually do remove and add INTERNET dynamically although that is actually catastrophic for apps in some situations (and likely causes infinite loops in some cases on these devices).\n  → Note how because of that, we can never actually enforce these, because we\u0027d break the functionality they implemented in this incorrect way.\n\n• Later, we started ignoring changes that we couldn\u0027t make dynamically. This protects the system server, but it\u0027s very unhelpful to the network provider authors, because it just silently fails to take effect.\n → See `NetworkAgentInfo#getDeclaredCapabilitiesSanitized`, which resets the owner UID silently. Turns out Telephony had (still has ?) a bug where they tried to change this and didn\u0027t notice it wasn\u0027t reflected.\n → The reason we did this is because we couldn\u0027t crash the agent, since there is no place to do it. We could crash in NetworkAgent, but we\u0027d still need protection in the system server.\n\n• Because of the above, I now think it is really necessary to crash. If you try to mutate the LOCAL_NETWORK capability you\u0027ll mess up routing on the system. I just never want this to happen, and any network provider author trying to do it to notice for sure. Hence this new scheme. Our API is not the easiest to use, and I am tired of users misusing it without realizing. This gives us a very heavy hammer to prevent stuff that we really do not want.",
+      "parentUuid": "370807ea_19f101fe",
+      "range": {
+        "startLine": 441,
+        "startChar": 79,
+        "endLine": 441,
+        "endChar": 85
+      },
+      "revId": "63a5dd87bfc89afa8ca3501c0bd05f730a77eb47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77ac26cd_95b26d07",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-08-11T06:37:24Z",
       "side": 1,
       "message": "1. This is great since we(you) create a great tool to test exception on handler thread.\n\n2. But I\u0027m wondering if it is possible to refactor this and allow us to test this repeatedly, nicely and easily, e.g. \n   assertFailsOnHandler(IllegalArgumentException.class, () -\u003e \n      mWiFiAgent.addCapability(NET_CAPABILITY_LOCAL_NETWORK));\nIt sounds to me this is feasible by wrapping what you have into a dedicate method, right?\n\n3. It is even better if we could put such method into HanderUtils class.\nBut I doubt it is possible.",
+      "range": {
+        "startLine": 18586,
+        "startChar": 8,
+        "endLine": 18586,
+        "endChar": 13
+      },
+      "revId": "63a5dd87bfc89afa8ca3501c0bd05f730a77eb47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88e7f770_f54750e6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 18586,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-14T11:34:05Z",
+      "side": 1,
+      "message": "Done, though putting this in HandlerUtils is questionable because of how specialized it is. At the end of the day, this has to install an exception handler on either of the handlers in CS, calling one of the 2 specialized methods.\n\nIn my latest patch, I abstract this with a `Consumer`, because this lets me reduce copy-paste. That means the abstracted version could be moved to a static lib. But any use would rely on there being *some* mechanism to do exactly what I\u0027m doing here (installing a handler), so it\u0027s still super specialized.",
+      "parentUuid": "77ac26cd_95b26d07",
       "range": {
         "startLine": 18586,
         "startChar": 8,
