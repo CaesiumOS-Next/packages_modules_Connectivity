@@ -22,6 +22,30 @@
       },
       "revId": "c33eafb464c249804d1722f933d180ebbcb3663c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce171044_5a2c1589",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-15T08:51:00Z",
+      "side": 1,
+      "message": "My ultimate plan is to have agents in CSTest use a KEEP_CONNECTED flag by default, so that you never have to file a request to keep them up. You\u0027d have an option to disable that for tests where you need to test lingering or something.",
+      "parentUuid": "f39476aa_ecbd6d45",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "c33eafb464c249804d1722f933d180ebbcb3663c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
