@@ -211,6 +211,30 @@
       },
       "revId": "e8f08b9d2e5f9e081619538aecadf4d0c228ff88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d41223cc_075e7c66",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8995,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-15T06:03:08Z",
+      "side": 1,
+      "message": "Additionally, by using forbidden capabilities we also provides scalability over all capabilities we already defined today, if that is feasible.",
+      "parentUuid": "bfeb58c7_26d14dd8",
+      "range": {
+        "startLine": 8995,
+        "startChar": 46,
+        "endLine": 8995,
+        "endChar": 73
+      },
+      "revId": "e8f08b9d2e5f9e081619538aecadf4d0c228ff88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
