@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "059d8e32_254e1adb",
+        "filename": "tests/common/java/android/net/KeepalivePacketDataTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-15T07:46:25Z",
+      "side": 0,
+      "message": "You could fix this using the same approach I suggested for NetworkInfo below. That said, given that KeepalivePacketData is a (rare) system API and not public, I think the value is limited. So it\u0027s OK to lose coverage here. Up to you.",
+      "parentUuid": "f17efb37_b8db9e83",
+      "revId": "34fd58de3b504cab2a9a9d2bb396b2ec23308c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24158a1e_97f45f6e",
         "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
         "patchSetId": 2
