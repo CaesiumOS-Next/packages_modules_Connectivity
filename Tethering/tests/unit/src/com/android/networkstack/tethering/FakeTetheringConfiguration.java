@@ -29,8 +29,8 @@ public class FakeTetheringConfiguration extends TetheringConfiguration {
         super(ctx, log, id, new Dependencies() {
             @Override
             boolean isFeatureEnabled(@NonNull Context context, @NonNull String namespace,
-                    @NonNull String name, @NonNull String moduleName, boolean defaultEnabled) {
-                return defaultEnabled;
+                    @NonNull String name) {
+                return false;
             }
 
             @Override
