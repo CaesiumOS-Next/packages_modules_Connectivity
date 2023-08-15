@@ -98,7 +98,6 @@ import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
-import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.checkAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
@@ -1416,8 +1415,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
          * @see DeviceConfigUtils#isTetheringFeatureEnabled
          */
         public boolean isFeatureEnabled(Context context, String name) {
-            return DeviceConfigUtils.isTetheringFeatureEnabled(context, NAMESPACE_TETHERING, name,
-                    TETHERING_MODULE_NAME, false /* defaultValue */);
+            return DeviceConfigUtils.isTetheringFeatureEnabled(context, NAMESPACE_TETHERING, name);
         }
 
         /**
