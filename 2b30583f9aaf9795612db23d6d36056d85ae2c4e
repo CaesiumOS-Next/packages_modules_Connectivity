@@ -70,6 +70,59 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98776c9d_fa52047b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-15T14:39:59Z",
+      "side": 1,
+      "message": "I\u0027m not sure how appropriate it would be to use BPF_MAP_LOOKUP_BATCH, since this would only improve the NetworkStats performance of newer kernels while leaving older ones unimproved. However, removing the map lookup in getIfaceNameFromMap() sounds good to me, and seems like it would roll in nicely with the proposal to generally move the caching logic out of the Java components here.\n\nI don\u0027t think I understand why the cache would need to account for time; this sounds like it would add some extra complexity to a simple cache for storing interface indices for each name. Could you explain a bit more?\n\nAs for the alternative fix (only storing active interfaces)—I think the current logic for iterating through indices for matching iface names is a clear issue. While it would help to reduce the size of the map by only storing active interfaces, I think that\u0027s probably best left as a follow-up optimization after the index-\u003ename inefficiencies have been fixed.",
+      "parentUuid": "9171355a_b3df7eda",
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23adef5d_c2584688",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-15T14:39:59Z",
+      "side": 1,
+      "message": "@Shai, thanks for the code suggestions! I haven\u0027t forgotten about them, but will  leave them pending for now as it\u0027s not entirely clear whether the name-\u003eindices map will live in the Java code as in this CL, or be moved elsewhere.",
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b34e5d3f_623b1bff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-15T14:39:59Z",
+      "side": 1,
+      "message": "I think putting the cache in JNI would be okay; I don\u0027t have a preference between implementing the cache there or in BpfInterfaceMapUpdater. +1 to Ryan\u0027s point about the bulk API only being available on newer kernels.\n\nI don\u0027t have benchmark numbers because I haven\u0027t written/figured out a way to generally test NetworkStats performance, but the bug linked in the CL provides an estimate of how much cheaper the new nativeGetIfindexStat+caching is compared to the current nativeGetIfaceStat calls (~30%).",
+      "parentUuid": "4cefe3f5_daf6284f",
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cffaf3d_0f2b19c4",
