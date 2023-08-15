@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "184de252_210a1c1a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7384,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-15T10:05:32Z",
+      "side": 1,
+      "message": "IIUC functionalities of this function is very hard to explain.\nMaybe createNriWithRetry if you think it is better.",
+      "range": {
+        "startLine": 7384,
+        "startChar": 31,
+        "endLine": 7384,
+        "endChar": 40
+      },
+      "revId": "4f39c7dadf8a55f22208d9319ca6d498aeb1bbea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b533590_ee387024",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7401,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-15T10:05:32Z",
+      "side": 1,
+      "message": "1. nit: It seems to me this is what we did in waitForIdle.\nIs it better if we refactor this into waitForIdle(mHandler, 1000) to make this more readible?\n\n2. nit : Not sure if it is better if we shorten these comments, \ne.g.\n// If the request was just unregistered but the handler thread has not processed it and causing \"too many rereuqests\" exception, wait for the handler process it and retry.\nFeel free to ignore, only change if you think it is better.",
+      "range": {
+        "startLine": 7399,
+        "startChar": 12,
+        "endLine": 7401,
+        "endChar": 53
+      },
+      "revId": "4f39c7dadf8a55f22208d9319ca6d498aeb1bbea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce48b8cb_2ef0ba55",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7437,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-15T10:05:32Z",
+      "side": 1,
+      "message": "Why - 2?",
+      "range": {
+        "startLine": 7437,
+        "startChar": 77,
+        "endLine": 7437,
+        "endChar": 80
+      },
+      "revId": "4f39c7dadf8a55f22208d9319ca6d498aeb1bbea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e90604b_6591b1ec",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7443,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-15T10:05:32Z",
+      "side": 1,
+      "message": "Why - 1?",
+      "range": {
+        "startLine": 7443,
+        "startChar": 80,
+        "endLine": 7443,
+        "endChar": 83
+      },
+      "revId": "4f39c7dadf8a55f22208d9319ca6d498aeb1bbea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
