@@ -46,7 +46,6 @@ import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.ENODEV;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
-
 import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
 
 import android.app.StatsManager;
@@ -431,6 +430,7 @@ public class BpfNetMaps {
         throwIfPreT("addNaughtyApp is not available on pre-T devices");
 
         if (sEnableJavaBpfMap) {
+            Log.e(TAG, "addNaughtyApp(uid) addRule(uid=" + uid + ", PENALTY_BOX_MATCH)");
             addRule(uid, PENALTY_BOX_MATCH, "addNaughtyApp");
         } else {
             final int err = native_addNaughtyApp(uid);
@@ -449,6 +449,7 @@ public class BpfNetMaps {
         throwIfPreT("removeNaughtyApp is not available on pre-T devices");
 
         if (sEnableJavaBpfMap) {
+            Log.e(TAG, "removeNaughtyApp(uid) addRule(uid=" + uid + ", PENALTY_BOX_MATCH)");
             removeRule(uid, PENALTY_BOX_MATCH, "removeNaughtyApp");
         } else {
             final int err = native_removeNaughtyApp(uid);
@@ -467,6 +468,7 @@ public class BpfNetMaps {
         throwIfPreT("addNiceApp is not available on pre-T devices");
 
         if (sEnableJavaBpfMap) {
+            Log.e(TAG, "addNiceApp(uid) addRule(uid=" + uid + ", HAPPY_BOX_MATCH)");
             addRule(uid, HAPPY_BOX_MATCH, "addNiceApp");
         } else {
             final int err = native_addNiceApp(uid);
@@ -485,10 +487,39 @@ public class BpfNetMaps {
         throwIfPreT("removeNiceApp is not available on pre-T devices");
 
         if (sEnableJavaBpfMap) {
+            Log.e(TAG, "removeNiceApp(uid) removeRule(uid=" + uid + ", HAPPY_BOX_MATCH)");
             removeRule(uid, HAPPY_BOX_MATCH, "removeNiceApp");
         } else {
             final int err = native_removeNiceApp(uid);
             maybeThrow(err, "Unable to remove nice app");
+        }
+    }
+
+    /**
+     * Convert int type chain to String
+     *
+     * @param chain firewall chain
+     */
+    public String firewallChainToString(final int chain) {
+        switch (chain) {
+            case FIREWALL_CHAIN_DOZABLE:
+                return "FIREWALL_CHAIN_DOZABLE";
+            case FIREWALL_CHAIN_STANDBY:
+                return "FIREWALL_CHAIN_STANDBY";
+            case FIREWALL_CHAIN_POWERSAVE:
+                return "FIREWALL_CHAIN_POWERSAVE";
+            case FIREWALL_CHAIN_RESTRICTED:
+                return "FIREWALL_CHAIN_RESTRICTED";
+            case FIREWALL_CHAIN_LOW_POWER_STANDBY:
+                return "FIREWALL_CHAIN_LOW_POWER_STANDBY";
+            case FIREWALL_CHAIN_OEM_DENY_1:
+                return "FIREWALL_CHAIN_OEM_DENY_1";
+            case FIREWALL_CHAIN_OEM_DENY_2:
+                return "FIREWALL_CHAIN_OEM_DENY_2";
+            case FIREWALL_CHAIN_OEM_DENY_3:
+                return "FIREWALL_CHAIN_OEM_DENY_3";
+            default:
+                return "Invalid firewall chain: " + chain;
         }
     }
 
@@ -506,6 +537,8 @@ public class BpfNetMaps {
 
         if (sEnableJavaBpfMap) {
             final long match = getMatchByFirewallChain(childChain);
+            Log.e(TAG, "setChildChain(" + firewallChainToString(childChain) + ", " + enable
+                    + ") match " + match + " " + matchToString(match));
             try {
                 synchronized (sUidRulesConfigBpfMapLock) {
                     final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
@@ -568,6 +601,9 @@ public class BpfNetMaps {
             final long match;
             try {
                 match = getMatchByFirewallChain(chain);
+                String uidArrayAsString = Arrays.toString(uids);
+                Log.e(TAG, "replaceUidChain(" + firewallChainToString(chain) + ", uids "
+                        + uidArrayAsString + ") match " + match + " " + matchToString(match));
             } catch (ServiceSpecificException e) {
                 // Throws IllegalArgumentException to keep the behavior of
                 // ConnectivityManager#replaceFirewallChain API
@@ -637,6 +673,22 @@ public class BpfNetMaps {
     }
 
     /**
+     * Convert int type firewallRule into String
+     *
+     * @param firewallRule       Fire rule
+     */
+    public String firewallRuleToString(final int firewallRule) {
+        switch (firewallRule) {
+            case FIREWALL_RULE_ALLOW:
+                return "FIREWALL_RULE_ALLOW";
+            case FIREWALL_RULE_DENY:
+                return "FIREWALL_RULE_DENY";
+            default:
+                return "UNKNOWN";
+        }
+    }
+
+    /**
      * Set firewall rule for uid
      *
      * @param childChain   target chain
@@ -655,8 +707,16 @@ public class BpfNetMaps {
                     || (firewallRule == FIREWALL_RULE_DENY && !isAllowList);
 
             if (add) {
+                Log.e(TAG, "setUidRule(" + firewallChainToString(childChain) + ", uid " + uid
+                        + ", firewallRule " + firewallRuleToString(firewallRule) + ") match "
+                        + match + " " + matchToString(match) + " isAllowList " + isAllowList
+                        + " addRule");
                 addRule(uid, match, "setUidRule");
             } else {
+                Log.e(TAG, "setUidRule(" + firewallChainToString(childChain) + ", uid " + uid
+                        + ", firewallRule " + firewallRuleToString(firewallRule) + ") match "
+                        + match + " " + matchToString(match) + " isAllowList " + isAllowList
+                        + " removeRule");
                 removeRule(uid, match, "setUidRule");
             }
         } else {
@@ -785,8 +845,11 @@ public class BpfNetMaps {
                             "Failed to get index of interface " + ifName);
                 }
             }
+            String uidsArrayAsString = Arrays.toString(uids);
+            Log.e(TAG, "addUidInterfaceRules(" + ifName + ", uids " + uidsArrayAsString + ")");
             for (final int uid : uids) {
                 try {
+                    Log.e(TAG, "addRule(uid " + uid + ", IIF_MATCH, ifIndex " + ifIndex + ")");
                     addRule(uid, IIF_MATCH, ifIndex, "addUidInterfaceRules");
                 } catch (ServiceSpecificException e) {
                     Log.e(TAG, "addRule failed uid=" + uid + " ifName=" + ifName + ", " + e);
@@ -816,8 +879,11 @@ public class BpfNetMaps {
         }
 
         if (sEnableJavaBpfMap) {
+            String uidsArrayAsString = Arrays.toString(uids);
+            Log.e(TAG, "removeUidInterfaceRules(uids " + uidsArrayAsString + ")");
             for (final int uid : uids) {
                 try {
+                    Log.e(TAG, "removeRule(uid " + uid + ", IIF_MATCH)");
                     removeRule(uid, IIF_MATCH, "removeUidInterfaceRules");
                 } catch (ServiceSpecificException e) {
                     Log.e(TAG, "removeRule failed uid=" + uid + ", " + e);
@@ -842,8 +908,12 @@ public class BpfNetMaps {
 
         if (sEnableJavaBpfMap) {
             if (add) {
+                Log.e(TAG, "updateUidLockdownRule(uid " + uid + ", add " + add + ")"
+                        + "addRule(uid " + uid + ", LOCKDOWN_VPN_MATCH)");
                 addRule(uid, LOCKDOWN_VPN_MATCH, "updateUidLockdownRule");
             } else {
+                Log.e(TAG, "updateUidLockdownRule(uid " + uid + ", add " + add + ")"
+                        + "removeRule(uid " + uid + ", LOCKDOWN_VPN_MATCH)");
                 removeRule(uid, LOCKDOWN_VPN_MATCH, "updateUidLockdownRule");
             }
         } else {
@@ -863,6 +933,7 @@ public class BpfNetMaps {
         throwIfPreT("swapActiveStatsMap is not available on pre-T devices");
 
         if (sEnableJavaBpfMap) {
+            Log.e(TAG, "swapActiveStatsMap()");
             try {
                 synchronized (sCurrentStatsMapConfigLock) {
                     final long config = sConfigurationMap.getValue(
@@ -908,6 +979,9 @@ public class BpfNetMaps {
         }
 
         if (sEnableJavaBpfMap) {
+            String uidsArrayAsString = Arrays.toString(uids);
+            Log.e(TAG, "setNetPermForUids(permissions " + permissionToString(permissions)
+                    + ", uids " + uidsArrayAsString + ")");
             // Remove the entry if package is uninstalled or uid has only INTERNET permission.
             if (permissions == PERMISSION_UNINSTALLED || permissions == PERMISSION_INTERNET) {
                 for (final int uid : uids) {
