@@ -22,9 +22,6 @@ import static android.net.ConnectivityManager.TYPE_MOBILE;
 import static android.net.ConnectivityManager.TYPE_MOBILE_DUN;
 import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
-import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
-
-import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
 
 import android.content.ContentResolver;
@@ -179,15 +176,18 @@ public class TetheringConfiguration {
      */
     @VisibleForTesting
     public static class Dependencies {
-        boolean isFeatureEnabled(@NonNull Context context, @NonNull String namespace,
-                @NonNull String name, @NonNull String moduleName, boolean defaultEnabled) {
-            return DeviceConfigUtils.isTetheringFeatureEnabled(context, namespace, name,
-                    moduleName, defaultEnabled);
+        boolean isFeatureEnabled(@NonNull Context context, @NonNull String name) {
+            return DeviceConfigUtils.isTetheringFeatureEnabled(context, name);
         }
 
         boolean getDeviceConfigBoolean(@NonNull String namespace, @NonNull String name,
                 boolean defaultValue) {
             return DeviceConfig.getBoolean(namespace, name, defaultValue);
+        }
+
+        int getDeviceConfigInt(@NonNull String namespace, @NonNull String name) {
+            return DeviceConfigUtils.getDeviceConfigPropertyInt(namespace, name,
+                    0 /* defaultValue */);
         }
     }
 
@@ -237,7 +237,7 @@ public class TetheringConfiguration {
         // - S, T: can be enabled/disabled by resource config_tether_upstream_automatic.
         // - U+  : automatic mode only.
         final boolean forceAutomaticUpstream = SdkLevel.isAtLeastU() || (!SdkLevel.isAtLeastS()
-                && isConnectivityFeatureEnabled(ctx, TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION));
+                && isTetherForceUpstreamAutomaticFeatureEnabled());
         chooseUpstreamAutomatically = forceAutomaticUpstream || getResourceBoolean(
                 res, R.bool.config_tether_upstream_automatic, false /** defaultValue */);
         preferredUpstreamIfaceTypes = getUpstreamIfaceTypes(res, isDunRequired);
@@ -615,22 +615,20 @@ public class TetheringConfiguration {
     }
 
     /**
-     * This is deprecated because connectivity namespace already be used for NetworkStack mainline
-     * module. Tethering should use its own namespace to roll out the feature flag.
+     * This method read the flag value from connectivity namespace which is wrong since connectivity
+     * namespace is for NetworkStack mainline. Tethering module needs to use tethering namespace.
+     * This method is used only on R device, so this can be removed after R EOL.
      * @deprecated new caller should use isTetheringFeatureEnabled instead.
      */
     @Deprecated
-    private boolean isConnectivityFeatureEnabled(Context ctx, String featureVersionFlag) {
-        return isFeatureEnabled(ctx, NAMESPACE_CONNECTIVITY, featureVersionFlag);
+    private boolean isTetherForceUpstreamAutomaticFeatureEnabled() {
+        final int flagValue = mDeps.getDeviceConfigInt(NAMESPACE_CONNECTIVITY,
+                TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION);
+        return flagValue != 0;
     }
 
     private boolean isTetheringFeatureEnabled(Context ctx, String featureVersionFlag) {
-        return isFeatureEnabled(ctx, NAMESPACE_TETHERING, featureVersionFlag);
-    }
-
-    private boolean isFeatureEnabled(Context ctx, String namespace, String featureVersionFlag) {
-        return mDeps.isFeatureEnabled(ctx, namespace, featureVersionFlag, TETHERING_MODULE_NAME,
-                false /* defaultEnabled */);
+        return mDeps.isFeatureEnabled(ctx, featureVersionFlag);
     }
 
     private Resources getResources(Context ctx, int subId) {

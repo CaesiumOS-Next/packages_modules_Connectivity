@@ -156,8 +156,8 @@ public class TetheringConfigurationTest {
 
         @Override
         boolean isFeatureEnabled(@NonNull Context context, @NonNull String namespace,
-                @NonNull String name, @NonNull String moduleName, boolean defaultEnabled) {
-            return isMockFlagEnabled(name, defaultEnabled);
+                @NonNull String name) {
+            return isMockFlagEnabled(name, false /* defaultEnabled */);
         }
 
         @Override
