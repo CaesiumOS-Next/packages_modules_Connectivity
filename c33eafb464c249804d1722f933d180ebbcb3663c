@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f39476aa_ecbd6d45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-15T08:01:03Z",
+      "side": 1,
+      "message": "nit: Not for this CL.\nInstead of adding sleeps here and there,\nis it possible to create a slow thread to catch these kind of flakiness once for all?\ne.g. Make the internal handler always takes 20sec to dispatch events.\nJust an idea, not even sure this worth our time to investigate.\nGiven that we already have too many bugs to fix.",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "c33eafb464c249804d1722f933d180ebbcb3663c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
