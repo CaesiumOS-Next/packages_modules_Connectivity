@@ -186,6 +186,23 @@
       "parentUuid": "d973ccb5_a261ade6",
       "revId": "9cd735aa1cf635e28380d9222c869ef587385f39",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84673796_9fc62505",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-15T01:58:16Z",
+      "side": 1,
+      "message": "Tests are failing on S (v2/mainline-engprod/suite/test-mapping-mainline-presubmit-cloud-S-base-image) with:\n\n```\njava.lang.RuntimeException: Failed to create service com.android.server.ConnectivityServiceInitializer: service constructor threw an exception\n\tat com.android.server.SystemServiceManager.startService(SystemServiceManager.java:188)\n\tat com.android.server.SystemServiceManager.startServiceFromJar(SystemServiceManager.java:133)\n\tat com.android.server.SystemServer.startOtherServices(SystemServer.java:1917)\n\tat com.android.server.SystemServer.run(SystemServer.java:879)\n\tat com.android.server.SystemServer.main(SystemServer.java:610)\n\tat java.lang.reflect.Method.invoke(Native Method)\n\tat com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:548)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:981)\nCaused by: java.lang.reflect.InvocationTargetException\n\tat java.lang.reflect.Constructor.newInstance0(Native Method)\n\tat java.lang.reflect.Constructor.newInstance(Constructor.java:343)\n\tat com.android.server.SystemServiceManager.startService(SystemServiceManager.java:177)\n\t... 7 more\nCaused by: java.lang.NoClassDefFoundError: Failed resolution of: Landroid/net/connectivity/android/remoteauth/IRemoteAuthService$Stub;\n```\n\nThat\u0027s because IRemoteAuthService is in framework-t, which is not in the bootclasspath on S.\n\nYou should just need to add:\n\n```\nif (!SdkLevel.isAtLeastV()) return null;\n```",
+      "revId": "9cd735aa1cf635e28380d9222c869ef587385f39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
