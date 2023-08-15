@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff0b25bb_50548dc2",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-15T02:45:18Z",
+      "side": 1,
+      "message": "Note I\u0027ll need to move this somewhere else to disable building remoteauth in udc-mainline-prod, because I need to have the build only include API stubs (so only build the prototypes of methods that are marked @SystemApi in this class).",
+      "revId": "32890a46a5329a5f94d0262be6298b2d26e4beb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
