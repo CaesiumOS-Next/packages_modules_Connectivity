@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3cfd6c0_21f64fee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-15T09:13:05Z",
+      "side": 1,
+      "message": "Should be ConnectivityManagerTest not VpnTests",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "3122fcce288571f52782a3850df972f7cf9cd307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
