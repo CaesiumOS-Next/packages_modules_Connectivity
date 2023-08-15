@@ -155,9 +155,8 @@ public class TetheringConfigurationTest {
         private ArrayMap<String, Boolean> mMockFlags = new ArrayMap<>();
 
         @Override
-        boolean isFeatureEnabled(@NonNull Context context, @NonNull String namespace,
-                @NonNull String name, @NonNull String moduleName, boolean defaultEnabled) {
-            return isMockFlagEnabled(name, defaultEnabled);
+        boolean isFeatureEnabled(@NonNull Context context, @NonNull String name) {
+            return isMockFlagEnabled(name, false /* defaultEnabled */);
         }
 
         @Override
