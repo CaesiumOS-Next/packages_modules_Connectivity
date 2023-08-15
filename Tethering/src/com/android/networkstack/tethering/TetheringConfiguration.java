@@ -22,9 +22,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE;
 import static android.net.ConnectivityManager.TYPE_MOBILE_DUN;
 import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
-import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
-import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
 
 import android.content.ContentResolver;
@@ -179,15 +177,27 @@ public class TetheringConfiguration {
      */
     @VisibleForTesting
     public static class Dependencies {
-        boolean isFeatureEnabled(@NonNull Context context, @NonNull String namespace,
-                @NonNull String name, @NonNull String moduleName, boolean defaultEnabled) {
-            return DeviceConfigUtils.isTetheringFeatureEnabled(context, namespace, name,
-                    moduleName, defaultEnabled);
+        boolean isFeatureEnabled(@NonNull Context context, @NonNull String name) {
+            return DeviceConfigUtils.isTetheringFeatureEnabled(context, name);
         }
 
         boolean getDeviceConfigBoolean(@NonNull String namespace, @NonNull String name,
                 boolean defaultValue) {
             return DeviceConfig.getBoolean(namespace, name, defaultValue);
+        }
+
+        /**
+         * TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION is used to force enable the feature on specific
+         * R devices. So, checking the flag value without comparing the module version is enough.
+         * This flag is wrongly configured in connectivity namespace so this method reads the flag
+         * value from connectivity namespace. But tethering module should use tethering namespace.
+         * This method can be removed after R EOL.
+         */
+        boolean isTetherForceUpstreamAutomaticFeatureEnabled() {
+            final int flagValue = DeviceConfigUtils.getDeviceConfigPropertyInt(
+                    NAMESPACE_CONNECTIVITY, TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION,
+                    0 /* defaultValue */);
+            return flagValue != 0;
         }
     }
 
@@ -237,7 +247,7 @@ public class TetheringConfiguration {
         // - S, T: can be enabled/disabled by resource config_tether_upstream_automatic.
         // - U+  : automatic mode only.
         final boolean forceAutomaticUpstream = SdkLevel.isAtLeastU() || (!SdkLevel.isAtLeastS()
-                && isConnectivityFeatureEnabled(ctx, TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION));
+                && mDeps.isTetherForceUpstreamAutomaticFeatureEnabled());
         chooseUpstreamAutomatically = forceAutomaticUpstream || getResourceBoolean(
                 res, R.bool.config_tether_upstream_automatic, false /** defaultValue */);
         preferredUpstreamIfaceTypes = getUpstreamIfaceTypes(res, isDunRequired);
@@ -607,30 +617,11 @@ public class TetheringConfiguration {
 
     private boolean shouldEnableWearTethering(Context context) {
         return SdkLevel.isAtLeastT()
-            && isTetheringFeatureEnabled(context, TETHER_ENABLE_WEAR_TETHERING);
+            && mDeps.isFeatureEnabled(context, TETHER_ENABLE_WEAR_TETHERING);
     }
 
     private boolean getDeviceConfigBoolean(final String name, final boolean defaultValue) {
         return mDeps.getDeviceConfigBoolean(NAMESPACE_CONNECTIVITY, name, defaultValue);
-    }
-
-    /**
-     * This is deprecated because connectivity namespace already be used for NetworkStack mainline
-     * module. Tethering should use its own namespace to roll out the feature flag.
-     * @deprecated new caller should use isTetheringFeatureEnabled instead.
-     */
-    @Deprecated
-    private boolean isConnectivityFeatureEnabled(Context ctx, String featureVersionFlag) {
-        return isFeatureEnabled(ctx, NAMESPACE_CONNECTIVITY, featureVersionFlag);
-    }
-
-    private boolean isTetheringFeatureEnabled(Context ctx, String featureVersionFlag) {
-        return isFeatureEnabled(ctx, NAMESPACE_TETHERING, featureVersionFlag);
-    }
-
-    private boolean isFeatureEnabled(Context ctx, String namespace, String featureVersionFlag) {
-        return mDeps.isFeatureEnabled(ctx, namespace, featureVersionFlag, TETHERING_MODULE_NAME,
-                false /* defaultEnabled */);
     }
 
     private Resources getResources(Context ctx, int subId) {
