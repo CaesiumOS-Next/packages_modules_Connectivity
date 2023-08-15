@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d988541_68a1a22a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-15T07:55:25Z",
+      "side": 0,
+      "message": "Maybe you just want\n\n    public class NonNullTestUtils {\n      @NonNull public static \u003cT\u003e T nullUnsafe(T v) { return v; }\n    }\n\nYou can then use this one method to convert everything.\n\nYou might add\n\n    fun \u003cT\u003e T?.unsafe() \u003d KeepalivePacketData.nullable(this)\n\nSo you can say `foo.unsafe()` if you find it more readable.",
+      "parentUuid": "3f1dc929_138d3931",
+      "revId": "34fd58de3b504cab2a9a9d2bb396b2ec23308c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b500b2d0_59ccda7b",
         "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
         "patchSetId": 2
