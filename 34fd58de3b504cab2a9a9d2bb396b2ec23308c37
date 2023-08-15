@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f1dc929_138d3931",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-15T07:37:14Z",
+      "side": 0,
+      "message": "This test was added when we broke backwards compatibility (see aosp/1892101 , b/145972387) and and I think we should keep it. Do you think you could add some java code to do this? Would something like this work?\n\n    public class NonNullTestUtils {\n        public static NetworkInfo newNetworkInfo(NetworkInfo ni) {\n            return new NetworkInfo(ni);\n        }\n\n        public static void setNetworkInfoDetailedState(NetworkInfo ni,\n                NetworkInfo.DetailedState s, String r, String e) {\n            ni.setDetailedState(s, r, e);\n        }\n    }",
+      "parentUuid": "24158a1e_97f45f6e",
+      "revId": "34fd58de3b504cab2a9a9d2bb396b2ec23308c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b500b2d0_59ccda7b",
         "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
         "patchSetId": 2
@@ -72,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba4d7b75_e521e886",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-15T07:37:14Z",
+      "side": 0,
+      "message": "ditto",
+      "parentUuid": "b500b2d0_59ccda7b",
+      "revId": "34fd58de3b504cab2a9a9d2bb396b2ec23308c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38a5f6e5_12411b83",
         "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
         "patchSetId": 2
@@ -83,6 +119,24 @@
       "writtenOn": "2023-08-09T19:15:15Z",
       "side": 0,
       "message": "This is reducing test coverage, as kotlin cannot be used to test behaviors when null is passed to a @NonNull java method.  If test coverage is still desired here then it will have to be done from java.",
+      "revId": "34fd58de3b504cab2a9a9d2bb396b2ec23308c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c883dc4_0d078e1a",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-15T07:37:14Z",
+      "side": 0,
+      "message": "Ditto, think you could add a simple Java test for this?",
+      "parentUuid": "38a5f6e5_12411b83",
       "revId": "34fd58de3b504cab2a9a9d2bb396b2ec23308c37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
