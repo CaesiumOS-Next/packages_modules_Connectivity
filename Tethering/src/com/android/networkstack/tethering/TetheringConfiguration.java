@@ -24,7 +24,6 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
-import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
 
 import android.content.ContentResolver;
@@ -180,9 +179,8 @@ public class TetheringConfiguration {
     @VisibleForTesting
     public static class Dependencies {
         boolean isFeatureEnabled(@NonNull Context context, @NonNull String namespace,
-                @NonNull String name, @NonNull String moduleName, boolean defaultEnabled) {
-            return DeviceConfigUtils.isTetheringFeatureEnabled(context, namespace, name,
-                    moduleName, defaultEnabled);
+                @NonNull String name) {
+            return DeviceConfigUtils.isTetheringFeatureEnabled(context, namespace, name);
         }
 
         boolean getDeviceConfigBoolean(@NonNull String namespace, @NonNull String name,
@@ -629,8 +627,7 @@ public class TetheringConfiguration {
     }
 
     private boolean isFeatureEnabled(Context ctx, String namespace, String featureVersionFlag) {
-        return mDeps.isFeatureEnabled(ctx, namespace, featureVersionFlag, TETHERING_MODULE_NAME,
-                false /* defaultEnabled */);
+        return mDeps.isFeatureEnabled(ctx, namespace, featureVersionFlag);
     }
 
     private Resources getResources(Context ctx, int subId) {
