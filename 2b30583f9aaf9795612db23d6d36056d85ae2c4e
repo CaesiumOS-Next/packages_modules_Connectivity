@@ -123,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28f7b05a_2e3412fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-15T15:19:34Z",
+      "side": 1,
+      "message": "Yes, if you\u0027re moving this to native code then we\u0027re all better off, and you don\u0027t need any of my code suggestions. 👍",
+      "parentUuid": "23adef5d_c2584688",
+      "revId": "2b30583f9aaf9795612db23d6d36056d85ae2c4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cffaf3d_0f2b19c4",
