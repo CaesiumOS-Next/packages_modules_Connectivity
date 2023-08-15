@@ -77,7 +77,7 @@ import com.android.net.module.util.ip.IpNeighborMonitor;
 import com.android.net.module.util.ip.IpNeighborMonitor.NeighborEvent;
 import com.android.networkstack.tethering.BpfCoordinator;
 import com.android.networkstack.tethering.BpfCoordinator.ClientInfo;
-import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
+import com.android.networkstack.tethering.BpfCoordinator.Ipv6DownstreamForwardingRule;
 import com.android.networkstack.tethering.PrivateAddressCoordinator;
 import com.android.networkstack.tethering.TetheringConfiguration;
 import com.android.networkstack.tethering.metrics.TetheringMetrics;
@@ -890,7 +890,7 @@ public class IpServer extends StateMachine {
         }
     }
 
-    private void addIpv6ForwardingRule(Ipv6ForwardingRule rule) {
+    private void addIpv6ForwardingRule(Ipv6DownstreamForwardingRule rule) {
         // Theoretically, we don't need this check because IP neighbor monitor doesn't start if BPF
         // offload is disabled. Add this check just in case.
         // TODO: Perhaps remove this protection check.
@@ -899,7 +899,7 @@ public class IpServer extends StateMachine {
         mBpfCoordinator.tetherOffloadRuleAdd(this, rule);
     }
 
-    private void removeIpv6ForwardingRule(Ipv6ForwardingRule rule) {
+    private void removeIpv6ForwardingRule(Ipv6DownstreamForwardingRule rule) {
         // TODO: Perhaps remove this protection check.
         // See the related comment in #addIpv6ForwardingRule.
         if (!mUsingBpfOffload) return;
@@ -954,10 +954,10 @@ public class IpServer extends StateMachine {
         }
 
         // When deleting rules, we still need to pass a non-null MAC, even though it's ignored.
-        // Do this here instead of in the Ipv6ForwardingRule constructor to ensure that we never
-        // add rules with a null MAC, only delete them.
+        // Do this here instead of in the Ipv6DownstreamForwardingRule constructor to ensure that we
+        // never add rules with a null MAC, only delete them.
         MacAddress dstMac = e.isValid() ? e.macAddr : NULL_MAC_ADDRESS;
-        Ipv6ForwardingRule rule = new Ipv6ForwardingRule(upstreamIfindex,
+        Ipv6DownstreamForwardingRule rule = new Ipv6DownstreamForwardingRule(upstreamIfindex,
                 mInterfaceParams.index, (Inet6Address) e.ip, mInterfaceParams.macAddr, dstMac);
         if (e.isValid()) {
             addIpv6ForwardingRule(rule);
