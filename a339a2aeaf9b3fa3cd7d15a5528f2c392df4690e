@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "305eeb67_451cd9f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T03:49:34Z",
+      "side": 1,
+      "message": "This may impact behavior significantly for apps, since it may switch discovery that used to see IPv4 address to see IPv6, and vice-versa (especially for the first address which is used for the legacy getHostAddress API).\n\nCan you add a feature flag to flag it off ? Then we can try a rollout before pushing it to all devices.",
+      "revId": "a339a2aeaf9b3fa3cd7d15a5528f2c392df4690e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d79d74_d5d7e46c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1491,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T03:49:34Z",
+      "side": 1,
+      "message": "I\u0027m not sure about the performance impact here, see: https://android-review.git.corp.google.com/c/platform/frameworks/base/+/947417/comment/1097e8df_db19f201/\n\nWe might need to ask Lorenzo if he knows more details. IIUC this will be called every time a service is resolved or updated.\n\nMaybe there\u0027s no way to cache this, since the ordering can change when interface configuration or routes changes ? But it also shows another problem: if the interface config changes, and should affect the ordering, the MdnsServiceInfo is out-of-date (it uses old ordering), but we won\u0027t send a SERVICE_UPDATED callback at that time. It would be nice to clarify in which case the ordering will change.\n\nSo I think we need to know:\n - When can the source address for a given destination address change\n - How costly is it to run the current code on every address, on every service update\n - Is there any way to cache it, if we can predict when the source address can change (cache should be cleared) ?\n - If we can predict when the source address can change and the ordering change, should we send SERVICE_UPDATED at that time ?",
+      "revId": "a339a2aeaf9b3fa3cd7d15a5528f2c392df4690e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
