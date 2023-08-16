@@ -34,6 +34,24 @@
       "parentUuid": "73469aba_1a04e90e",
       "revId": "1ecc0c5280fbe406c9be7007d4c9e49dec3e2b82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8caad800_5133f4f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 40
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-16T20:16:46Z",
+      "side": 1,
+      "message": "Yeah, I think this is a side effect of chaining commits and doing \"repo upload\". My other branch which is WIP was on older version of this CL and when I did \"repo upload\" it rebased this change and reverted to the old version in the process. I\u0027ve fixed this CL now.",
+      "parentUuid": "cfb0e31f_5be1ca70",
+      "revId": "1ecc0c5280fbe406c9be7007d4c9e49dec3e2b82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
