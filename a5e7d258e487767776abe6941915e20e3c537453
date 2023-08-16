@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6921f59f_868ec5ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-16T19:33:17Z",
+      "side": 1,
+      "message": "I had a few comments in particular but I think overall it\u0027s the same comment. The documentation on the API doesn\u0027t explain to me how to use it so I\u0027m confused on what the different classes/interfaces mean.",
+      "revId": "a5e7d258e487767776abe6941915e20e3c537453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fa91af3_e866e231",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingReport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-16T19:33:17Z",
+      "side": 1,
+      "message": "It seems like the state is really a combination of this enum and the distance? Like I need to interpret both items to know the state? \n\nI\u0027m actually not sure. Can you add documentation on the getDistanceM \u0026 getProxmityStateM and explain the way to understand the state in the class documentation.",
+      "range": {
+        "startLine": 22,
+        "startChar": 16,
+        "endLine": 22,
+        "endChar": 30
+      },
+      "revId": "a5e7d258e487767776abe6941915e20e3c537453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c33e28b_03565c9f",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingReport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-16T19:33:17Z",
+      "side": 1,
+      "message": "Sets",
+      "range": {
+        "startLine": 60,
+        "startChar": 12,
+        "endLine": 60,
+        "endChar": 15
+      },
+      "revId": "a5e7d258e487767776abe6941915e20e3c537453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6af22cd_a86e75ce",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-16T19:33:17Z",
+      "side": 1,
+      "message": "Don\u0027t start javadocs with \"Class\" or \"interface\". Instead, omit that and describe what a single instance of that type would do. For example, this would be something like \"A ranging session which can be started and stopped and sends reports about the session via a callback.\" \n\nThen expand on the way the class should be used and its capabilities in further paragraphs.",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 18
+      },
+      "revId": "a5e7d258e487767776abe6941915e20e3c537453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "491ee3c4_17e6c14d",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-16T19:33:17Z",
+      "side": 1,
+      "message": "add docs",
+      "revId": "a5e7d258e487767776abe6941915e20e3c537453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a55cd9e3_878f1e14",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-16T19:33:17Z",
+      "side": 1,
+      "message": "it\u0027s unclear from the API if I can restart the session and what happens if I call start twice w/o ending it.",
+      "revId": "a5e7d258e487767776abe6941915e20e3c537453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
