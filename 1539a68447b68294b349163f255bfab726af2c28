@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "851332b4_d8533021",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1585,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-16T03:25:13Z",
+      "side": 1,
+      "message": "Not for this CL.\nIs it better to define \nMAX_NETWORK_REQUESTS_PER_UID to 99 and remove -1 here?\nIf so, we could not only maintain backward compatibility, but also remove some confusions in the tests.",
+      "range": {
+        "startLine": 1581,
+        "startChar": 8,
+        "endLine": 1585,
+        "endChar": 79
+      },
+      "revId": "1539a68447b68294b349163f255bfab726af2c28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32eb1064_16e287da",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 2
