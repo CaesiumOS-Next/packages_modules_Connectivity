@@ -377,6 +377,11 @@ public class IpServer extends StateMachine {
         return mIpv4Address;
     }
 
+    /** The InterfaceParams of the network link which IpServer is serving */
+    public InterfaceParams getInterfaceParams() {
+        return mInterfaceParams;
+    }
+
     /**
      * Get the latest list of DHCP leases that was reported. Must be called on the IpServer looper
      * thread.
@@ -779,7 +784,7 @@ public class IpServer extends StateMachine {
         // deprecation of any existing RA data.
         setRaParams(params);
 
-        updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, upstreamIfIndex, upstreamIface, null);
+        updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, upstreamIfIndex, upstreamIface);
         mLastIPv6LinkProperties = v6only;
         mLastIPv6UpstreamIfindex = upstreamIfIndex;
         if (mDadProxy != null) {
@@ -890,24 +895,26 @@ public class IpServer extends StateMachine {
         return isVcnInterface(interfaceName);
     }
 
-    // Handles all updates to IPv6 forwarding rules. These can currently change only if the upstream
-    // changes or if a neighbor event is received.
+    // Handles updates to IPv6 forwarding rules if the upstream changes.
     private void updateIpv6ForwardingRules(int prevUpstreamIfindex, int upstreamIfindex,
-            String interfaceName, NeighborEvent e) {
+            String interfaceName) {
         // If no longer have an upstream or it is virtual network, clear forwarding rules and do
         // nothing else.
         // TODO: Rather than always clear rules, ensure whether ipv6 ever enable first.
         if (upstreamIfindex == 0 || isIpv6VcnNetworkInterface(interfaceName)) {
-            mBpfCoordinator.tetherOffloadRuleClear(this);
+            mBpfCoordinator.clearIpv6Rules(this);
             return;
         }
 
         // If the upstream interface has changed, remove all rules and re-add them with the new
         // upstream interface.
         if (prevUpstreamIfindex != upstreamIfindex) {
-            mBpfCoordinator.tetherOffloadRuleUpdate(this, upstreamIfindex);
+            mBpfCoordinator.updateAllIpv6Rules(this, upstreamIfindex);
         }
+    }
 
+    // Handles updates to IPv6 downstream rules if a neighbor event is received.
+    private void updateIpv6DownstreamRules(NeighborEvent e) {
         // If we're here to process a NeighborEvent, do so now.
         // mInterfaceParams must be non-null or the event would not have arrived.
         if (e == null) return;
@@ -916,12 +923,20 @@ public class IpServer extends StateMachine {
             return;
         }
 
+        // If no longer have an upstream or it is virtual network, do nothing.
+        String upstreamInterfaceName = (mLastIPv6LinkProperties == null)
+                ? null
+                : mLastIPv6LinkProperties.getInterfaceName();
+        if (mLastIPv6UpstreamIfindex == 0 || isIpv6VcnNetworkInterface(upstreamInterfaceName)) {
+            return;
+        }
+
         // When deleting rules, we still need to pass a non-null MAC, even though it's ignored.
         // Do this here instead of in the Ipv6DownstreamRule constructor to ensure that we
         // never add rules with a null MAC, only delete them.
         MacAddress dstMac = e.isValid() ? e.macAddr : NULL_MAC_ADDRESS;
-        Ipv6DownstreamRule rule = new Ipv6DownstreamRule(upstreamIfindex, mInterfaceParams.index,
-                (Inet6Address) e.ip, mInterfaceParams.macAddr, dstMac);
+        Ipv6DownstreamRule rule = new Ipv6DownstreamRule(mLastIPv6UpstreamIfindex,
+                mInterfaceParams.index, (Inet6Address) e.ip, mInterfaceParams.macAddr, dstMac);
         if (e.isValid()) {
             mBpfCoordinator.addIpv6DownstreamRule(this, rule);
         } else {
@@ -954,11 +969,7 @@ public class IpServer extends StateMachine {
         if (mInterfaceParams != null
                 && mInterfaceParams.index == e.ifindex
                 && mInterfaceParams.hasMacAddress) {
-            String upstreamInterfaceName = (mLastIPv6LinkProperties == null)
-                    ? null
-                    : mLastIPv6LinkProperties.getInterfaceName();
-            updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, mLastIPv6UpstreamIfindex,
-                    upstreamInterfaceName, e);
+            updateIpv6DownstreamRules(e);
             updateClientInfoIpv4(e);
         }
     }
@@ -1309,7 +1320,7 @@ public class IpServer extends StateMachine {
 
             for (String ifname : mUpstreamIfaceSet.ifnames) cleanupUpstreamInterface(ifname);
             mUpstreamIfaceSet = null;
-            mBpfCoordinator.tetherOffloadRuleClear(IpServer.this);
+            mBpfCoordinator.clearIpv6Rules(IpServer.this);
         }
 
         private void cleanupUpstreamInterface(String upstreamIface) {
