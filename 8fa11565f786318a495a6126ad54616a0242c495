@@ -3,6 +3,109 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fac54737_069b7bc6",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T07:07:43Z",
+      "side": 1,
+      "message": "Duplicate ?",
+      "revId": "8fa11565f786318a495a6126ad54616a0242c495",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42bde682_b670238b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T07:07:43Z",
+      "side": 1,
+      "message": "To be consistent with mFoundServiceCount, mLostServiceCount and other metrics, I think this should be in ClientRequest; which you should be able to obtain from onDiscoveryQuerySent, since it should be on the handler thread and the mTransactionId and mClientRequestId are known. It should make it easier to fetch when writing the metrics.",
+      "range": {
+        "startLine": 254,
+        "startChar": 22,
+        "endLine": 254,
+        "endChar": 37
+      },
+      "revId": "8fa11565f786318a495a6126ad54616a0242c495",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96cb0071_e76c44e3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T07:07:43Z",
+      "side": 1,
+      "message": "Nit: NO_SENT_QUERY_COUNT ?",
+      "range": {
+        "startLine": 254,
+        "startChar": 40,
+        "endLine": 254,
+        "endChar": 42
+      },
+      "revId": "8fa11565f786318a495a6126ad54616a0242c495",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02751330_eff3b075",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T07:07:43Z",
+      "side": 1,
+      "message": "This looks like mTransactionId but it is very different; maybe rename to something else (sentQueryTransactionId ?)",
+      "range": {
+        "startLine": 326,
+        "startChar": 77,
+        "endLine": 326,
+        "endChar": 90
+      },
+      "revId": "8fa11565f786318a495a6126ad54616a0242c495",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11c35652_2133c59e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T07:07:43Z",
+      "side": 1,
+      "message": "This is assuming that the callbacks are all on the same thread that will read this member; it\u0027s not obvious considering that other methods just post to the handler.\n\nIf this is true, can you add a check/throw if the thread here and in getSentQueryCount is not the NsdService handler thread ?",
+      "revId": "8fa11565f786318a495a6126ad54616a0242c495",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8a63f82_38f44ec0",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 5
