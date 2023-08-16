@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ffa4b74_a3c43d84",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-08-16T22:34:28Z",
+      "side": 1,
+      "message": "don\u0027t static finals get compiled in as constants? (I recall there being a bunch of optimizations around them that wouldn\u0027t be possible otherwise).",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 9,
+        "endChar": 50
+      },
+      "revId": "6f0ec43200c61bec13582e9abba2ecf65ed5a662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
