@@ -25,10 +25,14 @@ import static android.net.NetworkRequest.Type.TRACK_DEFAULT;
 import static android.net.NetworkRequest.Type.TRACK_SYSTEM_DEFAULT;
 import static android.net.QosCallback.QosCallbackRegistrationException;
 
+import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIVATE;
+import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
+
 import android.annotation.CallbackExecutor;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.RequiresApi;
 import android.annotation.RequiresPermission;
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
@@ -72,6 +76,8 @@ import android.util.Range;
 import android.util.SparseIntArray;
 
 import com.android.internal.annotations.GuardedBy;
+import com.android.internal.annotations.VisibleForTesting;
+import com.android.server.BpfNetMaps;
 
 import libcore.net.event.NetworkEventDispatcher;
 
@@ -940,6 +946,16 @@ public class ConnectivityManager {
 
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P, trackingBug = 130143562)
     private final IConnectivityManager mService;
+
+    /**
+     * Dependencies of ConnectivityManager, for injection in tests.
+     */
+    private final Dependencies mDeps;
+
+    /**
+     * BpfNetMap, for accessing Bpf maps in the caller process without IPC.
+     */
+    private final BpfNetMaps mBpfNetMaps;
 
     // LINT.IfChange(firewall_chain)
     /**
@@ -2766,16 +2782,26 @@ public class ConnectivityManager {
         }
     }
 
+    private static class Dependencies {
+        public BpfNetMaps getBpfNetMaps(@NonNull Context context) {
+            return new BpfNetMaps(context);
+        }
+    }
+
     /**
      * {@hide}
      */
     public ConnectivityManager(Context context, IConnectivityManager service) {
-        this(context, service, true /* newStatic */);
+        this(context, service, true /* newStatic */, new Dependencies());
     }
 
-    private ConnectivityManager(Context context, IConnectivityManager service, boolean newStatic) {
+    @VisibleForTesting(visibility = PRIVATE)
+    private ConnectivityManager(Context context, IConnectivityManager service, boolean newStatic,
+            @NonNull Dependencies deps) {
         mContext = Objects.requireNonNull(context, "missing context");
         mService = Objects.requireNonNull(service, "missing IConnectivityManager");
+        mDeps = Objects.requireNonNull(deps, "missing Dependencies");
+        mBpfNetMaps = mDeps.getBpfNetMaps(context);
         // sInstance is accessed without a lock, so it may actually be reassigned several times with
         // different ConnectivityManager, but that's still OK considering its usage.
         if (sInstance == null && newStatic) {
@@ -2786,7 +2812,7 @@ public class ConnectivityManager {
             // cases, the passed-in Context will not be freed, so it's safe to pass it to the
             // service. http://b/27532714 .
             sInstance = new ConnectivityManager(appContext != null ? appContext : context, service,
-                    false /* newStatic */);
+                    false /* newStatic */, deps);
         }
     }
 
@@ -6147,6 +6173,51 @@ public class ConnectivityManager {
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
+    }
+
+    /**
+     * Similar to {@link NetworkPolicyManager#isUidNetworkingBlocked}, but directly reads the BPF
+     * maps.
+     * For use by the NetworkStack process only.
+     *
+     * @hide
+     */
+    // TODO: Expose api when ready.
+    // @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)  // BPF maps were only mainlined in T
+    public boolean isUidNetworkingBlocked(int uid, boolean meteredNetwork) {
+        enforceAnyPermissionOf(mContext, NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+
+        // TODO: This might not be necessary. But given UID 1000 always passes all permission
+        //  checks...
+        if (Binder.getCallingUid() != Process.NETWORK_STACK_UID) {
+            throw new SecurityException("MAINLINE_NETWORK_STACK permission required");
+        }
+
+        // Open the map. Lookup the UID and look at the rules.
+        for (int chain : BpfNetMaps.getAllFirewallChains()) {
+            final boolean isChainEnabled = mBpfNetMaps.isChainEnabled(chain);
+            if (!isChainEnabled) continue;
+            final int isUidAllowed = mBpfNetMaps.getUidRule(chain, uid);
+            if (isUidAllowed == FIREWALL_RULE_DENY) {
+                return true;
+            }
+        }
+
+        // If meteredNetwork is true, also check the penalty box and happy box rules.
+        if (meteredNetwork) {
+            if (mBpfNetMaps.isNaughtyApp(uid)) {
+                return true;
+            }
+            // For now the method cannot know if the networking is blocked by data saver
+            // if the uid is not in naughty app list, because bpf does not control over
+            // data saver switch. Return not blocked by default.
+            // TODO: Check nice app list with data saver switch to learn if networking is
+            //   blocked by data saver.
+        }
+
+        return false;
     }
 
     /** @hide */

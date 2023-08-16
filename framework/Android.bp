@@ -63,6 +63,7 @@ java_defaults {
         ":net-utils-framework-common-srcs",
         ":framework-connectivity-api-shared-srcs",
         ":framework-remoteauth-java-sources",
+        ":traffic-controller-utils",
     ],
     aidl: {
         generate_get_transaction_name: true,
@@ -84,12 +85,14 @@ java_defaults {
         "framework-tethering.impl",
         "framework-wifi.stubs.module_lib",
         "net-utils-device-common",
+        "net-utils-device-common-bpf",
     ],
     static_libs: [
         "mdns_aidl_interface-lateststable-java",
         "modules-utils-backgroundthread",
         "modules-utils-build",
         "modules-utils-preconditions",
+        "netd-client",
         "framework-connectivity-javastream-protos",
     ],
     libs: [

@@ -355,6 +355,21 @@ public class BpfNetMaps {
     }
 
     /**
+     * Get all firewall chains.
+     * @return
+     */
+    // FIXME: Add a test to assert this has to be updated if a new chain is defined.
+    public static List<Integer> getAllFirewallChains() {
+        return List.of(FIREWALL_CHAIN_DOZABLE,
+                FIREWALL_CHAIN_STANDBY,
+                FIREWALL_CHAIN_POWERSAVE,
+                FIREWALL_CHAIN_RESTRICTED,
+                FIREWALL_CHAIN_LOW_POWER_STANDBY,
+                FIREWALL_CHAIN_OEM_DENY_1,
+                FIREWALL_CHAIN_OEM_DENY_2,
+                FIREWALL_CHAIN_OEM_DENY_3);
+    }
+    /**
      * Get corresponding match from firewall chain.
      */
     @VisibleForTesting
@@ -514,6 +529,46 @@ public class BpfNetMaps {
     }
 
     /**
+     * Return whether an uid is in the naughty app list.
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     * @return true if target uid is in the list. Otherwise, false.
+     */
+    public boolean isNaughtyApp(final int uid) {
+        throwIfPreT("isNaughtyApp is not available on pre-T devices");
+
+        try {
+            final UidOwnerValue uidMatch = sUidOwnerMap.getValue(new S32(uid));
+            return uidMatch != null && (uidMatch.rule & PENALTY_BOX_MATCH) != 0;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to get uid rule status: " + Os.strerror(e.errno));
+        }
+    }
+
+    /**
+     * Return whether an uid is in the nice app list.
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     * @return true if target uid is in the list. Otherwise, false.
+     */
+    public boolean isNiceApp(final int uid) {
+        throwIfPreT("isNiceApp is not available on pre-T devices");
+
+        try {
+            final UidOwnerValue uidMatch = sUidOwnerMap.getValue(new S32(uid));
+            return uidMatch != null && (uidMatch.rule & HAPPY_BOX_MATCH) != 0;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to get uid rule status: " + Os.strerror(e.errno));
+        }
+    }
+
+    /**
      * Add nice app bandwidth rule for specific app
      *
      * @param uid uid of target app
@@ -548,6 +603,10 @@ public class BpfNetMaps {
             maybeThrow(err, "Unable to remove nice app");
         }
     }
+
+    /**
+     * Return whether an uid is in nice app bandwidth rule.
+     */
 
     /**
      * Set target firewall child chain
