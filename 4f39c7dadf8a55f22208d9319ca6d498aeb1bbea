@@ -187,6 +187,30 @@
       },
       "revId": "4f39c7dadf8a55f22208d9319ca6d498aeb1bbea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "318d8bc2_8e854901",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7443,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-16T02:28:47Z",
+      "side": 1,
+      "message": "nit: If so, maybe use the firstCallback to make it more easily to understand.\nNo strong opinion.",
+      "parentUuid": "22511aee_da7ce8d7",
+      "range": {
+        "startLine": 7443,
+        "startChar": 80,
+        "endLine": 7443,
+        "endChar": 83
+      },
+      "revId": "4f39c7dadf8a55f22208d9319ca6d498aeb1bbea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

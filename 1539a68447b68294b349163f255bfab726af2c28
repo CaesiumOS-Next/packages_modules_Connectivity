@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0465167f_d83ff7d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-16T02:28:47Z",
+      "side": 1,
+      "message": "LGTM with nits that can be ignored.",
+      "revId": "1539a68447b68294b349163f255bfab726af2c28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32eb1064_16e287da",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7384,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-16T02:28:47Z",
+      "side": 1,
+      "message": "nit: @NonNull?",
+      "range": {
+        "startLine": 7384,
+        "startChar": 3,
+        "endLine": 7384,
+        "endChar": 5
+      },
+      "revId": "1539a68447b68294b349163f255bfab726af2c28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea9246fd_829af4bd",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7447,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-16T02:28:47Z",
+      "side": 1,
+      "message": "nit: Given that this is not too trivial, is it better to put a comment before l.7446 to describe what we are verifying here?\ne.g.\n// Verify that registering on the binder thread does not throw a \"too many \n// requests\" exception, because the unregistering that happened immediately before \n// this may not have been processed yet by the handler thread. If the registration\n// does not wait for the unregistering to be processed, the exception will be\n// thrown.\nOnly if you think this is better.",
+      "range": {
+        "startLine": 7446,
+        "startChar": 0,
+        "endLine": 7447,
+        "endChar": 67
+      },
+      "revId": "1539a68447b68294b349163f255bfab726af2c28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
