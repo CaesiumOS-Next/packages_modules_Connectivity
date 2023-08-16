@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a830b8a_e141f720",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-08-16T05:19:54Z",
+      "side": 1,
+      "message": "I am not sure if I understand this correctly. if a flag is wrongly configured, isn\u0027t it expected to have `unexpected` behavior since it\u0027s a mistake? This may have the same consequence even we use isTetheringFeatureForceDisabled?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 10
+      },
+      "revId": "d40863665f1115a9762e4c817997346401936505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7904fc8c_13452521",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-08-16T05:19:54Z",
+      "side": 1,
+      "message": "Why will it have unexpected behavior when device is upgraded? The method should always return the same. It should not cause any difference when device is upgraded. \n\nor do you mean we have something that is expected to work only with  devices first launching in T+. But it will fail when devices launching before T but upgrade to T+?",
+      "range": {
+        "startLine": 16,
+        "startChar": 14,
+        "endLine": 16,
+        "endChar": 41
+      },
+      "revId": "d40863665f1115a9762e4c817997346401936505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d561539e_aeb920ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-08-16T05:19:54Z",
+      "side": 1,
+      "message": "Not for this commit. Will you document this in those two method? It can help other members to know how to choose a proper method.",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "d40863665f1115a9762e4c817997346401936505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
