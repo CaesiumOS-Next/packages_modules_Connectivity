@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d8a1acc_6e7a6b2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T02:59:26Z",
+      "side": 1,
+      "message": "This explains why it\u0027s safe, but not really why it\u0027s a good change\n\nIt would be good to have some explanation on the rationale for the change (why is the new code better)",
+      "revId": "e638015eae503dac824ce6041fc377ab2beb2955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64babd50_e2996fb4",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T02:59:26Z",
+      "side": 1,
+      "message": "Nit: that\u0027s a lot of negatives, which could be read as \"feature to disable not disabled\" (in which case it would be disabled, not enabled) but actually it\u0027s not a \"feature that disables\".\n\nIt might be a bit clearer with a different name to show that it\u0027s a \"disable flag\", but not a \"feature to disable\", like \"AUTOMATIC_ON_OFF_KEEPALIVE_DISABLE_FLAG\", or similar if you can think of something else",
+      "range": {
+        "startLine": 222,
+        "startChar": 28,
+        "endLine": 222,
+        "endChar": 62
+      },
+      "revId": "e638015eae503dac824ce6041fc377ab2beb2955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
