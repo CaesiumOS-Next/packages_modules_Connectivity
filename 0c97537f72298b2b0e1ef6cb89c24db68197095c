@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca2b3e99_574d19e6",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T07:31:53Z",
+      "side": 1,
+      "message": "Can this include the count of update callbacks ? I think that\u0027s one of the most important information we\u0027ll need to determine if the operation was successful. The service info callback API replaces the deprecated \"resolve\" API, so similarly to \"resolve success\", there should be a way to know if the service was found (number of callbacks \u003e 0)",
+      "revId": "0c97537f72298b2b0e1ef6cb89c24db68197095c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
