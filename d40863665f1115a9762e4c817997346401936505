@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e5dc179_6190315a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-08-16T06:37:47Z",
+      "side": 1,
+      "message": "I added the comment.\nWhat I wanted to say is we have code to use default value to enable feature on specific release devices. (e.g. `isFeatureEnabled(..,.., isAtLeastT() /* defaultEnabled */)`) but that does not work if the devices have the flag value.\n\nSo if the flag propagate config is wrong the feature is enabled or disabled unexpectedly.\nIf we write `isAtleastT() || isFeatureEnabled()`, feature can not disabled on T+ devices by wrong flag config.",
+      "parentUuid": "1a830b8a_e141f720",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 10
+      },
+      "revId": "d40863665f1115a9762e4c817997346401936505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef9b0b46_865a5de7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-08-16T06:37:47Z",
+      "side": 1,
+      "message": "If the device is upgraded from S to T, it\u0027s possible that the device still has flag value which is pushed to S devices.\nWith this situation, `isFatureEnabled(..,.., isAtleastT() /* defaultEnabled */)` could return false..",
+      "parentUuid": "7904fc8c_13452521",
+      "range": {
+        "startLine": 16,
+        "startChar": 14,
+        "endLine": 16,
+        "endChar": 41
+      },
+      "revId": "d40863665f1115a9762e4c817997346401936505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d561539e_aeb920ad",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-08-16T05:19:54Z",
       "side": 1,
       "message": "Not for this commit. Will you document this in those two method? It can help other members to know how to choose a proper method.",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "d40863665f1115a9762e4c817997346401936505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf45aaba_9d800646",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-08-16T06:37:47Z",
+      "side": 1,
+      "message": "Yes, I will add comment for these two methods.",
+      "parentUuid": "d561539e_aeb920ad",
       "range": {
         "startLine": 17,
         "startChar": 3,
