@@ -1,0 +1,261 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9853a0a_0348a221",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "Nit: also explain that the lists are sorted by expiration time (earliest first)",
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6099b080_41ad3699",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "Since this is a bit complicated, it may be better to have some \"insertSorted\" static method that is separate, and have a unit test for it.\n\nHaving a separate method makes the code less complicated (isolate the complexity), and having the unit test gives better confidence that it\u0027s correct.",
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e14b6b7d_985463a5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "Actually it looks like this code may be used in Android versions as old as 21 (see b/296175311), but comparingLong is 24+: https://developer.android.com/reference/java/util/Comparator#comparingLong(java.util.function.ToLongFunction%3C?%20super%20T%3E)\n\nSo you probably need to use different code.",
+      "range": {
+        "startLine": 192,
+        "startChar": 27,
+        "endLine": 192,
+        "endChar": 40
+      },
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "399c3181_c100c3a6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "This method can only make mNextExpirationTime smaller; but it is possible that it gets larger here, if this method updated a service to extend the expiration time\n\nShould this just be mNextExpirationTime \u003d getNextExpirationTime() ?\n\nIf you were using \"mNextExpirationCheckTime\" (e.g. the next time to check, which can be \u003c\u003d the next actual expiration as I suggested in the previous review) it would work, but in that case you wouldn\u0027t need to calculate getNextExpirationTime; you could just use the expiration time of the added service, since that\u0027s the only service that may have a shorter expiration time than before.\n\nBut here since you\u0027re doing the whole calculation of the exact next expiration time, it can just be used as-is.",
+      "range": {
+        "startLine": 196,
+        "startChar": 8,
+        "endLine": 196,
+        "endChar": 37
+      },
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "360fb6f2_5feac442",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "Nit: a comment explaining that empty lists are not kept in the map, so there\u0027s always at least one element, would make it clearer why it\u0027s OK not to do a null check here",
+      "range": {
+        "startLine": 238,
+        "startChar": 66,
+        "endLine": 238,
+        "endChar": 74
+      },
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79fa7f3c_81f13c99",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "A comment to explain why this would not be updated if it is higher than the current expiration time would be useful\n\nBut actually I think you might not want to use this. I think you\u0027ve got 2 options:\n - Use mNextExpirationCheckTime, and document it to be \"less than or equal to the lowest expiration time of the services\". Then only update it when adding a service (using min(mNextExpirationCheckTime, newServiceExpirationTime)) or after calling removeExpiredServices\n - Or recalculate the exact expiration time every time you add, update or remove a service",
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd6a1db8_ab78a1b8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "Nit: to listen to service expiration",
+      "range": {
+        "startLine": 251,
+        "startChar": 27,
+        "endLine": 251,
+        "endChar": 44
+      },
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1aa66ce_6c607a65",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "Also, a service should only be removed once the PTR record expires (if only the SRV expires onServiceRemoved should be called, but not onServiceNameRemoved). But that\u0027s to fix in another change.",
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c53fc5a2_30490e71",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "The comparator uses MdnsResponse.getMinRemainingTtl, so this should use it too",
+      "range": {
+        "startLine": 299,
+        "startChar": 23,
+        "endLine": 299,
+        "endChar": 71
+      },
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0e1ee71_93939499",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "Can you move this out of the constructor, to reduce indentation and separate it better ?\n\nYou might be able to just use `private final ServiceExpiredCallback serviceExpiredCallback \u003d new ServiceExpiredCallback() {... }`\n\nOr define a static class, and just call the constructor here",
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f147c75_735149dc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "Nit: reduce indent with `if (serviceInstanceName \u003d\u003d null) continue;`",
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "987eb3d9_6da2312e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "I think this is necessary in notifySocketDestroyed too ?\n\nIt may be better to have a shutdown method for shutting down the task + unregistering the callback",
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb1fc42d_9fa19536",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T10:09:44Z",
+      "side": 1,
+      "message": "Do you mean in the next handler loop ?",
+      "range": {
+        "startLine": 938,
+        "startChar": 85,
+        "endLine": 939,
+        "endChar": 19
+      },
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
