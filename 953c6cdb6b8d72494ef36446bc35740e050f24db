@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b0b88fe_52daa600",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T06:22:36Z",
+      "side": 1,
+      "message": "Still LGTM but see Yuyang\u0027s comments",
+      "revId": "953c6cdb6b8d72494ef36446bc35740e050f24db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5cf8111_c791fcf3",
@@ -60,6 +77,30 @@
       "writtenOn": "2023-08-14T06:20:11Z",
       "side": 1,
       "message": "nit: Is it common to use passive term in the parameter? Maybe `isServiceInCache` is better?",
+      "range": {
+        "startLine": 37,
+        "startChar": 70,
+        "endLine": 37,
+        "endChar": 87
+      },
+      "revId": "953c6cdb6b8d72494ef36446bc35740e050f24db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24829ec5_f7708a0f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceBrowserListener.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T06:22:36Z",
+      "side": 1,
+      "message": "For the record, I suggested wasServiceInCache as opposed to \"isKnownService\" but isServiceInCache sounds good to me - my main comment was that it\u0027s not clear what \"known\" meant in the previous version.\n\nMaybe isServiceFromCache would be even better ? To indicate that this ServiceInfo comes from the cache (arguably all services have been added to the cache when this is called)",
+      "parentUuid": "d9881450_39f108ef",
       "range": {
         "startLine": 37,
         "startChar": 70,
