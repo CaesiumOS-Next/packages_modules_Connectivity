@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02713571_07656408",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T06:11:00Z",
+      "side": 1,
+      "message": "LGTM except for the size limitation on the set that is missing",
+      "revId": "8a0e312a8284713b7a64130feb583c11aafa710e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63f8b0d4_f163230e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2201,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T06:11:00Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 2201,
+        "startChar": 15,
+        "endLine": 2201,
+        "endChar": 17
+      },
+      "revId": "8a0e312a8284713b7a64130feb583c11aafa710e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

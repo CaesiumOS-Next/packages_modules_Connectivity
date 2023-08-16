@@ -269,6 +269,24 @@
       "parentUuid": "9e73038b_be135884",
       "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86037b43_1237855f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2220,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-16T06:11:00Z",
+      "side": 1,
+      "message": "Using new ArraySet\u003c\u003e(100) does not limit the size to 100; it just pre-allocates an initial array of 100 elements, but behavior is the same (it can grow over that limit). Pre-allocating 100 elements would waste memory in most cases.\n\nInstead I think you can just do:\n\n```\nif (mServices.size() \u003c MAX_SERVICES_COUNT_METRIC_PER_CLIENT) {\n    mServices.add(serviceName);\n}\n```",
+      "parentUuid": "6d156790_2f52797f",
+      "revId": "914e3a5ae87268d1f24308fd12fd749820d8331c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
