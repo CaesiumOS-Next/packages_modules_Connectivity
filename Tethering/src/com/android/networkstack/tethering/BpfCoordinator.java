@@ -240,6 +240,10 @@ public class BpfCoordinator {
     private final HashMap<IpServer, LinkedHashMap<Inet6Address, Ipv6DownstreamForwardingRule>>
             mIpv6DownstreamForwardingRules = new LinkedHashMap<>();
 
+    // Map of upstream rules
+    private final HashMap<IpServer, LinkedHashMap<IpPrefix, Ipv6UpstreamForwardingRule>>
+            mIpv6UpstreamForwardingRules = new LinkedHashMap<>();
+
     // Map of downstream client maps. Each of these maps represents the IPv4 clients for a given
     // downstream. Needed to build IPv4 forwarding rules when conntrack events are received.
     // Each map:
@@ -591,8 +595,67 @@ public class BpfCoordinator {
     }
 
     /**
-     * Add forwarding rule. After adding the first rule on a given upstream, must add the data
-     * limit on the given upstream.
+     * Add upstream forwarding rule. After adding the first rule on a given upstream, must add the
+     * data limit on the given upstream.
+     */
+    private void tetherOffloadRuleAdd(@NonNull final IpServer ipServer,
+            @NonNull final Ipv6UpstreamForwardingRule rule) {
+        if (!isUsingBpf()) return;
+
+        // TODO: support upstream forwarding on non-point-to-point interfaces.
+        // TODO: get the MTU from LinkProperties and update the rules when it changes.
+        if (!mBpfCoordinatorShim.tetherOffloadRuleAdd(rule)) {
+            mLog.e("Failed to add upstream IPv6 forwarding rule: " + rule);
+            return;
+        }
+
+        // Add upstream and downstream interface index to dev map.
+        maybeAddDevMap(rule.upstreamIfindex, rule.downstreamIfindex);
+
+        // When the first rule is added to an upstream, setup upstream forwarding and data limit.
+        maybeSetLimit(rule.upstreamIfindex);
+
+        if (!mIpv6UpstreamForwardingRules.containsKey(ipServer)) {
+            mIpv6UpstreamForwardingRules.put(ipServer, new LinkedHashMap<IpPrefix,
+                    Ipv6UpstreamForwardingRule>());
+        }
+        LinkedHashMap<IpPrefix, Ipv6UpstreamForwardingRule> rules =
+                mIpv6UpstreamForwardingRules.get(ipServer);
+        rules.put(rule.sourcePrefix, rule);
+    }
+
+    /**
+     * Remove upstream forwarding rule. After removing the last rule on a given upstream, must clear
+     * data limit, update the last tether stats and remove the tether stats in the BPF maps.
+     */
+    private void tetherOffloadRuleRemove(
+            @NonNull final IpServer ipServer, @NonNull final Ipv6UpstreamForwardingRule rule) {
+        if (!isUsingBpf()) return;
+
+        if (!mBpfCoordinatorShim.tetherOffloadRuleRemove(rule)) {
+            mLog.e("Failed to remove upstream IPv6 forwarding rule: " + rule);
+            return;
+        }
+
+        LinkedHashMap<IpPrefix, Ipv6UpstreamForwardingRule> rules =
+                mIpv6UpstreamForwardingRules.get(ipServer);
+        if (rules == null) return;
+
+        // If no rule is removed, return early. Avoid unnecessary work on a non-existent rule which
+        // may have never been added or removed already.
+        if (rules.remove(rule.sourcePrefix) == null) return;
+
+        // Remove the downstream entry if it has no more rule.
+        if (rules.isEmpty()) {
+            mIpv6UpstreamForwardingRules.remove(ipServer);
+        }
+
+        // Do cleanup functionality if there is no more rule on the given upstream.
+        maybeClearLimit(rule.upstreamIfindex);
+    }
+
+    /**
+     * Add downstream forwarding rule.
      * Note that this can be only called on handler thread.
      */
     public void tetherOffloadRuleAdd(
@@ -609,31 +672,11 @@ public class BpfCoordinator {
         LinkedHashMap<Inet6Address, Ipv6DownstreamForwardingRule> rules =
                 mIpv6DownstreamForwardingRules.get(ipServer);
 
-        // Add upstream and downstream interface index to dev map.
-        maybeAddDevMap(rule.upstreamIfindex, rule.downstreamIfindex);
-
-        // When the first rule is added to an upstream, setup upstream forwarding and data limit.
-        maybeSetLimit(rule.upstreamIfindex);
-
-        if (!isAnyRuleFromDownstreamToUpstream(rule.downstreamIfindex, rule.upstreamIfindex)) {
-            // TODO: support upstream forwarding on non-point-to-point interfaces.
-            // TODO: get the MTU from LinkProperties and update the rules when it changes.
-            Ipv6UpstreamForwardingRule upstreamRule = new Ipv6UpstreamForwardingRule(
-                    rule.upstreamIfindex, rule.downstreamIfindex, IPV6_ZERO_PREFIX64, rule.srcMac,
-                    NULL_MAC_ADDRESS, NULL_MAC_ADDRESS);
-            if (!mBpfCoordinatorShim.tetherOffloadRuleAdd(upstreamRule)) {
-                mLog.e("Failed to add upstream IPv6 forwarding rule: " + upstreamRule);
-            }
-        }
-
-        // Must update the adding rule after calling #isAnyRuleOnUpstream because it needs to
-        // check if it is about adding a first rule for a given upstream.
         rules.put(rule.address, rule);
     }
 
     /**
-     * Remove forwarding rule. After removing the last rule on a given upstream, must clear
-     * data limit, update the last tether stats and remove the tether stats in the BPF maps.
+     * Remove downstream forwarding rule.
      * Note that this can be only called on handler thread.
      */
     public void tetherOffloadRuleRemove(
@@ -646,29 +689,14 @@ public class BpfCoordinator {
                 mIpv6DownstreamForwardingRules.get(ipServer);
         if (rules == null) return;
 
-        // Must remove rules before calling #isAnyRuleOnUpstream because it needs to check if
-        // the last rule is removed for a given upstream. If no rule is removed, return early.
-        // Avoid unnecessary work on a non-existent rule which may have never been added or
-        // removed already.
+        // If no rule is removed, return early. Avoid unnecessary work on a non-existent rule which
+        // may have never been added or removed already.
         if (rules.remove(rule.address) == null) return;
 
         // Remove the downstream entry if it has no more rule.
         if (rules.isEmpty()) {
             mIpv6DownstreamForwardingRules.remove(ipServer);
         }
-
-        // If no more rules between this upstream and downstream, stop upstream forwarding.
-        if (!isAnyRuleFromDownstreamToUpstream(rule.downstreamIfindex, rule.upstreamIfindex)) {
-            Ipv6UpstreamForwardingRule upstreamRule = new Ipv6UpstreamForwardingRule(
-                    rule.upstreamIfindex, rule.downstreamIfindex, IPV6_ZERO_PREFIX64, rule.srcMac,
-                    NULL_MAC_ADDRESS, NULL_MAC_ADDRESS);
-            if (!mBpfCoordinatorShim.tetherOffloadRuleRemove(upstreamRule)) {
-                mLog.e("Failed to remove upstream IPv6 forwarding rule: " + upstreamRule);
-            }
-        }
-
-        // Do cleanup functionality if there is no more rule on the given upstream.
-        maybeClearLimit(rule.upstreamIfindex);
     }
 
     /**
@@ -679,13 +707,25 @@ public class BpfCoordinator {
     public void tetherOffloadRuleClear(@NonNull final IpServer ipServer) {
         if (!isUsingBpf()) return;
 
-        final LinkedHashMap<Inet6Address, Ipv6DownstreamForwardingRule> rules =
+        // Clear upstream forwarding rules
+        final LinkedHashMap<IpPrefix, Ipv6UpstreamForwardingRule> upstreamRules =
+                mIpv6UpstreamForwardingRules.get(ipServer);
+        if (upstreamRules != null) {
+            // Need to build a rule list because the rule map may be changed in the iteration.
+            for (final Ipv6UpstreamForwardingRule rule :
+                    new ArrayList<Ipv6UpstreamForwardingRule>(upstreamRules.values())) {
+                tetherOffloadRuleRemove(ipServer, rule);
+            }
+        }
+
+        // Clear downstream forwarding rules
+        final LinkedHashMap<Inet6Address, Ipv6DownstreamForwardingRule> downstreamRules =
                 mIpv6DownstreamForwardingRules.get(ipServer);
-        if (rules == null) return;
+        if (downstreamRules == null) return;
 
         // Need to build a rule list because the rule map may be changed in the iteration.
         for (final Ipv6DownstreamForwardingRule rule :
-                new ArrayList<Ipv6DownstreamForwardingRule>(rules.values())) {
+                new ArrayList<Ipv6DownstreamForwardingRule>(downstreamRules.values())) {
             tetherOffloadRuleRemove(ipServer, rule);
         }
     }
@@ -697,9 +737,27 @@ public class BpfCoordinator {
     public void tetherOffloadRuleUpdate(@NonNull final IpServer ipServer, int newUpstreamIfindex) {
         if (!isUsingBpf()) return;
 
-        final LinkedHashMap<Inet6Address, Ipv6DownstreamForwardingRule> rules =
+        // Update upstream forwarding rules
+        final LinkedHashMap<IpPrefix, Ipv6UpstreamForwardingRule> upstreamRules =
+                mIpv6UpstreamForwardingRules.get(ipServer);
+        if (upstreamRules != null) {
+            final ArrayList<Ipv6UpstreamForwardingRule> upstreamRulesCopy =
+                    new ArrayList<>(upstreamRules.values());
+            for (final Ipv6UpstreamForwardingRule rule : upstreamRulesCopy) {
+                tetherOffloadRuleRemove(ipServer, rule);
+            }
+        }
+        final InterfaceParams interfaceParams = ipServer.getInterfaceParams();
+        if (newUpstreamIfindex != 0 && interfaceParams != null && interfaceParams.macAddr != null) {
+            tetherOffloadRuleAdd(ipServer, new Ipv6UpstreamForwardingRule(
+                    newUpstreamIfindex, interfaceParams.index, IPV6_ZERO_PREFIX64,
+                    interfaceParams.macAddr, NULL_MAC_ADDRESS, NULL_MAC_ADDRESS));
+        }
+
+        // Update downstream forwarding rules
+        final LinkedHashMap<Inet6Address, Ipv6DownstreamForwardingRule> downstreamRules =
                 mIpv6DownstreamForwardingRules.get(ipServer);
-        if (rules == null) return;
+        if (downstreamRules == null) return;
 
         // Need to build a rule list because the rule map may be changed in the iteration.
         // First remove all the old rules, then add all the new rules. This is because the upstream
@@ -709,15 +767,17 @@ public class BpfCoordinator {
         // when the first rule is added to it.
         // TODO: Once the IPv6 client processing code has moved from IpServer to BpfCoordinator, do
         // something smarter.
-        final ArrayList<Ipv6DownstreamForwardingRule> rulesCopy = new ArrayList<>(rules.values());
-        for (final Ipv6DownstreamForwardingRule rule : rulesCopy) {
+        final ArrayList<Ipv6DownstreamForwardingRule> downstreamRulesCopy =
+                new ArrayList<>(downstreamRules.values());
+        for (final Ipv6DownstreamForwardingRule rule : downstreamRulesCopy) {
             // Remove the old rule before adding the new one because the map uses the same key for
             // both rules. Reversing the processing order causes that the new rule is removed as
             // unexpected.
             // TODO: Add new rule first to reduce the latency which has no rule.
             tetherOffloadRuleRemove(ipServer, rule);
         }
-        for (final Ipv6DownstreamForwardingRule rule : rulesCopy) {
+        if (newUpstreamIfindex == 0) return;
+        for (final Ipv6DownstreamForwardingRule rule : downstreamRulesCopy) {
             tetherOffloadRuleAdd(ipServer, rule.onNewUpstream(newUpstreamIfindex));
         }
     }
@@ -1958,9 +2018,9 @@ public class BpfCoordinator {
     }
 
     private int getInterfaceIndexFromRules(@NonNull String ifName) {
-        for (LinkedHashMap<Inet6Address, Ipv6DownstreamForwardingRule> rules :
-                mIpv6DownstreamForwardingRules.values()) {
-            for (Ipv6DownstreamForwardingRule rule : rules.values()) {
+        for (LinkedHashMap<IpPrefix, Ipv6UpstreamForwardingRule> rules :
+                mIpv6UpstreamForwardingRules.values()) {
+            for (Ipv6UpstreamForwardingRule rule : rules.values()) {
                 final int upstreamIfindex = rule.upstreamIfindex;
                 if (TextUtils.equals(ifName, mInterfaceNames.get(upstreamIfindex))) {
                     return upstreamIfindex;
@@ -2051,23 +2111,10 @@ public class BpfCoordinator {
     // TODO: Rename to isAnyIpv6RuleOnUpstream and define an isAnyRuleOnUpstream method that called
     // both isAnyIpv6RuleOnUpstream and mBpfCoordinatorShim.isAnyIpv4RuleOnUpstream.
     private boolean isAnyRuleOnUpstream(int upstreamIfindex) {
-        for (LinkedHashMap<Inet6Address, Ipv6DownstreamForwardingRule> rules :
-                mIpv6DownstreamForwardingRules.values()) {
-            for (Ipv6DownstreamForwardingRule rule : rules.values()) {
+        for (LinkedHashMap<IpPrefix, Ipv6UpstreamForwardingRule> rules :
+                mIpv6UpstreamForwardingRules.values()) {
+            for (Ipv6UpstreamForwardingRule rule : rules.values()) {
                 if (upstreamIfindex == rule.upstreamIfindex) return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isAnyRuleFromDownstreamToUpstream(int downstreamIfindex, int upstreamIfindex) {
-        for (LinkedHashMap<Inet6Address, Ipv6DownstreamForwardingRule> rules :
-                mIpv6DownstreamForwardingRules.values()) {
-            for (Ipv6DownstreamForwardingRule rule : rules.values()) {
-                if (downstreamIfindex == rule.downstreamIfindex
-                        && upstreamIfindex == rule.upstreamIfindex) {
-                    return true;
-                }
             }
         }
         return false;

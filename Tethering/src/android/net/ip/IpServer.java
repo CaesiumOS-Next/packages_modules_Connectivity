@@ -379,6 +379,11 @@ public class IpServer extends StateMachine {
         return mIpv4Address;
     }
 
+    /** The InterfaceParams of the network link which IpServer is serving */
+    public InterfaceParams getInterfaceParams() {
+        return mInterfaceParams;
+    }
+
     /**
      * Get the latest list of DHCP leases that was reported. Must be called on the IpServer looper
      * thread.
@@ -786,7 +791,7 @@ public class IpServer extends StateMachine {
         // TODO: avoid this dependencies and move this logic into BpfCoordinator.
         mLastIPv6LinkProperties = v6only;
 
-        updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, upstreamIfIndex, null);
+        updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, upstreamIfIndex);
         mLastIPv6UpstreamIfindex = upstreamIfIndex;
         if (mDadProxy != null) {
             mDadProxy.setUpstreamIface(upstreamIfaceParams);
@@ -927,10 +932,8 @@ public class IpServer extends StateMachine {
         return isVcnInterface(mLastIPv6LinkProperties.getInterfaceName());
     }
 
-    // Handles all updates to IPv6 forwarding rules. These can currently change only if the upstream
-    // changes or if a neighbor event is received.
-    private void updateIpv6ForwardingRules(int prevUpstreamIfindex, int upstreamIfindex,
-            NeighborEvent e) {
+    // Handles updates to IPv6 forwarding rules if the upstream changes.
+    private void updateIpv6ForwardingRules(int prevUpstreamIfindex, int upstreamIfindex) {
         // If no longer have an upstream or it is virtual network, clear forwarding rules and do
         // nothing else.
         // TODO: Rather than always clear rules, ensure whether ipv6 ever enable first.
@@ -944,7 +947,10 @@ public class IpServer extends StateMachine {
         if (prevUpstreamIfindex != upstreamIfindex) {
             updateIpv6ForwardingRule(upstreamIfindex);
         }
+    }
 
+    // Handles updates to IPv6 forwarding rules if a neighbor event is received.
+    private void updateIpv6ForwardingRules(NeighborEvent e) {
         // If we're here to process a NeighborEvent, do so now.
         // mInterfaceParams must be non-null or the event would not have arrived.
         if (e == null) return;
@@ -953,12 +959,23 @@ public class IpServer extends StateMachine {
             return;
         }
 
+        // If no longer have an upstream or it is virtual network, clear forwarding rules and do
+        // nothing else.
+        // TODO: remove 'clearIpv6ForwardingRules()' when we feel it is safe to do so. The IPv6
+        // forwarding rules should have been already cleared when the upstream lost or becomes VCN
+        // network at the first time and no IPv6 forwarding rules can be added since then.
+        if (mLastIPv6UpstreamIfindex == 0 || isIpv6VcnNetworkInterface()) {
+            clearIpv6ForwardingRules();
+            return;
+        }
+
         // When deleting rules, we still need to pass a non-null MAC, even though it's ignored.
         // Do this here instead of in the Ipv6DownstreamForwardingRule constructor to ensure that we
         // never add rules with a null MAC, only delete them.
         MacAddress dstMac = e.isValid() ? e.macAddr : NULL_MAC_ADDRESS;
-        Ipv6DownstreamForwardingRule rule = new Ipv6DownstreamForwardingRule(upstreamIfindex,
-                mInterfaceParams.index, (Inet6Address) e.ip, mInterfaceParams.macAddr, dstMac);
+        Ipv6DownstreamForwardingRule rule = new Ipv6DownstreamForwardingRule(
+                mLastIPv6UpstreamIfindex, mInterfaceParams.index, (Inet6Address) e.ip,
+                mInterfaceParams.macAddr, dstMac);
         if (e.isValid()) {
             addIpv6ForwardingRule(rule);
         } else {
@@ -995,7 +1012,7 @@ public class IpServer extends StateMachine {
         if (mInterfaceParams != null
                 && mInterfaceParams.index == e.ifindex
                 && mInterfaceParams.hasMacAddress) {
-            updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, mLastIPv6UpstreamIfindex, e);
+            updateIpv6ForwardingRules(e);
             updateClientInfoIpv4(e);
         }
     }
