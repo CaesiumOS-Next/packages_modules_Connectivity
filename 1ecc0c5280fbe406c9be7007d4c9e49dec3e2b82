@@ -16,6 +16,24 @@
       "message": "Friendly ping.",
       "revId": "1ecc0c5280fbe406c9be7007d4c9e49dec3e2b82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfb0e31f_5be1ca70",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 40
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-16T19:23:27Z",
+      "side": 1,
+      "message": "last I checked (and still) the connectioninfo is still parcelable so have you not uploaded your latest changes?",
+      "parentUuid": "73469aba_1a04e90e",
+      "revId": "1ecc0c5280fbe406c9be7007d4c9e49dec3e2b82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
