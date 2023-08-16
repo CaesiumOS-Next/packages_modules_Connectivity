@@ -94,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4687f05_9877e2bc",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-16T22:23:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df0fe730_923245b4",
+      "range": {
+        "startLine": 88,
+        "startChar": 54,
+        "endLine": 88,
+        "endChar": 60
+      },
+      "revId": "97f9ccd4551696fd0f0fe900eb45341270b12955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d14cec0_28865b8a",
@@ -142,6 +166,24 @@
       "writtenOn": "2023-08-16T21:27:36Z",
       "side": 1,
       "message": "maybe we\u0027re fine for now, but will it be the case that regardless of the connection type that we\u0027ll have a String peer address and nothing else? Or should you have separate structures for the different types instead of an enum?\n\nIn proto, we\u0027d not define it like this where you have something like\nmessage ConnectionInfo {\n  ConnectionType type;\n  string peerAddress;\n}\n\ninstead we\u0027d have\n\nmessage ConnectionInfo {\n  oneof {\n    BleConnection ble_connection;\n    BtConnection bt_conection;\n  } info\n}\n\nmessage BleConnection {\n  String peerAddress\n}\n\netc.\n\nAgain, maybe we\u0027re fine since this is internal class not intended to be used outside remoteauth, but do you see any changes you\u0027d want to make now instead of refactoring later?",
+      "revId": "97f9ccd4551696fd0f0fe900eb45341270b12955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b128e92_231a77f9",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-16T22:23:01Z",
+      "side": 1,
+      "message": "Since this class only exposes a subset of actual connection related information outside to remote auth, I simplified this class. I don\u0027t see that RAS would care about the other connection related parameters (ex. connection interval or slave latency etc.).",
+      "parentUuid": "3143efbe_1a57507c",
       "revId": "97f9ccd4551696fd0f0fe900eb45341270b12955",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
