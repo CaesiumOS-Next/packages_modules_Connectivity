@@ -22,6 +22,30 @@
       },
       "revId": "2f196f5b26607752269c5b67beb7cf893352098e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fc5a905_55aba89f",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-08-16T03:56:13Z",
+      "side": 1,
+      "message": "Right,Thanks.",
+      "parentUuid": "dff67bc4_a66bb6de",
+      "range": {
+        "startLine": 285,
+        "startChar": 18,
+        "endLine": 285,
+        "endChar": 21
+      },
+      "revId": "2f196f5b26607752269c5b67beb7cf893352098e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
