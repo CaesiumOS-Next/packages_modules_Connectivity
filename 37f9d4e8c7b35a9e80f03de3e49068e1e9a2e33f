@@ -283,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90382938_19253143",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-17T13:16:03Z",
+      "side": 1,
+      "message": "Updated to \"Handles updates to IPv6 forwarding rules if the upstream and/or its prefixes change.\"",
+      "parentUuid": "10178746_f4ee2847",
+      "range": {
+        "startLine": 950,
+        "startChar": 7,
+        "endLine": 950,
+        "endChar": 14
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecadf8fc_8b04458c",
@@ -308,6 +332,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ed2e315_49c88eea",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-17T13:16:03Z",
+      "side": 1,
+      "message": "Spitted into 3 CLs:\naosp/2709176: Add Ipv6UpstreamForwardingRule, renamed Ipv6ForwardingRule to Ipv6DownstreamForwardingRule. No logic changed.\n\naosp/2711576: splitted updateIpv6ForwardingRules() into two functions, the first one handle upstream interface/prefixes change and the second one handle neighbor events.\n\nThis CL passes the upstream source prefixes down to bpf rules.",
+      "parentUuid": "ecadf8fc_8b04458c",
+      "range": {
+        "startLine": 617,
+        "startChar": 16,
+        "endLine": 617,
+        "endChar": 33
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f1eff89_2424c052",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 6
@@ -319,6 +367,30 @@
       "writtenOn": "2023-08-09T09:47:02Z",
       "side": 1,
       "message": "Per discussion - this is always the same as the top 64 bits of the |address| member, so we shouldn\u0027t store it. If we need it, we can reconstruct it using something like:\n\n    public IpPrefix getSourcePrefix() {\n        return new IpPrefix(address, RFC7421_PREFIX_LENGTH);\n    }\n\nI think that would simplify this CL a fair bit because we wouldn\u0027t need to pass the source prefixes around so much.",
+      "range": {
+        "startLine": 1475,
+        "startChar": 8,
+        "endLine": 1475,
+        "endChar": 43
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1a112b2_3e16739d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-17T13:16:03Z",
+      "side": 1,
+      "message": "Implementation changed, not applicable now.",
+      "parentUuid": "8f1eff89_2424c052",
       "range": {
         "startLine": 1475,
         "startChar": 8,
