@@ -226,6 +226,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4181cecf_af802e4f",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-17T22:37:58Z",
+      "side": 1,
+      "message": "Makes sense for Dave\u0027s suggestion. Changed to BaseConnectionInfo and CdmConnectionInfo. But I am not sure of Parcelable. What does the API to store in DB look like?",
+      "parentUuid": "846aee4c_19d30f2a",
+      "revId": "97f9ccd4551696fd0f0fe900eb45341270b12955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "373906db_5101a040",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityManager.java",
         "patchSetId": 42
