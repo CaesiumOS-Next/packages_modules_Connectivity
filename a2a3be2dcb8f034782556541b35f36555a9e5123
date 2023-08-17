@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20ad0a8_15fa917b",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-17T18:56:38Z",
+      "side": 1,
+      "message": "Please add this comment \n// TODO(b/295407748) Change to use @DataClass",
+      "revId": "a2a3be2dcb8f034782556541b35f36555a9e5123",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16ed0c21_3205ec17",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-17T18:56:38Z",
+      "side": 1,
+      "message": "Can you please rename newInstance -\u003e build",
+      "revId": "a2a3be2dcb8f034782556541b35f36555a9e5123",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f5aca84_5217921d",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDevice.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-17T18:56:38Z",
+      "side": 1,
+      "message": "Don\u0027t we need a builder for this class?",
+      "revId": "a2a3be2dcb8f034782556541b35f36555a9e5123",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6bf9d9d_c9ef3818",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDeviceReceiver.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-17T18:56:38Z",
+      "side": 1,
+      "message": "If we remove timeout handling from CM, then it should not be here",
+      "revId": "a2a3be2dcb8f034782556541b35f36555a9e5123",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

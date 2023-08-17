@@ -190,6 +190,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ccb0134e_ab2c860c",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-17T18:56:38Z",
+      "side": 1,
+      "message": "I do agree with Dave, it is better to abstract connection details.\nNot necessarily RAS need to know about it, but it is going to be stored in DB and used to connect later on.\n\nAre you sure we would not need to store more data in case of Tablet?\n\nAlso, if we are going to store it in the DB, should it be Parcelable then?",
+      "parentUuid": "7b128e92_231a77f9",
+      "revId": "97f9ccd4551696fd0f0fe900eb45341270b12955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "373906db_5101a040",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityManager.java",
         "patchSetId": 42
@@ -219,6 +237,24 @@
       "side": 1,
       "message": "I added this in case the caller starts discovery but does not stop it. It may not be required for the CDM case, but will be useful for BLE discovery.",
       "parentUuid": "373906db_5101a040",
+      "revId": "97f9ccd4551696fd0f0fe900eb45341270b12955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c42dea79_6886f93e",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectivityManager.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-17T18:56:38Z",
+      "side": 1,
+      "message": "We are going to have timeout handling in RAS, therefore I don\u0027t see a need for another level of protection.",
+      "parentUuid": "ea6cdcc1_dde947ac",
       "revId": "97f9ccd4551696fd0f0fe900eb45341270b12955",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
