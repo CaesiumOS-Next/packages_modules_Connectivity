@@ -2074,7 +2074,7 @@ public class BpfCoordinatorTest {
         assertNull(mTetherClients.get(mIpServer2));
     }
 
-    private void asseertClientInfoExist(@NonNull IpServer ipServer,
+    private void assertClientInfoExist(@NonNull IpServer ipServer,
             @NonNull ClientInfo clientInfo) {
         HashMap<Inet4Address, ClientInfo> clients = mTetherClients.get(ipServer);
         assertNotNull(clients);
@@ -2088,7 +2088,7 @@ public class BpfCoordinatorTest {
     //   assertNull(clients == null ? clients : clients.get(clientInfo.clientAddress));
     // This helper only verifies the case that the downstream still has at least one client.
     // In other words, ClientInfo for a given IpServer has not been removed yet.
-    private void asseertClientInfoNotExist(@NonNull IpServer ipServer,
+    private void assertClientInfoNotExist(@NonNull IpServer ipServer,
             @NonNull ClientInfo clientInfo) {
         HashMap<Inet4Address, ClientInfo> clients = mTetherClients.get(ipServer);
         assertNotNull(clients);
@@ -2128,8 +2128,8 @@ public class BpfCoordinatorTest {
         checkRule4NotExistInUpstreamDownstreamMap();
 
         // Client information should be not deleted.
-        asseertClientInfoExist(mIpServer, CLIENT_INFO_A);
-        asseertClientInfoExist(mIpServer2, CLIENT_INFO_B);
+        assertClientInfoExist(mIpServer, CLIENT_INFO_A);
+        assertClientInfoExist(mIpServer2, CLIENT_INFO_B);
     }
 
     @Test
@@ -2144,8 +2144,8 @@ public class BpfCoordinatorTest {
                 PRIVATE_ADDR2, MAC_B);
         coordinator.tetherOffloadClientAdd(mIpServer, clientA);
         coordinator.tetherOffloadClientAdd(mIpServer, clientB);
-        asseertClientInfoExist(mIpServer, clientA);
-        asseertClientInfoExist(mIpServer, clientB);
+        assertClientInfoExist(mIpServer, clientA);
+        assertClientInfoExist(mIpServer, clientB);
 
         // Add the rules for client A and client B.
         final Tether4Key upstream4KeyA = makeUpstream4Key(
@@ -2169,8 +2169,8 @@ public class BpfCoordinatorTest {
         // [2] Remove client information A. Only the rules on client A should be removed and
         // the rules on client B should exist.
         coordinator.tetherOffloadClientRemove(mIpServer, clientA);
-        asseertClientInfoNotExist(mIpServer, clientA);
-        asseertClientInfoExist(mIpServer, clientB);
+        assertClientInfoNotExist(mIpServer, clientA);
+        assertClientInfoExist(mIpServer, clientB);
         assertNull(mBpfUpstream4Map.getValue(upstream4KeyA));
         assertNull(mBpfDownstream4Map.getValue(downstream4KeyA));
         assertEquals(upstream4ValueB, mBpfUpstream4Map.getValue(upstream4KeyB));
@@ -2178,9 +2178,9 @@ public class BpfCoordinatorTest {
 
         // [3] Remove client information B. The rules on client B should be removed.
         // Exactly, ClientInfo for a given IpServer is removed because the last client B
-        // has been removed from the downstream. Can't use the helper #asseertClientInfoExist
+        // has been removed from the downstream. Can't use the helper #assertClientInfoExist
         // to check because the container ClientInfo for a given downstream has been removed.
-        // See #asseertClientInfoExist.
+        // See #assertClientInfoExist.
         coordinator.tetherOffloadClientRemove(mIpServer, clientB);
         assertNull(mTetherClients.get(mIpServer));
         assertNull(mBpfUpstream4Map.getValue(upstream4KeyB));
