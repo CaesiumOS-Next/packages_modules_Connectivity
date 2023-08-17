@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe85ab9a_44b3671d",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-08-17T06:12:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08762e29_197017ec",
+      "range": {
+        "startLine": 371,
+        "startChar": 8,
+        "endLine": 371,
+        "endChar": 22
+      },
+      "revId": "c2cb47d12c1b10c902813832f4a64071ac3fd6e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b032d46_60876dad",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-08-17T06:12:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafd3a3a_6e9f22b0",
+      "range": {
+        "startLine": 371,
+        "startChar": 8,
+        "endLine": 371,
+        "endChar": 30
+      },
+      "revId": "c2cb47d12c1b10c902813832f4a64071ac3fd6e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a6cc7a8_d982d68a",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-08-17T06:11:04Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 246,
+        "startChar": 23,
+        "endLine": 246,
+        "endChar": 27
+      },
+      "revId": "c2cb47d12c1b10c902813832f4a64071ac3fd6e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3c5c1a7_3ef0b08a",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-08-17T06:12:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a6cc7a8_d982d68a",
       "range": {
         "startLine": 246,
         "startChar": 23,
