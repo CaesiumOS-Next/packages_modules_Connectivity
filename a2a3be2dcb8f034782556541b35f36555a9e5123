@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c7f23a1_ea29a3ae",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-17T20:18:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c20ad0a8_15fa917b",
+      "revId": "a2a3be2dcb8f034782556541b35f36555a9e5123",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16ed0c21_3205ec17",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-17T18:56:38Z",
       "side": 1,
       "message": "Can you please rename newInstance -\u003e build",
+      "revId": "a2a3be2dcb8f034782556541b35f36555a9e5123",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baa9ffc5_bdb0721c",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-17T20:18:25Z",
+      "side": 1,
+      "message": "You mean builder()? This method returns a Builder, there is a build() method below used to build ConnectionInfo object.",
+      "parentUuid": "16ed0c21_3205ec17",
       "revId": "a2a3be2dcb8f034782556541b35f36555a9e5123",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9569553_23d479dd",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDevice.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-17T20:18:25Z",
+      "side": 1,
+      "message": "Why? I think a constructor would be enough. I don\u0027t expect different representations of DiscoveredDevice and the constructor itself is simple.",
+      "parentUuid": "0f5aca84_5217921d",
+      "revId": "a2a3be2dcb8f034782556541b35f36555a9e5123",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6bf9d9d_c9ef3818",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDeviceReceiver.java",
         "patchSetId": 45
@@ -65,6 +119,24 @@
       "writtenOn": "2023-08-17T18:56:38Z",
       "side": 1,
       "message": "If we remove timeout handling from CM, then it should not be here",
+      "revId": "a2a3be2dcb8f034782556541b35f36555a9e5123",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "985e5f89_84b54e9c",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDeviceReceiver.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-17T20:18:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6bf9d9d_c9ef3818",
       "revId": "a2a3be2dcb8f034782556541b35f36555a9e5123",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
