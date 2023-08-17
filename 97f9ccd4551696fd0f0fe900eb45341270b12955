@@ -365,6 +365,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9d6e243_429c563a",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDevice.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-17T00:21:47Z",
+      "side": 1,
+      "message": "Actually, now that I think about it, I don\u0027t think I want a builder here. Removed it.",
+      "parentUuid": "a2c3db19_37c4c753",
+      "revId": "97f9ccd4551696fd0f0fe900eb45341270b12955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66c99d8b_bc4e3818",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDeviceReceiver.java",
         "patchSetId": 42
