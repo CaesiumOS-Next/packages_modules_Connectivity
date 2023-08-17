@@ -783,14 +783,11 @@ public class IpServer extends StateMachine {
         // deprecation of any existing RA data.
 
         setRaParams(params);
-        // Be aware that updateIpv6ForwardingRules use mLastIPv6LinkProperties, so this line should
-        // be eariler than updateIpv6ForwardingRules.
-        // TODO: avoid this dependencies and move this logic into BpfCoordinator.
-        mLastIPv6LinkProperties = v6only;
 
         final Set<IpPrefix> upstreamPrefixes = params != null ? params.prefixes : Set.of();
         updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, mLastIPv6UpstreamPrefixes,
-                upstreamIfIndex, upstreamPrefixes);
+                upstreamIfIndex, upstreamIface, upstreamPrefixes);
+        mLastIPv6LinkProperties = v6only;
         mLastIPv6UpstreamIfindex = upstreamIfIndex;
         mLastIPv6UpstreamPrefixes = upstreamPrefixes;
 
@@ -928,20 +925,20 @@ public class IpServer extends StateMachine {
         mBpfCoordinator.tetherOffloadRuleUpdate(this, newIfindex, newPrefixes);
     }
 
-    private boolean isIpv6VcnNetworkInterface() {
-        if (mLastIPv6LinkProperties == null) return false;
+    private boolean isIpv6VcnNetworkInterface(String interfaceName) {
+        if (interfaceName == null) return false;
 
-        return isVcnInterface(mLastIPv6LinkProperties.getInterfaceName());
+        return isVcnInterface(interfaceName);
     }
 
     // Handles updates to IPv6 forwarding rules if the upstream and/or its prefixes change.
     private void updateIpv6ForwardingRules(int prevUpstreamIfindex,
-            @NonNull Set<IpPrefix> prevUpstreamPrefixes, int upstreamIfindex,
+            @NonNull Set<IpPrefix> prevUpstreamPrefixes, int upstreamIfindex, String interfaceName,
             @NonNull Set<IpPrefix> upstreamPrefixes) {
         // If no longer have an upstream or it is virtual network, clear forwarding rules and do
         // nothing else.
         // TODO: Rather than always clear rules, ensure whether ipv6 ever enable first.
-        if (upstreamIfindex == 0 || isIpv6VcnNetworkInterface()) {
+        if (upstreamIfindex == 0 || isIpv6VcnNetworkInterface(interfaceName)) {
             clearIpv6ForwardingRules();
             return;
         }
@@ -969,7 +966,10 @@ public class IpServer extends StateMachine {
         // TODO: remove 'clearIpv6ForwardingRules()' when we feel it is safe to do so. The IPv6
         // forwarding rules should have been already cleared when the upstream lost or becomes VCN
         // network at the first time and no IPv6 forwarding rules can be added since then.
-        if (mLastIPv6UpstreamIfindex == 0 || isIpv6VcnNetworkInterface()) {
+        String upstreamInterfaceName = mLastIPv6LinkProperties == null
+                ? null
+                : mLastIPv6LinkProperties.getInterfaceName();
+        if (mLastIPv6UpstreamIfindex == 0 || isIpv6VcnNetworkInterface(upstreamInterfaceName)) {
             clearIpv6ForwardingRules();
             return;
         }
