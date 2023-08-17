@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba899fcb_99eaad81",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-17T11:48:40Z",
+      "side": 1,
+      "message": "Originally, we added this in order to access findMatchedPrefix() in NetworkUtils.\nBut the implementation changed, didn\u0027t use findMatchedPrefix() now.",
+      "parentUuid": "c11022fd_3df2a867",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 44
+      },
+      "revId": "adc2bce558b9f24ecc7e41ff7582c6cf02b19f11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a5e7d61_8342bd10",
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "Currently it is only used in Tethering for finding the matched source prefix. We only support IPv6 upstream on cellular network now. I think the upstream interface has only one prefix in most of the cases. I saw two subnets before, but never saw any carrier assigns more than two subnets.",
       "parentUuid": "08717b27_2c656457",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 85
+      },
+      "revId": "adc2bce558b9f24ecc7e41ff7582c6cf02b19f11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d0358ed_4da49333",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-17T11:48:40Z",
+      "side": 1,
+      "message": "Implementation changed, didn\u0027t use findMatchedPrefix() now.",
+      "parentUuid": "8cee9160_603e8647",
       "range": {
         "startLine": 440,
         "startChar": 0,
