@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "116a1681_83febb51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-08-17T16:19:10Z",
+      "side": 1,
+      "message": "Since the experiment showed now regressions, can we just delete the old implementation? I am not sure what we\u0027d need a kill switch for -- or is that your plan for the next module release?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "7628ea30b087e67d2e1e978776625e078281319e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
