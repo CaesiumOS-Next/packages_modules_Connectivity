@@ -67,6 +67,7 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -238,6 +239,11 @@ public class KeepaliveStatsTrackerTest {
         // Initial onSubscriptionsChanged.
         getOnSubscriptionsChangedListener().onSubscriptionsChanged();
         HandlerUtils.waitForIdle(mTestHandler, TIMEOUT_MS);
+    }
+
+    @After
+    public void tearDown() {
+        mHandlerThread.quit();
     }
 
     private void setElapsedRealtime(long time) {

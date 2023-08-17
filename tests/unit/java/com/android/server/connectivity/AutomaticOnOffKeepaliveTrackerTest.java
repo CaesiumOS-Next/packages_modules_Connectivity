@@ -368,6 +368,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
     @After
     public void teardown() throws Exception {
         TestKeepaliveInfo.closeAllSockets();
+        mHandlerThread.quit();
     }
 
     private final class AOOTestHandler extends Handler {
