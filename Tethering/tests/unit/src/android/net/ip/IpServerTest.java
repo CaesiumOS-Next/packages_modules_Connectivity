@@ -842,10 +842,6 @@ public class IpServerTest {
         verify(mDependencies, never()).makeDhcpServer(any(), any(), any());
     }
 
-    private InetAddress addr(String addr) throws Exception {
-        return InetAddresses.parseNumericAddress(addr);
-    }
-
     private void recvNewNeigh(int ifindex, InetAddress addr, short nudState, MacAddress mac) {
         mNeighborEventConsumer.accept(new NeighborEvent(0, RTM_NEWNEIGH, ifindex, addr,
                 nudState, mac));
@@ -1070,7 +1066,7 @@ public class IpServerTest {
     }
 
     @Test
-    public void addRemoveipv6ForwardingRules() throws Exception {
+    public void addRemoveIpv6ForwardingRules() throws Exception {
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, UPSTREAM_ADDRESSES,
                 UPSTREAM_PREFIXES, false /* usingLegacyDhcp */, DEFAULT_USING_BPF_OFFLOAD);
 
