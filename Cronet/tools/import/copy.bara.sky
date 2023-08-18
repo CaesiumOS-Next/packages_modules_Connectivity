@@ -87,6 +87,7 @@ cronet_origin_files = glob(
         # Note: Only used for tests.
         "third_party/googletest/**",
         "third_party/icu/**",
+        "third_party/jni_zero/**",
         "third_party/libevent/**",
         # Note: Only used for tests.
         "third_party/libxml/**",
