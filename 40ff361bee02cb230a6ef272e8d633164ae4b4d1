@@ -16,6 +16,305 @@
       "message": "j",
       "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eb08b8a_8f63c866",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "Is it possible that the feature is enabled but SDK is \u003c U ?\n\nIf yes, you may want to say `mDestroyFrozenSockets \u003d isAtLeastU \u0026\u0026 isFeatureEnabled`. It will be simpler and less error-prone since you won\u0027t have to check isAtLeastU every time you check this member.",
+      "range": {
+        "startLine": 1788,
+        "startChar": 12,
+        "endLine": 1788,
+        "endChar": 55
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6030122b_940a1e89",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3013,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "What if the cell network is the default for this UID but not for the system ? (e.g. this can happen with the MDO feature where some apps are put preferentially on the mobile network when wifi is connected).",
+      "range": {
+        "startLine": 3013,
+        "startChar": 44,
+        "endLine": 3013,
+        "endChar": 61
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10a6de2a_a39de680",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3015,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "So if the default network is null we\u0027re going to kill live TCP sockets ?\n\nI\u0027m not sure how it makes sense to use the default network for this at all. The point here is to save battery by not waking up the modem right ?\n\nIn the old code, putting an app in the freezer will kill all its live sockets (whether on the default network, some local network, some non-default network, anything). That is simple and it makes sense.\n\nBut in the new code, we immediately destroy sockets on the cell network when the app is put into the freezer iff the default is wifi ? It will wake up the modem and I do not understand how that makes sense.",
+      "range": {
+        "startLine": 3015,
+        "startChar": 16,
+        "endLine": 3015,
+        "endChar": 37
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1f7605b_47ad9695",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3020,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem like a reasonable approximation to me. This may account for a large proportion of sockets, but there are so many different cases that I think this will make things very confusing by killing or not killing sockets based on something *completely* unrelated (whether some different network happens to be active right now).",
+      "range": {
+        "startLine": 3020,
+        "startChar": 0,
+        "endLine": 3020,
+        "endChar": 89
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "809cbddb_3d9e29b8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3033,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "As this can only be used on the handler thread, I suggest you add a check for ensureRunningOnConnectivityServiceThread in this function.",
+      "range": {
+        "startLine": 3033,
+        "startChar": 51,
+        "endLine": 3033,
+        "endChar": 69
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c47dca76_969bd746",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3035,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "This looks dangerous – you\u0027re leaving the arraylist in an inconsistent state. What if sockets for half the UIDs have been closed ?",
+      "range": {
+        "startLine": 3035,
+        "startChar": 10,
+        "endLine": 3035,
+        "endChar": 15
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c643bf9_be3b091c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3035,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "This looks too broad. Can you catch only what you need and be specific in your treatment of each exception ?",
+      "range": {
+        "startLine": 3035,
+        "startChar": 17,
+        "endLine": 3035,
+        "endChar": 26
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fb1257a_3ec74961",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 2288,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "Wow did you actually have this problem ?",
+      "range": {
+        "startLine": 2287,
+        "startChar": 0,
+        "endLine": 2288,
+        "endChar": 79
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86e17431_d745eb59",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 11276,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "- Not following why you\u0027re moving this up. You don\u0027t seem to be using it earlier than before.\n- You no longer call `capture()` on it (did you mistakenly deleted the 2nd line ?) so `getValue()` in l.11295 is bound to fail",
+      "range": {
+        "startLine": 11275,
+        "startChar": 0,
+        "endLine": 11276,
+        "endChar": 56
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e6e182_007accf7",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 18531,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "Is there a point in returning the ArgumentCaptor ? Nothing can really be done on it except getValue() or getValues(). The only reason I see to return the captor is therefore if some callers expect one value and some callers except multiple values. If that\u0027s the case, it is pretty confusing.\n\nInstead I think you should return the UidFrozenStateChangedCallback, and just say `return captor.getValue()`. (or a list if you need multiple)",
+      "range": {
+        "startLine": 18531,
+        "startChar": 12,
+        "endLine": 18531,
+        "endChar": 26
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b08ea49_0c942b29",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 18539,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 18539,
+        "startChar": 12,
+        "endLine": 18539,
+        "endChar": 26
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50e68686_30f2bec2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 18585,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "So IIUC the network is active by default and this argument is about whether the network should start out as inactive ?\n\nIf so I\u0027d suggest two small changes :\n- Rename the argument as `startWithNetworkInactive`\n- Move this to be the first statement of the block, since it\u0027s a starting condition",
+      "range": {
+        "startLine": 18585,
+        "startChar": 16,
+        "endLine": 18585,
+        "endChar": 31
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46e7e6c1_ba61910f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 18641,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-18T09:03:52Z",
+      "side": 1,
+      "message": "supernit : space",
+      "range": {
+        "startLine": 18641,
+        "startChar": 20,
+        "endLine": 18641,
+        "endChar": 21
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
