@@ -22,6 +22,30 @@
       },
       "revId": "7172548ed9855a7bc1bbc25bdf8c5ee36b13123a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d1be084_98dc3ee0",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-18T07:37:29Z",
+      "side": 1,
+      "message": "It is unnecessary to use INetd, so this could be ignored.",
+      "parentUuid": "61957d20_e96cfaf2",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 22
+      },
+      "revId": "7172548ed9855a7bc1bbc25bdf8c5ee36b13123a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
