@@ -70,6 +70,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.Process;
+import android.util.Log;
 
 import androidx.test.filters.SmallTest;
 
@@ -509,5 +510,11 @@ public class ConnectivityManagerTest {
 
         assertNull("ConnectivityManager weak reference still not null after " + attempts
                     + " attempts", ref.get());
+    }
+
+    @Test
+    public void testIsUidNetworkingBlocked() {
+        ConnectivityManager manager = new ConnectivityManager(mCtx, mService);
+        Log.d("JUNYU", "" + manager.isUidNetworkingBlocked(1000, false));
     }
 }

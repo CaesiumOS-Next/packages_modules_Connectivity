@@ -25,10 +25,13 @@ import static android.net.NetworkRequest.Type.TRACK_DEFAULT;
 import static android.net.NetworkRequest.Type.TRACK_SYSTEM_DEFAULT;
 import static android.net.QosCallback.QosCallbackRegistrationException;
 
+import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
+
 import android.annotation.CallbackExecutor;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.RequiresApi;
 import android.annotation.RequiresPermission;
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
@@ -64,6 +67,8 @@ import android.os.ResultReceiver;
 import android.os.ServiceSpecificException;
 import android.os.UserHandle;
 import android.provider.Settings;
+import android.system.ErrnoException;
+import android.system.Os;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.ArrayMap;
@@ -72,6 +77,9 @@ import android.util.Range;
 import android.util.SparseIntArray;
 
 import com.android.internal.annotations.GuardedBy;
+import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.IBpfMap;
+import com.android.net.module.util.Struct;
 
 import libcore.net.event.NetworkEventDispatcher;
 
@@ -6147,6 +6155,73 @@ public class ConnectivityManager {
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
+    }
+
+    private static IBpfMap<Struct.S32, Struct.U32> sConfigurationMap = null;
+    private static final String CONFIGURATION_MAP_PATH =
+            "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
+    private static final Struct.S32 UID_RULES_CONFIGURATION_KEY = new Struct.S32(0);
+
+    void initBpfMap() {
+        if (sConfigurationMap == null) {
+            sConfigurationMap = getConfigurationMap();
+        }
+    }
+
+    private static IBpfMap<Struct.S32, Struct.U32> getConfigurationMap() {
+        try {
+            return new BpfMap<>(
+                    CONFIGURATION_MAP_PATH, BpfMap.BPF_F_RDWR, Struct.S32.class, Struct.U32.class);
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Cannot open netd configuration map", e);
+        }
+    }
+
+    /**
+     * Get the specified firewall chain's status.
+     *
+     * @param childChain target chain
+     * @return {@code true} if chain is enabled, {@code false} if chain is not enabled.
+     * @throws UnsupportedOperationException if called on pre-T devices.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    private boolean isChainEnabled(final int childChain) {
+        initBpfMap();
+        final long match = childChain;
+        try {
+            final Struct.U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
+            return (config.val & match) != 0;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to get firewall chain status: " + Os.strerror(e.errno));
+        }
+    }
+
+    private static final long POWERSAVE_MATCH = (1 << 4);
+
+    /**
+     * Similar to {@link NetworkPolicyManager#isUidNetworkingBlocked}, but directly reads the BPF
+     * maps.
+     * For use by the NetworkStack process only.
+     *
+     * @hide
+     */
+    // TODO: Expose api when ready.
+    @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)  // BPF maps were only mainlined in T
+    public boolean isUidNetworkingBlocked(int uid, boolean meteredNetwork) {
+        enforceAnyPermissionOf(mContext, NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+
+        // TODO: This might not be necessary. But given UID 1000 always passes all permission
+        //  checks...
+        if (Binder.getCallingUid() != 1073 /* Process.NETWORK_STACK_UID */) {
+            throw new SecurityException("MAINLINE_NETWORK_STACK permission required");
+        }
+
+        // Open the map. Lookup the UID and look at the rules.
+        return isChainEnabled((int) POWERSAVE_MATCH);
     }
 
     /** @hide */
