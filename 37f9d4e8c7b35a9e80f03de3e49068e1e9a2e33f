@@ -356,6 +356,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5fef3776_040b1011",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-18T01:42:24Z",
+      "side": 1,
+      "message": "Typo in last commend: spitted/splitted -\u003e split",
+      "parentUuid": "6ed2e315_49c88eea",
+      "range": {
+        "startLine": 617,
+        "startChar": 16,
+        "endLine": 617,
+        "endChar": 33
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f1eff89_2424c052",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 6
