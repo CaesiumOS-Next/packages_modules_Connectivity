@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f41081b_5a1201d4",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/ConnectionInfo.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2019904
+      },
+      "writtenOn": "2023-08-18T16:34:03Z",
+      "side": 1,
+      "message": "+1 for builder()",
+      "parentUuid": "baa9ffc5_bdb0721c",
+      "revId": "a2a3be2dcb8f034782556541b35f36555a9e5123",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f5aca84_5217921d",
         "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDevice.java",
         "patchSetId": 45
