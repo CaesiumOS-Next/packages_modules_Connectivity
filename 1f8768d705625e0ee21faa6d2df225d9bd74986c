@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "435b5c3d_21c13c2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-18T04:45:51Z",
+      "side": 1,
+      "message": "CCing Patrick who might want to add similar wording as we have in this CL but for Ethernet code.",
+      "revId": "1f8768d705625e0ee21faa6d2df225d9bd74986c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6002a26c_31f4e6b6",
+        "filename": "OWNERS_core_networking_xts",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-18T04:45:51Z",
+      "side": 1,
+      "message": "In addition to cherry-picks and flaky test fixes, also",
+      "range": {
+        "startLine": 7,
+        "startChar": 2,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "1f8768d705625e0ee21faa6d2df225d9bd74986c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dae82a9b_f1a99126",
+        "filename": "OWNERS_core_networking_xts",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-18T04:45:51Z",
+      "side": 1,
+      "message": "Maybe mention test bug fixes as well?",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "1f8768d705625e0ee21faa6d2df225d9bd74986c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
