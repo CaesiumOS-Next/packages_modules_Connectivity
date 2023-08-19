@@ -88,6 +88,8 @@ import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkRequest.Type.LISTEN_FOR_BEST;
+import static android.net.NetworkScore.KEEP_CONNECTED_FOR_HANDOVER;
+import static android.net.NetworkScore.KEEP_CONNECTED_NONE;
 import static android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY;
@@ -318,7 +320,6 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.lang.IllegalArgumentException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -1291,6 +1292,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         public boolean isAtLeastU() {
             return SdkLevel.isAtLeastU();
+        }
+
+        public boolean isAtLeastV() {
+            return SdkLevel.isAtLeastV();
         }
 
         /**
@@ -4922,7 +4927,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureRunningOnConnectivityServiceThread();
 
         if (!nai.everConnected() || nai.isVPN() || nai.isInactive()
-                || nai.getScore().getKeepConnectedReason() != NetworkScore.KEEP_CONNECTED_NONE) {
+                || nai.getScore().getKeepConnectedReason() != KEEP_CONNECTED_NONE) {
             return false;
         }
 
@@ -9999,7 +10004,23 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void updateNetworkScore(@NonNull final NetworkAgentInfo nai, final NetworkScore score) {
         if (VDBG || DDBG) log("updateNetworkScore for " + nai.toShortString() + " to " + score);
+        int prevKeepConnectedReason = nai.getScore().getKeepConnectedReason();
         nai.setScore(score);
+        if (mDeps.isAtLeastV()) {
+            try {
+                if (prevKeepConnectedReason != KEEP_CONNECTED_FOR_HANDOVER
+                        && score.getKeepConnectedReason() == KEEP_CONNECTED_FOR_HANDOVER) {
+                    log("networkKeepSocketConnected set true for " + nai.toShortString());
+                    mNetd.networkKeepSocketConnected(nai.network.netId, true);
+                } else if (prevKeepConnectedReason == KEEP_CONNECTED_FOR_HANDOVER
+                        && score.getKeepConnectedReason() == KEEP_CONNECTED_NONE) {
+                    log("networkKeepSocketConnected set false for " + nai.toShortString());
+                    mNetd.networkKeepSocketConnected(nai.network.netId, false);
+                }
+            } catch (RemoteException | ServiceSpecificException e) {
+                loge("Exception networkKeepSocketConnected :" + e);
+            }
+        }
         rematchAllNetworksAndRequests();
     }
 
