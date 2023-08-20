@@ -576,6 +576,8 @@ void TrafficController::setPermissionForUids(int permission, const std::vector<u
     }
 }
 
+<<<<<<< PATCH SET (34583d TrafficController - remove dump())
+=======
 std::string getMapStatus(const base::unique_fd& map_fd, const char* path) {
     if (map_fd.get() < 0) {
         return StringPrintf("map fd lost");
@@ -616,5 +618,6 @@ void TrafficController::dump(int fd, bool verbose __unused) {
                getMapStatus(mUidOwnerMap.getMap(), UID_OWNER_MAP_PATH).c_str());
 }
 
+>>>>>>> BASE      (29c883 TrafficController - remove dead code)
 }  // namespace net
 }  // namespace android

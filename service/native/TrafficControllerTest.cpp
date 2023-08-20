@@ -269,6 +269,55 @@ class TrafficControllerTest : public ::testing::Test {
         }
         return ret;
     }
+<<<<<<< PATCH SET (34583d TrafficController - remove dump())
+
+    // Once called, the maps of TrafficController can't recover to valid maps which initialized
+    // in SetUp().
+    void makeTrafficControllerMapsInvalid() {
+        constexpr char INVALID_PATH[] = "invalid";
+
+        mFakeCookieTagMap.init(INVALID_PATH);
+        mTc.mCookieTagMap = mFakeCookieTagMap;
+        ASSERT_INVALID(mTc.mCookieTagMap);
+
+        mFakeAppUidStatsMap.init(INVALID_PATH);
+        mTc.mAppUidStatsMap = mFakeAppUidStatsMap;
+        ASSERT_INVALID(mTc.mAppUidStatsMap);
+
+        mFakeStatsMapA.init(INVALID_PATH);
+        mTc.mStatsMapA = mFakeStatsMapA;
+        ASSERT_INVALID(mTc.mStatsMapA);
+
+        mFakeStatsMapB.init(INVALID_PATH);
+        mTc.mStatsMapB = mFakeStatsMapB;
+        ASSERT_INVALID(mTc.mStatsMapB);
+
+        mFakeIfaceStatsMap.init(INVALID_PATH);
+        mTc.mIfaceStatsMap = mFakeIfaceStatsMap;
+        ASSERT_INVALID(mTc.mIfaceStatsMap);
+
+        mFakeConfigurationMap.init(INVALID_PATH);
+        mTc.mConfigurationMap = mFakeConfigurationMap;
+        ASSERT_INVALID(mTc.mConfigurationMap);
+
+        mFakeUidOwnerMap.init(INVALID_PATH);
+        mTc.mUidOwnerMap = mFakeUidOwnerMap;
+        ASSERT_INVALID(mTc.mUidOwnerMap);
+
+        mFakeUidPermissionMap.init(INVALID_PATH);
+        mTc.mUidPermissionMap = mFakeUidPermissionMap;
+        ASSERT_INVALID(mTc.mUidPermissionMap);
+
+        mFakeUidCounterSetMap.init(INVALID_PATH);
+        mTc.mUidCounterSetMap = mFakeUidCounterSetMap;
+        ASSERT_INVALID(mTc.mUidCounterSetMap);
+
+        mFakeIfaceIndexNameMap.init(INVALID_PATH);
+        mTc.mIfaceIndexNameMap = mFakeIfaceIndexNameMap;
+        ASSERT_INVALID(mTc.mIfaceIndexNameMap);
+    }
+=======
+>>>>>>> BASE      (29c883 TrafficController - remove dead code)
 };
 
 TEST_F(TrafficControllerTest, TestUpdateOwnerMapEntry) {

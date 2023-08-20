@@ -193,7 +193,7 @@ static void native_dump(JNIEnv* env, jobject self, jobject javaFd, jboolean verb
         jniThrowExceptionFmt(env, "java/io/IOException", "Invalid file descriptor");
         return;
     }
-    mTc.dump(fd, verbose);
+    // nothing useful to dump, native_init() guarantees validity
 }
 
 static jint native_synchronizeKernelRCU(JNIEnv* env, jobject self) {
