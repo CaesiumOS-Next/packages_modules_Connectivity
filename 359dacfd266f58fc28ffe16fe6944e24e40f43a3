@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bc6b502_2e77b0ae",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-20T16:55:30Z",
+      "side": 0,
+      "message": "this code actually erroneously appears to have not printed out anything about mUidPermissionMap...",
+      "range": {
+        "startLine": 608,
+        "startChar": 7,
+        "endLine": 608,
+        "endChar": 14
+      },
+      "revId": "359dacfd266f58fc28ffe16fe6944e24e40f43a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
