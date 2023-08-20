@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2ac06b8_593c91e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-20T18:42:57Z",
+      "side": 1,
+      "message": "android.net.cts.ConnectivityManagerTest.testDumpBpfNetMaps\n\n    @Test @IgnoreUpTo(SC_V2)\n    public void testDumpBpfNetMaps() throws Exception {\n        final String[] args \u003d new String[] {\"--short\", \"trafficcontroller\"};\n        String dumpOutput \u003d DumpTestUtils.dumpServiceWithShellPermission(\n                Context.CONNECTIVITY_SERVICE, args);\n        assertTrue(dumpOutput, dumpOutput.contains(\"TrafficController\"));\n        assertFalse(dumpOutput, dumpOutput.contains(\"BPF map content\"));\n\n        dumpOutput \u003d DumpTestUtils.dumpServiceWithShellPermission(\n                Context.CONNECTIVITY_SERVICE, args[1]);\n        assertTrue(dumpOutput, dumpOutput.contains(\"BPF map content\"));\n    }",
+      "revId": "34583deadbb6fd0ea48577bf9d445938cf94795a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
