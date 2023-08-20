@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84471b48_2b28c763",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-20T19:27:55Z",
+      "side": 1,
+      "message": "there\u0027s a T+ cts test for this line - testDumpBpfNetMaps",
+      "range": {
+        "startLine": 584,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 36
+      },
+      "revId": "7d2a4e9d4746b963ff7fb285f21175e7559bc306",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
