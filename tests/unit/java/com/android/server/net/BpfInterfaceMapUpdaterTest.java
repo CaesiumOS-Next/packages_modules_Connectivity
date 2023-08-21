@@ -21,6 +21,7 @@ import static android.system.OsConstants.EPERM;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
@@ -114,6 +115,8 @@ public final class BpfInterfaceMapUpdaterTest {
                 ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener.class);
         verify(mNetd).registerUnsolicitedEventListener(listenerCaptor.capture());
         mListener = listenerCaptor.getValue();
+        // forEach() is called in the constructor with a lambda expression.
+        verify(mBpfMap).forEach(any());
         verify(mBpfMap).updateEntry(eq(new S32(TEST_INDEX)),
                 eq(new InterfaceMapValue(TEST_INTERFACE_NAME)));
     }

@@ -32,6 +32,7 @@
 #include "netdbpf/BpfNetworkStats.h"
 #include "netdbpf/NetworkTraceHandler.h"
 
+using android::bpf::bpfAddInterfaceToIndexMap;
 using android::bpf::bpfGetUidStats;
 using android::bpf::bpfGetIfaceStats;
 using android::bpf::bpfGetIfIndexStats;
@@ -66,6 +67,14 @@ static uint64_t getStatsType(StatsValue* stats, StatsType type) {
         default:
             return UNKNOWN;
     }
+}
+
+static void nativeAddInterfaceToIndexMap(JNIEnv* env, jclass clazz, jint ifindex, jstring iface) {
+    ScopedUtfChars iface8(env, iface);
+    if (iface8.c_str() == NULL) {
+        return;
+    }
+    bpfAddInterfaceToIndexMap(ifindex, iface8.c_str());
 }
 
 static jlong nativeGetTotalStat(JNIEnv* env, jclass clazz, jint type) {
@@ -122,6 +131,7 @@ static const JNINativeMethod gMethods[] = {
         {"nativeGetIfIndexStat", "(II)J", (void*)nativeGetIfIndexStat},
         {"nativeGetUidStat", "(II)J", (void*)nativeGetUidStat},
         {"nativeInitNetworkTracing", "()V", (void*)nativeInitNetworkTracing},
+        {"nativeAddInterfaceToIndexMap", "(ILjava/lang/String;)V", (void*)nativeAddInterfaceToIndexMap},
 };
 
 int register_android_server_net_NetworkStatsService(JNIEnv* env) {
