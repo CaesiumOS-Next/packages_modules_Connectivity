@@ -390,6 +390,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e692b86a_b9ec9ad4",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/primary/Connection.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-21T18:40:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b56b75c_0b93e2d6",
+      "revId": "9651cfff8abf69feabed15a71c4a3970492e49c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4dbe490_f0dbb1a3",
