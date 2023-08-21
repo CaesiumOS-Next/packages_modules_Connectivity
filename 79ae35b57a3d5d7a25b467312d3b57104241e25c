@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aab3a61b_ad78fb55",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1487,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T07:50:35Z",
+      "side": 1,
+      "message": "Should that not be done before calling clientInfo.onServiceUpdated ? Otherwise the metric would be sent in clientInfo.onServiceUpdated with wrong info ?",
+      "revId": "79ae35b57a3d5d7a25b467312d3b57104241e25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
