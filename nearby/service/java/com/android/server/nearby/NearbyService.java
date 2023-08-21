@@ -226,11 +226,11 @@ public class NearbyService extends INearbyManager.Stub {
             if (mContextHubManagerAdapter != null) {
                 return;
             }
-            ContextHubManager manager = mContext.getSystemService(ContextHubManager.class);
-            if (manager == null) {
-                return;
-            }
-            mContextHubManagerAdapter = new ContextHubManagerAdapter(manager);
+            //ContextHubManager manager = mContext.getSystemService(ContextHubManager.class);
+            //if (manager == null) {
+            //    return;
+            //}
+            //mContextHubManagerAdapter = new ContextHubManagerAdapter(manager);
         }
 
         synchronized void initializeAppOpsManager() {
