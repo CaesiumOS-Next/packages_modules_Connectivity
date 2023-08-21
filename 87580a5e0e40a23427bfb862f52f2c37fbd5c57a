@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0bbd38e_d1452579",
+        "filename": "ThreadNetwork/apex/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T06:07:47Z",
+      "side": 1,
+      "message": "As discussed in the meeting, the directory can just be \"thread\" instead of \"ThreadNetwork\"",
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0abe4d5_96532cd1",
         "filename": "ThreadNetwork/apex/threadnetwork.34rc",
         "patchSetId": 8
