@@ -17,3 +17,12 @@
 package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
+
+// Versioned threadnetwork init file which will be adopted by the system
+// on 34+ devices.
+prebuilt_etc {
+    name: "threadnetwork.init.34rc",
+    src: "threadnetwork.34rc",
+    filename: "init.34rc",
+    installable: false,
+}
