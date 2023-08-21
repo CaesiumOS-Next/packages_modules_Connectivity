@@ -318,7 +318,6 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.lang.IllegalArgumentException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -2009,7 +2008,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     @Nullable
     private Network[] getVpnUnderlyingNetworks(int uid) {
-        if (mLockdownEnabled) return null;
         final NetworkAgentInfo nai = getVpnForUid(uid);
         if (nai != null) return nai.declaredUnderlyingNetworks;
         return null;
