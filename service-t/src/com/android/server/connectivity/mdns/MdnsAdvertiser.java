@@ -20,6 +20,7 @@ import static com.android.server.connectivity.mdns.MdnsRecord.MAX_LABEL_LENGTH;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.IpConfiguration;
 import android.net.LinkAddress;
 import android.net.Network;
 import android.net.nsd.NsdManager;
@@ -39,6 +40,7 @@ import com.android.server.connectivity.mdns.util.MdnsUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
@@ -156,6 +158,8 @@ public class MdnsAdvertiser {
         public void onServiceConflict(@NonNull MdnsInterfaceAdvertiser advertiser, int serviceId) {
             mSharedLog.i("Found conflict, restarted probing for service " + serviceId);
 
+            IpConfiguration.Builder builder = new IpConfiguration.Builder();
+            mSharedLog.i(builder.toString());
             final Registration registration = mRegistrations.get(serviceId);
             if (registration == null) return;
             if (registration.mNotifiedRegistrationSuccess) {
