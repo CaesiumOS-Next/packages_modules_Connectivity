@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74277765_b54d6bdc",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-21T08:22:23Z",
+      "side": 1,
+      "message": "Makes sense. Removed \"threadnetwork-apex-defaults\".\n\nAlso removed ot-daemon and the init rc file from this CL to get this change merged easier",
+      "parentUuid": "b6901b5f_b5e9a61d",
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0bbd38e_d1452579",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-21T06:07:47Z",
       "side": 1,
       "message": "As discussed in the meeting, the directory can just be \"thread\" instead of \"ThreadNetwork\"",
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36b48ea4_fdc11cf2",
+        "filename": "ThreadNetwork/apex/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-21T08:22:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0bbd38e_d1452579",
       "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d350580_28dd6c72",
+        "filename": "ThreadNetwork/apex/threadnetwork.34rc",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-21T08:22:23Z",
+      "side": 1,
+      "message": "Thanks for catching this!\nFixed and removed this file from current CL. Will add it in a separate CL",
+      "parentUuid": "e0abe4d5_96532cd1",
+      "range": {
+        "startLine": 15,
+        "startChar": 24,
+        "endLine": 15,
+        "endChar": 49
+      },
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9919bd9a_5ca43238",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-08-21T05:58:32Z",
       "side": 1,
       "message": "Why is this necessary ? frameworks/base shouldn\u0027t need to depend on the sources, otherwise you may have problems if this code is updated and becomes out-of-date with the copy that was included by frameworks/base",
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "817f30d3_db1ced43",
+        "filename": "ThreadNetwork/framework/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-21T08:22:23Z",
+      "side": 1,
+      "message": "Removed, not necessary.",
+      "parentUuid": "9919bd9a_5ca43238",
       "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -92,6 +170,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b49bcbd7_9a2e24b1",
+        "filename": "framework/jarjar-excludes.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-21T08:22:23Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "f4b55570_1b6553e5",
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df3a17b5_b9258ccb",
@@ -105,6 +201,24 @@
       "writtenOn": "2023-08-21T05:58:32Z",
       "side": 1,
       "message": "You also need jarjar rules generation; see how service-remoteauth-jarjar-gen is setup, and additional changes to move it to framework-connectivity-t in aosp/2685327 for example",
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5225fa6_7e37fcc3",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-21T08:22:23Z",
+      "side": 1,
+      "message": "Done added the jarjar-gen.\n\nframework-connectivity-t changes are needed only when the first time I add the framework code, right?",
+      "parentUuid": "df3a17b5_b9258ccb",
       "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
