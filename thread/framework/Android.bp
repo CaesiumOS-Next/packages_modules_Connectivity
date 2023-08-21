@@ -29,3 +29,16 @@ filegroup {
         "//packages/modules/Connectivity:__subpackages__",
     ],
 }
+
+// For only Thread tests
+java_library {
+    name: "framework-thread-static",
+    srcs: [":framework-thread-sources"],
+    sdk_version: "module_current",
+    libs: [
+        "framework-annotations-lib",
+        "net-utils-framework-common",
+    ],
+    static_libs: [],
+    visibility: ["//packages/modules/Connectivity/thread/tests:__subpackages__"],
+}
