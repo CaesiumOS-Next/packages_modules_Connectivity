@@ -32,6 +32,7 @@
 #include "netdbpf/BpfNetworkStats.h"
 #include "netdbpf/NetworkTraceHandler.h"
 
+using android::bpf::bpfAddInterfaceToCache;
 using android::bpf::bpfGetUidStats;
 using android::bpf::bpfGetIfaceStats;
 using android::bpf::bpfGetIfIndexStats;
@@ -66,6 +67,14 @@ static uint64_t getStatsType(StatsValue* stats, StatsType type) {
         default:
             return UNKNOWN;
     }
+}
+
+static void nativeAddInterfaceToCache(JNIEnv* env, jclass clazz, jint ifindex, jstring iface) {
+    ScopedUtfChars iface8(env, iface);
+    if (iface8.c_str() == NULL) {
+        return;
+    }
+    bpfAddInterfaceToCache(ifindex, iface8.c_str());
 }
 
 static jlong nativeGetTotalStat(JNIEnv* env, jclass clazz, jint type) {
@@ -117,6 +126,7 @@ static void nativeInitNetworkTracing(JNIEnv* env, jclass clazz) {
 }
 
 static const JNINativeMethod gMethods[] = {
+        {"nativeAddInterfaceToCache", "(ILjava/lang/String;)V", (void*)nativeAddInterfaceToCache},
         {"nativeGetTotalStat", "(I)J", (void*)nativeGetTotalStat},
         {"nativeGetIfaceStat", "(Ljava/lang/String;I)J", (void*)nativeGetIfaceStat},
         {"nativeGetIfIndexStat", "(II)J", (void*)nativeGetIfIndexStat},

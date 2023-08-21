@@ -17,7 +17,7 @@
 #include <inttypes.h>
 #include <net/if.h>
 #include <string.h>
-#include <unordered_set>
+#include <unordered_map>
 
 #include <utils/Log.h>
 #include <utils/misc.h>
@@ -40,6 +40,25 @@ namespace bpf {
 
 using base::Result;
 
+// The indices associated with an interface name are stored as a vector because
+// we expect frequent iterations and infrequent insertions.
+std::unordered_map<std::string, std::vector<uint32_t>> iface_name_indices_cache;
+
+void bpfAddInterfaceToCacheInternal(uint32_t ifindex, const char* ifname) {
+    const std::string name(ifname);
+    auto iter = iface_name_indices_cache.find(name);
+    // Get the vector of indices for this iface name; create if necessary.
+    std::vector<uint32_t>& indices =
+            (iter != iface_name_indices_cache.end())
+                    ? iter->second :
+                    iface_name_indices_cache.emplace(name, std::vector<uint32_t>()).first->second;
+    indices.push_back(ifindex);
+}
+
+void bpfAddInterfaceToCache(uint32_t ifindex, const char* ifname) {
+    bpfAddInterfaceToCacheInternal(ifindex, ifname);
+}
+
 int bpfGetUidStatsInternal(uid_t uid, StatsValue* stats,
                            const BpfMap<uint32_t, StatsValue>& appUidStatsMap) {
     auto statsEntry = appUidStatsMap.readValue(uid);
@@ -60,27 +79,36 @@ int bpfGetIfaceStatsInternal(const char* iface, StatsValue* stats,
                              const BpfMap<uint32_t, StatsValue>& ifaceStatsMap,
                              const BpfMap<uint32_t, IfaceValue>& ifaceNameMap) {
     *stats = {};
-    int64_t unknownIfaceBytesTotal = 0;
-    const auto processIfaceStats =
-            [iface, stats, &ifaceNameMap, &unknownIfaceBytesTotal](
-                    const uint32_t& key,
-                    const BpfMap<uint32_t, StatsValue>& ifaceStatsMap) -> Result<void> {
-        char ifname[IFNAMSIZ];
-        if (getIfaceNameFromMap(ifaceNameMap, ifaceStatsMap, key, ifname, key,
-                                &unknownIfaceBytesTotal)) {
-            return Result<void>();
+
+    if (iface) {
+        auto iter = iface_name_indices_cache.find(std::string(iface));
+        // No interfaces of this name were found in the name->index cache.
+        if (iter == iface_name_indices_cache.end()) {
+            // The actual value here doesn't matter as long as it is non-zero.
+            return 1;
         }
-        if (!iface || !strcmp(iface, ifname)) {
-            Result<StatsValue> statsEntry = ifaceStatsMap.readValue(key);
+        const std::vector<uint32_t>& indices = iter->second;
+        for (const uint32_t& index : indices) {
+            Result<StatsValue> statsEntry = ifaceStatsMap.readValue(index);
             if (!statsEntry.ok()) {
-                return statsEntry.error();
+                return statsEntry.error().code();
             }
             *stats += statsEntry.value();
         }
-        return Result<void>();
-    };
-    auto res = ifaceStatsMap.iterate(processIfaceStats);
-    return res.ok() ? 0 : -res.error().code();
+    } else {
+        // Iterate through all interfaces.
+        for (const auto& indices : iface_name_indices_cache) {
+            for (const uint32_t& index : indices.second) {
+                Result<StatsValue> statsEntry = ifaceStatsMap.readValue(index);
+                if (!statsEntry.ok()) {
+                    return statsEntry.error().code();
+                }
+                *stats += statsEntry.value();
+            }
+        }
+    }
+
+    return 0;
 }
 
 int bpfGetIfaceStats(const char* iface, StatsValue* stats) {
