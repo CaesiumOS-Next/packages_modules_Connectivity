@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2b77d51_b7300703",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1965950
+      },
+      "writtenOn": "2023-08-21T18:34:32Z",
+      "side": 1,
+      "message": "Hi @lorenzo@google.com, yes added a util method as mentioned.",
+      "parentUuid": "eec0d5c6_e15da93d",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 96
+      },
+      "revId": "bbd5d02cc07c84d8043f873943bc57e8292944a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "843ac90d_72b620fa",
         "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
         "patchSetId": 5
@@ -54,6 +78,30 @@
       "writtenOn": "2023-08-16T09:15:36Z",
       "side": 1,
       "message": "Shouldn\u0027t the test wait until mobile data finishes being disabled? Disabling mobile data might take a while, and with this code as is, it looks like the call to dumpsys batterystats could happen before mobile data is disabled. In that case the stats wouldn\u0027t be updated and the test would fail.\n\nIt seems better to make setMobileDataEnabled wait for a callback. I think you could do it using something like this:\n\n    public void setMobileDataEnabled(boolean enabled) {\n        final TelephonyManager tm \u003d  mContext.getSystemService(TelephonyManager.class)\n                .createForSubscriptionId(SubscriptionManager.getDefaultDataSubscriptionId());\n\n        final NetworkRequest request \u003d new NetworkRequest.Builder()\n                .addTransport(TRANSPORT_CELLULAR)\n                .addCapability(NET_CAPABILITY_INTERNET)\n                .build();\n        final NetworkCallback callback \u003d new TestNetworkCallback();\n        mCm.requestNetwork(request, callback);\n\n        try {\n            if (!enabled) {\n                assertNotNull(\"Cannot disable mobile data unless mobile data is connected\",\n                       callback.waitForAvailable());\n            }\n\n            runAsShell(MODIFY_PHONE_STATE, () -\u003e tm.setDataEnabledForReason(\n                    TelephonyManager.DATA_ENABLED_REASON_USER, enabled));\n\n            if (enabled) {\n                assertTrue(\"Enabling mobile data did not connect mobile data\",\n                        callback.waitForAvailable());\n            } else {\n                assertTrue(\"Disabling mobile data did not disconnect mobile data\",\n                        callback.waitForLost());\n            }\n\n        } finally {\n            mCm.unregisterNetworkCallback(callback);\n        }\n    }",
+      "range": {
+        "startLine": 176,
+        "startChar": 12,
+        "endLine": 176,
+        "endChar": 31
+      },
+      "revId": "bbd5d02cc07c84d8043f873943bc57e8292944a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6696f8d_afa2cb2f",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1965950
+      },
+      "writtenOn": "2023-08-21T18:34:32Z",
+      "side": 1,
+      "message": "Hi @lorenzo@google.com , thank you, I have updated the code accordingly, please review.",
+      "parentUuid": "843ac90d_72b620fa",
       "range": {
         "startLine": 176,
         "startChar": 12,
