@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f97011e_f202aba5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1439,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T08:09:40Z",
+      "side": 1,
+      "message": "Nit: the code below will do the same regardless of the \"code\" argument, so maybe you can move it out of the if block ?",
+      "revId": "95cbc0e0c42b2a26ae41193dfbc7604eb4321993",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
