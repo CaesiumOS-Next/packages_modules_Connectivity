@@ -18,8 +18,11 @@ package com.android.server;
 
 import android.content.Context;
 import android.remoteauth.RemoteAuthManager;
+import android.content.pm.PackageManager;
+import android.net.thread.ThreadNetworkManager;
 import android.util.Log;
 
+import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.server.connectivity.ConnectivityNativeService;
@@ -27,6 +30,7 @@ import com.android.server.ethernet.EthernetService;
 import com.android.server.ethernet.EthernetServiceImpl;
 import com.android.server.nearby.NearbyService;
 import com.android.server.remoteauth.RemoteAuthService;
+import com.android.server.thread.ThreadNetworkService;
 
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
@@ -41,6 +45,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
     private final NearbyService mNearbyService;
     private final EthernetServiceImpl mEthernetServiceImpl;
     private final RemoteAuthService mRemoteAuthService;
+    private final ThreadNetworkService mThreadNetworkService;
 
     public ConnectivityServiceInitializer(Context context) {
         super(context);
@@ -53,6 +58,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
         mNsdService = createNsdService(context);
         mNearbyService = createNearbyService(context);
         mRemoteAuthService = createRemoteAuthService(context);
+        mThreadNetworkService = createThreadNetworkService(context);
     }
 
     @Override
@@ -94,6 +100,12 @@ public final class ConnectivityServiceInitializer extends SystemService {
             publishBinderService(RemoteAuthManager.REMOTE_AUTH_SERVICE, mRemoteAuthService,
                     /* allowIsolated= */ false);
         }
+
+        if (mThreadNetworkService != null) {
+            Log.i(TAG, "Registering " + ThreadNetworkManager.SERVICE_NAME);
+            publishBinderService(ThreadNetworkManager.SERVICE_NAME, mThreadNetworkService,
+                    /* allowIsolated= */ false);
+        }
     }
 
     @Override
@@ -104,6 +116,10 @@ public final class ConnectivityServiceInitializer extends SystemService {
 
         if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY && mEthernetServiceImpl != null) {
             mEthernetServiceImpl.start();
+        }
+
+        if (mThreadNetworkService != null) {
+            mThreadNetworkService.onBootPhase(phase);
         }
     }
 
@@ -172,5 +188,22 @@ public final class ConnectivityServiceInitializer extends SystemService {
             return null;
         }
         return EthernetService.create(context);
+    }
+
+    /**
+     * Return Thread network service instance or null either the SDK level is lower than U or
+     * the Thread network feature is not supported.
+     */
+    private ThreadNetworkService createThreadNetworkService(final Context context) {
+        final PackageManager pm = context.getPackageManager();
+        if (!SdkLevel.isAtLeastU() || !pm.hasSystemFeature(ThreadNetworkManager.FEATURE_NAME)) {
+            return null;
+        }
+        return new ThreadNetworkService(context);
+    }
+
+    @VisibleForTesting
+    ThreadNetworkService getThreadNetworkService() {
+        return mThreadNetworkService;
     }
 }
