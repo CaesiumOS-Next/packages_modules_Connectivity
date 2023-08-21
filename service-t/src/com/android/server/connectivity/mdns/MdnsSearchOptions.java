@@ -22,10 +22,10 @@ import android.net.Network;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.ArraySet;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -46,11 +46,11 @@ public class MdnsSearchOptions implements Parcelable {
                 public MdnsSearchOptions createFromParcel(Parcel source) {
                     return new MdnsSearchOptions(
                             source.createStringArrayList(),
-                            source.readBoolean(),
-                            source.readBoolean(),
+                            source.readInt() == 1,
+                            source.readInt() == 1,
                             source.readParcelable(null),
                             source.readString(),
-                            source.readBoolean(),
+                            source.readInt() == 1,
                             source.readInt());
                 }
 
@@ -165,11 +165,11 @@ public class MdnsSearchOptions implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeStringList(subtypes);
-        out.writeBoolean(isPassiveMode);
-        out.writeBoolean(removeExpiredService);
+        out.writeInt(isPassiveMode ? 1 : 0);
+        out.writeInt(removeExpiredService ? 1 : 0);
         out.writeParcelable(mNetwork, 0);
         out.writeString(resolveInstanceName);
-        out.writeBoolean(onlyUseIpv6OnIpv6OnlyNetworks);
+        out.writeInt(onlyUseIpv6OnIpv6OnlyNetworks ? 1 : 0);
         out.writeInt(numOfQueriesBeforeBackoff);
     }
 
@@ -184,7 +184,7 @@ public class MdnsSearchOptions implements Parcelable {
         private String resolveInstanceName;
 
         private Builder() {
-            subtypes = new ArraySet<>();
+            subtypes = new HashSet<>();
         }
 
         /**

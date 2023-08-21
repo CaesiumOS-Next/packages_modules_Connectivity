@@ -35,6 +35,7 @@ import com.android.server.connectivity.mdns.util.MdnsUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class keeps tracking the set of registered {@link MdnsServiceBrowserListener} instances, and
@@ -102,7 +103,13 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         }
 
         public void remove(@NonNull MdnsServiceTypeClient client) {
-            final int index = clients.indexOfValue(client);
+            int index = -1;
+            for (int i = 0; i < clients.size(); ++i) {
+                if (Objects.equals(client, clients.valueAt(i))) {
+                    index = i;
+                    break;
+                }
+            }
             clients.removeAt(index);
         }
 

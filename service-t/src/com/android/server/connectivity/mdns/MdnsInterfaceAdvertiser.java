@@ -18,8 +18,10 @@ package com.android.server.connectivity.mdns;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.RequiresApi;
 import android.net.LinkAddress;
 import android.net.nsd.NsdServiceInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -36,6 +38,7 @@ import java.util.List;
 /**
  * A class that handles advertising services on a {@link MdnsInterfaceSocket} tied to an interface.
  */
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHandler {
     private static final boolean DBG = MdnsAdvertiser.DBG;
     @VisibleForTesting

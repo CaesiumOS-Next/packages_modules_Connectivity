@@ -17,8 +17,8 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.NonNull;
-import android.util.ArraySet;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -30,7 +30,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 public class ExecutorProvider {
 
     private final Set<ScheduledExecutorService> serviceTypeClientSchedulerExecutors =
-            new ArraySet<>();
+            new HashSet<>();
 
     /** Returns a new {@link ScheduledExecutorService} instance. */
     public ScheduledExecutorService newServiceTypeClientSchedulerExecutor() {
