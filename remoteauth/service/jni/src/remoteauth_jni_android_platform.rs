@@ -1,0 +1,256 @@
+/// Copyright 2023 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+use std::collections::HashMap;
+use std::sync::{
+    Arc,
+    atomic::{AtomicI64, Ordering},
+};
+use tokio::sync::{mpsc, Mutex};
+use lazy_static::lazy_static;
+use crate::jnames::{SEND_REQUEST_MNAME, SEND_REQUEST_MSIG};
+use crate::unique_jvm;
+use jni::objects::{GlobalRef, JObject, JValue, JMethodID};
+use jni::signature::{TypeSignature};
+use jni::sys::{jbyteArray, jint, jlong, jvalue};
+use jni::{JNIEnv, JavaVM};
+use jni::errors::Error as JNIError;
+use log::{info, debug, error};
+use anyhow;
+use async_trait::async_trait;
+
+/// Macro capturing the name of the function calling this macro.
+///
+/// function_name()! -> &'static str
+/// Returns the function name as 'static reference.
+macro_rules! function_name {
+    () => {{
+        // Declares function f inside current function.
+        fn f() {}
+        fn type_name_of<T>(_: T) -> &'static str {
+            std::any::type_name::<T>()
+        }
+        // type name of f is struct_or_crate_name::calling_function_name::f
+        let name = type_name_of(f);
+        // Find and cut the rest of the path:
+        // Third to last character, up to the first semicolon: is calling_function_name
+        match &name[..name.len() - 3].rfind(':') {
+            Some(pos) => &name[pos + 1..name.len() - 3],
+            None => &name[..name.len() - 3],
+        }
+    }};
+}
+
+lazy_static! {
+    static ref HANDLE_MAPPING: Mutex<HashMap<i64, JavaPlatform>> = Mutex::new(HashMap::new());
+    static ref HANDLE_RN: AtomicI64 = AtomicI64::new(0);
+}
+
+fn generate_platform_handle() -> i64 {
+    HANDLE_RN.fetch_add(1, Ordering::SeqCst)
+}
+
+async fn insert_platform_handle(handle: i64, item: JavaPlatform) {
+    if 0 == handle {
+        // Init once
+        logger::init(
+            logger::Config::default()
+                .with_tag_on_device("remoteauth")
+                .with_min_level(log::Level::Trace)
+                .with_filter("trace,jni=info"),
+        );
+    }
+    HANDLE_MAPPING.lock().await.insert(handle, item);
+}
+
+#[async_trait]
+pub trait Platform {
+    /// Send a binary message to the remote with the given connection id and return the response.
+    async fn send_request(&self, connection_id: i32, request: &[u8]) -> Option<Vec<u8>>;
+}
+//////////////////////////////////
+
+pub struct JavaPlatform {
+    platform_handler: i64,
+    vm: &'static Arc<JavaVM>,
+    platform_native_obj: GlobalRef,
+    send_request_method_id: JMethodID,
+    map_futures: Mutex<HashMap<i64, mpsc::Sender<Vec<u8>>>>,
+    atomic_handler: AtomicI64,
+}
+
+
+impl JavaPlatform {
+    // Method to create JavaPlatform
+    pub fn create(env: JNIEnv, java_platform_native: JObject) -> JavaPlatform {
+        let jvm = env.get_java_vm().unwrap(); // TODO: what to return?
+        unique_jvm::set_once(jvm);
+        let platform_handler = generate_platform_handle();
+        let platform = JavaPlatform::new(platform_handler,
+                                         unique_jvm::get_static_ref().unwrap(),
+                                         java_platform_native).unwrap();
+        insert_platform_handle(platform_handler, platform);
+        platform
+    }
+
+    fn new(platform_handler: i64,
+           vm: &'static Arc<JavaVM>,
+           java_platform_native: JObject) -> Option<JavaPlatform> {
+        if let Ok(env) = vm.attach_current_thread() {
+            let platform_class = env.get_object_class(java_platform_native).unwrap();
+            let platform_native_obj = env.new_global_ref(java_platform_native).unwrap();
+            let send_request_method: JMethodID =
+                env.get_method_id(platform_class, SEND_REQUEST_MNAME, SEND_REQUEST_MSIG)
+                    .map_err(|_| JNIError::InvalidCtorReturn).unwrap();
+
+            Some(Self {
+                platform_handler,
+                vm,
+                platform_native_obj,
+                send_request_method_id: send_request_method,
+                map_futures: Mutex::new(HashMap::new()),
+                atomic_handler: AtomicI64::new(0),
+            })
+        } else {
+            None
+        }
+    }
+}
+
+#[async_trait]
+impl Platform for JavaPlatform {
+    async fn send_request(&self, connection_id: i32, request: &[u8]) -> Option<Vec<u8>> {
+        let type_signature = TypeSignature::from_str(SEND_REQUEST_MSIG).map_err(|e| {
+            error!("JNI: Invalid type signature: {:?}", e);
+            e
+        }).unwrap();
+
+        let (tx, mut rx) = mpsc::channel(1);
+        let response_handler = self.atomic_handler.fetch_add(1, Ordering::SeqCst);
+        self.map_futures.lock().await.insert(response_handler, tx);
+
+        if let Ok(env) = self.vm.attach_current_thread() {
+            let request_jbytearray =
+                env.byte_array_from_slice(&request).map_err(|_| JNIError::InvalidCtorReturn).unwrap().to_owned();
+            let request_jobject = unsafe { JObject::from_raw(request_jbytearray) };
+
+            env.call_method_unchecked(self.platform_native_obj.as_obj(),
+                                      self.send_request_method_id,
+                                      type_signature.ret,
+                                      &[
+                                          jvalue::from(JValue::Int(connection_id as i32)),
+                                          jvalue::from(JValue::Object(request_jobject)),
+                                          jvalue::from(JValue::Long(response_handler as i64)),
+                                          jvalue::from(JValue::Long(self.platform_handler as i64)),
+                                      ],
+            );
+            rx.recv().await
+        } else {
+            None
+        }
+    }
+}
+
+impl JavaPlatform {
+    async fn on_send_request_success(&self, response: &[u8], response_handler: i64) {
+        info!("{} completed successfully {}:{}", function_name!(),
+            self.platform_handler,
+            response_handler);
+        if let Some(tx) = self.map_futures.lock().await.remove(&response_handler) {
+            tx.send(response.to_vec());
+        } else {
+            error!("Failed to find TX for {} and {}:{}",
+                function_name!(), self.platform_handler, response_handler);
+        }
+    }
+
+    async fn on_send_request_error(&self, error_code: i32, response_handler: i64) {
+        error!("{} completed with error {} {}:{}", function_name!(),
+            error_code,
+            self.platform_handler, response_handler);
+        if let Some(tx) = self.map_futures.lock().await.remove(&response_handler) { // `rx.recv()` ends with `Err`
+            drop(tx);
+        } else {
+            error!("Failed to find TX for {} and {}:{}",
+                function_name!(), self.platform_handler, response_handler);
+        }
+    }
+}
+
+#[no_mangle]
+pub extern "system"
+fn Java_com_android_server_remoteauth_jni_NativeRemoteAuthJavaPlatform_native_on_send_request_success(
+    env: JNIEnv,
+    _: JObject,
+    app_response: jbyteArray,
+    platform_handler: jlong,
+    response_handler: jlong,
+) {
+    debug!("{}: enter", function_name!());
+    native_on_send_request_success(env, app_response, platform_handler, response_handler);
+}
+
+async fn native_on_send_request_success<'a>(env: JNIEnv<'a>,
+                                            app_response: jbyteArray,
+                                            platform_handler: jlong,
+                                            response_handler: jlong, ) {
+    if let Some(platform) = HANDLE_MAPPING.lock().await.get(&platform_handler) {
+        let response =
+            env.convert_byte_array(app_response).map_err(|_| JNIError::InvalidCtorReturn).unwrap();
+        platform.on_send_request_success(&response, response_handler as i64);
+    } else {
+        env.throw_new("com/android/server/remoteauth/jni/BadHandleException",
+                      format!("Failed to find Platform with ID {} in {}",
+                              platform_handler, function_name!()));
+    }
+}
+
+#[no_mangle]
+pub extern "system"
+fn Java_com_android_server_remoteauth_jni_NativeRemoteAuthJavaPlatform_native_on_send_request_error(
+    env: JNIEnv,
+    _: JObject,
+    error_code: jint,
+    platform_handler: jlong,
+    response_handler: jlong,
+) {
+    debug!("{}: enter", function_name!());
+    native_on_send_request_error(env, error_code, platform_handler, response_handler);
+}
+
+async fn native_on_send_request_error<'a>(env: JNIEnv<'a>,
+                                          error_code: jint,
+                                          platform_handler: jlong,
+                                          response_handler: jlong, ) {
+    if let Some(platform) = HANDLE_MAPPING.lock().await.get(&platform_handler) {
+        platform.on_send_request_error(error_code as i32, response_handler as i64);
+    } else {
+        env.throw_new("com/android/server/remoteauth/jni/BadHandleException",
+                      format!("Failed to find Platform with ID {} in {}",
+                              platform_handler, function_name!()));
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    //use super::*;
+
+    //use tokio::runtime::Builder;
+
+    /// Checks validity of the function_name! macro.
+    #[test]
+    fn test_function_name() {
+        assert_eq!(function_name!(), "test_function_name");
+    }
+}
