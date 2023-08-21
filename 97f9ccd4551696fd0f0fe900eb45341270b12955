@@ -436,6 +436,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdcf342e_1e204823",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/connectivity/DiscoveredDevice.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-21T15:49:44Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6a133a2d_faf38a1b",
+      "revId": "97f9ccd4551696fd0f0fe900eb45341270b12955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5472da1d_a36b7975",
