@@ -54,6 +54,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "777dc918_f61b0f4c",
+        "filename": "remoteauth/README.md",
+        "patchSetId": 52
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2008490
+      },
+      "writtenOn": "2023-08-21T18:50:47Z",
+      "side": 1,
+      "message": "Removing for now. I don\u0027t see any other usage as well.",
+      "parentUuid": "605e3222_8a2a9fe4",
+      "revId": "37b8910d840aeea35916139b6545a76be40326f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "939f0585_8e34ceb5",
