@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e965a0ce_b4ab1346",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1661,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T03:10:05Z",
+      "side": 1,
+      "message": "Could this namespace be removed too ? I think it\u0027s the most confusing one (people getting connectivity vs tethering namespaces wrong)",
+      "range": {
+        "startLine": 1661,
+        "startChar": 20,
+        "endLine": 1661,
+        "endChar": 39
+      },
+      "revId": "77621b1421758f61cb5eaeaa36db184e025cd191",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
