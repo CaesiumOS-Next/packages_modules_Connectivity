@@ -113,6 +113,7 @@ class BpfNetworkStatsHelperTest : public testing::Test {
     void updateIfaceMap(const char* ifaceName, uint32_t ifaceIndex) {
         IfaceValue iface;
         strlcpy(iface.name, ifaceName, IFNAMSIZ);
+        bpfAddInterfaceToIndexMap(ifaceIndex, ifaceName);
         EXPECT_RESULT_OK(mFakeIfaceIndexNameMap.writeValue(ifaceIndex, iface, BPF_ANY));
     }
 

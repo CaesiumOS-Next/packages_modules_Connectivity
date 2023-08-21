@@ -3310,4 +3310,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     /** Initializes and registers the Perfetto Network Trace data source */
     public static native void nativeInitNetworkTracing();
+
+    /** Adds an interface to the name-to-index map. */
+    public static native void nativeAddInterfaceToIndexMap(int ifIndex, String ifaceName);
 }

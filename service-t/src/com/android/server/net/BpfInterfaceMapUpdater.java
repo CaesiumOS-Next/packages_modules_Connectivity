@@ -56,6 +56,17 @@ public class BpfInterfaceMapUpdater {
         mIndexToIfaceBpfMap = deps.getInterfaceMap();
         mNetd = deps.getINetd(ctx);
         mHandler = handler;
+        try {
+            // Populates the name->index map using existing BpfMap index->name entries. This
+            // handles the case in which a system_server crash clears the map.
+            mIndexToIfaceBpfMap.forEach((index, name) -> {
+                NetworkStatsService.nativeAddInterfaceToIndexMap(index.val,
+                        name.getInterfaceNameString());
+            });
+        } catch (ErrnoException e) {
+            Log.wtf(TAG, "Cannot populate initial name->index mappings due to an error "
+                    + "while traversing the BPF map: " + e);
+        }
     }
 
     /**
@@ -127,6 +138,7 @@ public class BpfInterfaceMapUpdater {
 
         try {
             mIndexToIfaceBpfMap.updateEntry(new S32(iface.index), new InterfaceMapValue(ifaceName));
+            NetworkStatsService.nativeAddInterfaceToIndexMap(iface.index, ifaceName);
         } catch (ErrnoException e) {
             Log.e(TAG, "Unable to update entry for " + ifaceName + ", " + e);
         }
@@ -172,4 +184,5 @@ public class BpfInterfaceMapUpdater {
                         + " ifaceName=" + value.getInterfaceNameString());
         pw.decreaseIndent();
     }
+
 }
