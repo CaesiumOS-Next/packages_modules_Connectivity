@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78301a71_6c9234d8",
+        "filename": "service/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-21T10:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec691022_028404f2",
+      "revId": "f535a582b7810148923d0582d1a34f1f5dd0b70e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "314e02f7_17880967",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-21T09:46:52Z",
       "side": 1,
       "message": "Nit: I\u0027m not sure this directory will be necessary; you could just remove the .bp for now and add it when it has contents",
+      "revId": "f535a582b7810148923d0582d1a34f1f5dd0b70e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceea3edd_f86894e5",
+        "filename": "thread/apex/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-21T10:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "314e02f7_17880967",
       "revId": "f535a582b7810148923d0582d1a34f1f5dd0b70e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
