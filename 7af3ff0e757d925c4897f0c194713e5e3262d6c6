@@ -16,6 +16,24 @@
       "message": "newly discovered remote devices?",
       "revId": "7af3ff0e757d925c4897f0c194713e5e3262d6c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58deaaff_d0e3c898",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-21T18:52:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b22065c_d20f8002",
+      "revId": "7af3ff0e757d925c4897f0c194713e5e3262d6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
