@@ -25,6 +25,8 @@ import com.android.server.connectivity.ConnectivityNativeService;
 import com.android.server.ethernet.EthernetService;
 import com.android.server.ethernet.EthernetServiceImpl;
 import com.android.server.nearby.NearbyService;
+import com.android.server.thread.ThreadNetworkFlags;
+import com.android.server.thread.ThreadNetworkService;
 
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
@@ -38,6 +40,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
     private final NsdService mNsdService;
     private final NearbyService mNearbyService;
     private final EthernetServiceImpl mEthernetServiceImpl;
+    private final ThreadNetworkService mThreadNetworkService;
 
     public ConnectivityServiceInitializer(Context context) {
         super(context);
@@ -49,6 +52,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
         mConnectivityNative = createConnectivityNativeService(context);
         mNsdService = createNsdService(context);
         mNearbyService = createNearbyService(context);
+        mThreadNetworkService = createThreadNetworkService(context);
     }
 
     @Override
@@ -85,6 +89,11 @@ public final class ConnectivityServiceInitializer extends SystemService {
                     /* allowIsolated= */ false);
         }
 
+        if (mThreadNetworkService != null) {
+            Log.i(TAG, "Registering " + ConstantsShim.THREAD_NETWORK_SERVICE);
+            publishBinderService(ConstantsShim.THREAD_NETWORK_SERVICE, mThreadNetworkService,
+                    /* allowIsolated= */ false);
+        }
     }
 
     @Override
@@ -95,6 +104,10 @@ public final class ConnectivityServiceInitializer extends SystemService {
 
         if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY && mEthernetServiceImpl != null) {
             mEthernetServiceImpl.start();
+        }
+
+        if (mThreadNetworkService != null) {
+            mThreadNetworkService.onBootPhase(phase);
         }
     }
 
@@ -149,5 +162,23 @@ public final class ConnectivityServiceInitializer extends SystemService {
             return null;
         }
         return EthernetService.create(context);
+    }
+
+    /**
+     * Return Thread network service instance or null either the SDK level is lower than U or
+     * the Thread network feature is not supported.
+     */
+    private NearbyService createThreadNetworkService(final Context context) {
+        if (!SdkLevel.isAtLeastUpSideDownCake()
+            || !PackageManager.hasSystemFeature(PackageManager.FEATURE_THREAD_NETWORK)) {
+            return null;
+        }
+
+        try {
+            return new ThreadNetworkService(context);
+        } catch (UnsupportedOperationException e) {
+            Log.i(TAG, "Skipping unsupported service " + ConstantsShim.THREAD_NETWORK_SERVICE);
+            return null;
+        }
     }
 }
