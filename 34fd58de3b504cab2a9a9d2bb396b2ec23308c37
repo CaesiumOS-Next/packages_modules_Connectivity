@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20bcd45a_4169be48",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002751
+      },
+      "writtenOn": "2023-08-21T18:48:01Z",
+      "side": 0,
+      "message": "That may not help, depend on where Kotlin decides to put its implicit null checks.  If it does work, it punches a huge hole in kotlin\u0027s null safety that seems like it should be avoided.  The right fix is to add tests for java-specific behaviors in java.  I have ~500 of these errors to fix before I can submit aosp/2688146 to stop the bleeding, would it be reasonable to remove the test here and file a bug on your team to re-add the test in java?",
+      "parentUuid": "5d988541_68a1a22a",
+      "revId": "34fd58de3b504cab2a9a9d2bb396b2ec23308c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b500b2d0_59ccda7b",
         "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
         "patchSetId": 2

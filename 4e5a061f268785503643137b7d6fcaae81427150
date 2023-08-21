@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13900508_024b5ad6",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1002751
+      },
+      "writtenOn": "2023-08-21T18:48:01Z",
+      "side": 1,
+      "message": "All the Kotlin experts I\u0027ve talked to seem to consider `!!` to be a code smell and suggest using `checkNotNull` instead.  I think that is because `checkNotNull` allows you to specify a more useful error message if desired, although its use seems to be preferred even without an error message.",
+      "parentUuid": "a7de06aa_d63751e9",
+      "range": {
+        "startLine": 309,
+        "startChar": 8,
+        "endLine": 309,
+        "endChar": 20
+      },
+      "revId": "4e5a061f268785503643137b7d6fcaae81427150",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cff40389_b9b065e5",
         "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
         "patchSetId": 2
