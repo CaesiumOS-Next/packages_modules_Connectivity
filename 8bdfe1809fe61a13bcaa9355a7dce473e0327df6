@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "672c3c1c_ad7198de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T08:36:04Z",
+      "side": 1,
+      "message": "Test LGTM but I\u0027m a bit worried about the dependency on all of NetworkStack",
+      "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "320afc1f_e35614c9",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T08:36:04Z",
+      "side": 1,
+      "message": "This is a lot of classes getting pulled into CTS; I actually had changes a while back to remove this from CTS, because putting all of NetworkStack into CTS wasn\u0027t great.\n\nCan this be removed ? It looks like it could be replaced by `DhcpPacketLib`, which only contains the NetworkStack DHCP packets, and moving ArpPacket to frameworks/libs/net, or using com.android.testutils.ArpResponder",
+      "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a90cdd0_aebc6d8b",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T08:36:04Z",
+      "side": 1,
+      "message": "Nit: how about having a getter instead ? it\u0027s a bit weird to have \"mContext\" in Kotlin code",
+      "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cef88f7_eefde5dc",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T08:36:04Z",
+      "side": 1,
+      "message": "Is this used in subclasses ? I didn\u0027t find usage",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 13
+      },
+      "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12cea378_c47ead31",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T08:36:04Z",
+      "side": 1,
+      "message": "Nit: d (can send)",
+      "range": {
+        "startLine": 63,
+        "startChar": 31,
+        "endLine": 63,
+        "endChar": 32
+      },
+      "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a60741d_8f05b906",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T08:36:04Z",
+      "side": 1,
+      "message": "Nit: this is related to shims, but at this point we don\u0027t need to care about shims for T anymore (all development branches are U+).\n\nSince there is already a DevSdkIgnoreRule on the class, this can probably be removed",
+      "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
