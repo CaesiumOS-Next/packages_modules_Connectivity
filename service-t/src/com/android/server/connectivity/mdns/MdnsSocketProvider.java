@@ -25,6 +25,7 @@ import static com.android.server.connectivity.mdns.util.MdnsUtils.isNetworkMatch
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.RequiresApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +42,7 @@ import android.net.TetheringManager.TetheringEventCallback;
 import android.net.wifi.p2p.WifiP2pGroup;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.ArrayMap;
@@ -67,6 +69,7 @@ import java.util.Objects;
  * to their default value (0, false or null).
  *
  */
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsSocketProvider {
     private static final String TAG = MdnsSocketProvider.class.getSimpleName();
     private static final boolean DBG = MdnsDiscoveryManager.DBG;

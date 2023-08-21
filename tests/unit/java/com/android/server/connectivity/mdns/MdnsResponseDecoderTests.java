@@ -343,9 +343,9 @@ public class MdnsResponseDecoderTests {
         assertNotNull(parsedPacket);
 
         final Network network = mock(Network.class);
-        responses = decoder.augmentResponses(parsedPacket,
+        responses = new ArraySet<>(decoder.augmentResponses(parsedPacket,
                 /* existingResponses= */ Collections.emptyList(),
-                /* interfaceIndex= */ 10, network /* expireOnExit= */).first;
+                /* interfaceIndex= */ 10, network /* expireOnExit= */).first);
 
         assertEquals(responses.size(), 1);
         assertEquals(responses.valueAt(0).getInterfaceIndex(), 10);
@@ -641,8 +641,8 @@ public class MdnsResponseDecoderTests {
         final MdnsPacket parsedPacket = MdnsResponseDecoder.parseResponse(data, data.length);
         assertNotNull(parsedPacket);
 
-        return decoder.augmentResponses(parsedPacket,
+        return new ArraySet<>(decoder.augmentResponses(parsedPacket,
                 existingResponses,
-                MdnsSocket.INTERFACE_INDEX_UNSPECIFIED, mock(Network.class)).first;
+                MdnsSocket.INTERFACE_INDEX_UNSPECIFIED, mock(Network.class)).first);
     }
 }

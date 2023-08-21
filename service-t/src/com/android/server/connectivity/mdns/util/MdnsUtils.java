@@ -21,7 +21,6 @@ import android.annotation.Nullable;
 import android.net.Network;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.ArraySet;
 
 import com.android.server.connectivity.mdns.MdnsConstants;
 import com.android.server.connectivity.mdns.MdnsRecord;
@@ -31,6 +30,7 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Set;
 
 /**
  * Mdns utility functions.
@@ -139,7 +139,7 @@ public class MdnsUtils {
 
     /*** Check whether the target network matches any of the current networks */
     public static boolean isAnyNetworkMatched(@Nullable Network targetNetwork,
-            ArraySet<Network> currentNetworks) {
+            Set<Network> currentNetworks) {
         if (targetNetwork == null) {
             return !currentNetworks.isEmpty();
         }

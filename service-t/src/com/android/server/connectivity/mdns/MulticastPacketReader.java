@@ -22,12 +22,12 @@ import android.annotation.NonNull;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.system.Os;
-import android.util.ArraySet;
 
 import com.android.net.module.util.FdEventsReader;
 
 import java.io.FileDescriptor;
 import java.net.InetSocketAddress;
+import java.util.HashSet;
 import java.util.Set;
 
 /** Simple reader for mDNS packets. */
@@ -39,7 +39,7 @@ public class MulticastPacketReader extends FdEventsReader<MulticastPacketReader.
     @NonNull
     private final Handler mHandler;
     @NonNull
-    private final Set<PacketHandler> mPacketHandlers = new ArraySet<>();
+    private final Set<PacketHandler> mPacketHandlers = new HashSet<>();
 
     interface PacketHandler {
         void handlePacket(byte[] recvbuf, int length, InetSocketAddress src);
