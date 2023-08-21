@@ -10256,10 +10256,7 @@ public class ConnectivityServiceTest {
         NetworkCapabilities vpnNc = mCm.getNetworkCapabilities(mMockVpn.getNetwork());
         b1.expectBroadcast();
         b2.expectBroadcast();
-        // Due to the VPN default request, the getActiveNetworkInfo gets the VPN network as the
-        // network satisfier which has TYPE_VPN.
-        // TODO: This should be of TYPE_MOBILE. See ConnectivityManager#getActiveNetworkInfo
-        assertActiveNetworkInfo(TYPE_VPN, DetailedState.CONNECTED);
+        assertActiveNetworkInfo(TYPE_MOBILE, DetailedState.CONNECTED);
         assertNetworkInfo(TYPE_MOBILE, DetailedState.CONNECTED);
         assertNetworkInfo(TYPE_WIFI, DetailedState.DISCONNECTED);
         assertNetworkInfo(TYPE_VPN, DetailedState.CONNECTED);
@@ -10326,10 +10323,7 @@ public class ConnectivityServiceTest {
         b1.expectBroadcast();
         b2.expectBroadcast();
 
-        // Due to the VPN default request, the getActiveNetworkInfo gets the VPN network as the
-        // network satisfier which has TYPE_VPN.
-        // TODO: This should be of TYPE_WIFI. See ConnectivityManager#getActiveNetworkInfo
-        assertActiveNetworkInfo(TYPE_VPN, DetailedState.CONNECTED);
+        assertActiveNetworkInfo(TYPE_WIFI, DetailedState.CONNECTED);
         assertNetworkInfo(TYPE_MOBILE, DetailedState.DISCONNECTED);
         assertNetworkInfo(TYPE_WIFI, DetailedState.CONNECTED);
         assertNetworkInfo(TYPE_VPN, DetailedState.CONNECTED);
@@ -10346,10 +10340,7 @@ public class ConnectivityServiceTest {
         defaultCallback.assertNoCallback();
         systemDefaultCallback.assertNoCallback();
 
-        // Due to the VPN default request, the getActiveNetworkInfo gets the VPN network as the
-        // network satisfier which has TYPE_VPN.
-        // TODO: This should be of TYPE_WIFI. See ConnectivityManager#getActiveNetworkInfo
-        assertActiveNetworkInfo(TYPE_VPN, DetailedState.CONNECTED);
+        assertActiveNetworkInfo(TYPE_WIFI, DetailedState.CONNECTED);
         assertNetworkInfo(TYPE_MOBILE, DetailedState.DISCONNECTED);
         assertNetworkInfo(TYPE_WIFI, DetailedState.CONNECTED);
         assertNetworkInfo(TYPE_VPN, DetailedState.CONNECTED);
