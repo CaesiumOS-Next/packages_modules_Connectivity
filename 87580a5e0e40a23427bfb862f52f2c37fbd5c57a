@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6901b5f_b5e9a61d",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T05:58:32Z",
+      "side": 1,
+      "message": "I\u0027d rather have one place that controls the contents of the APEX, because it\u0027s very sensitive (this gets shipped regularly to the public with monthly cuts). The current defaults were used to be able to setup different configurations for different branches, which shouldn\u0027t be necessary here.\n\nSo could you make your changes here instead ?",
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0abe4d5_96532cd1",
+        "filename": "ThreadNetwork/apex/threadnetwork.34rc",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T05:58:32Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem correct, I think it should be `com.android.tethering` ?",
+      "range": {
+        "startLine": 15,
+        "startChar": 24,
+        "endLine": 15,
+        "endChar": 49
+      },
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9919bd9a_5ca43238",
+        "filename": "ThreadNetwork/framework/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T05:58:32Z",
+      "side": 1,
+      "message": "Why is this necessary ? frameworks/base shouldn\u0027t need to depend on the sources, otherwise you may have problems if this code is updated and becomes out-of-date with the copy that was included by frameworks/base",
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4b55570_1b6553e5",
+        "filename": "framework/jarjar-excludes.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T05:58:32Z",
+      "side": 1,
+      "message": "This should not be here; the jarjar excludes should generally not be touched, as they make builds less predictable and may cause issues with conflicts.\n\nCan you remove it ? What problems would you get in that case ?",
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df3a17b5_b9258ccb",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T05:58:32Z",
+      "side": 1,
+      "message": "You also need jarjar rules generation; see how service-remoteauth-jarjar-gen is setup, and additional changes to move it to framework-connectivity-t in aosp/2685327 for example",
+      "revId": "87580a5e0e40a23427bfb862f52f2c37fbd5c57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
