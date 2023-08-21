@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1806c9c5_6575de78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-21T06:31:15Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo needs to +1 CTS changes",
+      "revId": "7615075d12266dda159a991d9fabd42c3a0b15f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
