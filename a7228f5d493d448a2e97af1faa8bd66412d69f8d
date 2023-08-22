@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e1ff51f_8c775d48",
+        "filename": "service/src/com/android/metrics/SampleConnectivityStateMetrics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-22T13:46:38Z",
+      "side": 1,
+      "message": "Renamed to ConnectivitySampleMetricsHelper. This is still specialized into taking samples, so I think this is appropriate.",
+      "parentUuid": "7505d5f7_565153f7",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 43
+      },
+      "revId": "a7228f5d493d448a2e97af1faa8bd66412d69f8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "441cc475_72d9560c",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "541f82da_2741b1d4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2231,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-22T13:46:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "441cc475_72d9560c",
+      "range": {
+        "startLine": 2231,
+        "startChar": 48,
+        "endLine": 2231,
+        "endChar": 63
+      },
+      "revId": "a7228f5d493d448a2e97af1faa8bd66412d69f8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f481738_849896b0",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-02T13:17:43Z",
       "side": 1,
       "message": "I always use the following way. It seems that both are the same.\nbuilder.addNetworkDescription(d);",
+      "range": {
+        "startLine": 2291,
+        "startChar": 12,
+        "endLine": 2291,
+        "endChar": 54
+      },
+      "revId": "a7228f5d493d448a2e97af1faa8bd66412d69f8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d82ed76_e4323f7a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2291,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-22T13:46:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f481738_849896b0",
       "range": {
         "startLine": 2291,
         "startChar": 12,
