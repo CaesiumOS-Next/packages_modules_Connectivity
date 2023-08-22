@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22584505_610828f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1965950
+      },
+      "writtenOn": "2023-08-22T12:48:38Z",
+      "side": 1,
+      "message": "Hi @lorenzo@google.com\nAddressed the miner comments and new patch is updated. Please review.\nAlso the treehugger given +2 in earlier patchset :)",
+      "revId": "d41d7b6af2619ee549f98358ee3981e0582974f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
