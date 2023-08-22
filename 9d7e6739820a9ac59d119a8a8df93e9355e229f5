@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d41f2196_8cdc8037",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-22T18:27:54Z",
+      "side": 1,
+      "message": "Leaving this comment open until I can verify that this builds/flashes correctly on my test device tomorrow (I\u0027ve only had the chance to run the unit tests).",
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
