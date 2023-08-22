@@ -2500,6 +2500,22 @@ public class VpnTest extends VpnTestBase {
     }
 
     @Test
+    public void testStartPlatformVpn_underlyingNetworkNotChange() throws Exception {
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
+        // Trigger NC change on the same network should not cause underlying network change in NC of
+        // the VPN network
+        vpnSnapShot.nwCb.onCapabilitiesChanged(TEST_NETWORK,
+                new NetworkCapabilities.Builder()
+                        .addCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED)
+                        .build());
+        verify(mMockNetworkAgent, never())
+                .doSetUnderlyingNetworks(Collections.singletonList(TEST_NETWORK));
+
+        vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
+    }
+
+    @Test
     public void testStartPlatformVpnMobility_mobikeEnabled() throws Exception {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
@@ -2515,7 +2531,6 @@ public class VpnTest extends VpnTestBase {
         // Mock new network comes up and the cleanup task is cancelled
         vpnSnapShot.nwCb.onAvailable(TEST_NETWORK_2);
         verify(mIkeSessionWrapper, never()).setNetwork(any(), anyInt(), anyInt(), anyInt());
-
         vpnSnapShot.nwCb.onCapabilitiesChanged(TEST_NETWORK_2,
                 new NetworkCapabilities.Builder().build());
         // Verify MOBIKE is triggered
@@ -2523,6 +2538,12 @@ public class VpnTest extends VpnTestBase {
                 eq(ESP_IP_VERSION_AUTO) /* ipVersion */,
                 eq(ESP_ENCAP_TYPE_AUTO) /* encapType */,
                 eq(DEFAULT_UDP_PORT_4500_NAT_TIMEOUT_SEC_INT) /* keepaliveDelay */);
+        // Verify mNetworkCapabilities is updated
+        assertEquals(
+                Collections.singletonList(TEST_NETWORK_2),
+                vpnSnapShot.vpn.mNetworkCapabilities.getUnderlyingNetworks());
+        verify(mMockNetworkAgent)
+                .doSetUnderlyingNetworks(Collections.singletonList(TEST_NETWORK_2));
 
         // Mock the MOBIKE procedure
         vpnSnapShot.ikeCb.onIkeSessionConnectionInfoChanged(createIkeConnectInfo_2());
@@ -2535,12 +2556,7 @@ public class VpnTest extends VpnTestBase {
         // Expect 2 times: one for initial setup and one for MOBIKE
         verifyApplyTunnelModeTransforms(2);
 
-        // Verify mNetworkCapabilities and mNetworkAgent are updated
-        assertEquals(
-                Collections.singletonList(TEST_NETWORK_2),
-                vpnSnapShot.vpn.mNetworkCapabilities.getUnderlyingNetworks());
-        verify(mMockNetworkAgent)
-                .doSetUnderlyingNetworks(Collections.singletonList(TEST_NETWORK_2));
+        // Verify mNetworkAgent is updated
         verify(mMockNetworkAgent).doSendLinkProperties(argThat(lp -> lp.getMtu() == newMtu));
         verify(mMockNetworkAgent, never()).unregister();
 
@@ -2559,6 +2575,15 @@ public class VpnTest extends VpnTestBase {
 
         // Mock new network available & MOBIKE procedures
         vpnSnapShot.nwCb.onAvailable(TEST_NETWORK_2);
+        vpnSnapShot.nwCb.onCapabilitiesChanged(TEST_NETWORK_2,
+                new NetworkCapabilities.Builder().build());
+        // Verify mNetworkCapabilities is updated
+        verify(mMockNetworkAgent, timeout(TEST_TIMEOUT_MS))
+                .doSetUnderlyingNetworks(Collections.singletonList(TEST_NETWORK_2));
+        assertEquals(
+                Collections.singletonList(TEST_NETWORK_2),
+                vpnSnapShot.vpn.mNetworkCapabilities.getUnderlyingNetworks());
+
         vpnSnapShot.ikeCb.onIkeSessionConnectionInfoChanged(createIkeConnectInfo_2());
         vpnSnapShot.childCb.onIpSecTransformsMigrated(
                 createIpSecTransform(), createIpSecTransform());
