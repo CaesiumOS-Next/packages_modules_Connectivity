@@ -59,6 +59,7 @@ import org.junit.runner.RunWith;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -1003,6 +1004,17 @@ public class LinkPropertiesTest {
         source.setTcpBufferSizes(TCP_BUFFER_SIZES);
 
         source.setNat64Prefix(new IpPrefix("2001:db8:1:2:64:64::/96"));
+
+
+        ArrayList<IpPrefix> prefixInfos = new ArrayList<IpPrefix>();
+        ArrayList<RouteInfo> routeInfos = new ArrayList<RouteInfo>();
+
+        try {
+            prefixInfos.add(new IpPrefix(InetAddress.getByName("fdab:1::"), 64, 1800, 1800));
+            routeInfos.add(new RouteInfo(new IpPrefix("fdcc::/64"), null, 1800, 1));
+        } catch (Exception e) {
+        }
+        source.setStubNetworkInfo(new StubNetworkInfo(prefixInfos, routeInfos));
 
         final LinkProperties stacked = new LinkProperties();
         stacked.setInterfaceName("test-stacked");

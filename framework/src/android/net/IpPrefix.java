@@ -55,6 +55,8 @@ import java.util.Comparator;
 public final class IpPrefix implements Parcelable {
     private final byte[] address;  // network byte order
     private final int prefixLength;
+    private int preferredLifetime = 0;
+    private int validLifetime = 0;
 
     private void checkAndMaskAddressAndPrefixLength() {
         if (address.length != 4 && address.length != 16) {
@@ -77,6 +79,20 @@ public final class IpPrefix implements Parcelable {
     public IpPrefix(@NonNull byte[] address, @IntRange(from = 0, to = 128) int prefixLength) {
         this.address = address.clone();
         this.prefixLength = prefixLength;
+        checkAndMaskAddressAndPrefixLength();
+    }
+
+    /**
+     * @hide
+     */
+    @SystemApi
+    public IpPrefix(@NonNull InetAddress address, @IntRange(from = 0, to = 128) int prefixLength, int preferredLifetime, int validLifetime) {
+        // We don't reuse the (byte[], int) constructor because it calls clone() on the byte array,
+        // which is unnecessary because getAddress() already returns a clone.
+        this.address = address.getAddress();
+        this.prefixLength = prefixLength;
+        this.preferredLifetime = preferredLifetime;
+        this.validLifetime = validLifetime;
         checkAndMaskAddressAndPrefixLength();
     }
 
@@ -130,7 +146,10 @@ public final class IpPrefix implements Parcelable {
             return false;
         }
         IpPrefix that = (IpPrefix) obj;
-        return Arrays.equals(this.address, that.address) && this.prefixLength == that.prefixLength;
+        return Arrays.equals(this.address, that.address)
+                && this.prefixLength == that.prefixLength
+                && this.preferredLifetime == that.preferredLifetime
+                && this.validLifetime == that.validLifetime;
     }
 
     /**
@@ -140,7 +159,10 @@ public final class IpPrefix implements Parcelable {
      */
     @Override
     public int hashCode() {
-        return Arrays.hashCode(address) + 11 * prefixLength;
+        return Arrays.hashCode(address)
+                + 11 * prefixLength
+                + 13 * preferredLifetime
+                + 17 * validLifetime;
     }
 
     /**
@@ -177,6 +199,22 @@ public final class IpPrefix implements Parcelable {
     @IntRange(from = 0, to = 128)
     public int getPrefixLength() {
         return prefixLength;
+    }
+
+    /**
+     * @hide
+     */
+    @SystemApi
+    public int getPreferredLifetime() {
+        return preferredLifetime;
+    }
+
+    /**
+     * @hide
+     */
+    @SystemApi
+    public int getValidLifetime() {
+        return validLifetime;
     }
 
     /**

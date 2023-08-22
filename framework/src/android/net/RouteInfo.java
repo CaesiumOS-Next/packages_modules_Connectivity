@@ -85,6 +85,9 @@ public final class RouteInfo implements Parcelable {
     @Nullable
     private final String mInterface;
 
+    private int mRouteLifetime = 0;
+
+    private int mRoutePreference = 0;
 
     /**
      * Unicast route.
@@ -226,6 +229,17 @@ public final class RouteInfo implements Parcelable {
         mType = type;
         mIsHost = isHost();
         mMtu = mtu;
+    }
+
+
+    /**
+     * @hide
+     */
+    @SystemApi
+    public RouteInfo(@Nullable IpPrefix destination, @Nullable String iface, int routeLifetime, int routePreference) {
+        this(destination, null, iface, RTN_UNICAST);
+        this.mRouteLifetime = routeLifetime;
+        this.mRoutePreference = routePreference;
     }
 
     /**
@@ -419,6 +433,22 @@ public final class RouteInfo implements Parcelable {
     }
 
     /**
+     * @hide
+     */
+    @SystemApi
+    public int getRouteLifetime() {
+        return mRouteLifetime;
+    }
+
+    /**
+     * @hide
+     */
+    @SystemApi
+    public int getRoutePreference() {
+        return mRoutePreference;
+    }
+
+    /**
      * Indicates if this route is a default route (ie, has no destination specified).
      *
      * @return {@code true} if the destination has a prefix length of 0.
@@ -552,7 +582,9 @@ public final class RouteInfo implements Parcelable {
         return Objects.equals(mDestination, target.getDestination()) &&
                 Objects.equals(mGateway, target.getGateway()) &&
                 Objects.equals(mInterface, target.getInterface()) &&
-                mType == target.getType() && mMtu == target.getMtu();
+                mType == target.getType() && mMtu == target.getMtu() &&
+                mRouteLifetime == target.getRouteLifetime() &&
+                mRoutePreference == target.getRoutePreference();
     }
 
     /**
@@ -616,7 +648,8 @@ public final class RouteInfo implements Parcelable {
         return (mDestination.hashCode() * 41)
                 + (mGateway == null ? 0 :mGateway.hashCode() * 47)
                 + (mInterface == null ? 0 :mInterface.hashCode() * 67)
-                + (mType * 71) + (mMtu * 89);
+                + (mType * 71) + (mMtu * 89)
+                + (mRouteLifetime * 97) + (mRoutePreference * 101);
     }
 
     /**
