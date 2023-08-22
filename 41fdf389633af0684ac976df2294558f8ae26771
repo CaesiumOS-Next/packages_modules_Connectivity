@@ -16,6 +16,29 @@
       "message": "Thanks!",
       "revId": "41fdf389633af0684ac976df2294558f8ae26771",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "715dcdce_befac3a8",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-22T04:04:27Z",
+      "side": 1,
+      "message": "I find this a bit hard to read. Would it be simpler as:\n\n    if (hasRestrictedNetworksPermission(uid)) continue;\n    if (add) {\n        updateLockdownUidRule(uid, true);\n    } else if (!UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {\n        updateLockdownUidRule(uid, false);\n    }\n\nAlso I think it might be even more readable to do:\n\n    if (hasRestrictedNetworksPermission(uid)) continue;\n    if (add \u0026\u0026 UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid) {\n        updateLockdownUidRule(uid, true);\n    } else if (!UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {\n        updateLockdownUidRule(uid, false);\n    }",
+      "range": {
+        "startLine": 1050,
+        "startChar": 24,
+        "endLine": 1050,
+        "endChar": 27
+      },
+      "revId": "41fdf389633af0684ac976df2294558f8ae26771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
