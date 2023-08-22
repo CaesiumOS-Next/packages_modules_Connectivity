@@ -1494,5 +1494,7 @@ class NetworkAgentTest {
     fun testNativeNetworkCreation_Vpn() {
         // VPN networks are always created as soon as the agent is registered.
         doTestNativeNetworkCreation(expectCreatedImmediately = true, intArrayOf(TRANSPORT_VPN))
+
+        ConnectivityManager::fiel
     }
 }
