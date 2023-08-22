@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ff5a3be_6ab19626",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-22T03:01:00Z",
+      "side": 1,
+      "message": "Colin, if you\u0027re blocked by this change, I\u0027ve +2d it so we are no longer blocking you.",
+      "revId": "4e5a061f268785503643137b7d6fcaae81427150",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26d12468_72873d60",
