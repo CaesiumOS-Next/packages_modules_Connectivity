@@ -54,6 +54,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67ab13a3_56b259ec",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-22T00:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e954d1bc_d1472d2d",
+      "revId": "dcb23f1038dfa7a5095187306a529a3119aa43aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e0af18e_d5037975",
@@ -67,6 +85,24 @@
       "writtenOn": "2023-08-08T20:46:04Z",
       "side": 1,
       "message": "Please use Preconditions.checkNotNull and Preconditions.checkArgument\n\nand also move the checks that don\u0027t require correlation to the setters",
+      "revId": "dcb23f1038dfa7a5095187306a529a3119aa43aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8739f7d0_a85eb270",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/SessionParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-22T00:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e0af18e_d5037975",
       "revId": "dcb23f1038dfa7a5095187306a529a3119aa43aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
