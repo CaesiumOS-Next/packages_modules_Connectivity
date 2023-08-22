@@ -151,6 +151,30 @@
       },
       "revId": "4e5a061f268785503643137b7d6fcaae81427150",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53f73960_0fadfd0b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1409,
+      "author": {
+        "id": 1002751
+      },
+      "writtenOn": "2023-08-22T03:09:21Z",
+      "side": 1,
+      "message": "Yes, [`setTransportInfo`](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/NetworkCapabilities.java;l\u003d1685;drc\u003d7a042d869f009e24c7dbaa7741362f72c0dd0ad0) is `@NonNull`, but [`getTransportInfo`] is `@Nullable`.  That means kotlin can\u0027t match up the getter and the setter, so it makes the implicit property a read-only `val`, and gives an unhelpful error about \"val can\u0027t be redefined\" when you try to assign to it.",
+      "parentUuid": "f76af6f6_1c8986f6",
+      "range": {
+        "startLine": 1409,
+        "startChar": 18,
+        "endLine": 1409,
+        "endChar": 22
+      },
+      "revId": "4e5a061f268785503643137b7d6fcaae81427150",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
