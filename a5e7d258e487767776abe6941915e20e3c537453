@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbe2ae7d_ac73bfb7",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingReport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-22T00:34:48Z",
+      "side": 1,
+      "message": "\u003e It seems like the state is really a combination of this enum and the distance?\nProximityState is based on the distance value compared to the near/far boundaries. \n\u003e Like I need to interpret both items to know the state?\nNo. State is self contained.",
+      "parentUuid": "0fa91af3_e866e231",
+      "range": {
+        "startLine": 22,
+        "startChar": 16,
+        "endLine": 22,
+        "endChar": 30
+      },
+      "revId": "a5e7d258e487767776abe6941915e20e3c537453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c33e28b_03565c9f",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-08-16T19:33:17Z",
       "side": 1,
       "message": "Sets",
+      "range": {
+        "startLine": 60,
+        "startChar": 12,
+        "endLine": 60,
+        "endChar": 15
+      },
+      "revId": "a5e7d258e487767776abe6941915e20e3c537453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b2d59f4_59a95a21",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingReport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-22T00:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c33e28b_03565c9f",
       "range": {
         "startLine": 60,
         "startChar": 12,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47afa2fe_722bdc23",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-22T00:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6af22cd_a86e75ce",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 18
+      },
+      "revId": "a5e7d258e487767776abe6941915e20e3c537453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "491ee3c4_17e6c14d",
@@ -104,6 +176,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c294859d_3239fea6",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-22T00:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "491ee3c4_17e6c14d",
+      "revId": "a5e7d258e487767776abe6941915e20e3c537453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a55cd9e3_878f1e14",
@@ -117,6 +207,24 @@
       "writtenOn": "2023-08-16T19:33:17Z",
       "side": 1,
       "message": "it\u0027s unclear from the API if I can restart the session and what happens if I call start twice w/o ending it.",
+      "revId": "a5e7d258e487767776abe6941915e20e3c537453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe5a064f_5e98581e",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-22T00:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a55cd9e3_878f1e14",
       "revId": "a5e7d258e487767776abe6941915e20e3c537453",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
