@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "409533c4_090d269b",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1014288
+      },
+      "writtenOn": "2023-08-22T21:18:48Z",
+      "side": 1,
+      "message": "why is this @SystemApi if all of the methods are @hide?",
+      "revId": "13638d7fad1f9a746fcaa03093357407eb27415c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba2fadfb_fe9e9c8e",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteAuthManager.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1014288
+      },
+      "writtenOn": "2023-08-22T21:18:48Z",
+      "side": 1,
+      "message": "this feedback applies to all of these APIs:\n\nWhat permission gates the usage of these APIs? Please add `@RequiresPermission` to each method (and ensure that the implementation fails if the caller doesn\u0027t have it).",
+      "revId": "13638d7fad1f9a746fcaa03093357407eb27415c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "614b8f29_22343be7",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteDevice.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1014288
+      },
+      "writtenOn": "2023-08-22T21:18:48Z",
+      "side": 1,
+      "message": "add javadoc to these",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 49
+      },
+      "revId": "13638d7fad1f9a746fcaa03093357407eb27415c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01331164_54d01b9e",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteDevice.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1014288
+      },
+      "writtenOn": "2023-08-22T21:18:48Z",
+      "side": 1,
+      "message": "should this be public? Typically if you have a builder, this can be private.",
+      "revId": "13638d7fad1f9a746fcaa03093357407eb27415c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9584c45_142ce903",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteDevice.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1014288
+      },
+      "writtenOn": "2023-08-22T21:18:48Z",
+      "side": 1,
+      "message": "What happens if none of these values are set? Is that supported?\n\nIf any of these are mandatory, they need to be arguments to the Builder\u0027s ctor.",
+      "range": {
+        "startLine": 150,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 34
+      },
+      "revId": "13638d7fad1f9a746fcaa03093357407eb27415c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9cb108a_1a1c5644",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteDevice.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1014288
+      },
+      "writtenOn": "2023-08-22T21:18:48Z",
+      "side": 1,
+      "message": "typically we just have the ctor be public for the builder.",
+      "range": {
+        "startLine": 157,
+        "startChar": 8,
+        "endLine": 165,
+        "endChar": 9
+      },
+      "revId": "13638d7fad1f9a746fcaa03093357407eb27415c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
