@@ -158,6 +158,30 @@
       },
       "revId": "2af2f3be7259c96d07ca4f5a69488a92f4e94230",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "053a4429_e66dcc10",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18571,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2023-08-22T05:22:51Z",
+      "side": 1,
+      "message": "The test case does the following.\n\n1) Create a NA at CS and physical network at netd. Set delay timer.\n2) Trigger unregisterAfterReplacement which destroys network with netd first.\n3) Waits for 100 ms and then disconnects the NA.\n4) Expect disconnect to happen without a crash.\n\na ) With old code,\n\nAfter disconnect is triggered in step 3, CS will set the permission at netd ( on a destroyed network ) because the linger timer is non-zero. This will result in crash.\n      https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d4702-4715?q\u003dConnectivityService\u0026ss\u003dandroid%2Fplatform%2Fsuperproject\n\nb ) With new code,\n\nAfter disconnect is triggered in step 3, CS will first check if the network is alive at netd. Since the network is destroyed at netd, CS doesn\u0027t set the permission. Disconnect will happen without a crash.\n\nLet me know if I am missing anything here.",
+      "parentUuid": "42d4900b_2920058f",
+      "range": {
+        "startLine": 18571,
+        "startChar": 37,
+        "endLine": 18571,
+        "endChar": 63
+      },
+      "revId": "2af2f3be7259c96d07ca4f5a69488a92f4e94230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
