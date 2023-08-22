@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f932e0b_5855653d",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-22T22:29:36Z",
+      "side": 1,
+      "message": "If this is a cache then where is the write-through on cache miss and where is the eviction policy?\nI\u0027m thinking maybe using the word cache here is misleading. This is just a mapping.",
+      "range": {
+        "startLine": 49,
+        "startChar": 16,
+        "endLine": 49,
+        "endChar": 40
+      },
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8929eea9_5884b176",
         "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
         "patchSetId": 2
@@ -54,6 +77,57 @@
         "endLine": 92,
         "endChar": 75
       },
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a01c02e7_c839c17b",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-22T22:29:36Z",
+      "side": 1,
+      "message": "Your change exposes the fact that `bpfGetIfaceStatsInternal` is really two methods squeezed into one - one method to get stats for an iface (called via `nativeGetIfaceStats`), another method to get a sum of all stats (called via `nativeGetTotalStat`).\nConsider just breaking up this method into two. Say, `bpfGetIfaceStatsInternal` and `bpfGetTotalStatsInternal`.\n\nNot a must, your call if you wanna do this or not.",
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e793db5_021fe16b",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-22T22:29:36Z",
+      "side": 1,
+      "message": "What throws this? When?",
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "621eaed0_8b5591b4",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-08-22T22:29:36Z",
+      "side": 1,
+      "message": "Should we also dump the iface to indices map, for the sake of general debugging?\nOr is this not useful here?",
       "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
