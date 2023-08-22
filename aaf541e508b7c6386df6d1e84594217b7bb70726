@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25b41355_27c149e3",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2503,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-22T07:46:26Z",
+      "side": 1,
+      "message": "This test is good ; can you please also have a test that tests for a change in underlying networks ? You could just add some code at the end of this one and rename it.",
+      "range": {
+        "startLine": 2503,
+        "startChar": 37,
+        "endLine": 2503,
+        "endChar": 63
+      },
+      "revId": "aaf541e508b7c6386df6d1e84594217b7bb70726",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aeccd17_966806a6",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2519,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-22T07:46:26Z",
+      "side": 1,
+      "message": "any() ? I think you want to fail the test for any call at all to `doSetUnderlyingNetworks`.",
+      "range": {
+        "startLine": 2519,
+        "startChar": 41,
+        "endLine": 2519,
+        "endChar": 80
+      },
+      "revId": "aaf541e508b7c6386df6d1e84594217b7bb70726",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20b3fab3_43e9222b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2566,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-22T07:46:26Z",
+      "side": 1,
+      "message": "Do you want to also check that no further call to `doSetUnderlyingNetworks` has been made ?",
+      "range": {
+        "startLine": 2566,
+        "startChar": 35,
+        "endLine": 2566,
+        "endChar": 42
+      },
+      "revId": "aaf541e508b7c6386df6d1e84594217b7bb70726",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
