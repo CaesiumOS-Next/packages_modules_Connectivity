@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4e72fe2_d4da3dc3",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-22T06:56:43Z",
+      "side": 1,
+      "message": "I think you need to explain in more detail :\n- The cover comment implies that the DHCP server starts whether you do this or not. This patch runs it explicitly, but you don\u0027t explain why it might or might not run if it\u0027s not done explicitly (or, why it\u0027s sometimes slow)\n- You need to explain what kills the test interface in this comment. Right now, it only says that the error occurs if it\u0027s killed while the DHCP server is starting, but not what kills it – meaning maintainers won\u0027t know whether that can happen while it\u0027s starting explicitly here.",
+      "range": {
+        "startLine": 330,
+        "startChar": 12,
+        "endLine": 331,
+        "endChar": 87
+      },
+      "revId": "8ebc404ce047f77d10558d25d7576eb70e7258f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
