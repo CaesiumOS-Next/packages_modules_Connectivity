@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10209733_f16942d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-22T06:39:39Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed. Can you address the two minor comments in CtsNetUtils? In the meantime, starting treehugger to make sure that this test passes in all configurations.",
+      "revId": "3186fbad1a8ec0d3a2db04d98f18999eb7b5ff88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c25d95a_6ee9a8fe",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-22T06:39:39Z",
+      "side": 1,
+      "message": "Instead of doing this, please add a static import for the constant, just before the import of NETWORK_SETTINGS:\n\nimport static android.Manifest.permission.MODIFY_PHONE_STATE;",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 24
+      },
+      "revId": "3186fbad1a8ec0d3a2db04d98f18999eb7b5ff88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "386dac02_c2848d45",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-22T06:39:39Z",
+      "side": 1,
+      "message": "Once the import is added, this should be just MODIFY_PHONE_STATE.",
+      "range": {
+        "startLine": 593,
+        "startChar": 23,
+        "endLine": 593,
+        "endChar": 61
+      },
+      "revId": "3186fbad1a8ec0d3a2db04d98f18999eb7b5ff88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

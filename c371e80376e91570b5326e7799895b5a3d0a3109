@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a7d17f6_d3ef5adb",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-22T06:39:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8b8ec50f_db49368f",
+      "range": {
+        "startLine": 122,
+        "startChar": 12,
+        "endLine": 122,
+        "endChar": 53
+      },
+      "revId": "c371e80376e91570b5326e7799895b5a3d0a3109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4bb89d9_64c79381",
@@ -95,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49281276_f4dfbd2a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-22T06:39:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfc59fec_52fc3cfa",
+      "range": {
+        "startLine": 1019,
+        "startChar": 8,
+        "endLine": 1019,
+        "endChar": 67
+      },
+      "revId": "c371e80376e91570b5326e7799895b5a3d0a3109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a65618a6_306af2c8",
@@ -132,6 +180,30 @@
       "side": 1,
       "message": "Hi, here the test is modified according to below two scenarios.\n1. WIFI not available - Then we can skip the wifi specific code and directly request for TRANSPORT_WIFI to test the network unavailability.\n2. WIFI available - this basically doesn\u0027t change from the previous implementation. Test case disconnects the wifi and then checks the network unavailability.",
       "parentUuid": "a65618a6_306af2c8",
+      "range": {
+        "startLine": 1304,
+        "startChar": 8,
+        "endLine": 1304,
+        "endChar": 18
+      },
+      "revId": "c371e80376e91570b5326e7799895b5a3d0a3109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77ff5147_42eb2621",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-22T06:39:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2c6efa1d_e9a10530",
       "range": {
         "startLine": 1304,
         "startChar": 8,
