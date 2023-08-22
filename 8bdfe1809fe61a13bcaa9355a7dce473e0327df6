@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b1798bd_8ff25e8b",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-22T06:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "320afc1f_e35614c9",
+      "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a90cdd0_aebc6d8b",
@@ -52,6 +70,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64887640_112652db",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-22T06:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a90cdd0_aebc6d8b",
+      "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3cef88f7_eefde5dc",
@@ -65,6 +101,30 @@
       "writtenOn": "2023-08-21T08:36:04Z",
       "side": 1,
       "message": "Is this used in subclasses ? I didn\u0027t find usage",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 13
+      },
+      "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "969c5f4f_61c048ad",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-22T06:38:41Z",
+      "side": 1,
+      "message": "Ah, I think it is some intermediate change. Reverted.",
+      "parentUuid": "3cef88f7_eefde5dc",
       "range": {
         "startLine": 156,
         "startChar": 4,
@@ -98,6 +158,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb973270_0e3cc8e8",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-22T06:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12cea378_c47ead31",
+      "range": {
+        "startLine": 63,
+        "startChar": 31,
+        "endLine": 63,
+        "endChar": 32
+      },
+      "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a60741d_8f05b906",
@@ -111,6 +195,24 @@
       "writtenOn": "2023-08-21T08:36:04Z",
       "side": 1,
       "message": "Nit: this is related to shims, but at this point we don\u0027t need to care about shims for T anymore (all development branches are U+).\n\nSince there is already a DevSdkIgnoreRule on the class, this can probably be removed",
+      "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1e5756e_1f66c90c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-22T06:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a60741d_8f05b906",
       "revId": "8bdfe1809fe61a13bcaa9355a7dce473e0327df6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
