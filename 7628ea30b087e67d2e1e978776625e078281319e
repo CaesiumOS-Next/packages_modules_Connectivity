@@ -22,6 +22,30 @@
       },
       "revId": "7628ea30b087e67d2e1e978776625e078281319e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1286148_95041787",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-08-22T03:42:31Z",
+      "side": 1,
+      "message": "I want to remove the old code path but due to the experiment freeze, we could not test new code path on non pixel devices.\nI will remove the old code path after the Oct mainline release.",
+      "parentUuid": "116a1681_83febb51",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "7628ea30b087e67d2e1e978776625e078281319e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
