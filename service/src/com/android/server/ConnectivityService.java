@@ -192,6 +192,7 @@ import android.net.QosSocketInfo;
 import android.net.RouteInfo;
 import android.net.RouteInfoParcel;
 import android.net.SocketKeepalive;
+import android.net.StubNetworkInfo;
 import android.net.TetheringManager;
 import android.net.TransportInfo;
 import android.net.UidRange;
@@ -318,7 +319,6 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.lang.IllegalArgumentException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -7998,6 +7998,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
         nai.networkAgentPortalData = lp.getCaptivePortalData();
     }
 
+    private void updateStubNetworkInfo(
+            @NonNull LinkProperties newLp,
+            @Nullable LinkProperties oldLp) {
+
+        StubNetworkInfo oldSni = oldLp != null ? oldLp.getStubNetworkInfo() : null;
+        StubNetworkInfo newSni = newLp.getStubNetworkInfo();
+        log("Updating StubNetworkInfo");
+        if (newSni != null) {
+            if (oldSni == null) {
+                try {
+                    mNetd.ipfwdEnableForwarding(TAG);
+                    mNetd.ipfwdAddInterfaceForward(newSni.getAilInterfaceName(), newLp.getInterfaceName());
+                    mNetd.ipfwdAddInterfaceForward(newLp.getInterfaceName(), newSni.getAilInterfaceName());
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+
     private void updateLinkProperties(NetworkAgentInfo networkAgent, @NonNull LinkProperties newLp,
             @Nullable LinkProperties oldLp) {
         int netId = networkAgent.network.getNetId();
@@ -8065,6 +8084,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         mKeepaliveTracker.handleCheckKeepalivesStillValid(networkAgent);
+
+        updateStubNetworkInfo(newLp, oldLp);
     }
 
     private void applyInitialLinkProperties(@NonNull NetworkAgentInfo nai) {
