@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03836691_0708a9d7",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-22T03:00:09Z",
+      "side": 0,
+      "message": "@motomuman@google.com think you could try to fix these two tests so they don\u0027t need to be removed? Either write them in Java, or use Jean\u0027s suggested hack or my suggested hack, whichever works?",
+      "parentUuid": "20bcd45a_4169be48",
+      "revId": "34fd58de3b504cab2a9a9d2bb396b2ec23308c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b500b2d0_59ccda7b",
         "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
         "patchSetId": 2
