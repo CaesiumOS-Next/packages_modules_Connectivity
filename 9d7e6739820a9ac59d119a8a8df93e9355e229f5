@@ -33,6 +33,29 @@
       "message": "Hello! This is essentially carrying out the same goal as aosp/2694693, but with the cache moved to the native/jni code instead. Can you take a look? Thank you!",
       "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8929eea9_5884b176",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-22T18:37:51Z",
+      "side": 1,
+      "message": "I just realized that this (and the readValue() call in the else{} block) might be cleaner if replaced with the recently-implemented bpfGetIfIndexStatsInternal function. If there are no issues with doing this, I\u0027ll include this as an update in the first round of review comments.",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 92,
+        "endChar": 75
+      },
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
