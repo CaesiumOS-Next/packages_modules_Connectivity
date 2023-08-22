@@ -190,6 +190,7 @@ package android.net {
     method @Nullable public android.net.Uri getCaptivePortalApiUrl();
     method @Nullable public android.net.CaptivePortalData getCaptivePortalData();
     method @NonNull public java.util.List<java.net.InetAddress> getPcscfServers();
+    method @Nullable public android.net.StubNetworkInfo getStubNetworkInfo();
     method @Nullable public String getTcpBufferSizes();
     method @NonNull public java.util.List<java.net.InetAddress> getValidatedPrivateDnsServers();
     method public boolean hasGlobalIpv6Address();
@@ -209,6 +210,7 @@ package android.net {
     method public void setCaptivePortalData(@Nullable android.net.CaptivePortalData);
     method public void setPcscfServers(@NonNull java.util.Collection<java.net.InetAddress>);
     method public void setPrivateDnsServerName(@Nullable String);
+    method public void setStubNetworkInfo(@Nullable android.net.StubNetworkInfo);
     method public void setTcpBufferSizes(@Nullable String);
     method public void setUsePrivateDns(boolean);
     method public void setValidatedPrivateDnsServers(@NonNull java.util.Collection<java.net.InetAddress>);
@@ -498,6 +500,12 @@ package android.net {
     method public void addDnsServer(@NonNull java.net.InetAddress);
     method public void clear();
     method @NonNull public java.util.List<android.net.RouteInfo> getRoutes(@Nullable String);
+  }
+
+  public final class StubNetworkInfo implements android.os.Parcelable {
+    ctor public StubNetworkInfo();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.StubNetworkInfo> CREATOR;
   }
 
   public final class TcpKeepalivePacketData extends android.net.KeepalivePacketData implements android.os.Parcelable {
