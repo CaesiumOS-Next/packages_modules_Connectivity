@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f2db0e7_50c7d516",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsPacket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-23T02:48:14Z",
+      "side": 0,
+      "message": "Is any reason to remove this log?",
+      "range": {
+        "startLine": 209,
+        "startChar": 20,
+        "endLine": 211,
+        "endChar": 21
+      },
+      "revId": "d5038a042cf118c3060ec395b609087176f3962a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

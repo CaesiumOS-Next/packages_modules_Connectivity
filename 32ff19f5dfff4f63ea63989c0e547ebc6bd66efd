@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17b8cbdd_37363ea2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-23T02:48:14Z",
+      "side": 1,
+      "message": "LGTM only nits.",
+      "revId": "32ff19f5dfff4f63ea63989c0e547ebc6bd66efd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff6da39f_ce3f448c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-23T02:48:14Z",
+      "side": 1,
+      "message": "Nit: Should we remove the element only if the `index \u003e\u003d0` like `remove()` does?",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 13
+      },
+      "revId": "32ff19f5dfff4f63ea63989c0e547ebc6bd66efd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
