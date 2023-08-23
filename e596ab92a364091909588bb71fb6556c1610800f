@@ -16,6 +16,24 @@
       "message": "You also need service-thread-pre-jarjar here: you only added it to the \"libs\" of service-connectivity-tiramisu-pre-jarjar, meaning that the connectivity code can build against it, but you didn\u0027t include the built classes anywhere in the output so they\u0027re not part of the final jar",
       "revId": "e596ab92a364091909588bb71fb6556c1610800f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "795f067a_204f3a29",
+        "filename": "service/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-23T04:37:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab9a65fd_94682737",
+      "revId": "e596ab92a364091909588bb71fb6556c1610800f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
