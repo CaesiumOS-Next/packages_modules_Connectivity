@@ -22,6 +22,30 @@
       },
       "revId": "d5038a042cf118c3060ec395b609087176f3962a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69d99982_107cd451",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsPacket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-23T03:37:57Z",
+      "side": 0,
+      "message": "The issue is this class refer to MdnsAdvertiser.DBG which requires API \u003e\u003d T. However, we don\u0027t want the requireApi check for this class because it used by both discovery and advertisement code. \n\nHave some discussion with Remi offline and we think this line of log might not be particular useful so I remove it to make it simple to pass the lint check.",
+      "parentUuid": "3f2db0e7_50c7d516",
+      "range": {
+        "startLine": 209,
+        "startChar": 20,
+        "endLine": 211,
+        "endChar": 21
+      },
+      "revId": "d5038a042cf118c3060ec395b609087176f3962a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
