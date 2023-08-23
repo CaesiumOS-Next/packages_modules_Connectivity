@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83d695bb_169f1f41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-23T16:42:52Z",
+      "side": 1,
+      "message": "I fixed an error (JNI method order apparently matters; moving nativeAddInterfaceToIndexMap to the end worked), and this builds+flashes. Closing this!",
+      "parentUuid": "d41f2196_8cdc8037",
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f932e0b_5855653d",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-08-22T22:29:36Z",
       "side": 1,
       "message": "If this is a cache then where is the write-through on cache miss and where is the eviction policy?\nI\u0027m thinking maybe using the word cache here is misleading. This is just a mapping.",
+      "range": {
+        "startLine": 49,
+        "startChar": 16,
+        "endLine": 49,
+        "endChar": 40
+      },
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db181e26_d95e55f9",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-23T16:42:52Z",
+      "side": 1,
+      "message": "Good point, I\u0027ve replaced \"cache\" to \"map\" everywhere in the CL (description, method names, etc.). Thanks!",
+      "parentUuid": "4f932e0b_5855653d",
       "range": {
         "startLine": 49,
         "startChar": 16,
@@ -81,6 +123,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f9cb833_bb523559",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-23T16:42:52Z",
+      "side": 1,
+      "message": "On second thought, I\u0027ll leave this as-is for now since the `Internal` methods are supposed to be exposed/used for testing only. Let me know if bpfGetIfIndexStatsInternal usage here is desired though!",
+      "parentUuid": "8929eea9_5884b176",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 92,
+        "endChar": 75
+      },
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a01c02e7_c839c17b",
@@ -94,6 +160,24 @@
       "writtenOn": "2023-08-22T22:29:36Z",
       "side": 1,
       "message": "Your change exposes the fact that `bpfGetIfaceStatsInternal` is really two methods squeezed into one - one method to get stats for an iface (called via `nativeGetIfaceStats`), another method to get a sum of all stats (called via `nativeGetTotalStat`).\nConsider just breaking up this method into two. Say, `bpfGetIfaceStatsInternal` and `bpfGetTotalStatsInternal`.\n\nNot a must, your call if you wanna do this or not.",
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f423149_b744f47d",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-23T16:42:52Z",
+      "side": 1,
+      "message": "I agree—I do think the method would be best organized as two split methods, creating a new `bpfGetTotalStats[Internal]` for `nativeGetTotalStat` to call may be out of scope for this change. For the time being, I\u0027ll leave both iface-specific and total stat collecting in this method, with plans to split them later.",
+      "parentUuid": "a01c02e7_c839c17b",
       "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -115,6 +199,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52c348ad_945091b9",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-23T16:42:52Z",
+      "side": 1,
+      "message": "`mIndexToIfaceBpfMap.forEach` will throw this if there is an error while traversing the BPF map from native code [[1]]. There are a few different issues that can occur here [[2]], but I\u0027ve updated the error message to specify that the exception was raised when traversing the map.\n\n[1]: https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:frameworks/libs/net/common/device/com/android/net/module/util/BpfMap.java;l\u003d255;drc\u003d4e6e3c110ee49b5abc35e8f0a55c583f2a2c4ef0\n[2]: https://source.corp.google.com/h/googleplex-android/platform/frameworks/libs/net/+/main:common/native/bpfmapjni/com_android_net_module_util_BpfMap.cpp;l\u003d94;drc\u003dfe571d427579128a5f21a40748edce29d4722e4d",
+      "parentUuid": "0e793db5_021fe16b",
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "621eaed0_8b5591b4",
@@ -128,6 +230,24 @@
       "writtenOn": "2023-08-22T22:29:36Z",
       "side": 1,
       "message": "Should we also dump the iface to indices map, for the sake of general debugging?\nOr is this not useful here?",
+      "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fe392d2_7e5dca65",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1757736
+      },
+      "writtenOn": "2023-08-23T16:42:52Z",
+      "side": 1,
+      "message": "It looks like this is intended to dump the internal BPF maps\u0027 contents, but I can see how the iface-\u003eindices map would be helpful to include in this dump as well. However, the Java code doesn\u0027t have any visibility into what interfaces or indices actually exist in the new name-\u003eindices map, so I\u0027m not sure if that will be possible (without adding something like `nativeGetAllInterfaceIndices`, which would only be used for this debug purpose).",
+      "parentUuid": "621eaed0_8b5591b4",
       "revId": "9d7e6739820a9ac59d119a8a8df93e9355e229f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
