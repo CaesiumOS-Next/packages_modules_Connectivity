@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d244a61_68644abb",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "Do we need this if? The old code did not have it AFAIK.\n\nDoes our code rely on deleting rules that do not exist?\n- If no, then removing a rule that does not exist is an error and should be logged, and we should remove this if.\n- If yes, then... why? Does the code not keep enough state to know if something already exists or not? In this case, might want to expand this comment saying something such as:\n\n    // Silent if the rule did not exist. This can happen if...",
+      "range": {
+        "startLine": 195,
+        "startChar": 12,
+        "endLine": 195,
+        "endChar": 48
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17f6fd34_1c572a2a",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "It\u0027s confusing that this method has the same name as the one that adds the downstream rule. Maybe rename these methods to addUpstreamRule / removeUpstreamRule / addDownstreamRule / removeDownstreamRule?\n\nOr, if we need to distinguish these names from the IPv4 names, addIpv6UpstreamRule / removeIpv6UpstreamRule / ....",
+      "range": {
+        "startLine": 65,
+        "startChar": 28,
+        "endLine": 65,
+        "endChar": 48
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec74da9b_12aa2e2d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "Given that you\u0027re renaming this, suggest removing \"Forwarding\" and shortening to mIpv6DownstreamRules.",
+      "range": {
+        "startLine": 241,
+        "startChar": 12,
+        "endLine": 241,
+        "endChar": 42
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "938b3e57_40cb34a2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "Nit: given that this is tethering offload code, I don\u0027t think it\u0027s useful to have \"tetherOffload\" in the method name. Maybe call this addDownstreamRule? Or addIpv6DownstreamRule if we need to distinguish this from IPv4?",
+      "range": {
+        "startLine": 598,
+        "startChar": 16,
+        "endLine": 598,
+        "endChar": 36
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aefcf4fd_b935a29a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "downstream IPv6",
+      "range": {
+        "startLine": 1148,
+        "startChar": 27,
+        "endLine": 1148,
+        "endChar": 31
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fd1cbb0_bf60ec7c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1412,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "Would shorten to Ipv6UpstreamRule.",
+      "range": {
+        "startLine": 1412,
+        "startChar": 24,
+        "endLine": 1412,
+        "endChar": 50
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a17e307d_358c1a22",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1484,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "These are in the opposite order to what startUpstreamIpv6Forwarding did. Am I correct that that was a bug in the previous code, but that it didn\u0027t matter because both these MAC addresses are always NULL_MAC_ADDRESS?",
+      "range": {
+        "startLine": 1484,
+        "startChar": 53,
+        "endLine": 1484,
+        "endChar": 73
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "107ee4b4_d836b269",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "Would shorten to Ipv6DownstreamRule.",
+      "range": {
+        "startLine": 1520,
+        "startChar": 24,
+        "endLine": 1520,
+        "endChar": 52
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f6d7f35_3e76d251",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "makeDownstreamRule?",
+      "range": {
+        "startLine": 902,
+        "startChar": 48,
+        "endLine": 902,
+        "endChar": 76
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da13d085_85712d95",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "verifyAddDownstreamRule",
+      "range": {
+        "startLine": 674,
+        "startChar": 17,
+        "endLine": 674,
+        "endChar": 43
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee5f17e1_b57b2d72",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "verifyNeverAddDownstreamRule",
+      "range": {
+        "startLine": 684,
+        "startChar": 17,
+        "endLine": 684,
+        "endChar": 48
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "740b3c58_b7eb9d27",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "buildTestUpstreamRule",
+      "range": {
+        "startLine": 982,
+        "startChar": 46,
+        "endLine": 982,
+        "endChar": 77
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71a42a02_c4a36bbf",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:10:06Z",
+      "side": 1,
+      "message": "buildTestDownstreamRule",
+      "range": {
+        "startLine": 990,
+        "startChar": 48,
+        "endLine": 990,
+        "endChar": 81
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
