@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e72b081a_c86519ad",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-23T06:54:39Z",
+      "side": 1,
+      "message": "How do we make sure these utilities are correct, since the current tests do not use them?\nIs there any basic test for them?",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "c4258625a3bf2ec97301a929aa69202453d002bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
