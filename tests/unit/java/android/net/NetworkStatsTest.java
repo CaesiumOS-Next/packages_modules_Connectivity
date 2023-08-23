@@ -339,6 +339,7 @@ public class NetworkStatsTest {
         assertEquals(96L, uidRoaming.getTotalBytes());
     }
 
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Test
     public void testGroupedByIfaceEmpty() throws Exception {
         final NetworkStats uidStats = new NetworkStats(TEST_START, 3);
@@ -348,6 +349,7 @@ public class NetworkStatsTest {
         assertEquals(0, grouped.size());
     }
 
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Test
     public void testGroupedByIfaceAll() throws Exception {
         final NetworkStats uidStats = new NetworkStats(TEST_START, 3)
@@ -366,6 +368,7 @@ public class NetworkStatsTest {
                 DEFAULT_NETWORK_ALL, 384L, 24L, 0L, 6L, 0L);
     }
 
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Test
     public void testGroupedByIface() throws Exception {
         final NetworkStats uidStats = new NetworkStats(TEST_START, 7)
@@ -1068,7 +1071,7 @@ public class NetworkStatsTest {
     }
 
     @Test
-    public void testClearInterfaces() {
+    public void testWithoutInterfaces() {
         final NetworkStats stats = new NetworkStats(TEST_START, 1);
         final NetworkStats.Entry entry1 = new NetworkStats.Entry(
                 "test1", 10100, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
@@ -1093,10 +1096,10 @@ public class NetworkStatsTest {
         assertValues(stats, 2, "test3", 10101, SET_DEFAULT, 0xF0DD, METERED_NO,
                 ROAMING_NO, DEFAULT_NETWORK_NO, 1, 2L, 3L, 4L, 5L);
 
-        // Clear interfaces.
-        final NetworkStats ifaceClearedStats = stats.clearInterfaces();
+        // Get stats without interfaces.
+        final NetworkStats ifaceClearedStats = stats.withoutInterfaces();
 
-        // Verify that the interfaces are cleared, and key-duplicated items are merged.
+        // Verify that the interfaces do not exist, and key-duplicated items are merged.
         assertEquals(2, ifaceClearedStats.size());
         assertValues(ifaceClearedStats, 0, null /* iface */, 10100, SET_DEFAULT, TAG_NONE,
                 METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 1024L, 50L, 100L, 20L, 0L);
