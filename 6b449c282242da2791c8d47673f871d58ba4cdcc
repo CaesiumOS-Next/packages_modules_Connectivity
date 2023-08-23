@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f462394e_39382284",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:12:21Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d244a61_68644abb",
         "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
         "patchSetId": 3
@@ -106,6 +123,30 @@
       "writtenOn": "2023-08-23T10:10:06Z",
       "side": 1,
       "message": "Nit: given that this is tethering offload code, I don\u0027t think it\u0027s useful to have \"tetherOffload\" in the method name. Maybe call this addDownstreamRule? Or addIpv6DownstreamRule if we need to distinguish this from IPv4?",
+      "range": {
+        "startLine": 598,
+        "startChar": 16,
+        "endLine": 598,
+        "endChar": 36
+      },
+      "revId": "6b449c282242da2791c8d47673f871d58ba4cdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfedc3b8_d24b463f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T10:12:21Z",
+      "side": 1,
+      "message": "Would also be good if these names were the consistent with the ones we use in the shims, if possible.",
+      "parentUuid": "938b3e57_40cb34a2",
       "range": {
         "startLine": 598,
         "startChar": 16,
