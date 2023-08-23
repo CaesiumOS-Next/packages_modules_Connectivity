@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a7611b2_41712def",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-23T08:47:52Z",
+      "side": 1,
+      "message": "The goal is to read bpf from NetworkStack process.\nThis is to help NetworkStack understand if networking of an uid is blocked by bpf.\n\nAfter discussion, an API in Tethering module is needed for this.\nHowever, this API cannot make IPC, given that the method will be called frequently (100+ times per 20sec).\nSo it turns out we want to read bpf, and return directly inside user process, while the user is NetworkStack only.\n\n\nMore context can be found here:\nhttps://docs.google.com/document/d/1fMobAvwYi_bEGCguSvxTpXbmvFWAj2hl8uZaIH3MDNg/edit#heading\u003dh.uho8jxjd9d8a",
+      "parentUuid": "23553566_9de63b27",
+      "range": {
+        "startLine": 10,
+        "startChar": 35,
+        "endLine": 11,
+        "endChar": 56
+      },
+      "revId": "0df0964f6c5c357d86930030e8750160c8c1e0b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b6d130d_8dc911b9",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed85f4cd_6126f360",
+        "filename": "framework/src/android/net/BpfNetMapsBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-23T08:47:52Z",
+      "side": 1,
+      "message": "Yes, more specifically, only need to read sConfigurationMap and sUidOwnerMap.\nBut need to access utility functions as well.\nA prototype implementation can be found here: https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2709338/1/framework/src/android/net/ConnectivityManager.java#6178\n\nPer discussion, a read only BpfNetMapsReader will be a better idea.\nWill update the CL.",
+      "parentUuid": "2b6d130d_8dc911b9",
+      "range": {
+        "startLine": 74,
+        "startChar": 13,
+        "endLine": 74,
+        "endChar": 27
+      },
+      "revId": "0df0964f6c5c357d86930030e8750160c8c1e0b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e8641cd8_fd3f3f2d",
         "filename": "framework/src/android/net/BpfNetMapsBase.java",
         "patchSetId": 3
@@ -60,6 +108,24 @@
       "writtenOn": "2023-08-23T07:10:14Z",
       "side": 1,
       "message": "Does CM want to update the firewall rule?\n\nBpfNetMaps could update the uid owner map from native code if sEnableJavaBpfMap is false.\nThis could cause the issue if this code and native code try to update the rule at the same time.\n\nAlso, even if sEnableJavaBpfMap is true, if multiple process use this method to update uidOwnerMap at the same time, that will be a issue I think.",
+      "revId": "0df0964f6c5c357d86930030e8750160c8c1e0b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3721ce1c_8952389f",
+        "filename": "framework/src/android/net/BpfNetMapsBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-23T08:47:52Z",
+      "side": 1,
+      "message": "No,it seems to me a read only BpfNetMapsReader would be better and less errorprone.\nWill update the CL.",
+      "parentUuid": "e8641cd8_fd3f3f2d",
       "revId": "0df0964f6c5c357d86930030e8750160c8c1e0b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
