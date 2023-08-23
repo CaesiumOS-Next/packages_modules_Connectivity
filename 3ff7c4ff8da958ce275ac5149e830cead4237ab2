@@ -16,6 +16,69 @@
       "message": "SGTM",
       "revId": "3ff7c4ff8da958ce275ac5149e830cead4237ab2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b56f683_fde60e41",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/ExecutorProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-23T10:15:15Z",
+      "side": 1,
+      "message": "HashSet is less memory efficient so it\u0027s not great to have to replace this everywhere; it would be nice to be able to switch back to ArraySet on 23+, especially when the minSdk is bumped to only support 23+.\n\nMaybe you could add a method that does:\n\n```\ncom.android.server.connectivity.mdns.util.MdnsUtils.newSet()\n    --\u003e if (Build.VERSION.SDK_INT \u003e\u003d M) new ArraySet() else new HashSet()\n```\n\nAlternatively there\u0027s androidx.collection.ArraySet, but we don\u0027t use androidx.collection",
+      "range": {
+        "startLine": 33,
+        "startChar": 16,
+        "endLine": 33,
+        "endChar": 23
+      },
+      "revId": "3ff7c4ff8da958ce275ac5149e830cead4237ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3564f60b_de94c62d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-23T10:15:15Z",
+      "side": 1,
+      "message": "Nit: or you could do removeAt(i) and return, and don\u0027t need \"index\"\n\nBut either way is fine",
+      "revId": "3ff7c4ff8da958ce275ac5149e830cead4237ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a0bd6e9_f3560a29",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-23T10:15:15Z",
+      "side": 1,
+      "message": "Why does this need to be a LinkedHashSet instead of a HashSet ? I can\u0027t find code that iterates on it.\n\nThis method is also not documented to guarantee iteration order, so if there\u0027s actually such a requirement, it should be documented",
+      "range": {
+        "startLine": 140,
+        "startChar": 47,
+        "endLine": 140,
+        "endChar": 60
+      },
+      "revId": "3ff7c4ff8da958ce275ac5149e830cead4237ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
