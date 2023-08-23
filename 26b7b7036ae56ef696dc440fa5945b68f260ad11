@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc23a0f_22959c8a",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-23T15:05:30Z",
+      "side": 1,
+      "message": "\"The ranging capabilities...\"",
+      "revId": "26b7b7036ae56ef696dc440fa5945b68f260ad11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fb44f23_a0bfacd3",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingReport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-23T15:05:30Z",
+      "side": 1,
+      "message": "javadoc on these getters. and make sure the distance one is explaining what it really means.",
+      "revId": "26b7b7036ae56ef696dc440fa5945b68f260ad11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec59e9b5_ebcbf835",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingReport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-23T15:05:30Z",
+      "side": 1,
+      "message": "instead of a float here maybe we should do it in centimeters or millimeters and use an integer. I think putting a float for distance gives the impression that we have some level of precision which is not in reality available. Probably centimeters is better. wdyt?",
+      "range": {
+        "startLine": 53,
+        "startChar": 11,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "26b7b7036ae56ef696dc440fa5945b68f260ad11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6479be7d_486d159d",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-23T15:05:30Z",
+      "side": 1,
+      "message": "Since users of this class will mainly interact with this class and not the subclasses, the fact it\u0027s a base class is an implementation detail. Instead, talk about what a ranging session can do or how it\u0027s used.\n\nNot the best I could come up with but I think this example makes it clear why I might want to use this class:\n\"A controller for starting \u0026 stopping ranging sessions during which callers receive callbacks with {@link RangingReport}s.\"",
+      "revId": "26b7b7036ae56ef696dc440fa5945b68f260ad11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "568e3471_e65ccc10",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-23T15:05:30Z",
+      "side": 1,
+      "message": "Is there any need to allow the caller to specify an Executor ... what thread will you be calling the callback on?",
+      "revId": "26b7b7036ae56ef696dc440fa5945b68f260ad11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5856b89a_a5614b60",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-23T15:05:30Z",
+      "side": 1,
+      "message": "As a user of this class, I don\u0027t understand why I\u0027d need to call the base key stuff.",
+      "revId": "26b7b7036ae56ef696dc440fa5945b68f260ad11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaaf6829_a4d2dda8",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/SessionInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-23T15:05:30Z",
+      "side": 1,
+      "message": "Maybe just \"Information about...\"?",
+      "revId": "26b7b7036ae56ef696dc440fa5945b68f260ad11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1518d279_d160f468",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/SessionInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-23T15:05:30Z",
+      "side": 1,
+      "message": "Do you anticipate a lot of other fields? If not, having a builder may be overkill.",
+      "revId": "26b7b7036ae56ef696dc440fa5945b68f260ad11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
