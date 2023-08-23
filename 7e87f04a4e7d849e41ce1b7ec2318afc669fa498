@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05a5b4ab_3cc3b98e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T08:09:32Z",
+      "side": 1,
+      "message": "LGTM with or without comments addressed.",
+      "revId": "7e87f04a4e7d849e41ce1b7ec2318afc669fa498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7af11063_10ac726f",
+        "filename": "tests/common/java/android/net/KeepalivePacketDataTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T08:09:32Z",
+      "side": 1,
+      "message": "The linter complains that |data| is never used. You might want to just remove it.",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 16
+      },
+      "revId": "7e87f04a4e7d849e41ce1b7ec2318afc669fa498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d6d656_50e7f398",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-23T08:09:32Z",
+      "side": 1,
+      "message": "You use this in several places. Does it work if you factor it out to a method or variable?\n\nval nullNetworkInfo \u003d NonNullTestUtils.nullUnsafe\u003cNetworkInfo\u003e(null)\nval nullDetailedState \u003d NonNullTestUtils.nullUnsafe\u003cDetailedState\u003e(null)",
+      "range": {
+        "startLine": 140,
+        "startChar": 28,
+        "endLine": 140,
+        "endChar": 74
+      },
+      "revId": "7e87f04a4e7d849e41ce1b7ec2318afc669fa498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
