@@ -34,6 +34,24 @@
       "parentUuid": "a2942cad_25146b05",
       "revId": "6b1657a5365f94d8509b0250923bc1d083e8446a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9e2be25_bfe1eae2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-08-24T04:18:59Z",
+      "side": 1,
+      "message": "To be clear, I don\u0027t think this CL will block aosp/2688146.\nBut if we find this CL blocks aosp/2688146, we can revert this CL.",
+      "parentUuid": "9bcbf6a3_d41c4df2",
+      "revId": "6b1657a5365f94d8509b0250923bc1d083e8446a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
