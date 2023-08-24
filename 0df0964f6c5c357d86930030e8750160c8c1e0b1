@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec2acc7e_07add53f",
+        "filename": "framework/src/android/net/BpfNetMapsBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-24T07:59:41Z",
+      "side": 1,
+      "message": "Done in aosp/2725213",
+      "parentUuid": "ed85f4cd_6126f360",
+      "range": {
+        "startLine": 74,
+        "startChar": 13,
+        "endLine": 74,
+        "endChar": 27
+      },
+      "revId": "0df0964f6c5c357d86930030e8750160c8c1e0b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8641cd8_fd3f3f2d",
@@ -126,6 +150,24 @@
       "side": 1,
       "message": "No,it seems to me a read only BpfNetMapsReader would be better and less errorprone.\nWill update the CL.",
       "parentUuid": "e8641cd8_fd3f3f2d",
+      "revId": "0df0964f6c5c357d86930030e8750160c8c1e0b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de34ab01_cf83220e",
+        "filename": "framework/src/android/net/BpfNetMapsBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-24T07:59:41Z",
+      "side": 1,
+      "message": "Done in aosp/2725213",
+      "parentUuid": "3721ce1c_8952389f",
       "revId": "0df0964f6c5c357d86930030e8750160c8c1e0b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
