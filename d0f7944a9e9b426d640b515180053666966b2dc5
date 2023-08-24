@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b74292c_25bf3675",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-24T08:49:38Z",
+      "side": 1,
+      "message": "Please describe what this *does*. How are we supposed to find this patch later if this is the description ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "d0f7944a9e9b426d640b515180053666966b2dc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7dcfb08_aaf0cd7c",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1254,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-24T08:49:38Z",
+      "side": 1,
+      "message": "Instead of this, how about we make it more efficient along the lines by writing mapNotNull and return null if the tag in the entry is NONE ? mapNotNull is a standard method in most languages. Then you\u0027d remove the clone :\n\n    mappedStats \u003d copiedStats.mapNotNull(entry -\u003e\n      entry.getTag() \u003d\u003d TAG_NONE ? null : entry.setKeys(...));",
+      "range": {
+        "startLine": 1251,
+        "startChar": 0,
+        "endLine": 1254,
+        "endChar": 90
+      },
+      "revId": "d0f7944a9e9b426d640b515180053666966b2dc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9205872b_e55b443e",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-24T08:49:38Z",
+      "side": 1,
+      "message": "Wait I\u0027m lost. Why does this work ? ISTM this code never sets the values in `temp`. You want to either set the keys in `entry` or to set the values in `temp`.",
+      "range": {
+        "startLine": 1268,
+        "startChar": 66,
+        "endLine": 1268,
+        "endChar": 70
+      },
+      "revId": "d0f7944a9e9b426d640b515180053666966b2dc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02b4a5af_6f6a7eab",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-24T08:49:38Z",
+      "side": 1,
+      "message": "Returns a copy of this NetworkStats, replacing iface with IFACE_ALL in all entries",
+      "range": {
+        "startLine": 1322,
+        "startChar": 7,
+        "endLine": 1322,
+        "endChar": 14
+      },
+      "revId": "d0f7944a9e9b426d640b515180053666966b2dc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "301a4d4d_6a3476fc",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1329,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-24T08:49:38Z",
+      "side": 1,
+      "message": "You could also have mapInPlace or similar, though this is not very common. I think what you have here is probably okay.",
+      "range": {
+        "startLine": 1329,
+        "startChar": 15,
+        "endLine": 1329,
+        "endChar": 18
+      },
+      "revId": "d0f7944a9e9b426d640b515180053666966b2dc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
