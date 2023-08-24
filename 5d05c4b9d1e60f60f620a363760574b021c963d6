@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "340f21e4_65cdfd1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-24T07:20:26Z",
+      "side": 1,
+      "message": "LGTM considering that the 2 clat methods just post to a handler; so this is just doing 2 handler loops instead of 1.\nAnd because the incoming callback is from Binder, there\u0027s no ordering guarantee other than the callbacks themselves already.",
+      "revId": "5d05c4b9d1e60f60f620a363760574b021c963d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
