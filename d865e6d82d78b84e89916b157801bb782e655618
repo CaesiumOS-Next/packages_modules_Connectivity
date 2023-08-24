@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "343426b3_c6dd5886",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-08-24T18:06:52Z",
+      "side": 1,
+      "message": "(sorry, trying to reproduce a gerrit bug -- this change is ready for review)",
+      "revId": "d865e6d82d78b84e89916b157801bb782e655618",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
