@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b70b387_cd6fb31d",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-24T17:51:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec72f8c8_4a9e4b16",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 27
+      },
+      "revId": "7b4fea0388a039d71cfdff16fa1a9943dcaad16e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ffceecd_8d68b996",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "790c8ebe_8315ab49",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-24T17:51:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ffceecd_8d68b996",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 0
+      },
+      "revId": "7b4fea0388a039d71cfdff16fa1a9943dcaad16e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cae35876_b89d868e",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-08-24T17:15:28Z",
       "side": 1,
       "message": "same here",
+      "range": {
+        "startLine": 60,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 41
+      },
+      "revId": "7b4fea0388a039d71cfdff16fa1a9943dcaad16e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a896c684_482b59f1",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-24T17:51:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cae35876_b89d868e",
       "range": {
         "startLine": 60,
         "startChar": 1,
