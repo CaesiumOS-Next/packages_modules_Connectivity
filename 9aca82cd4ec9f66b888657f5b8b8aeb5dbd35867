@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b1009f3_d10a1935",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-24T18:57:41Z",
+      "side": 1,
+      "message": "I think we should initiate Uwb in createSession based on the sessionParameters.rangingMethod\nIts true that today our only method is Uwb, but later with CS we may not even ask for Uwb Session.\n\nWe can also synchronize(mUwbServiceImpl) the check for existence, so we don\u0027t initialize twice",
+      "revId": "9aca82cd4ec9f66b888657f5b8b8aeb5dbd35867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
