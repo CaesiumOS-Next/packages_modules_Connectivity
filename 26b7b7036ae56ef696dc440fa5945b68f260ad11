@@ -118,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "138b4d15_5d73c4c1",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingReport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1858130
+      },
+      "writtenOn": "2023-08-24T15:08:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "971b5da6_756b8bda",
+      "range": {
+        "startLine": 53,
+        "startChar": 11,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "26b7b7036ae56ef696dc440fa5945b68f260ad11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6479be7d_486d159d",
