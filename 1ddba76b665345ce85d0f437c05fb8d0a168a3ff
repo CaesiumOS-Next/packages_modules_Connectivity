@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f53a731_07ac722a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10005,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-24T12:19:02Z",
+      "side": 1,
+      "message": "This is not sufficient, you also need to arrange for netd to be told about this when the agent is first created.",
+      "range": {
+        "startLine": 10005,
+        "startChar": 17,
+        "endLine": 10005,
+        "endChar": 35
+      },
+      "revId": "1ddba76b665345ce85d0f437c05fb8d0a168a3ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91f6f985_8a99c709",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10007,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-24T12:19:02Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 10007,
+        "startChar": 8,
+        "endLine": 10007,
+        "endChar": 11
+      },
+      "revId": "1ddba76b665345ce85d0f437c05fb8d0a168a3ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3ff788d_615adfa9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10012,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-24T12:19:02Z",
+      "side": 1,
+      "message": "Can you make the whole thing a bit less verbose by using intermediate locals ? Don\u0027t forget to make them all final.",
+      "range": {
+        "startLine": 10012,
+        "startChar": 27,
+        "endLine": 10012,
+        "endChar": 57
+      },
+      "revId": "1ddba76b665345ce85d0f437c05fb8d0a168a3ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
