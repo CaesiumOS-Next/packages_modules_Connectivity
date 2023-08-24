@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec72f8c8_4a9e4b16",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1014288
+      },
+      "writtenOn": "2023-08-24T17:15:28Z",
+      "side": 1,
+      "message": "these need to be defined in the Callback interface and made, not inside the @interface\n\nAlso, you probably want a default value of 0.",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 27
+      },
+      "revId": "7b4fea0388a039d71cfdff16fa1a9943dcaad16e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ffceecd_8d68b996",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1014288
+      },
+      "writtenOn": "2023-08-24T17:15:28Z",
+      "side": 1,
+      "message": "you can actually just remove @hide @SystemApi because if the interface or class is that visibility, everything else gets that by default, IIRC",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 0
+      },
+      "revId": "7b4fea0388a039d71cfdff16fa1a9943dcaad16e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cae35876_b89d868e",
+        "filename": "remoteauth/framework/java/android/remoteauth/DeviceDiscoveryCallback.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1014288
+      },
+      "writtenOn": "2023-08-24T17:15:28Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 60,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 41
+      },
+      "revId": "7b4fea0388a039d71cfdff16fa1a9943dcaad16e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c7ce6ea_7eca726f",
+        "filename": "remoteauth/framework/java/android/remoteauth/RemoteDevice.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1014288
+      },
+      "writtenOn": "2023-08-24T17:15:28Z",
+      "side": 1,
+      "message": "remove @hide, so this is the same visibility as the class itself.",
+      "range": {
+        "startLine": 149,
+        "startChar": 3,
+        "endLine": 149,
+        "endChar": 12
+      },
+      "revId": "7b4fea0388a039d71cfdff16fa1a9943dcaad16e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
