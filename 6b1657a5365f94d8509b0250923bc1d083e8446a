@@ -16,6 +16,24 @@
       "message": "Can you verify that your test works as expected with aosp/2688146 applied?  You may have trouble compiling the whole platform with that CL, as I haven\u0027t finished cleaning up all the other violations, but you should hopefully be able to compile your test.\n\nI wouldn\u0027t be surprised if kotlin adds a null pointer check at the return of this method, which would cause your T test to pass even though it never passed null to NetworkInfo, and cause your S test to crash.\n\nEven if it doesn\u0027t fail now, you\u0027re breaking kotlin\u0027s nullability expectations and a future compiler upgrade could add an extra null pointer check.",
       "revId": "6b1657a5365f94d8509b0250923bc1d083e8446a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bcbf6a3_d41c4df2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-08-24T03:17:46Z",
+      "side": 1,
+      "message": "I have tried with aosp/2688146.\nI confirmed the build fail without `nullUnsafe` and build succeeded with `nullUnsafe`.\nIf this blocks aosp/2688146, I will revert this change and re-implement tests in Java.",
+      "parentUuid": "a2942cad_25146b05",
+      "revId": "6b1657a5365f94d8509b0250923bc1d083e8446a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "143fc9c8_0cffd3ab",
+        "filename": "tests/common/java/android/net/KeepalivePacketDataTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-08-24T03:17:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7af11063_10ac726f",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 16
+      },
+      "revId": "7e87f04a4e7d849e41ce1b7ec2318afc669fa498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9d6d656_50e7f398",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-08-23T08:09:32Z",
       "side": 1,
       "message": "You use this in several places. Does it work if you factor it out to a method or variable?\n\nval nullNetworkInfo \u003d NonNullTestUtils.nullUnsafe\u003cNetworkInfo\u003e(null)\nval nullDetailedState \u003d NonNullTestUtils.nullUnsafe\u003cDetailedState\u003e(null)",
+      "range": {
+        "startLine": 140,
+        "startChar": 28,
+        "endLine": 140,
+        "endChar": 74
+      },
+      "revId": "7e87f04a4e7d849e41ce1b7ec2318afc669fa498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c813b9a_cc0c9930",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-08-24T03:17:46Z",
+      "side": 1,
+      "message": "Using method or variable caused NPE at runtime.",
+      "parentUuid": "a9d6d656_50e7f398",
       "range": {
         "startLine": 140,
         "startChar": 28,
