@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b780dc29_ad89c15d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-24T11:55:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7a1cfd37_6c692529",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "c4258625a3bf2ec97301a929aa69202453d002bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a1272b3_e249ec47",
@@ -61,6 +85,30 @@
       "writtenOn": "2023-08-24T09:04:32Z",
       "side": 1,
       "message": "This is a lot more complex than it actually needs to be, considering this was there to satisfy DeviceConfigManager pretty deeply, but there is now a requirement to short-circuit all this code by adding the features to the list of mocked features in the first place. Most of this code can be removed.",
+      "range": {
+        "startLine": 59,
+        "startChar": 3,
+        "endLine": 79,
+        "endChar": 29
+      },
+      "revId": "c4258625a3bf2ec97301a929aa69202453d002bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8bcaed1_0f1f502e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-24T11:55:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a1272b3_e249ec47",
       "range": {
         "startLine": 59,
         "startChar": 3,
