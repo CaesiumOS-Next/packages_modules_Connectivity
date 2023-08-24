@@ -56,10 +56,18 @@ public class TrafficStatsTest extends AndroidTestCase {
     }
 
     public void testValidTotalStats() {
-        assertTrue(TrafficStats.getTotalTxPackets() >= 0);
-        assertTrue(TrafficStats.getTotalRxPackets() >= 0);
-        assertTrue(TrafficStats.getTotalTxBytes() >= 0);
-        assertTrue(TrafficStats.getTotalRxBytes() >= 0);
+        long txPackets = TrafficStats.getTotalTxPackets();
+        long rxPackets = TrafficStats.getTotalRxPackets();
+        long txBytes = TrafficStats.getTotalTxBytes();
+        long rxBytes = TrafficStats.getTotalRxBytes();
+        Log.i(LOG_TAG, "txPackets: " + txPackets);
+        Log.i(LOG_TAG, "rxPackets: " + rxPackets);
+        Log.i(LOG_TAG, "txBytes: " + rxBytes);
+        Log.i(LOG_TAG, "rxBytes: " + rxBytes);
+        assertTrue(txPackets >= 0);
+        assertTrue(rxPackets >= 0);
+        assertTrue(txBytes >= 0);
+        assertTrue(rxBytes >= 0);
     }
 
     public void testValidIfaceStats() {
@@ -116,6 +124,23 @@ public class TrafficStatsTest extends AndroidTestCase {
         final long ifaceRxPacketsBefore = TrafficStats.getRxPackets("lo");
         final long ifaceTxBytesBefore = TrafficStats.getTxBytes("lo");
         final long ifaceRxBytesBefore = TrafficStats.getRxBytes("lo");
+        Log.i(LOG_TAG, "mobileTxPacketsBefore: " + mobileTxPacketsBefore);
+        Log.i(LOG_TAG, "mobileRxPacketsBefore: " + mobileRxPacketsBefore);
+        Log.i(LOG_TAG, "mobileTxBytesBefore: " + mobileTxBytesBefore);
+        Log.i(LOG_TAG, "mobileRxBytesBefore: " + mobileRxBytesBefore);
+        Log.i(LOG_TAG, "totalTxPacketsBefore: " + totalTxPacketsBefore);
+        Log.i(LOG_TAG, "totalRxPacketsBefore: " + totalRxPacketsBefore);
+        Log.i(LOG_TAG, "totalTxBytesBefore: " + totalTxBytesBefore);
+        Log.i(LOG_TAG, "totalRxBytesBefore: " + totalRxBytesBefore);
+        Log.i(LOG_TAG, "uidTxBytesBefore: " + uidTxBytesBefore);
+        Log.i(LOG_TAG, "uidRxBytesBefore: " + uidRxBytesBefore);
+        Log.i(LOG_TAG, "uidTxPacketsBefore: " + uidTxPacketsBefore);
+        Log.i(LOG_TAG, "uidRxPacketsBefore: " + uidRxPacketsBefore);
+        Log.i(LOG_TAG, "ifaceTxPacketsBefore: " + ifaceTxPacketsBefore);
+        Log.i(LOG_TAG, "ifaceRxPacketsBefore: " + ifaceRxPacketsBefore);
+        Log.i(LOG_TAG, "ifaceTxBytesBefore: " + ifaceTxBytesBefore);
+        Log.i(LOG_TAG, "ifaceRxBytesBefore: " + ifaceRxBytesBefore);
+
 
         // Transfer 1MB of data across an explicitly localhost socket.
         final int byteCount = 1024;
@@ -202,6 +227,23 @@ public class TrafficStatsTest extends AndroidTestCase {
         final long ifaceRxDeltaPackets = ifaceRxPacketsAfter - ifaceRxPacketsBefore;
         final long ifaceTxDeltaBytes = ifaceTxBytesAfter - ifaceTxBytesBefore;
         final long ifaceRxDeltaBytes = ifaceRxBytesAfter - ifaceRxBytesBefore;
+        Log.i(LOG_TAG, "mobileTxPacketsAfter: " + mobileTxPacketsAfter);
+        Log.i(LOG_TAG, "mobileRxPacketsAfter: " + mobileRxPacketsAfter);
+        Log.i(LOG_TAG, "mobileTxBytesAfter: " + mobileTxBytesAfter);
+        Log.i(LOG_TAG, "mobileRxBytesAfter: " + mobileRxBytesAfter);
+        Log.i(LOG_TAG, "totalTxPacketsAfter: " + totalTxPacketsAfter);
+        Log.i(LOG_TAG, "totalRxPacketsAfter: " + totalRxPacketsAfter);
+        Log.i(LOG_TAG, "totalTxBytesAfter: " + totalTxBytesAfter);
+        Log.i(LOG_TAG, "totalRxBytesAfter: " + totalRxBytesAfter);
+        Log.i(LOG_TAG, "uidTxBytesAfter: " + uidTxBytesAfter);
+        Log.i(LOG_TAG, "uidRxBytesAfter: " + uidRxBytesAfter);
+        Log.i(LOG_TAG, "uidTxPacketsAfter: " + uidTxPacketsAfter);
+        Log.i(LOG_TAG, "uidRxPacketsAfter: " + uidRxPacketsAfter);
+        Log.i(LOG_TAG, "ifaceTxPacketsAfter: " + ifaceTxPacketsAfter);
+        Log.i(LOG_TAG, "ifaceRxPacketsAfter: " + ifaceRxPacketsAfter);
+        Log.i(LOG_TAG, "ifaceTxBytesAfter: " + ifaceTxBytesAfter);
+        Log.i(LOG_TAG, "ifaceRxDeltaBytes: " + ifaceRxDeltaBytes);
+
 
         // Localhost traffic *does* count against per-UID stats.
         /*

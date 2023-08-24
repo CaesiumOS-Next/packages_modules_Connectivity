@@ -98,9 +98,12 @@ int bpfGetIfaceStatsInternal(const char* iface, StatsValue* stats,
     } else {
         // Iterate through all interfaces.
         for (const auto& indices : iface_name_indices_map) {
+            ALOGE("kevinjeon@: Processing indices with key/name of \"%s\"", indices.first);
             for (const uint32_t& index : indices.second) {
+                ALOGE("kevinjeon@: Processing index with value of %" PRIu32, index);
                 Result<StatsValue> statsEntry = ifaceStatsMap.readValue(index);
                 if (!statsEntry.ok()) {
+                    ALOGE("kevinjeon@: Index processing failed on the most recent index! nativeGetTotalStat will return -1.");
                     return statsEntry.error().code();
                 }
                 *stats += statsEntry.value();
