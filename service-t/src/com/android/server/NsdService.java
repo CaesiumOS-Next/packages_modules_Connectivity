@@ -65,6 +65,7 @@ import android.os.RemoteException;
 import android.os.UserHandle;
 import android.provider.DeviceConfig;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
 import android.util.Pair;
@@ -215,6 +216,10 @@ public class NsdService extends INsdManager.Stub {
     @NonNull
     private final ArraySet<Integer> mRunningAppActiveUids = new ArraySet<>();
 
+    @NonNull
+    private final ArrayMap<String, ArraySet<OffloadServiceInfoWrapper>>
+            mInterfaceOffloadServiceInfos = new ArrayMap<>();
+
     private final long mCleanupDelayMs;
 
     private static final int INVALID_ID = 0;
@@ -239,6 +244,28 @@ public class NsdService extends INsdManager.Stub {
             this.mInterfaceName = interfaceName;
             this.mOffloadCapabilities = capabilities;
             this.mOffloadType = offloadType;
+        }
+    }
+
+    private static class OffloadServiceInfoWrapper {
+
+        @NonNull final OffloadServiceInfo mOffloadServiceInfo;
+
+        OffloadServiceInfoWrapper(@NonNull OffloadServiceInfo offloadServiceInfo) {
+            this.mOffloadServiceInfo = offloadServiceInfo;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof OffloadServiceInfoWrapper)) return false;
+            OffloadServiceInfoWrapper that = (OffloadServiceInfoWrapper) o;
+            return Objects.equals(mOffloadServiceInfo.getKey(), that.mOffloadServiceInfo.getKey());
+        }
+
+        @Override
+        public int hashCode() {
+            return mOffloadServiceInfo.getKey().hashCode();
         }
     }
 
@@ -1162,7 +1189,7 @@ public class NsdService extends INsdManager.Stub {
                         // TODO: Limits the number of registrations created by a given class.
                         mOffloadEngines.register(offloadEngineInfo.mOffloadEngine,
                                 offloadEngineInfo);
-                        // TODO: Sends all the existing OffloadServiceInfos back.
+                        sendAllOffloadServiceInfos(offloadEngineInfo);
                         break;
                     case NsdManager.UNREGISTER_OFFLOAD_ENGINE:
                         mOffloadEngines.unregister((IOffloadEngine) msg.obj);
@@ -1834,6 +1861,25 @@ public class NsdService extends INsdManager.Stub {
         }
     }
 
+    private void sendAllOffloadServiceInfos(@NonNull OffloadEngineInfo offloadEngineInfo) {
+        final String targetInterface = offloadEngineInfo.mInterfaceName;
+        final IOffloadEngine offloadEngine = offloadEngineInfo.mOffloadEngine;
+        final ArraySet<OffloadServiceInfoWrapper> offloadWrappers =
+                mInterfaceOffloadServiceInfos.get(targetInterface);
+        if (offloadWrappers == null) {
+            return;
+        }
+        for (int i = 0; i < offloadWrappers.size(); ++i) {
+            try {
+                offloadEngine.onOffloadServiceUpdated(
+                        offloadWrappers.valueAt(i).mOffloadServiceInfo);
+            } catch (RemoteException e) {
+                // Can happen in regular cases, do not log a stacktrace
+                Log.i(TAG, "Failed to send offload callback, remote died", e);
+            }
+        }
+    }
+
     private void sendOffloadServiceInfosUpdate(@NonNull String targetInterfaceName,
             @NonNull OffloadServiceInfo offloadServiceInfo, boolean isRemove) {
         final int count = mOffloadEngines.beginBroadcast();
@@ -1902,12 +1948,27 @@ public class NsdService extends INsdManager.Stub {
         @Override
         public void onOffloadStartOrUpdate(@NonNull String interfaceName,
                 @NonNull OffloadServiceInfo offloadServiceInfo) {
+            ArraySet<OffloadServiceInfoWrapper> offloadWrappers =
+                    mInterfaceOffloadServiceInfos.get(interfaceName);
+            if (offloadWrappers == null) {
+                offloadWrappers = new ArraySet<>();
+                mInterfaceOffloadServiceInfos.put(interfaceName, offloadWrappers);
+            }
+            offloadWrappers.add(new OffloadServiceInfoWrapper(offloadServiceInfo));
             sendOffloadServiceInfosUpdate(interfaceName, offloadServiceInfo, false /* isRemove */);
         }
 
         @Override
         public void onOffloadStop(@NonNull String interfaceName,
                 @NonNull OffloadServiceInfo offloadServiceInfo) {
+            final ArraySet<OffloadServiceInfoWrapper> offloadWrappers =
+                    mInterfaceOffloadServiceInfos.get(interfaceName);
+            if (offloadWrappers != null) {
+                offloadWrappers.remove(new OffloadServiceInfoWrapper(offloadServiceInfo));
+                if (offloadWrappers.isEmpty()) {
+                    mInterfaceOffloadServiceInfos.remove(interfaceName);
+                }
+            }
             sendOffloadServiceInfosUpdate(interfaceName, offloadServiceInfo, true /* isRemove */);
         }
 
