@@ -20,7 +20,9 @@ import android.app.usage.NetworkStatsManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.INetd;
+import android.net.RoutingCoordinatorManager;
 import android.net.ip.IpServer;
 import android.os.Build;
 import android.os.Handler;
@@ -119,6 +121,11 @@ public abstract class TetheringDependencies {
     public INetd getINetd(Context context) {
         return INetd.Stub.asInterface(
                 (IBinder) context.getSystemService(Context.NETD_SERVICE));
+    }
+
+    public RoutingCoordinatorManager getRoutingCoordinator(Context context) {
+        return ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE))
+                .getRoutingCoordinator();
     }
 
     /**

@@ -190,7 +190,6 @@ import android.net.QosFilter;
 import android.net.QosSocketFilter;
 import android.net.QosSocketInfo;
 import android.net.RouteInfo;
-import android.net.RouteInfoParcel;
 import android.net.SocketKeepalive;
 import android.net.TetheringManager;
 import android.net.TransportInfo;
@@ -305,6 +304,7 @@ import com.android.server.connectivity.PermissionMonitor;
 import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
+import com.android.server.connectivity.RoutingCoordinatorService;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.VpnNetworkPreferenceInfo;
 import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
@@ -468,6 +468,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @GuardedBy("mTNSLock")
     private TestNetworkService mTNS;
     private final CompanionDeviceManagerProxyService mCdmps;
+    private final RoutingCoordinatorService mRoutingCoordinatorService;
 
     private final Object mTNSLock = new Object();
 
@@ -1772,6 +1773,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else {
             mCdmps = null;
         }
+
+        mRoutingCoordinatorService = new RoutingCoordinatorService(context);
 
         if (mDeps.isAtLeastU()
                 && mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION)) {
@@ -8189,38 +8192,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    // TODO: move to frameworks/libs/net.
-    private RouteInfoParcel convertRouteInfo(RouteInfo route) {
-        final String nextHop;
-
-        switch (route.getType()) {
-            case RouteInfo.RTN_UNICAST:
-                if (route.hasGateway()) {
-                    nextHop = route.getGateway().getHostAddress();
-                } else {
-                    nextHop = INetd.NEXTHOP_NONE;
-                }
-                break;
-            case RouteInfo.RTN_UNREACHABLE:
-                nextHop = INetd.NEXTHOP_UNREACHABLE;
-                break;
-            case RouteInfo.RTN_THROW:
-                nextHop = INetd.NEXTHOP_THROW;
-                break;
-            default:
-                nextHop = INetd.NEXTHOP_NONE;
-                break;
-        }
-
-        final RouteInfoParcel rip = new RouteInfoParcel();
-        rip.ifName = route.getInterface();
-        rip.destination = route.getDestination().toString();
-        rip.nextHop = nextHop;
-        rip.mtu = route.getMtu();
-
-        return rip;
-    }
-
     /**
      * Have netd update routes from oldLp to newLp.
      * @return true if routes changed between oldLp and newLp
@@ -8241,7 +8212,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (route.hasGateway()) continue;
             if (VDBG || DDBG) log("Adding Route [" + route + "] to network " + netId);
             try {
-                mNetd.networkAddRouteParcel(netId, convertRouteInfo(route));
+                mRoutingCoordinatorService.addRoute(netId, route);
             } catch (Exception e) {
                 if ((route.getDestination().getAddress() instanceof Inet4Address) || VDBG) {
                     loge("Exception in networkAddRouteParcel for non-gateway: " + e);
@@ -8252,7 +8223,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (!route.hasGateway()) continue;
             if (VDBG || DDBG) log("Adding Route [" + route + "] to network " + netId);
             try {
-                mNetd.networkAddRouteParcel(netId, convertRouteInfo(route));
+                mRoutingCoordinatorService.addRoute(netId, route);
             } catch (Exception e) {
                 if ((route.getGateway() instanceof Inet4Address) || VDBG) {
                     loge("Exception in networkAddRouteParcel for gateway: " + e);
@@ -8263,7 +8234,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (RouteInfo route : routeDiff.removed) {
             if (VDBG || DDBG) log("Removing Route [" + route + "] from network " + netId);
             try {
-                mNetd.networkRemoveRouteParcel(netId, convertRouteInfo(route));
+                mRoutingCoordinatorService.removeRoute(netId, route);
             } catch (Exception e) {
                 loge("Exception in networkRemoveRouteParcel: " + e);
             }
@@ -8272,7 +8243,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (RouteInfo route : routeDiff.updated) {
             if (VDBG || DDBG) log("Updating Route [" + route + "] from network " + netId);
             try {
-                mNetd.networkUpdateRouteParcel(netId, convertRouteInfo(route));
+                mRoutingCoordinatorService.removeRoute(netId, route);
             } catch (Exception e) {
                 loge("Exception in networkUpdateRouteParcel: " + e);
             }
@@ -12272,5 +12243,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public IBinder getCompanionDeviceManagerProxyService() {
         enforceNetworkStackPermission(mContext);
         return mCdmps;
+    }
+
+    @Override
+    public IBinder getRoutingCoordinatorService() {
+        enforceNetworkStackPermission(mContext);
+        return mRoutingCoordinatorService;
     }
 }

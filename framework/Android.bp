@@ -280,8 +280,9 @@ java_library {
     ],
     jarjar_rules: ":framework-connectivity-jarjar-rules",
     srcs: [
-        // Files listed here MUST all be annotated with @RequiresApi(Build.VERSION_CODES.TIRAMISU),
-        // so that API checks are enforced for R+ users of this library
+        // Files listed here MUST all be annotated with @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+        // or above, so that API checks are enforced for R+ users of this library
+        "src/android/net/RoutingCoordinatorManager.java",
         "src/android/net/connectivity/TiramisuConnectivityInternalApiUtil.java",
     ],
     visibility: [

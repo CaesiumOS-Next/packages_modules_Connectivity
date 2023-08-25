@@ -6157,4 +6157,21 @@ public class ConnectivityManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    private static RoutingCoordinatorManager sRoutingCoordinatorManager = null;
+    /** @hide */
+    public RoutingCoordinatorManager getRoutingCoordinatorManager() {
+        try {
+            synchronized (sCallbacks) {
+                if (null == sRoutingCoordinatorManager) {
+                    sRoutingCoordinatorManager = new RoutingCoordinatorManager(mContext,
+                            IRoutingCoordinator.Stub.asInterface(
+                                    mService.getRoutingCoordinatorService()));
+                }
+            }
+            return sRoutingCoordinatorManager;
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }
