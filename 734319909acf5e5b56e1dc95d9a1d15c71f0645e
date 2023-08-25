@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d974860_3d3023a2",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-25T21:05:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bd57454_09b684ca",
+      "range": {
+        "startLine": 68,
+        "startChar": 48,
+        "endLine": 68,
+        "endChar": 55
+      },
+      "revId": "734319909acf5e5b56e1dc95d9a1d15c71f0645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a8a445c_880675e1",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-08-23T21:38:18Z",
       "side": 1,
       "message": "should end with period and space",
+      "revId": "734319909acf5e5b56e1dc95d9a1d15c71f0645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc86195d_8bad167d",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/SessionParameters.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-25T21:05:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a8a445c_880675e1",
       "revId": "734319909acf5e5b56e1dc95d9a1d15c71f0645e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
