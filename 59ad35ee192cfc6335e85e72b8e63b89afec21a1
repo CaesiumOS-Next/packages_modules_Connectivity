@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a736afc_da2d7e33",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 0,
+      "message": "Do you know why this call to isIpv6VcnNetworkInterface is here, instead of in the code that selects the upstream? ISTM that we could just filter that type of interface out directly in updateUpstreamIPv6LinkProperties. Maybe we could change:\n\n    if (v6only !\u003d null) {\n\nto\n\n    // BPF offload to VCN interfaces is not supported.\n    if (v6only !\u003d null \u0026\u0026 isVcnInterface(v6only.getInterfaceName()) {\n        v6only \u003d null;\n    }\n\n    if (v6only !\u003d null) {\n        // ... existing code\n\nIf that works, then we could merge it in its own CL before this one. Then we wouldn\u0027t need to add a new call to isIpv6VcnNetworkInterface in line 967.\n\nIf you do this, I think you can also remove this comment at line 789:\n\n        // Be aware that updateIpv6ForwardingRules use mLastIPv6LinkProperties, so this line should\n        // be eariler than updateIpv6ForwardingRules.",
+      "range": {
+        "startLine": 937,
+        "startChar": 36,
+        "endLine": 937,
+        "endChar": 61
+      },
+      "revId": "59ad35ee192cfc6335e85e72b8e63b89afec21a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

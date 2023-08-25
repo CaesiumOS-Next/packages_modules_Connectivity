@@ -1,0 +1,487 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b4289b7_7db35448",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "Returning a reference to a non-final member isn\u0027t great because the member could change. Do you think we can make mInterfaceParams final and set it in the constructor?\n\nThere might be a risk that when the constructor is called, the interface might not exist... but maybe that\u0027s fine because if mInterfaceParams is null, we can simply never enable IPv6?",
+      "range": {
+        "startLine": 384,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 32
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76575c42_abe80bc1",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "clearIpv6Rules?",
+      "range": {
+        "startLine": 915,
+        "startChar": 17,
+        "endLine": 915,
+        "endChar": 41
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb3f63b2_a8fb2dc1",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "If you rename BpfCoordinator#tetherOffloadRuleUpdate, suggest renaming this method so it has the same name as that one.\n\nActually, maybe you can remove this method entirely? The only thing it does before calling into BpfCoordinator#tetherOffloadRuleUpdate is to return early if mUsingBpfOffload is false. But BpfCoordinator#tetherOffloadRuleUpdate also immediately returns early if isUsingBpf is false. Isn\u0027t that the same?\n\nIf you can remove it entirely, probably best to do it in a separate CL before this one.",
+      "range": {
+        "startLine": 921,
+        "startChar": 17,
+        "endLine": 921,
+        "endChar": 41
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d2c5561_8018ede5",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "Should this be called updateIpv6UpstreamRules?",
+      "range": {
+        "startLine": 936,
+        "startChar": 17,
+        "endLine": 936,
+        "endChar": 42
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42ac7ee2_ef93ea98",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "Should we rename this to updateIpv6DownstreamRules?",
+      "range": {
+        "startLine": 953,
+        "startChar": 17,
+        "endLine": 953,
+        "endChar": 42
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bffa66de_29fe958a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "It sounds like we\u0027re not sure whether this code is needed? It seems incorrect to clear the upstream rules when something happens to the downstream. I don\u0027t think we should keep this code \"just in case\". We should design the code so that we can guarantee that all the cleanup paths will run at the right time.\n\nMaybe remove this code and add tests to see if you can get into a situation where the rules are incorrectly not cleared?",
+      "range": {
+        "startLine": 964,
+        "startChar": 53,
+        "endLine": 964,
+        "endChar": 85
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc7cecb4_c4695d76",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "I wonder... if we don\u0027t have an upstream, is returning early the right thing?\n\nClearly, we  cannot forward traffic if we don\u0027t have an upstream. But if we don\u0027t call BpfCoordinator#addIpv6DownstreamRule, then we will just forget about this neighbor. If later on the the upstream changes, we won\u0027t start downstream forwarding to this neighbour. Downstream forwarding to this neighbour will start only when we get another NeighborEvent for it. So you could argue that we should instead add a rule with an upstream index of zero - it won\u0027t actually forward traffic, but  at least it will be in mIpv6DownstreamRules already, and when the upstream changes, then we will call onNewInterface on it.\n\nOn the other hand, you could argue that returning early here is correct, because when later on the upstream changes, it will probably have an IPv6 prefix that is not the same prefix as this neighbour, so there\u0027s no point forwarding to this neighbour anyway.\n\nMaybe we can return early here, but add a comment that says:\n\n    // Ignore NeighborEvents if there is no upstream. If the upstream later changes, it\n    // will likely have a different IPv6 prefix from this NeighborEvent anyway. So there\n    // is no point adding this neighbor to the IPv6 rules.",
+      "range": {
+        "startLine": 969,
+        "startChar": 12,
+        "endLine": 969,
+        "endChar": 18
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1638bb4_f45456f2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "Can you add more comments here explaining what each entry is? It doesn\u0027t need to be as long as the one above, but it should be longer than it is now.",
+      "range": {
+        "startLine": 243,
+        "startChar": 23,
+        "endLine": 243,
+        "endChar": 28
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa2e32ba_65caac7c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "Out of curiosity, why is this indexed by the source prefix instead of just being a set? Does any of the code depend on there being at most one upstream rule per source prefix?",
+      "range": {
+        "startLine": 244,
+        "startChar": 50,
+        "endLine": 244,
+        "endChar": 58
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "208ac689_3bc0bb4c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "+ \": \" + e);",
+      "range": {
+        "startLine": 608,
+        "startChar": 73,
+        "endLine": 608,
+        "endChar": 75
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d42690ca_ae6a435f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "I think you can replace this by:\n\n    LinkedHashMap\u003cIpPrefix, Ipv6UpstreamRule\u003e rules \u003d mIpv6UpstreamRules.computeIfAbsent(\n            ipServer, LinkedHashMap::new);\n\nor:\n\n    LinkedHashMap\u003cIpPrefix, Ipv6UpstreamRule\u003e rules \u003d mIpv6UpstreamRules.computeIfAbsent(\n            ipServer, (k, v) -\u003e new LinkedHashMap\u003c\u003e());\n\nor:\n\n    LinkedHashMap\u003cIpPrefix, Ipv6UpstreamRule\u003e rules \u003d mIpv6UpstreamRules.computeIfAbsent(\n            ipServer, (k, v) -\u003e new LinkedHashMap\u003cIpPrefix, Ipv6UpstreamRule\u003e());",
+      "range": {
+        "startLine": 618,
+        "startChar": 0,
+        "endLine": 621,
+        "endChar": 91
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51e692a4_637cf97c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "+ \": \" + e);",
+      "range": {
+        "startLine": 634,
+        "startChar": 76,
+        "endLine": 634,
+        "endChar": 78
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "466d03f7_e3555c98",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "IPv6 downstream",
+      "range": {
+        "startLine": 675,
+        "startChar": 14,
+        "endLine": 675,
+        "endChar": 35
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9af7788_9455e941",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "Rename to clearIpv6Rules?",
+      "range": {
+        "startLine": 702,
+        "startChar": 16,
+        "endLine": 702,
+        "endChar": 38
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23e54c79_6d544b12",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "Could this code just be:\n\n    final LinkedHashMap\u003cIpPrefix, Ipv6UpstreamRule\u003e upstreamRules \u003d\n            mIpv6UpstreamRules.remove(ipServer);\n    if (upstreamRules !\u003d null) {\n        for (Ipv6UpstreamRule rule: upstreamRules.values()) {\n            if (!mBpfCoordinatorShim.removeIpv6UpstreamRule(rule)) {\n                mLog.e(\"Failed to remove upstream IPv6 forwarding rule: \" + rule);\n            }\n        }\n        maybeClearLimit(mLastIpv6UpstreamIndex);\n    }\n\nthat would remove a map copy and some lookups and might run a bit faster.\n\nAlso, if you do this, do you need a removeIpv6UpstreamRule method at all? It\u0027s new in this CL, and I don\u0027t see any call to it other than here.",
+      "range": {
+        "startLine": 709,
+        "startChar": 12,
+        "endLine": 709,
+        "endChar": 94
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6695293a_f68db97c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "Same comment as line 709, I think you could just iterate here and clear everything, saving a copy and some hash lookups.\n\nWould this also allow you to remove the removeIpv6DownstreamRule method entirely as well? I\u0027m not sure if there are any other callers. If there aren\u0027t any, please remove it.",
+      "range": {
+        "startLine": 721,
+        "startChar": 8,
+        "endLine": 721,
+        "endChar": 90
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d169990_80b4ac4b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "Delete all upstream and downstream rules for the passed-in IpServer, and if the new upstream is nonzero, reapply them to the new upstream.",
+      "range": {
+        "startLine": 729,
+        "startChar": 7,
+        "endLine": 729,
+        "endChar": 79
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b628752_cd329d12",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "We should rename this for clarity. Perhaps call it updateAllIpv6Rules, since that\u0027s what it does?",
+      "range": {
+        "startLine": 732,
+        "startChar": 16,
+        "endLine": 732,
+        "endChar": 39
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0343da27_a3a557da",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "This code is the same as lines 705-714, right? If so, factor it out to a new clearIpv6UpstreamRules method. See comment at line 709 as well.",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 744,
+        "endChar": 9
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1df4110_f3ff2480",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "Ditto, is this code the same as 716-725? If so I think you could factor out to a clearIpv6DownstreamRules method. The method could return a copy of the rules.",
+      "range": {
+        "startLine": 765,
+        "startChar": 0,
+        "endLine": 773,
+        "endChar": 9
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f62fd624_4d0f88d7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-25T10:11:22Z",
+      "side": 1,
+      "message": "I wonder if this is useful? I think this code is only ever called if the upstream changes. But if this is a new upstream, it will probably have a different prefix than the one these downstream rules are in. If so, there\u0027s no point adding these rules because they will never see any traffic. We might want to delete them, or add a TODO to delete them.",
+      "range": {
+        "startLine": 775,
+        "startChar": 0,
+        "endLine": 777,
+        "endChar": 9
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
