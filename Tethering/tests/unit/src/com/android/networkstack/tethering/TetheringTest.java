@@ -142,6 +142,7 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.RouteInfo;
+import android.net.RoutingCoordinatorManager;
 import android.net.TetherStatesParcel;
 import android.net.TetheredClient;
 import android.net.TetheredClient.AddressInfo;
@@ -480,6 +481,12 @@ public class TetheringTest {
                 Runnable callback) {
             mEntitleMgr = spy(super.getEntitlementManager(ctx, h, log, callback));
             return mEntitleMgr;
+        }
+
+        @Nullable
+        @Override
+        public RoutingCoordinatorManager getRoutingCoordinator(final Context context) {
+            return null;
         }
 
         @Override
