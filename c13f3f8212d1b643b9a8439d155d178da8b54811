@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5d003f_3e86993b",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/RangingCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-25T21:05:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecdded4d_53147ff4",
+      "revId": "c13f3f8212d1b643b9a8439d155d178da8b54811",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8394ee75_c5a1a7f1",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-24T15:12:35Z",
       "side": 1,
       "message": "This class could use more javadoc to explain how the parameters work together or how you\u0027re supposed to use them.",
+      "revId": "c13f3f8212d1b643b9a8439d155d178da8b54811",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51b5f014_2ceaae96",
+        "filename": "remoteauth/service/java/com/android/server/remoteauth/ranging/SessionParameters.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1896640
+      },
+      "writtenOn": "2023-08-25T21:05:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8394ee75_c5a1a7f1",
       "revId": "c13f3f8212d1b643b9a8439d155d178da8b54811",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
