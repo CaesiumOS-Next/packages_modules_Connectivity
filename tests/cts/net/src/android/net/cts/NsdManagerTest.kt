@@ -163,6 +163,7 @@ class NsdManagerTest {
 
     private val cm by lazy { context.getSystemService(ConnectivityManager::class.java)!! }
     private val serviceName = "NsdTest%09d".format(Random().nextInt(1_000_000_000))
+    private val serviceName2 = "NsdTest%09d".format(Random().nextInt(1_000_000_000))
     private val serviceType = "_nmt%09d._tcp".format(Random().nextInt(1_000_000_000))
     private val handlerThread = HandlerThread(NsdManagerTest::class.java.simpleName)
     private val ctsNetUtils by lazy{ CtsNetUtils(context) }
@@ -890,10 +891,10 @@ class NsdManagerTest {
         }
     }
 
-    fun checkOffloadServiceInfo(serviceInfo: OffloadServiceInfo) {
-        assertEquals(serviceName, serviceInfo.key.serviceName)
+    fun checkOffloadServiceInfo(serviceInfo: OffloadServiceInfo, expectedServiceName: String) {
+        assertEquals(expectedServiceName, serviceInfo.key.serviceName)
         assertEquals(serviceType, serviceInfo.key.serviceType)
-        assertEquals(listOf<String>("_subtype"), serviceInfo.subtypes)
+        assertEquals(listOf("_subtype"), serviceInfo.subtypes)
         assertTrue(serviceInfo.hostname.startsWith("Android_"))
         assertTrue(serviceInfo.hostname.endsWith("local"))
         assertEquals(0, serviceInfo.priority)
@@ -907,36 +908,62 @@ class NsdManagerTest {
         // The offload callbacks are only supported with the new backend,
         // enabled with target SDK U+.
         assumeTrue(isAtLeastU() || targetSdkVersion > Build.VERSION_CODES.TIRAMISU)
-        val offloadEngine = TestNsdOffloadEngine()
-        runAsShell(NETWORK_SETTINGS) {
-            nsdManager.registerOffloadEngine(testNetwork1.iface.interfaceName,
-                OffloadEngine.OFFLOAD_TYPE_REPLY.toLong(),
-                OffloadEngine.OFFLOAD_CAPABILITY_BYPASS_MULTICAST_LOCK.toLong(),
-                { it.run() }, offloadEngine)
-        }
 
-        val si = NsdServiceInfo()
-        si.serviceType = "$serviceType,_subtype"
-        si.serviceName = serviceName
-        si.network = testNetwork1.network
-        si.port = 12345
-        val record = NsdRegistrationRecord()
-        nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, record)
-        val addOrUpdateEvent = offloadEngine
-            .expectCallbackEventually<TestNsdOffloadEngine.OffloadEvent.AddOrUpdateEvent> {
-                it.info.key.serviceName == serviceName
+        val si1 = NsdServiceInfo()
+        si1.serviceType = "$serviceType,_subtype"
+        si1.serviceName = serviceName
+        si1.network = testNetwork1.network
+        si1.port = 23456
+        val record1 = NsdRegistrationRecord()
+
+        val si2 = NsdServiceInfo()
+        si2.serviceType = "$serviceType,_subtype"
+        si2.serviceName = serviceName2
+        si2.network = testNetwork1.network
+        si2.port = 12345
+        val record2 = NsdRegistrationRecord()
+
+        tryTest {
+            // Register service before the OffloadEngine is registered.
+            nsdManager.registerService(si1, NsdManager.PROTOCOL_DNS_SD, record1)
+            record1.expectCallback<ServiceRegistered>()
+            val offloadEngine = TestNsdOffloadEngine()
+            runAsShell(NETWORK_SETTINGS) {
+                nsdManager.registerOffloadEngine(testNetwork1.iface.interfaceName,
+                    OffloadEngine.OFFLOAD_TYPE_REPLY.toLong(),
+                    OffloadEngine.OFFLOAD_CAPABILITY_BYPASS_MULTICAST_LOCK.toLong(),
+                    { it.run() }, offloadEngine)
             }
-        checkOffloadServiceInfo(addOrUpdateEvent.info)
+            val addOrUpdateEvent1 = offloadEngine
+                .expectCallbackEventually<TestNsdOffloadEngine.OffloadEvent.AddOrUpdateEvent> {
+                    it.info.key.serviceName == si1.serviceName
+                }
+            checkOffloadServiceInfo(addOrUpdateEvent1.info, si1.serviceName)
 
-        nsdManager.unregisterService(record)
-        val unregisterEvent = offloadEngine
-            .expectCallbackEventually<TestNsdOffloadEngine.OffloadEvent.RemoveEvent> {
-                it.info.key.serviceName == serviceName
+            // Register service after OffloadEngine is registered.
+            nsdManager.registerService(si2, NsdManager.PROTOCOL_DNS_SD, record2)
+            record2.expectCallback<ServiceRegistered>()
+            val addOrUpdateEvent2 = offloadEngine
+                .expectCallbackEventually<TestNsdOffloadEngine.OffloadEvent.AddOrUpdateEvent> {
+                    it.info.key.serviceName == si2.serviceName
+                }
+            checkOffloadServiceInfo(addOrUpdateEvent2.info, si2.serviceName)
+
+            nsdManager.unregisterService(record2)
+            record2.expectCallback<ServiceUnregistered>()
+            val unregisterEvent = offloadEngine
+                .expectCallbackEventually<TestNsdOffloadEngine.OffloadEvent.RemoveEvent> {
+                    it.info.key.serviceName == si2.serviceName
+                }
+            checkOffloadServiceInfo(unregisterEvent.info, si2.serviceName)
+
+            runAsShell(NETWORK_SETTINGS) {
+                nsdManager.unregisterOffloadEngine(offloadEngine)
             }
-        checkOffloadServiceInfo(unregisterEvent.info)
-
-        runAsShell(NETWORK_SETTINGS) {
-            nsdManager.unregisterOffloadEngine(offloadEngine)
+        } cleanupStep {
+            nsdManager.unregisterService(record1)
+        } cleanup {
+            record1.expectCallback<ServiceUnregistered>()
         }
     }
 
