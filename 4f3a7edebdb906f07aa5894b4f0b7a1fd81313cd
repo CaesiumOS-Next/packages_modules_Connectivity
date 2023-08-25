@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c05defe_603023e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-25T03:15:00Z",
+      "side": 1,
+      "message": "Please review this CL.\n\nThis Cl is a continuation of the device discovery, here I am adding API stubs for registration",
+      "revId": "4f3a7edebdb906f07aa5894b4f0b7a1fd81313cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
