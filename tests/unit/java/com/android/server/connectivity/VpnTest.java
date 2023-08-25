@@ -2817,15 +2817,31 @@ public class VpnTest extends VpnTestBase {
         // Verify MOBIKE is triggered
         verifyMobikeTriggered(vpnSnapShot.vpn.mNetworkCapabilities.getUnderlyingNetworks(),
                 0 /* retryIndex */);
+        // Validation failure on VPN network should trigger a re-evaluation request for the
+        // underlying network.
+        verify(mConnectivityManager).reportNetworkConnectivity(TEST_NETWORK, false);
 
         reset(mIkev2SessionCreator);
+        reset(mExecutor);
 
         // Send validation status update.
         // Recovered and get network validated. It should not trigger the ike session reset.
         ((Vpn.IkeV2VpnRunner) vpnSnapShot.vpn.mVpnRunner).onValidationStatus(
                 NetworkAgent.VALIDATION_STATUS_VALID);
+        // Verify that retry count being reset
+        verify(mExecutor, timeout(TEST_TIMEOUT_MS)).execute(any(Runnable.class));
         verify(mIkev2SessionCreator, never()).createIkeSession(
                 any(), any(), any(), any(), any(), any());
+
+        reset(mIkeSessionWrapper);
+        reset(mExecutor);
+
+        // Another validation fail should trigger another reportNetworkConnectivity
+        ((Vpn.IkeV2VpnRunner) vpnSnapShot.vpn.mVpnRunner).onValidationStatus(
+                NetworkAgent.VALIDATION_STATUS_NOT_VALID);
+        verifyMobikeTriggered(vpnSnapShot.vpn.mNetworkCapabilities.getUnderlyingNetworks(),
+                0 /* retryIndex */);
+        verify(mConnectivityManager, times(2)).reportNetworkConnectivity(TEST_NETWORK, false);
     }
 
     @Test
@@ -2839,7 +2855,9 @@ public class VpnTest extends VpnTestBase {
                 NetworkAgent.VALIDATION_STATUS_NOT_VALID);
         verifyMobikeTriggered(vpnSnapShot.vpn.mNetworkCapabilities.getUnderlyingNetworks(),
                 retry++);
-
+        // Validation failure on VPN network should trigger a re-evaluation request for the
+        // underlying network.
+        verify(mConnectivityManager).reportNetworkConnectivity(TEST_NETWORK, false);
         reset(mIkev2SessionCreator);
 
         // Second validation status update.
@@ -2863,6 +2881,8 @@ public class VpnTest extends VpnTestBase {
                 eq(TimeUnit.MILLISECONDS));
         final List<Long> delays = delayCaptor.getAllValues();
         assertEquals(expectedDelay, (long) delays.get(delays.size() - 1));
+        // Call to reportNetworkConnectivity should only happen once. No further interaction.
+        verify(mConnectivityManager).reportNetworkConnectivity(TEST_NETWORK, false);
 
         // Another invalid status reported should not trigger other scheduled recovery.
         expectedDelay = mTestDeps.getValidationFailRecoveryMs(retry++);
@@ -2874,6 +2894,8 @@ public class VpnTest extends VpnTestBase {
         // Verify that session being reset
         verify(mIkev2SessionCreator, timeout(TEST_TIMEOUT_MS + expectedDelay))
                 .createIkeSession(any(), any(), any(), any(), any(), any());
+        // Call to reportNetworkConnectivity should only happen once. No further interaction.
+        verify(mConnectivityManager).reportNetworkConnectivity(TEST_NETWORK, false);
     }
 
     @Test
