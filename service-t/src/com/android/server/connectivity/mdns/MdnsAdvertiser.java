@@ -117,6 +117,17 @@ public class MdnsAdvertiser {
         }
     }
 
+    /**
+     * Gets the current status of the OffloadServiceInfos per interface.
+     * @param interfaceName the target interfaceName
+     * @return the list of current offloaded services.
+     */
+    @Nullable
+    public List<OffloadServiceInfoWrapper> getAllInterfaceOffloadServiceInfos(
+            @NonNull String interfaceName) {
+        return mInterfaceOffloadServices.get(interfaceName);
+    }
+
     private final MdnsInterfaceAdvertiser.Callback mInterfaceAdvertiserCb =
             new MdnsInterfaceAdvertiser.Callback() {
         @Override
@@ -385,9 +396,12 @@ public class MdnsAdvertiser {
         }
     }
 
-    private static class OffloadServiceInfoWrapper {
-        private final @NonNull OffloadServiceInfo mOffloadServiceInfo;
-        private final int mServiceId;
+    /**
+     * The wrapper class for OffloadServiceInfo including the serviceId.
+     */
+    public static class OffloadServiceInfoWrapper {
+        public final @NonNull OffloadServiceInfo mOffloadServiceInfo;
+        public final int mServiceId;
 
         OffloadServiceInfoWrapper(int serviceId, OffloadServiceInfo offloadServiceInfo) {
             mOffloadServiceInfo = offloadServiceInfo;

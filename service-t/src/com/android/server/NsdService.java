@@ -1162,7 +1162,7 @@ public class NsdService extends INsdManager.Stub {
                         // TODO: Limits the number of registrations created by a given class.
                         mOffloadEngines.register(offloadEngineInfo.mOffloadEngine,
                                 offloadEngineInfo);
-                        // TODO: Sends all the existing OffloadServiceInfos back.
+                        sendAllOffloadServiceInfos(offloadEngineInfo);
                         break;
                     case NsdManager.UNREGISTER_OFFLOAD_ENGINE:
                         mOffloadEngines.unregister((IOffloadEngine) msg.obj);
@@ -1831,6 +1831,24 @@ public class NsdService extends INsdManager.Stub {
         @Override
         public String getInterfaceHash() throws RemoteException {
             return this.HASH;
+        }
+    }
+
+    private void sendAllOffloadServiceInfos(@NonNull OffloadEngineInfo offloadEngineInfo) {
+        final String targetInterface = offloadEngineInfo.mInterfaceName;
+        final IOffloadEngine offloadEngine = offloadEngineInfo.mOffloadEngine;
+        final List<MdnsAdvertiser.OffloadServiceInfoWrapper> offloadWrappers =
+                mAdvertiser.getAllInterfaceOffloadServiceInfos(targetInterface);
+        if (offloadWrappers == null) {
+            return;
+        }
+        for (int i = 0; i < offloadWrappers.size(); ++i) {
+            try {
+                offloadEngine.onOffloadServiceUpdated(offloadWrappers.get(i).mOffloadServiceInfo);
+            } catch (RemoteException e) {
+                // Can happen in regular cases, do not log a stacktrace
+                Log.i(TAG, "Failed to send offload callback, remote died", e);
+            }
         }
     }
 
