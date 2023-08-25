@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c4831ce_7635c004",
+        "filename": "framework/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-25T08:54:24Z",
+      "side": 1,
+      "message": "These 3 lines breaks ConnectivityCoverageTests, still checking.\n\n[33/39] android.net.connectivity.com.android.net.module.util.StructTest#testMacAddressType: FAILED (2ms)STACKTRACE:java.lang.IllegalArgumentException: Fail to create a instance from constructor    at android.net.connectivity.com.android.net.module.util.Struct.parse(Struct.java:597)    at android.net.connectivity.com.android.net.module.util.StructTest.doParsingMessageTest(StructTest.java:89)    at android.net.connectivity.com.android.net.module.util.StructTest.testMacAddressType(StructTest.java:695)    ... 8 trimmedCaused by: java.lang.IllegalAccessException: java.lang.Class\u003candroid.net.connectivity.com.android.net.module.util.StructTest$MacAddressMessage\u003e is not accessible from java.lang.Class\u003candroid.net.connectivity.com.android.net.module.util.Struct\u003e    at java.lang.reflect.Constructor.newInstance0(Native Method)    at java.lang.reflect.Constructor.newInstance(Constructor.java:343)    at android.net.connectivity.com.android.net.module.util.Struct.parse(Struct.java:588)    ... 11 more",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 6
+      },
+      "revId": "56a5b4dfba84cfd9180c906f44d10f58f7c91960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
