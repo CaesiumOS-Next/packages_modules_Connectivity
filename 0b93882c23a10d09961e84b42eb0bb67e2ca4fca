@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f127363b_3057ebb5",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBasicMethodsTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-25T03:45:15Z",
+      "side": 1,
+      "message": "It seems we\u0027ll need to rewrite every single function to kotlin if we want to move it. It seems to me this will take a very long time to complete, because CSTest.java cannot be modified by multiple people at the same time.\n\nJust an idea. Not sure if it make senses.\nIs it better if we make these tools java compatibile, and split these test cases with minimum efforts. Then ask multiple people to convert these small tests to kotlin?",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 24
+      },
+      "revId": "0b93882c23a10d09961e84b42eb0bb67e2ca4fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e9e4ffd_a93ecec9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-25T03:45:15Z",
+      "side": 1,
+      "message": "nit: I\u0027ll prefer cm because other managers are also mgr, but maybe just me.\nFeel free to ignore.",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 11
+      },
+      "revId": "0b93882c23a10d09961e84b42eb0bb67e2ca4fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ad65a64_30efba8b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-25T03:45:15Z",
+      "side": 1,
+      "message": "Question: \nSeems a legit convertion but I don\u0027t really know if I missed something.\nIs there any test (maybe in follow up CLs?) are using this?\nOr maybe we could add this when the related tests are separated from CSTest.java?\n\nThe same question for initMockedResources",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 33
+      },
+      "revId": "0b93882c23a10d09961e84b42eb0bb67e2ca4fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ff06cd0_54602a64",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-25T03:45:15Z",
+      "side": 1,
+      "message": "Question:\n1. Why this constant is here while many other constants are in CSTest?\n2. What are things we want to put in CSTestHelper and what we want to put in CSTest?\n\nMaybe they are actually the same question.",
+      "range": {
+        "startLine": 93,
+        "startChar": 19,
+        "endLine": 93,
+        "endChar": 34
+      },
+      "revId": "0b93882c23a10d09961e84b42eb0bb67e2ca4fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
