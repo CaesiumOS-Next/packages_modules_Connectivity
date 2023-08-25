@@ -16,8 +16,6 @@
 
 package com.android.server.nearby.presence;
 
-import static com.android.server.nearby.common.bluetooth.fastpair.BluetoothUuids.to128BitUuid;
-
 import java.util.UUID;
 
 /**
@@ -27,4 +25,11 @@ public class PresenceConstants {
 
     /** Presence advertisement service data uuid. */
     public static final UUID PRESENCE_UUID = to128BitUuid((short) 0xFCF1);
+
+    private static final UUID BASE_UUID = UUID.fromString("00000000-0000-1000-8000-00805F9B34FB");
+
+    private static UUID to128BitUuid(short shortUuid) {
+        return new UUID(((long) shortUuid & 65535L) << 32 | BASE_UUID.getMostSignificantBits(),
+                BASE_UUID.getLeastSignificantBits());
+    }
 }
