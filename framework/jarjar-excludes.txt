@@ -14,6 +14,9 @@ android\.net\.INetworkAgentRegistry(\$.+)?
 # TODO: move files to android.net.connectivity.visiblefortesting
 android\.net\.IConnectivityDiagnosticsCallback(\$.+)?
 
+# Used by tethering as a hidden API, so it can't be jarjared. It's unlikely
+# anybody else declares a hidden class with this name ?
+android\.net\.RoutingCoordinatorManager(\$.+)?
 
 # KeepaliveUtils is used by ConnectivityManager CTS
 # TODO: move into service-connectivity so framework-connectivity stops using
