@@ -52,6 +52,24 @@
       "parentUuid": "6e4b9a80_bf913968",
       "revId": "79ae35b57a3d5d7a25b467312d3b57104241e25c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dac5e637_77179e1f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1487,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-25T04:56:48Z",
+      "side": 1,
+      "message": "Oh sorry, I missed that this was only used in unregistration. Still, it would be more consistent with onResolveServiceSucceeded to call it before; because  request.onServiceFound will be called with the bit set if it\u0027s called from a resolution callback, but not yet set if it\u0027s called from here. This could be a source of errors if adding logic in request.onServiceFound.",
+      "parentUuid": "e10997dd_2fe59bec",
+      "revId": "79ae35b57a3d5d7a25b467312d3b57104241e25c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
