@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c120c305_9c56ab7b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBasicMethodsTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T04:05:23Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s the plan. The priority is to stop adding stuff to ConnectivityServiceTest, so it stops becoming bigger and bigger. But I don\u0027t think it\u0027s realistic to expect that we\u0027re going to remove ConnectivityServiceTest any time soon. We\u0027ll want to group stuff and move stuff opportunistically. This will happen over the next few years. I don\u0027t plan to ever \"complete\" a migration.\n\nIf you\u0027re going to move something opportunistically I don\u0027t think translating into Kotlin is much of an ask – tools do this pretty well already, so you can mostly rely on automatic translation. But also, I don\u0027t think why you think these tools are not java-compatible ? What\u0027s wrong with using CSTest from Java if that\u0027s what you want ?",
+      "parentUuid": "f127363b_3057ebb5",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 24
+      },
+      "revId": "0b93882c23a10d09961e84b42eb0bb67e2ca4fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e9e4ffd_a93ecec9",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-25T03:45:15Z",
       "side": 1,
       "message": "nit: I\u0027ll prefer cm because other managers are also mgr, but maybe just me.\nFeel free to ignore.",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 11
+      },
+      "revId": "0b93882c23a10d09961e84b42eb0bb67e2ca4fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4f34d2_ce1e739a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T04:05:23Z",
+      "side": 1,
+      "message": "I think it makes sense. I thought it was the obvious choice in a CS test, but when I used it I found myself not remembering what it was called and thinking it wasn\u0027t clear. Renamed.",
+      "parentUuid": "0e9e4ffd_a93ecec9",
       "range": {
         "startLine": 105,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "611669e8_f473042f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T04:05:23Z",
+      "side": 1,
+      "message": "Tests no (or not at this point at least), but CS is using this in its startup sequence (specifically when it creates the AutomaticOnOffKeepaliveTracker). So there needs to be a mock of this with some functionality.\n\nBeyond that, I thought it was better to instrument it in the same way it was already instrumented in ConnectivityServiceTest. This will save time later if we move some of the tests that need this instrumentation ; after all, that\u0027s what we have converged to.\n\nFor initMockResources it\u0027s even clearer, since it\u0027s the list of resources that CS actually reads when it starts, so they need to be mocked.",
+      "parentUuid": "2ad65a64_30efba8b",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 33
+      },
+      "revId": "0b93882c23a10d09961e84b42eb0bb67e2ca4fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ff06cd0_54602a64",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-08-25T03:45:15Z",
       "side": 1,
       "message": "Question:\n1. Why this constant is here while many other constants are in CSTest?\n2. What are things we want to put in CSTestHelper and what we want to put in CSTest?\n\nMaybe they are actually the same question.",
+      "range": {
+        "startLine": 93,
+        "startChar": 19,
+        "endLine": 93,
+        "endChar": 34
+      },
+      "revId": "0b93882c23a10d09961e84b42eb0bb67e2ca4fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ec052bb_3eebfb4b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T04:05:23Z",
+      "side": 1,
+      "message": "I put it here because it\u0027s only used here (in l.103), but it doesn\u0027t really matter too much. Maybe it\u0027s better in CSTest. Moved.\n\nOriginally I wrote everything in CSTest, and found that it made the file very long and unwieldly. So the principle I used to split this was : are the implementation details of a given mock usually going to be important to someone writing a test ? If not, let\u0027s move them away in CSTestHelper, which can hold the details that you only look at when you want to add instrumentation.\n\nDoes that make sense ?",
+      "parentUuid": "0ff06cd0_54602a64",
       "range": {
         "startLine": 93,
         "startChar": 19,
