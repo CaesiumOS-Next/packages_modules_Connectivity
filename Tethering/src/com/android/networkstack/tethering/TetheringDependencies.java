@@ -21,6 +21,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
 import android.content.Context;
 import android.net.INetd;
+import android.net.RoutingCoordinatorManager;
+import android.net.connectivity.TiramisuConnectivityInternalApiUtil;
 import android.net.ip.IpServer;
 import android.os.Build;
 import android.os.Handler;
@@ -121,6 +123,10 @@ public abstract class TetheringDependencies {
                 (IBinder) context.getSystemService(Context.NETD_SERVICE));
     }
 
+    public RoutingCoordinatorManager getRoutingCoordinator(Context context) {
+        return TiramisuConnectivityInternalApiUtil.getRoutingCoordinatorManager(context);
+    }
+
     /**
      * Get a reference to the TetheringNotificationUpdater to be used by tethering.
      */
@@ -135,7 +141,7 @@ public abstract class TetheringDependencies {
     public abstract Looper getTetheringLooper();
 
     /**
-     *  Get Context of TetheringSerice.
+     *  Get Context of TetheringService.
      */
     public abstract Context getContext();
 
