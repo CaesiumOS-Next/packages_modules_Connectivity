@@ -80,6 +80,7 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.RouteInfo;
+import android.net.RoutingCoordinatorManager;
 import android.net.TetherOffloadRuleParcel;
 import android.net.TetherStatsParcel;
 import android.net.dhcp.DhcpServerCallbacks;
@@ -193,6 +194,7 @@ public class IpServerTest {
     @Mock private IpNeighborMonitor mIpNeighborMonitor;
     @Mock private IpServer.Dependencies mDependencies;
     @Mock private PrivateAddressCoordinator mAddressCoordinator;
+    @Mock private RoutingCoordinatorManager mRoutingCoordinatorManager;
     @Mock private NetworkStatsManager mStatsManager;
     @Mock private TetheringConfiguration mTetherConfig;
     @Mock private ConntrackMonitor mConntrackMonitor;
@@ -249,7 +251,8 @@ public class IpServerTest {
         mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));
         mIpServer = new IpServer(
                 IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics, mDependencies);
+                mRoutingCoordinatorManager, mCallback, mTetherConfig, mAddressCoordinator,
+                mTetheringMetrics, mDependencies);
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -396,8 +399,8 @@ public class IpServerTest {
         when(mDependencies.getIpNeighborMonitor(any(), any(), any()))
                 .thenReturn(mIpNeighborMonitor);
         mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
-                mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
-                mTetheringMetrics, mDependencies);
+                mNetd, mBpfCoordinator, mRoutingCoordinatorManager, mCallback, mTetherConfig,
+                mAddressCoordinator, mTetheringMetrics, mDependencies);
         mIpServer.start();
         mLooper.dispatchAll();
         verify(mCallback).updateInterfaceState(
