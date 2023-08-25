@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "009a5475_2f1dd5e9",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T03:44:17Z",
+      "side": 1,
+      "message": "Should this be a set instead ? It doesn\u0027t seem to make a lot of sense to have the same prefix twice.",
+      "range": {
+        "startLine": 82,
+        "startChar": 18,
+        "endLine": 82,
+        "endChar": 27
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0048ff8_843fba8f",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T03:44:17Z",
+      "side": 1,
+      "message": "What should happen if the passed prefix is a sub-prefix of one that\u0027s already assigned ? What if it includes completely one that\u0027s already assigned ?",
+      "range": {
+        "startLine": 905,
+        "startChar": 19,
+        "endLine": 905,
+        "endChar": 36
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70081560_00057982",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T03:44:17Z",
+      "side": 1,
+      "message": "If you make this a set, you can just return `mAssignedPrefixes.add`",
+      "range": {
+        "startLine": 906,
+        "startChar": 49,
+        "endLine": 906,
+        "endChar": 57
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b128f32d_3db015ca",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T03:44:17Z",
+      "side": 1,
+      "message": "You made the arg @NonNull, so you should throw NPE if it\u0027s null.",
+      "range": {
+        "startLine": 906,
+        "startChar": 12,
+        "endLine": 906,
+        "endChar": 26
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdbc8302_c3a22983",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T03:44:17Z",
+      "side": 1,
+      "message": "What if it\u0027s a sub-prefix of one that is assigned ? Suppose I have xxxx::/16 assigned and I try to remove xxxx:yyyy::/32. Should I know think the difference is what\u0027s assigned to me ?",
+      "range": {
+        "startLine": 916,
+        "startChar": 42,
+        "endLine": 916,
+        "endChar": 74
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ae4b27a_09f83e0a",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T03:44:17Z",
+      "side": 1,
+      "message": "Check for null and throw if it is",
+      "range": {
+        "startLine": 922,
+        "startChar": 41,
+        "endLine": 922,
+        "endChar": 48
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43c1125a_bb62b69e",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T03:44:17Z",
+      "side": 1,
+      "message": "It\u0027s unmodifiable by the caller, but since this object holds a ref to the underlying mutable collection, it can be mutated. Example\n\n    lp.addAssignedPrefix(prefix1);\n    final List\u003cIpPrefix\u003e assignedPrefixes \u003d lp.getAssignedPrefixes();\n    lp.addAssignedPrefix(prefix2);\n\nAfter this code, `assignedPrefixes` contains prefix2. This is likely unexpected, and you should probably make a defensive copy instead of an unmodifiable collection.",
+      "range": {
+        "startLine": 929,
+        "startChar": 18,
+        "endLine": 929,
+        "endChar": 30
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50a59f61_20983dbe",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1641,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T03:44:17Z",
+      "side": 1,
+      "message": "Being in this class you can just use `target.mAssignedPrefixes` without creating the additional intermediate unmodifiable wrapper.",
+      "range": {
+        "startLine": 1641,
+        "startChar": 59,
+        "endLine": 1641,
+        "endChar": 78
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42980e7f_3913e36a",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1784,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T03:44:17Z",
+      "side": 1,
+      "message": "Only the size ? I think you should probably hash the entire collection ?",
+      "range": {
+        "startLine": 1784,
+        "startChar": 36,
+        "endLine": 1784,
+        "endChar": 40
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b6c8872_745f3496",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1784,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T03:44:17Z",
+      "side": 1,
+      "message": "77 works, but the next prime is 73 :)",
+      "range": {
+        "startLine": 1784,
+        "startChar": 45,
+        "endLine": 1784,
+        "endChar": 47
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc5ef23d_4c247e0e",
+        "filename": "tests/common/java/android/net/LinkPropertiesTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-25T03:44:17Z",
+      "side": 1,
+      "message": "Do you want to also add something for the assigned prefixes here ?",
+      "range": {
+        "startLine": 223,
+        "startChar": 8,
+        "endLine": 223,
+        "endChar": 9
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
