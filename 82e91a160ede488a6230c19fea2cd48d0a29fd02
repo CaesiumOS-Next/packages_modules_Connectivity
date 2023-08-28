@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "494b9bd1_11d7e283",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-28T09:08:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c944335f_d83f5361",
+      "range": {
+        "startLine": 1845,
+        "startChar": 8,
+        "endLine": 1845,
+        "endChar": 11
+      },
+      "revId": "82e91a160ede488a6230c19fea2cd48d0a29fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "956bfaf1_c122be64",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-28T08:38:04Z",
       "side": 1,
       "message": "But this is logging a stacktrace by using `, e` here\n\n`+ e.getMessage()` would do what the comment says",
+      "range": {
+        "startLine": 1849,
+        "startChar": 48,
+        "endLine": 1849,
+        "endChar": 71
+      },
+      "revId": "82e91a160ede488a6230c19fea2cd48d0a29fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30d2e6a3_613fe9f2",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1849,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-28T09:08:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "956bfaf1_c122be64",
       "range": {
         "startLine": 1849,
         "startChar": 48,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4ea9e50_ccf9cd53",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-28T09:08:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "318330b0_a51ead6a",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 13
+      },
+      "revId": "82e91a160ede488a6230c19fea2cd48d0a29fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c07b1fb4_ef237063",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-08-28T08:38:04Z",
       "side": 1,
       "message": "I think this isn\u0027t getting unregistered\n\nThis test should use tryTest / cleanupStep / cleanupStep / cleanup to do the registrations/cleanups too (including for the offload engine), to make sure services don\u0027t affect other tests after failure",
+      "range": {
+        "startLine": 919,
+        "startChar": 19,
+        "endLine": 919,
+        "endChar": 34
+      },
+      "revId": "82e91a160ede488a6230c19fea2cd48d0a29fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2777d86b_876b02e8",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-28T09:08:06Z",
+      "side": 1,
+      "message": "Updated but I am not sure if all the cleanup will be happened in cleanupStep. If we already to the Unregister in tryTest block. Doing it again in cleanupStep will throw exception.",
+      "parentUuid": "c07b1fb4_ef237063",
       "range": {
         "startLine": 919,
         "startChar": 19,
