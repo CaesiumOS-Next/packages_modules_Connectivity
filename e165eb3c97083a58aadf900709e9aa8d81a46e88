@@ -16,6 +16,23 @@
       "message": "LGTM but CTS changes should go through Lorenzo",
       "revId": "e165eb3c97083a58aadf900709e9aa8d81a46e88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebfeb3f8_6ca70ee3",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideNetworkTestCase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-28T08:13:29Z",
+      "side": 1,
+      "message": "One thing worth noting is that this should not be necessary after moving away from udc-mainline-prod, so hopefully this won\u0027t need to change to W later\n\nActually the \"next\" APK is only useful in case we need to add tests that need newer shims until then",
+      "revId": "e165eb3c97083a58aadf900709e9aa8d81a46e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
