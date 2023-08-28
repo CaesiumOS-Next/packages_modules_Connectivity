@@ -172,6 +172,7 @@ java_library {
     lint: { strict_updatability_linting: true },
 }
 
+// The library requires the final artifact to contain net-utils-device-common-struct.
 java_library {
     name: "net-utils-device-common-netlink",
     srcs: [
@@ -183,12 +184,13 @@ java_library {
         "//packages/modules/Connectivity:__subpackages__",
         "//packages/modules/NetworkStack:__subpackages__",
     ],
-    static_libs: [
-        "net-utils-device-common-struct",
-    ],
     libs: [
         "androidx.annotation_annotation",
         "framework-connectivity.stubs.module_lib",
+        // For libraries which are statically linked in framework-connectivity. Do not
+        // statically link here because callers of this library might already have a statical
+        // version linked.
+        "net-utils-device-common-struct",
     ],
     apex_available: [
         "com.android.tethering",
@@ -197,6 +199,7 @@ java_library {
     lint: { strict_updatability_linting: true },
 }
 
+// The library requires the final artifact to contain net-utils-device-common-struct.
 java_library {
     // TODO : this target should probably be folded into net-utils-device-common
     name: "net-utils-device-common-ip",

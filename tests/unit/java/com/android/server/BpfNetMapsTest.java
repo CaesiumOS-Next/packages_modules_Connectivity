@@ -47,9 +47,7 @@ import static android.net.INetd.PERMISSION_UNINSTALLED;
 import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.EPERM;
-
 import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -66,6 +64,7 @@ import android.app.StatsManager;
 import android.content.Context;
 import android.net.BpfNetMapsUtils;
 import android.net.INetd;
+import android.net.UidOwnerValue;
 import android.os.Build;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;

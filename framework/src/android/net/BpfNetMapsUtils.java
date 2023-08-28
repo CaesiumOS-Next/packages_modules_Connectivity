@@ -26,6 +26,7 @@ import static android.net.BpfNetMapsConstants.OEM_DENY_3_MATCH;
 import static android.net.BpfNetMapsConstants.POWERSAVE_MATCH;
 import static android.net.BpfNetMapsConstants.RESTRICTED_MATCH;
 import static android.net.BpfNetMapsConstants.STANDBY_MATCH;
+import static android.net.BpfNetMapsConstants.UID_RULES_CONFIGURATION_KEY;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_1;
@@ -34,10 +35,20 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
+import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
+import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
 import static android.system.OsConstants.EINVAL;
 
+import android.annotation.RequiresApi;
+import android.os.Build;
 import android.os.ServiceSpecificException;
+import android.system.ErrnoException;
+import android.system.Os;
 import android.util.Pair;
+
+import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.IBpfMap;
+import com.android.net.module.util.Struct;
 
 import java.util.StringJoiner;
 
@@ -123,5 +134,69 @@ public class BpfNetMapsUtils {
             sj.add("UNKNOWN_MATCH(" + matchMask + ")");
         }
         return sj.toString();
+    }
+
+    public static final boolean PRE_T = !SdkLevel.isAtLeastT();
+
+    /**
+     * Throw UnsupportedOperationException if SdkLevel is before T.
+     */
+    public static void throwIfPreT(final String msg) {
+        if (PRE_T) {
+            throw new UnsupportedOperationException(msg);
+        }
+    }
+
+    /**
+     * Get the specified firewall chain's status.
+     *
+     * @param configurationMap target configurationMap
+     * @param chain target chain
+     * @return {@code true} if chain is enabled, {@code false} if chain is not enabled.
+     * @throws UnsupportedOperationException if called on pre-T devices.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)  // BPF maps were only mainlined in T
+    public static boolean isChainEnabled(final IBpfMap<Struct.S32, Struct.U32> configurationMap,
+            final int chain) {
+        throwIfPreT("isChainEnabled is not available on pre-T devices");
+
+        final long match = getMatchByFirewallChain(chain);
+        try {
+            final Struct.U32 config = configurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
+            return (config.val & match) != 0;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to get firewall chain status: " + Os.strerror(e.errno));
+        }
+    }
+
+    /**
+     * Get firewall rule of specified firewall chain on specified uid.
+     *
+     * @param uidOwnerMap target uidOwnerMap.
+     * @param chain target chain.
+     * @param uid target uid.
+     * @return either FIREWALL_RULE_ALLOW or FIREWALL_RULE_DENY
+     * @throws UnsupportedOperationException if called on pre-T devices.
+     * @throws ServiceSpecificException      in case of failure, with an error code indicating the
+     *                                       cause of the failure.
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)  // BPF maps were only mainlined in T
+    public static int getUidRule(final IBpfMap<Struct.S32, UidOwnerValue> uidOwnerMap,
+            final int chain, final int uid) {
+        throwIfPreT("getUidRule is not available on pre-T devices");
+
+        final long match = getMatchByFirewallChain(chain);
+        final boolean isAllowList = isFirewallAllowList(chain);
+        try {
+            final UidOwnerValue uidMatch = uidOwnerMap.getValue(new Struct.S32(uid));
+            final boolean isMatchEnabled = uidMatch != null && (uidMatch.rule & match) != 0;
+            return isMatchEnabled == isAllowList ? FIREWALL_RULE_ALLOW : FIREWALL_RULE_DENY;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to get uid rule status: " + Os.strerror(e.errno));
+        }
     }
 }
