@@ -26,6 +26,7 @@ import static android.net.BpfNetMapsConstants.PENALTY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.UID_OWNER_MAP_PATH;
 import static android.net.BpfNetMapsConstants.UID_PERMISSION_MAP_PATH;
 import static android.net.BpfNetMapsConstants.UID_RULES_CONFIGURATION_KEY;
+import static android.net.BpfNetMapsUtils.PRE_T;
 import static android.net.BpfNetMapsUtils.getMatchByFirewallChain;
 import static android.net.BpfNetMapsUtils.matchToString;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
@@ -51,7 +52,9 @@ import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
 
 import android.app.StatsManager;
 import android.content.Context;
+import android.net.BpfNetMapsReader;
 import android.net.INetd;
+import android.net.UidOwnerValue;
 import android.os.Build;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
@@ -92,7 +95,6 @@ import java.util.StringJoiner;
  * {@hide}
  */
 public class BpfNetMaps {
-    private static final boolean PRE_T = !SdkLevel.isAtLeastT();
     static {
         if (!PRE_T) {
             System.loadLibrary("service-connectivity");
@@ -523,18 +525,12 @@ public class BpfNetMaps {
      * @throws UnsupportedOperationException if called on pre-T devices.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
+     *
+     * @deprecated Use {@link BpfNetMapsReader#isChainEnabled} instead.
      */
+    // TODO: Migrate the callers to use {@link BpfNetMapsReader#isChainEnabled} instead.
     public boolean isChainEnabled(final int childChain) {
-        throwIfPreT("isChainEnabled is not available on pre-T devices");
-
-        final long match = getMatchByFirewallChain(childChain);
-        try {
-            final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
-            return (config.val & match) != 0;
-        } catch (ErrnoException e) {
-            throw new ServiceSpecificException(e.errno,
-                    "Unable to get firewall chain status: " + Os.strerror(e.errno));
-        }
+        return BpfNetMapsReader.isChainEnabled(sConfigurationMap, childChain);
     }
 
     private Set<Integer> asSet(final int[] uids) {
@@ -667,20 +663,12 @@ public class BpfNetMaps {
      * @throws UnsupportedOperationException if called on pre-T devices.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
+     *
+     * @deprecated use {@link BpfNetMapsReader#getUidRule} instead.
      */
+    // TODO: Migrate the callers to use {@link BpfNetMapsReader#getUidRule} instead.
     public int getUidRule(final int childChain, final int uid) {
-        throwIfPreT("isUidChainEnabled is not available on pre-T devices");
-
-        final long match = getMatchByFirewallChain(childChain);
-        final boolean isAllowList = isFirewallAllowList(childChain);
-        try {
-            final UidOwnerValue uidMatch = sUidOwnerMap.getValue(new S32(uid));
-            final boolean isMatchEnabled = uidMatch != null && (uidMatch.rule & match) != 0;
-            return isMatchEnabled == isAllowList ? FIREWALL_RULE_ALLOW : FIREWALL_RULE_DENY;
-        } catch (ErrnoException e) {
-            throw new ServiceSpecificException(e.errno,
-                    "Unable to get uid rule status: " + Os.strerror(e.errno));
-        }
+        return BpfNetMapsReader.getUidRule(sUidOwnerMap, childChain, uid);
     }
 
     private Set<Integer> getUidsMatchEnabled(final int childChain) throws ErrnoException {
