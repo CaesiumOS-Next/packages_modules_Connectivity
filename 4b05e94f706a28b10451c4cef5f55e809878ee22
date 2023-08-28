@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1939b31_6d444041",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-28T13:25:58Z",
+      "side": 1,
+      "message": "While building this by the way\n```\n//packages/modules/Connectivity/framework:connectivity-internal-api-util turbine [common]\n```",
+      "parentUuid": "72561502_a908061c",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 46
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea949816_6f073a88",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
