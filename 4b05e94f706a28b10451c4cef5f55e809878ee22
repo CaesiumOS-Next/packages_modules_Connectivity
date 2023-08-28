@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da2abee0_ef74722f",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-28T13:24:04Z",
+      "side": 1,
+      "message": "This looks pretty ugly, but IIUC this is the only way a class can be visible to both Connectivity and Tethering without being public API",
+      "range": {
+        "startLine": 285,
+        "startChar": 25,
+        "endLine": 285,
+        "endChar": 50
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ade3c47_c16d8f89",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-28T13:24:04Z",
+      "side": 1,
+      "message": "This looks wrong. As long as this class is in framework/, it should be accessible by Tethering on S devices, so probably this should be S",
+      "range": {
+        "startLine": 32,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72561502_a908061c",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-28T13:24:04Z",
+      "side": 1,
+      "message": "Build error : can\u0027t resolve this symbol.\n```\npackages/modules/Connectivity/framework/src/android/net/RoutingCoordinatorManager.java:38: error: could not resolve IRoutingCoordinator\n            @NonNull final IRoutingCoordinator service) {\n```\n\nI do not understand why this is the case. They are in the same directory.\n\nThe four following files are in this directory :\n- IConnectivityManager.aidl\n- ConnectivityManager.java\n- IRoutingCoordinator.aidl\n- RoutingCoordinatorManager.java\n\nHowever, ConnectivityManager.java and RoutingCoordinatorManager.java can both import IConnectivityManager, and neither can import IRoutingCoordinator. I do not understand why that\u0027s the case.",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 46
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea949816_6f073a88",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8215,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-28T13:24:04Z",
+      "side": 1,
+      "message": "This should be fine without an SDK check, right ? AFAIK, since CS needs a reference to this class, it must be in framework/ (and not framework-t or similar). That means it is always available to ConnectivityService wherever it runs, so no check is necessary.",
+      "range": {
+        "startLine": 8215,
+        "startChar": 16,
+        "endLine": 8215,
+        "endChar": 42
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
