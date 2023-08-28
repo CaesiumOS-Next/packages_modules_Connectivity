@@ -22,6 +22,30 @@
       },
       "revId": "59ad35ee192cfc6335e85e72b8e63b89afec21a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0e5cb50_f0640d36",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-28T12:23:30Z",
+      "side": 0,
+      "message": "The isIpv6VcnNetworkInterface() check can\u0027t be moved to the code that selects the upstream because\n1. for vnc interface, it still needs to update the RaDaemon through \u0027setRaParams(params)\u0027.\n2. when neighbor event arrives, it calls updateIpv6ForwardingRules() and the vnc interface check is still needed there.\n\nI already have another CL(aosp/2715355) for this issue submitted under b/294025403 follows this CL. I just rebased it to before this CL.",
+      "parentUuid": "6a736afc_da2d7e33",
+      "range": {
+        "startLine": 937,
+        "startChar": 36,
+        "endLine": 937,
+        "endChar": 61
+      },
+      "revId": "59ad35ee192cfc6335e85e72b8e63b89afec21a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

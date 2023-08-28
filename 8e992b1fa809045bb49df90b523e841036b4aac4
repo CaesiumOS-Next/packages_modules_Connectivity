@@ -70,6 +70,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7352d5a5_9266bf79",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-28T12:23:30Z",
+      "side": 1,
+      "message": "Done. Did it in a separate CL aosp/2727816.",
+      "parentUuid": "cb3f63b2_a8fb2dc1",
+      "range": {
+        "startLine": 921,
+        "startChar": 17,
+        "endLine": 921,
+        "endChar": 41
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d2c5561_8018ede5",
