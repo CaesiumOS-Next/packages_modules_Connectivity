@@ -177,12 +177,11 @@ java_library {
         // Do not add libs here if they are already included
         // in framework-connectivity
         "androidx.annotation_annotation",
-        "connectivity-net-module-utils-bpf",
+        "connectivity-net-module-utils-bpf-minus-struct",
         "connectivity_native_aidl_interface-lateststable-java",
         "dnsresolver_aidl_interface-V11-java",
         "modules-utils-shell-command-handler",
         "net-utils-device-common",
-        "net-utils-device-common-bpf",
         "net-utils-device-common-ip",
         "net-utils-device-common-netlink",
         "net-utils-services-common",
