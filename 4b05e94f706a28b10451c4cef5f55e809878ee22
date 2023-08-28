@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22ada583_99cbe063",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-28T13:42:10Z",
+      "side": 1,
+      "message": "I\u0027m thinking this might need a jarjar exclude, since it\u0027s @hide classes used as-is by Tethering APK. But not sure why it isn\u0027t necessary for TiramisuConnectivityInternalApiUtil",
+      "parentUuid": "da2abee0_ef74722f",
+      "range": {
+        "startLine": 285,
+        "startChar": 25,
+        "endLine": 285,
+        "endChar": 50
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ade3c47_c16d8f89",
         "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "While building this by the way\n```\n//packages/modules/Connectivity/framework:connectivity-internal-api-util turbine [common]\n```",
       "parentUuid": "72561502_a908061c",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 46
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "868a6861_b0f7c36b",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-28T13:42:10Z",
+      "side": 1,
+      "message": "That\u0027s because this file is in the src for connectivity-internal-api-util (added in this CL), but not IRoutingCoordinator.aidl\n\nThe problem is probably that framework-connectivity.impl is in the \"libs\" for connectivity-internal-api-util, but it should actually be framework-connectivity-pre-jarjar to pick up fully internal (jarjared) classes from there",
+      "parentUuid": "c1939b31_6d444041",
       "range": {
         "startLine": 38,
         "startChar": 27,
