@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c944335f_d83f5361",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-28T08:38:04Z",
+      "side": 1,
+      "message": "Supernit: enumerator syntax is a bit more usual on lists (and should get optimized to the same bytecode anyway)",
+      "range": {
+        "startLine": 1845,
+        "startChar": 8,
+        "endLine": 1845,
+        "endChar": 11
+      },
+      "revId": "82e91a160ede488a6230c19fea2cd48d0a29fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "956bfaf1_c122be64",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1849,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-28T08:38:04Z",
+      "side": 1,
+      "message": "But this is logging a stacktrace by using `, e` here\n\n`+ e.getMessage()` would do what the comment says",
+      "range": {
+        "startLine": 1849,
+        "startChar": 48,
+        "endLine": 1849,
+        "endChar": 71
+      },
+      "revId": "82e91a160ede488a6230c19fea2cd48d0a29fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "318330b0_a51ead6a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-28T08:38:04Z",
+      "side": 1,
+      "message": "Using getOrDefault(interfaceName, Collections.emptyList()) would be a bit easier to use as an API / less likely to miss NPEs",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 13
+      },
+      "revId": "82e91a160ede488a6230c19fea2cd48d0a29fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c07b1fb4_ef237063",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-28T08:38:04Z",
+      "side": 1,
+      "message": "I think this isn\u0027t getting unregistered\n\nThis test should use tryTest / cleanupStep / cleanupStep / cleanup to do the registrations/cleanups too (including for the offload engine), to make sure services don\u0027t affect other tests after failure",
+      "range": {
+        "startLine": 919,
+        "startChar": 19,
+        "endLine": 919,
+        "endChar": 34
+      },
+      "revId": "82e91a160ede488a6230c19fea2cd48d0a29fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
