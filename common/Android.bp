@@ -21,21 +21,44 @@ package {
 
 java_library {
     name: "connectivity-net-module-utils-bpf",
-    srcs: [
-        "src/com/android/net/module/util/bpf/*.java",
+    defaults: [
+        "connectivity-net-module-utils-defaults",
     ],
-    sdk_version: "module_current",
-    min_sdk_version: "30",
+    static_libs: [
+        "net-utils-device-common-struct",
+    ],
     visibility: [
         // Do not add any lib. This library is only shared inside connectivity module
         // and its tests.
         "//packages/modules/Connectivity:__subpackages__",
     ],
+}
+
+// For libraries which statically links framework-connectivity. Use this one instead of
+// the one statically links struct because callers of this library already have a static
+// version linked.
+java_library {
+    name: "connectivity-net-module-utils-bpf-minus-struct",
+    defaults: [
+        "connectivity-net-module-utils-defaults",
+    ],
+    visibility: [
+        // Do not add any lib. This library is only shared inside connectivity module
+        // and its tests.
+        "//packages/modules/Connectivity/service",
+    ],
+}
+
+java_defaults {
+    name: "connectivity-net-module-utils-defaults",
+    srcs: [
+        "src/com/android/net/module/util/bpf/*.java",
+    ],
+    sdk_version: "module_current",
+    min_sdk_version: "30",
     libs: [
         "androidx.annotation_annotation",
         "framework-connectivity.stubs.module_lib",
-    ],
-    static_libs: [
         "net-utils-device-common-struct",
     ],
     apex_available: [
