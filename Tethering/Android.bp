@@ -70,7 +70,6 @@ java_defaults {
         "android.hidl.manager-V1.2-java",
         "net-utils-framework-common",
         "net-utils-device-common",
-        "net-utils-device-common-bpf",
         "net-utils-device-common-ip",
         "net-utils-device-common-netlink",
         "netd-client",
@@ -79,6 +78,11 @@ java_defaults {
     defaults: ["TetheringExternalLibs"],
     libs: [
         "framework-tethering.impl",
+        // Struct is provided by framework-connectivity. Dynamically link here to use
+        // the one in framework-connectivity in runtime to use the same Struct for BpfMap
+        // writing/reading.
+        "net-utils-device-common-bpf",
+        "net-utils-device-common-struct",
     ],
     manifest: "AndroidManifestBase.xml",
     lint: { strict_updatability_linting: true },
