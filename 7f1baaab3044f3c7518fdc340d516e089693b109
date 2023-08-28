@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df898288_85420cc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-28T07:48:51Z",
+      "side": 1,
+      "message": "the underlying network reevaluation is",
+      "range": {
+        "startLine": 9,
+        "startChar": 28,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "7f1baaab3044f3c7518fdc340d516e089693b109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43aa8fb7_2300b880",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-28T07:48:51Z",
+      "side": 1,
+      "message": "b",
+      "revId": "7f1baaab3044f3c7518fdc340d516e089693b109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6251efd3_4034e727",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2825,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-28T07:48:51Z",
+      "side": 1,
+      "message": "Do you want to check that a new validation failure does not result in another call to `reportNetworkConnectivity` ?",
+      "range": {
+        "startLine": 2825,
+        "startChar": 24,
+        "endLine": 2825,
+        "endChar": 25
+      },
+      "revId": "7f1baaab3044f3c7518fdc340d516e089693b109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed5929df_7ef7cdb4",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2832,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-28T07:48:51Z",
+      "side": 1,
+      "message": "I think we need this to be more specific. Here you\u0027re only checking that the executor is doing something. Whatever it does is not tested.\n\nI suggest you arrange for the stuff posted to the executor to run and then check something concrete that makes sense here. Two suggestions :\n❶ Make the validation count @VisibleForTesting and check that it\u0027s 0\n❷ Don\u0027t check anything here, just remove this line, but explain in a comment that the check above made sure the validation count was \u003e 0 and therefore no new call to `reportNetworkConnectivity`, and the check below makes sure that it was reset because it checks that `reportNetworkConnectivity` is called another time.",
+      "range": {
+        "startLine": 2831,
+        "startChar": 0,
+        "endLine": 2832,
+        "endChar": 81
+      },
+      "revId": "7f1baaab3044f3c7518fdc340d516e089693b109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
