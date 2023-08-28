@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edbba66a_4d0e6623",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2582,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-28T07:36:17Z",
+      "side": 1,
+      "message": "s/in one time/one/",
+      "range": {
+        "startLine": 2581,
+        "startChar": 93,
+        "endLine": 2582,
+        "endChar": 16
+      },
+      "revId": "d2c9a3f5f7cdb754c2c7f67eca46aaac5601de65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3902afc_5ee1674f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2584,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-28T07:36:17Z",
+      "side": 1,
+      "message": "I know it\u0027s the default but do you want to explicitly write `once()` (or `times(1)`) here to clarify ?",
+      "revId": "d2c9a3f5f7cdb754c2c7f67eca46aaac5601de65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
