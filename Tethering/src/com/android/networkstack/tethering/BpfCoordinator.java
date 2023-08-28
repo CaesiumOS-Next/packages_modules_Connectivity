@@ -523,7 +523,10 @@ public class BpfCoordinator {
         mLog.i("Polling stopped");
     }
 
-    private boolean isUsingBpf() {
+    /**
+     * Return whether BPF offload is supported
+     */
+    public boolean isUsingBpf() {
         return mIsBpfEnabled && mBpfCoordinatorShim.isInitialized();
     }
 

@@ -244,6 +244,8 @@ public class IpServerTest {
         when(mTetherConfig.isBpfOffloadEnabled()).thenReturn(usingBpfOffload);
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(usingLegacyDhcp);
         when(mTetherConfig.getP2pLeasesSubnetPrefixLength()).thenReturn(P2P_SUBNET_PREFIX_LENGTH);
+        // Recreate mBpfCoordinator again here because mTetherConfig has changed
+        mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));
         mIpServer = new IpServer(
                 IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
                 mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics, mDependencies);
@@ -531,6 +533,7 @@ public class IpServerTest {
         // Add the forwarding pair <IFACE_NAME, UPSTREAM_IFACE>.
         inOrder.verify(mBpfCoordinator).addUpstreamNameToLookupTable(UPSTREAM_IFINDEX,
                 UPSTREAM_IFACE);
+        inOrder.verify(mBpfCoordinator).isUsingBpf();
         inOrder.verify(mBpfCoordinator).maybeAttachProgram(IFACE_NAME, UPSTREAM_IFACE);
         inOrder.verify(mNetd).tetherAddForward(IFACE_NAME, UPSTREAM_IFACE);
         inOrder.verify(mNetd).ipfwdAddInterfaceForward(IFACE_NAME, UPSTREAM_IFACE);
@@ -553,6 +556,7 @@ public class IpServerTest {
         // Add the forwarding pair <IFACE_NAME, UPSTREAM_IFACE2>.
         inOrder.verify(mBpfCoordinator).addUpstreamNameToLookupTable(UPSTREAM_IFINDEX2,
                 UPSTREAM_IFACE2);
+        inOrder.verify(mBpfCoordinator).isUsingBpf();
         inOrder.verify(mBpfCoordinator).maybeAttachProgram(IFACE_NAME, UPSTREAM_IFACE2);
         inOrder.verify(mNetd).tetherAddForward(IFACE_NAME, UPSTREAM_IFACE2);
         inOrder.verify(mNetd).ipfwdAddInterfaceForward(IFACE_NAME, UPSTREAM_IFACE2);
@@ -626,6 +630,7 @@ public class IpServerTest {
         inOrder.verify(mNetd).ipfwdRemoveInterfaceForward(IFACE_NAME, UPSTREAM_IFACE);
         inOrder.verify(mNetd).tetherRemoveForward(IFACE_NAME, UPSTREAM_IFACE);
         inOrder.verify(mBpfCoordinator).tetherOffloadRuleClear(mIpServer);
+        inOrder.verify(mBpfCoordinator).isUsingBpf();
         inOrder.verify(mNetd).tetherApplyDnsInterfaces();
         inOrder.verify(mNetd).tetherInterfaceRemove(IFACE_NAME);
         inOrder.verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
@@ -633,7 +638,9 @@ public class IpServerTest {
                 argThat(cfg -> IFACE_NAME.equals(cfg.ifName)));
         inOrder.verify(mAddressCoordinator).releaseDownstream(any());
         inOrder.verify(mBpfCoordinator).tetherOffloadClientClear(mIpServer);
+        inOrder.verify(mBpfCoordinator).isUsingBpf();
         inOrder.verify(mBpfCoordinator).stopMonitoring(mIpServer);
+        inOrder.verify(mBpfCoordinator).isUsingBpf();
         inOrder.verify(mCallback).updateInterfaceState(
                 mIpServer, STATE_AVAILABLE, TETHER_ERROR_NO_ERROR);
         inOrder.verify(mCallback).updateLinkProperties(
@@ -1148,6 +1155,7 @@ public class IpServerTest {
         recvNewNeigh(myIfindex, neighA, NUD_REACHABLE, macA);
         // Clear function is called by #updateIpv6ForwardingRules for the IPv6 upstream is lost.
         verify(mBpfCoordinator).tetherOffloadRuleClear(mIpServer);
+        verify(mBpfCoordinator).isUsingBpf();
         verifyNoUpstreamIpv6ForwardingChange(null);
         verifyNoMoreInteractions(mBpfCoordinator, mNetd, mBpfDownstream6Map, mBpfUpstream6Map);
 
@@ -1244,13 +1252,11 @@ public class IpServerTest {
         resetNetdBpfMapAndCoordinator();
 
         recvNewNeigh(myIfindex, neigh, NUD_REACHABLE, macA);
-        verify(mBpfCoordinator, never()).addIpv6DownstreamRule(any(), any());
         verifyNeverTetherOffloadRuleAdd();
         verifyNoUpstreamIpv6ForwardingChange(null);
         resetNetdBpfMapAndCoordinator();
 
         recvDelNeigh(myIfindex, neigh, NUD_STALE, macA);
-        verify(mBpfCoordinator, never()).removeIpv6DownstreamRule(any(), any());
         verifyNeverTetherOffloadRuleRemove();
         verifyNoUpstreamIpv6ForwardingChange(null);
         resetNetdBpfMapAndCoordinator();
