@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d3046d5_bfb8e061",
+        "filename": "remoteauth/service/jni/src/remoteauth_jni_android_platform.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-29T23:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37be5c18_66473a31",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 20
+      },
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eeacf167_eec2a352",
@@ -105,6 +129,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4ed30ac_46f00808",
+        "filename": "remoteauth/service/jni/src/remoteauth_jni_android_platform.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-29T23:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dd779a0_ddeab26c",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 45
+      },
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e1c7069_1bec5f53",
@@ -118,6 +166,30 @@
       "writtenOn": "2023-08-29T16:24:23Z",
       "side": 1,
       "message": "Why are you mapping from a Result to an Option here?  It makes sense to just use the Result to me.",
+      "range": {
+        "startLine": 121,
+        "startChar": 9,
+        "endLine": 121,
+        "endChar": 30
+      },
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc964c79_8d08a455",
+        "filename": "remoteauth/service/jni/src/remoteauth_jni_android_platform.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-29T23:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e1c7069_1bec5f53",
       "range": {
         "startLine": 121,
         "startChar": 9,
@@ -147,6 +219,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4151e66_1d7da7dc",
+        "filename": "remoteauth/service/jni/src/remoteauth_jni_android_platform.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-29T23:17:30Z",
+      "side": 1,
+      "message": "The result is JNIError, while the function should not be aware of Java as it is a trait",
+      "parentUuid": "29eed8d2_7207c0fd",
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "916609b5_2121781a",
         "filename": "remoteauth/service/jni/src/remoteauth_jni_android_platform.rs",
         "patchSetId": 3
@@ -158,6 +248,30 @@
       "writtenOn": "2023-08-29T17:20:42Z",
       "side": 1,
       "message": "If you move this into the the `if let Ok(env)` block you won\u0027t need the `wait_for_response`.",
+      "range": {
+        "startLine": 181,
+        "startChar": 12,
+        "endLine": 181,
+        "endChar": 27
+      },
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3034c56_7ec6ca2c",
+        "filename": "remoteauth/service/jni/src/remoteauth_jni_android_platform.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-29T23:17:30Z",
+      "side": 1,
+      "message": "The reason for moving it outside of the `if let Ok(env)` is `jobject` and `JavaVM::attach_current_thread` should be dropped before `rx.recv().await`, therefore I moved it out of the block",
+      "parentUuid": "916609b5_2121781a",
       "range": {
         "startLine": 181,
         "startChar": 12,
@@ -191,6 +305,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "836dc002_f4530bc3",
+        "filename": "remoteauth/service/jni/src/unique_jvm.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-29T23:17:30Z",
+      "side": 1,
+      "message": "Yes based on https://doc.rust-lang.org/std/sync/struct.Once.html",
+      "parentUuid": "620d38e5_eeae9d5e",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be4c8982_20b3f24f",
@@ -204,6 +342,30 @@
       "writtenOn": "2023-08-29T17:20:42Z",
       "side": 1,
       "message": "Does this need to be unsafe?",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 10
+      },
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "497219b8_6f834d49",
+        "filename": "remoteauth/service/jni/src/unique_jvm.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-29T23:17:30Z",
+      "side": 1,
+      "message": "Yes based on the https://doc.rust-lang.org/std/sync/struct.Once.html",
+      "parentUuid": "be4c8982_20b3f24f",
       "range": {
         "startLine": 47,
         "startChar": 4,
