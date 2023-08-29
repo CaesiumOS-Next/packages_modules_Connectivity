@@ -49,7 +49,16 @@ public class BpfNetMapsReader {
     private final IBpfMap<S32, UidOwnerValue> mUidOwnerMap;
     private final Dependencies mDeps;
 
-    public BpfNetMapsReader() {
+    private static class SingletonHolder {
+        static final BpfNetMapsReader sInstance = new BpfNetMapsReader();
+    }
+
+    @NonNull
+    public static BpfNetMapsReader getInstance() {
+        return SingletonHolder.sInstance;
+    }
+
+    private BpfNetMapsReader() {
         this(new Dependencies());
     }
 
