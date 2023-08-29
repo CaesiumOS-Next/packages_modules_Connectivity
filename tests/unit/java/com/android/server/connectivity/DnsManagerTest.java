@@ -55,6 +55,7 @@ import android.net.NetworkCapabilities;
 import android.net.ResolverOptionsParcel;
 import android.net.ResolverParamsParcel;
 import android.net.RouteInfo;
+import android.net.resolv.aidl.DohParamsParcel;
 import android.net.shared.PrivateDnsConfig;
 import android.os.Build;
 import android.provider.Settings;
@@ -121,6 +122,22 @@ public class DnsManagerTest {
         assertFieldCountEquals(3, ResolverOptionsParcel.class);
     }
 
+    private void assertDohParamsEquals(
+            @Nullable DohParamsParcel actual,
+            @Nullable DohParamsParcel expected) {
+        if (actual == null) {
+            assertNull(expected);
+            return;
+        } else {
+            assertNotNull(expected);
+        }
+        assertEquals(actual.name, expected.name);
+        assertEquals(actual.ips, expected.ips);
+        assertEquals(actual.dohpath, expected.dohpath);
+        assertEquals(actual.port, expected.port);
+        assertFieldCountEquals(4, DohParamsParcel.class);
+    }
+
     private void assertResolverParamsEquals(@NonNull ResolverParamsParcel actual,
             @NonNull ResolverParamsParcel expected) {
         assertEquals(actual.netId, expected.netId);
@@ -139,7 +156,8 @@ public class DnsManagerTest {
         assertEquals(actual.tlsConnectTimeoutMs, expected.tlsConnectTimeoutMs);
         assertResolverOptionsEquals(actual.resolverOptions, expected.resolverOptions);
         assertContainsExactly(actual.transportTypes, expected.transportTypes);
-        assertFieldCountEquals(16, ResolverParamsParcel.class);
+        assertDohParamsEquals(actual.dohParams, expected.dohParams);
+        assertFieldCountEquals(17, ResolverParamsParcel.class);
     }
 
     @Before
@@ -373,6 +391,7 @@ public class DnsManagerTest {
         expectedParams.tlsServers = new String[]{"3.3.3.3", "4.4.4.4"};
         expectedParams.transportTypes = TEST_TRANSPORT_TYPES;
         expectedParams.resolverOptions = null;
+        expectedParams.dohParams = null;
         assertResolverParamsEquals(actualParams, expectedParams);
     }
 
