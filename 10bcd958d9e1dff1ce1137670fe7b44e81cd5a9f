@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b425267_11d47676",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-29T14:15:12Z",
+      "side": 1,
+      "message": "Thanks for the explanation in the other CL. So for a VCN upstream we need to disable BPF but keep software forwarding enabled? Makes sense.\n\nThat said - it still doesn\u0027t seem great to rely on the LinkProperties for this information. That seems hard to follow. Could we do something more explicit, such as as add a new mUpstreamSupportsBpf member, or something similar?",
+      "range": {
+        "startLine": 933,
+        "startChar": 36,
+        "endLine": 933,
+        "endChar": 76
+      },
+      "revId": "10bcd958d9e1dff1ce1137670fe7b44e81cd5a9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
