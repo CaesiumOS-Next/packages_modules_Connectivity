@@ -68,6 +68,7 @@ import com.android.networkstack.apishim.common.Ikev2VpnProfileShim;
 import com.android.networkstack.apishim.common.VpnManagerShim;
 import com.android.networkstack.apishim.common.VpnProfileStateShim;
 import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.RecorderCallback.CallbackEntry;
@@ -639,7 +640,13 @@ public class Ikev2VpnTest {
                         testIpv6Only, requiresValidation, testSessionKey , testIkeTunConnParams)));
     }
 
-    @Test
+    @Test @IgnoreAfter(value = SC_V2, retry = 3)
+    public void testStartStopVpnProfileV4BeforeT() throws Exception {
+        doTestStartStopVpnProfile(false /* testIpv6Only */, false /* requiresValidation */,
+                false /* testSessionKey */, false /* testIkeTunConnParams */);
+    }
+
+    @Test @IgnoreUpTo(SC_V2)
     public void testStartStopVpnProfileV4() throws Exception {
         doTestStartStopVpnProfile(false /* testIpv6Only */, false /* requiresValidation */,
                 false /* testSessionKey */, false /* testIkeTunConnParams */);
@@ -652,7 +659,13 @@ public class Ikev2VpnTest {
                 false /* testSessionKey */, false /* testIkeTunConnParams */);
     }
 
-    @Test
+    @Test @IgnoreAfter(value = SC_V2, retry = 3)
+    public void testStartStopVpnProfileV6BeforeT() throws Exception {
+        doTestStartStopVpnProfile(true /* testIpv6Only */, false /* requiresValidation */,
+                false /* testSessionKey */, false /* testIkeTunConnParams */);
+    }
+
+    @Test @IgnoreUpTo(SC_V2)
     public void testStartStopVpnProfileV6() throws Exception {
         doTestStartStopVpnProfile(true /* testIpv6Only */, false /* requiresValidation */,
                 false /* testSessionKey */, false /* testIkeTunConnParams */);
