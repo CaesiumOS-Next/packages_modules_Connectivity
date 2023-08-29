@@ -25,6 +25,8 @@ import com.android.net.module.util.Struct.U32
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.TestBpfMap
+import java.lang.reflect.Modifier
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import org.junit.Test
@@ -71,5 +73,17 @@ class BpfNetMapsReaderTest {
         doTestIsChainEnabled(ConnectivityManager.FIREWALL_CHAIN_POWERSAVE)
         doTestIsChainEnabled(ConnectivityManager.FIREWALL_CHAIN_RESTRICTED)
         doTestIsChainEnabled(ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY)
+    }
+
+    @Test
+    fun testFirewallChainList() {
+        // Verify that when a firewall chain constant is added, it should also be included in
+        // firewall chain list.
+        assertEquals(
+            BpfNetMapsConstants.FIREWALL_CHAINS.size,
+            ConnectivityManager::class.java.declaredFields.filter {
+                Modifier.isStatic(it.modifiers) && it.name.startsWith("FIREWALL_CHAIN_")
+            }.size
+        )
     }
 }
