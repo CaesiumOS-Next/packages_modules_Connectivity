@@ -122,6 +122,7 @@ static const int IFACE_INDEX_NAME_MAP_SIZE = 1000;
 static const int IFACE_STATS_MAP_SIZE = 1000;
 static const int CONFIGURATION_MAP_SIZE = 2;
 static const int UID_OWNER_MAP_SIZE = 4000;
+static const int INGRESS_DISCARD_MAP_SIZE = 100;
 static const int PACKET_TRACE_BUF_SIZE = 32 * 1024;
 
 #ifdef __cplusplus
@@ -213,6 +214,18 @@ typedef struct {
     uint32_t rule;
 } UidOwnerValue;
 STRUCT_SIZE(UidOwnerValue, 2 * 4);  // 8
+
+typedef struct {
+    // The destination ip of the incoming packet.  IPv4 uses IPv4-mapped IPv6 address format.
+    struct in6_addr daddr;
+} IngressDiscardKey;
+STRUCT_SIZE(Key, 16);  // 16
+
+typedef struct {
+    // Allowed interface indexes.  Use same value multiple times if you just want to match 1 value.
+    uint32_t iif[2];
+} IngressDiscardValue;
+STRUCT_SIZE(Value, 2 * 4);  // 8
 
 // Entry in the configuration map that stores which UID rules are enabled.
 #define UID_RULES_CONFIGURATION_KEY 0
