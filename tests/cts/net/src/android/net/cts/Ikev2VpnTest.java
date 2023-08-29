@@ -68,6 +68,7 @@ import com.android.networkstack.apishim.common.Ikev2VpnProfileShim;
 import com.android.networkstack.apishim.common.VpnManagerShim;
 import com.android.networkstack.apishim.common.VpnProfileStateShim;
 import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.RecorderCallback.CallbackEntry;
@@ -639,7 +640,17 @@ public class Ikev2VpnTest {
                         testIpv6Only, requiresValidation, testSessionKey , testIkeTunConnParams)));
     }
 
-    @Test
+    // There are known threading issues in Vpn.java which were fixed in T release. But the mainline
+    // tests will also run on T- devices which have no way to get any production code fix or address
+    // the flake in the test. Allow the test to run more times to allow some failures due to
+    // possible platform issues.
+    @Test @IgnoreAfter(value = SC_V2, retry = 3)
+    public void testStartStopVpnProfileV4BeforeT() throws Exception {
+        doTestStartStopVpnProfile(false /* testIpv6Only */, false /* requiresValidation */,
+                false /* testSessionKey */, false /* testIkeTunConnParams */);
+    }
+
+    @Test @IgnoreUpTo(SC_V2)
     public void testStartStopVpnProfileV4() throws Exception {
         doTestStartStopVpnProfile(false /* testIpv6Only */, false /* requiresValidation */,
                 false /* testSessionKey */, false /* testIkeTunConnParams */);
@@ -652,7 +663,17 @@ public class Ikev2VpnTest {
                 false /* testSessionKey */, false /* testIkeTunConnParams */);
     }
 
-    @Test
+    // There are known threading issues in Vpn.java which were fixed in T release. But the mainline
+    // tests will also run on T- devices which have no way to get any production code fix or address
+    // the flake in the test. Allow the test to run more times to allow some failures due to
+    // possible platform issues.
+    @Test @IgnoreAfter(value = SC_V2, retry = 3)
+    public void testStartStopVpnProfileV6BeforeT() throws Exception {
+        doTestStartStopVpnProfile(true /* testIpv6Only */, false /* requiresValidation */,
+                false /* testSessionKey */, false /* testIkeTunConnParams */);
+    }
+
+    @Test @IgnoreUpTo(SC_V2)
     public void testStartStopVpnProfileV6() throws Exception {
         doTestStartStopVpnProfile(true /* testIpv6Only */, false /* requiresValidation */,
                 false /* testSessionKey */, false /* testIkeTunConnParams */);
