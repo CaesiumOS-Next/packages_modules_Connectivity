@@ -262,6 +262,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9ea26b83_340868b3",
+        "filename": "thread/TEST_MAPPING",
+        "patchSetId": 17
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1944152
+      },
+      "writtenOn": "2023-08-29T15:48:19Z",
+      "side": 1,
+      "message": "Hi, as part of trunk stable effort https://g3doc.corp.google.com/company/teams/android/programs/ironwood/trunkstable/presubmit_policy.md , we enforce that the test should meet SLO in postsubmit before being added to presubmit. I see we don\u0027t have any data for CtsThreadNetworkTestCases yet, so please add it to postsubmit first to ensure we can assess it\u0027s latency/flake before adding to presubmit.\n\nAs you noted, this is a recent change so if you have any feedback please share on http://go/test-mapping-bug\nThank you",
+      "parentUuid": "d9e2d21d_930f289b",
+      "range": {
+        "startLine": 2,
+        "startChar": 57,
+        "endLine": 2,
+        "endChar": 91
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c387a9b9_5d7997a0",
         "filename": "thread/framework/Android.bp",
         "patchSetId": 17
