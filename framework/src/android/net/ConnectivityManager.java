@@ -25,10 +25,13 @@ import static android.net.NetworkRequest.Type.TRACK_DEFAULT;
 import static android.net.NetworkRequest.Type.TRACK_SYSTEM_DEFAULT;
 import static android.net.QosCallback.QosCallbackRegistrationException;
 
+import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIVATE;
+
 import android.annotation.CallbackExecutor;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.RequiresApi;
 import android.annotation.RequiresPermission;
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
@@ -72,6 +75,7 @@ import android.util.Range;
 import android.util.SparseIntArray;
 
 import com.android.internal.annotations.GuardedBy;
+import com.android.internal.annotations.VisibleForTesting;
 
 import libcore.net.event.NetworkEventDispatcher;
 
@@ -940,6 +944,22 @@ public class ConnectivityManager {
 
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P, trackingBug = 130143562)
     private final IConnectivityManager mService;
+
+    /** @hide */
+    @VisibleForTesting(visibility = PRIVATE)
+    public static class Dependencies {
+        /**
+         * Return a BpfNetMapsReader instance.
+         *
+         * @return A BpfNetMapsReader instance.
+         * @throws IllegalStateException If the caller does not have permission to access bpf maps.
+         */
+        @NonNull
+        public BpfNetMapsReader getBpfNetMapsReader() {
+            return BpfNetMapsReader.getInstance();
+        }
+    }
+    private final Dependencies mDeps;
 
     // LINT.IfChange(firewall_chain)
     /**
@@ -2770,12 +2790,16 @@ public class ConnectivityManager {
      * {@hide}
      */
     public ConnectivityManager(Context context, IConnectivityManager service) {
-        this(context, service, true /* newStatic */);
+        this(context, service, true /* newStatic */, new Dependencies());
     }
 
-    private ConnectivityManager(Context context, IConnectivityManager service, boolean newStatic) {
+    /** @hide */
+    @VisibleForTesting(visibility = PRIVATE)
+    public ConnectivityManager(Context context, IConnectivityManager service, boolean newStatic,
+            @NonNull final Dependencies deps) {
         mContext = Objects.requireNonNull(context, "missing context");
         mService = Objects.requireNonNull(service, "missing IConnectivityManager");
+        mDeps = Objects.requireNonNull(deps, "missing Dependencies");
         // sInstance is accessed without a lock, so it may actually be reassigned several times with
         // different ConnectivityManager, but that's still OK considering its usage.
         if (sInstance == null && newStatic) {
@@ -2786,7 +2810,7 @@ public class ConnectivityManager {
             // cases, the passed-in Context will not be freed, so it's safe to pass it to the
             // service. http://b/27532714 .
             sInstance = new ConnectivityManager(appContext != null ? appContext : context, service,
-                    false /* newStatic */);
+                    false /* newStatic */, deps);
         }
     }
 
@@ -6147,6 +6171,46 @@ public class ConnectivityManager {
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
+    }
+
+    /**
+     * Return whether the network is blocked for the given uid and conditions.
+     *
+     * Similar to {@link NetworkPolicyManager#isUidNetworkingBlocked}, but directly reads the BPF
+     * maps. For use by the NetworkStack process only.
+     *
+     * @param uid The target uid.
+     * @param isNetworkMetered Whether the target network is metered.
+     * @param isDataSaverEnabled Whether the data saver is enabled.
+     *
+     * @return True if the network is blocked. Otherwise, false.
+     *
+     * @hide
+     */
+    // This isn't protected by a standard Android permission since it can't
+    // afford to do IPC for performance reasons. Instead, the access control
+    // is provided by linux file group permission AID_NET_BW_ACCT and the
+    // selinux context fs_bpf_net*.
+    // Only the system server process, the network stack and netd have the access.
+    // TODO: Expose api when ready.
+    // @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)  // BPF maps were only mainlined in T
+    public boolean isUidNetworkingBlockedForConditions(int uid, boolean isNetworkMetered,
+            boolean isDataSaverEnabled) {
+        final BpfNetMapsReader reader = mDeps.getBpfNetMapsReader();
+
+        // Open the map. Lookup the UID and look at the rules.
+        for (int chain : BpfNetMapsConstants.FIREWALL_CHAINS) {
+            if (!reader.isChainEnabled(chain)) continue;
+            if (reader.getUidRule(chain, uid) == FIREWALL_RULE_DENY) {
+                return true;
+            }
+        }
+
+        // TODO: If isNetworkMetered is true, check the data saver switch, penalty box
+        //  and happy box rules.
+
+        return false;
     }
 
     /** @hide */

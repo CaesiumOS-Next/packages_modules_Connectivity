@@ -49,10 +49,22 @@ public class BpfNetMapsReader {
     private final IBpfMap<S32, UidOwnerValue> mUidOwnerMap;
     private final Dependencies mDeps;
 
-    public BpfNetMapsReader() {
+    private static class SingletonHolder {
+        static final BpfNetMapsReader sInstance = new BpfNetMapsReader();
+    }
+
+    @NonNull
+    public static BpfNetMapsReader getInstance() {
+        return SingletonHolder.sInstance;
+    }
+
+    private BpfNetMapsReader() {
         this(new Dependencies());
     }
 
+    // While the production code use the singleton to optimize for performance and deal with
+    // con-current access, the test need to use non-static approach for dependency injection and
+    // mocking virtual bpf maps.
     @VisibleForTesting
     public BpfNetMapsReader(@NonNull Dependencies deps) {
         if (!SdkLevel.isAtLeastT()) {
