@@ -1594,4 +1594,61 @@ public class IpSecManagerTest extends IpSecBaseTest {
             assertTrue("Returned invalid port", encapSocket.getPort() != 0);
         }
     }
+
+    @Test
+    public void testApplyOneTransformToMultipleSockets() throws Exception {
+        InetAddress localAddr = InetAddress.getByName(IPV6_LOOPBACK);
+        final int inSocketCnt = 10;
+
+        final byte[] data = new String("Best test data ever!").getBytes("UTF-8");
+        final DatagramPacket outPacket = new DatagramPacket(data, 0, data.length, localAddr, 0);
+
+        DatagramPacket[] inPackets = new DatagramPacket[inSocketCnt];
+        DatagramSocket[] inSockets = new DatagramSocket[inSocketCnt];
+        for (int i = 0; i < inSocketCnt; i++) {
+            inPackets[i] = new DatagramPacket(new byte[data.length], data.length);
+            inSockets[i] = new DatagramSocket(0);
+        }
+
+        try (SecurityParameterIndex spi = mISM.allocateSecurityParameterIndex(localAddr);
+                IpSecTransform transform =
+                        buildTransportModeTransform(spi, localAddr, null /* encapSocket */);
+                // Bind localSocket to a random available port.
+                DatagramSocket localSocketOut = new DatagramSocket(0); ) {
+
+            mISM.applyTransportModeTransform(localSocketOut, IpSecManager.DIRECTION_OUT, transform);
+            for (int i = 0; i < inSocketCnt; i++) {
+                mISM.applyTransportModeTransform(
+                        inSockets[i], IpSecManager.DIRECTION_IN, transform);
+            }
+
+            // Send packets
+            for (int i = 0; i < inSocketCnt; i++) {
+                DatagramSocket inSocket = inSockets[i];
+                int localPort = inSocket.getLocalPort();
+                inSocket.setSoTimeout(200);
+                outPacket.setPort(localPort);
+
+                localSocketOut.send(outPacket);
+            }
+
+            // Receive packets
+            for (int i = 0; i < inSocketCnt; i++) {
+                inSockets[i].receive(inPackets[i]);
+                assertTrue(
+                        "Encrypted data did not match.",
+                        Arrays.equals(outPacket.getData(), inPackets[i].getData()));
+            }
+
+            // Clean up
+            for (int i = 0; i < inSocketCnt; i++) {
+                mISM.removeTransportModeTransforms(inSockets[i]);
+            }
+            mISM.removeTransportModeTransforms(localSocketOut);
+        } finally {
+            for (int i = 0; i < inSocketCnt; i++) {
+                inSockets[i].close();
+            }
+        }
+    }
 }
