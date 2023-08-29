@@ -1,0 +1,418 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cacacdc4_0b89b8bb",
+        "filename": "framework-t/src/android/net/ConnectivityFrameworkInitializerTiramisu.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "It looks really strange that you\u0027d want a context aware service but not pass the context to the manager constructor. This method will cache the manager per-context ; you may or may not want that. The real question is : will the behavior be different depending on the context ? For networking usually it isn\u0027t, but maybe your case is different – you might want to behave differently when the context is for a docked state or something.\n\n- Do you intend to pass it eventually ? If so, I suggest you pass it immediately even if it\u0027s just to store it in a unused member. \n- Or, if you know the behavior doesn\u0027t depend on the context, then use registerStaticService.\n\nIf you don\u0027t know, it is generally prudent to pass a context.",
+      "range": {
+        "startLine": 95,
+        "startChar": 30,
+        "endLine": 95,
+        "endChar": 57
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c3df278_74dfbcbe",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "Javadoc spec says the cover doc stops at the first `.` character so here your public doc is :\n```\nReturns Thread network service instance or null either 1.\n```\n...which means nothing at all\n\n\nSuggested wording\n\n    Returns a Thread network service instance if supported.\n    Thread is supported if\n    1. The FEATURE_THREAD_NETWORK is supported, and\n    2. SDK level is V, or SDK level is U and the device is a TV",
+      "range": {
+        "startLine": 193,
+        "startChar": 55,
+        "endLine": 193,
+        "endChar": 61
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e02e0c6_a7d8d181",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "I find this `!x || !y || !z` style hard to follow. Suggest writing either\n\n   if (hasSystemFeature()\n     \u0026\u0026 (isAtLeastV()\n        || isAtLeastU() \u0026\u0026 TV) {\n      return new ()\n   }\n\nor\n\n    if (!hasFeature()) return null\n    if (!isAtLeastU()) return null\n    if (!isAtLeastV() \u0026\u0026 !isTV()) return null\n    return new()",
+      "range": {
+        "startLine": 202,
+        "startChar": 12,
+        "endLine": 202,
+        "endChar": 13
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25785386_e5251f7f",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "The doc for LEANBACK suggests not all TVs support it. Did you want FEATURE_TELEVISION ? Or, is there a way to know if the device is always connected to power ? (I guess that means : do you want to enable this on U on devices like google home)",
+      "range": {
+        "startLine": 204,
+        "startChar": 78,
+        "endLine": 204,
+        "endChar": 94
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4457fb67_b48473b1",
+        "filename": "thread/TEST_MAPPING",
+        "patchSetId": 17
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "Does it not at this stage ? I don\u0027t think we should be submitting new tests that already don\u0027t meet the SLO requirements. Presubmits are a much stronger defense for you than postsubmits and are much preferable if possible",
+      "range": {
+        "startLine": 2,
+        "startChar": 57,
+        "endLine": 2,
+        "endChar": 91
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c387a9b9_5d7997a0",
+        "filename": "thread/framework/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "I would recommend calling this `framework-net-thread-*` or something, simply because in the general context of the framework, the word \"thread\" means other things and the thread networking technology is not what will come to mind first to most people.",
+      "range": {
+        "startLine": 35,
+        "startChar": 21,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b49dcfc_df0b56bf",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "Is javac not smart enough to figure out this code is unreachable ?",
+      "range": {
+        "startLine": 60,
+        "startChar": 12,
+        "endLine": 60,
+        "endChar": 18
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6203645c_a38da39b",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "go/avoidwe\n(also below)",
+      "range": {
+        "startLine": 39,
+        "startChar": 32,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb1578ad_2795b0c2",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "Do you actually have plans to do this ? It sounds like if you do, it should be easy to do first ; if you don\u0027t then you should not have a todo.",
+      "range": {
+        "startLine": 41,
+        "startChar": 78,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4141ccad_266ce9fb",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "at",
+      "range": {
+        "startLine": 46,
+        "startChar": 95,
+        "endLine": 46,
+        "endChar": 98
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62655ffd_b47b71f7",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "style : space\ndid you skip checkstyle ? Or is it not configured here ?\n\nAlso consider using CollectionUtils.map for terseness and readability",
+      "range": {
+        "startLine": 75,
+        "startChar": 55,
+        "endLine": 75,
+        "endChar": 56
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "038866a9_b6c7280c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "Small note : it looks like the list is and will stay immutable, so you could just store the unmodifiable collection in the member which allows you to return it immediately.",
+      "range": {
+        "startLine": 88,
+        "startChar": 27,
+        "endLine": 88,
+        "endChar": 43
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc1347ad_b68d66b9",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "I know we have a lot of code using this, but generally I think we should use the framework annotations wherever possible instead of androidx",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ce11ba6_f50a235e",
+        "filename": "thread/tests/cts/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "architectures",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 35
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d34b1ff_6274ddcb",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "This is fine if you\u0027re sure the application context is always going to be the one you want. Otherwise you should use the instrumentation context.",
+      "range": {
+        "startLine": 44,
+        "startChar": 57,
+        "endLine": 44,
+        "endChar": 78
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c16673bd_d06183fe",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "You\u0027ll need to check for your SDK and TV feature constraints ; probably something like `@IgnoreUpTo(Build.VERSION_CODES.T)` and then `assumeTrue(V || isTV())`",
+      "range": {
+        "startLine": 48,
+        "startChar": 16,
+        "endLine": 48,
+        "endChar": 21
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8c84c10_a7682815",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "Same comments apply as with the previous file",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 37
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4736fd3_4c85205a",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T04:43:19Z",
+      "side": 1,
+      "message": "This will throw if the list is null, right ?",
+      "range": {
+        "startLine": 73,
+        "startChar": 32,
+        "endLine": 73,
+        "endChar": 42
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
