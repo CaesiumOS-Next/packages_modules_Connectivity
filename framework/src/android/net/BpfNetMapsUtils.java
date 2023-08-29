@@ -91,10 +91,10 @@ public class BpfNetMapsUtils {
     }
 
     /**
-     * Get if the chain is allow list or not.
+     * Get if the chain is allowed list or not.
      *
      * ALLOWLIST means the firewall denies all by default, uids must be explicitly allowed
-     * DENYLIST means the firewall allows all by default, uids must be explicitly denyed
+     * DENYLIST means the firewall allows all by default, uids must be explicitly denied
      */
     public static boolean isFirewallAllowList(final int chain) {
         switch (chain) {

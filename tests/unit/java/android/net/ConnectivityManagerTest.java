@@ -16,6 +16,11 @@
 
 package android.net;
 
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
+import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
+import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
 import static android.net.ConnectivityManager.TYPE_NONE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_CBS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
@@ -51,6 +56,7 @@ import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.after;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
@@ -63,6 +69,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Handler;
@@ -78,6 +85,7 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -90,11 +98,17 @@ import java.lang.ref.WeakReference;
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(VERSION_CODES.R)
 public class ConnectivityManagerTest {
+    @Rule
+    public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
+
     private static final int TIMEOUT_MS = 30_000;
     private static final int SHORT_TIMEOUT_MS = 150;
+    static final int TEST_UID1 = 1234;
+    static final int TEST_UID2 = 1235;
 
     @Mock Context mCtx;
     @Mock IConnectivityManager mService;
+    @Mock BpfNetMapsReader mMockBpfNetMapsReader;
 
     @Before
     public void setUp() {
@@ -509,5 +523,60 @@ public class ConnectivityManagerTest {
 
         assertNull("ConnectivityManager weak reference still not null after " + attempts
                     + " attempts", ref.get());
+    }
+
+    class TestDependencies extends ConnectivityManager.Dependencies {
+        @Override
+        public BpfNetMapsReader maybeGetBpfNetMapsReader() {
+            return mMockBpfNetMapsReader;
+        }
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    @Test
+    public void testIsUidNetworkingBlocked_byFirewallChains() {
+        final TestDependencies deps = new TestDependencies();
+        final ConnectivityManager manager = new ConnectivityManager(mCtx, mService,
+                true /* newStatic */, deps);
+        // With everything disabled by default, verify the return value is false.
+        assertFalse(manager.isUidNetworkingBlocked(TEST_UID1, false, false));
+
+        // Enable dozable chain but does not provide allowed list. Verify the network is blocked
+        // for all uids.
+        doReturn(true).when(mMockBpfNetMapsReader).isChainEnabled(FIREWALL_CHAIN_DOZABLE);
+        doReturn(FIREWALL_RULE_DENY).when(mMockBpfNetMapsReader)
+                .getUidRule(eq(FIREWALL_CHAIN_DOZABLE), anyInt());
+        assertTrue(manager.isUidNetworkingBlocked(TEST_UID1, false, false));
+        assertTrue(manager.isUidNetworkingBlocked(TEST_UID2, false, false));
+
+        // Add uid1 to dozable allowed list. Verify the network is not blocked for uid1, while
+        // uid2 is blocked.
+        doReturn(FIREWALL_RULE_ALLOW).when(mMockBpfNetMapsReader)
+                .getUidRule(FIREWALL_CHAIN_DOZABLE, TEST_UID1);
+        assertFalse(manager.isUidNetworkingBlocked(TEST_UID1, false, false));
+        assertTrue(manager.isUidNetworkingBlocked(TEST_UID2, false, false));
+
+        // Enable powersave chain to block uid1. Uid1 is allowed by dozable chain but denied by
+        // powersave chain, verify the blocking takes higher priority.
+        doReturn(true).when(mMockBpfNetMapsReader).isChainEnabled(FIREWALL_CHAIN_POWERSAVE);
+        doReturn(FIREWALL_RULE_DENY).when(mMockBpfNetMapsReader)
+                .getUidRule(eq(FIREWALL_CHAIN_POWERSAVE), anyInt());
+        assertTrue(manager.isUidNetworkingBlocked(TEST_UID1, false, false));
+
+        // Enable standby chain with denied list. Uid1 is allowed by dozable chain, but denied by
+        // standby chain. Verify the blocking takes higher priority.
+        doReturn(false).when(mMockBpfNetMapsReader).isChainEnabled(FIREWALL_CHAIN_POWERSAVE);
+        doReturn(true).when(mMockBpfNetMapsReader).isChainEnabled(FIREWALL_CHAIN_STANDBY);
+        doReturn(FIREWALL_RULE_ALLOW).when(mMockBpfNetMapsReader)
+                .getUidRule(eq(FIREWALL_CHAIN_POWERSAVE), anyInt());
+        doReturn(FIREWALL_RULE_DENY).when(mMockBpfNetMapsReader)
+                .getUidRule(eq(FIREWALL_CHAIN_STANDBY), eq(TEST_UID1));
+        assertTrue(manager.isUidNetworkingBlocked(TEST_UID1, false, false));
+
+        // Disable the chains. Verify the network is not blocked for all uids.
+        doReturn(false).when(mMockBpfNetMapsReader).isChainEnabled(FIREWALL_CHAIN_DOZABLE);
+        doReturn(false).when(mMockBpfNetMapsReader).isChainEnabled(FIREWALL_CHAIN_STANDBY);
+        assertFalse(manager.isUidNetworkingBlocked(TEST_UID1, false, false));
+        assertFalse(manager.isUidNetworkingBlocked(TEST_UID2, false, false));
     }
 }
