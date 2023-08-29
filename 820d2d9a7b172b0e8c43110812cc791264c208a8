@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ad057ac_9979271f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-29T14:45:34Z",
+      "side": 1,
+      "message": "Thanks for simplifying this, the previous code was hard to follow.\n\nCan you add text to the commit message to explain why this is correct? I believe the reason is that Tethering initializes mBpfCoordinator just once in the constructor. After that point, the value of isUsingBpf can never change, because mIsBpfEnabled is final and mBpfCoordinatorShim.isInitialized() is either always true (api30) or can either never change (api31).\n\nAlso please look at the comment about removing mUsingBpfOffload. I think its existence is confusing (and buggy) and hopefully we can remove it.",
+      "revId": "820d2d9a7b172b0e8c43110812cc791264c208a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26f86478_748e348a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-29T14:45:34Z",
+      "side": 1,
+      "message": "Can just change this to mBpfCoordinator.isUsingBpf() and remove mUsingBpfOffload entirely?\n\nIt currently seems to be possible for BpfCoordinator to be started with BPF disabled (when Tethering starts), but then for the configuration to change to enable BPF (e.g., because the OVERRIDE_TETHER_ENABLE_BPF_OFFLOAD flag changed). From that point on any new IpServer created will have mUsingBpfOffload \u003d true and will start an IpNeighborMonitor. This won\u0027t work, because BpfCoordinator has BPF disabled.\n\nRemoving mUsingBpfOffload entirely would fix this.",
+      "range": {
+        "startLine": 330,
+        "startChar": 12,
+        "endLine": 330,
+        "endChar": 28
+      },
+      "revId": "820d2d9a7b172b0e8c43110812cc791264c208a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
