@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f4b635_90673485",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c3df278_74dfbcbe",
+      "range": {
+        "startLine": 193,
+        "startChar": 55,
+        "endLine": 193,
+        "endChar": 61
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e02e0c6_a7d8d181",
@@ -94,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e5f5899_8f05dc06",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "Okay, I updated to the second to make each requirement clearer.",
+      "parentUuid": "9e02e0c6_a7d8d181",
+      "range": {
+        "startLine": 202,
+        "startChar": 12,
+        "endLine": 202,
+        "endChar": 13
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25785386_e5251f7f",
@@ -107,6 +155,30 @@
       "writtenOn": "2023-08-29T04:43:19Z",
       "side": 1,
       "message": "The doc for LEANBACK suggests not all TVs support it. Did you want FEATURE_TELEVISION ? Or, is there a way to know if the device is always connected to power ? (I guess that means : do you want to enable this on U on devices like google home)",
+      "range": {
+        "startLine": 204,
+        "startChar": 78,
+        "endLine": 204,
+        "endChar": 94
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "601477bb_7fc846b8",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "The ATV documentation suggests LEANBACK for checking a TV device: https://developer.android.com/training/tv/start/hardware.html#runtime-check. And it seems `FEATURE_TELEVISION` is deprecated by `FEATURE_LEANBACK`: https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/content/pm/PackageManager.java?q\u003dsymbol%3A%5Cbandroid.content.pm.PackageManager.FEATURE_TELEVISION%5Cb%20case%3Ayes\n\n------\n\n\u003e Or, is there a way to know if the device is always connected to power ?\nI don\u0027t think we should check by whether it\u0027s connected to power, because this initialization code is run when the system_server boots and the feature availability shouldn\u0027t be detected by a runtime factor which can change at any time.\n\n\n\nI am hesitated adding the TV and SDK level checks. I think the FEATURE_THREAD_NETWORK availability check is good enough since there are no existing devices have the Thread feature.\n\n1. Removing the TV check allows Google and partners to enable Thread on U devices (such as tablets) if they backport the Thread HAL service.\n2. Removing the SDK level check allows partners to enable Thread on older platforms. Partners did reach to our partner engineers to ask if we can support older platforms. @rochaferraz@google.com\n\n\n@lorenzo@google.com Thoughts?",
+      "parentUuid": "25785386_e5251f7f",
       "range": {
         "startLine": 204,
         "startChar": 78,
@@ -165,6 +237,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "69e1ce73_ec30765b",
+        "filename": "thread/framework/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "This may be okay given the visibility is limited to this directory (and subdirectory).\n\nWe are using `framework-thread-sources` and `service-thread-pre-jarjar` already, if we want to rename, we probably shoul rename all of them. thoughts?",
+      "parentUuid": "c387a9b9_5d7997a0",
+      "range": {
+        "startLine": 35,
+        "startChar": 21,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2b49dcfc_df0b56bf",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 17
@@ -209,6 +305,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1ac30a9_9053fac4",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6203645c_a38da39b",
+      "range": {
+        "startLine": 39,
+        "startChar": 32,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb1578ad_2795b0c2",
@@ -222,6 +342,30 @@
       "writtenOn": "2023-08-29T04:43:19Z",
       "side": 1,
       "message": "Do you actually have plans to do this ? It sounds like if you do, it should be easy to do first ; if you don\u0027t then you should not have a todo.",
+      "range": {
+        "startLine": 41,
+        "startChar": 78,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f52e65_9deba879",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "Do you mean cherry-pick Context#THREAD_NETWORK_SERVICE to udc-mainline-prod?\n\nI probably didn\u0027t make it clear, I was trying to say we can remove this constant when tethering is no longer built on an U branch (updated the comment). AFAIK, the udc-mainline-prod branch is going to be deprecated soon after the U release, right?",
+      "parentUuid": "fb1578ad_2795b0c2",
       "range": {
         "startLine": 41,
         "startChar": 78,
@@ -255,6 +399,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f5bb0c7_85568246",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4141ccad_266ce9fb",
+      "range": {
+        "startLine": 46,
+        "startChar": 95,
+        "endLine": 46,
+        "endChar": 98
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62655ffd_b47b71f7",
@@ -268,6 +436,30 @@
       "writtenOn": "2023-08-29T04:43:19Z",
       "side": 1,
       "message": "style : space\ndid you skip checkstyle ? Or is it not configured here ?\n\nAlso consider using CollectionUtils.map for terseness and readability",
+      "range": {
+        "startLine": 75,
+        "startChar": 55,
+        "endLine": 75,
+        "endChar": 56
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62024f3b_ee28b6ce",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "I don\u0027t know why checkstyle doesn\u0027t warn this, but Connectivity/PREUPLOAD.cfg should already covered thread/ directory. (we are not overriding that one).\n\n\nThanks for the suggestion on `CollectionUtils`, I tried search for such utility but didn\u0027t found it.Implementation updated.",
+      "parentUuid": "62655ffd_b47b71f7",
       "range": {
         "startLine": 75,
         "startChar": 55,
@@ -301,6 +493,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b558a34_499cea88",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "Good point, updated!",
+      "parentUuid": "038866a9_b6c7280c",
+      "range": {
+        "startLine": 88,
+        "startChar": 27,
+        "endLine": 88,
+        "endChar": 43
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc1347ad_b68d66b9",
@@ -324,6 +540,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00e02511_fec9eb54",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "Thanks. Removed in this CL since we don\u0027t really need it immediately.",
+      "parentUuid": "fc1347ad_b68d66b9",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ce11ba6_f50a235e",
@@ -337,6 +577,30 @@
       "writtenOn": "2023-08-29T04:43:19Z",
       "side": 1,
       "message": "architectures",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 35
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d1d78dc_df164c22",
+        "filename": "thread/tests/cts/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ce11ba6_f50a235e",
       "range": {
         "startLine": 48,
         "startChar": 23,
@@ -393,6 +657,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c16f059f_3ee8706f",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "Just realized that I should not test the feature availability in this file, because only the ThreadNetworkManager is a SystemService interface. In this test, we just need to check if `context.getSystemService(ThreadNetworkManager.class)` is null. Instead, I tested the feature availability in ThreadNetworkManagerTest.java",
+      "parentUuid": "c16673bd_d06183fe",
+      "range": {
+        "startLine": 48,
+        "startChar": 16,
+        "endLine": 48,
+        "endChar": 21
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8c84c10_a7682815",
@@ -406,6 +694,30 @@
       "writtenOn": "2023-08-29T04:43:19Z",
       "side": 1,
       "message": "Same comments apply as with the previous file",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 37
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f524a063_70b6ece4",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T08:49:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8c84c10_a7682815",
       "range": {
         "startLine": 42,
         "startChar": 13,
