@@ -37,6 +37,70 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01124355_7b17db0b",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-29T12:18:03Z",
+      "side": 1,
+      "message": "I think that would also fix the error prone warnings below",
+      "parentUuid": "b2894956_e709c64b",
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6db50fa7_2533de67",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-29T12:18:03Z",
+      "side": 1,
+      "message": "could/should the entire class be marked T+ with an annotation?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cf727cf_b28ac28e",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-29T12:18:03Z",
+      "side": 1,
+      "message": "side note: separate CL - we seem to do this all the time and all over the place...\n\nperhaps the \u0027new BpfMap\u003c\u003e() should already just throw IllegalStateException and we wouldn\u0027t need to catch and rethrow.\n\n(It could use the path of the map instead of the descriptive name)",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 76,
+        "endChar": 13
+      },
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18e9b67f_e8b7109e",
         "filename": "framework/src/android/net/BpfNetMapsUtils.java",
         "patchSetId": 4
@@ -48,6 +112,75 @@
       "writtenOn": "2023-08-29T11:24:09Z",
       "side": 1,
       "message": "nits: In this class, PRE_T is only used in this method. So I felt we can keep PRE_T in BpfNetMaps and this method can have `if(!SdkLevel.isAtLeastT())`",
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e03f9982_e932b827",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-29T12:18:03Z",
+      "side": 1,
+      "message": "annotate as T+.\n\nthen I think you don\u0027t need the throw at all",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 96
+      },
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f23d52e0_4d638a9e",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-29T12:18:03Z",
+      "side": 1,
+      "message": "seperate CL: same comment about us doing this all the time...\n\nI think we could move this ServiceSpecificException into getValue()\n\nWhere it could\n\nthrow new ServiceSpecificException(errno, \"Unable to read key X from map Y\")\n\n(all we need to do is hold on to the path in the constructor)",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 9
+      },
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b804686_00416ed3",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-29T12:18:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 86
+      },
       "revId": "a202874a1d40831060117cbb63429f18faa366d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
