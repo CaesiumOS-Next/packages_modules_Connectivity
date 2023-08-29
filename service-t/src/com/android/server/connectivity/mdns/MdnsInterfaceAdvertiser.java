@@ -351,7 +351,24 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         mReplySender.queueReply(answers);
     }
 
+    /**
+     * Get the socket interface name.
+     */
     public String getSocketInterfaceName() {
         return mSocket.getInterface().getName();
+    }
+
+    /**
+     * Gets the offload MdnsPacket.
+     * @param serviceId The serviceId.
+     * @return the raw offload payload
+     */
+    public byte[] getRawOffloadPayload(int serviceId) {
+        try {
+            return mReplySender.createRawDnsPacket(mRecordRepository.getOffloadPacket(serviceId));
+        } catch (IOException e) {
+            mSharedLog.i("Cannot create rawOffloadPacket: " + e.getMessage());
+            return null;
+        }
     }
 }
