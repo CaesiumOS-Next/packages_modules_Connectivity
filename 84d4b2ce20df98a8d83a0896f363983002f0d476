@@ -18,6 +18,46 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "450036f4_ec3e0b2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-08-29T17:20:42Z",
+      "side": 1,
+      "message": "LGTM pending comments",
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37be5c18_66473a31",
+        "filename": "remoteauth/service/jni/src/remoteauth_jni_android_platform.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-08-29T17:20:42Z",
+      "side": 1,
+      "message": "nit: I think this should be `platform_handle`.",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 20
+      },
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eeacf167_eec2a352",
@@ -31,6 +71,30 @@
       "writtenOn": "2023-08-29T16:24:23Z",
       "side": 1,
       "message": "unwrap will panic and crash everything if this fails. Do we want to return a result and use the \u0027?\u0027 operator here (and below) for the unwraps?",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 45
+      },
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dd779a0_ddeab26c",
+        "filename": "remoteauth/service/jni/src/remoteauth_jni_android_platform.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-08-29T17:20:42Z",
+      "side": 1,
+      "message": "We talked about this and thought that there was really no way to recover from not being able to get the jvm. It should only happen if the app runs out of stack space.",
+      "parentUuid": "eeacf167_eec2a352",
       "range": {
         "startLine": 102,
         "startChar": 8,
@@ -77,6 +141,75 @@
       "writtenOn": "2023-08-29T16:24:23Z",
       "side": 1,
       "message": "I\u0027d use result here.",
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "916609b5_2121781a",
+        "filename": "remoteauth/service/jni/src/remoteauth_jni_android_platform.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-08-29T17:20:42Z",
+      "side": 1,
+      "message": "If you move this into the the `if let Ok(env)` block you won\u0027t need the `wait_for_response`.",
+      "range": {
+        "startLine": 181,
+        "startChar": 12,
+        "endLine": 181,
+        "endChar": 27
+      },
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "620d38e5_eeae9d5e",
+        "filename": "remoteauth/service/jni/src/unique_jvm.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-08-29T17:20:42Z",
+      "side": 1,
+      "message": "Does this need to be unsafe?",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be4c8982_20b3f24f",
+        "filename": "remoteauth/service/jni/src/unique_jvm.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2019982
+      },
+      "writtenOn": "2023-08-29T17:20:42Z",
+      "side": 1,
+      "message": "Does this need to be unsafe?",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 10
+      },
       "revId": "84d4b2ce20df98a8d83a0896f363983002f0d476",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
