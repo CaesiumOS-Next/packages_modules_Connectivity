@@ -900,6 +900,41 @@ class NsdManagerTest {
         assertTrue(serviceInfo.hostname.endsWith("local"))
         assertEquals(0, serviceInfo.priority)
         assertEquals(OffloadEngine.OFFLOAD_TYPE_REPLY.toLong(), serviceInfo.offloadType)
+        assertNotNull(serviceInfo.offloadPayload)
+        serviceInfo.offloadPayload?.let {
+            val dnsPacket = TestDnsPacket(it)
+            assertEquals(0x8400, dnsPacket.header.flags)
+            assertEquals(0, dnsPacket.records[DnsPacket.QDSECTION].size)
+            assertTrue(dnsPacket.records[DnsPacket.ANSECTION].size >= 5)
+            assertEquals(0, dnsPacket.records[DnsPacket.NSSECTION].size)
+            assertEquals(0, dnsPacket.records[DnsPacket.ARSECTION].size)
+
+            val ptrRecord = dnsPacket.records[DnsPacket.ANSECTION][0]
+            assertEquals("$expectedServiceType.local", ptrRecord.dName)
+            assertEquals(0x0C /* PTR */, ptrRecord.nsType)
+            val ptrSubRecord = dnsPacket.records[DnsPacket.ANSECTION][1]
+            assertEquals("_subtype._sub.$expectedServiceType.local", ptrSubRecord.dName)
+            assertEquals(0x0C /* PTR */, ptrSubRecord.nsType)
+            val srvRecord = dnsPacket.records[DnsPacket.ANSECTION][2]
+            assertEquals("$si.serviceName.$expectedServiceType.local", srvRecord.dName)
+            assertEquals(0x21 /* SRV */, srvRecord.nsType)
+            val txtRecord = dnsPacket.records[DnsPacket.ANSECTION][3]
+            assertEquals("$si.serviceName.$expectedServiceType.local", txtRecord.dName)
+            assertEquals(0x10 /* TXT */, txtRecord.nsType)
+
+            val iface = NetworkInterface.getByName(testNetwork1.iface.interfaceName)
+            val allAddress = iface.inetAddresses.toList()
+            for (i in 4 until dnsPacket.records[DnsPacket.ANSECTION].size) {
+                val addressRecord = dnsPacket.records[DnsPacket.ANSECTION][4]
+                assertTrue(addressRecord.dName.startsWith("Android_"))
+                assertTrue(addressRecord.dName.endsWith("local"))
+                assertTrue(addressRecord.nsType in arrayOf(0x1C /* AAAA */, 0x01 /* A */))
+                addressRecord.rr?.let { addrBytes ->
+                    val addr = InetAddress.getByAddress(addrBytes)
+                    assertTrue(addr in allAddress)
+                }
+            }
+        }
     }
 
     @Test
@@ -1410,6 +1445,11 @@ private fun TapPacketReader.pollForAdvertisement(
 ): ByteArray? = pollForMdnsPacket(timeoutMs) { it.isReplyFor("$serviceName.$serviceType.local") }
 
 private class TestDnsPacket(data: ByteArray) : DnsPacket(data) {
+    val header: DnsHeader
+        get() = mHeader
+    val records: Array<List<DnsRecord>>
+        get() = mRecords
+
     fun isProbeFor(name: String): Boolean = mRecords[QDSECTION].any {
         it.dName == name && it.nsType == 0xff /* ANY */
     }
