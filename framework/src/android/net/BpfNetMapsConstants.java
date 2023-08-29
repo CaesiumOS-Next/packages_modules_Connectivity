@@ -16,6 +16,15 @@
 
 package android.net;
 
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_1;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_2;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
+
 import android.util.Pair;
 
 import com.android.net.module.util.Struct;
@@ -75,5 +84,19 @@ public class BpfNetMapsConstants {
             Pair.create(OEM_DENY_1_MATCH, "OEM_DENY_1_MATCH"),
             Pair.create(OEM_DENY_2_MATCH, "OEM_DENY_2_MATCH"),
             Pair.create(OEM_DENY_3_MATCH, "OEM_DENY_3_MATCH")
+    );
+
+    /**
+     * List of all firewall chains.
+     */
+    public static final List<Integer> FIREWALL_CHAINS = List.of(
+            FIREWALL_CHAIN_DOZABLE,
+            FIREWALL_CHAIN_STANDBY,
+            FIREWALL_CHAIN_POWERSAVE,
+            FIREWALL_CHAIN_RESTRICTED,
+            FIREWALL_CHAIN_LOW_POWER_STANDBY,
+            FIREWALL_CHAIN_OEM_DENY_1,
+            FIREWALL_CHAIN_OEM_DENY_2,
+            FIREWALL_CHAIN_OEM_DENY_3
     );
 }

@@ -57,10 +57,42 @@ public class BpfNetMapsReader {
     private final IBpfMap<S32, UidOwnerValue> mUidOwnerMap;
     private final Dependencies mDeps;
 
-    public BpfNetMapsReader() {
+    // Bitmaps for calculating whether a given uid is blocked by firewall chains.
+    private static final long sMaskDropIfSet;
+    private static final long sMaskDropIfUnset;
+
+    static {
+        long maskDropIfSet = 0L;
+        long maskDropIfUnset = 0L;
+
+        for (int chain : BpfNetMapsConstants.FIREWALL_CHAINS) {
+            final long match = getMatchByFirewallChain(chain);
+            if (isFirewallAllowList(chain)) {
+                maskDropIfUnset |= match;
+            } else {
+                maskDropIfSet |= match;
+            }
+        }
+        sMaskDropIfSet = maskDropIfSet;
+        sMaskDropIfUnset = maskDropIfUnset;
+    }
+
+    private static class SingletonHolder {
+        static final BpfNetMapsReader sInstance = new BpfNetMapsReader();
+    }
+
+    @NonNull
+    public static BpfNetMapsReader getInstance() {
+        return SingletonHolder.sInstance;
+    }
+
+    private BpfNetMapsReader() {
         this(new Dependencies());
     }
 
+    // While the production code use the singleton to optimize for performance and deal with
+    // con-current access, the test need to use non-static approach for dependency injection and
+    // mocking virtual bpf maps.
     @VisibleForTesting
     public BpfNetMapsReader(@NonNull Dependencies deps) {
         if (!SdkLevel.isAtLeastT()) {
@@ -175,5 +207,44 @@ public class BpfNetMapsReader {
             throw new ServiceSpecificException(e.errno,
                     "Unable to get uid rule status: " + Os.strerror(e.errno));
         }
+    }
+
+    /**
+     * Return whether the network is blocked by firewall chains for the given uid.
+     *
+     * @param uid The target uid.
+     *
+     * @return True if the network is blocked. Otherwise, false.
+     * @throws ServiceSpecificException if the read fails.
+     *
+     * @hide
+     */
+    public boolean isUidBlockedByFirewallChains(final int uid) {
+        throwIfPreT("isUidBlockedByFirewallChains is not available on pre-T devices");
+
+        final long uidRuleConfig;
+        final long uidMatch;
+        try {
+            uidRuleConfig = mConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY).val;
+            final UidOwnerValue value = mUidOwnerMap.getValue(new S32(uid));
+            uidMatch = (value != null) ? value.rule : 0L;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to get firewall chain status: " + Os.strerror(e.errno));
+        }
+
+        final long maskEnabledChain = uidRuleConfig & (sMaskDropIfSet | sMaskDropIfUnset);
+
+        // Assume all chains enabled, which will be filtered out when masking with enabled chains.
+        // This value is non-zero if:
+        //   1. Uid is in any deny-list, or
+        //   2. Uid is not in any allow-list.
+        // So, this can be written as:
+        //   uidMatch & maskDropIfSet | ~uidMatch & maskDropIfUnset
+        // which can be further simplified to the form below.
+        // Refer to bpf_owner_match in bpf_progs/netd.c for more detailed information.
+        final long maskShouldDrop = uidMatch ^ sMaskDropIfUnset;
+
+        return (maskEnabledChain & maskShouldDrop) != 0;
     }
 }

@@ -18,6 +18,7 @@ package com.android.server;
 
 import static android.net.BpfNetMapsConstants.CURRENT_STATS_MAP_CONFIGURATION_KEY;
 import static android.net.BpfNetMapsConstants.DOZABLE_MATCH;
+import static android.net.BpfNetMapsConstants.FIREWALL_CHAINS;
 import static android.net.BpfNetMapsConstants.HAPPY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.IIF_MATCH;
 import static android.net.BpfNetMapsConstants.LOCKDOWN_VPN_MATCH;
@@ -116,16 +117,6 @@ public final class BpfNetMapsTest {
     private static final int NO_IIF = 0;
     private static final int NULL_IIF = 0;
     private static final String CHAINNAME = "fw_dozable";
-    private static final List<Integer> FIREWALL_CHAINS = List.of(
-            FIREWALL_CHAIN_DOZABLE,
-            FIREWALL_CHAIN_STANDBY,
-            FIREWALL_CHAIN_POWERSAVE,
-            FIREWALL_CHAIN_RESTRICTED,
-            FIREWALL_CHAIN_LOW_POWER_STANDBY,
-            FIREWALL_CHAIN_OEM_DENY_1,
-            FIREWALL_CHAIN_OEM_DENY_2,
-            FIREWALL_CHAIN_OEM_DENY_3
-    );
 
     private static final long STATS_SELECT_MAP_A = 0;
     private static final long STATS_SELECT_MAP_B = 1;
