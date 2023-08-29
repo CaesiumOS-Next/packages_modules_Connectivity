@@ -86,10 +86,19 @@ public class MdnsReplySender {
             // Skip sending if the socket has not joined the v4/v6 group (there was no address)
             return;
         }
+        final byte[] outBuffer = createRawDnsPacket(packet);
+        mSocket.send(new DatagramPacket(outBuffer, 0, outBuffer.length, destination));
+    }
 
+    /**
+     * Create a raw DNS packet.
+     * <p>
+     * Must be called on the looper thread used by the {@link MdnsReplySender}.
+     */
+    public byte[] createRawDnsPacket(MdnsPacket packet) throws IOException {
+        ensureRunningOnHandlerThread(mHandler);
         // TODO: support packets over size (send in multiple packets with TC bit set)
         final MdnsPacketWriter writer = new MdnsPacketWriter(mPacketCreationBuffer);
-
         writer.writeUInt16(0); // Transaction ID (advertisement: 0)
         writer.writeUInt16(packet.flags); // Response, authoritative (rfc6762 18.4)
         writer.writeUInt16(packet.questions.size()); // questions count
@@ -114,8 +123,7 @@ public class MdnsReplySender {
         final int len = writer.getWritePosition();
         final byte[] outBuffer = new byte[len];
         System.arraycopy(mPacketCreationBuffer, 0, outBuffer, 0, len);
-
-        mSocket.send(new DatagramPacket(outBuffer, 0, len, destination));
+        return outBuffer;
     }
 
     /**
