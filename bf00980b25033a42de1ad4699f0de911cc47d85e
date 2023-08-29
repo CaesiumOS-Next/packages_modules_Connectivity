@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8af1115a_00dc6085",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-29T02:32:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "768d3d54_229b00b1",
+      "range": {
+        "startLine": 9,
+        "startChar": 33,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "bf00980b25033a42de1ad4699f0de911cc47d85e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f3303cc_ffbd54bb",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-28T08:23:51Z",
       "side": 1,
       "message": "Can you please clarify how this patch relates to the bug ?\nThe bug says :\n```\nFigure out why the metrics shows bad result except the reason caused by BPF/iptables.\n```\nIt\u0027s not obvious what the link is.",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "bf00980b25033a42de1ad4699f0de911cc47d85e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e4c8ae3_6e1b070b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-29T02:32:54Z",
+      "side": 1,
+      "message": "Replaced with b/297836825 which is a child bug of it and provided more context on that bug.",
+      "parentUuid": "2f3303cc_ffbd54bb",
       "range": {
         "startLine": 18,
         "startChar": 5,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "553f0575_cec6b2eb",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-29T02:32:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "940beb1b_f4acd03f",
+      "range": {
+        "startLine": 52,
+        "startChar": 13,
+        "endLine": 52,
+        "endChar": 28
+      },
+      "revId": "bf00980b25033a42de1ad4699f0de911cc47d85e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49b5e1f7_668169dc",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-08-28T08:23:51Z",
       "side": 1,
       "message": "Style : space\n\nWhile you\u0027re at it : final",
+      "range": {
+        "startLine": 111,
+        "startChar": 37,
+        "endLine": 111,
+        "endChar": 38
+      },
+      "revId": "bf00980b25033a42de1ad4699f0de911cc47d85e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2157787f_0296643e",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-29T02:32:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49b5e1f7_668169dc",
       "range": {
         "startLine": 111,
         "startChar": 37,
