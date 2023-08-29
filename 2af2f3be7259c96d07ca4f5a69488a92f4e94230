@@ -182,6 +182,30 @@
       },
       "revId": "2af2f3be7259c96d07ca4f5a69488a92f4e94230",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ce3f169_a7aaaa5c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18571,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-29T08:12:14Z",
+      "side": 1,
+      "message": "Step 3 is not happening in this test. The test does not wait for 100ms and disconnect the NA. This is what you\u0027re missing.\n\nPlease do run the test on your end.",
+      "parentUuid": "053a4429_e66dcc10",
+      "range": {
+        "startLine": 18571,
+        "startChar": 37,
+        "endLine": 18571,
+        "endChar": 63
+      },
+      "revId": "2af2f3be7259c96d07ca4f5a69488a92f4e94230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
