@@ -71,8 +71,10 @@ int bpfGetIfaceStatsInternal(const char* iface, StatsValue* stats,
             return Result<void>();
         }
         if (!iface || !strcmp(iface, ifname)) {
+            ALOGE("kevinjeon@: processing iface with name of %s", ifname);
             Result<StatsValue> statsEntry = ifaceStatsMap.readValue(key);
             if (!statsEntry.ok()) {
+                ALOGE("kevinjeon@: Processing failed on the most recent iface!");
                 return statsEntry.error();
             }
             *stats += statsEntry.value();
