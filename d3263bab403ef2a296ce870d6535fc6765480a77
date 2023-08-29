@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37eff393_2e285944",
+        "filename": "framework-t/src/android/net/ConnectivityFrameworkInitializerTiramisu.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-08-29T06:24:08Z",
+      "side": 1,
+      "message": "From my local implementation of all the APIs targeting Android V (go/thread-android-api), we don\u0027t need the context. So I think I can use registerStaticService for now.\n\nCan we change it to registerContextAwareService later when we find context is required for a W feature? It won\u0027t break compatibility, right?",
+      "parentUuid": "cacacdc4_0b89b8bb",
+      "range": {
+        "startLine": 95,
+        "startChar": 30,
+        "endLine": 95,
+        "endChar": 57
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c3df278_74dfbcbe",
         "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
         "patchSetId": 17
