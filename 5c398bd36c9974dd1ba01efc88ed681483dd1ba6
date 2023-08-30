@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79c0e690_69f9184c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T07:43:45Z",
+      "side": 1,
+      "message": "Ack.\nIt seems we are going to maintain them for a long time.\nAgreed that we should not put any new instrumentation in the old test.\nI\u0027m thinking if there is any better way to notify people that we are deprecating ConnectivityServiceTest, write new code in CSTest instead.\nIt seems to me to enforce this in the code review stage might be a little bit too late, because they\nneed to rewrite test code entirely to fit the new architecture, if they failed to aware this in advance.\nIs it better if we:\n1. Make an assertion on the number of tests in ConnectivityServiceTest. If that changed, a certain test fail will be triggered, so the developer are forced to\ncheck this test failure and see the text you want them to see.\n\nFeel free to ignore.",
+      "parentUuid": "da25c08b_d9301c11",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "5c398bd36c9974dd1ba01efc88ed681483dd1ba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d5132e65_5e9dcfcf",
         "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
         "patchSetId": 6
