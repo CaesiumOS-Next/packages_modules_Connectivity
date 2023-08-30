@@ -238,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "546b4b0d_72f88cd7",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-30T12:18:38Z",
+      "side": 1,
+      "message": "Note that http://cs/h/android/platform/superproject/+/main:packages/modules/Connectivity/netd/BpfHandler.cpp?l\u003d124 which is mainline updatable and runs early during netd startup doesn\u0027t actually even write to any of the maps.\n\n(we used to have some init code, but some time ago, I made the default 0 values of an empty/cleared map valid)\n\nThere might be some extra map writing init code somewhere else as well though.\nNot sure.  In general empty/zeroed maps are fine though.\n\nMy cs/ p:aosp-master file:packages/modules/Conn file:Bpf [.]clear -file:Test[.]\n\nfinds basically\n\nhttp://cs/h/android/platform/superproject/+/main:packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java?l\u003d214\n\nbut that\u0027s only really needed to *re*initialize on system server restart.\n\nBoth the writes in there:\n\nsConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY,\n                    new U32(UID_RULES_DEFAULT_CONFIGURATION));\n\n            sConfigurationMap.updateEntry(CURRENT_STATS_MAP_CONFIGURATION_KEY,\n                    new U32(STATS_SELECT_MAP_A));\n                    \nare just writing 0s and thus only do anything on System server restart,\nin case previous instance had left things non-zero.",
+      "parentUuid": "7528ff8c_f90d6c7a",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec7c8286_d6ba0f74",
         "filename": "framework/src/android/net/BpfNetMapsReader.java",
         "patchSetId": 5
