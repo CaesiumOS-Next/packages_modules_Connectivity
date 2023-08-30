@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da25c08b_d9301c11",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T07:11:18Z",
+      "side": 1,
+      "message": "Simple answer : it\u0027s too much work (and at least very, very far out of scope for this patch).\n\nThe old `TestNetworkAgentWrapper` won\u0027t do here because it\u0027s intricatedly coupled with ConnectivityServiceTest. This class is similar – a little bit better, a little bit less coupled with CSTest, but still pretty coupled.\n\nThe best outcome would be to make ConnectivityServiceTest go away completely, and the exiting TestNetworkAgentWrapper with it. The next best outcome would be to have ConnectivityServiceTest use this new class instead of the old one. This is a multiple-hundred lines patch, and it\u0027s not clear what it brings.\n\nDo remember that the goal of this work is to make CS tests modular by enabling them to be split into separate chunks. Once we have this class, there is very little incentive to add anything at all into ConnectivityServiceTest. The preferred way is to add something in a subclass of CSTest. I would not oppose someone adding a small test in ConnectivityServiceTest, especially if they have the instrumentation they need in ConnectivityServiceTest and not in CSTest. However, I will strongly oppose any new instrumentation in ConnectivityService. New instrumentation should be done in the new classes.\n\nSo essentially, this deprecates the old classes, it\u0027s simpler, shorter and easier to maintain. But you can\u0027t realistically ask me to replace the old class because that would be akin to asking me to rewrite the entire ConnectivityServiceTest in this *preparatory* change. There has to be a first step, you can\u0027t really ask me to do the whole work in the patch that does the first step. It\u0027s big enough as it is, as you have noticed.",
+      "parentUuid": "c7ec4485_9fa327e7",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "5c398bd36c9974dd1ba01efc88ed681483dd1ba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5132e65_5e9dcfcf",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-30T06:54:54Z",
       "side": 1,
       "message": "nit: This is unlikely an emptyNc to me, is it better to name it defaultNc?\nAlso for the above method but not sure.",
+      "range": {
+        "startLine": 195,
+        "startChar": 16,
+        "endLine": 195,
+        "endChar": 23
+      },
+      "revId": "5c398bd36c9974dd1ba01efc88ed681483dd1ba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11fbf8f2_85b2ca09",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T07:11:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5132e65_5e9dcfcf",
       "range": {
         "startLine": 195,
         "startChar": 16,
