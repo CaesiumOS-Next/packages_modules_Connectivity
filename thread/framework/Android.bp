@@ -42,5 +42,8 @@ java_library {
         "net-utils-framework-common",
     ],
     static_libs: [],
+    aidl: {
+        include_dirs: ["packages/modules/Connectivity/framework/aidl-export"],
+    },
     visibility: ["//packages/modules/Connectivity/thread/tests:__subpackages__"],
 }
