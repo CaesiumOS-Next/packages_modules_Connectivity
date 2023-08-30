@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddcc4963_f35f93cd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-30T13:33:28Z",
+      "side": 1,
+      "message": "Yes, it shoul be the sum as our discussion. Update the design accordingly.",
+      "parentUuid": "1768e479_904b766c",
+      "revId": "ec7ed2e62a1975287946e6aa670a81c6e6fcdd2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8f0af8d_4394f3ca",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-16T06:53:00Z",
       "side": 1,
       "message": "Supernit: I think it would be more consistent with AnnouncingCallback to have this above onFinished",
+      "revId": "ec7ed2e62a1975287946e6aa670a81c6e6fcdd2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98eaa7e9_fd59cdfa",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-30T13:33:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8f0af8d_4394f3ca",
       "revId": "ec7ed2e62a1975287946e6aa670a81c6e6fcdd2e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5436026_f8f892f9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-30T13:33:28Z",
+      "side": 1,
+      "message": "Seperate them into different metrics data as our discussion.",
+      "parentUuid": "edcc247d_a781815b",
+      "range": {
+        "startLine": 882,
+        "startChar": 21,
+        "endLine": 882,
+        "endChar": 40
+      },
+      "revId": "ec7ed2e62a1975287946e6aa670a81c6e6fcdd2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c27d639e_c5570417",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-08-16T06:53:00Z",
       "side": 1,
       "message": "There should be a test for getServiceRepliedRequestsCount (including the case where the service is unknown)",
+      "revId": "ec7ed2e62a1975287946e6aa670a81c6e6fcdd2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e02c9351_79c579cb",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-08-30T13:33:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c27d639e_c5570417",
       "revId": "ec7ed2e62a1975287946e6aa670a81c6e6fcdd2e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
