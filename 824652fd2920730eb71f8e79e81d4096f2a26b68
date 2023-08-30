@@ -214,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7528ff8c_f90d6c7a",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-30T12:11:22Z",
+      "side": 1,
+      "message": "I\u0027m not sure what \u0027initialized\u0027 here means...\n\nAren\u0027t empty maps - as already created by bpfloader early during boot - correctly initialized?\n\nnetd and system server (and presumably network stack) already block on \u0026 run after bpfloader...\n\nNo other uids / selinux contexts should even be able to open the maps...",
+      "parentUuid": "b0964db9_37bed0d7",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec7c8286_d6ba0f74",
         "filename": "framework/src/android/net/BpfNetMapsReader.java",
         "patchSetId": 5
@@ -296,6 +320,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "5620c4a6_8cebd433",
+      "range": {
+        "startLine": 46,
+        "startChar": 26,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d65e49b2_3fe2ab4a",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-08-30T12:11:22Z",
+      "side": 1,
+      "message": "side note: I\u0027ve been meaning to refactor this into 2 maps, 1 per existing config key.  Just to make things easier to read.",
+      "parentUuid": "b5108b6c_4c09e5c3",
       "range": {
         "startLine": 46,
         "startChar": 26,
