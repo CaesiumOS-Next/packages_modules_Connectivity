@@ -43,5 +43,8 @@ java_library {
         "modules-utils-preconditions",
         "net-utils-framework-common",
     ],
+    aidl: {
+        include_dirs: ["packages/modules/Connectivity/framework/aidl-export"],
+    },
     visibility: ["//packages/modules/Connectivity/thread/tests:__subpackages__"],
 }
