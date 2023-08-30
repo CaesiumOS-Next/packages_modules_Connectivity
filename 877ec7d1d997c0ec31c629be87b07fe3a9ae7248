@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d90cc148_62bf045b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-08-30T18:20:43Z",
+      "side": 1,
+      "message": "This also needs a \"Merged-In: I7efa92469f0c061a972a7dadf6a38686b78c61b4\" so automerger doesn\u0027t try to merge it 😊",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 6
+      },
+      "revId": "877ec7d1d997c0ec31c629be87b07fe3a9ae7248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
