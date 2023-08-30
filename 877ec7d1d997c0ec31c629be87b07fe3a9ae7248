@@ -46,6 +46,30 @@
       },
       "revId": "877ec7d1d997c0ec31c629be87b07fe3a9ae7248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e98deac_059bbc44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-08-30T18:39:07Z",
+      "side": 1,
+      "message": "Yes, all automerger really does with Merged-In is decide whether to use the default merge strategy or -s ours (which pulls the commit into the history without any of the changes. (This can be slightly confusing as Merged-In never prevents a merge; the commit SHA still appears in all the branches)). -s ours is only performed if automerger finds a commit with a Change-Id that matches a Merged-In line of the commit on the target branch.\n\nSo in your case, the commit will still end up in all the branches, but won\u0027t conflict on the branches where it\u0027s already present.",
+      "parentUuid": "eaa900c8_cdff1c26",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 6
+      },
+      "revId": "877ec7d1d997c0ec31c629be87b07fe3a9ae7248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
