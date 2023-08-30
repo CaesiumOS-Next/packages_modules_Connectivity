@@ -16,6 +16,7 @@
 
 package android.net;
 
+import android.annotation.NonNull;
 import android.annotation.SystemApi;
 import android.app.SystemServiceRegistry;
 import android.app.usage.NetworkStatsManager;
@@ -27,6 +28,8 @@ import android.net.nsd.NsdManager;
 import android.net.thread.IThreadNetworkManager;
 import android.net.thread.ThreadNetworkManager;
 
+import com.android.internal.util.Preconditions;
+
 /**
  * Class for performing registration for Connectivity services which are exposed via updatable APIs
  * since Android T.
@@ -36,6 +39,28 @@ import android.net.thread.ThreadNetworkManager;
 @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
 public final class ConnectivityFrameworkInitializerTiramisu {
     private ConnectivityFrameworkInitializerTiramisu() {}
+
+    private static ConnectivityServiceManager sConnectivityServiceManager;
+
+    /**
+     * Sets an instance of {@link ConnectivityServiceManager} that allows the connectivity mainline
+     * module to register/obtain connectivity binder services. This is called by the platform
+     * during the system initialization.
+     */
+    public static void setConnectivityServiceManager(
+            @NonNull ConnectivityServiceManager connectivityServiceManager) {
+        Preconditions.checkState(sConnectivityServiceManager == null,
+                "setConnectivityServiceManager called twice!");
+        sConnectivityServiceManager = Preconditions.checkNotNull(connectivityServiceManager);
+    }
+
+    /**
+     * Returns the {@link ConnectivityServiceManager} singleton instance.
+     * @hide
+     */
+    public static ConnectivityServiceManager getConnectivityServiceManager() {
+        return sConnectivityServiceManager;
+    }
 
     /**
      * Called by {@link SystemServiceRegistry}'s static initializer and registers NetworkStats, nsd,
