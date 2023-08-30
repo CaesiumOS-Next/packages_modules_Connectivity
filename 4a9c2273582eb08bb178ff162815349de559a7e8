@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11d2d050_c087cbeb",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b34064d_3d6afa93",
+      "range": {
+        "startLine": 94,
+        "startChar": 7,
+        "endLine": 94,
+        "endChar": 47
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1eb3e8a_d190f0e5",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f316c480_297ba080",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e598254_0e4b38c3",
+      "range": {
+        "startLine": 959,
+        "startChar": 16,
+        "endLine": 959,
+        "endChar": 22
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "920c0ed1_854bcc41",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:31Z",
+      "side": 1,
+      "message": "Done, also make it static so we only need to do it once per process.",
+      "parentUuid": "d1eb3e8a_d190f0e5",
+      "range": {
+        "startLine": 959,
+        "startChar": 29,
+        "endLine": 959,
+        "endChar": 45
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a98f444_1a850874",
@@ -89,6 +161,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "06944d42_74d40a9c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6205,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:31Z",
+      "side": 1,
+      "message": "Yeah I don\u0027t see why not.",
+      "parentUuid": "2a98f444_1a850874",
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "acff5440_3f777666",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 1
@@ -100,6 +190,30 @@
       "writtenOn": "2023-08-30T04:26:09Z",
       "side": 1,
       "message": "Any reason not to inline this ? No strong opinion but I don\u0027t think the name of the local brings any useful information in this case.",
+      "range": {
+        "startLine": 6217,
+        "startChar": 16,
+        "endLine": 6218,
+        "endChar": 22
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e307e429_17de1866",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6218,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:31Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "acff5440_3f777666",
       "range": {
         "startLine": 6217,
         "startChar": 16,
@@ -133,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e066991c_5e887c96",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ab1f362_106f26ea",
+      "range": {
+        "startLine": 89,
+        "startChar": 60,
+        "endLine": 89,
+        "endChar": 68
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ce736b9_48222100",
@@ -146,6 +284,30 @@
       "writtenOn": "2023-08-30T04:26:09Z",
       "side": 1,
       "message": "Maybe check that TEST_UID2 is not affected",
+      "range": {
+        "startLine": 564,
+        "startChar": 75,
+        "endLine": 564,
+        "endChar": 76
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85219e89_1fa78da2",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ce736b9_48222100",
       "range": {
         "startLine": 564,
         "startChar": 75,
@@ -174,6 +336,53 @@
         "startChar": 17,
         "endLine": 570,
         "endChar": 36
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "425c6709_6cb0a1b9",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:31Z",
+      "side": 1,
+      "message": "Yes these uid rule values can be changed by NPMS dynamically.\nDoesn\u0027t really get your concern.\nDo I miss something?",
+      "parentUuid": "59e1c3aa_b1cc8c07",
+      "range": {
+        "startLine": 570,
+        "startChar": 17,
+        "endLine": 570,
+        "endChar": 36
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d6df6ef_9c831c38",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:31Z",
+      "side": 1,
+      "message": "oops this is wrong.",
+      "range": {
+        "startLine": 571,
+        "startChar": 31,
+        "endLine": 571,
+        "endChar": 55
       },
       "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
