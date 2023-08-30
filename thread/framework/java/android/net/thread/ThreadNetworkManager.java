@@ -64,6 +64,16 @@ public class ThreadNetworkManager {
      */
     public static final String FEATURE_NAME = "android.hardware.thread_network";
 
+    /**
+     * Permission allows changing Thread network state and access to Thread network credentials such
+     * as Network Key and PSKc.
+     */
+    // Note that this is the same value of android.Manifest.permission.THREAD_NETWORK_PRIVILEGED.
+    // That symbol is not available on U while this feature needs to support Android U TV
+    // devices, so we are making a copy of android.Manifest.permission.THREAD_NETWORK_PRIVILEGED.
+    public static final String PERMISSION_THREAD_NETWORK_PRIVILEGED =
+            "android.permission.THREAD_NETWORK_PRIVILEGED";
+
     @NonNull private final Context mContext;
     @NonNull private final List<ThreadNetworkController> mUnmodifiableControllerServices;
 
