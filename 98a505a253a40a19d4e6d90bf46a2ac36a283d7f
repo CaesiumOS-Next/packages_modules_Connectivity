@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "838ecef5_3f4df0cc",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T03:08:54Z",
+      "side": 1,
+      "message": "The trouble with this is that we are voiding all protection at all on S.\n\nI understand there may be no way to fix the test on S, but is it possible to write a lesser test that gives us at least some protection against regression ?",
+      "range": {
+        "startLine": 642,
+        "startChar": 11,
+        "endLine": 642,
+        "endChar": 21
+      },
+      "revId": "98a505a253a40a19d4e6d90bf46a2ac36a283d7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
