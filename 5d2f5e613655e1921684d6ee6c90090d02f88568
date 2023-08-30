@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ff8fcb_70bdb6fd",
+        "filename": "framework/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T08:59:02Z",
+      "side": 1,
+      "message": "To mirror framework-wifi, it would better to have this in impl_only_libs, and in \"libs\" for framework-connectivity-pre-jarjar below",
+      "revId": "5d2f5e613655e1921684d6ee6c90090d02f88568",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
