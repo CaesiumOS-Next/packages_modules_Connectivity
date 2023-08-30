@@ -78,6 +78,7 @@ public final class LinkProperties implements Parcelable {
     private boolean mWakeOnLanSupported;
     private Uri mCaptivePortalApiUrl;
     private CaptivePortalData mCaptivePortalData;
+    private Network mForwardedNetwork;
 
     /**
      * Indicates whether parceling should preserve fields that are set based on permissions of
@@ -604,6 +605,27 @@ public final class LinkProperties implements Parcelable {
     @SystemApi
     public @NonNull List<InetAddress> getPcscfServers() {
         return Collections.unmodifiableList(mPcscfs);
+    }
+
+    /**
+     * Set the forwarded network.
+     *
+     * Only for ConnectivityService use.
+     * @hide
+     */
+    public void setForwardedNetwork(@Nullable Network forwardedNetwork) {
+        mForwardedNetwork = forwardedNetwork;
+    }
+
+    /**
+     * Returns a network that this network forwards its traffic to and from.
+     *
+     * This can be null if this network does not forward its traffic to another network.
+     * @hide
+     */
+    // TODO : @SystemApi
+    public @Nullable Network getForwardedNetwork() {
+        return mForwardedNetwork;
     }
 
     /**

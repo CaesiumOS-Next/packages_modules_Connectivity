@@ -18,6 +18,7 @@ package com.android.server
 
 import android.content.pm.PackageManager.FEATURE_LEANBACK
 import android.net.INetd
+import android.net.LocalNetworkInfo
 import android.net.NativeNetworkConfig
 import android.net.NativeNetworkType
 import android.net.NetworkCapabilities
@@ -41,6 +42,8 @@ import org.mockito.Mockito.timeout
 import kotlin.test.assertFailsWith
 
 private const val TIMEOUT_MS = 2_000L
+
+private fun defaultLni() = LocalNetworkInfo.Builder().build()
 
 @RunWith(DevSdkIgnoreRunner::class)
 @SmallTest
@@ -87,9 +90,9 @@ class CSLocalAgentTests(
             addCapability(NET_CAPABILITY_LOCAL_NETWORK)
         }.build()
         val localAgent = if (sdkLevel >= VERSION_V || sdkLevel == VERSION_U && isTv) {
-            Agent(nc = ncTemplate)
+            Agent(nc = ncTemplate, lni = defaultLni())
         } else {
-            assertFailsWith<IllegalArgumentException> { Agent(nc = ncTemplate) }
+            assertFailsWith<IllegalArgumentException> { Agent(nc = ncTemplate, lni = defaultLni()) }
             netdInOrder.verify(netd, never()).networkCreate(any())
             return
         }
@@ -104,5 +107,22 @@ class CSLocalAgentTests(
         cm.unregisterNetworkCallback(allNetworksCb)
         localAgent.disconnect()
         netdInOrder.verify(netd, timeout(TIMEOUT_MS)).networkDestroy(localAgent.network.netId)
+    }
+
+
+    @Test
+    fun testBadAgents() {
+        assertFailsWith<IllegalArgumentException> {
+            Agent(nc = NetworkCapabilities.Builder()
+                    .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                    .build(),
+                    lni = null)
+        }
+        assertFailsWith<IllegalArgumentException> {
+            Agent(nc = NetworkCapabilities.Builder()
+                    .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                    .build(),
+                    lni = null)
+        }
     }
 }
