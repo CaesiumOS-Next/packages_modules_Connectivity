@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d5ad6f6_cf89efcf",
+        "filename": "remoteauth/service/jni/src/remoteauth_jni_android_platform.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-30T17:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a8356a3_61e38e4d",
+      "range": {
+        "startLine": 101,
+        "startChar": 9,
+        "endLine": 101,
+        "endChar": 25
+      },
+      "revId": "506f223557e82f820eb48c344b8a5a9da022cf11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe4e32b2_417c3bec",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-30T16:30:16Z",
       "side": 1,
       "message": "Can we log the error if this fails?",
+      "range": {
+        "startLine": 35,
+        "startChar": 21,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "506f223557e82f820eb48c344b8a5a9da022cf11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba7e1ae7_1bf52227",
+        "filename": "remoteauth/service/jni/src/remoteauth_jni_android_protocol.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-30T17:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe4e32b2_417c3bec",
       "range": {
         "startLine": 35,
         "startChar": 21,
