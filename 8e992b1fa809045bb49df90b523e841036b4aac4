@@ -962,6 +962,30 @@
       },
       "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feb22dfb_42ce9bc9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T04:23:39Z",
+      "side": 1,
+      "message": "If we think this is necessary, I think it\u0027s OK to keep it. We probably want a comment to explain that it\u0027s only necessary if the upstream goes away and comes back with the same prefix, and that while unlikely, it\u0027s not impossible.",
+      "parentUuid": "f6485cf4_f72a2898",
+      "range": {
+        "startLine": 775,
+        "startChar": 0,
+        "endLine": 777,
+        "endChar": 9
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
