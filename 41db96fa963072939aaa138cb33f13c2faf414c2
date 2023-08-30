@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b795c86_3136e27e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-30T04:03:37Z",
+      "side": 1,
+      "message": "This commit introduces NativeRemoteAuthService used by ReamoteAuth as an\n    interface toward Rust platform and protocol implementation",
+      "revId": "41db96fa963072939aaa138cb33f13c2faf414c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
