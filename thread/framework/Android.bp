@@ -37,8 +37,10 @@ java_library {
     sdk_version: "module_current",
     libs: [
         "framework-annotations-lib",
+        "framework-connectivity",
     ],
     static_libs: [
+        "modules-utils-preconditions",
         "net-utils-framework-common",
     ],
     visibility: ["//packages/modules/Connectivity/thread/tests:__subpackages__"],
