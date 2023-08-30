@@ -135,6 +135,21 @@ package android.net {
     field @NonNull public static final android.os.Parcelable.Creator<android.net.DhcpOption> CREATOR;
   }
 
+  public final class LocalNetworkConfig implements android.os.Parcelable {
+    method public int describeContents();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.LocalNetworkConfig> CREATOR;
+  }
+
+  public static final class LocalNetworkConfig.Builder {
+    ctor public LocalNetworkConfig.Builder();
+    method @NonNull public android.net.LocalNetworkConfig build();
+  }
+
+  public abstract class NetworkAgent {
+    ctor public NetworkAgent(@NonNull android.content.Context, @NonNull android.os.Looper, @NonNull String, @NonNull android.net.NetworkCapabilities, @NonNull android.net.LinkProperties, @Nullable android.net.LocalNetworkConfig, @NonNull android.net.NetworkScore, @NonNull android.net.NetworkAgentConfig, @Nullable android.net.NetworkProvider);
+  }
+
   public final class NetworkAgentConfig implements android.os.Parcelable {
     method @Nullable public String getSubscriberId();
     method public boolean isBypassableVpn();
