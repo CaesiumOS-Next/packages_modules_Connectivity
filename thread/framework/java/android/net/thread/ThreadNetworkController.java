@@ -525,6 +525,41 @@ public final class ThreadNetworkController {
         }
     }
 
+    /**
+     * Sets the persistent Border Router feature configuration.
+     *
+     * @param config the Border Router configuration to be set
+     * @param executor the executor to execute {@code receiver}
+     * @param receiver the receiver to receive result of this operation
+     */
+    @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+    public void setBorderRouterConfig(@NonNull BorderRouterConfig config) {
+        requireNonNull(config, "config cannot be null");
+        try {
+            mControllerService.setBorderRouterConfig(config);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Sets the Border Router feature configuration.
+     *
+     * @param testNetworkInterfaceName The name of the test network interface. When it's null,
+     *     forbids using test network as an upstream.
+     * @param executor the executor to execute {@code receiver}
+     * @param receiver the receiver to receive result of this operation
+     */
+    @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+    @NonNull
+    public BorderRouterConfig getBorderRouterConfig() {
+        try {
+            return mControllerService.getBorderRouterConfig();
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
     private static <T> void propagateError(
             Executor executor,
             OutcomeReceiver<T, ThreadNetworkException> receiver,
