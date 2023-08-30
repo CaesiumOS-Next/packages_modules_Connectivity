@@ -39,6 +39,30 @@
       },
       "revId": "820d2d9a7b172b0e8c43110812cc791264c208a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44afe1a3_b2bb46d2",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-30T09:07:31Z",
+      "side": 1,
+      "message": "Updated commit message and removed mUsingBpfOffload entirely from IpServer.",
+      "parentUuid": "26f86478_748e348a",
+      "range": {
+        "startLine": 330,
+        "startChar": 12,
+        "endLine": 330,
+        "endChar": 28
+      },
+      "revId": "820d2d9a7b172b0e8c43110812cc791264c208a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
