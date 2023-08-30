@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27b0432c_b0783219",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T03:12:19Z",
+      "side": 1,
+      "message": "This does need a jarjar exclude, otherwise the class is not seen by Tethering.\n\nI don\u0027t know yet why TiramisuConnectivityInternalApiUtil doesn\u0027t need it",
+      "parentUuid": "22ada583_99cbe063",
+      "range": {
+        "startLine": 285,
+        "startChar": 25,
+        "endLine": 285,
+        "endChar": 50
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ade3c47_c16d8f89",
         "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
         "patchSetId": 1
@@ -61,6 +85,30 @@
       "writtenOn": "2023-08-28T13:24:04Z",
       "side": 1,
       "message": "This looks wrong. As long as this class is in framework/, it should be accessible by Tethering on S devices, so probably this should be S",
+      "range": {
+        "startLine": 32,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5e39e42_3ed75753",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T03:12:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ade3c47_c16d8f89",
       "range": {
         "startLine": 32,
         "startChar": 33,
@@ -132,6 +180,30 @@
       "side": 1,
       "message": "That\u0027s because this file is in the src for connectivity-internal-api-util (added in this CL), but not IRoutingCoordinator.aidl\n\nThe problem is probably that framework-connectivity.impl is in the \"libs\" for connectivity-internal-api-util, but it should actually be framework-connectivity-pre-jarjar to pick up fully internal (jarjared) classes from there",
       "parentUuid": "c1939b31_6d444041",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 46
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cf787e7_fe46ef34",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T03:12:19Z",
+      "side": 1,
+      "message": "The solution you describe works, but I have *no idea* why and I spent 4 hours of quality time with the build files yesterday.\n\nCan you please suggest what comments I could add that would make somebody else able to understand why that is, and able to deduce this solution without asking you ?",
+      "parentUuid": "868a6861_b0f7c36b",
       "range": {
         "startLine": 38,
         "startChar": 27,
