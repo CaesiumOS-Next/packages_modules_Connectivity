@@ -22,6 +22,30 @@
       },
       "revId": "10bcd958d9e1dff1ce1137670fe7b44e81cd5a9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d691fd0f_d318ce7b",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-30T02:40:06Z",
+      "side": 1,
+      "message": "If we add mUpstreamSupportsBpf, we still need to update it before we call updateIpv6ForwardingRules() in updateUpstreamIPv6LinkProperties(), it just transfers the dependency on mLastIPv6LinkProperties to dependency on mUpstreamSupportsBpf.",
+      "parentUuid": "1b425267_11d47676",
+      "range": {
+        "startLine": 933,
+        "startChar": 36,
+        "endLine": 933,
+        "endChar": 76
+      },
+      "revId": "10bcd958d9e1dff1ce1137670fe7b44e81cd5a9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
