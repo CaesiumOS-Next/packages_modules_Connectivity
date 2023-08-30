@@ -3,6 +3,63 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d81f2a2_30d28c46",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T07:18:16Z",
+      "side": 1,
+      "message": "Since this class is @RequiresApi(V), it can\u0027t be in a constructor that\u0027s not V+ (it should be also marked with @RequiresApi(V) for example).\n\nTethering has `strict_updatability_linting: true` so this should break errorprone, but Yuyang has been looking at what it takes to make it break in local builds instead recently.",
+      "range": {
+        "startLine": 307,
+        "startChar": 21,
+        "endLine": 307,
+        "endChar": 46
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4f1b760_bb38126d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T07:18:16Z",
+      "side": 1,
+      "message": "This should have an SDK check too",
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc35a882_d9fe4aa2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T07:18:16Z",
+      "side": 1,
+      "message": "@RequiresApi(V), otherwise errorprone *should* break",
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da2abee0_ef74722f",
         "filename": "framework/Android.bp",
         "patchSetId": 1
@@ -68,6 +125,70 @@
         "endLine": 285,
         "endChar": 50
       },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "070c93f3_50cc01bb",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T07:18:16Z",
+      "side": 1,
+      "message": "Actually I think TiramisuConnectivityInternalApiUtil doesn\u0027t need it because it\u0027s already in the jarjar target package, android.net.connectivity\n\nI guess it would be less confusing to just jarjar everything with the given prefix, without excluding classes that already have the prefix here: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tools/gen_jarjar.py;drc\u003d694295717c1966c222489e163642c2bd2592ddfa;l\u003d119\n\nAnd have an exclude for the package in the jarjar-excludes.txt instead",
+      "parentUuid": "27b0432c_b0783219",
+      "range": {
+        "startLine": 285,
+        "startChar": 25,
+        "endLine": 285,
+        "endChar": 50
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5335af0c_a32f0fef",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6172,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T07:18:16Z",
+      "side": 1,
+      "message": "Nit: I think in practice it would be basically the same to have the return in the synchronized clause ? In which case you could mark sRoutingCoordinatorManager @GuardedBy(\"sCallbacks\")",
+      "range": {
+        "startLine": 6172,
+        "startChar": 19,
+        "endLine": 6172,
+        "endChar": 45
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e4c9a18_b9da3c34",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T07:18:16Z",
+      "side": 1,
+      "message": "I\u0027d suggest moving this to a specific subpackage, so it\u0027s clearer why some classes are visible from Tethering and not others, and easier to setup jarjar excludes",
       "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -216,6 +337,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2f95f07_413c7a9f",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T07:18:16Z",
+      "side": 1,
+      "message": "Looking at your first comment again I don\u0027t think you should see that neither ConnectivityManager nor RoutingCoordinatorManager can import IRoutingCoordinator; actually I would expect ConnectivityManager to be able to import IRoutingCoordinator fine, since it\u0027s in the sources just as IConnectivityManager.\n\nSo I think the missing piece was that connectivity-internal-api-util didn\u0027t see hidden, non-unsupportedappusage classes of framework-connectivity. So after making the change, a comment explaining that connectivity-internal-api-util depends on framework-connectivity-pre-jarjar and framework-connectivity-tiramisu-pre-jarjar so that it has access to all hidden classes, as opposed to framework-connectivity.impl which only allows reliably importing API classes, would probably be useful ? You can probably advise better on what kind of information would have been useful to unblock you yesterday though.\n\nGenerally when getting this kind of \"can\u0027t find class X\" errors, as a last resort it\u0027s helpful to find the lib that you expect contains the class in the out/ directory, and unzip it to see if the class is there. You\u0027d see it\u0027s jarjared, and then you\u0027re a bit closer to the answer. I\u0027ll put some doc on the team site for advice around that.",
+      "parentUuid": "5cf787e7_fe46ef34",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 46
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea949816_6f073a88",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
@@ -227,6 +372,30 @@
       "writtenOn": "2023-08-28T13:24:04Z",
       "side": 1,
       "message": "This should be fine without an SDK check, right ? AFAIK, since CS needs a reference to this class, it must be in framework/ (and not framework-t or similar). That means it is always available to ConnectivityService wherever it runs, so no check is necessary.",
+      "range": {
+        "startLine": 8215,
+        "startChar": 16,
+        "endLine": 8215,
+        "endChar": 42
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa9b6f3a_d1fb1ad9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8215,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T07:18:16Z",
+      "side": 1,
+      "message": "Yes that looks fine; I think you meant the class should be in service/ (like where it is now) ? Yes that\u0027s necessary if CS needs to use it directly",
+      "parentUuid": "ea949816_6f073a88",
       "range": {
         "startLine": 8215,
         "startChar": 16,
