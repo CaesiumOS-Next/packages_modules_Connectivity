@@ -16,6 +16,23 @@
       "message": "addressed comments",
       "revId": "ec344f4c183282e43e94e98f70053591dcc8b785",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94f00bab_b0857e46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 44
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1930744
+      },
+      "writtenOn": "2023-08-30T17:11:00Z",
+      "side": 1,
+      "message": "These APIs were submitted after the API Freeze date for M-2023-11. \nKindly hide all the APIs added in this CL. \n\nThis is blocking the M-2023-11 finalization which is supposed to happen today.\n\nAn email notification was sent earlier, stating module author to not submit any new APIs post API Freeze date. \nKindly let us know if there is an email with a bigger scope, so that we can communicate it more effectively in future releases.",
+      "revId": "ec344f4c183282e43e94e98f70053591dcc8b785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
