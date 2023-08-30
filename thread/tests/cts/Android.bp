@@ -22,7 +22,7 @@ android_test {
     name: "CtsThreadNetworkTestCases",
     defaults: ["cts_defaults"],
     min_sdk_version: "33",
-    sdk_version: "test_current",
+    sdk_version: "module_current",
     manifest: "AndroidManifest.xml",
     test_config: "AndroidTest.xml",
     srcs: [
@@ -38,12 +38,14 @@ android_test {
         "compatibility-device-util-axt",
         "ctstestrunner-axt",
         "framework-thread-static",
+        "guava-android-testlib",
         "net-tests-utils",
         "truth-prebuilt",
     ],
     libs: [
         "android.test.base",
         "android.test.runner",
+        "framework-connectivity",
     ],
     // Test coverage system runs on different devices. Need to
     // compile for all architectures.

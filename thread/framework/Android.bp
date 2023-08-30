@@ -37,6 +37,8 @@ java_library {
     sdk_version: "module_current",
     libs: [
         "framework-annotations-lib",
+        "framework-connectivity",
+        "modules-utils-preconditions",
         "net-utils-framework-common",
     ],
     static_libs: [],
