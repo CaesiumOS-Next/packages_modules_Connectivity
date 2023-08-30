@@ -18,6 +18,7 @@ package com.android.server
 
 import android.net.INetd
 import android.net.LinkProperties
+import android.net.LocalNetworkInfo
 import android.net.NativeNetworkConfig
 import android.net.NativeNetworkType
 import android.net.NetworkAgentConfig
@@ -51,6 +52,8 @@ private const val TIMEOUT_MS = 2_000L
 // See LocalAgentWrapper#connect below.
 private enum class WaitStyle { WAIT_FOR_CALLBACK, WAIT_FOR_IDLE }
 
+private fun defaultLni() = LocalNetworkInfo.Builder().build()
+
 @RunWith(DevSdkIgnoreRunner::class)
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.R)
@@ -59,9 +62,10 @@ class CSLocalAgentTests : CSTest() {
             nac: NetworkAgentConfig = emptyAgentConfig(),
             nc: NetworkCapabilities = defaultNc(),
             lp: LinkProperties = defaultLp(),
+            lni: LocalNetworkInfo = defaultLni(),
             score: FromS<NetworkScore> = defaultScore(),
             provider: NetworkProvider? = null,
-    ) : CSAgentWrapper(context, csHandlerThread, networkStack, nac, nc, lp, score, provider) {
+    ) : CSAgentWrapper(context, csHandlerThread, networkStack, nac, nc, lp, lni, score, provider) {
         // Before V, local network agents are not visible at all through callbacks so it
         // is not possible to wait for the agent to connect by blocking on a callback. For
         // this case only, wait for idle.
