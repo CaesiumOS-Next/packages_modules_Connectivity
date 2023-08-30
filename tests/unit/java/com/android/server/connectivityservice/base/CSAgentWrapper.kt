@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2023 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.android.server
 
 import android.content.Context
@@ -5,6 +21,7 @@ import android.net.ConnectivityManager
 import android.net.INetworkMonitor
 import android.net.INetworkMonitorCallbacks
 import android.net.LinkProperties
+import android.net.LocalNetworkConfig
 import android.net.Network
 import android.net.NetworkAgent
 import android.net.NetworkAgentConfig
@@ -19,6 +36,7 @@ import android.net.networkstack.NetworkStackClientBase
 import android.os.HandlerThread
 import com.android.modules.utils.build.SdkLevel
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
+import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
@@ -49,6 +67,7 @@ class CSAgentWrapper(
         nac: NetworkAgentConfig,
         val nc: NetworkCapabilities,
         val lp: LinkProperties,
+        val lnc: LocalNetworkConfig?,
         val score: FromS<NetworkScore>,
         val provider: NetworkProvider?
 ) : TestableNetworkCallback.HasNetwork {
@@ -80,7 +99,7 @@ class CSAgentWrapper(
         // Create the actual agent. NetworkAgent is abstract, so make an anonymous subclass.
         if (SdkLevel.isAtLeastS()) {
             agent = object : NetworkAgent(context, csHandlerThread.looper, TAG,
-                    nc, lp, score.value, nac, provider) {}
+                    nc, lp, lnc, score.value, nac, provider) {}
         } else {
             agent = object : NetworkAgent(context, csHandlerThread.looper, TAG,
                     nc, lp, 50 /* score */, nac, provider) {}
@@ -109,9 +128,10 @@ class CSAgentWrapper(
 
     fun connect() {
         val mgr = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val request = NetworkRequest.Builder().clearCapabilities()
-                .addTransportType(nc.transportTypes[0])
-                .build()
+        val request = NetworkRequest.Builder().apply {
+            clearCapabilities()
+            if (nc.transportTypes.isNotEmpty()) addTransportType(nc.transportTypes[0])
+        }.build()
         val cb = TestableNetworkCallback()
         mgr.registerNetworkCallback(request, cb)
         agent.markConnected()
@@ -130,5 +150,18 @@ class CSAgentWrapper(
             fail("Could not connect the agent. Instrumentation failure ?")
         }
         mgr.unregisterNetworkCallback(cb)
+    }
+
+    fun disconnect() {
+        val mgr = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val request = NetworkRequest.Builder().apply {
+            clearCapabilities()
+            if (nc.transportTypes.isNotEmpty()) addTransportType(nc.transportTypes[0])
+        }.build()
+        val cb = TestableNetworkCallback(timeoutMs = 200)
+         mgr.registerNetworkCallback(request, cb)
+        cb.eventuallyExpect<Available> { it.network == agent.network }
+        agent.unregister()
+        cb.eventuallyExpect<Lost> { it.network == agent.network }
     }
 }
