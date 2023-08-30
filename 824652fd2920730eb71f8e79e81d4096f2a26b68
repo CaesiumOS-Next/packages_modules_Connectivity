@@ -156,6 +156,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d41e62a3_aebd1dd6",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T08:48:02Z",
+      "side": 1,
+      "message": "It was static because:\n1. Not sure if it is ok if we have multiple instances to access the same BpfMap.\nPer offline discussion with motomu@, we are already doing this, where CookieTagMap is opened from three places. \n\n2. Not sure about the initializaion overhead.\nPer offline discussion with motomu@, the map fd is cached.\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:frameworks/libs/net/common/device/com/android/net/module/util/BpfMap.java;l\u003d70?q\u003dBpfMap.java\u0026ss\u003dh%2Fandroid%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Fmain\nSo we are actually accessing the same map, there should be no need to be static here.",
+      "parentUuid": "9d5c5503_826905cb",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 25
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b912a08f_e3831a60",
@@ -169,6 +193,30 @@
       "writtenOn": "2023-08-30T04:11:04Z",
       "side": 1,
       "message": "Is there any synchronization at all between the writers and the readers ? This class alone doesn\u0027t need synchronization because it is only readonly, but it may need synchronization with any writer.",
+      "range": {
+        "startLine": 73,
+        "startChar": 67,
+        "endLine": 73,
+        "endChar": 79
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4258a181_7e86a605",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T08:48:02Z",
+      "side": 1,
+      "message": "In my imagine this would be provided by the kernel. I don\u0027t have enough context to answer this.\n+ @motomuman@google.com and @maze@google.com to input.",
+      "parentUuid": "b912a08f_e3831a60",
       "range": {
         "startLine": 73,
         "startChar": 67,
