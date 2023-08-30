@@ -167,6 +167,7 @@ import android.net.IpMemoryStore;
 import android.net.IpPrefix;
 import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
+import android.net.LocalNetworkInfo;
 import android.net.MatchAllNetworkSpecifier;
 import android.net.NativeNetworkConfig;
 import android.net.NativeNetworkType;
@@ -199,7 +200,6 @@ import android.net.QosFilter;
 import android.net.QosSocketFilter;
 import android.net.QosSocketInfo;
 import android.net.RouteInfo;
-import android.net.RouteInfoParcel;
 import android.net.SocketKeepalive;
 import android.net.TetheringManager;
 import android.net.TransportInfo;
@@ -330,6 +330,7 @@ import com.android.server.connectivity.PermissionMonitor;
 import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
+import com.android.server.connectivity.RoutingCoordinatorService;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.VpnNetworkPreferenceInfo;
 import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
@@ -493,6 +494,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @GuardedBy("mTNSLock")
     private TestNetworkService mTNS;
     private final CompanionDeviceManagerProxyService mCdmps;
+    private final RoutingCoordinatorService mRoutingCoordinatorService;
 
     private final Object mTNSLock = new Object();
 
@@ -1825,6 +1827,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else {
             mCdmps = null;
         }
+
+        mRoutingCoordinatorService = new RoutingCoordinatorService(netd);
 
         mDestroyFrozenSockets = mDeps.isAtLeastU()
                 && mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION);
@@ -4172,7 +4176,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
                 case NetworkAgent.EVENT_LOCAL_NETWORK_CONFIG_CHANGED: {
                     final LocalNetworkConfig config = (LocalNetworkConfig) arg.second;
-                    updateLocalNetworkConfig(nai, config);
+                    handleUpdateLocalNetworkConfig(nai, config, false /* registerAgent */);
                     break;
                 }
                 case NetworkAgent.EVENT_NETWORK_SCORE_CHANGED: {
@@ -4933,6 +4937,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mDefaultInetConditionPublished = 0;
         }
         notifyIfacesChangedForNetworkStats();
+        // If this was a local network forwarded to some upstream, or if some local network was
+        // forwarded to this nai, then disable forwarding rules now.
+        maybeDisableForwardRulesForDisconnectingNai(nai);
+        // If this is a local network with an upstream selector, remove the associated network
+        // request.
+        if (nai.isLocalNetwork()) {
+            final NetworkRequest selector = nai.localNetworkConfig.getUpstreamSelector();
+            if (null != selector) {
+                handleRemoveNetworkRequest(mNetworkRequests.get(selector));
+            }
+        }
         // TODO - we shouldn't send CALLBACK_LOST to requests that can be satisfied
         // by other networks that are already connected. Perhaps that can be done by
         // sending all CALLBACK_LOST messages (for requests, not listens) at the end
@@ -5046,6 +5061,45 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mNetIdManager.releaseNetId(nai.network.getNetId());
     }
 
+    private void maybeDisableForwardRulesForDisconnectingNai(
+            @NonNull final NetworkAgentInfo disconnecting) {
+        // Step 1 : maybe this network was the upstream for one or more local networks.
+        for (final NetworkAgentInfo local : mNetworkAgentInfos) {
+            if (!local.isLocalNetwork()) continue;
+            final NetworkRequest selector = local.localNetworkConfig.getUpstreamSelector();
+            if (null == selector) continue;
+            final NetworkRequestInfo nri = mNetworkRequests.get(selector);
+            final NetworkAgentInfo satisfier = nri.getSatisfier();
+            if (disconnecting != satisfier) continue;
+            removeLocalNetworkUpstream(local, disconnecting);
+            // Set the satisfier to null immediately so that the LOCAL_NETWORK_CHANGED callback
+            // correctly contains null correctly as an upstream.
+            nri.setSatisfier(null, null);
+            notifyNetworkCallbacks(local, ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED);
+        }
+
+        // Step 2 : maybe this is a local network that had an upstream.
+        if (!disconnecting.isLocalNetwork()) return;
+        final NetworkRequest selector = disconnecting.localNetworkConfig.getUpstreamSelector();
+        if (null == selector) return;
+        final NetworkAgentInfo satisfier = mNetworkRequests.get(selector).getSatisfier();
+        if (null == satisfier) return;
+        removeLocalNetworkUpstream(disconnecting, satisfier);
+    }
+
+    private void removeLocalNetworkUpstream(@NonNull final NetworkAgentInfo localAgent,
+            @NonNull final NetworkAgentInfo upstream) {
+        try {
+            mRoutingCoordinatorService.removeInterfaceForward(
+                    localAgent.linkProperties.getInterfaceName(),
+                    upstream.linkProperties.getInterfaceName());
+        } catch (RemoteException e) {
+            loge("Couldn't remove interface forward for "
+                    + localAgent.linkProperties.getInterfaceName() + " to "
+                    + upstream.linkProperties.getInterfaceName() + " while disconnecting");
+        }
+    }
+
     private boolean createNativeNetwork(@NonNull NetworkAgentInfo nai) {
         try {
             // This should never fail.  Specifying an already in use NetID will cause failure.
@@ -5060,10 +5114,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         !nai.networkAgentConfig.allowBypass /* secure */,
                         getVpnType(nai), nai.networkAgentConfig.excludeLocalRouteVpn);
             } else {
-                final boolean hasLocalCap =
-                        nai.networkCapabilities.hasCapability(NET_CAPABILITY_LOCAL_NETWORK);
                 config = new NativeNetworkConfig(nai.network.getNetId(),
-                        hasLocalCap ? NativeNetworkType.PHYSICAL_LOCAL : NativeNetworkType.PHYSICAL,
+                        nai.isLocalNetwork() ? NativeNetworkType.PHYSICAL_LOCAL
+                                : NativeNetworkType.PHYSICAL,
                         getNetworkPermission(nai.networkCapabilities),
                         false /* secure */,
                         VpnManager.TYPE_VPN_NONE,
@@ -8242,6 +8295,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             e.rethrowAsRuntimeException();
         }
 
+        if (nai.isLocalNetwork()) {
+            handleUpdateLocalNetworkConfig(nai, nai.localNetworkConfig, true /* registerAgent */);
+        }
         nai.notifyRegistered();
         NetworkInfo networkInfo = nai.networkInfo;
         updateNetworkInfo(nai, networkInfo);
@@ -8515,7 +8571,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             for (final String iface : interfaceDiff.added) {
                 try {
                     if (DBG) log("Adding iface " + iface + " to network " + netId);
-                    mNetd.networkAddInterface(netId, iface);
+                    mRoutingCoordinatorService.addInterfaceToNetwork(netId, iface);
                     wakeupModifyInterface(iface, nai, true);
                     mDeps.reportNetworkInterfaceForTransports(mContext, iface,
                             nai.networkCapabilities.getTransportTypes());
@@ -8528,43 +8584,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             try {
                 if (DBG) log("Removing iface " + iface + " from network " + netId);
                 wakeupModifyInterface(iface, nai, false);
-                mNetd.networkRemoveInterface(netId, iface);
+                mRoutingCoordinatorService.removeInterfaceFromNetwork(netId, iface);
             } catch (Exception e) {
                 loge("Exception removing interface: " + e);
             }
         }
-    }
-
-    // TODO: move to frameworks/libs/net.
-    private RouteInfoParcel convertRouteInfo(RouteInfo route) {
-        final String nextHop;
-
-        switch (route.getType()) {
-            case RouteInfo.RTN_UNICAST:
-                if (route.hasGateway()) {
-                    nextHop = route.getGateway().getHostAddress();
-                } else {
-                    nextHop = INetd.NEXTHOP_NONE;
-                }
-                break;
-            case RouteInfo.RTN_UNREACHABLE:
-                nextHop = INetd.NEXTHOP_UNREACHABLE;
-                break;
-            case RouteInfo.RTN_THROW:
-                nextHop = INetd.NEXTHOP_THROW;
-                break;
-            default:
-                nextHop = INetd.NEXTHOP_NONE;
-                break;
-        }
-
-        final RouteInfoParcel rip = new RouteInfoParcel();
-        rip.ifName = route.getInterface();
-        rip.destination = route.getDestination().toString();
-        rip.nextHop = nextHop;
-        rip.mtu = route.getMtu();
-
-        return rip;
     }
 
     /**
@@ -8587,10 +8611,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (route.hasGateway()) continue;
             if (VDBG || DDBG) log("Adding Route [" + route + "] to network " + netId);
             try {
-                mNetd.networkAddRouteParcel(netId, convertRouteInfo(route));
+                mRoutingCoordinatorService.addRoute(netId, route);
             } catch (Exception e) {
                 if ((route.getDestination().getAddress() instanceof Inet4Address) || VDBG) {
-                    loge("Exception in networkAddRouteParcel for non-gateway: " + e);
+                    loge("Exception in addRoute for non-gateway: " + e);
                 }
             }
         }
@@ -8598,10 +8622,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (!route.hasGateway()) continue;
             if (VDBG || DDBG) log("Adding Route [" + route + "] to network " + netId);
             try {
-                mNetd.networkAddRouteParcel(netId, convertRouteInfo(route));
+                mRoutingCoordinatorService.addRoute(netId, route);
             } catch (Exception e) {
                 if ((route.getGateway() instanceof Inet4Address) || VDBG) {
-                    loge("Exception in networkAddRouteParcel for gateway: " + e);
+                    loge("Exception in addRoute for gateway: " + e);
                 }
             }
         }
@@ -8609,18 +8633,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (RouteInfo route : routeDiff.removed) {
             if (VDBG || DDBG) log("Removing Route [" + route + "] from network " + netId);
             try {
-                mNetd.networkRemoveRouteParcel(netId, convertRouteInfo(route));
+                mRoutingCoordinatorService.removeRoute(netId, route);
             } catch (Exception e) {
-                loge("Exception in networkRemoveRouteParcel: " + e);
+                loge("Exception in removeRoute: " + e);
             }
         }
 
         for (RouteInfo route : routeDiff.updated) {
             if (VDBG || DDBG) log("Updating Route [" + route + "] from network " + netId);
             try {
-                mNetd.networkUpdateRouteParcel(netId, convertRouteInfo(route));
+                mRoutingCoordinatorService.updateRoute(netId, route);
             } catch (Exception e) {
-                loge("Exception in networkUpdateRouteParcel: " + e);
+                loge("Exception in updateRoute: " + e);
             }
         }
         return !routeDiff.added.isEmpty() || !routeDiff.removed.isEmpty()
@@ -8940,14 +8964,75 @@ public class ConnectivityService extends IConnectivityManager.Stub
         updateCapabilities(nai.getScore(), nai, nai.networkCapabilities);
     }
 
-    private void updateLocalNetworkConfig(@NonNull final NetworkAgentInfo nai,
-            @NonNull final LocalNetworkConfig config) {
-        if (!nai.networkCapabilities.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)) {
+    private void handleUpdateLocalNetworkConfig(@NonNull final NetworkAgentInfo nai,
+            @NonNull final LocalNetworkConfig declaredConfig, final boolean registerAgent) {
+        if (!nai.isLocalNetwork()) {
             Log.wtf(TAG, "Ignoring update of a local network info on non-local network " + nai);
             return;
         }
-        // TODO : actually apply the diff.
-        nai.localNetworkConfig = config;
+        if (null == nai.localNetworkConfig) {
+            Log.wtf(TAG, "Local network with no local config ?");
+            return;
+        }
+
+        final LocalNetworkConfig.Builder configBuilder = new LocalNetworkConfig.Builder();
+        // TODO : apply the diff for multicast routing.
+        configBuilder.setUpstreamMulticastRoutingConfig(
+                declaredConfig.getUpstreamMulticastRoutingConfig());
+        configBuilder.setDownstreamMulticastRoutingConfig(
+                declaredConfig.getDownstreamMulticastRoutingConfig());
+
+        final NetworkRequest oldRequest = nai.localNetworkConfig.getUpstreamSelector();
+        final NetworkCapabilities oldCaps =
+                null == oldRequest ? null : oldRequest.networkCapabilities;
+        final NetworkRequestInfo oldNri =
+                null == oldRequest ? null : mNetworkRequests.get(oldRequest);
+        final NetworkAgentInfo oldSatisfier =
+                null == oldNri ? null : oldNri.getSatisfier();
+        final NetworkRequest newRequest = declaredConfig.getUpstreamSelector();
+        final NetworkCapabilities newCaps =
+                null == newRequest ? null : newRequest.networkCapabilities;
+        final boolean requestUpdated = !Objects.equals(newCaps, oldCaps);
+
+        if (null != oldRequest && requestUpdated) {
+            handleRemoveNetworkRequest(mNetworkRequests.get(oldRequest));
+            if (null == newRequest && null != oldSatisfier) {
+                // No new request, so send an update that there is no longer an upstream.
+                // If there is a new request, the rematch will handle this.
+                removeLocalNetworkUpstream(nai, oldSatisfier);
+                nai.localNetworkConfig = configBuilder.build();
+                notifyNetworkCallbacks(nai,
+                        ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED);
+                return;
+            }
+        }
+        if (null != newRequest && (requestUpdated || registerAgent)) {
+            // File the new request if :
+            //  - it has changed (requestUpdated), or
+            //  - it's the first time this local info (registerAgent)
+            // is updated and the request has not been filed yet.
+            // Requests for local info are always LISTEN_FOR_BEST, because they one only one
+            // upstream (the best) but never request it to be brought up.
+            final NetworkRequest nr = new NetworkRequest(newCaps, ConnectivityManager.TYPE_NONE,
+                    nextNetworkRequestId(), LISTEN_FOR_BEST);
+            configBuilder.setUpstreamSelector(nr);
+            final NetworkRequestInfo nri = new NetworkRequestInfo(nai.creatorUid, nr,
+                    null /* messenger */, null /* binder */, 0 /* callbackFlags */,
+                    null /* attributionTag */);
+            if (null != oldSatisfier) {
+                // Set the old satisfier in the new NRI so that the rematch will notify for any
+                // changes
+                nri.setSatisfier(oldSatisfier, nr);
+            }
+            nai.localNetworkConfig = configBuilder.build();
+            // handleRegisterNetworkRequest causes a rematch. The rematch must happen after
+            // nai.localNetworkConfig is set, since it will base its callbacks on the old
+            // satisfier and the new request.
+            handleRegisterNetworkRequest(nri);
+        } else {
+            configBuilder.setUpstreamSelector(oldRequest);
+        }
+        nai.localNetworkConfig = configBuilder.build();
     }
 
     /**
@@ -9278,6 +9363,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
         releasePendingNetworkRequestWithDelay(pendingIntent);
     }
 
+    @Nullable
+    private LocalNetworkInfo localNetworkInfoForNai(@NonNull final NetworkAgentInfo nai) {
+        if (!nai.isLocalNetwork()) return null;
+        final Network upstream;
+        final NetworkRequest selector = nai.localNetworkConfig.getUpstreamSelector();
+        if (null == selector) {
+            upstream = null;
+        } else {
+            final NetworkRequestInfo upstreamNri = mNetworkRequests.get(selector);
+            final NetworkAgentInfo satisfier = upstreamNri.getSatisfier();
+            upstream = null == satisfier ? null : satisfier.network;
+        }
+        return new LocalNetworkInfo.Builder().setUpstreamNetwork(upstream).build();
+    }
+
     // networkAgent is only allowed to be null if notificationType is
     // CALLBACK_UNAVAIL. This is because UNAVAIL is about no network being
     // available, while all other cases are about some particular network.
@@ -9313,6 +9413,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 putParcelable(bundle, nc);
                 putParcelable(bundle, linkPropertiesRestrictedForCallerPermissions(
                         networkAgent.linkProperties, nri.mPid, nri.mUid));
+                // The local network info is often null, so can't use the static putParcelable
+                // method here.
+                bundle.putParcelable(LocalNetworkInfo.class.getSimpleName(),
+                        localNetworkInfoForNai(networkAgent));
                 // For this notification, arg1 contains the blocked status.
                 msg.arg1 = arg1;
                 break;
@@ -9342,6 +9446,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             case ConnectivityManager.CALLBACK_BLK_CHANGED: {
                 maybeLogBlockedStatusChanged(nri, networkAgent.network, arg1);
                 msg.arg1 = arg1;
+                break;
+            }
+            case ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED: {
+                if (!networkAgent.isLocalNetwork()) {
+                    Log.wtf(TAG, "Callback for local info for a non-local network");
+                    return;
+                }
+                putParcelable(bundle, localNetworkInfoForNai(networkAgent));
                 break;
             }
         }
@@ -9886,6 +9998,36 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     now);
         }
 
+        for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
+            if (!nai.isLocalNetwork()) continue;
+            final NetworkRequest nr = nai.localNetworkConfig.getUpstreamSelector();
+            if (null == nr) continue; // No upstream for this local network
+            final NetworkRequestInfo nri = mNetworkRequests.get(nr);
+            final NetworkReassignment.RequestReassignment change = changes.getReassignment(nri);
+            if (null == change) continue; // No change in upstreams for this nework
+            final String fromIface = nai.linkProperties.getInterfaceName();
+            boolean notifyCallback = false;
+            try {
+                if (null != change.mNewNetwork) {
+                    mRoutingCoordinatorService.addInterfaceForward(fromIface,
+                            change.mNewNetwork.linkProperties.getInterfaceName(),
+                            false /* enableNat */);
+                    notifyCallback = true;
+                }
+                if (null != change.mOldNetwork) {
+                    mRoutingCoordinatorService.removeInterfaceForward(fromIface,
+                            change.mOldNetwork.linkProperties.getInterfaceName());
+                    notifyCallback = true;
+                }
+            } catch (final RemoteException e) {
+                loge("Can't update forwarding rules", e);
+            }
+            if (notifyCallback) {
+                notifyNetworkCallbacks(nai,
+                        ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED);
+            }
+        }
+
         // Process default network changes if applicable.
         processDefaultNetworkChanges(changes);
 
@@ -10261,7 +10403,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // If a rate limit has been configured and is applicable to this network (network
             // provides internet connectivity), apply it. The tc police filter cannot be attached
             // before the clsact qdisc is added which happens as part of updateLinkProperties ->
-            // updateInterfaces -> INetd#networkAddInterface.
+            // updateInterfaces -> RoutingCoordinatorManager#addInterfaceToNetwork
             // Note: in case of a system server crash, the NetworkController constructor in netd
             // (called when netd starts up) deletes the clsact qdisc of all interfaces.
             if (canNetworkBeRateLimited(networkAgent) && mIngressRateLimit >= 0) {
@@ -12739,5 +12881,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public IBinder getCompanionDeviceManagerProxyService() {
         enforceNetworkStackPermission(mContext);
         return mCdmps;
+    }
+
+    @Override
+    public IBinder getRoutingCoordinatorService() {
+        enforceNetworkStackPermission(mContext);
+        return mRoutingCoordinatorService;
     }
 }

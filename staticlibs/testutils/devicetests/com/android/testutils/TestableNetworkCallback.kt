@@ -18,8 +18,10 @@ package com.android.testutils
 
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.LinkProperties
+import android.net.LocalNetworkInfo
 import android.net.Network
 import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.util.Log
 import com.android.net.module.util.ArrayTrackRecord
@@ -28,6 +30,7 @@ import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatus
 import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatusInt
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
+import com.android.testutils.RecorderCallback.CallbackEntry.LocalInfoChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.Losing
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.RecorderCallback.CallbackEntry.Resumed
@@ -68,6 +71,10 @@ open class RecorderCallback private constructor(
             override val network: Network,
             val lp: LinkProperties
         ) : CallbackEntry()
+        data class LocalInfoChanged(
+            override val network: Network,
+            val info: LocalNetworkInfo
+        ) : CallbackEntry()
         data class Suspended(override val network: Network) : CallbackEntry()
         data class Resumed(override val network: Network) : CallbackEntry()
         data class Losing(override val network: Network, val maxMsToLive: Int) : CallbackEntry()
@@ -93,6 +100,8 @@ open class RecorderCallback private constructor(
             val NETWORK_CAPS_UPDATED = CapabilitiesChanged::class
             @JvmField
             val LINK_PROPERTIES_CHANGED = LinkPropertiesChanged::class
+            @JvmField
+            val LOCAL_INFO_CHANGED = LocalInfoChanged::class
             @JvmField
             val SUSPENDED = Suspended::class
             @JvmField
@@ -129,6 +138,11 @@ open class RecorderCallback private constructor(
     override fun onLinkPropertiesChanged(network: Network, lp: LinkProperties) {
         Log.d(TAG, "onLinkPropertiesChanged $network $lp")
         history.add(LinkPropertiesChanged(network, lp))
+    }
+
+    override fun onLocalNetworkInfoChanged(network: Network, info: LocalNetworkInfo) {
+        Log.d(TAG, "onLocalNetworkInfoChanged $network $info")
+        history.add(LocalInfoChanged(network, info))
     }
 
     override fun onBlockedStatusChanged(network: Network, blocked: Boolean) {
@@ -457,10 +471,13 @@ open class TestableNetworkCallback private constructor(
         if (suspended) {
             expect<Suspended>(net, tmt)
         }
-        expect<CapabilitiesChanged>(net, tmt) {
+        val capsCb = expect<CapabilitiesChanged>(net, tmt) {
             validated == null || validated == it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
         }
         expect<LinkPropertiesChanged>(net, tmt)
+        if (capsCb.caps.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)) {
+            expect<LocalInfoChanged>(net, tmt)
+        }
     }
 
     // Backward compatibility for existing Java code. Use named arguments instead and remove all

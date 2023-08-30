@@ -16,8 +16,11 @@
 
 package android.net;
 
+import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.SystemApi;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -25,7 +28,7 @@ import android.os.Parcelable;
  * A class to communicate configuration info about a local network through {@link NetworkAgent}.
  * @hide
  */
-// TODO : @SystemApi
+@SystemApi(client = MODULE_LIBRARIES)
 public final class LocalNetworkConfig implements Parcelable {
     @Nullable
     private final NetworkRequest mUpstreamSelector;
@@ -56,17 +59,28 @@ public final class LocalNetworkConfig implements Parcelable {
      * Get the request choosing which network traffic from this network is forwarded to and from.
      *
      * This may be null if the local network doesn't forward the traffic anywhere.
+     * @hide
      */
     @Nullable
     public NetworkRequest getUpstreamSelector() {
         return mUpstreamSelector;
     }
 
-    public @NonNull MulticastRoutingConfig getUpstreamMulticastRoutingConfig() {
+    /**
+     * Get the upstream multicast routing config
+     * @hide
+     */
+    @NonNull
+    public MulticastRoutingConfig getUpstreamMulticastRoutingConfig() {
         return mUpstreamMulticastRoutingConfig;
     }
 
-    public @NonNull MulticastRoutingConfig getDownstreamMulticastRoutingConfig() {
+    /**
+     * Get the downstream multicast routing config
+     * @hide
+     */
+    @NonNull
+    public MulticastRoutingConfig getDownstreamMulticastRoutingConfig() {
         return mDownstreamMulticastRoutingConfig;
     }
 
@@ -82,7 +96,8 @@ public final class LocalNetworkConfig implements Parcelable {
         dest.writeParcelable(mDownstreamMulticastRoutingConfig, flags);
     }
 
-    public static final @NonNull Creator<LocalNetworkConfig> CREATOR = new Creator<>() {
+    @NonNull
+    public static final Creator<LocalNetworkConfig> CREATOR = new Creator<>() {
         public LocalNetworkConfig createFromParcel(Parcel in) {
             final NetworkRequest upstreamSelector = in.readParcelable(null);
             final MulticastRoutingConfig upstreamConfig = in.readParcelable(null);
@@ -100,13 +115,13 @@ public final class LocalNetworkConfig implements Parcelable {
 
     public static final class Builder {
         @Nullable
-        NetworkRequest mUpstreamSelector;
+        private NetworkRequest mUpstreamSelector;
 
         @Nullable
-        MulticastRoutingConfig mUpstreamMulticastRoutingConfig;
+        private MulticastRoutingConfig mUpstreamMulticastRoutingConfig;
 
         @Nullable
-        MulticastRoutingConfig mDownstreamMulticastRoutingConfig;
+        private MulticastRoutingConfig mDownstreamMulticastRoutingConfig;
 
         /**
          * Create a Builder
@@ -124,6 +139,7 @@ public final class LocalNetworkConfig implements Parcelable {
          * this network with the {@link android.net.LinkProperties#getForwardedNetwork()} getter.
          *
          * Set this to null if the local network shouldn't be forwarded. Default is null.
+         * @hide
          */
         @NonNull
         public Builder setUpstreamSelector(@Nullable NetworkRequest upstreamSelector) {
@@ -136,6 +152,7 @@ public final class LocalNetworkConfig implements Parcelable {
          *
          * If null, don't route multicast packets upstream. This is equivalent to a
          * MulticastRoutingConfig in mode FORWARD_NONE. The default is null.
+         * @hide
          */
         @NonNull
         public Builder setUpstreamMulticastRoutingConfig(@Nullable MulticastRoutingConfig cfg) {
@@ -148,6 +165,7 @@ public final class LocalNetworkConfig implements Parcelable {
          *
          * If null, don't route multicast packets downstream. This is equivalent to a
          * MulticastRoutingConfig in mode FORWARD_NONE. The default is null.
+         * @hide
          */
         @NonNull
         public Builder setDownstreamMulticastRoutingConfig(@Nullable MulticastRoutingConfig cfg) {
