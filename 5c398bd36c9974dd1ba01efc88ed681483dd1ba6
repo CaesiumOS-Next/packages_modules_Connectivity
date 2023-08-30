@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a914e9fd_51e09512",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T07:54:49Z",
+      "side": 1,
+      "message": "I think this is too aggressive. But I can add comments to ConnectivityServiceTest and the like to signal that people no longer should touch it.",
+      "parentUuid": "79c0e690_69f9184c",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "5c398bd36c9974dd1ba01efc88ed681483dd1ba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5132e65_5e9dcfcf",
