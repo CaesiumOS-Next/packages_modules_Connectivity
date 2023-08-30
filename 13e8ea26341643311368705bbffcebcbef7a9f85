@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da592d65_c19579d5",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7554,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T03:37:11Z",
+      "side": 1,
+      "message": "Replaced with an externally-accessible URL and an short description of what it does.",
+      "parentUuid": "e6ab9f85_bea2ae4b",
+      "range": {
+        "startLine": 7554,
+        "startChar": 40,
+        "endLine": 7554,
+        "endChar": 56
+      },
+      "revId": "13e8ea26341643311368705bbffcebcbef7a9f85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbec5231_6f27c454",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-29T09:30:01Z",
       "side": 1,
       "message": "1. Stupid question: why does this provide guarantee of fixing the flake?\nIIUC it fixes the flake iff at least 1 request is unregistered?\n2. How is this MAX_REQUESTS/2 choosed?\nCan this breaking point be an arbitrary number less than MAX_REQUEST?",
+      "range": {
+        "startLine": 7563,
+        "startChar": 45,
+        "endLine": 7564,
+        "endChar": 48
+      },
+      "revId": "13e8ea26341643311368705bbffcebcbef7a9f85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4c3a164_05774c67",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7564,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T03:37:11Z",
+      "side": 1,
+      "message": "Added a comment.\n\nYes you are right, this fixes the test iff at least 1 request is unregistered, because the loop is for MAX_REQUESTS. For a loop that registers n, you need to do it after unregistering MAX_REQUESTS - n + 1.\n\nThe number is chosen arbitrarily indeed. Added a comment about that too.",
+      "parentUuid": "fbec5231_6f27c454",
       "range": {
         "startLine": 7563,
         "startChar": 45,
