@@ -70,6 +70,30 @@
       },
       "revId": "10bcd958d9e1dff1ce1137670fe7b44e81cd5a9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54fabc9a_9684ac1f",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-30T09:03:37Z",
+      "side": 1,
+      "message": "Done. Added mUpstreamSupportsBpf and pass in upstreamSuppportsBpf to updateIpv6ForwardingRules().",
+      "parentUuid": "c24bf808_d7e592f9",
+      "range": {
+        "startLine": 933,
+        "startChar": 36,
+        "endLine": 933,
+        "endChar": 76
+      },
+      "revId": "10bcd958d9e1dff1ce1137670fe7b44e81cd5a9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
