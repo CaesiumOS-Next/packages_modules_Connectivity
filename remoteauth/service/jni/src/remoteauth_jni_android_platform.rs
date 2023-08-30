@@ -98,11 +98,9 @@ pub struct JavaPlatform {
 impl JavaPlatform {
     // Method to create JavaPlatform
     pub async fn create<'a>(
-        env: JNIEnv<'a>,
+        _env: JNIEnv<'a>,
         java_platform_native: JObject<'a>,
     ) -> Result<Arc<Mutex<impl Platform>>, JNIError> {
-        let jvm = env.get_java_vm()?;
-        let _ = unique_jvm::set_once(jvm);
         let platform_handle = generate_platform_handle();
         let platform = Arc::new(Mutex::new(JavaPlatform::new(
             platform_handle,
