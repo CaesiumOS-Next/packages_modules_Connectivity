@@ -27,6 +27,7 @@ import android.net.ConnectivityManager
 import android.net.INetd
 import android.net.InetAddresses
 import android.net.LinkProperties
+import android.net.LocalNetworkInfo
 import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED
@@ -275,9 +276,10 @@ open class CSTest {
             nac: NetworkAgentConfig = emptyAgentConfig(),
             nc: NetworkCapabilities = defaultNc(),
             lp: LinkProperties = defaultLp(),
+            lni: LocalNetworkInfo? = null,
             score: FromS<NetworkScore> = defaultScore(),
             provider: NetworkProvider? = null
-    ) = CSAgentWrapper(context, csHandlerThread, networkStack, nac, nc, lp, score, provider)
+    ) = CSAgentWrapper(context, csHandlerThread, networkStack, nac, nc, lp, lni, score, provider)
 
     fun Agent(vararg transports: Int, lp: LinkProperties = defaultLp()): CSAgentWrapper {
         val nc = NetworkCapabilities.Builder().apply {
