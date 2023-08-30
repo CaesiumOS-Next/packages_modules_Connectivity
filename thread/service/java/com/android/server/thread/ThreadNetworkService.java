@@ -34,7 +34,7 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
 
     /** Creates a new {@link ThreadNetworkService} object. */
     public ThreadNetworkService(Context context) {
-        this(context, new ThreadNetworkControllerService());
+        this(context, ThreadNetworkControllerService.newInstance(context));
     }
 
     private ThreadNetworkService(Context context, ThreadNetworkControllerService controllerService) {
@@ -48,7 +48,7 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
      */
     public void onBootPhase(int phase) {
         if (phase == SystemService.PHASE_BOOT_COMPLETED) {
-            // TODO: initialize ThreadNetworkManagerService
+            mControllerService.initialize();
         }
     }
 

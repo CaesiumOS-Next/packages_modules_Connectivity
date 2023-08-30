@@ -482,6 +482,15 @@ package android.net.thread {
     field public static final int THREAD_VERSION_1_3 = 4; // 0x4
   }
 
+  public class ThreadNetworkException extends java.lang.Exception {
+    ctor public ThreadNetworkException(int, @NonNull String);
+    method public int getErrorCode();
+    field public static final int ERROR_ABORTED = 2; // 0x2
+    field public static final int ERROR_FAILED_PRECONDITION = 4; // 0x4
+    field public static final int ERROR_INTERNAL_ERROR = 1; // 0x1
+    field public static final int ERROR_TIMEOUT = 3; // 0x3
+  }
+
   public final class ThreadNetworkManager {
     method @NonNull public java.util.List<android.net.thread.ThreadNetworkController> getAllThreadNetworkControllers();
   }
