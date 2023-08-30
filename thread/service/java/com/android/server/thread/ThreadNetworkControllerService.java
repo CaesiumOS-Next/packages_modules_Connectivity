@@ -74,6 +74,7 @@ import android.net.RouteInfo;
 import android.net.TestNetworkSpecifier;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.ActiveOperationalDataset.SecurityPolicy;
+import android.net.thread.BorderRouterConfig;
 import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOperationalDatasetCallback;
@@ -160,7 +161,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private TestNetworkSpecifier mUpstreamTestNetworkSpecifier;
     private final HashMap<Network, String> mNetworkToInterface;
 
-    private BorderRouterConfigurationParcel mBorderRouterConfig;
+    private volatile BorderRouterConfigurationParcel mBorderRouterConfig;
 
     @VisibleForTesting
     ThreadNetworkControllerService(
@@ -246,10 +247,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     private LocalNetworkConfig newLocalNetworkConfig() {
+        final boolean isBorderRouterEnabled = mBorderRouterConfig.isBorderRoutingEnabled;
         return new LocalNetworkConfig.Builder()
                 .setUpstreamMulticastRoutingConfig(mUpstreamMulticastRoutingConfig)
                 .setDownstreamMulticastRoutingConfig(mDownstreamMulticastRoutingConfig)
-                .setUpstreamSelector(mUpstreamNetworkRequest)
+                .setUpstreamSelector(isBorderRouterEnabled ? mUpstreamNetworkRequest : null)
                 .build();
     }
 
@@ -758,6 +760,35 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             // Oneway AIDL API should never throw?
             receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
         }
+    }
+
+    @Override
+    public void setBorderRouterConfig(@NonNull BorderRouterConfig config) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        mHandler.post(() -> setBorderRouterConfigInternal(config));
+    }
+
+    private void setBorderRouterConfigInternal(@NonNull BorderRouterConfig config) {
+        checkOnHandlerThread();
+
+        mBorderRouterConfig.isBorderRoutingEnabled = config.isBorderRouterEnabled();
+        // TODO: save the configuration in persistent settings
+
+        // Updates the forwarding / routing config in the Connectivty module
+        sendLocalNetworkConfig();
+
+        try {
+            getOtDaemon().configureBorderRouter(mBorderRouterConfig);
+        } catch (RemoteException e) {
+            // Oneway AIDL API should never throw?
+            Log.wtf("Thread stack error", e);
+        }
+    }
+
+    @Override
+    public BorderRouterConfig getBorderRouterConfig() {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        return new BorderRouterConfig.Builder(mBorderRouterConfig.isBorderRoutingEnabled).build();
     }
 
     /**
