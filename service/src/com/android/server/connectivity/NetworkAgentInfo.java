@@ -35,6 +35,7 @@ import android.net.INetworkAgent;
 import android.net.INetworkAgentRegistry;
 import android.net.INetworkMonitor;
 import android.net.LinkProperties;
+import android.net.LocalNetworkInfo;
 import android.net.NattKeepalivePacketData;
 import android.net.Network;
 import android.net.NetworkAgent;
@@ -174,6 +175,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     // TODO: make this private with a getter.
     @NonNull public NetworkCapabilities networkCapabilities;
     @NonNull public final NetworkAgentConfig networkAgentConfig;
+    @Nullable public LocalNetworkInfo localInfo;
 
     // Underlying networks declared by the agent.
     // The networks in this list might be declared by a VPN using setUnderlyingNetworks and are
@@ -606,6 +608,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
 
     public NetworkAgentInfo(INetworkAgent na, Network net, NetworkInfo info,
             @NonNull LinkProperties lp, @NonNull NetworkCapabilities nc,
+            @Nullable LocalNetworkInfo localNetworkInfo,
             @NonNull NetworkScore score, Context context,
             Handler handler, NetworkAgentConfig config, ConnectivityService connService, INetd netd,
             IDnsResolver dnsResolver, int factorySerialNumber, int creatorUid,
@@ -623,6 +626,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
         networkInfo = info;
         linkProperties = lp;
         networkCapabilities = nc;
+        localInfo = localNetworkInfo;
         networkAgentConfig = config;
         mConnService = connService;
         setScore(score); // uses members connService, networkCapabilities and networkAgentConfig
@@ -898,6 +902,12 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
             Objects.requireNonNull(info);
             mHandler.obtainMessage(NetworkAgent.EVENT_NETWORK_INFO_CHANGED,
                     new Pair<>(NetworkAgentInfo.this, info)).sendToTarget();
+        }
+
+        @Override
+        public void sendLocalNetworkInfo(@NonNull final LocalNetworkInfo localNetworkInfo) {
+            mHandler.obtainMessage(NetworkAgent.EVENT_LOCAL_NETWORK_INFO_CHANGED,
+                    new Pair<>(NetworkAgentInfo.this, localNetworkInfo)).sendToTarget();
         }
 
         @Override
