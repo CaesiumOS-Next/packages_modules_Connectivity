@@ -19,6 +19,7 @@
 
 namespace android {
 int register_com_android_server_thread_ServiceManagerWrapper(JNIEnv* env);
+int register_com_android_server_thread_TunInterfaceController(JNIEnv* env);
 }
 
 using namespace android;
@@ -33,5 +34,6 @@ extern "C" jint JNI_OnLoad(JavaVM* vm, void* /* reserved */) {
     ALOG_ASSERT(env != NULL, "Could not retrieve the env!");
 
     register_com_android_server_thread_ServiceManagerWrapper(env);
+    register_com_android_server_thread_TunInterfaceController(env);
     return JNI_VERSION_1_4;
 }
