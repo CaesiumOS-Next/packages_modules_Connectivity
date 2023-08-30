@@ -16,6 +16,305 @@
       "message": "Remi would know what the state of the annotations vs the linter vs errorprone is.  I know he enabled it and then it was reverted... not sure what followed.",
       "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b4d3d24_f86cd3e2",
+        "filename": "common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "OK so IIUC, this makes it a link against a lib that\u0027s not included, and therefore anybody who links against `connectivity-net-module-utils-bpf` is now required to have `net-utils-device-common-struct` as a static lib in their final artefact, otherwise they\u0027ll have a link error ?\n\nThe question here is : what version are we sure to get here ? If we might get a future or past version of this library I think this is dangerous.",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 79
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30c4c91f_14cf2d08",
+        "filename": "common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "static",
+      "range": {
+        "startLine": 38,
+        "startChar": 85,
+        "endLine": 38,
+        "endChar": 93
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad1f2c2d_cc5d69d1",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "Is there any enforcement ? E.g. if you try and use it earlier it will throw ?",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec7c8286_d6ba0f74",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "Is this meant to house all Bpf net maps ? If not, you need a more specific name.",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5620c4a6_8cebd433",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "Please have a comment to describe what is the key and what is the value",
+      "range": {
+        "startLine": 46,
+        "startChar": 26,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d5c5503_826905cb",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "Now that it\u0027s no longer static you no longer have a synchronization problem here. Why did you make the maps static originally though ? If you want to make them static you could use the on-demand initialization holder pattern or something https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom\n\nLikely, what you have now is better though.",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 25
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b912a08f_e3831a60",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "Is there any synchronization at all between the writers and the readers ? This class alone doesn\u0027t need synchronization because it is only readonly, but it may need synchronization with any writer.",
+      "range": {
+        "startLine": 73,
+        "startChar": 67,
+        "endLine": 73,
+        "endChar": 79
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "737e1d48_49bd0629",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "Why \"child\" ? This needs doc here (unless the doc you will add on the member makes it clear)",
+      "range": {
+        "startLine": 94,
+        "startChar": 14,
+        "endLine": 94,
+        "endChar": 19
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77d09fab_22bd9cee",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "I don\u0027t think this is necessary now that the class is annotated.",
+      "range": {
+        "startLine": 100,
+        "startChar": 5,
+        "endLine": 100,
+        "endChar": 16
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b9b769_4c80bb2f",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "Please qualify these constants so readers know where to find them",
+      "range": {
+        "startLine": 110,
+        "startChar": 22,
+        "endLine": 110,
+        "endChar": 41
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79c9a26a_15d6c27a",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "getUidRule",
+      "range": {
+        "startLine": 189,
+        "startChar": 21,
+        "endLine": 189,
+        "endChar": 38
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef3ca14a_18d87d69",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "Would it work to write\n\n    override val configurationMap \u003d configMap\n\n? Or even\n\n    class TestDependencies(\n        override val configMap: IBpfMap\u003cS32, U32\u003e,\n        override val uidOwnerMap: IBpfMap\u003cS32, UidOwnerValue\u003e\n    )",
+      "range": {
+        "startLine": 52,
+        "startChar": 21,
+        "endLine": 52,
+        "endChar": 40
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0244c2d0_accfd651",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:11:04Z",
+      "side": 1,
+      "message": "assertTrue, assertFalse ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 20
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
