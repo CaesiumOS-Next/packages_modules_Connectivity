@@ -70,6 +70,30 @@
       },
       "revId": "877ec7d1d997c0ec31c629be87b07fe3a9ae7248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e294c9_dfa43207",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1900995
+      },
+      "writtenOn": "2023-08-30T20:36:25Z",
+      "side": 1,
+      "message": "Thanks for the detailed explanation!",
+      "parentUuid": "6e98deac_059bbc44",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 6
+      },
+      "revId": "877ec7d1d997c0ec31c629be87b07fe3a9ae7248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
