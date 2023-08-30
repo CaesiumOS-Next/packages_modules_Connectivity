@@ -31,7 +31,11 @@ import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.INetd;
 import android.net.ISocketKeepaliveCallback;
 import android.net.MarkMaskParcel;
@@ -94,6 +98,8 @@ public class AutomaticOnOffKeepaliveTracker {
     private static final String AUTOMATIC_ON_OFF_KEEPALIVE_DISABLE_FLAG =
             "automatic_on_off_keepalive_disable_flag";
     public static final long METRICS_COLLECTION_DURATION_MS = 24 * 60 * 60 * 1_000L;
+    private static final String ACTION_WRITE_KEEPALIVE_METRICS =
+            "android.intent.action.WRITE_KEEPALIVE_METRICS";
 
     // ConnectivityService parses message constants from itself and AutomaticOnOffKeepaliveTracker
     // with MessageUtils for debugging purposes, and crashes if some messages have the same values.
@@ -182,6 +188,17 @@ public class AutomaticOnOffKeepaliveTracker {
     private final KeepaliveStatsTracker mKeepaliveStatsTracker;
 
     private final long mMetricsWriteTimeBase;
+
+    private final PendingIntent mMetricsAlarmIntent;
+
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (ACTION_WRITE_KEEPALIVE_METRICS.equals(intent.getAction())) {
+                writeMetricsAndRescheduleAlarm();
+            }
+        }
+    };
 
     /**
      * Information about a managed keepalive.
@@ -333,13 +350,22 @@ public class AutomaticOnOffKeepaliveTracker {
         mAlarmManager = mDependencies.getAlarmManager(context);
         mKeepaliveStatsTracker =
                 mDependencies.newKeepaliveStatsTracker(context, handler);
+        mMetricsAlarmIntent = PendingIntent.getBroadcast(context, 0 /* requestCode */,
+                new Intent(ACTION_WRITE_KEEPALIVE_METRICS), PendingIntent.FLAG_IMMUTABLE);
+
+        context.registerReceiver(
+                mBroadcastReceiver,
+                new IntentFilter(ACTION_WRITE_KEEPALIVE_METRICS),
+                /* broadcastPermission= */ null,
+                handler,
+                Context.RECEIVER_NOT_EXPORTED);
 
         final long time = mDependencies.getElapsedRealtime();
         mMetricsWriteTimeBase = time % METRICS_COLLECTION_DURATION_MS;
         if (mKeepaliveStatsTracker.isEnabled()) {
             final long triggerAtMillis = mMetricsWriteTimeBase + METRICS_COLLECTION_DURATION_MS;
-            mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtMillis, TAG,
-                    this::writeMetricsAndRescheduleAlarm, handler);
+            mAlarmManager.setAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    triggerAtMillis, mMetricsAlarmIntent);
         }
     }
 
@@ -355,8 +381,8 @@ public class AutomaticOnOffKeepaliveTracker {
                 mMetricsWriteTimeBase
                         + (time - time % METRICS_COLLECTION_DURATION_MS)
                         + METRICS_COLLECTION_DURATION_MS;
-        mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtMillis, TAG,
-                this::writeMetricsAndRescheduleAlarm, mConnectivityServiceHandler);
+        mAlarmManager.setAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtMillis,
+                mMetricsAlarmIntent);
     }
 
     private void startTcpPollingAlarm(@NonNull AutomaticOnOffKeepalive ki) {
