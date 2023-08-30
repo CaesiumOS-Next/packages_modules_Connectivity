@@ -16,10 +16,38 @@
 
 package android.net.thread;
 
+import android.net.Network;
+import android.net.thread.ActiveOperationalDataset;
+import android.net.thread.BorderRouterConfiguration;
+import android.net.thread.IOperationalDatasetCallback;
+import android.net.thread.IOperationReceiver;
+import android.net.thread.IScheduleMigrationReceiver;
+import android.net.thread.IStateCallback;
+import android.net.thread.PendingOperationalDataset;
+
 /**
 * Interface for communicating with ThreadNetworkControllerService.
 * @hide
 */
 interface IThreadNetworkController {
+    void registerStateCallback(in IStateCallback callback);
+    void unregisterStateCallback(in IStateCallback callback);
+    void registerOperationalDatasetCallback(in IOperationalDatasetCallback callback);
+    void unregisterOperationalDatasetCallback(in IOperationalDatasetCallback callback);
+
+    void attach(boolean doForm, in ActiveOperationalDataset activeOpDataset, in IOperationReceiver receiver);
+    void scheduleMigration(in PendingOperationalDataset pendingOpDataset, in IScheduleMigrationReceiver receiver);
+    void detach(in IOperationReceiver receiver);
+    int getDeviceRole();
+
+    @nullable Network getCurrentNetwork();
+    @nullable ActiveOperationalDataset getActiveOperationalDataset();
+    @nullable PendingOperationalDataset getPendingOperationalDataset();
+    long getPartitionId();
+    byte[] getExtendedMacAddress();
     int getThreadVersion();
+
+    boolean isBorderRouterSupported();
+    void setBorderRouterConfiguration(in BorderRouterConfiguration borderRouterConfig, in IOperationReceiver receiver);
+    BorderRouterConfiguration getBorderRouterConfiguration();
 }
