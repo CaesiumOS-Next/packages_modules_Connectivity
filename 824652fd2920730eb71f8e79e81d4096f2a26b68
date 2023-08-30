@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "143ad23f_2f761f8c",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f24442c_1a5da0df",
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b4d3d24_f86cd3e2",
@@ -123,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "448176cd_4b08f7cb",
+        "filename": "common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30c4c91f_14cf2d08",
+      "range": {
+        "startLine": 38,
+        "startChar": 85,
+        "endLine": 38,
+        "endChar": 93
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad1f2c2d_cc5d69d1",
@@ -136,6 +178,30 @@
       "writtenOn": "2023-08-30T04:11:04Z",
       "side": 1,
       "message": "Is there any enforcement ? E.g. if you try and use it earlier it will throw ?",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0964db9_37bed0d7",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "1. If someone is accessing through CM this is not going to happen.\nBecause BpfNetMaps is initialized in CS constructor.\nCallers can\u0027t get an CM instance before that.\n\n2. But if the caller directly uses this.\n@maze@google.com is there any way to detect this case?\ne.g. can we check a specific magic value in a specific map to see if it is intialized?",
+      "parentUuid": "ad1f2c2d_cc5d69d1",
       "range": {
         "startLine": 38,
         "startChar": 18,
@@ -169,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97fb0ee4_fb571b80",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "Yes I think. it will be not great to make another variation of this class for other reading operations.\nPer offline discussion with motomu@, we also want BpfNetMaps to read via this class  in the future.",
+      "parentUuid": "ec7c8286_d6ba0f74",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5620c4a6_8cebd433",
@@ -182,6 +272,30 @@
       "writtenOn": "2023-08-30T04:11:04Z",
       "side": 1,
       "message": "Please have a comment to describe what is the key and what is the value",
+      "range": {
+        "startLine": 46,
+        "startChar": 26,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5108b6c_4c09e5c3",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5620c4a6_8cebd433",
       "range": {
         "startLine": 46,
         "startChar": 26,
@@ -310,6 +424,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "648256b1_85e930a0",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "Mark resolved, feel free to open if any idea.",
+      "parentUuid": "ad9a70f9_da654603",
+      "range": {
+        "startLine": 73,
+        "startChar": 67,
+        "endLine": 73,
+        "endChar": 79
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "737e1d48_49bd0629",
@@ -323,6 +461,30 @@
       "writtenOn": "2023-08-30T04:11:04Z",
       "side": 1,
       "message": "Why \"child\" ? This needs doc here (unless the doc you will add on the member makes it clear)",
+      "range": {
+        "startLine": 94,
+        "startChar": 14,
+        "endLine": 94,
+        "endChar": 19
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76d77968_dae6971e",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "IIUC this is historical, where we were using chains in iptables to block traffic.\nAnd these chains (fw_dozable, fw_standby, ...) are hooked under a specific chain.\nSo these are called child chains. See https://osscs.corp.google.com/android/platform/superproject/+/master:system/netd/server/NetdConstants.h;l\u003d88?q\u003dChildChain\u0026sq\u003d\u0026ss\u003dandroid \n\nRemove \"child\".\nNot sure if we still need to add more doc here?",
+      "parentUuid": "737e1d48_49bd0629",
       "range": {
         "startLine": 94,
         "startChar": 14,
@@ -356,6 +518,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb75cdb5_f5516026",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77d09fab_22bd9cee",
+      "range": {
+        "startLine": 100,
+        "startChar": 5,
+        "endLine": 100,
+        "endChar": 16
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61b9b769_4c80bb2f",
@@ -369,6 +555,30 @@
       "writtenOn": "2023-08-30T04:11:04Z",
       "side": 1,
       "message": "Please qualify these constants so readers know where to find them",
+      "range": {
+        "startLine": 110,
+        "startChar": 22,
+        "endLine": 110,
+        "endChar": 41
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fb77317_eb095b0d",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61b9b769_4c80bb2f",
       "range": {
         "startLine": 110,
         "startChar": 22,
@@ -402,6 +612,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91f393da_a54c764c",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79c9a26a_15d6c27a",
+      "range": {
+        "startLine": 189,
+        "startChar": 21,
+        "endLine": 189,
+        "endChar": 38
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef3ca14a_18d87d69",
@@ -425,6 +659,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e548da7d_1d11104d",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "Nah, both not work.\nbut override fun can work.",
+      "parentUuid": "ef3ca14a_18d87d69",
+      "range": {
+        "startLine": 52,
+        "startChar": 21,
+        "endLine": 52,
+        "endChar": 40
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0244c2d0_accfd651",
@@ -438,6 +696,30 @@
       "writtenOn": "2023-08-30T04:11:04Z",
       "side": 1,
       "message": "assertTrue, assertFalse ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 20
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5c6b566_281ec956",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T11:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0244c2d0_accfd651",
       "range": {
         "startLine": 66,
         "startChar": 8,
