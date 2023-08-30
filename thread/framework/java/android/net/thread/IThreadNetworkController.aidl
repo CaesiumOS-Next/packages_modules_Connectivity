@@ -17,6 +17,7 @@
 package android.net.thread;
 
 import android.net.thread.ActiveOperationalDataset;
+import android.net.thread.BorderRouterConfig;
 import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IOperationalDatasetCallback;
 import android.net.thread.IOperationReceiver;
@@ -42,4 +43,7 @@ interface IThreadNetworkController {
 
     int getThreadVersion();
     void createRandomizedDataset(String networkName, IActiveOperationalDatasetReceiver receiver);
+
+    void setBorderRouterConfig(in BorderRouterConfig config);
+    BorderRouterConfig getBorderRouterConfig();
 }

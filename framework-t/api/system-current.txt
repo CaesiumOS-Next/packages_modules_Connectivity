@@ -470,6 +470,19 @@ package android.net.thread {
     field public static final int LENGTH_MIN_SECURITY_POLICY_FLAGS = 1; // 0x1
   }
 
+  @FlaggedApi("com.android.net.thread.flags.thread_enabled") public final class BorderRouterConfig implements android.os.Parcelable {
+    method public int describeContents();
+    method public boolean isBorderRouterEnabled();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.thread.BorderRouterConfig> CREATOR;
+  }
+
+  public static final class BorderRouterConfig.Builder {
+    ctor public BorderRouterConfig.Builder(boolean);
+    ctor public BorderRouterConfig.Builder(@NonNull android.net.thread.BorderRouterConfig);
+    method @NonNull public android.net.thread.BorderRouterConfig build();
+  }
+
   @FlaggedApi("com.android.net.thread.flags.thread_enabled") public final class OperationalDatasetTimestamp {
     ctor public OperationalDatasetTimestamp(@IntRange(from=0, to=281474976710655L) long, @IntRange(from=0, to=32767) int, boolean);
     method @NonNull public static android.net.thread.OperationalDatasetTimestamp fromInstant(@NonNull java.time.Instant);
