@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d08fa8d_f2b81d3b",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6207,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T11:11:08Z",
+      "side": 1,
+      "message": "Wow without so much as synchronization to make sure this is not created multiple times ? I really think you should use the on-demand initializer idiom for this, so that apps don\u0027t pay the cost at all, ever",
+      "range": {
+        "startLine": 6205,
+        "startChar": 0,
+        "endLine": 6207,
+        "endChar": 9
+      },
+      "revId": "102e2a73ea038604ae8f3b4fa66e9e4a7266eeda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
