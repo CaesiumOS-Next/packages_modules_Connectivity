@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ac61a08_1d2cd479",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T09:22:36Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "1b269d931f0b19a5b0a3176903e3ba87bcc8c7f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df48529a_275476b1",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T09:22:36Z",
+      "side": 1,
+      "message": "This could be static.\n\nBut even better yet, can you delete it? Something like:\n\n    final boolean upstreamSupportsBpf \u003d upstreamIface !\u003d null\n            \u0026\u0026 !isVcnInterface(upstreamIface);",
+      "range": {
+        "startLine": 925,
+        "startChar": 12,
+        "endLine": 925,
+        "endChar": 19
+      },
+      "revId": "1b269d931f0b19a5b0a3176903e3ba87bcc8c7f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e03ee59_63a9eea9",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T09:22:36Z",
+      "side": 1,
+      "message": "upstreamSupportsBpf",
+      "range": {
+        "startLine": 934,
+        "startChar": 20,
+        "endLine": 934,
+        "endChar": 41
+      },
+      "revId": "1b269d931f0b19a5b0a3176903e3ba87bcc8c7f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
