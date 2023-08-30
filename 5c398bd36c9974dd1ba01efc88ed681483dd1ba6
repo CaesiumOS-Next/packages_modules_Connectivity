@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7ec4485_9fa327e7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T06:54:54Z",
+      "side": 1,
+      "message": "Question:\nNow we have \n a. this class.\n b. TestNetworkAgentWrapper in ConnectivityServiceTest\n c. NetworkAgentWrapper in the integration test.\n d. TestableNetworkAgent in libs.\n\n1. It seems to me the first 3 are kind of similar?\nIs it feasible to refactor some of them?\n\n2. Why we need this class while we have (b), can we make the existing ConnectivityServiceTest use this class?",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "5c398bd36c9974dd1ba01efc88ed681483dd1ba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5132e65_5e9dcfcf",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T06:54:54Z",
+      "side": 1,
+      "message": "nit: This is unlikely an emptyNc to me, is it better to name it defaultNc?\nAlso for the above method but not sure.",
+      "range": {
+        "startLine": 195,
+        "startChar": 16,
+        "endLine": 195,
+        "endChar": 23
+      },
+      "revId": "5c398bd36c9974dd1ba01efc88ed681483dd1ba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
