@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86ba0e5d_374dde40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T05:43:13Z",
+      "side": 1,
+      "message": "+2 with nits that can be ignored.",
+      "revId": "cf1e2c71a99987fb1b6d4762ec543fda391122b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a62173ae_bba61994",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7550,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T05:43:13Z",
+      "side": 1,
+      "message": "nit: While these comments are nice and clear, it is kind of too long to read.\nBelow are 2 AI-revised version of this comment, see if it is better.\n\n1:\n\n// While requestNetwork increases the count, unregister decreases it asynchronously on a handler thread. Unregistering may not immediately free up a slot; calling unregister-register when max requests are registered can still throw. A potential fix involves ConnectivityService catching TooManyRequestsException once when creating a NetworkRequestInfo on a binder thread and blocking until the handler thread processes it. However, this complexity and risk might not be justified for the current problem. This \"bug\" doesn\u0027t significantly impact the purpose of the \"max request\" mechanism which helps apps detect leaks. Apps relying heavily on strict enforcement or rapid request registration should reconsider. Not addressing this \"bug\" has little consequence and no known solution exists.\n\n// In the context of this test, the test thread might register all requests before the handler thread decrements the count, causing flakes. To prevent this, inserting a single waitForIdle during the test, such as at MAX_REQUESTS / 2, should suffice. This ensures that decrements from unregisters up to that point are processed. Placing the wait at any point with less than MAX_REQUESTS remaining requests would also work.\n\n2.\n// Request count increases with requestNetwork, decreases asynchronously with unregister. Unregistering may not immediately free up slots; unregister-register with max requests can still throw. Potential fix: ConnectivityService catches TooManyRequestsException once when creating NetworkRequestInfo, waits for handler thread (see link), but complexity outweighs current problem. Impact on \"max request\" purpose is minimal; apps heavily relying on enforcement should reconsider. \n\n// In the test context, test thread registering all before handler thread decrements can cause flakes. To prevent, add a single waitForIdle, e.g., at MAX_REQUESTS / 2. Guarantees processing of decrements up to that point. Any wait with less than MAX_REQUESTS left also works.\n\n\nFeel free to ignore.",
+      "range": {
+        "startLine": 7550,
+        "startChar": 15,
+        "endLine": 7550,
+        "endChar": 20
+      },
+      "revId": "cf1e2c71a99987fb1b6d4762ec543fda391122b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
