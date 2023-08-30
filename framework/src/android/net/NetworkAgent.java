@@ -151,7 +151,7 @@ public abstract class NetworkAgent {
 
     /**
      * Sent by the NetworkAgent to ConnectivityService to pass the current
-     * NetworkCapabilties.
+     * NetworkCapabilities.
      * obj = NetworkCapabilities
      * @hide
      */
@@ -443,6 +443,14 @@ public abstract class NetworkAgent {
     public static final int EVENT_UNREGISTER_AFTER_REPLACEMENT = BASE + 29;
 
     /**
+     * Sent by the NetworkAgent to ConnectivityService to pass the new value of the local
+     * network agent info.
+     * obj = Pair<NetworkAgentInfo, LocalNetworkInfo>
+     * @hide
+     */
+    public static final int EVENT_LOCAL_NETWORK_INFO_CHANGED = BASE + 30;
+
+    /**
      * DSCP policy was successfully added.
      */
     public static final int DSCP_POLICY_STATUS_SUCCESS = 0;
@@ -517,35 +525,61 @@ public abstract class NetworkAgent {
             @NonNull NetworkCapabilities nc, @NonNull LinkProperties lp,
             @NonNull NetworkScore score, @NonNull NetworkAgentConfig config,
             @Nullable NetworkProvider provider) {
-        this(looper, context, logTag, nc, lp, score, config,
+        this(context, looper, logTag, nc, lp, null /* localNetworkInfo */, score, config, provider);
+    }
+
+    /**
+     * Create a new network agent.
+     * @param context a {@link Context} to get system services from.
+     * @param looper the {@link Looper} on which to invoke the callbacks.
+     * @param logTag the tag for logs
+     * @param nc the initial {@link NetworkCapabilities} of this network. Update with
+     *           sendNetworkCapabilities.
+     * @param lp the initial {@link LinkProperties} of this network. Update with sendLinkProperties.
+     * @param localNetworkInfo the initial {@link LocalNetworkInfo} of this network. Update with
+     *           sendLocalNetworkInfo. Must be null iff the nc have NET_CAP_LOCAL_NETWORK_AGENT.
+     * @param score the initial score of this network. Update with sendNetworkScore.
+     * @param config an immutable {@link NetworkAgentConfig} for this agent.
+     * @param provider the {@link NetworkProvider} managing this agent.
+     * @hide
+     */
+    // TODO : expose
+    public NetworkAgent(@NonNull Context context, @NonNull Looper looper, @NonNull String logTag,
+            @NonNull NetworkCapabilities nc, @NonNull LinkProperties lp,
+            @Nullable LocalNetworkInfo localNetworkInfo, @NonNull NetworkScore score,
+            @NonNull NetworkAgentConfig config, @Nullable NetworkProvider provider) {
+        this(looper, context, logTag, nc, lp, localNetworkInfo, score, config,
                 provider == null ? NetworkProvider.ID_NONE : provider.getProviderId(),
                 getLegacyNetworkInfo(config));
     }
 
     private static class InitialConfiguration {
-        public final Context context;
-        public final NetworkCapabilities capabilities;
-        public final LinkProperties properties;
-        public final NetworkScore score;
-        public final NetworkAgentConfig config;
-        public final NetworkInfo info;
+        @NonNull public final Context context;
+        @NonNull public final NetworkCapabilities capabilities;
+        @NonNull public final LinkProperties properties;
+        @NonNull public final NetworkScore score;
+        @NonNull public final NetworkAgentConfig config;
+        @NonNull public final NetworkInfo info;
+        @Nullable public final LocalNetworkInfo localNetworkInfo;
         InitialConfiguration(@NonNull Context context, @NonNull NetworkCapabilities capabilities,
-                @NonNull LinkProperties properties, @NonNull NetworkScore score,
-                @NonNull NetworkAgentConfig config, @NonNull NetworkInfo info) {
+                @NonNull LinkProperties properties, @Nullable LocalNetworkInfo localNetworkInfo,
+                @NonNull NetworkScore score, @NonNull NetworkAgentConfig config,
+                @NonNull NetworkInfo info) {
             this.context = context;
             this.capabilities = capabilities;
             this.properties = properties;
             this.score = score;
             this.config = config;
             this.info = info;
+            this.localNetworkInfo = localNetworkInfo;
         }
     }
     private volatile InitialConfiguration mInitialConfiguration;
 
     private NetworkAgent(@NonNull Looper looper, @NonNull Context context, @NonNull String logTag,
             @NonNull NetworkCapabilities nc, @NonNull LinkProperties lp,
-            @NonNull NetworkScore score, @NonNull NetworkAgentConfig config, int providerId,
-            @NonNull NetworkInfo ni) {
+            @Nullable LocalNetworkInfo localNetworkInfo, @NonNull NetworkScore score,
+            @NonNull NetworkAgentConfig config, int providerId, @NonNull NetworkInfo ni) {
         mHandler = new NetworkAgentHandler(looper);
         LOG_TAG = logTag;
         mNetworkInfo = new NetworkInfo(ni);
@@ -556,7 +590,7 @@ public abstract class NetworkAgent {
 
         mInitialConfiguration = new InitialConfiguration(context,
                 new NetworkCapabilities(nc, NetworkCapabilities.REDACT_NONE),
-                new LinkProperties(lp), score, config, ni);
+                new LinkProperties(lp), localNetworkInfo, score, config, ni);
     }
 
     private class NetworkAgentHandler extends Handler {
@@ -723,7 +757,8 @@ public abstract class NetworkAgent {
             mNetwork = cm.registerNetworkAgent(new NetworkAgentBinder(mHandler),
                     new NetworkInfo(mInitialConfiguration.info),
                     mInitialConfiguration.properties, mInitialConfiguration.capabilities,
-                    mInitialConfiguration.score, mInitialConfiguration.config, providerId);
+                    mInitialConfiguration.localNetworkInfo, mInitialConfiguration.score,
+                    mInitialConfiguration.config, providerId);
             mInitialConfiguration = null; // All this memory can now be GC'd
         }
         return mNetwork;
@@ -1096,6 +1131,20 @@ public abstract class NetworkAgent {
         final NetworkCapabilities nc =
                 new NetworkCapabilities(networkCapabilities, NetworkCapabilities.REDACT_NONE);
         queueOrSendMessage(reg -> reg.sendNetworkCapabilities(nc));
+    }
+
+    /**
+     * Must be called by the agent when the network's {@link LocalNetworkInfo} changes.
+     * @param info the new LocalNetworkInfo
+     * @hide
+     */
+    public void sendLocalNetworkInfo(@NonNull LocalNetworkInfo info) {
+        Objects.requireNonNull(info);
+        if (!mInitialConfiguration.capabilities
+                .hasCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)) {
+            throw new IllegalStateException("Only local networks can update local network info");
+        }
+        queueOrSendMessage(reg -> reg.sendLocalNetworkInfo(info));
     }
 
     /**
