@@ -39,6 +39,30 @@
       },
       "revId": "cf1e2c71a99987fb1b6d4762ec543fda391122b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3648ecf9_d5560ed2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7550,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T06:20:40Z",
+      "side": 1,
+      "message": "Thanks. I revised it further, adding back essential detail but making it even terser. It\u0027s also a bit denser unfortunately",
+      "parentUuid": "a62173ae_bba61994",
+      "range": {
+        "startLine": 7550,
+        "startChar": 15,
+        "endLine": 7550,
+        "endChar": 20
+      },
+      "revId": "cf1e2c71a99987fb1b6d4762ec543fda391122b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
