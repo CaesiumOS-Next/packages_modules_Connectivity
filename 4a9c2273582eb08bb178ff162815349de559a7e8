@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b34064d_3d6afa93",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:26:09Z",
+      "side": 1,
+      "message": "Get whether the chain is an allow-list or a deny-list.",
+      "range": {
+        "startLine": 94,
+        "startChar": 7,
+        "endLine": 94,
+        "endChar": 47
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1eb3e8a_d190f0e5",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:26:09Z",
+      "side": 1,
+      "message": "How expensive is this ? Your patch is going to introduce this in the start sequence of most apps, delaying their start.\n\nUnless this takes completely negligible time, you should probably initialize this on-demand instead.",
+      "range": {
+        "startLine": 959,
+        "startChar": 29,
+        "endLine": 959,
+        "endChar": 45
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e598254_0e4b38c3",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:26:09Z",
+      "side": 1,
+      "message": "return\n\nand remove the mutable",
+      "range": {
+        "startLine": 959,
+        "startChar": 16,
+        "endLine": 959,
+        "endChar": 22
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a98f444_1a850874",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6205,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:26:09Z",
+      "side": 1,
+      "message": "ISTM we\u0027d like to remove this eventually, and instead have something like `(int, Network)`\n\nCan you name this method more specifically, so it\u0027s easier to deprecate when our BPF maps are better ? E.g. isUidNetworkingBlockedForConditions or something.",
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acff5440_3f777666",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6218,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:26:09Z",
+      "side": 1,
+      "message": "Any reason not to inline this ? No strong opinion but I don\u0027t think the name of the local brings any useful information in this case.",
+      "range": {
+        "startLine": 6217,
+        "startChar": 16,
+        "endLine": 6218,
+        "endChar": 22
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ab1f362_106f26ea",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:26:09Z",
+      "side": 1,
+      "message": "Does it need to be public ? I\u0027m a bit concerned that somebody adds a chain but doesn\u0027t make it public, and then your test makes them do the wrong thing (namely : not add it to the list of constants)",
+      "range": {
+        "startLine": 89,
+        "startChar": 60,
+        "endLine": 89,
+        "endChar": 68
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce736b9_48222100",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:26:09Z",
+      "side": 1,
+      "message": "Maybe check that TEST_UID2 is not affected",
+      "range": {
+        "startLine": 564,
+        "startChar": 75,
+        "endLine": 564,
+        "endChar": 76
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59e1c3aa_b1cc8c07",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-30T04:26:09Z",
+      "side": 1,
+      "message": "Wait can this change dynamically ? If not, I think it\u0027s a bit bizarre to test a situation that we know can never arise – you\u0027d be testing impl details that are not observable.",
+      "range": {
+        "startLine": 570,
+        "startChar": 17,
+        "endLine": 570,
+        "endChar": 36
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
