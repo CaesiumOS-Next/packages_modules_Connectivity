@@ -18,6 +18,41 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d61cdf9_85d8c618",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T08:53:51Z",
+      "side": 1,
+      "message": "Yuyang is currently looking at this, I think he managed to get failures on the Gerrit linter, but this isn\u0027t merged yet ?",
+      "parentUuid": "631fb408_f39ad6e2",
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f24442c_1a5da0df",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T08:53:51Z",
+      "side": 1,
+      "message": "This won\u0027t work on R, since framework-connectivity is only S+, so it\u0027s quite unsafe. There\u0027s also no linter check, unless all the classes in this lib were annotated with RequiresApi(S), which is hard to control.\n\nIt may be safer to keep statically linking it here",
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b4d3d24_f86cd3e2",
@@ -31,6 +66,30 @@
       "writtenOn": "2023-08-30T04:11:04Z",
       "side": 1,
       "message": "OK so IIUC, this makes it a link against a lib that\u0027s not included, and therefore anybody who links against `connectivity-net-module-utils-bpf` is now required to have `net-utils-device-common-struct` as a static lib in their final artefact, otherwise they\u0027ll have a link error ?\n\nThe question here is : what version are we sure to get here ? If we might get a future or past version of this library I think this is dangerous.",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 79
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba29ef2d_b2d63858",
+        "filename": "common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-30T08:53:51Z",
+      "side": 1,
+      "message": "I think this is quite error-prone; especially since it would also fail at runtime, not build time.\n\nMaybe one way to make it a bit less confusing is to call it connectivity-net-module-utils-bpf-minus-struct ? But it doesn\u0027t scale very well.\n\nAnd/or maybe restrict it via \"visibility\", and have a comment there saying that any new user needs to make sure they have the \"struct\" dep somewhere ? It\u0027s still error-prone when you\u0027d think you can remove the dependency on \"struct\" from framework-connectivity, but you actually can\u0027t.\n\nIf this was only used by service-connectivity, it would make sense for this lib to depend on framework-connectivity-pre-jarjar, to have all hidden utils in the bootclasspath from framework-connectivity. But because it\u0027s also used in Tethering that is R+, it needs to cherry-pick only libs that are included in both...",
+      "parentUuid": "4b4d3d24_f86cd3e2",
       "range": {
         "startLine": 37,
         "startChar": 11,
