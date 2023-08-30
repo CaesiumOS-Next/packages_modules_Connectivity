@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8076a075_9cd350e6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T10:17:19Z",
+      "side": 1,
+      "message": "FWIW, ArraySet is better than HashSet for small sets. And this is small, right? Usually just one?\n\nSimilarly, HashMap should probably be ArrayMap. Also below. I think it\u0027s OK if you just leave all of these as is in this CL and then fix them all in a follow-up.\n\nPer comment elsewhere, some of the maps in this file use LinkedHashMap, which makes me think that we intended to preserve ordering. With this CL, ordering will no longer be preserved. Do you think we needed ordering?",
+      "range": {
+        "startLine": 250,
+        "startChar": 36,
+        "endLine": 250,
+        "endChar": 43
+      },
+      "revId": "a05fdea4936a2a995f7b63eed218ab6add7cdf4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d601d8e_1dffbdd1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T10:17:19Z",
+      "side": 1,
+      "message": "Out of curiosity, does HashSet::new not work here?",
+      "range": {
+        "startLine": 625,
+        "startChar": 26,
+        "endLine": 625,
+        "endChar": 62
+      },
+      "revId": "a05fdea4936a2a995f7b63eed218ab6add7cdf4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79f9651b_22a337f5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T10:17:19Z",
+      "side": 1,
+      "message": "ditto, I think we can remove this log line",
+      "range": {
+        "startLine": 644,
+        "startChar": 16,
+        "endLine": 644,
+        "endChar": 22
+      },
+      "revId": "a05fdea4936a2a995f7b63eed218ab6add7cdf4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "634a2311_fd8f31d3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T10:17:19Z",
+      "side": 1,
+      "message": "Clear the limit",
+      "range": {
+        "startLine": 647,
+        "startChar": 11,
+        "endLine": 647,
+        "endChar": 35
+      },
+      "revId": "a05fdea4936a2a995f7b63eed218ab6add7cdf4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a61b195e_596d2844",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T10:17:19Z",
+      "side": 1,
+      "message": "Am I misreading this code, or is this usage of upstreamIfindex outside the loop? That seems incorrect, because it will only run once, on the ifindex that was used by the last rule.\n\nIf we believe that \"rule.upstreamIfIndex\" could be different for different rules in the map, then this should call maybeClearLimit on each rule it finds:\n\n       for (Ipv6UpstreamRule rule: upstreamRules) {\n            mBpfCoordinatorShim.removeIpv6UpstreamRule(rule.upstreamIfindex);\n            // Clear the limit if there are no more rules on the given upstream.\n            maybeClearLimit(rule.upstreamIfindex);\n        }\n\nOr, if we believe that all rules should have the same upstreamIfIndex, then why store the upstreamIfindex in the rule class at all?",
+      "range": {
+        "startLine": 648,
+        "startChar": 24,
+        "endLine": 648,
+        "endChar": 39
+      },
+      "revId": "a05fdea4936a2a995f7b63eed218ab6add7cdf4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2d661ed_880bf71d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T10:17:19Z",
+      "side": 1,
+      "message": "Does LinkedHashMap::new not work here?",
+      "range": {
+        "startLine": 664,
+        "startChar": 24,
+        "endLine": 664,
+        "endChar": 82
+      },
+      "revId": "a05fdea4936a2a995f7b63eed218ab6add7cdf4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56e13ec9_8042e4e1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T10:17:19Z",
+      "side": 1,
+      "message": "ones",
+      "range": {
+        "startLine": 738,
+        "startChar": 53,
+        "endLine": 738,
+        "endChar": 56
+      },
+      "revId": "a05fdea4936a2a995f7b63eed218ab6add7cdf4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a38c258e_56d5cb5e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T10:17:19Z",
+      "side": 1,
+      "message": "rules",
+      "range": {
+        "startLine": 738,
+        "startChar": 26,
+        "endLine": 738,
+        "endChar": 30
+      },
+      "revId": "a05fdea4936a2a995f7b63eed218ab6add7cdf4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a0487da_6bcdb14c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-30T10:17:19Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand this. The code seems to be removing the rules, then iterating over what was removed, calling onNewUpstream on each one, and re-adding the rule.\n\nBut for each rule, the old and the new rule will never have the same key, right? The upstream interface is part of the key, so the old and the new rules will have the different keys and can be in the map at the same time?\n\nOr am I missing something?",
+      "range": {
+        "startLine": 738,
+        "startChar": 73,
+        "endLine": 739,
+        "endChar": 16
+      },
+      "revId": "a05fdea4936a2a995f7b63eed218ab6add7cdf4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
