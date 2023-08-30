@@ -22,6 +22,30 @@
       },
       "revId": "877ec7d1d997c0ec31c629be87b07fe3a9ae7248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaa900c8_cdff1c26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1900995
+      },
+      "writtenOn": "2023-08-30T18:28:11Z",
+      "side": 1,
+      "message": "I was thinking if I need Merged-In tag, because downstreams are git_main, git_tm-qpr-dev-plus-aosp , git_udc-d1-dev-plus-aosp, git_udc-dev-plus-aosp,  git_udc-qpr-dev-plus-aosp and git_udc-mainline-prod.\nMay I confirm the merge parth with you? Is that Ok I only merged the change in git_udc-mainline-prod and git_main?\n\nWill git_tm-qpr-dev-plus-aosp , git_udc-d1-dev-plus-aosp, git_udc-dev-plus-aosp git_udc-qpr-dev-plus-aosp get the change?",
+      "parentUuid": "d90cc148_62bf045b",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 6
+      },
+      "revId": "877ec7d1d997c0ec31c629be87b07fe3a9ae7248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
