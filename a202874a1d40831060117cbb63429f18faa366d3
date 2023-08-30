@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "931fc89e_1a1e7939",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T03:43:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01124355_7b17db0b",
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6db50fa7_2533de67",
@@ -66,6 +84,30 @@
       "writtenOn": "2023-08-29T12:18:03Z",
       "side": 1,
       "message": "could/should the entire class be marked T+ with an annotation?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7b206e9_eb299804",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T03:43:44Z",
+      "side": 1,
+      "message": "Done, but not sure whether the annotation enforce anything.\nThus still keep the exception here.\nSee if it works for you.",
+      "parentUuid": "6db50fa7_2533de67",
       "range": {
         "startLine": 51,
         "startChar": 0,
@@ -101,6 +143,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5df920fa_b051b498",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T03:43:44Z",
+      "side": 1,
+      "message": "Ack, keep this open for tracking.",
+      "parentUuid": "1cf727cf_b28ac28e",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 76,
+        "endChar": 13
+      },
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18e9b67f_e8b7109e",
         "filename": "framework/src/android/net/BpfNetMapsUtils.java",
         "patchSetId": 4
@@ -112,6 +178,24 @@
       "writtenOn": "2023-08-29T11:24:09Z",
       "side": 1,
       "message": "nits: In this class, PRE_T is only used in this method. So I felt we can keep PRE_T in BpfNetMaps and this method can have `if(!SdkLevel.isAtLeastT())`",
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd417775_55c947e6",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T03:43:44Z",
+      "side": 1,
+      "message": "While I\u0027m expecting we\u0027ll have more caller sites, prefer to keep it for now.",
+      "parentUuid": "18e9b67f_e8b7109e",
       "revId": "a202874a1d40831060117cbb63429f18faa366d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -129,6 +213,30 @@
       "writtenOn": "2023-08-29T12:18:03Z",
       "side": 1,
       "message": "annotate as T+.\n\nthen I think you don\u0027t need the throw at all",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 96
+      },
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2bac08b_22879b5e",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T03:43:44Z",
+      "side": 1,
+      "message": "Annotated but from what I heard it only affects linter.\nIf so perhaps we still need to throw to enforce nobody try anything funny?\nReopen if any idea.",
+      "parentUuid": "e03f9982_e932b827",
       "range": {
         "startLine": 158,
         "startChar": 0,
@@ -164,6 +272,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "edd278e8_3f0a6b43",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T03:43:44Z",
+      "side": 1,
+      "message": "Ack, keep this open for tracking.",
+      "parentUuid": "f23d52e0_4d638a9e",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 9
+      },
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b804686_00416ed3",
         "filename": "framework/src/android/net/BpfNetMapsUtils.java",
         "patchSetId": 4
@@ -175,6 +307,30 @@
       "writtenOn": "2023-08-29T12:18:03Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 86
+      },
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f37e655_5ce3cc8d",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T03:43:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b804686_00416ed3",
       "range": {
         "startLine": 183,
         "startChar": 0,
@@ -198,6 +354,24 @@
       "writtenOn": "2023-08-29T11:24:09Z",
       "side": 1,
       "message": "nits: Can we have test for getUidRule?",
+      "revId": "a202874a1d40831060117cbb63429f18faa366d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c5c4624_db446795",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-30T03:43:44Z",
+      "side": 1,
+      "message": "Yes but:\n1. The code will be likely copied from BpfNetMapsTest, which is redundant.\n2. BpfNetMapsTest already covered BpfNetMapsUtils#getUidRule. Adding test here literally increase 1 line code coverage (entry of BpfNetMapsReader#getUidRule), which is not great.\n\nThe idea is to test at least one of these in BpfNetMapsReaderTest, to have coverage on initialization part. Thus, I\u0027ll prefer to keep it as is.\nReopen if any idea.",
+      "parentUuid": "055fcc9a_0f6d99dd",
       "revId": "a202874a1d40831060117cbb63429f18faa366d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
