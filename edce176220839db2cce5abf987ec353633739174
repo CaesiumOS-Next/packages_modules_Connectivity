@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da378e65_6eeb0675",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-31T09:42:41Z",
+      "side": 1,
+      "message": "Acknowledged. Add a TODO item here.",
+      "parentUuid": "513bb60f_c8e762fa",
+      "range": {
+        "startLine": 917,
+        "startChar": 43,
+        "endLine": 917,
+        "endChar": 45
+      },
+      "revId": "edce176220839db2cce5abf987ec353633739174",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a52df3f1_da9dc752",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eab598d_dc17712d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-31T09:42:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a52df3f1_da9dc752",
+      "revId": "edce176220839db2cce5abf987ec353633739174",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f066a544_e2f1bb04",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-08-31T06:45:02Z",
       "side": 1,
       "message": "Nit: this could be together with the cleanupStep above: if the tryTest or cleanupStep blocks fail, that failure will be reported as the test failure. So having an assertion afterwards in a separate cleanup step has no effect since the earlier failures will be reported instead.\n\nIn general each \"cleanup\" step is used for cleaning up/unregistering, and you can have assertions together with it (so unregister X and make sure unregistering callback is called, then unregister Y and make sure unregistering callback is called, etc)",
+      "revId": "edce176220839db2cce5abf987ec353633739174",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3afbe73c_3a5f6dd0",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-31T09:42:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f066a544_e2f1bb04",
       "revId": "edce176220839db2cce5abf987ec353633739174",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
