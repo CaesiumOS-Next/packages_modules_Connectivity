@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdf16069_251ed237",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-31T08:14:14Z",
+      "side": 1,
+      "message": "Done again. See if it works for you.\nRef: https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom\nBtw, I don\u0027t really understand why no further synchronization is required.\nIs this because everything is final?",
+      "parentUuid": "31325183_de6c1756",
+      "range": {
+        "startLine": 959,
+        "startChar": 29,
+        "endLine": 959,
+        "endChar": 45
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a98f444_1a850874",
@@ -403,6 +427,30 @@
       "side": 1,
       "message": "I mean, we can change the chain from a deny-list to an allow-list, that surprised me, that\u0027s all.",
       "parentUuid": "425c6709_6cb0a1b9",
+      "range": {
+        "startLine": 570,
+        "startChar": 17,
+        "endLine": 570,
+        "endChar": 36
+      },
+      "revId": "4a9c2273582eb08bb178ff162815349de559a7e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f00c99e8_042c5d18",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-31T08:14:14Z",
+      "side": 1,
+      "message": "No this line means to mock allowed for the given uid.\n\nWhat you said is isFirewallAllowList, which is static and cannot be changed in runtime. But it has nothing to do with this line.\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/framework/src/android/net/BpfNetMapsUtils.java;l\u003d88?ss\u003dandroid\u0026q\u003disFirewallAllowList",
+      "parentUuid": "43d8b60e_026677cc",
       "range": {
         "startLine": 570,
         "startChar": 17,
