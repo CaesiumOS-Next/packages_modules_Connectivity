@@ -118,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3945f835_a2578859",
+        "filename": "common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-31T06:06:33Z",
+      "side": 1,
+      "message": "Done with connectivity-net-module-utils-bpf-minus-struct.\nSee if it works for you.",
+      "parentUuid": "ba29ef2d_b2d63858",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 79
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30c4c91f_14cf2d08",
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "Note that http://cs/h/android/platform/superproject/+/main:packages/modules/Connectivity/netd/BpfHandler.cpp?l\u003d124 which is mainline updatable and runs early during netd startup doesn\u0027t actually even write to any of the maps.\n\n(we used to have some init code, but some time ago, I made the default 0 values of an empty/cleared map valid)\n\nThere might be some extra map writing init code somewhere else as well though.\nNot sure.  In general empty/zeroed maps are fine though.\n\nMy cs/ p:aosp-master file:packages/modules/Conn file:Bpf [.]clear -file:Test[.]\n\nfinds basically\n\nhttp://cs/h/android/platform/superproject/+/main:packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java?l\u003d214\n\nbut that\u0027s only really needed to *re*initialize on system server restart.\n\nBoth the writes in there:\n\nsConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY,\n                    new U32(UID_RULES_DEFAULT_CONFIGURATION));\n\n            sConfigurationMap.updateEntry(CURRENT_STATS_MAP_CONFIGURATION_KEY,\n                    new U32(STATS_SELECT_MAP_A));\n                    \nare just writing 0s and thus only do anything on System server restart,\nin case previous instance had left things non-zero.",
       "parentUuid": "7528ff8c_f90d6c7a",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "824652fd2920730eb71f8e79e81d4096f2a26b68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4046fa21_990e3a96",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-31T06:06:33Z",
+      "side": 1,
+      "message": "If so it seems to me this comment is misleading and should be removed, given that\nthere is no such case an app can use this and get a value from uninitialized map.\nReopen if any idea.",
+      "parentUuid": "546b4b0d_72f88cd7",
       "range": {
         "startLine": 38,
         "startChar": 18,
