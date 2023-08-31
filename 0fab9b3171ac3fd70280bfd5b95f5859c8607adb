@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c54d154_28786895",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-31T09:42:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24a52db1_b4196f62",
+      "range": {
+        "startLine": 411,
+        "startChar": 36,
+        "endLine": 411,
+        "endChar": 37
+      },
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c63a6248_6569e803",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-31T07:16:37Z",
       "side": 1,
       "message": "Nit: I think a common pattern is to have this in the OffloadServiceInfoWrapper class itself (for example, called OffloadServiceInfoWrapper.withOffloadPayload)\n\nActually it\u0027s probably more common to have it in the OffloadServiceInfo class, but maybe modifying the bootclasspath class itself isn\u0027t worth it.\n\nAlso \"update\" sounds like it modifies it in place, which isn\u0027t actually the case",
+      "range": {
+        "startLine": 677,
+        "startChar": 38,
+        "endLine": 677,
+        "endChar": 58
+      },
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd6879b3_ca2a1fbc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-31T09:42:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c63a6248_6569e803",
       "range": {
         "startLine": 677,
         "startChar": 38,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b63276f3_73fc7170",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-31T09:42:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f70dcede_10049c71",
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44544acf_d7b24741",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-08-31T07:16:37Z",
       "side": 1,
       "message": "Nit: that\u0027s not really an IOException, maybe more IllegalArgumentException ?\n\nBut this can still be caught and Log.wtf when creating the packet to be safe",
+      "range": {
+        "startLine": 745,
+        "startChar": 44,
+        "endLine": 745,
+        "endChar": 55
+      },
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c76b33d9_7ea3c5fc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-31T09:42:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44544acf_d7b24741",
       "range": {
         "startLine": 745,
         "startChar": 44,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6f87401_dda23746",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-31T09:42:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a04b0a7_db8568c1",
+      "range": {
+        "startLine": 767,
+        "startChar": 39,
+        "endLine": 767,
+        "endChar": 40
+      },
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0e0fc25_e457232b",
@@ -123,6 +237,24 @@
       "writtenOn": "2023-08-31T07:16:37Z",
       "side": 1,
       "message": "A test in NsdManagerTest CTS would be useful\n\nAlso unit tests for MdnsAdvertiser / MdnsInterfaceAdvertiser, although I expect for this CTS would have a better value / ease of writing ratio",
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6110d29a_4330a909",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-08-31T09:42:19Z",
+      "side": 1,
+      "message": "Done, missing test is added.",
+      "parentUuid": "f0e0fc25_e457232b",
       "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
