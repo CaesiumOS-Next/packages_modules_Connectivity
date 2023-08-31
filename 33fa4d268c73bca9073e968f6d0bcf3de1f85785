@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1e5b4b2_7258ea75",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 42
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-31T07:19:45Z",
+      "side": 1,
+      "message": "Per discussion in release review, there should probably be a comment somewhere that these classes, which are also on the bootclasspath, should not be included anywhere in the module, and will be renamed by copybara to prevent them from being shadowed by the bootclasspath copies (on devices where they are present, i.e., T+ devices with a new-enough odule).",
+      "revId": "33fa4d268c73bca9073e968f6d0bcf3de1f85785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
