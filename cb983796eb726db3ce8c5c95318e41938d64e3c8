@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee2d46ee_c62689ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976460
+      },
+      "writtenOn": "2023-08-31T07:11:43Z",
+      "side": 1,
+      "message": "There are some technical differences to the patch for main (b/2373610). Need Lorenzo to confirm this is ok. A cherry-pick of b/2373610 seems unfeasible due to various merge-conflicts.",
+      "revId": "cb983796eb726db3ce8c5c95318e41938d64e3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
