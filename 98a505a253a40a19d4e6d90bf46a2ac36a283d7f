@@ -22,6 +22,30 @@
       },
       "revId": "98a505a253a40a19d4e6d90bf46a2ac36a283d7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18ad22b2_048cc4c7",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-08-31T07:14:57Z",
+      "side": 1,
+      "message": "If we\u0027re going to run tests to test the flow, I think it\u0027s hardly to prevent the test failed because of no platform fix. One thing I could think of is to allow couple retries before reporting as a failure. It should reduce the flaky rate in the system. I have aosp/2732953 and aosp/2732596 to achieve this. Do you think it works for you?",
+      "parentUuid": "838ecef5_3f4df0cc",
+      "range": {
+        "startLine": 642,
+        "startChar": 11,
+        "endLine": 642,
+        "endChar": 21
+      },
+      "revId": "98a505a253a40a19d4e6d90bf46a2ac36a283d7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
