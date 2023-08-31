@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24a52db1_b4196f62",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-31T07:16:37Z",
+      "side": 1,
+      "message": "Nit: you can pass in existingOffloadServiceInfoWrappers.size() to directly get the right sized arraylist\n\nOr com.android.net.module.util.Collectionutils.map would work well here, but you\u0027d need another loop to send the onOffloadStartOrUpdate callbacks",
+      "range": {
+        "startLine": 411,
+        "startChar": 36,
+        "endLine": 411,
+        "endChar": 37
+      },
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c63a6248_6569e803",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-31T07:16:37Z",
+      "side": 1,
+      "message": "Nit: I think a common pattern is to have this in the OffloadServiceInfoWrapper class itself (for example, called OffloadServiceInfoWrapper.withOffloadPayload)\n\nActually it\u0027s probably more common to have it in the OffloadServiceInfo class, but maybe modifying the bootclasspath class itself isn\u0027t worth it.\n\nAlso \"update\" sounds like it modifies it in place, which isn\u0027t actually the case",
+      "range": {
+        "startLine": 677,
+        "startChar": 38,
+        "endLine": 677,
+        "endChar": 58
+      },
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f70dcede_10049c71",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-31T07:16:37Z",
+      "side": 1,
+      "message": "This would be pretty bad and unexpected, so I think mSharedLog.wtf would work. I think the only thing that should happen here is possibly OutOfMemoryErrors, since we\u0027re just creating a byte array in-memory, and buffer overflow, if the offload packet is over 1500 bytes (a *lot* of addresses on the interface maybe ?)\n\nAlso better not return null in this case, because if callers only get null in rare cases, they may crash; you could return an empty byte array.",
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44544acf_d7b24741",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-31T07:16:37Z",
+      "side": 1,
+      "message": "Nit: that\u0027s not really an IOException, maybe more IllegalArgumentException ?\n\nBut this can still be caught and Log.wtf when creating the packet to be safe",
+      "range": {
+        "startLine": 745,
+        "startChar": 44,
+        "endLine": 745,
+        "endChar": 55
+      },
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a04b0a7_db8568c1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-31T07:16:37Z",
+      "side": 1,
+      "message": "Nit: /* additionalRecords */ ?",
+      "range": {
+        "startLine": 767,
+        "startChar": 39,
+        "endLine": 767,
+        "endChar": 40
+      },
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0e0fc25_e457232b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-31T07:16:37Z",
+      "side": 1,
+      "message": "A test in NsdManagerTest CTS would be useful\n\nAlso unit tests for MdnsAdvertiser / MdnsInterfaceAdvertiser, although I expect for this CTS would have a better value / ease of writing ratio",
+      "revId": "0fab9b3171ac3fd70280bfd5b95f5859c8607adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
