@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e5a79e_645d7d78",
+        "filename": "common/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-31T08:11:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we do this the other way around ? Normally A includes B if it uses it. Building libs by what their users do is extremely confusing.\n\nIf lib-bpf does not need struct, then it should not include it and it\u0027s the end of the story.\n\nBut I think it does need it, right ?\nYou can then adopt one of two policies :\n• Link dynamically against lib-struct, and require that any user of lib-bpf embark lib-struct, instead of having lib-bpf-minus-struct for those who do. It\u0027s a LOT less confusing than this scheme.\n• Have lib-bpf-with-dynamically-linked-struct and lib-bpf-with-statically-linked-struct. Then users can choose. IIUC it\u0027s the same thing you are doing here but it\u0027s a lot less confusing than \"minus struct\" (after all the lib is not minus struct, it\u0027s linked against struct dynamically)",
+      "range": {
+        "startLine": 38,
+        "startChar": 35,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "aaa8df8917b3a6e24508cd84f0ea927dd83f74df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3dab9d1_0f57e743",
+        "filename": "common/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-08-31T08:11:13Z",
+      "side": 1,
+      "message": "Can you please name this something that explains what\u0027s inside ? \"defaults\" is how it\u0027s used. It doesn\u0027t tell you anything about what this target does.",
+      "range": {
+        "startLine": 53,
+        "startChar": 41,
+        "endLine": 53,
+        "endChar": 49
+      },
+      "revId": "aaa8df8917b3a6e24508cd84f0ea927dd83f74df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
