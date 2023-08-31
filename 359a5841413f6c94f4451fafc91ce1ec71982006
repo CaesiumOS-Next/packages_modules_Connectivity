@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e926cc9_c9765de0",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2481,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-31T09:59:03Z",
+      "side": 1,
+      "message": "Nit: it may be useful to have some mAdvertiser.getSendMetrics method that returns one object: it may be more efficient because the advertiser would only need to loop once to collect each metric, and it simplifies the code because this is used in 2 places.\n\nDon\u0027t necessarily need to do this here though. But it would be good to at least factor out this code to a method.",
+      "revId": "359a5841413f6c94f4451fafc91ce1ec71982006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92012cfb_3b6b9a79",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-31T09:59:03Z",
+      "side": 1,
+      "message": "There isn\u0027t test coverage for MdnsAdvertiser / MdnsInterfaceAdvertiser methods, it would be nice to add that, especially since there\u0027s no CTS testing for the metrics",
+      "revId": "359a5841413f6c94f4451fafc91ce1ec71982006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29742ba9_9d7bbe19",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-08-31T09:59:03Z",
+      "side": 1,
+      "message": "That doesn\u0027t look right: if one packet has 2 services replying, it should only increase once\n\nI think the sentPacketCount should be increased later in the process, around the time a reply packet is actually sent\n\nMaybe you could have a onReplySent method, like for advertisements and probes. Keep in mind in the future we may have to send 2 packets per reply, if they don\u0027t fit in 1 packet.",
+      "revId": "359a5841413f6c94f4451fafc91ce1ec71982006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
