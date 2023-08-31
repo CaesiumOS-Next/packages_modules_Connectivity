@@ -473,6 +473,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7892d1e5_f400a40e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-31T10:10:10Z",
+      "side": 1,
+      "message": "Done, removed the log message.\n\nFor the removing of all \u0027if (!isInitialized()) return false;\u0027 checks in the shim, currently some of the calls from BpfCoordinator don\u0027t perform isUsingBpf check. But it probably won\u0027t cause any problem as all access to bpf map are wrapped by a try-catch. Add those missing isUsingBpf checks in BpfCoordinator and proceed?",
+      "parentUuid": "2f7f72d6_dbb0dd76",
+      "range": {
+        "startLine": 608,
+        "startChar": 73,
+        "endLine": 608,
+        "endChar": 75
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d42690ca_ae6a435f",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 3
@@ -579,6 +603,30 @@
       "side": 1,
       "message": "Same as the other comment, maybe we can remove this log line and just rely on removeIpv6UpstreamRule to do whatever logging it needs to do?",
       "parentUuid": "fd3079cd_68cb791b",
+      "range": {
+        "startLine": 634,
+        "startChar": 76,
+        "endLine": 634,
+        "endChar": 78
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bdc1eb3_56880880",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-31T10:10:10Z",
+      "side": 1,
+      "message": "Removed removeIpv6UpstreamRule(IpServer, rule), added clearIpv6UpstreamRules(IpServer), currently all upstream rules will be removed at once.",
+      "parentUuid": "23d1f590_10803658",
       "range": {
         "startLine": 634,
         "startChar": 76,
@@ -1038,6 +1086,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd6b442b_2f9606a3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-31T10:10:10Z",
+      "side": 1,
+      "message": "Per offline discussion, changed the implementation. Keep downstream rules in BpfCoordinator\u0027s Map even when there is no upstream. The downstream rules are 1-to-1 corresponding to neighbor entries. If there is no upstream or the upstream is virtual, set upstreamIfindex to 0 and never write to the bpf map. They will be updated and written to bpf map when the upstream comes back.",
+      "parentUuid": "feb22dfb_42ce9bc9",
+      "range": {
+        "startLine": 775,
+        "startChar": 0,
+        "endLine": 777,
+        "endChar": 9
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1e3e91a_49522f36",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 3
@@ -1049,6 +1121,30 @@
       "writtenOn": "2023-08-30T10:17:19Z",
       "side": 1,
       "message": "LinkedHashMap is different from HashMap because it guarantees that iteration occurs in the same order as items were added. The fact that the code was using LinkedHashMap suggests that we were trying to use this property. Do you think that ordering wasn\u0027t actually necessary?",
+      "range": {
+        "startLine": 2016,
+        "startChar": 13,
+        "endLine": 2016,
+        "endChar": 26
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95f6b382_046107ab",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2016,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-08-31T10:10:10Z",
+      "side": 1,
+      "message": "I think the ordering doesn\u0027t matter, there was a TODO added in the comment, maybe do it in a follow-up.",
+      "parentUuid": "a1e3e91a_49522f36",
       "range": {
         "startLine": 2016,
         "startChar": 13,
