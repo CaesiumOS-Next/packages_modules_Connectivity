@@ -33,6 +33,24 @@
       "message": "These APIs were submitted after the API Freeze date for M-2023-11. \nKindly hide all the APIs added in this CL. \n\nThis is blocking the M-2023-11 finalization which is supposed to happen today.\n\nAn email notification was sent earlier, stating module author to not submit any new APIs post API Freeze date. \nKindly let us know if there is an email with a bigger scope, so that we can communicate it more effectively in future releases.",
       "revId": "ec344f4c183282e43e94e98f70053591dcc8b785",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b285f6f0_7d36dc27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 44
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-08-31T03:27:09Z",
+      "side": 1,
+      "message": "These APIs will not be in M-2023-11, and do not need to be. There are *other* APIs that we do plan to launch in M-2023-11 (including, in particular, some NsdManager APIs), but not these APIs.\n\nThe process we have converged on with mainline team, and followed so far on every monthly mainline train is to hide all unreviewed APIs CLs in the build that is submitted for boarding. A previous example of such a CL is ag/21257917 . This process allows us to keep the API current in all of aosp/main, goog/udc-mainline-prod and goog/main, without failing the boarding checks.\n\nIt sounds like this is not working here, perhaps because you are preparing the SDK extension by generating the new SDK version from udc-mainline-prod instead of from the released modules? That seems like a problem. In general, in every SDK extension train we will have a mixture of finalized APIs that are ready to ship and non-finalized APIs that will need to ship in a future SDK extension version or a future mainline release.\n\nCan you change your tooling so that it generates the SDK extension from the module prebuilts at boarding time?\n\nIn this particular case I think we can get around this problem by reverting this CL. But this works only because there are no users of this API in goog/main. Soon there will be users of these APIs in goog/main and this not work in the next SDK extension.",
+      "parentUuid": "94f00bab_b0857e46",
+      "revId": "ec344f4c183282e43e94e98f70053591dcc8b785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
