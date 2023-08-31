@@ -22,6 +22,30 @@
       },
       "revId": "2974a10216df296b974b738980d6246e0497cbef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3c58c40_4dd8450f",
+        "filename": "remoteauth/service/jni/src/remoteauth_jni_android_platform.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2015173
+      },
+      "writtenOn": "2023-08-31T23:38:38Z",
+      "side": 1,
+      "message": "The api in Java is defined this way",
+      "parentUuid": "00bdb7fc_d2764ed4",
+      "range": {
+        "startLine": 78,
+        "startChar": 39,
+        "endLine": 78,
+        "endChar": 42
+      },
+      "revId": "2974a10216df296b974b738980d6246e0497cbef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
