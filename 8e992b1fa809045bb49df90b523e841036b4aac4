@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1c16d75_97599f5b",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-01T08:58:06Z",
+      "side": 1,
+      "message": "Added a comment above the declaration of mInterfaceParams;",
+      "parentUuid": "0baaeb98_126bd14c",
+      "range": {
+        "startLine": 384,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 32
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76575c42_abe80bc1",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 3
