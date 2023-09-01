@@ -47,6 +47,7 @@ import androidx.test.filters.SmallTest;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
+import com.google.common.util.concurrent.SettableFuture;
 
 import org.junit.After;
 import org.junit.Before;
@@ -60,6 +61,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 /** CTS tests for {@link ThreadNetworkController}. */
@@ -117,6 +119,17 @@ public class ThreadNetworkControllerTest {
     public void getThreadVersion_returnsAtLeastThreadVersion1P3() {
         for (ThreadNetworkController controller : getAllControllers()) {
             assertThat(controller.getThreadVersion()).isAtLeast(THREAD_VERSION_1_3);
+        }
+    }
+
+    @Test
+    public void registerStateCallback_returnsCurrentStatesImmediately() {
+        for (ThreadNetworkController controller : getAllControllers()) {
+            SettableFuture<Integer> deviceRole = SettableFuture.create();
+
+            controller.registerStateCallback(mExecutor, role -> deviceRole.set(role));
+
+            assertThat(deviceRole.get()).isEqualTo(DEVICE_ROLE_DISABLED);
         }
     }
 
