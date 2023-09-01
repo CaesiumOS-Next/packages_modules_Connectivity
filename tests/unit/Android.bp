@@ -66,6 +66,7 @@ filegroup {
         "java/com/android/internal/net/NetworkUtilsInternalTest.java",
         "java/com/android/internal/net/VpnProfileTest.java",
         "java/com/android/server/VpnManagerServiceTest.java",
+        "java/com/android/server/LockdownVpnTrackerTest.java",
         "java/com/android/server/connectivity/IpConnectivityEventBuilderTest.java",
         "java/com/android/server/connectivity/IpConnectivityMetricsTest.java",
         "java/com/android/server/connectivity/MetricsTestUtil.java",
