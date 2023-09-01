@@ -167,6 +167,17 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    public void registerStateCallback_returnsCurrentStatesImmediately() {
+        for (ThreadNetworkController controller : getAllControllers()) {
+            SettableFuture<Integer> deviceRole = SettableFuture.create();
+
+            controller.registerStateCallback(mExecutor, role -> deviceRole.set(role));
+
+            assertThat(deviceRole.get()).isEqualTo(DEVICE_ROLE_DISABLED);
+        }
+    }
+
+    @Test
     public void attachOrForm_withPrivilegedPermission_success() throws Exception {
         grantPermissions(permission.ACCESS_NETWORK_STATE, permission.THREAD_NETWORK_PRIVILEGED);
 
