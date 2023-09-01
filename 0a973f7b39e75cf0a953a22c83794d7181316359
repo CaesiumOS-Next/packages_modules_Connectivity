@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad52681f_ce7fdf07",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "Why can\u0027t this just be:\n\n    if (upstreamIfIndex !\u003d NO_UPSTREAM) {\n\n? How can it happen that upstreamIfIndex !\u003d 0 but upstreamIface is null? It seems like this is impossible: upstreamIfIndex comes from calling getInterfaceParams on upstreamIface, and if that\u0027s null it can never return nonzero.",
+      "range": {
+        "startLine": 781,
+        "startChar": 46,
+        "endLine": 781,
+        "endChar": 67
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad5672bc_927a6ad3",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "It\u0027s a bit confusing that we have different interface indices depending on whether the upstream supports BPF or not.\n\nWould it make sense to have something like:\n\n    private int getInterfaceIndexForRule(int ifindex) {\n        return mUpstreamSupportsBpf ? ifindex : 0;\n    }\n\nThat we could call here and in line 903?",
+      "range": {
+        "startLine": 923,
+        "startChar": 16,
+        "endLine": 923,
+        "endChar": 77
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea2d7ab0_124c5fc9",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1436,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "Per discussion: this is now necessary because cleanupUpstream no longer clears downstream rules. But if so, I think this cleanup code needs to be in TetheredState#exit, not here. I don\u0027t think we should keep any rules while we are not in TetheredState.\n\nOne example of how this might be incorrect is that if the IpServer goes into InitialState but we do not delete the rules, then we never process CMD_IPV6_TETHER_UPDATE and we never change the upstream interface index in the downstream rules. This is probably not too bad, but it\u0027s just an example.\n\n\nI think you mentioned a concern that if we stop tethering and then restart it, then the neighbour entries will still be in the kernel\u0027s ND cache, and therefore when tethering is restarted, downstream offload won\u0027t work? But if so, I think:\n1. We already have this problem today because whenever cleanupUpstream runs, all rules are deleted, but no ND cache entries are deleted.\n2. The problem likely fixes itself after a while: when the software path forwards to the neighbour, the ND cache entry will eventually get into STALE then DELAY then REACHABLE, and one of those events will send a NeighborEvent and recreate the rule.\n3. If we want to fix this we should probably make the NeighbourMonitor send a netlink dump for neighbours (e.g., in startIpv6()).\n\nI think similar comments apply to the call to mIpNeighborMonitor.stop().\n\nFor now I think it would be good to move this to TetheredState#exit, so that when tethering stops, all upstream and downstream rules are deleted. After that CL is merged we can do #3 above in a follow-up.",
+      "range": {
+        "startLine": 1436,
+        "startChar": 28,
+        "endLine": 1436,
+        "endChar": 42
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd15c275_143ffba9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "typo, downstream",
+      "range": {
+        "startLine": 226,
+        "startChar": 35,
+        "endLine": 226,
+        "endChar": 44
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50ea4abc_273495e2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "rules have an upstream interface index of NO_UPSTREAM, only exist",
+      "range": {
+        "startLine": 231,
+        "startChar": 77,
+        "endLine": 231,
+        "endChar": 97
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4596ea11_455fa541",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "updated by calling Ipv6DownstreamRule#onNewUpstream",
+      "range": {
+        "startLine": 233,
+        "startChar": 35,
+        "endLine": 233,
+        "endChar": 42
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab6e10ba_f05a2516",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "NO_UPSTREAM",
+      "range": {
+        "startLine": 238,
+        "startChar": 55,
+        "endLine": 238,
+        "endChar": 56
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "068e2210_a1c49d70",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "TODO: make this an ArrayMap. Or just do it in a follow-up. Not for this CL. Remember to delete the \"does this need to be a LinkedHashMap\" TODO above. The comment about ConcurrentHashMap above is still interesting though I guess.",
+      "range": {
+        "startLine": 256,
+        "startChar": 36,
+        "endLine": 256,
+        "endChar": 49
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a6a11fc_cdb6b376",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "How about:\n\n    if (upstreamIfindex !\u003d 0 \u0026\u0026 rule.upstreamIfindex !\u003d upstreamIfindex) {\n        Log.wtf(\"BUG: upstream rules point to more than one interface\");\n    }",
+      "range": {
+        "startLine": 664,
+        "startChar": 50,
+        "endLine": 664,
+        "endChar": 51
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2638c031_f8d05c95",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "Nit: we could consider renaming to addOrUpdateIpv6DownstreamRule. Not for this CL.",
+      "range": {
+        "startLine": 681,
+        "startChar": 40,
+        "endLine": 681,
+        "endChar": 61
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "850e9da5_faf0e94a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "Why do you need this copy? downstreamRules was removed from mIpv6DownstreamRules, so nothing else will use it in the future. And when you iterate over it in line 725, you don\u0027t remove anything from it. You could just do something like:\n\n    final ArrayList\u003cIpv6DownstreamRule\u003e removedRules \u003d downstreamRules.values();\n    for (final Ipv6DownstreamRule rule : removedRules) {\n        if (rule.upstreamIfindex \u003d\u003d NO_UPSTREAM) continue;\n            mBpfCoordinatorShim.removeIpv6DownstreamRule(rule);\n        }\n    return removedRules;",
+      "range": {
+        "startLine": 724,
+        "startChar": 16,
+        "endLine": 724,
+        "endChar": 57
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02e4462f_a43df5d4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T07:21:12Z",
+      "side": 1,
+      "message": "This is actually used in production code: the upstream rules are in an ArraySet, which I think uses hashCode. Would suggest fixing that in a separate CL. Something like:\n\n    return 13 * upstreamIfindex + 41 * downsteramIfindex + Objects.hash(...);",
+      "range": {
+        "startLine": 1554,
+        "startChar": 0,
+        "endLine": 1555,
+        "endChar": 62
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
