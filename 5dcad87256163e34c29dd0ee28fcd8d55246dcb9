@@ -16,6 +16,23 @@
       "message": "I\u0027m working on debugging the presubmit failure using test logs (aosp/2726033). When iterating through the entire name-\u003eindex map for summing total stats, there\u0027s an error when processing the indices corresponding to the names `ip6tnl0` and `ip6_vti0`. This results in total stats being returned as -1.\n\nWhen running the same presubmit tests with test logs + no code changes (aosp/2731013), I see that `ip6tnl0` and `ip6_vti0` are never processed/encountered when summing total stats. I\u0027m not knowledgeable about network interfaces and I\u0027m not sure if these are considered special cases. Maciej, would you happen to have any pointers?",
       "revId": "5dcad87256163e34c29dd0ee28fcd8d55246dcb9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ab3899_991a2a30",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3306,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2023-09-01T05:21:19Z",
+      "side": 1,
+      "message": "I wonder if we should be using @FastNative on any of these.\nhttps://developer.android.com/reference/dalvik/annotation/optimization/FastNative",
+      "revId": "5dcad87256163e34c29dd0ee28fcd8d55246dcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
