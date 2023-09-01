@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91cbf361_c888443f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-01T05:41:37Z",
+      "side": 1,
+      "message": "Per discussion, I think this needs a comment such as:\n\n    // This is identical isUsingBpfOffload above but is only used internally.\n    // The reason for having two separate methods is that the code calls isUsingBpf\n    // very often. But the tests call verifyNoMoreInteractions, which will check all\n    // calls to public methods. If isUsingBpf were public, the test would need to\n    // verify all calls to it, which would clutter the test.",
+      "range": {
+        "startLine": 533,
+        "startChar": 4,
+        "endLine": 533,
+        "endChar": 34
+      },
+      "revId": "355f17259300bb03f9b06347aaca802b1a80f539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
