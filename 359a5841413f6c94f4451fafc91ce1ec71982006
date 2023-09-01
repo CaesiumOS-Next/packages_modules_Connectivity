@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e4db81c_386e2f52",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2481,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-01T08:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e926cc9_c9765de0",
+      "revId": "359a5841413f6c94f4451fafc91ce1ec71982006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92012cfb_3b6b9a79",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c1773c2_8a9e6aa6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-01T08:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92012cfb_3b6b9a79",
+      "revId": "359a5841413f6c94f4451fafc91ce1ec71982006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29742ba9_9d7bbe19",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-08-31T09:59:03Z",
       "side": 1,
       "message": "That doesn\u0027t look right: if one packet has 2 services replying, it should only increase once\n\nI think the sentPacketCount should be increased later in the process, around the time a reply packet is actually sent\n\nMaybe you could have a onReplySent method, like for advertisements and probes. Keep in mind in the future we may have to send 2 packets per reply, if they don\u0027t fit in 1 packet.",
+      "revId": "359a5841413f6c94f4451fafc91ce1ec71982006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8a887d1_88622ba2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-01T08:44:17Z",
+      "side": 1,
+      "message": "\u003e That doesn\u0027t look right: if one packet has 2 services replying, it should only increase once\n\nHow do I caculate the send packet number for these 2 services? Which service should I increase the packet count?\n\n\u003e Maybe you could have a onReplySent method, like for advertisements and probes. Keep in mind in the future we may have to send 2 packets per reply, if they don\u0027t fit in 1 packet.\n\nI am not sure this is feasible because sending reply does not have any service id. Even I can add the service id, which service id should I add if there are multiple services in the reply?",
+      "parentUuid": "29742ba9_9d7bbe19",
       "revId": "359a5841413f6c94f4451fafc91ce1ec71982006",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
