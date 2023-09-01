@@ -53,7 +53,6 @@ public class NativeRemoteAuthService {
      *     platform
      * @param platformHandle a handle associated with the platform object, used to pass the response
      *     to the specific platform
-     *
      * @hide
      */
     @Keep

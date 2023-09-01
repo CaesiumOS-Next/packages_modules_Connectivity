@@ -64,7 +64,7 @@ public class RemoteAuthService extends IRemoteAuthService.Stub {
     }
 
     private static void checkPermission(Context context, String permission) {
-        context.enforceCallingOrSelfPermission(permission,
-                "Must have " + permission + " permission.");
+        context.enforceCallingOrSelfPermission(
+                permission, "Must have " + permission + " permission.");
     }
 }
