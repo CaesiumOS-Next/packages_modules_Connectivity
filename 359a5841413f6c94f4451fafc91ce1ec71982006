@@ -104,6 +104,24 @@
       "parentUuid": "29742ba9_9d7bbe19",
       "revId": "359a5841413f6c94f4451fafc91ce1ec71982006",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "410d8072_ebef7754",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-01T09:13:40Z",
+      "side": 1,
+      "message": "Sorry I missed that the metric is per-service so the packet count has to be duplicated across service.\n\nIt\u0027s a bit awkward to count packets in the repository before they\u0027re sent, but the alternative would be (maybe) to carry the list of services in the ReplyInfo for logging later, and that\u0027s a bit too much I think. So LGTM.",
+      "parentUuid": "c8a887d1_88622ba2",
+      "revId": "359a5841413f6c94f4451fafc91ce1ec71982006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
