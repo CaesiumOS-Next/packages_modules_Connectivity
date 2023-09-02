@@ -115,7 +115,7 @@ apex {
         "HalfSheetUX",
     ],
     prebuilts: [
-        "ot-daemon.init.34rc",
+        "ot-daemon.init.33rc",
         "current_sdkinfo",
     ],
     manifest: "manifest.json",
