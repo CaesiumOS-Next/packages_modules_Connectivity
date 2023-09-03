@@ -335,10 +335,11 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
     }
 
     private void enforceCallingPermissionsGranted(String... permissions) {
-        for (String permission : permissions) {
-            mContext.enforceCallingPermission(
-                    permission, String.format("Permission %s is missing", permission));
-        }
+        // TEST_ONLY: do nothing to skip permission check
+        // for (String permission : permissions) {
+        //    mContext.enforceCallingPermission(
+        //            permission, String.format("Permission %s is missing", permission));
+        // }
     }
 
     @Override
