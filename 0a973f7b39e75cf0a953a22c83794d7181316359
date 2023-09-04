@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ba07a8a_c7500070",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-04T03:14:14Z",
+      "side": 1,
+      "message": "Update the function to the following because it needs current upstreamSupportsBpf instead of mUpstreamSupportsBpf if it is called from updateIpv6ForwardingRules().\n\n    private int getInterfaceIndexForRule(int ifindex, boolean supportsBpf) {\n        return supportsBpf ? ifindex : NO_UPSTREAM;\n    }",
+      "parentUuid": "fa81bf76_182ad3ba",
+      "range": {
+        "startLine": 923,
+        "startChar": 16,
+        "endLine": 923,
+        "endChar": 77
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea2d7ab0_124c5fc9",
