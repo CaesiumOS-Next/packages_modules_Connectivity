@@ -153,6 +153,14 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
 
     private static final long BROADCAST_TIMEOUT_MS = 5_000;
 
+    // TODO : remove this class when udc-mainline-prod is abandoned and android.net.flags.Flags is
+    // available here
+    /** @hide */
+    public static class Flags {
+        static final String SUPPORT_IS_UID_NETWORKING_BLOCKED =
+                "support_is_uid_networking_blocked";
+    }
+
     protected Context mContext;
     protected Instrumentation mInstrumentation;
     protected ConnectivityManager mCm;
@@ -435,6 +443,22 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
         }
         fail("Invalid state for " + mUid + "; expectAvailable=" + expectAvailable + " after "
                 + maxTries + " attempts.\nLast error: " + error);
+    }
+
+    /**
+     * Asserts whether the network is blocked by accessing bpf maps if command-line tool supports.
+     */
+    void maybeAssertNetworkAccessBlockedByBpf(boolean expectBlocked, int uid, boolean metered) {
+        final String result = executeShellCommand(
+                "cmd network_stack is-uid-networking-blocked " + uid + " " + metered);
+
+        // If SDK level or NetworkStack is too old to support this command, ignore and continue
+        // this test to verify other parts.
+        if (result.contains("UnsupportedApiLevelException")) {
+            return;
+        }
+
+        assertEquals(expectBlocked, Boolean.parseBoolean(result.trim()));
     }
 
     /**
