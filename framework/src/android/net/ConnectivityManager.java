@@ -2125,23 +2125,24 @@ public class ConnectivityManager {
     }
 
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
-    private NetworkRequest requestNetworkForFeatureLocked(NetworkCapabilities netCap) {
+    private NetworkRequest requestNetworkForFeatureLocked(NetworkCapabilities nc) {
         int delay = -1;
-        int type = legacyTypeForNetworkCapabilities(netCap);
+        int type = legacyTypeForNetworkCapabilities(nc);
         try {
             delay = mService.getRestoreDefaultNetworkDelay(type);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
         LegacyRequest l = new LegacyRequest();
-        l.networkCapabilities = netCap;
+        l.networkCapabilities = nc;
         l.delay = delay;
         l.expireSequenceNumber = 0;
         l.networkRequest = sendRequestForNetwork(
-                netCap, l.networkCallback, 0, REQUEST, type, getDefaultHandler());
+                new NetworkRequest.Builder().setCapabilities(nc).setOpportunistic(false).build(),
+                l.networkCallback, 0, REQUEST, type, getDefaultHandler());
         if (l.networkRequest == null) return null;
-        sLegacyRequests.put(netCap, l);
-        sendExpireMsgForFeature(netCap, l.expireSequenceNumber, delay);
+        sLegacyRequests.put(nc, l);
+        sendExpireMsgForFeature(nc, l.expireSequenceNumber, delay);
         return l.networkRequest;
     }
 
@@ -4316,15 +4317,15 @@ public class ConnectivityManager {
     private static final HashMap<NetworkRequest, NetworkCallback> sCallbacks = new HashMap<>();
     private static CallbackHandler sCallbackHandler;
 
-    private NetworkRequest sendRequestForNetwork(int asUid, NetworkCapabilities need,
-            NetworkCallback callback, int timeoutMs, NetworkRequest.Type reqType, int legacyType,
-            CallbackHandler handler) {
+    private NetworkRequest sendRequestForNetwork(int asUid, @Nullable NetworkRequest request,
+            NetworkCallback callback, int timeoutMs, NetworkRequest.Type reqType,
+            int legacyType, CallbackHandler handler) {
         printStackTrace();
         checkCallbackNotNull(callback);
-        if (reqType != TRACK_DEFAULT && reqType != TRACK_SYSTEM_DEFAULT && need == null) {
-            throw new IllegalArgumentException("null NetworkCapabilities");
+        if (reqType != TRACK_DEFAULT && reqType != TRACK_SYSTEM_DEFAULT && request == null) {
+            throw new IllegalArgumentException("null request");
         }
-        final NetworkRequest request;
+        final NetworkRequest returnedRequest;
         final String callingPackageName = mContext.getOpPackageName();
         try {
             synchronized(sCallbacks) {
@@ -4338,15 +4339,15 @@ public class ConnectivityManager {
                 Binder binder = new Binder();
                 final int callbackFlags = callback.mFlags;
                 if (reqType == LISTEN) {
-                    request = mService.listenForNetwork(
-                            need, messenger, binder, callbackFlags, callingPackageName,
+                    returnedRequest = mService.listenForNetwork(
+                            request, messenger, binder, callbackFlags, callingPackageName,
                             getAttributionTag());
                 } else {
-                    request = mService.requestNetwork(
-                            asUid, need, reqType.ordinal(), messenger, timeoutMs, binder,
+                    returnedRequest = mService.requestNetwork(
+                            asUid, request, reqType.ordinal(), messenger, timeoutMs, binder,
                             legacyType, callbackFlags, callingPackageName, getAttributionTag());
                 }
-                if (request != null) {
+                if (returnedRequest != null) {
                     sCallbacks.put(request, callback);
                 }
                 callback.networkRequest = request;
@@ -4359,9 +4360,10 @@ public class ConnectivityManager {
         return request;
     }
 
-    private NetworkRequest sendRequestForNetwork(NetworkCapabilities need, NetworkCallback callback,
-            int timeoutMs, NetworkRequest.Type reqType, int legacyType, CallbackHandler handler) {
-        return sendRequestForNetwork(Process.INVALID_UID, need, callback, timeoutMs, reqType,
+    private NetworkRequest sendRequestForNetwork(@Nullable NetworkRequest request,
+            @NonNull NetworkCallback callback, int timeoutMs,
+            NetworkRequest.Type reqType, int legacyType, CallbackHandler handler) {
+        return sendRequestForNetwork(Process.INVALID_UID, request, callback, timeoutMs, reqType,
                 legacyType, handler);
     }
 
@@ -4392,8 +4394,8 @@ public class ConnectivityManager {
             throw new IllegalArgumentException("TYPE_NONE is meaningless legacy type");
         }
         CallbackHandler cbHandler = new CallbackHandler(handler);
-        NetworkCapabilities nc = request.networkCapabilities;
-        sendRequestForNetwork(nc, networkCallback, timeoutMs, REQUEST, legacyType, cbHandler);
+        sendRequestForNetwork(request.withDefaultType(REQUEST), networkCallback, timeoutMs,
+                REQUEST, legacyType, cbHandler);
     }
 
     /**
@@ -4498,8 +4500,8 @@ public class ConnectivityManager {
     public void requestNetwork(@NonNull NetworkRequest request,
             @NonNull NetworkCallback networkCallback, @NonNull Handler handler) {
         CallbackHandler cbHandler = new CallbackHandler(handler);
-        NetworkCapabilities nc = request.networkCapabilities;
-        sendRequestForNetwork(nc, networkCallback, 0, REQUEST, TYPE_NONE, cbHandler);
+        sendRequestForNetwork(request.withDefaultType(REQUEST), networkCallback, 0,
+                REQUEST, TYPE_NONE, cbHandler);
     }
 
     /**
@@ -4532,9 +4534,8 @@ public class ConnectivityManager {
     public void requestNetwork(@NonNull NetworkRequest request,
             @NonNull NetworkCallback networkCallback, int timeoutMs) {
         checkTimeout(timeoutMs);
-        NetworkCapabilities nc = request.networkCapabilities;
-        sendRequestForNetwork(nc, networkCallback, timeoutMs, REQUEST, TYPE_NONE,
-                getDefaultHandler());
+        sendRequestForNetwork(request.withDefaultType(REQUEST), networkCallback, timeoutMs,
+                REQUEST, TYPE_NONE, getDefaultHandler());
     }
 
     /**
@@ -4560,8 +4561,8 @@ public class ConnectivityManager {
             @NonNull NetworkCallback networkCallback, @NonNull Handler handler, int timeoutMs) {
         checkTimeout(timeoutMs);
         CallbackHandler cbHandler = new CallbackHandler(handler);
-        NetworkCapabilities nc = request.networkCapabilities;
-        sendRequestForNetwork(nc, networkCallback, timeoutMs, REQUEST, TYPE_NONE, cbHandler);
+        sendRequestForNetwork(request.withDefaultType(REQUEST), networkCallback, timeoutMs,
+                REQUEST, TYPE_NONE, cbHandler);
     }
 
     /**
@@ -4638,13 +4639,11 @@ public class ConnectivityManager {
      * @throws SecurityException if missing the appropriate permissions.
      * @throws RuntimeException if the app already has too many callbacks registered.
      */
-    public void requestNetwork(@NonNull NetworkRequest request,
-            @NonNull PendingIntent operation) {
+    public void requestNetwork(@NonNull NetworkRequest request, @NonNull PendingIntent operation) {
         printStackTrace();
         checkPendingIntentNotNull(operation);
         try {
-            mService.pendingRequestForNetwork(
-                    request.networkCapabilities, operation, mContext.getOpPackageName(),
+            mService.pendingRequestForNetwork(request, operation, mContext.getOpPackageName(),
                     getAttributionTag());
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
@@ -4742,8 +4741,8 @@ public class ConnectivityManager {
     public void registerNetworkCallback(@NonNull NetworkRequest request,
             @NonNull NetworkCallback networkCallback, @NonNull Handler handler) {
         CallbackHandler cbHandler = new CallbackHandler(handler);
-        NetworkCapabilities nc = request.networkCapabilities;
-        sendRequestForNetwork(nc, networkCallback, 0, LISTEN, TYPE_NONE, cbHandler);
+        sendRequestForNetwork(request.withDefaultType(LISTEN), networkCallback, 0,
+                LISTEN, TYPE_NONE, cbHandler);
     }
 
     /**
@@ -4792,8 +4791,7 @@ public class ConnectivityManager {
         printStackTrace();
         checkPendingIntentNotNull(operation);
         try {
-            mService.pendingListenForNetwork(
-                    request.networkCapabilities, operation, mContext.getOpPackageName(),
+            mService.pendingListenForNetwork(request, operation, mContext.getOpPackageName(),
                     getAttributionTag());
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
@@ -4926,7 +4924,7 @@ public class ConnectivityManager {
     public void registerSystemDefaultNetworkCallback(@NonNull NetworkCallback networkCallback,
             @NonNull Handler handler) {
         CallbackHandler cbHandler = new CallbackHandler(handler);
-        sendRequestForNetwork(null /* NetworkCapabilities need */, networkCallback, 0,
+        sendRequestForNetwork(null /* request */, networkCallback, 0,
                 TRACK_SYSTEM_DEFAULT, TYPE_NONE, cbHandler);
     }
 
@@ -4955,9 +4953,9 @@ public class ConnectivityManager {
     @SuppressLint("ExecutorRegistration")
     public void registerBestMatchingNetworkCallback(@NonNull NetworkRequest request,
             @NonNull NetworkCallback networkCallback, @NonNull Handler handler) {
-        final NetworkCapabilities nc = request.networkCapabilities;
         final CallbackHandler cbHandler = new CallbackHandler(handler);
-        sendRequestForNetwork(nc, networkCallback, 0, LISTEN_FOR_BEST, TYPE_NONE, cbHandler);
+        sendRequestForNetwork(request.withDefaultType(LISTEN), networkCallback, 0,
+                LISTEN_FOR_BEST, TYPE_NONE, cbHandler);
     }
 
     /**
@@ -5787,9 +5785,8 @@ public class ConnectivityManager {
     public void requestBackgroundNetwork(@NonNull NetworkRequest request,
             @NonNull NetworkCallback networkCallback,
             @SuppressLint("ListenerLast") @NonNull Handler handler) {
-        final NetworkCapabilities nc = request.networkCapabilities;
-        sendRequestForNetwork(nc, networkCallback, 0, BACKGROUND_REQUEST,
-                TYPE_NONE, new CallbackHandler(handler));
+        sendRequestForNetwork(request.withDefaultType(BACKGROUND_REQUEST), networkCallback, 0,
+                BACKGROUND_REQUEST, TYPE_NONE, new CallbackHandler(handler));
     }
 
     /**

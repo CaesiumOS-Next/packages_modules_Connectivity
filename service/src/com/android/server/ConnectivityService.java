@@ -253,6 +253,7 @@ import android.util.SparseIntArray;
 import androidx.annotation.RequiresApi;
 
 import com.android.connectivity.resources.R;
+import com.android.dialer.function.Consumer;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
@@ -7048,8 +7049,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return true;
     }
 
+    private void forAllRequests(@NonNull final NetworkRequest req,
+            @NonNull Consumer<NetworkRequest> what) {
+        NetworkRequest current = req;
+        while (null != current) {
+            what(current);
+            current = current.fallback;
+        }
+    }
+
     @Override
-    public NetworkRequest requestNetwork(int asUid, NetworkCapabilities networkCapabilities,
+    public NetworkRequest requestNetwork(int asUid, NetworkRequest networkRequest,
             int reqTypeInt, Messenger messenger, int timeoutMs, final IBinder binder,
             int legacyType, int callbackFlags, @NonNull String callingPackageName,
             @Nullable String callingAttributionTag) {
@@ -7074,44 +7084,52 @@ public class ConnectivityService extends IConnectivityManager.Stub
             throw new IllegalArgumentException("Unsupported request type " + reqTypeInt);
         }
         switch (reqType) {
-            case TRACK_DEFAULT:
-                // If the request type is TRACK_DEFAULT, the passed {@code networkCapabilities}
-                // is unused and will be replaced by ones appropriate for the UID (usually, the
+            case TRACK_DEFAULT: {
+                // If the request type is TRACK_DEFAULT, the passed {@code request} is null and
+                // unused and will be replaced by one appropriate for the UID (usually, the
                 // calling app). This allows callers to keep track of the default network.
-                networkCapabilities = copyDefaultNetworkCapabilitiesForUid(
+                final NetworkCapabilities nc = copyDefaultNetworkCapabilitiesForUid(
                         defaultNc, asUid, callingUid, callingPackageName);
+                networkRequest = new NetworkRequest(nc, legacyType, 0 /* reqId */, reqType,
+                        null /* fallback */);
                 enforceAccessPermission();
                 break;
-            case TRACK_SYSTEM_DEFAULT:
+            }
+            case TRACK_SYSTEM_DEFAULT: {
                 enforceSettingsOrSetupWizardOrUseRestrictedNetworksPermission();
-                networkCapabilities = new NetworkCapabilities(defaultNc);
                 break;
-            case BACKGROUND_REQUEST:
+            }
+            case BACKGROUND_REQUEST: {
                 enforceNetworkStackOrSettingsPermission();
                 // Fall-through since other checks are the same with normal requests.
-            case REQUEST:
-                networkCapabilities = new NetworkCapabilities(networkCapabilities);
-                enforceNetworkRequestPermissions(networkCapabilities, callingPackageName,
-                        callingAttributionTag, callingUid);
-                // TODO: this is incorrect. We mark the request as metered or not depending on
-                //  the state of the app when the request is filed, but we never change the
-                //  request if the app changes network state. http://b/29964605
-                enforceMeteredApnPolicy(networkCapabilities);
+            }
+            case REQUEST: {
+                forAllRequests(networkRequest, req -> {
+                    enforceNetworkRequestPermissions(req.networkCapabilities,
+                            callingPackageName, callingAttributionTag, callingUid);
+                    // TODO: this is incorrect. We mark the request as metered or not depending on
+                    //  the state of the app when the request is filed, but we never change the
+                    //  request if the app changes network state. http://b/29964605
+                    enforceMeteredApnPolicy(req.networkCapabilities);
+                });
                 break;
+            }
             case LISTEN_FOR_BEST:
                 enforceAccessPermission();
-                networkCapabilities = new NetworkCapabilities(networkCapabilities);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported request type " + reqType);
         }
-        ensureRequestableCapabilities(networkCapabilities);
-        ensureSufficientPermissionsForRequest(networkCapabilities,
-                Binder.getCallingPid(), callingUid, callingPackageName);
+        forAllRequests(networkRequest, req -> {
+            ensureRequestableCapabilities(current.networkCapabilities);
+            ensureSufficientPermissionsForRequest(current.networkCapabilities,
+                    Binder.getCallingPid(), callingUid, callingPackageName);
+        });
 
         // Enforce FOREGROUND if the caller does not have permission to use background network.
         if (reqType == LISTEN_FOR_BEST) {
-            restrictBackgroundRequestForCaller(networkCapabilities);
+            forAllRequests(networkRequest,
+                    req -> restrictBackgroundRequestForCaller(req.networkCapabilities));
         }
 
         // Set the UID range for this request to the single UID of the requester, unless the
@@ -7120,15 +7138,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // are no visible methods to set the UIDs, an app could use reflection to try and get
         // networks for other apps so it's essential that the UIDs are overwritten.
         // Also set the requester UID and package name in the request.
-        restrictRequestUidsForCallerAndSetRequestorInfo(networkCapabilities,
-                callingUid, callingPackageName);
+        forAllRequests(networkRequest,
+                req -> restrictRequestUidsForCallerAndSetRequestorInfo(req.networkCapabilities,
+                        callingUid, callingPackageName));
 
         if (timeoutMs < 0) {
             throw new IllegalArgumentException("Bad timeout specified");
         }
 
-        final NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, legacyType,
-                nextNetworkRequestId(), reqType);
         final NetworkRequestInfo nri = getNriToRegister(
                 asUid, networkRequest, messenger, binder, callbackFlags,
                 callingAttributionTag);
@@ -7175,7 +7192,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             requests = copyDefaultNetworkRequestsForUid(
                     asUid, nr.getRequestorUid(), nr.getRequestorPackageName());
         } else {
-            requests = Collections.singletonList(nr);
+            requests = new ArrayList<>();
+            forAllRequests(nr,
+                    req -> requests.add(new NetworkRequest(req.networkCapabilities, req.legacyType,
+                            nextNetworkRequestId(), req.type, null /* fallback */)));
         }
         return new NetworkRequestInfo(
                 asUid, requests, nr, msgr, binder, callbackFlags, callingAttributionTag);

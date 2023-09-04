@@ -149,20 +149,20 @@ interface IConnectivityManager
             in NetworkCapabilities nc, in NetworkScore score, in NetworkAgentConfig config,
             in int factorySerialNumber);
 
-    NetworkRequest requestNetwork(int uid, in NetworkCapabilities networkCapabilities, int reqType,
+    NetworkRequest requestNetwork(int uid, in NetworkRequest request, int reqType,
             in Messenger messenger, int timeoutSec, in IBinder binder, int legacy,
             int callbackFlags, String callingPackageName, String callingAttributionTag);
 
-    NetworkRequest pendingRequestForNetwork(in NetworkCapabilities networkCapabilities,
+    NetworkRequest pendingRequestForNetwork(in NetworkRequest request,
             in PendingIntent operation, String callingPackageName, String callingAttributionTag);
 
     void releasePendingNetworkRequest(in PendingIntent operation);
 
-    NetworkRequest listenForNetwork(in NetworkCapabilities networkCapabilities,
+    NetworkRequest listenForNetwork(in NetworkRequest request,
             in Messenger messenger, in IBinder binder, int callbackFlags, String callingPackageName,
             String callingAttributionTag);
 
-    void pendingListenForNetwork(in NetworkCapabilities networkCapabilities,
+    void pendingListenForNetwork(in NetworkRequest request,
             in PendingIntent operation, String callingPackageName,
             String callingAttributionTag);
 

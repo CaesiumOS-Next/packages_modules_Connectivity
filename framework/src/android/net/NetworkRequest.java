@@ -38,6 +38,7 @@ import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
+import android.app.PendingIntent;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.net.NetworkCapabilities.NetCapability;
 import android.net.NetworkCapabilities.Transport;
@@ -235,14 +236,29 @@ public class NetworkRequest implements Parcelable {
     public final Type type;
 
     /**
+     * A fallback in case no network matches the capabilities in this request.
+     *
+     * The fallback can itself have a fallback, and so on. Null if no fallback.
+     *
+     * IMPORTANT IMPLEMENTATION NOTE : this mechanism to chain requests is meant for apps
+     * to send multi-layered requests, but was devised after implementation of multi-layered
+     * requests inside the system server. The system server never uses this field after a
+     * request has been filed, instead it converts it into an array stored in NetworkRequestInfo.
      * @hide
      */
-    public NetworkRequest(NetworkCapabilities nc, int legacyType, int rId, Type type) {
+    public final NetworkRequest fallback;
+
+    /**
+     * @hide
+     */
+    public NetworkRequest(NetworkCapabilities nc, int legacyType, int rId, Type type,
+            @Nullable NetworkRequest fallback) {
         if (nc == null) {
             throw new NullPointerException();
         }
         requestId = rId;
         networkCapabilities = nc;
+        this.fallback = fallback;
         this.legacyType = legacyType;
         this.type = type;
     }
@@ -251,10 +267,34 @@ public class NetworkRequest implements Parcelable {
      * @hide
      */
     public NetworkRequest(NetworkRequest that) {
+        this(that, that.requestId);
+    }
+
+    /**
+     * @hide
+     */
+    private NetworkRequest(NetworkRequest that, int requestId) {
         networkCapabilities = new NetworkCapabilities(that.networkCapabilities);
-        requestId = that.requestId;
+        this.requestId = requestId;
+        this.fallback = null == that.fallback ? null : new NetworkRequest(that.fallback);
         this.legacyType = that.legacyType;
         this.type = that.type;
+    }
+
+    private NetworkRequest(@NonNull final NetworkRequest that, final Type defaultType) {
+        networkCapabilities = new NetworkCapabilities(that.networkCapabilities);
+        requestId = that.requestId;
+        this.fallback = null == that.fallback ? null
+                : new NetworkRequest(that.fallback, defaultType);
+        this.legacyType = that.legacyType;
+        this.type = that.type == Type.NONE ? defaultType : that.type;
+    }
+
+    /**
+     * @hide
+     */
+    public NetworkRequest withDefaultType(final Type defaultType) {
+        return new NetworkRequest(this, defaultType);
     }
 
     /**
@@ -282,6 +322,8 @@ public class NetworkRequest implements Parcelable {
                 NET_CAPABILITY_VALIDATED);
 
         private final NetworkCapabilities mNetworkCapabilities;
+        private NetworkRequest mFallback = null;
+        private Type mType = Type.NONE;
 
         // A boolean that represents whether the NOT_VCN_MANAGED capability should be deduced when
         // the NetworkRequest object is built.
@@ -322,7 +364,7 @@ public class NetworkRequest implements Parcelable {
             nc.maybeMarkCapabilitiesRestricted();
             deduceNotVcnManagedCapability(nc);
             return new NetworkRequest(nc, ConnectivityManager.TYPE_NONE,
-                    ConnectivityManager.REQUEST_ID_UNSET, Type.NONE);
+                    ConnectivityManager.REQUEST_ID_UNSET, mType, mFallback);
         }
 
         /**
@@ -402,12 +444,9 @@ public class NetworkRequest implements Parcelable {
          *
          * @param capability The capability to add to forbidden capability list.
          * @return The builder to facilitate chaining.
-         *
-         * @hide
          */
         @NonNull
         @SuppressLint("MissingGetterMatchingBuilder")
-        @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
         public Builder addForbiddenCapability(@NetworkCapabilities.NetCapability int capability) {
             mNetworkCapabilities.addForbiddenCapability(capability);
             return this;
@@ -418,12 +457,9 @@ public class NetworkRequest implements Parcelable {
          *
          * @param capability The forbidden capability to remove.
          * @return The builder to facilitate chaining.
-         *
-         * @hide
          */
         @NonNull
         @SuppressLint("BuilderSetStyle")
-        @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
         public Builder removeForbiddenCapability(
                 @NetworkCapabilities.NetCapability int capability) {
             mNetworkCapabilities.removeForbiddenCapability(capability);
@@ -634,6 +670,101 @@ public class NetworkRequest implements Parcelable {
             }
             return this;
         }
+
+        /**
+         * Set whether this request is opportunistic.
+         *
+         * <p>Only useful for requests with fallbacks. Each fallback request in a chain has its own
+         * opportunistic setting.
+         * <p>When a request has fallbacks, set whether this request is opportunistic. An
+         * opportunistic request doesn't ask the system to bring up a network to match it, and
+         * instead only matches it opportunistically if it's present.
+         * <p>For example, an app could prefer a network that prioritizes better latency if present
+         * without requesting the system actually spends resources to bring it up, but request
+         * a network with Internet connectivity nonetheless. This could be written as follows :
+         * <code>
+         *     new NetworkRequest.Builder()
+         *       .addCapability(NET_CAPABILITY_INTERNET)
+         *       .addCapability(NET_CAPABILITY_PRIORITIZE_LATENCY)
+         *       .setOpportunistic(true)
+         *       .setFallback(new NetworkRequest.Builder()
+         *                      .addCapability(NET_CAPABILITY_INTERNET)
+         *                      .build())
+         *       .build();
+         * </code>
+         *
+         * For backward compatibility reasons, the default for this follows special semantics. If
+         * this is not called, the request behaves as default-opportunistic :
+         * <ul>
+         *     <li>not opportunistic when called with the {@link ConnectivityManager#requestNetwork}
+         *         family of methods
+         *     <li>opportunistic when called with the
+         *         {@link ConnectivityManager#registerNetworkCallback} family of methods
+         * </ul>
+         * Also note that it is forbidden to call {@link ConnectivityManager#requestNetwork} with
+         * an chain of requests where all are opportunistic. It is also forbidden to call
+         * {@link ConnectivityManager#registerNetworkCallback} with a chain of requests where
+         * any request is not opportunistic. It is always allowed to call any of these methods
+         * with a default-opportunistic request.
+         *
+         * You can use {@link #clearOpportunistic} to revert to the special default behavior after
+         * calling this.
+         */
+        @NonNull
+        public Builder setOpportunistic(final boolean opportunistic) {
+            if (opportunistic) {
+                mType = Type.REQUEST;
+            } else {
+                mType = Type.LISTEN;
+            }
+            return this;
+        }
+
+        /**
+         * Mark the request as default-opportunistic.
+         *
+         * A default-opportunistic request behaves as follows :
+         * <ul>
+         *     <li>not opportunistic when called with the {@link ConnectivityManager#requestNetwork}
+         *         family of methods
+         *     <li>opportunistic when called with the
+         *         {@link ConnectivityManager#registerNetworkCallback} family of methods
+         * </ul>
+         *
+         * @see #setOpportunistic(boolean)
+         */
+        @NonNull
+        public Builder clearOpportunistic() {
+            mType = Type.NONE;
+            return this;
+        }
+
+        /**
+         * Set a fallback request to this builder.
+         *
+         * This is useful to build chains of NetworkRequests in order of priority. For example,
+         * one can build a request that will match a network that can access Internet, and if there
+         * is none will match a network that can send MMS. This could be written as follows :
+         * <code>
+         *     new NetworkRequest.Builder()
+         *       .addCapability(NET_CAPABILITY_INTERNET)
+         *       .setFallback(new NetworkRequest.Builder()
+         *                      .addCapability(NET_CAPABILITY_MMS)
+         *                      .build())
+         *       .build();
+         * </code>
+         * A fallback can likewise be set for the fallback, and so on.
+         *
+         * @param fallbackRequest a request to try and satisfy if this one can't be, or null
+         *                        to clear a previously set fallback.
+         * @return The builder to facilitate chaining
+         */
+        @NonNull
+        public Builder setFallback(@Nullable NetworkRequest fallbackRequest) {
+            Objects.requireNonNull(fallbackRequest);
+            mFallback = fallbackRequest;
+            return this;
+        }
     }
 
     // implement the Parcelable interface
@@ -645,6 +776,12 @@ public class NetworkRequest implements Parcelable {
         dest.writeInt(legacyType);
         dest.writeInt(requestId);
         dest.writeString(type.name());
+        if (null == fallback) {
+            dest.writeBoolean(false);
+        } else {
+            dest.writeBoolean(true);
+            dest.writeParcelable(fallback, flags);
+        }
     }
 
     public static final @android.annotation.NonNull Creator<NetworkRequest> CREATOR =
@@ -654,8 +791,13 @@ public class NetworkRequest implements Parcelable {
                 int legacyType = in.readInt();
                 int requestId = in.readInt();
                 Type type = Type.valueOf(in.readString());  // IllegalArgumentException if invalid.
-                NetworkRequest result = new NetworkRequest(nc, legacyType, requestId, type);
-                return result;
+                final NetworkRequest fallback;
+                if (in.readBoolean()) {
+                    fallback = createFromParcel(in);
+                } else {
+                    fallback = null;
+                }
+                return new NetworkRequest(nc, legacyType, requestId, type, fallback);
             }
             public NetworkRequest[] newArray(int size) {
                 return new NetworkRequest[size];
@@ -838,11 +980,8 @@ public class NetworkRequest implements Parcelable {
      * Gets all the forbidden capabilities set on this {@code NetworkRequest} instance.
      *
      * @return an array of forbidden capability values for this instance.
-     *
-     * @hide
      */
     @NonNull
-    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
     public @NetCapability int[] getForbiddenCapabilities() {
         // No need to make a defensive copy here as NC#getForbiddenCapabilities() already returns
         // a new array.
@@ -859,5 +998,17 @@ public class NetworkRequest implements Parcelable {
         // No need to make a defensive copy here as NC#getTransportTypes() already returns
         // a new array.
         return networkCapabilities.getTransportTypes();
+    }
+
+    /**
+     * Returns the fallback request, if null if none.
+     *
+     * The fallback request may itself have a fallback request, and so on.
+     */
+    // When sending to a network provider, this is always null, so that the providers never
+    // have to care about fallback behavior.
+    @Nullable
+    public NetworkRequest getFallback() {
+        return fallback;
     }
 }
