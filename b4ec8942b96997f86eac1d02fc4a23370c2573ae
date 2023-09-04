@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a9ce29d_57a050b4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 121
+      },
+      "lineNbr": 18574,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T08:28:34Z",
+      "side": 1,
+      "message": "s/test failing/the test fail/\n\nMaybe add to this comment something like : `Solve this by wrapping it in an AtomicReference. Because of erasure, this removes the resolving problem as the type isn\u0027t seen dynamically.`",
+      "range": {
+        "startLine": 18574,
+        "startChar": 62,
+        "endLine": 18574,
+        "endChar": 74
+      },
+      "revId": "b4ec8942b96997f86eac1d02fc4a23370c2573ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79c14841_d53d1ad1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 121
+      },
+      "lineNbr": 18647,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T08:28:34Z",
+      "side": 1,
+      "message": "Nit : maybe `clearInvocations` is enough",
+      "range": {
+        "startLine": 18647,
+        "startChar": 16,
+        "endLine": 18647,
+        "endChar": 21
+      },
+      "revId": "b4ec8942b96997f86eac1d02fc4a23370c2573ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a37fd81_5fdd307a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 121
+      },
+      "lineNbr": 18677,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T08:28:34Z",
+      "side": 1,
+      "message": "freezeWithNetworkInactive",
+      "range": {
+        "startLine": 18677,
+        "startChar": 25,
+        "endLine": 18677,
+        "endChar": 40
+      },
+      "revId": "b4ec8942b96997f86eac1d02fc4a23370c2573ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47162d0f_674165c3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 121
+      },
+      "lineNbr": 18700,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T08:28:34Z",
+      "side": 1,
+      "message": "Supernit : space",
+      "range": {
+        "startLine": 18700,
+        "startChar": 20,
+        "endLine": 18700,
+        "endChar": 21
+      },
+      "revId": "b4ec8942b96997f86eac1d02fc4a23370c2573ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25a901e2_7665a8fe",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 121
+      },
+      "lineNbr": 18703,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T08:28:34Z",
+      "side": 1,
+      "message": "Please have a short comment like\n\n    @param switchToWifi if true, simulate a migration of the default network to wifi\n                        if false, simulate a cell disconnection\n\n\nAlternatively define constants like `SWITCH_TO_WIFI \u003d true` and `DISCONNECT_CELL \u003d false` if you prefer",
+      "range": {
+        "startLine": 18703,
+        "startChar": 86,
+        "endLine": 18703,
+        "endChar": 98
+      },
+      "revId": "b4ec8942b96997f86eac1d02fc4a23370c2573ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
