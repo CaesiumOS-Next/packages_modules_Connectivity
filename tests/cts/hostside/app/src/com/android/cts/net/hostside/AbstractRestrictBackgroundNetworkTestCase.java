@@ -438,6 +438,22 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
     }
 
     /**
+     * Asserts whether the network is blocked by accessing bpf maps if command-line tool supports.
+     */
+    void maybeAssertNetworkAccessBlockedByBpf(boolean expectBlocked, int uid, boolean metered) {
+        final String result = executeShellCommand(
+                "cmd network_stack is-uid-networking-blocked " + uid + " " + metered);
+
+        // If NetworkStack is too old to support this command, ignore and continue
+        // this test to verify other parts.
+        if (result.contains("No shell command implementation.")) {
+            return;
+        }
+
+        assertEquals(expectBlocked, Boolean.parseBoolean(result.trim()));
+    }
+
+    /**
      * Checks whether the network is available as expected.
      *
      * @return error message with the mismatch (or empty if assertion passed).
