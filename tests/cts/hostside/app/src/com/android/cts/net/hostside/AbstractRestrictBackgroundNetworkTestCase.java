@@ -19,7 +19,6 @@ package com.android.cts.net.hostside;
 import static android.app.job.JobScheduler.RESULT_SUCCESS;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
 import static android.os.BatteryManager.BATTERY_PLUGGED_ANY;
-
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.executeShellCommand;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.forceRunJob;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getConnectivityManager;
@@ -30,12 +29,12 @@ import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isBatterySaver
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isDozeModeSupported;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.restrictBackgroundValueToString;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.setRestrictBackgroundInternal;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 
 import android.app.ActivityManager;
 import android.app.Instrumentation;
@@ -433,6 +432,23 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
         }
         fail("Invalid state for " + mUid + "; expectAvailable=" + expectAvailable + " after "
                 + maxTries + " attempts.\nLast error: " + error);
+    }
+
+    /**
+     * Asserts whether the network is blocked by accessing bpf maps if command-line tool supports.
+     */
+    // TODO: Move this method into checkNetworkAccess once supporting data saver.
+    void maybeAssertNetworkAccessBlockedByBpf(boolean expectBlocked, int uid) {
+        try {
+            final String result = executeShellCommand(
+                    "cmd network_stack is-networking-blocked " + uid);
+            assertEquals(expectBlocked, Boolean.parseBoolean(result.trim()));
+        } catch (AssertionError err) {
+            // If NetworkStack is too old to support this command, trigger assumption failed
+            // instead of failing this test.
+            assumeFalse(err.getMessage().contains("No shell command implementation."));
+            throw err;
+        }
     }
 
     /**
