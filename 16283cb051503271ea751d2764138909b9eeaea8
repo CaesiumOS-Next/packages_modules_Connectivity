@@ -329,6 +329,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "585e916b_6f93762f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-04T05:45:04Z",
+      "side": 1,
+      "message": "File a bug b/298891447.",
+      "parentUuid": "bd10ad36_bbfaa6ec",
+      "revId": "16283cb051503271ea751d2764138909b9eeaea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c53fc5a2_30490e71",
