@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0031e9f1_258abb83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T07:18:39Z",
+      "side": 1,
+      "message": "I think this beats completely removing the test for S",
+      "revId": "9170f5d00c1dff211cc3905a6616480c6b5fa951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd53da12_e0c30cce",
