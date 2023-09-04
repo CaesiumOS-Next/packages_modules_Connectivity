@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50150f64_9a85d6dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-04T08:12:49Z",
+      "side": 1,
+      "message": "g",
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c8e4382_5895749b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-04T08:12:49Z",
+      "side": 1,
+      "message": "Why you need to populateInitialDataUsageMap when creatBuilder ? The builder is created why User request startTethering. Look at the cleanUp function, it seems you try to clear mUsageMap when tethering stopped. If tethering just fail to start, the builder is created with errorCode records but you leave non-empty map when tethering stoppped.",
+      "range": {
+        "startLine": 161,
+        "startChar": 12,
+        "endLine": 161,
+        "endChar": 39
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e63287b_95e8661c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-04T08:12:49Z",
+      "side": 1,
+      "message": "You can move isAtLeastT into populateInitialDataUsageMap and rename the function to populateInitialDataUsageMapAfterT().\n\n    private void populateInitialDataUsageMapAfterT() {\n        if (!isAtLeastT() || !mUsageMap.isEmpty()) return;\n        ....\n    }",
+      "range": {
+        "startLine": 160,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 9
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cbf26fd_b1384a72",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-04T08:12:49Z",
+      "side": 1,
+      "message": "If you take my suggest at aosp/2599968, then you can could move isUsageSupported into calculateDataUsage and change the code as:\n\n    Pair\u003cLong, Long\u003e dataUsage \u003d calculateDataUsage();\n    mUpstreamEventList.add(new RecordUpstreamEvent(mCurrentUpStreamStartTime, newTime, mCurrentUpstream, dataUsage.first, dataUsage.second));\n    \n\n    private Pair\u003cLong, Long\u003e calculateDataUsage(UpstreamType type) {\n        if (!isUsageSupported(type)) return new Pair\u003c\u003e(0, 0);\n        ....",
+      "range": {
+        "startLine": 190,
+        "startChar": 12,
+        "endLine": 198,
+        "endChar": 57
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba6f097b_f7b4ef81",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-04T08:12:49Z",
+      "side": 1,
+      "message": "import static com.android.modules.utils.build.SdkLevel.isAtLeastT;\n\nThen remove this function.",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 5
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "001e69a1_5679fd45",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-04T08:12:49Z",
+      "side": 1,
+      "message": "Why not just new NetworkStats.Bucket() ?",
+      "range": {
+        "startLine": 208,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c0eef8c_3e2c55b9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-04T08:12:49Z",
+      "side": 1,
+      "message": "If you take my suggestion above, you can just:\n\n    final Pair\u003cLong, Long\u003e dataUsage \u003d calculateDataUsage(mCurrentUpstream);\n    addUpstreamEvent(upstreamEventsBuilder, startTime, stopTime, mCurrentUpstream,\n                dataUsage.first, dataUsage.second);",
+      "range": {
+        "startLine": 321,
+        "startChar": 8,
+        "endLine": 330,
+        "endChar": 34
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2fff02c_43c8bd16",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-04T08:12:49Z",
+      "side": 1,
+      "message": "Why only oldValue can be null but not newValue?",
+      "range": {
+        "startLine": 362,
+        "startChar": 15,
+        "endLine": 362,
+        "endChar": 33
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdb209d9_9a317e7e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-04T08:12:49Z",
+      "side": 1,
+      "message": "I think you can remove this function and rename mUsageMap to mPreviousUsageMap, then using mPreviousUsageMap.get(type) everywhere.",
+      "range": {
+        "startLine": 365,
+        "startChar": 4,
+        "endLine": 367,
+        "endChar": 5
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
