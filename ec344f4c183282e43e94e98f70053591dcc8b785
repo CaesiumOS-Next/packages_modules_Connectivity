@@ -51,6 +51,24 @@
       "parentUuid": "94f00bab_b0857e46",
       "revId": "ec344f4c183282e43e94e98f70053591dcc8b785",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3115500_170ed215",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 44
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1930744
+      },
+      "writtenOn": "2023-09-04T10:36:06Z",
+      "side": 1,
+      "message": "Discussed this offline.\nThe conclusion is to have an Annotation was which exclude some APIs from being part of the Finalization. \nA separate chat group has been created to discuss this solution, hence closing this comment.",
+      "parentUuid": "b285f6f0_7d36dc27",
+      "revId": "ec344f4c183282e43e94e98f70053591dcc8b785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
