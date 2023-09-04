@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61d12e37_b87abc1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T08:08:40Z",
+      "side": 1,
+      "message": "I think tests are failing. Please look at followup comments on PS2. IIUC the values returned by the method are all zeroes.",
+      "revId": "32ca57a53c20dbc5d31b334c8e1e706f39b867d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
