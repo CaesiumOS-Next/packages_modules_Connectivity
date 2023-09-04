@@ -20,6 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import android.app.NotificationManager;
@@ -27,6 +28,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkInfo;
@@ -166,6 +168,47 @@ public class LockdownVpnTrackerTest {
 
         // Vpn is started
         verify(mVpn).startLegacyVpnPrivileged(mProfile, TEST_NETWORK, lp);
+        verify(mNotificationManager).notify(any(), eq(SystemMessage.NOTE_VPN_STATUS), any());
+    }
+
+    @Test
+    public void testDefaultLPChanged_sameNetworkAndIface() {
+        final LockdownVpnTracker lockdownVpnTracker = createLockdownVpnTracker();
+        lockdownVpnTracker.init();
+        final NetworkCallback defaultCallback = getDefaultNetworkCallback();
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName("rment0");
+        defaultCallback.onLinkPropertiesChanged(TEST_NETWORK, lp);
+        clearInvocations(mVpn, mCm, mNotificationManager);
+
+        lp.addLinkAddress(new LinkAddress("192.0.2.2/25"));
+        defaultCallback.onLinkPropertiesChanged(TEST_NETWORK, lp);
+
+        // Vpn still running.
+        verify(mVpn, never()).stopVpnRunnerPrivileged();
+        verify(mVpn, never()).startLegacyVpnPrivileged(mProfile, TEST_NETWORK, lp);
+        verify(mNotificationManager, never()).cancel(any(), eq(SystemMessage.NOTE_VPN_STATUS));
+    }
+
+    @Test
+    public void testDefaultLPChanged_newNetworkAndIface() {
+        final LockdownVpnTracker lockdownVpnTracker = createLockdownVpnTracker();
+        lockdownVpnTracker.init();
+        final NetworkCallback defaultCallback = getDefaultNetworkCallback();
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName("rment0");
+        defaultCallback.onLinkPropertiesChanged(TEST_NETWORK, cellLp);
+        clearInvocations(mVpn, mCm, mNotificationManager);
+
+        final Network wifiNetwork = new Network(124);
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName("wlan0");
+        defaultCallback.onLinkPropertiesChanged(wifiNetwork, wifiLp);
+
+        // Vpn is restarted.
+        verify(mVpn).stopVpnRunnerPrivileged();
+        verify(mVpn).startLegacyVpnPrivileged(mProfile, wifiNetwork, wifiLp);
+        verify(mNotificationManager, never()).cancel(any(), eq(SystemMessage.NOTE_VPN_STATUS));
         verify(mNotificationManager).notify(any(), eq(SystemMessage.NOTE_VPN_STATUS), any());
     }
 
