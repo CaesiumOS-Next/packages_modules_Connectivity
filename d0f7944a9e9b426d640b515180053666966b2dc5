@@ -190,6 +190,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b64b2e58_5f4c1fb3",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T09:27:59Z",
+      "side": 1,
+      "message": "Ah. I see it now, thanks.\n\nIt\u0027s not what mapNotNull does usually. Suggest renaming to `mapKeysNotNull`, and adding a stronger comment on mapNotNull to draw attention on it ; added comments there on the new patchset.",
+      "parentUuid": "ba598d16_e770a93c",
+      "range": {
+        "startLine": 1268,
+        "startChar": 66,
+        "endLine": 1268,
+        "endChar": 70
+      },
+      "revId": "d0f7944a9e9b426d640b515180053666966b2dc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02b4a5af_6f6a7eab",

@@ -16,6 +16,29 @@
       "message": "I think tests are failing. Please look at followup comments on PS2. IIUC the values returned by the method are all zeroes.",
       "revId": "32ca57a53c20dbc5d31b334c8e1e706f39b867d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ddd03b8_d0a1db8d",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1334,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T09:27:59Z",
+      "side": 1,
+      "message": "As I was replying in the previous comment, let\u0027s call this `mapKeysNotNull` to clarify that it only maps keys.\n\nAlso, let\u0027s strengthen the comment in l.1331. Suggested wording is :\n\n    Only the key returned by the function is used ; values will be forcefully\n    copied from the original entry. Entries that map to the same set of keys\n    will be added together.\n\nHowever, I think it might be better to *not* forcefully copy the values, call this `mapNotNull` and leave the copy of the values to the caller. It would be a lot more standard.",
+      "range": {
+        "startLine": 1334,
+        "startChar": 25,
+        "endLine": 1334,
+        "endChar": 35
+      },
+      "revId": "32ca57a53c20dbc5d31b334c8e1e706f39b867d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
