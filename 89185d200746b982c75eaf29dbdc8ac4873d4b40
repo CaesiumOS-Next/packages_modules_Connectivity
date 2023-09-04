@@ -16,6 +16,52 @@
       "message": "LGTM but can Yuyang have a good look too ? I\u0027ll be OOO on Monday",
       "revId": "89185d200746b982c75eaf29dbdc8ac4873d4b40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "296735b5_a666363e",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-04T02:46:33Z",
+      "side": 1,
+      "message": "Maybe it is better to move the Random into the Dependencies? Just in case we need to mock it in the future.",
+      "range": {
+        "startLine": 50,
+        "startChar": 18,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "89185d200746b982c75eaf29dbdc8ac4873d4b40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e18e173_febb1ad8",
+        "filename": "service-t/src/com/android/metrics/NetworkNsdReportedMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-04T02:46:33Z",
+      "side": 1,
+      "message": "Why we select 1000? Maybe we should move this 1000 to a const value and add the comment for why this number is chosen?",
+      "range": {
+        "startLine": 86,
+        "startChar": 48,
+        "endLine": 86,
+        "endChar": 52
+      },
+      "revId": "89185d200746b982c75eaf29dbdc8ac4873d4b40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
