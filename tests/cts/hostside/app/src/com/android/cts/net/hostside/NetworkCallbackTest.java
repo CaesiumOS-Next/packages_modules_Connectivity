@@ -236,16 +236,19 @@ public class NetworkCallbackTest extends AbstractRestrictBackgroundNetworkTestCa
             // Enable restrict background
             setRestrictBackground(true);
             assertBackgroundNetworkAccess(false);
+            maybeAssertNetworkAccessBlockedByBpf(true, mUid, true /* metered */);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, true);
 
             // Add to whitelist
             addRestrictBackgroundWhitelist(mUid);
             assertBackgroundNetworkAccess(true);
+            maybeAssertNetworkAccessBlockedByBpf(false, mUid, true /* metered */);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, false);
 
             // Remove from whitelist
             removeRestrictBackgroundWhitelist(mUid);
             assertBackgroundNetworkAccess(false);
+            maybeAssertNetworkAccessBlockedByBpf(true, mUid, true /* metered */);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, true);
         } finally {
             mMeterednessConfiguration.resetNetworkMeteredness();
@@ -257,11 +260,13 @@ public class NetworkCallbackTest extends AbstractRestrictBackgroundNetworkTestCa
                 true /* hasCapability */, NET_CAPABILITY_NOT_METERED);
         try {
             assertBackgroundNetworkAccess(true);
+            maybeAssertNetworkAccessBlockedByBpf(false, mUid, false /* metered */);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, false);
 
             // Disable restrict background, should not trigger callback
             setRestrictBackground(false);
             assertBackgroundNetworkAccess(true);
+            maybeAssertNetworkAccessBlockedByBpf(false, mUid, false /* metered */);
         } finally {
             mMeterednessConfiguration.resetNetworkMeteredness();
         }
@@ -275,11 +280,13 @@ public class NetworkCallbackTest extends AbstractRestrictBackgroundNetworkTestCa
             setBatterySaverMode(true);
             assertBackgroundNetworkAccess(false);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, true);
+            maybeAssertNetworkAccessBlockedByBpf(true, mUid, true /* metered */);
 
             // Disable Power Saver
             setBatterySaverMode(false);
             assertBackgroundNetworkAccess(true);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, false);
+            maybeAssertNetworkAccessBlockedByBpf(false, mUid, true /* metered */);
         } finally {
             mMeterednessConfiguration.resetNetworkMeteredness();
         }
@@ -293,11 +300,13 @@ public class NetworkCallbackTest extends AbstractRestrictBackgroundNetworkTestCa
             setBatterySaverMode(true);
             assertBackgroundNetworkAccess(false);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, true);
+            maybeAssertNetworkAccessBlockedByBpf(true, mUid, false /* metered */);
 
             // Disable Power Saver
             setBatterySaverMode(false);
             assertBackgroundNetworkAccess(true);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, false);
+            maybeAssertNetworkAccessBlockedByBpf(false, mUid, false /* metered */);
         } finally {
             mMeterednessConfiguration.resetNetworkMeteredness();
         }
