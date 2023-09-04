@@ -192,6 +192,28 @@ public class LockdownVpnTrackerTest {
     }
 
     @Test
+    public void testDefaultLPChanged_newNetworkAndIface() {
+        final LockdownVpnTracker lockdownVpnTracker = createLockdownVpnTracker();
+        lockdownVpnTracker.init();
+        final NetworkCallback defaultCallback = getDefaultNetworkCallback();
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName("rment0");
+        defaultCallback.onLinkPropertiesChanged(TEST_NETWORK, cellLp);
+        clearInvocations(mVpn, mCm, mNotificationManager);
+
+        final Network wifiNetwork = new Network(124);
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName("wlan0");
+        defaultCallback.onLinkPropertiesChanged(wifiNetwork, wifiLp);
+
+        // Vpn is restarted.
+        verify(mVpn).stopVpnRunnerPrivileged();
+        verify(mVpn).startLegacyVpnPrivileged(mProfile, wifiNetwork, wifiLp);
+        verify(mNotificationManager, never()).cancel(any(), eq(SystemMessage.NOTE_VPN_STATUS));
+        verify(mNotificationManager).notify(any(), eq(SystemMessage.NOTE_VPN_STATUS), any());
+    }
+
+    @Test
     public void testOnLost() {
         final LockdownVpnTracker lockdownVpnTracker = createLockdownVpnTracker();
         lockdownVpnTracker.init();
