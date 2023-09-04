@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7297a268_5f0ef97e",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T08:02:00Z",
+      "side": 1,
+      "message": "I fail to see how.\n\n    final Entry temp \u003d new Entry();\n\nall values in temp are 0\n\n    mapNotNull(entry -\u003e if (TAG_NONE) temp.setKeys(...))\n\nNobody ever sets the values in temp. So they are still 0 ? This should have the tests fail ?\n\nAm I missing something important ?",
+      "parentUuid": "07318fa6_2581d9bd",
+      "range": {
+        "startLine": 1268,
+        "startChar": 66,
+        "endLine": 1268,
+        "endChar": 70
+      },
+      "revId": "d0f7944a9e9b426d640b515180053666966b2dc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02b4a5af_6f6a7eab",
