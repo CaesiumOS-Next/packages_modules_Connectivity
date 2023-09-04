@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af7e44bb_2790578f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T11:25:11Z",
+      "side": 1,
+      "message": "Maybe add that in this case the \"user process\" is the network stack and outline what permissions control this.",
+      "range": {
+        "startLine": 15,
+        "startChar": 42,
+        "endLine": 15,
+        "endChar": 43
+      },
+      "revId": "7efa117ff46db8472f67a7fe4d1cf5d2e8538ac6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "172b9f48_832cb88c",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T11:25:11Z",
+      "side": 1,
+      "message": "Let\u0027s document how this behaves in tests with respect to the singleton. It\u0027s fine that you have this and it\u0027s fine that you use this in tests, but let\u0027s add some comments to explain",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 57
+      },
+      "revId": "7efa117ff46db8472f67a7fe4d1cf5d2e8538ac6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efe1d448_119b61ef",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6191,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T11:25:11Z",
+      "side": 1,
+      "message": "API rules dictate that you must protect this with a permission. Here you can\u0027t do this with a standard Android permission since this never does IPC to the system server.\n\nSo let\u0027s move your documentation about permissions from l.6195~6197 here to explain exactly what protects this. e.g.\n\n    // This isn\u0027t protected by a standard Android permission since it can\u0027t\n    // afford to do IPC for performance reasons. Instead, the access control\n    // is provided by linux file permissions xxx and the selinux context xxx.\n    // Only the system server process and the network stack hold these xxx\n    @SystemApi...",
+      "range": {
+        "startLine": 6191,
+        "startChar": 0,
+        "endLine": 6191,
+        "endChar": 44
+      },
+      "revId": "7efa117ff46db8472f67a7fe4d1cf5d2e8538ac6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4605346b_f86f8d9e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6203,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-04T11:25:11Z",
+      "side": 1,
+      "message": "No strong objection, but since the method is already called `isChainEnabled` I don\u0027t think the boolean clarifies.\n\n    if (!reader.isChainEnabled(chain)) continue;",
+      "range": {
+        "startLine": 6203,
+        "startChar": 17,
+        "endLine": 6203,
+        "endChar": 31
+      },
+      "revId": "7efa117ff46db8472f67a7fe4d1cf5d2e8538ac6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
