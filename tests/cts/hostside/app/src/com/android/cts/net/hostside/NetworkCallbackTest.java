@@ -18,13 +18,11 @@ package com.android.cts.net.hostside;
 
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
 import static android.net.NetworkCapabilities.SIGNAL_STRENGTH_UNSPECIFIED;
-
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.canChangeActiveNetworkMeteredness;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getActiveNetworkCapabilities;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.setRestrictBackground;
 import static com.android.cts.net.hostside.Property.BATTERY_SAVER_MODE;
 import static com.android.cts.net.hostside.Property.DATA_SAVER_MODE;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
@@ -275,11 +273,13 @@ public class NetworkCallbackTest extends AbstractRestrictBackgroundNetworkTestCa
             setBatterySaverMode(true);
             assertBackgroundNetworkAccess(false);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, true);
+            maybeAssertNetworkAccessBlockedByBpf(true, mUid);
 
             // Disable Power Saver
             setBatterySaverMode(false);
             assertBackgroundNetworkAccess(true);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, false);
+            maybeAssertNetworkAccessBlockedByBpf(false, mUid);
         } finally {
             mMeterednessConfiguration.resetNetworkMeteredness();
         }
@@ -293,11 +293,13 @@ public class NetworkCallbackTest extends AbstractRestrictBackgroundNetworkTestCa
             setBatterySaverMode(true);
             assertBackgroundNetworkAccess(false);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, true);
+            maybeAssertNetworkAccessBlockedByBpf(true, mUid);
 
             // Disable Power Saver
             setBatterySaverMode(false);
             assertBackgroundNetworkAccess(true);
             mTestNetworkCallback.expectBlockedStatusCallbackEventually(mNetwork, false);
+            maybeAssertNetworkAccessBlockedByBpf(false, mUid);
         } finally {
             mMeterednessConfiguration.resetNetworkMeteredness();
         }
