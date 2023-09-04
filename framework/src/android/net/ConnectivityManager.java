@@ -6187,8 +6187,7 @@ public class ConnectivityManager {
      *
      * @hide
      */
-    // TODO: Expose api when ready.
-    // @SystemApi(client = MODULE_LIBRARIES)
+    @SystemApi(client = MODULE_LIBRARIES)
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)  // BPF maps were only mainlined in T
     public boolean isUidNetworkingBlockedForConditions(int uid, boolean isNetworkMetered,
             boolean isDataSaverEnabled) {

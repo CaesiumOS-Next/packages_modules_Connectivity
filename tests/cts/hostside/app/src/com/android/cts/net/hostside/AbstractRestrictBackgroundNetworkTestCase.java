@@ -436,6 +436,15 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
     }
 
     /**
+     * Asserts whether the network is blocked by accessing bpf maps.
+     */
+    // TODO: Move this method into checkNetworkAccess once supporting data saver.
+    void assertNetworkAccessBlockedByBpf(boolean expectBlocked, int uid) {
+        final String result = executeShellCommand("cmd network_stack is-networking-blocked " + uid);
+        assertEquals(expectBlocked, Boolean.getBoolean(result.trim()));
+    }
+
+    /**
      * Checks whether the network is available as expected.
      *
      * @return error message with the mismatch (or empty if assertion passed).
