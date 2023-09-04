@@ -46,6 +46,52 @@
       },
       "revId": "e307b7ca1468a74c58304f7bab86d5b94e3eb5ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b92bdbf6_5f54f293",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-04T07:30:31Z",
+      "side": 1,
+      "message": "Rename to isUsageSupported?",
+      "range": {
+        "startLine": 378,
+        "startChar": 22,
+        "endLine": 378,
+        "endChar": 42
+      },
+      "revId": "e307b7ca1468a74c58304f7bab86d5b94e3eb5ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a5486b1_31c06821",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-04T07:30:31Z",
+      "side": 1,
+      "message": "Make UpstreamType nullable so that don\u0027t need to check null before use this function and null is valid type means no upstream. You can also simply the code as:\n\n\n    protected boolean isUsageSupported(@Nullable UpstreamType type) {\n        if (type \u003d\u003d null) return false;\n        \n        switch(type) {\n            case UT_CELLULAR:\n            case UT_WIFI:\n            case UT_BLUETOOTH:\n            case UT_ETHERNET:\n                return true;\n        }\n        return false;\n    }",
+      "range": {
+        "startLine": 377,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 5
+      },
+      "revId": "e307b7ca1468a74c58304f7bab86d5b94e3eb5ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
