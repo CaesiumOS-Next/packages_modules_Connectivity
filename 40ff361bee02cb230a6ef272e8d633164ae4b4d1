@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67d25e3b_3e49c23b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-04T03:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eb08b8a_8f63c866",
+      "range": {
+        "startLine": 1788,
+        "startChar": 12,
+        "endLine": 1788,
+        "endChar": 55
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6030122b_940a1e89",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-08-18T09:03:52Z",
       "side": 1,
       "message": "What if the cell network is the default for this UID but not for the system ? (e.g. this can happen with the MDO feature where some apps are put preferentially on the mobile network when wifi is connected).",
+      "range": {
+        "startLine": 3013,
+        "startChar": 44,
+        "endLine": 3013,
+        "endChar": 61
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fdc5727_97d81dbd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3013,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-04T03:06:29Z",
+      "side": 1,
+      "message": "Updated the code and comment to make it clear that we delay closing sockets only for the cell network and default network is used just to know if the cell network is idle or not.",
+      "parentUuid": "6030122b_940a1e89",
       "range": {
         "startLine": 3013,
         "startChar": 44,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b9fc57a_061a92c7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3015,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-04T03:06:29Z",
+      "side": 1,
+      "message": "Updated the code and comment to make it clear that we delay closing sockets only for the cell network and default network is used just to know if the cell network is idle or not.",
+      "parentUuid": "10a6de2a_a39de680",
+      "range": {
+        "startLine": 3015,
+        "startChar": 16,
+        "endLine": 3015,
+        "endChar": 37
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1f7605b_47ad9695",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46aedbc9_60ac38fe",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3020,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-04T03:06:29Z",
+      "side": 1,
+      "message": "Updated the code and comment to make it clear that we delay closing sockets only for the cell network and default network is used just to know if the cell network is idle or not.",
+      "parentUuid": "f1f7605b_47ad9695",
+      "range": {
+        "startLine": 3020,
+        "startChar": 0,
+        "endLine": 3020,
+        "endChar": 89
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "809cbddb_3d9e29b8",
@@ -123,6 +219,30 @@
       "writtenOn": "2023-08-18T09:03:52Z",
       "side": 1,
       "message": "As this can only be used on the handler thread, I suggest you add a check for ensureRunningOnConnectivityServiceThread in this function.",
+      "range": {
+        "startLine": 3033,
+        "startChar": 51,
+        "endLine": 3033,
+        "endChar": 69
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3628a647_4de23b35",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3033,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-04T03:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "809cbddb_3d9e29b8",
       "range": {
         "startLine": 3033,
         "startChar": 51,
@@ -181,6 +301,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f27f570e_9327da3b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3035,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-04T03:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c643bf9_be3b091c",
+      "range": {
+        "startLine": 3035,
+        "startChar": 17,
+        "endLine": 3035,
+        "endChar": 26
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3e89c5b_dd6d5db3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 3035,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-04T03:06:29Z",
+      "side": 1,
+      "message": "uid will be removed from mPendingFrozenUids when the app is unfrozen.\nSo This code will not close the sockets of active apps.\n\nBut if destroyLiveTcpSocketsByOwnerUids throws everytime, ConnectivityService will try to close the sockets everytime the cell network become active, which is cost.\n\nI have updated to clear the mPendingFrozenUids even if destroying sockets fail.",
+      "parentUuid": "c47dca76_969bd746",
+      "range": {
+        "startLine": 3035,
+        "startChar": 10,
+        "endLine": 3035,
+        "endChar": 15
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8fb1257a_3ec74961",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 113
@@ -215,6 +383,30 @@
       "writtenOn": "2023-08-18T09:03:52Z",
       "side": 1,
       "message": "- Not following why you\u0027re moving this up. You don\u0027t seem to be using it earlier than before.\n- You no longer call `capture()` on it (did you mistakenly deleted the 2nd line ?) so `getValue()` in l.11295 is bound to fail",
+      "range": {
+        "startLine": 11275,
+        "startChar": 0,
+        "endLine": 11276,
+        "endChar": 56
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aeb275f_6652159f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 11276,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-04T03:06:29Z",
+      "side": 1,
+      "message": "\u003e Not following why you\u0027re moving this up. You don\u0027t seem to be using it earlier than before.\n\nThis call back is registered from the ConnectivityService constructor.\nI thought the previous code makes me think that this call back is registered after `addDefaultNetworkActiveListener`.\nSo I have moved to the beginning of the test but I don\u0027t have strong preference where to call `getRegisteredNetdUnsolicitedEventListener`",
+      "parentUuid": "86e17431_d745eb59",
       "range": {
         "startLine": 11275,
         "startChar": 0,
@@ -271,6 +463,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75e217ee_12a93872",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 18539,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-04T03:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b08ea49_0c942b29",
+      "range": {
+        "startLine": 18539,
+        "startChar": 12,
+        "endLine": 18539,
+        "endChar": 26
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50e68686_30f2bec2",
@@ -294,6 +510,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2801e2e3_55b5477a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 18585,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-04T03:06:29Z",
+      "side": 1,
+      "message": "Network is considered active when the network becomes the default network.\nSo this code needs to be after the agent.connect.\n\nI have updated the argument as `freezeWithNetworkInactive` which explains the purpose of this argument.",
+      "parentUuid": "50e68686_30f2bec2",
+      "range": {
+        "startLine": 18585,
+        "startChar": 16,
+        "endLine": 18585,
+        "endChar": 31
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46e7e6c1_ba61910f",
@@ -307,6 +547,30 @@
       "writtenOn": "2023-08-18T09:03:52Z",
       "side": 1,
       "message": "supernit : space",
+      "range": {
+        "startLine": 18641,
+        "startChar": 20,
+        "endLine": 18641,
+        "endChar": 21
+      },
+      "revId": "40ff361bee02cb230a6ef272e8d633164ae4b4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "280db8d0_3802c714",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 113
+      },
+      "lineNbr": 18641,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-04T03:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46e7e6c1_ba61910f",
       "range": {
         "startLine": 18641,
         "startChar": 20,
