@@ -16,6 +16,7 @@
 
 package com.android.cts.net.hostside;
 
+import static android.Manifest.permission.READ_DEVICE_CONFIG;
 import static android.app.job.JobScheduler.RESULT_SUCCESS;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
 import static android.os.BatteryManager.BATTERY_PLUGGED_ANY;
@@ -64,6 +65,8 @@ import android.util.Pair;
 import com.android.compatibility.common.util.AmUtils;
 import com.android.compatibility.common.util.BatteryUtils;
 import com.android.compatibility.common.util.DeviceConfigStateHelper;
+import com.android.compatibility.common.util.SystemUtil;
+import com.android.net.module.util.DeviceConfigUtils;
 
 import org.junit.Rule;
 import org.junit.rules.RuleChain;
@@ -153,6 +156,14 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
 
     private static final long BROADCAST_TIMEOUT_MS = 5_000;
 
+    // TODO : remove this class when udc-mainline-prod is abandoned and android.net.flags.Flags is
+    // available here
+    /** @hide */
+    public static class Flags {
+        static final String SUPPORT_IS_UID_NETWORKING_BLOCKED =
+                "support_is_uid_networking_blocked";
+    }
+
     protected Context mContext;
     protected Instrumentation mInstrumentation;
     protected ConnectivityManager mCm;
@@ -162,6 +173,7 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
     private DeviceConfigStateHelper mDeviceIdleDeviceConfigStateHelper;
     private PowerManager mPowerManager;
     private PowerManager.WakeLock mLock;
+    private boolean mSupportIsUidNetworkingBlockedFromBpf = false;
 
     @Rule
     public final RuleChain mRuleChain = RuleChain.outerRule(new RequiredPropertiesRule())
@@ -181,6 +193,13 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
         mServiceClient = new MyServiceClient(mContext);
         mServiceClient.bind();
         mPowerManager = mContext.getSystemService(PowerManager.class);
+
+        SystemUtil.runWithShellPermissionIdentity(() -> {
+            mSupportIsUidNetworkingBlockedFromBpf =
+                    DeviceConfigUtils.isTrunkStableFeatureEnabled(
+                            Flags.SUPPORT_IS_UID_NETWORKING_BLOCKED);
+        }, READ_DEVICE_CONFIG);
+
         executeShellCommand("cmd netpolicy start-watching " + mUid);
         // Some of the test cases assume that Data saver mode is initially disabled, which might not
         // always be the case. Therefore, explicitly disable it before running the tests.
@@ -435,6 +454,28 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
         }
         fail("Invalid state for " + mUid + "; expectAvailable=" + expectAvailable + " after "
                 + maxTries + " attempts.\nLast error: " + error);
+    }
+
+    /**
+     * Asserts whether the network is blocked by accessing bpf maps if command-line tool supports.
+     */
+    void maybeAssertNetworkAccessBlockedByBpf(boolean expectBlocked, int uid, boolean metered) {
+        // Feature is not enabled, ignore this assertion.
+        if (!mSupportIsUidNetworkingBlockedFromBpf) {
+            Log.d(TAG, Flags.SUPPORT_IS_UID_NETWORKING_BLOCKED + " is not enabled.");
+            return;
+        }
+
+        final String result = executeShellCommand(
+                "cmd network_stack is-uid-networking-blocked " + uid + " " + metered);
+
+        // If NetworkStack is too old to support this command, ignore and continue
+        // this test to verify other parts.
+        if (result.contains("No shell command implementation.")) {
+            return;
+        }
+
+        assertEquals(expectBlocked, Boolean.parseBoolean(result.trim()));
     }
 
     /**
