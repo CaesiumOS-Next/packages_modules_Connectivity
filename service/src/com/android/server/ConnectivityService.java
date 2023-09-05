@@ -96,13 +96,11 @@ import static android.os.Process.VPN_UID;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
-
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.checkAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
-
 import static java.util.Map.Entry;
 
 import android.Manifest;
@@ -10467,6 +10465,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 err.getFileDescriptor(), args);
     }
 
+    private Boolean parseBooleanArgument(final String arg) {
+        if ("true".equals(arg)) {
+            return true;
+        } else if ("false".equals(arg)) {
+            return false;
+        } else {
+            return null;
+        }
+    }
+
     private class ShellCmd extends BasicShellCommandHandler {
         @Override
         public int onCommand(String cmd) {
@@ -10496,6 +10504,56 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             onHelp();
                             return -1;
                         }
+                    case "set-chain3-enabled": {
+                        final Boolean enabled = parseBooleanArgument(getNextArg());
+                        if (null == enabled) {
+                            throw new IllegalArgumentException(cmd + " true|false");
+                        }
+                        setFirewallChainEnabled(ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3,
+                                enabled);
+                        return 0;
+                    }
+                    case "get-chain3-enabled": {
+                        final boolean chainEnabled = getFirewallChainEnabled(
+                                ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3);
+                        pw.println("chain:" + (chainEnabled ? "enabled" : "disabled"));
+                        return 0;
+                    }
+                    case "set-package-networking-enabled": {
+                        final Boolean enabled = parseBooleanArgument(getNextArg());
+                        if (null == enabled) {
+                            throw new IllegalArgumentException(cmd + " true|false <packageName>");
+                        }
+                        final String packageName = getNextArg();
+                        // Throws NameNotFound if the package doesn't exist.
+                        final int appId = setPackageFirewallRule(
+                                ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3,
+                                packageName, enabled ? FIREWALL_RULE_DEFAULT : FIREWALL_RULE_DENY);
+                        if (appId < Process.FIRST_APPLICATION_UID) {
+                            pw.println(packageName + " is a system application, will not "
+                                    + "be able to block its packets");
+                            return 1;
+                        }
+                        final String msg = (enabled ? "Enabled" : "Disabled")
+                                + " networking for " + packageName + ", appId " + appId;
+                        Log.i(TAG, msg);
+                        pw.println(msg);
+                        return 0;
+                    }
+                    case "get-package-networking-enabled": {
+                        final String packageName = getNextArg();
+                        final int rule = getPackageFirewallRule(
+                                ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3, packageName);
+                        if (FIREWALL_RULE_ALLOW == rule || FIREWALL_RULE_DEFAULT == rule) {
+                            pw.println(packageName + ":" + "allow");
+                        } else if (FIREWALL_RULE_DENY == rule) {
+                            pw.println(packageName + ":" + "deny");
+                        } else {
+                            throw new IllegalStateException("Unknown rule " + rule + " for package "
+                                    + packageName);
+                        }
+                        return 0;
+                    }
                     case "reevaluate":
                         // Usage : adb shell cmd connectivity reevaluate <netId>
                         // If netId is omitted, then reevaluate the default network
@@ -12271,6 +12329,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private int setPackageFirewallRule(final int chain, final String packageName, final int rule)
+            throws PackageManager.NameNotFoundException {
+        final PackageManager pm = mContext.getPackageManager();
+        final int appId = UserHandle.getAppId(pm.getPackageUid(packageName, 0 /* flags */));
+        for (final UserHandle uh : mUserManager.getUserHandles(false /* excludeDying */)) {
+            final int uid = uh.getUid(appId);
+            setUidFirewallRule(chain, uid, rule);
+        }
+        return appId;
+    }
+
     @Override
     public void setUidFirewallRule(final int chain, final int uid, final int rule) {
         enforceNetworkStackOrSettingsPermission();
@@ -12287,6 +12356,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } catch (ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    private int getPackageFirewallRule(final int chain, final String packageName)
+            throws PackageManager.NameNotFoundException {
+        final PackageManager pm = mContext.getPackageManager();
+        final int appId = UserHandle.getAppId(pm.getPackageUid(packageName, 0 /* flags */));
+        return getUidFirewallRule(chain, appId);
     }
 
     @Override
