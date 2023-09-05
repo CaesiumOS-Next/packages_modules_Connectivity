@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84d1ac39_388685bb",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-05T02:37:27Z",
+      "side": 1,
+      "message": "added check for TV on U by testing `FEATURE_LEANBACK`",
+      "parentUuid": "601477bb_7fc846b8",
+      "range": {
+        "startLine": 204,
+        "startChar": 78,
+        "endLine": 204,
+        "endChar": 94
+      },
+      "revId": "d3263bab403ef2a296ce870d6535fc6765480a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4457fb67_b48473b1",
