@@ -22,6 +22,30 @@
       },
       "revId": "8ebc404ce047f77d10558d25d7576eb70e7258f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d79908d_62d6b8c0",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-05T06:18:57Z",
+      "side": 1,
+      "message": "The dhcp server is killing by the test itself. The problem is dhcp server still be starting but the test is at l.338.",
+      "parentUuid": "e4e72fe2_d4da3dc3",
+      "range": {
+        "startLine": 330,
+        "startChar": 12,
+        "endLine": 331,
+        "endChar": 87
+      },
+      "revId": "8ebc404ce047f77d10558d25d7576eb70e7258f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
