@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "014f691e_012bee81",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-05T08:28:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17deb246_73f618a4",
+      "range": {
+        "startLine": 904,
+        "startChar": 34,
+        "endLine": 904,
+        "endChar": 39
+      },
+      "revId": "219a221c0c61467c2e94431497ce9744c6afee54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "add18517_d5b5df14",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecfe3fc0_a687db5d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-05T08:28:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "add18517_d5b5df14",
+      "range": {
+        "startLine": 928,
+        "startChar": 75,
+        "endLine": 928,
+        "endChar": 76
+      },
+      "revId": "219a221c0c61467c2e94431497ce9744c6afee54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd62cc80_2af8b08d",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-09-05T07:19:23Z",
       "side": 1,
       "message": "Nit: This will also pass if \"rr\" is null, so you could use something similar to the suggestion above for offloadPayload (with getByAddress instead of TestDnsPacket)",
+      "range": {
+        "startLine": 932,
+        "startChar": 32,
+        "endLine": 932,
+        "endChar": 37
+      },
+      "revId": "219a221c0c61467c2e94431497ce9744c6afee54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8281a13_fc5191b5",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-05T08:28:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd62cc80_2af8b08d",
       "range": {
         "startLine": 932,
         "startChar": 32,
