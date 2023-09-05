@@ -77,6 +77,7 @@ class MdnsRecordRepositoryTest {
     private val deps = object : Dependencies() {
         override fun getInterfaceInetAddresses(iface: NetworkInterface) =
                 Collections.enumeration(TEST_ADDRESSES.map { it.address })
+        override fun includeInetAddressRecordsInProbing() = false
     }
 
     @Before
