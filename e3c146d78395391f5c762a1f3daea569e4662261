@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440d6c5c_9bc32b3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-09-05T21:32:32Z",
+      "side": 1,
+      "message": "can you also revert aosp/2368749 in upstream-staging? It\u0027s not needed anymore.",
+      "revId": "e3c146d78395391f5c762a1f3daea569e4662261",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
