@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4708af6_c7c78aad",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-05T06:05:12Z",
+      "side": 1,
+      "message": "Nit: It\u0027s fine if you had put thing in this commit. But you may consider to split this kind of commit to smaller ones as offline discussion to help to speed up the review.",
+      "range": {
+        "startLine": 57,
+        "startChar": 13,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcd38d49_baa0a385",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-05T06:05:12Z",
+      "side": 1,
+      "message": "Nit: unused variable",
+      "range": {
+        "startLine": 80,
+        "startChar": 28,
+        "endLine": 80,
+        "endChar": 47
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00ff26e6_ac0dc280",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-05T06:05:12Z",
+      "side": 1,
+      "message": "Please stop this thread on the end of the tests. Otherwise, it will be a leakage.",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 22
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fd891c2_1a20cff4",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-05T06:05:12Z",
+      "side": 1,
+      "message": "This could consider to move the a common method and maybe also include the following verifications(l.131-1.134) to another method since init() should be done in each test cases.",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 34
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f407c56_8b4d23c1",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-05T06:05:12Z",
+      "side": 1,
+      "message": "If you\u0027re not verifying LockDownVpnTracker.reset() in other commit, you may also want to verify it.",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 141,
+        "endChar": 28
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74b6ef9b_979ef647",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-05T06:05:12Z",
+      "side": 1,
+      "message": "Is this intended to use an incorrect name? rmnet0?",
+      "range": {
+        "startLine": 166,
+        "startChar": 29,
+        "endLine": 166,
+        "endChar": 35
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fdd84e4_8a8552dd",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-05T06:05:12Z",
+      "side": 1,
+      "message": "Not for this commit. We may have a smaller refactor to change the code handling in onLinkPropertiesChanged to do early return. The networkChanged variable seems unnecessary.",
+      "range": {
+        "startLine": 176,
+        "startChar": 16,
+        "endLine": 176,
+        "endChar": 56
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6ac9537_e986ec27",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-05T06:05:12Z",
+      "side": 1,
+      "message": "Nit: testSystemDefaultLost   since there is another VPN callback. It\u0027s not clear which network lost is verified here.",
+      "range": {
+        "startLine": 195,
+        "startChar": 16,
+        "endLine": 195,
+        "endChar": 26
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
