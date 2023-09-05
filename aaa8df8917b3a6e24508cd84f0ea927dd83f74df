@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5d4dd3d_df98badf",
+        "filename": "common/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-05T09:41:50Z",
+      "side": 1,
+      "message": "Discussed with Rémi. Let\u0027s go with the first one and link dynamically against lib-struct.\nPlease also add a comment on your target that it requires the final artefact to contain lib-struct, and make sure that the \u0027visibility\u0027 section also has a comment at the bottom about this.",
+      "parentUuid": "968c112e_d2455bd3",
+      "range": {
+        "startLine": 38,
+        "startChar": 35,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "aaa8df8917b3a6e24508cd84f0ea927dd83f74df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e3dab9d1_0f57e743",
         "filename": "common/Android.bp",
         "patchSetId": 8
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Hmm not sure how to name this better.\nIt seems to me this is the default values of connectivity-net-module-utils indeed.\n\n@reminv@google.com to input as well.",
       "parentUuid": "e3dab9d1_0f57e743",
+      "range": {
+        "startLine": 53,
+        "startChar": 41,
+        "endLine": 53,
+        "endChar": 49
+      },
+      "revId": "aaa8df8917b3a6e24508cd84f0ea927dd83f74df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08ee1f3a_4bf68f22",
+        "filename": "common/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-05T09:41:50Z",
+      "side": 1,
+      "message": "Suggest `connectivity-bpf-utils-srcs`. After all that\u0027s what\u0027s inside.",
+      "parentUuid": "ddbc0729_5d248eb1",
       "range": {
         "startLine": 53,
         "startChar": 41,
