@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04a7e02d_2a499717",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-05T14:40:28Z",
+      "side": 1,
+      "message": "Do we already have other manager classes that take dependencies objects in their constructors?\n\nI\u0027m not sure this is a good idea since typically manager classes are returned by SystemServiceRegistry, which caches the service that is fetched. Additionally sInstance also caches the first ConnectivityManager that is created in a given classloader. If these caches are be populated with a ConnectivityManager that has the incorrect dependencies, then other ConnectivityManagers that are created later will have the same incorrect dependencies.",
+      "range": {
+        "startLine": 950,
+        "startChar": 24,
+        "endLine": 950,
+        "endChar": 36
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e421ccf2_a6c963bf",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6190,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-05T14:40:28Z",
+      "side": 1,
+      "message": "This is technically true, but in practice, saying @RequiresPermission(MAINLINE_NETWORK_STACK) would be correct enough to be useful.",
+      "range": {
+        "startLine": 6190,
+        "startChar": 7,
+        "endLine": 6190,
+        "endChar": 66
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fc86172_a97ad988",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6198,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-05T14:40:28Z",
+      "side": 1,
+      "message": "Given that we already have a method isUidNetworkingBlocked which does pretty much the same thing as this one does, we should probably call this isUidNetworkingBlocked as well.",
+      "range": {
+        "startLine": 6198,
+        "startChar": 19,
+        "endLine": 6198,
+        "endChar": 54
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c64b853b_fdbfa305",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6200,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-05T14:40:28Z",
+      "side": 1,
+      "message": "The javadoc should probably say what exception is thrown if the read fails or the map cannot be opened.",
+      "range": {
+        "startLine": 6200,
+        "startChar": 67,
+        "endLine": 6200,
+        "endChar": 68
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974a9ccc_4ab5b490",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6205,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-05T14:40:28Z",
+      "side": 1,
+      "message": "I think this is more expensive than it needs to be. getUidRule fetches the bitmap of all the rules from the map, but then it ORs them with the requested rule. This loop will call it once per enabled firewall chain, i.e., up to 8 times. Instead we should just get the rule bitmap once, OR it with the bitmap of enabled chains, and operate on the resulting bitmap.",
+      "range": {
+        "startLine": 6205,
+        "startChar": 23,
+        "endLine": 6205,
+        "endChar": 33
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f86e364_f6d168b9",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6211,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-05T14:40:28Z",
+      "side": 1,
+      "message": "Is this information available in the maps?",
+      "range": {
+        "startLine": 6210,
+        "startChar": 46,
+        "endLine": 6211,
+        "endChar": 31
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
