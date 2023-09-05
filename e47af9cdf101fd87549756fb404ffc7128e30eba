@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8c83315_503ba710",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-05T07:46:30Z",
+      "side": 1,
+      "message": "Not for this commit. Ensuring lock is applied to each usage is good. But other tests that use test network do not need to do such synchronization. I wonder the required modification is to ensure shell permission will not be dropped before finishing all verification.",
+      "range": {
+        "startLine": 184,
+        "startChar": 8,
+        "endLine": 184,
+        "endChar": 53
+      },
+      "revId": "e47af9cdf101fd87549756fb404ffc7128e30eba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
