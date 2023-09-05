@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39316502_9d4303c8",
+        "filename": "common/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-05T10:35:23Z",
+      "side": 1,
+      "message": "Done with comments in the Android.bp accordingly.\nBut didn\u0027t add comment to visibility section,\ngiven that callers simply won\u0027t get build pass if they didn\u0027t have the artifact statically linked to their target.\nReopen if it does not work for you.",
+      "parentUuid": "d5d4dd3d_df98badf",
+      "range": {
+        "startLine": 38,
+        "startChar": 35,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "aaa8df8917b3a6e24508cd84f0ea927dd83f74df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3dab9d1_0f57e743",
@@ -157,6 +181,30 @@
       "side": 1,
       "message": "Or you could name it `connectivity-net-bpf-utils-src-configuration` or something.\n\nBut if you follow the previous recommendation though, you\u0027ll have only one lib, so you won\u0027t need these defaults and the problem disppears completely anyway",
       "parentUuid": "08ee1f3a_4bf68f22",
+      "range": {
+        "startLine": 53,
+        "startChar": 41,
+        "endLine": 53,
+        "endChar": 49
+      },
+      "revId": "aaa8df8917b3a6e24508cd84f0ea927dd83f74df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df800fca_977ac9fd",
+        "filename": "common/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-05T10:35:23Z",
+      "side": 1,
+      "message": "Removed, thanks.",
+      "parentUuid": "e0d73388_20310735",
       "range": {
         "startLine": 53,
         "startChar": 41,
