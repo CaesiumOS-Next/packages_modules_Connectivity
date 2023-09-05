@@ -339,18 +339,31 @@ public class MdnsRecordRepository {
     }
 
     private MdnsProber.ProbingInfo makeProbingInfo(int serviceId,
-            @NonNull MdnsServiceRecord srvRecord) {
+            @NonNull List<MdnsRecord> records) {
         final List<MdnsRecord> probingRecords = new ArrayList<>();
         // Probe with cacheFlush cleared; it is set when announcing, as it was verified unique:
         // RFC6762 10.2
-        probingRecords.add(new MdnsServiceRecord(srvRecord.getName(),
-                0L /* receiptTimeMillis */,
-                false /* cacheFlush */,
-                srvRecord.getTtl(),
-                srvRecord.getServicePriority(), srvRecord.getServiceWeight(),
-                srvRecord.getServicePort(),
-                srvRecord.getServiceHost()));
-
+        for (MdnsRecord record : records) {
+            if (record instanceof MdnsInetAddressRecord) {
+                final MdnsInetAddressRecord inetAddressRecord = (MdnsInetAddressRecord) record;
+                probingRecords.add(new MdnsInetAddressRecord(inetAddressRecord.getName(),
+                        0L /* receiptTimeMillis */,
+                        false /* cacheFlush */,
+                        inetAddressRecord.getTtl(),
+                        inetAddressRecord.getInet4Address() == null
+                                ? inetAddressRecord.getInet6Address()
+                                : inetAddressRecord.getInet4Address()));
+            } else if (record instanceof MdnsServiceRecord) {
+                final MdnsServiceRecord srvRecord = (MdnsServiceRecord) record;
+                probingRecords.add(new MdnsServiceRecord(srvRecord.getName(),
+                        0L /* receiptTimeMillis */,
+                        false /* cacheFlush */,
+                        srvRecord.getTtl(),
+                        srvRecord.getServicePriority(), srvRecord.getServiceWeight(),
+                        srvRecord.getServicePort(),
+                        srvRecord.getServiceHost()));
+            }
+        }
         return new MdnsProber.ProbingInfo(serviceId, probingRecords);
     }
 
@@ -384,7 +397,7 @@ public class MdnsRecordRepository {
                 r -> new MdnsPointerRecord(
                         r.record.getName(),
                         0L /* receiptTimeMillis */,
-                        true /* cacheFlush */,
+                        false /* cacheFlush */,
                         0L /* ttlMillis */,
                         r.record.getPointer()));
 
@@ -797,7 +810,14 @@ public class MdnsRecordRepository {
         if (registration == null) return null;
 
         registration.setProbing(true);
-        return makeProbingInfo(serviceId, registration.srvRecord.record);
+        final List<MdnsRecord> records = new ArrayList<>();
+        records.add(registration.srvRecord.record);
+        for (RecordInfo<?> record : mGeneralRecords) {
+            if (record.record instanceof MdnsInetAddressRecord) {
+                records.add(record.record);
+            }
+        }
+        return makeProbingInfo(serviceId, records);
     }
 
     /**
@@ -833,7 +853,14 @@ public class MdnsRecordRepository {
         final ServiceRegistration newService = new ServiceRegistration(
                 mDeviceHostname, newInfo, existing.subtype);
         mServices.put(serviceId, newService);
-        return makeProbingInfo(serviceId, newService.srvRecord.record);
+        final List<MdnsRecord> records = new ArrayList<>();
+        records.add(newService.srvRecord.record);
+        for (RecordInfo<?> record : mGeneralRecords) {
+            if (record.record instanceof MdnsInetAddressRecord) {
+                records.add(record.record);
+            }
+        }
+        return makeProbingInfo(serviceId, records);
     }
 
     /**
