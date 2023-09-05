@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60dcb77c_0c2ca518",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2352,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-09-05T12:24:42Z",
+      "side": 1,
+      "message": "Is this sentence not finished yet?",
+      "range": {
+        "startLine": 2351,
+        "startChar": 83,
+        "endLine": 2352,
+        "endChar": 13
+      },
+      "revId": "2ac33583cdb82eba1598d0ad88828d1a3d3cc14e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9026c838_0b1a754f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-09-05T12:24:42Z",
+      "side": 1,
+      "message": "It\u0027s not clear to me why we add the value millisPerSecond / 2 here?",
+      "range": {
+        "startLine": 2409,
+        "startChar": 54,
+        "endLine": 2409,
+        "endChar": 73
+      },
+      "revId": "2ac33583cdb82eba1598d0ad88828d1a3d3cc14e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "178c8fce_10b2b3e2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2424,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-09-05T12:24:42Z",
+      "side": 1,
+      "message": "According to the description of mAsUid as https://screenshot.googleplex.com/85Smx7aNfXbtNEf, \nI feel like the following is correct, or am I wrong?\n\nif (Process.SYSTEM_UID \u003d\u003d nri.mAsUid) {\n                type \u003d RequestType.RT_SYSTEM_ON_BEHALF_OF_APP.getNumber();\n            } else if (Process.SYSTEM_UID \u003d\u003d nri.mUid) {\n                type \u003d RequestType.RT_SYSTEM.getNumber();",
+      "range": {
+        "startLine": 2421,
+        "startChar": 12,
+        "endLine": 2424,
+        "endChar": 74
+      },
+      "revId": "2ac33583cdb82eba1598d0ad88828d1a3d3cc14e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
