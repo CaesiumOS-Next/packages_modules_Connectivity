@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9426033_c8d5d616",
+        "filename": "Cronet/tools/import/copy.bara.sky",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-09-05T21:26:12Z",
+      "side": 1,
+      "message": "can you keep this list sorted alphabetically?",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 42
+      },
+      "revId": "5e3cfc0fb85f28c2f173339475c528385fece26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
