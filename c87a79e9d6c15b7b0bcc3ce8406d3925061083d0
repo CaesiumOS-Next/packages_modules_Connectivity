@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2702fca_e800f26e",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-05T07:43:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcd38d49_baa0a385",
+      "range": {
+        "startLine": 80,
+        "startChar": 28,
+        "endLine": 80,
+        "endChar": 47
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00ff26e6_ac0dc280",
@@ -60,6 +84,30 @@
       "writtenOn": "2023-09-05T06:05:12Z",
       "side": 1,
       "message": "Please stop this thread on the end of the tests. Otherwise, it will be a leakage.",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 22
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47fdb22a_e6abc13c",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-05T07:43:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00ff26e6_ac0dc280",
       "range": {
         "startLine": 115,
         "startChar": 8,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b34123ef_7c34e7d6",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-05T07:43:55Z",
+      "side": 1,
+      "message": "Done, moved all the verifications since it is all part of init.",
+      "parentUuid": "9fd891c2_1a20cff4",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 34
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f407c56_8b4d23c1",
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca157c8f_70ff1cd0",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-05T07:43:55Z",
+      "side": 1,
+      "message": "Acknowledged, for now, reset() is not in the existing coverage. So I think it can be in another commit.",
+      "parentUuid": "6f407c56_8b4d23c1",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 141,
+        "endChar": 28
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74b6ef9b_979ef647",
@@ -129,6 +225,30 @@
       "writtenOn": "2023-09-05T06:05:12Z",
       "side": 1,
       "message": "Is this intended to use an incorrect name? rmnet0?",
+      "range": {
+        "startLine": 166,
+        "startChar": 29,
+        "endLine": 166,
+        "endChar": 35
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "503d3b62_47785539",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-05T07:43:55Z",
+      "side": 1,
+      "message": "Thanks for catching it. it was a typo.",
+      "parentUuid": "74b6ef9b_979ef647",
       "range": {
         "startLine": 166,
         "startChar": 29,
@@ -164,6 +284,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6fa8bb7b_1c9097af",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-05T07:43:55Z",
+      "side": 1,
+      "message": "Acknowledged, note this test was moved to follow up commit since it is part of the coverage in testLegacyLockdownVpn.",
+      "parentUuid": "2fdd84e4_8a8552dd",
+      "range": {
+        "startLine": 176,
+        "startChar": 16,
+        "endLine": 176,
+        "endChar": 56
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6ac9537_e986ec27",
         "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
         "patchSetId": 1
@@ -175,6 +319,30 @@
       "writtenOn": "2023-09-05T06:05:12Z",
       "side": 1,
       "message": "Nit: testSystemDefaultLost   since there is another VPN callback. It\u0027s not clear which network lost is verified here.",
+      "range": {
+        "startLine": 195,
+        "startChar": 16,
+        "endLine": 195,
+        "endChar": 26
+      },
+      "revId": "c87a79e9d6c15b7b0bcc3ce8406d3925061083d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "928bbc1a_670aa236",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-05T07:43:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6ac9537_e986ec27",
       "range": {
         "startLine": 195,
         "startChar": 16,
