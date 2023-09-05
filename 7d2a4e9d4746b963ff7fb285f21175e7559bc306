@@ -46,6 +46,30 @@
       },
       "revId": "7d2a4e9d4746b963ff7fb285f21175e7559bc306",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f44cf241_470d4066",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-05T04:21:50Z",
+      "side": 1,
+      "message": "Nit: I think we can delete this entirely by making ConnectivityService#dumpTrafficController print \"TrafficController\" (or BpfNetMaps#dump) before it dumps the BPF maps?\n\nI suppose maybe there\u0027s no need to do that since all of TrafficController.cpp can be deleted as soon as Motomu\u0027s switch to java BPF maps ships.",
+      "parentUuid": "e703d2e6_96a41682",
+      "range": {
+        "startLine": 584,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 36
+      },
+      "revId": "7d2a4e9d4746b963ff7fb285f21175e7559bc306",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
