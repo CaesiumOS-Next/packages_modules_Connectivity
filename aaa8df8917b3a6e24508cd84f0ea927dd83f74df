@@ -141,6 +141,30 @@
       },
       "revId": "aaa8df8917b3a6e24508cd84f0ea927dd83f74df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0d73388_20310735",
+        "filename": "common/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-05T09:47:58Z",
+      "side": 1,
+      "message": "Or you could name it `connectivity-net-bpf-utils-src-configuration` or something.\n\nBut if you follow the previous recommendation though, you\u0027ll have only one lib, so you won\u0027t need these defaults and the problem disppears completely anyway",
+      "parentUuid": "08ee1f3a_4bf68f22",
+      "range": {
+        "startLine": 53,
+        "startChar": 41,
+        "endLine": 53,
+        "endChar": 49
+      },
+      "revId": "aaa8df8917b3a6e24508cd84f0ea927dd83f74df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
