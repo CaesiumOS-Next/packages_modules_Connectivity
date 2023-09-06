@@ -302,6 +302,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "542586c3_35274a95",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 6184,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T12:27:10Z",
+      "side": 1,
+      "message": "Maybe you can try the suggestion I made in chat, and make NPMS enable/disable datasaver by calling into a ConnectivityManager API instead of calling netd directly? CM can just call into CS, which will call into BpfNetMaps, which can write to a BPF map whether data saver is enabled or disabled. This doesn\u0027t even need to be a new map if we don\u0027t want to create one, it could just be an extra bit in BpfConfig.\n\nThat obviously needs a platform change, but it\u0027s not racy and it will make it possible to move data saver entirely to the mainline code in the future.",
+      "parentUuid": "1d218c58_1749df41",
+      "range": {
+        "startLine": 6183,
+        "startChar": 75,
+        "endLine": 6184,
+        "endChar": 32
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3b41692_76ade72d",
         "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
         "patchSetId": 10
