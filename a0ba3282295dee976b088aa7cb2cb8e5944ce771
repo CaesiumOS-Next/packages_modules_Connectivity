@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fe639285_fdfe6bfb",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T10:09:56Z",
+      "side": 1,
+      "message": "What happens if another caller removes the key for UID while this code is running? I don\u0027t see any locks here. Also, isn\u0027t this two syscalls when it could just be one? Seems like you could instead just do something like:\n\n    final UidOwnerValue value \u003d mUidOwnerMap.getValue(new S32(uid));\n    uidMatch \u003d (value !\u003d null) ? value.rule : 0L;",
+      "range": {
+        "startLine": 175,
+        "startChar": 48,
+        "endLine": 176,
+        "endChar": 39
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8cca618_a9de3c5a",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T10:09:56Z",
+      "side": 1,
+      "message": "Later where? Where is this information stored?\n\nBut actually, don\u0027t you already have this information, in uidRuleConfig?",
+      "range": {
+        "startLine": 184,
+        "startChar": 65,
+        "endLine": 184,
+        "endChar": 70
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "616d89c7_fd726dcf",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 6164,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T10:09:56Z",
+      "side": 1,
+      "message": "ServiceSpecificException, no?",
+      "range": {
+        "startLine": 6164,
+        "startChar": 15,
+        "endLine": 6164,
+        "endChar": 36
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd710338_4dc5eea8",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 10
@@ -42,6 +111,52 @@
         "startChar": 20,
         "endLine": 6178,
         "endChar": 38
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b179b5e_ffc68b13",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 6184,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T10:09:56Z",
+      "side": 1,
+      "message": "Checking penalty box and happy box should be simple, right? The information is already available to isUidBlockedByFirewallChains as other bits in |uidMatch|. so it should be easy to do just by passing the isNetworkMetered boolean down to isUidBlockedByFirewallChains.\n\nBut... what\u0027s the plan for data saver? At the moment it looks like only NetworkPolicyManagerService and netd know whether data saver is enabled or not. I\u0027m not sure where we would get this information from.",
+      "range": {
+        "startLine": 6183,
+        "startChar": 75,
+        "endLine": 6184,
+        "endChar": 32
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3b41692_76ade72d",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T10:09:56Z",
+      "side": 1,
+      "message": "Is it possible to check that the values match as well?",
+      "range": {
+        "startLine": 99,
+        "startChar": 14,
+        "endLine": 99,
+        "endChar": 18
       },
       "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
