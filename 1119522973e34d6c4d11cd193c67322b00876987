@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "399397b7_de83d172",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/ProcNetTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T06:56:15Z",
+      "side": 1,
+      "message": "Can you use an assumption instead of an if statement? Something like:\n\n    assumeTrue(SdkLevel.isAtLeastV());\n\nthat said... does SdkLevel even work at all here? This is hostside code. Don\u0027t you need to do something like check some property on mDevice?",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 36
+      },
+      "revId": "1119522973e34d6c4d11cd193c67322b00876987",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
