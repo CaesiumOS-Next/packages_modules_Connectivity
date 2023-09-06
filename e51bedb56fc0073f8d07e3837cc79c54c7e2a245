@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b542975_348546f7",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6198,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T08:57:06Z",
+      "side": 1,
+      "message": "I think it might be quite a while (potentially years) until BPF maps know enough about networks that this will be possible.\n\nAlso, I don\u0027t see how changing the method makes it easier to deprecate. It\u0027s definitely possible to have both methods be called the same, since the parameters are different.\n\nBTW, can this API take the same parameters as NetworkPolicyManager#isUidNetworkingBlocked? If not, then how will the caller know what to pass in for isDataSaverEnabled?",
+      "parentUuid": "f486c090_0445d220",
+      "range": {
+        "startLine": 6198,
+        "startChar": 19,
+        "endLine": 6198,
+        "endChar": 54
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c64b853b_fdbfa305",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 9
