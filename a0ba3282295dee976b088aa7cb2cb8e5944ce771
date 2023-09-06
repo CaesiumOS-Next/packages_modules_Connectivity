@@ -326,6 +326,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d07496c1_b65bce98",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 6184,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-06T15:51:35Z",
+      "side": 1,
+      "message": "This discussion is indeed interesting.\n\nHowever, I don\u0027t actually know what you\u0027re referring to.  Most of netd stuff predates me, and that\u0027s particularly true for the non-bpf stuff that I haven\u0027t spent a lot of time staring at.\n\nI\u0027m not sure what data saver is (besides the obvious thing derived from the name), nor how it works... since it seems like it\u0027s not bpf based, I\u0027m guessing it must be done via iptables rules?  What are the entry points to all this so I can go code spelunking?\n\nThere are no current plans wrt. data saver, mostly because I didn\u0027t know about it, maybe there should be... current plans are around moving wakeup notifications into bpf/mainline (netd\u0027s Idletimer + Wakeup Controllers).",
+      "parentUuid": "542586c3_35274a95",
+      "range": {
+        "startLine": 6183,
+        "startChar": 75,
+        "endLine": 6184,
+        "endChar": 32
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3b41692_76ade72d",
         "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
         "patchSetId": 10
