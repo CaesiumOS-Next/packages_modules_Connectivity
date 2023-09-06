@@ -22,6 +22,30 @@
       },
       "revId": "043bcd4537fd33c532e2d8dcf619e8f6495dd5ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee9f263c_57289a89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-06T06:18:04Z",
+      "side": 1,
+      "message": "Yes, the Change-Id of my udc-mainline-prod change ag/24632482 is the same as the Change-Id of this change.",
+      "parentUuid": "12c90095_de7fab64",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 52
+      },
+      "revId": "043bcd4537fd33c532e2d8dcf619e8f6495dd5ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
