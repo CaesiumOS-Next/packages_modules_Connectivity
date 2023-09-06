@@ -16,6 +16,9 @@
 
 package android.security.cts;
 
+import static org.junit.Assume.assumeTrue;
+
+import com.android.modules.utils.build.testing.DeviceSdkLevel;
 import com.android.tradefed.build.IBuildInfo;
 import com.android.tradefed.device.ITestDevice;
 import com.android.tradefed.testtype.DeviceTestCase;
@@ -171,6 +174,9 @@ public class ProcNetTest extends DeviceTestCase implements IBuildReceiver, IDevi
      * TODO: revisit this once a better CC algorithm like BBR2 is available.
      */
     public void testCongestionControl() throws Exception {
+        final DeviceSdkLevel dsl = new DeviceSdkLevel(mDevice);
+        assumeTrue(dsl.isDeviceAtLeastV());
+
         String path = "/proc/sys/net/ipv4/tcp_congestion_control";
         String value = mDevice.executeAdbCommand("shell", "cat", path).trim();
         assertEquals(value, "cubic");
