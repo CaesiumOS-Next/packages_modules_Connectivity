@@ -70,6 +70,23 @@
       },
       "revId": "043bcd4537fd33c532e2d8dcf619e8f6495dd5ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bc16d23_cc9fa853",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-06T08:10:38Z",
+      "side": 1,
+      "message": "Failures are unrelated:\ntestFontsScaleNonLinearly: known failure as per b/299065911",
+      "revId": "043bcd4537fd33c532e2d8dcf619e8f6495dd5ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
