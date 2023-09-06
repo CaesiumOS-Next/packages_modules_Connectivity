@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b63850d7_e5da85c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-06T21:36:35Z",
+      "side": 1,
+      "message": "failures in testFontsScaleNonLinearly\nand in\nNetworkStackTests(module-abi\u003dx86_64)\ncom.android.networkstack.com.android.server.connectivity\nNetworkMonitorTest\ntestProbeStatusChanged\n\nthe former I\u0027ve seen multiple times before,\nthe latter seems unrelated but hard to be 100% certain...",
+      "revId": "d70a33061e3d4256dd6765a03511309084cb002b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
