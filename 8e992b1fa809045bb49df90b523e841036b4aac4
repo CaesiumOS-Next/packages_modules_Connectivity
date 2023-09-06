@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7c5a9da_f9d6c636",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T14:14:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1c16d75_97599f5b",
+      "range": {
+        "startLine": 384,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 32
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76575c42_abe80bc1",
@@ -533,6 +557,30 @@
       "side": 1,
       "message": "Done, removed the log message.\n\nFor the removing of all \u0027if (!isInitialized()) return false;\u0027 checks in the shim, currently some of the calls from BpfCoordinator don\u0027t perform isUsingBpf check. But it probably won\u0027t cause any problem as all access to bpf map are wrapped by a try-catch. Add those missing isUsingBpf checks in BpfCoordinator and proceed?",
       "parentUuid": "2f7f72d6_dbb0dd76",
+      "range": {
+        "startLine": 608,
+        "startChar": 73,
+        "endLine": 608,
+        "endChar": 75
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3870bbbe_773075c8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T14:14:18Z",
+      "side": 1,
+      "message": "Yes, adding the missing isUsingBpf checks to BpfCoordinator and removing all isInitialized checks from the shim sounds like the right way forward.",
+      "parentUuid": "7892d1e5_f400a40e",
       "range": {
         "startLine": 608,
         "startChar": 73,
@@ -1156,6 +1204,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aaa25f3_1275f6d9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T14:14:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dd6b442b_2f9606a3",
+      "range": {
+        "startLine": 775,
+        "startChar": 0,
+        "endLine": 777,
+        "endChar": 9
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1e3e91a_49522f36",
@@ -1217,6 +1289,30 @@
       "side": 1,
       "message": "Found why it used LinkedHashMap in current code, because the test needs predictable order to verify when deleting Set with more than one member.",
       "parentUuid": "95f6b382_046107ab",
+      "range": {
+        "startLine": 2016,
+        "startChar": 13,
+        "endLine": 2016,
+        "endChar": 26
+      },
+      "revId": "8e992b1fa809045bb49df90b523e841036b4aac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f501f1ff_8f812909",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2016,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T14:14:18Z",
+      "side": 1,
+      "message": "Ack. Is the test fixed now?",
+      "parentUuid": "a8b6e65c_dbe760a9",
       "range": {
         "startLine": 2016,
         "startChar": 13,
