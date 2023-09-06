@@ -39,9 +39,11 @@ import android.annotation.SystemService;
 import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
 import android.compat.annotation.UnsupportedAppUsage;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityDiagnosticsManager.DataStallReport.DetectionMethod;
 import android.net.IpSecManager.UdpEncapsulationSocket;
 import android.net.SocketKeepalive.Callback;
@@ -94,6 +96,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Class that answers queries about the state of network connectivity. It also
@@ -6167,6 +6170,46 @@ public class ConnectivityManager {
         }
     }
 
+    private static final Object sDataSaverStatusTrackerLock = new Object();
+
+    @GuardedBy("sDataSaverListenerLock")
+    @Nullable
+    private static DataSaverStatusTracker sDataSaverStatusTracker;
+    static class DataSaverStatusTracker extends BroadcastReceiver {
+        private final NetworkPolicyManager mNpm;
+        // The value updates on the caller's binder thread or UI thread.
+        private final AtomicBoolean mIsDataSaverEnabled;
+
+        DataSaverStatusTracker(final Context context) {
+            mNpm = context.getSystemService(NetworkPolicyManager.class);
+            final IntentFilter filter = new IntentFilter(ACTION_RESTRICT_BACKGROUND_CHANGED);
+            context.registerReceiver(this, filter);
+            mIsDataSaverEnabled = new AtomicBoolean();
+            // FIXME: With lock held, do not query data saver status which needs IPC.
+            updateDataSaverEnabled();
+        }
+
+        // Runs on caller's UI thread.
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(ACTION_RESTRICT_BACKGROUND_CHANGED)) {
+                updateDataSaverEnabled();
+            } else {
+                throw new IllegalStateException("Unexpected intent " + intent);
+            }
+        }
+
+        public boolean getDataSaverEnabled() {
+            return mIsDataSaverEnabled.get();
+        }
+
+        private void updateDataSaverEnabled() {
+            final int dataSaverForCallerUid = mNpm.getRestrictBackgroundStatus(
+                    Binder.getCallingUid());
+            mIsDataSaverEnabled.set(dataSaverForCallerUid != RESTRICT_BACKGROUND_STATUS_DISABLED);
+        }
+    }
+
     /**
      * Return whether the network is blocked for the given uid and conditions.
      *
@@ -6174,6 +6217,8 @@ public class ConnectivityManager {
      * maps. For use by the NetworkStack process only.
      *
      * @param uid The target uid.
+     * @param isNetworkMetered Whether the target network is metered.
+     *
      * @return True if the network is blocked. Otherwise, false.
      * @throws IllegalStateException if the map cannot be opened.
      * @throws ServiceSpecificException if the read fails.
@@ -6188,13 +6233,17 @@ public class ConnectivityManager {
     // @SystemApi(client = MODULE_LIBRARIES)
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)  // BPF maps were only mainlined in T
     @RequiresPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)
-    public boolean isUidNetworkingBlocked(int uid) {
+    public boolean isUidNetworkingBlocked(int uid, boolean isNetworkMetered) {
         final BpfNetMapsReader reader = BpfNetMapsReader.getInstance();
 
-        return reader.isUidBlockedByFirewallChains(uid);
-
-        // TODO: If isNetworkMetered is true, check the data saver switch, penalty box
-        //  and happy box rules.
+        final boolean isDataSaverEnabled;
+        synchronized (sDataSaverStatusTrackerLock) {
+            if (sDataSaverStatusTracker == null) {
+                sDataSaverStatusTracker = new DataSaverStatusTracker(mContext);
+            }
+            isDataSaverEnabled = sDataSaverStatusTracker.getDataSaverEnabled();
+        }
+        return reader.isUidNetworkingBlocked(uid, isNetworkMetered, isDataSaverEnabled);
     }
 
     /** @hide */
