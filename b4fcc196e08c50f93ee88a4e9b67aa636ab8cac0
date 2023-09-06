@@ -3,6 +3,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15a8e4dc_b725132e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T09:36:08Z",
+      "side": 1,
+      "message": "I don\u0027t think watch should be in parentheses here because this CL is entirely about watches. I think the summary can be \"Don\u0027t run the VPN tests on watches.\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 60,
+        "endLine": 7,
+        "endChar": 65
+      },
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a297e7c1_ed51304e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T09:36:08Z",
+      "side": 1,
+      "message": "I think we need more detail here explaining why this change is correct and why we are making it.\n\nIf I understand correctly, what you\u0027re saying is:\n- Watches already don\u0027t support VPN apps.\n- The VpnService CTS tests already don\u0027t verify the VpnService API on watches\n- The tests for VpnManager VPNs do run on watches, but there isn\u0027t actually a way to start a VpnManager VPN on a watch because there is no way to display the consent dialog to the user.\n- Because there is no way to start a VPN app on a watch, there\u0027s no point requiring the tests to pass.\n- Disabling the tests allows watches to disable the VPN service, reducing startup time and memory usage.\n\nIs that what you\u0027re saying? If so, please add that to the commit message (ensure that the facts are correct first, of course).",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 67
+      },
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c049b51_84f19cc2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T09:36:08Z",
+      "side": 1,
+      "message": "Add a Test: line. See the message that comes up if you upload this CL with \"repo upload\".",
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "67ecb5ff_c83d3826",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 22
@@ -32,6 +95,46 @@
       "side": 1,
       "message": "The goal is to disable the VpnManagerService (Which is added recently and was not on R). This will break the CTS tests if not disabled.",
       "parentUuid": "67ecb5ff_c83d3826",
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "572db6ae_870edce4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T09:36:08Z",
+      "side": 1,
+      "message": "se a",
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ab63feb_22dc7367",
+        "filename": "tests/cts/net/src/android/net/cts/VpnServiceTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T09:36:08Z",
+      "side": 1,
+      "message": "Can you put these @Test annotations before @AppModeFull?",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 9
+      },
       "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
