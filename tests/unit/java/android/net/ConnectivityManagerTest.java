@@ -16,6 +16,10 @@
 
 package android.net;
 
+import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
+import static android.net.ConnectivityManager.RESTRICT_BACKGROUND_STATUS_DISABLED;
+import static android.net.ConnectivityManager.RESTRICT_BACKGROUND_STATUS_ENABLED;
+import static android.net.ConnectivityManager.RESTRICT_BACKGROUND_STATUS_WHITELISTED;
 import static android.net.ConnectivityManager.TYPE_NONE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_CBS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
@@ -39,6 +43,7 @@ import static android.net.NetworkRequest.Type.TRACK_SYSTEM_DEFAULT;
 
 import static com.android.testutils.MiscAsserts.assertThrows;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -51,6 +56,7 @@ import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.after;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
@@ -61,6 +67,8 @@ import static org.mockito.Mockito.when;
 
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.os.Build.VERSION_CODES;
@@ -95,6 +103,7 @@ public class ConnectivityManagerTest {
 
     @Mock Context mCtx;
     @Mock IConnectivityManager mService;
+    @Mock NetworkPolicyManager mNpm;
 
     @Before
     public void setUp() {
@@ -509,5 +518,47 @@ public class ConnectivityManagerTest {
 
         assertNull("ConnectivityManager weak reference still not null after " + attempts
                     + " attempts", ref.get());
+    }
+
+    @Test
+    public void testDataSaverStatusTracker() {
+        mockService(NetworkPolicyManager.class, Context.NETWORK_POLICY_SERVICE, mNpm);
+        doReturn(RESTRICT_BACKGROUND_STATUS_ENABLED).when(mNpm)
+                .getRestrictBackgroundStatus(anyInt());
+        final DataSaverStatusTracker tracker = new DataSaverStatusTracker(mCtx);
+        // Verify the data saver status is correct right after initialization.
+        assertTrue(tracker.getDataSaverEnabled());
+
+        // Verify the tracker register receiver with expected intent filter.
+        final ArgumentCaptor<IntentFilter> intentFilterCaptor =
+                ArgumentCaptor.forClass(IntentFilter.class);
+        verify(mCtx).registerReceiver(any(), intentFilterCaptor.capture());
+        assertEquals(ACTION_RESTRICT_BACKGROUND_CHANGED,
+                intentFilterCaptor.getValue().getAction(0));
+
+        // Mock data saver status changed event and verify the tracker tracks the
+        // status accordingly.
+        doReturn(RESTRICT_BACKGROUND_STATUS_DISABLED).when(mNpm)
+                .getRestrictBackgroundStatus(anyInt());
+        tracker.onReceive(mCtx, new Intent(ACTION_RESTRICT_BACKGROUND_CHANGED));
+        assertFalse(tracker.getDataSaverEnabled());
+
+        doReturn(RESTRICT_BACKGROUND_STATUS_WHITELISTED).when(mNpm)
+                .getRestrictBackgroundStatus(anyInt());
+        tracker.onReceive(mCtx, new Intent(ACTION_RESTRICT_BACKGROUND_CHANGED));
+        assertTrue(tracker.getDataSaverEnabled());
+    }
+
+    private <T> void mockService(Class<T> clazz, String name, T service) {
+        doReturn(service).when(mCtx).getSystemService(name);
+        doReturn(name).when(mCtx).getSystemServiceName(clazz);
+
+        // If the test suite uses the inline mock maker library, such as for coverage tests,
+        // then the final version of getSystemService must also be mocked, as the real
+        // method will not be called by the test and null object is returned since no mock.
+        // Otherwise, mocking a final method will fail the test.
+        if (mCtx.getSystemService(clazz) == null) {
+            doReturn(service).when(mCtx).getSystemService(clazz);
+        }
     }
 }
