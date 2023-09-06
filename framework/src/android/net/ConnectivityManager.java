@@ -6199,13 +6199,15 @@ public class ConnectivityManager {
     }
 
     /**
-     * Return whether the network is blocked for the given uid.
+     * Return whether the network is blocked for the given uid and metered condition.
      *
      * Similar to {@link NetworkPolicyManager#isUidNetworkingBlocked}, but directly reads the BPF
      * maps and therefore considerably faster. For use by the NetworkStack process only.
      *
      * @param uid The target uid.
-     * @return True if all networking is blocked. Otherwise, false.
+     * @param isNetworkMetered Whether the target network is metered.
+     *
+     * @return True if all networking with the given condition is blocked. Otherwise, false.
      * @throws IllegalStateException if the map cannot be opened.
      * @throws ServiceSpecificException if the read fails.
      * @hide
@@ -6219,13 +6221,16 @@ public class ConnectivityManager {
     // @SystemApi(client = MODULE_LIBRARIES)
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)  // BPF maps were only mainlined in T
     @RequiresPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)
-    public boolean isUidNetworkingBlocked(int uid) {
+    public boolean isUidNetworkingBlocked(int uid, boolean isNetworkMetered) {
         final BpfNetMapsReader reader = BpfNetMapsReader.getInstance();
 
-        return reader.isUidBlockedByFirewallChains(uid);
+        final boolean isDataSaverEnabled;
+        // TODO: For U-QPR3+ devices, get data saver status from bpf configuration map directly.
+        final DataSaverStatusTracker dataSaverStatusTracker =
+                DataSaverStatusTracker.getInstance(mContext);
+        isDataSaverEnabled = dataSaverStatusTracker.getDataSaverEnabled();
 
-        // TODO: If isNetworkMetered is true, check the data saver switch, penalty box
-        //  and happy box rules.
+        return reader.isUidNetworkingBlocked(uid, isNetworkMetered, isDataSaverEnabled);
     }
 
     /** @hide */
