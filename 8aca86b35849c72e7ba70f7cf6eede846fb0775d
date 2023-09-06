@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20269f48_489717d4",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "Can we remove this method?\n\nIt\u0027s only called by BpfCoordinator#updateAllIpv6Rules, but that method is called only from this class, so we can pass mInterfaceParams in as a parameter to that method instead of having BpfCoordinator call back into this class.\n\nThat will make the code easier to follow.",
+      "range": {
+        "startLine": 387,
+        "startChar": 27,
+        "endLine": 387,
+        "endChar": 45
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54548ea4_f50db5a4",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "This if isn\u0027t useful because if upstreamIfIndex \u003d\u003d NO_UPSTREAM, then addUpstreamNameToLookupTable will do nothing. Remove the if, and rename addUpstreamToLookupTable to maybeAddUpstreamToLookupTable? The \"maybe\" makes it clear that the mapping is not always added, but is only added if certain conditions are true.",
+      "range": {
+        "startLine": 787,
+        "startChar": 8,
+        "endLine": 787,
+        "endChar": 45
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a954e1d_db1f1f9e",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 13
@@ -19,6 +65,305 @@
         "startChar": 81,
         "endLine": 236,
         "endChar": 82
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3552667_36bb55d0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "upstream rule",
+      "range": {
+        "startLine": 264,
+        "startChar": 53,
+        "endLine": 264,
+        "endChar": 57
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5245e1c2_9715fdf0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "upstream rules",
+      "range": {
+        "startLine": 265,
+        "startChar": 34,
+        "endLine": 265,
+        "endChar": 39
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b21acd7_c0bfbbf2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "upstream rule",
+      "range": {
+        "startLine": 265,
+        "startChar": 14,
+        "endLine": 265,
+        "endChar": 18
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e740feb5_e23ff632",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "It can\u0027t happen that upstreamIfindex \u003d\u003d 0 here, right? Calling maybeClearLimit(0) probably wouldn\u0027t behave very well. If it can\u0027t happen, would suggest adding a comment explaining why.",
+      "range": {
+        "startLine": 680,
+        "startChar": 24,
+        "endLine": 680,
+        "endChar": 39
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ef32fac_2b5ef8e6",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "IPv6 rules",
+      "range": {
+        "startLine": 1151,
+        "startChar": 44,
+        "endLine": 1151,
+        "endChar": 49
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "604c3450_45aeec42",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "When this happens, upstream rules are cleared and downstream rules are re-applied with an upstream of 0, right? Might want to add asserts to check that.",
+      "range": {
+        "startLine": 1152,
+        "startChar": 8,
+        "endLine": 1152,
+        "endChar": 39
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "919699e9_b293f15e",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "When we receive this delNeigh and the one above, rules are deleted, right? If so, would be good to call verifyTetherOffloadRuleRemove just under here.",
+      "range": {
+        "startLine": 1154,
+        "startChar": 8,
+        "endLine": 1154,
+        "endChar": 20
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ac82f08_d264febd",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "The existing rules with an upstream of NO_UPSTREAM are reapplied.",
+      "range": {
+        "startLine": 1164,
+        "startChar": 80,
+        "endLine": 1164,
+        "endChar": 81
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18debf30_175caf12",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "upstream rules",
+      "range": {
+        "startLine": 1186,
+        "startChar": 55,
+        "endLine": 1186,
+        "endChar": 60
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f27b36ca_3c6e426d",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "and downstream rules are reapplied.",
+      "range": {
+        "startLine": 1186,
+        "startChar": 70,
+        "endLine": 1186,
+        "endChar": 71
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd5c4092_553a7919",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "downstream",
+      "range": {
+        "startLine": 1200,
+        "startChar": 20,
+        "endLine": 1200,
+        "endChar": 24
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71f2866d_66266499",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "Looks like the ordering changed here. Could this create a problem with the netd implementation that runs on R?\n\nAlso - looks like the new code first gets the stats and then removes the rule. But while we\u0027re fetching the stats, the rule could still be forwarding traffic. So the stats could be incorrect. Is there something we can do about this?",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 806,
+        "endChar": 34
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae1bf30a_f2c2a9f0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T15:26:17Z",
+      "side": 1,
+      "message": "Is it correct to send the quota even if there are no downstream rules? I\u0027d guess the new implementation will be fine. Will the old netd implementation behave correctly as well?",
+      "range": {
+        "startLine": 1107,
+        "startChar": 65,
+        "endLine": 1107,
+        "endChar": 88
       },
       "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
