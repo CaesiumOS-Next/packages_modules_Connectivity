@@ -126,6 +126,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo.DetailedState;
 import android.net.RouteInfo;
 import android.net.TelephonyNetworkSpecifier;
+import android.net.UidRange;
 import android.net.UidRangeParcel;
 import android.net.VpnManager;
 import android.net.VpnProfileState;
@@ -785,6 +786,116 @@ public class VpnTest extends VpnTestBase {
         vpn.prepare(null, VpnConfig.LEGACY_VPN, VpnManager.TYPE_VPN_SERVICE);
         order.verify(mConnectivityManager).setRequireVpnForUids(false, toRanges(exceptPkg0));
         order.verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(entireUser));
+    }
+
+    @Test
+    public void testOnUserAddedAndRemoved_restrictedUser() throws Exception {
+        final Vpn vpn = createVpn(PRIMARY_USER.id);
+        final Set<Range<Integer>> initialRange = rangeSet(PRIMARY_USER_RANGE);
+        // Set an initial Uid range and mock the network agent
+        vpn.mNetworkCapabilities.setUids(initialRange);
+        vpn.mNetworkAgent = mMockNetworkAgent;
+        vpn.mConfig = new VpnConfig();
+
+        // Add the restricted user
+        setMockedUsers(PRIMARY_USER, RESTRICTED_PROFILE_A);
+        vpn.onUserAdded(RESTRICTED_PROFILE_A.id);
+        // Expect restricted user range to be added to the NetworkCapabilities.
+        final Set<Range<Integer>> expectRestrictedRange =
+                rangeSet(PRIMARY_USER_RANGE, uidRangeForUser(RESTRICTED_PROFILE_A.id));
+        assertEquals(expectRestrictedRange, vpn.mNetworkCapabilities.getUids());
+        verify(mMockNetworkAgent).doSendNetworkCapabilities(
+                argThat(nc -> expectRestrictedRange.equals(nc.getUids())));
+
+        reset(mMockNetworkAgent);
+        // Remove the restricted user
+        vpn.onUserRemoved(RESTRICTED_PROFILE_A.id);
+        // Expect restricted user range to be removed from the NetworkCapabilities.
+        assertEquals(initialRange, vpn.mNetworkCapabilities.getUids());
+        verify(mMockNetworkAgent).doSendNetworkCapabilities(
+                argThat(nc -> initialRange.equals(nc.getUids())));
+    }
+
+    @Test
+    public void testOnUserAddedAndRemoved_restrictedUserLockdown() throws Exception {
+        final UidRangeParcel[] primaryUserRangeParcel = new UidRangeParcel[] {
+                new UidRangeParcel(PRIMARY_USER_RANGE.getLower(), PRIMARY_USER_RANGE.getUpper())};
+        final Range<Integer> restrictedUserRange = uidRangeForUser(RESTRICTED_PROFILE_A.id);
+        final UidRangeParcel[] restrictedUserRangeParcel = new UidRangeParcel[] {
+                new UidRangeParcel(restrictedUserRange.getLower(), restrictedUserRange.getUpper())};
+        final Vpn vpn = createVpn(PRIMARY_USER.id);
+
+        // Set lockdown calls setRequireVpnForUids
+        vpn.setLockdown(true);
+        verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(primaryUserRangeParcel));
+
+        // Add the restricted user
+        doReturn(true).when(mUserManager).canHaveRestrictedProfile();
+        setMockedUsers(PRIMARY_USER, RESTRICTED_PROFILE_A);
+        vpn.onUserAdded(RESTRICTED_PROFILE_A.id);
+
+        // Expect restricted user range to be added.
+        verify(mConnectivityManager).setRequireVpnForUids(true,
+                toRanges(restrictedUserRangeParcel));
+
+        reset(mMockNetworkAgent);
+        // Mark as partial indicates that the user is removed, mUserManager.getAliveUsers() does not
+        // return the restricted user but it is still returned in mUserManager.getUserInfo().
+        RESTRICTED_PROFILE_A.partial = true;
+        // Remove the restricted user
+        vpn.onUserRemoved(RESTRICTED_PROFILE_A.id);
+        verify(mConnectivityManager).setRequireVpnForUids(false,
+                toRanges(restrictedUserRangeParcel));
+        // reset to avoid affecting other tests since RESTRICTED_PROFILE_A is static.
+        RESTRICTED_PROFILE_A.partial = false;
+    }
+    private UidRangeParcel[] toUidRangeStableParcels(final @NonNull Set<UidRange> ranges) {
+        return ranges.stream().map(
+                r -> new UidRangeParcel(r.start, r.stop)).toArray(UidRangeParcel[]::new);
+    }
+    private List<Range<Integer>> uidRangesExcludingAppIds(
+            UserHandle user, List<Integer> excludedAppIds) {
+        final UidRange userUidRange = UidRange.createForUser(user);
+        final List<Integer> excludedUids = excludedAppIds.stream()
+                .map(appId -> user.getUid(appId)).toList();
+        final ArraySet<UidRange> excludedRanges = UidRangeUtils.convertListToUidRange(excludedUids);
+        final ArraySet<UidRange> finalRanges =
+                UidRangeUtils.removeRangeSetFromUidRange(userUidRange, excludedRanges);
+        return toRanges(toUidRangeStableParcels(finalRanges));
+    }
+
+    @Test
+    public void testOnUserAddedAndRemoved_restrictedUserAlwaysOn() throws Exception {
+        final Vpn vpn = createVpn(PRIMARY_USER.id);
+
+        // Set lockdown calls setRequireVpnForUids
+        assertTrue(vpn.setAlwaysOnPackage(PKGS[0], true, null));
+        final List<Integer> excludedUids = List.of(
+                PKG_UIDS[0], Process.toSdkSandboxUid(PKG_UIDS[0]));
+        final List<Range<Integer>> primaryRanges =
+                uidRangesExcludingAppIds(PRIMARY_USER.getUserHandle(), excludedUids);
+        verify(mConnectivityManager).setRequireVpnForUids(true, primaryRanges);
+
+        // Add the restricted user
+        doReturn(true).when(mUserManager).canHaveRestrictedProfile();
+        setMockedUsers(PRIMARY_USER, RESTRICTED_PROFILE_A);
+        vpn.onUserAdded(RESTRICTED_PROFILE_A.id);
+
+        final List<Range<Integer>> restrictedRanges =
+                uidRangesExcludingAppIds(RESTRICTED_PROFILE_A.getUserHandle(), excludedUids);
+        // Expect restricted user range to be added.
+        verify(mConnectivityManager).setRequireVpnForUids(true, restrictedRanges);
+
+        reset(mMockNetworkAgent);
+        // Mark as partial indicates that the user is removed, mUserManager.getAliveUsers() does not
+        // return the restricted user but it is still returned in mUserManager.getUserInfo().
+        RESTRICTED_PROFILE_A.partial = true;
+        // Remove the restricted user
+        vpn.onUserRemoved(RESTRICTED_PROFILE_A.id);
+        verify(mConnectivityManager).setRequireVpnForUids(false, restrictedRanges);
+
+        // reset to avoid affecting other tests since RESTRICTED_PROFILE_A is static.
+        RESTRICTED_PROFILE_A.partial = false;
     }
 
     @Test
