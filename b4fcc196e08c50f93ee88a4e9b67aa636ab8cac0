@@ -49,6 +49,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3a8df28_631df29a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1980340
+      },
+      "writtenOn": "2023-09-06T16:19:09Z",
+      "side": 1,
+      "message": "On the second point the vpnService cts tests do test the APIs but bypasses the consent part.",
+      "parentUuid": "a297e7c1_ed51304e",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 67
+      },
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "252df29d_ba914ce4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1980340
+      },
+      "writtenOn": "2023-09-06T16:19:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15a8e4dc_b725132e",
+      "range": {
+        "startLine": 7,
+        "startChar": 60,
+        "endLine": 7,
+        "endChar": 65
+      },
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c049b51_84f19cc2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 22
@@ -60,6 +108,24 @@
       "writtenOn": "2023-09-06T09:36:08Z",
       "side": 1,
       "message": "Add a Test: line. See the message that comes up if you upload this CL with \"repo upload\".",
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1194992_3cd8b9f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1980340
+      },
+      "writtenOn": "2023-09-06T16:19:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c049b51_84f19cc2",
       "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -116,6 +182,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c3690c_0ed1e9ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1980340
+      },
+      "writtenOn": "2023-09-06T16:19:09Z",
+      "side": 1,
+      "message": "resolving this one.",
+      "parentUuid": "cac07db9_28153ac0",
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ab63feb_22dc7367",
@@ -129,6 +213,30 @@
       "writtenOn": "2023-09-06T09:36:08Z",
       "side": 1,
       "message": "Can you put these @Test annotations before @AppModeFull?",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 9
+      },
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92fece8c_d02ba323",
+        "filename": "tests/cts/net/src/android/net/cts/VpnServiceTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1980340
+      },
+      "writtenOn": "2023-09-06T16:19:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ab63feb_22dc7367",
       "range": {
         "startLine": 64,
         "startChar": 4,
