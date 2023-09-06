@@ -16,6 +16,24 @@
       "message": "For a long time the VpnService CTS tests have been skipped on watches, so VpnService support support on watches is optional. That might be an argument for saying that these tests are optional as well.\n\nBut there\u0027s one thing I don\u0027t understand. The tests being disabled in this CL have existed for a long time. Why have they have never failed on wear devices before? How did released watches pass these tests? Is it the case that all released watches were released before this test was added to CTS?",
       "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cac07db9_28153ac0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1980340
+      },
+      "writtenOn": "2023-09-06T08:11:18Z",
+      "side": 1,
+      "message": "The goal is to disable the VpnManagerService (Which is added recently and was not on R). This will break the CTS tests if not disabled.",
+      "parentUuid": "67ecb5ff_c83d3826",
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
