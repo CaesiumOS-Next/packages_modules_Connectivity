@@ -19,6 +19,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec23ed60_78fdaef4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-06T07:04:45Z",
+      "side": 1,
+      "message": "How about this instead?\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2742375\n\n(untested)",
+      "revId": "1119522973e34d6c4d11cd193c67322b00876987",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "399397b7_de83d172",
