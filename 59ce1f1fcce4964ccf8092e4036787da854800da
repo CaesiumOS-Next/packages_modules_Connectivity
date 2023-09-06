@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6f95ae9_4b7149ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-06T02:58:17Z",
+      "side": 1,
+      "message": "LGTM but since this isn\u0027t a flake fix, I think Lorenzo should +1",
+      "revId": "59ce1f1fcce4964ccf8092e4036787da854800da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
