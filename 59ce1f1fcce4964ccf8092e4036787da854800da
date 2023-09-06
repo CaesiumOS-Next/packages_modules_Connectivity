@@ -16,6 +16,23 @@
       "message": "LGTM but since this isn\u0027t a flake fix, I think Lorenzo should +1",
       "revId": "59ce1f1fcce4964ccf8092e4036787da854800da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85b007b7_a1c90a87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T04:40:53Z",
+      "side": 1,
+      "message": "Verified on R device: atest CtsNetTestCasesLatestSdk:android.net.cts.BatteryStatsManagerTest#testReportNetworkInterfaceForTransports",
+      "revId": "59ce1f1fcce4964ccf8092e4036787da854800da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
