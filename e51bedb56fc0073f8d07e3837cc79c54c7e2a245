@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b7b968_3ba83312",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T08:29:00Z",
+      "side": 1,
+      "message": "Removed since it is not needed now.\nalso + @jchalard@google.com to have a look.",
+      "parentUuid": "04a7e02d_2a499717",
+      "range": {
+        "startLine": 950,
+        "startChar": 24,
+        "endLine": 950,
+        "endChar": 36
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e421ccf2_a6c963bf",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-05T14:40:28Z",
       "side": 1,
       "message": "This is technically true, but in practice, saying @RequiresPermission(MAINLINE_NETWORK_STACK) would be correct enough to be useful.",
+      "range": {
+        "startLine": 6190,
+        "startChar": 7,
+        "endLine": 6190,
+        "endChar": 66
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3649e7e8_532f6c13",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6190,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T08:29:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e421ccf2_a6c963bf",
       "range": {
         "startLine": 6190,
         "startChar": 7,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f486c090_0445d220",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6198,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T08:29:00Z",
+      "side": 1,
+      "message": "This is discussed in here:\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2732634/comment/2a98f444_1a850874/\n\nWhere we want this method to be easier to deprecate, given that once bpf maps have all information needed, the method could be replaced by something like\nint isUidNetworkingBlocked(int uid, int networkId)\nWDYT?",
+      "parentUuid": "2fc86172_a97ad988",
+      "range": {
+        "startLine": 6198,
+        "startChar": 19,
+        "endLine": 6198,
+        "endChar": 54
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c64b853b_fdbfa305",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 9
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-05T14:40:28Z",
       "side": 1,
       "message": "The javadoc should probably say what exception is thrown if the read fails or the map cannot be opened.",
+      "range": {
+        "startLine": 6200,
+        "startChar": 67,
+        "endLine": 6200,
+        "endChar": 68
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9824b3b_ecde9444",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6200,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T08:29:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c64b853b_fdbfa305",
       "range": {
         "startLine": 6200,
         "startChar": 67,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a0ccd24_04e4fbac",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6205,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T08:29:00Z",
+      "side": 1,
+      "message": "Done.\nSee if it works for you.",
+      "parentUuid": "974a9ccc_4ab5b490",
+      "range": {
+        "startLine": 6205,
+        "startChar": 23,
+        "endLine": 6205,
+        "endChar": 33
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f86e364_f6d168b9",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-09-05T14:40:28Z",
       "side": 1,
       "message": "Is this information available in the maps?",
+      "range": {
+        "startLine": 6210,
+        "startChar": 46,
+        "endLine": 6211,
+        "endChar": 31
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42f94a04_0355ccb6",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6211,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T08:29:00Z",
+      "side": 1,
+      "message": "No for data saver switch.\nyes for penalty box and happy box.",
+      "parentUuid": "6f86e364_f6d168b9",
       "range": {
         "startLine": 6210,
         "startChar": 46,
