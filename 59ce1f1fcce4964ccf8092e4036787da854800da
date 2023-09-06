@@ -33,6 +33,24 @@
       "message": "Verified on R device: atest CtsNetTestCasesLatestSdk:android.net.cts.BatteryStatsManagerTest#testReportNetworkInterfaceForTransports",
       "revId": "59ce1f1fcce4964ccf8092e4036787da854800da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23217849_1e9fd94f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T04:41:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b6f95ae9_4b7149ae",
+      "revId": "59ce1f1fcce4964ccf8092e4036787da854800da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
