@@ -94,6 +94,30 @@
       },
       "revId": "7d2a4e9d4746b963ff7fb285f21175e7559bc306",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb997322_b7037fbf",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-06T16:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4aa5bdab_cfec2eeb",
+      "range": {
+        "startLine": 584,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 36
+      },
+      "revId": "7d2a4e9d4746b963ff7fb285f21175e7559bc306",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
