@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b23ef5a_fd9f3078",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6198,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T12:17:18Z",
+      "side": 1,
+      "message": "1. Done. But immediately added back at aosp/2742874 , given that this CL is big already.\n\n2. This API cannot take the same parameters as NetworkPolicyManager#isUidNetworkingBlocked.\nBecause NPMS is the source of data saver switch on/off status.\nIt changes mUidState accordingly when it changes.\nSo NetworkPolicyManager#isUidNetworkingBlocked does not need such input from parameter.\nBut we don\u0027t have such information in bpf, so we can only know that from input.\nWe can learn that from ACTION_RESTRICT_BACKGROUND_CHANGED like Tethering did: https://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/Tethering.java;l\u003d1191?q\u003dACTION_RESTRICT_BACKGROUND_CHANGED\u0026ss\u003dandroid\n\nAnd call this api with that input.\n\nSee if it works for you.",
+      "parentUuid": "2b542975_348546f7",
+      "range": {
+        "startLine": 6198,
+        "startChar": 19,
+        "endLine": 6198,
+        "endChar": 54
+      },
+      "revId": "e51bedb56fc0073f8d07e3837cc79c54c7e2a245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c64b853b_fdbfa305",

@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8637963_faf7aebb",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T12:17:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe639285_fdfe6bfb",
+      "range": {
+        "startLine": 175,
+        "startChar": 48,
+        "endLine": 176,
+        "endChar": 39
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8cca618_a9de3c5a",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-09-06T10:09:56Z",
       "side": 1,
       "message": "Later where? Where is this information stored?\n\nBut actually, don\u0027t you already have this information, in uidRuleConfig?",
+      "range": {
+        "startLine": 184,
+        "startChar": 65,
+        "endLine": 184,
+        "endChar": 70
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2453d737_17a28672",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T12:17:18Z",
+      "side": 1,
+      "message": "Not exactly.\nThe uidRuleConfig also contains HAPPY_BOX_MATCH and PENALTY_BOX_MATCH,\nwhich only works if the network is metered.\nTry to make the comment more clear.\nSee if it works for you.",
+      "parentUuid": "b8cca618_a9de3c5a",
       "range": {
         "startLine": 184,
         "startChar": 65,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae24b134_facece8a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 6164,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T12:17:18Z",
+      "side": 1,
+      "message": "Revised.\nNot sure if this make senses.",
+      "parentUuid": "616d89c7_fd726dcf",
+      "range": {
+        "startLine": 6164,
+        "startChar": 15,
+        "endLine": 6164,
+        "endChar": 36
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd710338_4dc5eea8",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61338014_47abd990",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 6177,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T12:17:18Z",
+      "side": 1,
+      "message": "Removed, added back in aosp/2742874 in the same topic.",
+      "parentUuid": "dd710338_4dc5eea8",
+      "range": {
+        "startLine": 6177,
+        "startChar": 72,
+        "endLine": 6177,
+        "endChar": 88
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8900db4c_3ea04ae3",
@@ -123,6 +219,30 @@
       "writtenOn": "2023-09-06T08:57:06Z",
       "side": 1,
       "message": "Is this unused?",
+      "range": {
+        "startLine": 6178,
+        "startChar": 20,
+        "endLine": 6178,
+        "endChar": 38
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b1a6305_f4ea6a4f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 6178,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T12:17:18Z",
+      "side": 1,
+      "message": "Removed, added back in aosp/2742874 in the same topic.",
+      "parentUuid": "8900db4c_3ea04ae3",
       "range": {
         "startLine": 6178,
         "startChar": 20,
@@ -158,6 +278,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d218c58_1749df41",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 6184,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T12:17:18Z",
+      "side": 1,
+      "message": "1.Yes they are not hard but the CL is already too big. Done in aosp/2742874 See if it works for you.\n\n2. The plan is to listen to ACTION_RESTRICT_BACKGROUND_CHANGED.\nAs discussed offline this is racy.\nBut unlikely we have a better idea for short-term.\nAnd the impact for data stall detection is not significant.\nGiven that the callpath (NPMS -\u003e NMS -\u003e netd) are all platform code, we don\u0027t have a hook point to know the status.\nIn long term, for new devices, at least we can write that into a bpf map while writing to netd.\nOr we can make bw_data_saver hook to a bpf program that checks the map in order to control data saver status. + @maze@google.com to input whether we have on-going plan related to data saver or which way is more preferred.",
+      "parentUuid": "9b179b5e_ffc68b13",
+      "range": {
+        "startLine": 6183,
+        "startChar": 75,
+        "endLine": 6184,
+        "endChar": 32
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3b41692_76ade72d",
         "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
         "patchSetId": 10
@@ -169,6 +313,30 @@
       "writtenOn": "2023-09-06T10:09:56Z",
       "side": 1,
       "message": "Is it possible to check that the values match as well?",
+      "range": {
+        "startLine": 99,
+        "startChar": 14,
+        "endLine": 99,
+        "endChar": 18
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3719ca5_42ee14fb",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-06T12:17:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3b41692_76ade72d",
       "range": {
         "startLine": 99,
         "startChar": 14,
