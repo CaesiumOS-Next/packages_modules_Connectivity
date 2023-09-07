@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f493acab_5f8eed17",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:52Z",
+      "side": 1,
+      "message": "Please add a comment saying that exactly one of mAsyncSM or mSyncSM is non-null.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 43
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "897a279a_2f24b2fb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:52Z",
+      "side": 1,
+      "message": "Do you need to store this boolean ? It\u0027s exactly equivalent to `mAsyncSm !\u003d null`.",
+      "range": {
+        "startLine": 32,
+        "startChar": 26,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b9293f7_630d6775",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:52Z",
+      "side": 1,
+      "message": "Why though ? Anybody could use this I think.\n\nI understand it\u0027s meant only as a migration tool and therefore it\u0027s unlikely anybody else should use it, but I don\u0027t see a good reason to mention IpServer explicitly here. If you want to warn against using this class in new code, then I would instead add comments on the class itself saying it\u0027s meant as a tool for migrating between the state machines and that it\u0027s not meant for any new code.",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 82
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2ebc7d3_0cc1cff0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:52Z",
+      "side": 1,
+      "message": "Not sure what this English means – who creates what ?",
+      "range": {
+        "startLine": 46,
+        "startChar": 48,
+        "endLine": 46,
+        "endChar": 87
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5474d43_02da004b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:52Z",
+      "side": 1,
+      "message": "constructor",
+      "range": {
+        "startLine": 46,
+        "startChar": 20,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "271c19b2_fc923be1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:52Z",
+      "side": 1,
+      "message": "Maybe check that exactly one is null ? `if (!((async \u003d\u003d null) ^ (sync \u003d\u003d null))) throw IllegalArgumentException`\n\nBetter yet, have 2 constructors, one that takes only StateMachine and one that takes only SyncStateMachine",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e86099_a782f7f0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:52Z",
+      "side": 1,
+      "message": "Suggest adding some explanation of the constraints, e.g. this can\u0027t be called while processing a message because syncSM doesn\u0027t allow it",
+      "range": {
+        "startLine": 76,
+        "startChar": 33,
+        "endLine": 76,
+        "endChar": 34
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed4fd80a_27a6c8b6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:52Z",
+      "side": 1,
+      "message": "If it can only be used with async, then throw if using the sync state machine. Or if you want to do nothing, please document that instead.",
+      "range": {
+        "startLine": 121,
+        "startChar": 12,
+        "endLine": 121,
+        "endChar": 15
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f796ce88_4ee05306",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:52Z",
+      "side": 1,
+      "message": "To",
+      "range": {
+        "startLine": 123,
+        "startChar": 34,
+        "endLine": 123,
+        "endChar": 37
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0366df20_010d5382",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:52Z",
+      "side": 1,
+      "message": "See my comment on SyncSM08 : probably you want to add sendSelfMessage (rename to sendSelfMessageToSyncSM) in this patch instead.",
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a27fd81_4126eeae",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/StateMachineShimTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:52Z",
+      "side": 1,
+      "message": "Optional : I think it might make the test easier to read if you created an `InOrder` over syncSM, do all manipulations, and at the end you\u0027d call all the `verify`s in order. You can then remove all the calls to `verifyNoMoreInteractions`.\n\nWhat you\u0027d lose is a guarantee that interaction n+1 was not done by interaction n, but that sounds so outlandish I don\u0027t think we have to care.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 37
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
