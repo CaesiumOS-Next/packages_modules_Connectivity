@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "341e4507_01b0ec32",
+        "filename": "Tethering/proguard.flags",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:55:10Z",
+      "side": 1,
+      "message": "No issue with this change, but what does it have to do with the sync state machine refactor ?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "1877b1c4bc4b94cafc4d2794c01139af71314c13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
