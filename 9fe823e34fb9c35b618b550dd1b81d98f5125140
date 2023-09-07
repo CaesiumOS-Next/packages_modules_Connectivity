@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e24cceec_1bad08c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1973455
+      },
+      "writtenOn": "2023-09-07T20:20:20Z",
+      "side": 1,
+      "message": "Please CP the change into the `stage-aosp-udc-ts-dev` branch.",
+      "revId": "9fe823e34fb9c35b618b550dd1b81d98f5125140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
