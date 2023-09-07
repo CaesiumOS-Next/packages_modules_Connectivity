@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57eb2fdf_42235af6",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:55:02Z",
+      "side": 1,
+      "message": "(not necessarily in this patch) it would probably be useful to pass mLastError here. You don\u0027t know who will overwrite it and when.",
+      "range": {
+        "startLine": 1296,
+        "startChar": 53,
+        "endLine": 1296,
+        "endChar": 75
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "824d9287_3a9d4e6f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2741,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:55:02Z",
+      "side": 1,
+      "message": "It tends to be confusing to post() something on the same handler that is processing messages. In this case, the synchronous state machine is \"synchronous\" and that\u0027s its entire raison d\u0027être, so using its handler to post something for later doesn\u0027t sound like a good idea.\n\nI think that instead, we wanted to guarantee that there is never a mutual call that may end up in an infinite loop. Because the main state machine is asynchronous, could you instead make a message that will trigger this and break the loop ?",
+      "range": {
+        "startLine": 2741,
+        "startChar": 29,
+        "endLine": 2741,
+        "endChar": 33
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a72d26b_35e5ef3a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:55:02Z",
+      "side": 1,
+      "message": "`sendSelfMessageToSyncSM` to mirror the method above, but as I was saying in SyncSM06 you probably want to move this method to SyncSM06",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 31
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13c74404_35a5e5e3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:55:02Z",
+      "side": 1,
+      "message": "else throw ?",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "179ad701_20020353",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:55:02Z",
+      "side": 1,
+      "message": "Let\u0027s be more descriptive about what makes this thread the correct one. Of course you need to call it on the \"correct\" thread so it\u0027s not informative to say this ; instead, there is something about this thread that makes it the correct one and this is what you should be saying.",
+      "range": {
+        "startLine": 306,
+        "startChar": 23,
+        "endLine": 306,
+        "endChar": 30
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbb80867_dc7483fc",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:55:02Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem like the simplest way to do this. I suggest you try this instead :\n\n- Create the looper as a local in initStateMachine\n- Add a method on IpServer which dispatches if it\u0027s a TestLooper\n```\n    IpServer.java:\n    @VisibleForTesting\n    public void dispatchLooperMessagesForTest() {\n        mSmHandler.dispatchLooperMessagesForTest();\n    }\n    StateMachine.java:\n    class SmHandler {\n    @VisibleForTesting\n    public void dispatchLooperMessagesForTest() {\n        if (mLooper instanceof TestLooper) {\n            ((TestLooper) mLooper).dispatchMessages()\n        } else {\n            throw new IllegalStateException(\"Looper is not a TestLooper\");\n        }\n    }\n```\n  ...so you can use that in `testOnNewPrefixRequest`. There are many other equivalents that you could use instead\n- Remove the mLooper member, since there are no longer any uses\n- Remove all init calls as you no longer need them.\n\nThe current code no longer seems to have a mHandler member, so you\u0027re good here",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 35
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49edc661_b1fc1f17",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:55:02Z",
+      "side": 1,
+      "message": "Or maybe a better way (which better accommodates the next file) is to use USE_SYNCSM. After all, you have a dichotomy here :\n- Either the machine is async, and creating the looper on the thread on which the test runs is not representative\n- Or the machine is sync, in which case you do not need to dispatch messages since they are called synchronously anyway.\n\nSo one other thing you could do is, have the member initialized only if async :\n\n    final TestLooper mLooper \u003d USE_SYNC ? null : new TestLooper();\n\nAnd in initStateMachine you\u0027d create the looper in place if USE_SYNC :\n\n    mIpServer \u003d new IpServer(\n     IFACE_NAME, USE_SYNC ? new TestLooper() : mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,\n     mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics, mDependencies);\n\nFinally, replace mLooper.dispatchMessages() with a call to\n\n    private void dispatchMessages() {\n      if (null !\u003d mLooper) mLooper.dispatchMessages();\n    }",
+      "range": {
+        "startLine": 307,
+        "startChar": 34,
+        "endLine": 307,
+        "endChar": 35
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "324ed753_b446939a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/StateMachineShimTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:55:02Z",
+      "side": 1,
+      "message": "If you move the method to SyncSM06, move this test together",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 40
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
