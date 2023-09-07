@@ -396,6 +396,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86fafbed_da51ef02",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 6184,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-07T09:20:47Z",
+      "side": 1,
+      "message": "Done.\nConnectivityManager#setDataSaverEnabled API uploaded as aosp/2745215 aosp/2745114,\nPTAL.",
+      "parentUuid": "ebdd7e9c_22716db3",
+      "range": {
+        "startLine": 6183,
+        "startChar": 75,
+        "endLine": 6184,
+        "endChar": 32
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3b41692_76ade72d",
