@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fba2992_0e40aef0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:44Z",
+      "side": 1,
+      "message": "Instead of this, why not have a vararg ?\n\n    private fun verifyMessageProcessedBy(what: Int, vararg states: State) {\n      states.forEach { mInorder.verify(it).processMessage(argThat {it.what \u003d\u003d what}) }\n    }",
+      "range": {
+        "startLine": 81,
+        "startChar": 39,
+        "endLine": 81,
+        "endChar": 75
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea22bb37_8919e93a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:44Z",
+      "side": 1,
+      "message": "MessageProcessedBy",
+      "range": {
+        "startLine": 81,
+        "startChar": 22,
+        "endLine": 81,
+        "endChar": 38
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "235c02a4_f40abed8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:44Z",
+      "side": 1,
+      "message": "Do you want to at least specify the `what` ?",
+      "range": {
+        "startLine": 82,
+        "startChar": 47,
+        "endLine": 82,
+        "endChar": 50
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b89422c_c836a8c9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:44Z",
+      "side": 1,
+      "message": "expectFailsWith\u003cIllegalStateException\u003e",
+      "range": {
+        "startLine": 96,
+        "startChar": 12,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f533d680_e018b42f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:44Z",
+      "side": 1,
+      "message": "Why not just provide a default value to parent in l.115",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 5
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba654cc0_71be0ca3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:44Z",
+      "side": 1,
+      "message": "This is a great basic test ; can we have one with at more depth in the tree ? I think we\u0027d want to at least test something like\n\n```\n        state1\n    |          \\ \n  state2         state6\n    |   \\           |\n  state3 state5  state7\n    |\n  state4\n```\n\nTest that going from state4 → state5 exits state4 and state3 but not state2, and that going from state4 to state7 exits states 4 3 2 and enters 6 7\n\nIf you already have tests for this later in the patch chain, please ignore",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 165,
+        "endChar": 25
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
