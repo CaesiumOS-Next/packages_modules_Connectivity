@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a32b3a92_451025d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "once",
+      "range": {
+        "startLine": 13,
+        "startChar": 39,
+        "endLine": 13,
+        "endChar": 44
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1680141f_7dd3d349",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "so that",
+      "range": {
+        "startLine": 14,
+        "startChar": 43,
+        "endLine": 14,
+        "endChar": 47
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "539e8d53_40f1a078",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "Thus, SyncStateMachine doesn\u0027t support",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
+        "endLine": 15,
+        "endChar": 59
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae30f541_9f2ca4cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "Is this enforced ?",
+      "range": {
+        "startLine": 16,
+        "startChar": 24,
+        "endLine": 16,
+        "endChar": 47
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9994d60_e02d0702",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "happens",
+      "range": {
+        "startLine": 19,
+        "startChar": 42,
+        "endLine": 19,
+        "endChar": 48
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf1497b8_d37645a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "something",
+      "range": {
+        "startLine": 19,
+        "startChar": 27,
+        "endLine": 19,
+        "endChar": 35
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba807b79_a3f7c57e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 20,
+        "startChar": 30,
+        "endLine": 20,
+        "endChar": 33
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cc5ac52_fe394264",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "the implementation",
+      "range": {
+        "startLine": 20,
+        "startChar": 15,
+        "endLine": 20,
+        "endChar": 17
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f1d9814_c071cfc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "the current",
+      "range": {
+        "startLine": 21,
+        "startChar": 27,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28a89ccf_dba5900d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "ISTM `mStarted\u003dtrue` should be executed before this. It doesn\u0027t change anything in practice because mStarted is only used in addAllStates but it\u0027s still uncomfortable to be processing messages while mStarted is false.\n\nOf course if you remove mStarted as I suggested on a previous patch this no longer applies",
+      "range": {
+        "startLine": 159,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 36
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6379e68e_b0e59b5e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "being processed",
+      "range": {
+        "startLine": 171,
+        "startChar": 34,
+        "endLine": 171,
+        "endChar": 44
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee2481ee_29701af4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "I think it would be clearer if\n- The state was before the message \u0027\"State \" + si.state + \"processing message \" + msg.what` or so\n- It was clear whether the message *will be* processed, *is being* processed or *has been* processed. I think in this case it has been processed.",
+      "range": {
+        "startLine": 198,
+        "startChar": 35,
+        "endLine": 198,
+        "endChar": 81
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4185d03_24316a9d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "was",
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c09a542_ec9040c4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "Is this a common/expected thing ? It looks like a programming error ; maybe we should throw.",
+      "range": {
+        "startLine": 205,
+        "startChar": 25,
+        "endLine": 205,
+        "endChar": 27
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfa5987d_284c04c7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:38Z",
+      "side": 1,
+      "message": "So this can only be used during enter() and exit(), but not while processing a message ? The doc in l.210 seems to disagree",
+      "range": {
+        "startLine": 217,
+        "startChar": 13,
+        "endLine": 217,
+        "endChar": 34
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
