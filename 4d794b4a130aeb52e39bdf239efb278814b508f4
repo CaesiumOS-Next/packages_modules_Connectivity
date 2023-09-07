@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d610078_4df6cbfe",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:24Z",
+      "side": 1,
+      "message": "the exact State instance",
+      "range": {
+        "startLine": 38,
+        "startChar": 23,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c9e9973_0d4ffa27",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:24Z",
+      "side": 1,
+      "message": "Do you have a use for this ? It seems a bit error-prone to me ; if may be better to forbid this.\n\nIf it\u0027s for your test in SM05, you can write\n\n    private val mState5 \u003d spy(object : TestState(MSG_5) {})\n\nThat makes anonymous objects and is terse enough.",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c8c9c23_fcdd7548",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:24Z",
+      "side": 1,
+      "message": "Usually this will be a small map, so consider ArrayMap for better performance.",
+      "range": {
+        "startLine": 45,
+        "startChar": 18,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "079d7b63_acbafaa7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:24Z",
+      "side": 1,
+      "message": "You don\u0027t need to specify this (and your IDE/compiler should warn)",
+      "range": {
+        "startLine": 45,
+        "startChar": 69,
+        "endLine": 45,
+        "endChar": 85
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a495abf_63db1d85",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:24Z",
+      "side": 1,
+      "message": "In fact, different StatesInfos wich have the same state are not allowed, whether they have different parents or not.",
+      "range": {
+        "startLine": 103,
+        "startChar": 47,
+        "endLine": 104,
+        "endChar": 40
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "062d7eba_20e42bda",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:24Z",
+      "side": 1,
+      "message": "Let\u0027s also make sure that `stateInfos` is not empty.",
+      "range": {
+        "startLine": 111,
+        "startChar": 24,
+        "endLine": 111,
+        "endChar": 31
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8146e2d_a3a2e549",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:24Z",
+      "side": 1,
+      "message": "You\u0027ll be checking that `info.state` is non-null in the next patch but it would be better done in this patch",
+      "range": {
+        "startLine": 113,
+        "startChar": 48,
+        "endLine": 113,
+        "endChar": 49
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d90fece_dc36cc60",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:24Z",
+      "side": 1,
+      "message": "must be the same instance set up by",
+      "range": {
+        "startLine": 156,
+        "startChar": 88,
+        "endLine": 157,
+        "endChar": 27
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f7968ab_5a505801",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T08:54:24Z",
+      "side": 1,
+      "message": "Maybe `ensureExistingState`, because it\u0027s not clear what makes a state \"valid\"",
+      "range": {
+        "startLine": 183,
+        "startChar": 17,
+        "endLine": 183,
+        "endChar": 33
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
