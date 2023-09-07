@@ -6,3 +6,10 @@ flag {
   description: "NetworkActivityTracker tracks multiple networks including non default networks"
   bug: "267870186"
 }
+
+flag {
+  name: "support_set_data_saver_via_cm"
+  namespace: "android_core_networking"
+  description: "Support set data saver through ConnectivityManager API"
+  bug: "297836825"
+}
