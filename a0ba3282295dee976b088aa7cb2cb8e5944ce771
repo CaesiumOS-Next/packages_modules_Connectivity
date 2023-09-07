@@ -374,6 +374,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebdd7e9c_22716db3",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 6184,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-09-07T06:25:57Z",
+      "side": 1,
+      "message": "Ok it seems you already have an idea about it.\nBut anyway here is the doc that prepared to fill more context for maze@.\n\nhttps://docs.google.com/document/d/1pm2pWxrtX9hOJCmehaoDBp2UnW7ooZ1-UWMh_AIAuAc/edit#heading\u003dh.evjnqg7i5gmv",
+      "parentUuid": "a6213f03_11e57945",
+      "range": {
+        "startLine": 6183,
+        "startChar": 75,
+        "endLine": 6184,
+        "endChar": 32
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3b41692_76ade72d",
         "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
         "patchSetId": 10
