@@ -97,14 +97,12 @@ import static android.os.Process.VPN_UID;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
-
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.checkAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
 import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
-
 import static java.util.Map.Entry;
 
 import android.Manifest;
@@ -12385,6 +12383,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
             netcap.clearAll();
             netcap.addTransportType(TRANSPORT_TEST);
             return createNetworkRequest(NetworkRequest.Type.REQUEST, netcap);
+        }
+    }
+
+    @Override
+    public void setDataSaverEnabled(final boolean enable) {
+        try {
+            mNetd.bandwidthEnableDataSaver(enable);
+        } catch (RemoteException e) {
+            throw new IllegalStateException(e);
         }
     }
 
