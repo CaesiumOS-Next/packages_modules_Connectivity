@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6a992a4_b07e83e5",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1512,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "ArraySet?",
+      "range": {
+        "startLine": 1512,
+        "startChar": 14,
+        "endLine": 1512,
+        "endChar": 21
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d17bd8_03f0f6a6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "Is there something we can do to avoid this? Maybe use MiscAsserts.assertSameElements?",
+      "range": {
+        "startLine": 266,
+        "startChar": 35,
+        "endLine": 267,
+        "endChar": 24
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bb12189_b4263df2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "IPV6_ADDR_LEN",
+      "range": {
+        "startLine": 1244,
+        "startChar": 60,
+        "endLine": 1244,
+        "endChar": 62
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "910efd13_02c339e0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "Nit: I think BIG_ENDIAN isn\u0027t necessary, because it\u0027s the default?",
+      "range": {
+        "startLine": 1244,
+        "startChar": 80,
+        "endLine": 1244,
+        "endChar": 90
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9e88896_c05443ab",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "Suggest factoring out to a longToPrefix() method.",
+      "range": {
+        "startLine": 1244,
+        "startChar": 8,
+        "endLine": 1244,
+        "endChar": 39
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23a279c5_52354115",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "Suggest just throwing IllegalArgumentException or other unchecked exception. This can\u0027t happen.",
+      "range": {
+        "startLine": 1250,
+        "startChar": 12,
+        "endLine": 1250,
+        "endChar": 49
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b3e900b_88253390",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "ArraySet?\n\n\nOr could you just use:\n\n\u003d Set.of(new LinkAddress(...))\n\n?",
+      "range": {
+        "startLine": 192,
+        "startChar": 16,
+        "endLine": 192,
+        "endChar": 23
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f7befba_ab3f935b",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "Suggest using two different prefixes in 2001:db8, such as 2001:db8:0:1234::/64 and 2001:db8:0:abcd::/64.",
+      "range": {
+        "startLine": 196,
+        "startChar": 66,
+        "endLine": 196,
+        "endChar": 75
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "775983db_a0b431f0",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "Why pass both the prefixes and the upstream addresses? You can just get the prefixes from the addresses like getTetherableIpv6Prefixes does, right? Something like this?\n\n    @VisibleForTesting\n    @NonNull\n    static Set\u003cIpPrefix\u003e getTetherableIpv6Prefixes(@NonNull Collection\u003cLinkAddress\u003e addrs) {\n        final ArraySet\u003cIpPrefix\u003e prefixes \u003d new ArraySet\u003c\u003e();\n        for (LinkAddress linkAddr : ipv6LinkProperties.getLinkAddresses()) {\n            if (linkAddr.getPrefixLength() !\u003d RFC7421_PREFIX_LENGTH) continue;\n            prefixes.add(new IpPrefix(linkAddr.getAddress(), RFC7421_PREFIX_LENGTH));\n        }\n        return prefixes;\n    }\n\n    @NonNull\n    private static Set\u003cIpPrefix\u003e getTetherableIpv6Prefixes(@NonNull LinkProperties lp) {\n        return getTetherableIpv6Prefixes(lp.getLinkAddresses());\n    }",
+      "range": {
+        "startLine": 284,
+        "startChar": 48,
+        "endLine": 284,
+        "endChar": 78
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5285df9_e9916eee",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "Refactor out to a function?\n\n    private static long prefixToLong(IpPrefix prefix) {",
+      "range": {
+        "startLine": 1018,
+        "startChar": 0,
+        "endLine": 1019,
+        "endChar": 95
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

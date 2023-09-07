@@ -236,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b943a96_d8ae12e3",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2295845a_abdd3b89",
+      "range": {
+        "startLine": 808,
+        "startChar": 8,
+        "endLine": 808,
+        "endChar": 33
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ca1d563_6236e2cc",
@@ -368,6 +392,30 @@
       "side": 1,
       "message": "Typo in last commend: spitted/splitted -\u003e split",
       "parentUuid": "6ed2e315_49c88eea",
+      "range": {
+        "startLine": 617,
+        "startChar": 16,
+        "endLine": 617,
+        "endChar": 33
+      },
+      "revId": "37f9d4e8c7b35a9e80f03de3e49068e1e9a2e33f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3c5ab24_6ca98af0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T15:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fef3776_040b1011",
       "range": {
         "startLine": 617,
         "startChar": 16,
