@@ -8020,6 +8020,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
             }
         }
+        if (!highestPriorityNri.isBeingSatisfied()) return null;
         return highestPriorityNri.getSatisfier();
     }
 
