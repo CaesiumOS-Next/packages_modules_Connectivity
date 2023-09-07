@@ -350,6 +350,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6213f03_11e57945",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 6184,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-07T02:15:50Z",
+      "side": 1,
+      "message": "Maciej and I chatted about this today, going over how data saver works, what the rules are (bw_penalty_box, bw_happy_box, bw_data_saver), etc.\n\nI think we agreed that having NPMS enable data saver by calling into a ConnectivityManager API would work. ConnectivityService would call down into netd (for now) but also inform BpfNetMaps whether data saver is on or not. BpfNetMaps could store this somewhere (a new bit in the BpfConfig? a new one-element array map?). This code could read that map.\n\nAfter that\u0027s done we can probably remove the bw_data_saver rule entirely and just have the existing xtbpf allowlist and denylist programs implement it based on this information in the maps. Or add another program that implements it based on this map. But that can be done later. Junyu, can you take a crack at adding a module-lib API in ConnectivityManager to enable or disable data saver? For now it\u0027s fine if all it does is call down to netd.",
+      "parentUuid": "d07496c1_b65bce98",
+      "range": {
+        "startLine": 6183,
+        "startChar": 75,
+        "endLine": 6184,
+        "endChar": 32
+      },
+      "revId": "a0ba3282295dee976b088aa7cb2cb8e5944ce771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3b41692_76ade72d",
         "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
         "patchSetId": 10
