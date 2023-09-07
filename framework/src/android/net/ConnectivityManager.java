@@ -5941,6 +5941,27 @@ public class ConnectivityManager {
     }
 
     /**
+     * Sets data saver switch.
+     *
+     * @param enable True if enable.
+     * @throws IllegalStateException if failed.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresPermission(anyOf = {
+            android.Manifest.permission.NETWORK_SETTINGS,
+            android.Manifest.permission.NETWORK_STACK,
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK
+    })
+    public void setDataSaverEnabled(final boolean enable) {
+        try {
+            mService.setDataSaverEnabled(enable);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Adds the specified UID to the list of UIds that are allowed to use data on metered networks
      * even when background data is restricted. The deny list takes precedence over the allow list.
      *

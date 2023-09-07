@@ -12460,6 +12460,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     @Override
+    public void setDataSaverEnabled(final boolean enable) {
+        try {
+            mNetd.bandwidthEnableDataSaver(enable);
+        } catch (RemoteException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @Override
     public void updateMeteredNetworkAllowList(final int uid, final boolean add) {
         enforceNetworkStackOrSettingsPermission();
 
