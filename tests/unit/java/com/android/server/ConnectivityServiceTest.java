@@ -10227,9 +10227,8 @@ public class ConnectivityServiceTest {
             // request so LOST callback is received.
             defaultCallback.expect(LOST, mCellAgent);
             // Due to the VPN default request, the getActiveNetworkInfo gets the mNoServiceNetwork
-            // as the network satisfier which has TYPE_NONE.
-            // TODO: This should not be TYPE_NONE, see ConnectivityManager#getActiveNetworkInfo
-            assertActiveNetworkInfo(TYPE_NONE, DetailedState.BLOCKED);
+            // as the network satisfier.
+            assertNull(mCm.getActiveNetworkInfo());
         } else {
             assertActiveNetworkInfo(TYPE_MOBILE, DetailedState.BLOCKED);
         }
@@ -10301,9 +10300,8 @@ public class ConnectivityServiceTest {
         // While the VPN is reconnecting on the new network, everything is blocked.
         if (expectSetVpnDefaultForUids) {
             // Due to the VPN default request, the getActiveNetworkInfo gets the mNoServiceNetwork
-            // as the network satisfier which has TYPE_NONE.
-            // TODO: This should not be TYPE_NONE, see ConnectivityManager#getActiveNetworkInfo
-            assertActiveNetworkInfo(TYPE_NONE, DetailedState.BLOCKED);
+            // as the network satisfier.
+            assertNull(mCm.getActiveNetworkInfo());
         } else {
             assertActiveNetworkInfo(TYPE_WIFI, DetailedState.BLOCKED);
         }
