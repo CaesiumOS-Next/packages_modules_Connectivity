@@ -16,6 +16,24 @@
       "message": "Please CP the change into the `stage-aosp-udc-ts-dev` branch.",
       "revId": "9fe823e34fb9c35b618b550dd1b81d98f5125140",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbeed419_4266eb5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-07T20:48:44Z",
+      "side": 1,
+      "message": "We did.  Someone has to merge it.",
+      "parentUuid": "e24cceec_1bad08c9",
+      "revId": "9fe823e34fb9c35b618b550dd1b81d98f5125140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
