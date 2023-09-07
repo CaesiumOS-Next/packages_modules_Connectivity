@@ -28,6 +28,7 @@ import android.os.HandlerThread
 import com.android.net.module.util.SharedLog
 import com.android.server.connectivity.mdns.MdnsAdvertiser.AdvertiserCallback
 import com.android.server.connectivity.mdns.MdnsSocketProvider.SocketCallback
+import com.android.server.connectivity.mdns.util.MdnsUtils
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.waitForIdle
@@ -157,6 +158,8 @@ class MdnsAdvertiserTest {
         doReturn(mockInterfaceAdvertiser2).`when`(mockDeps).makeAdvertiser(eq(mockSocket2),
                 any(), any(), any(), any(), eq(TEST_HOSTNAME), any()
         )
+        doReturn(true).`when`(mockDeps)
+            .isTetheringFeatureNotChickenedOut(eq(MdnsUtils.NSD_MDNS_OFFLOAD_FEATURE));
         doReturn(true).`when`(mockInterfaceAdvertiser1).isProbing(anyInt())
         doReturn(true).`when`(mockInterfaceAdvertiser2).isProbing(anyInt())
         doReturn(createEmptyNetworkInterface()).`when`(mockSocket1).getInterface()
@@ -183,7 +186,8 @@ class MdnsAdvertiserTest {
 
     @Test
     fun testAddService_OneNetwork() {
-        val advertiser = MdnsAdvertiser(thread.looper, socketProvider, cb, mockDeps, sharedlog)
+        val advertiser =
+            MdnsAdvertiser(thread.looper, socketProvider, cb, mockDeps, sharedlog)
         postSync { advertiser.addService(SERVICE_ID_1, SERVICE_1, null /* subtype */) }
 
         val socketCbCaptor = ArgumentCaptor.forClass(SocketCallback::class.java)
@@ -242,7 +246,8 @@ class MdnsAdvertiserTest {
 
     @Test
     fun testAddService_AllNetworks() {
-        val advertiser = MdnsAdvertiser(thread.looper, socketProvider, cb, mockDeps, sharedlog)
+        val advertiser =
+            MdnsAdvertiser(thread.looper, socketProvider, cb, mockDeps, sharedlog)
         postSync { advertiser.addService(SERVICE_ID_1, ALL_NETWORKS_SERVICE, TEST_SUBTYPE) }
 
         val socketCbCaptor = ArgumentCaptor.forClass(SocketCallback::class.java)
@@ -312,7 +317,8 @@ class MdnsAdvertiserTest {
 
     @Test
     fun testAddService_Conflicts() {
-        val advertiser = MdnsAdvertiser(thread.looper, socketProvider, cb, mockDeps, sharedlog)
+        val advertiser =
+            MdnsAdvertiser(thread.looper, socketProvider, cb, mockDeps, sharedlog)
         postSync { advertiser.addService(SERVICE_ID_1, SERVICE_1, null /* subtype */) }
 
         val oneNetSocketCbCaptor = ArgumentCaptor.forClass(SocketCallback::class.java)
@@ -396,7 +402,8 @@ class MdnsAdvertiserTest {
 
     @Test
     fun testRemoveService_whenAllServiceRemoved_thenUpdateHostName() {
-        val advertiser = MdnsAdvertiser(thread.looper, socketProvider, cb, mockDeps, sharedlog)
+        val advertiser =
+            MdnsAdvertiser(thread.looper, socketProvider, cb, mockDeps, sharedlog)
         verify(mockDeps, times(1)).generateHostname()
         postSync { advertiser.addService(SERVICE_ID_1, SERVICE_1, null /* subtype */) }
         postSync { advertiser.removeService(SERVICE_ID_1) }

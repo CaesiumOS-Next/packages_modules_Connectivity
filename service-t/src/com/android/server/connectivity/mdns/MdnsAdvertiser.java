@@ -18,6 +18,7 @@ package com.android.server.connectivity.mdns;
 
 import static com.android.server.connectivity.mdns.MdnsConstants.NO_PACKET;
 import static com.android.server.connectivity.mdns.MdnsRecord.MAX_LABEL_LENGTH;
+import static com.android.server.connectivity.mdns.util.MdnsUtils.NSD_MDNS_OFFLOAD_FEATURE;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -34,6 +35,7 @@ import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.CollectionUtils;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
@@ -99,6 +101,13 @@ public class MdnsAdvertiser {
         }
 
         /**
+         * @see DeviceConfigUtils#isTetheringFeatureNotChickenedOut
+         */
+        public boolean isTetheringFeatureNotChickenedOut(String feature) {
+            return DeviceConfigUtils.isTetheringFeatureNotChickenedOut(feature);
+        }
+
+        /**
          * Generates a unique hostname to be used by the device.
          */
         @NonNull
@@ -141,21 +150,23 @@ public class MdnsAdvertiser {
                 return;
             }
 
-            final String interfaceName = advertiser.getSocketInterfaceName();
-            final List<OffloadServiceInfoWrapper> existingOffloadServiceInfoWrappers =
-                    mInterfaceOffloadServices.computeIfAbsent(
-                            interfaceName, k -> new ArrayList<>());
-            // Remove existing offload services from cache for update.
-            existingOffloadServiceInfoWrappers.removeIf(item -> item.mServiceId == serviceId);
+            if (mDeps.isTetheringFeatureNotChickenedOut(NSD_MDNS_OFFLOAD_FEATURE)) {
+                final String interfaceName = advertiser.getSocketInterfaceName();
+                final List<OffloadServiceInfoWrapper> existingOffloadServiceInfoWrappers =
+                        mInterfaceOffloadServices.computeIfAbsent(
+                                interfaceName, k -> new ArrayList<>());
+                // Remove existing offload services from cache for update.
+                existingOffloadServiceInfoWrappers.removeIf(item -> item.mServiceId == serviceId);
 
-            byte[] rawOffloadPacket = advertiser.getRawOffloadPayload(serviceId);
-            final OffloadServiceInfoWrapper newOffloadServiceInfoWrapper = createOffloadService(
-                    serviceId,
-                    registration,
-                    rawOffloadPacket);
-            existingOffloadServiceInfoWrappers.add(newOffloadServiceInfoWrapper);
-            mCb.onOffloadStartOrUpdate(interfaceName,
-                    newOffloadServiceInfoWrapper.mOffloadServiceInfo);
+                byte[] rawOffloadPacket = advertiser.getRawOffloadPayload(serviceId);
+                final OffloadServiceInfoWrapper newOffloadServiceInfoWrapper = createOffloadService(
+                        serviceId,
+                        registration,
+                        rawOffloadPacket);
+                existingOffloadServiceInfoWrappers.add(newOffloadServiceInfoWrapper);
+                mCb.onOffloadStartOrUpdate(interfaceName,
+                        newOffloadServiceInfoWrapper.mOffloadServiceInfo);
+            }
 
             // Wait for all current interfaces to be done probing before notifying of success.
             if (any(mAllAdvertisers, (k, a) -> a.isProbing(serviceId))) return;
@@ -188,7 +199,9 @@ public class MdnsAdvertiser {
                     if (!a.maybeRestartProbingForConflict(serviceId)) {
                         return;
                     }
-                    maybeSendOffloadStop(a.getSocketInterfaceName(), serviceId);
+                    if (mDeps.isTetheringFeatureNotChickenedOut(NSD_MDNS_OFFLOAD_FEATURE)) {
+                        maybeSendOffloadStop(a.getSocketInterfaceName(), serviceId);
+                    }
                 });
                 return;
             }
@@ -280,17 +293,20 @@ public class MdnsAdvertiser {
          */
         boolean onAdvertiserDestroyed(@NonNull MdnsInterfaceSocket socket) {
             final MdnsInterfaceAdvertiser removedAdvertiser = mAdvertisers.remove(socket);
-            if (removedAdvertiser != null) {
-                final String interfaceName = removedAdvertiser.getSocketInterfaceName();
-                // If the interface is destroyed, stop all hardware offloading on that interface.
-                final List<OffloadServiceInfoWrapper> offloadServiceInfoWrappers =
-                        mInterfaceOffloadServices.remove(
-                                interfaceName);
-                if (offloadServiceInfoWrappers != null) {
-                    for (OffloadServiceInfoWrapper offloadServiceInfoWrapper :
-                            offloadServiceInfoWrappers) {
-                        mCb.onOffloadStop(interfaceName,
-                                offloadServiceInfoWrapper.mOffloadServiceInfo);
+            if (mDeps.isTetheringFeatureNotChickenedOut(NSD_MDNS_OFFLOAD_FEATURE)) {
+                if (removedAdvertiser != null) {
+                    final String interfaceName = removedAdvertiser.getSocketInterfaceName();
+                    // If the interface is destroyed, stop all hardware offloading on that
+                    // interface.
+                    final List<OffloadServiceInfoWrapper> offloadServiceInfoWrappers =
+                            mInterfaceOffloadServices.remove(
+                                    interfaceName);
+                    if (offloadServiceInfoWrappers != null) {
+                        for (OffloadServiceInfoWrapper offloadServiceInfoWrapper :
+                                offloadServiceInfoWrappers) {
+                            mCb.onOffloadStop(interfaceName,
+                                    offloadServiceInfoWrapper.mOffloadServiceInfo);
+                        }
                     }
                 }
             }
@@ -359,7 +375,9 @@ public class MdnsAdvertiser {
                 final MdnsInterfaceAdvertiser advertiser = mAdvertisers.valueAt(i);
                 advertiser.removeService(id);
 
-                maybeSendOffloadStop(advertiser.getSocketInterfaceName(), id);
+                if (mDeps.isTetheringFeatureNotChickenedOut(NSD_MDNS_OFFLOAD_FEATURE)) {
+                    maybeSendOffloadStop(advertiser.getSocketInterfaceName(), id);
+                }
             }
         }
 
@@ -419,25 +437,28 @@ public class MdnsAdvertiser {
                 return;
             }
             advertiser.updateAddresses(addresses);
-            // Update address should trigger offload packet update.
-            final String interfaceName = advertiser.getSocketInterfaceName();
-            final List<OffloadServiceInfoWrapper> existingOffloadServiceInfoWrappers =
-                    mInterfaceOffloadServices.get(interfaceName);
-            if (existingOffloadServiceInfoWrappers == null) {
-                return;
+
+            if (mDeps.isTetheringFeatureNotChickenedOut(NSD_MDNS_OFFLOAD_FEATURE)) {
+                // Update address should trigger offload packet update.
+                final String interfaceName = advertiser.getSocketInterfaceName();
+                final List<OffloadServiceInfoWrapper> existingOffloadServiceInfoWrappers =
+                        mInterfaceOffloadServices.get(interfaceName);
+                if (existingOffloadServiceInfoWrappers == null) {
+                    return;
+                }
+                final List<OffloadServiceInfoWrapper> updatedOffloadServiceInfoWrappers =
+                        new ArrayList<>(existingOffloadServiceInfoWrappers.size());
+                for (OffloadServiceInfoWrapper oldWrapper : existingOffloadServiceInfoWrappers) {
+                    OffloadServiceInfoWrapper newWrapper = new OffloadServiceInfoWrapper(
+                            oldWrapper.mServiceId,
+                            oldWrapper.mOffloadServiceInfo.withOffloadPayload(
+                                    advertiser.getRawOffloadPayload(oldWrapper.mServiceId))
+                    );
+                    updatedOffloadServiceInfoWrappers.add(newWrapper);
+                    mCb.onOffloadStartOrUpdate(interfaceName, newWrapper.mOffloadServiceInfo);
+                }
+                mInterfaceOffloadServices.put(interfaceName, updatedOffloadServiceInfoWrappers);
             }
-            final List<OffloadServiceInfoWrapper> updatedOffloadServiceInfoWrappers =
-                    new ArrayList<>(existingOffloadServiceInfoWrappers.size());
-            for (OffloadServiceInfoWrapper oldWrapper : existingOffloadServiceInfoWrappers) {
-                OffloadServiceInfoWrapper newWrapper = new OffloadServiceInfoWrapper(
-                        oldWrapper.mServiceId,
-                        oldWrapper.mOffloadServiceInfo.withOffloadPayload(
-                                advertiser.getRawOffloadPayload(oldWrapper.mServiceId))
-                );
-                updatedOffloadServiceInfoWrappers.add(newWrapper);
-                mCb.onOffloadStartOrUpdate(interfaceName, newWrapper.mOffloadServiceInfo);
-            }
-            mInterfaceOffloadServices.put(interfaceName, updatedOffloadServiceInfoWrappers);
         }
     }
 

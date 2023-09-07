@@ -40,6 +40,11 @@ import java.nio.charset.StandardCharsets;
  */
 public class MdnsUtils {
 
+    /**
+     * The feature flag for control whether the  mDNS offload is enabled or not.
+     */
+    public static final String NSD_MDNS_OFFLOAD_FEATURE = "nsd_mdns_offload_feature";
+
     private MdnsUtils() { }
 
     /**
