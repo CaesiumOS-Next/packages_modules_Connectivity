@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff9a0290_2b062240",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2352,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T11:08:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60dcb77c_0c2ca518",
+      "range": {
+        "startLine": 2351,
+        "startChar": 83,
+        "endLine": 2352,
+        "endChar": 13
+      },
+      "revId": "2ac33583cdb82eba1598d0ad88828d1a3d3cc14e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9026c838_0b1a754f",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75d5ff25_c2d7860e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T11:08:52Z",
+      "side": 1,
+      "message": "Added comments, please reopen if it\u0027s still not clear.",
+      "parentUuid": "9026c838_0b1a754f",
+      "range": {
+        "startLine": 2409,
+        "startChar": 54,
+        "endLine": 2409,
+        "endChar": 73
+      },
+      "revId": "2ac33583cdb82eba1598d0ad88828d1a3d3cc14e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "178c8fce_10b2b3e2",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-09-05T12:24:42Z",
       "side": 1,
       "message": "According to the description of mAsUid as https://screenshot.googleplex.com/85Smx7aNfXbtNEf, \nI feel like the following is correct, or am I wrong?\n\nif (Process.SYSTEM_UID \u003d\u003d nri.mAsUid) {\n                type \u003d RequestType.RT_SYSTEM_ON_BEHALF_OF_APP.getNumber();\n            } else if (Process.SYSTEM_UID \u003d\u003d nri.mUid) {\n                type \u003d RequestType.RT_SYSTEM.getNumber();",
+      "range": {
+        "startLine": 2421,
+        "startChar": 12,
+        "endLine": 2424,
+        "endChar": 74
+      },
+      "revId": "2ac33583cdb82eba1598d0ad88828d1a3d3cc14e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86a262d8_94571838",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2424,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T11:08:52Z",
+      "side": 1,
+      "message": "No, I think the code is correct. AsUid is the UID the request is filed as, while mUid is the true UID of the requestor – this is what the description explains.\n- For an app requesting for itself, mAsUid \u003d\u003d mUid \u003d\u003d the UID of the app.\n- For the system requesting for itself, mAsUid \u003d\u003d mUid \u003d\u003d SYSTEM_UID.\n- For the system requesting for an app, mUid \u003d\u003d SYSTEM_UID and mAsUid \u003d the UID of the app.\n\nAdded comments. Does this clarify ?",
+      "parentUuid": "178c8fce_10b2b3e2",
       "range": {
         "startLine": 2421,
         "startChar": 12,

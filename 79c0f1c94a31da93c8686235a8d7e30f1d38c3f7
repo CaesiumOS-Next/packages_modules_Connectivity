@@ -22,6 +22,30 @@
       },
       "revId": "79c0f1c94a31da93c8686235a8d7e30f1d38c3f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dee00849_295906c1",
+        "filename": "tests/unit/java/com/android/metrics/ConnectivitySampleMetricsTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-07T11:08:52Z",
+      "side": 1,
+      "message": "I think I fixed it one patchset ago. For sure I can\u0027t repro now. TH will tell us what it thinks.",
+      "parentUuid": "4132c179_541b3ad0",
+      "range": {
+        "startLine": 79,
+        "startChar": 6,
+        "endLine": 79,
+        "endChar": 35
+      },
+      "revId": "79c0f1c94a31da93c8686235a8d7e30f1d38c3f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
