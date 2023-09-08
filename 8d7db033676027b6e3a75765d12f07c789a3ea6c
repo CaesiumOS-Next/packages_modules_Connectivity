@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b60a292_5e3936c5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-08T06:31:58Z",
+      "side": 1,
+      "message": "Nit: the actual reason why it\u0027s OK is because the flag has been pushed to enable the feature on old versions already, so any new binary will always have a version number newer than the flag.",
+      "range": {
+        "startLine": 191,
+        "startChar": 22,
+        "endLine": 191,
+        "endChar": 24
+      },
+      "revId": "8d7db033676027b6e3a75765d12f07c789a3ea6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a999b5fe_6bd85c69",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-08T06:31:58Z",
+      "side": 1,
+      "message": "Nit: it looks like this is always false now, so this argument can probably be removed too ?",
+      "range": {
+        "startLine": 180,
+        "startChar": 72,
+        "endLine": 180,
+        "endChar": 86
+      },
+      "revId": "8d7db033676027b6e3a75765d12f07c789a3ea6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
