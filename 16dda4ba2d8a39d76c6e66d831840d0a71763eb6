@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bd5cdaa_7d54563f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10174,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-08T02:47:54Z",
+      "side": 1,
+      "message": "Init lock down state?   \n\nbecause this is not really `init LockdownVpnTracker`",
+      "range": {
+        "startLine": 10174,
+        "startChar": 11,
+        "endLine": 10174,
+        "endChar": 34
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb26959b_25708af0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10191,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-08T02:47:54Z",
+      "side": 1,
+      "message": "Could you also add comment to explain why this will throw IllegalStateException?",
+      "range": {
+        "startLine": 10191,
+        "startChar": 11,
+        "endLine": 10191,
+        "endChar": 89
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b31cbdf_d37e9875",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10224,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-08T02:47:54Z",
+      "side": 1,
+      "message": "Not for this commit. I think this is kind of confusing. When I looked the wifiAgent.connect() at 1.10285, I will have a question why an unvalidated wifi is able to replace the default network. This is because both cell and wifi are unvalidated. It works in the test but not a common case in real world. Maybe we should replace it with validated which is more realistic?",
+      "range": {
+        "startLine": 10224,
+        "startChar": 27,
+        "endLine": 10224,
+        "endChar": 48
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0abf7d3f_fa034f34",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10231,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-08T02:47:54Z",
+      "side": 1,
+      "message": "Could you have a comment why this is needed?",
+      "range": {
+        "startLine": 10231,
+        "startChar": 8,
+        "endLine": 10231,
+        "endChar": 22
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b44d46fb_cbb9d809",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10294,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-08T02:47:54Z",
+      "side": 1,
+      "message": "Nit: final",
+      "range": {
+        "startLine": 10294,
+        "startChar": 8,
+        "endLine": 10294,
+        "endChar": 9
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c6798a3_09a32381",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10348,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-08T02:47:54Z",
+      "side": 1,
+      "message": "Why do you need this call? should default network lost trigger a stopVpnRunnerPrivileged?",
+      "range": {
+        "startLine": 10348,
+        "startChar": 8,
+        "endLine": 10348,
+        "endChar": 43
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e8679cf_2e6343cd",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-08T02:47:54Z",
+      "side": 1,
+      "message": "Could you have a comment says that LockdownVpnTracker will not do handleStateChangedLocked on the same network even if linkproperties change?",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 65
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61a2bcaa_e3fec3e3",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-08T02:47:54Z",
+      "side": 1,
+      "message": "Nit: make another constant? TEST_NETWORK_2",
+      "range": {
+        "startLine": 212,
+        "startChar": 36,
+        "endLine": 212,
+        "endChar": 52
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

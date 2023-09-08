@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ee5244d_a59befa8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-08T02:47:54Z",
+      "side": 0,
+      "message": "I cannot find the relationship between removing these lines and removing LockdownVpnTracker. Could you explain why this is also removed?",
+      "range": {
+        "startLine": 1662,
+        "startChar": 12,
+        "endLine": 1666,
+        "endChar": 54
+      },
+      "revId": "465dbbe4b778445f4f81bc212a0ca8170a3d9c05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
