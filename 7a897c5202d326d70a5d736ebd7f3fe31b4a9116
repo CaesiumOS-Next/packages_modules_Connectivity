@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d8630fe_d8f3dee6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-08T05:51:41Z",
+      "side": 1,
+      "message": "Is there any issue with always posting #start, rather than only posting when it\u0027s the sync machine ?",
+      "range": {
+        "startLine": 302,
+        "startChar": 12,
+        "endLine": 302,
+        "endChar": 23
+      },
+      "revId": "7a897c5202d326d70a5d736ebd7f3fe31b4a9116",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5dc5a9_4c4c3e2b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-08T05:51:41Z",
+      "side": 1,
+      "message": "I think this is likely fine but do you want to wait for the SM to have started ?\n\n    final ConditionVariable cv \u003d new ConditionVariable();\n    mHandler.post(() -\u003e { mTetherMainSM.start(); cv.open(); });\n    cv.block();",
+      "range": {
+        "startLine": 303,
+        "startChar": 46,
+        "endLine": 303,
+        "endChar": 51
+      },
+      "revId": "7a897c5202d326d70a5d736ebd7f3fe31b4a9116",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "398c8364_cf575b65",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2749,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-08T05:51:41Z",
+      "side": 1,
+      "message": "Same comment here as in SyncSM08",
+      "range": {
+        "startLine": 2749,
+        "startChar": 29,
+        "endLine": 2749,
+        "endChar": 33
+      },
+      "revId": "7a897c5202d326d70a5d736ebd7f3fe31b4a9116",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
