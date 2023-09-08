@@ -419,6 +419,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc08aa7d_757a4a24",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-08T13:42:34Z",
+      "side": 1,
+      "message": "The test code above this line is testing when the upstream is lost, so the reappear of an IPv4-only upstream here won\u0027t do anything to IPv6 rules.",
+      "parentUuid": "604c3450_45aeec42",
+      "range": {
+        "startLine": 1152,
+        "startChar": 8,
+        "endLine": 1152,
+        "endChar": 39
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "919699e9_b293f15e",
         "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
         "patchSetId": 13
@@ -430,6 +454,30 @@
       "writtenOn": "2023-09-06T15:26:17Z",
       "side": 1,
       "message": "When we receive this delNeigh and the one above, rules are deleted, right? If so, would be good to call verifyTetherOffloadRuleRemove just under here.",
+      "range": {
+        "startLine": 1154,
+        "startChar": 8,
+        "endLine": 1154,
+        "endChar": 20
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c77274c_4fc8488a",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-08T13:42:34Z",
+      "side": 1,
+      "message": "Added two \"verify(mBpfCoordinator).removeIpv6DownstreamRule\" lines.\n\nneighA and neighN had already removed from the BPF map at above test code, but they still remain in BpfCoordinator. Adding recvDelNeigh here is to clear it from BpfCoordinator.",
+      "parentUuid": "919699e9_b293f15e",
       "range": {
         "startLine": 1154,
         "startChar": 8,
@@ -641,6 +689,30 @@
       "writtenOn": "2023-09-06T15:26:17Z",
       "side": 1,
       "message": "Looks like the ordering changed here. Could this create a problem with the netd implementation that runs on R?\n\nAlso - looks like the new code first gets the stats and then removes the rule. But while we\u0027re fetching the stats, the rule could still be forwarding traffic. So the stats could be incorrect. Is there something we can do about this?",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 806,
+        "endChar": 34
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "295facd7_7db49e86",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-08T13:42:34Z",
+      "side": 1,
+      "message": "How about we change the order of handling in BpfCoordinator#updateAllIpv6Rules? We handle downstream rules change before upstream rules change. But there is still one different compare to the previous code. In previous code, when there is upstream interface but no downstream neighbor, it won\u0027t write the upstream rule to bpf map and won\u0027t set quota limit on the upstream interface, but now we\u0027ll have those bpf maps.\n\nAbout the second concern on the stats correctness, it won\u0027t have issue, because bpf won\u0027t forward traffic if there is no stats entry on the upstream:\n```\nTetherStatsValue* stat_v \u003d bpf_tether_stats_map_lookup_elem(\u0026stat_and_limit_k);\n// If we don\u0027t have anywhere to put stats, then abort...\nif (!stat_v) TC_PUNT(NO_STATS_ENTRY);\n```",
+      "parentUuid": "71f2866d_66266499",
       "range": {
         "startLine": 806,
         "startChar": 8,
