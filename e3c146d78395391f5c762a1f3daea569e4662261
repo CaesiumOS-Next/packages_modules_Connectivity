@@ -34,6 +34,24 @@
       "parentUuid": "440d6c5c_9bc32b3e",
       "revId": "e3c146d78395391f5c762a1f3daea569e4662261",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f29d4fc6_f00551c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-09-08T13:48:23Z",
+      "side": 1,
+      "message": "This is already removed from upstream-staging. It seems that upstream-import has removed this file as seen here https://android.googlesource.com/platform/external/cronet/+/refs/heads/upstream-import\n\nMerging into upstream-staging reverted the CL technically.",
+      "parentUuid": "793a8468_b2b71946",
+      "revId": "e3c146d78395391f5c762a1f3daea569e4662261",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
