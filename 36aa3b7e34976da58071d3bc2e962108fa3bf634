@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fbbc7b5_15cc5ad8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-08T08:43:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4892d050_4f2e0342",
+      "range": {
+        "startLine": 286,
+        "startChar": 16,
+        "endLine": 286,
+        "endChar": 18
+      },
+      "revId": "36aa3b7e34976da58071d3bc2e962108fa3bf634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa220812_c5141496",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-08T07:01:20Z",
       "side": 1,
       "message": "In general it would be nice to have a good separation in names between feature rollout flag and chicken bits. It\u0027s not very clear which one it is from the name here.\n\nFor example feature flags are often like NSD_ENABLE_MDNS_OFFLOAD_VERSION\n\nFor chicken bits... Maybe something like NSD_FORCE_DISABLE_MDNS_OFFLOAD ?\n\nI\u0027m not sure it\u0027s worth respinning TH for this though. You could do it in a separate change",
+      "range": {
+        "startLine": 25,
+        "startChar": 31,
+        "endLine": 25,
+        "endChar": 55
+      },
+      "revId": "36aa3b7e34976da58071d3bc2e962108fa3bf634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0efdf6f5_6a75e204",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-08T08:43:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa220812_c5141496",
       "range": {
         "startLine": 25,
         "startChar": 31,
