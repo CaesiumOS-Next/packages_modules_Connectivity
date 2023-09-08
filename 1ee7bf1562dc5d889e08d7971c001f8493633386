@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9547eb69_b403c50f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-08T09:34:15Z",
+      "side": 1,
+      "message": "\"the\" here implies the person reading this knows which \"incorrect callback order\" problem you are talking about. Either there is only one, or it\u0027s very well-known. I don\u0027t think either case works.\n\n\"an\" would work better.",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "1ee7bf1562dc5d889e08d7971c001f8493633386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4639b1f7_1e64739c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-08T09:34:15Z",
+      "side": 1,
+      "message": "is",
+      "range": {
+        "startLine": 14,
+        "startChar": 38,
+        "endLine": 14,
+        "endChar": 46
+      },
+      "revId": "1ee7bf1562dc5d889e08d7971c001f8493633386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d07714b_eaf7bfa7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-08T09:34:15Z",
+      "side": 1,
+      "message": "broadcast",
+      "range": {
+        "startLine": 15,
+        "startChar": 56,
+        "endLine": 15,
+        "endChar": 64
+      },
+      "revId": "1ee7bf1562dc5d889e08d7971c001f8493633386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af8a182f_a3dd0bcd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2814,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-08T09:34:15Z",
+      "side": 1,
+      "message": "This is extremely obscure, and the reason is that the `onDownstreamChanged` callback is sent inside `sendTetherStateChangedBroadcast()`. It\u0027s confusing that we send a callback inside a method whose name suggests it sends a broadcast.\n\nInstead of doing this, can you move the call to `onDownstreamChanged` out of `send...Broadcast` please ? This is the only call site anyway, so you\u0027ll clarify the code and you\u0027ll clarify the order.",
+      "range": {
+        "startLine": 2814,
+        "startChar": 22,
+        "endLine": 2814,
+        "endChar": 33
+      },
+      "revId": "1ee7bf1562dc5d889e08d7971c001f8493633386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
