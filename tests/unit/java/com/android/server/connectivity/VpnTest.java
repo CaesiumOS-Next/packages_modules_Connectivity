@@ -611,6 +611,16 @@ public class VpnTest extends VpnTestBase {
                                    Process.toSdkSandboxUid(userStart + PKG_UIDS[3] - 1)),
                 new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[3] + 1), userStop)
         }));
+
+        // Disable the always-on with lockdown.
+        assertTrue(vpn.setAlwaysOnPackage(
+                null /* packageName */, false /* lockdown */, null /* lockdownAllowlist */));
+        verify(mConnectivityManager).setRequireVpnForUids(false, toRanges(new UidRangeParcel[] {
+                new UidRangeParcel(userStart, userStart + PKG_UIDS[3] - 1),
+                new UidRangeParcel(userStart + PKG_UIDS[3] + 1,
+                        Process.toSdkSandboxUid(userStart + PKG_UIDS[3] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[3] + 1), userStop)
+        }));
     }
 
     @Test
@@ -720,6 +730,58 @@ public class VpnTest extends VpnTestBase {
                                    Process.toSdkSandboxUid(userStart + PKG_UIDS[0] - 1)),
                 new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[0] + 1),
                                    Process.toSdkSandboxUid(userStart + PKG_UIDS[2] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[2] + 1), userStop)
+        }));
+
+        // Disable the always-on with lockdown.
+        assertTrue(vpn.setAlwaysOnPackage(
+                null /* packageName */, false /* lockdown */, null /* lockdownAllowlist */));
+        verify(mConnectivityManager).setRequireVpnForUids(false, toRanges(new UidRangeParcel[] {
+                new UidRangeParcel(userStart, userStart + PKG_UIDS[0] - 1),
+                new UidRangeParcel(userStart + PKG_UIDS[0] + 1, userStart + PKG_UIDS[2] - 1),
+                new UidRangeParcel(userStart + PKG_UIDS[2] + 1,
+                        Process.toSdkSandboxUid(userStart + PKG_UIDS[0] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[0] + 1),
+                        Process.toSdkSandboxUid(userStart + PKG_UIDS[2] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[2] + 1), userStop)
+        }));
+    }
+
+    @Test
+    public void testLockdownSystemUser() throws Exception {
+        final Vpn vpn = createVpn(SYSTEM_USER_ID);
+        final int userStart = uidRangeForUser(SYSTEM_USER_ID).getLower();
+        final int userStop = uidRangeForUser(SYSTEM_USER_ID).getUpper();
+
+        // Set always-on with lockdown.
+        assertTrue(
+                vpn.setAlwaysOnPackage(PKGS[1], true /* lockdown */, null /* lockdownAllowlist */));
+        verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(new UidRangeParcel[] {
+                // Uid 0 is always allowed through, start from uid 1. See Vpn#setVpnForcedLocked
+                new UidRangeParcel(1, userStart + PKG_UIDS[1] - 1),
+                new UidRangeParcel(userStart + PKG_UIDS[1] + 1,
+                        Process.toSdkSandboxUid(userStart + PKG_UIDS[1] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[1] + 1), userStop)
+        }));
+
+        // Disable always-on with lockdown.
+        assertTrue(vpn.setAlwaysOnPackage(
+                null /* packageName */, false /* lockdown */, null /* lockdownAllowlist */));
+        verify(mConnectivityManager).setRequireVpnForUids(false, toRanges(new UidRangeParcel[] {
+                new UidRangeParcel(1, userStart + PKG_UIDS[1] - 1),
+                new UidRangeParcel(userStart + PKG_UIDS[1] + 1,
+                        Process.toSdkSandboxUid(userStart + PKG_UIDS[1] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[1] + 1), userStop)
+        }));
+
+        // Set always-on with lockdown and allow app PKGS[2] from lockdown.
+        assertTrue(vpn.setAlwaysOnPackage(
+                PKGS[1], true /* lockdown */, Collections.singletonList(PKGS[2])));
+        verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(new UidRangeParcel[]  {
+                // Uid 0 is always allowed through, start from uid 1. See Vpn#setVpnForcedLocked
+                new UidRangeParcel(1, userStart + PKG_UIDS[1] - 1),
+                new UidRangeParcel(userStart + PKG_UIDS[2] + 1,
+                        Process.toSdkSandboxUid(userStart + PKG_UIDS[1]) - 1),
                 new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[2] + 1), userStop)
         }));
     }
