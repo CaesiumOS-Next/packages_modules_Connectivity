@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e9cd622_186a17fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1088076
+      },
+      "writtenOn": "2023-09-10T06:50:34Z",
+      "side": 1,
+      "message": "This test is failing all the device boot. no need to waste presubmit time. maybe try abtd run to confirm the boot fix?",
+      "revId": "2e3d05a85136f8dfb55b3ac13af9fb29665f2ed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
