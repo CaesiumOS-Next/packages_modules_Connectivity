@@ -1,0 +1,9 @@
+package: "com.android.net.flags"
+
+flag {
+  name: "connectivity_service_update_radio_battery_stats"
+  namespace: "android_core_networking"
+  description: "Connectivity Service report the radio activity changes for battery stats service"
+  bug: "267870186"
+}
+

@@ -257,6 +257,7 @@ import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.flags.Flags;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.BinderUtils;
 import com.android.net.module.util.BitUtils;
@@ -11266,6 +11267,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         public void handleReportNetworkActivity(NetworkActivityParams activityParams) {
+            Log.e(TAG, "test reading aconfig flag: "
+                    + Flags.connectivityServiceUpdateRadioBatteryStats());
             ensureRunningOnConnectivityServiceThread();
             if (mActiveIdleTimers.isEmpty()) {
                 // This activity change is not for the current default network.

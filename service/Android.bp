@@ -140,6 +140,21 @@ cc_library_shared {
     ],
 }
 
+aconfig_declarations {
+    name: "core_networking_flags",
+    package: "com.android.net.flags",
+    srcs: ["core_networking_flags.aconfig"],
+}
+
+java_aconfig_library {
+    name: "core_networking_flags_java_lib",
+    aconfig_declarations: "core_networking_flags",
+    min_sdk_version: "30",
+    apex_available: [
+        "com.android.tethering",
+    ],
+}
+
 java_library {
     name: "service-connectivity-pre-jarjar",
     sdk_version: "system_server_current",
@@ -197,6 +212,7 @@ java_library {
         "PlatformProperties",
         "service-connectivity-protos",
         "service-connectivity-stats-protos",
+        "core_networking_flags_java_lib",
     ],
     apex_available: [
         "com.android.tethering",
