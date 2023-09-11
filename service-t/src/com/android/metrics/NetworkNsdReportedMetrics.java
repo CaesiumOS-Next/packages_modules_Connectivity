@@ -34,20 +34,17 @@ public class NetworkNsdReportedMetrics {
     // The upper bound for the random number used in metrics data sampling determines the possible
     // sample rate.
     private static final int RANDOM_NUMBER_UPPER_BOUND = 1000;
-    // Whether this client is using legacy backend.
-    private final boolean mIsLegacy;
     // The client id.
     private final int mClientId;
     private final Dependencies mDependencies;
     private final Random mRandom;
 
-    public NetworkNsdReportedMetrics(boolean isLegacy, int clientId) {
-        this(isLegacy, clientId, new Dependencies());
+    public NetworkNsdReportedMetrics(int clientId) {
+        this(clientId, new Dependencies());
     }
 
     @VisibleForTesting
-    NetworkNsdReportedMetrics(boolean isLegacy, int clientId, Dependencies dependencies) {
-        mIsLegacy = isLegacy;
+    NetworkNsdReportedMetrics(int clientId, Dependencies dependencies) {
         mClientId = clientId;
         mDependencies = dependencies;
         mRandom = dependencies.makeRandomGenerator();
@@ -91,7 +88,6 @@ public class NetworkNsdReportedMetrics {
 
     private Builder makeReportedBuilder() {
         final Builder builder = NetworkNsdReported.newBuilder();
-        builder.setIsLegacy(mIsLegacy);
         builder.setClientId(mClientId);
         builder.setRandomNumber(mRandom.nextInt(RANDOM_NUMBER_UPPER_BOUND));
         return builder;
@@ -100,11 +96,14 @@ public class NetworkNsdReportedMetrics {
     /**
      * Report service registration succeeded metric data.
      *
+     * @param isLegacy Whether this call is using legacy backend.
      * @param transactionId The transaction id of service registration.
      * @param durationMs The duration of service registration success.
      */
-    public void reportServiceRegistrationSucceeded(int transactionId, long durationMs) {
+    public void reportServiceRegistrationSucceeded(boolean isLegacy, int transactionId,
+            long durationMs) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(isLegacy);
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_REGISTER);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_REGISTERED);
@@ -115,11 +114,14 @@ public class NetworkNsdReportedMetrics {
     /**
      * Report service registration failed metric data.
      *
+     * @param isLegacy Whether this call is using legacy backend.
      * @param transactionId The transaction id of service registration.
      * @param durationMs The duration of service registration failed.
      */
-    public void reportServiceRegistrationFailed(int transactionId, long durationMs) {
+    public void reportServiceRegistrationFailed(boolean isLegacy, int transactionId,
+            long durationMs) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(isLegacy);
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_REGISTER);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_REGISTRATION_FAILED);
@@ -130,6 +132,7 @@ public class NetworkNsdReportedMetrics {
     /**
      * Report service unregistration success metric data.
      *
+     * @param isLegacy Whether this call is using legacy backend.
      * @param transactionId The transaction id of service registration.
      * @param durationMs The duration of service stayed registered.
      * @param repliedRequestsCount The replied request count of this service before unregistered it.
@@ -137,10 +140,11 @@ public class NetworkNsdReportedMetrics {
      * @param conflictDuringProbingCount The number of conflict during probing.
      * @param conflictAfterProbingCount The number of conflict after probing.
      */
-    public void reportServiceUnregistration(int transactionId, long durationMs,
+    public void reportServiceUnregistration(boolean isLegacy, int transactionId, long durationMs,
             int repliedRequestsCount, int sentPacketCount, int conflictDuringProbingCount,
             int conflictAfterProbingCount) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(isLegacy);
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_REGISTER);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_UNREGISTERED);
@@ -155,10 +159,12 @@ public class NetworkNsdReportedMetrics {
     /**
      * Report service discovery started metric data.
      *
+     * @param isLegacy Whether this call is using legacy backend.
      * @param transactionId The transaction id of service discovery.
      */
-    public void reportServiceDiscoveryStarted(int transactionId) {
+    public void reportServiceDiscoveryStarted(boolean isLegacy, int transactionId) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(isLegacy);
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_DISCOVER);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_DISCOVERY_STARTED);
@@ -168,11 +174,14 @@ public class NetworkNsdReportedMetrics {
     /**
      * Report service discovery failed metric data.
      *
+     * @param isLegacy Whether this call is using legacy backend.
      * @param transactionId The transaction id of service discovery.
      * @param durationMs The duration of service discovery failed.
      */
-    public void reportServiceDiscoveryFailed(int transactionId, long durationMs) {
+    public void reportServiceDiscoveryFailed(boolean isLegacy, int transactionId,
+            long durationMs) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(isLegacy);
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_DISCOVER);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_DISCOVERY_FAILED);
@@ -183,6 +192,7 @@ public class NetworkNsdReportedMetrics {
     /**
      * Report service discovery stop metric data.
      *
+     * @param isLegacy Whether this call is using legacy backend.
      * @param transactionId The transaction id of service discovery.
      * @param durationMs The duration of discovering services.
      * @param foundCallbackCount The count of found service callbacks before stop discovery.
@@ -190,9 +200,10 @@ public class NetworkNsdReportedMetrics {
      * @param servicesCount The count of found services.
      * @param sentQueryCount The count of sent queries before stop discovery.
      */
-    public void reportServiceDiscoveryStop(int transactionId, long durationMs,
+    public void reportServiceDiscoveryStop(boolean isLegacy, int transactionId, long durationMs,
             int foundCallbackCount, int lostCallbackCount, int servicesCount, int sentQueryCount) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(isLegacy);
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_DISCOVER);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_DISCOVERY_STOP);
@@ -207,14 +218,16 @@ public class NetworkNsdReportedMetrics {
     /**
      * Report service resolution success metric data.
      *
+     * @param isLegacy Whether this call is using legacy backend.
      * @param transactionId The transaction id of service resolution.
      * @param durationMs The duration of resolving services.
      * @param isServiceFromCache Whether the resolved service is from cache.
      * @param sentQueryCount The count of sent queries during resolving.
      */
-    public void reportServiceResolved(int transactionId, long durationMs,
+    public void reportServiceResolved(boolean isLegacy, int transactionId, long durationMs,
             boolean isServiceFromCache, int sentQueryCount) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(isLegacy);
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_RESOLVE);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_RESOLVED);
@@ -227,11 +240,14 @@ public class NetworkNsdReportedMetrics {
     /**
      * Report service resolution failed metric data.
      *
+     * @param isLegacy Whether this call is using legacy backend.
      * @param transactionId The transaction id of service resolution.
      * @param durationMs The duration of service resolution failed.
      */
-    public void reportServiceResolutionFailed(int transactionId, long durationMs) {
+    public void reportServiceResolutionFailed(boolean isLegacy, int transactionId,
+            long durationMs) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(isLegacy);
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_RESOLVE);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_RESOLUTION_FAILED);
@@ -242,11 +258,13 @@ public class NetworkNsdReportedMetrics {
     /**
      * Report service resolution stop metric data.
      *
+     * @param isLegacy Whether this call is using legacy backend.
      * @param transactionId The transaction id of service resolution.
      * @param durationMs The duration before stop resolving the service.
      */
-    public void reportServiceResolutionStop(int transactionId, long durationMs) {
+    public void reportServiceResolutionStop(boolean isLegacy, int transactionId, long durationMs) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(isLegacy);
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_RESOLVE);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_RESOLUTION_STOP);
@@ -261,6 +279,7 @@ public class NetworkNsdReportedMetrics {
      */
     public void reportServiceInfoCallbackRegistered(int transactionId) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(false); // service info callback is always using new backend.
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_SERVICE_INFO_CALLBACK);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_INFO_CALLBACK_REGISTERED);
@@ -274,6 +293,7 @@ public class NetworkNsdReportedMetrics {
      */
     public void reportServiceInfoCallbackRegistrationFailed(int transactionId) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(false); // service info callback is always using new backend.
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_SERVICE_INFO_CALLBACK);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_INFO_CALLBACK_REGISTRATION_FAILED);
@@ -294,6 +314,7 @@ public class NetworkNsdReportedMetrics {
             int updateCallbackCount, int lostCallbackCount, boolean isServiceFromCache,
             int sentQueryCount) {
         final Builder builder = makeReportedBuilder();
+        builder.setIsLegacy(false); // service info callback is always using new backend.
         builder.setTransactionId(transactionId);
         builder.setType(NsdEventType.NET_SERVICE_INFO_CALLBACK);
         builder.setQueryResult(MdnsQueryResult.MQR_SERVICE_INFO_CALLBACK_UNREGISTERED);
