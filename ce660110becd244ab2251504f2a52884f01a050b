@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9183774_44996513",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T08:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb0d8700_3dc3b48d",
+      "range": {
+        "startLine": 10,
+        "startChar": 57,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "730e47f9_2b887f30",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cfe4d67_db16f8f2",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T08:45:39Z",
+      "side": 1,
+      "message": "Practically, I don\u0027t think there will be multiple versions at the same time. Even when hardware off-loading (e.g. ot-ncp-ftd) is supported, we should try to maintain the same version across multiple Thread chips and stacks / firmwares. But for off-loading, we won\u0027t be able to use a constant `THREAD_VERSION_1_3` as we do today, as the version needs to come from the core Thread stack (the c++ part).",
+      "parentUuid": "730e47f9_2b887f30",
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5768c8cf_1ddcfc0c",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-09-11T07:06:20Z",
       "side": 1,
       "message": "Nit: I think you can also `throw e.rethrowFromSystemServer()`, so you don\u0027t need to have a return that doesn\u0027t get used. But no need to respin for that.",
+      "range": {
+        "startLine": 60,
+        "startChar": 19,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "753fc08f_b9635963",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T08:45:39Z",
+      "side": 1,
+      "message": "Thanks! didn\u0027t realize that there is a return value of `rethrowFromSystemServer()`.\nUpdated!",
+      "parentUuid": "5768c8cf_1ddcfc0c",
       "range": {
         "startLine": 60,
         "startChar": 19,
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dca4fe6f_ba5ab957",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T08:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "061764b5_a14426b8",
+      "range": {
+        "startLine": 71,
+        "startChar": 52,
+        "endLine": 71,
+        "endChar": 58
+      },
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6da14fce_594c26b6",
@@ -104,6 +194,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89af70bf_ea3f84e6",
+        "filename": "thread/tests/cts/Android.bp",
+        "patchSetId": 27
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T08:45:39Z",
+      "side": 1,
+      "message": "You are right that we don\u0027t need this.\nRemoved",
+      "parentUuid": "6da14fce_594c26b6",
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "091fe45b_043360b7",
@@ -117,6 +225,24 @@
       "writtenOn": "2023-09-11T07:06:20Z",
       "side": 1,
       "message": "It may be useful to have a comment explain why T+, if the feature is only on U+ (I think there\u0027s tests that check that nothing happens on T ?)",
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad68f360_2f921171",
+        "filename": "thread/tests/cts/AndroidTest.xml",
+        "patchSetId": 27
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T08:45:39Z",
+      "side": 1,
+      "message": "Sure, added!",
+      "parentUuid": "091fe45b_043360b7",
       "revId": "ce660110becd244ab2251504f2a52884f01a050b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

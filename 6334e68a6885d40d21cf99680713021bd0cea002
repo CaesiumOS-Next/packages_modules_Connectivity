@@ -107,6 +107,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8a4f4b6_7ddbb33d",
+        "filename": "thread/framework/java/android/net/thread/IThreadNetworkManager.aidl",
+        "patchSetId": 22
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T08:45:39Z",
+      "side": 1,
+      "message": "There will be an API `getThreadNetworkController(@NonNull Network threadNetwork)` for returning the controller for given network. See go/thread-android-api\n\n`getAllThreadNetworkControllers()` is added for forward compatibility as the team thinks there may be multiple networks in the future (given there are multiple Wi-Fi networks cases).",
+      "parentUuid": "736140c5_1b80cf25",
+      "range": {
+        "startLine": 26,
+        "startChar": 35,
+        "endLine": 26,
+        "endChar": 65
+      },
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "124a0a02_1ae3d573",
