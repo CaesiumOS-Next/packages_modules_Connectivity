@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7c0e54e_0429ab03",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-11T07:50:15Z",
+      "side": 1,
+      "message": "Thanks and done.",
+      "parentUuid": "e17439c9_d9473265",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 126,
+        "endChar": 36
+      },
+      "revId": "465dbbe4b778445f4f81bc212a0ca8170a3d9c05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e141bdb_cf1afddd",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-11T06:20:13Z",
       "side": 1,
       "message": "Nit: I think createLockdownVpnTracker can also be done inside this method and return the created LockdownVpnTracker",
+      "range": {
+        "startLine": 129,
+        "startChar": 17,
+        "endLine": 129,
+        "endChar": 48
+      },
+      "revId": "465dbbe4b778445f4f81bc212a0ca8170a3d9c05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "201c1ba8_afe2e275",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-11T07:50:15Z",
+      "side": 1,
+      "message": "Done. Also removed createLockdownVpnTracker to create it directly instead since that will be its only usage.",
+      "parentUuid": "3e141bdb_cf1afddd",
       "range": {
         "startLine": 129,
         "startChar": 17,
