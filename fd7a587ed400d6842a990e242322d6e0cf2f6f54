@@ -16,6 +16,29 @@
       "message": "thoughts?",
       "revId": "fd7a587ed400d6842a990e242322d6e0cf2f6f54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0954e381_2c602f44",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-09-11T22:47:58Z",
+      "side": 1,
+      "message": "Didn\u0027t we see one of those getting stripped in some settings? Should the struct be expanded to capture some generic arguments? I guess those are really questions for Ryan.",
+      "range": {
+        "startLine": 297,
+        "startChar": 10,
+        "endLine": 297,
+        "endChar": 23
+      },
+      "revId": "fd7a587ed400d6842a990e242322d6e0cf2f6f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
