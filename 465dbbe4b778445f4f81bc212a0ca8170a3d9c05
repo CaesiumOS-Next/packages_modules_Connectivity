@@ -22,6 +22,30 @@
       },
       "revId": "465dbbe4b778445f4f81bc212a0ca8170a3d9c05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6755982a_e8e1d46e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-11T07:53:34Z",
+      "side": 0,
+      "message": "The test is now calling mMockVpn.stopVpnRunnerPrivileged() directly so the call is guaranteed and there is no need to verify it again.\nAdded this note in commit message",
+      "parentUuid": "0ee5244d_a59befa8",
+      "range": {
+        "startLine": 1662,
+        "startChar": 12,
+        "endLine": 1666,
+        "endChar": 54
+      },
+      "revId": "465dbbe4b778445f4f81bc212a0ca8170a3d9c05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

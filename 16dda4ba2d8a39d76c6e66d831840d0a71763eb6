@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57cd97c2_a87c3331",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10174,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-11T07:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bd5cdaa_7d54563f",
+      "range": {
+        "startLine": 10174,
+        "startChar": 11,
+        "endLine": 10174,
+        "endChar": 34
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb26959b_25708af0",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-08T02:47:54Z",
       "side": 1,
       "message": "Could you also add comment to explain why this will throw IllegalStateException?",
+      "range": {
+        "startLine": 10191,
+        "startChar": 11,
+        "endLine": 10191,
+        "endChar": 89
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4c31961_4469bd69",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10191,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-11T07:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb26959b_25708af0",
       "range": {
         "startLine": 10191,
         "startChar": 11,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7524c6ec_c5ea2918",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10231,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-11T07:53:34Z",
+      "side": 1,
+      "message": "Removed. For this cl, it was not needed. (will re-add in follow up cl with comment).",
+      "parentUuid": "0abf7d3f_fa034f34",
+      "range": {
+        "startLine": 10231,
+        "startChar": 8,
+        "endLine": 10231,
+        "endChar": 22
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b44d46fb_cbb9d809",
@@ -106,6 +178,30 @@
       "writtenOn": "2023-09-08T02:47:54Z",
       "side": 1,
       "message": "Nit: final",
+      "range": {
+        "startLine": 10294,
+        "startChar": 8,
+        "endLine": 10294,
+        "endChar": 9
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d4cf18a_8de2403c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10294,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-11T07:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b44d46fb_cbb9d809",
       "range": {
         "startLine": 10294,
         "startChar": 8,
@@ -139,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "304b75df_a0b4de14",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10348,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-11T07:53:34Z",
+      "side": 1,
+      "message": "This causes the LOST callback of VPN. Yes it should, coverage is in LockdownVpnTrackerTest#testSystemDefaultLost.\n\nMoved this call to after the on lost WIFI asserts to clarify that. Also added missing callback asserts for completeness.",
+      "parentUuid": "3c6798a3_09a32381",
+      "range": {
+        "startLine": 10348,
+        "startChar": 8,
+        "endLine": 10348,
+        "endChar": 43
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e8679cf_2e6343cd",
@@ -162,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "213114a5_bdbbb127",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-11T07:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e8679cf_2e6343cd",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 65
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61a2bcaa_e3fec3e3",
@@ -175,6 +319,30 @@
       "writtenOn": "2023-09-08T02:47:54Z",
       "side": 1,
       "message": "Nit: make another constant? TEST_NETWORK_2",
+      "range": {
+        "startLine": 212,
+        "startChar": 36,
+        "endLine": 212,
+        "endChar": 52
+      },
+      "revId": "16dda4ba2d8a39d76c6e66d831840d0a71763eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52c3f669_16ff5d6d",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-11T07:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61a2bcaa_e3fec3e3",
       "range": {
         "startLine": 212,
         "startChar": 36,
