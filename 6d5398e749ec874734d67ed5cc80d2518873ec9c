@@ -34,6 +34,24 @@
       "parentUuid": "280dbddb_e14edb25",
       "revId": "6d5398e749ec874734d67ed5cc80d2518873ec9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d38cb937_fe7602bc",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-11T06:08:04Z",
+      "side": 1,
+      "message": "Thanks !\nIn case Maze asks, I\u0027m thinking he might know because he reviewed the change linked above that did the move",
+      "parentUuid": "2c9cd52c_64a79e5e",
+      "revId": "6d5398e749ec874734d67ed5cc80d2518873ec9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
