@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e2cb39_c71333c8",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-11T02:57:35Z",
+      "side": 1,
+      "message": "This is not actually going to work because the issue at hand crashes the system, so you won\u0027t be able to retry – your app will be dead.",
+      "range": {
+        "startLine": 647,
+        "startChar": 38,
+        "endLine": 647,
+        "endChar": 47
+      },
+      "revId": "017ee45a1ada72872f136a8afce3b7ae91c74277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
