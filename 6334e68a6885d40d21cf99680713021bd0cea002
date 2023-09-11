@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "736140c5_1b80cf25",
+        "filename": "thread/framework/java/android/net/thread/IThreadNetworkManager.aidl",
+        "patchSetId": 22
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-11T07:06:20Z",
+      "side": 1,
+      "message": "I don\u0027t feel strongly either way, but I was just thinking that if you don\u0027t have any plan to have methods that return only some of the controllers, maybe getNetworkControllers or getThreadNetworkControllers would be enough. But I\u0027ll leave that up to your API reviewer :-)",
+      "parentUuid": "e973255e_0ec11c96",
+      "range": {
+        "startLine": 26,
+        "startChar": 35,
+        "endLine": 26,
+        "endChar": 65
+      },
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "124a0a02_1ae3d573",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
         "patchSetId": 22

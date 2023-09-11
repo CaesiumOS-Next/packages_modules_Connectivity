@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb0d8700_3dc3b48d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-11T07:06:20Z",
+      "side": 1,
+      "message": "Typo: create",
+      "range": {
+        "startLine": 10,
+        "startChar": 57,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "730e47f9_2b887f30",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-11T07:06:20Z",
+      "side": 1,
+      "message": "Are there going to be different networks (different ThreadNetworkController) with different versions at the same time ? I was wondering why this method is in ThreadNetworkController and not ThreadNetworkManager.",
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5768c8cf_1ddcfc0c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-11T07:06:20Z",
+      "side": 1,
+      "message": "Nit: I think you can also `throw e.rethrowFromSystemServer()`, so you don\u0027t need to have a return that doesn\u0027t get used. But no need to respin for that.",
+      "range": {
+        "startLine": 60,
+        "startChar": 19,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "061764b5_a14426b8",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-11T07:06:20Z",
+      "side": 1,
+      "message": "Supernit: I think usually you\u0027d break a line before this",
+      "range": {
+        "startLine": 71,
+        "startChar": 52,
+        "endLine": 71,
+        "endChar": 58
+      },
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6da14fce_594c26b6",
+        "filename": "thread/tests/cts/Android.bp",
+        "patchSetId": 27
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-11T07:06:20Z",
+      "side": 1,
+      "message": "Curious: do you actually need this ? I would expect test_current SDK to already include what you get by specifying this",
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "091fe45b_043360b7",
+        "filename": "thread/tests/cts/AndroidTest.xml",
+        "patchSetId": 27
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-11T07:06:20Z",
+      "side": 1,
+      "message": "It may be useful to have a comment explain why T+, if the feature is only on U+ (I think there\u0027s tests that check that nothing happens on T ?)",
+      "revId": "ce660110becd244ab2251504f2a52884f01a050b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
