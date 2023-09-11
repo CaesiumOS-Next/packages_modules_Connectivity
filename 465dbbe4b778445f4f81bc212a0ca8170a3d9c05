@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e17439c9_d9473265",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-11T06:20:13Z",
+      "side": 1,
+      "message": "Suggest\n\n```\nif (mHandlerThread !\u003d null) {\n   mHandlerThread.quitSafely();\n   mHandlerThread.join();\n}\n```\nto \n- Ensure the handlerthread is actually created\n- Use join() to ensures that you code will wait for the thread to end",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 126,
+        "endChar": 36
+      },
+      "revId": "465dbbe4b778445f4f81bc212a0ca8170a3d9c05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e141bdb_cf1afddd",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-11T06:20:13Z",
+      "side": 1,
+      "message": "Nit: I think createLockdownVpnTracker can also be done inside this method and return the created LockdownVpnTracker",
+      "range": {
+        "startLine": 129,
+        "startChar": 17,
+        "endLine": 129,
+        "endChar": 48
+      },
+      "revId": "465dbbe4b778445f4f81bc212a0ca8170a3d9c05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
