@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c82aaa7_9de09108",
+        "filename": "tests/cts/net/src/android/net/cts/MdnsTestUtils.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-11T06:57:22Z",
+      "side": 1,
+      "message": "Can you add a constant for this like aosp/2437173?",
+      "range": {
+        "startLine": 284,
+        "startChar": 41,
+        "endLine": 284,
+        "endChar": 55
+      },
+      "revId": "51e1747506387a06a66635c86ad0fb5ead335c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
