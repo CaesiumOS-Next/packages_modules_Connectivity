@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d073fa75_9a53cec2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffe419e8_bc490496",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "78ba6debe750bf10acd6e9e11c909f57dc4ad85c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "811cab09_0fbaae67",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-11T02:41:17Z",
       "side": 1,
       "message": "Nit: Are 1) and 2) below OR or AND ? It would be nice to clarify",
+      "range": {
+        "startLine": 195,
+        "startChar": 27,
+        "endLine": 195,
+        "endChar": 29
+      },
+      "revId": "78ba6debe750bf10acd6e9e11c909f57dc4ad85c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69d1029e_d41897ff",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "It\u0027s \"AND\", document updated.",
+      "parentUuid": "811cab09_0fbaae67",
       "range": {
         "startLine": 195,
         "startChar": 27,

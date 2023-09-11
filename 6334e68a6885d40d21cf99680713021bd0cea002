@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dfb150d_8f694413",
+        "filename": "thread/framework/Android.bp",
+        "patchSetId": 22
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf0d25a0_5910c693",
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "836bf388_09f18397",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-09-11T02:41:17Z",
       "side": 1,
       "message": "Just my 2 cents: personally I\u0027d call this getThreadNetworkControllers, or just getNetworkControllers (since it\u0027s in IThreadNetworkManager); I think that\u0027s usual practice for methods that return a list to return all items.",
+      "range": {
+        "startLine": 26,
+        "startChar": 35,
+        "endLine": 26,
+        "endChar": 65
+      },
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e973255e_0ec11c96",
+        "filename": "thread/framework/java/android/net/thread/IThreadNetworkManager.aidl",
+        "patchSetId": 22
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "Are you suggesting changing the system API actually?\n\n@jchalard@google.com What do you think?",
+      "parentUuid": "836bf388_09f18397",
       "range": {
         "startLine": 26,
         "startChar": 35,
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66c091a2_56b331ac",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "124a0a02_1ae3d573",
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d44cb3cb_d3b3efe7",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-09-11T02:41:17Z",
       "side": 1,
       "message": "Nit: you can just return Collections.emptyList() below and remove this variable",
+      "range": {
+        "startLine": 68,
+        "startChar": 38,
+        "endLine": 68,
+        "endChar": 44
+      },
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8455de4b_8036a3d4",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d44cb3cb_d3b3efe7",
       "range": {
         "startLine": 68,
         "startChar": 38,
@@ -98,6 +182,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f122fa55_a0dc0040",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 22
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "Sure, I will need to use framework-connectivity but not in this CL. I suppose we prefer adding the dependencies when we really need it.",
+      "parentUuid": "855d51e2_d8d31c3b",
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79c596c0_ae01246f",
@@ -111,6 +213,30 @@
       "writtenOn": "2023-09-11T02:41:17Z",
       "side": 1,
       "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 101
+      },
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba7133d5_93a1f61d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79c596c0_ae01246f",
       "range": {
         "startLine": 40,
         "startChar": 0,
@@ -138,6 +264,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2381f1cb_27752a6b",
+        "filename": "thread/tests/cts/Android.bp",
+        "patchSetId": 22
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b02a33b2_9d93e4bb",
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62829777_52e6b4d3",
@@ -151,6 +295,24 @@
       "writtenOn": "2023-09-11T02:41:17Z",
       "side": 1,
       "message": "Since this is in MTS there should be a module controller: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/Cronet/tests/cts/AndroidTest.xml;drc\u003d8d6cbffe8218dacb84f15a9e6f9868cf2c1906c0;l\u003d34\n\nAnd a min SDK version controller since this is T+: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/remoteauth/tests/unit/AndroidTest.xml;drc\u003d13a35ea2138be93cdd0c42aeb299c22dfd83d294;l\u003d19",
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47019e75_630970ea",
+        "filename": "thread/tests/cts/AndroidTest.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "Thanks for the links, done!",
+      "parentUuid": "62829777_52e6b4d3",
       "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -172,6 +334,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24cdbe4c_3fadcb8e",
+        "filename": "thread/tests/cts/OWNERS",
+        "patchSetId": 22
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "225c4d6b_1efbe406",
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "184f7e72_5df3bce0",
@@ -189,6 +369,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0989b109_e3493e29",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "Yes, I need to use `assumeNotNull()` in tearDown() in aosp/2737373.\n\nIt will be nice to ignore a test case based on whether a feature is available, but I didn\u0027t find existing rules for this.\n\nI will leave this to following CLs since this commit doesn\u0027t really need it.",
+      "parentUuid": "184f7e72_5df3bce0",
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96c8a935_d62bf3bb",
@@ -202,6 +400,24 @@
       "writtenOn": "2023-09-11T02:41:17Z",
       "side": 1,
       "message": "That may fail on some TVs right ?",
+      "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95a8e4b4_41764260",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkManagerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-11T04:46:25Z",
+      "side": 1,
+      "message": "No, TVs are support on U+ while this test runs on only T or lower.",
+      "parentUuid": "96c8a935_d62bf3bb",
       "revId": "6334e68a6885d40d21cf99680713021bd0cea002",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
