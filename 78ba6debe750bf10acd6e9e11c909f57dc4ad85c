@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffe419e8_bc490496",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-11T02:41:17Z",
+      "side": 1,
+      "message": "This is not accessible for most people who have access to gerrit or the git log (AOSP contributors); can you post a quick summary here instead ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "78ba6debe750bf10acd6e9e11c909f57dc4ad85c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "811cab09_0fbaae67",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-11T02:41:17Z",
+      "side": 1,
+      "message": "Nit: Are 1) and 2) below OR or AND ? It would be nice to clarify",
+      "range": {
+        "startLine": 195,
+        "startChar": 27,
+        "endLine": 195,
+        "endChar": 29
+      },
+      "revId": "78ba6debe750bf10acd6e9e11c909f57dc4ad85c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
