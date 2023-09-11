@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "280dbddb_e14edb25",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-11T02:08:27Z",
+      "side": 1,
+      "message": "clatd has:\n\n    relative_install_path: \"for-system\",\n    \nSee: aosp/1944698\n\nI\u0027m not sure why it\u0027s necessary (better check with Maze maybe ?), but I\u0027m suspecting it\u0027s for setting selinux permissions properly ?\n\nIt would be a bit weird to have ot-daemon in apex/com.android.tethering/bin/, but have clatd in apex/com.android.tethering/bin/for-system",
+      "revId": "6d5398e749ec874734d67ed5cc80d2518873ec9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
