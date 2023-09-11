@@ -274,13 +274,25 @@ static __always_inline inline void do_packet_tracing(
 
     uint8_t flags = 0;
     __be16 sport = 0, dport = 0;
-    if (proto == IPPROTO_TCP && L4_off >= 20) {
-        (void)bpf_skb_load_bytes_net(skb, L4_off + TCP_FLAG32_OFF + 1, &flags, sizeof(flags), kver);
-        (void)bpf_skb_load_bytes_net(skb, L4_off + TCP_OFFSET(source), &sport, sizeof(sport), kver);
-        (void)bpf_skb_load_bytes_net(skb, L4_off + TCP_OFFSET(dest), &dport, sizeof(dport), kver);
-    } else if (proto == IPPROTO_UDP && L4_off >= 20) {
-        (void)bpf_skb_load_bytes_net(skb, L4_off + UDP_OFFSET(source), &sport, sizeof(sport), kver);
-        (void)bpf_skb_load_bytes_net(skb, L4_off + UDP_OFFSET(dest), &dport, sizeof(dport), kver);
+    if (L4_off >= 20) {
+      switch(proto) {
+        case IPPROTO_TCP:
+          (void)bpf_skb_load_bytes_net(skb, L4_off + TCP_FLAG32_OFF + 1, &flags, sizeof(flags), kver);
+          // fallthrough, as all of these start with be16 src & dst port
+        case IPPROTO_UDP:
+        case IPPROTO_UDPLITE:
+        case IPPROTO_SCTP:
+          (void)bpf_skb_load_bytes_net(skb, L4_off + TCP_OFFSET(source), &sport, sizeof(sport), kver);
+          (void)bpf_skb_load_bytes_net(skb, L4_off + TCP_OFFSET(dest), &dport, sizeof(dport), kver);
+          break;
+        case IPPROTO_ICMP:
+        case IPPROTO_ICMPV6:
+          uint8 type, code;  // Both IPv4 and IPv6 icmp start with u8 type, code.
+          (void)bpf_skb_load_bytes_net(skb, L4_off + 0, &type, sizeof(type), kver);
+          (void)bpf_skb_load_bytes_net(skb, L4_off + 1, &code, sizeof(code), kver);
+          sport = type;
+          dport = code;
+          break;
     }
 
     pkt->timestampNs = bpf_ktime_get_boot_ns();
