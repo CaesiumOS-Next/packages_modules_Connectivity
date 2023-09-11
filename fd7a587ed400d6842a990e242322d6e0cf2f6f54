@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12b23b59_dcc7d380",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-09-11T23:11:35Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "fd7a587ed400d6842a990e242322d6e0cf2f6f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bc108e2_39303c6c",
@@ -54,6 +71,30 @@
       "writtenOn": "2023-09-11T22:47:58Z",
       "side": 1,
       "message": "Didn\u0027t we see one of those getting stripped in some settings? Should the struct be expanded to capture some generic arguments? I guess those are really questions for Ryan.",
+      "range": {
+        "startLine": 297,
+        "startChar": 10,
+        "endLine": 297,
+        "endChar": 23
+      },
+      "revId": "fd7a587ed400d6842a990e242322d6e0cf2f6f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5360d878_11c4fb26",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-09-11T23:11:35Z",
+      "side": 1,
+      "message": "There\u0027s a separate layer that converts this into a proto for Perfetto which does the stripping. I\u0027ll have to update that as well.\n\nAs for the code here, I don\u0027t mind re-using the fields since it keeps the struct the same size. Our throughput is limited by how many structs fit in the ringbuf. However, the ports are big endian and this is not. Not sure if using a union is better, or just not call ntohs for these protocols..",
+      "parentUuid": "0954e381_2c602f44",
       "range": {
         "startLine": 297,
         "startChar": 10,
