@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50ff5609_695fdedf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-12T09:09:40Z",
+      "side": 1,
+      "message": "Happy with this immediately, but please consider having a more general tool like the one I showed you earlier today.",
+      "revId": "326c22ff39d42c4af51c6ad1c6a98b4af76f38a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
