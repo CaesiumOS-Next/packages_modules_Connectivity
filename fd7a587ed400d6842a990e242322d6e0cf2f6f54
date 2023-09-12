@@ -151,6 +151,30 @@
       },
       "revId": "fd7a587ed400d6842a990e242322d6e0cf2f6f54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e6c6788_141dadd7",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-09-12T21:18:40Z",
+      "side": 1,
+      "message": "It seems you\u0027ve found a way to make this big endian without htons :) I\u0027m fine with this or just omitting ntohs in userspace and making a note.",
+      "parentUuid": "fbb1fc1a_c3ede97e",
+      "range": {
+        "startLine": 297,
+        "startChar": 10,
+        "endLine": 297,
+        "endChar": 23
+      },
+      "revId": "fd7a587ed400d6842a990e242322d6e0cf2f6f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
