@@ -183,6 +183,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4feb4130_74d3c4f4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-12T14:38:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfeaaaaa_d555e8ee",
+      "range": {
+        "startLine": 236,
+        "startChar": 81,
+        "endLine": 236,
+        "endChar": 82
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3552667_36bb55d0",
@@ -562,6 +586,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aaa2f31b_2bff74b0",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-12T14:38:24Z",
+      "side": 1,
+      "message": "I moved those code to the place above line 1152.\nTest start from line 1140 is to test upstream lost.\nTest start from line 1155 is to test that if the upstream is IPv4-only, no downstream rule will be added when receive a new IPv6 neighbor event.\nThe extra code is to clear the remaining downstream rules in BpfCoordinator that weren\u0027t cleared in the previous test (test start from line 1140).",
+      "parentUuid": "da2252b1_2ad36b6e",
+      "range": {
+        "startLine": 1154,
+        "startChar": 8,
+        "endLine": 1154,
+        "endChar": 20
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ac82f08_d264febd",
         "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
         "patchSetId": 13
@@ -809,6 +857,30 @@
       "side": 1,
       "message": "If BPF won\u0027t forward traffic if there is no stats entry, then I think doing things in either order is probably OK, as long as the old netd implementation in R works OK.\n\nDo you think one order is more correct than the other? Or are you just suggesting we match the previous behaviour so the netd implementation in R doesn\u0027t see a behaviour change?",
       "parentUuid": "295facd7_7db49e86",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 806,
+        "endChar": 34
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "295dd330_45b5a075",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-12T14:38:24Z",
+      "side": 1,
+      "message": "I think both orders are okay, my suggestion is just to match previous behavior if we have concern for implementation of old netd in R. So maybe we keep the change in current CL?",
+      "parentUuid": "646e3190_8448669d",
       "range": {
         "startLine": 806,
         "startChar": 8,

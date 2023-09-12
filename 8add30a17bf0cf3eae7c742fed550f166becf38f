@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a92d12eb_8de116f9",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-12T14:38:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33fb972f_d0302210",
+      "range": {
+        "startLine": 913,
+        "startChar": 8,
+        "endLine": 913,
+        "endChar": 63
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50f079ce_a3747d32",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-09-12T11:05:37Z",
       "side": 1,
       "message": "Out of curiosity, why do we first update all rules and then clear all rules? Is it because we update the rules when the upstream is set to zero, and then clear them when tethering stops?\n\nMight want to add a comment about this (or not, if it\u0027s already clear).",
+      "range": {
+        "startLine": 640,
+        "startChar": 39,
+        "endLine": 640,
+        "endChar": 59
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0209ebaf_1510744d",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-12T14:38:24Z",
+      "side": 1,
+      "message": "When tethering stops, it will call cleanupUpstream (in the function, it calls BpfCoordinator#maybeDetachProgram, netd#ipfwdRemoveInterfaceForward and BpfCoordinator#updateAllIpv6Rules with upstream 0). In previous code, set upstream to 0 will also clean downstream, but now since downstream rules will remain in BpfCoordinator, we need to clear it explicitly.\n\nAdded a comment for it.",
+      "parentUuid": "50f079ce_a3747d32",
       "range": {
         "startLine": 640,
         "startChar": 39,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d39bd27c_a9a598fa",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-12T14:38:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f488176_2a1ea16c",
+      "range": {
+        "startLine": 1079,
+        "startChar": 61,
+        "endLine": 1079,
+        "endChar": 65
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d3786bb_52aa2521",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5373458_fabdf160",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-12T14:38:24Z",
+      "side": 1,
+      "message": "Yes, it still accurate. The dispatchTetherConnectionChanged() function simulates actions that will be triggered in Tethering#setUpstreamNetwork when upstream lost.\n```\nprotected void setUpstreamNetwork(UpstreamNetworkState ns) {\n    ...\n    notifyDownstreamsOfNewUpstreamIface(ifaces); \u003d\u003d\u003e Send CMD_TETHER_CONNECTION_CHANGED\n    if (ns !\u003d null \u0026\u0026 pertainsToCurrentUpstream(ns)) {\n        ...\n    } else if (mCurrentUpstreamIfaceSet \u003d\u003d null) {\n        // There are no available upstream networks.\n        handleNewUpstreamNetworkState(null); \u003d\u003d\u003e mIPv6TetheringCoordinator#updateUpstreamNetworkState;\n                                             \u003d\u003d\u003e ...\n                                             \u003d\u003d\u003e Send CMD_IPV6_TETHER_UPDATE\n    }\n}\n```",
+      "parentUuid": "4d3786bb_52aa2521",
+      "range": {
+        "startLine": 1141,
+        "startChar": 0,
+        "endLine": 1143,
+        "endChar": 81
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e164cfc_3fe206d1",
@@ -123,6 +219,24 @@
       "writtenOn": "2023-09-12T11:05:37Z",
       "side": 1,
       "message": "This test seems to be doing:\n\n1. Enable BPF offload.\n2. Simulate events A, B, C.\n3. Check that the code responds.\n\n4. Disable BPF offload.\n5. Simulate the same events A, B, C.\n6. Check that the code doesn\u0027t do anything.\n\nIf so - right here, can you add a the same test case that you added in line 1271? You\u0027d call dispatchTetherConnectionChanged like below (but not with a null lp - see comment below), and here you\u0027d check that the code sets up forwarding properly.",
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c71335_0780101d",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-12T14:38:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e164cfc_3fe206d1",
       "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -163,6 +277,30 @@
       "writtenOn": "2023-09-12T11:05:37Z",
       "side": 1,
       "message": "I think this test is checking \"when BPF is disabled, nothing happens, even if relevant events occur\".\n\nIf so, shouldn\u0027t you pass in a real LinkProperties here? null always means \"don\u0027t do any IPv6\", so it\u0027s not really a relevant event.",
+      "range": {
+        "startLine": 1271,
+        "startChar": 56,
+        "endLine": 1271,
+        "endChar": 60
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a21d66e_fa2d76e1",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-12T14:38:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3de429c2_5a8e0942",
       "range": {
         "startLine": 1271,
         "startChar": 56,

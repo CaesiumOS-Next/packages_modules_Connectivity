@@ -22,6 +22,30 @@
       },
       "revId": "e4d549ab119d4a2c585010a43d37fd158bcdcde4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b13c81e8_014da33d",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-12T14:38:24Z",
+      "side": 0,
+      "message": "Right, NeighborEvents no longer modify upstream rules from now on.",
+      "parentUuid": "bd122284_01e2d5ee",
+      "range": {
+        "startLine": 1073,
+        "startChar": 8,
+        "endLine": 1073,
+        "endChar": 41
+      },
+      "revId": "e4d549ab119d4a2c585010a43d37fd158bcdcde4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
