@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ced5223e_9040d7ae",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-12T08:34:01Z",
+      "side": 1,
+      "message": "As \"!!\" is generally discouraged I think you could have an assertion instead like:\n\n    getSystemService(NsdManager) ?: fail(\"Could not get NsdManager service\")\n\nI don\u0027t think this is worth respinning this change though",
+      "range": {
+        "startLine": 46,
+        "startChar": 85,
+        "endLine": 46,
+        "endChar": 87
+      },
+      "revId": "4ab8cb58b830db702b07ff265df819b2fbc0928e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
