@@ -188,7 +188,8 @@ void Log::forEachEntry(const std::function<void(const std::string&)>& perEntryFn
         std::shared_lock<std::shared_mutex> guard(mLock);
         entries.assign(mEntries.cbegin(), mEntries.cend());
     }
-
+    // we no longer have a lock on mEntries, but have what exactly?
+    // could the pop_front below cause null entry?
     for (const std::string& entry : entries) perEntryFn(entry);
 }
 
@@ -209,7 +210,7 @@ void Log::record(Log::Level lvl, const std::string& entry) {
 
     std::lock_guard guard(mLock);
     mEntries.push_back(makeTimestampedEntry(entry));
-    while (mEntries.size() > mMaxEntries) mEntries.pop_front();
+    while (mEntries.size() >= mMaxEntries) mEntries.pop_front();  //deletes
 }
 
 }  // namespace netdutils
