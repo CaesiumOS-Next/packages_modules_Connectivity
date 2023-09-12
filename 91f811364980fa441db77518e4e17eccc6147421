@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56670b26_5361274b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-12T05:55:02Z",
+      "side": 1,
+      "message": "Optional: Not a hard requirement. We were suggested to limit the number of words in one line to 65 for readability.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 32
+      },
+      "revId": "91f811364980fa441db77518e4e17eccc6147421",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff0aff0c_fabc7de6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10219,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-12T05:55:02Z",
+      "side": 1,
+      "message": "You do this for trying to simulate the flow but it\u0027s kind of no-op here since startLegacyVpnPrivileged in l.10194 is not successfully started.  Calling this does not seem to verify anything. Maybe remove this?",
+      "range": {
+        "startLine": 10218,
+        "startChar": 8,
+        "endLine": 10219,
+        "endChar": 43
+      },
+      "revId": "91f811364980fa441db77518e4e17eccc6147421",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "523946b9_71ef8c11",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10350,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-12T05:55:02Z",
+      "side": 1,
+      "message": "Please address(or update) this.",
+      "range": {
+        "startLine": 10350,
+        "startChar": 8,
+        "endLine": 10350,
+        "endChar": 56
+      },
+      "revId": "91f811364980fa441db77518e4e17eccc6147421",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce3ba859_d4caa08b",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-12T05:55:02Z",
+      "side": 1,
+      "message": "Unused parameter",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 186,
+        "endChar": 54
+      },
+      "revId": "91f811364980fa441db77518e4e17eccc6147421",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ce6641b_6b2ec263",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-12T05:55:02Z",
+      "side": 1,
+      "message": "Unused parameter",
+      "range": {
+        "startLine": 206,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 51
+      },
+      "revId": "91f811364980fa441db77518e4e17eccc6147421",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
