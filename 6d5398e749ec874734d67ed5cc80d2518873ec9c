@@ -52,6 +52,24 @@
       "parentUuid": "2c9cd52c_64a79e5e",
       "revId": "6d5398e749ec874734d67ed5cc80d2518873ec9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ce6a3ff_f7d32d98",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-12T01:02:32Z",
+      "side": 1,
+      "message": "Depends on what security barriers you want to accomplish.\nbtw. clatd does not run in system_server process via jni.",
+      "parentUuid": "d38cb937_fe7602bc",
+      "revId": "6d5398e749ec874734d67ed5cc80d2518873ec9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
