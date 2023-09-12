@@ -402,12 +402,9 @@ public class NetworkRequest implements Parcelable {
          *
          * @param capability The capability to add to forbidden capability list.
          * @return The builder to facilitate chaining.
-         *
-         * @hide
          */
         @NonNull
         @SuppressLint("MissingGetterMatchingBuilder")
-        @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
         public Builder addForbiddenCapability(@NetworkCapabilities.NetCapability int capability) {
             mNetworkCapabilities.addForbiddenCapability(capability);
             return this;
@@ -418,12 +415,9 @@ public class NetworkRequest implements Parcelable {
          *
          * @param capability The forbidden capability to remove.
          * @return The builder to facilitate chaining.
-         *
-         * @hide
          */
         @NonNull
         @SuppressLint("BuilderSetStyle")
-        @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
         public Builder removeForbiddenCapability(
                 @NetworkCapabilities.NetCapability int capability) {
             mNetworkCapabilities.removeForbiddenCapability(capability);
@@ -433,6 +427,7 @@ public class NetworkRequest implements Parcelable {
         /**
          * Completely clears all the {@code NetworkCapabilities} from this builder instance,
          * removing even the capabilities that are set by default when the object is constructed.
+         * Also removes any set forbidden capabilities.
          *
          * @return The builder to facilitate chaining.
          */
@@ -717,10 +712,7 @@ public class NetworkRequest implements Parcelable {
 
     /**
      * @see Builder#addForbiddenCapability(int)
-     *
-     * @hide
      */
-    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
     public boolean hasForbiddenCapability(@NetCapability int capability) {
         return networkCapabilities.hasForbiddenCapability(capability);
     }
@@ -838,11 +830,8 @@ public class NetworkRequest implements Parcelable {
      * Gets all the forbidden capabilities set on this {@code NetworkRequest} instance.
      *
      * @return an array of forbidden capability values for this instance.
-     *
-     * @hide
      */
     @NonNull
-    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
     public @NetCapability int[] getForbiddenCapabilities() {
         // No need to make a defensive copy here as NC#getForbiddenCapabilities() already returns
         // a new array.
