@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dfeaaaaa_d555e8ee",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "A TODO is fine, yes.",
+      "parentUuid": "373bef8d_d6872536",
+      "range": {
+        "startLine": 236,
+        "startChar": 81,
+        "endLine": 236,
+        "endChar": 82
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c3552667_36bb55d0",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 13
@@ -441,6 +465,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1d251c6_fcd45756",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bc08aa7d_757a4a24",
+      "range": {
+        "startLine": 1152,
+        "startChar": 8,
+        "endLine": 1152,
+        "endChar": 39
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "919699e9_b293f15e",
@@ -478,6 +526,30 @@
       "side": 1,
       "message": "Added two \"verify(mBpfCoordinator).removeIpv6DownstreamRule\" lines.\n\nneighA and neighN had already removed from the BPF map at above test code, but they still remain in BpfCoordinator. Adding recvDelNeigh here is to clear it from BpfCoordinator.",
       "parentUuid": "919699e9_b293f15e",
+      "range": {
+        "startLine": 1154,
+        "startChar": 8,
+        "endLine": 1154,
+        "endChar": 20
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da2252b1_2ad36b6e",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "Hmm, so these two recvDelNeigh are only here to make the test pass? If so, that\u0027s a bit confusing. Would move them to just after line 1152, and explain in a comment. So something like:\n\n        ...\n        resetNetdBpfMapAndCoordinator();\n        // Resetting the maps doesn\u0027t clear the forwarding rules from BpfCoordinator.\n        // Do that here.\n        recvDelNeigh(myIfindex, neighA, NUD_STALE, macA);\n        recvDelNeigh(myIfindex, neighB, NUD_STALE, macB);\n        verify(mBpfCoordinator).removeIpv6DownstreamRule(\n                mIpServer,  makeDownstreamRule(0, neighA, macNull));\n        verify(mBpfCoordinator).removeIpv6DownstreamRule(\n                mIpServer,  makeDownstreamRule(0, neighB, macNull));\n\n\n        // If the upstream is IPv4-only, no IPv6 rules are added to BPF map.\n        dispatchTetherConnectionChanged(UPSTREAM_IFACE);\n        ...\n\nbut I\u0027m not sure what is being tested here, so perhaps my suggestion is incorrect.",
+      "parentUuid": "8c77274c_4fc8488a",
       "range": {
         "startLine": 1154,
         "startChar": 8,
@@ -713,6 +785,30 @@
       "side": 1,
       "message": "How about we change the order of handling in BpfCoordinator#updateAllIpv6Rules? We handle downstream rules change before upstream rules change. But there is still one different compare to the previous code. In previous code, when there is upstream interface but no downstream neighbor, it won\u0027t write the upstream rule to bpf map and won\u0027t set quota limit on the upstream interface, but now we\u0027ll have those bpf maps.\n\nAbout the second concern on the stats correctness, it won\u0027t have issue, because bpf won\u0027t forward traffic if there is no stats entry on the upstream:\n```\nTetherStatsValue* stat_v \u003d bpf_tether_stats_map_lookup_elem(\u0026stat_and_limit_k);\n// If we don\u0027t have anywhere to put stats, then abort...\nif (!stat_v) TC_PUNT(NO_STATS_ENTRY);\n```",
       "parentUuid": "71f2866d_66266499",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 806,
+        "endChar": 34
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "646e3190_8448669d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "If BPF won\u0027t forward traffic if there is no stats entry, then I think doing things in either order is probably OK, as long as the old netd implementation in R works OK.\n\nDo you think one order is more correct than the other? Or are you just suggesting we match the previous behaviour so the netd implementation in R doesn\u0027t see a behaviour change?",
+      "parentUuid": "295facd7_7db49e86",
       "range": {
         "startLine": 806,
         "startChar": 8,

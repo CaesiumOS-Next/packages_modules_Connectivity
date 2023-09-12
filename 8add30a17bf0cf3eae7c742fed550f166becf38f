@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0663038b_19db74e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "Sorry this is still taking so long. Almost done, halfway through BpfCoordinatorTest. I think the code is correct, I just want to look carefully at the tests as well.",
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33fb972f_d0302210",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "Nit: this comment is out of date because now that the code has been refactored, we are always here to process a NeighborEvent. Maybe just remove it.",
+      "range": {
+        "startLine": 913,
+        "startChar": 8,
+        "endLine": 913,
+        "endChar": 63
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50f079ce_a3747d32",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "Out of curiosity, why do we first update all rules and then clear all rules? Is it because we update the rules when the upstream is set to zero, and then clear them when tethering stops?\n\nMight want to add a comment about this (or not, if it\u0027s already clear).",
+      "range": {
+        "startLine": 640,
+        "startChar": 39,
+        "endLine": 640,
+        "endChar": 59
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f488176_2a1ea16c",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "Nit: BpfCoordinator.",
+      "range": {
+        "startLine": 1079,
+        "startChar": 61,
+        "endLine": 1079,
+        "endChar": 65
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d3786bb_52aa2521",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "Just to confirm: is this comment still accurate?",
+      "range": {
+        "startLine": 1141,
+        "startChar": 0,
+        "endLine": 1143,
+        "endChar": 81
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e164cfc_3fe206d1",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "This test seems to be doing:\n\n1. Enable BPF offload.\n2. Simulate events A, B, C.\n3. Check that the code responds.\n\n4. Disable BPF offload.\n5. Simulate the same events A, B, C.\n6. Check that the code doesn\u0027t do anything.\n\nIf so - right here, can you add a the same test case that you added in line 1271? You\u0027d call dispatchTetherConnectionChanged like below (but not with a null lp - see comment below), and here you\u0027d check that the code sets up forwarding properly.",
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bad221f_29252f04",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "Not for this CL, but this test is hard to read because it duplicates the code. I think it would be easier to read if it had a helper method. That way it\u0027s very clear how the code behaves differently. Something like:\n\n    private void doTestEnableDisableUsingBpfOffload(boolean isBpfEnabled) {\n        final int myIfindex \u003d TEST_IFACE_PARAMS.index;\n        final InetAddress neigh \u003d InetAddresses.parseNumericAddress(\"2001:db8::1\");\n        final MacAddress macA \u003d MacAddress.fromString(\"00:00:00:00:00:0a\");\n        final MacAddress macNull \u003d MacAddress.fromString(\"00:00:00:00:00:00\");\n\n        // Expect that rules can be only added/removed when the BPF offload config is enabled.\n        // Note that the BPF offload disabled case is not a realistic test case. Because IP\n        // neighbor monitor doesn\u0027t start if BPF offload is disabled, there should have no\n        // neighbor event listening. This is used for testing the protection check just in case.\n        // TODO: Perhaps remove the BPF offload disabled case test once this check isn\u0027t needed\n        // anymore.\n        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, false /* usingLegacyDhcp */,\n                isBpfEnabled /* usingBpfOffload */);\n        resetNetdBpfMapAndCoordinator();\n\n        // 1. Add a neighbor.\n        recvNewNeigh(myIfindex, neigh, NUD_REACHABLE, macA);\n        if (isBpfEnabled) {\n            verify(mBpfCoordinator).addIpv6DownstreamRule(\n                    mIpServer, makeDownstreamRule(UPSTREAM_IFINDEX, neigh, macA));\n            verifyTetherOffloadRuleAdd(null,\n                    UPSTREAM_IFINDEX, UPSTREAM_IFACE_PARAMS.macAddr, neigh, macA);\n            resetNetdBpfMapAndCoordinator();\n        } else {\n            verifyNeverTetherOffloadRuleAdd();\n        }\n        resetNetdBpfMapAndCoordinator();\n\n        // 2. Delete a neighbor.\n        recvDelNeigh(myIfindex, neigh, NUD_STALE, macA);\n        if (isBpfEnabled) {\n            verify(mBpfCoordinator).removeIpv6DownstreamRule(\n                    mIpServer, makeDownstreamRule(UPSTREAM_IFINDEX, neigh, macNull));\n            verifyTetherOffloadRuleRemove(null,\n                    UPSTREAM_IFINDEX, UPSTREAM_IFACE_PARAMS.macAddr, neigh, macNull);\n            resetNetdBpfMapAndCoordinator();\n        } else {\n            verifyNeverTetherOffloadRuleRemove();\n        }\n        resetNetdBpfMapAndCoordinator();\n\n        // 3. Lose upstream IPv6 connectivity.\n        ...\n    }\n\n    @Test\n    public void testDisableBpfOffload_BpfEnabled() {\n        doTestEnableDisableUsingBpfOffload(true /* isBpfEnabled */);\n    }\n\n    @Test\n    public void testDisableBpfOffload_BpfDisabled() {\n        doTestEnableDisableUsingBpfOffload(false /* isBpfEnabled */);\n    }\n\nSuggest doing that in a follow-up.",
+      "range": {
+        "startLine": 1256,
+        "startChar": 8,
+        "endLine": 1256,
+        "endChar": 14
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3de429c2_5a8e0942",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "I think this test is checking \"when BPF is disabled, nothing happens, even if relevant events occur\".\n\nIf so, shouldn\u0027t you pass in a real LinkProperties here? null always means \"don\u0027t do any IPv6\", so it\u0027s not really a relevant event.",
+      "range": {
+        "startLine": 1271,
+        "startChar": 56,
+        "endLine": 1271,
+        "endChar": 60
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a29d4fd9_9a841f40",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 1,
+      "message": "Not for this CL.\n\nThis comment is out of date. I think mainline-presubmit does test on R, S, T, and U. I\u0027m not entirely sure what the intent here was. The concern was obviously that we might break R because we didn\u0027t test it in presubmit. But I don\u0027t know how these tests help.\n\nAlso not sure if we can remove these tests now that presubmit runs on all releases. Maybe they\u0027re still useful?",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 767,
+        "endChar": 78
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

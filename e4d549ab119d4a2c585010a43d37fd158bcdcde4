@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd122284_01e2d5ee",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T11:05:37Z",
+      "side": 0,
+      "message": "These verify calls were removed because NeighborEvents no longer modify upstream rules, right? If so, good.",
+      "range": {
+        "startLine": 1073,
+        "startChar": 8,
+        "endLine": 1073,
+        "endChar": 41
+      },
+      "revId": "e4d549ab119d4a2c585010a43d37fd158bcdcde4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
