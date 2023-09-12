@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d2a4214_ec402f15",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10656,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-12T04:32:47Z",
+      "side": 1,
+      "message": "nits: I thought we can call onHelp() to show the usage.",
+      "range": {
+        "startLine": 10656,
+        "startChar": 45,
+        "endLine": 10656,
+        "endChar": 46
+      },
+      "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "452fc3ee_55caba29",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10674,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-12T04:32:47Z",
+      "side": 1,
+      "message": "nits:\nif user run `set-package-networking-enabled true`, packageName will be null.\nShowing usage would help if packageName is null.",
+      "range": {
+        "startLine": 10674,
+        "startChar": 37,
+        "endLine": 10674,
+        "endChar": 48
+      },
+      "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46cb97a1_85f5296f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10743,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-12T04:32:47Z",
+      "side": 1,
+      "message": "nits: It\u0027s helpful to update `onHelp` and explain how `get-chain3-enabled` and `set-package-networking-enabled` are expected to use together.",
+      "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ff0f26d_dfdfc388",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 12482,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-12T04:32:47Z",
+      "side": 1,
+      "message": "Even if appId \u003c FIRST_APPLICATION_UID, this code trye to set the firewallRule for each users.\nDo we have system application appId for each users?\nShould we skip updating the firewallRule for system app?",
+      "range": {
+        "startLine": 12482,
+        "startChar": 18,
+        "endLine": 12482,
+        "endChar": 23
+      },
+      "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23024566_b019df0e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 12511,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-12T04:32:47Z",
+      "side": 1,
+      "message": "nits: If appId \u003c FIRST_APPLICATION_UID, showing the message as we show in `set-package-networking-enabled` would help since firewall rule does not drop the packets for the system app.",
+      "range": {
+        "startLine": 12511,
+        "startChar": 18,
+        "endLine": 12511,
+        "endChar": 23
+      },
+      "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
