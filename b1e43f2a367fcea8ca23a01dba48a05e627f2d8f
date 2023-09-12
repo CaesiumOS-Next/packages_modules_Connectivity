@@ -22,6 +22,30 @@
       },
       "revId": "b1e43f2a367fcea8ca23a01dba48a05e627f2d8f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb3cb75_8974dc58",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-12T08:50:55Z",
+      "side": 1,
+      "message": "Removed the `Locked` in the end.",
+      "parentUuid": "6185cf6e_39ebb44e",
+      "range": {
+        "startLine": 182,
+        "startChar": 47,
+        "endLine": 182,
+        "endChar": 53
+      },
+      "revId": "b1e43f2a367fcea8ca23a01dba48a05e627f2d8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
