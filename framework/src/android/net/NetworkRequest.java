@@ -33,12 +33,15 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.compat.annotation.UnsupportedAppUsage;
+// TODO : replace with android.net.flags.Flags when aconfig is supported on udc-mainline-prod
+import android.net.NetworkCapabilities.Flags;
 import android.net.NetworkCapabilities.NetCapability;
 import android.net.NetworkCapabilities.Transport;
 import android.os.Build;
@@ -402,12 +405,10 @@ public class NetworkRequest implements Parcelable {
          *
          * @param capability The capability to add to forbidden capability list.
          * @return The builder to facilitate chaining.
-         *
-         * @hide
          */
         @NonNull
+        @FlaggedApi(Flags.FLAG_FORBIDDEN_CAPABILITY)
         @SuppressLint("MissingGetterMatchingBuilder")
-        @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
         public Builder addForbiddenCapability(@NetworkCapabilities.NetCapability int capability) {
             mNetworkCapabilities.addForbiddenCapability(capability);
             return this;
@@ -418,12 +419,10 @@ public class NetworkRequest implements Parcelable {
          *
          * @param capability The forbidden capability to remove.
          * @return The builder to facilitate chaining.
-         *
-         * @hide
          */
         @NonNull
+        @FlaggedApi(Flags.FLAG_FORBIDDEN_CAPABILITY)
         @SuppressLint("BuilderSetStyle")
-        @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
         public Builder removeForbiddenCapability(
                 @NetworkCapabilities.NetCapability int capability) {
             mNetworkCapabilities.removeForbiddenCapability(capability);
@@ -433,6 +432,7 @@ public class NetworkRequest implements Parcelable {
         /**
          * Completely clears all the {@code NetworkCapabilities} from this builder instance,
          * removing even the capabilities that are set by default when the object is constructed.
+         * Also removes any set forbidden capabilities.
          *
          * @return The builder to facilitate chaining.
          */
@@ -717,10 +717,8 @@ public class NetworkRequest implements Parcelable {
 
     /**
      * @see Builder#addForbiddenCapability(int)
-     *
-     * @hide
      */
-    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    @FlaggedApi(Flags.FLAG_FORBIDDEN_CAPABILITY)
     public boolean hasForbiddenCapability(@NetCapability int capability) {
         return networkCapabilities.hasForbiddenCapability(capability);
     }
@@ -838,11 +836,9 @@ public class NetworkRequest implements Parcelable {
      * Gets all the forbidden capabilities set on this {@code NetworkRequest} instance.
      *
      * @return an array of forbidden capability values for this instance.
-     *
-     * @hide
      */
+    @FlaggedApi(Flags.FLAG_FORBIDDEN_CAPABILITY)
     @NonNull
-    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
     public @NetCapability int[] getForbiddenCapabilities() {
         // No need to make a defensive copy here as NC#getForbiddenCapabilities() already returns
         // a new array.

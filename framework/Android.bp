@@ -309,3 +309,14 @@ java_library {
         "//packages/modules/Connectivity/Tethering:__subpackages__",
     ],
 }
+
+aconfig_declarations {
+    name: "connectivity_flags_aconfig",
+    package: "android.net.flags",
+    srcs: ["connectivity_flags.aconfig"],
+}
+
+java_aconfig_library {
+    name: "connectivity_flags_aconfig_lib",
+    aconfig_declarations: "connectivity_flags_aconfig",
+}
