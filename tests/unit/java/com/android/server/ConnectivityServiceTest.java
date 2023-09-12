@@ -1663,6 +1663,14 @@ public class ConnectivityServiceTest {
             mVpnStarted = true;
         }
 
+        @Override
+        public boolean setUnderlyingNetworks(@Nullable Network[] networks) {
+            if (!mAgentRegistered) return false;
+            mMockNetworkAgent.setUnderlyingNetworks(
+                    (networks == null) ? null : Arrays.asList(networks));
+            return true;
+        }
+
         private synchronized void startPlatformVpn() {
             updateState(DetailedState.CONNECTING, "startPlatformVpn");
             mVpnStarted = true;
