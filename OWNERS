@@ -1,4 +1,7 @@
 set noparent
 file:platform/packages/modules/Connectivity:main:/OWNERS_core_networking
+<<<<<<< HEAD   (655d08 Merge "Add third_party/cpu_features to Cronet's copybara" in)
 
 per-file **IpSec* = file:platform/frameworks/base:main:/services/core/java/com/android/server/vcn/OWNERS
+=======
+>>>>>>> BRANCH (200783 Move OWNER reference master=>main.)
