@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6185cf6e_39ebb44e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-12T06:30:58Z",
+      "side": 1,
+      "message": "...Locked is normally used in our code to indicate that you must hold the lock to call this method, which is exactly the opposite of what you\u0027re doing here",
+      "range": {
+        "startLine": 182,
+        "startChar": 47,
+        "endLine": 182,
+        "endChar": 53
+      },
+      "revId": "b1e43f2a367fcea8ca23a01dba48a05e627f2d8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
