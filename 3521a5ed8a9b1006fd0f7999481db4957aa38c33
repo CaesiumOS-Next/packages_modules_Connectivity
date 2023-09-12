@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c1850a1_80322ca1",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-09-12T01:51:54Z",
+      "side": 0,
+      "message": "nit: is this still required? maybe we can delete it as well?",
+      "range": {
+        "startLine": 49,
+        "startChar": 20,
+        "endLine": 49,
+        "endChar": 30
+      },
+      "revId": "3521a5ed8a9b1006fd0f7999481db4957aa38c33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
