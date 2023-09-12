@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa8a253c_4eea357f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1965950
+      },
+      "writtenOn": "2023-09-12T15:49:35Z",
+      "side": 1,
+      "message": "Added the merged-in info.",
+      "parentUuid": "337dad82_7d47266c",
+      "revId": "cb983796eb726db3ce8c5c95318e41938d64e3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ee2d46ee_c62689ff",
@@ -65,6 +83,30 @@
       "writtenOn": "2023-09-12T05:57:41Z",
       "side": 1,
       "message": "Pre-existing, but since you\u0027re touching the code, this needs to be unregistered. Can you add:\n\n    mCm.unregisterNetworkCallback(cb);\n\nafter line 741 at the end of the finally clause?",
+      "range": {
+        "startLine": 721,
+        "startChar": 12,
+        "endLine": 721,
+        "endChar": 35
+      },
+      "revId": "cb983796eb726db3ce8c5c95318e41938d64e3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d02477ef_4487823d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1965950
+      },
+      "writtenOn": "2023-09-12T15:49:35Z",
+      "side": 1,
+      "message": "Thank you @lorenzo@google.com , I have added the mentioned code. Please review.",
+      "parentUuid": "6999b3bb_efcdb3ec",
       "range": {
         "startLine": 721,
         "startChar": 12,
