@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1d74567b_6db9c1d0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/ExecutorProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-12T10:02:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b56f683_fde60e41",
+      "range": {
+        "startLine": 33,
+        "startChar": 16,
+        "endLine": 33,
+        "endChar": 23
+      },
+      "revId": "3ff7c4ff8da958ce275ac5149e830cead4237ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3564f60b_de94c62d",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
         "patchSetId": 4
@@ -54,6 +78,24 @@
       "writtenOn": "2023-08-23T10:15:15Z",
       "side": 1,
       "message": "Nit: or you could do removeAt(i) and return, and don\u0027t need \"index\"\n\nBut either way is fine",
+      "revId": "3ff7c4ff8da958ce275ac5149e830cead4237ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d00ce37c_445159e5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-12T10:02:12Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "3564f60b_de94c62d",
       "revId": "3ff7c4ff8da958ce275ac5149e830cead4237ab2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -71,6 +113,30 @@
       "writtenOn": "2023-08-23T10:15:15Z",
       "side": 1,
       "message": "Why does this need to be a LinkedHashSet instead of a HashSet ? I can\u0027t find code that iterates on it.\n\nThis method is also not documented to guarantee iteration order, so if there\u0027s actually such a requirement, it should be documented",
+      "range": {
+        "startLine": 140,
+        "startChar": 47,
+        "endLine": 140,
+        "endChar": 60
+      },
+      "revId": "3ff7c4ff8da958ce275ac5149e830cead4237ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b604ca3e_f96d5452",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-12T10:02:12Z",
+      "side": 1,
+      "message": "Looks like the API doesn\u0027t required the order. Change it to use HashSet instead. Thanks.",
+      "parentUuid": "5a0bd6e9_f3560a29",
       "range": {
         "startLine": 140,
         "startChar": 47,
