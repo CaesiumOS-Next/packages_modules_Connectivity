@@ -175,6 +175,30 @@
       },
       "revId": "fd7a587ed400d6842a990e242322d6e0cf2f6f54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5afb965_8e146d56",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-12T23:36:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e6c6788_141dadd7",
+      "range": {
+        "startLine": 297,
+        "startChar": 10,
+        "endLine": 297,
+        "endChar": 23
+      },
+      "revId": "fd7a587ed400d6842a990e242322d6e0cf2f6f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
