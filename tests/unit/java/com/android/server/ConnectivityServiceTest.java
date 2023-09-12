@@ -10345,11 +10345,6 @@ public class ConnectivityServiceTest {
         callback.expectCaps(mMockVpn, c -> !c.hasTransport(TRANSPORT_WIFI));
         defaultCallback.expectCaps(mMockVpn, c -> !c.hasTransport(TRANSPORT_WIFI));
         systemDefaultCallback.expect(LOST, mWiFiAgent);
-        // TODO: There should only be one LOST callback. Since the WIFI network is underlying a VPN
-        // network, propagateUnderlyingNetworkCapabilities causes a rematch to occur. Notably, this
-        // happens before setting the satisfiers of its network requests to null. Since the
-        // satisfiers are set to null in the rematch, an extra LOST callback is called.
-        systemDefaultCallback.expect(LOST, mWiFiAgent);
         b1.expectBroadcast();
         mMockVpn.stopVpnRunnerPrivileged();
         callback.expect(LOST, mMockVpn);
