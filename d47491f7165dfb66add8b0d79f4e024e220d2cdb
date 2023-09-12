@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8427be87_5096d209",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-12T06:36:17Z",
+      "side": 1,
+      "message": "Should this be done only on userdebug ? I\u0027m wondering if it could affect production CTS, considering that this is using FIREWALL_CHAIN_OEM_DENY_3 which may be used by some OEMs for something else",
+      "revId": "d47491f7165dfb66add8b0d79f4e024e220d2cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44e18be8_aea5b328",
         "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
         "patchSetId": 3
