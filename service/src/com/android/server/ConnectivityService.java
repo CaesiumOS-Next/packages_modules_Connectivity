@@ -9536,8 +9536,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (null != event.mNewNetwork) {
                 notifyNetworkAvailable(event.mNewNetwork, event.mNetworkRequestInfo);
             } else {
-                callCallbackForRequest(event.mNetworkRequestInfo, event.mOldNetwork,
-                        ConnectivityManager.CALLBACK_LOST, 0);
+                // For disconnected networks, the LOST callback is already called.
+                if (mNetworkAgentInfos.contains(event.mOldNetwork)) {
+                    callCallbackForRequest(event.mNetworkRequestInfo, event.mOldNetwork,
+                            ConnectivityManager.CALLBACK_LOST, 0);
+                }
             }
         }
 
