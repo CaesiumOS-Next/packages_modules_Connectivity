@@ -933,22 +933,35 @@ public class ConnectivityServiceTest {
 
     // This function assumes the UID range for user 0 ([1, 99999])
     private static UidRangeParcel[] uidRangeParcelsExcludingUids(Integer... excludedUids) {
-        int start = 1;
-        Arrays.sort(excludedUids);
-        List<UidRangeParcel> parcels = new ArrayList<UidRangeParcel>();
+        final List<Integer> excludedUidsList = new ArrayList<>(Arrays.asList(excludedUids));
+        if (!excludedUidsList.contains(0)) excludedUidsList.add(0);
+        return toUidRangeStableParcels(uidRangesExcludingUids(PRIMARY_USER, excludedUidsList));
+    }
+
+    private static ArraySet<UidRange> uidRangesExcludingUids(int userId,
+            List<Integer> excludedAppIds) {
+        final UserHandle user = UserHandle.of(userId);
+        final List<Integer> excludedUids = CollectionUtils.map(excludedAppIds,
+                appId -> user.getUid(appId));
+        final int userBase = userId * UserHandle.PER_USER_RANGE;
+        final int maxUid = userBase + UserHandle.PER_USER_RANGE - 1;
+
+        int start = userBase;
+        Collections.sort(excludedUids);
+        final ArraySet<UidRange> uidRanges = new ArraySet<UidRange>();
         for (int excludedUid : excludedUids) {
             if (excludedUid == start) {
                 start++;
             } else {
-                parcels.add(new UidRangeParcel(start, excludedUid - 1));
+                uidRanges.add(new UidRange(start, excludedUid - 1));
                 start = excludedUid + 1;
             }
         }
-        if (start <= 99999) {
-            parcels.add(new UidRangeParcel(start, 99999));
+        if (start <= maxUid) {
+            uidRanges.add(new UidRange(start, maxUid));
         }
 
-        return parcels.toArray(new UidRangeParcel[0]);
+        return uidRanges;
     }
 
     private void waitForIdle() {
@@ -1726,7 +1739,7 @@ public class ConnectivityServiceTest {
         }
     }
 
-    private UidRangeParcel[] toUidRangeStableParcels(final @NonNull Set<UidRange> ranges) {
+    private static UidRangeParcel[] toUidRangeStableParcels(final @NonNull Set<UidRange> ranges) {
         return ranges.stream().map(
                 r -> new UidRangeParcel(r.start, r.stop)).toArray(UidRangeParcel[]::new);
     }
@@ -1867,6 +1880,8 @@ public class ConnectivityServiceTest {
     private static final UserHandle TERTIARY_USER_HANDLE = new UserHandle(TERTIARY_USER);
 
     private static final int RESTRICTED_USER = 1;
+    private static final UidRange RESTRICTED_USER_UIDRANGE =
+            UidRange.createForUser(UserHandle.of(RESTRICTED_USER));
     private static final UserInfo RESTRICTED_USER_INFO = new UserInfo(RESTRICTED_USER, "",
             UserInfo.FLAG_RESTRICTED);
     static {
@@ -9381,8 +9396,11 @@ public class ConnectivityServiceTest {
         doReturn(UserHandle.getUid(RESTRICTED_USER, VPN_UID)).when(mPackageManager)
                 .getPackageUidAsUser(ALWAYS_ON_PACKAGE, RESTRICTED_USER);
 
-        // New user added
-        mMockVpn.onUserAdded(RESTRICTED_USER);
+        // New user added, this updates the Vpn uids, coverage in VpnTest.
+        // This is equivalent to `mMockVpn.onUserAdded(RESTRICTED_USER);`
+        final Set<UidRange> ranges = uidRangesForUids(uid);
+        ranges.add(RESTRICTED_USER_UIDRANGE);
+        mMockVpn.setUids(ranges);
 
         // Expect that the VPN UID ranges contain both |uid| and the UID range for the newly-added
         // restricted user.
@@ -9407,7 +9425,9 @@ public class ConnectivityServiceTest {
                 && !c.hasTransport(TRANSPORT_WIFI));
 
         // User removed and expect to lose the UID range for the restricted user.
-        mMockVpn.onUserRemoved(RESTRICTED_USER);
+        // This updates the Vpn uids, coverage in VpnTest.
+        // This is equivalent to `mMockVpn.onUserRemoved(RESTRICTED_USER);`
+        mMockVpn.setUids(uidRangesForUids(uid));
 
         // Expect that the VPN gains the UID range for the restricted user, and that the capability
         // change made just before that (i.e., loss of TRANSPORT_WIFI) is preserved.
@@ -9463,23 +9483,30 @@ public class ConnectivityServiceTest {
         doReturn(asList(PRIMARY_USER_INFO, RESTRICTED_USER_INFO)).when(mUserManager)
                 .getAliveUsers();
         // TODO: check that VPN app within restricted profile still has access, etc.
-        mMockVpn.onUserAdded(RESTRICTED_USER);
-        final Intent addedIntent = new Intent(ACTION_USER_ADDED);
-        addedIntent.putExtra(Intent.EXTRA_USER, UserHandle.of(RESTRICTED_USER));
-        addedIntent.putExtra(Intent.EXTRA_USER_HANDLE, RESTRICTED_USER);
-        processBroadcast(addedIntent);
+        // Add a restricted user.
+        // This is equivalent to `mMockVpn.onUserAdded(RESTRICTED_USER);`, coverage in VpnTest.
+        final List<Integer> excludedUids = new ArrayList<Integer>();
+        excludedUids.add(VPN_UID);
+        if (mDeps.isAtLeastT()) {
+            // On T onwards, the corresponding SDK sandbox UID should also be excluded
+            excludedUids.add(toSdkSandboxUid(VPN_UID));
+        }
+        final Set<Range<Integer>> ranges = UidRange.toIntRanges(uidRangesExcludingUids(
+                RESTRICTED_USER, excludedUids));
+        mCm.setRequireVpnForUids(true, ranges);
+        waitForIdle();
+
         assertNull(mCm.getActiveNetworkForUid(uid));
         assertNull(mCm.getActiveNetworkForUid(restrictedUid));
 
         // Stop the restricted profile, and check that the UID within it has network access again.
         doReturn(asList(PRIMARY_USER_INFO)).when(mUserManager).getAliveUsers();
 
-        // Send a USER_REMOVED broadcast and expect to lose the UID range for the restricted user.
-        mMockVpn.onUserRemoved(RESTRICTED_USER);
-        final Intent removedIntent = new Intent(ACTION_USER_REMOVED);
-        removedIntent.putExtra(Intent.EXTRA_USER, UserHandle.of(RESTRICTED_USER));
-        removedIntent.putExtra(Intent.EXTRA_USER_HANDLE, RESTRICTED_USER);
-        processBroadcast(removedIntent);
+        // Remove the restricted user.
+        // This is equivalent to `mMockVpn.onUserRemoved(RESTRICTED_USER);`, coverage in VpnTest.
+        mCm.setRequireVpnForUids(false, ranges);
+        waitForIdle();
+
         assertNull(mCm.getActiveNetworkForUid(uid));
         assertNotNull(mCm.getActiveNetworkForUid(restrictedUid));
 
