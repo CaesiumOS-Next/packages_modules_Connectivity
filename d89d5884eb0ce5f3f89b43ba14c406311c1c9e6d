@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c560429b_92e8fd49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-12T18:54:26Z",
+      "side": 1,
+      "message": "Done via:\ngit subtree add --prefix\u003dclatd aosp/import-clatd\nplus manual fix up of commit message to add Test/Signed-off-by/Change-Id tags.",
+      "revId": "d89d5884eb0ce5f3f89b43ba14c406311c1c9e6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
