@@ -53,3 +53,34 @@ cc_library {
     apex_available: ["com.android.tethering"],
     min_sdk_version: "30",
 }
+
+cc_test {
+    name: "lib4dns_resolver_unit_test",
+    defaults: ["netd_defaults"],
+    test_suites: ["general-tests", "mts-tethering"],
+    test_config_template: ":net_native_test_config_template",
+    // require_root: true,  // required by setrlimitForTest()
+    header_libs: [
+        "bpf_connectivity_headers",
+    ],
+    srcs: [
+        "BpfReaderTest.cpp",
+    ],
+    static_libs: [
+        "lib4dns_resolver",
+    ],
+    shared_libs: [
+       "libbase",
+       "libcutils",
+       "libnetdutils",
+    ],
+    compile_multilib: "both",
+    multilib: {
+        lib32: {
+            suffix: "32",
+        },
+        lib64: {
+            suffix: "64",
+        },
+    },
+}
