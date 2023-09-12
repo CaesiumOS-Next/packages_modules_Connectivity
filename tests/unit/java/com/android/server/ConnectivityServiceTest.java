@@ -10211,7 +10211,8 @@ public class ConnectivityServiceTest {
         // Init lockdown state.
         mCm.setLegacyLockdownVpnEnabled(true);
         mMockVpn.setEnableTeardown(false);
-        mMockVpn.setLockdown(true);
+        final Set<Range<Integer>> ranges = UidRange.toIntRanges(Set.of(PRIMARY_UIDRANGE));
+        mCm.setRequireVpnForUids(true /* requireVpn */, ranges);
 
         // Bring up a network.
         final LinkProperties cellLp = new LinkProperties();
@@ -10369,7 +10370,8 @@ public class ConnectivityServiceTest {
         // Init lockdown state.
         mCm.setLegacyLockdownVpnEnabled(true);
         mMockVpn.setEnableTeardown(false);
-        mMockVpn.setLockdown(true);
+        final Set<Range<Integer>> ranges = UidRange.toIntRanges(Set.of(PRIMARY_UIDRANGE));
+        mCm.setRequireVpnForUids(true /* requireVpn */, ranges);
 
         // Bring up a network and expect lockdown VPN to come up. Note IPv6 is now supported.
         final LinkProperties cellLp = new LinkProperties();
