@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "337dad82_7d47266c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T05:57:41Z",
+      "side": 1,
+      "message": "I think you need:\n\nMerged-In: I97872cf7b73eed12dba064697150f09c81f494b6\n\nhere to ensure that the automerger does not attempt to merge this change into branches where aosp/2373610 is already merged.",
+      "revId": "cb983796eb726db3ce8c5c95318e41938d64e3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ee2d46ee_c62689ff",
@@ -14,6 +31,46 @@
       "writtenOn": "2023-08-31T07:11:43Z",
       "side": 1,
       "message": "There are some technical differences to the patch for main (b/2373610). Need Lorenzo to confirm this is ok. A cherry-pick of b/2373610 seems unfeasible due to various merge-conflicts.",
+      "revId": "cb983796eb726db3ce8c5c95318e41938d64e3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf0340ad_cee8a651",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T05:57:41Z",
+      "side": 1,
+      "message": "LGTM assuming comments are addressed.",
+      "revId": "cb983796eb726db3ce8c5c95318e41938d64e3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6999b3bb_efcdb3ec",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-12T05:57:41Z",
+      "side": 1,
+      "message": "Pre-existing, but since you\u0027re touching the code, this needs to be unregistered. Can you add:\n\n    mCm.unregisterNetworkCallback(cb);\n\nafter line 741 at the end of the finally clause?",
+      "range": {
+        "startLine": 721,
+        "startChar": 12,
+        "endLine": 721,
+        "endChar": 35
+      },
       "revId": "cb983796eb726db3ce8c5c95318e41938d64e3c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
