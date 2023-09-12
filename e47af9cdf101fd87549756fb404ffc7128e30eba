@@ -22,6 +22,30 @@
       },
       "revId": "e47af9cdf101fd87549756fb404ffc7128e30eba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0be64a3b_74540bbf",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-12T06:15:20Z",
+      "side": 1,
+      "message": "According to Jean, this solution can prevent the multithreading problem that occurs in other tests. Therefore, it is better to ensure that all usages have a synchronized lock.",
+      "parentUuid": "f8c83315_503ba710",
+      "range": {
+        "startLine": 184,
+        "startChar": 8,
+        "endLine": 184,
+        "endChar": 53
+      },
+      "revId": "e47af9cdf101fd87549756fb404ffc7128e30eba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
