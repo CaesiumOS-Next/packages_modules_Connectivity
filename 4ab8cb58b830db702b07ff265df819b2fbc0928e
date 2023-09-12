@@ -22,6 +22,30 @@
       },
       "revId": "4ab8cb58b830db702b07ff265df819b2fbc0928e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0d15d9d_283f1d90",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-12T08:54:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ced5223e_9040d7ae",
+      "range": {
+        "startLine": 46,
+        "startChar": 85,
+        "endLine": 46,
+        "endChar": 87
+      },
+      "revId": "4ab8cb58b830db702b07ff265df819b2fbc0928e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
