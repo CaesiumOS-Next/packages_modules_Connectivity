@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b74a2879_ae255618",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-12T06:15:05Z",
+      "side": 1,
+      "message": "This could also be removed considering that networking is cut anyway; altough unless you land the other change you were considering to have the package see no network, I guess it\u0027s still useful to prevent GMS from even starting any new attempt",
+      "revId": "d47491f7165dfb66add8b0d79f4e024e220d2cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44e18be8_aea5b328",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-12T06:15:05Z",
+      "side": 1,
+      "message": "It\u0027s maybe worth noting that these commands will also run on devices that don\u0027t support them (for example R builds, or S+ builds that don\u0027t have a tethering update installed; only resolv or NetworkStack for example). But I think that should be fine ? get-chain3-enabled would probably return false, but the restore command wouldn\u0027t do anything anyway ?",
+      "range": {
+        "startLine": 125,
+        "startChar": 23,
+        "endLine": 125,
+        "endChar": 26
+      },
+      "revId": "d47491f7165dfb66add8b0d79f4e024e220d2cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e4784b9_d6a37262",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-12T06:15:05Z",
+      "side": 1,
+      "message": "You added get-package-networking-enabled but it\u0027s never used (so never tested). Should it be used to restore the initial state here ? Otherwise should it be removed, or kept for manual verification (should it get automated tests in that case) ?",
+      "revId": "d47491f7165dfb66add8b0d79f4e024e220d2cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
