@@ -257,6 +257,30 @@
       },
       "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edcf9db9_c0af8084",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:07:09Z",
+      "side": 1,
+      "message": "I have similar test but it already conflict, so just have SM05.1 (aosp/2749783).",
+      "parentUuid": "ba654cc0_71be0ca3",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 165,
+        "endChar": 25
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
