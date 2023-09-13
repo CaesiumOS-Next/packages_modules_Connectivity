@@ -941,6 +941,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b35d286_eba21ded",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-13T10:33:59Z",
+      "side": 1,
+      "message": "Per discussion, I think updateAllIpv6Rules should:\n\n- delete the downstream rules (and save them)\n- delete the upstream rules (which fetches the stats)\n- put the rules back\n\nI *think* that when it puts the rules back, it should probably first put the upstream rules back, which adds the limit, before adding the downstream rules, right? Or does it not matter?",
+      "parentUuid": "3837fd5d_0837bb06",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 806,
+        "endChar": 34
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae1bf30a_f2c2a9f0",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 13
@@ -976,6 +1000,30 @@
       "side": 1,
       "message": "After checking the corresponding netd functions in R, it seems that the only write sequence we should follow is setBpfLimit must be call before getAndClearTetherOffloadStats for an upstream, otherwise it will return error. For ingress, stats and limit maps usage in do_forward function in offload.c, if there is no map entry for either one of them, it simply lets the core stack handle the packet. So I think it is okay if there are stats\u0026limit maps but no ingress(downstream) map.\n\n[addOffloadRule](https://source.corp.google.com/h/googleplex-android/platform/superproject/base/+/rvc-dev:system/netd/server/TetherController.cpp;bpv\u003d0;l\u003d854)\n[removeOffloadRule](https://source.corp.google.com/h/googleplex-android/platform/superproject/base/+/rvc-dev:system/netd/server/TetherController.cpp;bpv\u003d0;l\u003d879)\n[setBpfLimit](https://source.corp.google.com/h/googleplex-android/platform/superproject/base/+/rvc-dev:system/netd/server/TetherController.cpp;bpv\u003d0;l\u003d1054)\n[getAndClearTetherOffloadStats](https://source.corp.google.com/h/googleplex-android/platform/superproject/base/+/rvc-dev:system/netd/server/TetherController.cpp;bpv\u003d0;l\u003d1165)\n\n[do_forward](https://source.corp.google.com/h/googleplex-android/platform/superproject/base/+/rvc-dev:system/netd/bpf_progs/offload.c;bpv\u003d0;l\u003d37)\n```\n    TetherIngressValue* v \u003d bpf_tether_ingress_map_lookup_elem(\u0026k);\n    // If we don\u0027t find any offload information then simply let the core stack handle it...\n    if (!v) return TC_ACT_OK;\n\n    uint32_t stat_and_limit_k \u003d skb-\u003eifindex;\n    TetherStatsValue* stat_v \u003d bpf_tether_stats_map_lookup_elem(\u0026stat_and_limit_k);\n    // If we don\u0027t have anywhere to put stats, then abort...\n    if (!stat_v) return TC_ACT_OK;\n\n    uint64_t* limit_v \u003d bpf_tether_limit_map_lookup_elem(\u0026stat_and_limit_k);\n    // If we don\u0027t have a limit, then abort...\n    if (!limit_v) return TC_ACT_OK;\n```",
       "parentUuid": "ae1bf30a_f2c2a9f0",
+      "range": {
+        "startLine": 1107,
+        "startChar": 65,
+        "endLine": 1107,
+        "endChar": 88
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e8f5269_b5a73dcd",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-13T10:33:59Z",
+      "side": 1,
+      "message": "The netd functions really seem very simple and the quota IPCs and rule IPCs don\u0027t seem to interact with each other at all. While it\u0027s possible that OEMs have modified that code, that seems very unlikely. So I think this is fine.",
+      "parentUuid": "6bae284e_ff6299a8",
       "range": {
         "startLine": 1107,
         "startChar": 65,

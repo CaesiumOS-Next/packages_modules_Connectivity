@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e3e0af1_f36969e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-13T10:33:59Z",
+      "side": 1,
+      "message": "LGTM assuming the rule ordering is fixed. Sorry this took so long!",
+      "revId": "b0cb568630504ab2671f40b2d5cce22148e5ea53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0e6626c_c8d9bd9f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-13T10:33:59Z",
+      "side": 1,
+      "message": "Per discussion: this shows that (as mentioned in the comment above) this CL currently fetches the stats for a given upstream while there are still active forwarding rules to/from that upstream (those rules are deleted in line 1193-1194).\n\nThe code should instead first clear the upstream and downstream rules, then fetch the stats, then put back the rules.",
+      "range": {
+        "startLine": 1189,
+        "startChar": 8,
+        "endLine": 1189,
+        "endChar": 43
+      },
+      "revId": "b0cb568630504ab2671f40b2d5cce22148e5ea53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd4e7e2a_8557aad4",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-13T10:33:59Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1203,
+        "startChar": 8,
+        "endLine": 1203,
+        "endChar": 43
+      },
+      "revId": "b0cb568630504ab2671f40b2d5cce22148e5ea53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
