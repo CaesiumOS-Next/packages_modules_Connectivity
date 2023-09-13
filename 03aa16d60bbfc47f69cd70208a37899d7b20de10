@@ -35,6 +35,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "571760ea_5f895585",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43fabdd6_1e664c34",
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cad21316_034e19cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa145aa5_dc5009f8",
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59498b79_c7ad6c65",
@@ -75,6 +111,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8df7120_749e523a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59498b79_c7ad6c65",
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c00ab91e_e575b05a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3eec2c5_bb76c9a1",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "796e0078_2516a2a7",
@@ -88,6 +166,30 @@
       "writtenOn": "2023-09-07T08:54:17Z",
       "side": 1,
       "message": "23",
+      "range": {
+        "startLine": 2,
+        "startChar": 19,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "962b3204_9f66692b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "796e0078_2516a2a7",
       "range": {
         "startLine": 2,
         "startChar": 19,
@@ -121,6 +223,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ea85b9b_92fa7b59",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9f8d5aa_dd6ee7fd",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 31
+      },
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed5709df_0a3f8ef3",
@@ -134,6 +260,30 @@
       "writtenOn": "2023-09-07T08:54:17Z",
       "side": 1,
       "message": "It would be useful to have a description of what mCurrentState and mDestState contain and when.",
+      "range": {
+        "startLine": 39,
+        "startChar": 69,
+        "endLine": 39,
+        "endChar": 70
+      },
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e2e6ced_ea478e67",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed5709df_0a3f8ef3",
       "range": {
         "startLine": 39,
         "startChar": 69,
@@ -167,6 +317,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "933c3697_5408d3f3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcac3434_9fd8f277",
+      "range": {
+        "startLine": 47,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "749d98c0_2b39e655",
@@ -190,6 +364,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "992e6561_cf32af6d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Indeede, removed.",
+      "parentUuid": "749d98c0_2b39e655",
+      "range": {
+        "startLine": 54,
+        "startChar": 15,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3fc4466_73ea5ed1",
@@ -203,6 +401,30 @@
       "writtenOn": "2023-09-07T08:54:17Z",
       "side": 1,
       "message": "IIUC mCurrentState can only be null before `start` is called. That means you can replace `mStarted` with `mCurrentState !\u003d null`.",
+      "range": {
+        "startLine": 109,
+        "startChar": 24,
+        "endLine": 109,
+        "endChar": 36
+      },
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bf31da0_f7da15e3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Indeed, thanks your suggestion.",
+      "parentUuid": "d3fc4466_73ea5ed1",
       "range": {
         "startLine": 109,
         "startChar": 24,
@@ -259,6 +481,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55d31575_44a9f212",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34a49635_e7ff7d66",
+      "range": {
+        "startLine": 126,
+        "startChar": 53,
+        "endLine": 126,
+        "endChar": 60
+      },
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d94061b_c2680fcf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ba415eb_88146d9c",
+      "range": {
+        "startLine": 126,
+        "startChar": 36,
+        "endLine": 126,
+        "endChar": 41
+      },
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "335f6bf5_9bac21f7",
@@ -272,6 +542,30 @@
       "writtenOn": "2023-09-07T08:54:17Z",
       "side": 1,
       "message": "the state that will process the next message\n\nor\n\nthe state to transition to",
+      "range": {
+        "startLine": 128,
+        "startChar": 24,
+        "endLine": 128,
+        "endChar": 72
+      },
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7805941_31140d6d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "335f6bf5_9bac21f7",
       "range": {
         "startLine": 128,
         "startChar": 24,
