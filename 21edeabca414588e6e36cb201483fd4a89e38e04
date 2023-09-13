@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00088824_ec6f68cf",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-13T20:20:10Z",
+      "side": 1,
+      "message": "newline at eof",
+      "revId": "21edeabca414588e6e36cb201483fd4a89e38e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
