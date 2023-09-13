@@ -272,6 +272,16 @@ static __always_inline inline void do_packet_tracing(
         (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(nexthdr), &proto, sizeof(proto), kver);
         L4_off = sizeof(struct ipv6hdr);
         ipVersion = 6;
+        // skip over a *single* HOPOPTS or DSTOPTS extension header (if present)
+        if (proto == IPPROTO_HOPOPTS || proto == IPPROTO_DSTOPTS) {
+            struct {
+                uint8_t proto, len;
+            } hdr;
+            if (!bpf_skb_load_bytes_net(skb, L4_off, &hdr, sizeof(hdr), kver)) {
+                proto = hdr.proto;
+                L4_off += (hdr.len + 1) * 8;
+            }
+        }
     }
 
     uint8_t flags = 0;
