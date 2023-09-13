@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbcb556e_69acbcd2",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-13T20:28:56Z",
+      "side": 1,
+      "message": "Unsupported before Android T",
+      "range": {
+        "startLine": 40,
+        "startChar": 40,
+        "endLine": 40,
+        "endChar": 41
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e7f4cb0_e7bf6e2b",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-13T20:28:56Z",
+      "side": 1,
+      "message": "this is to short to be using\u0027ed imho",
+      "range": {
+        "startLine": 45,
+        "startChar": 9,
+        "endLine": 45,
+        "endChar": 11
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09e67625_a6835a06",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-13T20:28:56Z",
+      "side": 1,
+      "message": "can\u0027t this go in bpf_progs/netd.h ?",
+      "range": {
+        "startLine": 48,
+        "startChar": 1,
+        "endLine": 52,
+        "endChar": 0
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e11ab532_f0433493",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-13T20:28:56Z",
+      "side": 1,
+      "message": "could argue netd.h should have some function for this\n\nif (shouldBlock(enabledRules.value())) return BLOCKED;\n\n[better name needed]",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 90
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41c13827_07002da9",
+        "filename": "DnsResolver/BpfReader.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-13T20:28:56Z",
+      "side": 1,
+      "message": "newline at eol",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 23
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfe56756_8d54a7a0",
+        "filename": "DnsResolver/ForDnsResolver.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-13T20:28:56Z",
+      "side": 1,
+      "message": "this check seems not be needed but is an extra system call...\nwhat does it prevent?\n\ncould it be cached?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 46
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aac4feb_006f6c81",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-13T20:28:56Z",
+      "side": 1,
+      "message": "there should be an init function, that\u0027ll also simplify the actual isUidBlocked code.",
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1f7dcd0_9d00a0f5",
+        "filename": "bpf_progs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-13T20:28:56Z",
+      "side": 1,
+      "message": "is this Connectivity spurious?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 54
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
