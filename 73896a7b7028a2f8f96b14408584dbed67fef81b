@@ -22,6 +22,30 @@
       },
       "revId": "73896a7b7028a2f8f96b14408584dbed67fef81b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74e3c89e_5fc98c0b",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-13T19:07:06Z",
+      "side": 1,
+      "message": "Yes, kind of... but not really ;-)\n\nIn practice ipv6 hopopts \u0026 dstops are not really used.\n\nYou basically expect them (and in general any ipv6 ext headers, including\nfragmentation header) to not really be able to traverse firewalls and the internet.\n\nUsually security firewalls will block them...\n\nThe exception is for \u0027hop-by-hop router alert\u0027 which shows up on some icmp6 neighbour discovery / MLD (ie. link local) traffic.\n\nskip_owner_match() focuses on user traffic (especially ESP/TCP) and not icmp6,\nand specifically on \u0027remote\u0027 traffic, where ipv6 options are unlikely to work.",
+      "parentUuid": "96e57371_f5e3ebe7",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 67
+      },
+      "revId": "73896a7b7028a2f8f96b14408584dbed67fef81b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
