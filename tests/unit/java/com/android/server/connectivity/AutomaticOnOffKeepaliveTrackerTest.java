@@ -20,10 +20,8 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
 import static android.net.NetworkAgent.CMD_STOP_SOCKET_KEEPALIVE;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
-
 import static com.android.server.connectivity.AutomaticOnOffKeepaliveTracker.METRICS_COLLECTION_DURATION_MS;
 import static com.android.testutils.HandlerUtils.visibleOnHandlerThread;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -358,7 +356,7 @@ public class AutomaticOnOffKeepaliveTrackerTest {
                 .when(mDependencies)
                 .newKeepaliveStatsTracker(mCtx, mTestHandler);
 
-        doReturn(true).when(mDependencies).isTetheringFeatureNotChickenedOut(any());
+        doReturn(true).when(mDependencies).isTetheringFeatureNotChickenedOut(any(), any());
         doReturn(0L).when(mDependencies).getElapsedRealtime();
         mAOOKeepaliveTracker =
                 new AutomaticOnOffKeepaliveTracker(mCtx, mTestHandler, mDependencies);
