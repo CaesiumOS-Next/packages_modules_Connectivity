@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c7adb3_45935d6e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:23Z",
+      "side": 1,
+      "message": "The suggested \"argThat\" didn\u0027t work that the test would fail with argument are different, \u003ccustom argument matcher\u003e vs Message { when\u003d-1h49m31s347ms barrier\u003d0 }\n\nArgument(s) are different! Wanted:\ntestState.processMessage(\n    \u003ccustom argument matcher\u003e\n);\n-\u003e at com.android.networkstack.tethering.util.SynStateMachineTest$TestState.processMessage(Unknown Source:34)\nActual invocation has different arguments:\ntestState.processMessage(\n    { when\u003d-1h49m31s347ms barrier\u003d0 }\n);\n\nI try to replace it as ArgumentCaptor, but the test still fail that captor.value.what always be zero because the Message has been recycle after processed (SyncStateMachine l.190) \n\n    private fun verifyMessageProcessedBy(what: Int, vararg states: State) {\n        states.forEach {\n            val captor \u003d ArgumentCaptor\u003cMessage::class.java\u003e\n            mInOrder.verify(it).processMessage(captor.capture())\n            assertEquals(what, captor.value.what)\n        }\n    }\n\nTherefore, I just store expect value globally (mExpectWhat) and verify it inside TestState#processMessage.",
+      "parentUuid": "3fba2992_0e40aef0",
+      "range": {
+        "startLine": 81,
+        "startChar": 39,
+        "endLine": 81,
+        "endChar": 75
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97e5647c_eae8ad37",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea22bb37_8919e93a",
+      "range": {
+        "startLine": 81,
+        "startChar": 22,
+        "endLine": 81,
+        "endChar": 38
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "235c02a4_f40abed8",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-09-07T08:54:44Z",
       "side": 1,
       "message": "Do you want to at least specify the `what` ?",
+      "range": {
+        "startLine": 82,
+        "startChar": 47,
+        "endLine": 82,
+        "endChar": 50
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42ccdb61_58fe45d6",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "235c02a4_f40abed8",
       "range": {
         "startLine": 82,
         "startChar": 47,
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "915fcb44_a449f99c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:23Z",
+      "side": 1,
+      "message": "Do you mean assertFailsWith ?",
+      "parentUuid": "0b89422c_c836a8c9",
+      "range": {
+        "startLine": 96,
+        "startChar": 12,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f533d680_e018b42f",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-09-07T08:54:44Z",
       "side": 1,
       "message": "Why not just provide a default value to parent in l.115",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 5
+      },
+      "revId": "92aa2a0ad24192b23f9987ed39706d2a2baf301a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec2e8649_824a0851",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:23Z",
+      "side": 1,
+      "message": "Indeed, thanks for suggestion.",
+      "parentUuid": "f533d680_e018b42f",
       "range": {
         "startLine": 111,
         "startChar": 0,
