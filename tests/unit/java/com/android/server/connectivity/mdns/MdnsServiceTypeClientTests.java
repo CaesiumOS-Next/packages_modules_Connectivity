@@ -80,6 +80,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -236,6 +238,16 @@ public class MdnsServiceTypeClientTests {
     private void runOnHandler(Runnable r) {
         handler.post(r);
         HandlerUtils.waitForIdle(handler, DEFAULT_TIMEOUT);
+    }
+
+    private <T> T postReturn(Callable<T> callable) throws Exception {
+        final CompletableFuture<T> future = new CompletableFuture<>();
+        handler.post(() -> {
+            try {
+                future.complete(callable.call());
+            } catch (Exception e) {}
+        });
+        return future.get(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS);
     }
 
     private void startSendAndReceive(MdnsServiceBrowserListener listener,
@@ -1573,7 +1585,6 @@ public class MdnsServiceTypeClientTests {
         InOrder inOrder = inOrder(mockListenerOne);
 
         // Process a response which has ip address to make response become complete.
-
         processResponse(createResponse(
                         serviceName, ipV4Address, 5353, SUBTYPE,
                         Collections.emptyMap(), TEST_TTL),
@@ -1659,6 +1670,97 @@ public class MdnsServiceTypeClientTests {
                 Collections.singletonList(SUBTYPE) /* subTypes */,
                 Collections.singletonMap("key", "value") /* attributes */,
                 socketKey);
+    }
+
+    @Test
+    public void testServicesBecomeIncompleteIssue() throws Exception {
+        final String serviceName = "service-instance";
+        final String ipV6Address = "2001:db8::";
+        // Register a listener
+        startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
+        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        InOrder inOrder = inOrder(mockListenerOne);
+
+        // Process a response which has ip address to make response become complete.
+        processResponse(createResponse(
+                        serviceName, ipV6Address, 5353, SUBTYPE,
+                        Collections.emptyMap(), TEST_TTL),
+                socketKey);
+
+        // Verify that onServiceNameDiscovered is called.
+        inOrder.verify(mockListenerOne).onServiceNameDiscovered(
+                serviceInfoCaptor.capture(), eq(false) /* isServiceFromCache */);
+        verifyServiceInfo(serviceInfoCaptor.getAllValues().get(0),
+                serviceName,
+                SERVICE_TYPE_LABELS,
+                List.of() /* ipv4Address */,
+                List.of(ipV6Address) /* ipv6Address */,
+                5353 /* port */,
+                Collections.singletonList(SUBTYPE) /* subTypes */,
+                Collections.singletonMap("key", null) /* attributes */,
+                socketKey);
+
+        // Verify that onServiceFound is called.
+        inOrder.verify(mockListenerOne).onServiceFound(
+                serviceInfoCaptor.capture(), eq(false) /* isServiceFromCache */);
+        verifyServiceInfo(serviceInfoCaptor.getAllValues().get(1),
+                serviceName,
+                SERVICE_TYPE_LABELS,
+                List.of() /* ipv4Address */,
+                List.of(ipV6Address) /* ipv6Address */,
+                5353 /* port */,
+                Collections.singletonList(SUBTYPE) /* subTypes */,
+                Collections.singletonMap("key", null) /* attributes */,
+                socketKey);
+
+        // Unregister the listener
+        stopSendAndReceive(mockListenerOne);
+        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+
+        // Register another listener.
+        startSendAndReceive(mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
+        verify(mockDeps, times(3)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        InOrder inOrder2 = inOrder(mockListenerTwo);
+
+        // The services are cached in MdnsServiceCache, verify that onServiceNameDiscovered is
+        // called immediately.
+        inOrder2.verify(mockListenerTwo).onServiceNameDiscovered(
+                serviceInfoCaptor.capture(), eq(true) /* isServiceFromCache */);
+        verifyServiceInfo(serviceInfoCaptor.getAllValues().get(2),
+                serviceName,
+                SERVICE_TYPE_LABELS,
+                List.of() /* ipv4Address */,
+                List.of(ipV6Address) /* ipv6Address */,
+                5353 /* port */,
+                Collections.singletonList(SUBTYPE) /* subTypes */,
+                Collections.singletonMap("key", null) /* attributes */,
+                socketKey);
+
+        // The services are cached in MdnsServiceCache, verify that onServiceFound is
+        // called immediately.
+        inOrder2.verify(mockListenerTwo).onServiceFound(
+                serviceInfoCaptor.capture(), eq(true) /* isServiceFromCache */);
+        verifyServiceInfo(serviceInfoCaptor.getAllValues().get(3),
+                serviceName,
+                SERVICE_TYPE_LABELS,
+                List.of() /* ipv4Address */,
+                List.of(ipV6Address) /* ipv6Address */,
+                5353 /* port */,
+                Collections.singletonList(SUBTYPE) /* subTypes */,
+                Collections.singletonMap("key", null) /* attributes */,
+                socketKey);
+
+        // Process same response again.
+        processResponse(createResponse(
+                        serviceName, ipV6Address, 5353, SUBTYPE,
+                        Collections.emptyMap(), TEST_TTL),
+                socketKey);
+
+        // Verify that the response is still complete.
+        final MdnsResponse response = postReturn(() ->
+                serviceCache.getCachedService(serviceName, SERVICE_TYPE, socketKey));
+        assertNotNull(response);
+        assertTrue(response.isComplete());
     }
 
     private static MdnsServiceInfo matchServiceName(String name) {
