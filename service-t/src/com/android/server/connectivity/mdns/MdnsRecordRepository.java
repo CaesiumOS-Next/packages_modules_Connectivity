@@ -95,16 +95,20 @@ public class MdnsRecordRepository {
     private final Looper mLooper;
     @NonNull
     private final String[] mDeviceHostname;
+    @NonNull
+    private final MdnsFeatureFlags mMdnsFeatureFlags;
 
-    public MdnsRecordRepository(@NonNull Looper looper, @NonNull String[] deviceHostname) {
-        this(looper, new Dependencies(), deviceHostname);
+    public MdnsRecordRepository(@NonNull Looper looper, @NonNull String[] deviceHostname,
+            @NonNull MdnsFeatureFlags featureFlags) {
+        this(looper, new Dependencies(), deviceHostname, featureFlags);
     }
 
     @VisibleForTesting
     public MdnsRecordRepository(@NonNull Looper looper, @NonNull Dependencies deps,
-            @NonNull String[] deviceHostname) {
+            @NonNull String[] deviceHostname, @NonNull MdnsFeatureFlags featureFlags) {
         mDeviceHostname = deviceHostname;
         mLooper = looper;
+        mMdnsFeatureFlags = featureFlags;
     }
 
     /**
@@ -494,22 +498,25 @@ public class MdnsRecordRepository {
     @Nullable
     public ReplyInfo getReply(MdnsPacket packet, InetSocketAddress src) {
         final long now = SystemClock.elapsedRealtime();
-        final boolean replyUnicast = (packet.flags & MdnsConstants.QCLASS_UNICAST) != 0;
         final ArrayList<MdnsRecord> additionalAnswerRecords = new ArrayList<>();
         final ArrayList<RecordInfo<?>> answerInfo = new ArrayList<>();
+        boolean replyUnicast = false;
         for (MdnsRecord question : packet.questions) {
             // Add answers from general records
-            addReplyFromService(question, mGeneralRecords, null /* servicePtrRecord */,
-                    null /* serviceSrvRecord */, null /* serviceTxtRecord */, replyUnicast, now,
-                    answerInfo, additionalAnswerRecords);
+            if (addReplyFromService(question, mGeneralRecords, null /* servicePtrRecord */,
+                    null /* serviceSrvRecord */, null /* serviceTxtRecord */, now,
+                    answerInfo, additionalAnswerRecords)) {
+                replyUnicast |= question.isUnicastReplyRequested();
+            }
 
             // Add answers from each service
             for (int i = 0; i < mServices.size(); i++) {
                 final ServiceRegistration registration = mServices.valueAt(i);
                 if (registration.exiting) continue;
                 if (addReplyFromService(question, registration.allRecords, registration.ptrRecords,
-                        registration.srvRecord, registration.txtRecord, replyUnicast, now,
+                        registration.srvRecord, registration.txtRecord, now,
                         answerInfo, additionalAnswerRecords)) {
+                    replyUnicast |= question.isUnicastReplyRequested();
                     registration.repliedServiceCount++;
                     registration.sentPacketCount++;
                 }
@@ -540,7 +547,13 @@ public class MdnsRecordRepository {
 
         // Determine the send destination
         final InetSocketAddress dest;
-        if (replyUnicast) {
+        if (replyUnicast && mMdnsFeatureFlags.mIsUnicastReplyEnabled) {
+            // As per RFC6762 5.4, "if the responder has not multicast that record recently (within
+            // one quarter of its TTL), then the responder SHOULD instead multicast the response so
+            // as to keep all the peer caches up to date": this SHOULD is not implemented to
+            // minimize latency for queriers who have just started, so they did not receive previous
+            // multicast responses. Unicast replies are faster as they do not need to wait for the
+            // beacon interval on Wi-Fi.
             dest = src;
         } else if (src.getAddress() instanceof Inet4Address) {
             dest = IPV4_ADDR;
@@ -570,7 +583,7 @@ public class MdnsRecordRepository {
             @Nullable List<RecordInfo<MdnsPointerRecord>> servicePtrRecords,
             @Nullable RecordInfo<MdnsServiceRecord> serviceSrvRecord,
             @Nullable RecordInfo<MdnsTextRecord> serviceTxtRecord,
-            boolean replyUnicast, long now, @NonNull List<RecordInfo<?>> answerInfo,
+            long now, @NonNull List<RecordInfo<?>> answerInfo,
             @NonNull List<MdnsRecord> additionalAnswerRecords) {
         boolean hasDnsSdPtrRecordAnswer = false;
         boolean hasDnsSdSrvRecordAnswer = false;
@@ -607,7 +620,7 @@ public class MdnsRecordRepository {
 
             // TODO: responses to probe queries should bypass this check and only ensure the
             // reply is sent 250ms after the last sent time (RFC 6762 p.15)
-            if (!replyUnicast && info.lastAdvertisedTimeMs > 0L
+            if (!question.isUnicastReplyRequested() && info.lastAdvertisedTimeMs > 0L
                     && now - info.lastAdvertisedTimeMs < MIN_MULTICAST_REPLY_INTERVAL_MS) {
                 continue;
             }
