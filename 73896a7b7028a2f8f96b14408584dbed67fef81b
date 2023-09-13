@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96e57371_f5e3ebe7",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-09-13T18:05:11Z",
+      "side": 1,
+      "message": "Does this affect skip_owner_match which seems to assume an L4 offset of sizeof(ipv6hdr) as well?",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 67
+      },
+      "revId": "73896a7b7028a2f8f96b14408584dbed67fef81b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
