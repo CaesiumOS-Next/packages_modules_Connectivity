@@ -42,12 +42,12 @@ import com.android.server.connectivity.MultinetworkPolicyTracker
 import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies
 import com.android.server.connectivity.ProxyTracker
 import com.android.testutils.waitForIdle
+import java.util.concurrent.Executors
+import kotlin.test.fail
 import org.mockito.AdditionalAnswers.delegatesTo
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
-import java.util.concurrent.Executors
-import kotlin.test.fail
 
 internal const val HANDLER_TIMEOUT_MS = 2_000
 internal const val TEST_PACKAGE_NAME = "com.android.test.package"
@@ -71,7 +71,7 @@ open class CSTest {
     init {
         if (!SdkLevel.isAtLeastS()) {
             throw UnsupportedApiLevelException("CSTest subclasses must be annotated to only " +
-                    "run on S+, e.g. @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)");
+                    "run on S+, e.g. @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)")
         }
     }
 
@@ -134,8 +134,8 @@ open class CSTest {
                 if (SdkLevel.isAtLeastT()) mock<CarrierPrivilegeAuthenticator>() else null
 
         private inner class AOOKTDeps(c: Context) : AutomaticOnOffKeepaliveTracker.Dependencies(c) {
-            override fun isTetheringFeatureNotChickenedOut(name: String): Boolean {
-                return isFeatureEnabled(context, name)
+            override fun isTetheringFeatureNotChickenedOut(c: Context, name: String): Boolean {
+                return isFeatureEnabled(c, name)
             }
         }
         override fun makeAutomaticOnOffKeepaliveTracker(c: Context, h: Handler) =
