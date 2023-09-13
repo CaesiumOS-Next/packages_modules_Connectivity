@@ -20,18 +20,28 @@ package com.android.server.connectivity.mdns;
  */
 public class MdnsFeatureFlags {
     /**
-     * The feature flag for control whether the  mDNS offload is enabled or not.
+     * A feature flag to control whether the  mDNS offload is enabled or not.
      */
     public static final String NSD_FORCE_DISABLE_MDNS_OFFLOAD = "nsd_force_disable_mdns_offload";
 
+    /**
+     * A feature flag to control whether unicast replies should be enabled.
+     *
+     * <p>Enabling this feature causes replies to queries with the Query Unicast (QU) flag set to be
+     * sent unicast instead of multicast, as per RFC6762 5.4.
+     */
+    public static final String NSD_UNICAST_REPLY_ENABLED = "nsd_unicast_reply_enabled";
+
     // Flag for offload feature
     public final boolean mIsMdnsOffloadFeatureEnabled;
+    public final boolean mIsUnicastReplyEnabled;
 
     /**
      * The constructor for {@link MdnsFeatureFlags}.
      */
-    public MdnsFeatureFlags(boolean isOffloadFeatureEnabled) {
+    public MdnsFeatureFlags(boolean isOffloadFeatureEnabled, boolean isUnicastReplyEnabled) {
         mIsMdnsOffloadFeatureEnabled = isOffloadFeatureEnabled;
+        mIsUnicastReplyEnabled = isUnicastReplyEnabled;
     }
 
 
@@ -44,6 +54,7 @@ public class MdnsFeatureFlags {
     public static final class Builder {
 
         private boolean mIsMdnsOffloadFeatureEnabled;
+        private boolean mIsUnicastReplyEnabled;
 
         /**
          * The constructor for {@link Builder}.
@@ -53,7 +64,9 @@ public class MdnsFeatureFlags {
         }
 
         /**
-         * Set if the mDNS offload  feature is enabled.
+         * Set whether the mDNS offload feature is enabled.
+         *
+         * @see #NSD_FORCE_DISABLE_MDNS_OFFLOAD
          */
         public Builder setIsMdnsOffloadFeatureEnabled(boolean isMdnsOffloadFeatureEnabled) {
             mIsMdnsOffloadFeatureEnabled = isMdnsOffloadFeatureEnabled;
@@ -61,10 +74,20 @@ public class MdnsFeatureFlags {
         }
 
         /**
+         * Set whether the unicast reply feature is enabled.
+         *
+         * @see #NSD_UNICAST_REPLY_ENABLED
+         */
+        public Builder setIsUnicastReplyEnabled(boolean isUnicastReplyEnabled) {
+            mIsUnicastReplyEnabled = isUnicastReplyEnabled;
+            return this;
+        }
+
+        /**
          * Builds a {@link MdnsFeatureFlags} with the arguments supplied to this builder.
          */
         public MdnsFeatureFlags build() {
-            return new MdnsFeatureFlags(mIsMdnsOffloadFeatureEnabled);
+            return new MdnsFeatureFlags(mIsMdnsOffloadFeatureEnabled, mIsUnicastReplyEnabled);
         }
 
     }

@@ -26,6 +26,7 @@ import static android.net.nsd.NsdManager.MDNS_DISCOVERY_MANAGER_EVENT;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
 import static android.net.nsd.NsdManager.RESOLVE_SERVICE_SUCCEEDED;
 import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
+
 import static com.android.modules.utils.build.SdkLevel.isAtLeastU;
 import static com.android.networkstack.apishim.ConstantsShim.REGISTER_NSD_OFFLOAD_ENGINE;
 import static com.android.server.connectivity.mdns.MdnsAdvertiser.AdvertiserMetrics;
@@ -1708,9 +1709,12 @@ public class NsdService extends INsdManager.Stub {
         mMdnsDiscoveryManager = deps.makeMdnsDiscoveryManager(new ExecutorProvider(),
                 mMdnsSocketClient, LOGGER.forSubComponent("MdnsDiscoveryManager"));
         handler.post(() -> mMdnsSocketClient.setCallback(mMdnsDiscoveryManager));
-        MdnsFeatureFlags flags = new MdnsFeatureFlags.Builder().setIsMdnsOffloadFeatureEnabled(
-                mDeps.isTetheringFeatureNotChickenedOut(
-                        MdnsFeatureFlags.NSD_FORCE_DISABLE_MDNS_OFFLOAD)).build();
+        MdnsFeatureFlags flags = new MdnsFeatureFlags.Builder()
+                .setIsMdnsOffloadFeatureEnabled(mDeps.isTetheringFeatureNotChickenedOut(
+                        MdnsFeatureFlags.NSD_FORCE_DISABLE_MDNS_OFFLOAD))
+                .setIsUnicastReplyEnabled(mDeps.isFeatureEnabled(mContext,
+                        MdnsFeatureFlags.NSD_UNICAST_REPLY_ENABLED))
+                .build();
         mAdvertiser = deps.makeMdnsAdvertiser(handler.getLooper(), mMdnsSocketProvider,
                 new AdvertiserCallback(), LOGGER.forSubComponent("MdnsAdvertiser"), flags);
         mClock = deps.makeClock();
