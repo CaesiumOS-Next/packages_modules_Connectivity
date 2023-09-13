@@ -1709,7 +1709,7 @@ public class NsdService extends INsdManager.Stub {
                 mMdnsSocketClient, LOGGER.forSubComponent("MdnsDiscoveryManager"));
         handler.post(() -> mMdnsSocketClient.setCallback(mMdnsDiscoveryManager));
         MdnsFeatureFlags flags = new MdnsFeatureFlags.Builder().setIsMdnsOffloadFeatureEnabled(
-                mDeps.isTetheringFeatureNotChickenedOut(
+                mDeps.isTetheringFeatureNotChickenedOut(mContext,
                         MdnsFeatureFlags.NSD_FORCE_DISABLE_MDNS_OFFLOAD)).build();
         mAdvertiser = deps.makeMdnsAdvertiser(handler.getLooper(), mMdnsSocketProvider,
                 new AdvertiserCallback(), LOGGER.forSubComponent("MdnsAdvertiser"), flags);
@@ -1763,8 +1763,8 @@ public class NsdService extends INsdManager.Stub {
         /**
          * @see DeviceConfigUtils#isTetheringFeatureNotChickenedOut
          */
-        public boolean isTetheringFeatureNotChickenedOut(String feature) {
-            return DeviceConfigUtils.isTetheringFeatureNotChickenedOut(feature);
+        public boolean isTetheringFeatureNotChickenedOut(Context context, String feature) {
+            return DeviceConfigUtils.isTetheringFeatureNotChickenedOut(context, feature);
         }
 
         /**
