@@ -608,6 +608,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44c86c28_a417546d",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-13T09:45:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaa2f31b_2bff74b0",
+      "range": {
+        "startLine": 1154,
+        "startChar": 8,
+        "endLine": 1154,
+        "endChar": 20
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ac82f08_d264febd",
@@ -881,6 +905,30 @@
       "side": 1,
       "message": "I think both orders are okay, my suggestion is just to match previous behavior if we have concern for implementation of old netd in R. So maybe we keep the change in current CL?",
       "parentUuid": "646e3190_8448669d",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 806,
+        "endChar": 34
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3837fd5d_0837bb06",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-13T09:45:22Z",
+      "side": 1,
+      "message": "Actually, I just happened to see this comment in the v31 BpfCoordinatorShimImpl:\n\n\n        // getAndClearTetherOffloadStats is called after all offload rules have already been\n        // deleted for the given upstream interface. Before starting to do cleanup stuff in this\n        // function, use synchronizeKernelRCU to make sure that all the current running eBPF\n        // programs are finished on all CPUs, especially the unfinished packet processing. After\n        // synchronizeKernelRCU returned, we can safely read or delete on the stats map or the\n        // limit map.\n        final int res \u003d synchronizeKernelRCU();\n        if (res !\u003d 0) {\n            // Error log but don\u0027t return. Do as much cleanup as possible.\n            mLog.e(\"synchronize_rcu() failed: \" + res);\n        }\n\nThere\u0027s a similar comment in the old R netd implementation:\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/base/+/rvc-dev:system/netd/server/TetherController.cpp;l\u003d1173\n\n\nBasically, the current code tries to ensure that the BPF code will not forward any packets before the stats are read and cleared. I think we need to continue to do this. Can we do this by changing the order in updateAllIpv6Rules (and in clearIpv6Rules) so that it does downstream rules first, then upstream? If so, let\u0027s do that... and add a comment to ensure we don\u0027t forget this again.",
+      "parentUuid": "295dd330_45b5a075",
       "range": {
         "startLine": 806,
         "startChar": 8,
