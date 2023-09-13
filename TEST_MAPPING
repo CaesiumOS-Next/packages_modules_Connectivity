@@ -123,6 +123,10 @@
       "keywords": ["netd-device-kernel-4.9", "netd-device-kernel-4.14"]
     },
     {
+      "name": "lib4dns_resolver_unit_test",
+      "keywords": ["netd-device-kernel-4.9", "netd-device-kernel-4.14"]
+    },
+    {
       "name": "traffic_controller_unit_test",
       "keywords": ["netd-device-kernel-4.9", "netd-device-kernel-4.14"]
     },
