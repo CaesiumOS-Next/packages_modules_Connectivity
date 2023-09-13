@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7b0dfe7_f9d98466",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a32b3a92_451025d6",
+      "range": {
+        "startLine": 13,
+        "startChar": 39,
+        "endLine": 13,
+        "endChar": 44
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1680141f_7dd3d349",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-07T08:54:38Z",
       "side": 1,
       "message": "so that",
+      "range": {
+        "startLine": 14,
+        "startChar": 43,
+        "endLine": 14,
+        "endChar": 47
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d58fb55_be4e0046",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1680141f_7dd3d349",
       "range": {
         "startLine": 14,
         "startChar": 43,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b18b58dd_41e150fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "539e8d53_40f1a078",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
+        "endLine": 15,
+        "endChar": 59
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae30f541_9f2ca4cf",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-07T08:54:38Z",
       "side": 1,
       "message": "Is this enforced ?",
+      "range": {
+        "startLine": 16,
+        "startChar": 24,
+        "endLine": 16,
+        "endChar": 47
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b17831e_e6a27218",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:14Z",
+      "side": 1,
+      "message": "Yes, for patchset 26. If",
+      "parentUuid": "ae30f541_9f2ca4cf",
       "range": {
         "startLine": 16,
         "startChar": 24,
@@ -231,6 +327,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ee2b767_bafcff43",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28a89ccf_dba5900d",
+      "range": {
+        "startLine": 159,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 36
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6379e68e_b0e59b5e",
@@ -254,6 +374,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec7274ed_a6fa8778",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6379e68e_b0e59b5e",
+      "range": {
+        "startLine": 171,
+        "startChar": 34,
+        "endLine": 171,
+        "endChar": 44
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee2481ee_29701af4",
@@ -267,6 +411,30 @@
       "writtenOn": "2023-09-07T08:54:38Z",
       "side": 1,
       "message": "I think it would be clearer if\n- The state was before the message \u0027\"State \" + si.state + \"processing message \" + msg.what` or so\n- It was clear whether the message *will be* processed, *is being* processed or *has been* processed. I think in this case it has been processed.",
+      "range": {
+        "startLine": 198,
+        "startChar": 35,
+        "endLine": 198,
+        "endChar": 81
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7810ca1e_4f80c4c1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee2481ee_29701af4",
       "range": {
         "startLine": 198,
         "startChar": 35,
@@ -317,6 +485,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "679c2814_a7199cad",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4185d03_24316a9d",
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9df34c1_852c6091",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:14Z",
+      "side": 1,
+      "message": "I think just throw is very dangerous because existing state machine won\u0027t throw. Current scheme is the state only handle the message it care. Especially ErrorState would only handle clear_error or downstream inactive message. It would ignore all other messages.",
+      "parentUuid": "9c09a542_ec9040c4",
+      "range": {
+        "startLine": 205,
+        "startChar": 25,
+        "endLine": 205,
+        "endChar": 27
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfa5987d_284c04c7",
@@ -330,6 +540,30 @@
       "writtenOn": "2023-09-07T08:54:38Z",
       "side": 1,
       "message": "So this can only be used during enter() and exit(), but not while processing a message ? The doc in l.210 seems to disagree",
+      "range": {
+        "startLine": 217,
+        "startChar": 13,
+        "endLine": 217,
+        "endChar": 34
+      },
+      "revId": "6de1e7ea57a6e6f2acf8f8cb4c55b32deea3b812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1039c7f_ad77fb63",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:04:14Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "bfa5987d_284c04c7",
       "range": {
         "startLine": 217,
         "startChar": 13,
