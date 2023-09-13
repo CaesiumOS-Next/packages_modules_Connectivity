@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43e930d9_d5972656",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-13T20:19:18Z",
+      "side": 1,
+      "message": "no idea what this means... but we no longer support 4.9 nor 4.14... (4.19 is the current minimum)",
+      "range": {
+        "startLine": 127,
+        "startChar": 20,
+        "endLine": 127,
+        "endChar": 42
+      },
+      "revId": "820e8e97292c83f9f9c43985ef80165c16c0eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
