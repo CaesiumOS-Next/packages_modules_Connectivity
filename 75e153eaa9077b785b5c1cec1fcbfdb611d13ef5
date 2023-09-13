@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daab7a31_7fec2b67",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-13T05:54:45Z",
+      "side": 1,
+      "message": "LGTM but see if Jean would like to take a look.",
+      "revId": "75e153eaa9077b785b5c1cec1fcbfdb611d13ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36611ffa_835e1042",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10349,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-13T05:54:45Z",
+      "side": 1,
+      "message": "Nit: ConnectivityService#propagateUnderlyingNetworkCapabilities() or propagateUnderlyingNetworkCapabilities() since it\u0027s not clear it\u0027s a variable or a method.",
+      "range": {
+        "startLine": 10349,
+        "startChar": 20,
+        "endLine": 10349,
+        "endChar": 58
+      },
+      "revId": "75e153eaa9077b785b5c1cec1fcbfdb611d13ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
