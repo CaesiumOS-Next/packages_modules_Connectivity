@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a76e3092_9273c11c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-13T09:11:21Z",
+      "side": 1,
+      "message": "Which ones? I thought pretty much all the VpnService tests are skipped on watches:\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java;l\u003d236",
+      "parentUuid": "c3a8df28_631df29a",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 67
+      },
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c049b51_84f19cc2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 22
