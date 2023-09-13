@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb40b82_552f50ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-09-13T00:43:18Z",
+      "side": 1,
+      "message": "There are Perfetto proto changes in https://r.android.com/2749035 that I\u0027ll need to get submitted and cherry-picked before presubmit, sending this just for an early review.",
+      "revId": "d21fbf79fe62d8bb44dca7f2662ba5510b751526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
