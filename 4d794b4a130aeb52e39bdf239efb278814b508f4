@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f67e7da1_794d3eae",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d610078_4df6cbfe",
+      "range": {
+        "startLine": 38,
+        "startChar": 23,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c9e9973_0d4ffa27",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-07T08:54:24Z",
       "side": 1,
       "message": "Do you have a use for this ? It seems a bit error-prone to me ; if may be better to forbid this.\n\nIf it\u0027s for your test in SM05, you can write\n\n    private val mState5 \u003d spy(object : TestState(MSG_5) {})\n\nThat makes anonymous objects and is terse enough.",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92714aba_5c94468f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:56Z",
+      "side": 1,
+      "message": "No, this is not only for test and existing async state machine also behave like this. Here is the use case for ipServer:\n\n                 initial\n               /          \\\n         Tethered      LocalOnly\n             |             |\n        Unavailable     Unavailable\n        \nSince a child state can\u0027t have multiple parent state, Tethered and LocalOnly both have its own Unavailable child which is the same class but different instance.",
+      "parentUuid": "1c9e9973_0d4ffa27",
       "range": {
         "startLine": 39,
         "startChar": 11,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ad3392f_c626b4f9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "079d7b63_acbafaa7",
+      "range": {
+        "startLine": 45,
+        "startChar": 69,
+        "endLine": 45,
+        "endChar": 85
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9bca72f_4acb0389",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c8c9c23_fcdd7548",
+      "range": {
+        "startLine": 45,
+        "startChar": 18,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a495abf_63db1d85",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-09-07T08:54:24Z",
       "side": 1,
       "message": "In fact, different StatesInfos wich have the same state are not allowed, whether they have different parents or not.",
+      "range": {
+        "startLine": 103,
+        "startChar": 47,
+        "endLine": 104,
+        "endChar": 40
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6596525_085b9938",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a495abf_63db1d85",
       "range": {
         "startLine": 103,
         "startChar": 47,
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d6bfac8_9113034d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "062d7eba_20e42bda",
+      "range": {
+        "startLine": 111,
+        "startChar": 24,
+        "endLine": 111,
+        "endChar": 31
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8146e2d_a3a2e549",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-09-07T08:54:24Z",
       "side": 1,
       "message": "You\u0027ll be checking that `info.state` is non-null in the next patch but it would be better done in this patch",
+      "range": {
+        "startLine": 113,
+        "startChar": 48,
+        "endLine": 113,
+        "endChar": 49
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b3ab3bd_a8cfb0b4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8146e2d_a3a2e549",
       "range": {
         "startLine": 113,
         "startChar": 48,
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2ca08f9_b21edd95",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d90fece_dc36cc60",
+      "range": {
+        "startLine": 156,
+        "startChar": 88,
+        "endLine": 157,
+        "endChar": 27
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f7968ab_5a505801",
@@ -198,6 +390,30 @@
       "writtenOn": "2023-09-07T08:54:24Z",
       "side": 1,
       "message": "Maybe `ensureExistingState`, because it\u0027s not clear what makes a state \"valid\"",
+      "range": {
+        "startLine": 183,
+        "startChar": 17,
+        "endLine": 183,
+        "endChar": 33
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5678a1a9_5c083d96",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-13T05:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f7968ab_5a505801",
       "range": {
         "startLine": 183,
         "startChar": 17,
