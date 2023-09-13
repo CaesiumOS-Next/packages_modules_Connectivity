@@ -965,6 +965,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "64b238b6_e5955183",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-13T13:33:52Z",
+      "side": 1,
+      "message": "Done. I think when it puts the rules back, it is better that the upstream rules are put back first, eliminates the possibilities that there are downstream rules but no stats entry, although it probably won\u0027t cause any issue (the network stack will handle the packet when it happens).",
+      "parentUuid": "7b35d286_eba21ded",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 806,
+        "endChar": 34
+      },
+      "revId": "8aca86b35849c72e7ba70f7cf6eede846fb0775d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae1bf30a_f2c2a9f0",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 13
