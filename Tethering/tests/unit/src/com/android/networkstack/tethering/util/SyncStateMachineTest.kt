@@ -37,6 +37,7 @@ private const val MSG_3 = 3
 private const val MSG_4 = 4
 private const val MSG_5 = 5
 private const val MSG_6 = 6
+private const val MSG_7 = 7
 private const val ARG_1 = 100
 private const val ARG_2 = 200
 
@@ -49,7 +50,8 @@ class SynStateMachineTest {
     private val mState4 = spy(TestState(MSG_4))
     private val mState5 = spy(TestState(MSG_5))
     private val mState6 = spy(TestState(MSG_6))
-    private val mInOrder = inOrder(mState1, mState2, mState3, mState4, mState5, mState6)
+    private val mState7 = spy(TestState(MSG_7))
+    private val mInOrder = inOrder(mState1, mState2, mState3, mState4, mState5, mState6, mState7)
     // Lazy initialize to make sure running in test thread.
     private val mSM by lazy {
         SyncStateMachine("TestSyncStateMachine", Thread.currentThread(), true /* debug */)
@@ -198,6 +200,68 @@ class SynStateMachineTest {
         mInOrder.verify(mState1).exit()
         mInOrder.verify(mState4).enter()
         mInOrder.verify(mState6).enter()
+        verifyNoMoreInteractions()
+    }
+
+    @Test
+    fun testMultiDepthTransition() {
+        //      mState1 -> current
+        //    |          \
+        //  mState2         mState6
+        //    |   \           |
+        //  mState3 mState5  mState7
+        //    |
+        //  mState4
+        addState(mState1)
+        addState(mState2, mState1)
+        addState(mState6, mState1)
+        addState(mState3, mState2)
+        addState(mState5, mState2)
+        addState(mState7, mState6)
+        addState(mState4, mState3)
+        verifyStart()
+
+        //      mState1 -> current
+        //    |          \
+        //  mState2         mState6
+        //    |   \           |
+        //  mState3 mState5  mState7
+        //    |
+        //  mState4 -> dest
+        processMessage(MSG_1, mState4)
+        verifyMessageProcessedBy(mState1)
+        mInOrder.verify(mState2).enter()
+        mInOrder.verify(mState3).enter()
+        mInOrder.verify(mState4).enter()
+        verifyNoMoreInteractions()
+
+        //            mState1
+        //        /            \
+        //  mState2             mState6
+        //    |   \                 \
+        //  mState3 mState5 -> dest  mState7
+        //    |
+        //  mState4 -> current
+        processMessage(MSG_1, mState5)
+        verifyMessageProcessedBy(mState4, mState3, mState2, mState1)
+        mInOrder.verify(mState4).exit()
+        mInOrder.verify(mState3).exit()
+        mInOrder.verify(mState5).enter()
+        verifyNoMoreInteractions()
+
+        //            mState1
+        //        /              \
+        //  mState2               mState6
+        //    |   \                    \
+        //  mState3 mState5 -> current  mState7 -> dest
+        //    |
+        //  mState4
+        processMessage(MSG_2, mState7)
+        verifyMessageProcessedBy(mState5, mState2)
+        mInOrder.verify(mState5).exit()
+        mInOrder.verify(mState2).exit()
+        mInOrder.verify(mState6).enter()
+        mInOrder.verify(mState7).enter()
         verifyNoMoreInteractions()
     }
 }
