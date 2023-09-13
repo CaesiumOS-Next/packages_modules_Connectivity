@@ -60,6 +60,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.platform.test.annotations.AppModeFull
+import android.provider.DeviceConfig.NAMESPACE_TETHERING
 import android.system.ErrnoException
 import android.system.Os
 import android.system.OsConstants.AF_INET6
@@ -83,6 +84,7 @@ import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
+import com.android.testutils.DeviceConfigRule
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
 import com.android.testutils.TapPacketReader
@@ -142,6 +144,9 @@ class NsdManagerTest {
     // Rule used to filter CtsNetTestCasesMaxTargetSdkXX
     @get:Rule
     val ignoreRule = DevSdkIgnoreRule()
+
+    @get:Rule
+    val deviceConfigRule = DeviceConfigRule()
 
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val nsdManager by lazy {
@@ -1161,7 +1166,8 @@ class NsdManagerTest {
         // Resolve service on testNetwork1
         val resolveRecord = NsdResolveRecord()
         val packetReader = TapPacketReader(Handler(handlerThread.looper),
-                testNetwork1.iface.fileDescriptor.fileDescriptor, 1500 /* maxPacketSize */)
+                testNetwork1.iface.fileDescriptor.fileDescriptor, 1500 /* maxPacketSize */
+        )
         packetReader.startAsyncForTest()
         handlerThread.waitForIdle(TIMEOUT_MS)
 
@@ -1222,6 +1228,42 @@ class NsdManagerTest {
         assertEquals(
                 setOf(parseNumericAddress("192.0.2.123"), parseNumericAddress("2001:db8::123")),
                 serviceResolved.serviceInfo.hostAddresses.toSet())
+    }
+
+    @Test
+    fun testUnicastReplyUsedWhenQueryUnicastFlagSet() {
+        // The flag may be removed in the future but unicast replies should be enabled by default
+        // in that case. The rule will reset flags automatically on teardown.
+        deviceConfigRule.setConfig(NAMESPACE_TETHERING, "nsd_unicast_reply_enabled", "true")
+
+        val si = NsdServiceInfo()
+        si.serviceType = serviceType
+        si.serviceName = serviceName
+        si.network = testNetwork1.network
+        si.port = 12345 // Test won't try to connect so port does not matter
+
+        // Register service on testNetwork1
+        val registrationRecord = NsdRegistrationRecord()
+
+        tryTest {
+            val registeredService = registerService(registrationRecord, si)
+            val packetReader = TapPacketReader(Handler(handlerThread.looper),
+                testNetwork1.iface.fileDescriptor.fileDescriptor, 1500 /* maxPacketSize */)
+            packetReader.startAsyncForTest()
+            handlerThread.waitForIdle(TIMEOUT_MS)
+            /*
+            Send a "query unicast" query.
+            Generated with:
+            scapy.raw(scapy.DNS(rd=0, qr=0, aa=0, qd =
+                    scapy.DNSQR(qname='_nmt123456789._tcp.local', qtype='PTR', qclass=0x8001)
+            )).hex()
+            */
+            val mdnsPayload = HexDump.hexStringToByteArray("0000000000010000000000000d5f6e6d74313" +
+                    "233343536373839045f746370056c6f63616c00000c8001")
+            ByteBuffer.wrap(mdnsPayload).position()
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
+        }
     }
 
     private fun buildConflictingAnnouncement(): ByteBuffer {

@@ -41,8 +41,17 @@ public class MdnsFeatureFlags {
      */
     public static final String NSD_LIMIT_LABEL_COUNT = "nsd_limit_label_count";
 
+    /**
+     * A feature flag to control whether unicast replies should be enabled.
+     *
+     * <p>Enabling this feature causes replies to queries with the Query Unicast (QU) flag set to be
+     * sent unicast instead of multicast, as per RFC6762 5.4.
+     */
+    public static final String NSD_UNICAST_REPLY_ENABLED = "nsd_unicast_reply_enabled";
+
     // Flag for offload feature
     public final boolean mIsMdnsOffloadFeatureEnabled;
+    public final boolean mIsUnicastReplyEnabled;
 
     // Flag for including InetAddressRecords in probing questions.
     public final boolean mIncludeInetAddressRecordsInProbing;
@@ -59,11 +68,13 @@ public class MdnsFeatureFlags {
     public MdnsFeatureFlags(boolean isOffloadFeatureEnabled,
             boolean includeInetAddressRecordsInProbing,
             boolean isExpiredServicesRemovalEnabled,
-            boolean isLabelCountLimitEnabled) {
+            boolean isLabelCountLimitEnabled,
+            boolean isUnicastReplyEnabled) {
         mIsMdnsOffloadFeatureEnabled = isOffloadFeatureEnabled;
         mIncludeInetAddressRecordsInProbing = includeInetAddressRecordsInProbing;
         mIsExpiredServicesRemovalEnabled = isExpiredServicesRemovalEnabled;
         mIsLabelCountLimitEnabled = isLabelCountLimitEnabled;
+        mIsUnicastReplyEnabled = isUnicastReplyEnabled;
     }
 
 
@@ -79,6 +90,7 @@ public class MdnsFeatureFlags {
         private boolean mIncludeInetAddressRecordsInProbing;
         private boolean mIsExpiredServicesRemovalEnabled;
         private boolean mIsLabelCountLimitEnabled;
+        private boolean mIsUnicastReplyEnabled;
 
         /**
          * The constructor for {@link Builder}.
@@ -132,13 +144,24 @@ public class MdnsFeatureFlags {
         }
 
         /**
+         * Set whether the unicast reply feature is enabled.
+         *
+         * @see #NSD_UNICAST_REPLY_ENABLED
+         */
+        public Builder setIsUnicastReplyEnabled(boolean isUnicastReplyEnabled) {
+            mIsUnicastReplyEnabled = isUnicastReplyEnabled;
+            return this;
+        }
+
+        /**
          * Builds a {@link MdnsFeatureFlags} with the arguments supplied to this builder.
          */
         public MdnsFeatureFlags build() {
             return new MdnsFeatureFlags(mIsMdnsOffloadFeatureEnabled,
                     mIncludeInetAddressRecordsInProbing,
                     mIsExpiredServicesRemovalEnabled,
-                    mIsLabelCountLimitEnabled);
+                    mIsLabelCountLimitEnabled,
+                    mIsUnicastReplyEnabled);
         }
     }
 }

@@ -1649,6 +1649,8 @@ public class NsdService extends INsdManager.Stub {
                         mContext, MdnsFeatureFlags.NSD_EXPIRED_SERVICES_REMOVAL))
                 .setIsLabelCountLimitEnabled(mDeps.isTetheringFeatureNotChickenedOut(
                         mContext, MdnsFeatureFlags.NSD_LIMIT_LABEL_COUNT))
+                .setIsUnicastReplyEnabled(mDeps.isFeatureEnabled(
+                        mContext, MdnsFeatureFlags.NSD_UNICAST_REPLY_ENABLED))
                 .build();
         mMdnsSocketClient =
                 new MdnsMultinetworkSocketClient(handler.getLooper(), mMdnsSocketProvider,
