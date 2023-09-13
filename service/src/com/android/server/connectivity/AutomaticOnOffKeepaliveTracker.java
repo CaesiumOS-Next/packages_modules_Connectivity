@@ -24,7 +24,6 @@ import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
 import static android.system.OsConstants.SOL_SOCKET;
 import static android.system.OsConstants.SO_SNDTIMEO;
-
 import static com.android.net.module.util.netlink.NetlinkConstants.NLMSG_DONE;
 import static com.android.net.module.util.netlink.NetlinkConstants.SOCKDIAG_MSG_HEADER_SIZE;
 import static com.android.net.module.util.netlink.NetlinkConstants.SOCK_DIAG_BY_FAMILY;
@@ -218,7 +217,7 @@ public class AutomaticOnOffKeepaliveTracker {
             // Reading DeviceConfig will check if the calling uid and calling package name are the
             // same. Clear calling identity to align the calling uid and package
             final boolean enabled = BinderUtils.withCleanCallingIdentity(
-                    () -> mDependencies.isTetheringFeatureNotChickenedOut(
+                    () -> mDependencies.isTetheringFeatureNotChickenedOut(mContext,
                             AUTOMATIC_ON_OFF_KEEPALIVE_DISABLE_FLAG));
             if (autoOnOff && enabled) {
                 mAutomaticOnOffState = STATE_ENABLED;
@@ -974,7 +973,7 @@ public class AutomaticOnOffKeepaliveTracker {
          * @return whether the feature is enabled
          */
         public boolean isTetheringFeatureNotChickenedOut(@NonNull final String name) {
-            return DeviceConfigUtils.isTetheringFeatureNotChickenedOut(name);
+            return DeviceConfigUtils.isTetheringFeatureNotChickenedOut(mContext, name);
         }
 
         /**
