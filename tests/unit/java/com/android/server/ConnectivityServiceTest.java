@@ -150,7 +150,6 @@ import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALID
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_SUCCESS;
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.IPPROTO_TCP;
-
 import static com.android.server.ConnectivityService.DELAY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.KEY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
@@ -190,7 +189,6 @@ import static com.android.testutils.RecorderCallback.CallbackEntry.RESUMED;
 import static com.android.testutils.RecorderCallback.CallbackEntry.SUSPENDED;
 import static com.android.testutils.RecorderCallback.CallbackEntry.UNAVAILABLE;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
@@ -226,7 +224,6 @@ import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-
 import static java.util.Arrays.asList;
 
 import android.Manifest;
