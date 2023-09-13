@@ -33,7 +33,6 @@ import static android.net.SocketKeepalive.MIN_INTERVAL_SEC;
 import static android.net.SocketKeepalive.NO_KEEPALIVE;
 import static android.net.SocketKeepalive.SUCCESS;
 import static android.net.SocketKeepalive.SUCCESS_PAUSED;
-
 import static com.android.net.module.util.FeatureVersions.FEATURE_CLAT_ADDRESS_TRANSLATE;
 
 import android.annotation.NonNull;
@@ -993,7 +992,7 @@ public class KeepaliveTracker {
          */
         public boolean isAddressTranslationEnabled(@NonNull Context context) {
             return DeviceConfigUtils.isFeatureSupported(context, FEATURE_CLAT_ADDRESS_TRANSLATE)
-                    && DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
+                    && DeviceConfigUtils.isTetheringFeatureNotChickenedOut(context,
                             CONFIG_DISABLE_CLAT_ADDRESS_TRANSLATE);
         }
     }
