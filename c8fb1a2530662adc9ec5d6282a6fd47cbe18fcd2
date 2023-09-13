@@ -22,6 +22,30 @@
       },
       "revId": "c8fb1a2530662adc9ec5d6282a6fd47cbe18fcd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7b591bc_21485eb5",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-13T02:31:51Z",
+      "side": 1,
+      "message": "Right, it can wrap IpPrefix.getRawAddress() directly. Will change it in other CLs in the series that still under review.\nNote: this method has been moved to Ipv6UpstreamRule#makeTetherUpstream6Key.",
+      "parentUuid": "1e382f70_6da9cfd1",
+      "range": {
+        "startLine": 207,
+        "startChar": 36,
+        "endLine": 207,
+        "endChar": 42
+      },
+      "revId": "c8fb1a2530662adc9ec5d6282a6fd47cbe18fcd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
