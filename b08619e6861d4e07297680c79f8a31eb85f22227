@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ca7a61d_e9a92d21",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-14T04:32:39Z",
+      "side": 1,
+      "message": "nit: please fix the error prone",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 53
+      },
+      "revId": "b08619e6861d4e07297680c79f8a31eb85f22227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f5d9ab8_a12a3e3c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-14T04:32:39Z",
+      "side": 1,
+      "message": "as discussed offline, we should only sent unicast if all the question request unicast reply.",
+      "range": {
+        "startLine": 550,
+        "startChar": 12,
+        "endLine": 550,
+        "endChar": 24
+      },
+      "revId": "b08619e6861d4e07297680c79f8a31eb85f22227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
