@@ -2748,7 +2748,7 @@ public class Tethering {
             // Thus we give a chance for TetherMainSM to recover to InitialState
             // by sending CMD_CLEAR_ERROR
             if (lastError == TETHER_ERROR_INTERNAL_ERROR) {
-                mTetherMainSM.sendMessage(TetherMainSM.CMD_CLEAR_ERROR, who);
+                mHandler.sendMessage(mHandler.obtainMessage(TetherMainSM.CMD_CLEAR_ERROR, who));
             }
             int which;
             switch (state) {
@@ -2764,7 +2764,7 @@ public class Tethering {
                     Log.wtf(TAG, "Unknown interface state: " + state);
                     return;
             }
-            mTetherMainSM.sendMessage(which, state, 0, who);
+            mHandler.sendMessage(mHandler.obtainMessage(which, state, 0, who));
             sendTetherStateChangedBroadcast();
         }
 
@@ -2784,7 +2784,7 @@ public class Tethering {
                     "OBSERVED LinkProperties update iface=%s state=%s lp=%s",
                     iface, IpServer.getStateString(state), newLp));
             final int which = TetherMainSM.EVENT_IFACE_UPDATE_LINKPROPERTIES;
-            mTetherMainSM.sendMessage(which, state, 0, newLp);
+            mHandler.sendMessage(mHandler.obtainMessage(which, state, 0, newLp));
         }
 
         @Override
@@ -2794,8 +2794,9 @@ public class Tethering {
 
         @Override
         public void requestEnableTethering(int tetheringType, boolean enabled) {
-            mTetherMainSM.sendMessage(TetherMainSM.EVENT_REQUEST_CHANGE_DOWNSTREAM,
-                    tetheringType, 0, enabled ? Boolean.TRUE : Boolean.FALSE);
+            mHandler.sendMessage(
+                    mHandler.obtainMessage(TetherMainSM.EVENT_REQUEST_CHANGE_DOWNSTREAM,
+                    tetheringType, 0, enabled ? Boolean.TRUE : Boolean.FALSE));
         }
     }
 
