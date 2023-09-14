@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9069d795_3d76c44e",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-14T09:37:32Z",
+      "side": 1,
+      "message": "Yes that\u0027s actually what I wanted to write here: the callback only includes information that\u0027s available in the PTR record, and nothing else, even if there are other records. Clarified the comment.",
+      "parentUuid": "ddadfeed_7b29c356",
+      "range": {
+        "startLine": 1140,
+        "startChar": 77,
+        "endLine": 1140,
+        "endChar": 98
+      },
+      "revId": "993468989b44d7442c7923ffdebf4a5f35e8a28c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b2d3c2f_ebfd4890",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b53f7ced_5e0ae816",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-14T09:37:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b2d3c2f_ebfd4890",
+      "range": {
+        "startLine": 1156,
+        "startChar": 11,
+        "endLine": 1156,
+        "endChar": 19
+      },
+      "revId": "993468989b44d7442c7923ffdebf4a5f35e8a28c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5edb2aa_3ace98ff",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-09-14T06:36:16Z",
       "side": 1,
       "message": "Nit: `replaceServiceNameAndTypeWithTestSuffix` should be more precise name.",
+      "range": {
+        "startLine": 1242,
+        "startChar": 16,
+        "endLine": 1242,
+        "endChar": 48
+      },
+      "revId": "993468989b44d7442c7923ffdebf4a5f35e8a28c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82fbf1df_77a9ccfd",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-14T09:37:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5edb2aa_3ace98ff",
       "range": {
         "startLine": 1242,
         "startChar": 16,
