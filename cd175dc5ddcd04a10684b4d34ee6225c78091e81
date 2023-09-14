@@ -33,6 +33,24 @@
       "message": "Looks like the build is not happy :-(\n\n```\nIn file included from packages/modules/Connectivity/service/libconnectivity/src/connectivity_native.cpp:17:\npackages/modules/Connectivity/service/libconnectivity/include/connectivity_native.h:81:58: error: nullability specifier \u0027_Nonnull\u0027 cannot be applied to non-pointer type \u0027in_port_t\u0027 (aka \u0027unsigned short\u0027); did you mean to apply the specifier to the pointer? [-Wnullability-declspec]\nint AConnectivityNative_getPortsBlockedForBind(in_port_t _Nonnull *ports, size_t _NonNull *count)\n                                                         ^~~~~~~~~\n                                                                    _Nonnull \npackages/modules/Connectivity/service/libconnectivity/include/connectivity_native.h:81:91: error: expected \u0027)\u0027\nint AConnectivityNative_getPortsBlockedForBind(in_port_t _Nonnull *ports, size_t _NonNull *count)\n                                                                                          ^\npackages/modules/Connectivity/service/libconnectivity/include/connectivity_native.h:81:47: note: to match this \u0027(\u0027\nint AConnectivityNative_getPortsBlockedForBind(in_port_t _Nonnull *ports, size_t _NonNull *count)\n                                              ^\n2 errors generated.\n```",
       "revId": "cd175dc5ddcd04a10684b4d34ee6225c78091e81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a37b6b5_eee42bd2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-14T06:12:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e08dc65_f8298c95",
+      "revId": "cd175dc5ddcd04a10684b4d34ee6225c78091e81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
