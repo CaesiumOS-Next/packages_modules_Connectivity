@@ -356,6 +356,30 @@
       },
       "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e2e62da_9a5a147b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "Not for this CL, but actually looking at this again again I think we can at least simplify them.\n\nWhat this code is trying to do is manually test the R and S codepaths in the same test running on S. There\u0027s no need to do that because all the tests in this file are in mainline-presubmit on both R and S (and other Android versions).\n\nSince the checkTetherOffloadRuleAddAndRemove does exactly the same thing on R and on S+, except for mocking the return value of isAtLeastS, I think you can just delete testTetherOffloadRuleAddAndRemoveSdkR and testTetherOffloadRuleAddAndRemoveSdkS(), and rename checkTetherOffloadRuleAddAndRemove to testTetherOffloadRuleAddAndRemove. Remember to annotate it with @Test of course.\n\nThis is probably true of the other test*SdkR and test*SdkS tests below.",
+      "parentUuid": "a29d4fd9_9a841f40",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 767,
+        "endChar": 78
+      },
+      "revId": "8add30a17bf0cf3eae7c742fed550f166becf38f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

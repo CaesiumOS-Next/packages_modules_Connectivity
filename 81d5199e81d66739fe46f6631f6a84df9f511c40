@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d32c3ae3_1974e365",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "Nit: can we rename to addOrRemoveIpv6Downstream rule? This only updates one rule, so \"rules\" (plural) is incorrect. Also it doesn\u0027t \"update\" rules, it either adds one or removes one.\n\nDoesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 912,
+        "startChar": 17,
+        "endLine": 912,
+        "endChar": 42
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd966550_2575a325",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "The old code would first add the dev map entry, then set the limit, and then create the rule. Maybe we can keep the same order here, and only add the rule after maybeAddDevMap and maybeSetLimit? That way we know that BPF won\u0027t forward anything until the limit is set, and we\u0027ll have fewer NO_LIMIT_ENTRY errors.\n\n    maybeAddDevMap(...);\n    maybeSetLimit(...);\n    if (!mBpfCoordinatorShim.addIpv6UpstreamRule(rule)) {\n        return;\n    }\n    ArraySet\u003cIpv6UpstreamRule\u003e rules \u003d mIpv6UpstreamRules.computeIfAbsent(\n            ipServer, k -\u003e new ArraySet\u003cIpv6UpstreamRule\u003e());\n    rules.add(rule);",
+      "range": {
+        "startLine": 644,
+        "startChar": 33,
+        "endLine": 644,
+        "endChar": 52
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f80e544f_3cedb133",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "Nit: would simplify this to:\n\n    if (upstreamIfindex \u003d\u003d 0) {\n        Log.wtf(TAG, \"BUG: ...\");\n        return;\n    }\n    maybeClearLimit(upstreamIfindex);",
+      "range": {
+        "startLine": 687,
+        "startChar": 0,
+        "endLine": 688,
+        "endChar": 92
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aa55cfb_4be631fa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "Nit: might want to rename this to clearAllIpv6Rules, for consistency with updateAllIpv6Rules.",
+      "range": {
+        "startLine": 756,
+        "startChar": 16,
+        "endLine": 756,
+        "endChar": 30
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34285df6_6ec44b04",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "Suggest adding:\n\n    // Clear downstream rules first, because clearing upstream rules fetches the stats, and\n    // fetching the stats requires that no rules be forwarding traffic to or from the upstream.",
+      "range": {
+        "startLine": 759,
+        "startChar": 8,
+        "endLine": 759,
+        "endChar": 32
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ef5ea5d_3c158fc1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "requires that no rules be forwarding traffic to or from that upstream.",
+      "range": {
+        "startLine": 786,
+        "startChar": 41,
+        "endLine": 787,
+        "endChar": 80
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fdad049_cdfe61d4",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "NO_UPSTREAM",
+      "range": {
+        "startLine": 1160,
+        "startChar": 47,
+        "endLine": 1160,
+        "endChar": 48
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38f1f5d3_8b960a57",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "NO_UPSTREAM",
+      "range": {
+        "startLine": 1162,
+        "startChar": 47,
+        "endLine": 1162,
+        "endChar": 48
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c7ce170_1815687a",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "Do we have a test of what happens when an upstream goes down and then a new upstream with a different interface comes up? If not, can we add one? Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 1225,
+        "startChar": 4,
+        "endLine": 1225,
+        "endChar": 5
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bb2c745_f1e55c00",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1105,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "BPF",
+      "range": {
+        "startLine": 1105,
+        "startChar": 84,
+        "endLine": 1105,
+        "endChar": 88
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb5c4ea7_28e256f4",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-14T09:38:58Z",
+      "side": 1,
+      "message": "Not for this CL, but update this comment?",
+      "range": {
+        "startLine": 1155,
+        "startChar": 8,
+        "endLine": 1155,
+        "endChar": 60
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
