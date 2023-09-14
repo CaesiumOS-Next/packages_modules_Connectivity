@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7efea6f_19957f8a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f493acab_5f8eed17",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 43
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "897a279a_2f24b2fb",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd96b71_5c63c821",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "897a279a_2f24b2fb",
+      "range": {
+        "startLine": 32,
+        "startChar": 26,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b9293f7_630d6775",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-09-07T08:54:52Z",
       "side": 1,
       "message": "Why though ? Anybody could use this I think.\n\nI understand it\u0027s meant only as a migration tool and therefore it\u0027s unlikely anybody else should use it, but I don\u0027t see a good reason to mention IpServer explicitly here. If you want to warn against using this class in new code, then I would instead add comments on the class itself saying it\u0027s meant as a tool for migrating between the state machines and that it\u0027s not meant for any new code.",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 82
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5633258f_3d2ec374",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:32:48Z",
+      "side": 1,
+      "message": "Thanks for suggestion, remove the comment and make this construtor more generic.",
+      "parentUuid": "5b9293f7_630d6775",
       "range": {
         "startLine": 34,
         "startChar": 3,
@@ -116,6 +188,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7ed6af9_c1722be7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:32:48Z",
+      "side": 1,
+      "message": "removed.",
+      "parentUuid": "a5474d43_02da004b",
+      "range": {
+        "startLine": 46,
+        "startChar": 20,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4784284_767611df",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:32:48Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "d2ebc7d3_0cc1cff0",
+      "range": {
+        "startLine": 46,
+        "startChar": 48,
+        "endLine": 46,
+        "endChar": 87
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "271c19b2_fc923be1",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-09-07T08:54:52Z",
       "side": 1,
       "message": "Maybe check that exactly one is null ? `if (!((async \u003d\u003d null) ^ (sync \u003d\u003d null))) throw IllegalArgumentException`\n\nBetter yet, have 2 constructors, one that takes only StateMachine and one that takes only SyncStateMachine",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e349c77a_7939451a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:32:48Z",
+      "side": 1,
+      "message": "This constructor is only used for testing, removed.",
+      "parentUuid": "271c19b2_fc923be1",
       "range": {
         "startLine": 50,
         "startChar": 0,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f74a7a26_ce9387bb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74e86099_a782f7f0",
+      "range": {
+        "startLine": 76,
+        "startChar": 33,
+        "endLine": 76,
+        "endChar": 34
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed4fd80a_27a6c8b6",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-09-07T08:54:52Z",
       "side": 1,
       "message": "If it can only be used with async, then throw if using the sync state machine. Or if you want to do nothing, please document that instead.",
+      "range": {
+        "startLine": 121,
+        "startChar": 12,
+        "endLine": 121,
+        "endChar": 15
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87b8c593_e6b8c5c1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed4fd80a_27a6c8b6",
       "range": {
         "startLine": 121,
         "startChar": 12,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23f7380d_594aa81c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f796ce88_4ee05306",
+      "range": {
+        "startLine": 123,
+        "startChar": 34,
+        "endLine": 123,
+        "endChar": 37
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0366df20_010d5382",
@@ -225,6 +441,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "677aacc4_897a3b84",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0366df20_010d5382",
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a27fd81_4126eeae",
@@ -238,6 +472,30 @@
       "writtenOn": "2023-09-07T08:54:52Z",
       "side": 1,
       "message": "Optional : I think it might make the test easier to read if you created an `InOrder` over syncSM, do all manipulations, and at the end you\u0027d call all the `verify`s in order. You can then remove all the calls to `verifyNoMoreInteractions`.\n\nWhat you\u0027d lose is a guarantee that interaction n+1 was not done by interaction n, but that sounds so outlandish I don\u0027t think we have to care.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 37
+      },
+      "revId": "7741bac9cb8a0c5a47300316b8a6dad23ea85cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59092dfc_1b4321db",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/StateMachineShimTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a27fd81_4126eeae",
       "range": {
         "startLine": 40,
         "startChar": 0,
