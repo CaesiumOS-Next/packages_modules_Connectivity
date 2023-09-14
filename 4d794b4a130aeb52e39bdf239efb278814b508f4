@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5e359a1_b4e4282b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:04:06Z",
+      "side": 1,
+      "message": "It should be relatively easy to do this by looking at the class of the state. In addAllStates, you could do something like\n\n    final Set\u003cClass\u003e usedClasses \u003d new ArraySet\u003c\u003e();\n    for (final StateInfo info : stateInfos) {\n      Objects.requireNonNull(info.state);\n      if (!usedClasses.add(info.state.getClass()) {\n        throw new IllegalStateException(\"duplicated state is not allowed\");\n      }\n      mStateInfo.put(info.state, info);\n    }\n\nOr you could look up the values or any other way.\n\nNow it\u0027s very easy to defeat this with the trick I was explaining above (just make an anonymous subclass). But I think there is value to prevent accidents. Maybe you just reword the error message.\n\n    \"Adding the same state multiple times in a state machine is forbidden because\n      it tends to be confusing ; it can be done with anonymous subclasses but\n      consider carefully whether you want to use a single state or other\n      alternatives instead\"",
+      "parentUuid": "86b7db4a_5150b12d",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c8c9c23_fcdd7548",
         "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
         "patchSetId": 17
