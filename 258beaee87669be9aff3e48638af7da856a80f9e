@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "519250b8_3012ce29",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T08:02:03Z",
+      "side": 1,
+      "message": "Add comments about the looper and the handler. Without comments, it\u0027s really unclear why you need both because you can just take the fetch the looper from the handler or make a handler from a looper. So I think you need to have careful comments here.\n\nAnother, maybe better option, is to have two different constructors.",
+      "range": {
+        "startLine": 303,
+        "startChar": 30,
+        "endLine": 303,
+        "endChar": 62
+      },
+      "revId": "258beaee87669be9aff3e48638af7da856a80f9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
