@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c2e75bf_47995d28",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T06:50:07Z",
+      "side": 1,
+      "message": "If you can do that without changing build files too much, can you please use android. instead of androidx. ? This code is built under androidx, it should not use androidx stuff. I understand it works, but it\u0027s still wrong.",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "4614d2d943728d5518ead609bacdc6074fc64401",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
