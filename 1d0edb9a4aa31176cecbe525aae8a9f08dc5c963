@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bc75338_f3457be8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:30:48Z",
+      "side": 1,
+      "message": "`can`\n\nAlso please document under what conditions sending a self message is allowed and disallowed.",
+      "range": {
+        "startLine": 64,
+        "startChar": 38,
+        "endLine": 64,
+        "endChar": 43
+      },
+      "revId": "1d0edb9a4aa31176cecbe525aae8a9f08dc5c963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c36e1475_0443b80d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:30:48Z",
+      "side": 1,
+      "message": "This probably warrants some comments about what it tracks and how it relates to the self message queue. Once this message is processed and the transitions have been performed, you process the self message queue ; these are also messages but mCurrentlyProcessing is still the original one.\n\nI think the dynamic is fine, but it should be explained. Immediately you should point out in the javadoc that it\u0027s not okay to call this method during `State#processMessage` and it will throw. You should also have inline comments here about how the self message queue works.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 36
+      },
+      "revId": "1d0edb9a4aa31176cecbe525aae8a9f08dc5c963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0509d5c7_9fe622af",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:30:48Z",
+      "side": 1,
+      "message": "I find the naming too confusing. You have\n- processMessage\n- processMsgInternal\n- processMsgAndPerformTransition\n\nIt\u0027s very unclear where the 3rd one fits. I would suggest renaming like follows :\n\n- processMessage → processMessage\n- processMsgAndPerformTransition → currentStateProcessMessageThenPerformTransitions\n- processMsgInternal → stateProcessMessageRecursively\n\nIt\u0027s not awesome – you\u0027re welcome to have better ideas\n\nAnother alternative would be to remove processMsgInternal and to inline it. You\u0027d have to linearize it so it\u0027s no longer recursive, but that\u0027s really not difficult :\n\n    mSelfMsgAllowed \u003d true;\n    StateInfo consideredState \u003d mStateInfo.get(mCurrentState);\n    while (null !\u003d consideredState) {\n      if (consideredState.state.processMessage(msg)) {\n        log(\"processed\")\n        break;\n      }\n      consideredState \u003d consideredState.parent;\n    }\n    if (null \u003d\u003d consideredState) {\n      log(\"not handled\");\n    }\n    mSelfMsgAllowed \u003d false;\n\nIf you do that, you no longer have the naming problem.",
+      "revId": "1d0edb9a4aa31176cecbe525aae8a9f08dc5c963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5557a6f4_e166592d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:30:48Z",
+      "side": 1,
+      "message": "exit",
+      "range": {
+        "startLine": 216,
+        "startChar": 63,
+        "endLine": 216,
+        "endChar": 68
+      },
+      "revId": "1d0edb9a4aa31176cecbe525aae8a9f08dc5c963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4633a03a_905bba7b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:30:48Z",
+      "side": 1,
+      "message": "Inside \"State\" ? I think you meant something like \"State.enter() or State.exit()\" ?",
+      "range": {
+        "startLine": 222,
+        "startChar": 87,
+        "endLine": 222,
+        "endChar": 92
+      },
+      "revId": "1d0edb9a4aa31176cecbe525aae8a9f08dc5c963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
