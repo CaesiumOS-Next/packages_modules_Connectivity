@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1165896a_0bad8a58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-14T06:36:16Z",
+      "side": 1,
+      "message": "LGTM, only some nits.",
+      "revId": "993468989b44d7442c7923ffdebf4a5f35e8a28c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddadfeed_7b29c356",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-14T06:36:16Z",
+      "side": 1,
+      "message": "Nit: I think this is not related. The port, address, and attributes info are not included in the ServiceFound callback, regardless of whether the service responds with only the PTR record or with full records.",
+      "range": {
+        "startLine": 1140,
+        "startChar": 77,
+        "endLine": 1140,
+        "endChar": 98
+      },
+      "revId": "993468989b44d7442c7923ffdebf4a5f35e8a28c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b2d3c2f_ebfd4890",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-14T06:36:16Z",
+      "side": 1,
+      "message": "Resolve",
+      "range": {
+        "startLine": 1156,
+        "startChar": 11,
+        "endLine": 1156,
+        "endChar": 19
+      },
+      "revId": "993468989b44d7442c7923ffdebf4a5f35e8a28c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5edb2aa_3ace98ff",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-14T06:36:16Z",
+      "side": 1,
+      "message": "Nit: `replaceServiceNameAndTypeWithTestSuffix` should be more precise name.",
+      "range": {
+        "startLine": 1242,
+        "startChar": 16,
+        "endLine": 1242,
+        "endChar": 48
+      },
+      "revId": "993468989b44d7442c7923ffdebf4a5f35e8a28c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
