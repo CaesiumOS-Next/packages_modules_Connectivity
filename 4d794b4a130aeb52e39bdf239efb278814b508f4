@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86b7db4a_5150b12d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T02:23:17Z",
+      "side": 1,
+      "message": "Ohh, my example above is wrong. Actually the state is in the same hierarchy so that Unavailable just have one instance.\n\nI think it is fine to forbid this but I don\u0027t find an easy way to do this. We need a way to force all States to implement equals()/hashCode() or implement a identifiable equals()/hashCode() and let all State extend it.",
+      "parentUuid": "92714aba_5c94468f",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "4d794b4a130aeb52e39bdf239efb278814b508f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c8c9c23_fcdd7548",
         "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
         "patchSetId": 17
