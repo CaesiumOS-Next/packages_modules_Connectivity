@@ -3272,6 +3272,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 applyMostRecentPolicyForConnectivityAction(opts, ni);
                 options = opts.toBundle();
                 intent.addFlags(Intent.FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS);
+                intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
             }
             try {
                 mUserAllContext.sendStickyBroadcast(intent, options);
