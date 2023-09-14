@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac323a46_4c5659c3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:58:35Z",
+      "side": 1,
+      "message": "So now exactly one of `looper` or `thread` must be non-null. This needs to be at the very least documented, but you could probably do more readable with factory methods :\n\n    public static StateMachineShim makeAsyncStateMachineShim(final String name, final Looper looper) {\n      ...\n    }\n    public static StateMachineShim makeSyncStateMachineShim(final String name, final Thread thread) {\n      ...\n    }",
+      "range": {
+        "startLine": 34,
+        "startChar": 47,
+        "endLine": 34,
+        "endChar": 87
+      },
+      "revId": "118f7e0287aa5b06d79dbf745cdea3e0da306ec8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00baf037_c36443b7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:58:35Z",
+      "side": 1,
+      "message": "makeSyncStateMachine\n\nAlso do you want to move this into a Dependencies object ? This would be easier to read.",
+      "range": {
+        "startLine": 46,
+        "startChar": 28,
+        "endLine": 46,
+        "endChar": 31
+      },
+      "revId": "118f7e0287aa5b06d79dbf745cdea3e0da306ec8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c7f0c1_cd532fda",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:58:35Z",
+      "side": 1,
+      "message": "state transition (#enter() or #exit() methods), or multiple times while processing a single message.",
+      "range": {
+        "startLine": 80,
+        "startChar": 49,
+        "endLine": 80,
+        "endChar": 65
+      },
+      "revId": "118f7e0287aa5b06d79dbf745cdea3e0da306ec8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d22f865b_007e7d75",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:58:35Z",
+      "side": 1,
+      "message": "during",
+      "range": {
+        "startLine": 80,
+        "startChar": 43,
+        "endLine": 80,
+        "endChar": 48
+      },
+      "revId": "118f7e0287aa5b06d79dbf745cdea3e0da306ec8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63687017_3fef2be3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:58:35Z",
+      "side": 1,
+      "message": "Sorry this was not meant for the comment ^^; s/then throw/so this will throw/",
+      "range": {
+        "startLine": 126,
+        "startChar": 55,
+        "endLine": 126,
+        "endChar": 59
+      },
+      "revId": "118f7e0287aa5b06d79dbf745cdea3e0da306ec8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6de8ab4d_59426975",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:58:35Z",
+      "side": 1,
+      "message": "likewise",
+      "range": {
+        "startLine": 138,
+        "startChar": 54,
+        "endLine": 138,
+        "endChar": 58
+      },
+      "revId": "118f7e0287aa5b06d79dbf745cdea3e0da306ec8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4acacb9a_80663c99",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/StateMachineShimTest.kt",
+        "patchSetId": 23
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-14T07:58:35Z",
+      "side": 1,
+      "message": "override fun getSyncStateMachine(name: String, thread: Thread) \u003d mSyncSM",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 9
+      },
+      "revId": "118f7e0287aa5b06d79dbf745cdea3e0da306ec8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
