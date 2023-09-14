@@ -22,6 +22,30 @@
       },
       "revId": "1877b1c4bc4b94cafc4d2794c01139af71314c13",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4a80108_8f95989c",
+        "filename": "Tethering/proguard.flags",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-14T14:39:11Z",
+      "side": 1,
+      "message": "While I am development the refactor changes, I just found TetheringUtils functions are removed by R8 occasionally and end up with boot-loop. It should be one of my change at that moment make R8 think JNI is not used, but I can\u0027t reproduce the problem now. No matter doing refactor or not, I think having this change is more safe.",
+      "parentUuid": "341e4507_01b0ec32",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "1877b1c4bc4b94cafc4d2794c01139af71314c13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
