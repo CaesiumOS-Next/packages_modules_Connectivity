@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24905efc_8c560663",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-14T07:55:15Z",
+      "side": 1,
+      "message": "Don\u0027t you set the `mIsUnicastReplyEnabled \u003d false` here?",
+      "range": {
+        "startLine": 63,
+        "startChar": 48,
+        "endLine": 63,
+        "endChar": 49
+      },
+      "revId": "b08619e6861d4e07297680c79f8a31eb85f22227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ca7a61d_e9a92d21",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
         "patchSetId": 2
@@ -42,6 +65,144 @@
         "startChar": 12,
         "endLine": 550,
         "endChar": 24
+      },
+      "revId": "b08619e6861d4e07297680c79f8a31eb85f22227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c60be57_28c7ade0",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-14T07:55:15Z",
+      "side": 1,
+      "message": "makeTestServiceInfo(testNetwork1.network)",
+      "range": {
+        "startLine": 1234,
+        "startChar": 17,
+        "endLine": 1238,
+        "endChar": 76
+      },
+      "revId": "b08619e6861d4e07297680c79f8a31eb85f22227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59d6ca3d_ec91f045",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-14T07:55:15Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Build Warnings: variable \u0027registeredService\u0027 is never used\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    variable \u0027registeredService\u0027 is never used\n                val registeredService \u003d registerService(registrationRecord, si)\n                    ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P62535488/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 1244,
+        "startChar": 17,
+        "endLine": 1244,
+        "endChar": 75
+      },
+      "revId": "b08619e6861d4e07297680c79f8a31eb85f22227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8afc6d16_a8ffa71d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-14T07:55:15Z",
+      "side": 1,
+      "message": "I think you should verify the reply is a unicast.",
+      "range": {
+        "startLine": 1259,
+        "startChar": 8,
+        "endLine": 1259,
+        "endChar": 9
+      },
+      "revId": "b08619e6861d4e07297680c79f8a31eb85f22227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e7e49bf_064616a3",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-14T07:55:15Z",
+      "side": 1,
+      "message": "multicast",
+      "range": {
+        "startLine": 709,
+        "startChar": 59,
+        "endLine": 709,
+        "endChar": 66
+      },
+      "revId": "b08619e6861d4e07297680c79f8a31eb85f22227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf3fed17_56070374",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-14T07:55:15Z",
+      "side": 1,
+      "message": "multicast",
+      "range": {
+        "startLine": 737,
+        "startChar": 59,
+        "endLine": 737,
+        "endChar": 66
+      },
+      "revId": "b08619e6861d4e07297680c79f8a31eb85f22227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "067592ce_b3680a00",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-14T07:55:15Z",
+      "side": 1,
+      "message": "multicast",
+      "range": {
+        "startLine": 766,
+        "startChar": 59,
+        "endLine": 766,
+        "endChar": 66
       },
       "revId": "b08619e6861d4e07297680c79f8a31eb85f22227",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
