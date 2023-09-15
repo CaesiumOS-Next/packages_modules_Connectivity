@@ -16,6 +16,24 @@
       "message": "allowed",
       "revId": "bf6814791808e65fcf6aac11b81ff2b2fd10d47d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "260e4acd_992e4ed8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-15T08:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69e0662c_11735cdf",
+      "revId": "bf6814791808e65fcf6aac11b81ff2b2fd10d47d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
