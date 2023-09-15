@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2492c07_56c49439",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-15T09:11:35Z",
+      "side": 1,
+      "message": "Removed, the only reason is tethering don\u0027t have this case and originally I just simply call initialState.enter() directly in start function.",
+      "parentUuid": "5c266e86_9300a5e4",
+      "range": {
+        "startLine": 146,
+        "startChar": 44,
+        "endLine": 146,
+        "endChar": 82
+      },
+      "revId": "c659c7107031ca3580184bab4cbf9ba26e86a163",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10a83d50_652d1a06",
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "Do you want to have a comment about this in the code ? It\u0027s not super obvious.",
       "parentUuid": "4142d9b9_c304f730",
+      "range": {
+        "startLine": 206,
+        "startChar": 62,
+        "endLine": 206,
+        "endChar": 69
+      },
+      "revId": "c659c7107031ca3580184bab4cbf9ba26e86a163",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48701977_a3c3b752",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-15T09:11:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d12d293_508989f1",
       "range": {
         "startLine": 206,
         "startChar": 62,
