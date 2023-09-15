@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1ea9ecd_80c37c2c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-15T16:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bc75338_f3457be8",
+      "range": {
+        "startLine": 64,
+        "startChar": 38,
+        "endLine": 64,
+        "endChar": 43
+      },
+      "revId": "1d0edb9a4aa31176cecbe525aae8a9f08dc5c963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c36e1475_0443b80d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-14T07:30:48Z",
       "side": 1,
       "message": "This probably warrants some comments about what it tracks and how it relates to the self message queue. Once this message is processed and the transitions have been performed, you process the self message queue ; these are also messages but mCurrentlyProcessing is still the original one.\n\nI think the dynamic is fine, but it should be explained. Immediately you should point out in the javadoc that it\u0027s not okay to call this method during `State#processMessage` and it will throw. You should also have inline comments here about how the self message queue works.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 36
+      },
+      "revId": "1d0edb9a4aa31176cecbe525aae8a9f08dc5c963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9209bcf0_cfa76817",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-15T16:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c36e1475_0443b80d",
       "range": {
         "startLine": 175,
         "startChar": 0,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f63c2b54_a49ee070",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-15T16:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0509d5c7_9fe622af",
+      "revId": "1d0edb9a4aa31176cecbe525aae8a9f08dc5c963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5557a6f4_e166592d",
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f000616_f52df8b8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-15T16:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5557a6f4_e166592d",
+      "range": {
+        "startLine": 216,
+        "startChar": 63,
+        "endLine": 216,
+        "endChar": 68
+      },
+      "revId": "1d0edb9a4aa31176cecbe525aae8a9f08dc5c963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4633a03a_905bba7b",
@@ -100,6 +190,30 @@
       "writtenOn": "2023-09-14T07:30:48Z",
       "side": 1,
       "message": "Inside \"State\" ? I think you meant something like \"State.enter() or State.exit()\" ?",
+      "range": {
+        "startLine": 222,
+        "startChar": 87,
+        "endLine": 222,
+        "endChar": 92
+      },
+      "revId": "1d0edb9a4aa31176cecbe525aae8a9f08dc5c963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d290d69_0c81c1c8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-15T16:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4633a03a_905bba7b",
       "range": {
         "startLine": 222,
         "startChar": 87,
