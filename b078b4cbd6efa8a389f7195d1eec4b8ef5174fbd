@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3b6371c_8935ebcd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-15T03:40:02Z",
+      "side": 1,
+      "message": "Can we refactor this part into a independent function to reduce the duplicated code?",
+      "range": {
+        "startLine": 934,
+        "startChar": 9,
+        "endLine": 940,
+        "endChar": 9
+      },
+      "revId": "b078b4cbd6efa8a389f7195d1eec4b8ef5174fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
