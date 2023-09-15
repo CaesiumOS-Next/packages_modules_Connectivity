@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c60bf9d_21a334c9",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-15T03:42:56Z",
+      "side": 1,
+      "message": "Why `BASE` ? If this is because you want this constant to become a new base for a number of constants, then you should probably leave some room (e.g. BASE_IPSERVER+100), and `base` in `handleBaseServingError` makes no sense. If that\u0027s not the reason, why \"base\" ?",
+      "range": {
+        "startLine": 237,
+        "startChar": 32,
+        "endLine": 237,
+        "endChar": 36
+      },
+      "revId": "dd5e8de69c51d80a4c04b75ca7718816d9372725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7755b5f6_d78575b8",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-15T03:42:56Z",
+      "side": 1,
+      "message": "I find it dangerous to rely on a member like this – it\u0027s borderline impossible to figure out who has set this and when.\n\nIf this is really about the return value of startServingInterface, then this is a full-blown antipattern known as member argument-passing, which makes refactoring of code extremely hard. If it\u0027s about that return value, then make startServingInterface return the error instead.\n\nSince you\u0027re not changing this in this patch, this can be left for a followup or something",
+      "range": {
+        "startLine": 1100,
+        "startChar": 16,
+        "endLine": 1100,
+        "endChar": 26
+      },
+      "revId": "dd5e8de69c51d80a4c04b75ca7718816d9372725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47f108ae_6392a784",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1263,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-15T03:42:56Z",
+      "side": 1,
+      "message": "nit : I think the following is more readable\n\n    if (USE_SYNC_SM) {\n      sendSelfMsg\n    } else {\n      transitionTo\n    }",
+      "range": {
+        "startLine": 1263,
+        "startChar": 12,
+        "endLine": 1263,
+        "endChar": 18
+      },
+      "revId": "dd5e8de69c51d80a4c04b75ca7718816d9372725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e08148e7_edc9596e",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-15T03:42:56Z",
+      "side": 1,
+      "message": "Could you send CMD_BASE_SERVING_ERROR in the async case too, or is that too dangerous a change ? It would make the async and sync cases closer together.\n\nIf you don\u0027t think this is safe, then keep your current code and add some comments in this method explaining what this is doing, e.g.\n\n    // There was an error and the state machine should return to the initial\n    // state. For the sync state machine, this is accomplished by sending a\n    // self message which will be processed after this message processing is\n    // complete (so before the control is given back to the caller).\n    // For the async state machine, transitionTo() imposes an async round trip.\n    // Sending the same message as with the sync case would impose 2 round\n    // trips, which is a departure from legacy code so keep closer to the\n    // legacy code for now.",
+      "range": {
+        "startLine": 1266,
+        "startChar": 8,
+        "endLine": 1266,
+        "endChar": 20
+      },
+      "revId": "dd5e8de69c51d80a4c04b75ca7718816d9372725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe8de525_e8bac886",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2729,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-15T03:42:56Z",
+      "side": 1,
+      "message": "This is no longer accurate",
+      "range": {
+        "startLine": 2728,
+        "startChar": 0,
+        "endLine": 2729,
+        "endChar": 73
+      },
+      "revId": "dd5e8de69c51d80a4c04b75ca7718816d9372725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
