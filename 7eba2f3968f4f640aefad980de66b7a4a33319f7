@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f9ea9f41_fee8a300",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3893,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-15T11:25:33Z",
+      "side": 1,
+      "message": "After discussion and thinking about this, I\u0027ve decided that you\u0027re right and that having a default forbidden capability is a much smoother way to do this. Completely reworked the patch to do this instead.",
+      "parentUuid": "5ba5b328_ea6431eb",
+      "range": {
+        "startLine": 3893,
+        "startChar": 32,
+        "endLine": 3893,
+        "endChar": 59
+      },
+      "revId": "7eba2f3968f4f640aefad980de66b7a4a33319f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c8db20c5_c41bac3b",
         "filename": "framework/src/android/net/NetworkCapabilities.java",
         "patchSetId": 5
