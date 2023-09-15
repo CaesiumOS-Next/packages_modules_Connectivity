@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f45da48b_c0228034",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-15T04:36:49Z",
+      "side": 1,
+      "message": "My change is only for EthernetTetheringTest itself, I don\u0027t think it could break AdSelectionServiceImplTest (b/300519659).",
+      "revId": "1ff1df7863293eebb7f447eb59fa74764711931e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
