@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c068b72_ac0149c0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 10166,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-15T05:52:04Z",
+      "side": 0,
+      "message": "I think we will still need the coverage for legacy VPN. You may want to create another test(e.g. testLockdownVpn) to test in V+(because of your planning changes in V) and keep the existing one to run on U- devices.",
+      "range": {
+        "startLine": 10166,
+        "startChar": 16,
+        "endLine": 10166,
+        "endChar": 37
+      },
+      "revId": "a4323cac35e1c45a144016bbd1c48d21faddc617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
