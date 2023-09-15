@@ -365,6 +365,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c445efe3_68b060d4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-15T08:08:05Z",
+      "side": 1,
+      "message": "My bad, I got it this time.",
+      "parentUuid": "6fd6c3dc_347b5802",
+      "range": {
+        "startLine": 47,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "03aa16d60bbfc47f69cd70208a37899d7b20de10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "749d98c0_2b39e655",
