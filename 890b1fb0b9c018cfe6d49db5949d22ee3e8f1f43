@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ff738f5_d1496208",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-09-17T13:19:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbcb556e_69acbcd2",
+      "range": {
+        "startLine": 40,
+        "startChar": 40,
+        "endLine": 40,
+        "endChar": 41
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e7f4cb0_e7bf6e2b",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-13T20:28:56Z",
       "side": 1,
       "message": "this is to short to be using\u0027ed imho",
+      "range": {
+        "startLine": 45,
+        "startChar": 9,
+        "endLine": 45,
+        "endChar": 11
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b50cb63_7693b441",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-09-17T13:19:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e7f4cb0_e7bf6e2b",
       "range": {
         "startLine": 45,
         "startChar": 9,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4137e336_00ee01ed",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-09-17T13:19:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09e67625_a6835a06",
+      "range": {
+        "startLine": 48,
+        "startChar": 1,
+        "endLine": 52,
+        "endChar": 0
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e11ab532_f0433493",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-13T20:28:56Z",
       "side": 1,
       "message": "could argue netd.h should have some function for this\n\nif (shouldBlock(enabledRules.value())) return BLOCKED;\n\n[better name needed]",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 90
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28b4d7a5_1120904e",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-09-17T13:19:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e11ab532_f0433493",
       "range": {
         "startLine": 68,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "887986e1_d9c7918f",
+        "filename": "DnsResolver/BpfReader.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-09-17T13:19:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41c13827_07002da9",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 23
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfe56756_8d54a7a0",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-09-13T20:28:56Z",
       "side": 1,
       "message": "this check seems not be needed but is an extra system call...\nwhat does it prevent?\n\ncould it be cached?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 46
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3301a6a7_35873597",
+        "filename": "DnsResolver/ForDnsResolver.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-09-17T13:19:20Z",
+      "side": 1,
+      "message": "Removed.\n\nI just want to avoid unexpected complications when the library is called outside of DNS resolver. But yes, it costs an extra system call. Let\u0027s remove the restriction.",
+      "parentUuid": "dfe56756_8d54a7a0",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -156,6 +300,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "137f0f6d_1df6cb2d",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-09-17T13:19:20Z",
+      "side": 1,
+      "message": "For current use, a separate init function does not seem to be needed. Even if we move the map initialization into the init function, it still needs to check whether the map has been initialized in the lib4dns_resolver_isUidNetworkingBlocked.",
+      "parentUuid": "7aac4feb_006f6c81",
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1f7dcd0_9d00a0f5",
@@ -169,6 +331,30 @@
       "writtenOn": "2023-09-13T20:28:56Z",
       "side": 1,
       "message": "is this Connectivity spurious?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 54
+      },
+      "revId": "890b1fb0b9c018cfe6d49db5949d22ee3e8f1f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a5222f6_20180096",
+        "filename": "bpf_progs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-09-17T13:19:20Z",
+      "side": 1,
+      "message": "It\u0027s necessary.\n```\n     visibility: [\n-        \"//packages/modules/Connectivity/DnsResolver\",\n         \"//packages/modules/Connectivity/netd\",\n         \"//packages/modules/Connectivity/service\",\n```\n\n```\nerror: packages/modules/Connectivity/DnsResolver/Android.bp:20:1: module \"lib4dns_resolver\" variant \"android_arm_armv8-a_shared\": depends on //\npackages/modules/Connectivity/bpf_progs:bpf_connectivity_headers which is not visible to this module\nYou may need to add \"//packages/modules/Connectivity/DnsResolver\" to its visibility\nfatal errors encountered\n12:35:10 soong bootstrap failed with: exit status 1\n```",
+      "parentUuid": "a1f7dcd0_9d00a0f5",
       "range": {
         "startLine": 48,
         "startChar": 0,
