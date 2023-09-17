@@ -22,6 +22,30 @@
       },
       "revId": "820e8e97292c83f9f9c43985ef80165c16c0eea2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76bca8e6_3409fdc8",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-09-17T13:21:47Z",
+      "side": 1,
+      "message": "Removed.\n\nAccording to go/test-mapping#attributes, the \"keywords\" is for test bench settings in G3. AFAIK, our tests no longer rely on G3 settings. I also can\u0027t find \"netd-device-kernel-4.9\" and \"netd-device-kernel-4.14\" in G3.\n\n(If this test works well without keywords, we can also delete keywords on netd_updatable_unit_test and traffic_controller_unit_test.)",
+      "parentUuid": "43e930d9_d5972656",
+      "range": {
+        "startLine": 127,
+        "startChar": 20,
+        "endLine": 127,
+        "endChar": 42
+      },
+      "revId": "820e8e97292c83f9f9c43985ef80165c16c0eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
