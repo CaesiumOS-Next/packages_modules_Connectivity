@@ -199,6 +199,7 @@ aidl_interface {
         java: {
             apex_available: [
                 "//apex_available:platform",
+                "com.android.btservices",
                 "com.android.wifi",
                 "com.android.tethering",
             ],
