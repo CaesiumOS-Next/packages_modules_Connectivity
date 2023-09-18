@@ -203,6 +203,15 @@ public class DnsPacketTest {
                 "test.com", CLASS_IN, 0 /* ttl */, "example.com"));
     }
 
+    /** Verifies that the type of implementation returned from DnsRecord#parse is correct */
+    @Test
+    public void testDnsRecordParse() throws IOException {
+        final DnsPacket.DnsRecord recordSvcb = DnsPacket.DnsRecord.makeQuestion(
+                "test.com", DnsPacket.TYPE_SVCB, CLASS_IN);
+        assertTrue(DnsPacket.DnsRecord.parse(DnsPacket.QDSECTION,
+                ByteBuffer.wrap(recordSvcb.getBytes())) instanceof DnsSvcbRecord);
+    }
+
     /**
      * Verifies ttl/rData error handling when parsing
      * {@link DnsPacket.DnsRecord} from bytes.
