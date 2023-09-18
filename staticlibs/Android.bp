@@ -93,6 +93,8 @@ java_library {
     srcs: [
     "framework/**/DnsPacket.java",
     "framework/**/DnsPacketUtils.java",
+    "framework/**/DnsSvcbRecord.java",
+    "framework/**/NetworkStackConstants.java",
     ],
     sdk_version: "module_current",
     visibility: [
