@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cced0f8_4728def2",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-18T15:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d32c3ae3_1974e365",
+      "range": {
+        "startLine": 912,
+        "startChar": 17,
+        "endLine": 912,
+        "endChar": 42
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd966550_2575a325",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-14T09:38:58Z",
       "side": 1,
       "message": "The old code would first add the dev map entry, then set the limit, and then create the rule. Maybe we can keep the same order here, and only add the rule after maybeAddDevMap and maybeSetLimit? That way we know that BPF won\u0027t forward anything until the limit is set, and we\u0027ll have fewer NO_LIMIT_ENTRY errors.\n\n    maybeAddDevMap(...);\n    maybeSetLimit(...);\n    if (!mBpfCoordinatorShim.addIpv6UpstreamRule(rule)) {\n        return;\n    }\n    ArraySet\u003cIpv6UpstreamRule\u003e rules \u003d mIpv6UpstreamRules.computeIfAbsent(\n            ipServer, k -\u003e new ArraySet\u003cIpv6UpstreamRule\u003e());\n    rules.add(rule);",
+      "range": {
+        "startLine": 644,
+        "startChar": 33,
+        "endLine": 644,
+        "endChar": 52
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20578b1c_b89d9dc0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-18T15:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd966550_2575a325",
       "range": {
         "startLine": 644,
         "startChar": 33,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f991526_d35e283e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-18T15:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f80e544f_3cedb133",
+      "range": {
+        "startLine": 687,
+        "startChar": 0,
+        "endLine": 688,
+        "endChar": 92
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0aa55cfb_4be631fa",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-14T09:38:58Z",
       "side": 1,
       "message": "Nit: might want to rename this to clearAllIpv6Rules, for consistency with updateAllIpv6Rules.",
+      "range": {
+        "startLine": 756,
+        "startChar": 16,
+        "endLine": 756,
+        "endChar": 30
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2eb94a3_64919680",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-18T15:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aa55cfb_4be631fa",
       "range": {
         "startLine": 756,
         "startChar": 16,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7969062f_b089ea13",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-18T15:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34285df6_6ec44b04",
+      "range": {
+        "startLine": 759,
+        "startChar": 8,
+        "endLine": 759,
+        "endChar": 32
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ef5ea5d_3c158fc1",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-09-14T09:38:58Z",
       "side": 1,
       "message": "requires that no rules be forwarding traffic to or from that upstream.",
+      "range": {
+        "startLine": 786,
+        "startChar": 41,
+        "endLine": 787,
+        "endChar": 80
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73f668e7_9a8fbc65",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-18T15:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ef5ea5d_3c158fc1",
       "range": {
         "startLine": 786,
         "startChar": 41,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b211186_aa98021d",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-18T15:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fdad049_cdfe61d4",
+      "range": {
+        "startLine": 1160,
+        "startChar": 47,
+        "endLine": 1160,
+        "endChar": 48
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38f1f5d3_8b960a57",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-09-14T09:38:58Z",
       "side": 1,
       "message": "NO_UPSTREAM",
+      "range": {
+        "startLine": 1162,
+        "startChar": 47,
+        "endLine": 1162,
+        "endChar": 48
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6a080f0_20b8db30",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-18T15:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38f1f5d3_8b960a57",
       "range": {
         "startLine": 1162,
         "startChar": 47,
@@ -210,6 +402,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b78d6b20_5252b30d",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-18T15:18:05Z",
+      "side": 1,
+      "message": "The test under line 1121 (// Upstream changes result in updating the rules.) is testing when the upstream changes to a different interface. But the upstream interface didn\u0027t go down first. So adding a similar test but the upstream goes down first before change?",
+      "parentUuid": "5c7ce170_1815687a",
+      "range": {
+        "startLine": 1225,
+        "startChar": 4,
+        "endLine": 1225,
+        "endChar": 5
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1bb2c745_f1e55c00",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 16
@@ -221,6 +437,30 @@
       "writtenOn": "2023-09-14T09:38:58Z",
       "side": 1,
       "message": "BPF",
+      "range": {
+        "startLine": 1105,
+        "startChar": 84,
+        "endLine": 1105,
+        "endChar": 88
+      },
+      "revId": "81d5199e81d66739fe46f6631f6a84df9f511c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fe7a819_fa1d23c2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1105,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-09-18T15:18:05Z",
+      "side": 1,
+      "message": "Done. Also changed a few similar places of \"to netd\" to \"to BPF\".",
+      "parentUuid": "1bb2c745_f1e55c00",
       "range": {
         "startLine": 1105,
         "startChar": 84,
