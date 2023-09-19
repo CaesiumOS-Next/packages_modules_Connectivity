@@ -22,6 +22,30 @@
       },
       "revId": "258beaee87669be9aff3e48638af7da856a80f9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a30a482_7d7e7230",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T02:25:34Z",
+      "side": 1,
+      "message": "Remove looper parameter.",
+      "parentUuid": "519250b8_3012ce29",
+      "range": {
+        "startLine": 303,
+        "startChar": 30,
+        "endLine": 303,
+        "endChar": 62
+      },
+      "revId": "258beaee87669be9aff3e48638af7da856a80f9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
