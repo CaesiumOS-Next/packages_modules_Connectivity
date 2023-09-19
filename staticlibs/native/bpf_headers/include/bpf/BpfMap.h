@@ -59,7 +59,7 @@ class BpfMap {
   private:
     void abortOnKeyOrValueSizeMismatch() {
         if (!mMapFd.ok()) abort();
-        if (isAtLeastKernelVersion(4, 14, 0)) {
+        if (!isMainlineModule() || isAtLeastKernelVersion(4, 14, 0)) {
             if (bpfGetFdKeySize(mMapFd) != sizeof(Key)) abort();
             if (bpfGetFdValueSize(mMapFd) != sizeof(Value)) abort();
         }
