@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6458731_d3e5e6bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T07:35:37Z",
+      "side": 1,
+      "message": "This is not the easiest summary to understand – you\u0027d be like, what updates ? Suggested summary :\n\nHave onBlockedStatusChanged account for allowedUids\n\nor something similar",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "0482484eab111992c11ef9f90f3418367a68e308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a98f14f5_386475a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T07:35:37Z",
+      "side": 1,
+      "message": "This will not call the callbacks when the return value of `hasRestrictedNetworkPermission` changes. Practically, there are two considerations :\n• This can actually change at runtime when \nConnectivitySettingsManager.UIDS_ALLOWED_ON_RESTRICTED_NETWORKS changes.\n  ...See PermissionMonitor#onSettingChanged for impl details.\n  ...See b/185149952 for context of why this is necessary.\n• This could in principle change if permissions {MAINLINE_,}NETWORK_STACK or CONNECTIVITY_USE_RESTRICTED_NETWORKS could change at runtime, or if whether a package is carry over could change. Today neither is possible but at least comments would be helpful when inevitably some of this changes in the future.\n\nAlso think about changes to the list of UIDs : namely, when a user is added or removed, and when an app is added or removed. If my reasoning is correct, the architecture of this patch ensures there is nothing to do, because it queries synchronously for callbacks ; when an app or user is removed what happens doesn\u0027t matter, and when an app or user is added the corresponding UID can\u0027t possibly have a callback up and when it files one it\u0027s already correct. But please check my reasoning.",
+      "revId": "0482484eab111992c11ef9f90f3418367a68e308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eff3f45_c01fd7a6",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T07:35:37Z",
+      "side": 1,
+      "message": "to a network because it is restricted\n\nI think the fact that it\u0027s per-app or so is rather irrelevant here ; when you receive this you know you\u0027re blocked because it\u0027s restricted, that\u0027s the point.",
+      "range": {
+        "startLine": 889,
+        "startChar": 57,
+        "endLine": 889,
+        "endChar": 100
+      },
+      "revId": "0482484eab111992c11ef9f90f3418367a68e308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dc397fb_fe538deb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 6391,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T07:35:37Z",
+      "side": 1,
+      "message": "Paul\u0027s work from last year made sure this can be called on the handler thread, so this should be good ; however it propagates the requirement to call on the handler thread to this method. Maybe add a check for that invariant in the method, with a comment that hasRestrictedNetworksPermission can only be called on the handler thread ?",
+      "range": {
+        "startLine": 6391,
+        "startChar": 35,
+        "endLine": 6391,
+        "endChar": 66
+      },
+      "revId": "0482484eab111992c11ef9f90f3418367a68e308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc10f3af_0a4eb187",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10031,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T07:35:37Z",
+      "side": 1,
+      "message": "Sorry to impose but can you rename this to mixInBlockedState ? Since this is taking a shared-responsibility bit register coming from NPMS and mixing in the bits that CS is responsible for – and we use \"mixIn\" for this use case.",
+      "range": {
+        "startLine": 10031,
+        "startChar": 23,
+        "endLine": 10031,
+        "endChar": 38
+      },
+      "revId": "0482484eab111992c11ef9f90f3418367a68e308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
