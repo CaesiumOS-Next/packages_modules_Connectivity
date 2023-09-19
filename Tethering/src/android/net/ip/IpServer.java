@@ -235,6 +235,7 @@ public class IpServer extends StateMachineShim {
     public static final int CMD_NEW_PREFIX_REQUEST          = BASE_IPSERVER + 12;
     // request from PrivateAddressCoordinator to restart tethering.
     public static final int CMD_NOTIFY_PREFIX_CONFLICT      = BASE_IPSERVER + 13;
+    public static final int CMD_SERVICE_FAILED_TO_START     = BASE_IPSERVER + 14;
 
     private final State mInitialState;
     private final State mLocalHotspotState;
@@ -501,7 +502,8 @@ public class IpServer extends StateMachineShim {
 
         private void handleError() {
             mLastError = TETHER_ERROR_DHCPSERVER_ERROR;
-            transitionTo(mInitialState);
+            sendMessageAtFrontOfQueueToAsyncSM(CMD_SERVICE_FAILED_TO_START,
+                    TETHER_ERROR_DHCPSERVER_ERROR);
         }
     }
 
@@ -1101,7 +1103,7 @@ public class IpServer extends StateMachineShim {
             startServingInterface();
 
             if (mLastError != TETHER_ERROR_NO_ERROR) {
-                transitionTo(mInitialState);
+                sendMessageAtFrontOfQueueToAsyncSM(CMD_SERVICE_FAILED_TO_START, mLastError);
             }
 
             if (DBG) Log.d(TAG, getStateString(mDesiredInterfaceState) + " serve " + mIfaceName);
@@ -1191,6 +1193,9 @@ public class IpServer extends StateMachineShim {
                     mCallback.requestEnableTethering(mInterfaceType, false /* enabled */);
                     transitionTo(mWaitingForRestartState);
                     break;
+                case CMD_SERVICE_FAILED_TO_START:
+                    mLog.e("start serving fail, error: " + message.arg1);
+                    transitionTo(mInitialState);
                 default:
                     return false;
             }
