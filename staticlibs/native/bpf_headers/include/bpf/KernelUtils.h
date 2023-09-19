@@ -24,6 +24,14 @@
 namespace android {
 namespace bpf {
 
+static inline bool isApex() {
+#ifdef __ANDROID_APEX__
+    return true;
+#else
+    return false;
+#endif
+}
+
 #define KVER(a, b, c) (((a) << 24) + ((b) << 16) + (c))
 
 static inline unsigned uncachedKernelVersion() {
