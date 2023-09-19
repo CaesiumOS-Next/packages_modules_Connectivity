@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34810247_e4678337",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T07:54:53Z",
+      "side": 1,
+      "message": "LGTM assuming comments are addressed",
+      "revId": "d5fe35809b32b91b09268f7281dc34c3199c4d36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cee4ee69_cef8f7cd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T07:54:53Z",
+      "side": 1,
+      "message": "s/if //",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "d5fe35809b32b91b09268f7281dc34c3199c4d36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59043b30_8b8434f0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T07:54:53Z",
+      "side": 1,
+      "message": "automaton",
+      "range": {
+        "startLine": 58,
+        "startChar": 7,
+        "endLine": 58,
+        "endChar": 17
+      },
+      "revId": "d5fe35809b32b91b09268f7281dc34c3199c4d36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28c6fc66_8ba60410",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T07:54:53Z",
+      "side": 1,
+      "message": "sendSelfMessage was called",
+      "range": {
+        "startLine": 157,
+        "startChar": 14,
+        "endLine": 157,
+        "endChar": 37
+      },
+      "revId": "d5fe35809b32b91b09268f7281dc34c3199c4d36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e58800cc_41c1d83d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T07:54:53Z",
+      "side": 1,
+      "message": "You should probably move this to l.185 – it would make the lifetime of this message a lot clearer.",
+      "range": {
+        "startLine": 214,
+        "startChar": 8,
+        "endLine": 214,
+        "endChar": 11
+      },
+      "revId": "d5fe35809b32b91b09268f7281dc34c3199c4d36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
