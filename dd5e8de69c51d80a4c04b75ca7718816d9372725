@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6814274d_262881af",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "Rename the message name as CMD_SERVICE_FAILED_TO_START",
+      "parentUuid": "7c60bf9d_21a334c9",
+      "range": {
+        "startLine": 237,
+        "startChar": 32,
+        "endLine": 237,
+        "endChar": 36
+      },
+      "revId": "dd5e8de69c51d80a4c04b75ca7718816d9372725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7755b5f6_d78575b8",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-15T03:42:56Z",
       "side": 1,
       "message": "I find it dangerous to rely on a member like this – it\u0027s borderline impossible to figure out who has set this and when.\n\nIf this is really about the return value of startServingInterface, then this is a full-blown antipattern known as member argument-passing, which makes refactoring of code extremely hard. If it\u0027s about that return value, then make startServingInterface return the error instead.\n\nSince you\u0027re not changing this in this patch, this can be left for a followup or something",
+      "range": {
+        "startLine": 1100,
+        "startChar": 16,
+        "endLine": 1100,
+        "endChar": 26
+      },
+      "revId": "dd5e8de69c51d80a4c04b75ca7718816d9372725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "563079e9_8d65163d",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7755b5f6_d78575b8",
       "range": {
         "startLine": 1100,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb8c09a3_05e9a385",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1263,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47f108ae_6392a784",
+      "range": {
+        "startLine": 1263,
+        "startChar": 12,
+        "endLine": 1263,
+        "endChar": 18
+      },
+      "revId": "dd5e8de69c51d80a4c04b75ca7718816d9372725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e08148e7_edc9596e",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36049b24_28ba1b72",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e08148e7_edc9596e",
+      "range": {
+        "startLine": 1266,
+        "startChar": 8,
+        "endLine": 1266,
+        "endChar": 20
+      },
+      "revId": "dd5e8de69c51d80a4c04b75ca7718816d9372725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe8de525_e8bac886",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-09-15T03:42:56Z",
       "side": 1,
       "message": "This is no longer accurate",
+      "range": {
+        "startLine": 2728,
+        "startChar": 0,
+        "endLine": 2729,
+        "endChar": 73
+      },
+      "revId": "dd5e8de69c51d80a4c04b75ca7718816d9372725",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bb2ac1c_74674aae",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2729,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe8de525_e8bac886",
       "range": {
         "startLine": 2728,
         "startChar": 0,

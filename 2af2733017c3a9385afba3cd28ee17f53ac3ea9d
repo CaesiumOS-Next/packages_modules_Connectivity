@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40693e2f_7591e0b6",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "57eb2fdf_42235af6",
+      "range": {
+        "startLine": 1296,
+        "startChar": 53,
+        "endLine": 1296,
+        "endChar": 75
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "824d9287_3a9d4e6f",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 9
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-07T08:55:02Z",
       "side": 1,
       "message": "It tends to be confusing to post() something on the same handler that is processing messages. In this case, the synchronous state machine is \"synchronous\" and that\u0027s its entire raison d\u0027être, so using its handler to post something for later doesn\u0027t sound like a good idea.\n\nI think that instead, we wanted to guarantee that there is never a mutual call that may end up in an infinite loop. Because the main state machine is asynchronous, could you instead make a message that will trigger this and break the loop ?",
+      "range": {
+        "startLine": 2741,
+        "startChar": 29,
+        "endLine": 2741,
+        "endChar": 33
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5e7c632_8656733e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2741,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "824d9287_3a9d4e6f",
       "range": {
         "startLine": 2741,
         "startChar": 29,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a862886_69608db2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a72d26b_35e5ef3a",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 31
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13c74404_35a5e5e3",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6fc4831_fab54ed7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13c74404_35a5e5e3",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "179ad701_20020353",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-09-07T08:55:02Z",
       "side": 1,
       "message": "Let\u0027s be more descriptive about what makes this thread the correct one. Of course you need to call it on the \"correct\" thread so it\u0027s not informative to say this ; instead, there is something about this thread that makes it the correct one and this is what you should be saying.",
+      "range": {
+        "startLine": 306,
+        "startChar": 23,
+        "endLine": 306,
+        "endChar": 30
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4e87d7c_5e097923",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "Done, thanks for suggestion.",
+      "parentUuid": "179ad701_20020353",
       "range": {
         "startLine": 306,
         "startChar": 23,
@@ -164,6 +284,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3e82eb4_84fc229e",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "SmHandler is inner private static class of StateMachine. The suggestion change the access scope of SmHandler. This seems risky. E.g.: Outside StateMachine class also able to access SmHandler#handleMessage to inject the message directly.",
+      "parentUuid": "cbb80867_dc7483fc",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 35
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1ab6930_92d6ceff",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "The last patchset let looper be null for syncSM but looper still needed to be used for handler (e.g. dhcp, dadproxy, ...), but we still need to create IpServer (in iniStateMachine) inside each test function because sync SM\u0027s running thread checking is added from Thread.currentThread().",
+      "parentUuid": "49edc661_b1fc1f17",
+      "range": {
+        "startLine": 307,
+        "startChar": 34,
+        "endLine": 307,
+        "endChar": 35
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "324ed753_b446939a",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/StateMachineShimTest.kt",
         "patchSetId": 9
@@ -175,6 +343,30 @@
       "writtenOn": "2023-09-07T08:55:02Z",
       "side": 1,
       "message": "If you move the method to SyncSM06, move this test together",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 40
+      },
+      "revId": "2af2733017c3a9385afba3cd28ee17f53ac3ea9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ede5a4f_d416693f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/StateMachineShimTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-09-19T07:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "324ed753_b446939a",
       "range": {
         "startLine": 70,
         "startChar": 0,
