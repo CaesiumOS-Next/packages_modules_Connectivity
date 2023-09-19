@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c7ee8f7_ece7cb66",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T14:05:06Z",
+      "side": 1,
+      "message": "I mean, ideally we\u0027d do it but I doubt we\u0027ll find the time. I\u0027d prefer to keep this, at least for the time being.",
+      "parentUuid": "b74a2879_ae255618",
+      "revId": "d47491f7165dfb66add8b0d79f4e024e220d2cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8427be87_5096d209",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-09-12T06:36:17Z",
       "side": 1,
       "message": "Should this be done only on userdebug ? I\u0027m wondering if it could affect production CTS, considering that this is using FIREWALL_CHAIN_OEM_DENY_3 which may be used by some OEMs for something else",
+      "revId": "d47491f7165dfb66add8b0d79f4e024e220d2cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "690eea82_7bcd6d8f",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T14:05:06Z",
+      "side": 1,
+      "message": "I don\u0027t think so. The reason this code is taking care to restore the status afterwards is to avoid interfering with OEM code using this ; I think it\u0027s better to root out the flakes on OEM devices trying to clear CTS. It\u0027s true that if the OEM device is trying to change that setting DURING the CTS, then it\u0027ll have a bad surprise afterwards, but it\u0027s extremely unlikely and I think it beats hands down subjecting them to inscrutable flakes.",
+      "parentUuid": "8427be87_5096d209",
       "revId": "d47491f7165dfb66add8b0d79f4e024e220d2cdb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1093b14c_c1ec5180",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T14:05:06Z",
+      "side": 1,
+      "message": "I mean, it will return \"Unknown command: set-chain3-enabled\" and error code -1. But skipped under S, as it\u0027s indeed useless. `get` will just return false, since it will show that same string which doesn\u0027t contain `chain:enabled` :)",
+      "parentUuid": "44e18be8_aea5b328",
+      "range": {
+        "startLine": 125,
+        "startChar": 23,
+        "endLine": 125,
+        "endChar": 26
+      },
+      "revId": "d47491f7165dfb66add8b0d79f4e024e220d2cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e4784b9_d6a37262",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-09-12T06:15:05Z",
       "side": 1,
       "message": "You added get-package-networking-enabled but it\u0027s never used (so never tested). Should it be used to restore the initial state here ? Otherwise should it be removed, or kept for manual verification (should it get automated tests in that case) ?",
+      "revId": "d47491f7165dfb66add8b0d79f4e024e220d2cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99b65acc_24009711",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T14:05:06Z",
+      "side": 1,
+      "message": "Lol yes sorry, done",
+      "parentUuid": "4e4784b9_d6a37262",
       "revId": "d47491f7165dfb66add8b0d79f4e024e220d2cdb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
