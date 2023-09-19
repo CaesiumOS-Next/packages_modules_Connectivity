@@ -59,7 +59,8 @@ class BpfMap {
   private:
     void abortOnKeyOrValueSizeMismatch() {
         if (!mMapFd.ok()) abort();
-        if (isAtLeastKernelVersion(4, 14, 0)) {
+        // mainline updatable bpf requires apex, non apex -> platform -> guarantees 4.19+
+        if (!isApex() || isAtLeastKernelVersion(4, 14, 0)) {
             if (bpfGetFdKeySize(mMapFd) != sizeof(Key)) abort();
             if (bpfGetFdValueSize(mMapFd) != sizeof(Value)) abort();
         }

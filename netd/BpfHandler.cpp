@@ -76,6 +76,9 @@ static Status checkProgramAccessible(const char* programPath) {
 }
 
 static Status initPrograms(const char* cg2_path) {
+    // this is mainline code, so this should optimize out at compile time...
+    if (!bpf::isApex()) abort();
+
     // This code was mainlined in T, so this should be trivially satisfied.
     if (!modules::sdklevel::IsAtLeastT()) abort();
 
