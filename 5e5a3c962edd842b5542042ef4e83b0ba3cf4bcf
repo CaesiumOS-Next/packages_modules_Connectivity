@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e0d725e_dc979576",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-19T23:24:56Z",
+      "side": 1,
+      "message": "In file included from packages/modules/Connectivity/staticlibs/native/tcutils/tcutils.cpp:22:\npackages/modules/Connectivity/staticlibs/native/bpf_headers/include/bpf/KernelUtils.h:30:2: error: \"Expect Android min sdk version and apex min sdk version to match.\"\n#error \"Expect Android min sdk version and apex min sdk version to match.\"\n^\n1 error generated.\n\nlooks like a bunch of min sdk 29 libs snuck in",
+      "revId": "5e5a3c962edd842b5542042ef4e83b0ba3cf4bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
