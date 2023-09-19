@@ -24,6 +24,20 @@
 namespace android {
 namespace bpf {
 
+#ifdef __ANDROID_APEX__
+
+#if __ANDROID_MIN_SDK_VERSION__ != __ANDROID_APEX_MIN_SDK_VERSION__
+#error "Expect Android min sdk version and apex min sdk version to match."
+#endif
+
+#if __ANDROID_MIN_SDK_VERSION__ != 30
+#error "APEX with min sdk version != 30 (Android 11/R)"
+#endif
+    static inline bool isMainlineModule() { return true; }
+#else
+    static inline bool isMainlineModule() { return false; }
+#endif
+
 #define KVER(a, b, c) (((a) << 24) + ((b) << 16) + (c))
 
 static inline unsigned uncachedKernelVersion() {
