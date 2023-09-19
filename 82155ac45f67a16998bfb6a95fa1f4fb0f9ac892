@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd5236d8_17be4c94",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10656,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T13:13:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d2a4214_ec402f15",
+      "range": {
+        "startLine": 10656,
+        "startChar": 45,
+        "endLine": 10656,
+        "endChar": 46
+      },
+      "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "452fc3ee_55caba29",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-12T04:32:47Z",
       "side": 1,
       "message": "nits:\nif user run `set-package-networking-enabled true`, packageName will be null.\nShowing usage would help if packageName is null.",
+      "range": {
+        "startLine": 10674,
+        "startChar": 37,
+        "endLine": 10674,
+        "endChar": 48
+      },
+      "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5d5a6cd_08e83539",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10674,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T13:13:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "452fc3ee_55caba29",
       "range": {
         "startLine": 10674,
         "startChar": 37,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a13a96c0_1e87ec36",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10686,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T13:13:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87bf11a1_5ebb238e",
+      "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46cb97a1_85f5296f",
@@ -77,6 +143,24 @@
       "writtenOn": "2023-09-12T04:32:47Z",
       "side": 1,
       "message": "nits: It\u0027s helpful to update `onHelp` and explain how `get-chain3-enabled` and `set-package-networking-enabled` are expected to use together.",
+      "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9bb005a_58ebd66c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10743,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T13:13:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46cb97a1_85f5296f",
       "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -104,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aa6541f_f5fdcba3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 12482,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T13:13:43Z",
+      "side": 1,
+      "message": "Makes sense, considering it won\u0027t work. Threw an exception, so that if you try you have a clear error message in the shell.",
+      "parentUuid": "8ff0f26d_dfdfc388",
+      "range": {
+        "startLine": 12482,
+        "startChar": 18,
+        "endLine": 12482,
+        "endChar": 23
+      },
+      "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23024566_b019df0e",
@@ -117,6 +225,30 @@
       "writtenOn": "2023-09-12T04:32:47Z",
       "side": 1,
       "message": "nits: If appId \u003c FIRST_APPLICATION_UID, showing the message as we show in `set-package-networking-enabled` would help since firewall rule does not drop the packets for the system app.",
+      "range": {
+        "startLine": 12511,
+        "startChar": 18,
+        "endLine": 12511,
+        "endChar": 23
+      },
+      "revId": "82155ac45f67a16998bfb6a95fa1f4fb0f9ac892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a6ab2aa_3eb12191",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 12511,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T13:13:43Z",
+      "side": 1,
+      "message": "Don\u0027t really agree ; this is not porcelain, it\u0027s meant to be parsed by scripts. Querying for a system app is not really wrong usage, and it will return \"allowed\" so it will work as expected. So I\u0027m inclined to leave as is.\n\nPlease reopen if you feel strongly.",
+      "parentUuid": "23024566_b019df0e",
       "range": {
         "startLine": 12511,
         "startChar": 18,
