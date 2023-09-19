@@ -24,6 +24,20 @@
 namespace android {
 namespace bpf {
 
+static inline bool isMainlineModule() {
+#ifdef __ANDROID_APEX__
+    // All currently built mainline modules (and thus presumably apexes) target R+,
+    // this will need to be adjusted when we drop support for R
+#if __ANDROID_MIN_SDK_VERSION__ != 30
+#error "APEX with min sdk version != 30 (Android 11/R)"
+#endif
+
+    return true;
+#else
+    return false;
+#endif
+}
+
 #define KVER(a, b, c) (((a) << 24) + ((b) << 16) + (c))
 
 static inline unsigned uncachedKernelVersion() {
