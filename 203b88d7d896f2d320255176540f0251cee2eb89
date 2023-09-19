@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35df376f_c1e421da",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T09:50:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "219fd66b_2d495747",
+      "range": {
+        "startLine": 713,
+        "startChar": 30,
+        "endLine": 713,
+        "endChar": 57
+      },
+      "revId": "203b88d7d896f2d320255176540f0251cee2eb89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "382ba8bd_6ac385d2",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc5ad9d4_f1a4e4f3",
+        "filename": "framework/src/android/net/NetworkRequest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T09:50:33Z",
+      "side": 1,
+      "message": "Yeah I was thinking about this in my bed on that night ^^; Thanks for remining me. Done.",
+      "parentUuid": "382ba8bd_6ac385d2",
+      "range": {
+        "startLine": 288,
+        "startChar": 35,
+        "endLine": 288,
+        "endChar": 65
+      },
+      "revId": "203b88d7d896f2d320255176540f0251cee2eb89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a92b182_d5c90fff",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-09-18T09:20:18Z",
       "side": 1,
       "message": "nit: Do we want to also assert that forbidden NC is not inside NetworkCapabilities and also explain why?\nIn case someone think DEFAULT_FORBIDDEN_NC should be moved to NC.java?",
+      "range": {
+        "startLine": 505,
+        "startChar": 34,
+        "endLine": 505,
+        "endChar": 43
+      },
+      "revId": "203b88d7d896f2d320255176540f0251cee2eb89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a11e5d68_116f19c1",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-19T09:50:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a92b182_d5c90fff",
       "range": {
         "startLine": 505,
         "startChar": 34,
