@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e38ea7f4_1ec19bcd",
+        "filename": "remoteauth/service/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-19T04:30:34Z",
+      "side": 1,
+      "message": "See comment in: https://r.android.com/c/platform/packages/modules/Connectivity/+/2657759/5..12/remote_auth/service/Android.bp#b42\n\nGenerally it\u0027s not OK to use guava in AOSP system server code; can you remove it ? Collections.immutableList should be enough for the usage in this change I think.",
+      "revId": "393e611129df668111308203b08b4f4666f95764",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
