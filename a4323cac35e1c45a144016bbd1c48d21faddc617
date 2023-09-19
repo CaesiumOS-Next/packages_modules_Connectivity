@@ -22,6 +22,30 @@
       },
       "revId": "a4323cac35e1c45a144016bbd1c48d21faddc617",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "502837d3_e7a5f109",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 10166,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-19T08:16:38Z",
+      "side": 0,
+      "message": "The plan is to mock the VPN interactions so that it does not need to be separated into V+ and U-. \nIn terms of the interaction with ConnectivityService, I see your point and kept this test so there is still coverage for the behaviour without `setVpnDefaultForUids()`",
+      "parentUuid": "8c068b72_ac0149c0",
+      "range": {
+        "startLine": 10166,
+        "startChar": 16,
+        "endLine": 10166,
+        "endChar": 37
+      },
+      "revId": "a4323cac35e1c45a144016bbd1c48d21faddc617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
