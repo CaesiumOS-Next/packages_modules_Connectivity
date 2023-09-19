@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a1fd30_62747b3d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-19T07:47:42Z",
+      "side": 1,
+      "message": "Can this be changed to .wtf ? With a comment explaining that this can\u0027t happen because the clientRequestId is obtained from the clientInfo just above\n\nAlso it would be good to log the code and indicate this is a MdnsEventListener event",
+      "range": {
+        "startLine": 1186,
+        "startChar": 24,
+        "endLine": 1186,
+        "endChar": 25
+      },
+      "revId": "812e9217b94dcc96b2c6f335a95980c7c1351e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da27b15a_90fce0a7",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-19T07:47:42Z",
+      "side": 1,
+      "message": "This should log the \"code\", and indicate this is handling DiscoveryManager events too",
+      "range": {
+        "startLine": 1406,
+        "startChar": 54,
+        "endLine": 1406,
+        "endChar": 55
+      },
+      "revId": "812e9217b94dcc96b2c6f335a95980c7c1351e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
