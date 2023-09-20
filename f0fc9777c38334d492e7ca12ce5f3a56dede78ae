@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f99a494_adbd356a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-20T02:05:43Z",
+      "side": 1,
+      "message": "Do you have a bug for this? or how do you find this issue?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "f0fc9777c38334d492e7ca12ce5f3a56dede78ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55cf80dc_7a221611",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-20T02:05:43Z",
+      "side": 1,
+      "message": "Maybe not for this commit. This should be changed to `nai.declaredUnderlyingNetworks` based on the previous design(ag/628783). The information comes from vpn.getUnderlyingNetworks previously but it was changed to nai.declaredUnderlyingNetworks now.",
+      "range": {
+        "startLine": 2046,
+        "startChar": 15,
+        "endLine": 2046,
+        "endChar": 36
+      },
+      "revId": "f0fc9777c38334d492e7ca12ce5f3a56dede78ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
