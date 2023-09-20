@@ -218,7 +218,7 @@ public class Ikev2VpnTest {
         setAppop(AppOpsManager.OP_ACTIVATE_PLATFORM_VPN, false);
 
         // Make sure the VpnProfile is not provisioned already.
-        sVpnMgr.stopProvisionedVpnProfile();
+        stopProvisionedVpnProfile();
 
         try {
             sVpnMgr.startProvisionedVpnProfile();
@@ -494,7 +494,7 @@ public class Ikev2VpnTest {
         setAppop(AppOpsManager.OP_ACTIVATE_PLATFORM_VPN, false);
 
         // Make sure the VpnProfile is not provisioned already.
-        sVpnMgr.stopProvisionedVpnProfile();
+        stopProvisionedVpnProfile();
 
         try {
             sVpnMgr.startProvisionedVpnProfile();
@@ -582,7 +582,7 @@ public class Ikev2VpnTest {
                             .hasCapability(NET_CAPABILITY_VALIDATED));
         }
 
-        sVpnMgr.stopProvisionedVpnProfile();
+        stopProvisionedVpnProfile();
         // Using expectCallback may cause the test to be flaky since test may receive other
         // callbacks such as linkproperties change.
         cb.eventuallyExpect(CallbackEntry.LOST, TIMEOUT_MS,
@@ -592,6 +592,21 @@ public class Ikev2VpnTest {
     private void registerNetworkCallback(NetworkRequest request, TestableNetworkCallback callback) {
         sCM.registerNetworkCallback(request, callback);
         mCallbacksToUnregister.add(callback);
+    }
+
+    private void stopProvisionedVpnProfile() {
+        try {
+            sVpnMgr.stopProvisionedVpnProfile();
+        } catch (NullPointerException e) {
+            // There was bug in S platform code where the VPN network itself will be
+            // considered as underlying network and bring up another IKE session and
+            // randomly update the mInterface and mNetwork in Vpn.java. This will cause
+            // a NPE when the caller tries to stop the VPN.
+            // This bug was fixed in T the release(b/219546241). Since there is no
+            // way to address this on S in the test, just ignore the (rare) exception
+            // on S.
+            if (isAtLeastT()) throw e;
+        }
     }
 
     private class VerifyStartStopVpnProfileTest implements TestNetworkRunnable.Test {
@@ -626,7 +641,7 @@ public class Ikev2VpnTest {
 
         @Override
         public void cleanupTest() {
-            sVpnMgr.stopProvisionedVpnProfile();
+            stopProvisionedVpnProfile();
         }
 
         @Override
