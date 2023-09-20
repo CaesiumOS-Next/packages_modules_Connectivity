@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0b8b436_b790290c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-20T02:19:32Z",
+      "side": 1,
+      "message": "Could you move this change to another separate commit?\n\nDitto for the other items if possible to not to include multiple topics in one change.",
+      "range": {
+        "startLine": 16,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 63
+      },
+      "revId": "ebc4f942a7ed231d5fce466f49513d699a808847",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
