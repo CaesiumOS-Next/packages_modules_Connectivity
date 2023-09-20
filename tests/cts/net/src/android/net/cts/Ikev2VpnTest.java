@@ -16,15 +16,15 @@
 
 package android.net.cts;
 
+import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
+import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.cts.util.CtsNetUtils.TestNetworkCallback;
-
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
-
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -40,6 +40,7 @@ import android.annotation.NonNull;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Ikev2VpnProfile;
 import android.net.IpSecAlgorithm;
@@ -188,6 +189,7 @@ public class Ikev2VpnTest {
             (ConnectivityManager) sContext.getSystemService(Context.CONNECTIVITY_SERVICE);
     private static final VpnManager sVpnMgr =
             (VpnManager) sContext.getSystemService(Context.VPN_MANAGEMENT_SERVICE);
+    private static final PackageManager sPM = sContext.getPackageManager();
     private static final CtsNetUtils mCtsNetUtils = new CtsNetUtils(sContext);
     private static final long TIMEOUT_MS = 15_000;
 
@@ -636,13 +638,32 @@ public class Ikev2VpnTest {
         // Requires shell permission to update appops.
         runWithShellPermissionIdentity(
                 new TestNetworkRunnable(new VerifyStartStopVpnProfileTest(
-                        testIpv6Only, requiresValidation, testSessionKey , testIkeTunConnParams)));
+                        testIpv6Only, requiresValidation, testSessionKey, testIkeTunConnParams)));
+    }
+
+    private void verifyStartStopVpnProfile(boolean testIpv6Only) throws Exception {
+        // Vpn tests run on test network which does not require cellular or wifi network.
+        // The existence of possible system default network providers may lead to default network
+        // switch on VPN code. The network switch may cause threading issues with older SDK
+        // platform because VPN is not in the mainline code. Thus, disconnect both cellular and
+        // wifi during the VPN test to reduce the flakes caused by threading issue.
+        final boolean supportTelephony = sPM.hasSystemFeature(FEATURE_TELEPHONY);
+        final boolean supportWifi = sPM.hasSystemFeature(FEATURE_WIFI);
+        try {
+            if (supportTelephony) mCtsNetUtils.setMobileDataEnabled(false);
+            if (supportWifi) mCtsNetUtils.disableWifi();
+
+            doTestStartStopVpnProfile(testIpv6Only, false /* requiresValidation */,
+                    false /* testSessionKey */, false /* testIkeTunConnParams */);
+        } finally {
+            if (supportTelephony)mCtsNetUtils.setMobileDataEnabled(true);
+            if (supportWifi) mCtsNetUtils.ensureWifiConnected();
+        }
     }
 
     @Test
     public void testStartStopVpnProfileV4() throws Exception {
-        doTestStartStopVpnProfile(false /* testIpv6Only */, false /* requiresValidation */,
-                false /* testSessionKey */, false /* testIkeTunConnParams */);
+        verifyStartStopVpnProfile(false /* testIpv6Only */);
     }
 
     @Test @IgnoreUpTo(SC_V2)
@@ -654,8 +675,7 @@ public class Ikev2VpnTest {
 
     @Test
     public void testStartStopVpnProfileV6() throws Exception {
-        doTestStartStopVpnProfile(true /* testIpv6Only */, false /* requiresValidation */,
-                false /* testSessionKey */, false /* testIkeTunConnParams */);
+        verifyStartStopVpnProfile(true /* testIpv6Only */);
     }
 
     @Test @IgnoreUpTo(SC_V2)
