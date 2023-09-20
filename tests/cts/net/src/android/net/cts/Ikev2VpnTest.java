@@ -20,11 +20,9 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.cts.util.CtsNetUtils.TestNetworkCallback;
-
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
-
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -617,7 +615,18 @@ public class Ikev2VpnTest {
 
         @Override
         public void cleanupTest() {
-            sVpnMgr.stopProvisionedVpnProfile();
+            try {
+                sVpnMgr.stopProvisionedVpnProfile();
+            } catch (NullPointerException e) {
+                // There was race condition in S platform code where the mInterface in
+                // Vpn.java does not reset before resetting IKE state when the default
+                // network is switched. This will cause a NPE when the caller tries to
+                // stop the VPN.
+                // This bug was fixed in T the release(b/219546241). Since there is no
+                // way to address this on S in the test, just ignore the (rare) exception
+                // on S.
+                if (isAtLeastT()) throw e;
+            }
         }
 
         @Override
