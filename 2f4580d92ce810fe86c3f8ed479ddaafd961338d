@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba602dfc_8bf1c08b",
+        "filename": "framework/src/android/net/MulticastRoutingConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-09-20T10:57:50Z",
+      "side": 1,
+      "message": "nit: add -\u003e remove",
+      "range": {
+        "startLine": 240,
+        "startChar": 58,
+        "endLine": 240,
+        "endChar": 61
+      },
+      "revId": "2f4580d92ce810fe86c3f8ed479ddaafd961338d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
