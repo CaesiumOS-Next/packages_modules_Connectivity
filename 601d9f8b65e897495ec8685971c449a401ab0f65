@@ -33,6 +33,23 @@
       "message": "Specifically from the build failures on that other commit:\n\nIn file included from vendor/xts/gts-tests/hostsidetests/networkstack/app/jni/com_google_android_networkstack_gts_GtsBpfMapTest.cpp:20:\npackages/modules/Connectivity/staticlibs/native/bpf_headers/include/bpf/BpfMap.h:24:10: fatal error: \u0027utils/Log.h\u0027 file not found\n#include \u003cutils/Log.h\u003e\n^~~~~~~~~~~~~\n1 error generated.\n\nI\u0027m not sure what changed, but I guess it\u0027s somehow related to sdk levels or something?\n\nMaybe because of trying to compile for current.\n\nI wonder if even including logging is a good idea, a quick search shows just one ALOGE() call in here...\n\nThoughts?",
       "revId": "601d9f8b65e897495ec8685971c449a401ab0f65",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0e46df0_2de381ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-21T22:19:50Z",
+      "side": 1,
+      "message": "currently all I see is:\n\nsystem/core/libutils/include/utils/Log.h\n\n// DO NOT INCLUDE ANYTHING NEW IN THIS FILE.\n\n// \u003clog/log.h\u003e has replaced this file and all changes should go there instead.\n// This path remains strictly to include that header as there are thousands of\n// references to \u003cutils/Log.h\u003e in the tree.\n\n#include \u003clog/log.h\u003e\n\nand that is (I believe)\n\nsystem/logging/liblog/include/log/log.h\n\nwhich does\n#include \u003candroid/log.h\u003e",
+      "revId": "601d9f8b65e897495ec8685971c449a401ab0f65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
