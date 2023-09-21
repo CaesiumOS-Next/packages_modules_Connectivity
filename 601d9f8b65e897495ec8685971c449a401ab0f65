@@ -16,6 +16,23 @@
       "message": "Patrick, not sure yet if this works, but\n\nhttps://googleplex-android-review.git.corp.google.com/c/platform/vendor/xts/+/24824389/11\n\nis running into this while trying to build a more \u0027compatible\u0027\n(ndk using) version of gts networkstack test",
       "revId": "601d9f8b65e897495ec8685971c449a401ab0f65",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95c26ec1_b2db6415",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-21T22:16:07Z",
+      "side": 1,
+      "message": "Specifically from the build failures on that other commit:\n\nIn file included from vendor/xts/gts-tests/hostsidetests/networkstack/app/jni/com_google_android_networkstack_gts_GtsBpfMapTest.cpp:20:\npackages/modules/Connectivity/staticlibs/native/bpf_headers/include/bpf/BpfMap.h:24:10: fatal error: \u0027utils/Log.h\u0027 file not found\n#include \u003cutils/Log.h\u003e\n^~~~~~~~~~~~~\n1 error generated.\n\nI\u0027m not sure what changed, but I guess it\u0027s somehow related to sdk levels or something?\n\nMaybe because of trying to compile for current.\n\nI wonder if even including logging is a good idea, a quick search shows just one ALOGE() call in here...\n\nThoughts?",
+      "revId": "601d9f8b65e897495ec8685971c449a401ab0f65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
