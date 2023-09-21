@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b128e76c_989e7469",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "This should really not be in a \u0027defaults\u0027. Your comments are very clear it should be in the final artefact.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 41
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0771fee6_dcc4ca56",
+        "filename": "common/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "s/. D/, d/",
+      "range": {
+        "startLine": 38,
+        "startChar": 78,
+        "endLine": 38,
+        "endChar": 81
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f96098b_2b8084c3",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "This part of the comment seems irrelevant.",
+      "range": {
+        "startLine": 42,
+        "startChar": 29,
+        "endLine": 42,
+        "endChar": 69
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa89cee6_2f78e599",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "s/ of//",
+      "range": {
+        "startLine": 44,
+        "startChar": 32,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2247bed_7e06656e",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "already written earlier in this line",
+      "range": {
+        "startLine": 47,
+        "startChar": 62,
+        "endLine": 47,
+        "endChar": 71
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a36d1cc_e4c289a2",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "@link ?",
+      "range": {
+        "startLine": 48,
+        "startChar": 11,
+        "endLine": 48,
+        "endChar": 24
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00496df2_24ff1cbb",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "Why child ? I thought we said we\u0027d remove that moniker",
+      "range": {
+        "startLine": 117,
+        "startChar": 36,
+        "endLine": 117,
+        "endChar": 41
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1d6e0d0_e831a95b",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "Why is this in BpfNetMapUtils rather than inlined in BpfNetMapReader ? Could it be static in BpfNetMapReader ? Who is using BpfNetMaps#isChainEnabled, and could they be migrated to either this or BpfNetMapReader ? All these entry points with the same name doing the same thing make me dizzy.",
+      "range": {
+        "startLine": 161,
+        "startChar": 26,
+        "endLine": 161,
+        "endChar": 40
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2b546fb_8153ab76",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "Which \"the\" ? Is that the library below ? Then either write `This library` or even better, spell out its name `The net-utils-device-common-netlink library`",
+      "range": {
+        "startLine": 175,
+        "startChar": 3,
+        "endLine": 175,
+        "endChar": 6
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ceaebb5_766adefb",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": ", d",
+      "range": {
+        "startLine": 190,
+        "startChar": 78,
+        "endLine": 190,
+        "endChar": 81
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "388abc2c_024e2b6b",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "static",
+      "range": {
+        "startLine": 191,
+        "startChar": 85,
+        "endLine": 191,
+        "endChar": 93
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8265b40_2c0a5052",
+        "filename": "staticlibs/testutils/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "Your comments in other build files say this should be on the final artefact, but this is a library. That doesn\u0027t seem right.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 41
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1f09fac_92bb27c5",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "This constructor is marked \"remove this constructor\", I think we should not add new uses of it. Now that it\u0027s in the same repo, maybe you want to make a constructor that takes no args to replace it and use it here ?\n\nOtherwise, you don\u0027t have to specify the type explicitly, type inference will do that for you.",
+      "range": {
+        "startLine": 37,
+        "startChar": 58,
+        "endLine": 37,
+        "endChar": 68
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede5b520_77b03aca",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T06:56:40Z",
+      "side": 1,
+      "message": "Does it build if you declare overrides in the constructor ?\n\n    class TestDependencies(\n        override val configurationMap: IBpfMap\u003cS32, U32\u003e,\n        override val uidOwnerMap: IBpfMap\u003cS32, UidOwnerValue\u003e\n    ) : BpfNetMapsReader.Dependencies() {}\n\nPossibly even make it a `data class`",
+      "range": {
+        "startLine": 52,
+        "startChar": 21,
+        "endLine": 52,
+        "endChar": 40
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
