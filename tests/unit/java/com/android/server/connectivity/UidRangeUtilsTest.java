@@ -25,7 +25,9 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.UidRange;
 import android.os.Build;
+import android.os.UserHandle;
 import android.util.ArraySet;
+import android.util.Range;
 
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -424,5 +426,57 @@ public class UidRangeUtilsTest {
         assertTrue(UidRangeUtils.sortedRangesContainOverlap(overlapRanges1));
         assertTrue(UidRangeUtils.sortedRangesContainOverlap(overlapRanges2));
         assertFalse(UidRangeUtils.sortedRangesContainOverlap(notOverlapRanges));
+    }
+
+    @Test
+    public void testUserUidIntRangesExcludingAppIds_NoExcluded() throws Exception {
+        final int userId = 10;
+        final UserHandle user = UserHandle.of(userId);
+        final UidRange userUidRange = UidRange.createForUser(user);
+
+        final List<Integer> excludedAppIds = new ArrayList<>();
+        final List<Range<Integer>> expected = new ArrayList<>();
+        expected.add(new Range(userUidRange.start, userUidRange.stop));
+
+        // Empty excluded uids
+        assertEquals(
+                expected, UidRangeUtils.userUidIntRangesExcludingAppIds(userId, excludedAppIds));
+    }
+
+    @Test
+    public void testUserUidIntRangesExcludingAppIds_OneExcluded() throws Exception {
+        final int userId = 11;
+        final UserHandle user = UserHandle.of(userId);
+        final UidRange userUidRange = UidRange.createForUser(user);
+
+        // Exclude a appId
+        final int appId = 123;
+        final int uid = user.getUid(appId);
+        final List<Integer> excludedAppIds = new ArrayList<>();
+        excludedAppIds.add(appId);
+        final List<Range<Integer>> expected = new ArrayList<>();
+        expected.add(new Range(userUidRange.start, uid - 1));
+        expected.add(new Range(uid + 1, userUidRange.stop));
+
+        assertEquals(
+                expected, UidRangeUtils.userUidIntRangesExcludingAppIds(userId, excludedAppIds));
+    }
+
+    @Test
+    public void testUserUidIntRangesExcludingAppIds() throws Exception {
+        final int userId = 12;
+        final UserHandle user = UserHandle.of(userId);
+        final UidRange userUidRange = UidRange.createForUser(user);
+        final List<Integer> excludedAppIds = List.of(10, 123, 60, 80);
+
+        final List<Range<Integer>> expected = new ArrayList<>();
+        expected.add(new Range(userUidRange.start, userUidRange.start + 10 - 1));
+        expected.add(new Range(userUidRange.start + 10 + 1, userUidRange.start + 60 - 1));
+        expected.add(new Range(userUidRange.start + 60 + 1, userUidRange.start + 80 - 1));
+        expected.add(new Range(userUidRange.start + 80 + 1, userUidRange.start + 123 - 1));
+        expected.add(new Range(userUidRange.start + 123 + 1, userUidRange.stop));
+
+        assertEquals(
+                expected, UidRangeUtils.userUidIntRangesExcludingAppIds(userId, excludedAppIds));
     }
 }
